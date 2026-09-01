@@ -4,44 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EF35C624D4
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 12:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52123C624D4
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 13:06:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97E2F10ECBF;
-	Tue,  1 Sep 2026 12:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD21310E32D;
+	Tue,  1 Sep 2026 13:06:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OGhfeUuR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cu7EbACZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 091AE10ECB7;
- Tue,  1 Sep 2026 12:59:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE6AB41A5E;
- Tue,  1 Sep 2026 12:59:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E891F000E9;
- Tue,  1 Sep 2026 12:59:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788267594;
- bh=wXLcTbnL/ObDRZILQoNGf11CVQCzKBQx4wxHnQc70S0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OGhfeUuRGlgApQCupXJejQR4yVYdQ3m27zpPlpY2vVzGIjOvfylHw6gbgegNz5gA2
- 384OLPDFTEAqu5Nk2OWUW6tMfRbExJkW33RnjNIbnmQ4tH67vAJOL/bEINeHzNqm47
- gL9y3EZ6/HnFmyy6g4zBfSvM0hI9E5vVhNXupdEtecBeb9siPaUVJgUsEZCXItBQtI
- fEhEnPmptECAvw6MbGO/QYqCKIOeDPPTQipLtP+5aB4QEMXgGm36gE6LbNJGfXfSnW
- TnShA23amtbEQTPLflkzzJtKCM07UdjF9x8w6gZJaOq3ubSwWgQLklD9bhD+oYstH2
- M4RND+rG//SxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [DO_NOT_REVIEW v2 1/2] drm/i915/color: Add color pipeline
- support for SDR planes
-To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260901120254.629261-2-chaitanya.kumar.borah@intel.com>
-References: <20260901120254.629261-1-chaitanya.kumar.borah@intel.com>
- <20260901120254.629261-2-chaitanya.kumar.borah@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 12:59:54 +0000
-Message-Id: <20260901125954.78E891F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A844610E32D
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 13:06:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788268005; x=1819804005;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=TvK3mZiG39nFXXcgocZJ3zXajzHf4c/A4VcOfU5dy+E=;
+ b=cu7EbACZLOwL+BHti9QJaBjLYMs4D1gQbeXkwCeHt7vhNlI3GAHoPr5O
+ fUiHME1QiOAc+PK8rBcyDIwmFpACdO8HnzkU/4foNkWBSVTDvZgjof2iK
+ hQTP99YIMbMftpUopMxuFV3nAp/5VQti75Y6Qa2W+3fi0Htr7iBKvKUHN
+ l5M83EamVSrniwc/+BAq53hpqsOvI9LvdEd95JeL3YX8Z9bAR9BeJl6xm
+ JOIhhYVfZmbJGnIWIr8W9LSM54RRZIXwBq+ByUcEQj4REjZxoaXCPJcRj
+ S2A/JWWr98b+jsH3LvsWD4Q36bvqzRKR+kFt1eqngefzba0M+xulkyUFn A==;
+X-CSE-ConnectionGUID: CLdsY2jSR9W8gsWO+vmUxQ==
+X-CSE-MsgGUID: hk6aPiP5QkSgBTaFJdAtqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88743519"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; d="scan'208";a="88743519"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 06:06:44 -0700
+X-CSE-ConnectionGUID: nwY/SYx9T82ep/o4r/YdKg==
+X-CSE-MsgGUID: p8h4Hl8jSWqOawlVE+/5cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; d="scan'208";a="265856686"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by fmviesa007.fm.intel.com with ESMTP; 01 Sep 2026 06:06:42 -0700
+From: Xiao Lu <xiaolu.xie@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
+ imre.deak@intel.com, xiaolu <xiaolu@intel.com>
+Subject: [PATCH] drm/i915/display: send null DRM infoframe when ending HDR
+ transmission
+Date: Tue,  1 Sep 2026 21:04:15 +0800
+Message-ID: <20260901130415.236800-1-xiaolu.xie@intel.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,134 +63,112 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+From: xiaolu <xiaolu@intel.com>
 
-New issues:
-- [Low] The commit references undefined DRM core UAPI structures, enums, an=
-d functions, causing a compilation failure.
+CTA-861-H requires that when a source ends Dynamic Range and Mastering
+InfoFrame transmission, it shall send a DRM infoframe with EOTF=0 and
+all metadata fields set to 0 for at least 2 seconds before stopping.
 
-Pre-existing issues:
-- [High] Unchecked memory allocation via `kasprintf` leads to a NULL pointe=
-r dereference when creating the color pipeline property.
---
+Currently, when transitioning from HDR to SDR, the driver abruptly
+stops sending the DRM metadata SDP/infoframe. This causes DP-to-HDMI
+converters to latch the previous HDR metadata and continue forwarding
+it to the HDMI sink, resulting in color errors (e.g. oversaturated or
+washed-out colors) on SDR content. Windows correctly implements the
+null infoframe transition.
 
-commit c28893e0173187dd4a064073c1ffc14ec288c788
-Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-drm/i915/color: Add color pipeline support for SDR planes
+Fix both the DP and native HDMI paths to send a zeroed DRM infoframe
+(EOTF=Traditional_SDR=0, all luminance and primaries fields zero) when
+transitioning from HDR to SDR. The null packet is only sent when the
+previous connector state had HDR metadata active, avoiding unnecessary
+DRM infoframe transmission during normal SDR operation.
 
-This commit adds color pipeline support for SDR planes in the i915 driver.
-It introduces fixed matrix handling for YUV to RGB conversions and exposes
-color pipelines for SDR planes alongside the existing HDR support.
+Signed-off-by: xiaolu <xiaolu@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c   | 23 ++++++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 19 ++++++++++++++++++-
+ 2 files changed, 38 insertions(+), 4 deletions(-)
 
-Link: https://lore.kernel.org/intel-gfx/20260804123107.2256124-1-chaitanya.=
-kumar.borah@intel.com/
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 61ae83857cd6..8ff4aa2e6c0b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3219,14 +3219,29 @@ intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state)
+ static void
+ intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+ 					    struct intel_crtc_state *crtc_state,
+-					    const struct drm_connector_state *conn_state)
++					    const struct drm_connector_state *conn_state,
++					    const struct drm_connector_state *old_conn_state)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	int ret;
+ 	struct hdmi_drm_infoframe *drm_infoframe = &crtc_state->infoframes.drm.drm;
+ 
+-	if (!conn_state->hdr_output_metadata)
++	if (!conn_state->hdr_output_metadata) {
++		/*
++		 * CTA-861-H requires ending HDR metadata transmission by
++		 * sending a DRM infoframe with EOTF=0 and all fields zero
++		 * for at least 2 seconds, rather than abruptly stopping.
++		 * Abruptly stopping causes DP-to-HDMI converters to latch
++		 * the previous HDR metadata and forward it to the HDMI sink,
++		 * resulting in color errors on SDR content.
++		 */
++		if (old_conn_state && old_conn_state->hdr_output_metadata) {
++			hdmi_drm_infoframe_init(drm_infoframe);
++			crtc_state->infoframes.enable |=
++				intel_hdmi_infoframe_enable(HDMI_PACKET_TYPE_GAMUT_METADATA);
++		}
+ 		return;
++	}
+ 
+ 	ret = drm_hdmi_infoframe_set_hdr_metadata(drm_infoframe, conn_state);
+ 
+@@ -3632,7 +3647,9 @@ intel_dp_compute_config(struct intel_atomic_state *state,
+ 	intel_alpm_lobf_compute_config(intel_dp, pipe_config, conn_state);
+ 	intel_dp_drrs_compute_config(connector, pipe_config, link_bpp_x16);
+ 	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
+-	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
++	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state,
++						    drm_atomic_get_old_connector_state(&state->base,
++										      conn_state->connector));
+ 
+ 	return intel_dp_tunnel_atomic_compute_stream_bw(state, intel_dp, connector,
+ 							pipe_config);
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 8a019d3574df..9fb9be302d35 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -856,8 +856,25 @@ intel_hdmi_compute_drm_infoframe(struct intel_encoder *encoder,
+ 	if (!crtc_state->has_infoframe)
+ 		return true;
+ 
+-	if (!conn_state->hdr_output_metadata)
++	if (!conn_state->hdr_output_metadata) {
++		const struct drm_connector_state *old_conn_state =
++			drm_atomic_get_old_connector_state(conn_state->state,
++							   conn_state->connector);
++		/*
++		 * CTA-861-H requires ending HDR metadata transmission by
++		 * sending a DRM infoframe with EOTF=0 and all fields zero
++		 * for at least 2 seconds, rather than abruptly stopping.
++		 * Abruptly stopping causes DP-to-HDMI converters to latch
++		 * the previous HDR metadata and forward it to the HDMI sink,
++		 * resulting in color errors on SDR content.
++		 */
++		if (old_conn_state && old_conn_state->hdr_output_metadata) {
++			hdmi_drm_infoframe_init(frame);
++			crtc_state->infoframes.enable |=
++				intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_DRM);
++		}
+ 		return true;
++	}
+ 
+ 	crtc_state->infoframes.enable |=
+ 		intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_DRM);
+-- 
+2.43.0
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/driver=
-s/gpu/drm/i915/display/intel_color_pipeline.c
-> index 6cf8080ee8000..38cfd6ed585d0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> @@ -92,6 +105,12 @@ struct intel_colorop *intel_color_pipeline_plane_add_=
-colorop(struct drm_plane *p
->  							  DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
->  							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
->  		break;
-> +	case INTEL_PLANE_CB_CSC_FF:
-> +		ret =3D drm_plane_colorop_fixed_matrix_init(dev, &colorop->base, plane,
-> +							  &intel_colorop_funcs,
-> +							  intel_plane_supported_csc_ff,
-> +							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
-> +		break;
-
-[Severity: Low]
-Does this code rely on out-of-tree patches? The function
-drm_plane_colorop_fixed_matrix_init does not appear to exist in the current
-DRM core tree, which causes a build failure in
-intel_color_pipeline_plane_add_colorop when compiling the kernel with this
-patch applied.
-
-[ ... ]
-
-> @@ -126,9 +145,12 @@ int _intel_color_pipeline_plane_init(struct drm_plan=
-e *plane, struct drm_prop_en
->  	if (plane_has_3dlut(display, pipe, plane)) {
->  		pipeline =3D xe3plpd_primary_plane_pipeline;
->  		pipeline_len =3D ARRAY_SIZE(xe3plpd_primary_plane_pipeline);
-> -	} else {
-> +	} else if (icl_is_hdr_plane(display, to_intel_plane(plane)->id)) {
->  		pipeline =3D hdr_plane_pipeline;
->  		pipeline_len =3D ARRAY_SIZE(hdr_plane_pipeline);
-> +	} else {
-> +		pipeline =3D sdr_plane_yuv_pipeline;
-> +		pipeline_len =3D ARRAY_SIZE(sdr_plane_yuv_pipeline);
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but later in _intel_color_pipeline_plane_init,
-kasprintf is used to allocate the name property for the color pipeline:
-
-    list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d",
-                           colorop[0]->base.base.id);
-    return 0;
-
-If memory allocation fails under pressure and kasprintf returns a NULL poin=
-ter,
-the function still returns 0 (success). This NULL pointer is subsequently
-passed to drm_property_add_enum via drm_plane_create_color_pipeline_propert=
-y.
-
-Since drm_property_add_enum calls strlen on the name, would this lead to a
-NULL pointer dereference and kernel panic during driver initialization?
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm=
-/i915/display/intel_plane.c
-> index d0f99a87c42e8..25ca049009efb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_plane.c
-> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
-> @@ -462,6 +462,42 @@ intel_plane_colorop_replace_blob(struct intel_plane_=
-state *plane_state,
->  	return false;
->  }
-> =20
-> +static u32
-> +fixedmatrix_colorop_to_encoding(enum drm_colorop_fixed_matrix_type fm_ty=
-pe)
-> +{
-> +	switch (fm_type) {
-> +	case DRM_COLOROP_FM_YCBCR709_FULL_RGB:
-
-[Severity: Low]
-Are the new format macros defined in the DRM core? Using
-DRM_COLOROP_FM_YCBCR709_FULL_RGB (and the related macros below) results in a
-compilation failure in fixedmatrix_colorop_to_encoding because the values
-appear to be undefined in the current tree.
-
-[ ... ]
-
-> @@ -485,11 +522,23 @@ intel_plane_color_copy_uapi_to_hw_state(struct inte=
-l_atomic_state *state,
->  	while (iter_colorop) {
->  		for_each_new_colorop_in_state(&state->base, colorop, new_colorop_state=
-, i) {
->  			if (new_colorop_state->colorop =3D=3D iter_colorop) {
-> -				blob =3D new_colorop_state->bypass ? NULL : new_colorop_state->data;
->  				intel_colorop =3D to_intel_colorop(colorop);
-> -				changed |=3D intel_plane_colorop_replace_blob(plane_state,
-> +				if (intel_colorop->id =3D=3D INTEL_PLANE_CB_CSC_FF) {
-> +					fm_type =3D new_colorop_state->fixed_matrix_type;
-
-[Severity: Low]
-Does drm_colorop_state include a fixed_matrix_type field? Accessing
-new_colorop_state->fixed_matrix_type in intel_plane_color_copy_uapi_to_hw_s=
-tate
-causes a build failure because the field is not present in the struct
-drm_colorop_state definition in the DRM UAPI headers.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901120254.6292=
-61-1-chaitanya.kumar.borah@intel.com?part=3D1
