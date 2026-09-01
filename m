@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB5DC61DD3
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 16:22:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB4AC624D3
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 16:22:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE0DD10ED8D;
-	Tue,  1 Sep 2026 16:22:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40A7110EBA0;
+	Tue,  1 Sep 2026 16:22:53 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F69610EBA0;
- Tue,  1 Sep 2026 16:22:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A3E310ED6E;
+ Tue,  1 Sep 2026 16:22:52 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/i915/display=3A_Enabl?=
- =?utf-8?q?e_VRR/HDR_over_MST?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/gvt=3A?=
+ =?utf-8?q?_use_strscpy=28=29_instead_of_strcpy=28=29_in_virt=5Fvbt=5Fgenera?=
+ =?utf-8?q?tion=28=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Xiao Lu" <xiaolu.xie@intel.com>
+To: "Hrushiraj Gandhi" <hrushirajg23@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 01 Sep 2026 16:22:05 -0000
-Message-ID: <178827972525.106842.9448384833569485157@61270ab9df2a>
+Date: Tue, 01 Sep 2026 16:22:52 -0000
+Message-ID: <178827977249.107763.7410869854118725918@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260901132601.239131-1-xiaolu.xie@intel.com>
-In-Reply-To: <20260901132601.239131-1-xiaolu.xie@intel.com>
+References: <20260901050241.359490-1-hrushirajg23@gmail.com>
+In-Reply-To: <20260901050241.359490-1-hrushirajg23@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,21 +44,15 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/display: Enable VRR/HDR over MST
-URL   : https://patchwork.freedesktop.org/series/173155/
+Series: drm/i915/gvt: use strscpy() instead of strcpy() in virt_vbt_generation()
+URL   : https://patchwork.freedesktop.org/series/173157/
 State : failure
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/173155/revisions/1/mbox/ not applied
-Applying: drm/i915/display: Enable VRR/HDR over MST
-error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_display_types.h).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915/display: Enable VRR/HDR over MST
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
+Series author address 'hrushirajg23@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
+If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
+Exception occurred during validation, bailing out!
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/186501/ (on built-in)
 
 
