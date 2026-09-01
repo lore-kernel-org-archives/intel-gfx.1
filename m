@@ -4,82 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52C5C61DD3
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 09:12:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E29C624CF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 10:29:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D09710E3B7;
-	Tue,  1 Sep 2026 09:12:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CF2D10E3B6;
+	Tue,  1 Sep 2026 10:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gP0dJdwg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E9pvZ9mw";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F43E89F41
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 09:12:28 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-49ccfae359fso4668625e9.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 02:12:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788253947; x=1788858747; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=0TlUfV1W2wVGJiIoux61PNOlqp07vzGJ/19zLvBmSsQ=;
- b=gP0dJdwgg6IjKtHb4me5zkSkDDTDjYsEIi1I64pJY5DbUFd4DokbN+9RiXokpFPKqf
- BJIiA/PJkda813tXe4Vv0TKf0Fou4tOAFXDVbFu1uftjHABHErvjY0W1oaBGdh1zNkQD
- yuiEW7xp4iChGf8MOBsxQIw4nZiskOctq2AMOeJTdGtteMX6MQB4moIBtu3dIToWyGlE
- ho0l6wmc69wt29buhUvfUOvB4dE0uz/VKjTsjVJLSeOCDhosKLYxP93KQVCaQWwfOYA6
- Y2ktAZu5feltjWzV0uyxXMB27UOppuSrkoiWtpfi4wjem7xQAGt1qAo4gk5NraQY3EPM
- 6HFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788253947; x=1788858747;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=0TlUfV1W2wVGJiIoux61PNOlqp07vzGJ/19zLvBmSsQ=;
- b=F17vqII2/mNkxC8fQM7ley0E7Si83bbec2DMgVFFKXVy4fxGEps8ndD+kXswl7dLb2
- hlIYxafFp62fdVe4nz6Z23G1aGk/7wU6EaUjScxDjKJ7pC5NmXZG6dvaFuzNW/I6Jn1R
- tY/QX9laj0LPHfJjx8neYRSxqoh3ZGhMztjgVuAnxkDm3xRYGrIVDWDkqrB2eGCJ4ZuD
- FPTVIQci5jR5PcGzgbompDDD2+nTbr7JxJhcjUL4a07SLu7XsyQ7SGTztcj8sdr/dVX3
- Ftr6y5oHFwVr7qtdTLHI6G8zG0FEqbS0nUMbaDI4CIDbLziBBlfIer1EDhwgQ0v+29GF
- 8EXg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpzKXjykvAiuFvPxSDsjcYI83lLwr/E0+dQm1DlGAAlh2FJ07LZgqnrpkwGh4SBsaJGFLOM3G0kMRg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kUziwDB1/dmyAHVXjBLU6PN1g4jORT3JCK10s3NrZoM0UtP2wa
- dKnEgLaETqFZ+aVkntXUTYoF44A1q3ARJOSKTbG4WqkteBmco5Lztucq
-X-Gm-Gg: AR+sD11YUgNyWFKx+TPy8UFK6L5xGKNsdWeqg4tTuf/A41m6V3VH0eIoucTAsXCUf3x
- iOxylSEVn1h5/nvZEenP7/2jPoTx8qyltJjmVCVbTphFOCv33aW3fFhuTYcOC2qnK7vOqYxPWFP
- 4dH8NFldrixLSSuc/lhL0tp5gnfNdzkj0ydC7IdW08OnYoZfvTEEfiUxo5PpBJqgA5BFacfjuA/
- H6HP9TCoOtczO49u2HOYQwtxdkEk6n69nRMycehsbNq+hcLKrf18NIaANW3xx8OV3JNcYlanCfW
- E6lyCu1/HhqIHysGTVJjW5WTCX5ZyxEZbIg99Ewj7nrBTvo3EzUX+DbR0rkwrpjAuk2Px2gtjLg
- 27+H52O0X10bNIjk3I4hVVRaQklhMwhFaAGfZ9WcIogCWYkb/YryMrSWolB0ravU6AUaXxG2o5/
- UbdAf+5aMWElwnrVLMuF/ptw4do1ClmBdFmR1wabwKzmxwEQy6B31kAMpOvIvZSOxX8k0hw3aHH
- RQMr6ymw8Lq1Ph0qL3ZqQ2O01ySJk3b6Tkq
-X-Received: by 2002:a05:600c:c0cf:b0:499:726b:7375 with SMTP id
- 5b1f17b1804b1-49b91c51e62mr456328445e9.14.1788253946713; 
- Tue, 01 Sep 2026 02:12:26 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cdce1e3a9sm53004175e9.15.2026.09.01.02.12.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 02:12:26 -0700 (PDT)
-Date: Tue, 1 Sep 2026 10:12:25 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ED3F10E3B6;
+ Tue,  1 Sep 2026 10:29:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788258561; x=1819794561;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=6VL+2jTpoIlB/ex9UG+2bXV0ukx5HvT53gO1KHXzF7s=;
+ b=E9pvZ9mwi8ZrVkv5csb/Uk0ypU4IcpDvDZtfuF9bWpREAAxyFLTJbigI
+ jQETGNFstCSadwBDcTagtXzD352o6PWWTAb5pvfGSYX0wXGoJpSvKEHJS
+ KvAzdS8K+Fguki5Ybm8nImrkjaA9Xk/czx4EfMz1A/6bYAkMzszWgbEAZ
+ DOV4406YLoiMexenyAE7hM/gPa8OunSsf69u01P5UWL+h/sMm7M6fY5YU
+ lEnwQGxupC+UoeW4JOhjAvGbsB/y41oJHk7WCChLBuWsF58EWFFLmfKH9
+ 70vvdyoX0vM8Xe0n863dLTjALqAoBoCzWlSd1rfrkqgkYGNklZtHQCR7u w==;
+X-CSE-ConnectionGUID: 7Iv3i9wyQv+ofpCwOvx0Pg==
+X-CSE-MsgGUID: KgBFtCVsTsuqEGSCnYQquw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88609367"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="88609367"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 03:29:20 -0700
+X-CSE-ConnectionGUID: 6sWl4nocQYCB4W25KjLY1g==
+X-CSE-MsgGUID: VR0nG1OeSIWlgl4powKc8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="272842924"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.213])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 03:29:18 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: David Laight <david.laight.linux@gmail.com>, Hrushiraj Gandhi
+ <hrushirajg23@gmail.com>
+Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH] drm/i915/gvt: use strscpy() instead of strcpy() in
  virt_vbt_generation()
-Message-ID: <20260901101225.3aa0f0cf@pumpkin>
-In-Reply-To: <20260901050241.359490-1-hrushirajg23@gmail.com>
+In-Reply-To: <20260901101225.3aa0f0cf@pumpkin>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260901050241.359490-1-hrushirajg23@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ <20260901101225.3aa0f0cf@pumpkin>
+Date: Tue, 01 Sep 2026 13:29:15 +0300
+Message-ID: <198aae087325b563c87d6335ffe3b46bd5fb56ba@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,44 +74,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue,  1 Sep 2026 10:32:41 +0530
-Hrushiraj Gandhi <hrushirajg23@gmail.com> wrote:
+On Tue, 01 Sep 2026, David Laight <david.laight.linux@gmail.com> wrote:
+> On Tue,  1 Sep 2026 10:32:41 +0530
+> Hrushiraj Gandhi <hrushirajg23@gmail.com> wrote:
+>
+>> strcpy() has no bound on the destination buffer, so convert this to
+>> the bounded, always-NUL-terminating strscpy() instead. The literal
+>> "BIOS_DATA_BLOCK" (15 chars + NUL) fits the 16-byte signature field
+>> exactly, so this is a no-op change in behaviour.
+>> 
+>> No functional change.
+>> 
+>> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+>> ---
+>>  drivers/gpu/drm/i915/gvt/opregion.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
+>> index d6e76ba31d60..f2527e26cd1e 100644
+>> --- a/drivers/gpu/drm/i915/gvt/opregion.c
+>> +++ b/drivers/gpu/drm/i915/gvt/opregion.c
+>> @@ -151,7 +151,8 @@ static void virt_vbt_generation(struct vbt *v)
+>>  	v->header.vbt_size = sizeof(struct vbt);
+>>  	v->header.bdb_offset = offsetof(struct vbt, bdb_header);
+>>  
+>> -	strcpy(&v->bdb_header.signature[0], "BIOS_DATA_BLOCK");
+>> +	strscpy(v->bdb_header.signature, "BIOS_DATA_BLOCK",
+>> +		sizeof(v->bdb_header.signature));
+>
+> Pointless and potentially wrong.
+> Both normally reduce to the same memcpy() call.
+> If the fixed string is too long strcpy() generates a compile error
+> whereas strscpy() will silently truncate.
 
-> strcpy() has no bound on the destination buffer, so convert this to
-> the bounded, always-NUL-terminating strscpy() instead. The literal
-> "BIOS_DATA_BLOCK" (15 chars + NUL) fits the 16-byte signature field
-> exactly, so this is a no-op change in behaviour.
-> 
-> No functional change.
-> 
-> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gvt/opregion.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
-> index d6e76ba31d60..f2527e26cd1e 100644
-> --- a/drivers/gpu/drm/i915/gvt/opregion.c
-> +++ b/drivers/gpu/drm/i915/gvt/opregion.c
-> @@ -151,7 +151,8 @@ static void virt_vbt_generation(struct vbt *v)
->  	v->header.vbt_size = sizeof(struct vbt);
->  	v->header.bdb_offset = offsetof(struct vbt, bdb_header);
->  
-> -	strcpy(&v->bdb_header.signature[0], "BIOS_DATA_BLOCK");
-> +	strscpy(v->bdb_header.signature, "BIOS_DATA_BLOCK",
-> +		sizeof(v->bdb_header.signature));
+Moreover, there's no provision that the signature must be NUL
+terminated. All consumers must treat it as a 16-byte block which may or
+may not be NUL terminated. In fact, it is usually padded with space
+rather than NUL terminated, and one could argue the NUL termination is
+wrong here.
 
-Pointless and potentially wrong.
-Both normally reduce to the same memcpy() call.
-If the fixed string is too long strcpy() generates a compile error
-whereas strscpy() will silently truncate.
 
-(The '&' and '[0]' might need removing.)
+BR,
+Jani.
 
-David
+>
+> (The '&' and '[0]' might need removing.)
+>
+> David
+>
+>>  	v->bdb_header.version = 186; /* child_dev_size = 33 */
+>>  	v->bdb_header.header_size = sizeof(v->bdb_header);
+>>  
+>> 
+>
 
->  	v->bdb_header.version = 186; /* child_dev_size = 33 */
->  	v->bdb_header.header_size = sizeof(v->bdb_header);
->  
-> 
-
+-- 
+Jani Nikula, Intel
