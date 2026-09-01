@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A6BFC61DD3
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 16:21:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB5DC61DD3
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 16:22:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A179D10E363;
-	Tue,  1 Sep 2026 16:21:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE0DD10ED8D;
+	Tue,  1 Sep 2026 16:22:06 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F13710E363;
- Tue,  1 Sep 2026 16:21:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F69610EBA0;
+ Tue,  1 Sep 2026 16:22:05 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/i915/display=3A_fix_M?=
- =?utf-8?q?SA_MISC1_VSC_SDP_bit_set_without_actual_VSC_SDP?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/i915/display=3A_Enabl?=
+ =?utf-8?q?e_VRR/HDR_over_MST?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Xiao Lu" <xiaolu.xie@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 01 Sep 2026 16:21:11 -0000
-Message-ID: <178827967138.106842.6517301227152203718@61270ab9df2a>
+Date: Tue, 01 Sep 2026 16:22:05 -0000
+Message-ID: <178827972525.106842.9448384833569485157@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260901131928.238611-1-xiaolu.xie@intel.com>
-In-Reply-To: <20260901131928.238611-1-xiaolu.xie@intel.com>
+References: <20260901132601.239131-1-xiaolu.xie@intel.com>
+In-Reply-To: <20260901132601.239131-1-xiaolu.xie@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,22 +43,18 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/display: fix MSA MISC1 VSC SDP bit set without actual VSC SDP
-URL   : https://patchwork.freedesktop.org/series/173154/
+Series: drm/i915/display: Enable VRR/HDR over MST
+URL   : https://patchwork.freedesktop.org/series/173155/
 State : failure
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/173154/revisions/1/mbox/ not applied
-Applying: drm/i915/display: fix MSA MISC1 VSC SDP bit set without actual VSC SDP
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/display/intel_ddi.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/display/intel_ddi.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_ddi.c
-error: Failed to merge in the changes.
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/173155/revisions/1/mbox/ not applied
+Applying: drm/i915/display: Enable VRR/HDR over MST
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_display_types.h).
+error: could not build fake ancestor
 hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915/display: fix MSA MISC1 VSC SDP bit set without actual VSC SDP
+Patch failed at 0001 drm/i915/display: Enable VRR/HDR over MST
 When you have resolved this problem, run "git am --continue".
 If you prefer to skip this patch, run "git am --skip" instead.
 To restore the original branch and stop patching, run "git am --abort".
