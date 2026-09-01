@@ -4,52 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9618CC61DD3
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 13:28:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCFA0C624D4
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 13:40:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13D5510ECF7;
-	Tue,  1 Sep 2026 13:28:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WaNdsjEe";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C24DB10ECF7
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 13:28:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788269311; x=1819805311;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=D6U341jmwbw35ovSFDoCXlFt4c0ILdjUyh2PmDgSrtY=;
- b=WaNdsjEe4k4mpPZH3oZiysaWRTYiUqiCARWPmQu/BEBpsLSRRMZpOytE
- 6pmO96AT2EAvpmfjuEZpIofs4G7q45XRBTCyQk7/PC7/AnAIqGbvNiYrQ
- h153pW/6A8W0hL6F3v98lmvflmOVFGTBBkH9i8yAFQOk1oMVX/YBGeREq
- t+g+TusoVOgSFlLEScwKkfRdasb/7yKDYdU5SjyMPN5O1xOAnBRxnrK9R
- ltznUa+LyIgejjwdKeU9f7pkO1IhxajwNABQEJAtE3DCfkGS90/6JLmoI
- bpvFP1LO4f21RIJdIDqaq6kNV4eb6K/0iuWhQ1YuUunqh10YEscn6zQSg Q==;
-X-CSE-ConnectionGUID: /5jn3STXTsKT/dv5ocfKeA==
-X-CSE-MsgGUID: VJnFeHRYRGuvPmFp4du2fg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99032648"
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; d="scan'208";a="99032648"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 06:28:30 -0700
-X-CSE-ConnectionGUID: XxmorwMQTKunOWuZTnrgLQ==
-X-CSE-MsgGUID: aQl7S1lPT2+bZHgihdntqg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; d="scan'208";a="273272194"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by orviesa005.jf.intel.com with ESMTP; 01 Sep 2026 06:28:29 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
- imre.deak@intel.com, Xiao Lu <xiaolu.xie@intel.com>
-Subject: [PATCH] drm/i915/display: Enable VRR/HDR over MST
-Date: Tue,  1 Sep 2026 21:26:01 +0800
-Message-ID: <20260901132601.239131-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1682110ECF2;
+	Tue,  1 Sep 2026 13:40:29 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF51F10ECEC;
+ Tue,  1 Sep 2026 13:40:27 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2339955191141552204=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Add_support_for_a_DRM_bac?=
+ =?utf-8?q?klight_capability_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mario Limonciello" <mario.limonciello@amd.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 01 Sep 2026 13:40:27 -0000
+Message-ID: <178827002784.107763.1183231037953060639@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260831210531.2334221-1-mario.limonciello@amd.com>
+In-Reply-To: <20260831210531.2334221-1-mario.limonciello@amd.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,324 +37,295 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VRR over MST:
-- Remove the hard MST block in intel_vrr_is_capable(); check the
-  downstream port's MSA timing par ignore capability via REMOTE_DPCD_READ
-  and cache it in connector->dp.mst_msa_timing_par_ignore to avoid hot
-  path sideband round-trips.
-- Attach vrr_capable property to MST connectors and update it after EDID
-  read; enable AS-SDP computation and transmission for MST streams.
+--===============2339955191141552204==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-HDR metadata over MST:
-- Add VSC SDP, HDR metadata infoframe SDP and AS-SDP computation to
-  mst_stream_compute_config() and enable their transmission in
-  mst_stream_enable() and intel_ddi_update_pipe().
-- Lift the hard 8bpc pipe_bpp cap and use the bpp capability from sink EDID
-  for MST streams to allow 10bpc, relying on
-  intel_dp_mst_atomic_check_link()'s BW retry loop to fall back if the
-  link cannot fit it.
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c |  2 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |  3 +
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 23 ++++---
- drivers/gpu/drm/i915/display/intel_dp.h       |  8 +++
- drivers/gpu/drm/i915/display/intel_dp_mst.c   | 65 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_vrr.c      | 23 ++++++-
- 7 files changed, 113 insertions(+), 12 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 7ce9e212770a..174fa62cb0dc 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -2164,6 +2164,7 @@ ssize_t drm_dp_mst_dpcd_read(struct drm_dp_aux *aux,
- 	return drm_dp_send_dpcd_read(port->mgr, port,
- 				     offset, size, buffer);
- }
-+EXPORT_SYMBOL(drm_dp_mst_dpcd_read);
- 
- /**
-  * drm_dp_mst_dpcd_write() - write a series of bytes to the DPCD via sideband
-@@ -2187,6 +2188,7 @@ ssize_t drm_dp_mst_dpcd_write(struct drm_dp_aux *aux,
- 	return drm_dp_send_dpcd_write(port->mgr, port,
- 				      offset, size, buffer);
- }
-+EXPORT_SYMBOL(drm_dp_mst_dpcd_write);
- 
- static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, guid_t *guid)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 2b7eb010511b..09e8a7335a05 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3649,6 +3649,9 @@ void intel_ddi_update_pipe(struct intel_atomic_state *state,
- 		intel_ddi_update_pipe_dp(state, encoder, crtc_state,
- 					 conn_state);
- 
-+	if (intel_encoder_is_mst(encoder))
-+		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
-+
- 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
- 		intel_ddi_update_pipe_hdmi(encoder, crtc_state,
- 					   conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index adde53dc9dce..246a2c05efc2 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -564,6 +564,7 @@ struct intel_connector {
- 		u8 dsc_hblank_expansion_quirk:1;
- 		u8 dsc_throughput_quirk:1;
- 		u8 dsc_decompression_enabled:1;
-+		u8 mst_msa_timing_par_ignore:1; /* cached from MST virtual DPCD 0x007 */
- 
- 		struct {
- 			struct {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 61ae83857cd6..52d5c09a608c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2682,15 +2682,18 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
- 
- 	limits->pipe.min_bpp = intel_dp_min_bpp(crtc_state->output_format);
- 	if (is_mst) {
-+		struct intel_connector *mst_connector =
-+			to_intel_connector(conn_state->connector);
-+		int sink_bpc = mst_connector->base.display_info.bpc ?: 8;
-+
- 		/*
--		 * FIXME: If all the streams can't fit into the link with their
--		 * current pipe_bpp we should reduce pipe_bpp across the board
--		 * until things start to fit. Until then we limit to <= 8bpc
--		 * since that's what was hardcoded for all MST streams
--		 * previously. This hack should be removed once we have the
--		 * proper retry logic in place.
-+		 * For MST streams, use the sink's EDID-reported color depth
-+		 * as the max bpp, rather than the pipe_bpp from a previous
-+		 * modeset (which may be stale) or a hardcoded 8bpc cap.
-+		 * The BW retry loop in intel_dp_mst_atomic_check_link() will
-+		 * reduce bpp if the aggregate link bandwidth is insufficient.
- 		 */
--		limits->pipe.max_bpp = min(crtc_state->max_pipe_bpp, 24);
-+		limits->pipe.max_bpp = sink_bpc * 3;
- 	} else {
- 		limits->pipe.max_bpp = intel_dp_max_bpp(intel_dp, crtc_state,
- 							respect_downstream_limits);
-@@ -3105,7 +3108,7 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	return intel_vrr_possible(crtc_state);
- }
- 
--static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
-+void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 				    struct intel_crtc_state *crtc_state)
- {
- 	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
-@@ -3155,7 +3158,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 		as_sdp->coasting_vtotal = crtc_state->vrr.vmax;
- }
- 
--static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-+void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
- 				     struct intel_crtc_state *crtc_state,
- 				     const struct drm_connector_state *conn_state)
- {
-@@ -3216,7 +3219,7 @@ intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state)
- 	return hdr_metadata->hdmi_metadata_type1.eotf == HDMI_EOTF_SMPTE_ST2084;
- }
- 
--static void
-+void
- intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
- 					    struct intel_crtc_state *crtc_state,
- 					    const struct drm_connector_state *conn_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 0ec519fa1236..0b01634d907c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -77,6 +77,8 @@ int intel_dp_compute_config(struct intel_atomic_state *state,
- 			    struct intel_encoder *encoder,
- 			    struct intel_crtc_state *pipe_config,
- 			    struct drm_connector_state *conn_state);
-+void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
-+				    struct intel_crtc_state *crtc_state);
- bool intel_dp_needs_8b10b_fec(const struct intel_crtc_state *crtc_state,
- 			      bool dsc_enabled_on_crtc);
- void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state);
-@@ -130,6 +132,12 @@ bool intel_dp_joiner_needs_dsc(struct intel_display *display,
- bool intel_dp_has_joiner(struct intel_dp *intel_dp);
- bool intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state);
-+void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-+			      struct intel_crtc_state *crtc_state,
-+			      const struct drm_connector_state *conn_state);
-+void intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
-+					    struct intel_crtc_state *crtc_state,
-+					    const struct drm_connector_state *conn_state);
- void intel_dp_set_infoframes(struct intel_encoder *encoder, bool enable,
- 			     const struct intel_crtc_state *crtc_state,
- 			     const struct drm_connector_state *conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 7cbef16ab38b..173e91482f0a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -793,6 +793,9 @@ static int mst_stream_compute_config(struct intel_atomic_state *state,
- 			bxt_dpio_phy_calc_lane_lat_optim_mask(pipe_config->lane_count);
- 
- 	intel_vrr_compute_config(pipe_config, conn_state);
-+	intel_dp_compute_as_sdp(intel_dp, pipe_config);
-+	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
-+	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
- 
- 	intel_dp_audio_compute_config(encoder, pipe_config, conn_state);
- 
-@@ -1157,6 +1160,24 @@ static void mst_stream_post_disable(struct intel_atomic_state *state,
- 	 * Power down mst path before disabling the port, otherwise we end
- 	 * up getting interrupts from the sink upon detecting link loss.
- 	 */
-+	if (intel_vrr_is_capable(connector)) {
-+		u8 val;
-+		ssize_t ret;
-+
-+		ret = drm_dp_mst_dpcd_read(&connector->mst.port->aux,
-+					   DP_DOWNSPREAD_CTRL, &val, 1);
-+		if (ret < 0) {
-+			drm_dbg_kms(display->drm,
-+				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
-+				    connector->base.base.id,
-+				    connector->base.name, ret);
-+		} else {
-+			val &= ~DP_MSA_TIMING_PAR_IGNORE_EN;
-+			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
-+					      DP_DOWNSPREAD_CTRL, &val, 1);
-+		}
-+	}
-+
- 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port,
- 				     false);
- 
-@@ -1274,6 +1295,24 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
- 
- 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, true);
- 
-+	if (intel_vrr_is_capable(connector)) {
-+		u8 val;
-+		ssize_t ret;
-+
-+		ret = drm_dp_mst_dpcd_read(&connector->mst.port->aux,
-+					   DP_DOWNSPREAD_CTRL, &val, 1);
-+		if (ret < 0) {
-+			drm_dbg_kms(display->drm,
-+				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
-+				    connector->base.base.id,
-+				    connector->base.name, ret);
-+		} else {
-+			val |= DP_MSA_TIMING_PAR_IGNORE_EN;
-+			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
-+					      DP_DOWNSPREAD_CTRL, &val, 1);
-+		}
-+	}
-+
- 	intel_dp_sink_enable_decompression(state, connector, pipe_config);
- 
- 	if (first_mst_stream) {
-@@ -1397,6 +1436,8 @@ static void mst_stream_enable(struct intel_atomic_state *state,
- 
- 	intel_enable_transcoder(pipe_config);
- 
-+	intel_dp_set_infoframes(encoder, true, pipe_config, conn_state);
-+
- 	for_each_pipe_crtc_modeset_enable(display, pipe_crtc, pipe_config) {
- 		const struct intel_crtc_state *pipe_crtc_state =
- 			intel_atomic_get_new_crtc_state(state, pipe_crtc);
-@@ -1451,6 +1492,15 @@ static int mst_connector_get_ddc_modes(struct drm_connector *_connector)
- 
- 	ret = intel_connector_update_modes(&connector->base, drm_edid);
- 
-+	if (HAS_VRR(display)) {
-+		bool vrr_capable = intel_vrr_is_capable(connector);
-+
-+		drm_dbg_kms(display->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
-+			    connector->base.base.id, connector->base.name,
-+			    str_yes_no(vrr_capable));
-+		drm_connector_set_vrr_capable_property(&connector->base, vrr_capable);
-+	}
-+
- 	drm_edid_free(drm_edid);
- 
- 	if (intel_dp_tunnel_uhbr_lanes_wa_setup(intel_dp)) {
-@@ -1735,6 +1785,10 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
- 
- 	intel_attach_force_audio_property(&connector->base);
- 	intel_attach_broadcast_rgb_property(&connector->base);
-+	intel_attach_dp_colorspace_property(&connector->base);
-+
-+	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
-+		drm_connector_attach_hdr_output_metadata_property(&connector->base);
- 
- 	/*
- 	 * Reuse the prop from the SST connector because we're
-@@ -1745,6 +1799,14 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
- 	if (connector->base.max_bpc_property)
- 		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
- 
-+	/*
-+	 * Reuse the vrr_capable prop from the eDP connector (which is always
-+	 * initialized during driver load before device registration), because
-+	 * we're not allowed to create new props after device registration.
-+	 */
-+	if (HAS_VRR(display))
-+		drm_connector_attach_vrr_capable_property(&connector->base);
-+
- 	return drm_connector_set_path_property(&connector->base, pathprop);
- }
- 
-@@ -1761,6 +1823,9 @@ intel_dp_mst_read_decompression_port_dsc_caps(struct intel_dp *intel_dp,
- 	if (drm_dp_read_dpcd_caps(connector->dp.dsc_decompression_aux, dpcd_caps) < 0)
- 		return;
- 
-+	connector->dp.mst_msa_timing_par_ignore =
-+		drm_dp_sink_can_do_video_without_timing_msa(dpcd_caps);
-+
- 	if (drm_dp_read_desc(connector->dp.dsc_decompression_aux, &desc,
- 			     drm_dp_is_branch(dpcd_caps)) < 0)
- 		return;
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index bffbdee76ee1..d7d4a23cdf74 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -54,8 +54,27 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
- 			return false;
- 		fallthrough;
- 	case DRM_MODE_CONNECTOR_DisplayPort:
--		if (connector->mst.dp)
--			return false;
-+		if (connector->mst.dp) {
-+			u8 dpcd[DP_RECEIVER_CAP_SIZE];
-+
-+			/*
-+			 * Use cached MSA timing ignore capability from the DFP
-+			 * sink's virtual DPCD, set during connector init.
-+			 */
-+			if (!connector->dp.mst_msa_timing_par_ignore)
-+				return false;
-+
-+			/*
-+			 * Also verify live via LCT=2 REMOTE_DPCD_READ to the
-+			 * DFP sink's actual DPCD 0x007.
-+			 */
-+			if (drm_dp_read_dpcd_caps(&connector->mst.port->aux, dpcd) < 0)
-+				return false;
-+			if (!drm_dp_sink_can_do_video_without_timing_msa(dpcd))
-+				return false;
-+
-+			break;
-+		}
- 		intel_dp = intel_attached_dp(connector);
- 		/*
- 		 * Among non-MST DP branch devices, only an HDMI 2.1 sink connected
--- 
-2.43.0
+Series: Add support for a DRM backlight capability (rev2)
+URL   : https://patchwork.freedesktop.org/series/169109/
+State : failure
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19064 -> Patchwork_169109v2
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_169109v2 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_169109v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/index.html
+
+Participating hosts (36 -> 34)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_169109v2:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-bsw-n3050:       [PASS][1] -> [ABORT][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-bsw-n3050/igt@core_hotunplug@unbind-rebind.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-bsw-n3050/igt@core_hotunplug@unbind-rebind.html
+    - bat-dg2-9:          [PASS][3] -> [ABORT][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-dg2-9/igt@core_hotunplug@unbind-rebind.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-dg2-9/igt@core_hotunplug@unbind-rebind.html
+    - fi-hsw-4770:        [PASS][5] -> [ABORT][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-hsw-4770/igt@core_hotunplug@unbind-rebind.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-hsw-4770/igt@core_hotunplug@unbind-rebind.html
+    - bat-dg1-6:          [PASS][7] -> [ABORT][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-dg1-6/igt@core_hotunplug@unbind-rebind.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-dg1-6/igt@core_hotunplug@unbind-rebind.html
+    - fi-rkl-11600:       [PASS][9] -> [ABORT][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-rkl-11600/igt@core_hotunplug@unbind-rebind.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-rkl-11600/igt@core_hotunplug@unbind-rebind.html
+    - fi-pnv-d510:        [PASS][11] -> [ABORT][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-pnv-d510/igt@core_hotunplug@unbind-rebind.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-pnv-d510/igt@core_hotunplug@unbind-rebind.html
+    - fi-glk-j4005:       [PASS][13] -> [ABORT][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-glk-j4005/igt@core_hotunplug@unbind-rebind.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-glk-j4005/igt@core_hotunplug@unbind-rebind.html
+    - fi-cfl-8109u:       [PASS][15] -> [ABORT][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-cfl-8109u/igt@core_hotunplug@unbind-rebind.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-cfl-8109u/igt@core_hotunplug@unbind-rebind.html
+    - bat-jsl-5:          [PASS][17] -> [ABORT][18]
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-jsl-5/igt@core_hotunplug@unbind-rebind.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-jsl-5/igt@core_hotunplug@unbind-rebind.html
+    - fi-ivb-3770:        [PASS][19] -> [ABORT][20]
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-ivb-3770/igt@core_hotunplug@unbind-rebind.html
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-ivb-3770/igt@core_hotunplug@unbind-rebind.html
+    - bat-apl-1:          [PASS][21] -> [ABORT][22]
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-apl-1/igt@core_hotunplug@unbind-rebind.html
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-apl-1/igt@core_hotunplug@unbind-rebind.html
+    - bat-dg2-14:         [PASS][23] -> [ABORT][24]
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-dg2-14/igt@core_hotunplug@unbind-rebind.html
+   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-dg2-14/igt@core_hotunplug@unbind-rebind.html
+    - fi-elk-e7500:       [PASS][25] -> [ABORT][26]
+   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-elk-e7500/igt@core_hotunplug@unbind-rebind.html
+   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-elk-e7500/igt@core_hotunplug@unbind-rebind.html
+    - bat-dg2-8:          [PASS][27] -> [ABORT][28]
+   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-dg2-8/igt@core_hotunplug@unbind-rebind.html
+   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-dg2-8/igt@core_hotunplug@unbind-rebind.html
+    - fi-bsw-nick:        [PASS][29] -> [ABORT][30]
+   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-bsw-nick/igt@core_hotunplug@unbind-rebind.html
+   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-bsw-nick/igt@core_hotunplug@unbind-rebind.html
+    - fi-ilk-650:         [PASS][31] -> [ABORT][32]
+   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-ilk-650/igt@core_hotunplug@unbind-rebind.html
+   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-ilk-650/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_module_load@load:
+    - bat-adlp-6:         [PASS][33] -> [ABORT][34]
+   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-adlp-6/igt@i915_module_load@load.html
+   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-adlp-6/igt@i915_module_load@load.html
+    - bat-arlh-2:         [PASS][35] -> [ABORT][36]
+   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-arlh-2/igt@i915_module_load@load.html
+   [36]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-arlh-2/igt@i915_module_load@load.html
+    - bat-arlh-3:         [PASS][37] -> [ABORT][38]
+   [37]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-arlh-3/igt@i915_module_load@load.html
+   [38]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-arlh-3/igt@i915_module_load@load.html
+    - bat-twl-2:          [PASS][39] -> [ABORT][40]
+   [39]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-twl-2/igt@i915_module_load@load.html
+   [40]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-twl-2/igt@i915_module_load@load.html
+    - fi-kbl-7567u:       [PASS][41] -> [ABORT][42]
+   [41]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-kbl-7567u/igt@i915_module_load@load.html
+   [42]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-kbl-7567u/igt@i915_module_load@load.html
+    - fi-cfl-8700k:       [PASS][43] -> [ABORT][44]
+   [43]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-cfl-8700k/igt@i915_module_load@load.html
+   [44]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-cfl-8700k/igt@i915_module_load@load.html
+    - bat-twl-1:          [PASS][45] -> [ABORT][46]
+   [45]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-twl-1/igt@i915_module_load@load.html
+   [46]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-twl-1/igt@i915_module_load@load.html
+    - fi-kbl-8809g:       [PASS][47] -> [ABORT][48]
+   [47]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-kbl-8809g/igt@i915_module_load@load.html
+   [48]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-kbl-8809g/igt@i915_module_load@load.html
+    - bat-kbl-2:          [PASS][49] -> [ABORT][50]
+   [49]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-kbl-2/igt@i915_module_load@load.html
+   [50]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-kbl-2/igt@i915_module_load@load.html
+    - bat-rplp-1:         [PASS][51] -> [ABORT][52]
+   [51]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-rplp-1/igt@i915_module_load@load.html
+   [52]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-rplp-1/igt@i915_module_load@load.html
+    - fi-cfl-guc:         [PASS][53] -> [ABORT][54]
+   [53]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-cfl-guc/igt@i915_module_load@load.html
+   [54]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-cfl-guc/igt@i915_module_load@load.html
+    - bat-mtlp-9:         [PASS][55] -> [ABORT][56]
+   [55]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-mtlp-9/igt@i915_module_load@load.html
+   [56]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-mtlp-9/igt@i915_module_load@load.html
+    - bat-arls-6:         [PASS][57] -> [ABORT][58]
+   [57]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-arls-6/igt@i915_module_load@load.html
+   [58]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-arls-6/igt@i915_module_load@load.html
+    - fi-kbl-x1275:       [PASS][59] -> [ABORT][60]
+   [59]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-kbl-x1275/igt@i915_module_load@load.html
+   [60]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-kbl-x1275/igt@i915_module_load@load.html
+    - bat-adlp-11:        [PASS][61] -> [ABORT][62]
+   [61]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-adlp-11/igt@i915_module_load@load.html
+   [62]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-adlp-11/igt@i915_module_load@load.html
+    - bat-mtlp-8:         [PASS][63] -> [ABORT][64]
+   [63]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-mtlp-8/igt@i915_module_load@load.html
+   [64]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-mtlp-8/igt@i915_module_load@load.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_169109v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_flip@basic-flip-vs-dpms@b-hdmi-a1:
+    - fi-tgl-1115g4:      [PASS][65] -> [ABORT][66] ([i915#16876]) +1 other test abort
+   [65]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-tgl-1115g4/igt@kms_flip@basic-flip-vs-dpms@b-hdmi-a1.html
+   [66]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-tgl-1115g4/igt@kms_flip@basic-flip-vs-dpms@b-hdmi-a1.html
+
+  
+  [i915#16876]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16876
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19064 -> Patchwork_169109v2
+
+  CI-20190529: 20190529
+  CI_DRM_19064: 307e9559fc1b95a477f00a767ea053b78d263548 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9078: 9078
+  Patchwork_169109v2: 307e9559fc1b95a477f00a767ea053b78d263548 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/index.html
+
+--===============2339955191141552204==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Add support for a DRM backlight capability (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/169109/">https://patchwork.freedesktop.org/series/169109/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19064 -&gt; Patchwork_169109v2</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_169109v2 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_169109v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/index.html</p>
+<h2>Participating hosts (36 -&gt; 34)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_169109v2:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-bsw-n3050/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-bsw-n3050/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-dg2-9/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-dg2-9/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-hsw-4770/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-hsw-4770/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>bat-dg1-6:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-dg1-6/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-dg1-6/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-rkl-11600/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-rkl-11600/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-pnv-d510/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-pnv-d510/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-glk-j4005/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-glk-j4005/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-cfl-8109u/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-cfl-8109u/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>bat-jsl-5:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-jsl-5/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-jsl-5/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-ivb-3770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-ivb-3770/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-ivb-3770/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-apl-1/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-apl-1/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-dg2-14/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-dg2-14/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-elk-e7500:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-elk-e7500/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-elk-e7500/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-dg2-8/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-dg2-8/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-bsw-nick/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-bsw-nick/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+<li>fi-ilk-650:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-ilk-650/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-ilk-650/igt@core_hotunplug@unbind-rebind.html">ABORT</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-adlp-6/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-adlp-6/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-arlh-2/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-arlh-2/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-arlh-3/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-arlh-3/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-twl-2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-twl-2/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-twl-2/igt@i915_module_load@load.html">ABORT</a></li>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-kbl-7567u/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-kbl-7567u/igt@i915_module_load@load.html">ABORT</a></li>
+<li>fi-cfl-8700k:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-cfl-8700k/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-cfl-8700k/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-twl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-twl-1/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-twl-1/igt@i915_module_load@load.html">ABORT</a></li>
+<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-kbl-8809g/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-kbl-8809g/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-kbl-2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-kbl-2/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-kbl-2/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-rplp-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-rplp-1/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-rplp-1/igt@i915_module_load@load.html">ABORT</a></li>
+<li>fi-cfl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-cfl-guc/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-cfl-guc/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-mtlp-9/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-mtlp-9/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-arls-6/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-arls-6/igt@i915_module_load@load.html">ABORT</a></li>
+<li>fi-kbl-x1275:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-kbl-x1275/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-kbl-x1275/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-adlp-11/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-adlp-11/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/bat-mtlp-8/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/bat-mtlp-8/igt@i915_module_load@load.html">ABORT</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_169109v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@kms_flip@basic-flip-vs-dpms@b-hdmi-a1:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19064/fi-tgl-1115g4/igt@kms_flip@basic-flip-vs-dpms@b-hdmi-a1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169109v2/fi-tgl-1115g4/igt@kms_flip@basic-flip-vs-dpms@b-hdmi-a1.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16876">i915#16876</a>) +1 other test abort</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19064 -&gt; Patchwork_169109v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19064: 307e9559fc1b95a477f00a767ea053b78d263548 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9078: 9078<br />
+  Patchwork_169109v2: 307e9559fc1b95a477f00a767ea053b78d263548 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2339955191141552204==--
