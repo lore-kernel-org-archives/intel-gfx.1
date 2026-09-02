@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE0DDC61DD3
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 01:48:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C709C61DD6
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 01:58:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5508C10E41A;
-	Wed,  2 Sep 2026 01:48:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8056910E3D9;
+	Wed,  2 Sep 2026 01:58:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DK4w0VyX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Knj6QFRF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 406E810E41A
- for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 01:48:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB9C010E3D9
+ for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 01:58:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 12E9043E51;
- Wed,  2 Sep 2026 01:48:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDCCB1F000E9;
- Wed,  2 Sep 2026 01:48:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7C8B543B7F;
+ Wed,  2 Sep 2026 01:58:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7331F000E9;
+ Wed,  2 Sep 2026 01:58:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788313722;
- bh=nG3Ilno/RVKbtmm8kJVXhqm7exIvzzwLh2k/qZWY7PU=;
+ s=k20260515; t=1788314320;
+ bh=0IxTXEalaKT9+CSs84CNyFwTUVf3WJiIko2C8GgtmJg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DK4w0VyX9/7v11cpLROG5QAMqUPnT+FZiWE9qSpzHSxrQSZwhU76BvjwAs2mMUiFI
- euTaLi006K3JO1yYbUda95IbG0kabAo+VZnDSuV1ntjFQC0rPrjaxJO6UqB42r/Wqd
- m4Vijnb3FyB/X/g9lywYrVolwB4ZHfGeK6B6uwAQIF+aGq7GLNf96jtINOSgOB29Sw
- LU/FwzBpwpE3ExPOAiv3QzrWL8XR+0XQx2brVjcKYomhYbN3Ngm7iJD9/47hyXVcPd
- R8zaWYy8mT9kFAaod0Z3KScUAu4FckhyHUixsMs8GcgjLFWD4RWtABYqRVJ5rluAmT
- I36IMdTyMtmsA==
+ b=Knj6QFRFpCkETXYpvya8rBKPYmYCWABP/6wiuS4P2JJfMxaWNRc93zTqu+WSJ0yoh
+ f1Qr4osHNKDuyaTKweFm58X7uE+qS8eQ5COWhNtNTXyjefm0QH8ZxFkHgrSvE3UBvT
+ wn8v+ifx/eYHHR+fdziB50gIFY0yljYf6Q2cqLGFfx66i9iA94O8xqGsQOuMokiAdw
+ DZWfp49Jt0k3SBJeZKOyEitO5hbuW7GprP6HFstnw36ifGfkOcUcTzQ3OL855c+FSL
+ aG/1uKqP+ffZIL6H+qoiGtxQxa7Qj5Kbi5om9tPz7iXq5Xcyj+SWT6lYqICAOWrl9k
+ 87WRoSuTJv5Yw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/i915/display: Enable VRR/HDR over MST
+Subject: Re: [PATCH v3] drm/i915/display: send null DRM infoframe when
+ ending HDR transmission
 To: "Xiao Lu" <xiaolu.xie@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260902012852.250993-1-xiaolu.xie@intel.com>
-References: <20260901132601.239131-1-xiaolu.xie@intel.com>
- <20260902012852.250993-1-xiaolu.xie@intel.com>
+In-Reply-To: <20260902014146.251988-1-xiaolu.xie@intel.com>
+References: <20260901130649.237080-1-xiaolu.xie@intel.com>
+ <20260902014146.251988-1-xiaolu.xie@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 01:48:41 +0000
-Message-Id: <20260902014841.BDCCB1F000E9@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 01:58:39 +0000
+Message-Id: <20260902015840.3D7331F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,156 +58,115 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] AS-SDP computation is broken for MST streams because the branch de=
-vice check unconditionally returns false.
-- [High] VRR capability caching is incorrectly tied to DSC support, silentl=
-y breaking VRR on MST monitors that lack DSC.
-- [High] DP_MSA_TIMING_PAR_IGNORE_EN is unconditionally enabled based on ca=
-pability rather than active VRR state.
-- [High] Dynamic creation of `vrr_capable_property` after device registrati=
-on during MST hotplug triggers a kernel WARN_ON and leaks memory.
+- [High] The logic intended to send a null DRM infoframe for 2 seconds fail=
+s to enforce the CTA-861-H requirement, either transmitting the infoframe i=
+ndefinitely during SDR operation or stopping prematurely on subsequent mode=
+sets, and forces an unnecessary full modeset.
 --
 
-commit 67043be5215717a8902d6610575b918e36e9945a
+commit 76ba1f2a6961be364a75dece13a26afe2ad6b08f
 Author: Xiao Lu <xiaolu.xie@intel.com>
+Subject: drm/i915/display: send null DRM infoframe when ending HDR transmis=
+sion
 
-drm/i915/display: Enable VRR/HDR over MST
+This commit modifies the DP and HDMI display paths to send a zeroed DRM
+infoframe when transitioning from HDR to SDR. This intends to fulfill the
+CTA-861-H requirement to send this null infoframe for at least 2 seconds
+rather than abruptly stopping HDR metadata transmission.
 
-This commit introduces VRR and HDR metadata support over MST display stream=
-s.
-It caches the downstream port's MSA timing par ignore capability and enables
-AS-SDP and VSC SDP computation and transmission for MST connectors.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index 6a869d0f6ffc0..657440e2cb648 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-
-[ ... ]
-
-> @@ -793,6 +793,9 @@ static int mst_stream_compute_config(struct intel_ato=
-mic_state *state,
->  			bxt_dpio_phy_calc_lane_lat_optim_mask(pipe_config->lane_count);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 0cd5e6b5034cf..f71e2a021663a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3231,14 +3231,29 @@ intel_dp_in_hdr_mode(const struct drm_connector_s=
+tate *conn_state)
+>  static void
+>  intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+>  					    struct intel_crtc_state *crtc_state,
+> -					    const struct drm_connector_state *conn_state)
+> +					    const struct drm_connector_state *conn_state,
+> +					    const struct drm_connector_state *old_conn_state)
+>  {
+>  	struct intel_display *display =3D to_intel_display(intel_dp);
+>  	int ret;
+>  	struct hdmi_drm_infoframe *drm_infoframe =3D &crtc_state->infoframes.dr=
+m.drm;
 > =20
->  	intel_vrr_compute_config(pipe_config, conn_state);
-> +	intel_dp_compute_as_sdp(intel_dp, pipe_config);
+> -	if (!conn_state->hdr_output_metadata)
+> +	if (!conn_state->hdr_output_metadata) {
+> +		/*
+> +		 * CTA-861-H requires ending HDR metadata transmission by
+> +		 * sending a DRM infoframe with EOTF=3D0 and all fields zero
+> +		 * for at least 2 seconds, rather than abruptly stopping.
+> +		 * Abruptly stopping causes DP-to-HDMI converters to latch
+> +		 * the previous HDR metadata and forward it to the HDMI sink,
+> +		 * resulting in color errors on SDR content.
+> +		 */
+> +		if (old_conn_state && old_conn_state->hdr_output_metadata) {
+> +			hdmi_drm_infoframe_init(drm_infoframe);
+> +			crtc_state->infoframes.enable |=3D
+> +				intel_hdmi_infoframe_enable(HDMI_PACKET_TYPE_GAMUT_METADATA);
+> +		}
 
 [Severity: High]
-Will this AS-SDP computation actually run for MST topologies?
+Does this logic fulfill the 2-second CTA-861-H requirement mentioned in the
+comment? The zeroed infoframe is enabled here when transitioning from HDR to
+SDR, but it doesn't appear to be disabled by a timer after 2 seconds. Can
+this lead to indefinite transmission of the null infoframe during SDR
+operation if no subsequent commits occur?
 
-In intel_dp_compute_as_sdp() (which calls intel_dp_needs_as_sdp()), there is
-an existing check that unconditionally disables AS-SDP for branch devices:
+Furthermore, because this logic strictly relies on
+old_conn_state->hdr_output_metadata, won't the very next atomic commit
+involving the connector evaluate this as false? That would drop the DRM
+infoframe enable bit, causing intel_pipe_config_compare() to flag a mismatch
+in infoframes.enable. Will this force an unexpected full modeset on the
+subsequent commit?
 
-drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_needs_as_sdp()
-    if (drm_dp_is_branch(intel_dp->dpcd))
-        return false;
-
-Since the primary DP device in an MST topology is always a branch device
-(the MST hub), this check will always return false, silently aborting the
-AS-SDP logic you are enabling here.
-
-[ ... ]
-
-> @@ -1274,6 +1295,24 @@ static void mst_stream_pre_enable(struct intel_ato=
-mic_state *state,
-> =20
->  	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, t=
-rue);
-> =20
-> +	if (intel_vrr_is_capable(connector)) {
-> +		u8 val;
-> +		ssize_t ret;
-> +
-> +		ret =3D drm_dp_mst_dpcd_read(&connector->mst.port->aux,
-> +					   DP_DOWNSPREAD_CTRL, &val, 1);
-> +		if (ret < 0) {
-> +			drm_dbg_kms(display->drm,
-> +				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
-> +				    connector->base.base.id,
-> +				    connector->base.name, ret);
-> +		} else {
-> +			val |=3D DP_MSA_TIMING_PAR_IGNORE_EN;
-> +			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
-> +					      DP_DOWNSPREAD_CTRL, &val, 1);
-> +		}
+>  		return;
 > +	}
 
-[Severity: High]
-Does this alter the sink behavior unconditionally, even when VRR is not act=
-ive?
-
-The DP_MSA_TIMING_PAR_IGNORE_EN bit is being written based solely on
-intel_vrr_is_capable(connector), bypassing any check for whether VRR is
-actually enabled for this atomic state (e.g. crtc_state->vrr.enable).
-
-This will program the sink to ignore MSA video timings even when a fixed
-refresh rate is active. Could this lead to display corruption or sync loss
-on monitors that expect strict MSA timings during fixed-refresh operation?
-
 [ ... ]
 
-> @@ -1745,6 +1799,14 @@ static int mst_topology_add_connector_properties(s=
-truct intel_dp *intel_dp,
->  	if (connector->base.max_bpc_property)
->  		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
+i915/display/intel_hdmi.c
+> index 9b637e38a1a51..bdacad8ea30a3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> @@ -856,8 +856,25 @@ intel_hdmi_compute_drm_infoframe(struct intel_encode=
+r *encoder,
+>  	if (!crtc_state->has_infoframe)
+>  		return true;
 > =20
-> +	/*
-> +	 * Reuse the vrr_capable prop from the eDP connector (which is always
-> +	 * initialized during driver load before device registration), because
-> +	 * we're not allowed to create new props after device registration.
-> +	 */
-> +	if (HAS_VRR(display))
-> +		drm_connector_attach_vrr_capable_property(&connector->base);
+> -	if (!conn_state->hdr_output_metadata)
+> +	if (!conn_state->hdr_output_metadata) {
+> +		const struct drm_connector_state *old_conn_state =3D
+> +			drm_atomic_get_old_connector_state(conn_state->state,
+> +							   conn_state->connector);
+> +		/*
+> +		 * CTA-861-H requires ending HDR metadata transmission by
+> +		 * sending a DRM infoframe with EOTF=3D0 and all fields zero
+> +		 * for at least 2 seconds, rather than abruptly stopping.
+> +		 * Abruptly stopping causes DP-to-HDMI converters to latch
+> +		 * the previous HDR metadata and forward it to the HDMI sink,
+> +		 * resulting in color errors on SDR content.
+> +		 */
+> +		if (old_conn_state && old_conn_state->hdr_output_metadata) {
+> +			hdmi_drm_infoframe_init(frame);
+> +			crtc_state->infoframes.enable |=3D
+> +				intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_DRM);
+> +		}
 
 [Severity: High]
-Does this safely reuse the property without triggering a kernel WARN_ON?
+Similarly for the HDMI path in intel_hdmi_compute_drm_infoframe(), does this
+suffer from the same indefinite transmission and fastset mismatch issues on
+subsequent atomic commits as the DP path?
 
-Although the comment mentions reusing the vrr_capable property, the code
-does not seed connector->base.vrr_capable_property with the shared property
-pointer before calling drm_connector_attach_vrr_capable_property().
-
-Because it is unseeded, drm_connector_attach_vrr_capable_property() will
-try to allocate a new property via drm_property_create_bool(). Creating
-new properties after device registration is forbidden and triggers a
-WARN_ON in __drm_mode_object_add().
-
-This will also permanently leak a DRM property object in the device's
-global property list on every MST hotplug.
-
-[ ... ]
-
-> @@ -1761,6 +1823,9 @@ intel_dp_mst_read_decompression_port_dsc_caps(struc=
-t intel_dp *intel_dp,
->  	if (drm_dp_read_dpcd_caps(connector->dp.dsc_decompression_aux, dpcd_cap=
-s) < 0)
->  		return;
-> =20
-> +	connector->dp.mst_msa_timing_par_ignore =3D
-> +		drm_dp_sink_can_do_video_without_timing_msa(dpcd_caps);
-
-[Severity: High]
-Will VRR be disabled on MST monitors that do not support DSC decompression?
-
-The flag mst_msa_timing_par_ignore is populated here, but this function has
-an early return higher up:
-
-    if (!connector->dp.dsc_decompression_aux)
-        return;
-
-For non-DSC MST displays, this flag remains uninitialized (false). Later,
-intel_vrr_is_capable() relies on this cached value to determine VRR
-support:
-
-drivers/gpu/drm/i915/display/intel_vrr.c:intel_vrr_is_capable()
-    if (!connector->dp.mst_msa_timing_par_ignore)
-        return false;
-
-This will cause intel_vrr_is_capable() to unconditionally reject VRR for
-any MST display that lacks a DSC decompression AUX port.
+>  		return true;
+> +	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902012852.2509=
-93-1-xiaolu.xie@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902014146.2519=
+88-1-xiaolu.xie@intel.com?part=3D1
