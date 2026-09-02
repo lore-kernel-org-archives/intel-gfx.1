@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E01EC624D9
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 08:18:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38DF1C624DC
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 08:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2AFE10F06F;
-	Wed,  2 Sep 2026 08:17:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4746410F07A;
+	Wed,  2 Sep 2026 08:18:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JTcsIsT+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eOdGz3+J";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8DEB10F06E;
- Wed,  2 Sep 2026 08:17:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29F3B10F06F;
+ Wed,  2 Sep 2026 08:17:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788337078; x=1819873078;
+ t=1788337079; x=1819873079;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=j5FTH8pdH7UfDh7WnhuRF9TeQUGKW/WrS4djrylpDKQ=;
- b=JTcsIsT+rkGRxU0VPkyBgZGecfwIMjSSoQB7BLuoK3PlOAk3KtaiM+So
- KmcEx+dmXf5HtcPdJ1R3Fqp2hLZObYTyLT2kBXRH3E+4o2lFQsRf5P3n3
- QZQVu3fmwAqj00vsrJqvqqySS3Pu0zlor5B1YgvmffnGMJNi6P8DWP8Js
- Babz7I0K99KwOrZZpx59xku44Lm8gRsk/JPDrLYiE1ofkNvuGtZ7ZS6h0
- kPjXLw6IuguBfeGJGa22HjlenPWJy5wfNYErAKYDlml+W0x43GrGiBWaF
- u7qRtHeJvQYkKs3RiUgu3jVJmtckRBm4mIdG2oB7r2hNr9B5Rvt03dSxU A==;
-X-CSE-ConnectionGUID: S7U+BhgsQ3Sv2MDjjw2c1g==
-X-CSE-MsgGUID: mlnaLVItTQKbfhxqqz8xAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="100299817"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="100299817"
+ bh=g9coBMH/txDMEwqBelPlzvFBXtkx76A4L7OwTR6Nanc=;
+ b=eOdGz3+JNjVDk2t7OMH/Gjjm64Jxxum1sOmBsTIRZrby5zy/7qd3khcH
+ gVZdtRdnpPFgiBMFIitAk41AKGg0hERPww9uhF4GcGSWoWVcmqOywb5oB
+ kQ4zJ0Oj7VojOVgCTNiX6wOA6Bbz1Mruay26AlJ2IVI1j3ixAm7FP/Xuv
+ sKDDCZ5FXjWAxKo+WAxNM0U6IuOrr3FDScfWTyrgemY5HlOw7zB+sxMXi
+ rxjMkEcjhsvtu0uuPLunGaPnGSkCN7qQVhm9a1PXOpHgDFWIWCFwu7HKD
+ Hjd4mfos+BEHCIlECszvBpENw6/5Nu2YjraGCigID67AMX/3UIupKg0OI Q==;
+X-CSE-ConnectionGUID: e+kHNeWATf674uijpcFqzQ==
+X-CSE-MsgGUID: B+bIsaEsRPS3U97zAibYpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="100299818"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="100299818"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 01:17:57 -0700
-X-CSE-ConnectionGUID: Hqsq2J/zTVWiLGuemvR9eA==
-X-CSE-MsgGUID: kpnZWHSUTEeKDe2JrWvDNg==
+ 02 Sep 2026 01:17:59 -0700
+X-CSE-ConnectionGUID: kSQpfQFASbCaUpq8Mppysw==
+X-CSE-MsgGUID: G5GP1LHeTM+MKr/Xplgpow==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="263193675"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="263193676"
 Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa009.fm.intel.com with ESMTP; 02 Sep 2026 01:17:57 -0700
+ by fmviesa009.fm.intel.com with ESMTP; 02 Sep 2026 01:17:58 -0700
 From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Subject: [CI 5/9] drm/i915/color: Add support for 1D LUT in SDR planes
-Date: Wed,  2 Sep 2026 13:24:13 +0530
-Message-ID: <20260902075417.656673-6-chaitanya.kumar.borah@intel.com>
+Subject: [CI 6/9] drm/i915/color: Extract HDR post-CSC LUT programming to
+ helper function
+Date: Wed,  2 Sep 2026 13:24:14 +0530
+Message-ID: <20260902075417.656673-7-chaitanya.kumar.borah@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260902075417.656673-1-chaitanya.kumar.borah@intel.com>
 References: <20260902075417.656673-1-chaitanya.kumar.borah@intel.com>
@@ -66,35 +67,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Extend the SDR plane color pipeline to post-CSC 1D LUT block.
+From: Pranay Samala <pranay.samala@intel.com>
 
-v2:
- - In preparation of a simple pipeline
-	[YUV Full/Limited -> RGB] -> [1D LUT]
-   Drop pre-CSC LUT from the pipeline as it has no use in a YUV -> RGB
-   pipeline. This makes the pipeline simple since the block lies between
-   the YUV range correct block and Fixed function CSC. It can be added back
-   when [RGB709 -> RGB2020] capability is added. Then it can be used for
-   linearization.
+Move HDR plane post-CSC LUT programming to improve code organization.
 
+While at it, remove the segment 0 index register writes as it is not
+currently programmed.
+
+Signed-off-by: Pranay Samala <pranay.samala@intel.com>
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color_pipeline.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/display/intel_color.c | 35 ++++++++++++----------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-index efd4375c4331..53e55ce0a5a3 100644
---- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-+++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-@@ -45,6 +45,7 @@ static const enum intel_color_block hdr_plane_pipeline[] = {
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 87ced9f6ff40..36c8688ed28e 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -3998,25 +3998,17 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
+ }
  
- static const enum intel_color_block sdr_plane_yuv_pipeline[] = {
- 	INTEL_PLANE_CB_CSC_FF,
-+	INTEL_PLANE_CB_POST_CSC_LUT,
- };
+ static void
+-xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
+-				 const struct intel_plane_state *plane_state)
++xelpd_load_hdr_post_csc_lut(struct intel_display *display,
++			    struct intel_dsb *dsb,
++			    enum pipe pipe,
++			    enum plane_id plane,
++			    const struct drm_color_lut32 *post_csc_lut)
+ {
+-	struct intel_display *display = to_intel_display(plane_state);
+-	const struct drm_plane_state *state = &plane_state->uapi;
+-	enum pipe pipe = to_intel_plane(state->plane)->pipe;
+-	enum plane_id plane = to_intel_plane(state->plane)->id;
+-	const struct drm_color_lut32 *post_csc_lut = plane_state->hw.gamma_lut->data;
+ 	int i, lut_size = 32;
+ 	u32 lut_val;
  
- static const u64 intel_plane_supported_csc_ff =
+-	if (!icl_is_hdr_plane(display, plane))
+-		return;
+-
+ 	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, plane, 0),
+ 			   PLANE_PAL_PREC_AUTO_INCREMENT);
+-	/* TODO: Add macro */
+-	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH(pipe, plane, 0),
+-			   PLANE_PAL_PREC_AUTO_INCREMENT);
+ 
+ 	for (i = 0; i < lut_size + 3; i++) {
+ 		if (post_csc_lut) {
+@@ -4036,8 +4028,21 @@ xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
+ 	}
+ 
+ 	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, plane, 0), 0);
+-	intel_de_write_dsb(display, dsb,
+-			   PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH(pipe, plane, 0), 0);
++}
++
++static void
++xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
++				 const struct intel_plane_state *plane_state)
++{
++	struct intel_display *display = to_intel_display(plane_state);
++	const struct drm_plane_state *state = &plane_state->uapi;
++	enum pipe pipe = to_intel_plane(state->plane)->pipe;
++	enum plane_id plane = to_intel_plane(state->plane)->id;
++	const struct drm_color_lut32 *post_csc_lut = plane_state->hw.gamma_lut ?
++		plane_state->hw.gamma_lut->data : NULL;
++
++	if (icl_is_hdr_plane(display, plane))
++		xelpd_load_hdr_post_csc_lut(display, dsb, pipe, plane, post_csc_lut);
+ }
+ 
+ static void
 -- 
 2.50.1
 
