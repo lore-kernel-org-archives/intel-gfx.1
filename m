@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB102C624D3
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 15:38:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EBE3C61DD6
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 15:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 228FC10F290;
-	Wed,  2 Sep 2026 15:38:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF6E10F29F;
+	Wed,  2 Sep 2026 15:48:13 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCC3410F290;
- Wed,  2 Sep 2026 15:38:40 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99F7510E517;
+ Wed,  2 Sep 2026 15:48:12 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3999525957148544082=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/psr=3A?=
- =?utf-8?q?_clear_the_Panel_Replay_error_status_register?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/panic=3A_Split_into_c?=
+ =?utf-8?q?ore_and_helpers_=28rev3=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jake Steinman" <j@metarealtyinc.ca>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 02 Sep 2026 15:38:40 -0000
-Message-ID: <178836352089.112572.3277829800501191535@61270ab9df2a>
+Date: Wed, 02 Sep 2026 15:48:12 -0000
+Message-ID: <178836409262.112573.13622773036460730386@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260901203633.92628-1-j@metarealtyinc.ca>
-In-Reply-To: <20260901203633.92628-1-j@metarealtyinc.ca>
+References: <20260902121930.597222-1-tzimmermann@suse.de>
+In-Reply-To: <20260902121930.597222-1-tzimmermann@suse.de>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,17 +41,105 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============3999525957148544082==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
-Series: drm/i915/psr: clear the Panel Replay error status register
-URL   : https://patchwork.freedesktop.org/series/173213/
-State : failure
+Series: drm/panic: Split into core and helpers (rev3)
+URL   : https://patchwork.freedesktop.org/series/172395/
+State : success
 
 == Summary ==
 
-Series author address 'j@metarealtyinc.ca' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/186563/ (on built-in)
+CI Bug Log - changes from CI_DRM_19073 -> Patchwork_172395v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v3/index.html
+
+Participating hosts (38 -> 37)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
 
 
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19073 -> Patchwork_172395v3
+
+  CI-20190529: 20190529
+  CI_DRM_19073: be95a6d80ceeed520c4444e047e7dd5d42a43a4a @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9079: 9079
+  Patchwork_172395v3: be95a6d80ceeed520c4444e047e7dd5d42a43a4a @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v3/index.html
+
+--===============3999525957148544082==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/panic: Split into core and helpers (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172395/">https://patchwork.freedesktop.org/series/172395/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19073 -&gt; Patchwork_172395v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v3/index.html</p>
+<h2>Participating hosts (38 -&gt; 37)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19073 -&gt; Patchwork_172395v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19073: be95a6d80ceeed520c4444e047e7dd5d42a43a4a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9079: 9079<br />
+  Patchwork_172395v3: be95a6d80ceeed520c4444e047e7dd5d42a43a4a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3999525957148544082==--
