@@ -4,54 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF551C61DFD
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36A2AC61DFD
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:20:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28A9C10E452;
-	Wed,  2 Sep 2026 05:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64BF810E669;
+	Wed,  2 Sep 2026 05:20:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Efn4DPhO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ou6W6+DT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CBB510E452
- for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:14:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF1A010E43F;
+ Wed,  2 Sep 2026 05:20:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788326076; x=1819862076;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=BRHH/+HmCJYhOuqhqAaO3A+lE3M8FG2nclBoDSC632U=;
- b=Efn4DPhOZhDQUl2EPSs4dlvX2OL+2Y1RBHP3KY5QQECELlrkkPeGTMFT
- RRlmao6L4MYUkeXbmPZgyT1oyqaXj+zT1aH6X4a3WJlKwNVP++ghM9dSE
- 0ftVAVbSnUPvW7ep+Pe3Mh2DpwkaPevdZ2DT+77/PnHeRDgLmJ9vph3+f
- MlWUCkefQX3QlAKtOX9vvbaOxqRriWK2kdZILGBx5acnyzBf9uTezrZj7
- oHsKLEku2oqNaprrw/qqB7qv1CTKsDrodP/S8Y+qrfFEshQtuHXfhBQ5l
- EsuuIqonzXQBPbgJAcQwOvTh0Z32/yI/Ed/VKfyqJ48k1Nqxup6C0+k8t Q==;
-X-CSE-ConnectionGUID: ZDzCbN8aSlWDfAUq5KDxKg==
-X-CSE-MsgGUID: ExN8kpCQSjaXywoHcrGImw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106141890"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="106141890"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 22:14:35 -0700
-X-CSE-ConnectionGUID: pS5zM2f/TNW4DYZtEukLdQ==
-X-CSE-MsgGUID: QDZox0E5QmacaUm1Uwzvcw==
+ t=1788326401; x=1819862401;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=F+Q+3cLV2UZXN+PqCZ6hnLr69mXJMYI1NOVFLGAe/ug=;
+ b=Ou6W6+DT9UEt/94E2nFsLBf24oGTCQVOwgQCiP5LIwry6xNBYEpZY9Kd
+ RxoWBiiTMCz559ApFKe+DiVU/x5LEz+vEdnYNe+H2YAFQZHAKk/sOhDGa
+ DFwRX43bV1pVVq4fYs0z3NXErufwJGCQZ1nsv2116/83t6NHxXb04HKJ9
+ OGUMt7bDJuqMkY5EnKyZkL47QGWTuXpwtPGP0eQKTggnOj70ioAl2p5Xm
+ RkfHiQv35YHNScky4rmGoVnf6Inu0DPliL9iUMcE7uwJjnT7bsiHAUoqr
+ DQ3NTV591+fHjA23rBKQG8HZdxrb41ev6reWQQKto0ZotHzLLsoIRwpzm w==;
+X-CSE-ConnectionGUID: +M4GtGlUTQqI5W4MhrvdMg==
+X-CSE-MsgGUID: LCWeq77zTGSbR0tFmqLolg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88621949"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="88621949"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 22:20:00 -0700
+X-CSE-ConnectionGUID: V3/958BmQ1GitvByOs/a4A==
+X-CSE-MsgGUID: gE1Ex+UqRmmjW3WAeqxXZQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="292814306"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by fmviesa002.fm.intel.com with ESMTP; 01 Sep 2026 22:14:34 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
- imre.deak@intel.com, Xiao Lu <xiaolu.xie@intel.com>
-Subject: [PATCH v6] drm/i915/display: Enable VRR/HDR over MST
-Date: Wed,  2 Sep 2026 13:12:06 +0800
-Message-ID: <20260902051206.264215-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901132601.239131-1-xiaolu.xie@intel.com>
-References: <20260901132601.239131-1-xiaolu.xie@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="273492088"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 22:20:00 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 1 Sep 2026 22:19:59 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 1 Sep 2026 22:19:59 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.49) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 1 Sep 2026 22:19:58 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NGwUoA5//9AHGvpLiDiy4cRSYh+MAeMZEIsnOUXxAupQlDmHS8TyVE/cLTPKpo7MgTPUwxgPnChvl1ORkUPgkac1I4l/Nsq+NCzMTDv4LUfBcd7TU5NDFcIySUwtFsOBDDWavy2/aiw4td8kWyIe/eUmuHjedVxJD53f8BqUoJ/BzurrlKsMecKezD3vhLzALKAFF2VW3MKtZblO5w8c/Z6mm2eiG8ENemsvU9HYLMZtqbfFY8dR32m7OcuprgcECk4emZGyiH+YjEBUd5X3P19aGHTxq5i628uuQxDKzFQSXNDaumJ+LhfrsQeK/r6YprKUpauwdOep6Gxm/HI67Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F+Q+3cLV2UZXN+PqCZ6hnLr69mXJMYI1NOVFLGAe/ug=;
+ b=s2/UFuDiDaNxdOa3xne1R8uu1hDul7ZjwGr458ms0pbi9gpe70wXeDeWhGR+Bdz3IFZqDzhoQSlOcYbPEjitJrre8RwyxOVPKtwyGMbfXmBrpzUzbkNsTm2moGcIfZODe6sQ77tF4GSoF0+pggH46qcGntHMnyl9E3rKup4z7ZrLNQs6rJcRCY4OgCCvCkdXc/L7QTHRIpjIleO3ohJYMt24/aeDLPSTkK9xo7FvT3U1RYUSGUBbdeacIw0GHaX1ZcNa1mLfVLP3L/IrKL0JeGg8SPoc/sgqEJRcYcddiEP7OC6qIXScRk2aHDFDXHPVVeLqYfzuTQgJsq3IAWTv4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
+ PH4PPF3D73251BC.namprd11.prod.outlook.com (2603:10b6:518:1::e65) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 05:19:57 +0000
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::9086:5e0b:ad24:762]) by DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::9086:5e0b:ad24:762%6]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 05:19:57 +0000
+From: "Hogander, Jouni" <jouni.hogander@intel.com>
+To: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Manna, 
+ Animesh" <animesh.manna@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>, "Nautiyal, Ankit K"
+ <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH] drm/i915/alpm: Fix swapped wake lines in LOBF late config
+Thread-Topic: [PATCH] drm/i915/alpm: Fix swapped wake lines in LOBF late config
+Thread-Index: AQHdNFqltaGod/zjOE+TrCEn667Y3La6zKwA
+Date: Wed, 2 Sep 2026 05:19:57 +0000
+Message-ID: <302d556a0ec9801f8d61c8dc18d010a9f16860d5.camel@intel.com>
+References: <20260825055239.3455987-1-animesh.manna@intel.com>
+In-Reply-To: <20260825055239.3455987-1-animesh.manna@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|PH4PPF3D73251BC:EE_
+x-ms-office365-filtering-correlation-id: e0b8fcb8-7bc3-45a7-233e-08df08b1d43d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|11063799006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: xycl+n6EZ97YNyIjudBoeRZGezOkAetiOD7/3tyYveaYIQSpXhColQknGFFeToP6bILLgQiWEr6ZGAGm784Qi4VvTJ7UcxYtg47H+iKPpCgO7SDseS66rxWh3srIJ1106MQY3WJOpgM6D3ziYTdfDPQQHlnVJnka+N6qNbczodZL+TvMIjqBwcE/n0OI0ehk4ida1mFxc3G5l9hz6bHmEgJLo1qUPRrsTgd99/q5/hwJ9HuvzptG/dnOhqEeVaintzlgAfc6g7Gpd7yXGb2+kVeVWZqsvaGGWF/naw/gx/UhZK1tnRxzpDO5DjXtYoOD1O8rZXk/7Dq5VwVSb3NWxlu/S7uN0MhkZMu/lCO1e5Q8kKEUzWlYo2ap/yPNSaTvpC4NKtYw6gaaLYP/lpWVwph2Ah5n+vxqUaobptQmFOQ6huVTl8qMjEHKMmDGZNvXx3A+RXIc/JHImM0jfwA+GKQ2nus30Jr9E17poWf4sJyiLARU988mbKopm4UPn3DuVo3+/Qf2KdFPvSR/EVdS0ltr2RZ0XfzwHVbmKbYdeTbEALZdUiBW6a95iN+vx1RCqbK1toeQw41Ot5OHvA8cjQ42NyxJQCA7KLb1GJRVfgujmZ0p8/2QEDsG2L99bMYMkBjFk/knXQZYXx9jbxaPWeWFh2lzXOmFw3vkhoyX1kuHDY0unZ4i+bkOyajLYZlsm9bnfRpXIPXmmybbyDBXVzhxPhL1N7ggyKUjIEUFN/0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB6019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZWVtUUtaUS9qdlE1ZTkzNG5vdlk5VG9weGhOYlBoR3FUTHZHbWFIUy81RlIr?=
+ =?utf-8?B?QTlGNXdpaEpQL2hoUHhKd2VZR3VNYko0NURoL3E0L245YnFuSzNBMzBUQUE0?=
+ =?utf-8?B?aUN6a25RRVRxT3JjS0gxZ3lMV0dKSTNGZ0hEUDlvc0sxeVRWR202ak5RNHZB?=
+ =?utf-8?B?MGczWXQrRXV6OHFDUFNJRjR4ZDhjd3U1N3liUjRUM2VkN1ZEU3dSNE1aeC80?=
+ =?utf-8?B?UmxjT2VUamxrLzZIbUY1bFRDODl2bE16VTA3c2dZdDJ1R2w5L0dWbzFYZnVp?=
+ =?utf-8?B?cVYwdzE1cWs3WmNkUnRTZ2NCM0ZGUjBtNDcyaWhqekxsTnhIaGxzelVhSkVp?=
+ =?utf-8?B?YlkrWFp1K2c3OEpjVzlEVTVZdlZHNXozY2JwTTFhRjZHdXg2Vk5DVlZPRkxa?=
+ =?utf-8?B?VENyeDRXelcxTHVtTkx3L2UybWJwTUhkMUs4Mk9lTXdDQ3FHMEhua1dEQVpn?=
+ =?utf-8?B?OUd6czM2TnFGVkoybWhzcHRHemFxYlNhK3N3dTFTOW5UeFh5SnI0VEl6c3V1?=
+ =?utf-8?B?UVhtTUlKLzVUbzlhQWw0T1hoSkxyVVZlazhwbjgzY1FFZFlNNkMwWHFDd1Yz?=
+ =?utf-8?B?K2Q2UXR3UlhPZWJRc0xkRXRxWXI0WlEvWDU4WjUwUk94bWpNOW9hYjdML01C?=
+ =?utf-8?B?eThCZzc3eDBoYWZrYmMrTHBmWXBnNUVhQ1ZxNTIrV3pPTTJyayswNFc4aVJn?=
+ =?utf-8?B?M2xaMUZocndFYkRJWTRFMVd3a0dBdGxoZ1hsd0NHYzdERHhOb2pOemhDZTNU?=
+ =?utf-8?B?TUdpQitRRkkvbTBmNDRxTW9ieUNmVmtaOWFQU3RLLzdxclN3aUJBQ3VXUm9G?=
+ =?utf-8?B?eGtPcXZBVkNrS3djYVNpR3JsT3B4Vk5KQ0JGcFJQMVdIMXlKL1FjMVRTZHNu?=
+ =?utf-8?B?TmNITHQxT2hGa3dadjEzR1R5YXFobTBJeDNpUllyQXB1aFdzUThUemdZMEZL?=
+ =?utf-8?B?Qm9mTnd4MkU2Qno2bmRDYjdLY2dnR3dOVjBsYllmTytObW1ER080UlFMOGwx?=
+ =?utf-8?B?dlNRcFBtR09wQ1ptTDRxSnloRlczVFljYTV3aU9NREJiYm82STRoSGp6UzJH?=
+ =?utf-8?B?WVlUcHRVSm5jOEJ1WldHeHN3anUzZWJuUTJYVVMxbE5IVS9aQ0I0NjRTSXlu?=
+ =?utf-8?B?cGdJbUlmWTdUMUJqS0RFdW5NVjdlWWh1Z29GYjg0THRQYjFPemNTTnllUE9v?=
+ =?utf-8?B?NTg4eGtBMnRzTDZEeFIxNTluSmhoSHBCYWxZOVZoaGtoN1ozZ2dHMHN3U0ZM?=
+ =?utf-8?B?SlUyTktQcGVRSis5dFBzaEE0b1k0YzVtSWIyL2R1NjJQSGpQUmd4NHF5Qkly?=
+ =?utf-8?B?em9uSTVxSWxJR3hrd2xURWQ0bFVKQzhiclBESUhKRUpId3UweExpRzhjUm5O?=
+ =?utf-8?B?OUVpUE95YXlqN29uWGVJMDUyZndIYk9xS1pNVklpVnY5L3UwRVNrK2pybDA4?=
+ =?utf-8?B?U1FhdUxoRmw4d0lmUWI1UFE5enpYZUlwMmdrK3hZcXdxMmJLMUxQZnp3TnhP?=
+ =?utf-8?B?K3htNGtJa2ZOU2hGa1BmV2NKRkpFMllHSzVlN2UvVVlBMlF3Rmd0OGNTZkRC?=
+ =?utf-8?B?aGdKS3JvL1MyS2dxK21vVHN4NXo1TGVrTHdJbVA1c2p1eWJmTHNOYWxpZWJN?=
+ =?utf-8?B?SG03RVlLciszY01Qc0tLY29RZzVKYlowS2VKZjBFUFJFVElRUHJicll1VmZ1?=
+ =?utf-8?B?Umh4NWRadHBRdi9INUx4anY5Z0dDYW9OSUdwTFhoajFsSXpjNnFaZkZVYWVG?=
+ =?utf-8?B?WnJ4VDdBVGJ2QTk4RytLeWYwVnZqV1Z0TTVQTkxKd3Rham01enB5a0FDeU5H?=
+ =?utf-8?B?dnVSSnY0TFNtRjE1NjRyQTdjM2Zibk11QWhtSG5uSnFOdnIyUnE2UGF2MTNy?=
+ =?utf-8?B?dXJDUXIwbFRTc0dTanU5cnhQUXJPY2VseXBkUGRZcW01UWVCVDBMZDZwWFM2?=
+ =?utf-8?B?RHFRbS9xdnJtbDFoRTBwL3UwbTMrTVRqS002b2MvS1F4c0hBZ2FvTHhDRUJ5?=
+ =?utf-8?B?R2NjYUZUSk9CQlJ0NzBYcGtWYlgvUjdheXlscVEyZ1ZaRWgvMVFCTVdyZGtV?=
+ =?utf-8?B?bm9YNlB1UVppV1BuK0o2OXh4MUxUZ3h5N2VGTGdZK0JScVhvMUFlbUdNUmRu?=
+ =?utf-8?B?eUNhUmVXN0NKOVRjVnhhYkhJM2o0djUwM3dMNE5BRDZyQ21ZOUpqTk1RYW5s?=
+ =?utf-8?B?WGZ4ZUNWMTlMSVlpUDBBQ2p6WXFjMVhNajNDekxVTmI4UmgwczhZcVlIVWVD?=
+ =?utf-8?B?YkhiQjU5aU5VLzJtTEFVRHB5MkFlbGFhM1dZYUNmTk02YTlwbzhGYmp0U0pw?=
+ =?utf-8?B?Z0tNSE9OK2RQRTBKajJlSi92UWVoQjVzTU41YTR3Nng3QW9WYzFpUXBGcVpa?=
+ =?utf-8?Q?skZEk4vF+/oCWuA4=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <83312DA2B3BA944B887C9FF52CB232C9@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: dYmwXha7pI0dj7kw7Af3magVIJZeJietX2qnDoYey0JL07TPLSIOQf3nRoPCst461sMqbsP12jjT1HlJiM4/7ManYzrw8GoBG/l6r9s9dCBUFwMhcwETnLqEUts+CuTewvC/xv5r89ol0vxQUv6M1mSrXfAadQGRak9KlStYQw7PWM9KKHq69dZMX25Afc4U7cvhljpmP0YWz4isKrowswr3EFCQB5KcvrgWMuM39TQNextOxNWscvkD2VvBx/tInVSn0fnNM1R9xVs2Z/PxoOl/oKu5Gdyi63f3Y9da7s0TNSzFDqBj8EPhGtEy6fEXFuk54fCKqHO/TiDGbGmOlQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0b8fcb8-7bc3-45a7-233e-08df08b1d43d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2026 05:19:57.2556 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AQ9blchQtktsxi8FdNSmGRuGEV7ywkBJYrsKkQf8Lak0nICQ/ZzLFe9BdP3qU9gABCkF4OnkAuEFkZ4DbdxZ/EqXmXMlW8JcetlNdsyxKbk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH4PPF3D73251BC
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,376 +174,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VRR over MST:
-- Remove the hard MST block in intel_vrr_is_capable(); check the
-  downstream port's MSA timing par ignore capability via REMOTE_DPCD_READ
-  and cache it in connector->dp.mst_msa_timing_par_ignore to avoid hot
-  path sideband round-trips.
-- Read mst_msa_timing_par_ignore unconditionally from the sink's virtual
-  DPCD before the DSC decompression check, so VRR works on MST sinks
-  without DSC support.
-- Attach vrr_capable property by reusing the root SST connector's existing
-  property object (MST connectors are created post device-registration so
-  new properties cannot be created).
-- Update vrr_capable after EDID read; gate AS-SDP and
-  DP_MSA_TIMING_PAR_IGNORE_EN writes on pipe_config->vrr.enable
-  (actual state) not intel_vrr_is_capable() (capability); allow AS-SDP
-  through MST hubs by excluding only non-MST branch devices (PCONs)
-  from the branch device check.
-- Reuse colorspace property from root SST connector for MST connectors
-  to avoid WARN_ON from creating properties post device-registration.
-
-HDR metadata over MST:
-- Add VSC SDP, HDR metadata infoframe SDP and AS-SDP computation to
-  mst_stream_compute_config() and enable their transmission in
-  mst_stream_enable() and intel_ddi_update_pipe().
-- Lift the hard 8bpc pipe_bpp cap and use the bpp capability from sink
-  EDID for MST streams to allow 10bpc, relying on
-  intel_dp_mst_atomic_check_link()'s BW retry loop to fall back if the
-  link cannot fit it.
-
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c |  2 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |  3 +
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 36 ++++---
- drivers/gpu/drm/i915/display/intel_dp.h       |  8 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c   | 95 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_vrr.c      | 15 ++-
- 7 files changed, 143 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 7ce9e212770a..174fa62cb0dc 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -2164,6 +2164,7 @@ ssize_t drm_dp_mst_dpcd_read(struct drm_dp_aux *aux,
- 	return drm_dp_send_dpcd_read(port->mgr, port,
- 				     offset, size, buffer);
- }
-+EXPORT_SYMBOL(drm_dp_mst_dpcd_read);
- 
- /**
-  * drm_dp_mst_dpcd_write() - write a series of bytes to the DPCD via sideband
-@@ -2187,6 +2188,7 @@ ssize_t drm_dp_mst_dpcd_write(struct drm_dp_aux *aux,
- 	return drm_dp_send_dpcd_write(port->mgr, port,
- 				      offset, size, buffer);
- }
-+EXPORT_SYMBOL(drm_dp_mst_dpcd_write);
- 
- static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, guid_t *guid)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index b8985e1e0a81..f345d9a2154d 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3651,6 +3651,9 @@ void intel_ddi_update_pipe(struct intel_atomic_state *state,
- 		intel_ddi_update_pipe_dp(state, encoder, crtc_state,
- 					 conn_state);
- 
-+	if (intel_encoder_is_mst(encoder))
-+		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
-+
- 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
- 		intel_ddi_update_pipe_hdmi(encoder, crtc_state,
- 					   conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index b7cc361fd955..d09cf18f5376 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -564,6 +564,7 @@ struct intel_connector {
- 		u8 dsc_hblank_expansion_quirk:1;
- 		u8 dsc_throughput_quirk:1;
- 		u8 dsc_decompression_enabled:1;
-+		u8 mst_msa_timing_par_ignore:1; /* cached from MST virtual DPCD 0x007 */
- 
- 		struct {
- 			struct {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 113d767e62e9..4b196d26d27f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2682,15 +2682,18 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
- 
- 	limits->pipe.min_bpp = intel_dp_min_bpp(crtc_state->output_format);
- 	if (is_mst) {
-+		struct intel_connector *mst_connector =
-+			to_intel_connector(conn_state->connector);
-+		int sink_bpc = mst_connector->base.display_info.bpc ?: 8;
-+
- 		/*
--		 * FIXME: If all the streams can't fit into the link with their
--		 * current pipe_bpp we should reduce pipe_bpp across the board
--		 * until things start to fit. Until then we limit to <= 8bpc
--		 * since that's what was hardcoded for all MST streams
--		 * previously. This hack should be removed once we have the
--		 * proper retry logic in place.
-+		 * For MST streams, use the sink's EDID-reported color depth
-+		 * as the max bpp, rather than the pipe_bpp from a previous
-+		 * modeset (which may be stale) or a hardcoded 8bpc cap.
-+		 * The BW retry loop in intel_dp_mst_atomic_check_link() will
-+		 * reduce bpp if the aggregate link bandwidth is insufficient.
- 		 */
--		limits->pipe.max_bpp = min(crtc_state->max_pipe_bpp, 24);
-+		limits->pipe.max_bpp = sink_bpc * 3;
- 	} else {
- 		limits->pipe.max_bpp = intel_dp_max_bpp(intel_dp, crtc_state,
- 							respect_downstream_limits);
-@@ -3107,9 +3110,12 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 		return false;
- 
- 	/*
--	 * #TODO: Add AS SDP v1 support for PCONs (DP branch devices).
-+	 * AS-SDP is not yet supported for PCONs (DP-to-HDMI converters).
-+	 * MST hubs are also branch devices but do support AS-SDP forwarding
-+	 * to downstream sinks; allow it for MST streams.
- 	 */
--	if (drm_dp_is_branch(intel_dp->dpcd))
-+	if (drm_dp_is_branch(intel_dp->dpcd) &&
-+	    !intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST))
- 		return false;
- 
- 	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
-@@ -3119,8 +3125,8 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	return intel_vrr_possible(crtc_state);
- }
- 
--static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
--				    struct intel_crtc_state *crtc_state)
-+void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
-+			     struct intel_crtc_state *crtc_state)
- {
- 	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
- 	const struct drm_display_mode *adjusted_mode =
-@@ -3169,9 +3175,9 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 		as_sdp->coasting_vtotal = crtc_state->vrr.vmax;
- }
- 
--static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
--				     struct intel_crtc_state *crtc_state,
--				     const struct drm_connector_state *conn_state)
-+void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-+			      struct intel_crtc_state *crtc_state,
-+			      const struct drm_connector_state *conn_state)
- {
- 	struct drm_dp_vsc_sdp *vsc;
- 
-@@ -3228,7 +3234,7 @@ intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state)
- 	return hdr_metadata->hdmi_metadata_type1.eotf == HDMI_EOTF_SMPTE_ST2084;
- }
- 
--static void
-+void
- intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
- 					    struct intel_crtc_state *crtc_state,
- 					    const struct drm_connector_state *conn_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 04fae203bb69..7887ba63c7a4 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -77,6 +77,8 @@ int intel_dp_compute_config(struct intel_atomic_state *state,
- 			    struct intel_encoder *encoder,
- 			    struct intel_crtc_state *pipe_config,
- 			    struct drm_connector_state *conn_state);
-+void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
-+			     struct intel_crtc_state *crtc_state);
- bool intel_dp_needs_8b10b_fec(const struct intel_crtc_state *crtc_state,
- 			      bool dsc_enabled_on_crtc);
- void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state);
-@@ -130,6 +132,12 @@ bool intel_dp_joiner_needs_dsc(struct intel_display *display,
- bool intel_dp_has_joiner(struct intel_dp *intel_dp);
- bool intel_dp_needs_vsc_colorimetry(const struct intel_crtc_state *crtc_state,
- 				    const struct drm_connector_state *conn_state);
-+void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-+			      struct intel_crtc_state *crtc_state,
-+			      const struct drm_connector_state *conn_state);
-+void intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
-+						 struct intel_crtc_state *crtc_state,
-+						 const struct drm_connector_state *conn_state);
- void intel_dp_set_infoframes(struct intel_encoder *encoder, bool enable,
- 			     const struct intel_crtc_state *crtc_state,
- 			     const struct drm_connector_state *conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 3be1643f8d03..cbef63e94e2c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -793,6 +793,9 @@ static int mst_stream_compute_config(struct intel_atomic_state *state,
- 			bxt_dpio_phy_calc_lane_lat_optim_mask(pipe_config->lane_count);
- 
- 	intel_vrr_compute_config(pipe_config, conn_state);
-+	intel_dp_compute_as_sdp(intel_dp, pipe_config);
-+	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
-+	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
- 
- 	intel_dp_audio_compute_config(encoder, pipe_config, conn_state);
- 
-@@ -1157,6 +1160,24 @@ static void mst_stream_post_disable(struct intel_atomic_state *state,
- 	 * Power down mst path before disabling the port, otherwise we end
- 	 * up getting interrupts from the sink upon detecting link loss.
- 	 */
-+	if (old_crtc_state->vrr.enable) {
-+		u8 val;
-+		ssize_t ret;
-+
-+		ret = drm_dp_mst_dpcd_read(&connector->mst.port->aux,
-+					   DP_DOWNSPREAD_CTRL, &val, 1);
-+		if (ret < 0) {
-+			drm_dbg_kms(display->drm,
-+				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
-+				    connector->base.base.id,
-+				    connector->base.name, ret);
-+		} else {
-+			val &= ~DP_MSA_TIMING_PAR_IGNORE_EN;
-+			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
-+					      DP_DOWNSPREAD_CTRL, &val, 1);
-+		}
-+	}
-+
- 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port,
- 				     false);
- 
-@@ -1274,6 +1295,24 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
- 
- 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, true);
- 
-+	if (pipe_config->vrr.enable) {
-+		u8 val;
-+		ssize_t ret;
-+
-+		ret = drm_dp_mst_dpcd_read(&connector->mst.port->aux,
-+					   DP_DOWNSPREAD_CTRL, &val, 1);
-+		if (ret < 0) {
-+			drm_dbg_kms(display->drm,
-+				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
-+				    connector->base.base.id,
-+				    connector->base.name, ret);
-+		} else {
-+			val |= DP_MSA_TIMING_PAR_IGNORE_EN;
-+			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
-+					      DP_DOWNSPREAD_CTRL, &val, 1);
-+		}
-+	}
-+
- 	intel_dp_sink_enable_decompression(state, connector, pipe_config);
- 
- 	if (first_mst_stream) {
-@@ -1397,6 +1436,8 @@ static void mst_stream_enable(struct intel_atomic_state *state,
- 
- 	intel_enable_transcoder(pipe_config);
- 
-+	intel_dp_set_infoframes(encoder, true, pipe_config, conn_state);
-+
- 	for_each_pipe_crtc_modeset_enable(display, pipe_crtc, pipe_config) {
- 		const struct intel_crtc_state *pipe_crtc_state =
- 			intel_atomic_get_new_crtc_state(state, pipe_crtc);
-@@ -1451,6 +1492,15 @@ static int mst_connector_get_ddc_modes(struct drm_connector *_connector)
- 
- 	ret = intel_connector_update_modes(&connector->base, drm_edid);
- 
-+	if (HAS_VRR(display)) {
-+		bool vrr_capable = intel_vrr_is_capable(connector);
-+
-+		drm_dbg_kms(display->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
-+			    connector->base.base.id, connector->base.name,
-+			    str_yes_no(vrr_capable));
-+		drm_connector_set_vrr_capable_property(&connector->base, vrr_capable);
-+	}
-+
- 	drm_edid_free(drm_edid);
- 
- 	if (intel_dp_tunnel_uhbr_lanes_wa_setup(intel_dp)) {
-@@ -1735,6 +1785,22 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
- 
- 	intel_attach_force_audio_property(&connector->base);
- 	intel_attach_broadcast_rgb_property(&connector->base);
-+	/*
-+	 * Reuse the colorspace property from the root SST connector.
-+	 * MST connectors are created post device-registration so new
-+	 * properties cannot be created here.
-+	 */
-+	if (intel_dp->attached_connector &&
-+	    intel_dp->attached_connector->base.colorspace_property) {
-+		connector->base.colorspace_property =
-+			intel_dp->attached_connector->base.colorspace_property;
-+		drm_object_attach_property(&connector->base.base,
-+					   connector->base.colorspace_property,
-+					   DRM_MODE_COLORIMETRY_DEFAULT);
-+	}
-+
-+	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
-+		drm_connector_attach_hdr_output_metadata_property(&connector->base);
- 
- 	/*
- 	 * Reuse the prop from the SST connector because we're
-@@ -1745,6 +1811,23 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
- 	if (connector->base.max_bpc_property)
- 		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
- 
-+	/*
-+	 * Reuse the vrr_capable property from the root intel_dp SST connector
-+	 * which was created during driver load (before device registration).
-+	 * MST connectors are created after device registration, so we cannot
-+	 * create new properties here - we must attach the existing one.
-+	 * Also assign connector->vrr_capable_property so that
-+	 * drm_connector_set_vrr_capable_property() can update the value.
-+	 */
-+	if (HAS_VRR(display) && intel_dp->attached_connector &&
-+	    intel_dp->attached_connector->base.vrr_capable_property) {
-+		connector->base.vrr_capable_property =
-+			intel_dp->attached_connector->base.vrr_capable_property;
-+		drm_object_attach_property(&connector->base.base,
-+					   connector->base.vrr_capable_property,
-+					   0);
-+	}
-+
- 	return drm_connector_set_path_property(&connector->base, pathprop);
- }
- 
-@@ -1755,6 +1838,18 @@ intel_dp_mst_read_decompression_port_dsc_caps(struct intel_dp *intel_dp,
- 	u8 dpcd_caps[DP_RECEIVER_CAP_SIZE];
- 	struct drm_dp_desc desc;
- 
-+	/*
-+	 * Read MSA timing par ignore capability from the sink's virtual DPCD.
-+	 * This is independent of DSC support so read it before the DSC check.
-+	 */
-+	{
-+		u8 mst_dpcd[DP_RECEIVER_CAP_SIZE];
-+
-+		if (drm_dp_read_dpcd_caps(&connector->mst.port->aux, mst_dpcd) == 0)
-+			connector->dp.mst_msa_timing_par_ignore =
-+				drm_dp_sink_can_do_video_without_timing_msa(mst_dpcd);
-+	}
-+
- 	if (!connector->dp.dsc_decompression_aux)
- 		return;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 51e4f3309b8b..9737a19c1899 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -55,8 +55,19 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
- 			return false;
- 		fallthrough;
- 	case DRM_MODE_CONNECTOR_DisplayPort:
--		if (connector->mst.dp)
--			return false;
-+		if (connector->mst.dp) {
-+			/*
-+			 * Use cached MSA timing ignore capability from the DFP
-+			 * sink's virtual DPCD, set during connector init in
-+			 * intel_dp_mst_read_decompression_port_dsc_caps().
-+			 * Avoid live sideband reads here as this function is
-+			 * called from the atomic check path.
-+			 */
-+			if (!connector->dp.mst_msa_timing_par_ignore)
-+				return false;
-+
-+			break;
-+		}
- 		intel_dp = intel_attached_dp(connector);
- 		/*
- 		 * Among non-MST DP branch devices, only an HDMI 2.1 sink connected
--- 
-2.43.0
-
+T24gVHVlLCAyMDI2LTA4LTI1IGF0IDExOjIyICswNTMwLCBBbmltZXNoIE1hbm5hIHdyb3RlOg0K
+PiBpbnRlbF9hbHBtX2xvYmZfY29tcHV0ZV9jb25maWdfbGF0ZSgpIHNlbGVjdGVkIHRoZSBtYWlu
+LWxpbmsgd2FrZQ0KPiB0aW1lDQo+IHdpdGggdGhlIHR3byBjYXNlcyBpbnZlcnRlZDogd2hlbiBh
+dXgtbGVzcyB3YWtlIHdhcyBzdXBwb3J0ZWQgaXQgdXNlZA0KPiB0aGUNCj4gYXV4LXdha2UgaW9f
+d2FrZV9saW5lcywgYW5kIG90aGVyd2lzZSB0aGUgYXV4X2xlc3Nfd2FrZV9saW5lcy4gVGhpcw0K
+PiBpcyB0aGUNCj4gb3Bwb3NpdGUgb2YgdGhlIG1hcHBpbmcgdXNlZCBpbiBpbnRlbF9wc3JfY29t
+cHV0ZV9jb25maWdfbGF0ZSgpIGFuZA0KPiBvZiB0aGUNCj4gdW5kZXJseWluZyBtZWFuaW5nIG9m
+IHRoZSB0d28gdmFsdWVzLg0KPiANCj4gQXMgYSByZXN1bHQgdGhlIExPQkYgZW5hYmxlIGRlY2lz
+aW9uIChzY2wgKyBndWFyZGJhbmQgPg0KPiBmaXJzdF9zZHBfcG9zaXRpb24NCj4gKyB3YWtldGlt
+ZV9pbl9saW5lcykgd2FzIGNvbXB1dGVkIGFnYWluc3QgdGhlIHdyb25nIHdha2UgdGltZSwgc28N
+Cj4gTE9CRg0KPiBjb3VsZCBiZSBlbmFibGVkIG9yIHJlamVjdGVkIGluY29ycmVjdGx5Lg0KPiAN
+Cj4gVXNlIGF1eF9sZXNzX3dha2VfbGluZXMgd2hlbiBhdXgtbGVzcyB3YWtlIGlzIHN1cHBvcnRl
+ZCBhbmQNCj4gaW9fd2FrZV9saW5lcw0KPiBvdGhlcndpc2UsIG1hdGNoaW5nIHRoZSBQU1IgcGF0
+aC4NCj4gDQo+IENjOiBKb3VuaSBIw7ZnYW5kZXIgPGpvdW5pLmhvZ2FuZGVyQGludGVsLmNvbT4N
+Cj4gQ2M6IEFua2l0IE5hdXRpeWFsIDxhbmtpdC5rLm5hdXRpeWFsQGludGVsLmNvbQ0KPiBDYzog
+c3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiBGaXhlczogOTA5MGZhNDRhNmQ0NSAoImRybS9pOTE1
+L2FscG06IENvbXB1dGUgTE9CRiBsYXRlIGFmdGVyDQo+IGd1YXJkYmFuZCBpcyBhbHJlYWR5IGRl
+dGVybWluZWQiKQ0KPiBBc3Npc3RlZC1ieTogQ2xhdWRlOmNsYXVkZS1vcHVzLTQtOA0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBBbmltZXNoIE1hbm5hIDxhbmltZXNoLm1hbm5hQGludGVsLmNvbT4NCg0KUmV2
+aWV3ZWQtYnk6IEpvdW5pIEjDtmdhbmRlciA8am91bmkuaG9nYW5kZXJAaW50ZWwuY29tPg0KPiAt
+LS0NCj4gwqBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uYyB8IDQgKyst
+LQ0KPiDCoDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+
+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBt
+LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uYw0KPiBpbmRl
+eCBmMTM4Mzc2NGI3MDIuLjU1OWZlNmQxNGMwMSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZGlzcGxheS9pbnRlbF9hbHBtLmMNCj4gQEAgLTMxNCw5ICszMTQsOSBAQCB2b2lkIGludGVs
+X2FscG1fbG9iZl9jb21wdXRlX2NvbmZpZ19sYXRlKHN0cnVjdA0KPiBpbnRlbF9kcCAqaW50ZWxf
+ZHAsDQo+IMKgCSAqLw0KPiDCoAlmaXJzdF9zZHBfcG9zaXRpb24gPSBhZGp1c3RlZF9tb2RlLT5j
+cnRjX3Z0b3RhbCAtDQo+IGFkanVzdGVkX21vZGUtPmNydGNfdnN5bmNfc3RhcnQ7DQo+IMKgCWlm
+IChpbnRlbF9hbHBtX2F1eF9sZXNzX3dha2Vfc3VwcG9ydGVkKGludGVsX2RwKSkNCj4gLQkJd2Fr
+ZXRpbWVfaW5fbGluZXMgPSBjcnRjX3N0YXRlLQ0KPiA+YWxwbV9zdGF0ZS5pb193YWtlX2xpbmVz
+Ow0KPiAtCWVsc2UNCj4gwqAJCXdha2V0aW1lX2luX2xpbmVzID0gY3J0Y19zdGF0ZS0NCj4gPmFs
+cG1fc3RhdGUuYXV4X2xlc3Nfd2FrZV9saW5lczsNCj4gKwllbHNlDQo+ICsJCXdha2V0aW1lX2lu
+X2xpbmVzID0gY3J0Y19zdGF0ZS0NCj4gPmFscG1fc3RhdGUuaW9fd2FrZV9saW5lczsNCj4gwqAN
+Cj4gwqAJY3J0Y19zdGF0ZS0+aGFzX2xvYmYgPSAoY3J0Y19zdGF0ZS0+c2V0X2NvbnRleHRfbGF0
+ZW5jeSArDQo+IGNydGNfc3RhdGUtPnZyci5ndWFyZGJhbmQpID4NCj4gwqAJCQnCoMKgwqDCoMKg
+wqAgKGZpcnN0X3NkcF9wb3NpdGlvbiArDQo+IHdha2V0aW1lX2luX2xpbmVzKTsNCg0K
