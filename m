@@ -4,27 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBBD9C61DD3
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 03:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 044B0C61DD3
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 03:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2544610EFB7;
-	Wed,  2 Sep 2026 03:23:06 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACE410EFB7;
- Wed,  2 Sep 2026 03:23:04 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3320793384883264079=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C3ED10EFB8;
+	Wed,  2 Sep 2026 03:24:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nyEYlLw8";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4601F10EFB8
+ for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 03:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788319477; x=1819855477;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=JCs+pMbF2KT8mWO2rtQI9q6MG4xJvDTE/FejoNm0bIs=;
+ b=nyEYlLw8cXiSYqXXvADqi1GKghgy2Tcl9LVQ6QQS8cpUCfVKcEUWTfmj
+ 2/BehKtG0OPLUgkjjSU3w2A74g2tDkORUiM8+LEAM1winrF9y1gB0i5Fw
+ ojWd028PUz5+HStr3LA9jneg6jcZjJn7hXQvObw/ECKEkl2vtEqeDIKG0
+ m7HsyYgekHDWsubTZtMIyyu1gV7fZAoCLRDp7d9dA7px8h+3EjzqviaBI
+ Rmdz2V2VgJjAnPSmHJTLoorT2YruMHeB0prhxKcOuLGQlzbHy+X/6oWNG
+ Mc0lLYD7gA8Wf+/QWzDtojJal6pSL+1ETvZY8tyu0pzdfdnrXUe3vd0ss w==;
+X-CSE-ConnectionGUID: RGxUo3QKSqeNQ8kmDVtuWw==
+X-CSE-MsgGUID: 3I3qpo0FT/GfZIzHODcOCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="100119891"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="100119891"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 20:24:37 -0700
+X-CSE-ConnectionGUID: V11MdYVuRu+QxbQi5AvIyw==
+X-CSE-MsgGUID: jK17d2UjSmykTb7IyVDPow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="273468732"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by orviesa005.jf.intel.com with ESMTP; 01 Sep 2026 20:24:35 -0700
+From: Xiao Lu <xiaolu.xie@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
+ imre.deak@intel.com, Xiao Lu <xiaolu.xie@intel.com>
+Subject: [PATCH v4] drm/i915/display: Enable VRR/HDR over MST
+Date: Wed,  2 Sep 2026 11:22:07 +0800
+Message-ID: <20260902032207.259156-1-xiaolu.xie@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901132601.239131-1-xiaolu.xie@intel.com>
+References: <20260901132601.239131-1-xiaolu.xie@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_send_?=
- =?utf-8?q?null_DRM_infoframe_when_ending_HDR_transmission_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Xiao Lu" <xiaolu.xie@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 02 Sep 2026 03:23:04 -0000
-Message-ID: <178831938436.110735.9425080866707024463@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260901130649.237080-1-xiaolu.xie@intel.com>
-In-Reply-To: <20260901130649.237080-1-xiaolu.xie@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,144 +64,375 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3320793384883264079==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+VRR over MST:
+- Remove the hard MST block in intel_vrr_is_capable(); check the
+  downstream port's MSA timing par ignore capability via REMOTE_DPCD_READ
+  and cache it in connector->dp.mst_msa_timing_par_ignore to avoid hot
+  path sideband round-trips.
+- Read mst_msa_timing_par_ignore unconditionally from the sink's virtual
+  DPCD before the DSC decompression check, so VRR works on MST sinks
+  without DSC support.
+- Attach vrr_capable property by reusing the root SST connector's existing
+  property object (MST connectors are created post device-registration so
+  new properties cannot be created).
+- Update vrr_capable after EDID read; gate AS-SDP and DP_MSA_TIMING_PAR_IGNORE_EN
+  writes on pipe_config->vrr.enable (actual state) not intel_vrr_is_capable()
+  (capability); allow AS-SDP through MST hubs by excluding only non-MST
+  branch devices (PCONs) from the branch device check.
 
-== Series Details ==
+HDR metadata over MST:
+- Add VSC SDP, HDR metadata infoframe SDP and AS-SDP computation to
+  mst_stream_compute_config() and enable their transmission in
+  mst_stream_enable() and intel_ddi_update_pipe().
+- Lift the hard 8bpc pipe_bpp cap and use the bpp capability from sink EDID
+  for MST streams to allow 10bpc, relying on
+  intel_dp_mst_atomic_check_link()'s BW retry loop to fall back if the
+  link cannot fit it.
 
-Series: drm/i915/display: send null DRM infoframe when ending HDR transmission (rev3)
-URL   : https://patchwork.freedesktop.org/series/173152/
-State : success
+Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
+---
+ drivers/gpu/drm/display/drm_dp_mst_topology.c |  2 +
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  3 +
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 36 ++++---
+ drivers/gpu/drm/i915/display/intel_dp.h       |  8 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   | 94 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 15 ++-
+ 7 files changed, 142 insertions(+), 17 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 7ce9e212770a..174fa62cb0dc 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -2164,6 +2164,7 @@ ssize_t drm_dp_mst_dpcd_read(struct drm_dp_aux *aux,
+ 	return drm_dp_send_dpcd_read(port->mgr, port,
+ 				     offset, size, buffer);
+ }
++EXPORT_SYMBOL(drm_dp_mst_dpcd_read);
+ 
+ /**
+  * drm_dp_mst_dpcd_write() - write a series of bytes to the DPCD via sideband
+@@ -2187,6 +2188,7 @@ ssize_t drm_dp_mst_dpcd_write(struct drm_dp_aux *aux,
+ 	return drm_dp_send_dpcd_write(port->mgr, port,
+ 				      offset, size, buffer);
+ }
++EXPORT_SYMBOL(drm_dp_mst_dpcd_write);
+ 
+ static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, guid_t *guid)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index b8985e1e0a81..f345d9a2154d 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3651,6 +3651,9 @@ void intel_ddi_update_pipe(struct intel_atomic_state *state,
+ 		intel_ddi_update_pipe_dp(state, encoder, crtc_state,
+ 					 conn_state);
+ 
++	if (intel_encoder_is_mst(encoder))
++		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
++
+ 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
+ 		intel_ddi_update_pipe_hdmi(encoder, crtc_state,
+ 					   conn_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index b7cc361fd955..d09cf18f5376 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -564,6 +564,7 @@ struct intel_connector {
+ 		u8 dsc_hblank_expansion_quirk:1;
+ 		u8 dsc_throughput_quirk:1;
+ 		u8 dsc_decompression_enabled:1;
++		u8 mst_msa_timing_par_ignore:1; /* cached from MST virtual DPCD 0x007 */
+ 
+ 		struct {
+ 			struct {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 113d767e62e9..4b196d26d27f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2682,15 +2682,18 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+ 
+ 	limits->pipe.min_bpp = intel_dp_min_bpp(crtc_state->output_format);
+ 	if (is_mst) {
++		struct intel_connector *mst_connector =
++			to_intel_connector(conn_state->connector);
++		int sink_bpc = mst_connector->base.display_info.bpc ?: 8;
++
+ 		/*
+-		 * FIXME: If all the streams can't fit into the link with their
+-		 * current pipe_bpp we should reduce pipe_bpp across the board
+-		 * until things start to fit. Until then we limit to <= 8bpc
+-		 * since that's what was hardcoded for all MST streams
+-		 * previously. This hack should be removed once we have the
+-		 * proper retry logic in place.
++		 * For MST streams, use the sink's EDID-reported color depth
++		 * as the max bpp, rather than the pipe_bpp from a previous
++		 * modeset (which may be stale) or a hardcoded 8bpc cap.
++		 * The BW retry loop in intel_dp_mst_atomic_check_link() will
++		 * reduce bpp if the aggregate link bandwidth is insufficient.
+ 		 */
+-		limits->pipe.max_bpp = min(crtc_state->max_pipe_bpp, 24);
++		limits->pipe.max_bpp = sink_bpc * 3;
+ 	} else {
+ 		limits->pipe.max_bpp = intel_dp_max_bpp(intel_dp, crtc_state,
+ 							respect_downstream_limits);
+@@ -3107,9 +3110,12 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
+ 		return false;
+ 
+ 	/*
+-	 * #TODO: Add AS SDP v1 support for PCONs (DP branch devices).
++	 * AS-SDP is not yet supported for PCONs (DP-to-HDMI converters).
++	 * MST hubs are also branch devices but do support AS-SDP forwarding
++	 * to downstream sinks; allow it for MST streams.
+ 	 */
+-	if (drm_dp_is_branch(intel_dp->dpcd))
++	if (drm_dp_is_branch(intel_dp->dpcd) &&
++	    !intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST))
+ 		return false;
+ 
+ 	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
+@@ -3119,8 +3125,8 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
+ 	return intel_vrr_possible(crtc_state);
+ }
+ 
+-static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+-				    struct intel_crtc_state *crtc_state)
++void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
++			     struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
+ 	const struct drm_display_mode *adjusted_mode =
+@@ -3169,9 +3175,9 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 		as_sdp->coasting_vtotal = crtc_state->vrr.vmax;
+ }
+ 
+-static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+-				     struct intel_crtc_state *crtc_state,
+-				     const struct drm_connector_state *conn_state)
++void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
++			      struct intel_crtc_state *crtc_state,
++			      const struct drm_connector_state *conn_state)
+ {
+ 	struct drm_dp_vsc_sdp *vsc;
+ 
+@@ -3228,7 +3234,7 @@ intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state)
+ 	return hdr_metadata->hdmi_metadata_type1.eotf == HDMI_EOTF_SMPTE_ST2084;
+ }
+ 
+-static void
++void
+ intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+ 					    struct intel_crtc_state *crtc_state,
+ 					    const struct drm_connector_state *conn_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 04fae203bb69..bb68bc3876d6 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -77,6 +77,8 @@ int intel_dp_compute_config(struct intel_atomic_state *state,
+ 			    struct intel_encoder *encoder,
+ 			    struct intel_crtc_state *pipe_config,
+ 			    struct drm_connector_state *conn_state);
++void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
++			     struct intel_crtc_state *crtc_state);
+ bool intel_dp_needs_8b10b_fec(const struct intel_crtc_state *crtc_state,
+ 			      bool dsc_enabled_on_crtc);
+ void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state);
+@@ -130,6 +132,12 @@ bool intel_dp_joiner_needs_dsc(struct intel_display *display,
+ bool intel_dp_has_joiner(struct intel_dp *intel_dp);
+ bool intel_dp_needs_vsc_colorimetry(const struct intel_crtc_state *crtc_state,
+ 				    const struct drm_connector_state *conn_state);
++void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
++			      struct intel_crtc_state *crtc_state,
++			      const struct drm_connector_state *conn_state);
++void intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
++						  struct intel_crtc_state *crtc_state,
++						  const struct drm_connector_state *conn_state);
+ void intel_dp_set_infoframes(struct intel_encoder *encoder, bool enable,
+ 			     const struct intel_crtc_state *crtc_state,
+ 			     const struct drm_connector_state *conn_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 3be1643f8d03..021d86b0ed83 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -793,6 +793,9 @@ static int mst_stream_compute_config(struct intel_atomic_state *state,
+ 			bxt_dpio_phy_calc_lane_lat_optim_mask(pipe_config->lane_count);
+ 
+ 	intel_vrr_compute_config(pipe_config, conn_state);
++	intel_dp_compute_as_sdp(intel_dp, pipe_config);
++	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
++	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
+ 
+ 	intel_dp_audio_compute_config(encoder, pipe_config, conn_state);
+ 
+@@ -1157,6 +1160,24 @@ static void mst_stream_post_disable(struct intel_atomic_state *state,
+ 	 * Power down mst path before disabling the port, otherwise we end
+ 	 * up getting interrupts from the sink upon detecting link loss.
+ 	 */
++	if (old_crtc_state->vrr.enable) {
++		u8 val;
++		ssize_t ret;
++
++		ret = drm_dp_mst_dpcd_read(&connector->mst.port->aux,
++					   DP_DOWNSPREAD_CTRL, &val, 1);
++		if (ret < 0) {
++			drm_dbg_kms(display->drm,
++				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
++				    connector->base.base.id,
++				    connector->base.name, ret);
++		} else {
++			val &= ~DP_MSA_TIMING_PAR_IGNORE_EN;
++			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
++					      DP_DOWNSPREAD_CTRL, &val, 1);
++		}
++	}
++
+ 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port,
+ 				     false);
+ 
+@@ -1274,6 +1295,24 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
+ 
+ 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, true);
+ 
++	if (pipe_config->vrr.enable) {
++		u8 val;
++		ssize_t ret;
++
++		ret = drm_dp_mst_dpcd_read(&connector->mst.port->aux,
++					   DP_DOWNSPREAD_CTRL, &val, 1);
++		if (ret < 0) {
++			drm_dbg_kms(display->drm,
++				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
++				    connector->base.base.id,
++				    connector->base.name, ret);
++		} else {
++			val |= DP_MSA_TIMING_PAR_IGNORE_EN;
++			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
++					      DP_DOWNSPREAD_CTRL, &val, 1);
++		}
++	}
++
+ 	intel_dp_sink_enable_decompression(state, connector, pipe_config);
+ 
+ 	if (first_mst_stream) {
+@@ -1397,6 +1436,8 @@ static void mst_stream_enable(struct intel_atomic_state *state,
+ 
+ 	intel_enable_transcoder(pipe_config);
+ 
++	intel_dp_set_infoframes(encoder, true, pipe_config, conn_state);
++
+ 	for_each_pipe_crtc_modeset_enable(display, pipe_crtc, pipe_config) {
+ 		const struct intel_crtc_state *pipe_crtc_state =
+ 			intel_atomic_get_new_crtc_state(state, pipe_crtc);
+@@ -1451,6 +1492,15 @@ static int mst_connector_get_ddc_modes(struct drm_connector *_connector)
+ 
+ 	ret = intel_connector_update_modes(&connector->base, drm_edid);
+ 
++	if (HAS_VRR(display)) {
++		bool vrr_capable = intel_vrr_is_capable(connector);
++
++		drm_dbg_kms(display->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
++			    connector->base.base.id, connector->base.name,
++			    str_yes_no(vrr_capable));
++		drm_connector_set_vrr_capable_property(&connector->base, vrr_capable);
++	}
++
+ 	drm_edid_free(drm_edid);
+ 
+ 	if (intel_dp_tunnel_uhbr_lanes_wa_setup(intel_dp)) {
+@@ -1735,6 +1785,10 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
+ 
+ 	intel_attach_force_audio_property(&connector->base);
+ 	intel_attach_broadcast_rgb_property(&connector->base);
++	intel_attach_dp_colorspace_property(&connector->base);
++
++	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
++		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+ 
+ 	/*
+ 	 * Reuse the prop from the SST connector because we're
+@@ -1745,6 +1799,34 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
+ 	if (connector->base.max_bpc_property)
+ 		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
+ 
++	/*
++	 * Reuse the vrr_capable prop from the eDP connector (which is always
++	 * initialized during driver load before device registration), because
++	 * we're not allowed to create new props after device registration.
++	 */
++	/*
++	 * Reuse the vrr_capable property from the root intel_dp SST connector
++	 * which was created during driver load (before device registration).
++	 * MST connectors are created after device registration, so we cannot
++	 * create new properties here - we must attach the existing one.
++	 */
++	/*
++	 * Reuse the vrr_capable property from the root intel_dp SST connector
++	 * which was created during driver load (before device registration).
++	 * MST connectors are created after device registration, so we cannot
++	 * create new properties here - we must attach the existing one.
++	 * Also assign connector->vrr_capable_property so that
++	 * drm_connector_set_vrr_capable_property() can update the value.
++	 */
++	if (HAS_VRR(display) && intel_dp->attached_connector &&
++	    intel_dp->attached_connector->base.vrr_capable_property) {
++		connector->base.vrr_capable_property =
++			intel_dp->attached_connector->base.vrr_capable_property;
++		drm_object_attach_property(&connector->base.base,
++					   connector->base.vrr_capable_property,
++					   0);
++	}
++
+ 	return drm_connector_set_path_property(&connector->base, pathprop);
+ }
+ 
+@@ -1755,6 +1837,18 @@ intel_dp_mst_read_decompression_port_dsc_caps(struct intel_dp *intel_dp,
+ 	u8 dpcd_caps[DP_RECEIVER_CAP_SIZE];
+ 	struct drm_dp_desc desc;
+ 
++	/*
++	 * Read MSA timing par ignore capability from the sink's virtual DPCD.
++	 * This is independent of DSC support so read it before the DSC check.
++	 */
++	{
++		u8 mst_dpcd[DP_RECEIVER_CAP_SIZE];
++
++		if (drm_dp_read_dpcd_caps(&connector->mst.port->aux, mst_dpcd) == 0)
++			connector->dp.mst_msa_timing_par_ignore =
++				drm_dp_sink_can_do_video_without_timing_msa(mst_dpcd);
++	}
++
+ 	if (!connector->dp.dsc_decompression_aux)
+ 		return;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 51e4f3309b8b..9737a19c1899 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -55,8 +55,19 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 			return false;
+ 		fallthrough;
+ 	case DRM_MODE_CONNECTOR_DisplayPort:
+-		if (connector->mst.dp)
+-			return false;
++		if (connector->mst.dp) {
++			/*
++			 * Use cached MSA timing ignore capability from the DFP
++			 * sink's virtual DPCD, set during connector init in
++			 * intel_dp_mst_read_decompression_port_dsc_caps().
++			 * Avoid live sideband reads here as this function is
++			 * called from the atomic check path.
++			 */
++			if (!connector->dp.mst_msa_timing_par_ignore)
++				return false;
++
++			break;
++		}
+ 		intel_dp = intel_attached_dp(connector);
+ 		/*
+ 		 * Among non-MST DP branch devices, only an HDMI 2.1 sink connected
+-- 
+2.43.0
 
-CI Bug Log - changes from CI_DRM_19069 -> Patchwork_173152v3
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/index.html
-
-Participating hosts (37 -> 35)
-------------------------------
-
-  Missing    (2): bat-dg2-13 bat-adls-6 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_173152v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live:
-    - bat-arlh-3:         [PASS][1] -> [DMESG-WARN][2] ([i915#16404]) +1 other test dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19069/bat-arlh-3/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/bat-arlh-3/igt@i915_selftest@live.html
-
-  
-#### Possible fixes ####
-
-  * igt@kms_pm_rpm@basic-pci-d3-state:
-    - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#15673]) -> [PASS][4] +51 other tests pass
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19069/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-
-  
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-  [i915#16404]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16404
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19069 -> Patchwork_173152v3
-
-  CI-20190529: 20190529
-  CI_DRM_19069: c53467440a5196138d2d6610e269a43b6b47bf6b @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9079: 9079
-  Patchwork_173152v3: c53467440a5196138d2d6610e269a43b6b47bf6b @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/index.html
-
---===============3320793384883264079==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: send null DRM infoframe when ending HDR transmission (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173152/">https://patchwork.freedesktop.org/series/173152/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19069 -&gt; Patchwork_173152v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/index.html</p>
-<h2>Participating hosts (37 -&gt; 35)</h2>
-<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_173152v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19069/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/bat-arlh-3/igt@i915_selftest@live.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16404">i915#16404</a>) +1 other test dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_pm_rpm@basic-pci-d3-state:<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19069/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173152v3/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +51 other tests pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19069 -&gt; Patchwork_173152v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19069: c53467440a5196138d2d6610e269a43b6b47bf6b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9079: 9079<br />
-  Patchwork_173152v3: c53467440a5196138d2d6610e269a43b6b47bf6b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============3320793384883264079==--
