@@ -4,43 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4B20C624D0
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 08:34:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE480C61DFD
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 08:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A8410F0A6;
-	Wed,  2 Sep 2026 08:34:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33D6910E49B;
+	Wed,  2 Sep 2026 08:37:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nA3Lb6jU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K5utWWzX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FF4310F09E;
- Wed,  2 Sep 2026 08:34:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DCFEB600C8;
- Wed,  2 Sep 2026 08:34:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F341F000E9;
- Wed,  2 Sep 2026 08:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788338091;
- bh=vNinhm/6sEkk0yHhHxCYOJTXyTnLSbLzIM9Ay2Wv2ZU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nA3Lb6jUjf30uzzGXb5xV0dIxyEmJIeo1offuMZeuAjG7CApBPm1/4iV72cFGvMDE
- o0S4hwlNjiyFNVFYxfp9zX2UwtqD7Dxhki5AB8ZfvSe5w9AkcfXCD0L9XAq2CGvhSk
- byx1/eA5hRemA17NYOM39eTHq+iK6FcNu0YYqghaKSym2Wczlg02F8T8vTna6dJ4d8
- Soyu27xwZBa/e9eqViJRU4CO79K2Fl1HN0U0y0eUsKFyX1G25biAhQxWliQ18sAzWN
- HzJz3IpUD9vkgCSiRidYR76+sGzB2mb7yRtLxM5HkaxjdAQXPJKxLuO9Tk1UO4zw9r
- rxS4e4uBJK/QA==
-From: sashiko-bot@kernel.org
-Subject: Re: [CI 8/9] drm/i915/color: Add color pipeline support for SDR planes
-To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260902075417.656673-9-chaitanya.kumar.borah@intel.com>
-References: <20260902075417.656673-1-chaitanya.kumar.borah@intel.com>
- <20260902075417.656673-9-chaitanya.kumar.borah@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 08:34:50 +0000
-Message-Id: <20260902083451.67F341F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D71CD10E49B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 08:37:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788338257; x=1819874257;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=+nBrU+TKfEULvYdv5uf7T2kfB7LXVZTZnrhh4ljjkc8=;
+ b=K5utWWzXyJPOPh6WCkAHXXdXsKcXM1p1AEnVSYEWnuB0y2oEjJQLFXew
+ QnnA+JmoKy0q5hArRBb13nSouhOyAEO5eeS+HNLgn3ALIKVqwbP4YUxss
+ jkcbxEr5bRoZa6m8tnUzVN+L8AikvUCdYN6awBhNWr7wJcAV+QAhAhHxu
+ tNfRfd+tzH85RisBUuvelWJ1T+mKN+VE/2aKT37ALhsmPkD5HIDOpuQ+/
+ 5g/2Y3rchaZxZJ2d98bh6d+BeFU/6D8QPLB3k1zIFfcJBXspYZnAWmups
+ ZGpCTLNz5xax/tHeHhhxDdnGVi5EYYak9lQJyEcfeVHS5oMCCQaemMN1w g==;
+X-CSE-ConnectionGUID: iD+ILpn9ScKg8KXH9ddVcw==
+X-CSE-MsgGUID: 4iwFYWSuTym+nNZvzHUxCg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88713836"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="88713836"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 01:37:36 -0700
+X-CSE-ConnectionGUID: /Uk94Ge+QlmANE1fuh1hcA==
+X-CSE-MsgGUID: RoEhtvSnTYWmL0hCSPINMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="266748597"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.84])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 01:37:34 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Xiao Lu <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, imre.deak@intel.com, Xiao Lu
+ <xiaolu.xie@intel.com>
+Subject: Re: [PATCH v6] drm/i915/display: Enable VRR/HDR over MST
+In-Reply-To: <20260902051206.264215-1-xiaolu.xie@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260901132601.239131-1-xiaolu.xie@intel.com>
+ <20260902051206.264215-1-xiaolu.xie@intel.com>
+Date: Wed, 02 Sep 2026 11:37:32 +0300
+Message-ID: <ee766f0b6e2b6f6a93e14229119e238c3c343987@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,128 +68,392 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Wed, 02 Sep 2026, Xiao Lu <xiaolu.xie@intel.com> wrote:
+> VRR over MST:
+> - Remove the hard MST block in intel_vrr_is_capable(); check the
+>   downstream port's MSA timing par ignore capability via REMOTE_DPCD_READ
+>   and cache it in connector->dp.mst_msa_timing_par_ignore to avoid hot
+>   path sideband round-trips.
+> - Read mst_msa_timing_par_ignore unconditionally from the sink's virtual
+>   DPCD before the DSC decompression check, so VRR works on MST sinks
+>   without DSC support.
+> - Attach vrr_capable property by reusing the root SST connector's existing
+>   property object (MST connectors are created post device-registration so
+>   new properties cannot be created).
+> - Update vrr_capable after EDID read; gate AS-SDP and
+>   DP_MSA_TIMING_PAR_IGNORE_EN writes on pipe_config->vrr.enable
+>   (actual state) not intel_vrr_is_capable() (capability); allow AS-SDP
+>   through MST hubs by excluding only non-MST branch devices (PCONs)
+>   from the branch device check.
+> - Reuse colorspace property from root SST connector for MST connectors
+>   to avoid WARN_ON from creating properties post device-registration.
+>
+> HDR metadata over MST:
+> - Add VSC SDP, HDR metadata infoframe SDP and AS-SDP computation to
+>   mst_stream_compute_config() and enable their transmission in
+>   mst_stream_enable() and intel_ddi_update_pipe().
+> - Lift the hard 8bpc pipe_bpp cap and use the bpp capability from sink
+>   EDID for MST streams to allow 10bpc, relying on
+>   intel_dp_mst_atomic_check_link()'s BW retry loop to fall back if the
+>   link cannot fit it.
 
-New issues:
-- [High] Exposing the color pipeline for SDR planes to user-space causes vi=
-sual corruption and hardware state mismatches because the underlying hardwa=
-re programming functions still artificially restrict operations to HDR plan=
-es.
+What changed between versions?
 
-Pre-existing issues:
-- [Critical] Dangling DRM object IDR pointer when colorop initialization fa=
-ils (or on cleanup) leads to a Use-After-Free.
-- [High] Missing NULL check after `kasprintf()` in `_intel_color_pipeline_p=
-lane_init()` leads to a NULL pointer dereference when string allocation fai=
-ls.
---
+Please don't send a bunch of versions of a patch in quick succession.
 
-commit 4a507c298b13a8efe368f825fd9f9b9e49485cef
-Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Truth is, nobody's going to spend time looking at it, because they think
+it's in a state of flux and it'll be wasted effort.
 
-drm/i915/color: Add color pipeline support for SDR planes
 
-Now that everything is in place expose the SDR plane color pipeline
-to user-space.
+BR,
+Jani.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/driver=
-s/gpu/drm/i915/display/intel_color_pipeline.c
-> index 6cf8080ee8000..4ea1f34dfb10e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> @@ -155,17 +155,11 @@ int _intel_color_pipeline_plane_init(struct drm_pla=
-ne *plane, struct drm_prop_en
-> =20
->  int intel_color_pipeline_plane_init(struct drm_plane *plane, enum pipe p=
-ipe)
+>
+> Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
+> ---
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c |  2 +
+>  drivers/gpu/drm/i915/display/intel_ddi.c      |  3 +
+>  .../drm/i915/display/intel_display_types.h    |  1 +
+>  drivers/gpu/drm/i915/display/intel_dp.c       | 36 ++++---
+>  drivers/gpu/drm/i915/display/intel_dp.h       |  8 ++
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   | 95 +++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_vrr.c      | 15 ++-
+>  7 files changed, 143 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 7ce9e212770a..174fa62cb0dc 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -2164,6 +2164,7 @@ ssize_t drm_dp_mst_dpcd_read(struct drm_dp_aux *aux,
+>  	return drm_dp_send_dpcd_read(port->mgr, port,
+>  				     offset, size, buffer);
+>  }
+> +EXPORT_SYMBOL(drm_dp_mst_dpcd_read);
+>  
+>  /**
+>   * drm_dp_mst_dpcd_write() - write a series of bytes to the DPCD via sideband
+> @@ -2187,6 +2188,7 @@ ssize_t drm_dp_mst_dpcd_write(struct drm_dp_aux *aux,
+>  	return drm_dp_send_dpcd_write(port->mgr, port,
+>  				      offset, size, buffer);
+>  }
+> +EXPORT_SYMBOL(drm_dp_mst_dpcd_write);
+>  
+>  static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, guid_t *guid)
 >  {
-> -	struct drm_device *dev =3D plane->dev;
-> -	struct intel_display *display =3D to_intel_display(dev);
->  	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES] =3D {};
->  	int len =3D 0;
->  	int ret =3D 0;
->  	int i;
-> =20
-> -	/* Currently expose pipeline only for HDR planes */
-> -	if (!icl_is_hdr_plane(display, to_intel_plane(plane)->id))
-> -		return 0;
-> -
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index b8985e1e0a81..f345d9a2154d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -3651,6 +3651,9 @@ void intel_ddi_update_pipe(struct intel_atomic_state *state,
+>  		intel_ddi_update_pipe_dp(state, encoder, crtc_state,
+>  					 conn_state);
+>  
+> +	if (intel_encoder_is_mst(encoder))
+> +		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
+> +
+>  	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
+>  		intel_ddi_update_pipe_hdmi(encoder, crtc_state,
+>  					   conn_state);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> index b7cc361fd955..d09cf18f5376 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -564,6 +564,7 @@ struct intel_connector {
+>  		u8 dsc_hblank_expansion_quirk:1;
+>  		u8 dsc_throughput_quirk:1;
+>  		u8 dsc_decompression_enabled:1;
+> +		u8 mst_msa_timing_par_ignore:1; /* cached from MST virtual DPCD 0x007 */
+>  
+>  		struct {
+>  			struct {
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 113d767e62e9..4b196d26d27f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -2682,15 +2682,18 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+>  
+>  	limits->pipe.min_bpp = intel_dp_min_bpp(crtc_state->output_format);
+>  	if (is_mst) {
+> +		struct intel_connector *mst_connector =
+> +			to_intel_connector(conn_state->connector);
+> +		int sink_bpc = mst_connector->base.display_info.bpc ?: 8;
+> +
+>  		/*
+> -		 * FIXME: If all the streams can't fit into the link with their
+> -		 * current pipe_bpp we should reduce pipe_bpp across the board
+> -		 * until things start to fit. Until then we limit to <= 8bpc
+> -		 * since that's what was hardcoded for all MST streams
+> -		 * previously. This hack should be removed once we have the
+> -		 * proper retry logic in place.
+> +		 * For MST streams, use the sink's EDID-reported color depth
+> +		 * as the max bpp, rather than the pipe_bpp from a previous
+> +		 * modeset (which may be stale) or a hardcoded 8bpc cap.
+> +		 * The BW retry loop in intel_dp_mst_atomic_check_link() will
+> +		 * reduce bpp if the aggregate link bandwidth is insufficient.
+>  		 */
+> -		limits->pipe.max_bpp = min(crtc_state->max_pipe_bpp, 24);
+> +		limits->pipe.max_bpp = sink_bpc * 3;
+>  	} else {
+>  		limits->pipe.max_bpp = intel_dp_max_bpp(intel_dp, crtc_state,
+>  							respect_downstream_limits);
+> @@ -3107,9 +3110,12 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
+>  		return false;
+>  
+>  	/*
+> -	 * #TODO: Add AS SDP v1 support for PCONs (DP branch devices).
+> +	 * AS-SDP is not yet supported for PCONs (DP-to-HDMI converters).
+> +	 * MST hubs are also branch devices but do support AS-SDP forwarding
+> +	 * to downstream sinks; allow it for MST streams.
+>  	 */
+> -	if (drm_dp_is_branch(intel_dp->dpcd))
+> +	if (drm_dp_is_branch(intel_dp->dpcd) &&
+> +	    !intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST))
+>  		return false;
+>  
+>  	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
+> @@ -3119,8 +3125,8 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
+>  	return intel_vrr_possible(crtc_state);
+>  }
+>  
+> -static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+> -				    struct intel_crtc_state *crtc_state)
+> +void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+> +			     struct intel_crtc_state *crtc_state)
+>  {
+>  	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
+>  	const struct drm_display_mode *adjusted_mode =
+> @@ -3169,9 +3175,9 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+>  		as_sdp->coasting_vtotal = crtc_state->vrr.vmax;
+>  }
+>  
+> -static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+> -				     struct intel_crtc_state *crtc_state,
+> -				     const struct drm_connector_state *conn_state)
+> +void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+> +			      struct intel_crtc_state *crtc_state,
+> +			      const struct drm_connector_state *conn_state)
+>  {
+>  	struct drm_dp_vsc_sdp *vsc;
+>  
+> @@ -3228,7 +3234,7 @@ intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state)
+>  	return hdr_metadata->hdmi_metadata_type1.eotf == HDMI_EOTF_SMPTE_ST2084;
+>  }
+>  
+> -static void
+> +void
+>  intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+>  					    struct intel_crtc_state *crtc_state,
+>  					    const struct drm_connector_state *conn_state)
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+> index 04fae203bb69..7887ba63c7a4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+> @@ -77,6 +77,8 @@ int intel_dp_compute_config(struct intel_atomic_state *state,
+>  			    struct intel_encoder *encoder,
+>  			    struct intel_crtc_state *pipe_config,
+>  			    struct drm_connector_state *conn_state);
+> +void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+> +			     struct intel_crtc_state *crtc_state);
+>  bool intel_dp_needs_8b10b_fec(const struct intel_crtc_state *crtc_state,
+>  			      bool dsc_enabled_on_crtc);
+>  void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state);
+> @@ -130,6 +132,12 @@ bool intel_dp_joiner_needs_dsc(struct intel_display *display,
+>  bool intel_dp_has_joiner(struct intel_dp *intel_dp);
+>  bool intel_dp_needs_vsc_colorimetry(const struct intel_crtc_state *crtc_state,
+>  				    const struct drm_connector_state *conn_state);
+> +void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+> +			      struct intel_crtc_state *crtc_state,
+> +			      const struct drm_connector_state *conn_state);
+> +void intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+> +						 struct intel_crtc_state *crtc_state,
+> +						 const struct drm_connector_state *conn_state);
+>  void intel_dp_set_infoframes(struct intel_encoder *encoder, bool enable,
+>  			     const struct intel_crtc_state *crtc_state,
+>  			     const struct drm_connector_state *conn_state);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> index 3be1643f8d03..cbef63e94e2c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -793,6 +793,9 @@ static int mst_stream_compute_config(struct intel_atomic_state *state,
+>  			bxt_dpio_phy_calc_lane_lat_optim_mask(pipe_config->lane_count);
+>  
+>  	intel_vrr_compute_config(pipe_config, conn_state);
+> +	intel_dp_compute_as_sdp(intel_dp, pipe_config);
+> +	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
+> +	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
+>  
+>  	intel_dp_audio_compute_config(encoder, pipe_config, conn_state);
+>  
+> @@ -1157,6 +1160,24 @@ static void mst_stream_post_disable(struct intel_atomic_state *state,
+>  	 * Power down mst path before disabling the port, otherwise we end
+>  	 * up getting interrupts from the sink upon detecting link loss.
+>  	 */
+> +	if (old_crtc_state->vrr.enable) {
+> +		u8 val;
+> +		ssize_t ret;
+> +
+> +		ret = drm_dp_mst_dpcd_read(&connector->mst.port->aux,
+> +					   DP_DOWNSPREAD_CTRL, &val, 1);
+> +		if (ret < 0) {
+> +			drm_dbg_kms(display->drm,
+> +				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
+> +				    connector->base.base.id,
+> +				    connector->base.name, ret);
+> +		} else {
+> +			val &= ~DP_MSA_TIMING_PAR_IGNORE_EN;
+> +			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
+> +					      DP_DOWNSPREAD_CTRL, &val, 1);
+> +		}
+> +	}
+> +
+>  	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port,
+>  				     false);
+>  
+> @@ -1274,6 +1295,24 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
+>  
+>  	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, true);
+>  
+> +	if (pipe_config->vrr.enable) {
+> +		u8 val;
+> +		ssize_t ret;
+> +
+> +		ret = drm_dp_mst_dpcd_read(&connector->mst.port->aux,
+> +					   DP_DOWNSPREAD_CTRL, &val, 1);
+> +		if (ret < 0) {
+> +			drm_dbg_kms(display->drm,
+> +				    "[CONNECTOR:%d:%s] Failed to read DP_DOWNSPREAD_CTRL: %zd\n",
+> +				    connector->base.base.id,
+> +				    connector->base.name, ret);
+> +		} else {
+> +			val |= DP_MSA_TIMING_PAR_IGNORE_EN;
+> +			drm_dp_mst_dpcd_write(&connector->mst.port->aux,
+> +					      DP_DOWNSPREAD_CTRL, &val, 1);
+> +		}
+> +	}
+> +
+>  	intel_dp_sink_enable_decompression(state, connector, pipe_config);
+>  
+>  	if (first_mst_stream) {
+> @@ -1397,6 +1436,8 @@ static void mst_stream_enable(struct intel_atomic_state *state,
+>  
+>  	intel_enable_transcoder(pipe_config);
+>  
+> +	intel_dp_set_infoframes(encoder, true, pipe_config, conn_state);
+> +
+>  	for_each_pipe_crtc_modeset_enable(display, pipe_crtc, pipe_config) {
+>  		const struct intel_crtc_state *pipe_crtc_state =
+>  			intel_atomic_get_new_crtc_state(state, pipe_crtc);
+> @@ -1451,6 +1492,15 @@ static int mst_connector_get_ddc_modes(struct drm_connector *_connector)
+>  
+>  	ret = intel_connector_update_modes(&connector->base, drm_edid);
+>  
+> +	if (HAS_VRR(display)) {
+> +		bool vrr_capable = intel_vrr_is_capable(connector);
+> +
+> +		drm_dbg_kms(display->drm, "[CONNECTOR:%d:%s] VRR capable: %s\n",
+> +			    connector->base.base.id, connector->base.name,
+> +			    str_yes_no(vrr_capable));
+> +		drm_connector_set_vrr_capable_property(&connector->base, vrr_capable);
+> +	}
+> +
+>  	drm_edid_free(drm_edid);
+>  
+>  	if (intel_dp_tunnel_uhbr_lanes_wa_setup(intel_dp)) {
+> @@ -1735,6 +1785,22 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
+>  
+>  	intel_attach_force_audio_property(&connector->base);
+>  	intel_attach_broadcast_rgb_property(&connector->base);
+> +	/*
+> +	 * Reuse the colorspace property from the root SST connector.
+> +	 * MST connectors are created post device-registration so new
+> +	 * properties cannot be created here.
+> +	 */
+> +	if (intel_dp->attached_connector &&
+> +	    intel_dp->attached_connector->base.colorspace_property) {
+> +		connector->base.colorspace_property =
+> +			intel_dp->attached_connector->base.colorspace_property;
+> +		drm_object_attach_property(&connector->base.base,
+> +					   connector->base.colorspace_property,
+> +					   DRM_MODE_COLORIMETRY_DEFAULT);
+> +	}
+> +
+> +	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
+> +		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+>  
+>  	/*
+>  	 * Reuse the prop from the SST connector because we're
+> @@ -1745,6 +1811,23 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
+>  	if (connector->base.max_bpc_property)
+>  		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
+>  
+> +	/*
+> +	 * Reuse the vrr_capable property from the root intel_dp SST connector
+> +	 * which was created during driver load (before device registration).
+> +	 * MST connectors are created after device registration, so we cannot
+> +	 * create new properties here - we must attach the existing one.
+> +	 * Also assign connector->vrr_capable_property so that
+> +	 * drm_connector_set_vrr_capable_property() can update the value.
+> +	 */
+> +	if (HAS_VRR(display) && intel_dp->attached_connector &&
+> +	    intel_dp->attached_connector->base.vrr_capable_property) {
+> +		connector->base.vrr_capable_property =
+> +			intel_dp->attached_connector->base.vrr_capable_property;
+> +		drm_object_attach_property(&connector->base.base,
+> +					   connector->base.vrr_capable_property,
+> +					   0);
+> +	}
+> +
+>  	return drm_connector_set_path_property(&connector->base, pathprop);
+>  }
+>  
+> @@ -1755,6 +1838,18 @@ intel_dp_mst_read_decompression_port_dsc_caps(struct intel_dp *intel_dp,
+>  	u8 dpcd_caps[DP_RECEIVER_CAP_SIZE];
+>  	struct drm_dp_desc desc;
+>  
+> +	/*
+> +	 * Read MSA timing par ignore capability from the sink's virtual DPCD.
+> +	 * This is independent of DSC support so read it before the DSC check.
+> +	 */
+> +	{
+> +		u8 mst_dpcd[DP_RECEIVER_CAP_SIZE];
+> +
+> +		if (drm_dp_read_dpcd_caps(&connector->mst.port->aux, mst_dpcd) == 0)
+> +			connector->dp.mst_msa_timing_par_ignore =
+> +				drm_dp_sink_can_do_video_without_timing_msa(mst_dpcd);
+> +	}
+> +
+>  	if (!connector->dp.dsc_decompression_aux)
+>  		return;
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+> index 51e4f3309b8b..9737a19c1899 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> @@ -55,8 +55,19 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+>  			return false;
+>  		fallthrough;
+>  	case DRM_MODE_CONNECTOR_DisplayPort:
+> -		if (connector->mst.dp)
+> -			return false;
+> +		if (connector->mst.dp) {
+> +			/*
+> +			 * Use cached MSA timing ignore capability from the DFP
+> +			 * sink's virtual DPCD, set during connector init in
+> +			 * intel_dp_mst_read_decompression_port_dsc_caps().
+> +			 * Avoid live sideband reads here as this function is
+> +			 * called from the atomic check path.
+> +			 */
+> +			if (!connector->dp.mst_msa_timing_par_ignore)
+> +				return false;
+> +
+> +			break;
+> +		}
+>  		intel_dp = intel_attached_dp(connector);
+>  		/*
+>  		 * Among non-MST DP branch devices, only an HDMI 2.1 sink connected
 
-[Severity: High]
-Does removing this check cause unprogrammed hardware blocks to be activated?
-
-By exposing the color pipeline to user-space for SDR planes, user-space can
-configure the pipeline. If configured, glk_plane_color_ctl() sets the enable
-bits (like PLANE_COLOR_PRE_CSC_GAMMA_ENABLE).=20
-
-However, functions that program the LUT and CSC registers still appear to
-skip SDR planes:
-
-drivers/gpu/drm/i915/display/intel_color.c:xelpd_program_plane_pre_csc_lut(=
-) {
-    if (!icl_is_hdr_plane(display, plane))
-        return;
-    ...
-}
-
-This early return pattern also exists in xelpd_load_plane_csc_matrix() and
-xelpd_program_plane_post_csc_lut().=20
-
-Could this regression lead to visual corruption or hardware state mismatches
-if the pipeline is enabled but the registers are never programmed?
-
->  	/* Add pipeline consisting of transfer functions */
-
-[Severity: High]
-This is a pre-existing issue, but does _intel_color_pipeline_plane_init()=20
-need to check the return value of kasprintf()?
-
-In _intel_color_pipeline_plane_init():
-
-    list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d", ...);
-    return 0;
-
-If kasprintf() fails, list->name is NULL. When this is passed down during=20
-property registration, drm_property_add_enum() calls strlen(name):
-
-drivers/gpu/drm/drm_property.c:drm_property_add_enum() {
-    if (WARN_ON(strlen(name) >=3D DRM_PROP_NAME_LEN))
-        return -EINVAL;
-    ...
-}
-
-Can this lead to a NULL pointer dereference under memory pressure?
-
->  	ret =3D _intel_color_pipeline_plane_init(plane, &pipelines[len], pipe);
->  	if (ret)
-
-[Severity: Critical]
-This is a pre-existing issue, but can a failure during colorop=20
-initialization or destruction lead to a use-after-free?
-
-When drm_plane_colorop_init() is called, it successfully registers the=20
-colorop with the DRM core mode object IDR:
-
-drivers/gpu/drm/drm_colorop.c:drm_plane_colorop_init() {
-    ret =3D drm_mode_object_add(dev, &colorop->base, DRM_MODE_OBJECT_COLORO=
-P);
-    ...
-}
-
-However, if an error occurs and intel_colorop_destroy() is called (such
-as on the error path of _intel_color_pipeline_plane_init()), or when=20
-drm_colorop_cleanup() is executed, the structure memory is freed but=20
-drm_mode_object_unregister() is never called to remove the object from=20
-the IDR.
-
-Does this leave a dangling pointer in the mode object IDR that could be=20
-accessed via the DRM_IOCTL_MODE_OBJ_GETPROPERTIES ioctl?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902075417.6566=
-73-9-chaitanya.kumar.borah@intel.com?part=3D1
+-- 
+Jani Nikula, Intel
