@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 915B4C61DFD
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF551C61DFD
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC5310E446;
-	Wed,  2 Sep 2026 05:11:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28A9C10E452;
+	Wed,  2 Sep 2026 05:14:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UE8BOZuf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Efn4DPhO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3A9710E446
- for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:11:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CBB510E452
+ for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788325917; x=1819861917;
+ t=1788326076; x=1819862076;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0whBU3UBuwW9dKhDr9PckpLdEXdUkVT/f2SOtmyaMqE=;
- b=UE8BOZuf64DFORi4WZwfoDJT+VRICxkJMsrOdDaaOD02CZdyrSmAHmRy
- HkPrD/t4qpSzk/J+xQ4CK8lu5uliz0c2ElhzkiN7MdQ7D2bjPkATPcRjB
- yKRU73JgQPzez9mGpVohrQLzLBgjDLLGHV7LPGD4Mgu4+15wMPZvgm07m
- SuHhrlyMDJLJZqZKXG3hwhxt5fOxliH1lmikV2l06k89nCNeYnNGKhl6x
- eOB/2nA+SgXvbe5F4P7TBagJuYAznhS1Va4b/xBiCRoDnz4wIw6WrncBD
- aIwxfETw1sXZbyXtriTg6QX6OPPJyXIss+m1qC0ZNYHetdK1LsMDPjDKN g==;
-X-CSE-ConnectionGUID: q28sCN+dTBiSVjs0iyUmcg==
-X-CSE-MsgGUID: T31DpNndQXKDeFKMlDO+qQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="87911519"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="87911519"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 22:11:55 -0700
-X-CSE-ConnectionGUID: MUkrKp2ATpeiytZRXBC2SA==
-X-CSE-MsgGUID: 4KiLe97LQAGzBLtm2oqkkg==
+ bh=BRHH/+HmCJYhOuqhqAaO3A+lE3M8FG2nclBoDSC632U=;
+ b=Efn4DPhOZhDQUl2EPSs4dlvX2OL+2Y1RBHP3KY5QQECELlrkkPeGTMFT
+ RRlmao6L4MYUkeXbmPZgyT1oyqaXj+zT1aH6X4a3WJlKwNVP++ghM9dSE
+ 0ftVAVbSnUPvW7ep+Pe3Mh2DpwkaPevdZ2DT+77/PnHeRDgLmJ9vph3+f
+ MlWUCkefQX3QlAKtOX9vvbaOxqRriWK2kdZILGBx5acnyzBf9uTezrZj7
+ oHsKLEku2oqNaprrw/qqB7qv1CTKsDrodP/S8Y+qrfFEshQtuHXfhBQ5l
+ EsuuIqonzXQBPbgJAcQwOvTh0Z32/yI/Ed/VKfyqJ48k1Nqxup6C0+k8t Q==;
+X-CSE-ConnectionGUID: ZDzCbN8aSlWDfAUq5KDxKg==
+X-CSE-MsgGUID: ExN8kpCQSjaXywoHcrGImw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106141890"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="106141890"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 22:14:35 -0700
+X-CSE-ConnectionGUID: pS5zM2f/TNW4DYZtEukLdQ==
+X-CSE-MsgGUID: QDZox0E5QmacaUm1Uwzvcw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="265584822"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="292814306"
 Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by fmviesa010.fm.intel.com with ESMTP; 01 Sep 2026 22:11:54 -0700
+ by fmviesa002.fm.intel.com with ESMTP; 01 Sep 2026 22:14:34 -0700
 From: Xiao Lu <xiaolu.xie@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
  imre.deak@intel.com, Xiao Lu <xiaolu.xie@intel.com>
-Subject: [PATCH v5] drm/i915/display: Enable VRR/HDR over MST
-Date: Wed,  2 Sep 2026 13:09:26 +0800
-Message-ID: <20260902050926.264000-1-xiaolu.xie@intel.com>
+Subject: [PATCH v6] drm/i915/display: Enable VRR/HDR over MST
+Date: Wed,  2 Sep 2026 13:12:06 +0800
+Message-ID: <20260902051206.264215-1-xiaolu.xie@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260901132601.239131-1-xiaolu.xie@intel.com>
 References: <20260901132601.239131-1-xiaolu.xie@intel.com>
@@ -97,14 +97,14 @@ HDR metadata over MST:
 
 Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c |   2 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |   3 +
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/display/intel_dp.c       |  36 +++---
- drivers/gpu/drm/i915/display/intel_dp.h       |   8 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c   | 106 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_vrr.c      |  15 ++-
- 7 files changed, 154 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c |  2 +
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  3 +
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 36 ++++---
+ drivers/gpu/drm/i915/display/intel_dp.h       |  8 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   | 95 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 15 ++-
+ 7 files changed, 143 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
 index 7ce9e212770a..174fa62cb0dc 100644
@@ -257,7 +257,7 @@ index 04fae203bb69..7887ba63c7a4 100644
  			     const struct intel_crtc_state *crtc_state,
  			     const struct drm_connector_state *conn_state);
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 3be1643f8d03..2b86a0a7a687 100644
+index 3be1643f8d03..cbef63e94e2c 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
 @@ -793,6 +793,9 @@ static int mst_stream_compute_config(struct intel_atomic_state *state,
@@ -368,21 +368,10 @@ index 3be1643f8d03..2b86a0a7a687 100644
  
  	/*
  	 * Reuse the prop from the SST connector because we're
-@@ -1745,6 +1811,34 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
+@@ -1745,6 +1811,23 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
  	if (connector->base.max_bpc_property)
  		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
  
-+	/*
-+	 * Reuse the vrr_capable prop from the eDP connector (which is always
-+	 * initialized during driver load before device registration), because
-+	 * we're not allowed to create new props after device registration.
-+	 */
-+	/*
-+	 * Reuse the vrr_capable property from the root intel_dp SST connector
-+	 * which was created during driver load (before device registration).
-+	 * MST connectors are created after device registration, so we cannot
-+	 * create new properties here - we must attach the existing one.
-+	 */
 +	/*
 +	 * Reuse the vrr_capable property from the root intel_dp SST connector
 +	 * which was created during driver load (before device registration).
@@ -403,7 +392,7 @@ index 3be1643f8d03..2b86a0a7a687 100644
  	return drm_connector_set_path_property(&connector->base, pathprop);
  }
  
-@@ -1755,6 +1849,18 @@ intel_dp_mst_read_decompression_port_dsc_caps(struct intel_dp *intel_dp,
+@@ -1755,6 +1838,18 @@ intel_dp_mst_read_decompression_port_dsc_caps(struct intel_dp *intel_dp,
  	u8 dpcd_caps[DP_RECEIVER_CAP_SIZE];
  	struct drm_dp_desc desc;
  
