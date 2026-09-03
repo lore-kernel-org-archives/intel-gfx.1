@@ -4,27 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB4D1C61DD3
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 12:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5528C624A4
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C41A10F58A;
-	Thu,  3 Sep 2026 12:40:12 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 688B510F588;
- Thu,  3 Sep 2026 12:40:10 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7320063874895557287=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8EC10E105;
+	Thu,  3 Sep 2026 13:01:21 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Lpk3uwyn";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 639ED10E105
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 13:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788440481; x=1819976481;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=3D8CxUvILA47aG03H0QQXedqgzYqzvlpXJ0l594JK98=;
+ b=Lpk3uwyn5ou95bpPe0LLjW6SPqySAs49+3WqKpK23GyOb1BEk5hjqjZR
+ t+KmoGTNqHQwZZgDD8rwAq6S5kYgTpk20PqGgYHMoRUuSo9wlo/R5avHS
+ G7hojK9ZGPYK+552+kNTDhRFlmBJWqj2H7QGuuflRrICg9nwTzDehpM/j
+ cWd9a37NblmwJRBb8eXg7FJsRVq+vv4VO5wTLbrdd6fZpvelN1v82Ru04
+ Fgl0RYbGsmpGX5CUvJyYlUeXoOzBFGzzm+wI5KNB56roKxMH1vPCUYOeJ
+ CPzet1ICymdZfdHPkfC5O4UW6PwahD0lZL2rIHNxQxidr1k9QlMqXe3w7 w==;
+X-CSE-ConnectionGUID: yJQuCr9hTWK4pTl4traKFQ==
+X-CSE-MsgGUID: K54cAPGYT0aFKE7cJMM/+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="92622276"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="92622276"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2026 06:01:20 -0700
+X-CSE-ConnectionGUID: 9tzS8P/VQRi7buBtx09u4w==
+X-CSE-MsgGUID: hMlQlJSQRUG1sJB20FpGKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="263531292"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.101])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2026 06:01:19 -0700
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/i915: Perform full wedge on display reset
+Date: Thu,  3 Sep 2026 16:01:16 +0300
+Message-ID: <20260903130116.19089-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/dp=3A_reset_HDMI?=
- =?utf-8?q?_2=2E1_PCON_FRL_state_on_disconnect?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Xiao Lu" <xiaolu.xie@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 03 Sep 2026 12:40:10 -0000
-Message-ID: <178843921042.118474.3093686150370396529@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260903104400.498178-1-xiaolu.xie@intel.com>
-In-Reply-To: <20260903104400.498178-1-xiaolu.xie@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,215 +65,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7320063874895557287==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-== Series Details ==
+We lost the proper display reset deadlock handling in
+commit d59cf7bb73f3 ("drm/i915/display: Use dma_fence interfaces instead of i915_sw_fence").
+Currently the only thing that eventually breaks the deadlock is the
+10 second fence timeout, which is very slow.
 
-Series: drm/i915/dp: reset HDMI 2.1 PCON FRL state on disconnect
-URL   : https://patchwork.freedesktop.org/series/173298/
-State : failure
+I tried to essentially restore the previous mechanism via a custom
+dma_fence in
+https://lore.kernel.org/intel-gfx/20260408233458.22666-6-ville.syrjala@linux.intel.com/
+but Christian didn't want it.
 
-== Summary ==
+The ideal solution would be to allow the reset time modesets to proceed
+ahead of any already queued atomic commits, but that is quite involved
+since we need to be able to track the already committed (to the
+hardware) atomic states in addition to the userspace queued atomic states.
+Years ago I did implement something like that in
+https://lore.kernel.org/intel-gfx/20170629134948.5614-1-ville.syrjala@linux.intel.com/
+but Sima didn't want it.
 
-CI Bug Log - changes from CI_DRM_19082 -> Patchwork_173298v1
-====================================================
+In order to get rid of the dependency on the timeout, and make things
+faster, let's just effectively revert the remainders of
+commit 9db529aac938 ("drm/i915: More surgically unbreak the modeset vs reset deadlock").
+The upside is that the reset is fast again, but the downside is that
+we now do a full wedge on all display resets, which will also kill
+innocent batches. But perhaps no one really cares since this is
+currently only needed for old pre-g4x hardware. But if anyone has plans on
+using eg. FLR as a backup GPU reset on new hardware then we probably need
+to come up with something better...
 
-Summary
--------
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_reset.c | 8 +-------
+ drivers/gpu/drm/i915/i915_dpt.c       | 2 --
+ drivers/gpu/drm/i915/i915_drv.h       | 2 --
+ drivers/gpu/drm/i915/i915_fb_pin.c    | 6 ------
+ drivers/gpu/drm/i915/i915_overlay.c   | 5 -----
+ 5 files changed, 1 insertion(+), 22 deletions(-)
 
-  **FAILURE**
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index 6053f3e8aa27..bd1f26336ac4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -1433,13 +1433,7 @@ static void intel_gt_reset_global(struct intel_gt *gt,
+ 			need_display_reset;
+ 
+ 		if (reset_display) {
+-			if (atomic_read(&i915->pending_fb_pin)) {
+-				drm_dbg_kms(&i915->drm,
+-					    "Modeset potentially stuck, unbreaking through wedging\n");
+-
+-				intel_gt_set_wedged(gt);
+-			}
+-
++			intel_gt_set_wedged(gt);
+ 			intel_display_reset_prepare(display);
+ 		}
+ 
+diff --git a/drivers/gpu/drm/i915/i915_dpt.c b/drivers/gpu/drm/i915/i915_dpt.c
+index e01dc4de1788..85d872c0f387 100644
+--- a/drivers/gpu/drm/i915/i915_dpt.c
++++ b/drivers/gpu/drm/i915/i915_dpt.c
+@@ -139,7 +139,6 @@ struct i915_vma *i915_dpt_pin_to_ggtt(struct intel_dpt *dpt, unsigned int alignm
+ 		pin_flags |= PIN_MAPPABLE;
+ 
+ 	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
+-	atomic_inc(&i915->pending_fb_pin);
+ 
+ 	for_i915_gem_ww(&ww, err, true) {
+ 		err = i915_gem_object_lock(dpt->obj, &ww);
+@@ -169,7 +168,6 @@ struct i915_vma *i915_dpt_pin_to_ggtt(struct intel_dpt *dpt, unsigned int alignm
+ 
+ 	dpt->obj->mm.dirty = true;
+ 
+-	atomic_dec(&i915->pending_fb_pin);
+ 	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+ 
+ 	return err ? ERR_PTR(err) : vma;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 844ed79e7211..dafee3dcd1c5 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -315,8 +315,6 @@ struct drm_i915_private {
+ 	/* The TTM device structure. */
+ 	struct ttm_device bdev;
+ 
+-	atomic_t pending_fb_pin;
+-
+ 	I915_SELFTEST_DECLARE(struct i915_selftest_stash selftest;)
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/i915_fb_pin.c b/drivers/gpu/drm/i915/i915_fb_pin.c
+index 1034cb767e9f..63be136f1a05 100644
+--- a/drivers/gpu/drm/i915/i915_fb_pin.c
++++ b/drivers/gpu/drm/i915/i915_fb_pin.c
+@@ -35,8 +35,6 @@ intel_fb_pin_to_dpt(struct drm_gem_object *_obj, struct intel_dpt *dpt,
+ 	if (WARN_ON(!i915_gem_object_is_framebuffer(obj)))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	atomic_inc(&i915->pending_fb_pin);
+-
+ 	for_i915_gem_ww(&ww, ret, true) {
+ 		ret = i915_gem_object_lock(obj, &ww);
+ 		if (ret)
+@@ -98,7 +96,6 @@ intel_fb_pin_to_dpt(struct drm_gem_object *_obj, struct intel_dpt *dpt,
+ 	 */
+ 	drm_WARN_ON(&i915->drm, i915_dpt_offset(vma));
+ err:
+-	atomic_dec(&i915->pending_fb_pin);
+ 
+ 	return vma;
+ }
+@@ -132,8 +129,6 @@ intel_fb_pin_to_ggtt(struct drm_gem_object *_obj,
+ 	 */
+ 	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
+ 
+-	atomic_inc(&i915->pending_fb_pin);
+-
+ 	pinctl = 0;
+ 	/* PIN_MAPPABLE limits the address to GMADR size */
+ 	if (pin_params->needs_low_address)
+@@ -206,7 +201,6 @@ intel_fb_pin_to_ggtt(struct drm_gem_object *_obj,
+ 	if (ret)
+ 		vma = ERR_PTR(ret);
+ 
+-	atomic_dec(&i915->pending_fb_pin);
+ 	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+ 	return vma;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_overlay.c b/drivers/gpu/drm/i915/i915_overlay.c
+index 6de550a17756..c1a7920c6324 100644
+--- a/drivers/gpu/drm/i915/i915_overlay.c
++++ b/drivers/gpu/drm/i915/i915_overlay.c
+@@ -354,14 +354,11 @@ static struct i915_vma *i915_overlay_pin_fb(struct drm_device *drm,
+ 					    struct drm_gem_object *obj,
+ 					    u32 *offset)
+ {
+-	struct drm_i915_private *i915 = to_i915(drm);
+ 	struct drm_i915_gem_object *new_bo = to_intel_bo(obj);
+ 	struct i915_gem_ww_ctx ww;
+ 	struct i915_vma *vma;
+ 	int ret;
+ 
+-	atomic_inc(&i915->pending_fb_pin);
+-
+ 	i915_gem_ww_ctx_init(&ww, true);
+ retry:
+ 	ret = i915_gem_object_lock(new_bo, &ww);
+@@ -377,8 +374,6 @@ static struct i915_vma *i915_overlay_pin_fb(struct drm_device *drm,
+ 	}
+ 	i915_gem_ww_ctx_fini(&ww);
+ 
+-	atomic_dec(&i915->pending_fb_pin);
+-
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-- 
+2.54.0
 
-  Serious unknown changes coming with Patchwork_173298v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_173298v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/index.html
-
-Participating hosts (37 -> 37)
-------------------------------
-
-  Additional (1): fi-skl-6600u 
-  Missing    (1): bat-dg2-13 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_173298v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live:
-    - bat-arlh-3:         [PASS][1] -> [INCOMPLETE][2] +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19082/bat-arlh-3/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/bat-arlh-3/igt@i915_selftest@live.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_173298v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][3] ([i915#2190])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/fi-skl-6600u/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@random-engines:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][4] ([i915#4613]) +3 other tests skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/fi-skl-6600u/igt@gem_lmem_swapping@random-engines.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-c-edp-1:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][5] +10 other tests skip
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-c-edp-1.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-arlh-2:         [INCOMPLETE][6] -> [PASS][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19082/bat-arlh-2/igt@i915_pm_rpm@module-reload.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/bat-arlh-2/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live@gem_migrate:
-    - bat-mtlp-9:         [INCOMPLETE][8] ([i915#16229]) -> [PASS][9] +1 other test pass
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19082/bat-mtlp-9/igt@i915_selftest@live@gem_migrate.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/bat-mtlp-9/igt@i915_selftest@live@gem_migrate.html
-
-  
-  [i915#16229]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229
-  [i915#2190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19082 -> Patchwork_173298v1
-
-  CI-20190529: 20190529
-  CI_DRM_19082: ac238a043f935a7115a9c6e099fd45a4682a1b3c @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9082: 2d61f578d998115259b87f9fa27f597ce11a0c89 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_173298v1: ac238a043f935a7115a9c6e099fd45a4682a1b3c @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/index.html
-
---===============7320063874895557287==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: reset HDMI 2.1 PCON FRL state on disconnect</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173298/">https://patchwork.freedesktop.org/series/173298/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19082 -&gt; Patchwork_173298v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_173298v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_173298v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/index.html</p>
-<h2>Participating hosts (37 -&gt; 37)</h2>
-<p>Additional (1): fi-skl-6600u <br />
-  Missing    (1): bat-dg2-13 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_173298v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19082/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> +1 other test incomplete</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_173298v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/fi-skl-6600u/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@random-engines:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/fi-skl-6600u/igt@gem_lmem_swapping@random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-c-edp-1:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-c-edp-1.html">SKIP</a> +10 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19082/bat-arlh-2/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/bat-arlh-2/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gem_migrate:</p>
-<ul>
-<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19082/bat-mtlp-9/igt@i915_selftest@live@gem_migrate.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229">i915#16229</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173298v1/bat-mtlp-9/igt@i915_selftest@live@gem_migrate.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19082 -&gt; Patchwork_173298v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19082: ac238a043f935a7115a9c6e099fd45a4682a1b3c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9082: 2d61f578d998115259b87f9fa27f597ce11a0c89 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_173298v1: ac238a043f935a7115a9c6e099fd45a4682a1b3c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7320063874895557287==--
