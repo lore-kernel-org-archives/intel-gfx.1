@@ -4,160 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D98BC61DD3
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 15:46:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1306C61DD3
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 16:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2FE10F63C;
-	Thu,  3 Sep 2026 15:46:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 365A410F676;
+	Thu,  3 Sep 2026 16:00:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NPe94qbb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gnp6tsmu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC1DF10E433;
- Thu,  3 Sep 2026 15:46:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788450377; x=1819986377;
- h=date:from:to:cc:subject:message-id:
- content-transfer-encoding:mime-version;
- bh=owtWWGEQsFdGZLFUHq5FooG/mbim3QLEn5JiLeLfAkc=;
- b=NPe94qbb4GAiCy+gpXum6TEBpkkyqOD6805f8U1xVaihraDPn01H4qPv
- KxLvayPXh/+9hYwyK0M7yNlVgRVj618NLlRIOHIbIxr7BWhAq1fC3r2B7
- PF3Yi2mpMpO0MCEaGomQB4sOhtCnYXgC2NvawFvnhfe6FgY4XAfoytpK2
- BrCC6Tk/8HWEm4KU2OfI+UzB9rPmIxrHhjQ07/3mSJoBXZEWh8gUurjk+
- 2PjqZFIMCzTcAoWeY5ILClQWyo0l5O7XHVjPJfo4g6eybb3enSaCFk19q
- ZP+uE7SLxfn10uVZ2OafWlPoHdFG6S5vtto+ymt95yfTdtHRU/TVqW/FS Q==;
-X-CSE-ConnectionGUID: 2FoR1+PEQ7iIw3SvtUlMSg==
-X-CSE-MsgGUID: yPWp94nxTxC4A7XI8u5/ig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88970768"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="88970768"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 08:46:16 -0700
-X-CSE-ConnectionGUID: VwxZuZPLSZWYtcfsxpYBzA==
-X-CSE-MsgGUID: TE/cTzr5TRyLCtOzSv4V8A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="273909390"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 08:46:16 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 08:46:15 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 08:46:15 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.13) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 08:46:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WyuUKVp2k5h6xCcS56tVS90vv9xMWyxUQ+ODrXwJNAKTquZvkE8gbRHAjODNJX3O1PU6IGOUaqA9WIVPo9bQsrFGCmMl5Q45J2p+ikG724OXAuhlhQG2kXvC1VstSsP8ffGK69x4UQd1Ctv1uMdAayExKS40c/LYUgRcqFCOmDncSTalimdgHe4Ll97UN/29JICnuK6buTw4LYTA8NWIFcMBMbhcrbjge+bUpBNtNZFEGo1Y90QQlMZROUVMR4BOIlEvrfFQ87stMGZaR7JVf5QHR6BKnOpirRBBQ9KEQb9/J/SP2mg+9TG956tzZaXtQp0XvbTyBNMn6+i+qvriSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y+34gBbsW25XbClY472nwySzmoFEp3PJa3dcQGlqJy8=;
- b=OyMy4npQQF4Cw4tQCyGkEfnqbGSob9fdhaPAIuV8sNjZ3wvEvpKIDiFGC/Kr/x5tiMr5fAVWWUN8jkCHKgm6OMnOsbGz1jbnO4t53bfPOyjjfTKWO2lnXFLwmvP++rkvAbADlMl/iZT3+SFAVHNSSDtFfJx+LBBEo9s6A9v3o75LfyofH3vTHQZqSrqtyGjS0W99oOvK5VcIBDwm/bZqXO+MGh+rnYE89Tdp/k/K2Qt4q9EM43PrFYIdzkB911aSH+TCHUPb7r2sw2c4HGBTzW8zPvGhat3QvQhNXWCiWwZ0ad6bRXvDSeSf0AZ50cp4i7a6fRXr7aJRW/lD2P/sdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
- by CH3PR11MB7795.namprd11.prod.outlook.com (2603:10b6:610:120::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 15:46:01 +0000
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 15:46:01 +0000
-Date: Thu, 3 Sep 2026 11:45:56 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
- Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dim-tools@lists.freedesktop.org>
-Subject: [PULL] drm-intel-next
-Message-ID: <apmWNIUJ5lmsvNzc@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR03CA0056.namprd03.prod.outlook.com
- (2603:10b6:a03:33e::31) To IA0PR11MB7187.namprd11.prod.outlook.com
- (2603:10b6:208:441::12)
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
+ [74.125.224.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29AF110F676
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 15:12:56 +0000 (UTC)
+Received: by mail-yx1-f42.google.com with SMTP id
+ 956f58d0204a3-66c744a00edso2338522d50.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 08:12:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788448375; cv=none;
+ d=google.com; s=arc-20260327;
+ b=FUOsHmj4iV3T5VxySPkofqVMqgnKbMj1/b4Q0Q0vej89RXyIUgQ2XxpDvAVsh9KJwz
+ 0+0CPVKv+MsxaW2QdfDkoYtpNMYa6dVklU2CvTihzN/8v+8oIved0wEfgO8BtpQVghHR
+ vC4D4brzmj6xLV8rQS+ujCcJ/lz4rKYsGQQp+yq0etSmwgUXum15TILKscImQsKhVtOR
+ gLLmwo/qB8xCKsOpQwGt20n/21RLmsuxu7dVJ7WvMa2SeCeoCCtBSiGS8nEyyKTKc5iJ
+ SPG49cdTPDSvw1QuCdkJka0tn6mRNN26tZ9jc58vizGgOZ7Vuj/Qlg3ZMVCHPTrCo6zF
+ Tbpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=oQJ3mw2ynpL+ijaY4GejPwOsbNF4RR0zxRbSYbMgjjg=;
+ fh=0mq9d1JUrcYsoTTkGHiTtQVhfUtVmM5T3dWmSoFUk5Y=;
+ b=MtOtkF11j4s1D1IvOWDkluBF4bQkO7zKrV38aTPFrryOD8Fe9/tQi3HmPCoddPD8WZ
+ PqOUQLa2uDG+HLXtnmX15D380pZd+e5nxo575RRJ3G7/CYWcL2EWI5f9grpSEsWjJjGc
+ EeOC9MBArMjN0I90BfeAwjB1V9/kx4YzJCePwtPL87sspaRBpLXIe/bGnVKKLPpGpQfC
+ t14W/OG+1VcOo8zVNpCMEGTPU0pYJkol2Jk/7xd2G/h4mTrYtCfjxD9cITxTfTmNtRsP
+ kZGSWbPO0krdK0bHk4ee6sGdBmcIbnclUGtIoSQNgN95vLQAkLF0lPXd4Gm4pfZ+q28c
+ T9Uw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788448375; x=1789053175; darn=lists.freedesktop.org;
+ h=content-type:to:subject:message-id:date:from:mime-version:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=oQJ3mw2ynpL+ijaY4GejPwOsbNF4RR0zxRbSYbMgjjg=;
+ b=gnp6tsmuFvo6tIVWI1nJPMWPeXQtXwHdwgyD0vAtZoFB9sn/r+AV3BgYzIY5ZbgNw9
+ OXUq2/FvdeKOPg1q4NnFghjIK/Yqp86sZOxAkOMdmiIDevMMHFfi3gQ9j5i04VxmjLel
+ M02zxQ19nW/U3kGFkvcyPixHJesNLAMp4y8XUDd3hlDVrfy+SqKHPGrktCyBpS5QTtYG
+ lCaH7i9+tMzltbmmLcPlt3GpSCkNSLfs3EwU9unTb+MShCxpI10BzmSv0lZkwBeTB5sW
+ XPV9iJ5RRbkl87J+n/a4uGcIPk1ZVqTcgNuVmtpHibcKv2AxJdJrUTelx/jRqcCdNs9z
+ f29w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788448375; x=1789053175;
+ h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=oQJ3mw2ynpL+ijaY4GejPwOsbNF4RR0zxRbSYbMgjjg=;
+ b=Da10ZUTRKMTOCdjXmEtZuNBwtYdX5xVjkgg/AkcKb7wCaE4NYtDiFd96bTe2Y+MS2B
+ TJEYiUfTki2jDhkqH9WiEdSiqa5v5HVCn5Nd4xTrnlPCNVOd53s898ncD8O3B/qad+sl
+ dyqRxga/JKEau80G5d0dp5mQw5g8n9AT0WEpLjtC4w3bS5Y1VPL2TTxV6yiYsDBnZ6yz
+ H8vNdWkC9Z6GEX3GTv7Hbba7qJ5BkHyBB3sj7nvhm4Rr4pEwRj3uKT0LgK9k2D75yLoP
+ gTVsjHHyHKicPlnvKXn6+i2quGpzlWZcf8VnY4g9/a0fGVFbL3nH0Y/VBn74D84URjHr
+ 3ZtA==
+X-Gm-Message-State: AFuF++nLn4Jd419H+PaR0UVT7y1m9HSFFqL/E0JoSFKmhX6r1sHaEszi
+ YbBP+ltLYdh8fWnmKU4LYgOiPXsfP4Zv1faKGxTUAZIvLYw2Wcsjp7FbJC8XDoeWcbOPePZoREF
+ AwdAXKlDmwb294kdwZPAKrZxz3atlq5jXeD8L
+X-Gm-Gg: AYBFou0I1vFndJjSglOvNgLvQXBCkBuPUxHl1jtXdha8OsysQcZGjGjBrMlwBKqGO+2
+ BBGb8tq+031QF/EYnx8sF2BhF1t/fz/Mt4ktniuIkhRUJjVH/2dP4tIFioKljYcVENSuRYJr2KE
+ jIrRN+Yh473hFXd7zs73GzZ0x7q6gLKrwGhcM/FE2OcEdJDfkbW+gJmCYWTFyK8udxl+SW83RTW
+ V3b3MjTaA8NUHsFGtDre/uiQyI3cv6hBQGQdpVkZ3wRyoqKZTT4GINknv9LhTyeKNUM8zLoMPTY
+ Lwn1wMEzIwQeD3E3mHWK/PaoiS+FQyLEVJgkcWdu2+hPrjqy0uyEQ36dxtzLuoTqHjM2UXpeHls
+ ciTk=
+X-Received: by 2002:a53:cc0e:0:b0:66e:7307:465c with SMTP id
+ 956f58d0204a3-66fb3eba16bmr216979d50.4.1788448374841; Thu, 03 Sep 2026
+ 08:12:54 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|CH3PR11MB7795:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0273447c-9311-4fc6-00e0-08df09d27484
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|7416014|376014|10067099003|6133799003|3023799007|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: NT3sG5Z4lXsDd08G4In5BDyU5IHY+IeUleHd1w2pbw7ZDz4yFGhlj+gn2Df9g4DtnJKDmY93GhOYKa9pBT/kZnTUiSBG3uGwuadCT14Gfy79kxK2ifPt58NU8u8m2PtfII75RHobJrKcqbsQfyJLC1xcZr0avTYkKGbtMqTWTUCet68q5CAptEei+/XoLC3PQTe4MGqNfrpR8VkUVVGvrd/rAw8hSq6gLCEHgndz4npla1gZsFtzwlkdXCyoRwrH+4XVJDH+AZldtT4+13ZcPl1UJBXHGfiOllJXwzj/lYpAEAJ75nGZRcr5lHaSNiOB9uUtUqPau9qftIW/5GSVcXAldtsoyHjjuC8xSbv9tKAyxDtKgkDBvDUJWAzSWhVntZrKGjtdrljdJwYWr/klfdNHIXPIbIiOZy7mhioyXsH03TVZfALLLcfyXjdc1bCijj8NMYaIGjjNQsx0o9bMR8GDlVS2DI7BNbm05nuE098x0HlFf1KK1QMJz0kj/DkKlAOIa1/7yY/Ag276dXWmJadyQjYyCH9NdzQLrnstqTjXBSokX3VF9orP+9HFvidttKq+SwbWGHdGVq6w5cIPdshd6LH+dbqmyuMHJ7ZcMpkwqD/1GVgbCTdcmk5EQaZA
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(6133799003)(3023799007)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHI3Y1V5ZzNZRFd5TytkbVNPY1ZXaGZzRG55NjEyNnhzcDJ3QUhsa3pGcVVS?=
- =?utf-8?B?cmd6WmJOTzNtb1RaUnlVbStjVUlrSkpRYW54SWpseUtQREtxZ1V4VFNsRnZv?=
- =?utf-8?B?VHE1L3dCTWRxYjFEUXNNY2tQOUFhU0RpRFNrNVV3bjFYalFMMHE1TllWaFRL?=
- =?utf-8?B?Q1c4dnRPM0UxK2g0aWJ4YmNscEU5T0tIUlpxdkdvdjdYam0yY3ZMZVQrb282?=
- =?utf-8?B?N3B6TXFtY0hjY0xUUGRZZ1QyckJUN2lqWnp0eXVxbEZXbmlLWHJtTHlVNS9I?=
- =?utf-8?B?Q0ZxRW5PUlYzWWNOKzdmdzBQWHpMc1NmcnVnSkJZMXN4cXZGVlh0UEkyUEF2?=
- =?utf-8?B?OWwyU0NXMzkzY00rcGlOUVNQczRnMGF2YTBiUEN3ajBxNzE3WGxrS2ZYVk4y?=
- =?utf-8?B?REtKdTc1cHFwbE5QTkFIZXByUmg5bHkwWVZkak42M2NrREdReHJOa1UzZEhi?=
- =?utf-8?B?bTBwWklZenFtcHBnZi9DRkdlUFQxclRFS2FjdzdsekNmYkxKR1MxbG9Ublpi?=
- =?utf-8?B?c0R3bHhPWW1HVFpHSXNpM3puS25wL0c5UkY1aE1aM0w1bmc1MmZ0dklJeVpU?=
- =?utf-8?B?Q0t0TWxaTHpXSWFzWWRVbzlXZXRtK1l6ald3bUxZdUxGQmdvSktKQ1RXUmZv?=
- =?utf-8?B?OW43TGt0S0FqaE9rUkhQK2xvSStndm5uS3ppVHZNNEZOUTlOdkZFYlhKNU5G?=
- =?utf-8?B?SExpQ0oxVkhiMlVFckFrQWthcUMxVDJlSEgzTFNzZXAwNzJ3b2pUM25JK1I0?=
- =?utf-8?B?N0tWeVhCVHhrVkwvTlNxbjZ4dXlDNjlBazdDT3JuM3BKeWk3NU9IVkh3dnlT?=
- =?utf-8?B?S09GQWFUalJPeG54NVBiVlhpMmZIOEcxMDMxNlJpMnZxTVBxL0tmM0RLTktB?=
- =?utf-8?B?WVN5WXRvcDRMYnFZNGMzd3R1clI0aDBNVUpXdTd2dHhLUDByK2N6TFFNSkpn?=
- =?utf-8?B?ejdPTWxBejBHL1p2SFRnZm9Mc2dmRXlwbHhmVUF1cEJyWnZsVmtjOE1KOFBl?=
- =?utf-8?B?UENUODVIQjFWblc5ZEJtZE91cVFBZ0ovOFNwNy8wc3I3aUlRUjB6Vy8xdFlr?=
- =?utf-8?B?ZURaZ2RkbFlpeVFaS1FlWlhhYzNHUElCREF5bktnZkNNb2x4dUQ5Y2wvZ0lB?=
- =?utf-8?B?dlZvSmNnSmhoM25rM04wSHI2Y2RNdFNaTnJVaGpHSzM4RTVLa2RHMVRBUFMx?=
- =?utf-8?B?N2JRNFlPR2NlU3Bma1NCYUpEYlNRV0FhSWJGYyt2Myt4VGNBMDdSMk84Tktl?=
- =?utf-8?B?T0pXMXkvWEpNY1BYQ2RyNHVrNnVOSVM0SjNYczNkK2d3b244NVphY1FJWWtr?=
- =?utf-8?B?eVM1Q05TdUhCaE9Ya0lXOXpVQitQMW1QNHl0SmV0N01nbWFzVC93dGNOTDRx?=
- =?utf-8?B?Q21DS2d4bjhIcU1JQ3djUmxOTERqL1lDUHJMUEJKSWhDRGU4b28rWEZEMVgy?=
- =?utf-8?B?UFU5dVRJL3dndkRpaDFtTDhQRkdrREJCd0twMTRIZW1kM2VZZXVweXZUbGhS?=
- =?utf-8?B?bXB6L0xIb3l6VUtxQ0FZMDQzNFkxZnV2WWNHd2R5NEd2bldHcUFsL1R6UlI1?=
- =?utf-8?B?cEhKVW9ScmxMNlc3cEdjZHVHMUkxU3lMdFhCcFNNelpkUHpCd204NkpTS0Zu?=
- =?utf-8?B?cTUySWtWMFZIcjczc3R5NW1Da1lkS1BpanVPZFJqVlNiRkE3ejFYMFgyWHh2?=
- =?utf-8?B?LzhSWkhrbVdSYnBadU8ydWlDanZjeE1nZ2UyVDIwZC93eDJmQmtFL3VPMUZy?=
- =?utf-8?B?Y3RoaHhDdE5oeXlySXIwdXpybk9rNWtiNkc0TmRZM0ZSdmhCQjZ4UkhWTEVZ?=
- =?utf-8?B?NS9tUE45UnpxUEdUcEpoYUhKYVVZd1FkR3hPNHh2R05DNWpQenhhQmFUa3dl?=
- =?utf-8?B?QmVQM2RrQm8vQnJTbXhYTURNUDRpUllZMTZHd0ZkcWpKZTlJZ3pzN0lKM3U3?=
- =?utf-8?B?SGhLcE9nZ0RQcTMvSGJBZWp5VFVtWnBPNzFaZEQvangxZDhmS2tObnlFaVpw?=
- =?utf-8?B?YURuWnNPVGQ4L242SG5Oa0pCMC9meTRvdHJLSVFwVDhScUIxbmRSSEtOSFd5?=
- =?utf-8?B?Ymg3NjdhVXFza2lPRWdqTzU3SjN4cHlvTTlxcVJwNEcybWp6RFpWMzM0RDkr?=
- =?utf-8?B?NWo3UG9vcmlkMnlNQk1XOFNZWmJvVVd4dzFGUGtOL0dVbHI0SUxvWWU0V1ZX?=
- =?utf-8?B?Vis0WWROakZFdEdRRm81ZnQxQ3Q0ekwxQi9odkNVamhqV1lPcU8vRUZVNWty?=
- =?utf-8?B?MnJwV0NFcTdadU9zTVIwbjh3dTcvRXlHK2JWQTNjNzZGMHFhTXNEejlvb3Vr?=
- =?utf-8?B?eiticlNtSTZvSGhlMm1sZjJ4cys4eTlyekVaL1IzWHZZdS95QnVFQT09?=
-X-Exchange-RoutingPolicyChecked: vuzDqY1au10AL8iUeiwLnjkGTyTsw84qHe3MWl0770GbmgyRMIVu1KA8fzGKtXnIVxhueiPq3/XojOdYOgY+QimN6AwdkhyPTNodMSI62Su8P+svOsXyp9cfTKYpitFnog69ogSYeqMnv1ndq+/QI8/0tqbAcE+3EobwocO+T44M9htHXqgkE5kP85/z0Tml+TiVt2/DlbJuc3kJVzowB+yP2ruc/MWQoNMpWWKRKjiwMrpnwQDLVv7HGrt6urxCy01Wr9+u6EkW5uTKrNBxJFO8Hp/56OMzjh1HOjopr5XwTYxhetx3YnuyYxnoQoRNNc7SJaJOsrAnsYx4TC5wlw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0273447c-9311-4fc6-00e0-08df09d27484
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 15:46:01.6128 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1HR0IbZeJw10Nd2GUJ4No5Lllo2qUHuzJ5wVxcXEKEdha0KQKa1jcOWC6meS6HWKPJCppZwJ6o4gV64Fc1z2fQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7795
-X-OriginatorOrg: intel.com
+From: Varun Arora <arorasunan@gmail.com>
+Date: Thu, 3 Sep 2026 20:42:42 +0530
+X-Gm-Features: AcwNN1VYb6bSiyLR2sSz4sMSLV7uCr6pGvWPgCzUGFJolVIAlMxM0T0ddDJ2H0c
+Message-ID: <CAMbcQ41KJqEWOPLETx8sjOoigUj67LukkDktD_CupSxmwJURMg@mail.gmail.com>
+Subject: [i915] HP Victus 15-fa1xxx: eDP-1 link training failure after s2idle
+ resume, PPS VDD wakeref warning
+To: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000014e601065a959606"
+X-Mailman-Approved-At: Thu, 03 Sep 2026 16:00:12 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,232 +99,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave and Sima,
+--00000000000014e601065a959606
+Content-Type: text/plain; charset="UTF-8"
 
-Here goes our first drm-intel PR towards 7.4.
+Hi,
 
-Thanks,
-Rodrigo.
+I'm seeing a reproducible i915 eDP suspend/resume failure on an HP Victus
+15-fa1xxx with an Intel Core i5-12450H and NVIDIA RTX 2050.
 
-drm-intel-next-2026-09-03:
-Xe related:
- - Some clean-ups around drm/xe/display (Jani)
+HARDWARE
+--------
 
-Display in general:
- - Regular clean-ups (Jani)
- - Enable CMRR (Content Match Refresh Rate) in fixed-RR VRR path (Mitul)
- - Switch DG2 Multi-protocol PLL (MPLLB) to the DPLL framework (Mika)
- - DP-HDMI PCON DSC fixes (Ankit)
- - Remove duplicated call introduced by a bad cherry-pick (Chaitanya)
- - Limit invalid joiner combinations harder (Jani)
- - Fix value being written to DDI_CLK_VALFREQ (Suraj)
- - Harden some bit-shifting operations (Luca)
- - Clear SEL_FETCH_PLANE_CTL on plane disable (Nemesa)
- - Update CURSOR_BUF/WM masks (Suraj)
- - CDCLK related fixes and refactor specially around PCODE interaction (Ville)
- - Reduce clock_gating interface between core and display (Luca)
- - Gate UHBR SST SDP splitting on sink capability (Mitul)
- - Enable joiner cursor fast updates (Nemesa)
- - Cear the Panel Replay error status register (Jake)
- - Add HDMI TMDS audio bandwidth check (Chaitanya)
- - Reset use_flipq when duplicating crtc state (Mika)
+Laptop:
+HP Victus 15-fa1xxx
 
-Beyond display:
- - Guard against NULL driver_data (Deepanshu)
- - Rename GEN6_PCODE_DATA to match spec (Michal)
-The following changes since commit f0cabcc880aba3f05ca59d735f6d166b7fceca80:
+CPU:
+12th Gen Intel(R) Core(TM) i5-12450H
 
-  drm/i915/fbc: No surface size restrictions from LNL onwards (2026-07-24 11:48:36 +0300)
+iGPU:
+Intel Alder Lake-P GT1 [UHD Graphics]
+PCI ID: 8086:46a3
+Driver: i915
 
-are available in the Git repository at:
+dGPU:
+NVIDIA GeForce RTX 2050
+Driver: nvidia / nvidia-drm
 
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-2026-09-03
+Internal panel:
+1920x1080 @ 144Hz
+eDP-1
+The internal panel is physically connected to the Intel iGPU.
 
-for you to fetch changes up to 0d63d6fc993b1fb97e314f435bdefbf0ccd947bd:
+BIOS:
+F.23 (03/30/2026)
 
-  drm/i915/display: Reset use_flipq when duplicating crtc state (2026-09-03 10:17:54 +0300)
 
-----------------------------------------------------------------
-Xe related:
- - Some clean-ups around drm/xe/display (Jani)
+SOFTWARE
+--------
 
-Display in general:
- - Regular clean-ups (Jani)
- - Enable CMRR (Content Match Refresh Rate) in fixed-RR VRR path (Mitul)
- - Switch DG2 Multi-protocol PLL (MPLLB) to the DPLL framework (Mika)
- - DP-HDMI PCON DSC fixes (Ankit)
- - Remove duplicated call introduced by a bad cherry-pick (Chaitanya)
- - Limit invalid joiner combinations harder (Jani)
- - Fix value being written to DDI_CLK_VALFREQ (Suraj)
- - Harden some bit-shifting operations (Luca)
- - Clear SEL_FETCH_PLANE_CTL on plane disable (Nemesa)
- - Update CURSOR_BUF/WM masks (Suraj)
- - CDCLK related fixes and refactor specially around PCODE interaction (Ville)
- - Reduce clock_gating interface between core and display (Luca)
- - Gate UHBR SST SDP splitting on sink capability (Mitul)
- - Enable joiner cursor fast updates (Nemesa)
- - Cear the Panel Replay error status register (Jake)
- - Add HDMI TMDS audio bandwidth check (Chaitanya)
- - Reset use_flipq when duplicating crtc state (Mika)
+OS:
+EndeavourOS / Arch Linux
 
-Beyond display:
- - Guard against NULL driver_data (Deepanshu)
- - Rename GEN6_PCODE_DATA to match spec (Michal)
+Desktop:
+XFCE
 
-----------------------------------------------------------------
-Ankit Nautiyal (5):
-      drm/i915/hdmi: Use correct type for output_format parameter
-      drm/i915/display: Generalize intel_hdmi_dsc_get_num_slices helper
-      drm/i915/{dp,hdmi}: Pass bpc in intel_hdmi_dsc_get_bpp
-      drm/i915/hdmi: Add helper to get max FRL rate for an HDMI sink
-      drm/i915/dp: Use helpers for getting max FRL rate
+Session:
+Wayland
 
-Chaitanya Kumar Borah (3):
-      drm/i915/dp_mst: Remove duplicate intel_pfit_compute_config() call
-      drm/i915/hdmi: Move audio compute config after format selection
-      drm/i915/audio: Prune ELD SADs based on HDMI audio bandwidth
+Suspend:
+s2idle only
 
-Deepanshu Kartikey (1):
-      drm/i915: Guard against NULL driver_data in i915_pci_probe()
+Kernels tested:
+7.1.11-arch1-1
+6.18.48-1-lts
 
-Jake Steinman (1):
-      drm/i915/psr: clear the Panel Replay error status register
+NVIDIA driver:
+610.57.04
 
-Jani Nikula (11):
-      drm/xe/display: remove unnecessary includes
-      drm/i915/dpt: remove unused include
-      drm/{i915,xe}/display: move transient data flush call to display parent interface
-      drm/xe/display: drop redundant intel_hpd_poll_fini() call
-      drm/xe/display: drop redundant intel_hdcp_component_fini() call
-      drm/xe/display: drop redundant intel_audio_deinit() call
-      drm/{i915,xe}/display: add core workaround query to display parent interface
-      drm/i915/display: Limit max joined dotclock on joiner pipes available
-      drm/i915/dp: Limit for_each_joiner_candidate() on joiner pipes available
-      drm/i915/dp: Limit compute config joining to pipes that can actually join
-      drm/i915/debugfs: Reject invalid force_joined_pipes harder
 
-Luca Coelho (7):
-      drm/i915/display: harden masks in HSW_AUD_PIN_ELD_CP_VLD macros
-      drm/i915/display: harden shifts in ICL_DPCLKA_CFGCR0_DDI_CLK_SEL macros
-      drm/i915/display: harden shift in intel_ddi_compute_config_late()
-      drm/i915/display: remove unnecessary PHY_NONE definition
-      drm/i915/display: consolidate Gen9 clock gating initialization
-      drm/i915/display: consolidate remaining clock gating initialization
-      drm/i915/display: remove unnecessary clock_gating include from intel_display.c
+PROBLEM
+-------
 
-Michał Grzelak (1):
-      drm/i915/pcode: rename GEN6_PCODE_DATA to match spec
+After s2idle suspend/resume, the internal display frequently takes
+20-30 seconds to return.
 
-Mika Kahola (5):
-      drm/i915/display: Split out DG2 MPLLB enable helper
-      drm/i915/display: Add DG2 MPLLB DPLL manager support
-      drm/i915/display: Prepare DG2 DDI and compute paths for DPLL framework
-      drm/i915/display: Switch DG2 to use DPLL framework
-      drm/i915/display: Reset use_flipq when duplicating crtc state
+Sometimes it takes several minutes, and sometimes the display does not
+recover and continues blinking/going black until I reboot.
 
-Mitul Golani (11):
-      drm/i915/psr: Do not enable PSR2 when CMRR is enabled
-      drm/i915/vrr: Restrict CMRR enable condition to VRR-TG-default platforms
-      drm/i915/vrr: Add per-CRTC vrr/cmrr debugfs control
-      drm/i915/vrr: Update AS_SDP target_rr_divider based on CMRR config request
-      drm/i915/display: Move CMRR crtc_state members under VRR
-      drm/i915/vrr: Compute CMRR fractional timings generically
-      drm/i915/vrr: Latch CMRR ratio via atomic commit on debugfs write
-      drm/i915/vrr: Program CMRR enable/disable from transcoder timings
-      drm/i915/vrr: Dump CMRR state in the crtc state dump
-      drm/i915/vrr: Enable CMRR
-      drm/i915/dp: Gate UHBR SST SDP splitting on sink capability
+The kernel repeatedly reports:
 
-Nemesa Garg (6):
-      drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-      drm/i915/cursor: Check joiner cursor commit status
-      drm/i915/cursor: Add helper to update cursor plane
-      drm/i915/cursor: Handle secondary cursor state
-      drm/i915/cursor: Program secondary cursor planes
-      drm/i915/cursor: Allow joiner cursor fast path update
+    [drm] *ERROR* [CONNECTOR:...:eDP-1][ENCODER:...:DDI A/PHY A][DPRX]
+    Failed to enable link training
 
-Suraj Kandpal (4):
-      drm/i915/ddi: add helper to compute DDI clock frequency
-      drm/i915/cx0: program DDI_CLK_VALFREQ with DDI clock frequency
-      drm/i915/lt_phy: program DDI_CLK_VALFREQ with DDI clock frequency
-      drm/i915/xe3p_lpd: Update CURSOR_BUF/WM masks
+The failure can repeat approximately every 12 seconds while the display
+is trying to recover.
 
-Ville Syrjälä (17):
-      drm/i915/cdclk: Avoid spurious cdclk sanitization on PTL+
-      drm/i915/cdclk: Introduce has_cd2x_pipe_select()
-      drm/i915/cdclk: Fix dg2_power_well_count() return type
-      drm/i915/cdclk: Don't bail if pcode post nofify fails
-      drm/i915/cdclk: Pass CDCLK in MHz to pcode on DG2
-      drm/i915/cdclk: Do the DG2 CDCLK/pipe power well notify properly
-      drm/i915/cdclk: Notify DG2 pcode about pipe power wells regardless of CDCLK
-      drm/i915/cdclk: Stop forcing voltage level to 3 all the time on DG2
-      drm/i915/cdclk: Drop pointless platform check from bxt_set_cdclk()
-      drm/i915/cdclk: s/intel_/dg2_/ for DG2 specific stuff
-      drm/i915/cdclk: Unify the pcode pre/post notify in bxt_set_cdclk()
-      drm/i915/cdclk: Unify pcode related debugs
-      drm/i915/cdclk: Extract bdw_cdclk_pcode_{pre,post}_notify()
-      drm/i915/cdclk: Extract skl_cdclk_pcode_{pre,post}_notify()
-      drm/i915/cdclk: Extract bxt_cdclk_pcode_{pre,post}_notify()
-      drm/i915/cdclk: Introduce CDCLK .{pre,post}_notify() vfuncs
-      drm/i915/cdclk: Hoist intel_cdclk_{pre,post}_notify() calls upwards
 
- drivers/gpu/drm/i915/display/intel_atomic.c        |   1 +
- drivers/gpu/drm/i915/display/intel_audio.c         | 153 ++++++++
- drivers/gpu/drm/i915/display/intel_audio_regs.h    |  16 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c         | 334 +++++++++--------
- drivers/gpu/drm/i915/display/intel_cmtg.c          |   2 +-
- .../gpu/drm/i915/display/intel_crtc_state_dump.c   |   3 +
- drivers/gpu/drm/i915/display/intel_cursor.c        | 311 ++++++++++++----
- drivers/gpu/drm/i915/display/intel_cursor_regs.h   |   8 +-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c       |   5 +-
- drivers/gpu/drm/i915/display/intel_ddi.c           |  47 ++-
- drivers/gpu/drm/i915/display/intel_ddi.h           |   1 +
- drivers/gpu/drm/i915/display/intel_display.c       |  76 +++-
- drivers/gpu/drm/i915/display/intel_display.h       |   3 +-
- .../drm/i915/display/intel_display_clock_gating.c  |  67 +++-
- .../drm/i915/display/intel_display_clock_gating.h  |  16 +-
- .../gpu/drm/i915/display/intel_display_debugfs.c   |  21 +-
- .../drm/i915/display/intel_display_power_well.c    |   6 +-
- drivers/gpu/drm/i915/display/intel_display_regs.h  |  18 +-
- drivers/gpu/drm/i915/display/intel_display_types.h |  19 +-
- drivers/gpu/drm/i915/display/intel_display_wa.c    |   4 +-
- drivers/gpu/drm/i915/display/intel_display_wa.h    |   9 -
- drivers/gpu/drm/i915/display/intel_dp.c            |  96 +++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |   8 +-
- drivers/gpu/drm/i915/display/intel_dpll.c          |  22 +-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c      | 221 +++++++++++-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.h      |  22 ++
- drivers/gpu/drm/i915/display/intel_frontbuffer.c   |   3 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c          |  53 ++-
- drivers/gpu/drm/i915/display/intel_hdmi.h          |  11 +-
- drivers/gpu/drm/i915/display/intel_hti.c           |   3 -
- drivers/gpu/drm/i915/display/intel_lt_phy.c        |   6 +-
- .../gpu/drm/i915/display/intel_modeset_verify.c    |   1 -
- drivers/gpu/drm/i915/display/intel_parent.c        |  10 +-
- drivers/gpu/drm/i915/display/intel_parent.h        |   3 +-
- drivers/gpu/drm/i915/display/intel_psr.c           |  18 +-
- drivers/gpu/drm/i915/display/intel_snps_phy.c      |  60 +---
- drivers/gpu/drm/i915/display/intel_snps_phy.h      |   2 +
- drivers/gpu/drm/i915/display/intel_tdf.h           |  25 --
- drivers/gpu/drm/i915/display/intel_vrr.c           | 395 ++++++++++++++++-----
- drivers/gpu/drm/i915/display/intel_vrr.h           |   2 +
- drivers/gpu/drm/i915/display/skl_universal_plane.c |  15 +-
- drivers/gpu/drm/i915/gvt/handlers.c                |   2 +-
- drivers/gpu/drm/i915/i915_dpt.c                    |   1 -
- drivers/gpu/drm/i915/i915_pci.c                    |   3 +
- drivers/gpu/drm/i915/i915_reg.h                    |   2 +-
- drivers/gpu/drm/i915/intel_clock_gating.c          |  30 +-
- drivers/gpu/drm/i915/intel_gvt_mmio_table.c        |   2 +-
- drivers/gpu/drm/i915/intel_pcode.c                 |  14 +-
- drivers/gpu/drm/i915/intel_pcode.h                 |   2 +-
- drivers/gpu/drm/xe/Makefile                        |   3 +-
- drivers/gpu/drm/xe/display/xe_display.c            |  22 +-
- drivers/gpu/drm/xe/display/xe_display_rpm.c        |   2 -
- drivers/gpu/drm/xe/display/xe_display_wa.c         |  13 +-
- drivers/gpu/drm/xe/display/xe_display_wa.h         |   9 +
- drivers/gpu/drm/xe/display/xe_tdf.c                |  15 -
- include/drm/intel/display_parent_interface.h       |  15 +-
- 56 files changed, 1591 insertions(+), 640 deletions(-)
- delete mode 100644 drivers/gpu/drm/i915/display/intel_tdf.h
- create mode 100644 drivers/gpu/drm/xe/display/xe_display_wa.h
- delete mode 100644 drivers/gpu/drm/xe/display/xe_tdf.c
+BOOT-TIME ERRORS
+----------------
+
+There is also an eDP-related failure during BOOT, before the desktop:
+
+    [drm] [ENCODER:...:DDI B/PHY B]
+    failed to retrieve link info, disabling eDP
+
+Immediately around this I also get:
+
+    drm_WARN_ON(intel_dp->pps.vdd_wakeref)
+
+with a warning in:
+
+    intel_pps_vdd_on_unlocked()
+
+The call path includes:
+
+    intel_pps_vdd_on_unlocked()
+    __intel_display_power_get_domain()
+    intel_pps_vdd_on()
+    intel_dp_detect()
+    intel_display_driver_register()
+    i915_driver_probe()
+
+After some suspend/resume failures I have also seen:
+
+    i915 raw-wakerefs=1 wakelocks=1 on cleanup
+
+and:
+
+    intel_runtime_pm_driver_release
+
+
+TESTS ALREADY PERFORMED
+-----------------------
+
+1. i915.enable_psr=0
+
+   No fix.
+
+2. i915.enable_dc=0
+
+   No fix for the underlying problem.
+   The eDP link-training failure still occurs.
+
+3. 144Hz -> 60Hz
+
+   Did not solve the problem.
+
+4. Tested both:
+
+   7.1.11-arch1-1
+   6.18.48-1-lts
+
+   Both reproduce the problem.
+
+5. NVIDIA runtime power management
+
+   The NVIDIA GPU successfully entered runtime suspended state,
+   but the internal Intel-connected display still failed to resume
+   correctly.
+
+6. Intel Xe driver
+
+   I experimentally tested:
+
+       i915.force_probe=!46a3 xe.force_probe=46a3
+
+   This did not solve the problem.
+
+   Instead it produced PSR AUX errors, severe display corruption,
+   and another very long recovery loop.
+
+   I therefore returned to i915.
+
+
+SUSPEND
+-------
+
+The system only exposes s2idle:
+
+    cat /sys/power/mem_sleep
+
+returns:
+
+    [s2idle]
+
+Attempting to use deep suspend gives:
+
+    Invalid argument
+
+
+IMPORTANT
+---------
+
+The internal panel is physically connected to the Intel iGPU.
+
+DRM devices show:
+
+    card0 -> NVIDIA
+    card1 -> i915
+
+and the internal connector is:
+
+    card1-eDP-1
+
+
+QUESTION
+--------
+
+Could the combination of:
+
+    failed to retrieve link info, disabling eDP
+    drm_WARN_ON(intel_dp->pps.vdd_wakeref)
+    intel_pps_vdd_on_unlocked()
+    Failed to enable link training
+
+indicate an i915 PPS / panel power sequencing / BIOS handoff problem?
+
+Has this been seen on Alder Lake HP laptops, particularly HP Victus
+systems?
+
+Is there a known i915 patch, quirk, or debugging procedure for this
+PPS/VDD wakeref + eDP link-training failure?
+
+I would especially appreciate advice from anyone familiar with i915
+PPS, eDP AUX/link training, and suspend/resume on Alder Lake.
+
+I am trying to determine whether this is primarily an i915 issue,
+an HP firmware issue, or an interaction with the NVIDIA hybrid graphics
+configuration.
+
+Thanks.
+
+--00000000000014e601065a959606
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<br><br>I&#39;m seeing a reproducible i915 eDP suspend/=
+resume failure on an HP Victus<br>15-fa1xxx with an Intel Core i5-12450H an=
+d NVIDIA RTX 2050.<br><br>HARDWARE<br>--------<br><br>Laptop:<br>HP Victus =
+15-fa1xxx<br><br>CPU:<br>12th Gen Intel(R) Core(TM) i5-12450H<br><br>iGPU:<=
+br>Intel Alder Lake-P GT1 [UHD Graphics]<br>PCI ID: 8086:46a3<br>Driver: i9=
+15<br><br>dGPU:<br>NVIDIA GeForce RTX 2050<br>Driver: nvidia / nvidia-drm<b=
+r><br>Internal panel:<br>1920x1080 @ 144Hz<br>eDP-1<br>The internal panel i=
+s physically connected to the Intel iGPU.<br><br>BIOS:<br>F.23 (03/30/2026)=
+<br><br><br>SOFTWARE<br>--------<br><br>OS:<br>EndeavourOS / Arch Linux<br>=
+<br>Desktop:<br>XFCE<br><br>Session:<br>Wayland<br><br>Suspend:<br>s2idle o=
+nly<br><br>Kernels tested:<br>7.1.11-arch1-1<br>6.18.48-1-lts<br><br>NVIDIA=
+ driver:<br>610.57.04<br><br><br>PROBLEM<br>-------<br><br>After s2idle sus=
+pend/resume, the internal display frequently takes<br>20-30 seconds to retu=
+rn.<br><br>Sometimes it takes several minutes, and sometimes the display do=
+es not<br>recover and continues blinking/going black until I reboot.<br><br=
+>The kernel repeatedly reports:<br><br>=C2=A0 =C2=A0 [drm] *ERROR* [CONNECT=
+OR:...:eDP-1][ENCODER:...:DDI A/PHY A][DPRX]<br>=C2=A0 =C2=A0 Failed to ena=
+ble link training<br><br>The failure can repeat approximately every 12 seco=
+nds while the display<br>is trying to recover.<br><br><br>BOOT-TIME ERRORS<=
+br>----------------<br><br>There is also an eDP-related failure during BOOT=
+, before the desktop:<br><br>=C2=A0 =C2=A0 [drm] [ENCODER:...:DDI B/PHY B]<=
+br>=C2=A0 =C2=A0 failed to retrieve link info, disabling eDP<br><br>Immedia=
+tely around this I also get:<br><br>=C2=A0 =C2=A0 drm_WARN_ON(intel_dp-&gt;=
+pps.vdd_wakeref)<br><br>with a warning in:<br><br>=C2=A0 =C2=A0 intel_pps_v=
+dd_on_unlocked()<br><br>The call path includes:<br><br>=C2=A0 =C2=A0 intel_=
+pps_vdd_on_unlocked()<br>=C2=A0 =C2=A0 __intel_display_power_get_domain()<b=
+r>=C2=A0 =C2=A0 intel_pps_vdd_on()<br>=C2=A0 =C2=A0 intel_dp_detect()<br>=
+=C2=A0 =C2=A0 intel_display_driver_register()<br>=C2=A0 =C2=A0 i915_driver_=
+probe()<br><br>After some suspend/resume failures I have also seen:<br><br>=
+=C2=A0 =C2=A0 i915 raw-wakerefs=3D1 wakelocks=3D1 on cleanup<br><br>and:<br=
+><br>=C2=A0 =C2=A0 intel_runtime_pm_driver_release<br><br><br>TESTS ALREADY=
+ PERFORMED<br>-----------------------<br><br>1. i915.enable_psr=3D0<br><br>=
+=C2=A0 =C2=A0No fix.<br><br>2. i915.enable_dc=3D0<br><br>=C2=A0 =C2=A0No fi=
+x for the underlying problem.<br>=C2=A0 =C2=A0The eDP link-training failure=
+ still occurs.<br><br>3. 144Hz -&gt; 60Hz<br><br>=C2=A0 =C2=A0Did not solve=
+ the problem.<br><br>4. Tested both:<br><br>=C2=A0 =C2=A07.1.11-arch1-1<br>=
+=C2=A0 =C2=A06.18.48-1-lts<br><br>=C2=A0 =C2=A0Both reproduce the problem.<=
+br><br>5. NVIDIA runtime power management<br><br>=C2=A0 =C2=A0The NVIDIA GP=
+U successfully entered runtime suspended state,<br>=C2=A0 =C2=A0but the int=
+ernal Intel-connected display still failed to resume<br>=C2=A0 =C2=A0correc=
+tly.<br><br>6. Intel Xe driver<br><br>=C2=A0 =C2=A0I experimentally tested:=
+<br><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0i915.force_probe=3D!46a3 xe.force_probe=
+=3D46a3<br><br>=C2=A0 =C2=A0This did not solve the problem.<br><br>=C2=A0 =
+=C2=A0Instead it produced PSR AUX errors, severe display corruption,<br>=C2=
+=A0 =C2=A0and another very long recovery loop.<br><br>=C2=A0 =C2=A0I theref=
+ore returned to i915.<br><br><br>SUSPEND<br>-------<br><br>The system only =
+exposes s2idle:<br><br>=C2=A0 =C2=A0 cat /sys/power/mem_sleep<br><br>return=
+s:<br><br>=C2=A0 =C2=A0 [s2idle]<br><br>Attempting to use deep suspend give=
+s:<br><br>=C2=A0 =C2=A0 Invalid argument<br><br><br>IMPORTANT<br>---------<=
+br><br>The internal panel is physically connected to the Intel iGPU.<br><br=
+>DRM devices show:<br><br>=C2=A0 =C2=A0 card0 -&gt; NVIDIA<br>=C2=A0 =C2=A0=
+ card1 -&gt; i915<br><br>and the internal connector is:<br><br>=C2=A0 =C2=
+=A0 card1-eDP-1<br><br><br>QUESTION<br>--------<br><br>Could the combinatio=
+n of:<br><br>=C2=A0 =C2=A0 failed to retrieve link info, disabling eDP<br>=
+=C2=A0 =C2=A0 drm_WARN_ON(intel_dp-&gt;pps.vdd_wakeref)<br>=C2=A0 =C2=A0 in=
+tel_pps_vdd_on_unlocked()<br>=C2=A0 =C2=A0 Failed to enable link training<b=
+r><br>indicate an i915 PPS / panel power sequencing / BIOS handoff problem?=
+<br><br>Has this been seen on Alder Lake HP laptops, particularly HP Victus=
+<br>systems?<br><br>Is there a known i915 patch, quirk, or debugging proced=
+ure for this<br>PPS/VDD wakeref + eDP link-training failure?<br><br>I would=
+ especially appreciate advice from anyone familiar with i915<br>PPS, eDP AU=
+X/link training, and suspend/resume on Alder Lake.<br><br>I am trying to de=
+termine whether this is primarily an i915 issue,<br>an HP firmware issue, o=
+r an interaction with the NVIDIA hybrid graphics<br>configuration.<br><br>T=
+hanks.</div>
+
+--00000000000014e601065a959606--
