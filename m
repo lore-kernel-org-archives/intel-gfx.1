@@ -4,27 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F97C61DD3
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:42:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 356D2C61DD3
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E7B10F5C6;
-	Thu,  3 Sep 2026 13:42:53 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 292FE10F5C6;
- Thu,  3 Sep 2026 13:42:52 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4318059535998011870=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA10910F5E2;
+	Thu,  3 Sep 2026 13:44:13 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rA+zS1D3";
+	dkim-atps=neutral
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16DC510F5E8
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:13 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-484374f54d0so1485635f8f.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788443051; x=1789047851; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=tZmxOqMZSbeiSR0GbmGkaC/SGeiqRevrAyyYwxpdgiU=;
+ b=rA+zS1D3Cw6VzQUneegQ+dzWKnma6J9hA1aX7fy3tU1GEoF7aqIt2QQnrJVT1WnNa7
+ PtISCV6cJ4nsZ5N6PaxuAbaWDZRWCb/Xw5Br8U43gJcGYRrhsquq26bXDusITnWOFJJV
+ 5xOehGlOkfLs/oy6PHr6Wo1FR8g1WDpvqBGSbi6lVY4gkNf0XrI/YycKEdnNn5KQqdSr
+ t+i4V1i+mMAhee7nyeLfyd8+IlHDWpBf9wtfeydhEge+bJFLMXER03h90jdgebxMsjbz
+ B7pftE7Ns70cLNAAX/nUqiV3GR9sESW+1DzF6rD4mb+V8Uoss4mP1YyrvA3TjLKCaSL5
+ 8Umw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788443051; x=1789047851;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=tZmxOqMZSbeiSR0GbmGkaC/SGeiqRevrAyyYwxpdgiU=;
+ b=UFrn7MOfSjUpujqmRReidVyc1FYdWjuoDZdEzdKUVhuHdU9d0wr278nC60EYrCVCBy
+ a33RCY0Nw2DhjglmhOFHwG6vSJ3h2eOvj++IBno2so+MEWEY0b8eLQD2Pi7/q5HaeGsJ
+ cVaPMhvCD4X4l1mFSLlHSFaC+QxtONUcNgTBiLYxkZgnmjNBTpFO88ydVcw4FOwKho8j
+ VgauP99h68zVWLd+2OchxrOsh0eVU2NPeIuSUXiWBV8RisZwO2Bf8yaRzbb/A2jE28cC
+ tc/xR3lMyPeUs5kRLRObyxvTwKdzonWQ8TsBeUKhhYQtqsa83tgnIHEzqwuFKJTIFRim
+ 4QRg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzz2dmAMDn5ezheR2KY4fiKrLSrQPAiH/ULjJ30D7MAJ1sefXRL9YlUWpFuhFI+TGsmVsdbO7sjmQs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kNU82Ov1AGZ8JPb4EKPulwdcvXu4tLWFcZnE6TagNRgYXbIL8K
+ luLiWTYbMuhDz7YMDyupPLWsO9AzTAlR4jbmIBNtSnkL8qw+/6eUUXDh
+X-Gm-Gg: AYBFou1ffCihDxOZZ8oghfrvEpWjsMIP5jcBgangw/AU69zxhkEDIS5Azy4rlBHeZLo
+ /WOhJvPlzRyv1hzYBJfDzTtINFEV5x/PTe3moYaTPD1l2GgJGkehvUYOaUCCTwb1xHS8fTh1nbf
+ XNhPzichY3dcp5qibY2ox1OulDcfTe5DX1zJLWNGXCJ0MHxJriyPiwxdudzC4qX4rnpD7iPji4v
+ Hz3/U+c7RzSNl1J7T543bg7EAAFb5m9kBskLJfF70/ezzcQe0MojGSekETcmD76sT0E/eIati5e
+ tSwCnViOJ/QQVkny+6W1UxOrA1Xwz+WO1NWMMA5FlkzRHsf7DCnMscPV/cj26RCuO7gxTwIOIVs
+ 5P3lqQUtWaIh/D+KnIFOOJapG1m5S8AZ41MamoUC+v7jCZj9Yb2i+9wtWZXVpMtQuBFLKDJhcrg
+ 4iGexPDDQvp0WjfgFWkrSIDQsQqOWdNDqei+njldT/STKqAGsIWw9iCdutday26KCM1LA8cIc74
+ g==
+X-Received: by 2002:a05:6000:196f:b0:481:98d:b24 with SMTP id
+ ffacd0b85a97d-484913b9a8dmr18125062f8f.19.1788443051084; 
+ Thu, 03 Sep 2026 06:44:11 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15d9:4700:e712:9f38:603a:54e4])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2026 06:44:10 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
+ matthew.brost@intel.com, nat@pixelcluster.dev,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Refcounting dma_resv v3
+Date: Thu,  3 Sep 2026 15:27:55 +0200
+Message-ID: <20260903134408.105317-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915=3A_fix_incorrect?=
- =?utf-8?q?_RCU_teardown_order?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 03 Sep 2026 13:42:52 -0000
-Message-ID: <178844297216.118473.14491082152510573140@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260903113621.54660-1-christian.koenig@amd.com>
-In-Reply-To: <20260903113621.54660-1-christian.koenig@amd.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,162 +87,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4318059535998011870==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi everybody,
 
-== Series Details ==
+The idea of ref-counting dma_resv or ww_mutex came up multiple times from
+different people, but so far at least I have abandoned that as to
+complicated to implement considering how widely used that object is.
 
-Series: drm/i915: fix incorrect RCU teardown order
-URL   : https://patchwork.freedesktop.org/series/173302/
-State : failure
+Thanks to AI I gave the task to refcount dma_resv to Claude Sonet 4 just
+to check how horrible it would look like.
 
-== Summary ==
+Well turns out that this is actually a cleanup we should most likely aim
+for and I'm really wondering why we haven't done it like this in the
+first place.
 
-CI Bug Log - changes from CI_DRM_19083 -> Patchwork_173302v1
-====================================================
+Not only resolves it a bunch of issues with dma_resv instances shared by
+multiple GEM objects (we just recently had a bunch of patches for that on
+the mailing list), but also allows TTM to implement it's delayed delete
+handling without any zombie resurrection or similar hacks and DMA-buf to
+have better contention handling on map/pin in the future.
 
-Summary
--------
+v2:
 
-  **FAILURE**
+This patch set here is now the idea full flashed out. I smoke tested it
+with amdgpu, self tests and checked everything with kmemleak and of hand
+it seems to work.
 
-  Serious unknown changes coming with Patchwork_173302v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_173302v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
+Patch #1 introduces an interim allocated flag to allow switching users
+over to the new interface one by one. Patch #10 then removes that flag
+again after everything is done.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/index.html
+v3:
 
-Participating hosts (40 -> 38)
-------------------------------
+Well distrusting Sonet proved to be correct. It turned out that the AI
+missed tons of issues. Most of them are hopefully fixed in this
+iteration of the patch set now.
 
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
+Sashiko-bot on the other hand proved to be extremely useful. It not only
+pointed out tons of stuff Sonet missed but also a complicated pre-existing
+bug in i915.
 
-Possible new issues
--------------------
+The first patch in this series is now fixing this i915 bug, I've send
+this to the relevant mainatiners separately and only include it here for
+completeness.
 
-  Here are the unknown changes that may have been introduced in Patchwork_173302v1:
+Please review and comment.
 
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live:
-    - bat-arlh-3:         [PASS][1] -> [INCOMPLETE][2] +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19083/bat-arlh-3/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/bat-arlh-3/igt@i915_selftest@live.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_173302v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_flip@basic-flip-vs-dpms@d-hdmi-a1:
-    - fi-tgl-1115g4:      [PASS][3] -> [ABORT][4] ([i915#16876]) +1 other test abort
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19083/fi-tgl-1115g4/igt@kms_flip@basic-flip-vs-dpms@d-hdmi-a1.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/fi-tgl-1115g4/igt@kms_flip@basic-flip-vs-dpms@d-hdmi-a1.html
-
-  
-  [i915#16876]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16876
+Cheers,
+Christian.
 
 
-Build changes
--------------
 
-  * Linux: CI_DRM_19083 -> Patchwork_173302v1
-
-  CI-20190529: 20190529
-  CI_DRM_19083: b2fada7902896bce389c2b033688d18df36855fc @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9082: 2d61f578d998115259b87f9fa27f597ce11a0c89 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_173302v1: b2fada7902896bce389c2b033688d18df36855fc @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/index.html
-
---===============4318059535998011870==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: fix incorrect RCU teardown order</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173302/">https://patchwork.freedesktop.org/series/173302/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19083 -&gt; Patchwork_173302v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_173302v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_173302v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_173302v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19083/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> +1 other test incomplete</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_173302v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@kms_flip@basic-flip-vs-dpms@d-hdmi-a1:<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19083/fi-tgl-1115g4/igt@kms_flip@basic-flip-vs-dpms@d-hdmi-a1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v1/fi-tgl-1115g4/igt@kms_flip@basic-flip-vs-dpms@d-hdmi-a1.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16876">i915#16876</a>) +1 other test abort</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19083 -&gt; Patchwork_173302v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19083: b2fada7902896bce389c2b033688d18df36855fc @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9082: 2d61f578d998115259b87f9fa27f597ce11a0c89 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_173302v1: b2fada7902896bce389c2b033688d18df36855fc @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4318059535998011870==--
