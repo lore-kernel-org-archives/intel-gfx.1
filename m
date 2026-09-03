@@ -4,59 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF7E9C624D6
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 12:37:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CEE7C624D6
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 12:39:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7501E10F57D;
-	Thu,  3 Sep 2026 12:37:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B6D10F585;
+	Thu,  3 Sep 2026 12:39:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nZTZpKvj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NjEgMFeR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC3510F57D;
- Thu,  3 Sep 2026 12:37:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E415710F581;
+ Thu,  3 Sep 2026 12:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788439040; x=1819975040;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=w5HFEJOzCBOKB4JTZ/AS37a7Zc1KOaRW/MD4Yt06Me0=;
- b=nZTZpKvj2QA9ujG23E3BUeRn3rhtFJNse5Mk18J+bdy64dmmdBFyFufl
- IBrUUYYtABfqS/gDUyEX/kb1m6BfMwUCdVcDxymcTa3hEufH1ALwmuGrn
- WPFDHJj3JwW21W3bVckK01UPJD0PK87EQ02MnSe0/RbojgYeH57cWMGMB
- 750aqTvONhG0X5wLk9xg2x2JMcj+YC1hP3lX0NDTEro2zRnwS9qKghcBo
- lAdryr0kErnReQjhw6dKWG1DLK/6SsPEHDtjVjb2kMp4OwuF5IuEoY9rB
- sNh3k20JQZvqj37ibZIMLAW/5TmEHggr6JNJ41P2NVEUBOWJloUlgWErm w==;
-X-CSE-ConnectionGUID: oxEWuqhRRxePVcT5DEujbQ==
-X-CSE-MsgGUID: /YuyT51ET4GqX6YJoHxm2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="76473590"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="76473590"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 05:37:19 -0700
-X-CSE-ConnectionGUID: /lpoaFOPQYucE96lzMCQOg==
-X-CSE-MsgGUID: 4E+q71oORdKXm7yDMVlmpQ==
+ t=1788439175; x=1819975175;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=Y5pHofwkdkd03omDp5d+AN23xjdV071M8EoTXCJlQXs=;
+ b=NjEgMFeRz4J0Jeq10jDrZyPJFvXjJVALkyeH149lQGqtynT5pOToWG0v
+ Z+gQj+XKblRYnQaYvWWaYbKTzLJIHeW9aJkX+UZCanoLNsW6d9U95g9XF
+ sUmZsjiRR4gLg7AY1XCV8VlZRpINsnwvK1iHzhszqg9SShrNe/gtr0QC2
+ EoQqHY63zV5k4LdXxF1noevLJ0Uc8Kzb0eD1FdHd/5f2AkU4DdgD3hMMN
+ B+p60LvSUAw+aVkufGKWQA16/97w1/L7ip9hCqGL+5MiXa7H6LYF3X4XL
+ 4Ug707ofacaUxjjctNlNdtFW2GGuSF+/JgjNOVGgE5SgzAUi/2Cowyv2T Q==;
+X-CSE-ConnectionGUID: Cf9pxQKUSa+6ZdZsy34slw==
+X-CSE-MsgGUID: 7fVjvT1eSi6f/FHOh47rRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="89042408"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="89042408"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2026 05:39:34 -0700
+X-CSE-ConnectionGUID: g7KWG7VkRIKo3ak5g+r0DA==
+X-CSE-MsgGUID: tKvlCV3/S5Gu3kKATnNxog==
 X-ExtLoop1: 1
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO
- vgovind2-mobl4.intel.com) ([10.245.250.156])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 05:37:17 -0700
-From: Vinod Govindapillai <vinod.govindapillai@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: vinod.govindapillai@intel.com, imre.deak@intel.com,
- jouni.hogander@intel.com
-Subject: [PATCH v3 5/5] drm/xe/pm: handle the PME capability and runtime pm
- routines
-Date: Thu,  3 Sep 2026 15:36:58 +0300
-Message-ID: <20260903123658.565321-1-vinod.govindapillai@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260903080410.489411-6-vinod.govindapillai@intel.com>
-References: <20260903080410.489411-6-vinod.govindapillai@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="299576052"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2026 05:39:30 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 05:39:23 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 05:39:23 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.23) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 05:39:22 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H5DVMT6+ZtpA0Of+QZBIqomvCc+jtfglcR3GBAFYZ1NAtJGI34tDozVGRmehtrL90qeq/N9VQbr3aY8y95JM0yzfsA9AowpAV7zw4Zw77f3L/S+jK3d1ZmyVq9f6j6QVyuRsnZlyMqjAiz3zJJdR440pCSpreuLCrYPr8S4BeB5RnkT9CqpV3zQo5zWZAenpoXervIngJK6SrdtV+kDbJJs0omC/YMSglTgsluDkAIYeoGwr04y8ZrgeuW35hCJ2XEVynJzCNQYQGmReZI+33w6WqO8/XNXoE9EFwJe+SyXAAnrtGHz3JKi5OolQP4eU9HPOdavSxaFA49hhKdGO5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QnCX42/oN1ni+lFf9yRSTkCqO7UdWxScgOdT3H0nl3Y=;
+ b=CZJ9FORAIg85VE4aHQmVhUTTfu3pcwyVVsfypD/CMGLoJVuEPQzr7JmPOAeemCS9VP31/37BYu8mwTjMtTmy/1fkvOLLEvkj0K2C09VP4gvhAZeq7wyedH4CrANfLuHZeQddIynPUU3R+OEUMKX1yAfXkBVbzYRy0XQ818rQj5IPM7RTvc76wHDZhn/NzufQOzE4s/evkkLZZ7esCnFQwHVQTIUvGcjL529t/mSxDA4tOl2R7yAgPuU+7mfv7n1bTFM8VzhZwGPwq/lEAYzlIeEvqyajckIqf+Sk/8oUZZfdNPvCvHQhLSPqEiauHLAjbZou1WtmM/zyRF5JRFFH0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
+ by PH8PR11MB9856.namprd11.prod.outlook.com (2603:10b6:510:3c4::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 12:39:20 +0000
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 12:39:20 +0000
+Date: Thu, 3 Sep 2026 12:39:10 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ "Jani Nikula" <jani.nikula@linux.intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>, Janusz Krzysztofik
+ <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v3 4/8] drm/i915/gt/selftests: Use drm_* prints in
+ aggregated gt selftests
+Message-ID: <dnxu2clblnzurzncqpvwztmcmgs6vygq2yd5w6zldcnjhtvtsc@shzi3wcxynvw>
+"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
+References: <20260828100339.72304-1-krzysztof.karas@intel.com>
+ <20260828100339.72304-5-krzysztof.karas@intel.com>
+ <apGwueLe3rE7gPLj@zenone.zhora.eu>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <apGwueLe3rE7gPLj@zenone.zhora.eu>
+X-ClientProxiedBy: AS8PR04CA0063.eurprd04.prod.outlook.com
+ (2603:10a6:20b:313::8) To PH0PR11MB7424.namprd11.prod.outlook.com
+ (2603:10b6:510:287::7)
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|PH8PR11MB9856:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe9d3088-4406-4753-9a1e-08df09b8606a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|10067099003|4143699003|11063799006|56012099006|5023799004|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: aEDpfA6gYc2PCNqk4dmhNGQDOCyCX5G5GvJayC3TWCA41wrIoSIsLRsOJ3pvh8uNcJke2PYUwWvrVq0elrllwUXfOTE9fGpam+cKk1P8EWlGIV8TaPFisI0lvFtxrrHQgv+/QmKMHEIMXS0Po+1zg79Puvt9mk7HbM3hMrUVuPmW377WEMB+6qlpuSobTseanT0l43jbL0GBmgh6LuGdXCb2pmSG/dZ3dLb1OApQ9b5F7PVgUQ5OdhpW/QWlQ+E+dRY7vsxAawdNcmrAnPkGrg0yohaZR6D1Gpn9p8gf9Sk54y9iRmLvQBp/bRTeNoE7h+gHLveT6RSQK+CVKtU4j2V0q/U9hQfRWpat5o8jYntgEianMs0Kb4nv8DQrA0F9qZ00/tPi/5dye1ZPQvwZeO2ZuSP0aVTrrmo2WwWqntNt1QPRUBhacM/WY2gTeBiqD7ZTXqwaoFZcFWJ7ftwelKs0MRaPyAY0oB0ggkglT8m4cPaXWQ/KYPJPBuE3obDcVS/8Wb8MESYEeLQ3N4YSQZte1oSdFfiZXTOd4AQB+VsmJieA4Q652FJ0wL5W8hAGB3jnXAuAK2lm/w84LwL2DfFwfyJNJJM3yuEQ4tLUOVtSLhNZCbH/rkgJOCW7U7nz9d7iHZU+He4NEKqZeGJ+wHg6BGxtNecYgeA6Eu4oQEY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(5023799004)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dXdlYWQ1ZTYwbVpERnFuRkhEQm9USGN1cXp6SU0yMzAwa1hzVlNZbGZwSlFo?=
+ =?utf-8?B?UUJiaXNiTnk2VDZZdllvMWtRYmE1NW5nOFlmZzd1VnZiNGJPYWdqNytabDBZ?=
+ =?utf-8?B?SENwalVqMUZaTm02WFM5SzZBdG42QlAzbkY3RDZpZlFwQS9JWlM0SGJlWUtw?=
+ =?utf-8?B?eU82Y0U0ekpwenBXUXRodmNJUldKUm9QczFRVXBiYmRhR05PZ2gzaWRvY1pR?=
+ =?utf-8?B?RG5EdEt2ZGMyMmhUMkJaZ1FpOHFSR1ZzNHFsQXZaUTBUUW1vWkpRU1RqN3Zo?=
+ =?utf-8?B?NFBITGtGeDU4c1MyZWFSRklPcU4xOWJ0S0ppa0krOHNXV3NIOVB0dW5oK2ha?=
+ =?utf-8?B?ZGxoTExEUFhMZ2dvbi9aUzF5NUZvVzFYV2h0WjJ3RksvVXlDQWhGeUViK0Nm?=
+ =?utf-8?B?ZFRwN1JSYnFDZWk0NnJoQ000WFRoUWFPT0ppdUI5Y3NlYXdlejNaNXpEQUlL?=
+ =?utf-8?B?REZuSUsydm16UUdTeWxsMlUvWXJyVll0dlM5RWlvK3VMSHRGR0NNdDVHRG5Q?=
+ =?utf-8?B?SEFhNnNSanUrc21qT0xhQjhFcXQwTDR0OWltRDhpZXpBQVFxV0t1ckQ5ZnVt?=
+ =?utf-8?B?TTk1T21BOExMWENySHFiQ0RWSG5jWFBtT1BmczlKcUY0U3B1R2p5dDFVeTNj?=
+ =?utf-8?B?d3ZwQXNjWDFFVFVMVEFhbXFZSzJ0eU9PUmtPOWU1cUsvak9Ja0dDMkJSWUta?=
+ =?utf-8?B?TlNoU3FSK2xUcGhXUnRjbVE4ZFdxYmlubDNja0txeWdZRkdtVFdkMHdSUjFN?=
+ =?utf-8?B?TTFyTW5uRTQrQ2tRYmZCZUFjK0U2K3lZaXd3bUtMVjA3cEdWT2xmenpMTG14?=
+ =?utf-8?B?RkdGQmVoY1RXMmZEWmhhSS9lOUgxOXl6ejFLL1RWKzE0VEhzT3FjaitpckNV?=
+ =?utf-8?B?TlQwcWJicGsrN20wQ1NkOFZOY0UzTUVLdzRHV2ZoRkl4L2NYUGxKV3FEcmxa?=
+ =?utf-8?B?bXRPVWpJSlNVZGZTRzAvK3NJWk44ZHRoanpueHo2QzM0anJIeXhjbjVXQzJl?=
+ =?utf-8?B?RHpMUkIxWVNiaDUycHZZanVPS05uRzltQWVqY0NFcVNoQzd5YUVLb2xsbi84?=
+ =?utf-8?B?dXBGVkdxODJtTi9rZVVRSisyVnJrUCtGdzZSVkprYlFaYVBXOXZFczBnQms4?=
+ =?utf-8?B?VzhJcEVxenRmRmRLcjdycDhxN0FGVExhcjRpK2t5WnhNaFdYcjIrenkvUURR?=
+ =?utf-8?B?U1lhM3BMa08ybjBYOGVNSUFadFhZbjNSTWZVOFgwZUhqZkRqMlhTaXc4aWZv?=
+ =?utf-8?B?c3JzMzAyWmlwNDRMRDFmbXErQ0VRVGlzQWZMODJJYUN2RWdtUnVTQXdWTk9Q?=
+ =?utf-8?B?NTlGVVd0d1pKUDFFM2k1UitFMC9jc3I5SloyQWF6d2dkWWxqWkc2SkJHZXBk?=
+ =?utf-8?B?Q205b0lEeWpZVUp2anNiM1hWOGZ5TGM3aXZNTk5yWWJGdDhJR0FMdUpSTGh0?=
+ =?utf-8?B?NGVHVjgrZiswM3NPcTdsWWZvc0NSUkxkSVVvNTBONldnSmV6dVgwWnhDNGFm?=
+ =?utf-8?B?bUE3Y1dEektVZFpaYnlxME1Da3ptUWo5Qk9QU1lGRGhzNjZNeVhZajFSaGhJ?=
+ =?utf-8?B?cGgvWlNiOXNUMU5QOWszK1UrV0pqMGdtVzZaeXYxS1ZSSkxZSlNlVzE2eGVB?=
+ =?utf-8?B?YXdZb3RzTy9OdjV4QklselNIMGVLT0pFbkxJUGlCdXJHRWtPcTJzUUQ0WGwy?=
+ =?utf-8?B?ampNRHNEYXVHUG4wRkthZTJQZ21GcUhPRVl4V2IyMUl0a2lReDNWeUE4WFhC?=
+ =?utf-8?B?RDdxYUJ5NzUzZ3EzSzJSZTVqWlVaTTlHZWFIZmEzQm9sVlFTTDMwb3ErVDhG?=
+ =?utf-8?B?akZ0QWpvUnd5azJkYlRaZkh3TWlxc2pZVnFTQ1hZK2xDeXZVcC8vdEJIWDdi?=
+ =?utf-8?B?NWJOR05oM1I0bHhILzdIY0tmWnBMcmRaVENDdnhGaHBrQUZ0amdqZno2SU1i?=
+ =?utf-8?B?MWlBMk1HMHRNakorK2NmaDRCZmpVakF4NnpVOUJYaUY1RzREQjRBbXQvL2pl?=
+ =?utf-8?B?eFRJeEVqbFI3MlpNUzV1RUdsS1VUaTVKOEc3QUduVmNJOXh6VFhyWGQ3SGpt?=
+ =?utf-8?B?Y3hXUTBWWDZoeTZEeUpLdG9xdzJqYTZsUG1CK21wbnA3Q1UrcklmVERHdGpI?=
+ =?utf-8?B?ZFNBSXN2SXBqOG56ZStLbGIzTTd2eEhveWJMUlRONWNzdXovTmVsYU5FR0M2?=
+ =?utf-8?B?R2xNWC80a2pvRFpCQmhzbFZzc3NOU1g0RzRRQ3Q0SlhUUWd5enZrVmtCREtY?=
+ =?utf-8?B?OVdIcVZEM0VsdHVhRmhOd1V6M2xzQ2NkTmZDRTBMZWcxREd2SktBU0MxUDd4?=
+ =?utf-8?B?amk1VGhhRGoxUjcyclNMbjFqWkZVRG1ZQVplSjg3Q2xhVmpBQnIxbG40VEps?=
+ =?utf-8?Q?rbCHUFRTDAkaE1Y0=3D?=
+X-Exchange-RoutingPolicyChecked: AFTTx8AwNnGlXz0SqWMKxNavgGH338KPz8F+v6Q0P7U20goFNJ/a9F32+QTgh9V9uh72a/VFJndPIyo6EfAp74g2ZNGuhKKbICw2EB6wKzO0+0K/4GNPl+ih7GB/+1UPos3mTrboaF8zxleqfIcMXgOUngdP/I9LQX6Q/HrZzBMUnuSUWCtd9ETLXWJmuJpUgHRUYIyZB2GFM54b7J30KkZ+dSocXGyRVv2FryxplYB9pUbGz1l2wDunZAIkREruT8SnWBRQIVIUAzgndQl1Q2srInS7GhC2QmFxaMALIK7Q1ztF8DgnuzTYTqjwEAsAguDbknMQbWOp++I92PSXdA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe9d3088-4406-4753-9a1e-08df09b8606a
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:39:20.7946 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /KLSzj6WDQ95tPlQ4A58Em0QJO31LbQNCSMwdmR16uM4d8Qev/nkwoygoRjtgxu4V6iHVS0lB7FE+Kd2TRQ8o2YmvDuV/aplcojOTDcnqAg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB9856
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,175 +177,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During the runtime suspend, check if device is capable of wakeup
-from PME. If yes update the helper so that IRQ reset and HPD
-polling can be handled accordingly. For PME capable devices,
-HPD related IRQs are not reset during runtime suspend and
-do not start polling for HPDs every 10s. Instead PME can be
-generated from HPDs and corresponding runtime resume calls
-can be invoked by PME.
+Hi Andi,
 
-v2: ensure that both software policy (device_may_wakeup()) and HW/
-    Platform (pci_dev_run_wake()) can support device wakeup
+On 2026-08-28 at 18:18:35 +0200, Andi Shyti wrote:
+> Hi Krzysztof,
+> 
+> On Fri, Aug 28, 2026 at 10:03:35AM +0000, Krzysztof Karas wrote:
+> > Move away from generic pr prints to device context aware drm
+> > versions.
+> > 
+> > Assisted-by: GitHub-Copilot:claude-opus-5
+> 
+> what a ride!
+> 
+> While reviewing everything I was thinking whether it would make
+> sense to add an i915_err() like xe and gt.
+The idea makes sense, the question is when to introduce this
+macro. I have the v4 pretty much ready to send, apart from a few
+minor issues I have to fix, but I am not against modifying it to
+accomodate i915_* family of prints.
+If we agreed on this, then we'd have this new macro ready when
+we'd be replacing pr_* prints in other parts of the driver.
 
-Bspec: 52979, 52980, 68857, 68867, 68970
-Assisted-by: GitHub_Copilot:claude-opus-5
-Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
----
- drivers/gpu/drm/xe/display/xe_display.c | 10 ++++++++++
- drivers/gpu/drm/xe/display/xe_display.h |  4 ++++
- drivers/gpu/drm/xe/xe_pci.c             | 17 ++++++++++++++++-
- drivers/gpu/drm/xe/xe_pm.c              | 24 ++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_pm.h              |  1 +
- 5 files changed, 55 insertions(+), 1 deletion(-)
+I think it would be worth to keep the series in the oven for a
+few more days, especially when it is not that critical of a
+change. What do you think?
 
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index 7b25c0814674..ff4a74c5c763 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -236,6 +236,16 @@ void xe_display_irq_postinstall(struct xe_device *xe)
- 	intel_display_irq_postinstall(display);
- }
- 
-+void xe_display_set_pme_capable(struct xe_device *xe, bool pme_from_hpd)
-+{
-+	struct intel_display *display = xe->display;
-+
-+	if (!xe->info.probe_display)
-+		return;
-+
-+	intel_hpd_set_pme_capable(display, pme_from_hpd);
-+}
-+
- static bool suspend_to_idle(void)
- {
- #if IS_ENABLED(CONFIG_ACPI_SLEEP)
-diff --git a/drivers/gpu/drm/xe/display/xe_display.h b/drivers/gpu/drm/xe/display/xe_display.h
-index 0babb50bfc77..a77a8fa1d802 100644
---- a/drivers/gpu/drm/xe/display/xe_display.h
-+++ b/drivers/gpu/drm/xe/display/xe_display.h
-@@ -37,6 +37,8 @@ void xe_display_irq_enable(struct xe_device *xe, u32 gu_misc_iir);
- void xe_display_irq_reset(struct xe_device *xe);
- void xe_display_irq_postinstall(struct xe_device *xe);
- 
-+void xe_display_set_pme_capable(struct xe_device *xe, bool pme_from_hpd);
-+
- void xe_display_pm_suspend(struct xe_device *xe);
- void xe_display_pm_suspend_late(struct xe_device *xe);
- void xe_display_pm_resume_early(struct xe_device *xe);
-@@ -75,6 +77,8 @@ static inline void xe_display_irq_enable(struct xe_device *xe, u32 gu_misc_iir)
- static inline void xe_display_irq_reset(struct xe_device *xe) {}
- static inline void xe_display_irq_postinstall(struct xe_device *xe) {}
- 
-+static inline void xe_display_set_pme_capable(struct xe_device *xe, bool pme_from_hpd) {}
-+
- static inline void xe_display_pm_suspend(struct xe_device *xe) {}
- static inline void xe_display_pm_suspend_late(struct xe_device *xe) {}
- static inline void xe_display_pm_resume_early(struct xe_device *xe) {}
-diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
-index f8e16aefd2f8..e510917490d1 100644
---- a/drivers/gpu/drm/xe/xe_pci.c
-+++ b/drivers/gpu/drm/xe/xe_pci.c
-@@ -1385,6 +1385,9 @@ static int xe_pci_runtime_suspend(struct device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct xe_device *xe = pdev_to_xe_device(pdev);
-+	pci_power_t state = xe->d3cold.allowed ? PCI_D3cold : PCI_D3hot;
-+	bool pme_capable = xe_pm_pme_supported(xe) &&
-+			   pci_enable_wake(pdev, state, true) == 0;
- 	int err;
- 
- 	/*
-@@ -1396,9 +1399,17 @@ static int xe_pci_runtime_suspend(struct device *dev)
- 	xe_assert(xe, !IS_SRIOV_VF(xe));
- 	xe_assert(xe, !pci_num_vf(pdev));
- 
-+	xe_display_set_pme_capable(xe, pme_capable);
-+
- 	err = xe_pm_runtime_suspend(xe);
--	if (err)
-+	if (err) {
-+		if (pme_capable) {
-+			pci_enable_wake(pdev, state, false);
-+			xe_display_set_pme_capable(xe, false);
-+		}
-+
- 		return err;
-+	}
- 
- 	pci_save_state(pdev);
- 
-@@ -1419,12 +1430,16 @@ static int xe_pci_runtime_resume(struct device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct xe_device *xe = pdev_to_xe_device(pdev);
-+	pci_power_t state = xe->d3cold.allowed ? PCI_D3cold : PCI_D3hot;
- 	int err;
- 
- 	err = pci_set_power_state(pdev, PCI_D0);
- 	if (err)
- 		return err;
- 
-+	pci_enable_wake(pdev, state, false);
-+	xe_display_set_pme_capable(xe, false);
-+
- 	pci_restore_state(pdev);
- 
- 	if (xe->d3cold.allowed) {
-diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
-index f517bf453b54..e6b18968e486 100644
---- a/drivers/gpu/drm/xe/xe_pm.c
-+++ b/drivers/gpu/drm/xe/xe_pm.c
-@@ -92,6 +92,8 @@ static struct lockdep_map xe_pm_block_lockdep_map = {
- };
- #endif
- 
-+#define HAS_PM_PME_SUPPORT(xe) (GRAPHICS_VERx100(xe) >= 3500)
-+
- static void xe_pm_block_begin_signalling(void)
- {
- 	lock_acquire_shared_recursive(&xe_pm_block_lockdep_map, 0, 1, NULL, _RET_IP_);
-@@ -738,6 +740,28 @@ int xe_pm_runtime_resume(struct xe_device *xe)
- 	return err;
- }
- 
-+/**
-+ * xe_pm_pme_supported - Can the device signal PME from its suspend target state?
-+ * @xe: xe device instance
-+ *
-+ * Determine whether the device can generate a Power Management Event while
-+ * runtime suspended.
-+ *
-+ * Return: true if PME is supported from the target state, false otherwise.
-+ */
-+bool xe_pm_pme_supported(struct xe_device *xe)
-+{
-+	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
-+
-+	if (!HAS_PM_PME_SUPPORT(xe))
-+		return false;
-+
-+	if (!device_may_wakeup(&pdev->dev))
-+		return false;
-+
-+	return pci_dev_run_wake(pdev);
-+}
-+
- /*
-  * For places where resume is synchronous it can be quite easy to deadlock
-  * if we are not careful. Also in practice it might be quite timing
-diff --git a/drivers/gpu/drm/xe/xe_pm.h b/drivers/gpu/drm/xe/xe_pm.h
-index 6d5ab09cb769..16b8699e59ec 100644
---- a/drivers/gpu/drm/xe/xe_pm.h
-+++ b/drivers/gpu/drm/xe/xe_pm.h
-@@ -30,6 +30,7 @@ bool xe_pm_runtime_get_if_active(struct xe_device *xe);
- bool xe_pm_runtime_get_if_in_use(struct xe_device *xe);
- void xe_pm_runtime_get_noresume(struct xe_device *xe);
- bool xe_pm_runtime_resume_and_get(struct xe_device *xe);
-+bool xe_pm_pme_supported(struct xe_device *xe);
- void xe_pm_assert_unbounded_bridge(struct xe_device *xe);
- int xe_pm_set_vram_threshold(struct xe_device *xe, u32 threshold);
- void xe_pm_d3cold_allowed_toggle(struct xe_device *xe);
+> 
+> ...
+> 
+> > @@ -540,7 +551,7 @@ static void spinner_kill(struct timer_list *timer)
+> >  	struct spinner_timer *st = timer_container_of(st, timer, timer);
+> >  
+> >  	igt_spinner_end(&st->spin);
+> > -	pr_info("%s\n", __func__);
+> > +	drm_info(st->spin.hws->base.dev, "killing spinner\n");
+> 
+> considering that you kept the __func__ reference everywhere else,
+> you could have also kept it here. I like that you have added a
+> message, though.
+> 
+> As you are going to resend, anyway, please fix this little nit.
+Roger that.
+
+> 
+> >  }
+> 
+> ...
+> 
+> >  	sort(t, ARRAY_SIZE(t), sizeof(*t), wrap_ktime_compare, NULL);
+> > -	pr_info("%s: %zd KiB copy: %lld MiB/s\n",
+> > -		ce->engine->name, sz >> 10,
+> > -		div64_u64(mul_u32_u32(4 * sz,
+> > -				      1000 * 1000 * 1000),
+> > -			  t[1] + 2 * t[2] + t[3]) >> 20);
+> > +	drm_info(&ce->engine->i915->drm, "%s: %zd KiB copy: %lld MiB/s\n",
+> 
+> Not a binding comment: rq->i915 would have made it a bit shorter.
+> 
+> > +		 ce->engine->name, sz >> 10,
+> > +		 div64_u64(mul_u32_u32(4 * sz, 1000 * 1000 * 1000),
+> > +			   t[1] + 2 * t[2] + t[3]) >> 20);
+> >  	return 0;
+> >  }
+> 
+> ...
+> 
+> > @@ -1211,7 +1231,7 @@ live_gpu_reset_workarounds(void *arg)
+> >  	if (!lists)
+> >  		return -ENOMEM;
+> >  
+> > -	pr_info("Verifying after GPU reset...\n");
+> > +	drm_info(&gt->i915->drm, "Verifying after GPU reset...\n");
+> 
+> I'm thinking whether it's better to use gt_info() when we have
+> the gt reference.
+Sure.
+
+> 
+> Andi
+> 
+> >  
+> >  	igt_global_reset_lock(gt);
+> >  	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
+
 -- 
-2.43.0
-
+Best Regards,
+Krzysztof
