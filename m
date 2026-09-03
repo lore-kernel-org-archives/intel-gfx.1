@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29F2BC79F85
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 914FBC79F92
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7211310F615;
-	Thu,  3 Sep 2026 13:44:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8118210F618;
+	Thu,  3 Sep 2026 13:44:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ctuN9rlY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CyhYZt75";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 056F110F611
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:21 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-48442ea8f59so766378f8f.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:20 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E48B610F612
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:23 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4956869750eso16809775e9.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788443059; x=1789047859; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788443062; x=1789047862; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=6klaXJvfXq947sYWFvExSHm1VkoJDuNrl0THSIIZjfw=;
- b=ctuN9rlYD2MKZz9+0KDh1QRo/Cu6+mYWxiR7omi9LNdi3g8/oLFd06o7lqxBoV37YY
- 3HUxzXBQDbibipvgDrpP8z6OrhFcdxsPqLD8gkYklxlVjZ2v4v/EXUYeESK7NKAkcymD
- dC9x0PNffCAJfvAHI4baz0v6Au5d0hJMijCKombpLaKqhvYOO12DR0tiM47Y0BOuhahJ
- 2I1Gszuf8rl2eo8EkX7fytLzG6GZJmtTEabkfp2KSE0dgYt2LGNa/dvINOO2wVGOKSkm
- RuJZayRHWMvdRaNED5jrh3/y/HQrhxWg2n6hBqQOm/8A9rz/oDntd0Uq78jMsrsUMYrf
- lDmw==
+ bh=+D94IVhV0jPQG1E/Q7YgWF8UlhHboHO5XUp1Tpas8v4=;
+ b=CyhYZt75KMQ8l0w75wDdgotZyEmqP5hG1LOPxxVM0PrPzFMe8XHxsMFVuwJ+or/EcR
+ oFrXHWGb8ctZq5YUK/QQlN9fasqa/ROYVEGKVhXXmJqI/GMJ8XlEcLOk9e88FJfthyET
+ gohP9v8TX3u7y1+qNh/bQkf8xm0DA3SGqg8FtxxaXyMWP9D/0lVABkMcIpa6eYn7apun
+ yh0uQxOig41aWRxRVcggu5Hr3Iz9xeg2JnBt3Jwjvrey93wAPFXdPXZb2GTpFJEev5BH
+ YSZ05nLdpmGd3Di9fNfza+h5T+JaOIDiKeZYGy90DzAvMrxfHOiywVL4OVNJzFJnqOm0
+ ulTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788443059; x=1789047859;
+ d=1e100.net; s=20251104; t=1788443062; x=1789047862;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=6klaXJvfXq947sYWFvExSHm1VkoJDuNrl0THSIIZjfw=;
- b=EKqkJMvtda118Nw0H3H1TOHhOPcjiezIcPifFTGWvOnPuJYl+Khu20yxsLFk+Xlk8h
- Xqy40W2diOW3Rb0zMlW+KHKg0hSrNPVpD0YLw63Qyyv/1jhoDTg9gN/ZgKMKv5sG8E2v
- uzako5hBkMa234IWh3R3RM/FYIxnFR1Y5d1Ed2cNwa3kCcWF6P51c9OIZftP4qmqu9P8
- 5BKGg5enWwXNDvBtjw94yaXhGlG2w4aV2VuX3hqD5kskW5dnJ0NGuLDNmGzLOuPTtbg0
- pcMSEqsZ13j/2ZVrqV8LpSySqEa1OJ0TzVw06q/56FBFyCW3OOGk8Hg/hWPISZYwpR98
- f2IA==
+ bh=+D94IVhV0jPQG1E/Q7YgWF8UlhHboHO5XUp1Tpas8v4=;
+ b=SX6C2+ZLPxPjfr1bn3IAVoGBzGMotM7hFi5t4/p5BbcHKchajuO25MGFAqn33aWs9J
+ lzuSVJ+kwBo7onrLnzVFUgko/a71psTkbBVmvwIA4vrFwWYq5UXXfW2G3jYlVv2ejSrv
+ ca4PQS3ecmvR/EolEXdAgf8BL+nXvaUz9LhLj1nYKEP34ByD1FxigQyFvmxuripbFBTI
+ qlsWPykBgr704eKT3aPqNHEZuV4nhMq5/GcvKDvWSfMIxsRtPel+d69NwvxbWROOZAAt
+ 8BvZUrwgsRUA4LqxDxHhgbGTMinvFvGt+kJ6dgTG4td4WObSKBGZ/sXnADYN/fesWOGo
+ iCHw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByZa8349QL3SWacWcUOM9gWYmNx3a5XUf+rPaq8+RVOcaSl3+XqdozLwlBh2TE4bxxWCBEKOxeY9uA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kLvD8mo+Fda9pLL9LKTID6JNhZfJ8rgiZurVl2KY/8Eg6vg9ex
- 7vsmdBHQxv/Q9nMbqfgMIE2qOo4fHi7NYLNvqV9+z0MPS45bY+lZjhLI
-X-Gm-Gg: AYBFou12rwFQD6oUYay7fgrNpKxgO09k567j7GsRTHLWQZdijolGdt+rHNK8W/gB2yE
- Qb7clbag3i/8Hs2n9Idd8oMZcCd5MNh9sARNjolf+mRJX+aVD6yl03HeDu4OLUriUkNIlPiaJt6
- GuZcs8Xj3ZW4G9FhO9NNIj8ymWMV9n+HHmmN4fjaCHjPr8lsmkbmPFsB0jm4zHYO3ZDTEFqlbya
- AbWEk2u4U/x50omyve9tB/cDqV3tvkPof98Xh9lEwQmMFoQ2JBUkBaCpmH8NOQtKSiXm7Lg4lrX
- 04B3FbQBs6XBd5ShnlWRh4mexXriveb0PDKnMJfVftFBKfTOXoEFRFbcoKZkVDtGiP6UzUALcYp
- 5mq/LjI/CK0v1g+CoAvRkTozzqXXyXu5lHua7z/AEEvjswcKk1TAHcGOLL1WItBpr433zCUh5TN
- H6d1fsuFE3CIP1iMecr24tVn8wYjPROSdK0gnBk/DSJ4GH35Pa6RdByVZwsWpYzrhNPvXH03e0E
- Q==
-X-Received: by 2002:a7b:c044:0:b0:49c:f501:e428 with SMTP id
- 5b1f17b1804b1-49cf501e471mr14994485e9.8.1788443059191; 
- Thu, 03 Sep 2026 06:44:19 -0700 (PDT)
+ AKwUvBz+RWrMyvBtTVeob2kB9wtyi4ga2KIgXx/3OnerAGI0RX+ZMZu72RaoMcO0Jji3Ayeor/pl3PDYUHU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nw+9gjbosMuT4PSyAnFsPmJThSbdFI2dvMUHLc59Fpjizcw1Ui
+ STxU9mHLAuJCmpEy6935846GV7lt9x+VMojKgjVcWl+Ixmi3r+bUD5J1
+X-Gm-Gg: AYBFou2WLq5RsNqOjN/PXzfQkzTgInqRPFvQOVrLWLzBIFCxjMAU2QeKTQ7/JdZPokH
+ yjtBv5LYG2Gs1nxq3ngtS3QLcfBSRsVG8bPsDepaZU4FTprhUxL00OaVMU4BoIUD7Bgm+4y5SDk
+ qeiEFXLZVNpm+CtAkilU3lTouATNmbdU5RNdN47krRWcQYaz0KJ0feVAaw8A1m77pP+SPEwyiie
+ 0lz5ZXDDi3EZeUAJokZrm3kMCHbqJSAM3Zph6mz5ki+YjhEnX+6qDtfdN9LHJuNVSnqwFeZKj5o
+ VSRYIfBdfIKjjsow9tccEdJiHHTyhAyQyEiSACN3V35JTkItKZWJXb4AnWX06y9+CVxZIwTZlMl
+ V/oN3rDZjjwrDeirEryUHijek2P8oH2RUWWci1ozfelTArjh4MsM1cu1KrHXKsG8Q0NXVYToP3u
+ aE1iSvEQMARB2alXKDIZne+JB5iKIZlIhSsaIpTNoJvLdVoE0pycIJmnwtSVP/5NrJgE43KJFVS
+ 117wAd23+et
+X-Received: by 2002:a05:600c:4693:b0:499:484a:81d0 with SMTP id
+ 5b1f17b1804b1-49ce5817d63mr188523005e9.9.1788443061988; 
+ Thu, 03 Sep 2026 06:44:21 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15d9:4700:e712:9f38:603a:54e4])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.18
+ ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2026 06:44:18 -0700 (PDT)
+ Thu, 03 Sep 2026 06:44:21 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,10 +71,9 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  matthew.brost@intel.com, nat@pixelcluster.dev,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 08/11] drm/i915/gt: Use dma_resv_alloc for VM reservation
- objects v2
-Date: Thu,  3 Sep 2026 15:28:03 +0200
-Message-ID: <20260903134408.105317-9-christian.koenig@amd.com>
+Subject: [PATCH 10/11] drm/gem: Use dynamic allocation for GEM object dma_resv
+Date: Thu,  3 Sep 2026 15:28:05 +0200
+Message-ID: <20260903134408.105317-11-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260903134408.105317-1-christian.koenig@amd.com>
 References: <20260903134408.105317-1-christian.koenig@amd.com>
@@ -97,371 +96,445 @@ Reply-To: christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the embedded dma_resv (_resv) in struct i915_address_space
-with a dynamically allocated one using dma_resv_alloc(). This aligns
-with the move away from embedded dma_resv structures and towards
-reference-counted dynamic allocation throughout the DRM subsystem.
+Remove the embedded dma_resv (_resv) from struct drm_gem_object and use
+dynamically allocated reservations instead. This change aligns with the
+new reference counted dma_resv infrastructure and reduces the size of
+drm_gem_object.
 
-The i915 address space structures (GGTT, PPGTT) maintain their own
-reservation locks for page directory objects and buffer pools. By
-switching to dynamic allocation, we reduce the size of the VM structures
-and gain proper error handling if allocation fails.
+In drm_gem_private_object_init(), when no external resv is provided,
+allocate a new dma_resv using dma_resv_alloc() instead of initializing
+the embedded _resv field. This allows proper error handling if the
+allocation fails, returning -ENOMEM to the caller.
 
-Changes include:
-- Convert i915_address_space._resv from embedded struct to pointer
-- Update i915_address_space_init() to return int for error handling
-- Update ppgtt_init() to return int and handle allocation failures
-- Update all callers in GGTT, PPGTT, gen6_ppgtt, and gen8_ppgtt code
-- Update helper functions like i915_vm_resv_get() to use pointer
-- i915_dpt_create(): now returns ERR_PTR on failure
-- mock_ppgtt(): now returns NULL on failure
-- mock_init_ggtt(): changed to return int and propagate errors
-- Add proper cleanup on allocation failures
+The corresponding cleanup in drm_gem_private_object_fini() is simplified
+to only put the resv pointer, removing the redundant put on _resv.
 
-All initialization functions now check the allocation and return
--ENOMEM if it fails, with appropriate cleanup of already-allocated
-resources.
+For TTM buffer objects, add an individual_resv field to track the
+dynamically allocated reservation object for proper cleanup during
+destruction. This ensures we can distinguish between shared and
+individual reservations when freeing resources.
 
-v2: Remove unnecessary dma_resv allocations from ggtt_probe_hw() and
-    ppgtt_init(). i915_address_space_init() already handles _resv
-    allocation at the correct point in the initialization sequence.
-    Add some missing error handling.
+This change builds on the previous work to make drm_gem_private_object_init()
+return an error code, now utilizing that capability to handle allocation
+failures properly.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Assisted-by: Claude:Sonnet 4
 ---
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c             |  7 ++++++-
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c             |  7 ++++++-
- drivers/gpu/drm/i915/gt/intel_ggtt.c             | 12 ++++++------
- drivers/gpu/drm/i915/gt/intel_gtt.c              | 13 +++++++++----
- drivers/gpu/drm/i915/gt/intel_gtt.h              |  8 ++++----
- drivers/gpu/drm/i915/gt/intel_ppgtt.c            | 12 ++++++++----
- drivers/gpu/drm/i915/i915_dpt.c                  |  7 ++++++-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c    |  4 +++-
- drivers/gpu/drm/i915/selftests/i915_vma.c        |  4 +++-
- drivers/gpu/drm/i915/selftests/mock_gem_device.c |  5 ++++-
- drivers/gpu/drm/i915/selftests/mock_gtt.c        |  9 ++++++---
- drivers/gpu/drm/i915/selftests/mock_gtt.h        |  2 +-
- 12 files changed, 62 insertions(+), 28 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 12 ++---
+ drivers/gpu/drm/drm_gem.c                     |  9 ++--
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  1 -
+ drivers/gpu/drm/nouveau/nouveau_bo.c          |  3 --
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                  | 26 ++++++-----
+ drivers/gpu/drm/ttm/ttm_bo_util.c             | 44 +++++++++++++------
+ drivers/gpu/drm/xe/xe_bo.c                    |  8 ++--
+ include/drm/drm_gem.h                         |  9 ----
+ include/drm/ttm/ttm_bo.h                      |  2 +
+ 11 files changed, 65 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index 438cd4724ac4..f8586467aef6 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -437,7 +437,12 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
- 
- 	mutex_init(&ppgtt->flush);
- 
--	ppgtt_init(&ppgtt->base, gt, 0);
-+	err = ppgtt_init(&ppgtt->base, gt, 0);
-+	if (err) {
-+		kfree(ppgtt);
-+		return ERR_PTR(err);
-+	}
-+
- 	ppgtt->base.vm.pd_shift = ilog2(SZ_4K * SZ_4K / sizeof(gen6_pte_t));
- 	ppgtt->base.vm.top = 1;
- 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index cfa09b250a1b..21cb9db10688 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -1010,7 +1010,12 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
- 	if (!ppgtt)
- 		return ERR_PTR(-ENOMEM);
- 
--	ppgtt_init(ppgtt, gt, lmem_pt_obj_flags);
-+	err = ppgtt_init(ppgtt, gt, lmem_pt_obj_flags);
-+	if (err) {
-+		kfree(ppgtt);
-+		return ERR_PTR(err);
-+	}
-+
- 	ppgtt->vm.top = i915_vm_is_4lvl(&ppgtt->vm) ? 3 : 2;
- 	ppgtt->vm.pd_shift = ilog2(SZ_4K * SZ_4K / sizeof(gen8_pte_t));
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index 3cc8df7b8fad..b7f64aaeb768 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -56,8 +56,11 @@ static void i915_ggtt_color_adjust(const struct drm_mm_node *node,
- static int ggtt_init_hw(struct i915_ggtt *ggtt)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 20831dbebc31..a168083edab2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -397,7 +397,7 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+  */
+ void amdgpu_amdkfd_remove_all_eviction_fences(struct amdgpu_bo *bo)
  {
- 	struct drm_i915_private *i915 = ggtt->vm.i915;
-+	int ret;
+-	struct dma_resv *resv = &bo->tbo.base._resv;
++	struct dma_resv *resv = bo->tbo.individual_resv;
+ 	struct dma_fence *fence, *stub;
+ 	struct dma_resv_iter cursor;
  
--	i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
-+	ret = i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
-+	if (ret)
-+		return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 6c5182d54f7d..026821f6da7c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1319,7 +1319,7 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
+ 	 * So when this locking here fails something is wrong with the reference
+ 	 * counting.
+ 	 */
+-	if (WARN_ON_ONCE(!dma_resv_trylock(&bo->base._resv)))
++	if (WARN_ON_ONCE(!dma_resv_trylock(bo->individual_resv)))
+ 		return;
  
- 	ggtt->vm.is_ggtt = true;
+ 	amdgpu_amdkfd_remove_all_eviction_fences(abo);
+@@ -1329,22 +1329,22 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
+ 	    adev->in_suspend || drm_dev_is_unplugged(adev_to_drm(adev)))
+ 		goto out;
  
-@@ -1140,7 +1143,7 @@ void i915_ggtt_driver_late_release(struct drm_i915_private *i915)
- 	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
+-	r = dma_resv_reserve_fences(&bo->base._resv, 1);
++	r = dma_resv_reserve_fences(bo->individual_resv, 1);
+ 	if (r)
+ 		goto out;
  
- 	GEM_WARN_ON(kref_read(&ggtt->vm.resv_ref) != 1);
--	dma_resv_put(&ggtt->vm._resv);
-+	dma_resv_put(ggtt->vm._resv);
+ 	r = amdgpu_ttm_clear_buffer(amdgpu_ttm_next_clear_entity(adev),
+-				    abo, &bo->base._resv, &fence,
+-				    false, AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
++				    abo, bo->individual_resv, &fence, false,
++				    AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
+ 	if (WARN_ON(r))
+ 		goto out;
+ 
+ 	amdgpu_vram_mgr_set_cleared(bo->resource);
+-	dma_resv_add_fence(&bo->base._resv, fence, DMA_RESV_USAGE_KERNEL);
++	dma_resv_add_fence(bo->individual_resv, fence, DMA_RESV_USAGE_KERNEL);
+ 	dma_fence_put(fence);
+ 
+ out:
+-	dma_resv_unlock(&bo->base._resv);
++	dma_resv_unlock(bo->individual_resv);
  }
  
- static unsigned int gen6_get_total_gtt_size(u16 snb_gmch_ctl)
-@@ -1514,7 +1517,6 @@ static int ggtt_probe_hw(struct i915_ggtt *ggtt, struct intel_gt *gt)
- 	ggtt->vm.gt = gt;
- 	ggtt->vm.i915 = i915;
- 	ggtt->vm.dma = i915->drm.dev;
--	dma_resv_init(&ggtt->vm._resv);
+ /**
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index d2ce18bbddea..480391df556d 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -235,9 +235,11 @@ int drm_gem_private_object_init(struct drm_device *dev,
+ 	obj->handle_count = 0;
+ 	obj->size = size;
+ 	mutex_init(&obj->gpuva.lock);
+-	dma_resv_init(&obj->_resv);
+-	if (!obj->resv)
+-		obj->resv = dma_resv_get(&obj->_resv);
++	if (!obj->resv) {
++		obj->resv = dma_resv_alloc();
++		if (!obj->resv)
++			return -ENOMEM;
++	}
  
- 	if (GRAPHICS_VER(i915) >= 8)
- 		ret = gen8_gmch_probe(ggtt);
-@@ -1523,10 +1525,8 @@ static int ggtt_probe_hw(struct i915_ggtt *ggtt, struct intel_gt *gt)
- 	else
- 		ret = intel_ggtt_gmch_probe(ggtt);
+ 	drm_gem_gpuva_init(obj);
  
--	if (ret) {
--		dma_resv_put(&ggtt->vm._resv);
-+	if (ret)
- 		return ret;
--	}
+@@ -259,7 +261,6 @@ void drm_gem_private_object_fini(struct drm_gem_object *obj)
+ 	WARN_ON(obj->dma_buf);
  
- 	if ((ggtt->vm.total - 1) >> 32) {
- 		drm_err(&i915->drm,
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index 161e4b73b3df..7db6b6929677 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -197,7 +197,7 @@ static void __i915_vm_close(struct i915_address_space *vm)
- int i915_vm_lock_objects(struct i915_address_space *vm,
- 			 struct i915_gem_ww_ctx *ww)
+ 	dma_resv_put(obj->resv);
+-	dma_resv_put(&obj->_resv);
+ 	mutex_destroy(&obj->gpuva.lock);
+ }
+ EXPORT_SYMBOL(drm_gem_private_object_fini);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 3f37b0cbb70f..1c73f15d0315 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -90,7 +90,6 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
+ void i915_gem_object_free(struct drm_i915_gem_object *obj)
  {
--	if (vm->scratch[0]->base.resv == &vm->_resv) {
-+	if (vm->scratch[0]->base.resv == vm->_resv) {
- 		return i915_gem_object_lock(vm->scratch[0], ww);
- 	} else {
- 		struct i915_ppgtt *ppgtt = i915_vm_to_ppgtt(vm);
-@@ -225,7 +225,7 @@ void i915_vm_resv_release(struct kref *kref)
- 	struct i915_address_space *vm =
- 		container_of(kref, typeof(*vm), resv_ref);
- 
--	dma_resv_put(&vm->_resv);
-+	dma_resv_put(vm->_resv);
- 	mutex_destroy(&vm->mutex);
- 
- 	kfree(vm);
-@@ -258,7 +258,7 @@ void i915_vm_release(struct kref *kref)
- 	queue_work(vm->i915->wq, &vm->release_work);
+ 	dma_resv_put(obj->base.resv);
+-	dma_resv_put(&obj->base._resv);
+ 	return kmem_cache_free(slab_objects, obj);
  }
  
--void i915_address_space_init(struct i915_address_space *vm, int subclass)
-+int i915_address_space_init(struct i915_address_space *vm, int subclass)
- {
- 	kref_init(&vm->ref);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
+index 67c9d32f4f27..65e1f0c2f984 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+@@ -159,8 +159,6 @@ nouveau_bo_del_ttm(struct ttm_buffer_object *bo)
+ 			drm_gem_object_put(nvbo->r_obj);
  
-@@ -295,7 +295,10 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
- 		might_alloc(GFP_KERNEL);
- 		mutex_release(&vm->mutex.dep_map, _THIS_IP_);
+ 		drm_gem_object_release(&bo->base);
+-	} else {
+-		dma_resv_put(&bo->base._resv);
  	}
--	dma_resv_init(&vm->_resv);
-+
-+	vm->_resv = dma_resv_alloc();
-+	if (!vm->_resv)
-+		return -ENOMEM;
  
- 	GEM_BUG_ON(!vm->total);
- 	drm_mm_init(&vm->mm, 0, vm->total);
-@@ -312,6 +315,8 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
+ 	kfree(nvbo);
+@@ -385,7 +383,6 @@ nouveau_bo_new(struct nouveau_cli *cli, u64 size, int align,
+ 		return PTR_ERR(nvbo);
  
- 	INIT_LIST_HEAD(&vm->bound_list);
- 	INIT_LIST_HEAD(&vm->unbound_list);
-+
-+	return 0;
- }
+ 	nvbo->bo.base.size = size;
+-	dma_resv_init(&nvbo->bo.base._resv);
+ 	drm_vma_node_reset(&nvbo->bo.base.vma_node);
  
- void *__px_vaddr(struct drm_i915_gem_object *p)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index b54ee4f25af1..3976c176110f 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -266,7 +266,7 @@ struct i915_address_space {
- 	struct mutex mutex; /* protects vma and our lists */
+ 	/* This must be called before ttm_bo_init_reserved(). Subsequent
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+index e0ecadccccf8..4559352e7115 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+@@ -640,7 +640,7 @@ static void ttm_bo_validate_no_placement_not_signaled(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ctx.bytes_moved, 0);
  
- 	struct kref resv_ref; /* kref to keep the reservation lock alive. */
--	struct dma_resv _resv; /* reservation lock for all pd objects, and buffer pool */
-+	struct dma_resv *_resv; /* reservation lock for all pd objects, and buffer pool */
- #define VM_CLASS_GGTT 0
- #define VM_CLASS_PPGTT 1
- #define VM_CLASS_DPT 2
-@@ -504,7 +504,7 @@ static inline void assert_vm_alive(struct i915_address_space *vm)
- static inline struct dma_resv *i915_vm_resv_get(struct i915_address_space *vm)
+ 	if (bo->type != ttm_bo_type_sg)
+-		KUNIT_ASSERT_PTR_EQ(test, bo->base.resv, &bo->base._resv);
++		KUNIT_ASSERT_PTR_EQ(test, bo->base.resv, &bo->individual_resv);
+ 
+ 	/* Make sure we have an idle object at this point */
+ 	dma_resv_wait_timeout(bo->base.resv, usage, false, MAX_SCHEDULE_TIMEOUT);
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 999c24251fb7..ecb5f55a0dd1 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -193,13 +193,13 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
  {
- 	kref_get(&vm->resv_ref);
--	return &vm->_resv;
-+	return vm->_resv;
- }
+ 	int r;
  
- void i915_vm_release(struct kref *kref);
-@@ -525,7 +525,7 @@ static inline void i915_vm_resv_put(struct i915_address_space *vm)
- 	kref_put(&vm->resv_ref, i915_vm_resv_release);
- }
+-	if (bo->base.resv == &bo->base._resv)
++	if (bo->base.resv == bo->individual_resv)
+ 		return 0;
  
--void i915_address_space_init(struct i915_address_space *vm, int subclass);
-+int i915_address_space_init(struct i915_address_space *vm, int subclass);
- void i915_address_space_fini(struct i915_address_space *vm);
+-	BUG_ON(!dma_resv_trylock(&bo->base._resv));
++	BUG_ON(!dma_resv_trylock(bo->individual_resv));
  
- static inline u32 i915_pte_index(u64 address, unsigned int pde_shift)
-@@ -583,7 +583,7 @@ i915_page_dir_dma_addr(const struct i915_ppgtt *ppgtt, const unsigned int n)
- 	return __px_dma(pt ? px_base(pt) : ppgtt->vm.scratch[ppgtt->vm.top]);
- }
+-	r = dma_resv_copy_fences(&bo->base._resv, bo->base.resv);
+-	dma_resv_unlock(&bo->base._resv);
++	r = dma_resv_copy_fences(bo->individual_resv, bo->base.resv);
++	dma_resv_unlock(bo->individual_resv);
+ 	if (r)
+ 		return r;
  
--void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
-+int ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
- 		unsigned long lmem_pt_obj_flags);
- void intel_ggtt_bind_vma(struct i915_address_space *vm,
- 			 struct i915_vm_pt_stash *stash,
-diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-index 72d8473a448b..b944f4f10749 100644
---- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
-@@ -304,10 +304,11 @@ void i915_vm_free_pt_stash(struct i915_address_space *vm,
+@@ -209,7 +209,7 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
+ 		 * the resv object while holding the lru_lock.
+ 		 */
+ 		spin_lock(&bo->bdev->lru_lock);
+-		drm_gem_object_set_resv(&bo->base, &bo->base._resv);
++		drm_gem_object_set_resv(&bo->base, bo->individual_resv);
+ 		spin_unlock(&bo->bdev->lru_lock);
  	}
- }
  
--void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
--		unsigned long lmem_pt_obj_flags)
-+int ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
-+	       unsigned long lmem_pt_obj_flags)
+@@ -218,7 +218,7 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
+ 
+ static void ttm_bo_flush_all_fences(struct ttm_buffer_object *bo)
  {
- 	struct drm_i915_private *i915 = gt->i915;
-+	int err;
+-	struct dma_resv *resv = &bo->base._resv;
++	struct dma_resv *resv = bo->individual_resv;
+ 	struct dma_resv_iter cursor;
+ 	struct dma_fence *fence;
  
- 	ppgtt->vm.gt = gt;
- 	ppgtt->vm.i915 = i915;
-@@ -315,9 +316,12 @@ void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
- 	ppgtt->vm.total = BIT_ULL(RUNTIME_INFO(i915)->ppgtt_size);
- 	ppgtt->vm.lmem_pt_obj_flags = lmem_pt_obj_flags;
+@@ -238,8 +238,8 @@ static void ttm_bo_delayed_delete(struct work_struct *work)
  
--	dma_resv_init(&ppgtt->vm._resv);
--	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
-+	err = i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
-+	if (err)
-+		return err;
+ 	bo = container_of(work, typeof(*bo), delayed_delete);
  
- 	ppgtt->vm.vma_ops.bind_vma    = ppgtt_bind_vma;
- 	ppgtt->vm.vma_ops.unbind_vma  = ppgtt_unbind_vma;
-+
-+	return 0;
+-	dma_resv_wait_timeout(&bo->base._resv, DMA_RESV_USAGE_BOOKKEEP, false,
+-			      MAX_SCHEDULE_TIMEOUT);
++	dma_resv_wait_timeout(bo->individual_resv, DMA_RESV_USAGE_BOOKKEEP,
++			      false, MAX_SCHEDULE_TIMEOUT);
+ 	dma_resv_lock(bo->base.resv, NULL);
+ 	ttm_bo_cleanup_memtype_use(bo);
+ 	dma_resv_unlock(bo->base.resv);
+@@ -273,7 +273,7 @@ static void ttm_bo_release(struct kref *kref)
+ 		drm_vma_offset_remove(bdev->vma_manager, &bo->base.vma_node);
+ 		ttm_mem_io_free(bdev, bo->resource);
+ 
+-		if (!dma_resv_test_signaled(&bo->base._resv,
++		if (!dma_resv_test_signaled(bo->individual_resv,
+ 					    DMA_RESV_USAGE_BOOKKEEP) ||
+ 		    (want_init_on_free() && (bo->ttm != NULL)) ||
+ 		    bo->type == ttm_bo_type_sg ||
+@@ -316,6 +316,8 @@ static void ttm_bo_release(struct kref *kref)
+ 	}
+ 
+ 	atomic_dec(&ttm_glob.bo_count);
++	dma_resv_put(bo->individual_resv);
++	bo->individual_resv = NULL;
+ 	bo->destroy(bo);
  }
-diff --git a/drivers/gpu/drm/i915/i915_dpt.c b/drivers/gpu/drm/i915/i915_dpt.c
-index fcd7cced771d..0c6e5ef72749 100644
---- a/drivers/gpu/drm/i915/i915_dpt.c
-+++ b/drivers/gpu/drm/i915/i915_dpt.c
-@@ -229,7 +229,12 @@ static struct intel_dpt *i915_dpt_create(struct drm_gem_object *obj, size_t size
- 	vm->total = (size / sizeof(gen8_pte_t)) * I915_GTT_PAGE_SIZE;
- 	vm->is_dpt = true;
  
--	i915_address_space_init(vm, VM_CLASS_DPT);
-+	ret = i915_address_space_init(vm, VM_CLASS_DPT);
-+	if (ret) {
-+		kfree(dpt);
-+		i915_gem_object_put(dpt_obj);
-+		return ERR_PTR(ret);
+@@ -1197,7 +1199,11 @@ int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
+ 	bo->pin_count = 0;
+ 	bo->sg = sg;
+ 	bo->bulk_move = NULL;
+-	drm_gem_object_set_resv(&bo->base, resv ?: &bo->base._resv);
++
++	/* Save the original resv object before overwriting it */
++	bo->individual_resv = dma_resv_get(bo->base.resv);
++	if (resv)
++		drm_gem_object_set_resv(&bo->base, resv);
+ 	atomic_inc(&ttm_glob.bo_count);
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index e080ce60933e..e39448a5015e 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -208,7 +208,7 @@ static void ttm_transfered_destroy(struct ttm_buffer_object *bo)
+ 
+ 	fbo = container_of(bo, struct ttm_transfer_obj, base);
+ 	dma_resv_put(fbo->base.base.resv);
+-	dma_resv_put(&fbo->base.base._resv);
++	dma_resv_put(fbo->base.individual_resv);
+ 	ttm_bo_put(fbo->bo);
+ 	kfree(fbo);
+ }
+@@ -238,12 +238,23 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
+ 	if (!fbo)
+ 		return -ENOMEM;
+ 
+-	fbo->base = *bo;
+ 
+ 	/**
+ 	 * Fix up members that we shouldn't copy directly:
+ 	 * TODO: Explicit member copy would probably be better here.
+ 	 */
++	fbo->base = *bo;
++
++	fbo->base.individual_resv = dma_resv_alloc();
++	if (!fbo->base.individual_resv) {
++		ret = -ENOMEM;
++		goto error_free;
 +	}
++
++	if (bo->type != ttm_bo_type_sg)
++		fbo->base.base.resv = dma_resv_get(fbo->base.individual_resv);
++	else
++		dma_resv_get(fbo->base.base.resv);
  
- 	vm->insert_page = dpt_insert_page;
- 	vm->clear_range = dpt_clear_range;
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 7eb254a0be57..1d1c41ca6fbb 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -1947,7 +1947,9 @@ int i915_gem_gtt_mock_selftests(void)
+ 	atomic_inc(&ttm_glob.bo_count);
+ 	drm_vma_node_reset(&fbo->base.base.vma_node);
+@@ -251,19 +262,16 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
+ 	kref_init(&fbo->base.kref);
+ 	fbo->base.destroy = &ttm_transfered_destroy;
+ 	fbo->base.pin_count = 0;
+-	if (bo->type != ttm_bo_type_sg)
+-		fbo->base.base.resv = &fbo->base.base._resv;
  
- 	gt = to_gt(i915);
+-	dma_resv_init(&fbo->base.base._resv);
+ 	fbo->base.base.dev = NULL;
+-	ret = dma_resv_trylock(&fbo->base.base._resv);
++	ret = dma_resv_trylock(fbo->base.individual_resv);
+ 	WARN_ON(!ret);
  
--	mock_init_ggtt(gt);
-+	err = mock_init_ggtt(gt);
-+	if (err)
-+		goto out_put;
+-	ret = dma_resv_reserve_fences(&fbo->base.base._resv, TTM_NUM_MOVE_FENCES);
++	ret = dma_resv_reserve_fences(fbo->base.individual_resv,
++				      TTM_NUM_MOVE_FENCES);
+ 	if (ret) {
+-		dma_resv_unlock(&fbo->base.base._resv);
+-		kfree(fbo);
+-		return ret;
++		dma_resv_unlock(fbo->base.individual_resv);
++		goto error_unref;
+ 	}
  
- 	err = i915_subtests(tests, gt->ggtt);
+ 	if (fbo->base.resource) {
+@@ -281,6 +289,14 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
  
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 7c4111e60f2e..bf9c5e7df281 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -942,7 +942,9 @@ int i915_vma_mock_selftests(void)
+ 	*new_obj = &fbo->base;
+ 	return 0;
++
++error_unref:
++	dma_resv_put(fbo->base.individual_resv);
++	dma_resv_put(fbo->base.base.resv);
++
++error_free:
++	kfree(fbo);
++	return ret;
+ }
  
- 	gt = to_gt(i915);
- 
--	mock_init_ggtt(gt);
-+	err = mock_init_ggtt(gt);
-+	if (err)
-+		goto out_put;
- 
- 	err = i915_subtests(tests, gt->ggtt);
- 
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index 796c9b070e41..7c409514653b 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -234,7 +234,10 @@ struct drm_i915_private *mock_gem_device(void)
+ /**
+@@ -618,7 +634,7 @@ static int ttm_bo_move_to_ghost(struct ttm_buffer_object *bo,
  	if (ret)
- 		goto err_unlock;
+ 		return ret;
  
--	mock_init_ggtt(to_gt(i915));
-+	ret = mock_init_ggtt(to_gt(i915));
-+	if (ret)
-+		goto err_unlock;
-+
- 	to_gt(i915)->vm = i915_vm_get(&to_gt(i915)->ggtt->vm);
+-	dma_resv_add_fence(&ghost_obj->base._resv, fence,
++	dma_resv_add_fence(ghost_obj->individual_resv, fence,
+ 			   DMA_RESV_USAGE_KERNEL);
  
- 	to_gt(i915)->info.engine_mask = BIT(0);
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.c b/drivers/gpu/drm/i915/selftests/mock_gtt.c
-index 933990a8dc52..990c827137b2 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gtt.c
-@@ -75,7 +75,10 @@ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name)
- 	ppgtt->vm.total = round_down(U64_MAX, PAGE_SIZE);
- 	ppgtt->vm.dma = i915->drm.dev;
+ 	/**
+@@ -632,7 +648,7 @@ static int ttm_bo_move_to_ghost(struct ttm_buffer_object *bo,
+ 	else
+ 		bo->ttm = NULL;
  
--	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
-+	if (i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT)) {
-+		kfree(ppgtt);
-+		return NULL;
-+	}
+-	dma_resv_unlock(&ghost_obj->base._resv);
++	dma_resv_unlock(ghost_obj->individual_resv);
+ 	ttm_bo_put(ghost_obj);
+ 	return 0;
+ }
+@@ -802,14 +818,14 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
+ 	if (ret)
+ 		goto error_destroy_tt;
  
- 	ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
- 	ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
-@@ -104,7 +107,7 @@ static void mock_unbind_ggtt(struct i915_address_space *vm,
- {
+-	ret = dma_resv_copy_fences(&ghost->base._resv, bo->base.resv);
++	ret = dma_resv_copy_fences(ghost->individual_resv, bo->base.resv);
+ 	/* Last resort, wait for the BO to be idle when we are OOM */
+ 	if (ret) {
+ 		dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
+ 				      false, MAX_SCHEDULE_TIMEOUT);
+ 	}
+ 
+-	dma_resv_unlock(&ghost->base._resv);
++	dma_resv_unlock(ghost->individual_resv);
+ 	ttm_bo_put(ghost);
+ 	bo->ttm = ttm;
+ 	return 0;
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 6df7ef07ec0b..422fe4bddf00 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -1660,7 +1660,7 @@ static bool xe_ttm_bo_lock_in_destructor(struct ttm_buffer_object *ttm_bo)
+ 	 * always succeed here, as long as we hold the lru lock.
+ 	 */
+ 	spin_lock(&ttm_bo->bdev->lru_lock);
+-	locked = dma_resv_trylock(&ttm_bo->base._resv);
++	locked = dma_resv_trylock(ttm_bo->individual_resv);
+ 	spin_unlock(&ttm_bo->bdev->lru_lock);
+ 	xe_assert(xe, locked);
+ 
+@@ -1689,14 +1689,14 @@ static void xe_ttm_bo_release_notify(struct ttm_buffer_object *ttm_bo)
+ 	 * TODO: Don't do this for external bos once we scrub them after
+ 	 * unbind.
+ 	 */
+-	dma_resv_for_each_fence(&cursor, &ttm_bo->base._resv,
++	dma_resv_for_each_fence(&cursor, ttm_bo->individual_resv,
+ 				DMA_RESV_USAGE_BOOKKEEP, fence) {
+ 		if (xe_fence_is_xe_preempt(fence) &&
+ 		    !dma_fence_is_signaled(fence)) {
+ 			if (!replacement)
+ 				replacement = dma_fence_get_stub();
+ 
+-			dma_resv_replace_fences(&ttm_bo->base._resv,
++			dma_resv_replace_fences(ttm_bo->individual_resv,
+ 						fence->context,
+ 						replacement,
+ 						DMA_RESV_USAGE_BOOKKEEP);
+@@ -1704,7 +1704,7 @@ static void xe_ttm_bo_release_notify(struct ttm_buffer_object *ttm_bo)
+ 	}
+ 	dma_fence_put(replacement);
+ 
+-	dma_resv_unlock(&ttm_bo->base._resv);
++	dma_resv_unlock(ttm_bo->individual_resv);
  }
  
--void mock_init_ggtt(struct intel_gt *gt)
-+int mock_init_ggtt(struct intel_gt *gt)
- {
- 	struct i915_ggtt *ggtt = gt->ggtt;
+ static void xe_ttm_bo_delete_mem_notify(struct ttm_buffer_object *ttm_bo)
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index f889232e8525..8aed680bfca2 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -385,15 +385,6 @@ struct drm_gem_object {
+ 	 */
+ 	struct dma_resv *resv;
  
-@@ -127,7 +130,7 @@ void mock_init_ggtt(struct intel_gt *gt)
- 	ggtt->vm.vma_ops.bind_vma    = mock_bind_ggtt;
- 	ggtt->vm.vma_ops.unbind_vma  = mock_unbind_ggtt;
+-	/**
+-	 * @_resv:
+-	 *
+-	 * A reservation object for this GEM object.
+-	 *
+-	 * This is unused for imported GEM objects.
+-	 */
+-	struct dma_resv _resv;
+-
+ 	/**
+ 	 * @gpuva: Fields used by GPUVM to manage mappings pointing to this GEM object.
+ 	 *
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 32791c4db2a9..f132caa9647f 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -77,6 +77,7 @@ enum ttm_bo_type {
+  * @bdev: Pointer to the buffer object device structure.
+  * @type: The bo type.
+  * @page_alignment: Page alignment.
++ * @individual_resv: Individual resv for destruction
+  * @destroy: Destruction function. If NULL, kfree is used.
+  * @kref: Reference count of this buffer object. When this refcount reaches
+  * zero, the object is destroyed or put on the delayed delete list.
+@@ -107,6 +108,7 @@ struct ttm_buffer_object {
+ 	struct ttm_device *bdev;
+ 	enum ttm_bo_type type;
+ 	uint32_t page_alignment;
++	struct dma_resv *individual_resv;
+ 	void (*destroy) (struct ttm_buffer_object *);
  
--	i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
-+	return i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
- }
- 
- void mock_fini_ggtt(struct i915_ggtt *ggtt)
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.h b/drivers/gpu/drm/i915/selftests/mock_gtt.h
-index d6eb90bd7f3f..904b86253c99 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gtt.h
-+++ b/drivers/gpu/drm/i915/selftests/mock_gtt.h
-@@ -29,7 +29,7 @@ struct drm_i915_private;
- struct i915_ggtt;
- struct intel_gt;
- 
--void mock_init_ggtt(struct intel_gt *gt);
-+int mock_init_ggtt(struct intel_gt *gt);
- void mock_fini_ggtt(struct i915_ggtt *ggtt);
- 
- struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name);
+ 	/*
 -- 
 2.43.0
 
