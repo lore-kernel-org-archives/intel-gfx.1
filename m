@@ -4,87 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A178C79F99
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A9A2C79F82
 	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFC7810ED2B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E6D10ED27;
 	Tue,  8 Sep 2026 18:37:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q1f548Bl";
+	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="gMFOM89M";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBE5B10E045
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 20:53:23 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-3969e82ff8fso3997517a91.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 07 Sep 2026 13:53:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788814403; cv=none;
- d=google.com; s=arc-20260327;
- b=sAlFLywIjSZpTReDd1lJVRVzSFZBsRfyP2Oz9/Iy0nF88zGKz525VRJrJR34vl3DGA
- v18Akd9n7f6n7HNXlfaZp9UozzM2VPSC1jtSpQe8jyzXlp0viuuN03Oc8hBo2nL0t0ok
- ToDQXkZ8qZ94N5Ttlh8NPeUjD4qIR8yCPell05GSnYTP51X+D5Z4XDQC+vL7CIJ4uz7D
- 1wUMH3a0dz2wMRnN5e9JjTJTiO/YiFo9uIlyZcGFR3PJY6VAinp84nGnp083s3x2Vg0c
- XtzK4WxFxhWk2Yd1UBNbp3dHnpGAgoZByacOQo1aYYBQe0iCF5VEAZRUHo+Mhtr86qQL
- mxKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=hHTlsghc6bI82mwngIzGXI4ncoEpEEoe7tYa8QxD/gk=;
- fh=8nNxbrlOlF8vFeAMV64rIYfim/+PdVZC/AXtnI6pqdw=;
- b=f3cvNjcQvK8PcX2cpz8QiXrZ8lnpTUjr3DMl22vdzsaDY20vr8SYeGQVaBkT6yX8JF
- y3VtCpl+J06YqT9qS4ZzIHTMcK63Gmfe2VKV/w3FgEZmmgluWPZWfCduETDDG+sLsb0E
- EwG2SmDFg5pQbu4br9yvGi9gTV9C4woEaniTz0msNvJHcldKHPIr0UZJSIiI9HZaLWBg
- 4V7W2BFa2ajpasasubpxePc5po57bheQ87+SLW5SFYuh9MUzsxKDMSezRsbTTbDZ3ZZR
- klpQnDjSbL3BpAwTHG0ve3Vd0GK/KeU614k3TysbbQ/ZWyy+e63My5Zi3lZoKflBTaH1
- siZg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+ [209.85.222.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80CFD10F977
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 13:32:35 +0000 (UTC)
+Received: by mail-qk1-f181.google.com with SMTP id
+ af79cd13be357-9391252b5caso65175885a.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 06:32:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788814403; x=1789419203; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=hHTlsghc6bI82mwngIzGXI4ncoEpEEoe7tYa8QxD/gk=;
- b=Q1f548Bl7kcmzKFz3PR79HavQLN2PA/szJt1Dt6dEpzPFzRzFXc3wSgWw1xChCKgTn
- xlC8t9NRfWaRFHIYMIE5iDkPx1APSaTOaTq02A3NNPDzkK+D59MbeFIib6pA9f85NCgF
- NE0+Vcu7aNY8C2fbx8+QnWuof07t+E/Sf71Ryw8yZXC1tWpn7jsq+q28n13zPa7aNIM+
- fCzo4IMrFCg1gPEEEr3k6LKWB8wVDFr+DO8RaWMwx1oXwnuxMgnuBBt8TfO5oP+KC2Zz
- 3cfMVKCSjcyuvvErSfyOIbhOJJGoupstt5Dk4l6iX+10dafNVoc8FWgYrri4npCIoyk9
- zw4Q==
+ d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788528754;
+ x=1789133554; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=nUDERenzGagFWWWNYxzhz036bpMy1iX3Z2WSyHGWcNI=;
+ b=gMFOM89Mh7O1cuAhCQbPxC0aJ0fovGCTnWxLjayOO/rhx8RygJ3N3hNZIhMO6r/T1f
+ OXesTmhdszXW6JjO4SFGXvYEnRu9ARvIatsJq7jORv7tcwjoQYnz9yVOP3wrq++w0CuC
+ JTZHcAsWsHSlgF3JU4AzHuRrvDEHeJFbW7fLQyWU1dcvVmt4RgCMiwWfx6x1YCCVOcp/
+ QfI17oeQcW6Q1ZbKMUKBRFMKLGTc3ihVAoUq/gxU7o9z7WtjhDGajb5fY7K627cEqjCt
+ eYh/rqifZZBqXJsarqeWJuyWB+AD5MibiO0BVAjquSlXmSpGHM7Ztid6MDinzoSiFGyN
+ DtjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788814403; x=1789419203;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=hHTlsghc6bI82mwngIzGXI4ncoEpEEoe7tYa8QxD/gk=;
- b=WTkkzCk3yOU2f4x2b4Hz5cMLNh/7mtwjV6doNM/VnISXUsoW2TLXcMSnrx23Jt/0zQ
- YkvFjZnT22GGFZQ9E7be6QyZmNQqNhuobLJQVMUygko3eNyc0YkuqfMZIrYmJCoJIoWG
- TKOC3bKDZLrn9z31gBAtVCjReDdNVlRebCWAuu8qgPSx5o5avbSx96JJOWdT9laE3t1+
- 0TwUBDPYQiRjeabUkEzsZ35YUn5hA2TLVLBIEtc8Rhx7RZxmiEgqzNsod39QtL53+wZ8
- NNKQ8DxGg4hRIAbACgXK0GiIXjjhpz7wlpJOWkGjmkv2ByHkZYmNtbUn8yH/TFbLduDk
- bcrQ==
-X-Gm-Message-State: AFuF++mXPxvX24LhkNuUPlDT9OtQBouG+ro48QKMUuTOZSmxyQh3TU6X
- lRFBoMgBIVYa47vS+dWSLxkibCkMGNcfcgx6GzIOEJj0IO5MUo5KYi4HNk9gVobjz12ICjdwof9
- R6NiO3Q9Td11bbGHBvM4jrT/Ih/5VzSbAWZoW
-X-Gm-Gg: AYBFou3tImYf2U1jV3+dxIeaRTJyfUqK2QlFuWdUCR3+YvBikNhPnEHYN8cEyaIxnnN
- 0m2uoO5AbCaQ0p0r7INYaYFyS+1uIbuqzNS5sCcfJih/p5Qkk7n5/74xWXzePDx8XkdLu37NFsV
- 5IGeP0fYMHLMumWDskjlVQwBN1QEwi7UPKnrUkL2N0TZjialK/sbfzJYGnYWE+VFgZNldehC3L9
- 3+owaNosSrbh+blO/TYFuKv9p3IrvGY1gE7+JgAGDiGZTFfRDqLWIWaATKlyRe//8bKq174muoC
- X95cnwz0q3/ONcoWvQQoKYNv4SRcoB9EopSv1WCHvUqk3rHwsCvMh/ZV/fUQJZIM4futDLHKxmJ
- w
-X-Received: by 2002:a17:90b:5790:b0:398:9bd5:4910 with SMTP id
- 98e67ed59e1d1-39b2624f0ffmr36516550a91.23.1788814403392; Mon, 07 Sep 2026
- 13:53:23 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1788528754; x=1789133554;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=nUDERenzGagFWWWNYxzhz036bpMy1iX3Z2WSyHGWcNI=;
+ b=SzbIar9w+HEY35o0W/w85n7m/GNKAfksswAV6Fzxr6sWwiUziJLEibz9jce11kF/XY
+ p2JbNwXo6NLD7Bb2Ue7mkpUYjse9OttnXFCu4YBa3UcPDnmfb4XpRDtbKeo02bK+maD7
+ oh7o/x2kSOtrPn1mgTOEs5sqi/3QFP0gr8ZZZ0vQvjPmwpFRlCd/i4C6OUGFFXoIn9bS
+ JdsIpkPCMH9WN2WUajra6/Z8Jbs+vCS0NjfXErEnJ5tWvvaHBGBJwR6tCqdT1FuUgPKV
+ dJaOkWjetSP3rcGouKJrTq9At2a59CeVG+u/aeZ94cl9rI4A0KgRe8NU9+ZTUteJFBOb
+ SKMw==
+X-Gm-Message-State: AFuF++kbJa6wLjbazraOrdwSJvI8W4s0INw1hwWIt2qWd23S4moKZ0Ut
+ YK26w+ddVkN2qEFwTdWK6OJDegS8iBoIbW+Fw6XvUCE9/stJj1daEfe/HBuKfJ81OcTcExMTEe1
+ SVI8jdtn7PRmZm0zYaqBcJqfAX2LAuFJdf5AR/v/NmWt254UvCaPC0jgYJA9x8Kwf0Tk//8DUDs
+ 3fCYekE70URJNrO/qxVvwnV8ahV9CZGTNxbv6wOxtkPGOBEjmiOB/vK/I=
+X-Gm-Gg: AYBFou2JrgWeWa34pXVB5UQI08VNi33VmgMloJK36gXsmDRuMSrW7M9apwWE0B8YQuS
+ 7rD1qnMPQreBfXO7xzJyW8v/PomzdYTBJQc2whFQpMx6GVM3TDnyBGEoJgSwm0aNBGkOBI7YMbJ
+ 59MBT9JmXTPeY2dkTcwf+rpxK6RqKm5OI6HfVt18NjNE9OobIzMxxblBItgVs94YYLDX3lKakpO
+ FdOcvNHO4/9e8hMe7G4GY2fqPtt1HV5X7iB3rXShSpFuTY+ZnrOHtLfUtEkz9KTBkeeOnXA3M3r
+ ZFfFQhqDLzLa3cUDpdqhLzvQhWyuOhS1UWjUmYE7qUGdTh9KT5Rh2dXZp8ZQXGiG/dugW+AdbbJ
+ oiImW3D+DDVHp2ngq9UG8IToMT8mLzcgamNtN7wYEe1fT3cS1Gwtvdyv/dONpMtx8tEsQ7xmJD0
+ vH3YXO/CcI4XNwY+pPdDAqgLed9L9JK3lobwkzDvVGbGAXEE/8ZAIUPEua2aKCoW2kXbVq5DCb4
+ CV62U6LJ/m35IAhHQYOuRgRPNWZ27elGuBhFyyRCUiSTAe6/XY2QzbOjakPrT7LV2b1qv4KnWmk
+ IiYMaHhlZMrCVd+odgN6c3nJPIjKNrl4/tLcS1V3+oUIziLXq1qVHu6RzRL8sx/7QqwG
+X-Received: by 2002:a05:620a:870d:20b0:939:6df9:1278 with SMTP id
+ af79cd13be357-939804c0ce4mr468511785a.51.1788528754174; 
+ Fri, 04 Sep 2026 06:32:34 -0700 (PDT)
+Received: from jake-laptop ([153.67.39.26]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91041fa4d65sm14043076d6.15.2026.09.04.06.32.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Sep 2026 06:32:33 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH v3] drm/i915/alpm: Add a quirk to keep the fast wake ahead
+ of the IO buffer wake
+Date: Fri,  4 Sep 2026 09:32:31 -0400
+Message-ID: <20260904133231.9028-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904114835.483057-1-j@metarealtyinc.ca>
+References: <20260903131724.49496-1-j@metarealtyinc.ca>
+ <20260904004308.185788-1-j@metarealtyinc.ca>
+ <20260904114835.483057-1-j@metarealtyinc.ca>
 MIME-Version: 1.0
-From: Metrical revel <metricalrevel@gmail.com>
-Date: Mon, 7 Sep 2026 15:53:11 -0500
-X-Gm-Features: AcwNN1Uail7hfBVZLbLSCgcFi4NiQiReqXix00ZhivMRBrSljdVZvy7btpguJWw
-Message-ID: <CAAxXSL-D=cJ8ne9Lc=W=746TZgyXVVYqWm=kP=CWj8D+M6JjRA@mail.gmail.com>
-Subject: Re: [PATCHv4] drm/i915/dp: On DPCD init wake the DPRx for eDP
-To: arun.r.murthy@intel.com
-Cc: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 08 Sep 2026 18:37:36 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,34 +100,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Arun,
+On Fri, 2026-09-04 Jouni Högander wrote:
+> I think PSR2 was working on that setup at the point when I introduced
+> that quirk
+> ...
+> Maybe this is actually matter of bisection?
 
-(Replying by email since patchwork doesn't support direct comments =E2=80=
-=94
-apologies if this duplicates my GitLab note.)
+Checked that today with a probe that only polls the sink (0x2006,
+0x2008, 0x200a every 200 ms, error bit cleared after each read), so it
+runs the same on any kernel:
 
-Noticed v5's i915.CI.BAT is passing now =E2=80=94 good sign the build issue
-is resolved.
+  stock 7.2.2, io/fast 11/11:    CRC error re-latched on every poll,
+                                 0x2008 = 3 throughout,
+                                 0x200a shows SU_VALID in 2 of 94 polls
+  7.3-rc1, io/fast 11/11:        same, SU_VALID in 7 of 90 polls
+  7.3-rc1, io/fast 11/12:        no CRC errors, 0x2008 = 2,
+                                 SU_VALID never
 
-Before I compile and test v5 on my hardware for a Tested-by, I
-wanted to flag something from i915.CI.Full that looks a bit more
-specific than the usual noise we saw on v1/v3:
+So what looks like PSR2 working is the link failing on every wake and
+the engine re-entering over and over. Each re-entry does its two entry
+captures, those carry SU_VALID, then the engine parks in SU_STANDBY
+until the next failed wake resets it. Screen updates come from the
+resyncs, not from selective updates. With the wake clean there are no
+resyncs and the panel stays on the stale frame.
 
-igt@kms_cursor_crc@cursor-rapid-movement-128x128@pipe-a-edp-1:
-    shard-mtlp: PASS -> ABORT +1 other test abort
+I doubt bisecting finds anything for PSR2: it was in this state in
+April too unless the wake formulas were different then, and
+intel_alpm.c has four commits since March, none touching them. Panel
+Replay uses the aux-less wake, which does not fail, so it froze
+outright from the start. That is the quirk.
 
-igt@kms_cursor_crc@cursor-rapid-movement-128x128@pipe-d-edp-1:
-    shard-mtlp: PASS -> DMESG-WARN
+Probe script and logs are on 9119.
 
-Unlike the earlier CI flags (which were all in unrelated subsystems
-like gem_ccs/kms_plane_lowres), these two are both on eDP-1
-specifically, same shard, same test family, both regressing from
-PASS. Is this known/expected noise on shard-mtlp, or worth digging
-into given it touches the exact connector this patch modifies?
-
-Happy to go ahead and test v5 on my hardware for a Tested-by either way =E2=
-=80=94
-just didn't want to give a Tested-by without flagging this first.
-
-Thanks,
-Mathias
+Jake
