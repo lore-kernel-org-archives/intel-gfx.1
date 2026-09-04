@@ -4,76 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C94B0C79F99
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C35B2C79FAD
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 279F110ED1F;
-	Tue,  8 Sep 2026 18:37:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAF8410E142;
+	Tue,  8 Sep 2026 18:37:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FDRlW/+u";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Cjgr5zE/";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DACC10E0CD
- for <intel-gfx@lists.freedesktop.org>; Sat,  5 Sep 2026 14:25:41 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-38dfe7eb825so1624141a91.0
- for <intel-gfx@lists.freedesktop.org>; Sat, 05 Sep 2026 07:25:41 -0700 (PDT)
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
+ [209.85.161.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 216DB10FAE3
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 12:02:42 +0000 (UTC)
+Received: by mail-oo1-f52.google.com with SMTP id
+ 006d021491bc7-6b1b233ca98so686848eaf.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 05:02:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788618341; x=1789223141; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=irtRdSHYVWU6V1hRtF1N7wOshHHRxGrEgOQHGUw+S0o=;
- b=FDRlW/+u8lA29qN+drgG/atl6HWHIti7aQ2oJyBe+njHdxFkAYNPh5RNFgJpJz4+Z9
- NNJmS3P+L968NrvMmZAJul2fGt4BSBMe7yUYTOSKEwkB7qiBQHO4QW2GsnP0jizogf5c
- cWKZFAngbX9qi7LHog3hOJj5AOm3WuPUCPAN6ZV41RZkf07Mg/cYbqR1tUNZln7CF3MB
- mWDqFRIE6W1SpXotPHSNVUGXJ7Yn2Nokl0RgBu2/mYA/MTmCMG1oHZlYHHMkIcs20Jxx
- vJr236vG76Cr2JeO3WnSR4aifyOMLudWYgrGjTRAgUEP4qtoBjnKf70Y8woEk7kbaXct
- Z5Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788618341; x=1789223141;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1788523361; x=1789128161; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=irtRdSHYVWU6V1hRtF1N7wOshHHRxGrEgOQHGUw+S0o=;
- b=VEJPL4gkmH/GHck3nxAFrWUDX3bag+Kmo7hre5DjY3HD3J/WfdTd22vFzrJiUzPjXe
- odZhczH/HHRsIAP+OzyoJ3cHUGGO7ZNwhthUdvuMOMylUfGz6j41n9cmjyI6AZ2zbjVD
- yL/u3FWY/82LBBB0XV/KrUukqDwLnEJpfHYkEift0u40gK423p9Fu3oVTWNauH0oMlaq
- 705GIFtOd0Rwy14jbgz2hLxsjtQCIbcQcAtetJYMH+ijE3Z2CB5aC68rNilSfgkXU1LO
- 05OcqZWMbbs5j31FD/R0Z9Y2LnAcZvPX+lybdkFNsPTH1ekeh+rGqWGMThLfjm8+sED4
- +b6w==
+ bh=WyOGs2boUFikBi3LHkvK5aXbsrwegofPuEOMZO3Ochk=;
+ b=Cjgr5zE/ekMSxcfLymosGcQafWzLZ0NHbDq/PikquZSA+jmyt1sVzHBXdj4Uxt984/
+ 3n6Z8YqEspqDNChCE3tqvknGDEAw8tE9wmKm2wFMPAhkYT1kFuasvaDLP32PtkRf/AZJ
+ v1Yj5GqhSVYTerexh79/md+bIFqniST5sEI9Atz/heybWkpfGjqmd+Fxcb96oZ7MQZB5
+ AP8/Ime+1lGvNBzFwlrqvrruVy8FOm6EZPHaQ8cFMwggHb5opKpuRsKX1aFtrBouUtud
+ 4GCjwxUdxTnr4LjZTN5FHjMCQo3+/A/TV3Gd1ecOVNJYX2oGPb13e9WuN5wmZVqEfTkq
+ IzJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788523361; x=1789128161;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=WyOGs2boUFikBi3LHkvK5aXbsrwegofPuEOMZO3Ochk=;
+ b=aEgyktmZghH7baWYWJ+pHrltAmGupIjUmKQZXD+90IXR3Pp29XHLvKOZKEI4xa/rcd
+ nmCHvwUh/ipqi51o2d4TfDtkdP1lXZXChKrhForGd/wUnmT9M9HHYZR2Q44+X/LGy/ua
+ IhKBzsjDFRDyjrE6u3RhphD/h7PKak0JXh8e5gSkI4mAqksZYeV/IqIclWVBW9V5XOHx
+ lC8StFkH4h5DJYe8PHQSLF+gy2ohjZ/L9mWRqaW/jVokUzCGzNgUiaW9AegJTf3NOpii
+ OrPtuDEViS5HSKhMuYNX1ZV+/lOv75CId03StobI4RAHt2FDt3BZnWjhr9+c6K7GEflQ
+ /0fg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzhnXohI2ykoJH8rd2yYnGFRLvoprlWrfN82CO2yinoKh0hOC9WtGQA2BTJyEI0fY5mvO8tQF/7HRg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nAosjByfUQ5fiegqY3WryKTULR7J4n5Bsp0TYH/8a93alABHu+
- MYy0iZ4g5kK9HTiCJgLaPsx6td8/IkVUD6BpFZMtnRNrhAeK+j4ozYFd
-X-Gm-Gg: AYBFou1ciCTv3U+7JRTuCClN+zcAquNJVM/TZ+jxXe0e9+8hq6rvdDDlQdmDYNAkagW
- 43pPWZ4BsoGWFYacLJQSjf9xk7Bfz9xS3re9iXWpySy4gAdGVClNpvdWodlcZm7SOTaKFK+uo+L
- YQjMVrms7y+U3teAY0AMsnuzqmtB2wGhRjZRgx0zte9kCqJTJoTSxHp+fdcWjU05Ac57FiTr/f7
- 6fitR0JqF4xRnl5VMgRaqfo1/Zv3AdOtcwtw3Ai1TLGj99jqsRF727/tYKmEz7UnvNRAHW4leU0
- k9mkMAo16Iln3LxC3E4bl4yocNHYHGOemu3C4RUa92dDEwz9O7t7aL9IMA/HnFVAwkZn5ihbUn8
- mFaiEj06Yw+IhbMIrRzZc9yBK2InZvrL8oaTO1zajstPpiJdgXB6AojbNRFPDqTC/8Ny1NdfR6E
- /yBkITNe3vUzhVaR4tbfRaTgxv+f6750TGP5M0YqtsbY7ZtRXrENxUv2loxddaWTZUI8uPJc5TT
- oqUqUZrcTbGYm20sjlen1vqWkVAN2Hdp7prU5kAYVBJwwNP4fKx
-X-Received: by 2002:a17:90b:3a81:b0:398:c292:ac80 with SMTP id
- 98e67ed59e1d1-39b2612eaa4mr17477270a91.10.1788618340676; 
- Sat, 05 Sep 2026 07:25:40 -0700 (PDT)
-Received: from XiaomiLaptop (n112119120034.netvigator.com. [112.119.120.34])
+ AKwUvBxjI6qFGAWBDjIOeTr/2QF70/JbX0yxn0RY2qWurord+uGDfSR14TQ6lFahO0huwN+x+ZTfZWwKsgo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ng8TTZaqTTNR/U8+cXBNOGBn6u7/T0+UOz0KxT4T2QwYdZhkH3
+ hBN0zyGzbgFB36JbA3+U/RFJzotz5W1/KPgfLQ6SymBI4OMXn+M76oCT/BDmL9sqZjU=
+X-Gm-Gg: AYBFou2Q8ycRLueQG1Vye7cXNRye1PinUB0tc7VpOd9Vp4O5vCqbL+WYdyhQlYQaX22
+ v0tDpTQFNy6yAEiL58oj1Y0eknznRTuzDa0nVKH8X2uVbxKMOLEU7AyRDvRy+73BEqvFUCys7Yh
+ FikZhKs4WFwUcD1IN/ncG1fUR91Opwf4WLmV6kp7O4V8Koa+7ZD/5/CXLzZ0q7b+XEpvx6EJuwu
+ WbxLNsuLyNr/Fr7hlcJ4GWj5wTUksycWJvStZBAQGcfXWocgccIY3/EaG1ouo3qazg2Hr7XjXzV
+ ShxLBH5yVkHF7GYbpr826C7RdfKf/XHfVa6P5jskoGaPCWZWHHTENomgYhO6Asv0RqMAfEfCmQM
+ SQdrGrkAlnzIWC6+3NzojFMzc7Yf2HUuBfzbvzCOTjGhqfmi8bGeiKt0IrQN7TmQm1kMybbN+C1
+ 8rSYKls+dc+6ctxp4ywxLPxqmyD45SWY7GSN+5TuF/LEeJ10Abp22/Uqo8nWHsezrcHKLrg0eHN
+ KgHTnY4fY+2cbQ=
+X-Received: by 2002:a05:6820:a284:10b0:6b7:2cab:be9a with SMTP id
+ 006d021491bc7-6b72cabc77amr2109673eaf.28.1788523360181; 
+ Fri, 04 Sep 2026 05:02:40 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39b260fdf9asm10501790a91.9.2026.09.05.07.25.37
+ a92af1059eb24-1432435648esm7713194c88.5.2026.09.04.05.02.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Sep 2026 07:25:40 -0700 (PDT)
-From: Andrew Zhou <zhoulol888@gmail.com>
+ Fri, 04 Sep 2026 05:02:39 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Andrew Zhou <zhoulol888@gmail.com>
-Subject: [PATCH] drm/xe/display: Remove invalid initial plane PTE check for
- iGPU
-Date: Sat,  5 Sep 2026 22:25:00 +0800
-Message-ID: <20260905142500.17666-1-zhoulol888@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
+ Zhi Wang <zhi.wang.linux@gmail.com>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 2/2] drm/i915: fix repeated words in comments
+Date: Fri,  4 Sep 2026 17:32:21 +0530
+Message-ID: <20260904120225.15868-3-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904120225.15868-1-hemanth.selam@gmail.com>
+References: <20260904120225.15868-1-hemanth.selam@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 08 Sep 2026 18:37:36 +0000
@@ -92,45 +96,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pantherlake intergrated graphics can have the XE_GGTT_PTEDM bit set
-in the BIOS-initialised framebuffer PTE. The new validation rejects
-this and fails to create the initial frambuffer, resulting in static.
+Drop words accidentally written twice, reported by checkpatch.pl as a
+possible repeated word.  Only touches comments, no code changes.
 
-Remove the too-strict validation.
-
-Signed-off-by: Andrew Zhou <zhoulol888@gmail.com>
-Tested-by: Andrew Zhou <zhoulol888@gmail.com>
-Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/gpu/drm/xe/display/xe_initial_plane.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context_types.h | 2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c            | 2 +-
+ drivers/gpu/drm/i915/gvt/scheduler.c              | 2 +-
+ drivers/gpu/drm/i915/i915_gem_evict.c             | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/drm/xe/display/xe_initial_plane.c
-index 0f86b7303..8c95dc4e6 100644
---- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
-+++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
-@@ -85,7 +85,6 @@ initial_plane_bo(struct xe_device *xe,
- 			    &phys_base);
- 	} else {
- 		struct ttm_resource_manager *stolen;
--		u64 pte;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index 0267c924634b..2c1f81d9c0d7 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -208,7 +208,7 @@ struct i915_gem_proto_context {
+ 	/** @legacy_rcs_sseu: Client-set SSEU parameters for the legacy RCS */
+ 	struct intel_sseu legacy_rcs_sseu;
  
- 		stolen = ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
- 		if (!stolen) {
-@@ -93,13 +92,6 @@ initial_plane_bo(struct xe_device *xe,
- 			return NULL;
- 		}
+-	/** @single_timeline: See See &i915_gem_context.syncobj */
++	/** @single_timeline: See &i915_gem_context.syncobj */
+ 	bool single_timeline;
  
--		pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
--
--		if (is_pte_local(pte) != need_pte_local(xe)) {
--			drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
--			return NULL;
--		}
--
- 		phys_base = base;
- 		flags |= XE_BO_FLAG_STOLEN;
+ 	/** @uses_protected_content: See &i915_gem_context.uses_protected_content */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 1c2764440323..c007faa54f2d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -769,7 +769,7 @@ int intel_guc_resume(struct intel_guc *guc)
+  * This is a wrapper to create an object for use with the GuC. In order to
+  * use it inside the GuC, an object needs to be pinned lifetime, so we allocate
+  * both some backing storage and a range inside the Global GTT. We must pin
+- * it in the GGTT somewhere other than than [0, GUC ggtt_pin_bias) because that
++ * it in the GGTT somewhere other than [0, GUC ggtt_pin_bias) because that
+  * range is reserved inside GuC.
+  *
+  * Return:	A i915_vma if successful, otherwise an ERR_PTR.
+diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i915/gvt/scheduler.c
+index 15fdd514ca83..3c3c9b695487 100644
+--- a/drivers/gpu/drm/i915/gvt/scheduler.c
++++ b/drivers/gpu/drm/i915/gvt/scheduler.c
+@@ -201,7 +201,7 @@ static int populate_shadow_context(struct intel_vgpu_workload *workload)
+ 			workload->ring_context_gpa);
  
+ 	/* only need to ensure this context is not pinned/unpinned during the
+-	 * period from last submission to this this submission.
++	 * period from last submission to this submission.
+ 	 * Upon reaching this function, the currently submitted context is not
+ 	 * supposed to get unpinned. If a misbehaving guest driver ever does
+ 	 * this, it would corrupt itself.
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
+index c02ebd6900ae..11855d9a1210 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/i915_gem_evict.c
+@@ -273,7 +273,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
+ 	goto search_again;
+ 
+ found:
+-	/* drm_mm doesn't allow any other other operations while
++	/* drm_mm doesn't allow any other operations while
+ 	 * scanning, therefore store to-be-evicted objects on a
+ 	 * temporary list and take a reference for all before
+ 	 * calling unbind (which may remove the active reference
 -- 
-2.55.0
+2.48.1
 
