@@ -4,58 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC236C79F82
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0648C79F99
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185B410ED10;
-	Tue,  8 Sep 2026 18:37:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31F5610ED22;
+	Tue,  8 Sep 2026 18:37:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="Oh9TRiwk";
+	dkim=permerror (0-bit key) header.d=proton.me header.i=@proton.me header.b="B0cUjJwY";
 	dkim-atps=neutral
-Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com
- [203.205.221.210])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1369010E3E6;
- Sun,  6 Sep 2026 15:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1788708610; bh=92yguU0vvUbXpzNMT0r10+6b/8tEbpL1642/x58TqZk=;
- h=From:To:Cc:Subject:Date;
- b=Oh9TRiwkx4n54Va2utP2HIcJ9kmcTJvFbFxNQhcA0tgSXwf/vXsXTA9ndpx6gt1VS
- MEN2AUmWoaIboVSiiMIOouLd2qDPOJK29XCkOjaaR/sV1p83wMpJqt9RWS3JflYR+i
- tYkiBOQQgvSiHcHWVT4nYloiD1FzL8jdunx5jw8E=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-XMAILINFO: MjCTK47+4o/RmCDc6whlMls49DX6OCOKCEcdDiG/sY3S6BdYHVDKdW0cVLHgx1
- fRDuofKHIiDNiz7BDHegUZAuXzzCEqMMp4JzpT8lBM2LkKSDtx9iZk0YlScdJ6qLi/w7brY1fHqAs
- XZcHYG/CIbS4+Irfxq37QK0xMolxda6/GYZTMELWmo65WJNe3ukCJGdR3RJ4LbXNv6YeANigXVJ0/
- dtOl7wssWvwXNI15fk85MrwVpL/1Z1753X1n35QB5mE3zPgFVZhBDHKyiAdXt8oT8FPn8g4R0CX0f
- E2WrrynnEB1aS2BIQUZxWHMmTtXA3oeH6qE5ijOn7IrAjdogvF8PvKZ6AClxOvhSA6qVzjPOUjZxx
- 1IR1+xroF60gG4PDb2Qr3GZ5ulFieW9PxfWjuQsiP9AypzltvNZ2x6L+/LfxjEzwZEk4qhj8yx4pP
- 73XAGOGbkAUkFaaFNV6i1EMsomUC4/ijl2JSvoGR+uvC5NQviSx/Wayr2UetvH9AiaSA0Dq/VGNVs
- mbguyHKVYyehTZrbLwkaksNAkSH3zhm6XR7FvmTdVzen2CddRkiuBQ1RuKH6P6jHfCkGAFAatWIZy
- L4JPr08FL+OsLNQ+tLA5wwYshHxrc1tNYTJKb83/kxPwhAbghqB0Z6OTHF/OqTuLBCZPGzr9PjeOl
- Vmf5JEcH/Q/Iq9UN95BYDKENBorsghyFQGUv8hFofKAf5FgpdMiqPjMc1lV658YrmUuSJhqce3/Ex
- 3u7ltz3tMNUn5pIbwY8xYChHzlpbCzBwVvAbebvF31JYfrNiYppvg49jjocQowKwKhQMqnyI8Gvcz
- oVzvgiIH4Xs4o+ZZtTGXPtrCPehVz9QWXuZ/E80JuRRgpmkuhtJ2kP2QMmCdu/DSfQ61iwUqDB6eN
- FF7lDdqCi0+4KmxCU4j6nE7FKMD88UQ+6Uq0uhyXdDDEHpLJRUJi0SLKRgCLgoUu/83vV3b5h2ibo
- 5bn4FDtamkIo12uDdz2xO/h2d1F4EX87m2jvhlbI72zHoj93nX/AkZHir1/SQQALAuavv4KZhXBfJ
- cySZqIXYraOdi27A46FwIYceyItUNx8t7jgasXspPOx35sd9lqnYUrpQkYg==
-From: "=?utf-8?B?5b6Q5bqG?=" <965456495@qq.com>
-To: "=?utf-8?B?cmVncmVzc2lvbnM=?=" <regressions@lists.linux.dev>
-Cc: "=?utf-8?B?aW50ZWwtZ2Z4?=" <intel-gfx@lists.freedesktop.org>,
- "=?utf-8?B?ZHJpLWRldmVs?=" <dri-devel@lists.freedesktop.org>,
- "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
-Subject: [REGRESSION] i915: s2idle lid-open resume leaves eDP panel black
- until an input event (Raptor Lake; works on 6.18 LTS)
-Mime-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="----=_NextPart_6A9D86B5_39A64620_66041808"
-Content-Transfer-Encoding: 8Bit
-Date: Sun, 6 Sep 2026 23:28:52 +0800
-X-Priority: 3
-Message-ID: <tencent_8D7EB01E00F5CD0928A0F70A451C586E0608@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-mid: xmsezb41-0t1788708532th7bpwwrc
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30EC710E10F
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 04:00:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1788494404; x=1788753604;
+ bh=02bPHVlPv8WtBxMn4N+hikdUZi0KhfDShNtz1hOgVhk=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=B0cUjJwY7x+I5TOsDka9B2DsYxL2fk4FnCPELJTJUSKugwYsVOHUzXAai2Z25Cwb8
+ MY+n4U6k7CiLF4KCqIshCUn7B8fKyfoDKJcBYCADBMw3O1l2L/niPsHcc5mR5HRrhX
+ ljiPBwT35235bldmTc+oXQEBKVxbuecGxBrF+TcfvplcuoTKUFxx4b4c6HUBBLSkDe
+ oa+FvVA6nq9GJK2JJK0m6Tacc7l+Jwm30iVK741z/xJFN+vXdU6mtn2yiO6w3Cp+Jh
+ /Jubk89cx5/gTJayRpfW0frIpkkPKOOFLFiKw0HwUds7RXUaJ/49nVp8b39mAPFrsP
+ YpXumVJf1FANQ==
+Date: Fri, 04 Sep 2026 03:59:58 +0000
+To: "Usyskin, Alexander" <alexander.usyskin@intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>
+From: nirbhayykumarr@proton.me
+Cc: "arnd@arndb.de" <arnd@arndb.de>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: [PATCH] misc: mei: prevent reusing disconnecting clients in
+ mei_ioctl_connect_vtag
+Message-ID: <EMSkNBZm4uu_WZkFgR0kROn545GxY2HBpddaVmMEc5GggQEgOo5yFDDeY8r5Imj5te7fffDZwld1HeGzwFBtFZomlgCTvAetlLTaTaHHJQY=@proton.me>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: ff181a56e522d492a1754c29935a5b15e3f9910c
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 08 Sep 2026 18:37:36 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,398 +61,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
+This issue was discovered using a custom multi-threaded C fuzzer
+designed to stress-test MEI Virtual Tag (vtag) client lifecycles and
+multiplexing over /dev/mei0. By concurrently racing rapid vtag
+connections against file descriptor closures and streaming I/O, a
+race condition is triggered during client teardown.
 
-------=_NextPart_6A9D86B5_39A64620_66041808
-Content-Type: multipart/alternative;
-	boundary="----=_NextPart_6A9D86B5_39A64620_2D26D3A2";
+In mei_release(), closing the last file descriptor holding a virtual tag
+invokes mei_cl_disconnect(). Inside __mei_cl_disconnect(),
+dev->device_lock is dropped while awaiting the firmware disconnect ACK
+on cl->wait.
 
-------=_NextPart_6A9D86B5_39A64620_2D26D3A2
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
+During this lock-drop window, a concurrent IOCTL_MEI_CONNECT_CLIENT_VTAG
+call on the same UUID scans dev->file_list. Because
+mei_ioctl_connect_vtag() only verified pos->me_cl without checking
+pos->state, it matched the tearing-down client (in
+MEI_FILE_DISCONNECTING), repointed file->private_data to pos, and added a
+new vtag to pos->vtag_map.
 
-VG86IHJlZ3Jlc3Npb25zQGxpc3RzLmxpbnV4LmRldg0KQ2M6IGludGVsLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcsIGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcsIGxpbnV4
-LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcNClN1YmplY3Q6IFtSRUdSRVNTSU9OXSBpOTE1OiBz
-MmlkbGUgbGlkLW9wZW4gcmVzdW1lIGxlYXZlcyBlRFAgcGFuZWwgYmxhY2sgdW50aWwgYW4g
-aW5wdXQgZXZlbnQgKFJhcHRvciBMYWtlOyB3b3JrcyBvbiA2LjE4IExUUykNCg0KDQpIaSwN
-Cg0KDQphIHJlZ3Jlc3Npb24gcmVwb3J0LCBmb2xsb3dpbmcgRG9jdW1lbnRhdGlvbi9hZG1p
-bi1ndWlkZS9yZXBvcnRpbmctcmVncmVzc2lvbnMucnN0Og0KDQoNClJlZ3Jlc3Npb24gcmFu
-Z2U6IHY2LjE4Li52Ny4yIChsYXN0IGtub3duIGdvb2Q6IGxpbnV4LWx0cyA2LjE4LjQ5LTIt
-bHRzOw0KZmlyc3QgdGVzdGVkIGJyb2tlbjogNy4yLjMtYXJjaDEtMjsgaW50ZXJtZWRpYXRl
-IDcuMC83LjEvNy4yIHVudGVzdGVkKQ0KDQoNClN5bXB0b206DQpBZnRlciBjbG9zaW5nIHRo
-ZSBsaWQgKHN5c3RlbWQtbG9naW5kIHN1c3BlbmRzIHRvIHMyaWRsZSkgYW5kIHJlb3Blbmlu
-ZyBpdCwNCnRoZSBtYWNoaW5lIHJlc3VtZXMgZmluZSAoa2VybmVsIHJlc3VtZSBsb2cgY2xl
-YW4sIH4xIHMsIFdpLUZpIGFuZCBpbnB1dA0Kd29yayksIGJ1dCB0aGUgaW50ZXJuYWwgZURQ
-IHBhbmVsIHN0YXlzIG9uIGEgc3RhdGljIGJsYWNrIGZyYW1lLiBUaGUgc2NyZWVuDQpvbmx5
-IGxpZ2h0cyB1cCBhZnRlciBhbnkgaW5wdXQgZXZlbnQgKGtleSBwcmVzcyBvciBtb3VzZSBt
-b3ZlKSwgd2hpY2ggdGhlbg0KdHJpZ2dlcnMgdGhlIGNvbXBvc2l0b3IgdG8gcmVwYWludC4g
-UmVwcm9kdWNpYmxlIG9uIGV2ZXJ5IGxpZCBjeWNsZSB3aXRoDQprZXJuZWwgNy4yLjM7IHRo
-ZSBpZGVudGljYWwgdXNlcnNwYWNlIG9uIGxpbnV4LWx0cyA2LjE4LjQ5LTItbHRzIGRvZXMg
-Tk9UDQpzaG93IHRoZSBwcm9ibGVtLg0KDQoNClJlcHJvZHVjZToNCjEuIEtlcm5lbCA3LjIu
-MywgR05PTUUgNTAuNCBXYXlsYW5kLg0KMi4gQ2xvc2UgbGlkIC0mZ3Q7ICJQTTogc3VzcGVu
-ZCBlbnRyeSAoczJpZGxlKSIuDQozLiBXYWl0IH41IHMsIG9wZW4gbGlkLg0KNC4gS2VlcCBo
-YW5kcyBvZmYga2V5Ym9hcmQvbW91c2U6IHNjcmVlbiBzdGF5cyBibGFjayBpbmRlZmluaXRl
-bHkuDQo1LiBQcmVzcyBhbnkga2V5OiBzY3JlZW4gbGlnaHRzIHVwIGluc3RhbnRseS4NCg0K
-DQpFbnZpcm9ubWVudDoNCi0gTGFwdG9wOiBIT05PUiBHTE8tR1hYWCAoTWFnaWNCb29rKSwg
-SW50ZWwgUmFwdG9yIExha2UtUCBJcmlzIFhlDQombmJzcDsgWzgwODY6YTdhMF0gKGk5MTUp
-IGRyaXZpbmcgdGhlIGludGVybmFsIGVEUCBwYW5lbDsgTlZJRElBIFJUWCAzMDUwDQombmJz
-cDsgWzEwZGU6MjVhYl0gb2ZmbG9hZC1vbmx5LCBub3QgY29ubmVjdGVkIHRvIHRoZSBwYW5l
-bC4NCi0gQXJjaCBMaW51eCwga2VybmVsIDcuMi4zLWFyY2gxLTIgKEFyY2ggZGVmYXVsdCBj
-b25maWcpLCBHTk9NRSBTaGVsbC9tdXR0ZXINCiZuYnNwOyA1MC40IFdheWxhbmQsIGdkbSBh
-dXRvbG9naW4uDQotIC9zeXMvcG93ZXIvbWVtX3NsZWVwOiAiW3MyaWRsZV0gZGVlcCIgKHMy
-aWRsZSBpbiB1c2UpLg0KLSB1bmFtZSAtYTogTGludXggYXJjaGxpbnV4IDcuMi4zLWFyY2gx
-LTIgIzEgU01QIFBSRUVNUFRfRFlOQU1JQyBUaHUsIDAzIFNlcA0KJm5ic3A7IDIwMjYgMTc6
-NTU6MDYgKzAwMDAgeDg2XzY0IEdOVS9MaW51eA0KDQoNCk1lYXN1cmVtZW50cyBkdXJpbmcg
-dGhlIGJsYWNrIHBlcmlvZCAoc28gdGhlIHBhbmVsIGlzIE5PVCBvZmYpOg0KLSBpbnRlbF9i
-YWNrbGlnaHQgYnJpZ2h0bmVzcz05NjAwMC85NjAwMCwgYmxfcG93ZXI9MCAoYmFja2xpZ2h0
-IG9uKTsNCiZuYnNwOyBjb25uZWN0b3IgY29ubmVjdGVkOyBsaWQgb3Blbi4NCi0gaTkxNSBk
-ZWJ1Z2ZzIC9zeXMva2VybmVsL2RlYnVnL2RyaS8xL3N0YXRlOiBDUlRDLTAgYWN0aXZlPTEs
-IHBsYW5lcw0KJm5ic3A7IHNjYW5uaW5nIG91dCBjb250aW51b3VzbHk7IG5vIG1vZGVzZXQg
-d2hlbiB0aGUgc2NyZWVuIGZpbmFsbHkgbGlnaHRzIHVwLg0KPSZndDsgcGFuZWwgcG93ZXJl
-ZC9iYWNrbGl0L3NjYW5uZWQgb3V0IGFsbCBhbG9uZzsgdGhlIGNvbXBvc2l0b3IgcmVjZWl2
-ZXMgbm8NCiZuYnNwOyAmbmJzcDtldmVudCB0aGF0IHdvdWxkIG1ha2UgaXQgcmVkcmF3IGFm
-dGVyIHMyaWRsZSByZXN1bWUgdW50aWwgdXNlciBpbnB1dC4NCg0KDQpSdWxlZCBvdXQgYnkg
-dGVzdGluZzogbGlkIEFDUEkgZXZlbnRzIChjbGVhbiksIHNlc3Npb24tZnJlZXplIHNldHRp
-bmcsDQpHTk9NRSBsb2NrLW9uLXN1c3BlbmQsIGJhY2tsaWdodC9wYW5lbCBwb3dlciBsb3Nz
-LCBOVklESUEgaW52b2x2ZW1lbnQsDQpjb21wb3NpdG9yIHJlc3RhcnQsIEVDL2Zpcm13YXJl
-IGxpZCBoYW5kbGluZyAoNi4xOCBMVFMgb24gc2FtZSBtYWNoaW5lIGlzDQpmaW5lKS4gImRl
-ZXAiIChTMykgd2FrZXMgdGhlIHNjcmVlbiBidXQgdGhlIG1hY2hpbmUgaGFyZCBwb3dlci1j
-eWNsZXMgfjE1IHMNCmFmdGVyIFMzIHJlc3VtZSAoc2VwYXJhdGUgZmlybXdhcmUgaXNzdWUp
-LCBzbyBzMmlkbGUgaXMgdGhlIHJlcXVpcmVkIG1vZGUuDQoNCg0KU3VzcGVjdCBhcmVhOiBp
-OTE1IHMyaWRsZS1yZXN1bWUgLyBmcmFtZS1wcmVzZW50YXRpb24gY2hhbmdlcyBiZXR3ZWVu
-IHY2LjE4DQphbmQgdjcuMiBhZmZlY3RpbmcgUmFwdG9yIExha2UgKFBTUi9zZWxmLXJlZnJl
-c2gsIGFzeW5jIGZsaXAsIG9yIHZibGFuaw0KaGFuZGxpbmcgYWZ0ZXIgcmVzdW1lKS4gV2ls
-bGluZyB0byBydW4gZHJtLmRlYnVnIHRyYWNlcywgYmlzZWN0LCBvciB0ZXN0DQpwYXRjaGVz
-Lg0KDQoNCkZ1bGwgam91cm5hbCBleGNlcnB0cyBhbmQgc2FtcGxpbmcgZGF0YSBhcmUgYXR0
-YWNoZWQuDQoNCg0KI3JlZ3pib3QgaW50cm9kdWNlZDogdjYuMTguLnY3LjI=
+When the disconnect ACK arrived, __mei_cl_disconnect() called
+mei_cl_set_disconnected(pos), setting pos->me_cl =3D NULL and pos->state =
+=3D
+MEI_FILE_DISCONNECTED. Because pos->vtag_map now contained the second
+thread's tag, mei_release() skipped unlinking and freeing pos. The second
+thread then attempted to reuse this disconnected client, causing packet
+demuxing mismatches, continuous CSME hardware link resets, and DRM/i915
+display freezes.
 
-------=_NextPart_6A9D86B5_39A64620_2D26D3A2
-Content-Type: text/html;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
+Fix this by:
+1. Validating pos->state in mei_ioctl_connect_vtag() to ensure only
+   active clients (MEI_FILE_CONNECTED or MEI_FILE_CONNECTING) are reused.
+2. Setting cb->vtag during callback allocation in mei_io_cb_init() via
+   mei_cl_vtag_by_fp().
+3. Demuxing incoming read packets in mei_cl_irq_read_msg() by matching
+   vtag against cl->rd_pending rather than blindly dequeuing the head.
 
-PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9u
-dC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40Mzsi
-PlRvOiByZWdyZXNzaW9uc0BsaXN0cy5saW51eC5kZXY8L2Rpdj48ZGl2IHN0eWxlPSJmb250
-LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNv
-bG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+Q2M6IGludGVsLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcsIGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcs
-IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZh
-bWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9y
-OiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+U3ViamVjdDogW1JFR1JFU1NJ
-T05dIGk5MTU6IHMyaWRsZSBsaWQtb3BlbiByZXN1bWUgbGVhdmVzIGVEUCBwYW5lbCBibGFj
-ayB1bnRpbCBhbiBpbnB1dCBldmVudCAoUmFwdG9yIExha2U7IHdvcmtzIG9uIDYuMTggTFRT
-KTwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0t
-dWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6
-IDEuNDM7Ij48YnIgIC8+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1z
-eXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDAp
-OyBsaW5lLWhlaWdodDogMS40MzsiPkhpLDwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5
-OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJn
-YigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij48YnIgIC8+PC9kaXY+PGRpdiBzdHls
-ZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAx
-NHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPmEgcmVncmVz
-c2lvbiByZXBvcnQsIGZvbGxvd2luZyBEb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL3JlcG9y
-dGluZy1yZWdyZXNzaW9ucy5yc3Q6PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1h
-cHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAs
-IDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPjxiciAgLz48L2Rpdj48ZGl2IHN0eWxlPSJm
-b250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7
-IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+UmVncmVzc2lvbiBy
-YW5nZTogdjYuMTguLnY3LjIgKGxhc3Qga25vd24gZ29vZDogbGludXgtbHRzIDYuMTguNDkt
-Mi1sdHM7PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5
-c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhl
-aWdodDogMS40MzsiPmZpcnN0IHRlc3RlZCBicm9rZW46IDcuMi4zLWFyY2gxLTI7IGludGVy
-bWVkaWF0ZSA3LjAvNy4xLzcuMiB1bnRlc3RlZCk8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZh
-bWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9y
-OiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+PGJyICAvPjwvZGl2PjxkaXYg
-c3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6
-ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij5TeW1w
-dG9tOjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0
-ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWln
-aHQ6IDEuNDM7Ij5BZnRlciBjbG9zaW5nIHRoZSBsaWQgKHN5c3RlbWQtbG9naW5kIHN1c3Bl
-bmRzIHRvIHMyaWRsZSkgYW5kIHJlb3BlbmluZyBpdCw8L2Rpdj48ZGl2IHN0eWxlPSJmb250
-LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNv
-bG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+dGhlIG1hY2hpbmUgcmVz
-dW1lcyBmaW5lIChrZXJuZWwgcmVzdW1lIGxvZyBjbGVhbiwgfjEgcywgV2ktRmkgYW5kIGlu
-cHV0PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3Rl
-bS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdo
-dDogMS40MzsiPndvcmspLCBidXQgdGhlIGludGVybmFsIGVEUCBwYW5lbCBzdGF5cyBvbiBh
-IHN0YXRpYyBibGFjayBmcmFtZS4gVGhlIHNjcmVlbjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQt
-ZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29s
-b3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij5vbmx5IGxpZ2h0cyB1cCBh
-ZnRlciBhbnkgaW5wdXQgZXZlbnQgKGtleSBwcmVzcyBvciBtb3VzZSBtb3ZlKSwgd2hpY2gg
-dGhlbjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0
-ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWln
-aHQ6IDEuNDM7Ij50cmlnZ2VycyB0aGUgY29tcG9zaXRvciB0byByZXBhaW50LiBSZXByb2R1
-Y2libGUgb24gZXZlcnkgbGlkIGN5Y2xlIHdpdGg8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZh
-bWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9y
-OiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+a2VybmVsIDcuMi4zOyB0aGUg
-aWRlbnRpY2FsIHVzZXJzcGFjZSBvbiBsaW51eC1sdHMgNi4xOC40OS0yLWx0cyBkb2VzIE5P
-VDwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0t
-dWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6
-IDEuNDM7Ij5zaG93IHRoZSBwcm9ibGVtLjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5
-OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJn
-YigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij48YnIgIC8+PC9kaXY+PGRpdiBzdHls
-ZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAx
-NHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPlJlcHJvZHVj
-ZTo8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVt
-LXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0
-OiAxLjQzOyI+MS4gS2VybmVsIDcuMi4zLCBHTk9NRSA1MC40IFdheWxhbmQuPC9kaXY+PGRp
-diBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1z
-aXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPjIu
-IENsb3NlIGxpZCAtJmd0OyAiUE06IHN1c3BlbmQgZW50cnkgKHMyaWRsZSkiLjwvZGl2Pjxk
-aXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQt
-c2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij4z
-LiBXYWl0IH41IHMsIG9wZW4gbGlkLjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAt
-YXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigw
-LCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij40LiBLZWVwIGhhbmRzIG9mZiBrZXlib2Fy
-ZC9tb3VzZTogc2NyZWVuIHN0YXlzIGJsYWNrIGluZGVmaW5pdGVseS48L2Rpdj48ZGl2IHN0
-eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6
-IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+NS4gUHJl
-c3MgYW55IGtleTogc2NyZWVuIGxpZ2h0cyB1cCBpbnN0YW50bHkuPC9kaXY+PGRpdiBzdHls
-ZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAx
-NHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPjxiciAgLz48
-L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVp
-OyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAx
-LjQzOyI+RW52aXJvbm1lbnQ6PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBs
-ZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAs
-IDApOyBsaW5lLWhlaWdodDogMS40MzsiPi0gTGFwdG9wOiBIT05PUiBHTE8tR1hYWCAoTWFn
-aWNCb29rKSwgSW50ZWwgUmFwdG9yIExha2UtUCBJcmlzIFhlPC9kaXY+PGRpdiBzdHlsZT0i
-Zm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4
-OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPiZuYnNwOyBbODA4
-NjphN2EwXSAoaTkxNSkgZHJpdmluZyB0aGUgaW50ZXJuYWwgZURQIHBhbmVsOyBOVklESUEg
-UlRYIDMwNTA8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwg
-c3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUt
-aGVpZ2h0OiAxLjQzOyI+Jm5ic3A7IFsxMGRlOjI1YWJdIG9mZmxvYWQtb25seSwgbm90IGNv
-bm5lY3RlZCB0byB0aGUgcGFuZWwuPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1h
-cHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAs
-IDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPi0gQXJjaCBMaW51eCwga2VybmVsIDcuMi4z
-LWFyY2gxLTIgKEFyY2ggZGVmYXVsdCBjb25maWcpLCBHTk9NRSBTaGVsbC9tdXR0ZXI8L2Rp
-dj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBm
-b250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQz
-OyI+Jm5ic3A7IDUwLjQgV2F5bGFuZCwgZ2RtIGF1dG9sb2dpbi48L2Rpdj48ZGl2IHN0eWxl
-PSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0
-cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+LSAvc3lzL3Bv
-d2VyL21lbV9zbGVlcDogIltzMmlkbGVdIGRlZXAiIChzMmlkbGUgaW4gdXNlKS48L2Rpdj48
-ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250
-LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+
-LSB1bmFtZSAtYTogTGludXggYXJjaGxpbnV4IDcuMi4zLWFyY2gxLTIgIzEgU01QIFBSRUVN
-UFRfRFlOQU1JQyBUaHUsIDAzIFNlcDwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAt
-YXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigw
-LCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij4mbmJzcDsgMjAyNiAxNzo1NTowNiArMDAw
-MCB4ODZfNjQgR05VL0xpbnV4PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBs
-ZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAs
-IDApOyBsaW5lLWhlaWdodDogMS40MzsiPjxiciAgLz48L2Rpdj48ZGl2IHN0eWxlPSJmb250
-LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNv
-bG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+TWVhc3VyZW1lbnRzIGR1
-cmluZyB0aGUgYmxhY2sgcGVyaW9kIChzbyB0aGUgcGFuZWwgaXMgTk9UIG9mZik6PC9kaXY+
-PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9u
-dC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40Mzsi
-Pi0gaW50ZWxfYmFja2xpZ2h0IGJyaWdodG5lc3M9OTYwMDAvOTYwMDAsIGJsX3Bvd2VyPTAg
-KGJhY2tsaWdodCBvbik7PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1z
-eXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDAp
-OyBsaW5lLWhlaWdodDogMS40MzsiPiZuYnNwOyBjb25uZWN0b3IgY29ubmVjdGVkOyBsaWQg
-b3Blbi48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lz
-dGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVp
-Z2h0OiAxLjQzOyI+LSBpOTE1IGRlYnVnZnMgL3N5cy9rZXJuZWwvZGVidWcvZHJpLzEvc3Rh
-dGU6IENSVEMtMCBhY3RpdmU9MSwgcGxhbmVzPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1p
-bHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjog
-cmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPiZuYnNwOyBzY2FubmluZyBvdXQg
-Y29udGludW91c2x5OyBubyBtb2Rlc2V0IHdoZW4gdGhlIHNjcmVlbiBmaW5hbGx5IGxpZ2h0
-cyB1cC48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lz
-dGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVp
-Z2h0OiAxLjQzOyI+PSZndDsgcGFuZWwgcG93ZXJlZC9iYWNrbGl0L3NjYW5uZWQgb3V0IGFs
-bCBhbG9uZzsgdGhlIGNvbXBvc2l0b3IgcmVjZWl2ZXMgbm88L2Rpdj48ZGl2IHN0eWxlPSJm
-b250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7
-IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+Jm5ic3A7ICZuYnNw
-O2V2ZW50IHRoYXQgd291bGQgbWFrZSBpdCByZWRyYXcgYWZ0ZXIgczJpZGxlIHJlc3VtZSB1
-bnRpbCB1c2VyIGlucHV0LjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUt
-c3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAw
-KTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij48YnIgIC8+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1m
-YW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xv
-cjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPlJ1bGVkIG91dCBieSB0ZXN0
-aW5nOiBsaWQgQUNQSSBldmVudHMgKGNsZWFuKSwgc2Vzc2lvbi1mcmVlemUgc2V0dGluZyw8
-L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVp
-OyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAx
-LjQzOyI+R05PTUUgbG9jay1vbi1zdXNwZW5kLCBiYWNrbGlnaHQvcGFuZWwgcG93ZXIgbG9z
-cywgTlZJRElBIGludm9sdmVtZW50LDwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAt
-YXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigw
-LCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij5jb21wb3NpdG9yIHJlc3RhcnQsIEVDL2Zp
-cm13YXJlIGxpZCBoYW5kbGluZyAoNi4xOCBMVFMgb24gc2FtZSBtYWNoaW5lIGlzPC9kaXY+
-PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9u
-dC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40Mzsi
-PmZpbmUpLiAiZGVlcCIgKFMzKSB3YWtlcyB0aGUgc2NyZWVuIGJ1dCB0aGUgbWFjaGluZSBo
-YXJkIHBvd2VyLWN5Y2xlcyB+MTUgczwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAt
-YXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigw
-LCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij5hZnRlciBTMyByZXN1bWUgKHNlcGFyYXRl
-IGZpcm13YXJlIGlzc3VlKSwgc28gczJpZGxlIGlzIHRoZSByZXF1aXJlZCBtb2RlLjwvZGl2
-PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZv
-bnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7
-Ij48YnIgIC8+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0s
-IHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5l
-LWhlaWdodDogMS40MzsiPlN1c3BlY3QgYXJlYTogaTkxNSBzMmlkbGUtcmVzdW1lIC8gZnJh
-bWUtcHJlc2VudGF0aW9uIGNoYW5nZXMgYmV0d2VlbiB2Ni4xODwvZGl2PjxkaXYgc3R5bGU9
-ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRw
-eDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij5hbmQgdjcuMiBh
-ZmZlY3RpbmcgUmFwdG9yIExha2UgKFBTUi9zZWxmLXJlZnJlc2gsIGFzeW5jIGZsaXAsIG9y
-IHZibGFuazwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBz
-eXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1o
-ZWlnaHQ6IDEuNDM7Ij5oYW5kbGluZyBhZnRlciByZXN1bWUpLiBXaWxsaW5nIHRvIHJ1biBk
-cm0uZGVidWcgdHJhY2VzLCBiaXNlY3QsIG9yIHRlc3Q8L2Rpdj48ZGl2IHN0eWxlPSJmb250
-LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNv
-bG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+cGF0Y2hlcy48L2Rpdj48
-ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250
-LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+
-PGJyICAvPjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBz
-eXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1o
-ZWlnaHQ6IDEuNDM7Ij5GdWxsIGpvdXJuYWwgZXhjZXJwdHMgYW5kIHNhbXBsaW5nIGRhdGEg
-YXJlIGF0dGFjaGVkLjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lz
-dGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsg
-bGluZS1oZWlnaHQ6IDEuNDM7Ij48YnIgIC8+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1p
-bHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjog
-cmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPiNyZWd6Ym90IGludHJvZHVjZWQ6
-IHY2LjE4Li52Ny4yPC9kaXY+
+Fixes: f35fe5f47ed0 ("mei: add a vtag map for each client")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
+---
+ drivers/misc/mei/client.c    | 24 ++++++++++++-
+ drivers/misc/mei/client.h    |  1 +
+ drivers/misc/mei/interrupt.c | 65 +++++++++++++++++++++++-------------
+ drivers/misc/mei/main.c      | 24 +++----------
+ 4 files changed, 69 insertions(+), 45 deletions(-)
 
-------=_NextPart_6A9D86B5_39A64620_2D26D3A2--
-
-------=_NextPart_6A9D86B5_39A64620_66041808
-Content-Type: application/octet-stream;
-	charset="utf-8";
-	name="s2idle-regression-evidence.txt"
-Content-Disposition: attachment; filename="s2idle-regression-evidence.txt"
-Content-Transfer-Encoding: base64
-
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09CnMyaWRsZS1yZXN1bWUgcmVncmVzc2lvbiBldmlkZW5jZSAoa2VybmVsIDcuMi4z
-LWFyY2gxLTIpCk1hY2hpbmU6IEhPTk9SIEdMTy1HWFhYIHwgSW50ZWwgUmFwdG9yIExha2Ut
-UCBpOTE1ICsgUlRYMzA1MApDb2xsZWN0ZWQ6IDIwMjYtMDktMDYgKGxvY2FsICswODowMCkK
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09CgojIyMgMS4gRnVsbCBsaWQtY2xvc2UgLT4gczJpZGxlIC0+IGxpZC1vcGVuIGN5
-Y2xlICgyMDI2LTA5LTA2IDIyOjAxOjU2LTIyOjAyOjMyKSAjIyMKOeaciCAwNiAyMjowMTo1
-OCBhcmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIGNsb3NlZC4KOeaciCAwNiAy
-MjowMTo1OCBhcmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogU3VzcGVuZGluZy4uLgo5
-5pyIIDA2IDIyOjAxOjU5IGFyY2hsaW51eCBzeXN0ZW1kWzFdOiBSZWFjaGVkIHRhcmdldCBT
-bGVlcC4KOeaciCAwNiAyMjowMTo1OSBhcmNobGludXggc3lzdGVtZC1zbGVlcFs2MDYxNF06
-IFVzZXIgc2Vzc2lvbnMgcmVtYWluIHVuZnJvemVuIG9uIGV4cGxpY2l0IHJlcXVlc3QgKCRT
-WVNURU1EX1NMRUVQX0ZSRUVaRV9VU0VSX1NFU1NJT05TPTApLgo55pyIIDA2IDIyOjAxOjU5
-IGFyY2hsaW51eCBzeXN0ZW1kLXNsZWVwWzYwNjE0XTogVGhpcyBpcyBub3QgcmVjb21tZW5k
-ZWQsIGFuZCBtaWdodCByZXN1bHQgaW4gdW5leHBlY3RlZCBiZWhhdmlvciwgcGFydGljdWxh
-cmx5CjnmnIggMDYgMjI6MDE6NTkgYXJjaGxpbnV4IHN5c3RlbWQtc2xlZXBbNjA2MTRdOiBp
-biBzdXNwZW5kLXRoZW4taGliZXJuYXRlIG9wZXJhdGlvbnMgb3Igc2V0dXBzIHdpdGggZW5j
-cnlwdGVkIGhvbWUgZGlyZWN0b3JpZXMuCjnmnIggMDYgMjI6MDE6NTkgYXJjaGxpbnV4IHN5
-c3RlbWQtc2xlZXBbNjA2MTRdOiBQZXJmb3JtaW5nIHNsZWVwIG9wZXJhdGlvbiAnc3VzcGVu
-ZCcuLi4KOeaciCAwNiAyMjowMTo1OSBhcmNobGludXgga2VybmVsOiBQTTogc3VzcGVuZCBl
-bnRyeSAoczJpZGxlKQo55pyIIDA2IDIyOjAyOjI0IGFyY2hsaW51eCBzeXN0ZW1kLWxvZ2lu
-ZFs2MTddOiBMaWQgb3BlbmVkLgo55pyIIDA2IDIyOjAyOjI0IGFyY2hsaW51eCBrZXJuZWw6
-IHByaW50azogU3VzcGVuZGluZyBjb25zb2xlKHMpICh1c2Ugbm9fY29uc29sZV9zdXNwZW5k
-IHRvIGRlYnVnKQo55pyIIDA2IDIyOjAyOjI1IGFyY2hsaW51eCBzeXN0ZW1kLXNsZWVwWzYw
-NjE0XTogU3lzdGVtIHJldHVybmVkIGZyb20gc2xlZXAgb3BlcmF0aW9uICdzdXNwZW5kJy4K
-OeaciCAwNiAyMjowMjoyNSBhcmNobGludXgga2VybmVsOiBQTTogc3VzcGVuZCBleGl0Cjnm
-nIggMDYgMjI6MDI6MjUgYXJjaGxpbnV4IHN5c3RlbWRbMV06IFN0b3BwZWQgdGFyZ2V0IFNs
-ZWVwLgo55pyIIDA2IDIyOjAyOjI1IGFyY2hsaW51eCBzeXN0ZW1kLWxvZ2luZFs2MTddOiBP
-cGVyYXRpb24gJ3N1c3BlbmQnIGZpbmlzaGVkLgoKIyMjIDIuIEtlcm5lbCBtZXNzYWdlcyBy
-aWdodCBhZnRlciBhbm90aGVyIGxpZC1vcGVuIHdha2UgKDIyOjExOjI2LTIyOjExOjQ1KSAt
-IGNsZWFuICMjIwo55pyIIDA2IDIyOjExOjI3IGFyY2hsaW51eCBrZXJuZWw6IEZyZWV6aW5n
-IHVzZXIgc3BhY2UgcHJvY2Vzc2VzCjnmnIggMDYgMjI6MTE6MjcgYXJjaGxpbnV4IGtlcm5l
-bDogRnJlZXppbmcgdXNlciBzcGFjZSBwcm9jZXNzZXMgY29tcGxldGVkIChlbGFwc2VkIDAu
-MDAxIHNlY29uZHMpCjnmnIggMDYgMjI6MTE6MjcgYXJjaGxpbnV4IGtlcm5lbDogT09NIGtp
-bGxlciBkaXNhYmxlZC4KOeaciCAwNiAyMjoxMToyNyBhcmNobGludXgga2VybmVsOiBGcmVl
-emluZyByZW1haW5pbmcgZnJlZXphYmxlIHRhc2tzCjnmnIggMDYgMjI6MTE6MjcgYXJjaGxp
-bnV4IGtlcm5lbDogRnJlZXppbmcgcmVtYWluaW5nIGZyZWV6YWJsZSB0YXNrcyBjb21wbGV0
-ZWQgKGVsYXBzZWQgMC4wMDEgc2Vjb25kcykKOeaciCAwNiAyMjoxMToyNyBhcmNobGludXgg
-a2VybmVsOiBwcmludGs6IFN1c3BlbmRpbmcgY29uc29sZShzKSAodXNlIG5vX2NvbnNvbGVf
-c3VzcGVuZCB0byBkZWJ1ZykKOeaciCAwNiAyMjoxMToyNyBhcmNobGludXgga2VybmVsOiBB
-Q1BJOiBFQzogaW50ZXJydXB0IGJsb2NrZWQKOeaciCAwNiAyMjoxMToyNyBhcmNobGludXgg
-a2VybmVsOiBBQ1BJOiBFQzogaW50ZXJydXB0IHVuYmxvY2tlZAo55pyIIDA2IDIyOjExOjI3
-IGFyY2hsaW51eCBrZXJuZWw6IGk5MTUgMDAwMDowMDowMi4wOiBbZHJtXSBHVDA6IEd1QyBm
-aXJtd2FyZSBpOTE1L2FkbHBfZ3VjXzcwLmJpbiB2ZXJzaW9uIDcwLjQ5LjQKOeaciCAwNiAy
-MjoxMToyNyBhcmNobGludXgga2VybmVsOiBpOTE1IDAwMDA6MDA6MDIuMDogW2RybV0gR1Qw
-OiBIdUMgZmlybXdhcmUgaTkxNS90Z2xfaHVjLmJpbiB2ZXJzaW9uIDcuOS4zCjnmnIggMDYg
-MjI6MTE6MjcgYXJjaGxpbnV4IGtlcm5lbDogbnZtZSBudm1lMDogRDMgZW50cnkgbGF0ZW5j
-eSBzZXQgdG8gMTAgc2Vjb25kcwo55pyIIDA2IDIyOjExOjI3IGFyY2hsaW51eCBrZXJuZWw6
-IG52bWUgbnZtZTA6IDE2LzAvMCBkZWZhdWx0L3JlYWQvcG9sbCBxdWV1ZXMKOeaciCAwNiAy
-MjoxMToyNyBhcmNobGludXgga2VybmVsOiBpOTE1IDAwMDA6MDA6MDIuMDogW2RybV0gR1Qw
-OiBIdUM6IGF1dGhlbnRpY2F0ZWQgZm9yIGFsbCB3b3JrbG9hZHMKOeaciCAwNiAyMjoxMToy
-NyBhcmNobGludXgga2VybmVsOiBpOTE1IDAwMDA6MDA6MDIuMDogW2RybV0gR1QwOiBHVUM6
-IHN1Ym1pc3Npb24gZW5hYmxlZAo55pyIIDA2IDIyOjExOjI3IGFyY2hsaW51eCBrZXJuZWw6
-IGk5MTUgMDAwMDowMDowMi4wOiBbZHJtXSBHVDA6IEdVQzogU0xQQyBlbmFibGVkCjnmnIgg
-MDYgMjI6MTE6MjcgYXJjaGxpbnV4IGtlcm5lbDogaTkxNSAwMDAwOjAwOjAyLjA6IFtkcm1d
-IEdUMDogR1VDOiBSQyBlbmFibGVkCjnmnIggMDYgMjI6MTE6MjcgYXJjaGxpbnV4IGtlcm5l
-bDogaTkxNSAwMDAwOjAwOjAyLjA6IHZnYWFyYjogVkdBIGRlY29kZXMgY2hhbmdlZDogb2xk
-ZGVjb2Rlcz1pbyxkZWNvZGVzPWlvOm93bnM9aW8rbWVtCjnmnIggMDYgMjI6MTE6MjcgYXJj
-aGxpbnV4IGtlcm5lbDogT09NIGtpbGxlciBlbmFibGVkLgo55pyIIDA2IDIyOjExOjI3IGFy
-Y2hsaW51eCBrZXJuZWw6IFJlc3RhcnRpbmcgdGFza3M6IFN0YXJ0aW5nCjnmnIggMDYgMjI6
-MTE6MjcgYXJjaGxpbnV4IGtlcm5lbDogbWVpX2hkY3AgMDAwMDowMDoxNi4wLWI2MzhhYjdl
-LTk0ZTItNGVhMi1hNTUyLWQxYzU0YjYyN2YwNDogYm91bmQgMDAwMDowMDowMi4wIChvcHMg
-aTkxNV9oZGNwX29wcyBbaTkxNV0pCjnmnIggMDYgMjI6MTE6MjcgYXJjaGxpbnV4IGtlcm5l
-bDogUmVzdGFydGluZyB0YXNrczogRG9uZQo55pyIIDA2IDIyOjExOjI3IGFyY2hsaW51eCBr
-ZXJuZWw6IGVmaXZhcmZzOiByZXN5bmNpbmcgdmFyaWFibGUgc3RhdGUKOeaciCAwNiAyMjox
-MToyNyBhcmNobGludXgga2VybmVsOiBtZWlfcHhwIDAwMDA6MDA6MTYuMC1mYmY2ZmNmMS05
-NmNmLTRlMmUtYTZhNi0xYmFiOGNiZTM2YjE6IGJvdW5kIDAwMDA6MDA6MDIuMCAob3BzIGk5
-MTVfcHhwX3RlZV9jb21wb25lbnRfb3BzIFtpOTE1XSkKOeaciCAwNiAyMjoxMToyNyBhcmNo
-bGludXgga2VybmVsOiBlZml2YXJmczogZmluaXNoZWQgcmVzeW5jaW5nIHZhcmlhYmxlIHN0
-YXRlCjnmnIggMDYgMjI6MTE6MjcgYXJjaGxpbnV4IGtlcm5lbDogcmFuZG9tOiBjcm5nIHJl
-c2VlZGVkIG9uIHN5c3RlbSByZXN1bXB0aW9uCgojIyMgMy4gRGVidWdmcy9zeXNmcyBzYW1w
-bGluZyBkdXJpbmcgdGhlIEJMQUNLIHBlcmlvZCAodGVzdGVyIG1lYXN1cmVtZW50cykgIyMj
-CiAgIHdpbmRvdyAyMjoxMToyOCAtIDIyOjExOjQ1ICh3YWtlIDIyOjExOjI4LCBoYW5kcyBv
-ZmYgfjEwIHMpOgogICBpbnRlbF9iYWNrbGlnaHQ6IGJyaWdodG5lc3M9OTYwMDAgYWN0dWFs
-PTk2MDAwIGJsX3Bvd2VyPTAgKGJhY2tsaWdodCBPTiwgZnVsbCkKICAgY29ubmVjdG9yOiBj
-b25uZWN0ZWQgfCAvcHJvYy9hY3BpL2J1dHRvbi9saWQ6IG9wZW4KICAgaTkxNSAvc3lzL2tl
-cm5lbC9kZWJ1Zy9kcmkvMS9zdGF0ZTogQ1JUQy0wIGFjdGl2ZT0xIChzY2Fub3V0IHJ1bm5p
-bmcpLAogICBzZWxmX3JlZnJlc2hfYWN0aXZlPTAsIHVuY2hhbmdlZCB1bnRpbCB0aGUga2V5
-cHJlc3M7IG5vIG1vZGVzZXQvQ1JUQwogICBjaGFuZ2Ugb2NjdXJyZWQgd2hlbiB0aGUgc2Ny
-ZWVuIGxpdCB1cCAoaW5wdXQgb25seSB0cmlnZ2VycyBhIHJlcGFpbnQpLgoKIyMjIDQuIEV2
-ZXJ5IGxpZCBBQ1BJIGV2ZW50IGxvZ2dlZCAyMTo1MC0yMjoyMCAoc3RyaWN0bHkgYWx0ZXJu
-YXRpbmcsIG5vIHNwdXJpb3VzIHRvZ2dsaW5nKSAjIyMKICAgOeaciCAwNiAyMTo1MDo1NiBh
-cmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIGNsb3NlZC4KICAgOeaciCAwNiAy
-MTo1MToxNSBhcmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIG9wZW5lZC4KICAg
-OeaciCAwNiAyMTo1NTo1NCBhcmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIGNs
-b3NlZC4KICAgOeaciCAwNiAyMTo1NjowMCBhcmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3
-XTogTGlkIG9wZW5lZC4KICAgOeaciCAwNiAyMjowMTo1OCBhcmNobGludXggc3lzdGVtZC1s
-b2dpbmRbNjE3XTogTGlkIGNsb3NlZC4KICAgOeaciCAwNiAyMjowMjoyNCBhcmNobGludXgg
-c3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIG9wZW5lZC4KICAgOeaciCAwNiAyMjowNTo1MSBh
-cmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIGNsb3NlZC4KICAgOeaciCAwNiAy
-MjowNjoxNSBhcmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIG9wZW5lZC4KICAg
-OeaciCAwNiAyMjoxMDoyOCBhcmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIGNs
-b3NlZC4KICAgOeaciCAwNiAyMjoxMToyNyBhcmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3
-XTogTGlkIG9wZW5lZC4KICAgOeaciCAwNiAyMjoxNDoxMSBhcmNobGludXggc3lzdGVtZC1s
-b2dpbmRbNjE3XTogTGlkIGNsb3NlZC4KICAgOeaciCAwNiAyMjoxNToxMCBhcmNobGludXgg
-c3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIG9wZW5lZC4KICAgOeaciCAwNiAyMjoxOTo0OSBh
-cmNobGludXggc3lzdGVtZC1sb2dpbmRbNjE3XTogTGlkIGNsb3NlZC4KICAgKHRoZSBtYXRj
-aGluZyAiTGlkIG9wZW5lZCIgZm9yIHRoaXMgbGFzdCBjbG9zZSBsaWVzIG91dHNpZGUgdGhl
-IHNhbXBsZWQKICAgd2luZG93IC0gdGhlIHVzZXIgdGhlbiByZWJvb3RlZCAoMjI6MjgpIHRv
-IHRlc3QgdGhlIGxpbnV4LWx0cyBrZXJuZWwpCgojIyMgNS4gJ0N1cnNvciB1cGRhdGUgZmFp
-bGVkOiBkcm1Nb2RlQXRvbWljQ29tbWl0JyAtIGFwcGVhcnMgb25seSBhdCBsaWQtY2xvc2Ug
-aW5zdGFudHMgIyMjCiAgIDnmnIggMDYgMjE6NTA6NTcgYXJjaGxpbnV4IGdub21lLXNoZWxs
-Wzg3Nl06IEN1cnNvciB1cGRhdGUgZmFpbGVkOiBkcm1Nb2RlQXRvbWljQ29tbWl0OiDml6Dm
-lYjnmoTlj4LmlbAKICAgOeaciCAwNiAyMTo1NTo1NSBhcmNobGludXggZ25vbWUtc2hlbGxb
-ODc2XTogQ3Vyc29yIHVwZGF0ZSBmYWlsZWQ6IGRybU1vZGVBdG9taWNDb21taXQ6IOaXoOaV
-iOeahOWPguaVsAogICA55pyIIDA2IDIyOjAxOjU5IGFyY2hsaW51eCBnbm9tZS1zaGVsbFs4
-NzZdOiBDdXJzb3IgdXBkYXRlIGZhaWxlZDogZHJtTW9kZUF0b21pY0NvbW1pdDog5peg5pWI
-55qE5Y+C5pWwCiAgIDnmnIggMDYgMjI6MDU6NTIgYXJjaGxpbnV4IGdub21lLXNoZWxsWzg3
-Nl06IEN1cnNvciB1cGRhdGUgZmFpbGVkOiBkcm1Nb2RlQXRvbWljQ29tbWl0OiDml6DmlYjn
-moTlj4LmlbAKICAgOeaciCAwNiAyMjoxMDoyOSBhcmNobGludXggZ25vbWUtc2hlbGxbODc2
-XTogQ3Vyc29yIHVwZGF0ZSBmYWlsZWQ6IGRybU1vZGVBdG9taWNDb21taXQ6IOaXoOaViOea
-hOWPguaVsAogICA55pyIIDA2IDIyOjE5OjQ5IGFyY2hsaW51eCBnbm9tZS1zaGVsbFs4NzZd
-OiBDdXJzb3IgdXBkYXRlIGZhaWxlZDogZHJtTW9kZUF0b21pY0NvbW1pdDog5peg5pWI55qE
-5Y+C5pWwCgojIyMgNi4gRGVlcCAoUzMpIHRlc3Qgb24gNy4yLjM6IHNjcmVlbiB3YWtlIE9L
-LCB0aGVuIEhBUkQgcG93ZXItY3ljbGUgfjE1IHMgbGF0ZXIgIyMjCjnmnIggMDYgMjM6MDY6
-MjIgYXJjaGxpbnV4IHN5c3RlbWQtbG9naW5kWzYxM106IExpZCBvcGVuZWQuCjnmnIggMDYg
-MjM6MDY6MjIgYXJjaGxpbnV4IGtlcm5lbDogcHJpbnRrOiBTdXNwZW5kaW5nIGNvbnNvbGUo
-cykgKHVzZSBub19jb25zb2xlX3N1c3BlbmQgdG8gZGVidWcpCjnmnIggMDYgMjM6MDY6MjIg
-YXJjaGxpbnV4IGtlcm5lbDogQUNQSTogUE06IFByZXBhcmluZyB0byBlbnRlciBzeXN0ZW0g
-c2xlZXAgc3RhdGUgUzMKOeaciCAwNiAyMzowNjoyMiBhcmNobGludXgga2VybmVsOiBBQ1BJ
-OiBQTTogTG93LWxldmVsIHJlc3VtZSBjb21wbGV0ZQo55pyIIDA2IDIzOjA2OjIyIGFyY2hs
-aW51eCBrZXJuZWw6IEFDUEk6IFBNOiBXYWtpbmcgdXAgZnJvbSBzeXN0ZW0gc2xlZXAgc3Rh
-dGUgUzMKOeaciCAwNiAyMzowNjoyMyBhcmNobGludXgga2VybmVsOiBQTTogc3VzcGVuZCBl
-eGl0CjnmnIggMDYgMjM6MDY6MjMgYXJjaGxpbnV4IHN5c3RlbWQtbG9naW5kWzYxM106IE9w
-ZXJhdGlvbiAnc3VzcGVuZCcgZmluaXNoZWQuCiAgIExhc3Qgam91cm5hbCBsaW5lcyBiZWZv
-cmUgdGhlIHBvd2VyIGxvc3MgKGJvb3QgZW5kZWQgMjM6MDY6MzcpOgo55pyIIDA2IDIzOjA2
-OjM3IGFyY2hsaW51eCBzeXN0ZW1kWzFdOiBOZXR3b3JrTWFuYWdlci1kaXNwYXRjaGVyLnNl
-cnZpY2U6IERlYWN0aXZhdGVkIHN1Y2Nlc3NmdWxseS4KICAgKG5vIHNodXRkb3duIHNlcXVl
-bmNlLCBubyBwYW5pYy9vb3BzIGxvZ2dlZCAtPiBpbnN0YW50IHBvd2VyLW9mZiAvIGZpcm13
-YXJlIHJlc2V0KQo=
-
-------=_NextPart_6A9D86B5_39A64620_66041808--
-
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 5f648481024..b10c483673a 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -379,7 +379,7 @@ static struct mei_cl_cb *mei_io_cb_init(struct mei_cl *=
+cl,
+ =09cb->cl =3D cl;
+ =09cb->buf_idx =3D 0;
+ =09cb->fop_type =3D type;
+-=09cb->vtag =3D 0;
++=09cb->vtag =3D mei_cl_vtag_by_fp(cl, fp);
+ =09cb->ext_hdr =3D NULL;
+=20
+ =09return cb;
+@@ -1313,6 +1313,28 @@ const struct file *mei_cl_fp_by_vtag(const struct me=
+i_cl *cl, u8 vtag)
+ =09return ERR_PTR(-ENOENT);
+ }
+=20
++/**
++ * mei_cl_vtag_by_fp - obtain the vtag by file pointer
++ *
++ * @cl: host client
++ * @fp: pointer to file structure
++ *
++ * Return: vtag value on success, otherwise 0
++ */
++u8 mei_cl_vtag_by_fp(const struct mei_cl *cl, const struct file *fp)
++{
++=09struct mei_cl_vtag *cl_vtag;
++
++=09if (!cl || !fp)
++=09=09return 0;
++
++=09list_for_each_entry(cl_vtag, &cl->vtag_map, list)
++=09=09if (cl_vtag->fp =3D=3D fp)
++=09=09=09return cl_vtag->vtag;
++=09return 0;
++}
++
+ /**
+  * mei_cl_reset_read_by_vtag - reset pending_read flag by given vtag
+  *
+diff --git a/drivers/misc/mei/client.h b/drivers/misc/mei/client.h
+index 031114478bc..a15f1936703 100644
+--- a/drivers/misc/mei/client.h
++++ b/drivers/misc/mei/client.h
+@@ -146,6 +146,7 @@ int mei_cl_flush_queues(struct mei_cl *cl, const struct=
+ file *fp);
+=20
+ struct mei_cl_vtag *mei_cl_vtag_alloc(struct file *fp, u8 vtag);
+ const struct file *mei_cl_fp_by_vtag(const struct mei_cl *cl, u8 vtag);
++u8 mei_cl_vtag_by_fp(const struct mei_cl *cl, const struct file *fp);
+ int mei_cl_vt_support_check(const struct mei_cl *cl);
+ /*
+  *  MEI input output function prototype
+diff --git a/drivers/misc/mei/interrupt.c b/drivers/misc/mei/interrupt.c
+index 4262965c4f9..1e5b7728b56 100644
+--- a/drivers/misc/mei/interrupt.c
++++ b/drivers/misc/mei/interrupt.c
+@@ -96,7 +96,7 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+ =09=09=09       struct list_head *cmpl_list)
+ {
+ =09struct mei_device *dev =3D cl->dev;
+-=09struct mei_cl_cb *cb;
++=09struct mei_cl_cb *cb =3D NULL;
+=20
+ =09struct mei_ext_hdr_vtag *vtag_hdr =3D NULL;
+ =09struct mei_ext_hdr_gsc_f2h *gsc_f2h =3D NULL;
+@@ -108,24 +108,11 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+ =09length =3D mei_hdr->length;
+ =09ext_len =3D 0;
+ =09if (mei_hdr->extended) {
++=09=09struct mei_ext_hdr *ext =3D mei_ext_begin(meta);
++
+ =09=09ext_len =3D sizeof(*meta) + mei_slots2data(meta->size);
+ =09=09length -=3D ext_len;
+-=09}
+=20
+-=09cb =3D list_first_entry_or_null(&cl->rd_pending, struct mei_cl_cb, list=
+);
+-=09if (!cb) {
+-=09=09if (!mei_cl_is_fixed_address(cl)) {
+-=09=09=09cl_err(dev, cl, "pending read cb not found\n");
+-=09=09=09goto discard;
+-=09=09}
+-=09=09cb =3D mei_cl_alloc_cb(cl, mei_cl_mtu(cl), MEI_FOP_READ, cl->fp);
+-=09=09if (!cb)
+-=09=09=09goto discard;
+-=09=09list_add_tail(&cb->list, &cl->rd_pending);
+-=09}
+-
+-=09if (mei_hdr->extended) {
+-=09=09struct mei_ext_hdr *ext =3D mei_ext_begin(meta);
+ =09=09do {
+ =09=09=09switch (ext->type) {
+ =09=09=09case MEI_EXT_HDR_VTAG:
+@@ -133,18 +120,16 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+ =09=09=09=09break;
+ =09=09=09case MEI_EXT_HDR_GSC:
+ =09=09=09=09gsc_f2h =3D (struct mei_ext_hdr_gsc_f2h *)ext;
+-=09=09=09=09cb->ext_hdr =3D (struct mei_ext_hdr *) kzalloc_obj(*gsc_f2h);
+-=09=09=09=09if (!cb->ext_hdr) {
+-=09=09=09=09=09cb->status =3D -ENOMEM;
+-=09=09=09=09=09goto discard;
+-=09=09=09=09}
+ =09=09=09=09break;
+ =09=09=09case MEI_EXT_HDR_NONE:
+ =09=09=09=09fallthrough;
+ =09=09=09default:
+ =09=09=09=09cl_err(dev, cl, "unknown extended header\n");
+-=09=09=09=09cb->status =3D -EPROTO;
+-=09=09=09=09break;
++=09=09=09=09cb =3D list_first_entry_or_null(&cl->rd_pending,
++=09=09=09=09=09=09=09      struct mei_cl_cb, list);
++=09=09=09=09if (cb)
++=09=09=09=09=09cb->status =3D -EPROTO;
++=09=09=09=09goto discard;
+ =09=09=09}
+=20
+ =09=09=09ext =3D mei_ext_next(ext);
+@@ -152,11 +137,38 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+=20
+ =09=09if (!vtag_hdr && !gsc_f2h) {
+ =09=09=09cl_dbg(dev, cl, "no vtag or gsc found in extended header.\n");
+-=09=09=09cb->status =3D -EPROTO;
++=09=09=09cb =3D list_first_entry_or_null(&cl->rd_pending,
++=09=09=09=09=09=09      struct mei_cl_cb, list);
++=09=09=09if (cb)
++=09=09=09=09cb->status =3D -EPROTO;
+ =09=09=09goto discard;
+ =09=09}
+ =09}
+=20
++=09if (vtag_hdr) {
++=09=09struct mei_cl_cb *pos;
++
++=09=09list_for_each_entry(pos, &cl->rd_pending, list) {
++=09=09=09if (pos->vtag =3D=3D vtag_hdr->vtag) {
++=09=09=09=09cb =3D pos;
++=09=09=09=09break;
++=09=09=09}
++=09=09}
++=09} else {
++=09=09cb =3D list_first_entry_or_null(&cl->rd_pending, struct mei_cl_cb, l=
+ist);
++=09}
++
++=09if (!cb) {
++=09=09if (!mei_cl_is_fixed_address(cl)) {
++=09=09=09cl_err(dev, cl, "pending read cb not found\n");
++=09=09=09goto discard;
++=09=09}
++=09=09cb =3D mei_cl_alloc_cb(cl, mei_cl_mtu(cl), MEI_FOP_READ, cl->fp);
++=09=09if (!cb)
++=09=09=09goto discard;
++=09=09list_add_tail(&cb->list, &cl->rd_pending);
++=09}
++
+ =09if (vtag_hdr) {
+ =09=09cl_dbg(dev, cl, "vtag: %d\n", vtag_hdr->vtag);
+ =09=09if (cb->vtag && cb->vtag !=3D vtag_hdr->vtag) {
+@@ -187,6 +199,11 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+ =09=09=09cb->status =3D -EPROTO;
+ =09=09=09goto discard;
+ =09=09}
++=09=09cb->ext_hdr =3D (struct mei_ext_hdr *) kzalloc_obj(*gsc_f2h);
++=09=09if (!cb->ext_hdr) {
++=09=09=09cb->status =3D -ENOMEM;
++=09=09=09goto discard;
++=09=09}
+ =09=09memcpy(cb->ext_hdr, gsc_f2h, ext_hdr_len);
+ =09}
+=20
+diff --git a/drivers/misc/mei/main.c b/drivers/misc/mei/main.c
+index 4fbf0b32361..99ac29a464b 100644
+--- a/drivers/misc/mei/main.c
++++ b/drivers/misc/mei/main.c
+@@ -284,26 +284,6 @@ static ssize_t mei_read(struct file *file, char __user=
+ *ubuf,
+ =09return rets;
+ }
+=20
+-/**
+- * mei_cl_vtag_by_fp - obtain the vtag by file pointer
+- *
+- * @cl: host client
+- * @fp: pointer to file structure
+- *
+- * Return: vtag value on success, otherwise 0
+- */
+-static u8 mei_cl_vtag_by_fp(const struct mei_cl *cl, const struct file *fp=
+)
+-{
+-=09struct mei_cl_vtag *cl_vtag;
+-
+-=09if (!fp)
+-=09=09return 0;
+-
+-=09list_for_each_entry(cl_vtag, &cl->vtag_map, list)
+-=09=09if (cl_vtag->fp =3D=3D fp)
+-=09=09=09return cl_vtag->vtag;
+-=09return 0;
+-}
+=20
+ /**
+  * mei_write - the write function.
+@@ -564,6 +544,10 @@ static int mei_ioctl_connect_vtag(struct file *file,
+ =09=09=09if (!pos->me_cl)
+ =09=09=09=09continue;
+=20
++=09=09=09if (pos->state !=3D MEI_FILE_CONNECTED &&
++=09=09=09    pos->state !=3D MEI_FILE_CONNECTING)
++=09=09=09=09continue;
++
+ =09=09=09/* only search for same UUID */
+ =09=09=09if (uuid_le_cmp(*mei_cl_uuid(pos), *in_client_uuid))
+ =09=09=09=09continue;
