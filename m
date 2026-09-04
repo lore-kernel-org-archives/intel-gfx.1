@@ -4,61 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D41FCC624DE
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 08:44:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CEAC79F80
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 08:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C36010F971;
-	Fri,  4 Sep 2026 08:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD1E10F982;
+	Fri,  4 Sep 2026 08:53:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XC3RGx76";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EgvN5fkx";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2751C10F96A;
- Fri,  4 Sep 2026 08:44:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788511452; x=1820047452;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ly7OS0pQ+cSHHYRhq/4QRvY8bFfBu54mBjaeKPaHHYs=;
- b=XC3RGx76gYiaEDbMfx1n4UeVW4QYfg+MYOokBq46u6F6kPE3QNNEBJTy
- PmVhV+xPRmRS2fEmVVHaGtAKVwgH1vujmWjkB1SmCibp+mLsuuCeJFUSH
- dNo1y3tKcgs9kEJrMqUXNTty31FW1CDd6rKPxSjM6Q9uv/mR54DZQiZiv
- TGODmnePY2ohS29e2qxJ+qiTPReya7AAEeC3m4GuH+0VjERuCON4McW4p
- BQ/i9i5tFAL+7H6xICu96V7itOVlPs2Cn7+d2JS15v67iVyL4E/EyeN50
- r0QosG7X7zQ0fkMdpCi6tBY776zquMF9XxJQp4dpzpHgR+8ljREKk/1vU w==;
-X-CSE-ConnectionGUID: b7V6KYTZSDqvN2aoYZMEEg==
-X-CSE-MsgGUID: IR4hgfFASZGkycIpHBdFTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="89063666"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="89063666"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2026 01:44:11 -0700
-X-CSE-ConnectionGUID: mNdmyLEiTmWR/W4FznyQHg==
-X-CSE-MsgGUID: +zhoXd4VSNCV6TcOhQaiJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="266301349"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.29])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2026 01:44:10 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Golani, Mitulkumar Ajitkumar" <mitulkumar.ajitkumar.golani@intel.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Cc: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-Subject: RE: [PATCH v1] drm/i915/display: Add command line param for DC balance
-In-Reply-To: <IA1PR11MB6348B33BDBECAB92F9E5F87EB2B52@IA1PR11MB6348.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260828085037.1430881-1-mitulkumar.ajitkumar.golani@intel.com>
- <23a0819e-35b9-4061-ba87-288601f9fbeb@intel.com>
- <IA1PR11MB6348B33BDBECAB92F9E5F87EB2B52@IA1PR11MB6348.namprd11.prod.outlook.com>
-Date: Fri, 04 Sep 2026 11:44:07 +0300
-Message-ID: <9d5bd09bf9446fd8142804271d52dbc5964e5e72@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2264E10F97D;
+ Fri,  4 Sep 2026 08:53:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=YVx+3cVipBQauIvVHlgu4O3ViAk5ZOwiW6S0ILjIWNM=; b=EgvN5fkxr3/m+7WwNNmTTLuKyt
+ 0Yu/2dr4g660Q4KLMyhabVCYD9TgFDpMwubXBULQtuYkNyURBRUIFX1vQWpNUIbtkoY5GCK6WDYU+
+ 6tfvxYxeqNhLWV8ftl/Dz6PcCPRWaXgu8ODsAOfIe1YMAFC0/ofDRNakS1BCvzmTwe1vU8USIfaB/
+ w15M9WiYOEdoUz/WXsr4aw+tBtzYiIJiKtj/NEBn12h0kGEqLrSyn31aDFb3Ua8/DwTxUZXh0GzPZ
+ uTOQ70f3+/HtpW+HmHlqLCSavEB97v7LonwRZiv0IdIfSqgaIkQDfujc6iM3H9y16VGUo3SmbKEFp
+ l0EFOjRw==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x2Pfd-00EnQv-2R; Fri, 04 Sep 2026 10:53:13 +0200
+Message-ID: <ccb3d38d-d736-441a-94fa-7f5e0219753d@igalia.com>
+Date: Fri, 4 Sep 2026 09:53:11 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,102 +70,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 04 Sep 2026, "Golani, Mitulkumar Ajitkumar" <mitulkumar.ajitkumar.golani@intel.com> wrote:
->> -----Original Message-----
->> From: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
->> Sent: 28 August 2026 15:46
->> To: Golani, Mitulkumar Ajitkumar <mitulkumar.ajitkumar.golani@intel.com>;
->> intel-gfx@lists.freedesktop.org
->> Cc: intel-xe@lists.freedesktop.org; Nautiyal, Ankit K
->> <ankit.k.nautiyal@intel.com>
->> Subject: Re: [PATCH v1] drm/i915/display: Add command line param for DC
->> balance
->> 
->> 
->> 
->> On 8/28/2026 2:20 PM, Mitul Golani wrote:
->> > Add a new module parameter 'enable_dc_balance' to allow enabling or
->> > disabling the VRR DC balance feature at runtime. The DC balance
->> > computation in intel_vrr_dc_balance_compute_config() now honours this
->> > parameter, so the feature can be toggled without recompiling.
->> >
->> > Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
->> > ---
->> >   drivers/gpu/drm/i915/display/intel_display_params.c | 3 +++
->> >   drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
->> >   drivers/gpu/drm/i915/display/intel_vrr.c            | 4 +++-
->> >   3 files changed, 7 insertions(+), 1 deletion(-)
->> >
->> > diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c
->> > b/drivers/gpu/drm/i915/display/intel_display_params.c
->> > index 2aed110c5b09..ed3aa84c5d43 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_display_params.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
->> > @@ -120,6 +120,9 @@ intel_display_param_named_unsafe(enable_psr, int,
->> 0400,
->> >   	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
->> >   	"Default: -1 (use per-chip default)");
->> >
->> > +intel_display_param_named_unsafe(enable_dc_balance, int, 0400,
->> > +	"Enable DC Balance (0=disabled, 1=enable). Default: 1 (use per-chip
->> > +default)");
->> > +
->> >   intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
->> >   	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use
->> > per-chip default)");
->> >
->> > diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h
->> > b/drivers/gpu/drm/i915/display/intel_display_params.h
->> > index b95ecf728daa..8c28c27e2c46 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_display_params.h
->> > +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
->> > @@ -46,6 +46,7 @@ struct drm_printer;
->> >   	param(bool, enable_dp_mst, true, 0600) \
->> >   	param(int, enable_fbc, -1, 0600) \
->> >   	param(int, enable_psr, -1, 0600) \
->> > +	param(int, enable_dc_balance, false, 0600) \
->> 
->> You mean true?
->
-> Yes should be true by default. I will update in next revision.
 
-My comment on the rationale of the whole module parameter is more
-important, but if we end up with this, the parameter types and values
-need to match, i.e. int and integers, bool and true/false.
+On 17/08/2026 22:05, Maíra Canal wrote:
+> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
+> absolute deadline, but there is no equivalent for the drivers that
+> express a wait as a duration. Drivers such as i915 and v3d convert the
+> value themselves.
+> 
+> Converting a nanosecond duration to jiffies needs some care.
+> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
+> userspace-supplied timeout overflows its range and is silently truncated.
+> 
+> i915 already handles both cases in a local helper, which v3d has a copy
+> of. Add the same conversion to the core, so that it is available to any
+> driver and both copies can be dropped.
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
+>   include/drm/drm_utils.h       |  1 +
+>   2 files changed, 35 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> index 78e9f65e5477..18c2719d1fe9 100644
+> --- a/drivers/gpu/drm/drm_timeout.c
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -9,6 +9,7 @@
+>   #include <linux/export.h>
+>   #include <linux/jiffies.h>
+>   #include <linux/ktime.h>
+> +#include <linux/math64.h>
+>   #include <linux/sched.h>
+>   
+>   #include <drm/drm_utils.h>
+> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+>   	return timeout_jiffies64 + 1;
+>   }
+>   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> +
+> +/**
+> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
+> + *
+> + * @timeout_nsec: relative timeout in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
+> + * whose UAPI expresses a wait as a duration rather than as a deadline.
+> + *
+> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
+> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
+> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
+> + * that a finite wait is never understood as an infinite one.
+> + *
+> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
+> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
+> + * same arguments, so the duration starts counting from zero again. New uAPIs
+> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
+> + */
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
+> +{
+> +	/* make 0 timeout means poll, as for the absolute variant */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	/* nsecs_to_jiffies64() does not guard against overflow */
+> +	if ((NSEC_PER_SEC % HZ) != 0 &&
+> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
+> +		return MAX_JIFFY_OFFSET;
+> +
+> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
 
-BR,
-Jani.
+Sashiko was not happy with this so I guess the guard needs to be 
+improved somehow.
 
->
-> Thanks
->
->> 
->> >   	param(int, enable_panel_replay, -1, 0600) \
->> >   	param(bool, psr_safest_params, false, 0400) \
->> >   	param(bool, enable_psr2_sel_fetch, true, 0400) \ diff --git
->> > a/drivers/gpu/drm/i915/display/intel_vrr.c
->> > b/drivers/gpu/drm/i915/display/intel_vrr.c
->> > index e36db1174440..1698c54e258b 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_vrr.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
->> > @@ -439,10 +439,12 @@ static bool intel_vrr_dc_balance_possible(const
->> struct intel_crtc_state *crtc_st
->> >   static void
->> >   intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
->> >   {
->> > +	struct intel_display *display = to_intel_display(crtc_state);
->> >   	int guardband_usec, adjustment_usec;
->> >   	struct drm_display_mode *adjusted_mode =
->> > &crtc_state->hw.adjusted_mode;
->> >
->> > -	if (!intel_vrr_dc_balance_possible(crtc_state) || !crtc_state-
->> >vrr.enable)
->> > +	if (!intel_vrr_dc_balance_possible(crtc_state) ||
->> > +	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
->> >   		return;
->> >
->> >   	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
->
+I wonder if we would detect overflow by converting back from jiffies to 
+ns and if that is smaller than the original ns we conclude it was an 
+overflow and then cap to MAX_JIFFY_OFFSET?
 
--- 
-Jani Nikula, Intel
+Regards,
+
+Tvrtko
+
+> +}
+> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
+> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+> index 6a46f755daba..8c0cc9835413 100644
+> --- a/include/drm/drm_utils.h
+> +++ b/include/drm/drm_utils.h
+> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
+>   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+>   
+>   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
+>   
+>   #endif
+> 
+
