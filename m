@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98EE7C79FAF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18CCFC79FAE
 	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E7C010ED25;
-	Tue,  8 Sep 2026 18:37:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF79910ED24;
+	Tue,  8 Sep 2026 18:37:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="uJTRj0Pa";
+	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="dnRHkwOV";
 	dkim-atps=neutral
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9209210FACC
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 11:48:39 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-939309d02d6so71900085a.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 04:48:39 -0700 (PDT)
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
+ [209.85.219.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 378CF10F08F
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 00:43:13 +0000 (UTC)
+Received: by mail-qv1-f46.google.com with SMTP id
+ 6a1803df08f44-90e8535619bso6681306d6.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 17:43:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788522518;
- x=1789127318; darn=lists.freedesktop.org; 
+ d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788482592;
+ x=1789087392; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=fl9PTSUs9B7FCZMsxUqQ5YejuzDpmr3a9lkSBiQbIlE=;
- b=uJTRj0Pa6L4QLxM4Xg9d97ivckDacH6Fnur7Z2dZT5NKEdQxa5eZRcCcEKj+BlCOOi
- nWGxi/HXhF3JIPgf+hG0vpUkeNQgz2hkQNhyqY7sBKgPZQLGx6i2e3tqkSiWqDQ/bVHG
- HZMJj8pfZbgZPds2tihhvK2T+CBNKLWyTP0x35sgYq+U6liv2u4zL4R42X49hNwDm0ul
- BAgdX7/mJ9zrVH9QF+W8LT6VpQlH/GQP/Ux4KZ4jeoSv3PjzFMF793e2DZ7BBEZHb0ql
- 0MHOTyQRy053HLzz1/vlCgHweMTlQDHB482tnHJhdzGzUDk3HJWRB7khSEDMRB7s7vqB
- p/rw==
+ bh=jL+S2VRP3JuTJmufzuBUjH1ceZNF6WpEtKrszEHKUZ8=;
+ b=dnRHkwOVet5xU37J1Ef6yzvsOmz6qntvRLO5+Rv+vxVBHn9F+JOvsTORtjiN07MLKe
+ JFNX8YojzdckrxKYun+TWZwUGeMA4MxI2n+YjxsuuadqtDE6EpoBJGDcxAYuRSVmkgyf
+ skSFspgBuzR+bAHrPTy8ngkpvbDP1dqPLVG09OfM6bVR3QfCR1rb9kAWIUD6S2maT1+J
+ ar0v27MvYg5OsUbcYrI3SP54U61gKwe1moJH/QUlXfrKtRWkEZ6fviejeH4nZwNUsyGe
+ N+NDDw0SHoGUwZ7X6skO1+WO6kVvbIT0ZB7H+YcVe2lIqHB/6pzWuN+0EVWracWKNlnU
+ ajTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788522518; x=1789127318;
+ d=1e100.net; s=20251104; t=1788482592; x=1789087392;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=fl9PTSUs9B7FCZMsxUqQ5YejuzDpmr3a9lkSBiQbIlE=;
- b=mvrHW9Mvp/XdBDuhjkxi+yFhdpAS//yHa00cZGBVndN9ZsiIGp18Nq8JIy1IJgiFxP
- uRqnHzfzcpTDvZKF0C96tGqcbp7WLrQyDHwJwdWWWtyuefQgmokX2+/oyK8PMIPbpMR7
- sjpLqqseUh8UITTTOZupBKvykhXT18p/A5me60OJGNA0LciEehram7yb4YQWAftpFES9
- rDhCny0IuMxDgojhCgzN6d8DDncCFrH35FRdFrvet8Ed91FQwhQ+7mouMu6nq0DKJGFj
- Z6+EeTOcxZjRNh1w+A1Azdiv3zKUmsxcb1VSBm5lx7FXemOOb0e9vgFxo2Fudv7PRTTJ
- IKIg==
-X-Gm-Message-State: AFuF++miiyzFDMu+NurTwitMYB/uEy+nAeSPG48bTdLPRH1yOxXwbVEs
- T94v143SeMnzz5P15ivYDAkH0d+hUC5wvM/A3hY+pORjkFmAXTQyQcEm9JBhLF/lLwC1bAvc5KT
- UQeva0PtknCerhktptCu4velzlOvW6S9DBT52wATHb3CR0GGPkC3oZGMhW84c2CRhjke5x9bvrV
- iriEGIDyTC7QdpU7Pe/x6AUTUkhFqdoRMaQP6l/OATF2CZ9+IR2EQVtSI=
-X-Gm-Gg: AYBFou1H6JvF+vtzPVV0mZ28SUBAIPwOOO1jpNxUuzZC3KGu5rYf4irsGttK2/rg9e5
- 9nEWCH6TnfH7UtG+OKGcCkv/vipiCgMEAyRIHYq/3gW4jMtlwQO/ZTG/YnhwlVDPJCZ7IlrvlxB
- mPsh8IeRMFgVxSIEsZnvqqituXLLiT5REAiwU6L7z0oXFYhOvV9F/yE+3L+QMrcdDLiTj1gk7PW
- yV6l5GDt13fOt+H7EbVo8EkKclTAHePiPrIoFjcNPwuubC/3Qd+UkweKWygGiAegjXFxUbPHjX3
- IAytFeZoSghrzo0NYtykUTPduDKbxVj77sqDgVEn7kSgQXPnWgbS7D4sZ0oiDNKxEXP5UN1u+K7
- Y7mzkeryBqZ7UuQKKpvs3cTektZ1MaGzwouqRBKAsdvLbILfrWaj23MnurLtbW8IopI1iepOGYr
- 4HDj/VkAoD5/WVDU50ZbxEO3/oIGw0eVl/S7tkP1uaXWzYkZntp5dMR2CYyyWGlyA2iMz8SOkNY
- hIb2fXHvmHWNsFOUlV8RNhOWWmIl8OK8W3JXW9KhW0AsQVY9YjrORo9pRkZePKFYLP0VW2fronv
- UJFn1FtRnBYPQXFVJFmtPcNSrGKcz1isfdPhFNGHiSLRM7R3Y9C2miUicrfkHZNGoaDO
-X-Received: by 2002:a05:620a:2606:b0:939:2d94:667c with SMTP id
- af79cd13be357-9398037ac4fmr542501585a.21.1788522518164; 
- Fri, 04 Sep 2026 04:48:38 -0700 (PDT)
-Received: from jake-laptop ([153.67.39.26]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9397f9f0734sm197825785a.4.2026.09.04.04.48.36
+ bh=jL+S2VRP3JuTJmufzuBUjH1ceZNF6WpEtKrszEHKUZ8=;
+ b=Zeox2208ljWn733E/hXbccjwHxazA7YWZq54RWf2F2rCxG9LCZjooWYhNev7pbvzGs
+ sZ7jasJXSLeujeFyYVqzj3cvRiKHzwopPfrJpNAqQZIpLrv/QyDvRESMsn6Rxdl230Ka
+ tKgpaDCcYJdsYDmG8KBis0pAP+gUXoo6CTcqlgNginYqwucwLnRRWsVT3CvPR8BZw8Lt
+ Cy1GkklasNIZ3MLwd5yV6E38boTzGWJ2gjD7nVIkYDGG1vLHDNAKIiCTzRaV86TxHaYW
+ E/O/c2XOldp1VEWkV3XfG2U1iyDzJDMWZPZ+zM0LQa5PeJF0eHe+7YIZ2ahmq6J59ElH
+ RaCg==
+X-Gm-Message-State: AFuF++kjQBkpR8iNK6OYjQQmMUAV658SXarHbuXVV0Scs2H6eJ2DXEvX
+ nw9eaKvFPZ/FvNAo1xDbHYY28Wm+mri9BRHkI0EY1nBJD0gDpl7hdYKO31yrKvfcgJTK3iLpkH6
+ 4OKUiu+gOVC/y+1szTclh5yS3FuWYVTvtc1MjldvOFl+JtM/hSj7Aj7/Myu4SJHwIZ7oljVPupF
+ LmZfU+zcFjlvvXnCZDgXhnSE61Bf9G1b+5RLqxGT8nHphue0qFQUPZPaY=
+X-Gm-Gg: AYBFou1D6wv6HRxui/p+QbmSLAGD7M58XOIzjOL2M8L0MDrQbn6Y663hrBt61Dh+3DE
+ 2FPuNG3k43BUFcoSQnGhRR2b1T0it9NEntnyBCs3n0FEoFbn4OSfqQXBDXVvrFEb/80q3X7Zmt/
+ kuVf+8PsP72cergIw2M0iO5//nvvzWlD5UAAbdf4zdD++2VfLNIWudFTRWOJqSUWYkQdIsRUZJg
+ 6DtTkQjK5hqDkGSqTTkWlhzI/I/rQ5Uu0Xi9QLysBiFmEZgluD+5Kv0tvK7Kbqx6QNq4DuE7ubE
+ EtAN2Xyo9Y6X/dAyGfRd9WEl7crq6+dTmlxJ2DW4jLyPHySDN2GcK4R7axFLBQ1XdMrjHOj88Ck
+ OnbplwddEMcAaR9YpgxbFTJwX/7Vo/MShag27EFoFa+f1KWI1OERYlvsLxAEmAulUczXoq7NbsG
+ tasI42sT3tTOfNCceLep805SAi3BTQ7eYg4FSRyrdQJyaYRla8zqaOKUkpaiQ5uka6YLV7xZ+aP
+ PExUmHZDSasalNla26c1jeWB28gM4sJcyZHM+xoMQ/Dl9CiRrymcS2M2vBS9fYqwpB4xg6JcYPz
+ mb82rpqP40xxH8Q6TifoxbNJMlpDpZD1RG2E313bkQqysf1vAwPG65xBaeE=
+X-Received: by 2002:a05:6214:8506:10b0:910:343e:de91 with SMTP id
+ 6a1803df08f44-9103efb3396mr30145126d6.1.1788482592022; 
+ Thu, 03 Sep 2026 17:43:12 -0700 (PDT)
+Received: from jake-laptop ([74.244.125.34]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-910406bf8c3sm7418446d6.48.2026.09.03.17.43.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 04:48:37 -0700 (PDT)
+ Thu, 03 Sep 2026 17:43:11 -0700 (PDT)
 From: Jake Steinman <j@metarealtyinc.ca>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
@@ -72,14 +72,13 @@ Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
  Animesh Manna <animesh.manna@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v3] drm/i915/alpm: Add a quirk to keep the fast wake ahead
- of the IO buffer wake
-Date: Fri,  4 Sep 2026 07:48:35 -0400
-Message-ID: <20260904114835.483057-1-j@metarealtyinc.ca>
+Subject: [PATCH v3] drm/i915/alpm: Add a quirk to keep the fast wake ahead of
+ the IO buffer wake
+Date: Thu,  3 Sep 2026 20:43:08 -0400
+Message-ID: <20260904004308.185788-1-j@metarealtyinc.ca>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904004308.185788-1-j@metarealtyinc.ca>
+In-Reply-To: <20260903131724.49496-1-j@metarealtyinc.ca>
 References: <20260903131724.49496-1-j@metarealtyinc.ca>
- <20260904004308.185788-1-j@metarealtyinc.ca>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -99,18 +98,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2026-09-04 Jouni Högander wrote:
-> This patch doesn't help much ATM because we wont get rid of the quirk
-> disabling selective fetch anyways.
+The LG panel (sink OUI 00:22:b9) in the Dell XPS 14 DA14260 and XPS 16
+DA16260 (Panther Lake) fails every ALPM link wake when the extended fast
+wake and the IO buffer wake are programmed to the same number of
+scanlines, which the spec formulas produce for it (11/11 lines on
+3200x2000@120, 4 x 2.7 Gbps, DSC). The sink sets the Link CRC error bit
+in DP_PSR_ERROR_STATUS within ~25 ms of it being cleared, on every wake,
+for as long as PSR2 is active.
 
-Understood. Which quirk is that? As of yesterday's drm-tip this machine
-only has the Panel Replay quirk; PSR2 with selective fetch is enabled,
-and that is where these CRC errors show up. If selective fetch is going
-to be quirked off for the DA16260 as well, then agreed, this can wait
-until the SU problem is understood.
+Measured with DP_PSR_ERROR_STATUS polled every 200 ms and cleared after
+each read, 15 s of PSR2 per configuration, number of polls that found
+the bit set again:
 
-The SU problem is https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9119.
-I'd much rather see that fixed than another quirk on this machine, and
-I can test whatever you want on it, same day.
+  io/fast 11/11, guardband 60 (stock)          70 of 71
+  io/fast 11/11, guardband 127 (full vblank)   70 of 70
+  fast wake sync length 20 -> io/fast 12/12    68 of 69
+  fast wake sync length 24 -> io/fast 13/13    69 of 70
+  io/fast 11/12                                 0 of 71
 
-Jake
+A larger guardband or a longer fast wake sync pulse does not help, and
+moving both wake times up together does not either. The fast wake has
+to start strictly before the IO buffer wake on this panel.
+
+Since the spec allows the IO buffer wake to be equal to or longer than
+the fast wake, keep the formulas as they are and apply the relation as
+a DPCD quirk for this panel on these two machines: one extra fast wake
+line, or the IO buffer wake one line below the fast wake when already
+at the maximum. Account for the larger of the two wake times in the
+vblank and guardband checks, PSR and LOBF, which only looked at the IO
+buffer wake on display 20+.
+
+This does not by itself make PSR2 selective updates or Panel Replay
+usable on these machines; with the wake clean the panel still never
+receives a selective update. That is tracked separately.
+
+v3: also account for the fast wake in the LOBF guardband and vblank
+    checks (Sashiko review)
+v2: quirk for the affected panel instead of a generic change (Jouni)
+
+Link: https://lore.kernel.org/intel-gfx/20260902162150.58778-1-j@metarealtyinc.ca/
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/7521
+Cc: Jouni Högander <jouni.hogander@intel.com>
+Cc: Animesh Manna <animesh.manna@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+---
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index f138376..04f61fd 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -15,6 +15,7 @@
+ #include "intel_dp.h"
+ #include "intel_dp_aux.h"
+ #include "intel_psr.h"
++#include "intel_quirks.h"
+ #include "intel_psr_regs.h"
+ #include "intel_vrr.h"
+ 
+@@ -238,8 +239,29 @@ bool intel_alpm_compute_params(struct intel_dp *intel_dp,
+ 		io_wake_lines = fast_wake_lines = max_wake_lines;
+ 
+ 	/* According to Bspec lower limit should be set as 7 lines. */
+-	crtc_state->alpm_state.io_wake_lines = max(io_wake_lines, 7);
+-	crtc_state->alpm_state.fast_wake_lines = max(fast_wake_lines, 7);
++	io_wake_lines = max(io_wake_lines, 7);
++	fast_wake_lines = max(fast_wake_lines, 7);
++
++	/*
++	 * The LG panel (sink OUI 00:22:b9) in the Dell XPS 14/16
++	 * DA14260/DA16260 reports a Link CRC error on every link wake when
++	 * the extended fast wake and the IO buffer wake are programmed to
++	 * the same number of lines, which the formulas above produce for it.
++	 * Neither a larger guardband nor a longer fast wake sync pulse
++	 * changes that; the fast wake has to start strictly before the IO
++	 * buffer wake. Apply that as a quirk for this panel only.
++	 */
++	if (DISPLAY_VER(display) >= 20 &&
++	    intel_has_dpcd_quirk(intel_dp, QUIRK_ALPM_FAST_WAKE_AHEAD) &&
++	    fast_wake_lines <= io_wake_lines) {
++		if (io_wake_lines < max_wake_lines)
++			fast_wake_lines = io_wake_lines + 1;
++		else
++			io_wake_lines = fast_wake_lines - 1;
++	}
++
++	crtc_state->alpm_state.io_wake_lines = io_wake_lines;
++	crtc_state->alpm_state.fast_wake_lines = fast_wake_lines;
+ 
+ 	return true;
+ }
+@@ -256,8 +278,9 @@ int intel_alpm_lobf_min_guardband(struct intel_crtc_state *crtc_state)
+ 	 * is applicable. Currently this information is not readily
+ 	 * available in crtc_state, so max will suffice for now.
+ 	 */
+-	waketime_in_lines = max(crtc_state->alpm_state.io_wake_lines,
+-				crtc_state->alpm_state.aux_less_wake_lines);
++	waketime_in_lines = max3(crtc_state->alpm_state.io_wake_lines,
++				 crtc_state->alpm_state.fast_wake_lines,
++				 crtc_state->alpm_state.aux_less_wake_lines);
+ 
+ 	if (!crtc_state->has_lobf)
+ 		return 0;
+@@ -314,7 +337,8 @@ void intel_alpm_lobf_compute_config_late(struct intel_dp *intel_dp,
+ 	 */
+ 	first_sdp_position = adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vsync_start;
+ 	if (intel_alpm_aux_less_wake_supported(intel_dp))
+-		waketime_in_lines = crtc_state->alpm_state.io_wake_lines;
++		waketime_in_lines = max(crtc_state->alpm_state.io_wake_lines,
++					crtc_state->alpm_state.fast_wake_lines);
+ 	else
+ 		waketime_in_lines = crtc_state->alpm_state.aux_less_wake_lines;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index c0933dd..ec80a2e 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1443,7 +1443,8 @@ static bool wake_lines_fit_into_vblank(struct intel_dp *intel_dp,
+ 		wake_lines = DISPLAY_VER(display) < 20 ?
+ 			psr2_block_count_lines(crtc_state->alpm_state.io_wake_lines,
+ 					       crtc_state->alpm_state.fast_wake_lines) :
+-			crtc_state->alpm_state.io_wake_lines;
++			max(crtc_state->alpm_state.io_wake_lines,
++			    crtc_state->alpm_state.fast_wake_lines);
+ 
+ 	/*
+ 	 * Guardband has not been computed yet, so we conservatively check if the
+@@ -4556,7 +4557,8 @@ void intel_psr_compute_config_late(struct intel_dp *intel_dp,
+ 		wake_lines = DISPLAY_VER(display) < 20 ?
+ 			     psr2_block_count_lines(crtc_state->alpm_state.io_wake_lines,
+ 						    crtc_state->alpm_state.fast_wake_lines) :
+-			     crtc_state->alpm_state.io_wake_lines;
++			     max(crtc_state->alpm_state.io_wake_lines,
++				 crtc_state->alpm_state.fast_wake_lines);
+ 	else
+ 		wake_lines = 0;
+ 
+@@ -4612,7 +4614,8 @@ int intel_psr_min_guardband(struct intel_crtc_state *crtc_state)
+ 		wake_lines = DISPLAY_VER(display) < 20 ?
+ 			     psr2_block_count_lines(crtc_state->alpm_state.io_wake_lines,
+ 						    crtc_state->alpm_state.fast_wake_lines) :
+-			     crtc_state->alpm_state.io_wake_lines;
++			     max(crtc_state->alpm_state.io_wake_lines,
++				 crtc_state->alpm_state.fast_wake_lines);
+ 	else
+ 		return 0;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f4..a5d01ba 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -86,6 +86,14 @@ static void quirk_edp_limit_rate_hbr2(struct intel_display *display)
+ 	drm_info(display->drm, "Applying eDP Limit rate to HBR2 quirk\n");
+ }
+ 
++static void quirk_alpm_fast_wake_ahead(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	intel_set_dpcd_quirk(intel_dp, QUIRK_ALPM_FAST_WAKE_AHEAD);
++	drm_info(display->drm, "Applying ALPM fast wake ahead of IO buffer wake quirk\n");
++}
++
+ static void quirk_disable_edp_panel_replay(struct intel_dp *intel_dp)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+@@ -286,6 +294,21 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+ 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
+ 		.hook = quirk_disable_edp_panel_replay,
+ 	},
++	/* Dell XPS 14 DA14260 and XPS 16 DA16260, LG panel: ALPM link wake */
++	{
++		.device = DEVICE_ID_ANY,
++		.subsystem_vendor = 0x1028,
++		.subsystem_device = 0x0db9,
++		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
++		.hook = quirk_alpm_fast_wake_ahead,
++	},
++	{
++		.device = DEVICE_ID_ANY,
++		.subsystem_vendor = 0x1028,
++		.subsystem_device = 0x0dba,
++		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
++		.hook = quirk_alpm_fast_wake_ahead,
++	},
+ };
+ 
+ void intel_init_quirks(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe..8bbc2eb 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_ALPM_FAST_WAKE_AHEAD,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
