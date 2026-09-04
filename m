@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B99EC79F80
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:10:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71BD3C624DE
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 08:14:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05DBC10E13B;
-	Fri,  4 Sep 2026 07:10:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC89710F935;
+	Fri,  4 Sep 2026 08:14:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g/giY1B3";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="f1jPqwNb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 918A410E13B;
- Fri,  4 Sep 2026 07:10:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788505839; x=1820041839;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=WqmuqwKQnF/E5rxeOPBqmJpNR7Vf1Bx2BKzlO3uTG2o=;
- b=g/giY1B3wKptEvjekIpazgptey5aKeH9GNpt+ze9wgUGnKVM4kTeprRD
- kPXGiMo5CUX5zP81tnQdxXKCOHNbEQEYNycJaKLpaPfyb+mS3MDirJOoR
- zD1tRNhnNGAWUfknyeKBxtQqy0+pXYAoktw3hoypt/0r56yjltR6Zy632
- tyWNd6eVMgjI/zOCI+H/5EhxB8PsnjYZynr4M0nRuS65H7YoGzeRhGwpr
- StfiO+Ajq3DVkAfRjMqSUGiSKwX4ZiXz+/x5EMFW2AI132ZuD8gwNo+Dh
- 2XB5MIxsLdDJW9/WUccy+sqrD9eV8UaqUOkeVOCcsAdutaTChkBidMPb4 Q==;
-X-CSE-ConnectionGUID: IKnUEByzQVae0uLSlmRXuQ==
-X-CSE-MsgGUID: 44dI2Dx+SFqjPGV/A2IW5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="76557210"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="76557210"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2026 00:10:39 -0700
-X-CSE-ConnectionGUID: cZI28kdARfS5he5rr/BvQA==
-X-CSE-MsgGUID: zKAucWnhSIGMOHjuv7TBLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="265616271"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.170])
- by fmviesa006-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 00:10:37 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nemesa Garg <nemesa.garg@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>
-Subject: Re: [PATCH] drm/i915/display: Limit SEL_FETCH clear to supported pipes
-In-Reply-To: <20260904062744.3010375-1-nemesa.garg@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260904062744.3010375-1-nemesa.garg@intel.com>
-Date: Fri, 04 Sep 2026 10:10:34 +0300
-Message-ID: <9514a15f9ded3fa79572f92a61f33650c4ab02e6@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12E9510F935;
+ Fri,  4 Sep 2026 08:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=xd+J4ow0HjjbnZnbZaMuQt++InUk3PM21K11/2H6ew8=; b=f1jPqwNbEeBrcZ9UDVYrGdhWMp
+ FGmxdOqL/nTpnyAM2xDW67F7ZfwQx9HxKGvls69xZbDiK5Yws/FDOQGuA5PvVaD4knhIIwJtNXYy4
+ SM8MEXE7QAIgplp2vJnZ7sXWxPfzO1fW01auiFxXwBD4xO+7/RW0ee7QeCQ9JhxZm6+tRWLT1PKql
+ WEiF4t9n2Mw51DM2tPkkQTMCWhmycfykT3IlAmfHrxIQkhdcvnaDAAwo97plFelNzGKEzoVyz9eGj
+ B0AEObpkRhjiMIlkPRW0s/FjAoIEgJpeSGej08Rrs8VA9FJ7whcLG9rPB6usWHCPpzeSrms1qCMTc
+ cIbwEeBQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x2P3x-00EmaK-Ln; Fri, 04 Sep 2026 10:14:17 +0200
+Message-ID: <496b7662-fbae-40f1-b4e5-cd66493ef887@igalia.com>
+Date: Fri, 4 Sep 2026 09:14:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] drm: Move drm_timeout_abs_to_jiffies() to
+ drm_timeout.c
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,61 +71,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 04 Sep 2026, Nemesa Garg <nemesa.garg@intel.com> wrote:
-> Commit 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL
-> on plane disable") started clearing SEL_FETCH_PLANE_CTL and
-> SEL_FETCH_CUR_CTL on every plane and cursor disable.
->
-> Not all pipes implement these registers. Clearing them on a pipe
-> that does not have them leads to an unclaimed register access.
 
-Where are the corresponding checks on the enable side, and what
-prevented this before 7f1172a2ac0d?
+On 17/08/2026 22:05, Maíra Canal wrote:
+> drm_timeout_abs_to_jiffies() began as a static helper inside the syncobj
+> wait implementation and was later exported in place, so that it could be
+> called by multiple drivers (e.g. panfrost, lima, tegra and accel
+> drivers). All of them reach it through drm_utils.h.
+> 
+> Give it a file of its own, so that timeout conversion helpers have a
+> home, which will be useful when we add new timeout handlers. The
+> declaration stays in drm_utils.h, so no caller changes.
+> 
+> No functional change.
 
-BR,
-Jani.
+I see Thomas suggested some tweaks which look fine to me. Or this patch 
+can stay as pure code movement, that is also fine by me, and tweaks to 
+kerneldoc or headers can be a follow up. So either way:
 
->
-> Skip the clear on pipes that do not implement the registers.
->
-> Fixes: 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable")
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16876
-> Assisted-by: GitHub-Copilot:claude-opus-4.6
-> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_cursor.c        | 4 ++++
->  drivers/gpu/drm/i915/display/skl_universal_plane.c | 4 ++++
->  2 files changed, 8 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-> index 86bb96ac449b..3c06d5482691 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cursor.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-> @@ -544,6 +544,10 @@ static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
->  	if (!HAS_PSR2_SEL_FETCH(display))
->  		return;
->  
-> +	/* Display ver 12 only instantiates these registers for pipe A */
-> +	if (DISPLAY_VER(display) == 12 && pipe != PIPE_A)
-> +		return;
-> +
->  	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
->  }
->  
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> index 5cda1ab90e40..252df30debc9 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> @@ -893,6 +893,10 @@ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
->  	if (!HAS_PSR2_SEL_FETCH(display))
->  		return;
->  
-> +	/* Display ver 12 only instantiates these registers for pipe A */
-> +	if (DISPLAY_VER(display) == 12 && pipe != PIPE_A)
-> +		return;
-> +
->  	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
->  }
+>   drivers/gpu/drm/Makefile      |  1 +
+>   drivers/gpu/drm/drm_syncobj.c | 33 ------------------------------
+>   drivers/gpu/drm/drm_timeout.c | 47 +++++++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 48 insertions(+), 33 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd783..0a0d7ea08347 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -68,6 +68,7 @@ drm-y := \
+>   	drm_rect.o \
+>   	drm_syncobj.o \
+>   	drm_sysfs.o \
+> +	drm_timeout.o \
+>   	drm_trace_points.o \
+>   	drm_vblank.o \
+>   	drm_vblank_work.o \
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index 2fa170a29a62..cf03681de6f7 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -1193,39 +1193,6 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>   	return timeout;
+>   }
+>   
+> -/**
+> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> - *
+> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> - *
+> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> - */
+> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> -{
+> -	ktime_t abs_timeout, now;
+> -	u64 timeout_ns, timeout_jiffies64;
+> -
+> -	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> -	if (timeout_nsec == 0)
+> -		return 0;
 
--- 
-Jani Nikula, Intel
+As a side comment to this specific check - it looks not that great the 
+core helper ended having this special case which conflates uapi and 
+dma-resv semantics with the helper, but it may be laborious to untangle.
+
+Hm, or actually.. the !ktime_after check below could be even making it 
+redundant.
+
+Regards,
+
+Tvrtko
+
+> -
+> -	abs_timeout = ns_to_ktime(timeout_nsec);
+> -	now = ktime_get();
+> -
+> -	if (!ktime_after(abs_timeout, now))
+> -		return 0;
+> -
+> -	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> -
+> -	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> -	/*  clamp timeout to avoid infinite timeout */
+> -	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> -		return MAX_SCHEDULE_TIMEOUT - 1;
+> -
+> -	return timeout_jiffies64 + 1;
+> -}
+> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> -
+>   static int drm_syncobj_array_wait(struct drm_device *dev,
+>   				  struct drm_file *file_private,
+>   				  struct drm_syncobj_wait *wait,
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> new file mode 100644
+> index 000000000000..78e9f65e5477
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -0,0 +1,47 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Timeout conversion helpers for wait ioctls.
+> + *
+> + * Copyright 2017 Red Hat
+> + * Copyright 2016 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/export.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/ktime.h>
+> +#include <linux/sched.h>
+> +
+> +#include <drm/drm_utils.h>
+> +
+> +/**
+> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> + *
+> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> + */
+> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> +{
+> +	ktime_t abs_timeout, now;
+> +	u64 timeout_ns, timeout_jiffies64;
+> +
+> +	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	abs_timeout = ns_to_ktime(timeout_nsec);
+> +	now = ktime_get();
+> +
+> +	if (!ktime_after(abs_timeout, now))
+> +		return 0;
+> +
+> +	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> +
+> +	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> +	/*  clamp timeout to avoid infinite timeout */
+> +	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> +		return MAX_SCHEDULE_TIMEOUT - 1;
+> +
+> +	return timeout_jiffies64 + 1;
+> +}
+> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> 
+
