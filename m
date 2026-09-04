@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8884EC79F87
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 12:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB9CBC79F8B
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 12:32:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6E2910F96E;
-	Fri,  4 Sep 2026 12:31:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42A5110F99E;
+	Fri,  4 Sep 2026 12:32:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bkSrRdvF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J8f8IlAH";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F59E10E132;
- Fri,  4 Sep 2026 12:31:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB5110F98B;
+ Fri,  4 Sep 2026 12:31:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788525116; x=1820061116;
+ t=1788525120; x=1820061120;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Jul2bAqnon9qbNsUxJBZYxhVn6f677kR09rMiqRKQcY=;
- b=bkSrRdvFcCi/YzSsF3nLEgfJejQcrU498PZZmird8R/dY4sbkNTWxPMb
- 6VbEVXm8ADIyOsV+/UjHM4AkbycQczqljjQrTxn/i8qWZFx71Z4TPrzuE
- aknDT1RNbR0XZANJHXGICAFXq0CqVr9Ng8ioF4VOv4BXroDzb1A4/TJFR
- NcPx4ZCQZHnN8xKYb1TWjq8Xm4xjfmNn2xm8CGiz6Tt0LNfqPMrkIAlLW
- osudVs0yZgH9hXBODkSwroggqMX52ASqtgdeW/1z252KKL2dLi2HcveLO
- UAU6Q5Ic5CwN+j2b8b03xpYLbdUt4+j8HdkUR/TwZthvm5qRrsq/9EVm5 Q==;
-X-CSE-ConnectionGUID: 4+XbTNy8S2S4vBLgDtphmg==
-X-CSE-MsgGUID: UzUsCtVVSqaBGZdd3TfWQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="92896569"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; d="scan'208";a="92896569"
+ bh=MKkES8rysN8QHJzDJ8PCMb1OynkodV2r/HuwVn9GjHs=;
+ b=J8f8IlAH2+E7zHGOFFoanngw+9NKOaUY3tFkgLDGH5Vko9sZJ78CCObI
+ 3U9RxAk6McO1EomX1HrykVaNqNUO52DXCxLu5I7BWF5t5DsZTntGTA9vj
+ 5+w5/0q521U1fTD/kxw191djYmClsjQIBs+hsQyYQ2NPaAcsq5jFEx6IM
+ PLlL1tK0DFr6F63/uZMXlJyKloQwyoQzvkhd/+JlA6uo+GhhHVocI43jz
+ XSC7sNSd3xl+1fEYAd/LUlNhm29a1KlYJvonTahuJHGzZJuR/2gyBiApv
+ oH2DqbDF6DD3OYMrtb0dmIVs9HnrWptEUh/Io3SPfIZsqC2FKR2F14DSc w==;
+X-CSE-ConnectionGUID: o9Ag956PSl+VsaKVZ6t4fQ==
+X-CSE-MsgGUID: jyb97OtARS2RqGgjBoupmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="92896574"
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; d="scan'208";a="92896574"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2026 05:31:56 -0700
-X-CSE-ConnectionGUID: TJwbX3EeTAekLSRNJKOA4g==
-X-CSE-MsgGUID: jnSJnjTVS46MeqNvuorhdQ==
+ 04 Sep 2026 05:31:59 -0700
+X-CSE-ConnectionGUID: PDRQ4NWSSriIlARa2UuNPA==
+X-CSE-MsgGUID: PovmT87aT/y+Jad3I9znzQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; d="scan'208";a="275311564"
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; d="scan'208";a="275311579"
 Received: from dev-417.igk.intel.com ([10.91.214.181])
- by fmviesa005.fm.intel.com with ESMTP; 04 Sep 2026 05:31:55 -0700
+ by fmviesa005.fm.intel.com with ESMTP; 04 Sep 2026 05:31:58 -0700
 From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@intel.com>,
  Suraj Kandpal <suraj.kandpal@intel.com>,
  =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-Subject: [PATCH v12 1/8] drm/i915/bios: search for VBT #57 by default
-Date: Fri,  4 Sep 2026 14:31:41 +0200
-Message-ID: <20260904123148.2165596-2-michal.grzelak@intel.com>
+Subject: [PATCH v12 3/8] drm/i915/bios: print VS/PE-O port info
+Date: Fri,  4 Sep 2026 14:31:43 +0200
+Message-ID: <20260904123148.2165596-4-michal.grzelak@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260904123148.2165596-1-michal.grzelak@intel.com>
 References: <20260904123148.2165596-1-michal.grzelak@intel.com>
@@ -72,70 +72,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Start searching for Vswing / Preemphasis Override Block during VBT
-parsing at init_bdb_blocks().
+Issue a debug message when port asks to override default Vswing /
+Preemphasis tables.
 
-Check for failure since pre-ICL GOPs do not contain the block. Check
-also if VBT version is appropriately up-to-date.
+Add helper intel_bios_encoder_requests_vspeo() to check if port
+requests for overriding default VS/PE tables.
 
 v6->v7
-- parse VBT#57 before blocks dependent on child device list (Jani)
-- remove debug message (Suraj)
+- expand VS/PE-O acronym in debug logging (Jani)
 
 v3->v4
-- add Bspec (Suraj)
+- change debug message when requesting VS/PE-O (Suraj)
 
-Bspec: 32063
 Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/gpu/drm/i915/display/intel_bios.c | 10 ++++++++++
+ drivers/gpu/drm/i915/display/intel_bios.h |  1 +
+ 2 files changed, 11 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 97cbae2e547e2..ece4df4a9d62a 100644
+index 06a8dd7581bb8..9610b794bc147 100644
 --- a/drivers/gpu/drm/i915/display/intel_bios.c
 +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -200,6 +200,8 @@ static const struct {
- 	  .min_size = sizeof(struct bdb_mipi_sequence) },
- 	{ .section_id = BDB_COMPRESSION_PARAMETERS,
- 	  .min_size = sizeof(struct bdb_compression_parameters), },
-+	{ .section_id = BDB_VSWING_PREEMPH,
-+	  .min_size = sizeof(struct bdb_vswing_preemph), },
- 	{ .section_id = BDB_GENERIC_DTD,
- 	  .min_size = sizeof(struct bdb_generic_dtd), },
- };
-@@ -2203,6 +2205,21 @@ parse_compression_parameters(struct intel_display *display)
- 	}
+@@ -2801,6 +2801,11 @@ static void print_ddi_port(const struct intel_bios_encoder_data *devdata)
+ 			    "Port %c supports dynamic DDI allocation in TCSS\n",
+ 			    port_name(port));
+ 
++	if (intel_bios_encoder_requests_vspeo(devdata))
++		drm_dbg_kms(display->drm,
++			    "Port %c requests vswing/pre-emphasis override\n",
++			    port_name(port));
++
+ 	hdmi_level_shift = intel_bios_hdmi_level_shift(devdata);
+ 	if (hdmi_level_shift >= 0) {
+ 		drm_dbg_kms(display->drm,
+@@ -3829,6 +3834,11 @@ int intel_bios_hdmi_ddc_pin(const struct intel_bios_encoder_data *devdata)
+ 	return map_ddc_pin(devdata->display, devdata->child.ddc_pin);
  }
  
-+static void
-+parse_vswing_preemph_override(struct intel_display *display)
++bool intel_bios_encoder_requests_vspeo(const struct intel_bios_encoder_data *devdata)
 +{
-+	const struct bdb_vswing_preemph *block;
-+
-+	if (display->vbt.version < 218)
-+		return;
-+
-+	block = bdb_find_section(display, BDB_VSWING_PREEMPH);
-+
-+	/* pre-ICL GOPs don't have VBT #57 */
-+	if (!block)
-+		return;
++	return devdata->display->vbt.version >= 218 && devdata->child.use_vbt_vswing;
 +}
 +
- static u8 translate_iboost(struct intel_display *display, u8 val)
+ bool intel_bios_encoder_supports_typec_usb(const struct intel_bios_encoder_data *devdata)
  {
- 	static const u8 mapping[] = { 1, 3, 7 }; /* See VBT spec */
-@@ -3291,6 +3308,7 @@ void intel_bios_init(struct intel_display *display)
- 	parse_general_features(display);
- 	parse_general_definitions(display);
- 	parse_driver_features(display);
-+	parse_vswing_preemph_override(display);
+ 	return devdata->display->vbt.version >= 195 && devdata->child.dp_usb_type_c;
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index 75dff27b42289..7a50a272cd27d 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -73,6 +73,7 @@ bool intel_bios_get_dsc_params(struct intel_encoder *encoder,
+ const struct intel_bios_encoder_data *
+ intel_bios_encoder_data_lookup(struct intel_display *display, enum port port);
  
- 	/* Depends on child device list */
- 	parse_compression_parameters(display);
++bool intel_bios_encoder_requests_vspeo(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_dvi(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_hdmi(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_dp(const struct intel_bios_encoder_data *devdata);
 -- 
 2.45.2
 
