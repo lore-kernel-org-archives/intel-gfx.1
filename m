@@ -4,79 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0593C79F82
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C94B0C79F99
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DCF310ED17;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 279F110ED1F;
 	Tue,  8 Sep 2026 18:37:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="azDF9LPj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FDRlW/+u";
 	dkim-atps=neutral
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
- [209.85.219.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C192410E4B4
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 20:23:41 +0000 (UTC)
-Received: by mail-qv1-f53.google.com with SMTP id
- 6a1803df08f44-90cd1012479so51486596d6.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 07 Sep 2026 13:23:41 -0700 (PDT)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DACC10E0CD
+ for <intel-gfx@lists.freedesktop.org>; Sat,  5 Sep 2026 14:25:41 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-38dfe7eb825so1624141a91.0
+ for <intel-gfx@lists.freedesktop.org>; Sat, 05 Sep 2026 07:25:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788812621;
- x=1789417421; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=d7pr2QtNO9k1/kHTmwk/u2/a5M36L/fPmEgvHLhiO+o=;
- b=azDF9LPjdJ8IpYd5i4uzjRY02Uke6KA1gf1QKpjJVLLhuwaRIF3voNi5Or4HQCuy2k
- 4kFVJsnvo5Ij6d4IswlrOAWkBxR1wIsq62QM991b3u44Ph7l4oY7vI3AE1FtjNKZRSPE
- mUjHOHA3rJ2WJk2W+R40Fkuel4iO/pNSWK+FNkJ6IFcSGhps672v++wFg7eyDaG4THHa
- ObMwc36otUWkyp2zRrZV29tQ4tf+4ow+UoHHPUp5OBHa+sa/Rcx5euJqAgFFmHdsSIh4
- wcWRHRgsEnHjbNM5VblV7r86+ov5Q67T03egU26EQeuX0o3v9zrIPOMuZSL6StJR5h1W
- 2tyQ==
+ d=gmail.com; s=20251104; t=1788618341; x=1789223141; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=irtRdSHYVWU6V1hRtF1N7wOshHHRxGrEgOQHGUw+S0o=;
+ b=FDRlW/+u8lA29qN+drgG/atl6HWHIti7aQ2oJyBe+njHdxFkAYNPh5RNFgJpJz4+Z9
+ NNJmS3P+L968NrvMmZAJul2fGt4BSBMe7yUYTOSKEwkB7qiBQHO4QW2GsnP0jizogf5c
+ cWKZFAngbX9qi7LHog3hOJj5AOm3WuPUCPAN6ZV41RZkf07Mg/cYbqR1tUNZln7CF3MB
+ mWDqFRIE6W1SpXotPHSNVUGXJ7Yn2Nokl0RgBu2/mYA/MTmCMG1oHZlYHHMkIcs20Jxx
+ vJr236vG76Cr2JeO3WnSR4aifyOMLudWYgrGjTRAgUEP4qtoBjnKf70Y8woEk7kbaXct
+ Z5Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788812621; x=1789417421;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=d7pr2QtNO9k1/kHTmwk/u2/a5M36L/fPmEgvHLhiO+o=;
- b=cipBW7jD6e4m4uZerLoocWZKy8YKzXd7btIyDxyQ82p9iAutr5rmsbgQ8P4D0JUuhN
- 9WPuof2cA4K7P6qWXvF1jsXwIhgpl+1SCGbQ8T1+2Rq7ETQIUV8ji8pmlUPuwti9GMFG
- M8b3v34XZDUdRUymDYsIKScnkexjx370Hkarv48hCu1KAAsQFtGeBXjFk1qUZRlojS2L
- GGhHH9EnvPxpk4yyDQj+Y9V6ZRNqBD5fvwXupZCA0yp+++VN/BzgpV8iZmcpy80/AvRJ
- v61NI3mLNEgMkwLMw4DvcOeM/CfvMF2bGJxMMpdZY5JhGtMNjaLO8nWEV6GPzkD+292n
- /4pg==
-X-Gm-Message-State: AFuF++mHonn1Z98YyTVJI7OIFsUIQ00am5Wkk8+UJ+khGqmaPMb9vYF6
- Akmr4ZJW8xHy+t0W1jFMlLzQPeio79lIt0RuTWgFefXuJaTekr40tLJ8+LD4EMSOkxGleMcNz5f
- QgovBfaql+yzKMxUatXBZks/etSHSdirjkrI71orto4/D5vmbQ3bVw/5kY09mrpBvK+XpL8wb6A
- aE5r3YXoeNW8ZLr4uAhIkD6u9ZwY1j38DwQUNS43UbbHtkIWP1UoAr2NI=
-X-Gm-Gg: AYBFou2pMpqDWkdugXekmEHgiaP+ks72Qe51ZVTXHHMm+CZa2fddafOh6Ja+uWpjRQU
- XFpg5WAzgXQ6/7M2+up+96rrOnnaxulwgEHzN7LkC9imaxuj+5uL2AKbg1xGLxpRsMRaJXSc+F2
- eSFi7Z/E+v93CctdS58I1JsaQJpHOCeEqJ85UL7ysWHUt6oWZ6i73N9WIxGqxsu7PBhX6tEsPtd
- Bjt/7hy3rVuOpPKL+UmOQs3nCouLVCmo9t4mS8mlXe1GHQJOE4BonCldM30DYs0psZXpqJfbcf1
- v8BSaJPQYdM9FvY74EArINe44Pd2fSwK8H/Qhg2PlHjChsEVBLq1uwFaNmiDA7PgVptSrLSaGpA
- 2PNPj1/7kuDR9HIHAHCcEYZRJnQwkB7aOhbmPb+wR6bzWk2DTHG+BZ5LKUSkskL2DuWqd/eVYCx
- z3RsWHZGr1OAso0DbFWdel3sa+61fV4UBGtiMfObGp0URqh8fd8RtnNqegCbQxWbmv4er64ULOt
- lz7ANnzx/Vl6f6Qt7ioobvgsel1+2JYiU3CWazR6QTIhqbou0Ol8KkbG9BtryHHXFkVPUwHZ2YU
- j4+ueMl5DEt7DQ9Klb1S9POqU/OfUXqyBB08tHpQ8Z1QRwvJgp1n7TDfwh2c
-X-Received: by 2002:a05:620a:3185:b0:939:72cb:baf5 with SMTP id
- af79cd13be357-93972cbbce3mr2392073585a.44.1788812620426; 
- Mon, 07 Sep 2026 13:23:40 -0700 (PDT)
-Received: from jake-laptop ([74.244.125.129]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9398c498610sm788695085a.43.2026.09.07.13.23.39
+ d=1e100.net; s=20251104; t=1788618341; x=1789223141;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=irtRdSHYVWU6V1hRtF1N7wOshHHRxGrEgOQHGUw+S0o=;
+ b=VEJPL4gkmH/GHck3nxAFrWUDX3bag+Kmo7hre5DjY3HD3J/WfdTd22vFzrJiUzPjXe
+ odZhczH/HHRsIAP+OzyoJ3cHUGGO7ZNwhthUdvuMOMylUfGz6j41n9cmjyI6AZ2zbjVD
+ yL/u3FWY/82LBBB0XV/KrUukqDwLnEJpfHYkEift0u40gK423p9Fu3oVTWNauH0oMlaq
+ 705GIFtOd0Rwy14jbgz2hLxsjtQCIbcQcAtetJYMH+ijE3Z2CB5aC68rNilSfgkXU1LO
+ 05OcqZWMbbs5j31FD/R0Z9Y2LnAcZvPX+lybdkFNsPTH1ekeh+rGqWGMThLfjm8+sED4
+ +b6w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzhnXohI2ykoJH8rd2yYnGFRLvoprlWrfN82CO2yinoKh0hOC9WtGQA2BTJyEI0fY5mvO8tQF/7HRg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nAosjByfUQ5fiegqY3WryKTULR7J4n5Bsp0TYH/8a93alABHu+
+ MYy0iZ4g5kK9HTiCJgLaPsx6td8/IkVUD6BpFZMtnRNrhAeK+j4ozYFd
+X-Gm-Gg: AYBFou1ciCTv3U+7JRTuCClN+zcAquNJVM/TZ+jxXe0e9+8hq6rvdDDlQdmDYNAkagW
+ 43pPWZ4BsoGWFYacLJQSjf9xk7Bfz9xS3re9iXWpySy4gAdGVClNpvdWodlcZm7SOTaKFK+uo+L
+ YQjMVrms7y+U3teAY0AMsnuzqmtB2wGhRjZRgx0zte9kCqJTJoTSxHp+fdcWjU05Ac57FiTr/f7
+ 6fitR0JqF4xRnl5VMgRaqfo1/Zv3AdOtcwtw3Ai1TLGj99jqsRF727/tYKmEz7UnvNRAHW4leU0
+ k9mkMAo16Iln3LxC3E4bl4yocNHYHGOemu3C4RUa92dDEwz9O7t7aL9IMA/HnFVAwkZn5ihbUn8
+ mFaiEj06Yw+IhbMIrRzZc9yBK2InZvrL8oaTO1zajstPpiJdgXB6AojbNRFPDqTC/8Ny1NdfR6E
+ /yBkITNe3vUzhVaR4tbfRaTgxv+f6750TGP5M0YqtsbY7ZtRXrENxUv2loxddaWTZUI8uPJc5TT
+ oqUqUZrcTbGYm20sjlen1vqWkVAN2Hdp7prU5kAYVBJwwNP4fKx
+X-Received: by 2002:a17:90b:3a81:b0:398:c292:ac80 with SMTP id
+ 98e67ed59e1d1-39b2612eaa4mr17477270a91.10.1788618340676; 
+ Sat, 05 Sep 2026 07:25:40 -0700 (PDT)
+Received: from XiaomiLaptop (n112119120034.netvigator.com. [112.119.120.34])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39b260fdf9asm10501790a91.9.2026.09.05.07.25.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2026 13:23:39 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jouni.hogander@intel.com, animesh.manna@intel.com,
- ville.syrjala@linux.intel.com, jani.nikula@intel.com,
- rodrigo.vivi@intel.com
-Subject: Re: [BUG] PTL eDP PSR2 SU / Panel Replay: engine parks in SU_STANDBY,
- panel never refreshed (Dell XPS 16 DA16260)
-Date: Mon,  7 Sep 2026 16:23:36 -0400
-Message-ID: <20260907202337.152269-1-j@metarealtyinc.ca>
+ Sat, 05 Sep 2026 07:25:40 -0700 (PDT)
+From: Andrew Zhou <zhoulol888@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Andrew Zhou <zhoulol888@gmail.com>
+Subject: [PATCH] drm/xe/display: Remove invalid initial plane PTE check for
+ iGPU
+Date: Sat,  5 Sep 2026 22:25:00 +0800
+Message-ID: <20260905142500.17666-1-zhoulol888@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260903135227.105232-1-j@metarealtyinc.ca>
-References: <20260903135227.105232-1-j@metarealtyinc.ca>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 08 Sep 2026 18:37:36 +0000
@@ -95,34 +92,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Update, details and files on the gitlab issue:
-https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9119
+Pantherlake intergrated graphics can have the XE_GGTT_PTEDM bit set
+in the BIOS-initialised framebuffer PTE. The new validation rejects
+this and fails to create the initial frambuffer, resulting in static.
 
-Jouni posted an xe_reg_rw trace from a PTL system where Panel Replay
-works (1920x1200 panel, no DSC). I captured the same trace here and
-diffed the two. The PR enable sequence and every PSR, ALPM, VRR and
-push register match, apart from fields derived from the panel timing
-and link rate. What is left: this panel needs DSC (2 VDSC engines,
-10 bpc input), his does not; DC6 is allowed on his system and blocked
-here by the compositor keeping vblank enabled; PSR_IMR.
+Remove the too-strict validation.
 
-Second finding: in Panel Replay, which uses the aux-less ALPM wake
-here, the sink latches the Link CRC error in
-DP_PANEL_REPLAY_ERROR_STATUS on every compositor commit (about 40 of
-86 polls over 20 s, tracking a blinking cursor). It does not depend on
-the aux-less wake lines, the PORT_ALPM_CTL silence period, the LFPS
-half cycle or cycle count, PHY swing hold, sleep hold, or the sink's
-CRC verification bits. PSR1 polled the same way stays clean. So PR
-here is the same failed-wake resync loop PSR2 had before the fast wake
-patch, and PSR2 with that patch is the other half: clean link, no
-SU_VALID ever, engine parked in SU_STANDBY, frozen panel.
+Signed-off-by: Andrew Zhou <zhoulol888@gmail.com>
+Tested-by: Andrew Zhou <zhoulol888@gmail.com>
+Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping
+---
+ drivers/gpu/drm/xe/display/xe_initial_plane.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-One driver observation: enabling PR through the i915_edp_psr_debug
-fastset does not program PORT_ALPM_CTL / PORT_ALPM_LFPS_CTL, since
-intel_alpm_port_configure() only runs from the DDI enable path.
+diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+index 0f86b7303..8c95dc4e6 100644
+--- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
++++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+@@ -85,7 +85,6 @@ initial_plane_bo(struct xe_device *xe,
+ 			    &phys_base);
+ 	} else {
+ 		struct ttm_resource_manager *stolen;
+-		u64 pte;
+ 
+ 		stolen = ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
+ 		if (!stolen) {
+@@ -93,13 +92,6 @@ initial_plane_bo(struct xe_device *xe,
+ 			return NULL;
+ 		}
+ 
+-		pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
+-
+-		if (is_pte_local(pte) != need_pte_local(xe)) {
+-			drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
+-			return NULL;
+-		}
+-
+ 		phys_base = base;
+ 		flags |= XE_BO_FLAG_STOLEN;
+ 
+-- 
+2.55.0
 
-Open question: is there a PTL system with a DSC eDP panel where PR or
-PSR2 selective update is confirmed working? The other two PTL reports
-(#8924, #8930) are 2880x1800 and 2560x1600 at 120 Hz panels.
-
-Jake
