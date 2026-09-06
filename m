@@ -4,54 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30710C79F99
-	for <intel-gfx@archiver.kernel.org>; Sun,  6 Sep 2026 06:23:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D56C79F8C
+	for <intel-gfx@archiver.kernel.org>; Sun,  6 Sep 2026 06:36:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2F010E307;
-	Sun,  6 Sep 2026 06:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C31C10E09A;
+	Sun,  6 Sep 2026 06:36:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NhIqEhl5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OFFelXgs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1477B10E307
- for <intel-gfx@lists.freedesktop.org>; Sun,  6 Sep 2026 06:23:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788675780; x=1820211780;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=AkdVWVm6wZnpbQsQVx8O7V9PVaa/S/bzGG5gxLNZMY0=;
- b=NhIqEhl5xGoUYmiUzP4YNFBUNeSa5rd7Svdm3pucUWaV7D9bfHEmhG6i
- XxYf2s9I2rCSzrvaOW6Xatl7ry9mCjiPgHKXeRGH6MG7DB+SXZVihUnDV
- 6uuTSsDRCwJTgVuMSyvmEX0jY7lmhFwBBvmoG+IsJ2+Efv7CKwXHc0YIP
- K0cjds+g5dy/lPL4SY8gZr57V22JBIUlOj9y48/+hkbEVKjRlpsOGp71t
- h7bcK4WLYA4FzZ263+V+mjGfeTA7JGo6vzDMtQw7N6O1CymYPK0gBx8cV
- D51Fu3GTxrsIOkYa7puMkJ37LcWYeHGPYh4Oj5ZKrMGaixSZs2vV6UkgD A==;
-X-CSE-ConnectionGUID: +e2ni9fmQXGfq2jgKWsegA==
-X-CSE-MsgGUID: kbcdBHNXRK6T21s6NkM26g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11897"; a="88051417"
-X-IronPort-AV: E=Sophos;i="6.25,264,1779174000"; d="scan'208";a="88051417"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2026 23:23:00 -0700
-X-CSE-ConnectionGUID: Z80Q15AuQVaLvb9QjOImrg==
-X-CSE-MsgGUID: tsOHh35gSiaYrfb9wLqSlA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,264,1779174000"; d="scan'208";a="272360823"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by fmviesa004.fm.intel.com with ESMTP; 05 Sep 2026 23:22:59 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
- imre.deak@intel.com, ankit.k.nautiyal@intel.com,
- Xiao Lu <xiaolu.xie@intel.com>
-Subject: [PATCH v2] drm/i915/dp: enable DSC passthrough for HDMI 2.1 PCON
- devices
-Date: Sun,  6 Sep 2026 14:20:32 +0800
-Message-ID: <20260906062032.857322-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEF6410E09A
+ for <intel-gfx@lists.freedesktop.org>; Sun,  6 Sep 2026 06:35:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A501E439C1;
+ Sun,  6 Sep 2026 06:35:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B1D1F00A3A;
+ Sun,  6 Sep 2026 06:35:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788676558;
+ bh=md6DhW+0eYzFvTSGD2sD4+EA42a48dnSCKrtGdHEij4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=OFFelXgs7PdeahsUIk/DC2dUbANAo6WClyOI9Eed/brNhRU2MT/jixU7YyWiJVQEY
+ u9wvqeEEb46dtYXnq9RIXoXQFw/DoLAz81cwF4ElzE/em12qiEe660VvBSkhS6MZ0r
+ hbHfmVRKse0n4mJHaTk5AJCpGSULKmhBcbHUJq8OQFzgEcnNvZy21xbxS8xEjL7Q+z
+ z7Wj+/1k4roEci6U1YU4cu/jViLF41mKa5gVAqSooJO3JMaRl4lurbl+hSPxmWzxw2
+ KUzJrqFsUigw9lSGYzawtkcu82hRBuw0aqsvaPU8BHynYV4Jenwqx3gBG7dsUFv+8Y
+ NfZ+yAdDRDwAA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/i915/dp: enable DSC passthrough for HDMI 2.1
+ PCON devices
+To: "Xiao Lu" <xiaolu.xie@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260906062032.857322-1-xiaolu.xie@intel.com>
+References: <20260906062032.857322-1-xiaolu.xie@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 06 Sep 2026 06:35:57 +0000
+Message-Id: <20260906063558.59B1D1F00A3A@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,345 +53,133 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-HDMI 2.1 PCON devices (e.g. Parade PS196) that do not have an internal
-DSC encoder can still forward a DSC-compressed stream from the DP source
-to the downstream HDMI 2.1 sink unchanged (passthrough mode). The HDMI
-sink (e.g. Lenovo ThinkVision Pro 27UD-10) then decompresses the stream
-itself. This mode is signalled by DP_DSC_PASSTHROUGH_IS_SUPPORTED (DPCD
-0x060 bit1) on the PCON.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Hardcoded usage of `intel_dp->attached_connector` accesses the roo=
+t SST connector in shared DP code paths, breaking MST support.
+- [High] Function signature mismatch in the call to `intel_hdmi_dsc_get_num=
+_slices()` causes compilation failure.
+- [High] PCON DSC passthrough fundamentally breaks downstream DSC helpers d=
+ue to an unhandled all-zero `dsc_dpcd`.
+--
 
-Previously the driver had no awareness of this path: the PCON would fall
-back to its autonomous passthrough mode and write 0x160=0x02 by itself,
-leaving the source with no control over DSC parameters or DPCD 0x160.
+commit 8891a63d7de717cf65ea1f4d21b654db63caa8ce
+Author: Xiao Lu <xiaolu.xie@intel.com>
 
-This patch adds explicit driver control of PCON DSC passthrough:
+    drm/i915/dp: enable DSC passthrough for HDMI 2.1 PCON devices
 
-- Detect passthrough capability at connect time from DPCD 0x060 bit1
-  (DP_DSC_PASSTHROUGH_IS_SUPPORTED) combined with the downstream HDMI
-  2.1 sink's DSC 1.2 support from EDID HF-VSDB. Cache the result in
-  connector->dp.pcon_dsc_passthrough (same lifecycle as fec_capability
-  and dsc_dpcd) to avoid repeated lookups on every modeset.
+    This patch adds explicit driver control of PCON DSC passthrough.
+    It derives DSC parameters from the downstream HDMI sink's EDID DSC
+    capabilities rather than from the PCON's DSC encoder DPCD (which is
+    all-zero for passthrough-only PCONs).
 
-- Treat the PCON as DSC-capable in intel_dp_has_dsc() when passthrough
-  is supported, allowing the normal DSC compute_config path to proceed.
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -2393,7 +2403,19 @@ int intel_dp_dsc_compute_config(struct intel_dp *i=
+ntel_dp,
+>  		}
+>  	}
+> =20
+> -	if (!intel_dp_dsc_get_slice_config(connector, adjusted_mode->crtc_clock,
+> +	if (intel_dp->attached_connector->dp.pcon_dsc_passthrough) {
 
-- Derive DSC parameters (slice count, bpc limits) from the downstream
-  HDMI sink's EDID DSC capabilities (dsc_cap.max_slices,
-  dsc_cap.clk_per_slice, dsc_cap.bpc_supported) rather than from the
-  PCON's DSC encoder DPCD (which is all-zero for passthrough-only PCONs).
-  This ensures the source VDSC engine produces a stream the HDMI sink
-  can actually decompress.
+[Severity: High]
+Does hardcoding intel_dp->attached_connector here cause issues for MST
+configurations? For MST, attached_connector points to the root SST connecto=
+r,
+not the active MST leaf branch connector undergoing the modeset. This might
+incorrectly evaluate the pcon_dsc_passthrough flag of the root connector
+instead of the active MST connector.
 
-- Write DP_DSC_PASSTHROUGH_EN (0x160 bit1) to the PCON via
-  intel_dp_sink_set_dsc_passthrough() on enable, and clear it on
-  disable. The existing MST hub passthrough path in that function is
-  preserved; the PCON case is handled by redirecting aux to
-  intel_dp->aux when pcon_dsc_passthrough is set.
+> +		/*
+> +		 * PCON passthrough: no PCON encoder DPCD, derive slice config
+> +		 * from the downstream HDMI 2.1 sink DSC capabilities in EDID.
+> +		 */
+> +		if (!intel_dp_pcon_passthrough_dsc_slice_config(intel_dp,
+> +								pipe_config,
+> +								&pipe_config->dsc.slice_config)) {
+> +			drm_dbg_kms(display->drm,
+> +				    "PCON DSC passthrough: no valid slice config\n");
+> +			return -EINVAL;
+> +		}
+> +	} else if (!intel_dp_dsc_get_slice_config(connector, adjusted_mode->crt=
+c_clock,
+>  					   adjusted_mode->crtc_hdisplay, num_joined_pipes,
+>  					   &pipe_config->dsc.slice_config))
+>  		return -EINVAL;
 
-- Short-circuit intel_dp_sink_set_dsc_decompression() for PCON
-  passthrough since the PCON itself does not decompress (the HDMI sink
-  does); writing DP_DECOMPRESSION_EN to the PCON would be incorrect.
+[Severity: High]
+Does PCON DSC passthrough fundamentally break downstream DSC helpers like
+intel_dp_dsc_compute_params() and intel_dp_dsc_supports_format() due to the
+unhandled all-zero dsc_dpcd?
 
-Tested with Parade PS196G (HW 0.2, SW 241.62) connected to a Lenovo
-ThinkVision Pro 27UD-10 (HDMI 2.1, DSC 1.2, max 16 slices, 400 MHz/
-slice). At 4K@240Hz DSC compression is required (10.5625 bpp, 8 slices);
-driver now writes 0x160=0x02 explicitly and slice count is correctly
-derived from the HDMI sink EDID rather than from PCON DPCD.
+The patch notes that the PCON's DSC encoder DPCD is all-zero, but fails to
+update critical DSC calculation pathways to bypass the DPCD checks. For exa=
+mple,
+intel_dp_dsc_compute_params() and intel_dp_dsc_supports_format() continue
+to query connector->dp.dsc_dpcd. This causes them to calculate 0 for
+properties like line_buf_depth or return false for supported formats,
+causing the driver to immediately bail out with -EINVAL.
 
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
+[ ... ]
 
----
-v2: Fix build failure on drm-tip - replace non-existent dsc.slice_count
-    field with dsc.slice_config. Introduce
-    intel_dp_pcon_passthrough_dsc_slice_config() which calls
-    intel_hdmi_dsc_get_num_slices() for the target slice count then
-    finds a matching intel_dsc_slice_config via intel_dsc_get_slice_config()
-    to satisfy Intel VDSC HW constraints.
-    Fix pcon_dsc_passthrough caching order: move
-    intel_dp_pcon_set_dsc_passthrough_cap() from intel_dp_get_dsc_sink_cap()
-    to intel_dp_set_edid() so it runs after EDID is parsed and
-    display_info.hdmi.dsc_cap is populated. Also clear pcon_dsc_passthrough
-    in intel_dp_unset_edid() to keep lifecycle consistent.
----
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 172 +++++++++++++++++-
- 2 files changed, 165 insertions(+), 8 deletions(-)
+> @@ -4298,6 +4360,90 @@ void intel_dp_check_frl_training(struct intel_dp *=
+intel_dp)
+> +static void
+> +intel_dp_pcon_set_dsc_passthrough_cap(struct intel_dp *intel_dp)
+> +{
+> +	struct intel_connector *connector =3D intel_dp->attached_connector;
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index b7cc361fd955..3e7a362fd4dd 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -564,6 +564,7 @@ struct intel_connector {
- 		u8 dsc_hblank_expansion_quirk:1;
- 		u8 dsc_throughput_quirk:1;
- 		u8 dsc_decompression_enabled:1;
-+		u8 pcon_dsc_passthrough:1; /* PCON DSC PT supported and HDMI sink DSC 1.2 */
- 
- 		struct {
- 			struct {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 113d767e62e9..4913480ebd5a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1259,8 +1259,14 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
- 	    connector->panel.vbt.edp.dsc_disable)
- 		return false;
- 
--	if (!drm_dp_sink_supports_dsc(connector->dp.dsc_dpcd))
--		return false;
-+	if (!drm_dp_sink_supports_dsc(connector->dp.dsc_dpcd)) {
-+		/*
-+		 * PCON passthrough: PCON has no DSC decoder so dsc_dpcd is
-+		 * zero, but if pcon_dsc_passthrough is set (cached at connect
-+		 * time) the downstream HDMI 2.1 sink will decompress instead.
-+		 */
-+		return connector->dp.pcon_dsc_passthrough;
-+	}
- 
- 	return true;
- }
-@@ -2365,6 +2371,10 @@ void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state)
- 	memset(&crtc_state->dsc.config, 0, sizeof(crtc_state->dsc.config));
- }
- 
-+static bool intel_dp_pcon_passthrough_dsc_slice_config(struct intel_dp *intel_dp,
-+						       const struct intel_crtc_state *crtc_state,
-+						       struct intel_dsc_slice_config *config_ret);
-+
- int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 				struct intel_crtc_state *pipe_config,
- 				struct drm_connector_state *conn_state,
-@@ -2403,7 +2413,19 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 		}
- 	}
- 
--	if (!intel_dp_dsc_get_slice_config(connector, adjusted_mode->crtc_clock,
-+	if (intel_dp->attached_connector->dp.pcon_dsc_passthrough) {
-+		/*
-+		 * PCON passthrough: no PCON encoder DPCD, derive slice config
-+		 * from the downstream HDMI 2.1 sink DSC capabilities in EDID.
-+		 */
-+		if (!intel_dp_pcon_passthrough_dsc_slice_config(intel_dp,
-+								pipe_config,
-+								&pipe_config->dsc.slice_config)) {
-+			drm_dbg_kms(display->drm,
-+				    "PCON DSC passthrough: no valid slice config\n");
-+			return -EINVAL;
-+		}
-+	} else if (!intel_dp_dsc_get_slice_config(connector, adjusted_mode->crtc_clock,
- 					   adjusted_mode->crtc_hdisplay, num_joined_pipes,
- 					   &pipe_config->dsc.slice_config))
- 		return -EINVAL;
-@@ -2732,8 +2754,33 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
- 		return false;
- 	}
- 
--	if (dsc && !intel_dp_dsc_compute_pipe_bpp_limits(connector, limits))
--		return false;
-+	if (dsc) {
-+		if (connector->dp.pcon_dsc_passthrough) {
-+			/*
-+			 * PCON passthrough: PCON has no DSC encoder DPCD so
-+			 * intel_dp_dsc_compute_pipe_bpp_limits() would see
-+			 * all-zero dsc_dpcd and fail.  Use the downstream HDMI
-+			 * sink DSC bpc cap to constrain the pipe bpp instead.
-+			 */
-+			const struct drm_display_info *info =
-+				&connector->base.display_info;
-+			u8 hdmi_max_bpc = info->hdmi.dsc_cap.bpc_supported ?: 8;
-+			int dsc_min_bpc = intel_dp_dsc_min_src_input_bpc();
-+			int dsc_max_bpc = min_t(int,
-+						intel_dp_dsc_max_src_input_bpc(display),
-+						hdmi_max_bpc);
-+
-+			limits->pipe.min_bpp = max(limits->pipe.min_bpp,
-+						   dsc_min_bpc * 3);
-+			limits->pipe.max_bpp = min(limits->pipe.max_bpp,
-+						   dsc_max_bpc * 3);
-+
-+			if (limits->pipe.min_bpp > limits->pipe.max_bpp)
-+				return false;
-+		} else if (!intel_dp_dsc_compute_pipe_bpp_limits(connector, limits)) {
-+			return false;
-+		}
-+	}
- 
- 	/*
- 	 * crtc_state->pipe_bpp is the non-DP specific baseline (platform /
-@@ -3745,6 +3792,10 @@ intel_dp_sink_set_dsc_decompression(struct intel_connector *connector,
- {
- 	struct intel_display *display = to_intel_display(connector);
- 
-+	/* PCON passthrough: PCON forwards the stream, sink decompresses. */
-+	if (!connector->mst.dp && connector->dp.pcon_dsc_passthrough)
-+		return;
-+
- 	if (write_dsc_decompression_flag(connector->dp.dsc_decompression_aux,
- 					 DP_DECOMPRESSION_EN, enable) < 0)
- 		drm_dbg_kms(display->drm,
-@@ -3757,8 +3808,19 @@ intel_dp_sink_set_dsc_passthrough(const struct intel_connector *connector,
- 				  bool enable)
- {
- 	struct intel_display *display = to_intel_display(connector);
--	struct drm_dp_aux *aux = connector->mst.port ?
--				 connector->mst.port->passthrough_aux : NULL;
-+	struct drm_dp_aux *aux = NULL;
-+
-+	if (!connector->mst.port) {
-+		/*
-+		 * HDMI 2.1 PCON passthrough: write DP_DSC_PASSTHROUGH_EN on
-+		 * the PCON's own aux channel so it forwards the compressed
-+		 * stream to the HDMI sink instead of decoding it.
-+		 */
-+		if (connector->dp.pcon_dsc_passthrough)
-+			aux = &intel_attached_dp((struct intel_connector *)connector)->aux;
-+	} else {
-+		aux = connector->mst.port->passthrough_aux;
-+	}
- 
- 	if (!aux)
- 		return;
-@@ -3766,7 +3828,7 @@ intel_dp_sink_set_dsc_passthrough(const struct intel_connector *connector,
- 	if (write_dsc_decompression_flag(aux,
- 					 DP_DSC_PASSTHROUGH_EN, enable) < 0)
- 		drm_dbg_kms(display->drm,
--			    "Failed to %s sink compression passthrough state\n",
-+			    "Failed to %s DSC passthrough\n",
- 			    str_enable_disable(enable));
- }
- 
-@@ -4297,6 +4359,90 @@ void intel_dp_check_frl_training(struct intel_dp *intel_dp)
- 	}
- }
- 
-+/*
-+ * intel_dp_pcon_set_dsc_passthrough_cap - cache PCON DSC passthrough capability
-+ *
-+ * Called once at connect time (from intel_dp_get_dsc_sink_cap()) after
-+ * dsc_dpcd and the HDMI sink EDID have been read. Caches the result in
-+ * connector->dp.pcon_dsc_passthrough so modeset paths can read it cheaply
-+ * without repeating the DPCD and EDID lookups.
-+ *
-+ * A PCON supports DSC passthrough when it explicitly advertises
-+ * DP_DSC_PASSTHROUGH_IS_SUPPORTED (DPCD 0x060 bit1) and the downstream
-+ * HDMI 2.1 sink supports DSC 1.2. The compressed stream produced by the
-+ * source VDSC engine is forwarded unchanged through the PCON to the HDMI
-+ * sink for decompression (DP_DSC_ENABLE bit1 on the PCON).
-+ */
-+static void
-+intel_dp_pcon_set_dsc_passthrough_cap(struct intel_dp *intel_dp)
-+{
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+	const struct drm_display_info *info;
-+
-+	if (!connector)
-+		return;
-+
-+	connector->dp.pcon_dsc_passthrough = false;
-+
-+	if (!intel_dp_is_hdmi_2_1_sink(intel_dp))
-+		return;
-+
-+	if (!(connector->dp.dsc_dpcd[0] & DP_DSC_PASSTHROUGH_IS_SUPPORTED))
-+		return;
-+
-+	info = &connector->base.display_info;
-+	connector->dp.pcon_dsc_passthrough = info->hdmi.dsc_cap.v_1p2;
-+}
-+
-+static bool
-+intel_dp_pcon_passthrough_dsc_slice_config(struct intel_dp *intel_dp,
-+					   const struct intel_crtc_state *crtc_state,
-+					   struct intel_dsc_slice_config *config_ret)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+	const struct drm_display_info *info = &connector->base.display_info;
-+	int num_joined_pipes = intel_crtc_num_joined_pipes(crtc_state);
-+	int hdmi_throughput = info->hdmi.dsc_cap.clk_per_slice;
-+	int hdmi_max_slices = info->hdmi.dsc_cap.max_slices;
-+	int target_slices;
-+	int slices_per_pipe;
-+
-+	/*
-+	 * Derive the required slice count from the downstream HDMI 2.1 sink
-+	 * DSC capabilities in EDID (not from the PCON encoder DPCD which is
-+	 * all-zero for passthrough-only devices).
-+	 */
-+	target_slices = intel_hdmi_dsc_get_num_slices(crtc_state,
-+						      hdmi_max_slices,
-+						      crtc_state->hw.adjusted_mode.hdisplay,
-+						      hdmi_max_slices,
-+						      hdmi_throughput);
-+	if (!target_slices)
-+		return false;
-+
-+	drm_dbg_kms(display->drm,
-+		     "PCON DSC passthrough: target %d slices from HDMI sink EDID cap"
-+		     " (max_slices=%d clk_per_slice=%d MHz)\n",
-+		     target_slices, hdmi_max_slices, hdmi_throughput);
-+
-+	for (slices_per_pipe = 1; slices_per_pipe <= 4; slices_per_pipe++) {
-+		struct intel_dsc_slice_config config;
-+
-+		if (!intel_dsc_get_slice_config(display,
-+						num_joined_pipes, slices_per_pipe,
-+						&config))
-+			continue;
-+
-+		if (intel_dsc_line_slice_count(&config) == target_slices) {
-+			*config_ret = config;
-+			return true;
-+		}
-+	}
-+
-+	return false;
-+}
-+
- static int
- intel_dp_pcon_dsc_enc_slice_height(const struct intel_crtc_state *crtc_state)
- {
-@@ -4536,6 +4682,7 @@ void intel_dp_get_dsc_sink_cap(u8 dpcd_rev,
- 
- 	memset(&connector->dp.dsc_branch_caps, 0, sizeof(connector->dp.dsc_branch_caps));
- 	connector->dp.dsc_throughput_quirk = false;
-+	connector->dp.pcon_dsc_passthrough = false;
- 
- 	if (dpcd_rev < DP_DPCD_REV_14)
- 		return;
-@@ -4565,6 +4712,8 @@ void intel_dp_get_dsc_sink_cap(u8 dpcd_rev,
- 	if (drm_dp_has_quirk(desc, DP_DPCD_QUIRK_DSC_THROUGHPUT_BPP_LIMIT) &&
- 	    desc->ident.hw_rev == 0x10)
- 		connector->dp.dsc_throughput_quirk = true;
-+
-+	intel_dp_pcon_set_dsc_passthrough_cap(intel_attached_dp(connector));
- }
- 
- static void intel_edp_get_dsc_sink_cap(u8 edp_dpcd_rev, struct intel_connector *connector)
-@@ -6161,6 +6310,12 @@ intel_dp_set_edid(struct intel_dp *intel_dp)
- 	intel_dp_update_dfp(intel_dp, drm_edid);
- 	intel_dp_update_420(intel_dp);
- 
-+	/*
-+	 * Re-evaluate PCON DSC passthrough capability now that the EDID has
-+	 * been parsed and display_info.hdmi.dsc_cap is up to date.
-+	 */
-+	intel_dp_pcon_set_dsc_passthrough_cap(intel_dp);
-+
- 	drm_dp_cec_attach(&intel_dp->aux,
- 			  connector->base.display_info.source_physical_address);
- }
-@@ -6183,6 +6338,7 @@ intel_dp_unset_edid(struct intel_dp *intel_dp)
- 
- 	intel_dp->dfp.ycbcr_444_to_420 = false;
- 	connector->base.ycbcr_420_allowed = false;
-+	connector->dp.pcon_dsc_passthrough = false;
- 
- 	drm_connector_set_vrr_capable_property(&connector->base,
- 					       false);
--- 
-2.43.0
+[Severity: High]
+Does this unconditionally modify the root SST connector state even when inv=
+oked
+for an MST branch device? Using intel_dp->attached_connector instead of the
+active connector could cause state corruption for MST setups.
 
+[ ... ]
+
+> +static bool
+> +intel_dp_pcon_passthrough_dsc_slice_config(struct intel_dp *intel_dp,
+> +					   const struct intel_crtc_state *crtc_state,
+> +					   struct intel_dsc_slice_config *config_ret)
+> +{
+> +	struct intel_display *display =3D to_intel_display(intel_dp);
+> +	struct intel_connector *connector =3D intel_dp->attached_connector;
+> +	const struct drm_display_info *info =3D &connector->base.display_info;
+
+[Severity: High]
+Will this read EDID capabilities from the wrong connector's display_info
+during DSC config computation for MST endpoints? Using
+intel_dp->attached_connector fetches the root connector's capabilities rath=
+er
+than the downstream MST leaf.
+
+[ ... ]
+
+> +	/*
+> +	 * Derive the required slice count from the downstream HDMI 2.1 sink
+> +	 * DSC capabilities in EDID (not from the PCON encoder DPCD which is
+> +	 * all-zero for passthrough-only devices).
+> +	 */
+> +	target_slices =3D intel_hdmi_dsc_get_num_slices(crtc_state,
+> +						      hdmi_max_slices,
+> +						      crtc_state->hw.adjusted_mode.hdisplay,
+> +						      hdmi_max_slices,
+> +						      hdmi_throughput);
+
+[Severity: High]
+Does this call to intel_hdmi_dsc_get_num_slices() fail to compile?
+
+The function is being called with 5 arguments (passing crtc_state as the
+first argument), but it expects 6 arguments, with the first argument being a
+const struct drm_display_mode *mode. This would lead to a build failure.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906062032.8573=
+22-1-xiaolu.xie@intel.com?part=3D1
