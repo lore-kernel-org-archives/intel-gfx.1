@@ -4,52 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A7C5C79F9E
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 04:24:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CEB5C79F9E
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 04:31:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8424810E5AB;
-	Mon,  7 Sep 2026 04:24:25 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RZf5GZ1W";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E74810E43E;
- Mon,  7 Sep 2026 04:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788755064; x=1820291064;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=DKlv0KXr+CP3BJ6uaeOjPOUsr/ZVzvEM1frxOSxj5gI=;
- b=RZf5GZ1WH3yhoqZDIyjxhMdN6ElEgq46E+zrALOKluXn5SH9nweW9kRh
- yAtmj92I4XIwLAhgBY/IZt8EfLzj+L9r2ovpfGVm15j779YwvaCIg6OtN
- ZSMoo1P4wHjKDJh1qsoQvL5SFlIrsRrYxL80Ak6RG8ulgYA/4Ie/O13pt
- Bp/k5yRMnMu0Q7+kc+5n6GJcldNMitSYZMyAVl0t7Zh7ZXq+mYaKDXH1t
- yufBQ3YbClNYZlA4rXSAFeN6yY/j4Np7Wv2xxb7+mZ5GpkQiQw1mv3yX/
- i5XkYdCXDdHms/VmIE6/3gkvxg+3K5oOxTw84QmA4zaHg73D+dkf7J3n9 g==;
-X-CSE-ConnectionGUID: D1Dpk1u3SPWKxodYuXkTmw==
-X-CSE-MsgGUID: ccELXoUHS2i2g/++6fvOJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="88089496"
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; d="scan'208";a="88089496"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2026 21:24:24 -0700
-X-CSE-ConnectionGUID: hHxiJRIJScael0JgRKuBQQ==
-X-CSE-MsgGUID: U8tofDvSR3GoD280wyLHeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; d="scan'208";a="294079090"
-Received: from nemesa.iind.intel.com ([10.190.239.22])
- by fmviesa002.fm.intel.com with ESMTP; 06 Sep 2026 21:24:23 -0700
-From: Nemesa Garg <nemesa.garg@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>
-Subject: [PATCH v2] drm/i915/display: Limit SEL_FETCH clear to supported pipes
-Date: Mon,  7 Sep 2026 09:51:42 +0530
-Message-Id: <20260907042142.3114009-1-nemesa.garg@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8EBB10E43E;
+	Mon,  7 Sep 2026 04:31:57 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71F3210E43E;
+ Mon,  7 Sep 2026 04:31:56 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============9067253977283350606=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/debugfs=3A_Add_H?=
+ =?utf-8?q?DR_status_to_i915=5Fdisplay=5Finfo?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Pranay Samala" <pranay.samala@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 07 Sep 2026 04:31:56 -0000
+Message-ID: <178875551645.127987.9905041612946733931@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260907035831.718916-1-pranay.samala@intel.com>
+In-Reply-To: <20260907035831.718916-1-pranay.samala@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,157 +37,230 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Commit 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL
-on plane disable") started clearing SEL_FETCH_PLANE_CTL and
-SEL_FETCH_CUR_CTL on every plane and cursor disable.
+--===============9067253977283350606==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Not all pipes implement these registers. Clearing them on a pipe
-that does not have them leads to an unclaimed register access.
+== Series Details ==
 
-Skip the clear on pipes that do not implement the registers.
+Series: drm/i915/debugfs: Add HDR status to i915_display_info
+URL   : https://patchwork.freedesktop.org/series/173461/
+State : success
 
-Fixes: 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16876
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cursor.c   | 12 ++------
- drivers/gpu/drm/i915/display/intel_psr.c      | 30 +++++++++++++++++++
- .../drm/i915/display/skl_universal_plane.c    | 12 ++------
- 3 files changed, 36 insertions(+), 18 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index cce041e1da51..aa662b2cdf42 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -536,13 +536,7 @@ static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	/*
--	 * Clear this whenever the hardware has selective fetch, not just when
--	 * the current state uses it. The cursor may have been enabled with
--	 * selective fetch earlier and had its enable bit orphaned when the
--	 * feature was switched off.
--	 */
--	if (!HAS_PSR2_SEL_FETCH(display))
-+	if (!crtc_state->enable_psr2_sel_fetch)
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -592,7 +586,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 	}
- }
- 
-@@ -701,7 +695,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index f490beb66629..702d4b6d62a4 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -58,6 +58,7 @@
- #include "intel_vdsc.h"
- #include "intel_vrr.h"
- #include "skl_universal_plane.h"
-+#include "skl_universal_plane_regs.h"
- 
- /**
-  * DOC: Panel Self Refresh (PSR/SRD)
-@@ -2162,6 +2163,33 @@ static bool psr_interrupt_error_check(struct intel_dp *intel_dp)
- 	return true;
- }
- 
-+/*
-+ * A plane disabled while selective fetch was off keeps its selective fetch
-+ * enable bit set in hardware. The bit does nothing until selective fetch is
-+ * turned back on, at which point the hardware would resume fetching for a
-+ * plane that is no longer enabled and keep its DDB range reserved. Drop the
-+ * bit for every inactive plane as selective fetch is enabled. The active
-+ * planes are programmed by the selective fetch update that follows.
-+ */
-+static void psr2_sel_fetch_clear_inactive_planes(struct intel_display *display,
-+						 const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	enum pipe pipe = crtc->pipe;
-+	struct intel_plane *plane;
-+
-+	for_each_intel_plane_on_crtc(display->drm, crtc, plane) {
-+		if (crtc_state->active_planes & BIT(plane->id))
-+			continue;
-+
-+		if (plane->id == PLANE_CURSOR)
-+			intel_de_write(display, SEL_FETCH_CUR_CTL(pipe), 0);
-+		else
-+			intel_de_write(display,
-+				       SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-+	}
-+}
-+
- static void intel_psr_enable_locked(struct intel_dp *intel_dp,
- 				    const struct intel_crtc_state *crtc_state)
- {
-@@ -2180,6 +2208,8 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
- 	val = usecs_to_jiffies(intel_get_frame_time_us(crtc_state) * 6);
- 	intel_dp->psr.dc3co_exit_delay = val;
- 	intel_dp->psr.psr2_sel_fetch_enabled = crtc_state->enable_psr2_sel_fetch;
-+	if (crtc_state->enable_psr2_sel_fetch)
-+		psr2_sel_fetch_clear_inactive_planes(display, crtc_state);
- 	intel_dp->psr.su_region_et_enabled = crtc_state->enable_psr2_su_region_et;
- 	intel_dp->psr.psr2_sel_fetch_cff_enabled = false;
- 	intel_dp->psr.req_psr2_sdp_prior_scanline =
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 5cda1ab90e40..a7e2f44ebfca 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -884,13 +884,7 @@ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	/*
--	 * Clear this whenever the hardware has selective fetch, not just when
--	 * the current state uses it. The plane may have been enabled with
--	 * selective fetch earlier and had its enable bit orphaned when the
--	 * feature was switched off.
--	 */
--	if (!HAS_PSR2_SEL_FETCH(display))
-+	if (!crtc_state->enable_psr2_sel_fetch)
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -926,7 +920,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 
- 	if (plane_has_normalizer(plane))
- 		intel_de_write_dsb(display, dsb,
-@@ -1646,7 +1640,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
- }
- 
- static void
--- 
-2.25.1
+CI Bug Log - changes from CI_DRM_19094 -> Patchwork_173461v1
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/index.html
+
+Participating hosts (38 -> 38)
+------------------------------
+
+  Additional (1): bat-adls-6 
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_173461v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@gem_tiled_pread_basic@basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
+
+  * igt@intel_hwmon@hwmon-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_dsc@dsc-basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_dsc@dsc-basic.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-adls-6:         NOTRUN -> [SKIP][6]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-primary-mmap-gtt:
+    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-fence-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#3291]) +2 other tests skip
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
+  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
+  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
+  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19094 -> Patchwork_173461v1
+
+  CI-20190529: 20190529
+  CI_DRM_19094: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9084: 9084
+  Patchwork_173461v1: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/index.html
+
+--===============9067253977283350606==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/debugfs: Add HDR status to i915_display_info</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173461/">https://patchwork.freedesktop.org/series/173461/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19094 -&gt; Patchwork_173461v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/index.html</p>
+<h2>Participating hosts (38 -&gt; 38)</h2>
+<p>Additional (1): bat-adls-6 <br />
+  Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_173461v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_tiled_pread_basic@basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@intel_hwmon@hwmon-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_dsc@dsc-basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173461v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19094 -&gt; Patchwork_173461v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19094: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9084: 9084<br />
+  Patchwork_173461v1: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============9067253977283350606==--
