@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 677B3C79F99
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 17:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F031EC79FA0
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 17:19:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8DB210E00A;
-	Mon,  7 Sep 2026 17:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE7BB10E2BB;
+	Mon,  7 Sep 2026 17:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d6X29L1g";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HHAD1+w0";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2F610E00A
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 17:04:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27D3C10E2BB;
+ Mon,  7 Sep 2026 17:19:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788800666; x=1820336666;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=AKcD8bdPTV/eS96y6XaDWLhowdb9htusKoPYGIyLxiw=;
- b=d6X29L1gFNh7ug/OpXq3MfffpgJge+eHK1u+8juulvRZTPCjQuwJfLaq
- THkLQHFsOqK6PMzBmKLNZ0UQb4CWZg0rIX3r0veevJF6WpRzbrdQm60We
- hPw2iBLhFQwIlYQjZMMjgxtlAvrEZLCSuyXH/txy1zcEl+BVbI6WfhRze
- 4ftnTW1RdEMFNr7hi4JeOCUduy5jYsX3+8K2PLA+7MEP3q+OdKqwo2lqY
- QoNVIE4Wd6N3F+rCbKTSSusaKueG2ljY8F6SOORKd+jv1w0Cr/GZ67+E1
- H6jrXb0LkGmdemsKYdm32YDdz0H84i0XBW7QrBJIoUFCJD13eKbJudplJ Q==;
-X-CSE-ConnectionGUID: wv2wRDQSQku0Pd62m/c5hw==
-X-CSE-MsgGUID: CnN5P80ISdW0RIDsdwzCOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="111979684"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="111979684"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ t=1788801542; x=1820337542;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kAhK1azvJNLIJsnViwPP6o2QI1WMwXDIlLgSTGyz7As=;
+ b=HHAD1+w0UEqLMDhzd3mL/XD/pZfTW4IpUA4KsZuBuogwj81OgLGe6tvq
+ Uya9l2QlLlg0+qxnIHr2ifzg7I9JoRubCxKFGAlFkytw1HzJa8A1NNKGJ
+ oM+YnaGHSIyIZ+64KjB4FspUeCtQnnOwmQ7rCYNpERdpWFpSE7zQFpvLj
+ 1pi1671wefnMnVBcv3mwZezFkFSPAfSTThEWEGPyJ1Xw7s7/B9qJqN4GM
+ bZ4S1UTFgjE2+8NNZpC5tTuLm5YIFxuJaxm/vloQhjvJqd9or2Zy7upvp
+ At6n5Z48ZMgkzNOWkXMf74oG8cjLvYNaajp5dXcrraFKNxOh4IkYSrhzJ A==;
+X-CSE-ConnectionGUID: tEXy2RuzTT2ROF+EseYLdA==
+X-CSE-MsgGUID: 6X4X2g6iTOiUJZaBElIX/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="111980758"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="111980758"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2026 10:04:25 -0700
-X-CSE-ConnectionGUID: 1u1zbFEES92NVPp15Zj8nQ==
-X-CSE-MsgGUID: LGno/RBdTKS+qbX22dYoSQ==
+ 07 Sep 2026 10:19:01 -0700
+X-CSE-ConnectionGUID: jbIYProqSSao0/8VXqoTGA==
+X-CSE-MsgGUID: a5mphUTQTB66R1mwvQM/ow==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="276035363"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.229])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2026 10:04:23 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Xiao Lu <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v5 1/2] drm/dp/mst: recognize DP-to-HDMI PCON as virtual
- DPCD in DP-to-DP topology
-In-Reply-To: <314b0dc2c8ddebfd995c83d0a04c715e.xiaolu.xie@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260907043922.1367673-1-xiaolu.xie@intel.com>
- <314b0dc2c8ddebfd995c83d0a04c715e.xiaolu.xie@intel.com>
-Date: Mon, 07 Sep 2026 20:04:21 +0300
-Message-ID: <3e77ec748184f3656146694db1cd6c07cfd4f07b@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="269449163"
+Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 10:19:01 -0700
+From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: mitulkumar.ajitkumar.golani@intel.com,
+	jani.nikula@intel.com
+Subject: [PATCH v4 0/2] Add validation for DMC firmware header parsing
+Date: Mon,  7 Sep 2026 22:48:57 +0530
+Message-ID: <20260907171856.1484854-4-dibin.moolakadan.subrahmanian@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,22 +67,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 07 Sep 2026, Xiao Lu <xiaolu.xie@intel.com> wrote:
-> Superseded by v5 series:
-> <20260907044410.1368008-1-xiaolu.xie@intel.com>
+The DMC firmware parser does not validate the firmware load address
+stored in version 3 headers before it is used by dmc_load_program().
 
-Wait what.
+The firmware size conversion from dwords to bytes can overflow while
+calculating the payload size.
 
-That thread has versions 4 and 5, and this thread has version 5, and all
-of them have been sent today.
+Fix both by validating the firmware load address against the expected
+range and using check_mul_overflow() for the firmware size conversion.
 
-Please slow down. These are involved patches, and nobody's had the time
-to look into them properly.
+v2:
+Added Fixes tag in commit messages for both patches.
+v3:
+Address Sashiko's parser-hardening review comments in patch 2
+v4:
+Publish mmio_count, start_mmioaddr and dmc_fw_size only after the
+payload allocation succeeds, so a failed allocation cannot leave
+stale state for a later dmc_load_mmio() call (Sashiko)
 
+Dibin Moolakadan Subrahmanian (2):
+  drm/i915/dmc: Add sanity check for DMC load address
+  drm/i915/dmc: Harden DMC firmware payload parsing
 
-BR,
-Jani.
-
+ drivers/gpu/drm/i915/display/intel_dmc.c      | 99 ++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_dmc_regs.h | 12 +++
+ 2 files changed, 95 insertions(+), 16 deletions(-)
 
 -- 
-Jani Nikula, Intel
+2.43.0
+
