@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D0FC79F99
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 17:59:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49BB0C79FA0
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 18:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 152F210E50D;
-	Mon,  7 Sep 2026 17:59:07 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kvs5a7z+";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5112A10E035;
- Mon,  7 Sep 2026 17:59:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DF8EE40E44;
- Mon,  7 Sep 2026 17:59:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865941F00A3A;
- Mon,  7 Sep 2026 17:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788803944;
- bh=QDdsYy8Y5oRtO8dimv0U6stgwX/nujHZjFKAMQdmJTQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kvs5a7z+6D+KaphoCyGw6PwO10SsQqaB+H2lStKpB/1Sz6oOBiXZNWESu0sTOKl59
- G3iPiwZosuMnnNzAjkq0mZbGiLiumI6hAOxiq/FzCwtWjcQvfGjj4xUaLyWqv1cyBH
- xbMtcX8yRqnD/Jr+5Bq//oAVqYrqQh2bPRUi2wGTDOxlt+bmi9k0KLib+/MyrdxTHE
- dGC+u1dK6mc4/nGAOPDe/r4Gflu3TEwP3dOFmXMLFE9n5oD+AKJPQhTH/obcYzUKdd
- Pp6Ytam2p4elI5SVQDUOpmbmz/o0cSz+fLYwWup83BNWj0X8tkLh6DwEYKwJ4WSJro
- IdJFOF+AYYAeg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/i915/dp_mst: Fix configuring TUs for a
- disconnected stream
-To: "Imre Deak" <imre.deak@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260907174413.741851-2-imre.deak@intel.com>
-References: <20260907174413.741851-1-imre.deak@intel.com>
- <20260907174413.741851-2-imre.deak@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 17:59:04 +0000
-Message-Id: <20260907175904.865941F00A3A@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9981210E046;
+	Mon,  7 Sep 2026 18:22:45 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18E5F10E046;
+ Mon,  7 Sep 2026 18:22:44 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5401230463185304249=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Add_validation_for_DMC_fi?=
+ =?utf-8?q?rmware_header_parsing_=28rev5=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dibin Moolakadan Subrahmanian" <dibin.moolakadan.subrahmanian@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 07 Sep 2026 18:22:44 -0000
+Message-ID: <178880536409.130176.14142185286963505775@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260907171856.1484854-4-dibin.moolakadan.subrahmanian@intel.com>
+In-Reply-To: <20260907171856.1484854-4-dibin.moolakadan.subrahmanian@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,71 +37,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] NULL pointer dereference when accessing `crtc_state` for disconnec=
-ted MST streams during a partial atomic commit.
---
+--===============5401230463185304249==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 2c1463a6e51d57b066fd631411fc6eb110086a46
-Author: Imre Deak <imre.deak@intel.com>
+== Series Details ==
 
-drm/i915/dp_mst: Fix configuring TUs for a disconnected stream
+Series: Add validation for DMC firmware header parsing (rev5)
+URL   : https://patchwork.freedesktop.org/series/170409/
+State : success
 
-This commit fixes the TU configuration for a disconnected MST stream by reu=
-sing
-the maximum link BPP limit from the stream's old state. This ensures the li=
-nk's
-sum of TUs stays within limits instead of destroying the link state complet=
-ely,
-as userspace may disable them one-by-one in a deferred way.
+== Summary ==
 
-Cc: stable@vger.kernel.org # v6.10+
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
+CI Bug Log - changes from CI_DRM_19096 -> Patchwork_170409v5
+====================================================
 
-[ ... ]
+Summary
+-------
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/d=
-rm/i915/display/intel_link_bw.c
-> index b47474a3e9fec..e71e76d6fd3e0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_link_bw.c
-> +++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
-> @@ -64,7 +64,8 @@ void intel_link_bw_init_limits(struct intel_atomic_stat=
-e *state,
->  			intel_atomic_get_new_crtc_state(state, crtc);
->  		int forced_bpp_x16 =3D get_forced_link_bpp_x16(state, crtc);
-> =20
-> -		if (state->base.duplicated && crtc_state) {
-> +		if ((state->base.duplicated && crtc_state) ||
-> +		    intel_dp_mst_stream_disconnected(state, crtc)) {
->  			limits->max_bpp_x16[pipe] =3D crtc_state->max_link_bpp_x16;
+  **SUCCESS**
 
-[Severity: High]
-Could this lead to a NULL pointer dereference in intel_link_bw_init_limits()
-if crtc_state is NULL?
+  No regressions found.
 
-If userspace issues an atomic commit that modifies a non-routing property
-on a disconnected connector, the connector is added to the atomic state
-but its CRTC might not be. In this scenario, intel_atomic_get_new_crtc_stat=
-e()
-returns NULL.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/index.html
 
-Since intel_dp_mst_stream_disconnected() evaluates to true when the connect=
-or
-is unregistered, this block is entered even when crtc_state is NULL.
+Participating hosts (40 -> 38)
+------------------------------
 
-This results in an unconditional dereference of crtc_state when assigning
-crtc_state->max_link_bpp_x16, which is reachable from unprivileged userspace
-via the DRM atomic ioctl and could crash the system.
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
->  			if (intel_dsc_enabled_on_link(crtc_state))
->  				limits->link_dsc_pipes |=3D BIT(pipe);
+Known issues
+------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907174413.7418=
-51-1-imre.deak@intel.com?part=3D2
+  Here are the changes found in Patchwork_170409v5 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-cfl-8109u:       [DMESG-WARN][1] ([i915#13735]) -> [PASS][2] +80 other tests pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19096/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [DMESG-WARN][3] ([i915#13735] / [i915#15673]) -> [PASS][4] +49 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19096/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19096 -> Patchwork_170409v5
+
+  CI-20190529: 20190529
+  CI_DRM_19096: 547f981c369d4b8adf60c5d282b37854f11dab17 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9084: 9084
+  Patchwork_170409v5: 547f981c369d4b8adf60c5d282b37854f11dab17 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/index.html
+
+--===============5401230463185304249==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Add validation for DMC firmware header parsing (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170409/">https://patchwork.freedesktop.org/series/170409/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19096 -&gt; Patchwork_170409v5</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_170409v5 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19096/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> +80 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19096/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170409v5/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19096 -&gt; Patchwork_170409v5</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19096: 547f981c369d4b8adf60c5d282b37854f11dab17 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9084: 9084<br />
+  Patchwork_170409v5: 547f981c369d4b8adf60c5d282b37854f11dab17 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============5401230463185304249==--
