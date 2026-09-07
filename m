@@ -4,45 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D718C79F89
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 04:56:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60829C79F89
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 05:01:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1B5210E630;
-	Mon,  7 Sep 2026 04:56:28 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MlqRtJFY";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48BB010E630
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 04:56:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8A96F60A96;
- Mon,  7 Sep 2026 04:56:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5651F00A3A;
- Mon,  7 Sep 2026 04:56:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788756986;
- bh=+kKijo74IcpYSx6w2OLd4jznb/EgMUTvZyqnnzx7Bi4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MlqRtJFYjnO15TJ8rudoLv/y3dtzQvn00RJ5Huk4gTHErpBuI8Jpky4V70SAefbSc
- XSkzbqK1p2KErckwDHlPEZ6Lu5lQe87eeLEs85ThieSiqu0P1Crj10jVb2PbpyyTS8
- 2FsN7oWJqr730MiFo84dj+4yVImIckd9wwCxLZ8yx3cPaYphmJnPbvwYmvz09/6+sT
- 79YEUTJOFF2XgD4i8jyoAInxEJjkTREAqSvI+FESoZTqjsUkYPfae78EEBSlh0YwTh
- hSKgHzPLAdC6osUeepg6C86Z23ALLB7drwQDhPic53SOhc25b+DC1lBKvezmhj1j9U
- 80DZBofb8co0Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] drm/i915/dp: enable DSC passthrough for HDMI 2.1
- PCON devices
-To: "Xiao Lu" <xiaolu.xie@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E30DC10E634;
+	Mon,  7 Sep 2026 05:01:22 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D56C610E45D;
+ Mon,  7 Sep 2026 05:01:21 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6751199380707904354=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/quirks=3A_Limit_?=
+ =?utf-8?q?eDP_rate_to_HBR2_on_HP_Pavilion_Plus_14-ew1?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260907044140.1367870-2-xiaolu.xie@intel.com>
-References: <20260906094156.1057767-1-xiaolu.xie@intel.com>
- <20260907044140.1367870-1-xiaolu.xie@intel.com>
- <20260907044140.1367870-2-xiaolu.xie@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 04:56:25 +0000
-Message-Id: <20260907045626.1D5651F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 05:01:21 -0000
+Message-ID: <178875728186.127987.9632922532258000823@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260907034555.2753846-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260907034555.2753846-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,124 +37,230 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Slice count calculation for passthrough-only PCONs evaluates to 0,=
- unconditionally rejecting valid DSC modes.
-- [Low] Call to intel_hdmi_dsc_get_num_slices uses an incorrect function si=
-gnature, causing a build failure and potential out-of-bounds read if coerce=
-d.
---
+--===============6751199380707904354==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 143c11b20062c81b5ac2377b90407f1c60975424
-Author: Xiao Lu <xiaolu.xie@intel.com>
-drm/i915/dp: enable DSC passthrough for HDMI 2.1 PCON devices
+== Series Details ==
 
-This commit adds explicit driver control for PCON DSC passthrough
-capabilities, allowing HDMI 2.1 PCON devices to forward compressed streams
-to a downstream HDMI sink for decompression. It detects passthrough support,
-overrides DSC configuration paths to use the HDMI sink's capabilities, and
-writes appropriate registers to enable passthrough instead of relying on
-autonomous fallbacks.
+Series: drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1
+URL   : https://patchwork.freedesktop.org/series/173465/
+State : success
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 113d767e62e9c..53d4d884f726b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-[ ... ]
-> @@ -2534,10 +2573,20 @@ bool intel_dp_mode_valid_with_dsc(struct intel_co=
-nnector *connector,
->  							 num_joined_pipes,
->  							 output_format,
->  							 pipe_bpp, INT_MAX);
-> -	int dsc_slice_count =3D intel_dp_dsc_get_slice_count(connector,
-> -							   mode_clock,
-> -							   mode_hdisplay,
-> -							   num_joined_pipes);
-> +	int dsc_slice_count;
-> +
-> +	if (connector->dp.pcon_dsc_passthrough) {
-> +		const struct drm_display_info *info =3D &connector->base.display_info;
-> +
-> +		dsc_slice_count =3D min_t(int, info->hdmi.dsc_cap.max_slices,
-> +					drm_dp_dsc_sink_max_slice_count(connector->dp.dsc_dpcd,
-> +									false));
+== Summary ==
 
-[Severity: High]
-Does this regression artificially cap the slice count to zero for passthrou=
-gh
-PCONs?
+CI Bug Log - changes from CI_DRM_19094 -> Patchwork_173465v1
+====================================================
 
-As noted in the commit message, the PCON encoder DPCD fields are all-zero f=
-or
-passthrough-only devices. Because connector->dp.dsc_dpcd is zeroed out,
-calling drm_dp_dsc_sink_max_slice_count() will evaluate to 0.
+Summary
+-------
 
-Since this is passed into min_t(), wouldn't dsc_slice_count evaluate to 0
-and unconditionally reject valid DSC modes downstream in this function?
+  **SUCCESS**
 
->  	} else {
->  		dsc_slice_count =3D intel_dp_dsc_get_slice_count(connector,
-[ ... ]
-> @@ -4297,6 +4386,116 @@ void intel_dp_check_frl_training(struct intel_dp =
-*intel_dp)
->  	}
->  }
-> =20
-> +/*
-> + * intel_dp_pcon_set_dsc_passthrough_cap - cache PCON DSC passthrough ca=
-pability
-[ ... ]
-> +static bool
-> +intel_dp_pcon_passthrough_dsc_slice_config(struct intel_dp *intel_dp,
-> +					   const struct intel_crtc_state *crtc_state,
-> +					   struct intel_dsc_slice_config *config_ret)
-> +{
-[ ... ]
-> +	/*
-> +	 * src_max_slice_width: pass INT_MAX so the HDMI spec limit of 2720px
-> +	 * applies; the source VDSC HW limit (5120px) is higher so it is not
-> +	 * the binding constraint here.
-> +	 * src_max_slices: use hdmi_max_slices as the binding upper limit since
-> +	 * the PCON passthrough capability bit (already checked) is the gate;
-> +	 * the for-loop below further constrains to what the Intel VDSC HW can
-> +	 * actually produce.
-> +	 */
-> +	target_slices =3D intel_hdmi_dsc_get_num_slices(&crtc_state->hw.adjuste=
-d_mode,
-> +						      crtc_state->output_format,
-> +						      hdmi_max_slices, INT_MAX,
-> +						      hdmi_max_slices,
-> +						      hdmi_throughput);
+  No regressions found.
 
-[Severity: Low]
-Can this regression cause a build failure or memory issues?
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html
 
-The call to intel_hdmi_dsc_get_num_slices() passes 6 arguments, and the fir=
-st
-argument is passed as &crtc_state->hw.adjusted_mode.
+Participating hosts (38 -> 38)
+------------------------------
 
-Looking at the actual definition of intel_hdmi_dsc_get_num_slices() in
-drivers/gpu/drm/i915/display/intel_hdmi.c:
+  Additional (1): bat-adls-6 
+  Missing    (1): bat-dg2-13 
 
-int intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
-                                  int src_max_slices, int src_max_slice_wid=
-th,
-                                  int hdmi_max_slices, int hdmi_throughput)
+Known issues
+------------
 
-It still expects 5 arguments, with the first being a const struct
-intel_crtc_state *. Could this result in an out-of-bounds read if the
-compiler coerces the smaller drm_display_mode struct into an
-intel_crtc_state?
+  Here are the changes found in Patchwork_173465v1 that come from known issues:
 
-> +	if (!target_slices)
-> +		return false;
+### IGT changes ###
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907044140.1367=
-870-1-xiaolu.xie@intel.com?part=3D2
+#### Issues hit ####
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@gem_tiled_pread_basic@basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
+
+  * igt@intel_hwmon@hwmon-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_dsc@dsc-basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_dsc@dsc-basic.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-adls-6:         NOTRUN -> [SKIP][6]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-primary-mmap-gtt:
+    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-fence-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#3291]) +2 other tests skip
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
+  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
+  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
+  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19094 -> Patchwork_173465v1
+
+  CI-20190529: 20190529
+  CI_DRM_19094: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9084: 9084
+  Patchwork_173465v1: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html
+
+--===============6751199380707904354==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173465/">https://patchwork.freedesktop.org/series/173465/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19094 -&gt; Patchwork_173465v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html</p>
+<h2>Participating hosts (38 -&gt; 38)</h2>
+<p>Additional (1): bat-adls-6 <br />
+  Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_173465v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_tiled_pread_basic@basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@intel_hwmon@hwmon-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_dsc@dsc-basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19094 -&gt; Patchwork_173465v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19094: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9084: 9084<br />
+  Patchwork_173465v1: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6751199380707904354==--
