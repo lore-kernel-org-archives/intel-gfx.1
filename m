@@ -4,27 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A32FCC79F9E
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 12:17:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B042C79F89
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 12:23:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AAB310E5A4;
-	Mon,  7 Sep 2026 12:17:30 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57DBE10E7C2;
- Mon,  7 Sep 2026 12:17:29 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5928101489738038943=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA1E710E7DF;
+	Mon,  7 Sep 2026 12:23:19 +0000 (UTC)
+X-Greylist: delayed 526 seconds by postgrey-1.36 at gabe;
+ Mon, 07 Sep 2026 12:23:19 UTC
+Received: from mailout3.hostsharing.net (mailout3.hostsharing.net
+ [144.76.133.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10D7F10E7C6;
+ Mon,  7 Sep 2026 12:23:19 +0000 (UTC)
+Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+ client-signature ECDSA (secp384r1) client-digest SHA384)
+ (Client CN "*.hostsharing.net",
+ Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+ by mailout3.hostsharing.net (Postfix) with ESMTPS id B3080D76;
+ Mon, 07 Sep 2026 14:14:31 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+ id 6A658601CB35; Mon,  7 Sep 2026 14:14:31 +0200 (CEST)
+Date: Mon, 7 Sep 2026 14:14:31 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Alexander Fischer <alexander.fischer@kait2en.org>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?iso-8859-1?Q?Jos=E9?= Roberto de Souza <jose.souza@intel.com>,
+ =?iso-8859-1?Q?Andr=E9?= Eikmeyer <andre.eikmeyer@kait2en.org>,
+ Yossef Osman <yossef.osman@proton.me>
+Subject: Re: [PATCH v2] drm/i915/psr: enable PSR on Apple T2 eDP panels
+Message-ID: <ap6qp8Ct7aLQJhmx@wunner.de>
+References: <20260829161622.11396-1-alexander.fischer@kait2en.org>
+ <20260907083753.41393-1-alexander.fischer@kait2en.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_On_DPCD_in?=
- =?utf-8?q?it/caps_wake_the_DPRx_=28rev5=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Arun R Murthy" <arun.r.murthy@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 07 Sep 2026 12:17:29 -0000
-Message-ID: <178878344935.128699.14634445797671758986@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260219094326.34922-1-arun.r.murthy@intel.com>
-In-Reply-To: <20260219094326.34922-1-arun.r.murthy@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907083753.41393-1-alexander.fischer@kait2en.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,142 +58,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5928101489738038943==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Mon, Sep 07, 2026 at 10:37:53AM +0200, Alexander Fischer wrote:
+> @@ -286,6 +306,14 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+>  		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
+>  		.hook = quirk_disable_edp_panel_replay,
+>  	},
+> +	/* Apple T2 eDP panels */
+> +	{
+> +		.device = DEVICE_ID_ANY,
+> +		.subsystem_vendor = PCI_ANY_ID,
+> +		.subsystem_device = PCI_ANY_ID,
+> +		.sink_oui = SINK_OUI(0x00, 0x10, 0xfa),
+> +		.hook = quirk_apple_psr_handshake,
+> +	},
+>  };
 
-== Series Details ==
+Looking at lspci output of the MacBookPro16,2 and MacBookPro15,4,
+I note that the integrated GPU has Subsystem Vendor 0x106b.
+So you could use ".subsystem_vendor = PCI_VENDOR_ID_APPLE,"
+to bail out early from the for-loop in intel_init_dpcd_quirks().
 
-Series: drm/i915/dp: On DPCD init/caps wake the DPRx (rev5)
-URL   : https://patchwork.freedesktop.org/series/161818/
-State : success
+Thanks,
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19095 -> Patchwork_161818v5
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_161818v5 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@late_gt_pm:
-    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +80 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-
-  * igt@kms_pipe_crc_basic@read-crc:
-    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#15673]) +49 other tests dmesg-warn
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19095 -> Patchwork_161818v5
-
-  CI-20190529: 20190529
-  CI_DRM_19095: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9084: 9084
-  Patchwork_161818v5: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html
-
---===============5928101489738038943==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: On DPCD init/caps wake the DPRx (rev5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/161818/">https://patchwork.freedesktop.org/series/161818/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19095 -&gt; Patchwork_161818v5</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_161818v5 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@late_gt_pm:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +80 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@read-crc:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +49 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19095 -&gt; Patchwork_161818v5</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19095: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9084: 9084<br />
-  Patchwork_161818v5: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============5928101489738038943==--
+Lukas
