@@ -4,27 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60829C79F89
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 05:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EAE4C79F9E
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 05:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E30DC10E634;
-	Mon,  7 Sep 2026 05:01:22 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D56C610E45D;
- Mon,  7 Sep 2026 05:01:21 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6751199380707904354=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/quirks=3A_Limit_?=
- =?utf-8?q?eDP_rate_to_HBR2_on_HP_Pavilion_Plus_14-ew1?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 013BC10E45D;
+	Mon,  7 Sep 2026 05:03:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QqY/VjEr";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47DE910E45D
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 05:03:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7716A60AB5;
+ Mon,  7 Sep 2026 05:03:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C54A1F00A3A;
+ Mon,  7 Sep 2026 05:03:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788757425;
+ bh=v27d3t+NpVjSr/tnVexTF47XpP/mJX8xHbfNCmmFpnQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QqY/VjEr1WfjbCsPYQ8VYhQn4eJrS/zYLClkU3TtRdBCM45Ri7SHgcod1Kf5Wf5Fo
+ QPuTRHtB7sRRrCj0dilRtDoBL3jvMA5UU3lusULEyMuUMf7Wu5jaCznbwIUkLdU1ph
+ 8ZJSlt1WtRNAXx3xf43DkZgZmuSiQpgOAZUW0UZk1k1RbgEXisO9MBoz2J3AqBC2UX
+ uwmjTCTzfYZaoXDC/U34YJr9Gm+cwu64yoelouJxcCIT1AYKhKEPiz9aKW2drz8BcA
+ QishcEiA/alJUtKoxss2jhvBee19jyhpzUgRjLOnOrFQ4QorfutJ1kGgjsnRQYYiIc
+ TD3rKj5tLtlWQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] drm/i915/dp: enable DSC passthrough for HDMI 2.1
+ PCON devices
+To: "Xiao Lu" <xiaolu.xie@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 07 Sep 2026 05:01:21 -0000
-Message-ID: <178875728186.127987.9632922532258000823@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260907034555.2753846-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260907034555.2753846-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260907043922.1367673-2-xiaolu.xie@intel.com>
+References: <20260907043922.1367673-1-xiaolu.xie@intel.com>
+ <20260907043922.1367673-2-xiaolu.xie@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 05:03:44 +0000
+Message-Id: <20260907050345.0C54A1F00A3A@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,230 +54,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6751199380707904354==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] PCON DSC passthrough is enabled without verifying the Intel displa=
+y source supports DSC 1.2, forcing an incompatible bitstream on older platf=
+orms.
+- [High] DSC modes are incorrectly rejected for passthrough PCONs during mo=
+de validation due to reliance on zeroed DPCD capabilities.
+- [High] Data race on bitfield resulting in lost updates for connector->dp.=
+dsc_decompression_enabled and pcon_dsc_passthrough.
+--
 
-== Series Details ==
+commit f0cec5b3c63643b719cd4fdc47fea560e78d2d25
+Author: Xiao Lu <xiaolu.xie@intel.com>
 
-Series: drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1
-URL   : https://patchwork.freedesktop.org/series/173465/
-State : success
+drm/i915/dp: enable DSC passthrough for HDMI 2.1 PCON devices
 
-== Summary ==
+HDMI 2.1 PCON devices (e.g. Parade PS196) that do not have an internal
+DSC encoder can still forward a DSC-compressed stream from the DP source
+to the downstream HDMI 2.1 sink unchanged (passthrough mode). The HDMI
+sink (e.g. Lenovo ThinkVision Pro 27UD-10) then decompresses the stream
+itself.
 
-CI Bug Log - changes from CI_DRM_19094 -> Patchwork_173465v1
-====================================================
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers=
+/gpu/drm/i915/display/intel_display_types.h
+> index 5f0fe18c0614e..90d77aa4d2346 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -564,6 +564,7 @@ struct intel_connector {
+>  		u8 dsc_hblank_expansion_quirk:1;
+>  		u8 dsc_throughput_quirk:1;
+>  		u8 dsc_decompression_enabled:1;
+> +		u8 pcon_dsc_passthrough:1; /* PCON DSC PT supported and HDMI sink DSC =
+1.2 */
 
-Summary
--------
+[Severity: High]
+Could this introduce a data race on the bitfield, resulting in lost updates=
+ for
+connector->dp.dsc_decompression_enabled and pcon_dsc_passthrough?
 
-  **SUCCESS**
+Concurrent read-modify-write operations can occur when hotplug/probe
+(where intel_dp_pcon_set_dsc_passthrough_cap() executes) races with
+asynchronous modeset commit tail operations that modify adjacent bits like
+dsc_decompression_enabled.
 
-  No regressions found.
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 0cd5e6b5034cf..fb81cbfcdff6d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+[ ... ]
+> @@ -2524,10 +2563,20 @@ bool intel_dp_mode_valid_with_dsc(struct intel_co=
+nnector *connector,
+>  							 num_joined_pipes,
+>  							 output_format,
+>  							 pipe_bpp, INT_MAX);
+> -	int dsc_slice_count =3D intel_dp_dsc_get_slice_count(connector,
+> -							   mode_clock,
+> -							   mode_hdisplay,
+> -							   num_joined_pipes);
+> +	int dsc_slice_count;
+> +
+> +	if (connector->dp.pcon_dsc_passthrough) {
+> +		const struct drm_display_info *info =3D &connector->base.display_info;
+> +
+> +		dsc_slice_count =3D min_t(int, info->hdmi.dsc_cap.max_slices,
+> +					drm_dp_dsc_sink_max_slice_count(connector->dp.dsc_dpcd,
+> +									false));
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html
+[Severity: High]
+Will this evaluate to 0 because the PCON's dsc_dpcd is zeroed?
 
-Participating hosts (38 -> 38)
-------------------------------
+For a passthrough-only PCON, its decoder dsc_dpcd is zeroed. As a result,
+drm_dp_dsc_sink_max_slice_count() will return 0, which makes dsc_slice_coun=
+t 0
+and guarantees the mode will be rejected downstream.
 
-  Additional (1): bat-adls-6 
-  Missing    (1): bat-dg2-13 
+Additionally, during mode validation, intel_dp_mode_valid_format() calls
+intel_dp_dsc_compute_max_bpp(), which relies on align_max_sink_dsc_input_bp=
+p().
+Since the DPCD capabilities are zeroed, this also returns 0, causing modes
+requiring DSC to be incorrectly rejected.
 
-Known issues
-------------
+[ ... ]
+> @@ -4298,6 +4387,116 @@ void intel_dp_check_frl_training(struct intel_dp =
+*intel_dp)
+>  	}
+>  }
+> =20
+> +/*
+> + * intel_dp_pcon_set_dsc_passthrough_cap - cache PCON DSC passthrough ca=
+pability
+[ ... ]
+> +static void
+> +intel_dp_pcon_set_dsc_passthrough_cap(struct intel_dp *intel_dp)
+> +{
+> +	struct intel_connector *connector =3D intel_dp->attached_connector;
+> +	const struct drm_display_info *info;
+> +
+> +	if (!connector)
+> +		return;
+> +
+> +	connector->dp.pcon_dsc_passthrough =3D false;
+> +
+> +	/*
+> +	 * PCON DSC passthrough is only supported for SST direct connections.
+> +	 * In MST topologies the intermediate hub may report incorrect virtual
+> +	 * DPCD for the downstream PCON port, leading to mismatched DSC
+> +	 * parameters.  Skip passthrough for MST until hub firmware correctly
+> +	 * reflects the PCON's capabilities.
+> +	 */
+> +	if (connector->mst.port)
+> +		return;
+> +
+> +	if (!intel_dp_is_hdmi_2_1_sink(intel_dp))
+> +		return;
+> +
+> +	if (!(connector->dp.dsc_dpcd[0] & DP_DSC_PASSTHROUGH_IS_SUPPORTED))
+> +		return;
+> +
+> +	info =3D &connector->base.display_info;
+> +	connector->dp.pcon_dsc_passthrough =3D info->hdmi.dsc_cap.v_1p2;
 
-  Here are the changes found in Patchwork_173465v1 that come from known issues:
+[Severity: High]
+Does this enable passthrough without verifying the Intel display source
+supports DSC 1.2?
 
-### IGT changes ###
+If the source is older (e.g., pre-DISPLAY_VER 14 like Tiger Lake), it only
+supports DSC 1.1. Later in intel_dp_dsc_compute_params(), the VDSC engine
+will be configured for DSC 1.1:
 
-#### Issues hit ####
+	vdsc_cfg->dsc_version_minor =3D min(intel_dp_source_dsc_version_minor(disp=
+lay), 2);
 
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
+Could this result in sending a DSC 1.1 bitstream to an HDMI 2.1 sink that
+mandates DSC 1.2a, leading to corrupted output or display failures?
 
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][6]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#3291]) +2 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19094 -> Patchwork_173465v1
-
-  CI-20190529: 20190529
-  CI_DRM_19094: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9084: 9084
-  Patchwork_173465v1: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html
-
---===============6751199380707904354==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173465/">https://patchwork.freedesktop.org/series/173465/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19094 -&gt; Patchwork_173465v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/index.html</p>
-<h2>Participating hosts (38 -&gt; 38)</h2>
-<p>Additional (1): bat-adls-6 <br />
-  Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_173465v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173465v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19094 -&gt; Patchwork_173465v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19094: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9084: 9084<br />
-  Patchwork_173465v1: 496ff8213a2d2e1e5b1c8efe8b55e1dcdc3e3f8f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6751199380707904354==--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907043922.1367=
+673-1-xiaolu.xie@intel.com?part=3D2
