@@ -4,27 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57574C79F9E
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 13:31:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA549C79FA0
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 13:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCC1A10E831;
-	Mon,  7 Sep 2026 13:31:25 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3ABF10E831;
- Mon,  7 Sep 2026 13:31:24 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6089682658527404321=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB7010E83F;
+	Mon,  7 Sep 2026 13:51:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ePMUGHku";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8210110E02E;
+ Mon,  7 Sep 2026 13:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788789060; x=1820325060;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=sHegxUQEBMX/xSrzMQ8SvpJgSNIyodGnWKztt9A2cc4=;
+ b=ePMUGHku6mnyEC2u3MMIGGmxx3GiyATivk8RXg2K74mQwyI9jPugLhhi
+ TKX3iJA6O4KUFmBkagHeJd9cc+eujCZYqX+e8ESpZXbb/oiB9+71giiLZ
+ z01KmvuxCvueL65fj0sU86IySeB2tI+hdLl3e+17GtvQ5vJhmmQCNHZhX
+ sQ2MWcyFavSv1h+lq4aT09yTjx1kvLJDA/naz5dakYQMOoad/j2oGIFN3
+ W2dKyg+zFCWGlXCS9z27x21wSPPiP0zNZAK7KKLu2CRT0uZSMxwkDwXgq
+ JC+XJFadZs01QDvQQoetJ6efZGGphM1pitbMj4XeKT7azaTqmVepKpcSu g==;
+X-CSE-ConnectionGUID: cKjNgEdaTyKDuoVOI0ISOQ==
+X-CSE-MsgGUID: KJar3HpKTZSYbOK6pwH9WQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="114735031"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="114735031"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 06:50:59 -0700
+X-CSE-ConnectionGUID: EfrR9vBWQ9mNWigy9NA3NQ==
+X-CSE-MsgGUID: WCyXitX7RnCTD1je4OSXHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="268993698"
+Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 06:50:58 -0700
+From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: mitulkumar.ajitkumar.golani@intel.com,
+	jani.nikula@intel.com
+Subject: [PATCH v3 0/2] Add validation for DMC firmware header parsing
+Date: Mon,  7 Sep 2026 19:20:49 +0530
+Message-ID: <20260907135048.1403587-4-dibin.moolakadan.subrahmanian@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Vswing_/_Pre-emphasis_Ove?=
- =?utf-8?q?rride_=28rev8=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 07 Sep 2026 13:31:24 -0000
-Message-ID: <178878788499.130175.14517918437291793150@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260904123148.2165596-1-michal.grzelak@intel.com>
-In-Reply-To: <20260904123148.2165596-1-michal.grzelak@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,142 +64,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6089682658527404321==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+The DMC firmware parser does not validate the firmware load address
+stored in version 3 headers before it is used by dmc_load_program().
 
-== Series Details ==
+The firmware size conversion from dwords to bytes can overflow while
+calculating the payload size.
 
-Series: Vswing / Pre-emphasis Override (rev8)
-URL   : https://patchwork.freedesktop.org/series/167571/
-State : success
+Fix both by validating the firmware load address against the expected
+range and using check_mul_overflow() for the firmware size conversion.
 
-== Summary ==
+v2:
+Added Fixes tag in commit messages for both patches.
+v3:
+Address Sashiko's parser-hardening review comments in patch 2.
 
-CI Bug Log - changes from CI_DRM_19095 -> Patchwork_167571v8
-====================================================
+Dibin Moolakadan Subrahmanian (2):
+  drm/i915/dmc: Add sanity check for DMC load address
+  drm/i915/dmc: Harden DMC firmware payload parsing
 
-Summary
--------
+ drivers/gpu/drm/i915/display/intel_dmc.c      | 95 ++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_dmc_regs.h | 12 +++
+ 2 files changed, 93 insertions(+), 14 deletions(-)
 
-  **SUCCESS**
+-- 
+2.43.0
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_167571v8 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@late_gt_pm:
-    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +80 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-
-  * igt@kms_pipe_crc_basic@read-crc:
-    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#15673]) +49 other tests dmesg-warn
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19095 -> Patchwork_167571v8
-
-  CI-20190529: 20190529
-  CI_DRM_19095: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9084: 9084
-  Patchwork_167571v8: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/index.html
-
---===============6089682658527404321==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Vswing / Pre-emphasis Override (rev8)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/167571/">https://patchwork.freedesktop.org/series/167571/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19095 -&gt; Patchwork_167571v8</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_167571v8 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@late_gt_pm:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +80 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@read-crc:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v8/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +49 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19095 -&gt; Patchwork_167571v8</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19095: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9084: 9084<br />
-  Patchwork_167571v8: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6089682658527404321==--
