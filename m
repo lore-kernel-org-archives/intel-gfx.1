@@ -4,77 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD91BC79F9F
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 09:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F763C79F89
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 09:57:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4B210E740;
-	Mon,  7 Sep 2026 09:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9991E10E48C;
+	Mon,  7 Sep 2026 09:57:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="Jf8ZnWNU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JvIivssq";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDB610E740
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 09:54:21 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-6a60f0dbeccso4201381a12.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 07 Sep 2026 02:54:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1788774860; x=1789379660; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BgnlZVhlCEMT9ZJriynmZJUUk5Ix+RJKVKHSp62UhtI=;
- b=Jf8ZnWNUIXoxdeVWV10AFJcje0r6ZXn0pVLgJorZtVaqLNOIfYUfpSah4gING3BGxI
- nNn2jahPAn+KsATjkLcS5DWWaVpj77KXB4F0MiJy44tyfF5zDffRh+vMFruwRmdf+TrN
- bd/KiLE2PwFKTsd6UJk9Aifzi5EhxRtY678HtEfi7VFFfa3e1zIIYs2T6uRuGjFQ8P9n
- T9Ke9ZNDmpCguQULmyJK5ctRTGxOdWVQn8VhwyX89nxneG1/sfZbmnsCxHIocOIP5x7Y
- HnroqdgfqabbCC4by0nBMFggtvFuHYpNMRHJ6QsUE9qGEZWGPvSNUCttXWLkx65YpQ4b
- CvRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788774860; x=1789379660;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BgnlZVhlCEMT9ZJriynmZJUUk5Ix+RJKVKHSp62UhtI=;
- b=NABQFFwFvHwqxci0tneHSTixh/cCJxtJH3mrXOHy9+UD0WcVG65SY2nd95yDPoyKrJ
- MfoCr/jmgW7S6Jjz6/oBqyEn4+5wbqnhvnI9C8X4icJSwuLkma74K6GUNo4G2VJQQcXN
- jtseblxzvlgxC2YtPub30RG8gdsM4j92tSroUCVio2QLb4N4AJGYvFjzURTPqvPitcsr
- 23PEv8opMqUG6jj48rpum2JCPCSGsjxKOs75MUkw1P2+LYf+3FY/iJiJMXiF8awtIYUa
- ILHzTG/vP1dCULpsCbCjSqGrfVnmB0xwtev4HfpCPtKPn4ZM9gn8qkwFktmNZxweo2Ce
- Vf3g==
-X-Gm-Message-State: AFuF++kDsGaV1EHQctDuTNsiQBwZnA7lU9S5keWdfM0GxVJLaLhXRCIK
- bfChhaOjvljIMzANZMgUJIv/wQsIRyrX/gaUe5MHUANGbY2L0ysd7141PKBW/plgbic=
-X-Gm-Gg: AYBFou398+0XHIx+Xnb+SU0vGBq4Vt72atoneIi7omaQcCdbeTmpEmf7CslQ03zSsgZ
- FWKC6BG+bQ7Di/uW6kZtvm266TFFIkYkK/+RBd4klWw+2DKLVOWO1Hatx7WxgXDeJc+eI+g5Ezm
- giTffVW0mZMye0cYMDBF7vmx8VX5HF9EPeRISieJQutb5XhSGpb+xG8INadfew26szsDS7TYyWK
- 69kGPg5vI3ibeflY/BhHo7kILAoHE91JI86ysJTNySYRGxTU9YuGGFYb4p3MnVuXlJ+i6JGZcRA
- +sF+RuUhUP3YPvYJMdAo0I659ZPrUmlSAiguAPPiz5CReC9U1KuCrtG5+DzGaoR9r34qVEXhiGv
- zAf0rqzH+C1DuVKYqGx7mTee4bOgXFtHa6pghdUgW8CxS6odZQ7yXikXKQyC69vv1pgL4oEQ9Kk
- KpXf2CC5bxOS2wK0oJhQdYwgZomFIQBrto9SG7sIjNKZDh6APT2SDrsS9kTmU4FxKLtBLW7DEat
- SoS
-X-Received: by 2002:a17:907:9815:b0:c26:1649:47b2 with SMTP id
- a640c23a62f3a-c2616495665mr666155066b.40.1788774859903; 
- Mon, 07 Sep 2026 02:54:19 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c260d53c37csm434533766b.32.2026.09.07.02.54.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2026 02:54:19 -0700 (PDT)
-Message-ID: <30c0848e-e8f6-4bb7-8505-89316158c49e@ursulin.net>
-Date: Mon, 7 Sep 2026 10:54:18 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2345210E48C;
+ Mon,  7 Sep 2026 09:57:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788775020; x=1820311020;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=S2raniGDi71Asji58FRRIViOQ3o+ZwHFYaD4zbrCI9w=;
+ b=JvIivssq3LEOiw0dSq8cHQmmF5lKnSElRfN4+UtzPR7CIkf64cWQ3VlI
+ HcC2glbJtLDv+VUO6L71H+7DgVkTpeEHJArkZ/PU0nJKpHeZTr5SQhjbj
+ on7iOTjtBfBRuz9vURMs/1+9SUpz9DZQnNo6ey5VAGeh2Xot2zdJCfV8L
+ 4x5WpmNpjaWaNrbr+YoCQJ7IQw9dVT4ky+iP9VOWN2oFtIch8UQ2l2htD
+ UDw4EwRrHRuF7jUj66IXB3s6ToeN2hTXxS7pcJft0PIzNreOUOTh/idxo
+ aXhLEDpu5OMHjuq4NZ5NGBWw0Gt0BYOrteJizrRvEXB6glP+Nblx9lVxR A==;
+X-CSE-ConnectionGUID: 7rKiZhAtQf+UmVG/dtBdJg==
+X-CSE-MsgGUID: apUvU3IlRfea41nP0WyowQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="89104855"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="89104855"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 02:57:00 -0700
+X-CSE-ConnectionGUID: iuL52Z8YTiCiPk+14EJzTg==
+X-CSE-MsgGUID: PMlpGgAlQfWNoWcqmia5hw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="300550985"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.229])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 02:56:58 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: "Garg, Nemesa" <nemesa.garg@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/i915/display: Limit SEL_FETCH clear to supported pipes
+In-Reply-To: <MW4PR11MB68875FF691238037309DD2CAE3B22@MW4PR11MB6887.namprd11.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260904062744.3010375-1-nemesa.garg@intel.com>
+ <9514a15f9ded3fa79572f92a61f33650c4ab02e6@intel.com>
+ <MW4PR11MB68875FF691238037309DD2CAE3B22@MW4PR11MB6887.namprd11.prod.outlook.com>
+Date: Mon, 07 Sep 2026 12:56:55 +0300
+Message-ID: <8ff50197b06bfab7e228805760acf7f793f80248@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915: fix incorrect RCU teardown order
-To: christian.koenig@amd.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260903113621.54660-1-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260903113621.54660-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,66 +71,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Mon, 07 Sep 2026, "Garg, Nemesa" <nemesa.garg@intel.com> wrote:
+>> -----Original Message-----
+>> From: Jani Nikula <jani.nikula@linux.intel.com>
+>> Sent: Friday, September 4, 2026 12:41 PM
+>> To: Garg, Nemesa <nemesa.garg@intel.com>; intel-gfx@lists.freedesktop.org;
+>> intel-xe@lists.freedesktop.org
+>> Cc: Garg, Nemesa <nemesa.garg@intel.com>
+>> Subject: Re: [PATCH] drm/i915/display: Limit SEL_FETCH clear to supported
+>> pipes
+>> 
+>> On Fri, 04 Sep 2026, Nemesa Garg <nemesa.garg@intel.com> wrote:
+>> > Commit 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL on
+>> > plane disable") started clearing SEL_FETCH_PLANE_CTL and
+>> > SEL_FETCH_CUR_CTL on every plane and cursor disable.
+>> >
+>> > Not all pipes implement these registers. Clearing them on a pipe that
+>> > does not have them leads to an unclaimed register access.
+>> 
+>> Where are the corresponding checks on the enable side, and what prevented
+>> this before 7f1172a2ac0d?
+>> 
+> I will send a new patch where I am checking if its enabled then only we should disable it otherwise
+> no action needed.
 
-On 03/09/2026 12:36, Christian König wrote:
-> i915_gem_busy_ioctl uses dma_resv_for_each_fence_unlocked() to iterate
-> over the fences in an GEM object without holding a reference but only
-> the RCU read side lock.
-> 
-> What can happen here is that the GEM object is destroyed concurrently
-> while i915_gem_busy_ioctl is still running. This won't free the GEM
-> objects memory, but still drops all the dma_fence references.
-> 
-> Now when dma_resv_for_each_fence_unlocked() sees a destroyed dma_fence it
-> assumes that a new fence list was installed and re-starts the loop.
-> 
-> But in the case of a destroyed GEM object a new fence list is never
-> installed, only the old one freed and therefore the iteration never
-> finishes resulting in an endless loop.
+That doesn't really answer my question, does it?
 
-Only i915_busy can get into this failure mode? None of the other users 
-of the iterator?
+BR,
+Jani.
 
-Also, the reference counting series makes the fix irrelevant?
 
-Regards,
+>
+> Thanks and Regards,
+> Nemesa
+>
+>> BR,
+>> Jani.
+>> 
+>> >
+>> > Skip the clear on pipes that do not implement the registers.
+>> >
+>> > Fixes: 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL on
+>> > plane disable")
+>> > Closes:
+>> > https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16876
+>> > Assisted-by: GitHub-Copilot:claude-opus-4.6
+>> > Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+>> > ---
+>> >  drivers/gpu/drm/i915/display/intel_cursor.c        | 4 ++++
+>> >  drivers/gpu/drm/i915/display/skl_universal_plane.c | 4 ++++
+>> >  2 files changed, 8 insertions(+)
+>> >
+>> > diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c
+>> > b/drivers/gpu/drm/i915/display/intel_cursor.c
+>> > index 86bb96ac449b..3c06d5482691 100644
+>> > --- a/drivers/gpu/drm/i915/display/intel_cursor.c
+>> > +++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+>> > @@ -544,6 +544,10 @@ static void
+>> i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
+>> >  	if (!HAS_PSR2_SEL_FETCH(display))
+>> >  		return;
+>> >
+>> > +	/* Display ver 12 only instantiates these registers for pipe A */
+>> > +	if (DISPLAY_VER(display) == 12 && pipe != PIPE_A)
+>> > +		return;
+>> > +
+>> >  	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);  }
+>> >
+>> > diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+>> > b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+>> > index 5cda1ab90e40..252df30debc9 100644
+>> > --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+>> > +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+>> > @@ -893,6 +893,10 @@ static void icl_plane_disable_sel_fetch_arm(struct
+>> intel_dsb *dsb,
+>> >  	if (!HAS_PSR2_SEL_FETCH(display))
+>> >  		return;
+>> >
+>> > +	/* Display ver 12 only instantiates these registers for pipe A */
+>> > +	if (DISPLAY_VER(display) == 12 && pipe != PIPE_A)
+>> > +		return;
+>> > +
+>> >  	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe,
+>> > plane->id), 0);  }
+>> 
+>> --
+>> Jani Nikula, Intel
 
-Tvrtko
-
-> 
-> The solution is to drop the fence references only after the RCU grace
-> period.
-> 
-> The fixes tag is not necessary the patch introducing the problem, but the
-> one making it so worse that we need to address it.
-> 
-> This problem was pointed out by Sashiko-bot.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Fixes: 912ff2ebd695 ("drm/i915: use the new iterator in i915_gem_busy_ioctl v2")
-> CC: stable@vger.kernel.org
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> index 5172d3982654..9e01f8b2079a 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> @@ -89,6 +89,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
->   
->   void i915_gem_object_free(struct drm_i915_gem_object *obj)
->   {
-> +	dma_resv_fini(&obj->base._resv);
->   	return kmem_cache_free(slab_objects, obj);
->   }
->   
-> @@ -144,7 +145,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
->   {
->   	mutex_destroy(&obj->mm.get_page.lock);
->   	mutex_destroy(&obj->mm.get_dma_page.lock);
-> -	dma_resv_fini(&obj->base._resv);
->   }
->   
->   /**
-
+-- 
+Jani Nikula, Intel
