@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE1DC79F89
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 12:15:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A32FCC79F9E
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 12:17:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEBD10E7B8;
-	Mon,  7 Sep 2026 12:15:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AAB310E5A4;
+	Mon,  7 Sep 2026 12:17:30 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7A110E7B8;
- Mon,  7 Sep 2026 12:15:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57DBE10E7C2;
+ Mon,  7 Sep 2026 12:17:29 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============1130315120382493485=="
+ boundary="===============5928101489738038943=="
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_fix_incorrect?=
- =?utf-8?q?_RCU_teardown_order_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_On_DPCD_in?=
+ =?utf-8?q?it/caps_wake_the_DPRx_=28rev5=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: "Arun R Murthy" <arun.r.murthy@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 07 Sep 2026 12:15:25 -0000
-Message-ID: <178878332517.128699.4203584300430255406@61270ab9df2a>
+Date: Mon, 07 Sep 2026 12:17:29 -0000
+Message-ID: <178878344935.128699.14634445797671758986@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260903113621.54660-1-christian.koenig@amd.com>
-In-Reply-To: <20260903113621.54660-1-christian.koenig@amd.com>
+References: <20260219094326.34922-1-arun.r.murthy@intel.com>
+In-Reply-To: <20260219094326.34922-1-arun.r.murthy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,20 +41,20 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1130315120382493485==
+--===============5928101489738038943==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: drm/i915: fix incorrect RCU teardown order (rev2)
-URL   : https://patchwork.freedesktop.org/series/173302/
+Series: drm/i915/dp: On DPCD init/caps wake the DPRx (rev5)
+URL   : https://patchwork.freedesktop.org/series/161818/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_19095 -> Patchwork_173302v2
+CI Bug Log - changes from CI_DRM_19095 -> Patchwork_161818v5
 ====================================================
 
 Summary
@@ -64,7 +64,7 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v2/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html
 
 Participating hosts (40 -> 38)
 ------------------------------
@@ -74,36 +74,42 @@ Participating hosts (40 -> 38)
 Known issues
 ------------
 
-  Here are the changes found in Patchwork_173302v2 that come from known issues:
+  Here are the changes found in Patchwork_161818v5 that come from known issues:
 
 ### IGT changes ###
 
 #### Issues hit ####
 
   * igt@i915_selftest@live@late_gt_pm:
-    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +34 other tests dmesg-warn
+    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +80 other tests dmesg-warn
    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v2/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#15673]) +49 other tests dmesg-warn
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
 
   
   [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
 
 
 Build changes
 -------------
 
-  * Linux: CI_DRM_19095 -> Patchwork_173302v2
+  * Linux: CI_DRM_19095 -> Patchwork_161818v5
 
   CI-20190529: 20190529
   CI_DRM_19095: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_9084: 9084
-  Patchwork_173302v2: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_161818v5: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v2/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html
 
---===============1130315120382493485==
+--===============5928101489738038943==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -123,42 +129,50 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>drm/i915: fix incorrect RCU teardown order (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173302/">https://patchwork.freedesktop.org/series/173302/</a></td></tr>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: On DPCD init/caps wake the DPRx (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/161818/">https://patchwork.freedesktop.org/series/161818/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v2/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_19095 -&gt; Patchwork_173302v2</h1>
+    <h1>CI Bug Log - changes from CI_DRM_19095 -&gt; Patchwork_161818v5</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v2/index.html</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/index.html</p>
 <h2>Participating hosts (40 -&gt; 38)</h2>
 <p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
 <h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_173302v2 that come from known issues:</p>
+<p>Here are the changes found in Patchwork_161818v5 that come from known issues:</p>
 <h3>IGT changes</h3>
 <h4>Issues hit</h4>
 <ul>
-<li>igt@i915_selftest@live@late_gt_pm:<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v2/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +34 other tests dmesg-warn</li>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +80 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19095/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161818v5/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +49 other tests dmesg-warn</li>
 </ul>
 </li>
 </ul>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_19095 -&gt; Patchwork_173302v2</li>
+<li>Linux: CI_DRM_19095 -&gt; Patchwork_161818v5</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_19095: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_9084: 9084<br />
-  Patchwork_173302v2: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_161818v5: c60540b13d7bacc21848ed94fd368a968454d5db @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 
 </body>
 </html>
 
---===============1130315120382493485==--
+--===============5928101489738038943==--
