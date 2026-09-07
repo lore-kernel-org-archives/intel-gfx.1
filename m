@@ -4,84 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18CCFC79FAE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A178C79F99
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF79910ED24;
-	Tue,  8 Sep 2026 18:37:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFC7810ED2B;
+	Tue,  8 Sep 2026 18:37:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="dnRHkwOV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q1f548Bl";
 	dkim-atps=neutral
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
- [209.85.219.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 378CF10F08F
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 00:43:13 +0000 (UTC)
-Received: by mail-qv1-f46.google.com with SMTP id
- 6a1803df08f44-90e8535619bso6681306d6.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 17:43:13 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBE5B10E045
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 20:53:23 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-3969e82ff8fso3997517a91.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 07 Sep 2026 13:53:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788814403; cv=none;
+ d=google.com; s=arc-20260327;
+ b=sAlFLywIjSZpTReDd1lJVRVzSFZBsRfyP2Oz9/Iy0nF88zGKz525VRJrJR34vl3DGA
+ v18Akd9n7f6n7HNXlfaZp9UozzM2VPSC1jtSpQe8jyzXlp0viuuN03Oc8hBo2nL0t0ok
+ ToDQXkZ8qZ94N5Ttlh8NPeUjD4qIR8yCPell05GSnYTP51X+D5Z4XDQC+vL7CIJ4uz7D
+ 1wUMH3a0dz2wMRnN5e9JjTJTiO/YiFo9uIlyZcGFR3PJY6VAinp84nGnp083s3x2Vg0c
+ XtzK4WxFxhWk2Yd1UBNbp3dHnpGAgoZByacOQo1aYYBQe0iCF5VEAZRUHo+Mhtr86qQL
+ mxKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=hHTlsghc6bI82mwngIzGXI4ncoEpEEoe7tYa8QxD/gk=;
+ fh=8nNxbrlOlF8vFeAMV64rIYfim/+PdVZC/AXtnI6pqdw=;
+ b=f3cvNjcQvK8PcX2cpz8QiXrZ8lnpTUjr3DMl22vdzsaDY20vr8SYeGQVaBkT6yX8JF
+ y3VtCpl+J06YqT9qS4ZzIHTMcK63Gmfe2VKV/w3FgEZmmgluWPZWfCduETDDG+sLsb0E
+ EwG2SmDFg5pQbu4br9yvGi9gTV9C4woEaniTz0msNvJHcldKHPIr0UZJSIiI9HZaLWBg
+ 4V7W2BFa2ajpasasubpxePc5po57bheQ87+SLW5SFYuh9MUzsxKDMSezRsbTTbDZ3ZZR
+ klpQnDjSbL3BpAwTHG0ve3Vd0GK/KeU614k3TysbbQ/ZWyy+e63My5Zi3lZoKflBTaH1
+ siZg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788482592;
- x=1789087392; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jL+S2VRP3JuTJmufzuBUjH1ceZNF6WpEtKrszEHKUZ8=;
- b=dnRHkwOVet5xU37J1Ef6yzvsOmz6qntvRLO5+Rv+vxVBHn9F+JOvsTORtjiN07MLKe
- JFNX8YojzdckrxKYun+TWZwUGeMA4MxI2n+YjxsuuadqtDE6EpoBJGDcxAYuRSVmkgyf
- skSFspgBuzR+bAHrPTy8ngkpvbDP1dqPLVG09OfM6bVR3QfCR1rb9kAWIUD6S2maT1+J
- ar0v27MvYg5OsUbcYrI3SP54U61gKwe1moJH/QUlXfrKtRWkEZ6fviejeH4nZwNUsyGe
- N+NDDw0SHoGUwZ7X6skO1+WO6kVvbIT0ZB7H+YcVe2lIqHB/6pzWuN+0EVWracWKNlnU
- ajTg==
+ d=gmail.com; s=20251104; t=1788814403; x=1789419203; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=hHTlsghc6bI82mwngIzGXI4ncoEpEEoe7tYa8QxD/gk=;
+ b=Q1f548Bl7kcmzKFz3PR79HavQLN2PA/szJt1Dt6dEpzPFzRzFXc3wSgWw1xChCKgTn
+ xlC8t9NRfWaRFHIYMIE5iDkPx1APSaTOaTq02A3NNPDzkK+D59MbeFIib6pA9f85NCgF
+ NE0+Vcu7aNY8C2fbx8+QnWuof07t+E/Sf71Ryw8yZXC1tWpn7jsq+q28n13zPa7aNIM+
+ fCzo4IMrFCg1gPEEEr3k6LKWB8wVDFr+DO8RaWMwx1oXwnuxMgnuBBt8TfO5oP+KC2Zz
+ 3cfMVKCSjcyuvvErSfyOIbhOJJGoupstt5Dk4l6iX+10dafNVoc8FWgYrri4npCIoyk9
+ zw4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788482592; x=1789087392;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=jL+S2VRP3JuTJmufzuBUjH1ceZNF6WpEtKrszEHKUZ8=;
- b=Zeox2208ljWn733E/hXbccjwHxazA7YWZq54RWf2F2rCxG9LCZjooWYhNev7pbvzGs
- sZ7jasJXSLeujeFyYVqzj3cvRiKHzwopPfrJpNAqQZIpLrv/QyDvRESMsn6Rxdl230Ka
- tKgpaDCcYJdsYDmG8KBis0pAP+gUXoo6CTcqlgNginYqwucwLnRRWsVT3CvPR8BZw8Lt
- Cy1GkklasNIZ3MLwd5yV6E38boTzGWJ2gjD7nVIkYDGG1vLHDNAKIiCTzRaV86TxHaYW
- E/O/c2XOldp1VEWkV3XfG2U1iyDzJDMWZPZ+zM0LQa5PeJF0eHe+7YIZ2ahmq6J59ElH
- RaCg==
-X-Gm-Message-State: AFuF++kjQBkpR8iNK6OYjQQmMUAV658SXarHbuXVV0Scs2H6eJ2DXEvX
- nw9eaKvFPZ/FvNAo1xDbHYY28Wm+mri9BRHkI0EY1nBJD0gDpl7hdYKO31yrKvfcgJTK3iLpkH6
- 4OKUiu+gOVC/y+1szTclh5yS3FuWYVTvtc1MjldvOFl+JtM/hSj7Aj7/Myu4SJHwIZ7oljVPupF
- LmZfU+zcFjlvvXnCZDgXhnSE61Bf9G1b+5RLqxGT8nHphue0qFQUPZPaY=
-X-Gm-Gg: AYBFou1D6wv6HRxui/p+QbmSLAGD7M58XOIzjOL2M8L0MDrQbn6Y663hrBt61Dh+3DE
- 2FPuNG3k43BUFcoSQnGhRR2b1T0it9NEntnyBCs3n0FEoFbn4OSfqQXBDXVvrFEb/80q3X7Zmt/
- kuVf+8PsP72cergIw2M0iO5//nvvzWlD5UAAbdf4zdD++2VfLNIWudFTRWOJqSUWYkQdIsRUZJg
- 6DtTkQjK5hqDkGSqTTkWlhzI/I/rQ5Uu0Xi9QLysBiFmEZgluD+5Kv0tvK7Kbqx6QNq4DuE7ubE
- EtAN2Xyo9Y6X/dAyGfRd9WEl7crq6+dTmlxJ2DW4jLyPHySDN2GcK4R7axFLBQ1XdMrjHOj88Ck
- OnbplwddEMcAaR9YpgxbFTJwX/7Vo/MShag27EFoFa+f1KWI1OERYlvsLxAEmAulUczXoq7NbsG
- tasI42sT3tTOfNCceLep805SAi3BTQ7eYg4FSRyrdQJyaYRla8zqaOKUkpaiQ5uka6YLV7xZ+aP
- PExUmHZDSasalNla26c1jeWB28gM4sJcyZHM+xoMQ/Dl9CiRrymcS2M2vBS9fYqwpB4xg6JcYPz
- mb82rpqP40xxH8Q6TifoxbNJMlpDpZD1RG2E313bkQqysf1vAwPG65xBaeE=
-X-Received: by 2002:a05:6214:8506:10b0:910:343e:de91 with SMTP id
- 6a1803df08f44-9103efb3396mr30145126d6.1.1788482592022; 
- Thu, 03 Sep 2026 17:43:12 -0700 (PDT)
-Received: from jake-laptop ([74.244.125.34]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-910406bf8c3sm7418446d6.48.2026.09.03.17.43.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2026 17:43:11 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Animesh Manna <animesh.manna@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v3] drm/i915/alpm: Add a quirk to keep the fast wake ahead of
- the IO buffer wake
-Date: Thu,  3 Sep 2026 20:43:08 -0400
-Message-ID: <20260904004308.185788-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260903131724.49496-1-j@metarealtyinc.ca>
-References: <20260903131724.49496-1-j@metarealtyinc.ca>
+ d=1e100.net; s=20251104; t=1788814403; x=1789419203;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=hHTlsghc6bI82mwngIzGXI4ncoEpEEoe7tYa8QxD/gk=;
+ b=WTkkzCk3yOU2f4x2b4Hz5cMLNh/7mtwjV6doNM/VnISXUsoW2TLXcMSnrx23Jt/0zQ
+ YkvFjZnT22GGFZQ9E7be6QyZmNQqNhuobLJQVMUygko3eNyc0YkuqfMZIrYmJCoJIoWG
+ TKOC3bKDZLrn9z31gBAtVCjReDdNVlRebCWAuu8qgPSx5o5avbSx96JJOWdT9laE3t1+
+ 0TwUBDPYQiRjeabUkEzsZ35YUn5hA2TLVLBIEtc8Rhx7RZxmiEgqzNsod39QtL53+wZ8
+ NNKQ8DxGg4hRIAbACgXK0GiIXjjhpz7wlpJOWkGjmkv2ByHkZYmNtbUn8yH/TFbLduDk
+ bcrQ==
+X-Gm-Message-State: AFuF++mXPxvX24LhkNuUPlDT9OtQBouG+ro48QKMUuTOZSmxyQh3TU6X
+ lRFBoMgBIVYa47vS+dWSLxkibCkMGNcfcgx6GzIOEJj0IO5MUo5KYi4HNk9gVobjz12ICjdwof9
+ R6NiO3Q9Td11bbGHBvM4jrT/Ih/5VzSbAWZoW
+X-Gm-Gg: AYBFou3tImYf2U1jV3+dxIeaRTJyfUqK2QlFuWdUCR3+YvBikNhPnEHYN8cEyaIxnnN
+ 0m2uoO5AbCaQ0p0r7INYaYFyS+1uIbuqzNS5sCcfJih/p5Qkk7n5/74xWXzePDx8XkdLu37NFsV
+ 5IGeP0fYMHLMumWDskjlVQwBN1QEwi7UPKnrUkL2N0TZjialK/sbfzJYGnYWE+VFgZNldehC3L9
+ 3+owaNosSrbh+blO/TYFuKv9p3IrvGY1gE7+JgAGDiGZTFfRDqLWIWaATKlyRe//8bKq174muoC
+ X95cnwz0q3/ONcoWvQQoKYNv4SRcoB9EopSv1WCHvUqk3rHwsCvMh/ZV/fUQJZIM4futDLHKxmJ
+ w
+X-Received: by 2002:a17:90b:5790:b0:398:9bd5:4910 with SMTP id
+ 98e67ed59e1d1-39b2624f0ffmr36516550a91.23.1788814403392; Mon, 07 Sep 2026
+ 13:53:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Metrical revel <metricalrevel@gmail.com>
+Date: Mon, 7 Sep 2026 15:53:11 -0500
+X-Gm-Features: AcwNN1Uail7hfBVZLbLSCgcFi4NiQiReqXix00ZhivMRBrSljdVZvy7btpguJWw
+Message-ID: <CAAxXSL-D=cJ8ne9Lc=W=746TZgyXVVYqWm=kP=CWj8D+M6JjRA@mail.gmail.com>
+Subject: Re: [PATCHv4] drm/i915/dp: On DPCD init wake the DPRx for eDP
+To: arun.r.murthy@intel.com
+Cc: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 08 Sep 2026 18:37:36 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,204 +101,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The LG panel (sink OUI 00:22:b9) in the Dell XPS 14 DA14260 and XPS 16
-DA16260 (Panther Lake) fails every ALPM link wake when the extended fast
-wake and the IO buffer wake are programmed to the same number of
-scanlines, which the spec formulas produce for it (11/11 lines on
-3200x2000@120, 4 x 2.7 Gbps, DSC). The sink sets the Link CRC error bit
-in DP_PSR_ERROR_STATUS within ~25 ms of it being cleared, on every wake,
-for as long as PSR2 is active.
+Hi Arun,
 
-Measured with DP_PSR_ERROR_STATUS polled every 200 ms and cleared after
-each read, 15 s of PSR2 per configuration, number of polls that found
-the bit set again:
+(Replying by email since patchwork doesn't support direct comments =E2=80=
+=94
+apologies if this duplicates my GitLab note.)
 
-  io/fast 11/11, guardband 60 (stock)          70 of 71
-  io/fast 11/11, guardband 127 (full vblank)   70 of 70
-  fast wake sync length 20 -> io/fast 12/12    68 of 69
-  fast wake sync length 24 -> io/fast 13/13    69 of 70
-  io/fast 11/12                                 0 of 71
+Noticed v5's i915.CI.BAT is passing now =E2=80=94 good sign the build issue
+is resolved.
 
-A larger guardband or a longer fast wake sync pulse does not help, and
-moving both wake times up together does not either. The fast wake has
-to start strictly before the IO buffer wake on this panel.
+Before I compile and test v5 on my hardware for a Tested-by, I
+wanted to flag something from i915.CI.Full that looks a bit more
+specific than the usual noise we saw on v1/v3:
 
-Since the spec allows the IO buffer wake to be equal to or longer than
-the fast wake, keep the formulas as they are and apply the relation as
-a DPCD quirk for this panel on these two machines: one extra fast wake
-line, or the IO buffer wake one line below the fast wake when already
-at the maximum. Account for the larger of the two wake times in the
-vblank and guardband checks, PSR and LOBF, which only looked at the IO
-buffer wake on display 20+.
+igt@kms_cursor_crc@cursor-rapid-movement-128x128@pipe-a-edp-1:
+    shard-mtlp: PASS -> ABORT +1 other test abort
 
-This does not by itself make PSR2 selective updates or Panel Replay
-usable on these machines; with the wake clean the panel still never
-receives a selective update. That is tracked separately.
+igt@kms_cursor_crc@cursor-rapid-movement-128x128@pipe-d-edp-1:
+    shard-mtlp: PASS -> DMESG-WARN
 
-v3: also account for the fast wake in the LOBF guardband and vblank
-    checks (Sashiko review)
-v2: quirk for the affected panel instead of a generic change (Jouni)
+Unlike the earlier CI flags (which were all in unrelated subsystems
+like gem_ccs/kms_plane_lowres), these two are both on eDP-1
+specifically, same shard, same test family, both regressing from
+PASS. Is this known/expected noise on shard-mtlp, or worth digging
+into given it touches the exact connector this patch modifies?
 
-Link: https://lore.kernel.org/intel-gfx/20260902162150.58778-1-j@metarealtyinc.ca/
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/7521
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
----
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index f138376..04f61fd 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -15,6 +15,7 @@
- #include "intel_dp.h"
- #include "intel_dp_aux.h"
- #include "intel_psr.h"
-+#include "intel_quirks.h"
- #include "intel_psr_regs.h"
- #include "intel_vrr.h"
- 
-@@ -238,8 +239,29 @@ bool intel_alpm_compute_params(struct intel_dp *intel_dp,
- 		io_wake_lines = fast_wake_lines = max_wake_lines;
- 
- 	/* According to Bspec lower limit should be set as 7 lines. */
--	crtc_state->alpm_state.io_wake_lines = max(io_wake_lines, 7);
--	crtc_state->alpm_state.fast_wake_lines = max(fast_wake_lines, 7);
-+	io_wake_lines = max(io_wake_lines, 7);
-+	fast_wake_lines = max(fast_wake_lines, 7);
-+
-+	/*
-+	 * The LG panel (sink OUI 00:22:b9) in the Dell XPS 14/16
-+	 * DA14260/DA16260 reports a Link CRC error on every link wake when
-+	 * the extended fast wake and the IO buffer wake are programmed to
-+	 * the same number of lines, which the formulas above produce for it.
-+	 * Neither a larger guardband nor a longer fast wake sync pulse
-+	 * changes that; the fast wake has to start strictly before the IO
-+	 * buffer wake. Apply that as a quirk for this panel only.
-+	 */
-+	if (DISPLAY_VER(display) >= 20 &&
-+	    intel_has_dpcd_quirk(intel_dp, QUIRK_ALPM_FAST_WAKE_AHEAD) &&
-+	    fast_wake_lines <= io_wake_lines) {
-+		if (io_wake_lines < max_wake_lines)
-+			fast_wake_lines = io_wake_lines + 1;
-+		else
-+			io_wake_lines = fast_wake_lines - 1;
-+	}
-+
-+	crtc_state->alpm_state.io_wake_lines = io_wake_lines;
-+	crtc_state->alpm_state.fast_wake_lines = fast_wake_lines;
- 
- 	return true;
- }
-@@ -256,8 +278,9 @@ int intel_alpm_lobf_min_guardband(struct intel_crtc_state *crtc_state)
- 	 * is applicable. Currently this information is not readily
- 	 * available in crtc_state, so max will suffice for now.
- 	 */
--	waketime_in_lines = max(crtc_state->alpm_state.io_wake_lines,
--				crtc_state->alpm_state.aux_less_wake_lines);
-+	waketime_in_lines = max3(crtc_state->alpm_state.io_wake_lines,
-+				 crtc_state->alpm_state.fast_wake_lines,
-+				 crtc_state->alpm_state.aux_less_wake_lines);
- 
- 	if (!crtc_state->has_lobf)
- 		return 0;
-@@ -314,7 +337,8 @@ void intel_alpm_lobf_compute_config_late(struct intel_dp *intel_dp,
- 	 */
- 	first_sdp_position = adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vsync_start;
- 	if (intel_alpm_aux_less_wake_supported(intel_dp))
--		waketime_in_lines = crtc_state->alpm_state.io_wake_lines;
-+		waketime_in_lines = max(crtc_state->alpm_state.io_wake_lines,
-+					crtc_state->alpm_state.fast_wake_lines);
- 	else
- 		waketime_in_lines = crtc_state->alpm_state.aux_less_wake_lines;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index c0933dd..ec80a2e 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1443,7 +1443,8 @@ static bool wake_lines_fit_into_vblank(struct intel_dp *intel_dp,
- 		wake_lines = DISPLAY_VER(display) < 20 ?
- 			psr2_block_count_lines(crtc_state->alpm_state.io_wake_lines,
- 					       crtc_state->alpm_state.fast_wake_lines) :
--			crtc_state->alpm_state.io_wake_lines;
-+			max(crtc_state->alpm_state.io_wake_lines,
-+			    crtc_state->alpm_state.fast_wake_lines);
- 
- 	/*
- 	 * Guardband has not been computed yet, so we conservatively check if the
-@@ -4556,7 +4557,8 @@ void intel_psr_compute_config_late(struct intel_dp *intel_dp,
- 		wake_lines = DISPLAY_VER(display) < 20 ?
- 			     psr2_block_count_lines(crtc_state->alpm_state.io_wake_lines,
- 						    crtc_state->alpm_state.fast_wake_lines) :
--			     crtc_state->alpm_state.io_wake_lines;
-+			     max(crtc_state->alpm_state.io_wake_lines,
-+				 crtc_state->alpm_state.fast_wake_lines);
- 	else
- 		wake_lines = 0;
- 
-@@ -4612,7 +4614,8 @@ int intel_psr_min_guardband(struct intel_crtc_state *crtc_state)
- 		wake_lines = DISPLAY_VER(display) < 20 ?
- 			     psr2_block_count_lines(crtc_state->alpm_state.io_wake_lines,
- 						    crtc_state->alpm_state.fast_wake_lines) :
--			     crtc_state->alpm_state.io_wake_lines;
-+			     max(crtc_state->alpm_state.io_wake_lines,
-+				 crtc_state->alpm_state.fast_wake_lines);
- 	else
- 		return 0;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f4..a5d01ba 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -86,6 +86,14 @@ static void quirk_edp_limit_rate_hbr2(struct intel_display *display)
- 	drm_info(display->drm, "Applying eDP Limit rate to HBR2 quirk\n");
- }
- 
-+static void quirk_alpm_fast_wake_ahead(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_ALPM_FAST_WAKE_AHEAD);
-+	drm_info(display->drm, "Applying ALPM fast wake ahead of IO buffer wake quirk\n");
-+}
-+
- static void quirk_disable_edp_panel_replay(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-@@ -286,6 +294,21 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* Dell XPS 14 DA14260 and XPS 16 DA16260, LG panel: ALPM link wake */
-+	{
-+		.device = DEVICE_ID_ANY,
-+		.subsystem_vendor = 0x1028,
-+		.subsystem_device = 0x0db9,
-+		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
-+		.hook = quirk_alpm_fast_wake_ahead,
-+	},
-+	{
-+		.device = DEVICE_ID_ANY,
-+		.subsystem_vendor = 0x1028,
-+		.subsystem_device = 0x0dba,
-+		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
-+		.hook = quirk_alpm_fast_wake_ahead,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe..8bbc2eb 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_ALPM_FAST_WAKE_AHEAD,
- };
- 
- void intel_init_quirks(struct intel_display *display);
+Happy to go ahead and test v5 on my hardware for a Tested-by either way =E2=
+=80=94
+just didn't want to give a Tested-by without flagging this first.
+
+Thanks,
+Mathias
