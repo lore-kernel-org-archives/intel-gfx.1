@@ -4,99 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24680C79F82
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 15:15:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 039FCC79F9E
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 15:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6C610EC8C;
-	Tue,  8 Sep 2026 15:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8DB10ECB1;
+	Tue,  8 Sep 2026 15:22:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nnqlzLgD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WPbAemoO";
 	dkim-atps=neutral
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
- [74.125.228.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BD8B10EC8D
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 15:15:49 +0000 (UTC)
-Received: by mail-pz2-f12.google.com with SMTP id
- 41be03b00d2f7-cc1ab17a810so183570a12.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 08:15:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788880549; cv=none;
- d=google.com; s=arc-20260327;
- b=kXn0I7KiJTEb75tc+13sJygzibX0hY3doiqGIeOb5/VtzcWg+9OF51H+ady/s3J2Lx
- xvYS8n0r3eM5cjyMbHB5GvpvztxlWCLopokLvnSHh88TQY6jeAHuhMxlLE6aqPNGudKZ
- Y0fyPQ3fiA7uYsyHN5+F798HwG+jPEkSdNPpMoKh0WWy9ujaWgD6rCVircyVd49auVqp
- nShcydtVX3H3cjs75GQURrjskW/Iy6FJqjFpZj9DS/roXdxaUN1kXwG7NasMeBFITKBx
- H1qTp0FiLmeSvslxOmfAVJk3rNxbu/4R1m5+p9KwbNpzln4EhTsQyw49Ec+qULvrkcn3
- Qtfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=48I/5ZV3M8PQW+Nd+AVAKmbCj8LyPvNeg4eQe0wKYGc=;
- fh=HvjRoSc83+KYaUKn1sm6fkUlPA5BMaNblzfrmj2ojxw=;
- b=A3rv3cNDXC8uudV36u7Cij9AAS7SuloaOaUrvseyVwzfu8tzC42PHf7RKdMNBI2eRU
- pI/G1mGbzVCOj3rwsBEqIEu0/TcPHVQaRAFK9NsEnkb632ycw++Yc6RV8Ej8xlo3+aaS
- J18XSZrzGmfvychtAJ2XPGebwsMShro8Z3uzKm9EKkbkRAOFNLu3/AYokzol2ARG2Tbc
- zk9saiUCPY9wExS0lgIWsD8rG5hFl03CJ7Thu6SbW9m35HKdadCwAYlTZZ02J3brEC+2
- U7/JHbqMqwLW+V9zbgs+SAXMRPD/4b9qtoiC/dcP1/Sgz6AXlIsi3ohXW7Pmt/XMrKns
- kBtg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788880549; x=1789485349; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=48I/5ZV3M8PQW+Nd+AVAKmbCj8LyPvNeg4eQe0wKYGc=;
- b=nnqlzLgD9SjelP3hoxqoMhP9omORu3KQXiKGr1wKJoVzOFfHzoo38nxHtV5aQ+smJV
- tOFguYiqSnI1U5jwggyMJVT34pU65DyA3ZLB9jYfiaWCLJMFA7jd10QYLumTszyE7Gdf
- JdiWVbfggU+S5yASECkpgF9rRVemr6Q5MLGbmeCA8QvloFOlSiP4if6sxpr3w/b0R+32
- 7ZG0/3Ap/6TFds+lMOmZszYTVdfGkaChhJGV+peafCXCbcrSpoMyForS5h+i9AaEIUQ2
- s7pFCs1eCu7hxCWCj4Xz/bScmFpLt6SyJF+SD4aJAjn54seERpkTFv8OGAH8dXxX08mv
- 6bdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788880549; x=1789485349;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=48I/5ZV3M8PQW+Nd+AVAKmbCj8LyPvNeg4eQe0wKYGc=;
- b=sa/5sr/lutQz6y8TqsEL0Yc+O5p561cwU5WdYRfWjcdGObM5nqwCT0aVpj3oxcXFsB
- hNX9hmH6REYhEGR8sT0J2B5oT/L+yBw2ibtFXiYLq/uYAXRcORGAGuwfBMIhLGXTx2OU
- 4yx4FYOPzk9cmc8KGfT7RroFxEuTaSlrJWcFUhEguDLgftNP9PiWiANllueg7B+mvQqM
- BypXdx2XbTdY1RsHAXW2y4t60XvE9BztsrMoqoD8Ydm+klFCeiNY2d3Fo2ZJGbwCIJoT
- H+xgwEcmikVQhdQT2hpG69X+hPZ+0+GNt0bh9195jyk2KwYlyQ2ftV7tBQ+nHExgukiV
- bTYw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz1qpzY+veDm7jEV5GD4bfUBAZGTKtsV37agz+nhFsr9v0gkSQuDPMp9NfUVdbbwxl0OBN7TcGrDas=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lj20nSrojiBsCqbzy/DkcZYH4AHj9oVSkpWHj8m2MBPoYosC4j
- 05cSV9hLdkT8uPub4KjfnCCH6BiaPkRkaZO8VIdq4SarGC6Q8joWo3KWbiRhGYeclsGAYL1d0oB
- 2ILG1+8jprQAxKKO5NXfMeQd7h/Kl47Y=
-X-Gm-Gg: AYBFou2qPUhrFz6nWYkWz2DtVuc4xXvMg897LUxlQP68qqfXojCHUacMuKAkJDCJjt5
- 2fHB5LwJjVDWbWO2ywi8tHc07SyQaXqVb3zAg0PZD4ML/tWdZ1kB1vlDd50/VBVjEj6luutXVEn
- rRVnYn7vg3UBJVmzgCllJV98dTHwwg8ZuaUMIXj6ZdQqWOVzLZGJmPG2r4z19NSBRPPtJ5ZbDz7
- kBRjQ8RBBuJZlDWCIXE/GVEK7CKVh2LZ9LhFihgElgAwqgov11VoKjjMT0qthLgWj6qQ4ZYRVQx
- 81sQSD9ARgEc4tzxK/W0uy0QC/SWEdlaR51j2HxGCHnQLp7nZaSIAlH8CyNwrAaziSuDbaCoTzQ
- 3Rv+xB4h77R2PEERht0YgBTQOP1FEL8A=
-X-Received: by 2002:a17:90b:2dc5:b0:381:bcfb:e710 with SMTP id
- 98e67ed59e1d1-39b9a99459fmr4622408a91.3.1788880548969; Tue, 08 Sep 2026
- 08:15:48 -0700 (PDT)
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCD7310ECA4;
+ Tue,  8 Sep 2026 15:22:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 12462601DB;
+ Tue,  8 Sep 2026 15:22:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21A021F00A3A;
+ Tue,  8 Sep 2026 15:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788880951;
+ bh=cHMBp6i7INBNLIc6sx2XBcLlbWaM9vvHRGdTgduCTYE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=WPbAemoOa8A4rITV/C6EFYULS6YrhsmJV0nmbdSVox1ASEKctBaAF25WpPDsm8/WF
+ BMhTevd1GC2jEu1gmQrUW5ArJZ3g20w7T5GRraXS2CgVAWWjQTzW4WUTEF/5Ekgi7F
+ TfHymkLf4XcMDxrYW3wNhYoVx2fZHTte0dV6NlGf37d6rmMGGP7OqL8uRkiphtLM2I
+ CMwZwjSiu+9Ru5O5sUhI35tdiZrXJZDFBe/59lPN64X/Gq418orK+V+OF7Uhe75oz9
+ nHhs8xm0GPzqI2jOxAfC2xME42bZXAHyK4GLLFs3Zno9uM2nKdrluU9eJB7tdUyTOG
+ LXTABEgO4T6uw==
+Date: Tue, 8 Sep 2026 16:22:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>, Alex Huang <Alex.Huang2@amd.com>,
+ Mario Limonciello <superm1@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <fba3bcaf-628e-46a2-9c81-c8beee5e5e07@sirena.org.uk>
 References: <aqAVSgsypMch2c0v@sirena.org.uk>
  <5d3de44a-c382-4ce6-8f52-62696e67fcd0@sirena.org.uk>
-In-Reply-To: <5d3de44a-c382-4ce6-8f52-62696e67fcd0@sirena.org.uk>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Sep 2026 11:15:36 -0400
-X-Gm-Features: AcwNN1VnTXeV8V659QiKMCwYI-2o7Ug_RreQwrzcUErxFzh7ylh_yBH27lIHOHY
-Message-ID: <CADnq5_MiNmzkDqZRk70_RmJaJWTEXFtu0c+eV3TJ_At=uvJ54Q@mail.gmail.com>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>, 
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>, 
- Alex Huang <Alex.Huang2@amd.com>, Mario Limonciello <superm1@kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CADnq5_MiNmzkDqZRk70_RmJaJWTEXFtu0c+eV3TJ_At=uvJ54Q@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="tEWCGMc5H55jZNzj"
+Content-Disposition: inline
+In-Reply-To: <CADnq5_MiNmzkDqZRk70_RmJaJWTEXFtu0c+eV3TJ_At=uvJ54Q@mail.gmail.com>
+X-Cookie: The world is not octal despite DEC.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,30 +65,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 8, 2026 at 10:07=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> On Tue, Sep 08, 2026 at 03:01:50PM +0100, Mark Brown wrote:
-> > Hi all,
-> >
-> > After merging the drm-misc tree, today's linux-next build (x86_64
-> > allmodconfig) failed like this:
-> >
-> > ERROR: modpost: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/a=
-mdgpu_dm_connector_test.ko: symbol 'parse_hdmi_amd_vsdb' undefined!
-> >
-> > Caused by commit
-> >
-> >    65198b3d0738 (drm/amd/display: Use HDMI FreeSync range from common E=
-DID parser)
->
-> Sorry, that should be f65198b3d07389afdcb48e4ad00fea2aded95dfd.
->
-> > I have continued to use the version from next-20260831 instead.
->
 
-Fixed here:
-https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/730c6d8072d8d9a6dbf=
-d06c7c5ab4479167a792a
+--tEWCGMc5H55jZNzj
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Alex
+On Tue, Sep 08, 2026 at 11:15:36AM -0400, Alex Deucher wrote:
+> On Tue, Sep 8, 2026 at 10:07=E2=80=AFAM Mark Brown <broonie@kernel.org> w=
+rote:
+
+> > > Caused by commit
+
+> > >    65198b3d0738 (drm/amd/display: Use HDMI FreeSync range from common=
+ EDID parser)
+
+> > Sorry, that should be f65198b3d07389afdcb48e4ad00fea2aded95dfd.
+
+> > > I have continued to use the version from next-20260831 instead.
+
+> Fixed here:
+> https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/730c6d8072d8d9a6d=
+bfd06c7c5ab4479167a792a
+
+Thanks for getting on top of this so quickly.  This also suggests that
+there's some issues with the setup of your KUnit tests and those of drm
+in general, kunit is run as part of the coverage for -next and didn't
+trip up.  --alltests is enabled so everything coverable should be being
+covered but I see a distinct lack of any DRM stuff getting run.
+
+--tEWCGMc5H55jZNzj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgKDIACgkQJNaLcl1U
+h9DM2Af/f0C7C3wM/y2X3P+8Jnhe6naxs8ZefQH9Pm1AMtKE2mBHDy/R5TjgwazT
+Rvg35scV34k4ko7zkfZHdnHVgeZthGEzpSde2unAcMyScx/40fUiTvlbdnIdV+R+
+EHohf59bUkGIlRfDPujG3UKQh8UI+l+D/3nQtJE7PMkzScjMz4BpCiMt15fZMJAj
+WKXomzVtJ6ndTdb0YHUo/+JyO2sZFrXfZ3i8m8d6riz3yw8DUGujgb94v+jZ7LXw
+U36CB7ufEv+fBf+QaUriPqs3+YgrUYwC5azOpshC2ZSmVcl6Sjzzl0gHdzvpv+B+
+5w+TiujVd1NpQm8WTVdRFOmS2XvMAQ==
+=aJXx
+-----END PGP SIGNATURE-----
+
+--tEWCGMc5H55jZNzj--
