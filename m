@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 500C6C79F99
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 04:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E54C79F99
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 04:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D840910EA0C;
-	Tue,  8 Sep 2026 04:54:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF38910EA14;
+	Tue,  8 Sep 2026 04:55:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hLOdAZ7o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kkTLthO5";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4597610EA0A;
- Tue,  8 Sep 2026 04:54:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB0C10EA13;
+ Tue,  8 Sep 2026 04:55:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7DD7A601DB;
- Tue,  8 Sep 2026 04:54:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2BC41F00A3A;
- Tue,  8 Sep 2026 04:54:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1A4F840259;
+ Tue,  8 Sep 2026 04:55:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCAEB1F00A3A;
+ Tue,  8 Sep 2026 04:55:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788843290;
- bh=nqee3SlBMvj85N6wOqXw9hAmAK+6WFLhCa7OAtgvoxM=;
+ s=k20260515; t=1788843331;
+ bh=a/AgNhJVmXnAp0HHx3gB5cCRW5p/wGn/JlW5G8OFqw4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hLOdAZ7oYpioR4zGlbNbA+ojEFKgEO7YNzcaL8EkeadCJbmkqVqdscq6dyfTvFKqp
- 4bodUmDZvRnwHHL1+UM33uThRCUjKs+EM+jnbmQAUUoyIOTPaemX8mbaUBsoPSmQoK
- IcV4/L+SgrfHn/y1HOH3oAraeQjfuoxdxA5igdrsRcvKZxgEEyTFfQfdLk0XLZdTf6
- Wu/pSjxwyTX96lFC12Am9G/FiQd6iUx1j9p4de6HxcCLUbI2894nAmpIVFPVqg4MrI
- Sx5Ys/gmpLAI1DeLya5WagCUsf7wHSK8oaj/EmjtmZPzozyoNyouO0v9qrifV0bzjg
- Gcs98bBKdMHdQ==
+ b=kkTLthO5eNe2FyXYW8RiYunzMRwcEDgi8Dp/mxRIItBZz0khNEFn5rt5c68F701cu
+ YV0/vpDnV8tVX/6f4GI9VIruI8WD4rwWkPevJeN6p4ZH0O8+JK0/ejBd5XxVUPVyi2
+ RheT1HUIR52qSQELMxHHYoJqzw0mS6e7g0AVjV2yvEPfKPt3IUROXkFKtoqWwVjdjR
+ du8XeQZaHrJe69kj704ZkpFvks5ftzb2JJ6f1sNhwTOOgdlwyg7q/Yiw+W6OVBeK+n
+ Dp4QAXhABTWtc4F3q8FnFg0eK7tAIEeqPKjS9zfy6oKL4zeqBGYvYArKtJDzUbO5gB
+ PcNZp37yUf+FA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 03/14] drm/property: add a per-connector luminance flag
+Subject: Re: [PATCH v8 05/14] drm: add DRM_CLIENT_CAP_LUMINANCE
 To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260908044035.62093-4-mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260908044035.62093-6-mario.limonciello@amd.com>
 References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-4-mario.limonciello@amd.com>
+ <20260908044035.62093-6-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 04:54:49 +0000
-Message-Id: <20260908045449.F2BC41F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 04:55:30 +0000
+Message-Id: <20260908045530.BCAEB1F00A3A@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,55 +58,122 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Meaningful code and commit message mismatch regarding the remova=
-l of a legacy pointer comparison.
+- [High] TOCTOU race between `drm_backlight_link()` and device-wide backlig=
+ht inhibit/uninhibit iterations causes permanent count corruption.
+- [High] The LUMINANCE property is unconditionally exposed to all atomic cl=
+ients, violating the DRM_CLIENT_CAP_LUMINANCE capability contract.
+- [Low] Clients cannot cleanly unset DRM_CLIENT_CAP_LUMINANCE if they have =
+previously unset DRM_CLIENT_CAP_ATOMIC.
 --
 
-commit 80b70d62f813789e09813bc2993a201bc254a202
+commit 3e9d95a8d4fc1bbb26ab6124a33c012ee7b1f848
 Author: Mario Limonciello <mario.limonciello@amd.com>
 
-drm/property: add a per-connector luminance flag
+drm: add DRM_CLIENT_CAP_LUMINANCE
 
-The upcoming per-connector LUMINANCE range property needs to accept the
-value 0 (to turn the display off on DPMS-off) even when its advertised
-minimum is 1. The existing check special-cased a single device-wide
-property object, which does not work once every connector owns its own
-LUMINANCE property.
+This patch adds a DRIVER_CONNECTOR_LUMINANCE driver feature and a
+DRM_CLIENT_CAP_LUMINANCE client capability. When a client sets this
+capability, every DRM-connected backlight is marked as taken over, and
+legacy sysfs writes return -EBUSY.
 
-Add a kernel-internal is_luminance flag on struct drm_property and key
-the value-0 exception off it instead of a pointer comparison. The flag
-is not exposed to userspace.
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index 9039a39c43243..de2c9d9ab5285 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
 
-> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_propert=
-y.c
-> index f38f2c5437e68..adccee10cfde4 100644
-> --- a/drivers/gpu/drm/drm_property.c
-> +++ b/drivers/gpu/drm/drm_property.c
-> @@ -952,6 +952,12 @@ bool drm_property_change_valid_get(struct drm_proper=
-ty *property,
->  	*ref =3D NULL;
-> =20
->  	if (drm_property_type_is(property, DRM_MODE_PROP_RANGE)) {
+[ ... ]
+
+> @@ -392,6 +394,28 @@ drm_setclientcap(struct drm_device *dev, void *data,=
+ struct drm_file *file_priv)
+>  		file_priv->plane_color_pipeline =3D req->value;
+>  		break;
+>  	}
+> +	case DRM_CLIENT_CAP_LUMINANCE:
+> +		if (!drm_core_check_feature(dev, DRIVER_CONNECTOR_LUMINANCE))
+> +			return -EOPNOTSUPP;
+> +		if (!file_priv->atomic)
+> +			return -EINVAL;
+
+[Severity: Low]
+Can this prevent clients from cleanly unsetting DRM_CLIENT_CAP_LUMINANCE if
+they have previously unset DRM_CLIENT_CAP_ATOMIC?
+
+If a client sets ATOMIC=3D1, LUMINANCE=3D1, ATOMIC=3D0, and then tries to u=
+nset
+LUMINANCE=3D0, this unconditional atomic check will cause the last call to
+return -EINVAL.
+
+> +		if (req->value > 1)
+> +			return -EINVAL;
+> +
 > +		/*
-> +		 * Special case for the luminance property: allow 0 to turn the
-> +		 * display off even when the normal range starts at 1.
+> +		 * Serialize the compare-and-act so concurrent ioctls on a shared
+> +		 * fd cannot unbalance the device-wide inhibit count.
 > +		 */
-> +		if (property->is_luminance && value =3D=3D 0 && property->values[1] > =
-0)
-> +			return true;
+> +		mutex_lock(&dev->mode_config.mutex);
+> +		if (req->value !=3D file_priv->supports_luminance_control) {
+> +			if (req->value)
+> +				drm_backlight_inhibit_legacy_all(dev);
 
-[Severity: Medium]
-Does the commit message need to be updated, or was a code removal missed?
+[Severity: High]
+Does this call introduce a TOCTOU race between drm_backlight_link() and the
+device-wide backlight inhibit iteration?
 
-The commit message mentions replacing an existing check and keying the
-exception off the new flag "instead of a pointer comparison."
+Looking at drm_backlight_inhibit_legacy_all() in
+drivers/gpu/drm/drm_backlight.c, it drops drm_backlight_lock before
+iterating connectors:
 
-However, this patch only adds the new check using the is_luminance flag in
-drm_property_change_valid_get(), but it does not remove any existing legacy
-pointer comparison from the function.
+	scoped_guard(spinlock, &drm_backlight_lock)
+		dev->mode_config.luminance_clients++;
+
+	drm_connector_list_iter_begin(dev, &iter);
+
+If a concurrent hotplug/probe thread calls drm_backlight_link(), it reads
+the already-incremented dev->mode_config.luminance_clients and assigns it to
+the new connector's b->luminance_clients.
+
+Then the ioctl thread resumes, iterates the connector list, reaches this
+newly linked connector, and calls drm_backlight_inhibit_legacy(), which
+increments b->luminance_clients again. This causes the connector's count to
+get permanently stuck at a non-zero value, locking out legacy sysfs backlig=
+ht
+control for the rest of the system uptime.
+
+> +			else
+> +				drm_backlight_uninhibit_legacy_all(dev);
+> +			file_priv->supports_luminance_control =3D req->value;
+
+[Severity: High]
+Is the LUMINANCE property being unconditionally exposed to all atomic clien=
+ts,
+violating the DRM_CLIENT_CAP_LUMINANCE capability contract?
+
+The UAPI behavior documented in include/uapi/drm/drm.h states: "The LUMINAN=
+CE
+property becomes visible on supported connectors".
+
+However, the capability tracked here (file_priv->supports_luminance_control)
+is never utilized by the DRM core (e.g., in drm_mode_object_get_properties)
+to filter property visibility. drm_mode_object_get_properties() only checks
+if the client is atomic, but fails to check if the property is luminance and
+if the client supports it:
+
+	if ((prop->flags & DRM_MODE_PROP_ATOMIC) && !atomic)
+		continue;
+
+As a result, any generic atomic client (like a compositor restoring state)
+will see and restore the LUMINANCE property without setting
+DRM_CLIENT_CAP_LUMINANCE, bypassing the sysfs inhibition.
+
+> +		}
+> +		mutex_unlock(&dev->mode_config.mutex);
+> +		break;
+>  	default:
+>  		return -EINVAL;
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908044035.6209=
-3-1-mario.limonciello@amd.com?part=3D3
+3-1-mario.limonciello@amd.com?part=3D5
