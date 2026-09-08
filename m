@@ -4,57 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8934FC79FA0
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 06:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BA4CC79FAA
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3CAE10E9ED;
-	Tue,  8 Sep 2026 06:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABC3210EA60;
+	Tue,  8 Sep 2026 07:09:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G3tq+jOj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="And3wLj+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCA8A10E9ED;
- Tue,  8 Sep 2026 06:39:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788849565; x=1820385565;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=YACImiOueloMZifuNriSqmxbAXMh5BnzauLUegbSR7s=;
- b=G3tq+jOj1EjwIj3vkBXl1h3ZS4fS8cOfWGtBybRcsNpMXQMuhIPgPXtC
- XrnLmg8ukqX7a/vL7teAp4xsq/goQHtmklEKRoC1LU0ZVr7G9qpEPEOBk
- qrNPwpmHoiIlcjaF4KKoODhoj4RP192n8qG+qiJlnEg6+SWFJM4qhL6tn
- Nbpoe5n/hAMZ2AbCvOM/18okAwuXwCVj4yAhQk1n4m2ZBW7KlZCE6vI2Y
- nTW6ofH2VVZz4WtoEf/koaV8LQlhXxp9i4UHru8IpLdFxneqdc3S69GSz
- Dhze5WaWpwxgMRq2ITbOJ+tTB1SFOh8TU5DUAOSglt/BUghKWo/iBFis4 g==;
-X-CSE-ConnectionGUID: 75hq8uNMSa2Js4u5yz0qxA==
-X-CSE-MsgGUID: vkTlZOECT5eooj0hkX9K9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="93061809"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208";a="93061809"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2026 23:39:25 -0700
-X-CSE-ConnectionGUID: /PzH38G5R7acOV/n/vgdKg==
-X-CSE-MsgGUID: alMKQ7F5Q3KpotfY+F3hbg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208";a="264702490"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2026 23:39:22 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, arun.r.murthy@intel.com,
- jani.nikula@linux.intel.com, suraj.kandpal@intel.com,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v5 12/12] drm/i915/display: Dump DIP Transmission lines
-Date: Tue,  8 Sep 2026 11:52:23 +0530
-Message-ID: <20260908062224.2897987-13-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260908062224.2897987-1-ankit.k.nautiyal@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B19D610EA5E;
+ Tue,  8 Sep 2026 07:09:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7CB2F43DFC;
+ Tue,  8 Sep 2026 07:09:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26FE81F00A3D;
+ Tue,  8 Sep 2026 07:09:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788851351;
+ bh=BmdtyT0BMQ0mG1ayLZK5iDDUunXRG5pU4IhMX+p4v/I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=And3wLj+3fuBJ2B/aByGTc+xpN/tBPR/qofa6dnrLBk/WkGwCJ5+HEdcx6eId3r9j
+ FPAV3mZ2A0DaGL7eHfm7RUt6pxolF7Wh1FV0NZLZbyDAnDWRVCyDwj9v6CjRgh8Y/G
+ 53K0mldlnyIHEwIx45b9hrc2fWRXtZBYJfjCV9NDdyv1ABFA6oD+MXDIDQoepSIq9b
+ BBPrCwyGXe3c48Bvy0LZGOqwPcPAyzRnVtWde5f4w5nU7VCvIcO2sD9uA6Ei3cHiec
+ cJ5RjO6URN6u4Moy/ybYmsDadRQ3a40IFojndy3BUjlzALYeVyCSLiXVCiQeRM5ZLC
+ MQlfJGc6O+0rw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 06/12] drm/i915/dip: Store and use AS SDP
+ transmission line from crtc state
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260908062224.2897987-7-ankit.k.nautiyal@intel.com>
 References: <20260908062224.2897987-1-ankit.k.nautiyal@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260908062224.2897987-7-ankit.k.nautiyal@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 07:09:10 +0000
+Message-Id: <20260908070911.26FE81F00A3D@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,36 +54,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add DIP transmission lines to the CRTC state dump.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Spurious state mismatch warnings for dip.emp_as_sdp_tl due to un=
+conditional hardware readout of stale register values.
+- [Medium] Unconditional fastset check for `dip.emp_as_sdp_tl` breaks seaml=
+ess Link Refresh Rate (LRR) updates, forcing heavy full modesets.
+--
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_crtc_state_dump.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+commit fdc12bb4795c43a7d04cbec4746e152e2a99a6d8
+Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-index ad4f362e0c09..92675a88b969 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-@@ -251,6 +251,15 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
- 			   str_enabled_disabled(pipe_config->has_panel_replay),
- 			   str_enabled_disabled(pipe_config->enable_psr2_sel_fetch));
- 		drm_printf(&p, "minimum hblank: %d\n", pipe_config->min_hblank);
-+
-+		drm_printf(&p, "DIP Transmission Lines: EMP/AS SDP: %u\n",
-+			   pipe_config->dip.emp_as_sdp_tl);
-+		drm_printf(&p, "DIP Transmission Lines: Common Base SDP: %u, GMP SDP: %u, PPS SDP: %u, VSC SDP: %u, VSC_EXT SDP: %u\n",
-+			   pipe_config->dip.cmn_sdp_tl,
-+			   pipe_config->dip.gmp_sdp_tl,
-+			   pipe_config->dip.pps_sdp_tl,
-+			   pipe_config->dip.vsc_sdp_tl,
-+			   pipe_config->dip.vsc_ext_sdp_tl);
- 	}
- 
- 	drm_printf(&p, "audio: %i, infoframes: %i, infoframes enabled: 0x%x\n",
--- 
-2.50.1
+drm/i915/dip: Store and use AS SDP transmission line from crtc state
 
+This commit moves the computation of the Adaptive Sync SDP transmission
+line from programming time to the crtc state computation phase. It stores
+the value in the crtc state to be used when programming the EMP_AS_SDP_TL
+register, preparing for programmable transmission lines for other DP SDPs.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+[ ... ]
+> @@ -4235,6 +4236,7 @@ static void intel_ddi_get_config(struct intel_encod=
+er *encoder,
+>  	intel_read_dp_sdp(encoder, pipe_config, HDMI_PACKET_TYPE_GAMUT_METADATA=
+);
+>  	intel_read_dp_sdp(encoder, pipe_config, DP_SDP_VSC);
+>  	intel_read_dp_sdp(encoder, pipe_config, DP_SDP_ADAPTIVE_SYNC);
+> +	intel_dip_sdp_transmission_line_get_config(pipe_config);
+
+[Severity: Medium]
+Could this unconditional hardware readout capture stale values and cause
+spurious state mismatch warnings?
+
+intel_dip_sdp_transmission_line_get_config() unconditionally reads the
+EMP_AS_SDP_TL hardware register. If the encoder is HDMI, or if VRR was
+disabled, the computed software state leaves dip.emp_as_sdp_tl =3D 0.
+
+However, when VRR is disabled, intel_vrr_set_transcoder_timings() in
+drivers/gpu/drm/i915/display/intel_vrr.c returns early and never clears
+EMP_AS_SDP_TL. This leaves a stale non-zero value in the hardware register
+from a previous DP modeset.
+
+Could this mismatch cause intel_pipe_config_compare() to fail, incorrectly
+forcing an unnecessary full modeset instead of a fastset?
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_dip.c b/drivers/gpu/drm/i=
+915/display/intel_dip.c
+> --- a/drivers/gpu/drm/i915/display/intel_dip.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dip.c
+[ ... ]
+> +void intel_dip_sdp_tl_compute_config_late(struct intel_crtc_state *crtc_=
+state)
+> +{
+> +	crtc_state->dip.emp_as_sdp_tl =3D intel_dip_get_as_sdp_transmission_lin=
+e(crtc_state);
+> +}
+
+[Severity: Medium]
+Does computing and checking this transmission line state break seamless
+Link Refresh Rate (LRR) updates?
+
+LRR is designed to perform seamless refresh rate transitions without screen
+blanking. The intel_pipe_config_compare() function in intel_display.c
+ignores vrr.vsync_start differences during a fastset because it is
+explicitly guarded by an if (!fastset) condition.
+
+Because dip.emp_as_sdp_tl is computed directly from vrr.vsync_start, and
+its corresponding state check (PIPE_CONF_CHECK_I) runs outside the
+!fastset block, an LRR transition that naturally alters the vtotal and
+vsync_start will produce a mismatch.
+
+Will this erroneously fail the fastset check and force a heavy full modeset
+instead of a seamless transition?
+
+> +
+> +void intel_dip_sdp_transmission_line_get_config(struct intel_crtc_state =
+*crtc_state)
+> +{
+> +	crtc_state->dip.emp_as_sdp_tl =3D intel_dip_read_emp_as_sdp_tl(crtc_sta=
+te);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908062224.2897=
+987-1-ankit.k.nautiyal@intel.com?part=3D6
