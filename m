@@ -4,60 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 150D4C79F82
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 08:45:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E38A7C79F82
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 09:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7390310E356;
-	Tue,  8 Sep 2026 08:45:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FE3810EAC9;
+	Tue,  8 Sep 2026 09:09:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A5oUS8AH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hAc92Dbc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8AB410E356;
- Tue,  8 Sep 2026 08:45:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3CA510EAC4;
+ Tue,  8 Sep 2026 09:09:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788857145; x=1820393145;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:mime-version;
- bh=2fhVIf5H1pHqFPfAfhIX4fZnOgiSIIiV4qekYw0PLIY=;
- b=A5oUS8AHQao9G7AiJJGnM8pAv9dWj8xGZxSTKzYxUv4ECLzDk+p56IZ+
- 8Y17glO4roChhJdz1ziz24jb7/Efkxd+8qQvRCQf/W04AhtzZ+piJfdXS
- l0vWXmo3n2JkOr4R9PZUMBwjmRdPni8AV1bVurKV9C25xgbW++JzOLzIg
- v4MEwL34y4Hsdy855+CJp3HVlNAn5AWJmiP3a+GKeUILtJ7qDHAst3Sq+
- hZkoZ49llocy10hErEXBf7TRbdQ8LTD+JlmBQncCqc/r+ejRVdEYb5cVg
- UXRu8O9tDdFvVZJFFHd7C19xZW7t8f+JnT8k+/hrlgT+kDnR6tXX/YhMK w==;
-X-CSE-ConnectionGUID: 2DOHieIVSdSazKgTjXzbmw==
-X-CSE-MsgGUID: BdcLg8G6TcabXcfavNmzMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89177554"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208,217";a="89177554"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2026 01:45:45 -0700
-X-CSE-ConnectionGUID: tu83B+BIThSMnBoUFv6siA==
-X-CSE-MsgGUID: P9+jY8lqR4+UXvScAxaXig==
+ t=1788858583; x=1820394583;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vpdsqpQ/zc4WxfQ3lyw0eCUJQwPlgYxZxWew7LrFmlw=;
+ b=hAc92DbcheorcZihcJZ+gm8pFykngUByYivH687CqyC7n77+T9jZeh1K
+ Ym5IwVY6W6kfYwwyG98CJoh11MtbDSekDqaxUDGzqtteqVGgEhYh2xyWR
+ AOjd4k7SG11bOC4OfTGX/HjBmk43dLyU3VrPXy963lptiGc1e9fofCRJR
+ 2O1+UvXKGEue6LE6zVRIKcM6UbK80XacAwHuTY3AOAAkYJg3y6b6dmeg5
+ IFdtv/E5eeSGjKetSU7cz+3a/msJAeEI7Bvrrd9xcuU8ucX6Hhx0/yECx
+ DASpJXz72MXLh/DOmsR2A7nhTWOaIC8QHGjE84/CrGZ5Gqfl+XTz2xAuB Q==;
+X-CSE-ConnectionGUID: LRGxUrsIT3ebmZYJ+lVEiQ==
+X-CSE-MsgGUID: UEmhyM+FRg+KQ06142dhKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89285080"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208";a="89285080"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 02:09:43 -0700
+X-CSE-ConnectionGUID: XNTnqAqWQmK76jAYudgW2w==
+X-CSE-MsgGUID: YotVjCG4Sn+z08PyF5lMTQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
- d="scan'208,217";a="300815122"
-Received: from mwiniars-mobl.ger.corp.intel.com (HELO
- jkrzyszt-mobl2.ger.corp.intel.com) ([10.245.246.101])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2026 01:45:43 -0700
-Message-ID: <d80336b7c23f857016ba04cfac2f3c1696f4a4d1.camel@linux.intel.com>
-Subject: Re: =?UTF-8?Q?=E2=9C=97?= i915.CI.Full: failure for PCI: Disable
- not supported reset methods on DG1 0x4905 (rev2)
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: I915-ci-infra@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 08 Sep 2026 10:45:29 +0200
-In-Reply-To: <178880207720.130176.6142655422792771652@61270ab9df2a>
-References: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
- <178880207720.130176.6142655422792771652@61270ab9df2a>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: multipart/alternative; boundary="=-nskahxCvaviLXSOra2ZZ"
-User-Agent: Evolution 3.60.2 
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208";a="267690307"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO hazy.intel.com)
+ ([10.245.244.144])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 02:09:40 -0700
+From: Luca Coelho <luciano.coelho@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org,
+	jani.nikula@linux.intel.com
+Subject: [PATCH v4 0/2] drm/i915/display: reduce clock_gating interface
+ between core and display
+Date: Tue,  8 Sep 2026 11:43:01 +0300
+Message-ID: <20260908090924.52117-1-luciano.coelho@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,127 +68,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---=-nskahxCvaviLXSOra2ZZ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Hi=C2=A0I915-ci-infra@lists.freedesktop.org,
+This is v4 of the series to reduce the clock gating interface between
+the display code and core i915.  The first three patches received
+Reviewed-by tags and have already been merged, so this version contains
+only the two remaining patches.
 
-On Mon, 2026-09-07 at 17:27 +0000, Patchwork wrote:
-> Patch Details
->=20
-> Series:PCI: Disable not supported reset methods on DG1 0x4905 (rev2)
->=20
-> URL:https://patchwork.freedesktop.org/series/172446/
->=20
-> State:failure
-> Details:
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v2/index.html
-> CI Bug Log - changes from CI_DRM_19095_full -> Patchwork_172446v2_fullSum=
-maryFAILURE
-> Serious unknown changes coming with Patchwork_172446v2_full absolutely
-> need to be
-> verified manually.
-> If you think the reported changes have nothing to do with the changes
-> introduced in Patchwork_172446v2_full, please notify your bug team (I915-
-> ci-infra@lists.freedesktop.org) to allow them
-> to document this new failure mode, which will reduce false positives in
-> CI.
-> Participating hosts (11 -> 11)No changes in participating hosts
-> Possible new issuesHere are the unknown changes that may have been introd=
-uced in
-> Patchwork_172446v2_full:
-> IGT changesPossible regressions * igt@device_reset@unbind-reset-rebind:
->     - shard-dg1:          NOTRUN -> SKIP [1]
+Sashiko pointed out that the original patch 4/5 dropped the HSW/BDW
+GT/uncore clock gating workarounds when replacing the call to
+intel_clock_gating_init() on PC8+ exit.  Fix this by restoring the
+display/PCH registers directly in display code and restoring the
+GT/uncore workarounds through the display parent interface.
 
-This subtest used to trigger aborts on DG1, see CBL history. =C2=A0This pat=
-ch
-makes it skip. =C2=A0Please update CBL filters with a condition like:
+Only the former patch 4/5 has been modified.  The former patch 5/5 is
+unchanged apart from rebasing.
 
-stdout CONTAINS "Test requirement:
-!(!is_sysfs_reset_supported(dev.fds.dev))"
+Previous versions:
+https://patchwork.freedesktop.org/series/169493/
 
-for this subtest skipping on DG1 (SKU 8086:4905 specifically) and tag this
-skip as expected, then re-report.
+In v2:
 
-Thanks,
-Janusz
+  * Reworked the previous version so we have only one entry point,
+    instead of an _early() and a _late() function.  It turns out that
+    this is not necessary because some platforms were using only
+    _early() and the others were using _late() (not both);
+    
+  * Removed back-dependency from the display code into the core code
+    by avoiding calls to intel_clock_gating_init() (Jani);
 
+In v3:
 
-> New tests
-...
+  * Added intel_display_clock_gating.o to xe's Makefile to prevent
+    linking breakage;
+
+In v4:
+
+  * Drop the three patches already merged.
+  * Preserve HSW/BDW GT/uncore clock gating workarounds on PC8+ exit
+    through the display parent interface (Sashiko).
+
+Please review.
+
+Cheers,
+Luca.
 
 
-[1] SKIP
-    https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v2/shard-dg1-1=
-4/igt@device_reset@unbind-reset-rebind.html
+Luca Coelho (2):
+  drm/i915/display: add a way to restore only display/pch registers in
+    clock_gating
+  drm/i915/display: split part of intel_display_reset_finish() to a new
+    function
 
---=-nskahxCvaviLXSOra2ZZ
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+ .../i915/display/intel_display_clock_gating.c |  7 ++++
+ .../i915/display/intel_display_clock_gating.h |  1 +
+ .../drm/i915/display/intel_display_power.c    |  7 +++-
+ .../drm/i915/display/intel_display_reset.c    | 19 +++++++---
+ .../drm/i915/display/intel_display_reset.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_parent.c   |  9 +++++
+ drivers/gpu/drm/i915/display/intel_parent.h   |  3 ++
+ drivers/gpu/drm/i915/gt/intel_reset.c         |  5 +++
+ drivers/gpu/drm/i915/i915_driver.c            |  1 +
+ drivers/gpu/drm/i915/intel_clock_gating.c     | 37 ++++++++++++++++---
+ drivers/gpu/drm/i915/intel_clock_gating.h     |  2 +
+ drivers/gpu/drm/xe/Makefile                   |  1 +
+ include/drm/intel/display_parent_interface.h  |  7 ++++
+ 13 files changed, 86 insertions(+), 14 deletions(-)
 
-<html><head>
- =20
-  <title>Project List - Patchwork</title>
-  <style id=3D"css-table-select" type=3D"text/css">
-   td { padding: 2pt; }
-  </style>
-<style>pre,code,address {
-  margin: 0px;
-}
-h1,h2,h3,h4,h5,h6 {
-  margin-top: 0.2em;
-  margin-bottom: 0.2em;
-}
-ol,ul {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-blockquote {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-</style></head>
-<body><div>Hi&nbsp;I915-ci-infra@lists.freedesktop.org,</div><div><br></div=
-><div>On Mon, 2026-09-07 at 17:27 +0000, Patchwork wrote:</div><blockquote =
-type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;pad=
-ding-left:1ex"><div><b>Patch Details</b></div>
-<div><table>
-<tbody><tr><td><b>Series:</b></td><td>PCI: Disable not supported reset meth=
-ods on DG1 0x4905 (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href=3D"https://patchwork.freedesktop.org/se=
-ries/172446/">https://patchwork.freedesktop.org/series/172446/</a></td></tr=
->
-<tr><td><b>State:</b></td><td>failure</td></tr> <tr><td><b>Details:</b></td=
-><td><a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v2=
-/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v2/in=
-dex.html</a></td></tr></tbody></table> </div><h1>CI Bug Log - changes from =
-CI_DRM_19095_full -&gt; Patchwork_172446v2_full</h1><h2>Summary</h2><p><str=
-ong>FAILURE</strong></p><p>Serious unknown changes coming with Patchwork_17=
-2446v2_full absolutely need to be<br> verified manually.</p><p>If you think=
- the reported changes have nothing to do with the changes<br> introduced in=
- Patchwork_172446v2_full, please notify your bug team (I915-ci-infra@lists.=
-freedesktop.org) to allow them<br> to document this new failure mode, which=
- will reduce false positives in CI.</p><h2>Participating hosts (11 -&gt; 11=
-)</h2><p>No changes in participating hosts</p><h2>Possible new issues</h2><=
-p>Here are the unknown changes that may have been introduced in Patchwork_1=
-72446v2_full:</p><h3>IGT changes</h3><h4>Possible regressions</h4><ul>
-<li>igt@device_reset@unbind-reset-rebind:</li><ul>
-<li>shard-dg1:          NOTRUN -&gt; <a href=3D"https://intel-gfx-ci.01.org=
-/tree/drm-tip/Patchwork_172446v2/shard-dg1-14/igt@device_reset@unbind-reset=
--rebind.html">SKIP</a></li>
-</ul>
-</ul></blockquote><div><br></div><div>This subtest used to trigger aborts o=
-n DG1, see CBL history. &nbsp;This patch makes it skip. &nbsp;Please update=
- CBL filters with a condition like:<br><br><span class=3D"Apple-tab-span" s=
-tyle=3D"white-space:pre">	</span>stdout CONTAINS "Test requirement: !(!is_s=
-ysfs_reset_supported(dev.fds.dev))"<br><br>for this subtest skipping on DG1=
- (SKU 8086:4905 specifically) and tag this skip as expected, then re-report=
-.</div><div><br></div><div>Thanks,<br>Janusz</div><div><br></div><div><br><=
-/div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px =
-#729fcf solid;padding-left:1ex"><h2>New tests<br></h2></blockquote><div>...=
-</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px=
- #729fcf solid;padding-left:1ex"></blockquote><div><br></div><div><span></s=
-pan></div></body></html>
+-- 
+2.53.0
 
---=-nskahxCvaviLXSOra2ZZ--
