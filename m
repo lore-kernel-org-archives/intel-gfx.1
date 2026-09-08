@@ -4,36 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7344C79F82
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 14:07:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE605C79F99
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 14:10:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E33D10EC0E;
-	Tue,  8 Sep 2026 14:07:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB73410EBF9;
- Tue,  8 Sep 2026 14:07:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D4E540BF1;
- Tue,  8 Sep 2026 14:07:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBBFB1F00A3D;
- Tue,  8 Sep 2026 14:07:00 +0000 (UTC)
-Date: Tue, 8 Sep 2026 15:06:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>, Alex Huang <Alex.Huang2@amd.com>,
- Mario Limonciello <superm1@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <5d3de44a-c382-4ce6-8f52-62696e67fcd0@sirena.org.uk>
-References: <aqAVSgsypMch2c0v@sirena.org.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50E0B10EC13;
+	Tue,  8 Sep 2026 14:10:57 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZFMuxi/+";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62AC110EC12;
+ Tue,  8 Sep 2026 14:10:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788876655; x=1820412655;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=B/1K5p3WJGU2CrbI+/NXgUwm1oRIoQkhbMPfoTs3Iqg=;
+ b=ZFMuxi/+bA3YmNk96dmwXNG1+P1fQRQw2J/TV60VaZq8lbju+qYpT30x
+ 3BEyp2tqCyq3sh4+N7gsu/hAqa2j5MbNse3EckwbhG/qke1t6imRoIpMu
+ gt8IlaRgDYn/ESkfizWaQgDeK7TEwd0Gsw6E1Sx9lufaKfIogh81B5otw
+ BhplINoTh6nDdrpwCRlS0EmfMge4aqcZbWUQOJ/ozy6/p60SymHtOAmWJ
+ lnaUYngVca27ZQlMC+yW37eWVf8eNtHaq/l4MxULzwPi/SXJO/hV0B9x1
+ rgQ5UBBMlHZn64UICHVRoVN96WJFarzt9e8BJKbzJy6bhxVTBYD+yOOfY w==;
+X-CSE-ConnectionGUID: JyN930SMRZuAPLY+r+3l0Q==
+X-CSE-MsgGUID: wOyyiBhQQCKwI0rYhogb7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="88429074"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="88429074"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 07:10:55 -0700
+X-CSE-ConnectionGUID: TB1m8VxvQfGIpKiHqdJ8sg==
+X-CSE-MsgGUID: LG7PCybiQyGEbuCnKn4Dpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="268451291"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.140])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 07:10:54 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: suraj.kandpal@intel.com
+Subject: Re: [PATCH v3 1/1] drm/i915/display: Implement Wa_16024710867
+In-Reply-To: <20260203084937.1447834-2-mitulkumar.ajitkumar.golani@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260203084937.1447834-1-mitulkumar.ajitkumar.golani@intel.com>
+ <20260203084937.1447834-2-mitulkumar.ajitkumar.golani@intel.com>
+Date: Tue, 08 Sep 2026 17:10:51 +0300
+Message-ID: <9eeb256c9e8626e7118adb0c58d985ef5d727c69@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="lOeEdv7AiO3TZxIk"
-Content-Disposition: inline
-In-Reply-To: <aqAVSgsypMch2c0v@sirena.org.uk>
-X-Cookie: The heart is wiser than the intellect.
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,45 +71,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 03 Feb 2026, Mitul Golani <mitulkumar.ajitkumar.golani@intel.com> wrote:
+> Defeature port sync feature for xe3lpd onwards.
+>
+> --v1:
+> - Use xe3lpd naming (Suraj)
+> - Use IS_DISPLAY_VER (Suraj)
+>
+> --v2:
+> - Comments update and Adding Bspec link (Suraj)
+>
+> Bspec: 69965
+> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
---lOeEdv7AiO3TZxIk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This regresses [1] and probably needs to be reverted.
 
-On Tue, Sep 08, 2026 at 03:01:50PM +0100, Mark Brown wrote:
-> Hi all,
->=20
-> After merging the drm-misc tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
->=20
-> ERROR: modpost: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amd=
-gpu_dm_connector_test.ko: symbol 'parse_hdmi_amd_vsdb' undefined!
->=20
-> Caused by commit
->=20
->    65198b3d0738 (drm/amd/display: Use HDMI FreeSync range from common EDI=
-D parser)
-
-Sorry, that should be f65198b3d07389afdcb48e4ad00fea2aded95dfd.
-
-> I have continued to use the version from next-20260831 instead.
+BR,
+Jani.
 
 
+[1] https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8991
 
---lOeEdv7AiO3TZxIk
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index d8739e2bb004..f92323664162 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -4588,8 +4588,10 @@ intel_ddi_port_sync_transcoders(const struct intel_crtc_state *ref_crtc_state,
+>  	/*
+>  	 * We don't enable port sync on BDW due to missing w/as and
+>  	 * due to not having adjusted the modeset sequence appropriately.
+> +	 * From, xe3lpd onwards we have defeatured this with reference to
+> +	 * Wa_16024710867
+>  	 */
+> -	if (DISPLAY_VER(display) < 9)
+> +	if (!IS_DISPLAY_VER(display, 9, 20))
+>  		return 0;
+>  
+>  	if (!intel_crtc_has_type(ref_crtc_state, INTEL_OUTPUT_DP))
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgFmMACgkQJNaLcl1U
-h9DHlgf/bWfZ0Bc/2mHhv2tpOgPyltTb5KGNuzhTCET0U2SXgPR82UeHYmsnUBCF
-fT2zq3X3e4Q5MWIWcGElfhJ1F7m24HK9ZAHjRqdsV4+rZt7smt1C2oJDfbRa3/i6
-e/E7RcBk4x16bTBHFf+83uw5GRZ+JSB8YGu7UHlAoNJOQ1KfHXAV0LAWsqr/PNpU
-TBHMEpnf+K06ArjafUUXDSiVN2sClsyRiBr/hMXaRlUwFhcVfjfvT7YPKi2HxiNm
-27Jhv9hK7/Eo3vz9Ud+kGd8Z+8kAZHlkB5hE5ewn833JVjk05JxSeej9R/XdTLqY
-Oems2SAKeHZW5+ktGduJHrQzaKQQyw==
-=ic3F
------END PGP SIGNATURE-----
-
---lOeEdv7AiO3TZxIk--
+-- 
+Jani Nikula, Intel
