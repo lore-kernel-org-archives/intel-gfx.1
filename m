@@ -4,43 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F0CBC79F99
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 16:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A8FDC79F99
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 16:33:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFBD910E137;
-	Tue,  8 Sep 2026 16:25:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6714010E0AD;
+	Tue,  8 Sep 2026 16:33:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EtBNpkON";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H6eQYWIA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DE2310E137
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 16:25:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7BB66601DE;
- Tue,  8 Sep 2026 16:25:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045991F00A3A;
- Tue,  8 Sep 2026 16:25:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788884747;
- bh=kFUT29RGcaBTLE16pNuoyhpqbdNADH/or5bfZz5/ioU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EtBNpkONfEqgU7aBJjXSakWiCwvj3axHQTESZZYBkbs1j+XvubPL3cPZrEjUpI97e
- gYlsTAnWpOvoWa76LfMTuYDNPaXHOIrWeGDKYRVr45mMmJgeFTRDsD67TNehPMfX7O
- ulKCnQUsJO/0wjTzlIY5jdX6IQvJwqponq7ggy/C/ICnRwa7pie7ffA1F+fkLM541Y
- Asz+irRJN9T5hnP8aVuAQFaLG3MNqR0fXBHFS2nVieUyXdBchIgASSnWPULVhNZjc+
- sMgWzH35b6AHEkLEBtlrSM3Kp9GR5itNbXhuVGZarzKBRjE6mb8NzMKbbGRjJpdb8g
- aLfYIF/nP0tWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv5] drm/i915/dp: On DPCD init wake the DPRx for eDP
-To: "Arun R Murthy" <arun.r.murthy@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260908161248.1901822-1-arun.r.murthy@intel.com>
-References: <20260219094326.34922-1-arun.r.murthy@intel.com>
- <20260908161248.1901822-1-arun.r.murthy@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 16:25:46 +0000
-Message-Id: <20260908162547.045991F00A3A@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D0910E15E;
+ Tue,  8 Sep 2026 16:33:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788885217; x=1820421217;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Zwms8LENiBypMxRUgVnbRobEhZCSbNKOrZa9Q7mf45U=;
+ b=H6eQYWIAvYCc6p3ioNFAlOhI2pp274pbTVmuHMSd8r8VwsEhVhlHo/Yp
+ ssd2MOm3ftrnCRynpyAXWbsjGlQnqlHwWNFZK0/j+/3xxBWDexkQ0WtV7
+ AcmyQrbs6kuGDkOgGubgyqnO9/eMdc/T7G3sSAJrt4PIBsNyld/7yPPHS
+ PYK7EZDOOs6LXul/DM1J3jYcPUe3e5EYByz2E2SU2C1Kpyi1atlw5I/Rq
+ MLofZaCtRmt+zt6OgUN3vFU52hBAwHJnbpz06mr0ouUvHDbfmSGgMoe4n
+ 1gxN+yiqwsOj3DBUkSTD52w3fJtJNioVcgtRVb4Ajr2TSW5bYOcmOO7RY Q==;
+X-CSE-ConnectionGUID: ZzZCk02FSWCM/QsoNcOUxg==
+X-CSE-MsgGUID: Cajnnv1ES5uwzVd9PvUKPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88227849"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="88227849"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 09:33:36 -0700
+X-CSE-ConnectionGUID: 5bYttxrYTRyyz5BKiYqUVA==
+X-CSE-MsgGUID: lLPjEYKWRkmBbYSlikbP7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="275180153"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.140])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 09:33:32 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com, Simona Vetter
+ <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, "open
+ list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
+ I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
+ <hansg@kernel.org>, David Herrmann <dh.herrmann@gmail.com>, Marta Lofstedt
+ <marta.lofstedt@intel.com>, Mario Limonciello <superm1@kernel.org>
+Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
+In-Reply-To: <f8d54027-ea66-44ec-bc7b-0abb69e918ed@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260908044035.62093-1-mario.limonciello@amd.com>
+ <20260908044035.62093-3-mario.limonciello@amd.com>
+ <dd7f11d6772b9422793cbcf1011f4f1aa98bfa3d@intel.com>
+ <f8d54027-ea66-44ec-bc7b-0abb69e918ed@amd.com>
+Date: Tue, 08 Sep 2026 19:33:30 +0300
+Message-ID: <236b657d2c01dd569a527d96613b1d4258f331b0@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,80 +79,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing bitmask when checking the DP_SET_POWER state in intel_edp_=
-wake_sink, leading to skipped wake sequences for valid sleep states.
---
+On Tue, 08 Sep 2026, Mario Limonciello <mario.limonciello@amd.com> wrote:
+> On 9/8/26 10:45, Jani Nikula wrote:
+>> On Mon, 07 Sep 2026, Mario Limonciello <mario.limonciello@amd.com> wrote:
+>>> +/* Forward declaration for backlight_update_status */
+>>> +#if IS_REACHABLE(CONFIG_BACKLIGHT_CLASS_DEVICE)
+>> 
+>> I think IS_REACHABLE() is almost always a mistake. It's a hack to avoid
+>> link errors when something in a module needs something that is
+>> built-in. It's a combo that should be handled at Kconfig level, not at
+>> build level.
+>> 
+>> BR,
+>> Jani.
+>
+> That came from this feedback from Thomas Zimmerman (I originally had it 
+> as select:
+>
+> https://lore.kernel.org/dri-devel/8224920a-3a10-4400-9503-f014b7059329@suse.de/
+>
+> I was trying to use IS_REACHABLE to make it optional, but it sounds like 
+> that's not the right direction then?
 
-commit 5baa07d75bcb19eae05989d83bea3bd4d212a13a
-Author: Arun R Murthy <arun.r.murthy@intel.com>
+I agree with Thomas, but he's also not suggesting to use IS_REACHABLE()!
 
-drm/i915/dp: On DPCD init wake the DPRx for eDP
+The point is, if you express the dependencies properly with "depends on"
+in Kconfig, you won't need IS_REACHABLE(). It's the "select" that can
+lead to incorrect configurations, and IS_REACHABLE() is band-aid to work
+around this.
 
-This commit attempts to wake the eDP sink before reading DPCD capabilities
-to avoid AUX_CH failures when the sink is in an unknown or sleep state.
+BR,
+Jani.
 
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4391
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16654
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 0cd5e6b5034cf..07cc39a6f2e37 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4779,6 +4779,33 @@ intel_edp_set_sink_rates(struct intel_dp *intel_dp)
-
-[ ... ]
-
-> +static void intel_edp_wake_sink(struct intel_dp *intel_dp)
-> +{
-> +	u8 value =3D 0;
-> +	int ret;
-> +
-> +	/*
-> +	 * Read the current sink power state. drm_dp_dpcd_read_byte() already
-> +	 * retries the AUX transaction internally, so a single read suffices.
-> +	 * First commercial eDP panels are Ver1.0 or 1.1, on which DPCD
-> +	 * DP_SET_POWER is supported.
-> +	 */
-> +	ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux, DP_SET_POWER, &value);
-> +
-> +	/*
-> +	 * If the AUX read failed the sink may be asleep and not responding,
-> +	 * or it read back D3; in either case wake it up to D3_AUX_ON.
-> +	 */
-> +	if (ret < 0 || value =3D=3D DP_SET_POWER_D3) {
-                       ^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Does this strict equality check skip the wake sequence for valid sleep stat=
-es?
-
-If the sink returns a power state like DP_SET_POWER_D3_AUX_ON (0x5), or if
-it returns 0x2 with non-zero reserved bits due to hardware quirks, this che=
-ck
-evaluates to false.
-
-Without isolating the power state bits using a bitmask (or simply checking
-if the value is not DP_SET_POWER_D0), the driver would skip writing
-DP_SET_POWER_D0. Can this leave the main link powered down and cause
-subsequent DPCD reads or link training to fail?
-
-> +		/* After setting to D0 need a min of 1ms to wake (Spec DP2.1 sec 2.3.1=
-.2) */
-> +		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_SET_POWER,
-> +				       DP_SET_POWER_D0);
-> +		fsleep(1000);
-> +		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_SET_POWER,
-> +				       DP_SET_POWER_D0);
-> +	}
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908161248.1901=
-822-1-arun.r.murthy@intel.com?part=3D1
+-- 
+Jani Nikula, Intel
