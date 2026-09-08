@@ -4,27 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F4FC79F82
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 19:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17478C79F82
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 20:07:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B52AF10ED35;
-	Tue,  8 Sep 2026 19:43:52 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86D0A10ED35;
- Tue,  8 Sep 2026 19:43:51 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6050A10E1BA;
+	Tue,  8 Sep 2026 20:07:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="DzegxdjM";
+	dkim-atps=neutral
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C0BB10ED49;
+ Tue,  8 Sep 2026 20:07:14 +0000 (UTC)
+Received: from wsembach-tuxedo.buero.augsburg.tuxedo.de
+ (business-24-134-105-141.pool2.vodafone-ip.de [24.134.105.141])
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPA id 22F572FC008A;
+ Tue,  8 Sep 2026 22:07:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1788898032;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=tJh7oIHd1OG30e5MZpyMaDewB+zPIeuZm1jBsMBTEcY=;
+ b=DzegxdjMqhq8SYznp89XG4EiXmKtKbUqvOZvPQ7nUpd/VRGml1RbrAhqlJBFEbIknXpURo
+ /UzzbDmgK3FUbDA5udfAPkxaMmHKH8GLQhC4xbdvGHzVgxsQIwf87CQJS8gOiZ0VXKDGiz
+ I8b5ROpfY4w6g8J+wleESC+f4J3pr4E=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=wse@tuxedocomputers.com
+ smtp.mailfrom=wse@tuxedocomputers.com
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Werner Sembach <wse@tuxedocomputers.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] drm/intel: Generalize PCI ID macro for subvendor and subid
+Date: Tue,  8 Sep 2026 22:05:28 +0200
+Message-ID: <20260908200707.65516-1-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_series_starting?=
- =?utf-8?q?_with_=5B1/2=5D_drm/i915=3A_fix_typos_in_comments?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Hemanth Selam" <hemanth.selam@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 08 Sep 2026 19:43:51 -0000
-Message-ID: <178889663154.137411.11942303626064479860@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260904120225.15868-1-hemanth.selam@gmail.com>
-In-Reply-To: <20260904120225.15868-1-hemanth.selam@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,21 +62,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Generalize INTEL_QUANTA_VGA_DEVICE macro by introducing a
+INTEL_VGA_DEVICE_SUB macro that takes subvendor and subid in addition to
+id.
 
-Series: series starting with [1/2] drm/i915: fix typos in comments
-URL   : https://patchwork.freedesktop.org/series/173617/
-State : failure
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+---
+ include/drm/intel/pciids.h | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-== Summary ==
-
-Series author address 'hemanth.selam@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187022/ (on built-in)
-
+diff --git a/include/drm/intel/pciids.h b/include/drm/intel/pciids.h
+index dff389b56eb3b..7a4a5658942d2 100644
+--- a/include/drm/intel/pciids.h
++++ b/include/drm/intel/pciids.h
+@@ -37,9 +37,8 @@
+ 	.driver_data = (kernel_ulong_t)(_info), \
+ }
+ 
+-#define INTEL_QUANTA_VGA_DEVICE(_info) { \
+-	.vendor = PCI_VENDOR_ID_INTEL, .device = 0x16a, \
+-	.subvendor = 0x152d, .subdevice = 0x8990, \
++#define INTEL_VGA_DEVICE_SUB(_id, _subvend, _subid, _info) { \
++	PCI_DEVICE_SUB(PCI_VENDOR_ID_INTEL, (_id), (_subvend), (_subid)), \
+ 	.class = PCI_BASE_CLASS_DISPLAY << 16, .class_mask = 0xff << 16, \
+ 	.driver_data = (kernel_ulong_t)(_info), \
+ }
+@@ -180,7 +179,7 @@
+ 	INTEL_IVB_D_IDS(MACRO__, ## __VA_ARGS__)
+ 
+ #define INTEL_IVB_Q_IDS(MACRO__, ...) \
+-	INTEL_QUANTA_VGA_DEVICE(__VA_ARGS__) /* Quanta transcode */
++	MACRO__##_SUB(0x016A, 0x152D, 0x8990, ## __VA_ARGS__) /* Quanta transcode */
+ 
+ #define INTEL_HSW_ULT_GT1_IDS(MACRO__, ...) \
+ 	MACRO__(0x0A02, ## __VA_ARGS__), /* ULT GT1 desktop */ \
+-- 
+2.43.0
 
