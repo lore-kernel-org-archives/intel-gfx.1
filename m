@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D886C79FB0
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 04:41:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A98C79FAD
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 04:41:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E58CC10E9CF;
-	Tue,  8 Sep 2026 04:41:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F33AB10E9D3;
+	Tue,  8 Sep 2026 04:41:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nKVbIp5L";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XBdqpzJH";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013018.outbound.protection.outlook.com
- [40.107.201.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9586910E9A7;
- Tue,  8 Sep 2026 04:41:13 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012005.outbound.protection.outlook.com [52.101.43.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8706010E9C8;
+ Tue,  8 Sep 2026 04:41:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BGw5O8XvH4oMbhcpSLkmuvNnH1hbIWaq0uzvIC0ljxlgPP0J2n0cl8D5YKyY6Q35ZwQzWqj3Pk3d/tNDeVDgGtXg4v9VaSwp91qAOmtZCRJEGXuJCndASCLOIKnf70orqZrilniV0h+4CBzGSo8+LCo9LWXHl8KEtgr+ZUtL+7UvWXdj2NY8Gd0KFywY4H+uk/mprldDVudN0Q6pFY3K8v9Hi68xSzgxyJy3jkZ8IIA0VF1b+Jn1UP99rn5chZkEuzzUT0W89/gXrhKWheZ2OPWSUy3ulm/i+2N8fbTeoCIhnI9LHK3IN2089m1n9VNDs18abybDWhD5MHGrk/Goxw==
+ b=hvYhJQ+Ru3+522OltMfLACkBZX6NGiwMPiUuM2zNrxPyhsiKI6UvZgo1Nt2Ms1xHXLpKjNqUKQQbVh8U8Isrsp2McVfHWr62SrxKpgk2Vfy3tBHmZdr/JJcJlf0UwW5+MJCJtAN4We72oYRNuPljh0TszBl6/1VlO0sZ31GPnDzw8FV0xudjz7XTZ7J4q+4w2DL87OfmeBwBuVWnsUE9OnLEPSTpVTpfSzSXS5T+Gnu0HcqLvunTTBWuc8SCW8IBWW5UiLOJQGmH57DIAGJydhUEdISWvceog0i8MrKWDDnfY+MLZiYkBcvnp/muMR0zSRl3V+zTFfhqAEwPvp+Pcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DJJCotAnOnQusdclPzMqOmu1n071js6qlpHaPkAAEJM=;
- b=USZeJKTf6iGgjdHRNlfUI6aZnmqzlYRKkTmv+x4ZCZH1dNauHRBYqK6nB40DsX0zzX+R4Yfti/J4Pw3H3cwWMVa3IVrFYbl0pXWIzBYVf3LXvhXCOik3w5TcRZOvZaoZAeV8YYZL/GTtHq2j/xpQIpS6+eBvDLbjGg6CIh9QfP4dmXUGay6hdO42Ohl7nXi3Jh3ln0Wl9Nvlf1iyPV7LXHyXbKkiI3+iFwGTP+jgxTEyU2gQWobvk5rCTYnxOgOoA4Vh7Ve9zLlX82a0fAsbTDawII/hM7YG+AJAjK8DpVEkiQK692cgHbLZYz3Oom37deyYtLsr34xrFezmOoI0wQ==
+ bh=f1snRTPQk0QZ9/kSGzjFRZHdaQ1t1A+9LRQWdULndog=;
+ b=Sh0NYI9uRl76Hpfm5TAVxT4HGRp0O+WRruoZ7irN66KdrIT2Xb/kzuvoW8EmamDTDiOlEib0PTo2b0g4xpY5ac8u9kNZAHkzXfb5HP2aoGeHSU1tq6mhHedcRynB+M69EiAkHRjPI5NlIbVmfQiz2AEniXjGRi+EL1Ez2aGLxwLBuHdaTm81DBMcd5ze7p2RQu//XvVFyPpSKUvv8NI1TU99P6MUyuRIz39VmVGhhlBurVLQAwV/XdVJSHgW1OunJ1Usep3EuczIDVrzMzB7YN2kHYc6Ov8ieNYyyJexwK9gvosiRvbw6ReP+AjQ2D6x5N5pg/j28DFNopOeYn43aQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DJJCotAnOnQusdclPzMqOmu1n071js6qlpHaPkAAEJM=;
- b=nKVbIp5LNGc4qr5HvNRzFZBSr8oSPuhiGyy3fpT2rDYI3bkXK7kafXK4ce3T9BOovF0/uc5KQKeyYTFvAIrRoEnQpZ4qzgvqKHj3O6Xp/uQN8WWyG7KaxfRNwGlVTegX3bM9EQYXh26rZvSuw6hLGW2WrA1Ip1JBVIWJgjsL9kk=
-Received: from CY5PR15CA0028.namprd15.prod.outlook.com (2603:10b6:930:14::24)
- by DM4PR12MB6277.namprd12.prod.outlook.com (2603:10b6:8:a5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.13; Tue, 8 Sep
- 2026 04:41:07 +0000
-Received: from CY4PEPF0000EE30.namprd05.prod.outlook.com
- (2603:10b6:930:14:cafe::27) by CY5PR15CA0028.outlook.office365.com
- (2603:10b6:930:14::24) with Microsoft SMTP Server (version=TLS1_3,
+ bh=f1snRTPQk0QZ9/kSGzjFRZHdaQ1t1A+9LRQWdULndog=;
+ b=XBdqpzJHGMKYNBxf2GZjnvKt1TZNel5j3R4MO2ZC5oaAIqUo7hJsClFLLQQPSQajDgRXFtf7bgPni7zLBzgUurej4kWYdC1UHpMDk9IqdgvXlV/2AtainZXM7eVc5dfDWWrI11Swh6kxstKgPOUf1bVqkJBflvS1NkRI/jqTmQc=
+Received: from CY8PR12CA0048.namprd12.prod.outlook.com (2603:10b6:930:49::11)
+ by CY3PR12MB9629.namprd12.prod.outlook.com (2603:10b6:930:101::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 04:41:12 +0000
+Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
+ (2603:10b6:930:49:cafe::67) by CY8PR12CA0048.outlook.office365.com
+ (2603:10b6:930:49::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 04:41:07 +0000
+ Sep 2026 04:41:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE30.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 04:41:07 +0000
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 04:41:12 +0000
 Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 23:41:05 -0500
+ 15.2.2562.46; Mon, 7 Sep 2026 23:41:10 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
  <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
@@ -66,11 +65,10 @@ CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
  list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
  <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
  I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
- <hansg@kernel.org>, "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v8 10/14] drm/amd/display: Update KUnit backlight tests for
- luminance property and fixtures
-Date: Mon, 7 Sep 2026 23:40:31 -0500
-Message-ID: <20260908044035.62093-11-mario.limonciello@amd.com>
+ <hansg@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v8 14/14] drm/i915/display: use drm backlight
+Date: Mon, 7 Sep 2026 23:40:35 -0500
+Message-ID: <20260908044035.62093-15-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908044035.62093-1-mario.limonciello@amd.com>
 References: <20260908044035.62093-1-mario.limonciello@amd.com>
@@ -82,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE30:EE_|DM4PR12MB6277:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6dafeb5-65d8-4c5d-5664-08df0d6365da
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|CY3PR12MB9629:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c7da662-2b1f-4bbd-4c97-08df0d636932
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|7416014|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: /ShLSIUugH8m9UrSckeq3/lSAsOvFrKjUEltiTuCXw92QdR+T72eXpJO2yduWCMI1Hs8LkYOv5A9KtphNY1ExMOL4GZoAXCg+wLjenlL9QmyR+0RtWFRFWlJuu5h0oZ5pISv5oH3XCHAPvXaYvv3pax7dO0vUCgO9/pQvUmBdT9YRQaL/w9alWOytbHSjO8PItYZAInKYd4uRXp3DepSZKnpdd/T7bHr1IviYmkL5DSrihWOUk/GiRDWZiaSdIS16uQB6L3t+leQafxeoJhAkGwLaPyObusGH7c6b17qvIgDpLXgw3SPkgbCv8tehbldthWwUwKFpouOfNSoodr3jZVW8IEvIA7MV3RU9VFC+fPbtoaIP2X/Nu16cY2WCCQXS4yYpN+/1AA2JrMo3RGMsWAOt4p/dhSKu263yvDPnrgrZb8y5ux94PUudB4cq0eYWMnW9HjSsKk/MzpVFNxAqifUoJCvME1AGt2HaxXLBlO3dxSf3dk3qUZDfIwO5Hkf49BGr8Tp3CDm2bvP0zlXaaI/ff6jkitD1SNGLSVCyEyLP+WN1eZY77XAhFZK0JLEpzVrwMFEQNlfIleUvOwMSuZNZaCOf3cytxEusQ8o5pWvvFo/Jy/MLRtooRyhFwLKs5chMrrb1oaYcec/YZZVEya5oyx3Y8oRbl2BdLeu4bTlfq64rOlBFhiYqditdmqMtewELxsrxKIn36Af5VnTiw==
+ ARA:13230040|36860700016|82310400026|376014|7416014|23010399003|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: JTU0NmYqvhWo8yJdmX3+/s9cj1CF3JatGlXzge4QKN5z6jrpKUY2sPWr1KuPDVZroSmlzpDoimUKKYQL/4M1oEEKFHxTqCqIkrXoDLRbuZZioFkVgTUpi1yaUjwWtXlQO+9emYBeai3jYz5N+Zx89/KLt19JXOpsoK3DWVWwqznU007utMB61cwjpabAR8n9OclFkSGcQLD9RgVzyHIcg5NeyLNU3hisxVhfZPRVv3xR8L/SO+13+qMukXf5V35saEvb0v/nuY6gqdhEXAZAJLUZX5IhxiRyFtibKM/2B46O01/Nls94cTqbtbrEwSiNBLinzxS413VjxdUr0Uq5HDF4tes6XqC2auplA0p1LDKidJRywLKjMzxIeCOnTrU4J7Qxj77G7TjXfwpT0ZoDoery9PUu6lP7xXJR/JlvWwifT9DGESrvpyLOYBVpyRhzTzvcWjLpo3s8x1hKfe6S2KqSiU4aThZ5wuJ7+1YTBuS5pr++fFd3X+U3cN7LcBjkk9D53xCFlN4oe9ovVBRKinYvGisA0CditoQ/bPVElMJcqZN1nKOKLLN9JFcts98ZD9W4z83IQJ/7jFmrY3/iCLu/zue0F9rfOyC4rb1k4Z/AW9zx7cZ817T2Z8uNU+8XSP75aBsJdDGC76NcdvozNa9XJWwprl1zAiY0dq6SCMz4UeS7NEDjCd8ObrK7a6aa4iEVEUuh6ErAxKlM++IetQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(7416014)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: R1D2il0sn0ii/7jbAPkJUcb/vFiSxsDc1S+SqUaSseK60gbO62Wa3Gcbj9MbnjrS/aZEh6bpUsfV2nQp80MgJ1eWdCskn3GcECz4JEt9esJbb3WIaiwhNk/NVxiCrfHKdKdDylwhSUmS2DrA+cYoqzS4WcQOf+GDdlw/fCFJteD58rv15kdo6yGrovYsnXoHtJ+8o7r39p6/Ry65Dqz5BJGTm7C86VyNftWu6xILmC2JMXLh0kGYElOsAZjfTyzCL2u36573OiV5JpSw4ErWPI8LFdc2f8ob7hShkKx+MKE2nUCD3XjKiS2Ew5oIvIGRj4IhyiRu0yXnv4Ca8r/c48kKcN5T31JtyQSYuINbTJGUwXPebi6U+Lv6YY4K087F6Q7qRguE2fNo7UZTcoon3tNMRDx4A5fcTOgChWCYVVMdjs891yjPs5WKjX6q1NrZ
+X-MS-Exchange-AntiSpam-MessageData-0: G5HVP41uvCCAH/joMqKvQIg0lGVs2UjIub6PkJMTGci9UWNDHSMsOQVfm4Y2RqEkj65LY62XftTwlmFvCZLfljLasyt4l/536+2/mmshdS9N8WQss8UAHn0kFZikbcHG0OVQ/ejYKF05/s0HZaoNShujy/0r6/J2zBcHRK548v5FIOCGQqB6Kiq/Ig7PtM8V3hF0EFxjHl7TkZwDrXNDcz5GXMTrvbfoqBzEDYN343jdkssRki+6KhyBTmOdibNpcDGw6eL+eBalWslkDfAvQ03yTHdCaBopMfZY8916GibX8/vnZMtknV9mFFhZlQzD8qqqZgWQhu2PO2OwVQpcY2YP09ozU+g4rWPMs6WtnAyXPJbotqjyzyEe1JZNOP6E2xtbrttVFQXa2RUtMXx4oL+rIbTgaNkPFhhvo/Q7kgieIV2kZVC0VaAlPh2mdLrY
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:41:07.0757 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6dafeb5-65d8-4c5d-5664-08df0d6365da
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:41:12.6842 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c7da662-2b1f-4bbd-4c97-08df0d636932
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE30.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6277
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9629
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,96 +118,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Convert the Intel display drivers (i915 and xe) to the DRM backlight
+infrastructure so brightness can be controlled through the connector
+LUMINANCE property. Link the backlight device to the eDP connector on
+registration and unlink it on unregistration; the DRM core owns the
+embedded backlight state and its property.
 
-Initialize backlight connector state and display manager dc_lock in
-KUnit connector and adev allocators, and update property count
-expectations in tests to account for the newly attached LUMINANCE property.
-
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 14 +++++++++++---
- .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |  8 +++++++-
- 2 files changed, 18 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_backlight.c | 6 ++++++
+ drivers/gpu/drm/i915/display/intel_display.c   | 7 ++++++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index e03173d4e5bd8..c5f65e9a90ca8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -52,6 +52,7 @@ static void setup_test_connector(struct kunit *test,
- 	fixture->aconnector->dc_link = fixture->link;
- 	fixture->aconnector->base.dev = &fixture->adev->ddev;
- 	fixture->link->connector_signal = signal;
-+	drm_backlight_connector_init(&fixture->aconnector->base);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index b128896cb1c2d..3ed8c4f7af425 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -9,6 +9,7 @@
+ #include <linux/string_helpers.h>
+ #include <acpi/video.h>
  
- static void setup_test_dm_ddev(struct kunit *test, struct amdgpu_display_manager *dm)
-@@ -483,12 +484,17 @@ static void dm_test_register_backlight_device_success(struct kunit *test)
- 	struct dc_link *link = dm_kunit_alloc_link(test);
- 	struct drm_minor *primary;
- 	unsigned int max;
-+	int ret;
-+
-+	ret = drmm_mode_config_init(&adev->ddev);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
- 
- 	setup_test_link_service(test, link);
- 	link->dc->link_srv->edp_get_backlight_level = dm_test_get_backlight_level_error;
- 	primary = kunit_kzalloc(test, sizeof(*primary), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, primary);
- 	adev->ddev.primary = primary;
-+	adev->dm.ddev = &adev->ddev;
- 	adev->dm.backlight_link[0] = link;
- 
- 	aconnector = dm_kunit_alloc_connector(test, adev, link);
-@@ -1884,9 +1890,11 @@ static void dm_test_setup_backlight_device_attaches_abm_property(struct kunit *t
- 
- 	KUNIT_EXPECT_EQ(test, dm->num_of_edps, 1);
- 	KUNIT_EXPECT_EQ(test, aconnector->bl_idx, 0);
--	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->count, old_count + 1);
--	KUNIT_EXPECT_PTR_EQ(test, aconnector->base.base.properties->properties[old_count], prop);
--	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->values[old_count],
-+	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->count, old_count + 2);
-+	KUNIT_EXPECT_PTR_EQ(test,
-+			    aconnector->base.base.properties->properties[old_count + 1],
-+			    prop);
-+	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->values[old_count + 1],
- 			 (uint64_t)ABM_SYSFS_CONTROL);
- 
- 	amdgpu_dm_set_backlight_param(saved_backlight);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-index aad122c7229f5..ed5045c948fe9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-@@ -7,6 +7,7 @@
- 
- #include <kunit/test.h>
- #include <linux/module.h>
 +#include <drm/drm_backlight.h>
- #include <drm/drm_kunit_helpers.h>
- #include <drm/drm_managed.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_print.h>
+ #include <drm/intel/pci_config.h>
+@@ -1004,6 +1005,8 @@ int intel_backlight_device_register(struct intel_connector *connector)
+ 		    "[CONNECTOR:%d:%s] backlight device %s registered\n",
+ 		    connector->base.base.id, connector->base.name, name);
  
-@@ -32,7 +33,11 @@ struct amdgpu_device *dm_kunit_alloc_adev(struct kunit *test)
- 						   DRIVER_MODESET | DRIVER_ATOMIC);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
- 
--	return drm_to_adev(drm);
-+	struct amdgpu_device *adev = drm_to_adev(drm);
++	drm_backlight_link(&connector->base, bd);
 +
-+	mutex_init(&adev->dm.dc_lock);
+ out:
+ 	kfree(name);
+ 
+@@ -1015,6 +1018,7 @@ void intel_backlight_device_unregister(struct intel_connector *connector)
+ 	struct intel_panel *panel = &connector->panel;
+ 
+ 	if (panel->backlight.device) {
++		drm_backlight_link(&connector->base, NULL);
+ 		backlight_device_unregister(panel->backlight.device);
+ 		panel->backlight.device = NULL;
+ 	}
+@@ -1703,6 +1707,8 @@ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
+ 
+ 	panel->backlight.present = true;
+ 
++	drm_backlight_create_property(&connector->base, panel->backlight.max, false);
 +
-+	return adev;
- }
- EXPORT_SYMBOL(dm_kunit_alloc_adev);
+ 	drm_dbg_kms(display->drm,
+ 		    "[CONNECTOR:%d:%s] backlight initialized, %s, brightness %u/%u\n",
+ 		    connector->base.base.id, connector->base.name,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 9dfd095f325f7..d53e5f4bdf57d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7496,10 +7496,12 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	struct intel_display *display = to_intel_display(state);
+ 	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+ 	struct intel_crtc_state *new_crtc_state, *old_crtc_state;
++	struct drm_connector_state *new_conn_state;
++	struct drm_connector *connector;
+ 	struct intel_crtc *crtc;
+ 	struct intel_power_domain_mask put_domains[I915_MAX_PIPES] = {};
+ 	struct ref_tracker *wakeref = NULL;
+-	int power_async_delay;
++	int power_async_delay, i;
  
-@@ -172,6 +177,7 @@ struct amdgpu_dm_connector *dm_kunit_alloc_connector(struct kunit *test,
- 	if (adev)
- 		aconnector->base.dev = &adev->ddev;
- 	aconnector->dc_link = link;
-+	drm_backlight_connector_init(&aconnector->base);
+ 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state)
+ 		intel_atomic_dsb_prepare(state, crtc);
+@@ -7608,6 +7610,9 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
+ 	display->modeset.funcs->commit_modeset_enables(state);
  
- 	return aconnector;
- }
++	for_each_new_connector_in_state(&state->base, connector, new_conn_state, i)
++		drm_atomic_helper_connector_apply_luminance(new_conn_state);
++
+ 	intel_display_power_dc3co_compute(state);
+ 
+ 	/* FIXME probably need to sequence this properly */
 -- 
 2.43.0
 
