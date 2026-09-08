@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C4ACC79F82
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 23:29:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C8C0C79FA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 23:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84EA810EDE9;
-	Tue,  8 Sep 2026 23:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C779C10E1E7;
+	Tue,  8 Sep 2026 23:39:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PNvEpufk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DHDshnxs";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 948CF10EDE9
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 23:29:55 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0F2C10E1E7
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 23:39:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B92B5601DE;
- Tue,  8 Sep 2026 23:29:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455E11F00A3A;
- Tue,  8 Sep 2026 23:29:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A040A4143D;
+ Tue,  8 Sep 2026 23:39:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684681F00A3A;
+ Tue,  8 Sep 2026 23:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788910194;
- bh=pUu7LRzvFYJurCTaFZ+m8Al5aB83O20C8PpBUIGySJw=;
+ s=k20260515; t=1788910775;
+ bh=5YLj4hd0QFtYoC7wYvJxeAgQLtxZP22OnYFvBsYx0+U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PNvEpufkPY83ucFF/pbU0G/xoyX/Hogx80An+52Rd2kln0+yfcHlz1Yk4N6oyahMW
- 2cKpS6ZDjfh3pJqGxR3uFbMZtlUpRRrfsL8p642+scPtvt7OCjjtWEqks8SgF1e82s
- VXVKRNVWqoMaJp6vbV8ltZbtnpyEJ60VS7v136pm9THkX4Qd2yXRo4CXs/pbWljeI1
- A8qWK7n4QyW4rnw8oAzung+IBk6UZv589DyMkcP8nOdKssmB0StO/iI3jEoWX7zz3j
- fuf23B2mDBTh8J4cvhQZ4A8l9dg9lgT5JbV7H8xePQ88pqvHbnU+W4bAmZBSc8nCjS
- RBwNsFIPp5UPg==
+ b=DHDshnxsh5MsyVlZyr+ydZjVhjt2Trms0uIxxxC/Yoc27BFHbgRgyPwWY7iw8eBeE
+ UwqbX/YrLBpktZIz+0ZuvsPngg3dj1naR1XETzWAjdPqECHdOAoXEUtkAP57tZ4BxU
+ 1sqqROgJWnl/ZC2pEaFpQoi4SwP6lvxBcXwzpjI04q8rnDuGqU5bED7xG1PnAeruAv
+ n1s8aXgEIgfIQRQnK9ASnXrlSQ3m35e8TWuvWAMaoEL/Y1Ob1gfE82GjMNbQwqD3rg
+ brjz1/p52Aa927F3ou5rv8vOvLHCtjT3Xhg7l8u6MgcSm2KoHfKAqM6LljJ3zPVX7G
+ Wv8DQVr69frjg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/i915/perf: Enable the stream before installing
- its fd
+Subject: Re: [PATCH 2/2] drm/i915/guc: Reject unsolicited deregister-done G2H
 To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260908231511.1217426-5-umesh.nerlige.ramappa@intel.com>
-References: <20260908231511.1217426-4-umesh.nerlige.ramappa@intel.com>
- <20260908231511.1217426-5-umesh.nerlige.ramappa@intel.com>
+In-Reply-To: <20260908232323.1220407-6-umesh.nerlige.ramappa@intel.com>
+References: <20260908232323.1220407-4-umesh.nerlige.ramappa@intel.com>
+ <20260908232323.1220407-6-umesh.nerlige.ramappa@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 23:29:53 +0000
-Message-Id: <20260908232954.455E11F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 23:39:35 +0000
+Message-Id: <20260908233935.684681F00A3A@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,69 +57,101 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] File descriptor exposure race leading to use-after-free on `dr=
-m_device` due to unbalanced `drm_dev_put()`.
+- [High] g2h_context_lookup() returns a context pointer without holding a r=
+eference or RCU lock, making it vulnerable to concurrent destruction and us=
+e-after-free for unsolicited messages.
+- [High] Race condition between setting `context_destroyed` and sending the=
+ deregister message allows a compromised GuC to trigger a logical Use-After=
+-Free.
 --
 
-commit c98885955ea0ce4ff5699cebc897dbb4dbd8246b
+commit cb6dcb7e78a9d3169d35435ce55f5ecfc640397c
 Author: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 
-drm/i915/perf: Enable the stream before installing its fd
+drm/i915/guc: Reject unsolicited deregister-done G2H
 
-This commit moves the enablement of the perf stream to occur before
-installing the file descriptor in userspace. This prevents a race
-condition where an I915_PERF_IOCTL_DISABLE ioctl could run concurrently
-with stream enablement.
+intel_guc_deregister_done_process_msg() takes the ctx_id straight out of
+the G2H payload, resolves it via g2h_context_lookup() and then calls
+decr_outstanding_submission_g2h() unconditionally. Ensure that we are
+expecting a DEREGISTER_DONE G2H for that context before changing
+outstanding_submission state. Return EPROTO on error.
 
-> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915=
-_perf.c
-> index 19b82427aa412..96823dcd3fae2 100644
-> --- a/drivers/gpu/drm/i915/i915_perf.c
-> +++ b/drivers/gpu/drm/i915/i915_perf.c
-[ ... ]
-> @@ -3900,15 +3900,25 @@ i915_perf_open_ioctl_locked(struct i915_perf *per=
-f,
-[ ... ]
-> +	if (!(param->flags & I915_PERF_FLAG_DISABLED))
-> +		i915_perf_enable_locked(stream);
-> +
->  	stream_fd =3D anon_inode_getfd("[i915_perf]", &fops, stream, f_flags);
->  	if (stream_fd < 0) {
->  		ret =3D stream_fd;
-> -		goto err_flags;
-> +		goto err_enable;
->  	}
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/=
+gpu/drm/i915/gt/uc/intel_guc_submission.c
+> index 9d3bd16adf406..85fbef30dbecb 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> @@ -5065,6 +5065,18 @@ int intel_guc_deregister_done_process_msg(struct i=
+ntel_guc *guc,
+>  	if (unlikely(!ce))
+>  		return -EPROTO;
 > =20
-> -	if (!(param->flags & I915_PERF_FLAG_DISABLED))
-> -		i915_perf_enable_locked(stream);
-> -
->  	/* Take a reference on the driver that will be kept with stream_fd
->  	 * until its release.
->  	 */
+> +	/*
+> +	 * A deregister H2G is only ever sent for a context that has been put in
+> +	 * one of these two states first, so anything else means this G2H does
+> +	 * not correspond to an outstanding request of ours.
+> +	 */
+> +	if (unlikely(!context_wait_for_deregister_to_register(ce) &&
 
-[Severity: Critical]
-This is a pre-existing issue, but does anon_inode_getfd() expose the file
-descriptor to userspace before the drm_device reference count is acquired?
+[Severity: High]
+This is a pre-existing issue, but this patch adds new logic directly on the
+vulnerable path. Can this lead to a use-after-free if the context is
+concurrently destroyed?
 
-Since anon_inode_getfd() installs the file descriptor in the process's fd
-table, it becomes immediately visible to userspace. A concurrent thread
-could guess the fd and call close() before the original ioctl thread in
-i915_perf_open_ioctl_locked() has a chance to execute the subsequent
-drm_dev_get().
+Earlier in intel_guc_deregister_done_process_msg() in
+drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c, g2h_context_lookup()
+returns a context pointer ce without holding a reference or an RCU lock.
+If submission_disabled(guc) becomes true concurrently, another thread
+dropping the final reference to ce might immediately call
+__guc_context_destroy(ce), freeing the memory.
 
-If close() is called concurrently, it invokes i915_perf_release(), which
-unconditionally calls drm_dev_put(&perf->i915->drm). Because the original
-thread has not yet called drm_dev_get(), could this prematurely decrement
-the reference count?
+Will checking ce->guc_state.sched_state in the newly added check
+dereference a potentially freed pointer?
 
-By racing multiple I915_PERF_OPEN ioctls with concurrent close() calls,
-could this drive the drm_device refcount to 0, leading to a use-after-free
-when the original thread finally executes drm_dev_get()?
+> +		     !context_destroyed(ce))) {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the newly introduced check
+fails to protect against a race condition that can cause a use-after-free.
+
+In guc_lrc_desc_unpin() in drivers/gpu/drm/i915/gt/uc/intel_guc_submission.=
+c,
+a context is marked as destroyed before the deregister message is sent:
+
+	if (likely(!disabled)) {
+		__intel_gt_pm_get(gt);
+		set_context_destroyed(ce);
+		clr_context_registered(ce);
+	}
+	spin_unlock_irqrestore(&ce->guc_state.lock, flags);
+
+	if (unlikely(disabled)) {
+		...
+	}
+
+	ret =3D deregister_context(ce, ce->guc_id.id);
+
+If a spurious DEREGISTER_DONE G2H message is processed by the CT worker
+thread in the window between unlocking the spinlock and calling
+deregister_context(), the new check context_destroyed(ce) will evaluate to
+true, allowing the message to be processed.
+
+Will this cause the CT thread to proceed and call __guc_context_destroy(ce)
+to free the memory, resulting in a use-after-free when deregister_context()
+is subsequently called?
+
+> +		guc_err(guc, "Unexpected deregister done, ctx_id %u sched_state 0x%x\n=
+",
+> +			ctx_id, ce->guc_state.sched_state);
+> +		return -EPROTO;
+> +	}
+> +
+>  	trace_intel_context_deregister_done(ce);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908231511.1217=
-426-4-umesh.nerlige.ramappa@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908232323.1220=
+407-4-umesh.nerlige.ramappa@intel.com?part=3D2
