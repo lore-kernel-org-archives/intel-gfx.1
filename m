@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07566C88E40
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D25E7C88E45
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 14:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34C2F10F4B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49DD110F4B1;
 	Thu, 10 Sep 2026 14:24:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="frB7x9l8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NUVPRal7";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1273810E582
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 17:36:14 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49b4ba7fe26so2340015e9.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 10:36:14 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 381C610E58A
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 17:36:12 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-482e1b55da8so574445f8f.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 10:36:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788975372; x=1789580172; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=WLa/2IhG0uPxKott5hiW6gEdbabkA+pAUSYZZS+3kb0=;
- b=frB7x9l8Crenbt1bg+sjXRoqk1/L1pkejdGVTvTEPszl/LLrAaP6eIwpQQj6DltEEA
- W3Rxq3CRHhJA/W7g/Zm11RybkK9V6p9qVjFeoCW46HkFHmiPPRFe3XuouRKAbSgHo08g
- 3O0nmuGfmpF1E5wgvObakfjsFWEvnsGoHH6VszfEx8WjczdzRmtvDS5hG5Xk3hwdxXqI
- pPAg6HSA0YlC15RTgOTqyUWvBGnYzeXZtTeX+c/WM1YFFZstcH/xWAqnZACpDX/Nuonh
- tUOFBARu7Vik6B7XA/ryrPIbBCmtGTdFJF1cmMgf36QnEAh/laxCweL+zjqCiUCuBmJy
- Oa5Q==
+ d=gmail.com; s=20251104; t=1788975370; x=1789580170; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=GcSEJLSb+KPAcWrzfd13cySwpnusQrnIcgjvZmkYhdY=;
+ b=NUVPRal7UEW6/spynYrwt+j82/yz1qN1BO4NGXXHiM/YDcvEG4HeUAoOU7HJD4ND1S
+ VuGaONQY7prRV/0vgDjOSfcx5o0OaI80fxUH8x+I8bmnKO19ne/9oRBBGd5u4HhgcRJ4
+ ox1GvDcBYYjGsFX54juDYYio7md1oyzkq0ntI1oZz/cjsCLRlF0o/th4QgjTeHFRYcjw
+ 5GCnoxMoP/fOVy0Nojak5QzPpV0krRjvzuJPXTkYiIuu17qsmNFBdmB6VkvTgL5fF4zO
+ TrkOKXqhNYIGhm3F95oWIG09U/GnbFoyZO/soOta7pi7nm4RtAzHPmyKY5LGkGsfRMX+
+ MdNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788975372; x=1789580172;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=WLa/2IhG0uPxKott5hiW6gEdbabkA+pAUSYZZS+3kb0=;
- b=WRaAo/PhxubUa0/b+OkrcgY3LJ1Gm6cAmi5BG6TEBE9aLqe/kCfi02kpyRSKPQ8C/t
- zEncFYbkQX3CLD71QFtsliMG+VB9V91w0Y/TmElvXqd0KJjusQfy6bgriCmKTUuK/p5J
- 3xRIr5oi0SyTdhaaIzhL+XSnE8FMmFEBvafQcmyEWH2ouFyxH7wNsEoaNgLwOwZzev/L
- 8s04y94L7tiKz60/uJlpLDoYOKsvPJ6Q6R+QPTutgG5Gez85FQpp8FDiy0qQwBRs4//T
- pIcNPCR9k0h3wBIV1h7udr4pNwigMUHqFPXyVVTPTlMkI7terUGJKIvDlr5Gs0gzcUuK
- XMEA==
+ d=1e100.net; s=20251104; t=1788975370; x=1789580170;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=GcSEJLSb+KPAcWrzfd13cySwpnusQrnIcgjvZmkYhdY=;
+ b=iQe9JwbdEF3wnJskvlXoTmCx6UMDIHvTsIXS60LqNQDOFZdgCbjlikkmmeX7XB88LP
+ WZcv4bFpsAfixZC0zSDnHy1NKFagkc5QunMq33g2Rl3X5GcS/DiVkxerXI9IrBMaPzYk
+ wUCMbp8dzZxJ6A6PJtnYjHHcdXh5sLP+xGocaELyBf6MILXL9bZ8Cgv6+Mi5/T/Kri0v
+ 77DR81fd0IrX9l+STFSjcuC50wiJ6M434a91VJdo8F++7X/NDob4q54wctdjZOG0jElk
+ 9D5k2EQgJ8s2JrNW73KHrKm5qTqbdxtowN0PE0vQMAyPBrziwDigHNnK2PorEO4OnSwN
+ dIoA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByBEHfBAE6f/EV2p05MbI3lrvv4di4koqncXq8jQdGE0W9pX8+f3v0ddeZP8HUg14kOIFh0o0/2ojQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mmQPwd/dbbQv7TwT0QVuOyg0gRSacod5uqucBIzWgM8Aa8Lmsd
- /emqRR3pEMjRb+RDLXz67/ee9IxoCOHYxkBloilUodecmgjpeudzR38m
-X-Gm-Gg: AYBFou066AFwRL7PbwV7DhV3Bx95P95ylpI5i4ttUAYSEbeEyk6SrtvN3+jelRMYR2x
- riWSkSMVpkw2yjJlqr+PcOdBRUdiKIkNe7gWfHKRoma8fD1hxQyLrz8PPBwmRtLmulS08/j/yLD
- O4AKdoCAIRVpkuY5ERYIuESwuUfSKVbLVZnOepcgaNj72nukWd2PGRTHRxP0+SVctslkDUPS9Z1
- jLv2t+XmzlScZ6oF5dkBUArA8FuauMYwi6JJKo/9Qg9yK9D+JgC6kg+XXncKtGN/cdrEK36vO8x
- 40pIayV5wSk04gTJZVQj3BcRH/TU4EidE2GbH8LL+/n0AXL6AZt+e02+x6oJSAS9rbxMU3fn1Jx
- 1P4sLQig0YrxjXQd7IhIirp4AoVdfVJx1sDB+4WwbQNsw9X1+BCNpvnIRw6RW0WuM1K4IrvBgii
- cFka+Acc3Ckp2OFKynfaEZOuCVbT77F/kNP1LyCfhdS2jQGXh/t7RUw98VaH/wCC2zlNOXl8EnS
- lzYafqlJ9l+R5jn/GsTPhaNezRn4a5fiOqDLqxVlZh/hL/60eiGcbjg9s4tA7N+2LHvSfHNtKBb
- Ow==
-X-Received: by 2002:a05:600c:a305:b0:49c:ff81:e062 with SMTP id
- 5b1f17b1804b1-49cff81e076mr237967455e9.2.1788975372348; 
- Wed, 09 Sep 2026 10:36:12 -0700 (PDT)
+ AKwUvBxHOMcGv40JCzgAO0wxj4M3QEy+QtwQfuZ7j1x21EhO81Kak7OCyHFmPQbuyZfc0Ah/L6d1lV/Utjo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lX8ozvXcfW4yTzDp+vKI+nmN8LWN3FURgs2t+WzpxY0Cy7wzEg
+ 1gfP4T/kv+OLEcwbUffKD8M87PH+6VPJPIAvjBYqK4j5WwgLWcymVC0Z
+X-Gm-Gg: AYBFou2xbG9SMNYKKgbUGwAf1j/fvwVQtD5PhnyrbOfsC4rhBwgBoYkiEWn7+sj1JAM
+ Cu7qSAEy8Hj11hr+b5hifTBuWNJdKY9WE9/o4nZvkruEi5cMksCC+eGBTHj8Tcfrdx6E4SxNHsr
+ PhNVSVV6/hFJ0BDO68DwcpTc3dq0GaERWBI3PBQjFJw6o1GjEFgrcDNOjDS+YPrz52T+8fE3iCu
+ w/UIv5HL4S5idHaOqAguDpp1T5VyzA6r6hAJCkKv0ksbuzvrBggCDWlb8aEs/YesqHR3xKBT90B
+ oOihMq52KrrdGdBWUvELJb5Y7cPNQpt/dZVuwikVYQREg17wcpQRoHcmtzj6E/lsb1tiVdxGQH7
+ qWLmfhSy3qs1xCWFpdTwX8WdsOk6Jpt2B64At9mwdkhoAbhPAWtHdNNakVRVXG8pv7wSeMjZ7qW
+ sqn6MMshWqBlEXZxocyuIYxOgsXvleuNorjY0pRFVcsFdUbL+vSL40wqUHEcuqJGMoMkRWPusEo
+ BzleM9nay6vEEUNirJfoKW7N3VzbHqTdUKAkH2g2okRxVB731s/acI+m9HTi1Wg7XaIRfn5kZIW
+ XAc=
+X-Received: by 2002:a05:600c:35cb:b0:49d:1da4:511b with SMTP id
+ 5b1f17b1804b1-49d1da4515bmr96595615e9.1.1788975370286; 
+ Wed, 09 Sep 2026 10:36:10 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B836900B0110705BF092680.dsl.pool.telekom.hu.
  [2001:4c4e:1b83:6900:b011:705:bf09:2680])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49d26c06f04sm6876575e9.13.2026.09.09.10.36.10
+ 5b1f17b1804b1-49d26c06f04sm6876575e9.13.2026.09.09.10.36.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 10:36:11 -0700 (PDT)
+ Wed, 09 Sep 2026 10:36:09 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Igor Paunovic <royalnet026@gmail.com>, intel-gfx@lists.freedesktop.org,
@@ -90,14 +91,14 @@ Cc: Igor Paunovic <royalnet026@gmail.com>, intel-gfx@lists.freedesktop.org,
  Ville Syrjala <ville.syrjala@linux.intel.com>,
  Imre Deak <imre.deak@intel.com>,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v2 2/3] drm/display: bridge-connector: Preserve max bpc across
- connector reset
-Date: Wed,  9 Sep 2026 19:35:39 +0200
-Message-ID: <20260909173542.14030-3-royalnet026@gmail.com>
+Subject: [PATCH v2 1/3] drm/dp: Add drm_dp_hdr_metadata_infoframe_sdp_pack()
+Date: Wed,  9 Sep 2026 19:35:38 +0200
+Message-ID: <20260909173542.14030-2-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909163206.36409-1-royalnet026@gmail.com>
 References: <20260909163206.36409-1-royalnet026@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 10 Sep 2026 14:24:20 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -115,92 +116,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_connector_attach_max_bpc_property() initializes max_requested_bpc
-and max_bpc in the connector state, but nothing restores them when the
-connector state is later thrown away and re-created:
-drm_bridge_connector_create_state() returns a zeroed state for
-non-HDMI bridge connectors, and drm_mode_config_reset() installs such
-a fresh state on every connector that implements
-&drm_connector_funcs.atomic_create_state instead of a .reset hook.
+i915 packs HDR static metadata into an HDR Metadata InfoFrame SDP
+(DP 1.4a spec, Table 2-100 and Table 2-101) with a driver-private
+helper, intel_dp_hdr_metadata_infoframe_sdp_pack(). Nothing in it is
+i915 specific: it converts a generic struct hdmi_drm_infoframe into a
+generic struct dp_sdp.
 
-This matters because drivers can attach the property before
-drm_mode_config_reset() runs. Rockchip, for example, binds its
-component drivers (which create connectors and attach properties)
-before calling drm_mode_config_reset(). After that reset,
-max_requested_bpc is 0, so drm_atomic_connector_check() computes
-max_bpc = min(info->bpc ?: 8, 0) = 0. Any driver that filters output
-formats on conn_state->max_bpc then rejects every format, and clients
-that never set the "max bpc" property - fbcon in particular - end up
-with a black screen. meson already attaches the property on a
-drm_bridge_connector before drm_mode_config_reset() and so already
-boots with max_requested_bpc = 0 today. dw-hdmi's format negotiation
-does consume the value there, but meson attaches the property with a
-maximum of 8 and the 8-bit fallback formats are not gated on it, so
-negotiation yields the same result for 0 and 8 - the change is a
-no-op for meson.
+Move it to drm_dp_helper.c as drm_dp_hdr_metadata_infoframe_sdp_pack(),
+next to drm_dp_vsc_sdp_pack(), and convert i915 to the new helper. The
+Synopsys DesignWare DisplayPort bridge driver (dw-dp) needs to send the
+same SDP to support HDR and should not have to duplicate the packing
+code.
 
-HDMI bridge connectors are immune: drm_bridge_connector_create_state()
-calls __drm_atomic_helper_connector_hdmi_state_init(), which
-initializes both fields from connector->max_bpc. amdgpu likewise
-re-initializes max_requested_bpc in its own .reset implementation.
-Non-HDMI bridge connectors have no equivalent.
-
-Mirror the HDMI helper on the non-HDMI path: record the upper attach
-limit in connector->max_bpc (drmm_connector_hdmi_init() already stores
-the same value there) and restore max_requested_bpc and max_bpc from
-it in drm_bridge_connector_create_state() whenever the "max bpc"
-property is attached. Connectors without the property behave exactly
-as before.
+The helper takes a struct drm_device pointer in place of the i915
+display pointer for its two debug messages, and an i915-specific
+comment about GEN11+ GMP register sizes is dropped. No functional
+change.
 
 Assisted-by: LLM checkpatch
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 6 +++++-
- drivers/gpu/drm/drm_connector.c                | 5 +++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/display/drm_dp_helper.c | 88 +++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c | 84 +----------------------
+ include/drm/display/drm_dp_helper.h     |  4 ++
+ 3 files changed, 95 insertions(+), 81 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 00feb73e63d7f..6197fb80f7cc2 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -279,9 +279,13 @@ drm_bridge_connector_create_state(struct drm_connector *connector)
- 	if (IS_ERR(conn_state))
- 		return conn_state;
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index e623ccb4c1d8a..7b80937255fe0 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -25,6 +25,7 @@
+ #include <linux/dynamic_debug.h>
+ #include <linux/errno.h>
+ #include <linux/export.h>
++#include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+ #include <linux/iopoll.h>
+@@ -3672,6 +3673,93 @@ ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+ }
+ EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
  
--	if (bridge_connector->bridge_hdmi)
-+	if (bridge_connector->bridge_hdmi) {
- 		__drm_atomic_helper_connector_hdmi_state_init(connector,
- 							      conn_state);
-+	} else if (connector->max_bpc_property) {
-+		conn_state->max_requested_bpc = connector->max_bpc;
-+		conn_state->max_bpc = connector->max_bpc;
++/**
++ * drm_dp_hdr_metadata_infoframe_sdp_pack() - pack HDR Metadata InfoFrame SDP
++ * @dev: DRM device
++ * @drm_infoframe: HDMI DRM infoframe carrying the HDR static metadata
++ * @sdp: valid handle to the generic dp_sdp which will be packed
++ * @size: valid size of the passed sdp handle
++ *
++ * Pack a CTA-861 Dynamic Range and Mastering infoframe into an HDR
++ * Metadata InfoFrame SDP, as defined in DP 1.4a spec, Table 2-100 and
++ * Table 2-101.
++ *
++ * Returns: length of sdp on success and error code on failure
++ */
++ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
++					       const struct hdmi_drm_infoframe *drm_infoframe,
++					       struct dp_sdp *sdp,
++					       size_t size)
++{
++	size_t length = sizeof(struct dp_sdp);
++	const int infoframe_size = HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE;
++	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
++	ssize_t len;
++
++	if (size < length)
++		return -ENOSPC;
++
++	memset(sdp, 0, size);
++
++	len = hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
++	if (len < 0) {
++		drm_dbg_kms(dev,
++			    "buffer size is smaller than hdr metadata infoframe\n");
++		return -ENOSPC;
 +	}
- 
- 	return conn_state;
++
++	if (len != infoframe_size) {
++		drm_dbg_kms(dev, "wrong static hdr metadata size\n");
++		return -ENOSPC;
++	}
++
++	/*
++	 * Set up the infoframe sdp packet for HDR static metadata.
++	 * Prepare VSC Header for SU as per DP 1.4a spec,
++	 * Table 2-100 and Table 2-101
++	 */
++
++	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
++	sdp->sdp_header.HB0 = 0;
++	/*
++	 * Packet Type 80h + Non-audio INFOFRAME Type value
++	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
++	 * - 80h + Non-audio INFOFRAME Type value
++	 * - InfoFrame Type: 0x07
++	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
++	 */
++	sdp->sdp_header.HB1 = drm_infoframe->type;
++	/*
++	 * Least Significant Eight Bits of (Data Byte Count – 1)
++	 * infoframe_size - 1
++	 */
++	sdp->sdp_header.HB2 = 0x1D;
++	/* INFOFRAME SDP Version Number */
++	sdp->sdp_header.HB3 = (0x13 << 2);
++	/* CTA Header Byte 2 (INFOFRAME Version Number) */
++	sdp->db[0] = drm_infoframe->version;
++	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
++	sdp->db[1] = drm_infoframe->length;
++	/*
++	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
++	 * HDMI_INFOFRAME_HEADER_SIZE
++	 */
++	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
++	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
++	       HDMI_DRM_INFOFRAME_SIZE);
++
++	/*
++	 * Size of DP infoframe sdp packet for HDR static metadata consists of
++	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
++	 * - Two Data Blocks: 2 bytes
++	 *    CTA Header Byte2 (INFOFRAME Version Number)
++	 *    CTA Header Byte3 (Length of INFOFRAME)
++	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
++	 */
++	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
++}
++EXPORT_SYMBOL(drm_dp_hdr_metadata_infoframe_sdp_pack);
++
+ /**
+  * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
+  * @dpcd: DisplayPort configuration data
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 113d767e62e9c..d0d3f517df85a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5189,84 +5189,6 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
+ 	return length;
  }
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 8b4baed060f3a..0400a6a92e2b7 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2866,6 +2866,10 @@ EXPORT_SYMBOL(drm_connector_set_link_status_property);
-  * @max: The maximum bit depth supported by the connector.
-  *
-  * This is used to add support for limiting the bit depth on a connector.
-+ * @max is also recorded in &drm_connector.max_bpc, so that
-+ * &drm_connector_funcs.atomic_create_state and &drm_connector_funcs.reset
-+ * implementations can restore the property default when re-creating the
-+ * connector state.
-  *
-  * Returns:
-  * Zero on success, negative errno on failure.
-@@ -2888,6 +2892,7 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
- 	drm_object_attach_property(&connector->base, prop, max);
- 	connector->state->max_requested_bpc = max;
- 	connector->state->max_bpc = max;
-+	connector->max_bpc = max;
  
- 	return 0;
- }
+-static ssize_t
+-intel_dp_hdr_metadata_infoframe_sdp_pack(struct intel_display *display,
+-					 const struct hdmi_drm_infoframe *drm_infoframe,
+-					 struct dp_sdp *sdp,
+-					 size_t size)
+-{
+-	size_t length = sizeof(struct dp_sdp);
+-	const int infoframe_size = HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE;
+-	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
+-	ssize_t len;
+-
+-	if (size < length)
+-		return -ENOSPC;
+-
+-	memset(sdp, 0, size);
+-
+-	len = hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
+-	if (len < 0) {
+-		drm_dbg_kms(display->drm,
+-			    "buffer size is smaller than hdr metadata infoframe\n");
+-		return -ENOSPC;
+-	}
+-
+-	if (len != infoframe_size) {
+-		drm_dbg_kms(display->drm, "wrong static hdr metadata size\n");
+-		return -ENOSPC;
+-	}
+-
+-	/*
+-	 * Set up the infoframe sdp packet for HDR static metadata.
+-	 * Prepare VSC Header for SU as per DP 1.4a spec,
+-	 * Table 2-100 and Table 2-101
+-	 */
+-
+-	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
+-	sdp->sdp_header.HB0 = 0;
+-	/*
+-	 * Packet Type 80h + Non-audio INFOFRAME Type value
+-	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
+-	 * - 80h + Non-audio INFOFRAME Type value
+-	 * - InfoFrame Type: 0x07
+-	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
+-	 */
+-	sdp->sdp_header.HB1 = drm_infoframe->type;
+-	/*
+-	 * Least Significant Eight Bits of (Data Byte Count – 1)
+-	 * infoframe_size - 1
+-	 */
+-	sdp->sdp_header.HB2 = 0x1D;
+-	/* INFOFRAME SDP Version Number */
+-	sdp->sdp_header.HB3 = (0x13 << 2);
+-	/* CTA Header Byte 2 (INFOFRAME Version Number) */
+-	sdp->db[0] = drm_infoframe->version;
+-	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
+-	sdp->db[1] = drm_infoframe->length;
+-	/*
+-	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
+-	 * HDMI_INFOFRAME_HEADER_SIZE
+-	 */
+-	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
+-	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
+-	       HDMI_DRM_INFOFRAME_SIZE);
+-
+-	/*
+-	 * Size of DP infoframe sdp packet for HDR static metadata consists of
+-	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
+-	 * - Two Data Blocks: 2 bytes
+-	 *    CTA Header Byte2 (INFOFRAME Version Number)
+-	 *    CTA Header Byte3 (Length of INFOFRAME)
+-	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
+-	 *
+-	 * Prior to GEN11's GMP register size is identical to DP HDR static metadata
+-	 * infoframe size. But GEN11+ has larger than that size, write_infoframe
+-	 * will pad rest of the size.
+-	 */
+-	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
+-}
+-
+ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+ 			       const struct intel_crtc_state *crtc_state,
+ 			       unsigned int type)
+@@ -5285,9 +5207,9 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+ 		len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp);
+ 		break;
+ 	case HDMI_PACKET_TYPE_GAMUT_METADATA:
+-		len = intel_dp_hdr_metadata_infoframe_sdp_pack(display,
+-							       &crtc_state->infoframes.drm.drm,
+-							       &sdp, sizeof(sdp));
++		len = drm_dp_hdr_metadata_infoframe_sdp_pack(display->drm,
++							     &crtc_state->infoframes.drm.drm,
++							     &sdp, sizeof(sdp));
+ 		break;
+ 	case DP_SDP_ADAPTIVE_SYNC:
+ 		len = intel_dp_as_sdp_pack(&crtc_state->infoframes.as_sdp, &sdp,
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 5b05a7fbe174a..3e3f119775b38 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -32,6 +32,7 @@
+ struct drm_device;
+ struct drm_dp_aux;
+ struct drm_panel;
++struct hdmi_drm_infoframe;
+ 
+ bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+ 			  int lane_count);
+@@ -1035,6 +1036,9 @@ int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
+ int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes);
+ 
+ ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc, struct dp_sdp *sdp);
++ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
++					       const struct hdmi_drm_infoframe *drm_infoframe,
++					       struct dp_sdp *sdp, size_t size);
+ int drm_dp_link_symbol_cycles(int lane_count, int pixels, int dsc_slice_count,
+ 			      int bpp_x16, int symbol_size, bool is_mst);
+ 
 -- 
 2.43.0
 
