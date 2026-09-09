@@ -4,55 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E81BC79F8C
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:28:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A883C79FAA
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAA8510EED7;
-	Wed,  9 Sep 2026 06:28:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6686C10EED8;
+	Wed,  9 Sep 2026 06:32:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KdhwrsD+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZA+l7Emj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6990E10EED5;
- Wed,  9 Sep 2026 06:28:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CADFC10EED3;
+ Wed,  9 Sep 2026 06:32:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788935293; x=1820471293;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=PWimB3lZVy6NywFDLt0mlcs7ohoOUcQjJXyjMy79wmg=;
- b=KdhwrsD+Yl39AJ2crWlodmVTud2vHrj0GEzu+qTR7h3yvkLN34o8V4de
- 44NrQlDqgHiqZNIBhR6lpnmdFnwvC+7VKnVQpjP1zrBnTssq7DXTzAJMR
- Lwhqa4Sij1oi2rM292Ccrd/kITmWfwquEDMlep9ydwS+40Ngsc7Ue+yDP
- sww32eP8QXk85/1KVvfjcVM/Nnp7nMYzye2Nnd5M1Dkw3oZB2Csd7IbL3
- SgA1LeVTJdWBaGOXxUMNhpdfIsupYhUt/VSPuiKtNXstTSjmp//uw0Q/X
- 1WXFG2bUV4J7n357zdCwKjpvcVkubZZjBQofKlwWSjs2aSWyRJOWQ4Tw4 Q==;
-X-CSE-ConnectionGUID: n7/gIYFoRMqIRgpLwvUokw==
-X-CSE-MsgGUID: 79Xa/StSToyZbh4woBu32w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88499436"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="88499436"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2026 23:28:12 -0700
-X-CSE-ConnectionGUID: XLdEPhO2QKmrrDJ5ESyqtA==
-X-CSE-MsgGUID: XVjVJbfeSASinOYL5oIkPg==
+ t=1788935545; x=1820471545;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=/h5dVSsvfROejpBSrh4qJEooPtApHAkZjDTpJfrhuQY=;
+ b=ZA+l7EmjqprglOrQWzB0i9sufXFof/FXgFyqNqZjLnsxHJEI6lq1+Qy4
+ Rs+hTFpn3ypJFF5OJ183TOF2spXA+n6/8qcYXunXVTs+8VGZfBo/UVOm9
+ VpARtbDKC4dYGPz9cxe/Uo52EXG+eNRv2PB41COekxCmN6mz7ZAB5lisJ
+ DMQdLHUjCCkyU5nh8ihC5edPcmw7WFV6TNKGylB3mzz2CIEBJS64Ninlb
+ QFNZqHr+za7k3kFR+a8QUeDG7zP9/gTXtzcqZg/siFwEwfH56GX1qkzBt
+ QSHHIHJXw2l2VO2MzpYBjp0uB8vLya7MyqvZv4I3xPYz8QgmE97+qqXcx w==;
+X-CSE-ConnectionGUID: 2JH5RXQ4TpCq+djf4dfUmQ==
+X-CSE-MsgGUID: sFKN2jS/SkKBNuVhgiGThA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88287201"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="88287201"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 23:32:23 -0700
+X-CSE-ConnectionGUID: SDa6DcYJTIC/ahidQJuRXg==
+X-CSE-MsgGUID: TO1bLLsmSXWOgVzeU5xgkw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="275005634"
-Received: from nemesa.iind.intel.com ([10.190.239.22])
- by orviesa004.jf.intel.com with ESMTP; 08 Sep 2026 23:28:11 -0700
-From: Nemesa Garg <nemesa.garg@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>
-Subject: [PATCH 2/2] drm/i915/psr: Clear stale sel fetch enable bits on sel
- fetch disable
-Date: Wed,  9 Sep 2026 11:55:23 +0530
-Message-Id: <20260909062523.3516962-3-nemesa.garg@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260909062523.3516962-1-nemesa.garg@intel.com>
-References: <20260909062523.3516962-1-nemesa.garg@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="269886196"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.20])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 23:32:20 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Werner Sembach <wse@tuxedocomputers.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Werner Sembach <wse@tuxedocomputers.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/intel: Add quirk to disable rc6 on some TUXEDO
+ devices
+In-Reply-To: <20260908200707.65516-2-wse@tuxedocomputers.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260908200707.65516-1-wse@tuxedocomputers.com>
+ <20260908200707.65516-2-wse@tuxedocomputers.com>
+Date: Wed, 09 Sep 2026 09:32:16 +0300
+Message-ID: <7764d157c4bd6f832adeb7860baded67ae151901@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,136 +77,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Selective fetch is dropped while pipe CRC is active, and the planes keep
-their SEL_FETCH_PLANE_CTL / SEL_FETCH_CUR_CTL enable bit set in hardware
-over that. A plane disabled while selective fetch is off never gets the
-bit cleared, as the disable path is guarded by enable_psr2_sel_fetch.
-Once selective fetch comes back the hardware resumes fetching for a
-plane that is no longer enabled and keeps its DDB range reserved.
+On Tue, 08 Sep 2026, Werner Sembach <wse@tuxedocomputers.com> wrote:
+> Some TUXEDO devices have random rare hard resets during video streaming.
 
-Clear the bits as selective fetch is turned off instead. Atomic check
-has both the old and the new crtc state, so record the transition there
-and let the plane and cursor arm paths write the registers to 0 for that
-commit.
+Is there a gitlab issue for this?
 
-Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
-Assisted-by: Copilot:Claude-Opus-5
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cursor.c   |  7 +++++--
- .../drm/i915/display/intel_display_types.h    |  6 ++++++
- drivers/gpu/drm/i915/display/intel_psr.c      | 19 +++++++++++++++++++
- .../drm/i915/display/skl_universal_plane.c    |  9 ++++-----
- 4 files changed, 34 insertions(+), 7 deletions(-)
+> Disabling rc6 fixes this. Until the root cause is found this is a pragmatic
+> workaround.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 90173040d825..4afd275de86e 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -537,7 +537,8 @@ static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	if (!crtc_state->enable_psr2_sel_fetch &&
-+	    !crtc_state->clear_psr2_sel_fetch)
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -570,8 +571,10 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	if (!crtc_state->enable_psr2_sel_fetch) {
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 		return;
-+	}
- 
- 	if (drm_rect_height(&plane_state->psr2_sel_fetch_area) > 0) {
- 		if (crtc_state->enable_psr2_su_region_et) {
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 9016be52c7ea..eae05a83db80 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1190,6 +1190,12 @@ struct intel_crtc_state {
- 	bool has_sel_update;
- 	bool enable_psr2_sel_fetch;
- 	bool enable_psr2_su_region_et;
-+	/*
-+	 * Commit time directive rather than a piece of pipe state: drop the
-+	 * stale selective fetch enable bits as selective fetch is turned off.
-+	 * Not compared by the state checker.
-+	 */
-+	bool clear_psr2_sel_fetch;
- 	bool req_psr2_sdp_prior_scanline;
- 	bool has_panel_replay;
- 	bool link_off_after_as_sdp_when_pr_active;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index f490beb66629..79ce50831492 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2889,6 +2889,8 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 				struct intel_crtc *crtc)
- {
- 	struct intel_display *display = to_intel_display(state);
-+	const struct intel_crtc_state *old_crtc_state =
-+		intel_atomic_get_old_crtc_state(state, crtc);
- 	struct intel_crtc_state *crtc_state = intel_atomic_get_new_crtc_state(state, crtc);
- 	struct intel_plane_state *new_plane_state, *old_plane_state;
- 	struct intel_plane *plane;
-@@ -2901,6 +2903,23 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 	bool full_update = false, su_area_changed;
- 	int i, ret;
- 
-+	/*
-+	 * Selective fetch is not always usable, for instance it is dropped
-+	 * while pipe CRC is active. The planes keep their selective fetch
-+	 * enable bit set in hardware over that, and a plane disabled while
-+	 * selective fetch is off never gets the bit cleared. Once selective
-+	 * fetch comes back the hardware would resume fetching for a plane that
-+	 * is no longer enabled and keep its DDB range reserved, so have the
-+	 * plane update drop the bit for every plane of the pipe as selective
-+	 * fetch is turned off. The pipe is known to implement these registers
-+	 * because selective fetch was enabled on it. Turning selective fetch
-+	 * off is a modeset, so all the planes of the pipe are already in the
-+	 * state and get programmed by this commit.
-+	 */
-+	crtc_state->clear_psr2_sel_fetch = old_crtc_state->hw.active &&
-+		old_crtc_state->enable_psr2_sel_fetch &&
-+		!crtc_state->enable_psr2_sel_fetch;
-+
- 	if (!crtc_state->enable_psr2_sel_fetch)
- 		return 0;
- 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 07a683293352..eb5ed981b40f 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -885,7 +885,8 @@ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	if (!crtc_state->enable_psr2_sel_fetch &&
-+	    !crtc_state->clear_psr2_sel_fetch)
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -1634,10 +1635,8 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
--		return;
--
--	if (drm_rect_height(&plane_state->psr2_sel_fetch_area) > 0)
-+	if (crtc_state->enable_psr2_sel_fetch &&
-+	    drm_rect_height(&plane_state->psr2_sel_fetch_area) > 0)
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
+The way to do this is to add your own local struct pci_device_id array
+somewhere, and use pci_match_id() or similar on it.
+
+We're *not* going to change the high level device info or PCI ID
+definitions for this.
+
+Ugly stuff needs to be localized and hidden away.
+
+
+BR,
+Jani.
+
+
+>
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> ---
+>  drivers/gpu/drm/i915/i915_pci.c | 11 +++++++++++
+>  include/drm/intel/pciids.h      | 22 ++++++++++++++++++++++
+>  2 files changed, 33 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+> index 2f03f95945f1b..a52b56bedcf4f 100644
+> --- a/drivers/gpu/drm/i915/i915_pci.c
+> +++ b/drivers/gpu/drm/i915/i915_pci.c
+> @@ -687,6 +687,16 @@ static const struct intel_device_info adl_p_info = {
+>  	.dma_mask_size = 39,
+>  };
+>  
+> +static const struct intel_device_info adl_p_tux_ibp8_quirk_info = {
+> +	GEN12_FEATURES,
+> +	PLATFORM(INTEL_ALDERLAKE_P),
+> +	.platform_engine_mask =
+> +		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
+> +	.__runtime.ppgtt_size = 48,
+> +	.dma_mask_size = 39,
+> +	.has_rc6 = 0,
+> +};
+> +
+>  #undef GEN
+>  
+>  #define XE_HP_PAGE_SIZES \
+> @@ -863,6 +873,7 @@ static const struct pci_device_id pciidlist[] = {
+>  	INTEL_DG1_IDS(INTEL_VGA_DEVICE, &dg1_info),
+>  	INTEL_RPLS_IDS(INTEL_VGA_DEVICE, &adl_s_info),
+>  	INTEL_RPLU_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+> +	INTEL_RPLP_TUX_IBP8_QUIRK_IDS(INTEL_VGA_DEVICE, &adl_p_tux_ibp8_quirk_info),
+>  	INTEL_RPLP_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+>  	INTEL_DG2_IDS(INTEL_VGA_DEVICE, &dg2_info),
+>  	INTEL_ATS_M_IDS(INTEL_VGA_DEVICE, &ats_m_info),
+> diff --git a/include/drm/intel/pciids.h b/include/drm/intel/pciids.h
+> index 7a4a5658942d2..e4f74916a62c2 100644
+> --- a/include/drm/intel/pciids.h
+> +++ b/include/drm/intel/pciids.h
+> @@ -712,6 +712,28 @@
+>  	MACRO__(0xA7AC, ## __VA_ARGS__), \
+>  	MACRO__(0xA7AD, ## __VA_ARGS__)
+>  
+> +#define INTEL_RPLP_TUX_IBP8_QUIRK_IDS(MACRO__, ...) \
+> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA720, 0x1D05, 0x130F, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x130F, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x130F, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x130F, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124A, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124C, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124E, ## __VA_ARGS__), \
+> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x130F, ## __VA_ARGS__)
+> +
+>  /* RPL-P */
+>  #define INTEL_RPLP_IDS(MACRO__, ...) \
+>  	MACRO__(0xA720, ## __VA_ARGS__), \
+
 -- 
-2.25.1
-
+Jani Nikula, Intel
