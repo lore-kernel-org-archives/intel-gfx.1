@@ -4,27 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D8BC79FB6
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 459A9C79FBB
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:45:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6DF10E14E;
-	Wed,  9 Sep 2026 13:12:12 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 701A510E14E;
- Wed,  9 Sep 2026 13:12:10 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0782779017151844464=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8148910F183;
+	Wed,  9 Sep 2026 13:45:31 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="gvT1IT8M";
+	dkim-atps=neutral
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5FCC10F17D;
+ Wed,  9 Sep 2026 13:45:29 +0000 (UTC)
+Received: from [10.10.12.8] (business-24-134-105-141.pool2.vodafone-ip.de
+ [24.134.105.141]) (Authenticated sender: wse@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 665EC2FC008D;
+ Wed,  9 Sep 2026 15:45:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1788961528;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FwCNJryO9ASRAeZtfRIHKuqP9uPce6zNRFZ+i5WEDxw=;
+ b=gvT1IT8MVrjJ4uSOd7pVCMJZLCwlaFi39wMzkskm0VT6JlQ6YuaX2Y179iSTZSU3tBPbXi
+ 2/3MRt+F2sNKlnMSGZeddpMaqpqhb6U4y77UdV9l+sp2XoSAspgz+XHy82ZXvXYawbY9Yj
+ yf5nQNa4z1/JVpOJdalTzsOaRsXB/x4=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=wse@tuxedocomputers.com
+ smtp.mailfrom=wse@tuxedocomputers.com
+Message-ID: <267b62f1-cc8e-4fa3-87fe-aedd5cba914b@tuxedocomputers.com>
+Date: Wed, 9 Sep 2026 15:45:26 +0200
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fix_stale_selective_fetch?=
- =?utf-8?q?_enable_bit_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nemesa Garg" <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 09 Sep 2026 13:12:10 -0000
-Message-ID: <178895953045.143074.15710985846298334271@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260909110332.3528029-1-nemesa.garg@intel.com>
-In-Reply-To: <20260909110332.3528029-1-nemesa.garg@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/intel: Add quirk to disable rc6 on some TUXEDO
+ devices
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
+References: <20260908200707.65516-1-wse@tuxedocomputers.com>
+ <20260908200707.65516-2-wse@tuxedocomputers.com>
+ <7764d157c4bd6f832adeb7860baded67ae151901@intel.com>
+Content-Language: en-US
+From: Werner Sembach <wse@tuxedocomputers.com>
+In-Reply-To: <7764d157c4bd6f832adeb7860baded67ae151901@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,127 +67,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0782779017151844464==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Jani,
 
-== Series Details ==
+Am 09.09.26 um 08:32 schrieb Jani Nikula:
+> On Tue, 08 Sep 2026, Werner Sembach <wse@tuxedocomputers.com> wrote:
+>> Some TUXEDO devices have random rare hard resets during video streaming.
+> Is there a gitlab issue for this?
+Not yet, but I can make one, presumably here? 
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items?sort=created_date&state=opened&first_page_size=20 
 
-Series: Fix stale selective fetch enable bit (rev2)
-URL   : https://patchwork.freedesktop.org/series/173663/
-State : success
+>
+>> Disabling rc6 fixes this. Until the root cause is found this is a pragmatic
+>> workaround.
+> The way to do this is to add your own local struct pci_device_id array
+> somewhere, and use pci_match_id() or similar on it.
+>
+> We're *not* going to change the high level device info or PCI ID
+> definitions for this.
+OK, can do it in v2, was mislead here by the INTEL_QUANTA_VGA_DEVICE which also 
+depends on specific sub-ids so thought it is ok to add also very specific 
+entries here.
+>
+> Ugly stuff needs to be localized and hidden away.
 
-== Summary ==
+I probably do it somewhere around the where the HAS_RC6 macro is called? Sadly 
+that's not a function so can't directly integrate it easily.
 
-CI Bug Log - changes from CI_DRM_19111 -> Patchwork_173663v2
-====================================================
+Best regards,
 
-Summary
--------
+Werner
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173663v2/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_173663v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-cfl-guc:         [PASS][1] -> [SKIP][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19111/fi-cfl-guc/igt@kms_hdmi_inject@inject-audio.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173663v2/fi-cfl-guc/igt@kms_hdmi_inject@inject-audio.html
-
-  
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19111 -> Patchwork_173663v2
-
-  CI-20190529: 20190529
-  CI_DRM_19111: 6254b8e0e169d9b667f9b9e9c991257a4d0ec7fe @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9088: 55a88d20e327d5c440cd3f3d661684fb83f29027 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_173663v2: 6254b8e0e169d9b667f9b9e9c991257a4d0ec7fe @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173663v2/index.html
-
---===============0782779017151844464==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Fix stale selective fetch enable bit (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173663/">https://patchwork.freedesktop.org/series/173663/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173663v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173663v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19111 -&gt; Patchwork_173663v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173663v2/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_173663v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@kms_hdmi_inject@inject-audio:<ul>
-<li>fi-cfl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19111/fi-cfl-guc/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173663v2/fi-cfl-guc/igt@kms_hdmi_inject@inject-audio.html">SKIP</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19111 -&gt; Patchwork_173663v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19111: 6254b8e0e169d9b667f9b9e9c991257a4d0ec7fe @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9088: 55a88d20e327d5c440cd3f3d661684fb83f29027 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_173663v2: 6254b8e0e169d9b667f9b9e9c991257a4d0ec7fe @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============0782779017151844464==--
+>
+>
+> BR,
+> Jani.
+>
+>
+>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>> ---
+>>   drivers/gpu/drm/i915/i915_pci.c | 11 +++++++++++
+>>   include/drm/intel/pciids.h      | 22 ++++++++++++++++++++++
+>>   2 files changed, 33 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+>> index 2f03f95945f1b..a52b56bedcf4f 100644
+>> --- a/drivers/gpu/drm/i915/i915_pci.c
+>> +++ b/drivers/gpu/drm/i915/i915_pci.c
+>> @@ -687,6 +687,16 @@ static const struct intel_device_info adl_p_info = {
+>>   	.dma_mask_size = 39,
+>>   };
+>>   
+>> +static const struct intel_device_info adl_p_tux_ibp8_quirk_info = {
+>> +	GEN12_FEATURES,
+>> +	PLATFORM(INTEL_ALDERLAKE_P),
+>> +	.platform_engine_mask =
+>> +		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
+>> +	.__runtime.ppgtt_size = 48,
+>> +	.dma_mask_size = 39,
+>> +	.has_rc6 = 0,
+>> +};
+>> +
+>>   #undef GEN
+>>   
+>>   #define XE_HP_PAGE_SIZES \
+>> @@ -863,6 +873,7 @@ static const struct pci_device_id pciidlist[] = {
+>>   	INTEL_DG1_IDS(INTEL_VGA_DEVICE, &dg1_info),
+>>   	INTEL_RPLS_IDS(INTEL_VGA_DEVICE, &adl_s_info),
+>>   	INTEL_RPLU_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+>> +	INTEL_RPLP_TUX_IBP8_QUIRK_IDS(INTEL_VGA_DEVICE, &adl_p_tux_ibp8_quirk_info),
+>>   	INTEL_RPLP_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+>>   	INTEL_DG2_IDS(INTEL_VGA_DEVICE, &dg2_info),
+>>   	INTEL_ATS_M_IDS(INTEL_VGA_DEVICE, &ats_m_info),
+>> diff --git a/include/drm/intel/pciids.h b/include/drm/intel/pciids.h
+>> index 7a4a5658942d2..e4f74916a62c2 100644
+>> --- a/include/drm/intel/pciids.h
+>> +++ b/include/drm/intel/pciids.h
+>> @@ -712,6 +712,28 @@
+>>   	MACRO__(0xA7AC, ## __VA_ARGS__), \
+>>   	MACRO__(0xA7AD, ## __VA_ARGS__)
+>>   
+>> +#define INTEL_RPLP_TUX_IBP8_QUIRK_IDS(MACRO__, ...) \
+>> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA720, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA720, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A0, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7A8, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AA, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>> +	MACRO__##_SUB(0xA7AB, 0x1D05, 0x130F, ## __VA_ARGS__)
+>> +
+>>   /* RPL-P */
+>>   #define INTEL_RPLP_IDS(MACRO__, ...) \
+>>   	MACRO__(0xA720, ## __VA_ARGS__), \
