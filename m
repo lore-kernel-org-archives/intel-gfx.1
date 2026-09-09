@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E40A5C79FB7
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 21:20:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 976FBC79FB7
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 21:26:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 645FB10E236;
-	Wed,  9 Sep 2026 21:20:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01FAB10E213;
+	Wed,  9 Sep 2026 21:26:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k4eLXKQK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cu/guhI+";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2A410E216;
- Wed,  9 Sep 2026 21:20:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 910D610E213;
+ Wed,  9 Sep 2026 21:25:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F0B414130B;
- Wed,  9 Sep 2026 21:20:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C2CB1F000FF;
- Wed,  9 Sep 2026 21:20:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4139243687;
+ Wed,  9 Sep 2026 21:25:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C53D1F000FF;
+ Wed,  9 Sep 2026 21:25:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788988842;
- bh=+H+ZJH0ftAZSxJQeKW5qVtWQtWSEpir02EwuyhbdWBI=;
+ s=k20260515; t=1788989158;
+ bh=HCnPKH2O3gJXCkNBm/0Ajq3OVemzYB1kaQ0a/Ac5AT4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=k4eLXKQKxfoqeo96EwDFH5e65PpklSb2NNCZc1xLDyqE6L/5TJExkm3Iv6jqRygn4
- giURXvSy+sW0CnLf9xIuffuTDL8mQ2kk8lEv5BJ+ZpUin5iJQ5YR30b/mopq28OV8P
- S9pFNyQhgXFopvWQHHhO0PENVx4WstNpP1ixChDIZGe73LwdS/yP+BqXtT1XqY5W/C
- o5/PMNfWJtvGL277DO/28712qqfdT0JvVXmVsyblY1gqV0KiOw+b2VSkUHRu0aGDpr
- zbrxPvM94gque/w3xDflmQh83gixcGpchRNb3cWnhDgiespWi1pRFtbtI3JeDdCVw2
- W88mya4WPARLQ==
-Date: Wed, 9 Sep 2026 23:20:40 +0200
+ b=Cu/guhI+pDNGSUg7aOM71xpf4OPdgKz0npXWoat31tZSlBUWuSApepTcOgyxbqqay
+ EthztU5d8brJ5r5wKXWa5Qp4uGQP1i6C2omltd72mZdNh63pDSHPC0jHo933gmhqza
+ Csv8Cc9hAcjvaQTp3NuugcHS8Mo/w/n0J/UDf50uUpMZQWeE1k66kDKOvjsiJoe5XM
+ Ob1aHU8gxa4LsfbuR0GlgKPGi3q7up5uT8zgg3sBLakk6oxEAy/+w73zWIj8T7KPVn
+ VmdZVhR762DmDEjvQWOhYXyyw89EEouaSrf6CEVVbsXIyGdNp3ZNmSG9sF6LpPBkmL
+ hKddK/JsUoMZg==
+Date: Wed, 9 Sep 2026 23:25:55 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
-To: Thorsten Blum <thorsten.blum@linux.dev>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>, 
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915: Fix memory leak in query_perf_config_list()
-Message-ID: <aqHNb7fH68g9aw93@zenone.zhora.eu>
-References: <20260823205028.178597-2-thorsten.blum@linux.dev>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v3 4/8] drm/i915/gt/selftests: Use drm_* prints in
+ aggregated gt selftests
+Message-ID: <aqHOZatceKX5Gljr@zenone.zhora.eu>
+References: <20260828100339.72304-1-krzysztof.karas@intel.com>
+ <20260828100339.72304-5-krzysztof.karas@intel.com>
+ <apGwueLe3rE7gPLj@zenone.zhora.eu>
+ <dnxu2clblnzurzncqpvwztmcmgs6vygq2yd5w6zldcnjhtvtsc@shzi3wcxynvw>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260823205028.178597-2-thorsten.blum@linux.dev>
+In-Reply-To: <dnxu2clblnzurzncqpvwztmcmgs6vygq2yd5w6zldcnjhtvtsc@shzi3wcxynvw>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,17 +65,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Thorsten,
+Hi Krzysztof,
 
-On Sun, Aug 23, 2026 at 10:50:28PM +0200, Thorsten Blum wrote:
-> When krealloc() fails, free the original oa_config_ids before returning
-> to avoid a memory leak.
+On Thu, Sep 03, 2026 at 12:39:10PM +0000, Krzysztof Karas wrote:
+> Hi Andi,
 > 
-> Fixes: 4f6ccc74a85c ("drm/i915: add support for perf configuration queries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> On 2026-08-28 at 18:18:35 +0200, Andi Shyti wrote:
+> > Hi Krzysztof,
+> > 
+> > On Fri, Aug 28, 2026 at 10:03:35AM +0000, Krzysztof Karas wrote:
+> > > Move away from generic pr prints to device context aware drm
+> > > versions.
+> > > 
+> > > Assisted-by: GitHub-Copilot:claude-opus-5
+> > 
+> > what a ride!
+> > 
+> > While reviewing everything I was thinking whether it would make
+> > sense to add an i915_err() like xe and gt.
+> The idea makes sense, the question is when to introduce this
+> macro. I have the v4 pretty much ready to send, apart from a few
+> minor issues I have to fix, but I am not against modifying it to
+> accomodate i915_* family of prints.
+> If we agreed on this, then we'd have this new macro ready when
+> we'd be replacing pr_* prints in other parts of the driver.
+> 
+> I think it would be worth to keep the series in the oven for a
+> few more days, especially when it is not that critical of a
+> change. What do you think?
 
-merged to drm-intel-next.
+yes, i915_* can come later, of course, it's out of the scope of
+this series.
 
-Thanks,
 Andi
