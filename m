@@ -4,33 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8337C88E42
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 14:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07566C88E40
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 14:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0876D10F4AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C2F10F4B0;
 	Thu, 10 Sep 2026 14:24:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="X4ubh83p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="frB7x9l8";
 	dkim-atps=neutral
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Thu, 10 Sep 2026 07:22:05 UTC
-Received: from mail-m93200.xmail.ntesmail.com (mail-m93200.xmail.ntesmail.com
- [103.126.93.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AA6310E181;
- Thu, 10 Sep 2026 07:22:05 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4d3f9f7ab;
- Thu, 10 Sep 2026 15:16:57 +0800 (GMT+08:00)
-Message-ID: <9e77b5c5-f1d9-484b-ae02-846fae1b3642@rock-chips.com>
-Date: Thu, 10 Sep 2026 15:16:55 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/rockchip: dw_dp: Attach "max bpc" connector
- property
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1273810E582
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 17:36:14 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49b4ba7fe26so2340015e9.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 10:36:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788975372; x=1789580172; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=WLa/2IhG0uPxKott5hiW6gEdbabkA+pAUSYZZS+3kb0=;
+ b=frB7x9l8Crenbt1bg+sjXRoqk1/L1pkejdGVTvTEPszl/LLrAaP6eIwpQQj6DltEEA
+ W3Rxq3CRHhJA/W7g/Zm11RybkK9V6p9qVjFeoCW46HkFHmiPPRFe3XuouRKAbSgHo08g
+ 3O0nmuGfmpF1E5wgvObakfjsFWEvnsGoHH6VszfEx8WjczdzRmtvDS5hG5Xk3hwdxXqI
+ pPAg6HSA0YlC15RTgOTqyUWvBGnYzeXZtTeX+c/WM1YFFZstcH/xWAqnZACpDX/Nuonh
+ tUOFBARu7Vik6B7XA/ryrPIbBCmtGTdFJF1cmMgf36QnEAh/laxCweL+zjqCiUCuBmJy
+ Oa5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788975372; x=1789580172;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=WLa/2IhG0uPxKott5hiW6gEdbabkA+pAUSYZZS+3kb0=;
+ b=WRaAo/PhxubUa0/b+OkrcgY3LJ1Gm6cAmi5BG6TEBE9aLqe/kCfi02kpyRSKPQ8C/t
+ zEncFYbkQX3CLD71QFtsliMG+VB9V91w0Y/TmElvXqd0KJjusQfy6bgriCmKTUuK/p5J
+ 3xRIr5oi0SyTdhaaIzhL+XSnE8FMmFEBvafQcmyEWH2ouFyxH7wNsEoaNgLwOwZzev/L
+ 8s04y94L7tiKz60/uJlpLDoYOKsvPJ6Q6R+QPTutgG5Gez85FQpp8FDiy0qQwBRs4//T
+ pIcNPCR9k0h3wBIV1h7udr4pNwigMUHqFPXyVVTPTlMkI7terUGJKIvDlr5Gs0gzcUuK
+ XMEA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByBEHfBAE6f/EV2p05MbI3lrvv4di4koqncXq8jQdGE0W9pX8+f3v0ddeZP8HUg14kOIFh0o0/2ojQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mmQPwd/dbbQv7TwT0QVuOyg0gRSacod5uqucBIzWgM8Aa8Lmsd
+ /emqRR3pEMjRb+RDLXz67/ee9IxoCOHYxkBloilUodecmgjpeudzR38m
+X-Gm-Gg: AYBFou066AFwRL7PbwV7DhV3Bx95P95ylpI5i4ttUAYSEbeEyk6SrtvN3+jelRMYR2x
+ riWSkSMVpkw2yjJlqr+PcOdBRUdiKIkNe7gWfHKRoma8fD1hxQyLrz8PPBwmRtLmulS08/j/yLD
+ O4AKdoCAIRVpkuY5ERYIuESwuUfSKVbLVZnOepcgaNj72nukWd2PGRTHRxP0+SVctslkDUPS9Z1
+ jLv2t+XmzlScZ6oF5dkBUArA8FuauMYwi6JJKo/9Qg9yK9D+JgC6kg+XXncKtGN/cdrEK36vO8x
+ 40pIayV5wSk04gTJZVQj3BcRH/TU4EidE2GbH8LL+/n0AXL6AZt+e02+x6oJSAS9rbxMU3fn1Jx
+ 1P4sLQig0YrxjXQd7IhIirp4AoVdfVJx1sDB+4WwbQNsw9X1+BCNpvnIRw6RW0WuM1K4IrvBgii
+ cFka+Acc3Ckp2OFKynfaEZOuCVbT77F/kNP1LyCfhdS2jQGXh/t7RUw98VaH/wCC2zlNOXl8EnS
+ lzYafqlJ9l+R5jn/GsTPhaNezRn4a5fiOqDLqxVlZh/hL/60eiGcbjg9s4tA7N+2LHvSfHNtKBb
+ Ow==
+X-Received: by 2002:a05:600c:a305:b0:49c:ff81:e062 with SMTP id
+ 5b1f17b1804b1-49cff81e076mr237967455e9.2.1788975372348; 
+ Wed, 09 Sep 2026 10:36:12 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B836900B0110705BF092680.dsl.pool.telekom.hu.
+ [2001:4c4e:1b83:6900:b011:705:bf09:2680])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49d26c06f04sm6876575e9.13.2026.09.09.10.36.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 10:36:11 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Igor Paunovic <royalnet026@gmail.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Sebastian Reichel <sebastian.reichel@collabora.com>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -39,33 +79,26 @@ Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Ville Syrjala <ville.syrjala@linux.intel.com>,
- Imre Deak <imre.deak@intel.com>, Ankit Nautiyal
- <ankit.k.nautiyal@intel.com>, dri-devel@lists.freedesktop.org
+ Imre Deak <imre.deak@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 2/3] drm/display: bridge-connector: Preserve max bpc across
+ connector reset
+Date: Wed,  9 Sep 2026 19:35:39 +0200
+Message-ID: <20260909173542.14030-3-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909163206.36409-1-royalnet026@gmail.com>
 References: <20260909163206.36409-1-royalnet026@gmail.com>
- <20260909173542.14030-4-royalnet026@gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260909173542.14030-4-royalnet026@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa08a2d43d903a7kunm43c471656ab21a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUNJSFYfTE9PQx1PGE
- oeQ05WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
- tIVUpLSEpKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=X4ubh83p0G7uLB3w+lrLYEOhoz65fWCAkqGrIJipe55SMi1B8b7sBWrETpX6u7mqZV2UtmXqL8GouAC77jFox9pATG10cszdwRxdBt7NlC4wL5cyIGKkBVncmcAe0Uhp8XJ7/wLWdFFNhrisczrU8ivzIKTni3OR0XOOoI2tWRk=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=Tpyr9lMkObRQjaiycSSz5ViShzTcyMZHhq0kg2XVVgw=;
- h=date:mime-version:subject:message-id:from;
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 10 Sep 2026 14:24:20 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,83 +115,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello Igor,
+drm_connector_attach_max_bpc_property() initializes max_requested_bpc
+and max_bpc in the connector state, but nothing restores them when the
+connector state is later thrown away and re-created:
+drm_bridge_connector_create_state() returns a zeroed state for
+non-HDMI bridge connectors, and drm_mode_config_reset() installs such
+a fresh state on every connector that implements
+&drm_connector_funcs.atomic_create_state instead of a .reset hook.
 
-On 9/10/2026 1:35 AM, Igor Paunovic wrote:
-> The dw-dp bridge already filters candidate output formats on
-> conn_state->max_bpc in dw_dp_bridge_atomic_get_output_bus_fmts() and
-> validates the result against the link bandwidth, but the connector
-> never exposes the "max bpc" property, so userspace cannot limit the
-> bit depth. Attach the property with a range of 6 to 10, matching
-> dw_dp_output_formats[]: the smallest entry is 6 bpc RGB and the
-> deepest entries are 10 bpc.
-> 
-> drm_connector_attach_max_bpc_property() initializes
-> connector->state->max_requested_bpc and therefore requires the
-> connector to have a state. Rockchip binds its components before
-> drm_mode_config_reset() runs, so the freshly created bridge connector
-> does not have one yet - create the connector state before attaching
-> the property, exactly like drmm_connector_hdmi_init() does for HDMI
-> bridge connectors. The later drm_mode_config_reset() then re-creates
-> the connector state, and the preceding patch makes
-> drm_bridge_connector_create_state() restore max_requested_bpc from
-> connector->max_bpc, so clients that never set the property (fbcon in
-> particular) keep the full range instead of ending up with 0.
-> 
-> With the property attached, compositors such as KWin write "max bpc"
-> on every atomic modeset; any in-range value is handled by the existing
-> format filter and bandwidth checks.
-> 
-> Assisted-by: LLM checkpatch
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> ---
->  drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 26 +++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> index b23efb153c9e6..8ff27353b1417 100644
-> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> @@ -112,6 +112,32 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
->  				     "Failed to init bridge connector\n");
->  	}
->  
-> +	/*
-> +	 * The components are bound before drm_mode_config_reset() runs, so
-> +	 * the connector has no state yet, but
-> +	 * drm_connector_attach_max_bpc_property() requires one. Create the
-> +	 * connector state first, like drmm_connector_hdmi_init() does.
-> +	 */
-> +	if (connector->funcs->atomic_create_state) {
-> +		struct drm_connector_state *state;
-> +
-> +		state = connector->funcs->atomic_create_state(connector);
-> +		if (IS_ERR(state)) {
-> +			dw_dp_unbind(dp->base);
-> +			return PTR_ERR(state);
-> +		}
-> +
-> +		connector->state = state;
-> +	} else if (connector->funcs->reset) {
-> +		connector->funcs->reset(connector);
-> +	}
-> +
-> +	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
-> +	if (ret) {
-> +		dw_dp_unbind(dp->base);
-> +		return ret;
-> +	}
-> +
->  	return 0;
->  }
-> 
+This matters because drivers can attach the property before
+drm_mode_config_reset() runs. Rockchip, for example, binds its
+component drivers (which create connectors and attach properties)
+before calling drm_mode_config_reset(). After that reset,
+max_requested_bpc is 0, so drm_atomic_connector_check() computes
+max_bpc = min(info->bpc ?: 8, 0) = 0. Any driver that filters output
+formats on conn_state->max_bpc then rejects every format, and clients
+that never set the "max bpc" property - fbcon in particular - end up
+with a black screen. meson already attaches the property on a
+drm_bridge_connector before drm_mode_config_reset() and so already
+boots with max_requested_bpc = 0 today. dw-hdmi's format negotiation
+does consume the value there, but meson attaches the property with a
+maximum of 8 and the 8-bit fallback formats are not gated on it, so
+negotiation yields the same result for 0 and 8 - the change is a
+no-op for meson.
 
-I don't think this is the correct way to go.
+HDMI bridge connectors are immune: drm_bridge_connector_create_state()
+calls __drm_atomic_helper_connector_hdmi_state_init(), which
+initializes both fields from connector->max_bpc. amdgpu likewise
+re-initializes max_requested_bpc in its own .reset implementation.
+Non-HDMI bridge connectors have no equivalent.
 
-I believe max_bpc should be handled in drm_bridge_connector_init(). 
-Take a look at its implementation. HDMI already does max_bpc there, 
-so DP should probably do something similar.
+Mirror the HDMI helper on the non-HDMI path: record the upper attach
+limit in connector->max_bpc (drmm_connector_hdmi_init() already stores
+the same value there) and restore max_requested_bpc and max_bpc from
+it in drm_bridge_connector_create_state() whenever the "max bpc"
+property is attached. Connectors without the property behave exactly
+as before.
 
+Assisted-by: LLM checkpatch
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+---
+ drivers/gpu/drm/display/drm_bridge_connector.c | 6 +++++-
+ drivers/gpu/drm/drm_connector.c                | 5 +++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 00feb73e63d7f..6197fb80f7cc2 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -279,9 +279,13 @@ drm_bridge_connector_create_state(struct drm_connector *connector)
+ 	if (IS_ERR(conn_state))
+ 		return conn_state;
+ 
+-	if (bridge_connector->bridge_hdmi)
++	if (bridge_connector->bridge_hdmi) {
+ 		__drm_atomic_helper_connector_hdmi_state_init(connector,
+ 							      conn_state);
++	} else if (connector->max_bpc_property) {
++		conn_state->max_requested_bpc = connector->max_bpc;
++		conn_state->max_bpc = connector->max_bpc;
++	}
+ 
+ 	return conn_state;
+ }
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 8b4baed060f3a..0400a6a92e2b7 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2866,6 +2866,10 @@ EXPORT_SYMBOL(drm_connector_set_link_status_property);
+  * @max: The maximum bit depth supported by the connector.
+  *
+  * This is used to add support for limiting the bit depth on a connector.
++ * @max is also recorded in &drm_connector.max_bpc, so that
++ * &drm_connector_funcs.atomic_create_state and &drm_connector_funcs.reset
++ * implementations can restore the property default when re-creating the
++ * connector state.
+  *
+  * Returns:
+  * Zero on success, negative errno on failure.
+@@ -2888,6 +2892,7 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+ 	drm_object_attach_property(&connector->base, prop, max);
+ 	connector->state->max_requested_bpc = max;
+ 	connector->state->max_bpc = max;
++	connector->max_bpc = max;
+ 
+ 	return 0;
+ }
 -- 
-Best, 
-Chaoyi
+2.43.0
+
