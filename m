@@ -4,27 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EFF9C79FB6
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 17:50:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B72A2C79FBD
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 17:50:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8670A10E206;
-	Wed,  9 Sep 2026 17:50:21 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A79A310E206;
- Wed,  9 Sep 2026 17:50:19 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6213283101128261143=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Some_DSB/flip?=
- =?utf-8?q?q_stuff_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 09 Sep 2026 17:50:19 -0000
-Message-ID: <178897621965.144085.10195422745800792346@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260909161730.12969-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20260909161730.12969-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B816B10F217;
+	Wed,  9 Sep 2026 17:50:23 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aKmNcGny";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D28B810E583;
+ Wed,  9 Sep 2026 17:50:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DC5DC601F0;
+ Wed,  9 Sep 2026 17:50:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 519561F000FF;
+ Wed,  9 Sep 2026 17:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788976220;
+ bh=dwpneMCvnbYYVq8+VTo22jfsNgLSMdIBEqaCLsqpXhM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=aKmNcGnyn+jPzb7x9poBEGhncOVXVQQC4UhYSrPHD46XQD/n9jmgC4X8R7Q70c5qe
+ 8XHEYOBu83BTixO6LyTHua5hZoK3fVNWzPxjKzcNTPV3OHa67sClz30ZFYiS2zkRoT
+ ubZTCRtIy0U0LAvL10mGiH6lepwoPtFHXM7uVUvJgZfJkSxqgDsoZuUr2fisW5vTcA
+ uw+vpSJjuynf5F6aryGpb9bnEBkicxJvkSTh1RjH1Fh3ZSfdhVdq10XWGYCaqeY/Ld
+ sosfPe+fCxpUS1IAgPeaF+pt3YufDX3874OgMI9u/jGxzENMQne+956PdqheGAsubY
+ Me8XA0m+VpRYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] drm/rockchip: dw_dp: Attach "max bpc" connector
+ property
+To: "Igor Paunovic" <royalnet026@gmail.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260909173542.14030-4-royalnet026@gmail.com>
+References: <20260909163206.36409-1-royalnet026@gmail.com>
+ <20260909173542.14030-4-royalnet026@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 17:50:19 +0000
+Message-Id: <20260909175020.519561F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,246 +55,103 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6213283101128261143==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-== Series Details ==
+New issues:
+- [Medium] Unconditional connector state allocation causes a memory leak if=
+ an HDMI bridge is present in the chain.
 
-Series: drm/i915: Some DSB/flipq stuff (rev2)
-URL   : https://patchwork.freedesktop.org/series/158868/
-State : success
+Pre-existing issues:
+- [High] `devm_` allocations tied to the component device in `dw_dp_bind` c=
+ause resource leaks and permanent driver failure if `bind` fails.
+--
 
-== Summary ==
+commit 47f0f730df97f46871d26a1858e6f2594ea7c383
+Author: Igor Paunovic <royalnet026@gmail.com>
 
-CI Bug Log - changes from CI_DRM_19113 -> Patchwork_158868v2
-====================================================
+drm/rockchip: dw_dp: Attach "max bpc" connector property
 
-Summary
--------
+This commit attaches the "max bpc" property to the dw-dp bridge connector
+with a range of 6 to 10. It also explicitly creates the connector state
+before drm_mode_config_reset() runs, allowing the property to be attached
+successfully during driver initialization.
 
-  **SUCCESS**
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index b23efb153c9e6..8ff27353b1417 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+[ ... ]
+> @@ -112,6 +112,32 @@ static int dw_dp_rockchip_bind(struct device *dev, s=
+truct device *master, void *
+>  				     "Failed to init bridge connector\n");
+>  	}
+> =20
+> +	/*
+> +	 * The components are bound before drm_mode_config_reset() runs, so
+> +	 * the connector has no state yet, but
+> +	 * drm_connector_attach_max_bpc_property() requires one. Create the
+> +	 * connector state first, like drmm_connector_hdmi_init() does.
+> +	 */
+> +	if (connector->funcs->atomic_create_state) {
+> +		struct drm_connector_state *state;
+> +
+> +		state =3D connector->funcs->atomic_create_state(connector);
+> +		if (IS_ERR(state)) {
+> +			dw_dp_unbind(dp->base);
+> +			return PTR_ERR(state);
+> +		}
+> +
+> +		connector->state =3D state;
 
-  No regressions found.
+[Severity: Medium]
+Does this unconditionally overwrite connector->state?
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/index.html
+If the display pipeline contains an HDMI bridge (e.g., a DP-to-HDMI chip),
+drm_bridge_connector_init() internally calls drmm_connector_hdmi_init(),
+which allocates and assigns connector->state. Overwriting it here seems to
+leak the previously allocated drm_connector_state.
 
-Participating hosts (38 -> 38)
-------------------------------
+> +	} else if (connector->funcs->reset) {
+> +		connector->funcs->reset(connector);
+> +	}
+> +
+> +	ret =3D drm_connector_attach_max_bpc_property(connector, 6, 10);
+> +	if (ret) {
+> +		dw_dp_unbind(dp->base);
+> +		return ret;
 
-  Additional (1): bat-adls-6 
-  Missing    (1): bat-dg2-13 
+[Severity: High]
+This isn't a regression introduced by this patch, but if this newly added
+error path is taken, does it permanently break the driver on deferred probe?
 
-Known issues
-------------
+The component bind callback invokes dw_dp_bind() earlier in this function,
+which performs devm_ allocations tied to the component device (dev) rather
+than the master device. For example:
 
-  Here are the changes found in Patchwork_158868v2 that come from known issues:
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bind() {
+    ...
+    ret =3D devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+                                    IRQF_ONESHOT, dev_name(dev), dp);
+    ...
+}
 
-### IGT changes ###
+Because the component device remains probed even if the bind callback fails,
+these devm_ resources are not freed when this error path returns. On a
+subsequent bind retry, dw_dp_bind() executes again. Since
+devm_request_threaded_irq() does not use IRQF_SHARED, it will return
+-EBUSY, permanently failing.
 
-#### Issues hit ####
+> +	}
+> +
+>  	return 0;
+>  }
 
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][6]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#3291]) +2 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_hotunplug@unbind-rebind:
-    - bat-rpls-4:         [DMESG-WARN][11] ([i915#13400]) -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19113/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19113 -> Patchwork_158868v2
-
-  CI-20190529: 20190529
-  CI_DRM_19113: 0d30bc4f35590b6353a77f23e397ab2168b69673 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9088: 55a88d20e327d5c440cd3f3d661684fb83f29027 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_158868v2: 0d30bc4f35590b6353a77f23e397ab2168b69673 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/index.html
-
---===============6213283101128261143==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Some DSB/flipq stuff (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/158868/">https://patchwork.freedesktop.org/series/158868/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19113 -&gt; Patchwork_158868v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/index.html</p>
-<h2>Participating hosts (38 -&gt; 38)</h2>
-<p>Additional (1): bat-adls-6 <br />
-  Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_158868v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@core_hotunplug@unbind-rebind:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19113/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158868v2/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19113 -&gt; Patchwork_158868v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19113: 0d30bc4f35590b6353a77f23e397ab2168b69673 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9088: 55a88d20e327d5c440cd3f3d661684fb83f29027 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_158868v2: 0d30bc4f35590b6353a77f23e397ab2168b69673 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6213283101128261143==--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909163206.3640=
+9-1-royalnet026@gmail.com?part=3D3
