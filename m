@@ -4,55 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B0E4C79F8C
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 07:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C7CC79F8C
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 08:02:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A72E10EFAE;
-	Wed,  9 Sep 2026 07:48:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C94E610EFA5;
+	Wed,  9 Sep 2026 08:02:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DkXHcbFz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AFLrbGbU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E056910EF93;
- Wed,  9 Sep 2026 07:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788940118; x=1820476118;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ADhni/y26ZrlgoHuaN8kFwhh051HfF292qgcQaWpdn8=;
- b=DkXHcbFz+tO0uEel30bxJSCkIItRq8DQReeD026LeHCpOHHw+WNKm8hz
- X5cDXxP9uYpiJBlM9K8FqFBPLf+VEd++pq3XGYUsE8QBXlByNSa3iyu25
- FOmJa1Rn4SM+mNU00J3uXQ6EvuCUEPb6SvktSTy1Uzjm+IWl9gJVPJFmK
- c3tQCTojZrXF5C5F8BTFeEMYZuXPPWSeT4BkJl0DnJbHv5ck1gytqCcl6
- kwgUQUJ9tEgM5QxedAAp6GgHID35Tb3jxKCUx+Gv8fpj4y/EIPQM2zXMd
- 0pbmd6nqzBMKL+zX1YJey4Yi/q3Bu1D9NKCJpgzGbezxe79LWuBGgEuAA Q==;
-X-CSE-ConnectionGUID: tM1fjBXvQjqAvPzp+BtOHA==
-X-CSE-MsgGUID: XbRxFqzORZOzcsRij8F/gw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89480431"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="89480431"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2026 00:48:17 -0700
-X-CSE-ConnectionGUID: MwgmjvQ7TvG3suKRmR6ZZg==
-X-CSE-MsgGUID: qupB5NXrSQmalrMnMDDjSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="268680933"
-Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by fmviesa008.fm.intel.com with ESMTP; 09 Sep 2026 00:48:15 -0700
-From: Uma Shankar <uma.shankar@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dibin.moolakadan.subrahmanian@intel.com, ramanaidu.naladala@intel.com
-Cc: Uma Shankar <uma.shankar@intel.com>
-Subject: [v5 4/4] drm/i915/display: Gate periodic AS SDP skip frames behind a
- debugfs knob
-Date: Wed,  9 Sep 2026 13:38:10 +0530
-Message-ID: <20260909080810.2202879-5-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260909080810.2202879-1-uma.shankar@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D46010EFA4;
+ Wed,  9 Sep 2026 08:02:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0CB344344A;
+ Wed,  9 Sep 2026 08:02:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFE1B1F00A3A;
+ Wed,  9 Sep 2026 08:02:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788940923;
+ bh=84ZCRp5wXloqtwrHyXi6K7wziJqyGPc6kschY7fQDmg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=AFLrbGbUOVsxcuOWXww1dYjaq+6frWVfSM7Ua0uwWTIut6xk53nDw0itrUFI7WcJM
+ c+67j263tVFZPQcslCDfwePJ4YOnjtaq14wNoUDfARVK3QqMPgmadLsvThtA1AFixz
+ 0lEH2EEpSXbmdx7u2CIoOZTp2Ra7XaAg7lNHGiLhBKof1YZcFCc6/1dkNQAFrHPFpr
+ a81101cAxO2FnmgqU4QCXnnaxCDRtUL+Eq4gJT5SUz/A+m0Byj/WLCMa5utFri7D4d
+ Yf9kl9vuJ9MwFIjG0BuvKrx0MQXjDiQPStF+Yh4vBdCvm8VFIRkKsTEtr7ePcODsGi
+ R1W+G+Qi48Wgg==
+From: sashiko-bot@kernel.org
+Subject: Re: [v5 2/4] drm/i915/display: Force disable DC3co when AS SDP skip
+ frames is enabled
+To: "Uma Shankar" <uma.shankar@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260909080810.2202879-3-uma.shankar@intel.com>
 References: <20260909080810.2202879-1-uma.shankar@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260909080810.2202879-3-uma.shankar@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 08:02:03 +0000
+Message-Id: <20260909080203.AFE1B1F00A3A@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,74 +54,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Periodic AS SDP (skip frames) drives a Panel Replay panel down toward its
-minimum refresh rate. It is a new, panel- and platform-sensitive behaviour,
-so keep it opt-in rather than enabling it unconditionally.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Expose it as a per-device debugfs knob, enable_periodic_assdp, rather than a
-module parameter. The behaviour is panel-specific, so the correct granularity
-is per-device, not per-module. The knob is added through the intel_display_params
-infrastructure (shared by i915 and xe) with a debugfs entry only. It defaults to
-false (feature disabled); write 1 to the debugfs file to enable periodic AS SDP
-at runtime.
+Pre-existing issues:
+- [High] Lockless access to `crtc->base.state` in `intel_display_power_dc3c=
+o_compute()` for CRTCs not in the current atomic state can lead to Use-Afte=
+r-Free.
+--
 
-Gate the feature at its single choke point, intel_pr_as_sdp_skip_frames():
-returning a zero skip count when the knob is off makes both the PR_ALPM_CTL
-programming (intel_alpm_configure_pr_as_sdp()) and the DC3co force-disable
-predicate (intel_alpm_pr_as_sdp_skip_frames_enabled()) a no-op, so AS SDP
-continues to be sent on every frame as before.
+commit 8c209591fdca806eaeb08fb945c1a557f13cd189
+Author: Uma Shankar <uma.shankar@intel.com>
 
-v2: Switch to debugfs entry and drop module param
+    drm/i915/display: Force disable DC3co when AS SDP skip frames is enabled
+   =20
+    Periodic AS SDP (skip frames) relies on the AS SDP still being
+    transmitted while Panel Replay is active. DC3co uses the idle protocol
+    which suppresses AS SDP transmission entirely, so the two are mutually
+    exclusive: leaving DC3co enabled while skip frames is programmed breaks
+    the periodic AS SDP and the panel never sees the slower refresh.
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-Reviewed-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
-Tested-by: Naladala Ramanaidu <ramanaidu.naladala@intel.com>
----
- drivers/gpu/drm/i915/display/intel_alpm.c           | 5 +++++
- drivers/gpu/drm/i915/display/intel_display_params.h | 5 +++++
- 2 files changed, 10 insertions(+)
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers=
+/gpu/drm/i915/display/intel_display_power.c
+> index 0ebec6e0c2400..1b60ce2dd00c4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+[ ... ]
+> @@ -488,6 +489,14 @@ void intel_display_power_dc3co_compute(struct intel_=
+atomic_state *state)
+>  	if (crtc_state->has_sel_update)
+>  		trigger |=3D DC3CO_TRIGGER_PSR2;
+> =20
+> +	/*
+> +	 * Periodic AS SDP (skip frames) needs the AS SDP to keep flowing during
+> +	 * PR active, which is incompatible with DC3co. Keep DC3co disabled whi=
+le
+> +	 * skip frames is enabled.
+> +	 */
+> +	if (intel_alpm_pr_as_sdp_skip_frames_enabled(intel_dp, crtc_state))
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index c784e77f610b..10943539bc7c 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -392,11 +392,16 @@ static u32 get_pr_alpm_as_sdp_transmission_time(const struct intel_crtc_state *c
-  */
- static u32 intel_pr_as_sdp_skip_frames(struct intel_dp *intel_dp)
- {
-+	struct intel_display *display = to_intel_display(intel_dp);
- 	const struct drm_display_info *info =
- 		&intel_dp->attached_connector->base.display_info;
- 	int max_vrefresh = info->monitor_range.max_vfreq;
- 	int min_vrefresh = info->monitor_range.min_vfreq;
- 
-+	/* Off by default; gated by the enable_periodic_assdp debugfs knob. */
-+	if (!display->params.enable_periodic_assdp)
-+		return 0;
-+
- 	if (min_vrefresh <= 0 || max_vrefresh <= min_vrefresh)
- 		return 0;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index b95ecf728daa..ba01aeaf8944 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -50,6 +50,11 @@ struct drm_printer;
- 	param(bool, psr_safest_params, false, 0400) \
- 	param(bool, enable_psr2_sel_fetch, true, 0400) \
- 	param(int, enable_dmc_wl, -1, 0400) \
-+	/*
-+	 * Debugfs-only knob (per-device): no matching module_param is registered
-+	 * in intel_display_params.c on purpose. Runtime-toggle via debugfs.
-+	 */ \
-+	param(bool, enable_periodic_assdp, false, 0600) \
- 
- #define MEMBER(T, member, ...) T member;
- struct intel_display_params {
--- 
-2.50.1
+[Severity: High]
+This is a pre-existing issue, but this patch exacerbates it by adding more =
+reads
+to the locklessly accessed state.
 
+Can this lockless access to crtc_state lead to a use-after-free?
+
+Looking at intel_display_power_dc3co_compute(), it retrieves the state of a
+CRTC without locking it:
+
+    pipe =3D ffs(active_pipes) - 1;
+    crtc =3D intel_crtc_for_pipe(display, pipe);
+    crtc_state =3D to_intel_crtc_state(crtc->base.state);
+
+If a system has multiple active CRTCs (e.g., A and B) and a non-blocking
+atomic commit is issued to disable CRTC A, intel_display_power_dc3co_comput=
+e()
+runs in the commit tail. It calculates that exactly one pipe (CRTC B) will
+remain active and retrieves its state.
+
+Because CRTC B is not part of the current atomic commit, no locks are held =
+for
+it. A concurrent non-blocking atomic commit on CRTC B can swap and free its
+state while the first commit is reading fields like crtc_state->has_panel_r=
+eplay
+or crtc_state->vrr.enable (via intel_alpm_pr_as_sdp_skip_frames_enabled()),
+potentially causing memory corruption or crashes.
+
+> +		trigger =3D DC3CO_TRIGGER_NONE;
+> +
+>  done:
+>  	intel_display_power_dc3co_update(display, trigger);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909080810.2202=
+879-1-uma.shankar@intel.com?part=3D2
