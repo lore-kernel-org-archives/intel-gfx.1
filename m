@@ -4,58 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D08E0C79FBD
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 16:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8767DC79FB6
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 16:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 465BC10F225;
-	Wed,  9 Sep 2026 16:18:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E18D10F21E;
+	Wed,  9 Sep 2026 16:34:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SlGsyUYD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gdl/E96f";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 904D910F225;
- Wed,  9 Sep 2026 16:18:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788970709; x=1820506709;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=opBQOphP2LCqF41Ed34J949aoaYBn6TKQgzEEInFqTg=;
- b=SlGsyUYDXbYV8QpXQx409+Ol2T11Uu/z5P2llm9MXT6Ha3I6uK3eBTM0
- gEvhoQrj+y/X7gLasHPtpNm5v0wS1S5WNIyPhlSknSX4RArwkyNmwyz17
- IIsIQ0tLwYxN1jq+lNxu572vzcdzpaBNoijz5jNWSbxxpzFrQGMYH5oh3
- 2S3fAB/YaXaRBAs9/YVOYnyX6/h9u2lZk024SIlK+rRKFo1aYaZ2U8XRL
- XmY/F3ykKY3yAInsC7pU+CngIQh2qVYg7U0CAtvMY/HP2seffLeVUNEaZ
- zhs+jtO7crjIwBYfCpxuzx+Ggpp/qSiFCJzba7bJOBd94BWTE/dkC0u2m w==;
-X-CSE-ConnectionGUID: DkL3ofIhRwyrfEBAL9Vh5g==
-X-CSE-MsgGUID: MLz3FaH/QmS3SHEtczrvFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89446209"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="89446209"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2026 09:18:29 -0700
-X-CSE-ConnectionGUID: b0wgGPsHQY6mrUGpiDHYig==
-X-CSE-MsgGUID: jiXRafnrQQavwB6lC8jPSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="276592105"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.137])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2026 09:18:26 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 13/13] drm/i915/dsb: Add tracepoints for flip queue
-Date: Wed,  9 Sep 2026 19:17:30 +0300
-Message-ID: <20260909161730.12969-14-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260909161730.12969-1-ville.syrjala@linux.intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 890DB10F21E;
+ Wed,  9 Sep 2026 16:34:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4779E42A69;
+ Wed,  9 Sep 2026 16:34:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000EE1F00898;
+ Wed,  9 Sep 2026 16:34:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788971690;
+ bh=65NxpK4aAjHY4erwa0huEmvlMddwj01kuPWOjahOQEM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gdl/E96fZ5yoOsbocU+eJ0fmdN0EjHb2ryVc+my3+TXRG93x8BcgbWYA0ZR0LOCaU
+ HGKzv3TS/qL30b1PrFm+FW1mA67VZ7cbZS2Sppl3Di4BUIE+BBSqdAKi0+73gPIotH
+ t/F9YWkOikcVsvC7hVvLIuO1s1BC978dIAcFvAhtooMOqDRe+B/SX8ToKwjcIwDZF0
+ e+R/fn/ZqnVHz05GG2MOBdLkLHHNHGBzO32IYrc+t/3ew8xlQoImy7AdPT0fX4+rxt
+ lMsFo2+UXyoQLfMDPWIZDMipqb+Tx9lDeNud2kxuma47Nq1wvFHz6ZQE0vRh3XY2fE
+ 30oCjpvKXzb6A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 12/13] drm/i915/dsb: Add tracepoints for DSB commit
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260909161730.12969-13-ville.syrjala@linux.intel.com>
 References: <20260909161730.12969-1-ville.syrjala@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+ <20260909161730.12969-13-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 16:34:49 +0000
+Message-Id: <20260909163450.000EE1F00898@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,162 +53,138 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Calling `intel_get_crtc_scanline()` inside the tracepoint's `TP_fa=
+st_assign` block acquires a sleeping lock while in atomic context, causing =
+a kernel panic on PREEMPT_RT.
+- [Medium] The `intel_dsb_done` tracepoint is conditionally called only whe=
+n a userspace vblank event is present, leading to unbalanced commit/done tr=
+ace events for background updates.
+--
 
-Currently flip queue based commits don't leave any breadcrumbs
-via tracepoints. Add new intel_flipq_add and intel_flipq_done
-tracepoints that at least indicates when we something happens
-via the flip queeu.
+commit b6804a525207ea31e82f537e553534efcdaa5b8f
+Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-We might want to improve this later somehow to have a slightly
-better idea what the flip queue might end up doing. But at least
-this now shows that *something* is going on.
+drm/i915/dsb: Add tracepoints for DSB commit
+   =20
+This commit adds new tracepoints intel_dsb_commit and intel_dsb_done to tra=
+ck
+when the display state buffer performs operations on the hardware.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- .../drm/i915/display/intel_display_trace.h    | 60 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dmc.c      |  3 +
- drivers/gpu/drm/i915/display/intel_flipq.c    |  7 ++-
- 3 files changed, 69 insertions(+), 1 deletion(-)
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers=
+/gpu/drm/i915/display/intel_display_trace.h
+> index 504d105935bc0..06cf662931fe3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_trace.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
+[ ... ]
+> @@ -681,6 +682,56 @@ TRACE_EVENT(intel_fbc_nuke,
+>  		      __entry->frame, __entry->scanline)
+>  );
+> =20
+> +TRACE_EVENT(intel_dsb_commit,
+> +	    TP_PROTO(struct intel_crtc *crtc, enum intel_dsb_id dsb_id),
+> +	    TP_ARGS(crtc, dsb_id),
+> +
+> +	    TP_STRUCT__entry(
+> +			     __string(dev, __dev_name_kms(crtc))
+> +			     __field(char, pipe_name)
+> +			     __field(u32, dsb_id)
+> +			     __field(u32, frame)
+> +			     __field(u32, scanline)
+> +			     ),
+> +
+> +	    TP_fast_assign(
+> +			   __assign_str(dev);
+> +			   __entry->pipe_name =3D pipe_name(crtc->pipe);
+> +			   __entry->dsb_id =3D dsb_id;
+> +			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
+> +			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers/gpu/drm/i915/display/intel_display_trace.h
-index 06cf662931fe..98ba7e20ca30 100644
---- a/drivers/gpu/drm/i915/display/intel_display_trace.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
-@@ -23,6 +23,7 @@
- #include "intel_display_limits.h"
- #include "intel_display_types.h"
- #include "intel_dsb.h"
-+#include "intel_flipq.h"
- #include "intel_vblank.h"
- 
- #define __dev_name_display(display) dev_name((display)->drm->dev)
-@@ -732,6 +733,65 @@ TRACE_EVENT(intel_dsb_done,
- 		      __entry->frame, __entry->scanline)
- );
- 
-+TRACE_EVENT(intel_flipq_add,
-+	    TP_PROTO(struct intel_crtc *crtc,
-+		     enum intel_flipq_id flipq_id,
-+		     enum intel_dsb_id dsb_id,
-+		     u32 pts, u32 curr_pts),
-+	    TP_ARGS(crtc, flipq_id, dsb_id, pts, curr_pts),
-+
-+	    TP_STRUCT__entry(
-+			     __string(dev, __dev_name_kms(crtc))
-+			     __field(char, pipe_name)
-+			     __field(u32, flipq_id)
-+			     __field(u32, dsb_id)
-+			     __field(u32, pts)
-+			     __field(u32, curr_pts)
-+			     __field(u32, frame)
-+			     __field(u32, scanline)
-+			     ),
-+
-+	    TP_fast_assign(
-+			   __assign_str(dev);
-+			   __entry->pipe_name = pipe_name(crtc->pipe);
-+			   __entry->flipq_id = flipq_id;
-+			   __entry->dsb_id = dsb_id;
-+			   __entry->pts = pts;
-+			   __entry->curr_pts = curr_pts;
-+			   __entry->frame = intel_crtc_get_vblank_counter(crtc);
-+			   __entry->scanline = intel_get_crtc_scanline(crtc);
-+			   ),
-+
-+	    TP_printk("dev %s, pipe %c, FQ %d, DSB %d, PTS %u, current PTS %u, frame=%u, scanline=%u",
-+		      __get_str(dev), __entry->pipe_name,
-+		      __entry->flipq_id, __entry->dsb_id,
-+		      __entry->pts, __entry->curr_pts,
-+		      __entry->frame, __entry->scanline)
-+);
-+
-+TRACE_EVENT(intel_flipq_done,
-+	    TP_PROTO(struct intel_crtc *crtc),
-+	    TP_ARGS(crtc),
-+
-+	    TP_STRUCT__entry(
-+			     __string(dev, __dev_name_kms(crtc))
-+			     __field(char, pipe_name)
-+			     __field(u32, frame)
-+			     __field(u32, scanline)
-+			     ),
-+
-+	    TP_fast_assign(
-+			   __assign_str(dev);
-+			   __entry->pipe_name = pipe_name(crtc->pipe);
-+			   __entry->frame = intel_crtc_get_vblank_counter(crtc);
-+			   __entry->scanline = intel_get_crtc_scanline(crtc);
-+			   ),
-+
-+	    TP_printk("dev %s, pipe %c, frame=%u, scanline=%u",
-+		      __get_str(dev), __entry->pipe_name,
-+		      __entry->frame, __entry->scanline)
-+);
-+
- TRACE_EVENT(intel_crtc_vblank_work_start,
- 	    TP_PROTO(struct intel_crtc *crtc),
- 	    TP_ARGS(crtc),
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index a191eee240d9..a16560f94986 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -34,6 +34,7 @@
- #include "intel_display_power_well.h"
- #include "intel_display_regs.h"
- #include "intel_display_rpm.h"
-+#include "intel_display_trace.h"
- #include "intel_display_types.h"
- #include "intel_display_utils.h"
- #include "intel_dmc.h"
-@@ -1715,6 +1716,8 @@ void intel_pipedmc_irq_handler(struct intel_display *display, enum pipe pipe)
- 			spin_lock(&display->drm->event_lock);
- 
- 			if (crtc->flipq_event) {
-+				trace_intel_flipq_done(crtc);
-+
- 				/*
- 				 * Update vblank counter/timestamp in case it
- 				 * hasn't been done yet for this frame.
-diff --git a/drivers/gpu/drm/i915/display/intel_flipq.c b/drivers/gpu/drm/i915/display/intel_flipq.c
-index 45788234fc83..e7cfacd8a5ef 100644
---- a/drivers/gpu/drm/i915/display/intel_flipq.c
-+++ b/drivers/gpu/drm/i915/display/intel_flipq.c
-@@ -11,6 +11,7 @@
- #include "intel_crtc.h"
- #include "intel_de.h"
- #include "intel_display_core.h"
-+#include "intel_display_trace.h"
- #include "intel_display_types.h"
- #include "intel_display_utils.h"
- #include "intel_display_wa.h"
-@@ -430,11 +431,13 @@ void intel_flipq_add(struct intel_crtc *crtc,
- {
- 	struct intel_display *display = to_intel_display(crtc);
- 	struct intel_flipq *flipq = &crtc->flipq[flipq_id];
-+	unsigned int curr_pts;
- 
- 	if (!assert_flipq_has_room(crtc, flipq_id))
- 		return;
- 
--	pts += intel_de_read(display, PIPEDMC_FPQ_TS(crtc->pipe));
-+	curr_pts = intel_de_read(display, PIPEDMC_FPQ_TS(crtc->pipe));
-+	pts += curr_pts;
- 
- 	intel_flipq_preempt(crtc, true);
- 
-@@ -446,6 +449,8 @@ void intel_flipq_add(struct intel_crtc *crtc,
- 	flipq->tail = (flipq->tail + 1) % intel_flipq_size_entries(flipq->flipq_id);
- 	intel_flipq_write_tail(crtc);
- 
-+	trace_intel_flipq_add(crtc, flipq_id, dsb_id, pts, curr_pts);
-+
- 	intel_flipq_preempt(crtc, false);
- 
- 	intel_flipq_sw_dmc_wake(crtc);
--- 
-2.54.0
+[Severity: High]
+Does calling intel_get_crtc_scanline() from within a TP_fast_assign block
+cause issues on preempt-rt kernels?
 
+When this tracepoint is active, TP_fast_assign executes in an atomic
+context (RCU read-side critical section with preemption disabled).
+intel_get_crtc_scanline() eventually acquires uncore->lock:
+
+intel_get_crtc_scanline()
+  intel_vblank_section_enter()
+    uncore->lock (spinlock_t)
+
+On preempt-rt, spinlock_t becomes a sleepable rt_mutex, which will cause a
+scheduling while atomic panic.
+
+> +			   ),
+> +
+> +	    TP_printk("dev %s, pipe %c, DSB %d, frame=3D%u, scanline=3D%u",
+> +		      __get_str(dev), __entry->pipe_name, __entry->dsb_id,
+> +		      __entry->frame, __entry->scanline)
+> +);
+> +
+> +TRACE_EVENT(intel_dsb_done,
+> +	    TP_PROTO(struct intel_crtc *crtc, enum intel_dsb_id dsb_id),
+> +	    TP_ARGS(crtc, dsb_id),
+> +
+> +	    TP_STRUCT__entry(
+> +			     __string(dev, __dev_name_kms(crtc))
+> +			     __field(char, pipe_name)
+> +			     __field(u32, dsb_id)
+> +			     __field(u32, frame)
+> +			     __field(u32, scanline)
+> +			     ),
+> +
+> +	    TP_fast_assign(
+> +			   __assign_str(dev);
+> +			   __entry->pipe_name =3D pipe_name(crtc->pipe);
+> +			   __entry->dsb_id =3D dsb_id;
+> +			   __entry->frame =3D intel_crtc_get_vblank_counter(crtc);
+> +			   __entry->scanline =3D intel_get_crtc_scanline(crtc);
+
+[Severity: High]
+This appears to have the same preempt-rt issue as the intel_dsb_commit
+tracepoint where it acquires a sleeping lock while in atomic context.
+
+> +			   ),
+> +
+> +	    TP_printk("dev %s, pipe %c, DSB %d, frame=3D%u, scanline=3D%u",
+> +		      __get_str(dev), __entry->pipe_name, __entry->dsb_id,
+> +		      __entry->frame, __entry->scanline)
+> +);
+> +
+[ ... ]
+> diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i=
+915/display/intel_dsb.c
+> index 8e01e1eed291e..299d778520a22 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dsb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+[ ... ]
+> @@ -1124,6 +1127,8 @@ void intel_dsb_irq_handler(struct intel_display *di=
+splay,
+>  		spin_lock(&display->drm->event_lock);
+> =20
+>  		if (crtc->dsb_event) {
+> +			trace_intel_dsb_done(crtc, dsb_id);
+> +
+
+[Severity: Medium]
+Will this lead to unbalanced commit/done trace events for background update=
+s?
+
+The trace_intel_dsb_done() tracepoint is conditionally called only when a
+userspace vblank event is present. If a commit completes in hardware
+without an associated vblank event, the irq handler will skip emitting the
+completion tracepoint.
+
+>  			/*
+>  			 * Update vblank counter/timestamp in case it
+>  			 * hasn't been done yet for this frame.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909161730.1296=
+9-1-ville.syrjala@linux.intel.com?part=3D12
