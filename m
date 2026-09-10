@@ -4,93 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62EBAC79FB9
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 14:24:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE48C79F9F
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 14:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDD6710F4BF;
-	Thu, 10 Sep 2026 14:24:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9286610E2D2;
+	Thu, 10 Sep 2026 14:51:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Si8uWBBD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jYlH5LQ3";
 	dkim-atps=neutral
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A45010E1B4
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 04:43:19 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-86927f9ba4dso912753b3a.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 21:43:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789015399; cv=none;
- d=google.com; s=arc-20260327;
- b=e1Z0K3qKiqMLbhxxes1JZM0IpgpuWZSImwweMBzmS181Dhx3tznid9wlFVGsYAah2s
- dkpM529Tu9WIqNFovd50fNPNFEcB7LAnFIbxMOZIug8rPXju1yo2rZ5i9y6mzYqC7YTC
- PRkTPNdqMZ9TocxinFPLocw7XSbEjzBjmLPYfpxOrmjfyEdHyMYqkNyymplAVec0HL+u
- EZkSjeXLI9Lkx69O1xGfcA9TV8u82UI2sDpygvh8zaM3UtIUNX0TMwfrPbh1MMgriuEv
- QD9bCN4koTN2mEujHrpsBSRxPGr7Iv16W8YTJH8Ir0cR9aqCppLnbAXWJb3/EJotXlyW
- EQeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GL7Z6EHfnS8D/PgKYn+HCTKG9Da4Y+Wbx/C8FKsg3nQ=;
- fh=v8el1eh0ATiaIbHZ6o3ykSGwtQ9eZWwTj7Jre8Mu7O8=;
- b=X3wMaWGS+ygZ8V6Lur3yRrJbkRzbRTobL9yv83E+xW/dC+iTJSdwAo3U2U0as7/Dqy
- F0fSQQkL5SZayjLrjgQurBJpDsCuUnUE9sBu0Lu0780WeDThSabIeL+cKat+BB8Xdx25
- arQGRTAu1NltKwoeQMAQTp2GtecEjXgEbvU8Folq5SGOAo2CoNsieFSWaVJU3wYK/5Xp
- x2wLzIzbm5ETeE29q/D7Qgnx2xcvjeO1F3UgTCgrNCAUSFY8sU/iFkUCBS/Fv8pQ3Q0s
- 04WRS0wNt79gLcG7B5GARzfOf5z+pi66/9g+f3tkYffSguTI/XImh6W0dduxOqqvXEmM
- MHTA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789015399; x=1789620199; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GL7Z6EHfnS8D/PgKYn+HCTKG9Da4Y+Wbx/C8FKsg3nQ=;
- b=Si8uWBBDlK8LD5Ih75qTdC2gzcjqv+t3Cs9ukK/BwvLhGJ/t3b/vb4Oy+GnD++dsdP
- vzwrd+OpJWz3G8BQ8Uom/q7BcQSrhG5PsG1fwEuBk8wVeveMw46y6zReziBegeiUMx/8
- lKSIqIVNJTbCI9f43CDPK/MpYY8Q7WUhCi47YQRrv0aGnB/jeGEj695IgitDkr8jB5an
- 4OTGGWPDnHBxcLFn3TCOWK1cVqiWW6XdxISGGrGFrNcoVg0zIvrKQqrymfB9enL4fZun
- s5esBoiWo44Imjz9DRfG8lTHW1EX8sH97ZXbxLsovWw8RhJtQmxh2SW+mndLWv5M2RQD
- vy6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789015399; x=1789620199;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GL7Z6EHfnS8D/PgKYn+HCTKG9Da4Y+Wbx/C8FKsg3nQ=;
- b=JgtniB/MMXRiVUnoLut1QIhlAkgcMs4dT4nCqkMDdcRRanXZVJszP+nDEyzp2/7453
- Ao7sf4FKkKc+Z/o98ThgOMDIsl/v4/u/pjgpS0SUWTBoTV0KRe4EOHb0K63UUHYlMy0+
- JOn7jorphcnWqX4thw34SWxGvfd7N2sP18fxVneJ6WIz1lxbvKM+JJVo6ydZLYxg+FCT
- cOO+MaLZvNNg493h5DIhi1/Scq5hti2EFFBIm9Pgs/jetj+WHujT6szfpUTEw564y8VQ
- zGTVEHPIHdJuOJ7w+ojvW0R3nRSXY7Nn6Mex4X8Rl6JcEZI6Jvb4Q9Rb6Vp5mF3WSG5l
- /H5w==
-X-Gm-Message-State: AFuF++nwurscke/6hME5FdVkIMv1x3YM0re+0QIEWy0sfYFfnvDFaQ9P
- YI0KDI1AG9VAx0HwxIbSB6Pnxr8KRf7NZsNqD+oPLqFZ1+OmyvPdC6jhPvKOeiGJNkOjMN4ujFP
- 0pwJEwC+wCE/bODq7U1ydvCbtEs3eXHF7exhP
-X-Gm-Gg: AYBFou3jtWkBDP0eSfvhh5ktgR133hXHJtkL5Uprps8KshN/HyGNbBacK/5rcjl3fXB
- 012ruphdRMt9ss550X/jebQ5PmgVSTStnOTH0SPNneNZ+A9ast9Ui/pLlWZKHbo0hTVtP68qMN2
- 6tGKSZ0zbVrM/vaYdF/vf2+fOYmpvRCs7iAe/b5NUL/Urt5SoU924iDdtHmVhX464Kxe3puOO/v
- Y3q0XF4b0QU9fQNpC3pAouX7XwJhugzngZMq4aTHs+UH8ThGxn8RFFncMTNGLJ/fEGrA7sbMFoR
- QiH2NpbakMxTDTlzsZ51cb6dWx5DRN2NZRmlxWQBWr9Cupd9wphCM31B2UjAU0PzgsnTMNll+3R
- cN1OedFVa1B6l1ynQCpYS
-X-Received: by 2002:a05:6a21:3417:b0:3bf:7081:9356 with SMTP id
- adf61e73a8af0-3da3a08ecdbmr62659535637.17.1789015398804; Wed, 09 Sep 2026
- 21:43:18 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA6410E00D;
+ Thu, 10 Sep 2026 14:51:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789051888; x=1820587888;
+ h=date:from:to:cc:subject:message-id:
+ content-transfer-encoding:mime-version;
+ bh=sIDipupRfQWdDzW4XE1wXjU79jKzJN4bNhsaaNUnucM=;
+ b=jYlH5LQ35UiZASwYuScGbpDEGTgPfwShxJemzsEa+V3k/iXVFAglVmlT
+ b6ihvb7v6rYUVkIT0lrIX3AuZbjNbfoxN+eomBzVVmFPJrkT9ArGYCf6Y
+ F5yonwqmNaU/S/Llifse/+dB+oFl8KKdfJ+iiJysmGIydSPf7njNnj9W8
+ qvHEwGbk39ZgoOLyMNRDXfm5KTQNxdGMVlk483VPQ/NqFLPw0UHvE7S7C
+ E/TZ8pxZ34+8Ri0k3lhZjEf9uJuihMQ2DF75NRhIGjPOYwBJCwsQ5hc++
+ m0HkGXHPUO/dsWo8CpumgEuYcqD+fIMAzLPwDww57ONHOceh7oXBVWiOL w==;
+X-CSE-ConnectionGUID: 7jQR2OC/QN+r+yddD7HkFQ==
+X-CSE-MsgGUID: eMFVCcoUSeeqp3GS0hH4lQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89715170"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="89715170"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2026 07:51:28 -0700
+X-CSE-ConnectionGUID: JjvFgyJcQ42RsArKgHpm1A==
+X-CSE-MsgGUID: cjQg3CtdQEa59zcNTvg+9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; d="scan'208";a="275186314"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2026 07:51:27 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 10 Sep 2026 07:51:26 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 10 Sep 2026 07:51:26 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.36) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 10 Sep 2026 07:51:26 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FaEW1Z0gdGGKFw6fjyyJ0lKQRhdzFCRf3E0X/mmtDADuZGzaeG/vjnoL4mdlj91RvzhDxP2gyeJCCnIE6lgv5H7UwykHkyTExtoEi5xR6VuifUJg4GcUuuqva28U95+qob/OKZ5HTOjmo/SZ5xr34T4EGARfccAWsABd+rvmPbj2USHVNKDNc+fIwGrsHxECHqbi/QWqCdayomW0I35k27iQlYb+Z09Y4Fwbb3PYGhdIoZXWL2NrLrpaiRaW2UjzHIZQVPCqyz7Lz1BDqQMjPctUOWs3AUNaJmoQDDvmmlucJkJZasLUyCXMe3GXpXjgkMP+bHEQ+hyJQU6dY0n3kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MRl75Z4jYEAjrpKb1fYonkPiy+KEpHK00DBfltpEGO0=;
+ b=HfdYOYgoGi8kAAvODM1xwDMaKh8iNilOt1yU44RFqcC4Jc3rPzS+fwWbh2cikqMeGNwdg/zJhbv3ALpRBbGaT9ncCZ/3WJcXk1JtHbLQEIwECAIf9ZQRTkZnlqb1n7Sm7ElUdXtUa3oOwy6bBD/PlhEScQFvqMVkuHqArGSqQE+8Migliu2qx1y9FNJpHfG/fj+5tKRUtnHarUxg0QFAh+pX2bG6h03Angf5IWf9nCObxmxzAyq5FL/ruOCirxUVRvIxpniRyzc/CuzRkPSriP1OtHQjl96fTdmXMEKWlErzikmUA/WL6yEv+1iqWDitR+/lonWTOSpo11fRDAyJzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by SJ1PR11MB6201.namprd11.prod.outlook.com (2603:10b6:a03:45c::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 14:51:22 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 14:51:21 +0000
+Date: Thu, 10 Sep 2026 10:51:15 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
+ Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dim-tools@lists.freedesktop.org>
+Subject: [PULL] drm-xe-fixes
+Message-ID: <aqLD4xjzFF6ROxBu@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR03CA0249.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a0::14) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 MIME-Version: 1.0
-References: <CAAxXSL-D=cJ8ne9Lc=W=746TZgyXVVYqWm=kP=CWj8D+M6JjRA@mail.gmail.com>
- <CH3PR11MB7300D5961C982BA2B040675FBAB12@CH3PR11MB7300.namprd11.prod.outlook.com>
-In-Reply-To: <CH3PR11MB7300D5961C982BA2B040675FBAB12@CH3PR11MB7300.namprd11.prod.outlook.com>
-From: Metrical revel <metricalrevel@gmail.com>
-Date: Wed, 9 Sep 2026 23:43:07 -0500
-X-Gm-Features: AcwNN1UPyh261lwdadQLK8NVCQdR0o3xWyW5Y9HeGPptMo1jd2_e1516Xtx-2jY
-Message-ID: <CAAxXSL9JUB9d1CqVx-nY-DwskyFfu4kUOsyNf4qPpj_hz-iS_Q@mail.gmail.com>
-Subject: Re: [PATCHv4] drm/i915/dp: On DPCD init wake the DPRx for eDP
-To: "Murthy, Arun R" <arun.r.murthy@intel.com>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 10 Sep 2026 14:24:20 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|SJ1PR11MB6201:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f8ec974-c230-4edb-6e37-08df0f4afa80
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|23010399003|366016|3023799007|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: q3J5QLq9MnfzgJbWzySWgQVfriCZhPHUw7Y19AY0XMQVYIR1PHD9Ynq+4Gb+PG31H3hwGWBKM+8ouRjGGG0yuL0z+8NZFnkkXG17WPPXZZKfw2q/zXBnLXLXhcdgVoV9kMUwfN5RsHhPNI/nutb9+YhL3zrXGhz8xjaM2CvRIwnwGAHpwAvB8A2ivmkwVUSTNZMsMqgH+fn3WQQv9UeRhtI1zl4vaeJ+Ezh4y8da27xG9nBIHbWA7r21wQACRe2Z1ZFcq2PP1ZrMLtd1q4F3sI7S5vjTNr4u/gSOzhCqi0Hivr3sXjkGbZga4/P3/VKVNqnX+jS7ob6YLz+YozmO0YxInTCAG8Y2l0kk1aNu9o0EmJBbIK7RlNc+ADgsmuZpknolcrRXChBR8R+zGFb736DM0lJcwdUXZnRAtiHyRTEziL/EXlv7IppMAgUYeJFotanpkHEUzVowhsM/MlJX56G1/PzKLVzLtgfwqOiyY6GcdJsYPSC330BzeV73vPBsfPFiQF9QpeixaIYDkc0j1HMcC5UYMs2YNoCOctx4/iMK7qKR4eOfsL0dHlqC5FKguwzUDxapCK3ZZtUk5XDvICffKP62cbw9eLUjwWzmHPg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?hLM/2qK5JliOa6mTRpva0BtciJTWb0cu78LOTSDiMdHHsjrSbKEJrrDmyV?=
+ =?iso-8859-1?Q?XwY3tfa6d/qIjTb77jDRfqZTpSEjuEa5iboWKN0D5IcE9+FbFibPJU/etj?=
+ =?iso-8859-1?Q?LIBTu8MEtrP60zmt6tQO9i2MEequWnc8AyBsNHxxlfqsLe+GsHsKsTbCyd?=
+ =?iso-8859-1?Q?redch+1Xr5CjnUDcLpIcoEh6Bhnf3a2qqCJw+LwMrHh9D0dMIsbzPX2wRY?=
+ =?iso-8859-1?Q?elJOybYXFBYKdCcIEFrukvisnGDbgJblQCbembXNpf3PXQr1dkiiYIQqYQ?=
+ =?iso-8859-1?Q?oxT/vbNccr9W5wqgYfcfJpc0WNT2PrqMjIoddlNJ+kXPH6xonrwwSK+R8B?=
+ =?iso-8859-1?Q?agXQdK3tuDphxr0XWFBuaHLuIO4irc4b0T28/swu0p4GFPtEhaqqPA0iGM?=
+ =?iso-8859-1?Q?USaVu82wlbhQcvDcM8QtR98WM4EO9RJjs6yo0l/BggA0cTohsdCq/Ov1yi?=
+ =?iso-8859-1?Q?O/Uu2QicX3Svwi7zRRRAGqv6wFfX0dARbrdeA5raOn/oNoEE9nu0mYd5Tt?=
+ =?iso-8859-1?Q?Md2hoD5IxX3gL7vh4P7dD4tTiTm12Ua5pg6pfSpkBMm5xca9T6x27biNyS?=
+ =?iso-8859-1?Q?eMuaIMB0Y2ohDUhzlRBk9NfrwO2m/MuYd/xmyoS979H9+jcoVvCO2k8vFs?=
+ =?iso-8859-1?Q?wYt+u1+N4voLzTYMu0DnwlYv9ckp5JWiQFK4jRaV5EoshRkdR2djrJ23Kw?=
+ =?iso-8859-1?Q?x8gnwWDKqmubpwk/9veJLRorDhndDoi2AuPcuB/zSR/yPu2Gomod8lN370?=
+ =?iso-8859-1?Q?gxX1Fo06rh4qEWCeOA/fvjGCuuckm2iYL4UNzJaR4zqnevJtvCfjmfWXJQ?=
+ =?iso-8859-1?Q?/kTKpyPZJDQ4q7Dd9JGe1a95vOJMwWbViaFPZTt27C5isf2Ap42MiC6u/b?=
+ =?iso-8859-1?Q?czLg9xCkxlQQKPB2zRnPqMXXUfPOH5Kctyih7gkPgph8Gl/36vaq/RImX1?=
+ =?iso-8859-1?Q?0gZumnH1kq3/yk/XcH6UGbAlS+3hzruiq40TwMnBvVReawch63F9YaBGrX?=
+ =?iso-8859-1?Q?7PBSA9zajIiUyhQFlHZhhL+BEfuJLE8Y1gxneua0rsnFqFqFGbHwguV86w?=
+ =?iso-8859-1?Q?RKI6PDz8Nw08hYC+65BRaQnv8+2o991HjJN6vSR+VyFR+x7ixmWjYCbAnK?=
+ =?iso-8859-1?Q?t9Syz2zVsKTCd+77Cj93+8s3nHM9qSCwt1CFgdGvqpoSOkS4sOFu7Ahqso?=
+ =?iso-8859-1?Q?LNjYo+ALNbFnaID6HhnnBsw7y0D7po2EDCsrWBKpjnh6/mib1coZZOn+o5?=
+ =?iso-8859-1?Q?Czi3hYFTuywF90n9ALI6lxAPCELE2Crivdykb187d4X65gYchgj7zhEc66?=
+ =?iso-8859-1?Q?/2S4ZF7UF0n1gcQvH6No2jgH3OFps7cwxP+KX2xviUH9TZiKd0XVgZgZWn?=
+ =?iso-8859-1?Q?72sZq9NYK/zNc6TompqWvH+5c7qgNoTTVQPZsm+5z520WzaEIJ/t873tMz?=
+ =?iso-8859-1?Q?AH3n/jnlBJ/RcZ3Ip/qCgsdF6SSgOkEcwA4MWTIkUOxICbp44F07n8mqm2?=
+ =?iso-8859-1?Q?2yGBB0CYlknXwb+MpCHd/blH2JN7ns3bA6wY/hxM1eIUCxDuXKNSMw12dN?=
+ =?iso-8859-1?Q?BmqsQ2YXDBxL+YHjr7Tohio2Mg53Ps2Ckes7jEiYOwq+Vv4HHvS8oPBc+v?=
+ =?iso-8859-1?Q?MnyiYTNcIfBO1/wLpNh1Ab3kGYsKo1JUipk07wGuUnUQ1WNj72DE25YSqt?=
+ =?iso-8859-1?Q?nRqrN7XPKmeHJVvMiU3OnRRTqnWcinfbeVyBG7SnbaOw/rbHG3l6bV74aZ?=
+ =?iso-8859-1?Q?uFA9SQnX1cnxXQf9oigA5E8kLFQEj2icj+A5W5byH/NIkmxjiETedeWJjG?=
+ =?iso-8859-1?Q?OPQ+l2kIzA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: 12rCAPQK6MTgCkiVTiLhedQy5xO6AkSEIwVuNV/7R/RpIQgsWmZnvLrN2+2dzbFhoS8Zdj3tDYXmpHn7fSD7IZIoYI+c5SbbOU02k9IQVP3hpFo7MzBnQASfnxHH/J1S68aevUnB1YUrtXynp12affFFKp+WdAgMoHP01QbkP4i8feWzBMjSwN4gBCDljECi5HU6jXcG70fGTizXMMNOGmogwvL+zwFv+nCAom75w3hP+nUrMm49mk8n+ZYNBycg1QnWujv3MTwaTEAZx2f5DcmyEicBXfeV8E+omkcFrcoppDUGBwd/1wRRdGcunq4tEZW3DkH6Lne8yAwFWOOGvQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f8ec974-c230-4edb-6e37-08df0f4afa80
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 14:51:21.7114 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /y1tALvr3ybg3poUjtFlEAu+ziWVXQgbMOoLCUZWbv2QBxSt1WUDvGB03ZZP7EtjSU4uGimUwoyDxGB30CuyDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR11MB6201
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,99 +166,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Arun,
+Hi Dave and Sima,
 
-Tested v6 on my HP Victus 15 (Raptor Lake-P), compiled against
-linux-zen v7.2.2 with the v6 patch applied.
-
-Ran multiple suspend/resume cycles (both `systemctl suspend` and lid
-close) with drm.debug=3D0x1e:
-
-    journalctl -k -b 0 | grep -c "Failed to enable link training"
-    0
-
-Display resumed instantly in every cycle, ~2s to fully exit deep
-suspend. No trace of the eDP link-training failure that was
-consistently reproducible before this patch (or on unpatched
-7.2.2).
-
-Also checked i915.CI.Full for v6 -- only 2 flagged regressions, both
-unrelated HDMI cursor tests (kms_cursor_edge_walk, pipe-d-hdmi-a-4),
-nothing on eDP this time. Looks like the read_byte/timeout issue
-from v5 is resolved.
-
-One thing worth flagging alongside Sashiko's bitmask comment before
-this lands: the wake sequence writes DP_SET_POWER_D0 twice --
-
-    drm_dp_dpcd_write_byte(&intel_dp->aux, DP_SET_POWER, DP_SET_POWER_D0);
-    fsleep(1000);
-    drm_dp_dpcd_write_byte(&intel_dp->aux, DP_SET_POWER, DP_SET_POWER_D0);
-
-The comment right above it still says "wake it up to D3_AUX_ON", and
-earlier revisions (v3/v4) wrote D3_AUX_ON on the second call per
-DP2.1 sec 2.3.1.2. Looks like it may have been dropped during the v5
-simplification. It didn't stop the fix from working for my case, but
-might matter for panels that actually need the D3_AUX_ON state.
-
-Tested-by: Mathias Sebasti=C3=A1n Vargas Silva <metricalrevel@gmail.com>
+Here goes our drm-xe-fixes for this round.
 
 Thanks,
-Mathias
+Rodrigo.
 
-El lun, 7 sept 2026 a la(s) 10:20=E2=80=AFp.m., Murthy, Arun R
-(arun.r.murthy@intel.com) escribi=C3=B3:
->
-> Mathias,
-> There seems to a bug in the poll with the replacement of readb with read_=
-byte related to timeout. I will have to fix that and also received few comm=
-ents as well. Let me fix those and will post a new version which you can us=
-e for testing.
->
-> Thanks and Regards,
-> Arun R Murthy
-> --------------------
->
-> > -----Original Message-----
-> > From: Metrical revel <metricalrevel@gmail.com>
-> > Sent: Tuesday, September 8, 2026 2:23 AM
-> > To: Murthy, Arun R <arun.r.murthy@intel.com>
-> > Cc: intel-gfx@lists.freedesktop.org
-> > Subject: Re: [PATCHv4] drm/i915/dp: On DPCD init wake the DPRx for eDP
-> >
-> > Hi Arun,
-> >
-> > (Replying by email since patchwork doesn't support direct comments =E2=
-=80=94
-> > apologies if this duplicates my GitLab note.)
-> >
-> > Noticed v5's i915.CI.BAT is passing now =E2=80=94 good sign the build i=
-ssue is resolved.
-> >
-> > Before I compile and test v5 on my hardware for a Tested-by, I wanted t=
-o flag
-> > something from i915.CI.Full that looks a bit more specific than the usu=
-al noise
-> > we saw on v1/v3:
-> >
-> > igt@kms_cursor_crc@cursor-rapid-movement-128x128@pipe-a-edp-1:
-> >     shard-mtlp: PASS -> ABORT +1 other test abort
-> >
-> > igt@kms_cursor_crc@cursor-rapid-movement-128x128@pipe-d-edp-1:
-> >     shard-mtlp: PASS -> DMESG-WARN
-> >
-> > Unlike the earlier CI flags (which were all in unrelated subsystems lik=
-e
-> > gem_ccs/kms_plane_lowres), these two are both on eDP-1 specifically, sa=
-me
-> > shard, same test family, both regressing from PASS. Is this known/expec=
-ted
-> > noise on shard-mtlp, or worth digging into given it touches the exact c=
-onnector
-> > this patch modifies?
-> >
-> > Happy to go ahead and test v5 on my hardware for a Tested-by either way=
- =E2=80=94
-> > just didn't want to give a Tested-by without flagging this first.
-> >
-> > Thanks,
-> > Mathias
+drm-xe-fixes-2026-09-10:
+A runtime_pm guard for page-fault worker and a cache flush fix.
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-09-10
+
+for you to fetch changes up to f5fcf7e638b904397ec0f66d3ea6766ef0cfe25b:
+
+  drm/xe: Flush LSC untyped L1 dataport cache after rcs/ccs batches (2026-09-09 11:20:39 -0400)
+
+----------------------------------------------------------------
+A runtime_pm guard for page-fault worker and a cache flush fix.
+
+----------------------------------------------------------------
+Thomas Hellström (1):
+      drm/xe: Flush LSC untyped L1 dataport cache after rcs/ccs batches
+
+Varun Gupta (1):
+      drm/xe: Guard page-fault worker with runtime PM check
+
+ drivers/gpu/drm/xe/instructions/xe_gpu_commands.h |  1 +
+ drivers/gpu/drm/xe/xe_pagefault.c                 | 10 ++++++++++
+ drivers/gpu/drm/xe/xe_pagefault_types.h           |  3 +++
+ drivers/gpu/drm/xe/xe_ring_ops.c                  | 11 +++++++++++
+ 4 files changed, 25 insertions(+)
