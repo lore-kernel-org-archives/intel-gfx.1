@@ -4,98 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D711C79F9F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A95FCC88E42
 	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 14:24:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 825DC10F4B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC6ED10F4BA;
 	Thu, 10 Sep 2026 14:24:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nX1U3Gj+";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="QsyzdKtR";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDB1510F1F8
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 16:32:30 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49cd5faa1cfso1429965e9.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 09:32:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788971549; x=1789576349; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=yG+S01jgDNF6gG2aUjEkOKkHDiymuefIawG26yDnYyI=;
- b=nX1U3Gj+Bff6Oko2mi4Osktn5cYKAkj7Kgy3yZXr6z6g8BAncfqoUoBwC0ZG2hCAXT
- eecVjLURj3uR8IR7jbQziJoxB0UAkp3NFPFFjUwjzzsgtCdmA87mrBFxBwwsP3SkifoP
- bDe0zKO4yZalcZau72YhUKOb0uvt4BHd/HVovF0XYAwVkv3TuGVlLsvCSqBn6GxH9klB
- QKjD1VdDS65DngiQLm8NbJUxLOf3TyuqU3ztLewscB0R0cxQ/+6rBLs3/1G8RgRPH3v+
- KratySELrCkzygDFay5oE0wv9cCcF8vSZ3C4WyLqBHWpIjkczPZRr85Tq5xo8rS1H1pG
- sz2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788971549; x=1789576349;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yG+S01jgDNF6gG2aUjEkOKkHDiymuefIawG26yDnYyI=;
- b=EJPOSWMKHXvVobTiU9iC7RCzX007GNj3eTiAPtXWMNmrYz1yvRIScNTi9i3WnBvCbR
- Ru/IvuRIzRhZyV3nAkczI4JbRlrm06lj5M11JFNbQBhQTYSZ32Eq64xmkL46G+c9jY7N
- Nmt45GQdoZwpTn5VIUDoMltRnpuAzWTqA4NooW3EMOhX5yNNXZl9aiWz+xUL3UFgzCNq
- YQpY6xaWmxKbbehITDhvwKSiN9yrYTn1DIe0rY0B5hWNyHQ1F+/Bfo4ggggpx4h4iaKo
- F47gDdDGmgZaSkMyE8rMiFIW8T7QG7LrN6PcHjAGsuQXMby3zMCqAfWHU9bnybbc91G3
- lsOQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzyQ5tTQ+K7MoAAWHtGUm6iLyL6jI4g1WJsRxZhRO//URAs1AXUb2LtQ03Yk4YtBePQKsO4yLuF3y8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k6QmOkDMWkVYvpYFhBGNJOIeCP5oMtWo4fgrN+lwkwmNzvtief
- iDjLu7gdSQYtsCvVoJjrUH3tDe2j3WCHMt01SNyImN8q5243sIWsPmqQ
-X-Gm-Gg: AYBFou1/CKJuJxugFA+CAbAhur0UA1AZiqRFh/86+PF6Ulp5ufcwBSAadvToUZt/vga
- fYzoh6ecAtsg7fCanlIzlJEaoMXly0DUhe5p/u5iaVX4LcUAvDL4tzp/1yg6cyY+yw1mAIC8vu6
- 4TkDD+eqolfx+NaSK42OSZKhGvLglxbo8ujxaWj8sT6hyNGW5Vf7dVW+9JdKEfTLriLriJhdsyl
- 7fK4Qg1Rq7AC7fUQlSkAMmJLqKKADIMzDYxmq8DQQ9u49R2u4bId3HD5BbddaYAxb3RXh7r3EUP
- kklklQIJrqGO/b9mLdzq7DUsCnIrXbfFP4yt95zVbnD69fPdaccC1doWfy8uUAoxAHtYuwEjE/h
- MEHrTcAz4pTzzehtBybA1Pd+7Snkd7REcW4Q5sIGcRizBHRvaDkWrvXUFLBfcc8O9C9dSMsnUhr
- Kcp6JKbNG9hvJBnxqH4tETrqyLz8EcCPFJQESJJ9aRE/4uXsaulDuqHaGGpV6n1U090RWFzPKtn
- KnpDaV2s1gcfGInmSVTAsDaZtEee3jllYHgg4qKHZnHzfK+/4GAXyvUQsRuOzUuyGSXrn3c5+Ut
- +O9y
-X-Received: by 2002:a05:600c:620f:b0:49c:eac2:ddad with SMTP id
- 5b1f17b1804b1-49d2570acaemr21422495e9.1.1788971549021; 
- Wed, 09 Sep 2026 09:32:29 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B836900E58FC5516AABB3E4.dsl.pool.telekom.hu.
- [2001:4c4e:1b83:6900:e58f:c551:6aab:b3e4])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49d26bf332esm2604635e9.8.2026.09.09.09.32.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 09:32:28 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Igor Paunovic <royalnet026@gmail.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Thu, 10 Sep 2026 08:22:09 UTC
+Received: from mail-m83140.xmail.ntesmail.com (mail-m83140.xmail.ntesmail.com
+ [156.224.83.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F5D810E5D0;
+ Thu, 10 Sep 2026 08:22:08 +0000 (UTC)
+Received: from [127.0.0.1] (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4d424001d;
+ Thu, 10 Sep 2026 16:17:01 +0800 (GMT+08:00)
+Message-ID: <388fd1ef-a8c9-4419-8bf2-10af7063e734@rock-chips.com>
+Date: Thu, 10 Sep 2026 16:16:58 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drm/rockchip: dw_dp: Attach "max bpc" connector
+ property
+To: Igor Paunovic <royalnet026@gmail.com>, Maxime Ripard
+ <mripard@kernel.org>, Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
+ Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Ville Syrjala <ville.syrjala@linux.intel.com>,
- Imre Deak <imre.deak@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v2 0/3] drm/dp: shared HDR metadata SDP helper,
- and max bpc for dw-dp
-Date: Wed,  9 Sep 2026 18:31:58 +0200
-Message-ID: <20260909163206.36409-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ Imre Deak <imre.deak@intel.com>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+References: <9e77b5c5-f1d9-484b-ae02-846fae1b3642@rock-chips.com>
+ <20260910075141.48803-1-royalnet026@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260910075141.48803-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa08a64411a03a7kunmd603e3c96b951d
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQktKGFYaSh1JHh1LGR
+ 1MTU5WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+ tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=QsyzdKtR8GyvZXLIk9XQ2kqA0UgUML0r1a5HagEEzhjSTt8B7Od9kKHB/Q8+mHRk+xB4sMYEHpEg56AFZIdmelBTdIHi6tnmX5ez3I+5pCydNWkRX1TcoSgXbH7k6vDhfKFXodb9DNs1fsjTcNxWHY6pYs00xVQQ/13Z6NDPuFc=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=ZN6HtlaVAVG7FaFfctXwYiyQfxVaBlmMtcPgGoGm23c=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Thu, 10 Sep 2026 14:24:20 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,83 +81,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is v2 of "drm/bridge: synopsys: dw-dp: Add HDR support" [1], resent
-as three patches instead of five.
+On 9/10/2026 3:51 PM, Igor Paunovic wrote:
+> Hi Chaoyi,
+> 
+> On 9/10/26 09:16, Chaoyi Chen wrote:
+>> I don't think this is the correct way to go.
+>>
+>> I believe max_bpc should be handled in drm_bridge_connector_init().
+>> Take a look at its implementation. HDMI already does max_bpc there,
+>> so DP should probably do something similar.
+> 
+> Agreed - that is the question I left open in my reply to the bot. v3
+> moves it into drm_bridge_connector_init() and drops this glue patch.
+> 
+> Three points I would rather ask than guess, since it is shared code:
+> 
+> 1. How the bridge advertises it. drm_bridge.max_bpc is documented as
+>    "only relevant if DRM_BRIDGE_OP_HDMI is set" and the helper only
+>    reads it inside the OP_HDMI block. I intend to honour it on the
+>    non-HDMI path too, relax that doc sentence, and have dw-dp set
+>    bridge->max_bpc = 10. If you prefer to keep the field HDMI-only,
+>    a separate field is easy - I just did not want to add one unasked.
+>
 
-The two patches that actually enabled HDR output on dw-dp are not here.
-They were written on top of Sebastian's "Synopsys DisplayPort Controller
-improvements for RK3588" series, and that series has not landed. I
-checked rather than assumed: against drm-misc-next they no longer apply,
-and every failing hunk sits on context that only exists in that series -
-vsc_sdp_nr, audio_sdp_nr, dw_dp_clear_sdp(), the runtime PM conversion
-and dw_dp_rockchip_hpd_sw_cfg(). None of those symbols are in mainline.
-Holding the rest hostage to that seemed wrong when the first three
-patches stand on their own, so they go alone and I will resend the other
-two once the dw-dp work is in.
+Maybe we should consider adding a new "DRM_BRIDGE_OP_DP" :)
 
-What is left is useful without them:
+> 2. The range. HDMI attaches 8..max_bpc. dw-dp's format table goes down
+>    to 6 bpc RGB and i915 attaches 6..N on its DP connectors, so I intend
+>    6..max_bpc when connector_type is DisplayPort, 8..max_bpc otherwise -
+>    the same gate Dmitry used for the DP subconnector property in his
+>    msm series [1]. Nothing is attached unless a bridge declared
+>    max_bpc, so existing non-HDMI bridge connectors are unchanged.
+> 
 
- 1/3 moves i915's private HDR metadata SDP packing into a shared DP
-     helper and converts i915 to use it. No functional change; the
-     second user follows later. Jani's Ack from v1 is carried over.
+And once you use DRM_BRIDGE_OP_DP for the check, it shouldn't affect
+other users. The max_bpc looks reasonable.
 
- 2/3 fixes a real bug: the bridge connector loses its max bpc value on
-     connector reset, so a driver that attaches the property gets it
-     reset behind userspace's back.
+> 3. Where the default lives. 2/3 restores max_requested_bpc from
+>    connector->max_bpc after drm_mode_config_reset(), but Cristian's
+>    v11 71/74 removes that field [2] (HDMI keeps it in hdmi.funcs). I
+>    intend to keep the value in struct drm_bridge_connector and restore
+>    it from there in drm_bridge_connector_create_state(), which folds
+>    2/3 into the same patch. 1/3 is unaffected.
+> 
+> The state still has to exist before the property is attached, so the
+> non-HDMI path gets the same create-state block drmm_connector_hdmi_init()
+> has. If you would rather see that block factored into a helper for both
+> callers, say so and I will do that instead.
+> 
 
- 3/3 attaches the "max bpc" property on dw-dp. To be precise about what
-     that does: the property is a limit, not an enabler.
-     drm_atomic_connector_check() derives max_bpc from the sink's EDID
-     and only clamps it against max_requested_bpc when the property
-     exists, so the min() can never raise it. dw-dp's format filter
-     therefore already lets its 10 bpc entries through on a sink that
-     reports 10 bpc, with no property attached. What the property adds
-     is userspace control - the ability to ask for less - and a defined
-     upper bound of 10, the deepest entry in dw_dp_output_formats[]. It
-     is also the case that motivated 2/3, and a prerequisite for the
-     HDR patches that follow later.
+Perhaps @Cristian and @Maxime have better ideas?
 
-Changes in v2:
- - Dropped 4/5 and 5/5; they depend on the dw-dp improvements series
-   and no longer apply to drm-misc-next.
- - Retitled the series, since it no longer adds HDR support by itself.
- - Rebased onto drm-misc-next bf63a72ea005. No changes to the code.
+> [1] https://lore.kernel.org/all/20260722-drm-msm-display-interface-v1-24-368c10fe62fd@oss.qualcomm.com/
+> [2] https://lore.kernel.org/all/20260901-dw-hdmi-qp-scramb-v11-71-bc12954a0688@collabora.com/
+> 
+> Thanks,
+> Igor
 
-One thing worth flagging for 2/3 and 3/3: Cristian's HDMI 2.0 series
-removes connector->max_bpc in its patch 71. That series is not in
-drm-misc-next either, so these two are correct as they stand today, but
-if it lands first I will respin them against whatever replaces that
-field. Say the word if you would rather I wait for it.
-
-A note on how this was made, since the patches carry Assisted-by tags.
-I work in a pair: I run the board, take the measurements and decide what
-goes in; an LLM assistant (Claude, by Anthropic) helps me read the
-source, draft the changelogs and re-check my claims against the tree
-before I send anything.
-
-What I have not done here is boot-test this exact three-patch series on
-hardware. The code is unchanged from v1, whose runtime testing was done
-on an Orange Pi 5 Plus running a rockchip-devel kernel that carried the
-v9 generation of the dw-dp series, with the patches on top; those runtime
-tests were never repeated on plain drm-misc-next. That caveat bites
-hardest on 3/3: mainline's dw_dp-rockchip.c is not the file I tested
-against. For v2 I have only checked that the patches apply and build-
-tested nothing. Say so and I will do a full build and boot test before
-you take it.
-
-[1] https://lore.kernel.org/all/20260808095749.9428-1-royalnet026@gmail.com/
-
-Igor Paunovic (3):
-  drm/dp: Add drm_dp_hdr_metadata_infoframe_sdp_pack()
-  drm/display: bridge-connector: Preserve max bpc across connector reset
-  drm/rockchip: dw_dp: Attach "max bpc" connector property
-
- drivers/gpu/drm/display/drm_bridge_connector.c |  6 +-
- drivers/gpu/drm/display/drm_dp_helper.c        | 88 ++++++++++++++++++++++++++
- drivers/gpu/drm/drm_connector.c                |  5 ++
- drivers/gpu/drm/i915/display/intel_dp.c        | 84 +-----------------------
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c      | 26 ++++++++
- include/drm/display/drm_dp_helper.h            |  4 ++
- 6 files changed, 131 insertions(+), 82 deletions(-)
-
-base-commit: bf63a72ea005d5e1cc12a9ad5e228c4b44246b0f
+-- 
+Best, 
+Chaoyi
