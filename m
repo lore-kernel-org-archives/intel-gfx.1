@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B892BC79FBB
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 21:07:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA056C88E41
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 21:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B00FC10E3D7;
-	Thu, 10 Sep 2026 21:07:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 424C410E97F;
+	Thu, 10 Sep 2026 21:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WwPMq8/E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WBTpxRtk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78C6910E39F;
- Thu, 10 Sep 2026 21:07:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B25B310E2DC;
+ Thu, 10 Sep 2026 21:55:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 23C3841911;
- Thu, 10 Sep 2026 21:07:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270D41F000FF;
- Thu, 10 Sep 2026 21:07:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A265A60200;
+ Thu, 10 Sep 2026 21:55:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159721F000FF;
+ Thu, 10 Sep 2026 21:55:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789074472;
- bh=978hplHl+/cghS7QEZxpSQOUxYdhZSALQBlDT1eFv8g=;
+ s=k20260515; t=1789077338;
+ bh=EBcVPm8Ia66oMJBe0Ug4tIUTXe7c6Tm13It7QGHGULo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=WwPMq8/EbPqQCPQ2Dj6VPI1vQq6Fzkt489VAQi+GXonZ7KOi+D+u+G0cmYjQYXr3Y
- rFId3tmJDVgLmDc4kTfieNqLbGm/n+rQ1+jOj6hFMcEfB3X87LFYTSIZVlyBtImTbG
- L5bd3C0rH4rGC4ivMLoQ1p6OwrAIagjP++CsBNssqO39J6AbSk00p3r5KO/zFYhJOR
- ciZ2fuyN0++s63KtpXl5NyuPOmQn3YBPDAfm2MPbmbB7JbP7t9d+mTj/FBCyXTphjA
- BYqwqDc8xnIs4COar//xB6JOQy1qpWe2QJp5CTSd/QEWCsf6P+U5xtjV0B8buISvXh
- BH4gZ6kOIuBqQ==
-Date: Thu, 10 Sep 2026 23:07:48 +0200
+ b=WBTpxRtkv2QSdS8yesHeKOJERsWP3nFWyvXzoThcm7vLFsfMMqOO6j86gTSz+dS7Y
+ 4MYwrgMfOebMjwY65FnK55sOOQu2jLj8OTz+9FbCBG+CAlPTuwyS4rGFiASN/it1HI
+ 9BIo81xXqUXCzRZj+4bZs0ANhONHwF7jgVh/J53YCtYBdt545SVHjvWFKgeYyAuNJ7
+ oATUzpCqN9XmVZI4m6EAi1U22DGJuIrYmax5Ci9YP5fLXD/ZP+stRYIJWjLoX5Jxli
+ clsUr95YMWvUCA4UXUCBnXWu+fJR7IrX11tOaOVCJU4crdJMN60MMb6uAJPCnpFJUA
+ LUc1ZawZYiSkw==
+Date: Thu, 10 Sep 2026 23:55:34 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>, 
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>, 
- dri-devel@lists.freedesktop.org, igt-dev@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/selftests: Wait longer for request to start
-Message-ID: <aqMb92YXA1jaYB8s@zenone.zhora.eu>
-References: <20260831093510.3496388-2-janusz.krzysztofik@linux.intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>, 
+ Robin Murphy <robin.murphy@arm.com>,
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v6 1/7] drm/i915/shmem: Validate max_segment
+Message-ID: <aqMmx08W0SHX8C1N@zenone.zhora.eu>
+References: <20260902082525.1149367-1-krzysztof.karas@intel.com>
+ <20260902082525.1149367-2-krzysztof.karas@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831093510.3496388-2-janusz.krzysztofik@linux.intel.com>
+In-Reply-To: <20260902082525.1149367-2-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,33 +63,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Janusz,
+Hi Krzysztof,
 
-On Mon, Aug 31, 2026 at 11:33:08AM +0200, Janusz Krzysztofik wrote:
-> CI extreamly sporadically (five times over last six mohths) reported
-> failures of igt@i915_selftest@live@hangcheck on ARL-S machines.  The
-> selftest was timing out while waiting up to 1 second for a request
-> supposed to trigger a GPU hang to be started.  It occurred possible to
-> reproduce this issue manually by running the selftest in a loop for a
-> few hours.
-> 
-> Among results from 5 occurrences reported by CI so far, and two manual
-> reproductions, two of them contained messages that suggested a
-> posssibility of the awaited request to actually start soon after
-> timeout.  With the timeout extended from 1 to 2 seconds, it occurred no
-> longer possible to trigger the failure, even when running the test in a
-> loop for 10, then for 12 hours, on the same machine where it was failing
-> before in 2-3 hours.
-> 
-> Assume the conditions that prevented the hang requests to start within 1
-> second were always transient, and 2 seconds is sufficient for those
-> requests to start effectively on machines in the CI environment.  Fix
-> the issue by using that value as the timeout.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16624
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> +	if (max_segment < PAGE_SIZE)
+> +		return -EINVAL;
 
-reviewed and pushed to drm-intel-gt-next.
+should we also check here whether max_segment is page-aligned? I
+think the loop coming later assumes that. If max_segment is not
+aligned nr_pages can be == 0, right?
 
-Thanks,
 Andi
