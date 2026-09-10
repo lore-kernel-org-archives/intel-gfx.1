@@ -4,43 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C936AC79FBF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 18:54:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7511CC79FBB
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 19:42:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56CFC10E17C;
-	Thu, 10 Sep 2026 18:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F115F10E2CA;
+	Thu, 10 Sep 2026 19:42:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l/SUkIQg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hi2drf54";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57C1B10E17C
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 18:54:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F0F2E43B78;
- Thu, 10 Sep 2026 18:54:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98ED1F0089D;
- Thu, 10 Sep 2026 18:54:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789066458;
- bh=0Me++7G1Ao36MlnCdmEwep/hUnVaSbuXuTQHNcRYEw4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=l/SUkIQgqJHtRmR9H5yDdxSIOnTXIlSKhwd5NhAIDvr4rz0cvZ9DUX06B1U3lDvg0
- RT456qXnyI9KI+pmjbCMFjX9F5liZ7fldae5za6ZZCKEyH3ihiIzip1no8qWnbNNgC
- sAs2Cec2D2f4UpnoBj6KkCsjL1c8OCSwx9z+trfGPBXx+7Gfde51D5j+GhqXQL3W0G
- v6bJ5g8tTeQM+Ki9uXDGrGeQ6sS/j5aW0iVaa2JIe0z7Ccj6I0WXpHFOv+Av5CUKVo
- smsyb9APFs1T8hnSb9ONGtxlr0OKFESdtw6VRVeEa5aZ+OHBv7zU32SLeNA63nRDHK
- xqZwaEKsx01zg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/i915/pmu: Use a delayed wakeref put in get_rc6()
-To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260910184253.1231313-6-umesh.nerlige.ramappa@intel.com>
-References: <20260910184253.1231313-4-umesh.nerlige.ramappa@intel.com>
- <20260910184253.1231313-6-umesh.nerlige.ramappa@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 18:54:18 +0000
-Message-Id: <20260910185418.A98ED1F0089D@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF90710E1AE;
+ Thu, 10 Sep 2026 19:42:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789069362; x=1820605362;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=5H4nGAayLM/1jsNrxCVgMrKs0YPG9muun6oGZYiOPlM=;
+ b=Hi2drf549D6ZyWZLwUtlLsPGBQC6rSCKkdMKD6ThN96rCFjQ1psiMpCy
+ 6F9rwWLsTz7aWkO/a0M0kzLL6l6QdR5fS84Xajv4QajbaRZHv9UnB/379
+ uexM6ucPV7g4LiPRLgNHz2L4zw/EcTZFVeQF8FIj5f5DyKB0XAWjzm8RZ
+ XWievotqYzDUptR/3/pCIqIfXP+fC8bF2e9m2xqomsJLAuISa9OXbQqKr
+ yfiEEUc9znJhncty2tNph7NrGTca1+xwW47WNDenqEtB+kxAOWyfvitDa
+ g0QKgFhBk5RlZN0FIqS6NG8j3jc7n43/FMVbG/o15+PNVJxdsY2rhPSoS Q==;
+X-CSE-ConnectionGUID: iXu9a7G1SWePMiEdQRbQmw==
+X-CSE-MsgGUID: NO8R7Q9fT0GT36U+dsrUOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="92041690"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="92041690"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2026 12:42:41 -0700
+X-CSE-ConnectionGUID: W5qTRzfnSpCO/o37L5Mcrg==
+X-CSE-MsgGUID: 7YPMlVU2Q1e19r4fs4MpSg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; d="scan'208";a="276959655"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.208])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2026 12:42:40 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ maarten.lankhorst@linux.intel.com
+Subject: [PATCH 0/4] drm/i915/display: stop using the configurable fence
+ timeout, cleanups
+Date: Thu, 10 Sep 2026 22:42:32 +0300
+Message-ID: <cover.1789069102.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,67 +70,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+This is a combination and rebase and rehash of a number of patches from
+before, and I've lost count. So no series version number...
 
-Pre-existing issues:
-- [High] PMU callbacks acquire `spinlock_t` locks while the scheduler holds=
- the runqueue lock (`raw_spinlock_t`), violating lock nesting rules on PREE=
-MPT_RT.
---
+Patch 1 is the same as [1], but it should work now that we do full wedge
+on display reset.
 
-commit aeee9e0e0071ac1defceaf4b6ea0f13bad5f5898
-Author: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Patches 2-4 are from [2] and [3].
 
-drm/i915/pmu: Use a delayed wakeref put in get_rc6()
+Fingers crossed.
 
-This commit replaces intel_gt_pm_put_async() with intel_gt_pm_put_delay()
-in get_rc6() to avoid waking a workqueue worker while the scheduler holds
-the runqueue lock.
 
-> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_=
-pmu.c
-> index 1c3bafda9c708..4598d9b5678a2 100644
-> --- a/drivers/gpu/drm/i915/i915_pmu.c
-> +++ b/drivers/gpu/drm/i915/i915_pmu.c
-> @@ -229,7 +229,12 @@ static u64 get_rc6(struct intel_gt *gt)
->  	wakeref =3D intel_gt_pm_get_if_awake(gt);
->  	if (wakeref) {
->  		val =3D __get_rc6(gt);
-> -		intel_gt_pm_put_async(gt, wakeref);
-> +		/*
-> +		 * We are reached from the perf callbacks, which perf may invoke
-> +		 * from the scheduler with the runqueue lock held. Defer the put
-> +		 * on a timer so that it can never wake a task from here.
-> +		 */
-> +		intel_gt_pm_put_delay(gt, wakeref, 1);
->  	}
-> =20
->  	spin_lock_irqsave(&pmu->lock, flags);
+[1] https://lore.kernel.org/r/20251113155332.789554-1-jani.nikula@intel.com
+[2] https://lore.kernel.org/r/cover.1787148235.git.jani.nikula@intel.com
+[3] https://lore.kernel.org/r/cover.1787833879.git.jani.nikula@intel.com
 
-[Severity: High]
-This is a pre-existing issue, but does this still cause a lock nesting
-violation on PREEMPT_RT?
+Jani Nikula (4):
+  drm/i915/display: stop using the configurable fence timeout
+  drm/i915/display: use struct intel_atomic_state *state variable naming
+  drm/i915/display: reduce indent in intel_atomic_commit_fence_wait()
+  drm/i915/display: debug log about fence wait errors
 
-Since get_rc6() is reached from PMU callbacks with the runqueue lock held
-(which is a raw_spinlock_t), acquiring a spinlock_t here (pmu->lock) will
-cause a scheduling while atomic panic on PREEMPT_RT kernels, because
-spinlock_t becomes a sleepable rt_mutex.
+ drivers/gpu/drm/i915/display/intel_display.c  | 23 +++++++++++--------
+ .../drm/xe/compat-i915-headers/i915_config.h  | 16 -------------
+ 2 files changed, 13 insertions(+), 26 deletions(-)
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_config.h
 
-Does __get_rc6() also trigger this panic? It looks like it acquires=20
-uncore->lock via intel_rc6_residency_ns(), which is also a spinlock_t.
+-- 
+2.47.3
 
-Similarly, guc_engine_busyness() appears to have the same underlying issue=
-=20
-with guc->timestamp.lock in the PMU callback path.=20
-
-Are there plans to convert these locks to raw_spinlock_t or avoid acquiring
-them entirely when called from perf scheduler contexts?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910184253.1231=
-313-4-umesh.nerlige.ramappa@intel.com?part=3D2
