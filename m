@@ -4,62 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F013C79FBB
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 19:50:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B892BC79FBB
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 21:07:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C247210E2DE;
-	Thu, 10 Sep 2026 19:50:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B00FC10E3D7;
+	Thu, 10 Sep 2026 21:07:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OU1j3taR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WwPMq8/E";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECE8910E2DE;
- Thu, 10 Sep 2026 19:50:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789069825; x=1820605825;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=XOZ8sKIHPaBL/NaJLxyHz4XZWgXh44x98hGuEMH/wRE=;
- b=OU1j3taRznWVvRiuvEcAHKiUhmfEkjPHI8EfSPd8g5UXqWRoXEVMbRLO
- y13zgFgWL/Ly6LqMQDnY8AHJ4alS/ebgwZVAkgaor0l4OZFd0wWhKi/ZU
- e5pD9vBvfHRv2/UGuKHEMf8Gru7qE+00rdKuSEaTs/akdL100D4Lp7e8r
- JvbnkdHUqT2Y57wXGANT/WIwmyUely/JEP1M019HFxrhPCYGIadnKuAAf
- FqRRWY6G5hBqcqkBrJjQfQgZcoTAEsGbVrtHnDAp/wul+vQXJzAyDWd6I
- wBSEfqIna5Ii5LsuI+xOQG800+NRzQKM6epHHe/WU5aDftjDghBA2bwa/ A==;
-X-CSE-ConnectionGUID: oA0X+P85SCSexeK/hePmzw==
-X-CSE-MsgGUID: BOt7S6k+QN2Kutn0lZ3s6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="88474094"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="88474094"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2026 12:50:25 -0700
-X-CSE-ConnectionGUID: fuk839qKQYyFaUk3nOMtrQ==
-X-CSE-MsgGUID: DocQcdtYQgyxpZigyaAsLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; d="scan'208";a="275253521"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.208])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2026 12:50:20 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-fixes
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Date: Thu, 10 Sep 2026 22:50:17 +0300
-Message-ID: <27458ccc4d6be77a0d440f32279586711f3294f0@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78C6910E39F;
+ Thu, 10 Sep 2026 21:07:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 23C3841911;
+ Thu, 10 Sep 2026 21:07:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270D41F000FF;
+ Thu, 10 Sep 2026 21:07:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789074472;
+ bh=978hplHl+/cghS7QEZxpSQOUxYdhZSALQBlDT1eFv8g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=WwPMq8/EbPqQCPQ2Dj6VPI1vQq6Fzkt489VAQi+GXonZ7KOi+D+u+G0cmYjQYXr3Y
+ rFId3tmJDVgLmDc4kTfieNqLbGm/n+rQ1+jOj6hFMcEfB3X87LFYTSIZVlyBtImTbG
+ L5bd3C0rH4rGC4ivMLoQ1p6OwrAIagjP++CsBNssqO39J6AbSk00p3r5KO/zFYhJOR
+ ciZ2fuyN0++s63KtpXl5NyuPOmQn3YBPDAfm2MPbmbB7JbP7t9d+mTj/FBCyXTphjA
+ BYqwqDc8xnIs4COar//xB6JOQy1qpWe2QJp5CTSd/QEWCsf6P+U5xtjV0B8buISvXh
+ BH4gZ6kOIuBqQ==
+Date: Thu, 10 Sep 2026 23:07:48 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>, 
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>, 
+ dri-devel@lists.freedesktop.org, igt-dev@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/selftests: Wait longer for request to start
+Message-ID: <aqMb92YXA1jaYB8s@zenone.zhora.eu>
+References: <20260831093510.3496388-2-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831093510.3496388-2-janusz.krzysztofik@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,47 +64,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Janusz,
 
-Hi Dave & Sima -
+On Mon, Aug 31, 2026 at 11:33:08AM +0200, Janusz Krzysztofik wrote:
+> CI extreamly sporadically (five times over last six mohths) reported
+> failures of igt@i915_selftest@live@hangcheck on ARL-S machines.  The
+> selftest was timing out while waiting up to 1 second for a request
+> supposed to trigger a GPU hang to be started.  It occurred possible to
+> reproduce this issue manually by running the selftest in a loop for a
+> few hours.
+> 
+> Among results from 5 occurrences reported by CI so far, and two manual
+> reproductions, two of them contained messages that suggested a
+> posssibility of the awaited request to actually start soon after
+> timeout.  With the timeout extended from 1 to 2 seconds, it occurred no
+> longer possible to trigger the failure, even when running the test in a
+> loop for 10, then for 12 hours, on the same machine where it was failing
+> before in 2-3 hours.
+> 
+> Assume the conditions that prevented the hang requests to start within 1
+> second were always transient, and 2 seconds is sufficient for those
+> requests to start effectively on machines in the CI environment.  Fix
+> the issue by using that value as the timeout.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16624
+> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 
-Couple of fixes for rc3.
+reviewed and pushed to drm-intel-gt-next.
 
-drm-intel-fixes-2026-09-10:
-drm/i915 fixes for v7.3-rc3:
-- Fix a memleak on perf config query error path
-- Fix UHBR SST SDP splitting when sink doesn't support it
-
-BR,
-Jani.
-
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
-
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-09-10
-
-for you to fetch changes up to cbd3dafc2003db679ccd2f6c6a2551db79657049:
-
-  drm/i915: Fix memory leak in query_perf_config_list() (2026-09-10 11:05:14 +0300)
-
-----------------------------------------------------------------
-drm/i915 fixes for v7.3-rc3:
-- Fix a memleak on perf config query error path
-- Fix UHBR SST SDP splitting when sink doesn't support it
-
-----------------------------------------------------------------
-Mitul Golani (1):
-      drm/i915/dp: Gate UHBR SST SDP splitting on sink capability
-
-Thorsten Blum (1):
-      drm/i915: Fix memory leak in query_perf_config_list()
-
- drivers/gpu/drm/i915/display/intel_display_types.h |  2 +
- drivers/gpu/drm/i915/display/intel_dp.c            | 44 +++++++++++++++++++---
- drivers/gpu/drm/i915/i915_query.c                  |  4 +-
- 3 files changed, 43 insertions(+), 7 deletions(-)
-
--- 
-Jani Nikula, Intel
+Thanks,
+Andi
