@@ -4,33 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE20C88E5A
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 21:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14474C88E4D
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 22:05:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0AC910F6FB;
-	Fri, 11 Sep 2026 21:45:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 995F910F19B;
- Thu, 10 Sep 2026 23:39:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A0F66601F0;
- Thu, 10 Sep 2026 23:39:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4F0C1F000FF;
- Thu, 10 Sep 2026 23:39:52 +0000 (UTC)
-From: Andi Shyti <andi@zenone.zhora.eu>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Cc: linux-stable <stable@vger.kernel.org>,
- Chris Wilson <chris.p.wilson@linux.intel.com>,
- Dmitriy Okunev <dokunevdmitriy@gmail.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>
-Subject: [PATCH] drm: i915: fix sizeof argument in reset_csb_pointers
-Date: Fri, 11 Sep 2026 01:37:10 +0200
-Message-ID: <20260910233711.2528459-1-andi@zenone.zhora.eu>
-X-Mailer: git-send-email 2.55.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5070D10E1F8;
+	Fri, 11 Sep 2026 22:05:29 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B683810E1F8;
+ Fri, 11 Sep 2026 22:05:27 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 11 Sep 2026 21:45:30 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/fb=3A_?=
+ =?utf-8?q?replace_kmalloc=5Farray_with_kmalloc=5Fobjs?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lalit Shankar Chowdhury" <lalitshankarch@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 11 Sep 2026 22:05:27 -0000
+Message-ID: <178916432774.153190.2819202702602794949@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260910155846.79513-1-lalitshankarch@gmail.com>
+In-Reply-To: <20260910155846.79513-1-lalitshankarch@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,42 +37,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+== Series Details ==
 
-In reset_csb_pointers(), drm_clflush_virt_range() is called with a size
-calculated using sizeof(execlists->csb_status), which returns the size
-of the pointer rather than the size of the object it points to. This
-could lead to incomplete cache flushing on 32-bit systems where pointer
-size differs from u64.
+Series: drm/i915/fb: replace kmalloc_array with kmalloc_objs
+URL   : https://patchwork.freedesktop.org/series/173898/
+State : failure
 
-Replace sizeof(execlists->csb_status) with
-sizeof(*execlists->csb_status).
+== Summary ==
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Series author address 'lalitshankarch@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
+If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
+Exception occurred during validation, bailing out!
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187184/ (on built-in)
 
-Fixes: dc0406820ee7 ("drm/i915/gt: Drop invalidate_csb_entries")
-Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
-Cc: <stable@vger.kernel.org> # v5.19+
----
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index e693b0c9d2a3..9ac67a0cbb1f 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2833,7 +2833,7 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
- 	memset(execlists->csb_status, -1, (reset_value + 1) * sizeof(u64));
- 	drm_clflush_virt_range(execlists->csb_status,
- 			       execlists->csb_size *
--			       sizeof(execlists->csb_status));
-+			       sizeof(*execlists->csb_status));
- 
- 	/* Once more for luck and our trusty paranoia */
- 	ENGINE_WRITE(engine, RING_CONTEXT_STATUS_PTR,
--- 
-2.55.0
 
