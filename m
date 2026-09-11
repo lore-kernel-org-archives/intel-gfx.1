@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAEC0C88E50
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 22:38:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABBC2C88E4D
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 22:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 541AD10E58F;
-	Fri, 11 Sep 2026 22:38:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F1D210E593;
+	Fri, 11 Sep 2026 22:39:34 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9AD510E58F;
- Fri, 11 Sep 2026 22:38:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5E3510E593;
+ Fri, 11 Sep 2026 22:39:31 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/audio?=
- =?utf-8?q?=3A_Fix_names_that_do_not_exist_in_kernel-doc_comments?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm=3A_i915=3A_?=
+ =?utf-8?q?fix_sizeof_argument_in_reset=5Fcsb=5Fpointers_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
+To: "Dmitriy Okunev" <dokunevdmitriy@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Sep 2026 22:38:16 -0000
-Message-ID: <178916629682.154179.1138847545552404662@61270ab9df2a>
+Date: Fri, 11 Sep 2026 22:39:31 -0000
+Message-ID: <178916637193.153190.8701661682748367929@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260911200053.78731-1-kmehltretter@gmail.com>
-In-Reply-To: <20260911200053.78731-1-kmehltretter@gmail.com>
+References: <20260910233711.2528459-1-andi@zenone.zhora.eu>
+In-Reply-To: <20260910233711.2528459-1-andi@zenone.zhora.eu>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,15 +43,15 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/audio: Fix names that do not exist in kernel-doc comments
-URL   : https://patchwork.freedesktop.org/series/173899/
+Series: drm: i915: fix sizeof argument in reset_csb_pointers (rev2)
+URL   : https://patchwork.freedesktop.org/series/172097/
 State : failure
 
 == Summary ==
 
-Series author address 'kmehltretter@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
+Series author address 'andi@zenone.zhora.eu' is not on the allowlist, which prevents CI from being automatically triggered.
 If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
 Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187186/ (on built-in)
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187188/ (on built-in)
 
 
