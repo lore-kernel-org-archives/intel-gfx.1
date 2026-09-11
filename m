@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11C00C88E41
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 04:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DEE1C88E41
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 05:14:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8326310EFFD;
-	Fri, 11 Sep 2026 04:30:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Keg28zsT";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC1A010EA68;
- Fri, 11 Sep 2026 04:30:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BA01B40329;
- Fri, 11 Sep 2026 04:30:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65A871F000FF;
- Fri, 11 Sep 2026 04:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789101050;
- bh=dfcBHbuSXwuehQ5PkBF9eL3tBCUCfD+ixqhHWVAe37w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Keg28zsTpRxnkvMJVyzx49BMgw+pRKif4aceRy28ycVBkl+f+mstY52YreP2QH720
- YBYDe9UxMmDZW3dC3J9kb1dmUj8UYyd/gu4iqLCkjChpRxcUaaiKnB04sYspuW3Yv5
- Jr+B8dxQsU0s2qydhhrtKhNt8dLSikTjFVl5oeRkbWT+aVcLdgP/MBSoDSs2iyBGOw
- 3SQaSgNSFiqpHd7hhpxYVcTTz7hAvDiYqbo/3AC75qg7dwehGKAd/Mf+bSScROV9Rx
- ALGteSZ+ACP3uKNREo+XZsXin7MXej90VZmpBPljimx2A4lupgFkYboLZpemQRFw6g
- A/U/6l1XUoDDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/10] drm/i915/display: Implement Wa_14021768792 for
- BMG DP for link_m/n ratio > 10
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260911041449.3699400-9-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 739EC10E30D;
+	Fri, 11 Sep 2026 05:14:05 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D27210E30D;
+ Fri, 11 Sep 2026 05:14:04 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2099136712660362261=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Implement_Wa=5F1402176879?=
+ =?utf-8?q?2_to_bypass_m=5Fn_ratio_limit_=28rev6=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 11 Sep 2026 05:14:04 -0000
+Message-ID: <178910364449.148519.13326401068120120873@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260911041449.3699400-1-suraj.kandpal@intel.com>
- <20260911041449.3699400-9-suraj.kandpal@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 04:30:49 +0000
-Message-Id: <20260911043050.65A871F000FF@smtp.kernel.org>
+In-Reply-To: <20260911041449.3699400-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,78 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `bypass_m_n_ratio_limit` flag is not reset to `false` when rec=
-omputing M/N parameters, causing it to leak across atomic modesets and perm=
-anently disable DRRS and seamless M/N fastsets, while incorrectly programmi=
-ng hardware for subsequent modes.
---
+--===============2099136712660362261==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 1051e6f37ea4e4c3629ed1e93206c237d8286159
-Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-drm/i915/display: Implement Wa_14021768792 for BMG DP for link_m/n ratio > =
-10
+== Series Details ==
 
-This commit implements the bypass logic for the M/N ratio limit for DP on=20
-128b/132b links. It calculates the M/N ratio, sets the appropriate flags fo=
-r=20
-the workaround, and disables DRRS and seamless M/N fastsets when active.
+Series: Implement Wa_14021768792 to bypass m_n ratio limit (rev6)
+URL   : https://patchwork.freedesktop.org/series/138257/
+State : success
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 585762be07bb2..27ffd937c75f2 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-[ ... ]
-> @@ -3385,10 +3389,21 @@ void intel_dp_check_m_n_ratio(struct intel_crtc_s=
-tate *crtc_state,
-> =20
->  	m_n_ratio =3D DIV_ROUND_UP(m_n->link_m, m_n->link_n);
-> =20
-> -	if (m_n_ratio > max_m_n_ratio)
-> -		drm_WARN(display->drm, 1,
-> -			 "Link M/N ratio (%d) exceeds max allowed (%d)\n",
-> -			 m_n_ratio, max_m_n_ratio);
-> +	if (m_n_ratio <=3D max_m_n_ratio)
-> +		return;
+== Summary ==
 
-[Severity: High]
-When returning early here, should we explicitly reset the
-bypass_m_n_ratio_limit flag to false?
+CI Bug Log - changes from CI_DRM_19124 -> Patchwork_138257v6
+====================================================
 
-Because atomic modesets duplicate the CRTC state, if a user previously
-applied a high-bandwidth UHBR mode that set bypass_m_n_ratio_limit to true,
-changing to a lower-resolution mode would carry this true flag over into the
-new state.
+Summary
+-------
 
-Neither intel_link_compute_m_n() nor the early return or fall-through paths
-in intel_dp_check_m_n_ratio() seem to clear this flag. Could this state leak
-permanently disable DRRS and seamless M/N updates for that connector, and
-potentially lead to incorrectly programming the hardware for non-UHBR modes?
+  **SUCCESS**
 
-> +
-> +	if (intel_dp_is_uhbr(crtc_state) &&
-> +	    intel_display_can_bypass_m_n_limit(display, m_n_ratio, crtc->pipe))=
- {
-> +		m_n->bypass_m_n_ratio_limit =3D true;
-> +		drm_dbg_kms(display->drm,
-> +			    "Bypassing Link_m/Link_n ratio limit (ratio %d)\n",
-> +			    m_n_ratio);
-> +		return;
-> +	}
-> +
-> +	drm_WARN(display->drm, 1,
-> +		 "Link M/N ratio (%d) exceeds max allowed (%d)\n",
-> +		 m_n_ratio, max_m_n_ratio);
->  }
-> =20
->  static void
+  No regressions found.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911041449.3699=
-400-1-suraj.kandpal@intel.com?part=3D8
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v6/index.html
+
+Participating hosts (39 -> 36)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-glk-j4005 bat-adls-6 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19124 -> Patchwork_138257v6
+
+  CI-20190529: 20190529
+  CI_DRM_19124: cf3f6830cd1a44f792534b4f5695c5ca7a69943d @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9090: 9090
+  Patchwork_138257v6: cf3f6830cd1a44f792534b4f5695c5ca7a69943d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v6/index.html
+
+--===============2099136712660362261==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Implement Wa_14021768792 to bypass m_n ratio limit (rev6)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/138257/">https://patchwork.freedesktop.org/series/138257/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v6/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v6/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19124 -&gt; Patchwork_138257v6</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v6/index.html</p>
+<h2>Participating hosts (39 -&gt; 36)</h2>
+<p>Missing    (3): bat-dg2-13 fi-glk-j4005 bat-adls-6 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19124 -&gt; Patchwork_138257v6</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19124: cf3f6830cd1a44f792534b4f5695c5ca7a69943d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9090: 9090<br />
+  Patchwork_138257v6: cf3f6830cd1a44f792534b4f5695c5ca7a69943d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2099136712660362261==--
