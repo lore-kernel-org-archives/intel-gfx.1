@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6CD3C88E50
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 15:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95B1FC88E45
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 15:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B48C010F66F;
-	Fri, 11 Sep 2026 15:05:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E13C10F673;
+	Fri, 11 Sep 2026 15:05:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="KYNLcoI2";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="bAv9f4pf";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E1F110F66F
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 15:05:12 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-4843f205a5bso743853f8f.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 08:05:12 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B67ED10F673
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 15:05:13 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-49cf4f81d86so7989075e9.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 08:05:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1789139111; x=1789743911; darn=lists.freedesktop.org; 
+ d=suse.com; s=google; t=1789139112; x=1789743912; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=glNc1H2atyKhB4WSC099onb1QIuZPymRMjgiGWekzpE=;
- b=KYNLcoI2F/XfkIIkD3pEwNeHdMpDRESxYbOS4PKHPihoEEiZFaqxzXfp1Y13fiOiqB
- 8xKuoEaCGLtC3PtFy4wXaLB/1gazsSw+6duh6a0wOOsgB9PL/jPQdtOvrRAY15DDecL2
- ZtvxL/14OjXonhFuEWOnFybLcQhLd4rbJv5RKzBzpXhFUZIOwbzPWnOdS1HPcO56WYEC
- /eBCoUcGDRL/sOBTka4MbI+gdQASsmg7c3gorizoFLpqJJ3IU5oeJRA8RrxX2u34bUiq
- Rmsg0JGhYIdbem8ultL+9l0cSh3/5/+FTqoMuM2mEni1o8JNUlX46wRuf12gxWbxP3bH
- mVOQ==
+ bh=7/A+IkvGH5yYLsl3B/FA+2ENzgeK330huKjO7uo/XWA=;
+ b=bAv9f4pfJGUPJfFmpSAe/nMN+MkKIUfQwlO66RRkerY2TXy1ayMI6m4GMQbrrGEq8P
+ BsTTAWkG6TRmCmvI5epva9H7HlgHtsgo+K7UkGW0tpHH/SveHiKL57pnxVnu5OmUOjMP
+ KgZz1hgePlH9qMyg+MM2+3ONbTKS6GcyLwNpehALxV2NgmW+cPGHdfxCE8T8JAIoknXL
+ 8hh6c5Ze7/QWpxGCQ4ezb/Cl1oEePq9QkV52EaSiZKq8DfIrXBjI/Lwfl26sI/cjXjUC
+ /VLRJRlzRYAVuggpJkZCHuuQ9gWgzS0wuoV6TgXU0PHFhJNatFHpnm3BC8Ugr2pfyKoD
+ me4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789139111; x=1789743911;
+ d=1e100.net; s=20251104; t=1789139112; x=1789743912;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=glNc1H2atyKhB4WSC099onb1QIuZPymRMjgiGWekzpE=;
- b=KEa0nUxkQRUo2T0T191ASWmI1NyZzB5au4bYyItZge4jYsQ7kPEsT6XNWZ3vOaI0X0
- ee9FVPyt+DHZwMTe7zPuBC/7YPmUGdBHMk8pKre3RCP20GFehHARZ/72OcJsssIZ/qJE
- sFljTpbu67rxRo1aStf7kvDjApjCNuQ6D1w4Dt44F57rXiHl3NKUEYEaXvAkA1X0S48f
- 3J5kbbKlhA+rKx1AXiFgxiJmP5SjklA27HX4O2KM1e5LVfKfWKZ3nANBd9TfShpy0w07
- wRi5Ryt1hKE+/e02brtisiulsFGvEJVPNzprngoR2zX+KsbvQZOq0QTbBRg0tVqv/8Te
- a57Q==
+ bh=7/A+IkvGH5yYLsl3B/FA+2ENzgeK330huKjO7uo/XWA=;
+ b=M0lXdahgM3hWgEj5lFGxRVkFArdV9kbUa2mBEMbDSD1H7SnkXCI7tRu66HeR86hjSZ
+ ZUeO+5uM+/rOJOFg6EoSzwW4t4GJdWK7/asr/8lKepEBJBV2Eyb7/U9LqAD1yWWyDkCI
+ mH+yPFdU8GU2UWURib1Q/a3quv792kAG2Z44z8wylA/SOFAvAHPZxaEJeElmLZUdpfP3
+ PX4Q21nRVEYNfLDsD2OaT0rfufVwJ6OXCjoJO+vGEdmgYzqcS0igV19rv02PvYeCNwoL
+ T77BpBQyTFiCo56QWgc94GgjTqslaK7X86CMT+LRUjOkB/ncW0HFSpzkCTpWJ0GSt63p
+ SvJw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwDj2DHEwq+WMD660idQ47FG0eH5FdQIcQfU3bDYdIoVQGVFcnvaGglChZnY52+MbAOo9/Pj/utHow=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lGEOTJQwavDfoAhhjcb25wR7WYNuxtQ4/+whxwznVvOyw7PbXc
- EtjHRE3wlJu4ZmMgDfqt/uy+vUDVIWka7Wl/lb9t2elQHbJZ3UzZpqNzeHAWmrAcv8E=
-X-Gm-Gg: AYBFou15zwnfYoEZKoDuFsNqp7jzhAj5zLNkZxmnpiYD4IKJd3vue23L4hZ6KUNcMcx
- ba4UBykugR6tZyxRT4jlcl9choxCBEXjTw0OqvHHWhlLRHFe5NTdLgIZAIZ1U3iUOAddrS209Lx
- WSTzQM5Y93yfL2Q9Y34YH87KkuRCQeLoggEPGbiTGzRuEUDW6LfGvrYDNfh0kWDOYy1BrFzTuZ/
- n8/fY7AQkXinmN9UWJpNDHtz6CqNIovgcGib92kN/6wk7LJ85VQOAr+JZ7hduZDZEFutd/fMYfb
- TjyDJy+BPSrGIpew1Lj+UQFxgcOqo0Ipga+TP5acHV9NgbtFfW18ebSA1vMNXX2WzLbJUKZk10y
- ujkTYOx+93sGReePisZjn2F5TiPBgqG9Fw6lJ+0MyfnzZk7eHcdW1ah8dzIIlLBwcO0nYao8oXQ
- axyiI+M3ExiN5ZJuc7ieVkbxuF8EeXcF4Q+j88DIq/9iA8e69EJvJUMkhUy6aWoYRL5Fn8JBUsB
- qak7gKvFEXQrQXI
-X-Received: by 2002:a05:6000:1acf:b0:485:8a46:b3b8 with SMTP id
- ffacd0b85a97d-486eb32253bmr5503727f8f.32.1789139110499; 
- Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
+ AKwUvBxzQgaioC7fIdWi/y51e/RQCp/AkMApNfhcxBtkbWyVZWy3NURRnBbwmUjNpFeZD7HQ2KWNJZv0pok=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k7dupYwnCG33RR0mD92w0aB07UkHWMYXZo/8GcbcTd3/XiPHg3
+ leviM6y6vwGs/fUkdPdhQczz4LQbpAaOWYIQenvoZ3UolwRz5DQsTneEFIOarbdhj1c=
+X-Gm-Gg: AYBFou3rElsFDhzf4cDjzIVxON1db7t5a6i4afcY6LOAuZ6IAvBsLNsBpOXX/PLpUI0
+ Y+Zk5WwAVcZXcEsHZNGZy28Hmo8rQUoujo+GWtryIKOo/IxNogpU7fhEwpERiGuBJVy/vaWwmYc
+ ASA83iyzrw2jXV1GZ6s6dQmROs+hAqJt3MEXyNsNK7zv/APJpW56lFXRUSjQPsDh1G/uB6Hrr0W
+ dLUQrfZ3Qs2VDQPk2h79QDgCK8/qNlpkwF23hQpeiKeuPPtpp9Dr7/1xW7j0gM88NYF7+qjJwkW
+ xHTNLC5+NiVOL0MtolkROs21aMNzAthfR5V07RaEbb8gpIK7Twz4Ro9nsJ2g/Hth4EEVIc5ki1J
+ mBB3KWEkwFeJKMYFl+NwvYuZ+GaHwt9yGDM6wrIIKCugRnjPrrIb3I78o6bdkU1CqgpoEV4z9S3
+ A1PxrFDIYUN0QmcoBS6BjnjGg7zwj+6mIgvsDZgW23N1NezOy+pYR5gdASSyePsn0=
+X-Received: by 2002:a05:600d:8498:20b0:49c:fc6c:be15 with SMTP id
+ 5b1f17b1804b1-49e619c6eecmr39713085e9.27.1789139111976; 
+ Fri, 11 Sep 2026 08:05:11 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.09
+ ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
+ Fri, 11 Sep 2026 08:05:11 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Jens Axboe <axboe@kernel.dk>, Jakub Kicinski <kuba@kernel.org>,
  Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -86,9 +85,10 @@ Cc: Simon Horman <horms@kernel.org>, David Airlie <airlied@gmail.com>,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 2/6] net: Include error-injection.h for ALLOW_ERROR_INJECTION()
-Date: Fri, 11 Sep 2026 17:04:02 +0200
-Message-ID: <20260911-module-include-error_injection-v1-2-5da895d8c84d@suse.com>
+Subject: [PATCH 3/6] syscalls: Include error-injection.h for
+ ALLOW_ERROR_INJECTION()
+Date: Fri, 11 Sep 2026 17:04:03 +0200
+Message-ID: <20260911-module-include-error_injection-v1-3-5da895d8c84d@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
 References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
@@ -110,43 +110,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drivers/net/netdevsim/tc.c and net/core/skb_fault_injection.c use
+include/linux/compat.h and include/linux/syscalls.h use
 ALLOW_ERROR_INJECTION(), which is defined in asm-generic/error-injection.h.
-They currently rely on this header being included indirectly through
-linux/module.h -> linux/error-injection.h.
+They currently rely on that header being included indirectly through other
+files, typically via linux/module.h -> linux/error-injection.h.
 
 Add the missing include in preparation for removing the
 linux/error-injection.h include from linux/module.h.
 
 Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- drivers/net/netdevsim/tc.c     | 1 +
- net/core/skb_fault_injection.c | 1 +
+ include/linux/compat.h   | 1 +
+ include/linux/syscalls.h | 1 +
  2 files changed, 2 insertions(+)
 
-diff --git a/drivers/net/netdevsim/tc.c b/drivers/net/netdevsim/tc.c
-index a415e02a6df1..e2d7d3aba193 100644
---- a/drivers/net/netdevsim/tc.c
-+++ b/drivers/net/netdevsim/tc.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- 
+diff --git a/include/linux/compat.h b/include/linux/compat.h
+index 8da0a15c95f4..ad37ca617e65 100644
+--- a/include/linux/compat.h
++++ b/include/linux/compat.h
+@@ -18,6 +18,7 @@
+ #include <linux/aio_abi.h>	/* for aio_context_t */
+ #include <linux/uaccess.h>
+ #include <linux/unistd.h>
 +#include <linux/error-injection.h>
- #include <linux/netdevice.h>
- #include <net/pkt_sched.h>
- #include <net/pkt_cls.h>
-diff --git a/net/core/skb_fault_injection.c b/net/core/skb_fault_injection.c
-index 4235db6bdfad..2c7f519bef80 100644
---- a/net/core/skb_fault_injection.c
-+++ b/net/core/skb_fault_injection.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
  
- #include <linux/debugfs.h>
+ #include <asm/compat.h>
+ #include <asm/siginfo.h>
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index 8413b624ad47..552d9710a0d5 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -92,6 +92,7 @@ struct file_attr;
+ #include <linux/quota.h>
+ #include <linux/key.h>
+ #include <linux/personality.h>
 +#include <linux/error-injection.h>
- #include <linux/fault-inject.h>
- #include <linux/netdevice.h>
- #include <linux/skbuff.h>
+ #include <trace/syscall.h>
+ 
+ #ifdef CONFIG_ARCH_HAS_SYSCALL_WRAPPER
 
 -- 
 2.55.0
