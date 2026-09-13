@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EF44C88E66
-	for <intel-gfx@archiver.kernel.org>; Sun, 13 Sep 2026 15:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8B07C88E65
+	for <intel-gfx@archiver.kernel.org>; Sun, 13 Sep 2026 15:13:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0026710E93C;
-	Sun, 13 Sep 2026 15:13:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C8B010E93B;
+	Sun, 13 Sep 2026 15:13:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bvjz3a98";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IHfHdA2G";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AEC110E937;
- Sun, 13 Sep 2026 15:13:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99B8910E93B;
+ Sun, 13 Sep 2026 15:13:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789312403; x=1820848403;
+ t=1789312405; x=1820848405;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Sog9URae2iICLmihP+yAM7VRiydNnY07CHSAPduN3Z8=;
- b=bvjz3a98TZfry7gtavejizKYKq7mYvRb9Sy6G0EQ7ijsAF6kWiV/HVxZ
- KG925QS1IIGPO/HSbMcWhGV9AS5N53gbnwrwLa2sVm3QcWsxAyB5L+1G4
- 9Vsda5ikR98lYMGtjj5MNsdvHmG7hzCo6TvRan/3AlPNoT43bCIGrWzY6
- wbvUzlXyfQZTlcMGn73PslNDWtrChMeYjbgeBNmQCOZD9jigSS2hLR3HN
- Z7GzxhXtuYUM7vnEs1kxe0fjXnDlS24QGtz5dgZsYFEuyxcQ38cOhVQhc
- Q4oloyJOhglE8RZFPfDUH478jX4UFc6jJBtCjjqOpuPixBJF8EQ+5jCU8 w==;
-X-CSE-ConnectionGUID: YRQkjuZiQzuyNhYUA5tI6A==
-X-CSE-MsgGUID: yIfQcYDNTxuQqvRehdFOQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="93388740"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; d="scan'208";a="93388740"
+ bh=vIkKzAIIU/Vlj6E/bHYWwD87/VtuOi63b32xyNXNAJE=;
+ b=IHfHdA2GeHd0v+Y8Cs9YBgK5PFMwbhYljnp/ZpaglGi/FIE1clbNBR+p
+ K/KjA993G4Cf4OnuiqUUb0SwN+EFlE2GdZj+ZZlIqCXYuUWmfqjVNHwdL
+ KPShiJuKEkFCKaO0PORpsxEDwCfm34/OIn2TAyWZrWlAzeGwdbJN1u4Jb
+ SG7ldw8IynvRHacBI6pOCPYnd36TRs4HtL8sMOdF6mdAi2++TvAfEBRdC
+ zg1quUiOeeiYTXt7te8AiieuESIQow1s0WaRyoC4PJFiiLdLGKPoGShi2
+ be2AAH0uZZcksqtC+H66oVlurZOkCT+u3ovT1hFAeRS9c2O4ZUMaHFAxa Q==;
+X-CSE-ConnectionGUID: ukjHXiXETT6vVYACy2Lo6w==
+X-CSE-MsgGUID: L0y9rLSvT9i8q2vTRplUCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="93388751"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; d="scan'208";a="93388751"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2026 08:13:22 -0700
-X-CSE-ConnectionGUID: vqSEaGxhQlmreK3KhGSkaw==
-X-CSE-MsgGUID: dHlOIbrNQQOwlLuFUEfP4g==
+ 13 Sep 2026 08:13:25 -0700
+X-CSE-ConnectionGUID: WQd0tsAgQsipsvZSIGUNqQ==
+X-CSE-MsgGUID: kZKP7jKTQA2XyaeM69rQgA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; d="scan'208";a="310693971"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; d="scan'208";a="310694025"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2026 08:13:21 -0700
+ 13 Sep 2026 08:13:23 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, arun.r.murthy@intel.com,
  jani.nikula@linux.intel.com, suraj.kandpal@intel.com,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v6 02/13] drm/i915/vrr: Use the helper to write EMP_AS_SDP_TL
- register
-Date: Sun, 13 Sep 2026 20:26:37 +0530
-Message-ID: <20260913145649.3240904-3-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v6 03/13] drm/i915/intel_dip: Add check for DP encoder
+Date: Sun, 13 Sep 2026 20:26:38 +0530
+Message-ID: <20260913145649.3240904-4-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260913145649.3240904-1-ankit.k.nautiyal@intel.com>
 References: <20260913145649.3240904-1-ankit.k.nautiyal@intel.com>
@@ -71,47 +70,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that intel_dip_write_emp_as_sdp_tl() exists, use it instead of
-the open-coded EMP_AS_SDP_TL programming sequence in
-intel_vrr_set_transcoder_timings().
+At the moment, the common register for programming Transmission line for
+Extended Metadata Packet and Adaptive-Sync Secondary Data Packet
+(EMP_AS_SDP_TL) is only used to program Adaptive-Sync SDP (AS SDP).
+
+Since VRR and Video Timing Extended Metadat Packet (VTEMP) are not yet
+implemented for HDMI, add an explicit check to write the register only
+for DP encoders (that may use AS SDP) and reset the register for non-DP
+encoders.
+
+In subsequent changes, instead of directly writing the value,
+appropriate helpers will be called, that will supply the transmission line
+for these packets.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dip.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index fd8b6f829cfe..a516ba34e0d0 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -17,6 +17,7 @@
- #include "intel_cmtg.h"
- #include "intel_crtc.h"
- #include "intel_de.h"
-+#include "intel_dip.h"
- #include "intel_dip_regs.h"
- #include "intel_display_limits.h"
- #include "intel_display_regs.h"
-@@ -711,17 +712,7 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
- 			       VRR_VSYNC_END(crtc_state->vrr.vsync_end) |
- 			       VRR_VSYNC_START(crtc_state->vrr.vsync_start));
+diff --git a/drivers/gpu/drm/i915/display/intel_dip.c b/drivers/gpu/drm/i915/display/intel_dip.c
+index 2e2bdb2b199c..b28352a9e23f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dip.c
++++ b/drivers/gpu/drm/i915/display/intel_dip.c
+@@ -26,14 +26,19 @@ void intel_dip_write_emp_as_sdp_tl(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
++	u32 transmission_line = 0;
  
--	/*
--	 * For BMG and LNL+ onwards the EMP_AS_SDP_TL is used for programming
--	 * double buffering point and transmission line for VRR packets for
--	 * HDMI2.1/DP/eDP/DP->HDMI2.1 PCON.
+ 	if (!HAS_EMP_AS_SDP_TL(display))
+ 		return;
+ 	/*
 -	 * Since currently we support VRR only for DP/eDP, so this is programmed
--	 * to for Adaptive Sync SDP to Vsync start.
--	 */
--	if (DISPLAY_VERx100(display) == 1401 || DISPLAY_VER(display) >= 20)
--		intel_de_write(display,
--			       EMP_AS_SDP_TL(display, cpu_transcoder),
--			       EMP_AS_SDP_DB_TL(crtc_state->vrr.vsync_start));
-+	intel_dip_write_emp_as_sdp_tl(crtc_state);
+-	 * only for Adaptive Sync SDP to Vsync start.
++	 * Since we currently support VRR only for DP/eDP, program the register
++	 * for Adaptive Sync SDP using vsync start. For non-DP encoders,
++	 * the register is reset to 0.
+ 	 */
++	if (intel_crtc_has_dp_encoder(crtc_state))
++		transmission_line = crtc_state->vrr.vsync_start;
++
+ 	intel_de_write(display,
+ 		       EMP_AS_SDP_TL(display, cpu_transcoder),
+-		       EMP_AS_SDP_DB_TL(crtc_state->vrr.vsync_start));
++		       EMP_AS_SDP_DB_TL(transmission_line));
  }
- 
- void
 -- 
 2.50.1
 
