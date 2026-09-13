@@ -4,43 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E78C88E65
-	for <intel-gfx@archiver.kernel.org>; Sun, 13 Sep 2026 15:33:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 455FBC88E5C
+	for <intel-gfx@archiver.kernel.org>; Sun, 13 Sep 2026 16:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F415A10E104;
-	Sun, 13 Sep 2026 15:33:36 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fghZyaWL";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0069A10E0F4;
- Sun, 13 Sep 2026 15:33:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2050260E69;
- Sun, 13 Sep 2026 15:33:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A055C1F000FF;
- Sun, 13 Sep 2026 15:33:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789313613;
- bh=s1DI8fAmYD3AVAZalwqek+n5/CP8663HxxByXmMJDIA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fghZyaWL4G4qk2Gen4lbPeQecLdQF1SKlMZt24ri9WSH4gLJNl1pXO3+EtkY50R/s
- WDx+/lPnnvGu4o84eeZnrVrQi/Wi89XnIbb3DKKyWG6iyPCpCtdi2xcoT1UyhLdw8X
- kqwVZP4NSzeDDEcfFp0tW+UT78/RcDeWEGzwNJtIX98dBppUFRe/OFZwi3sdHMG3dq
- VqGY/hw058JhuyA5br45m58tJUZmy54lIF+crYLIoDzWFeCpL+lKp6gQohsoKxZ3OF
- tHLwPCDbczoTXx2Q+Ohdxx+hYoSBH5j3zJZ4tTkBl/KZt+vs38WxBX1AlkiOW3t5ko
- HYe5RaNNF0ADg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 11/13] drm/i915/dip: Enable Common SDP Transmission line
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260913145649.3240904-12-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A23DF10E949;
+	Sun, 13 Sep 2026 16:12:37 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC20E10E949;
+ Sun, 13 Sep 2026 16:12:36 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7864385361083465739=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Add_support_for_Common_SD?=
+ =?utf-8?q?P_Transmission_Line_=28rev6=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 13 Sep 2026 16:12:36 -0000
+Message-ID: <178931595696.156645.6854382348716702568@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260913145649.3240904-1-ankit.k.nautiyal@intel.com>
- <20260913145649.3240904-12-ankit.k.nautiyal@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 15:33:33 +0000
-Message-Id: <20260913153333.A055C1F000FF@smtp.kernel.org>
+In-Reply-To: <20260913145649.3240904-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,109 +37,136 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Common SDP transmission line is incorrectly programmed for MST s=
-treams due to missing computation and mismatched transcoder programming sco=
-pes.
-- [Medium] Integer underflow when computing cmn_sdp_tl for display modes wh=
-ere VRR is disabled or unsupported, leading to spurious warnings and aborte=
-d hardware programming.
---
+--===============7864385361083465739==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 0717b28db12af360a6f11ccd09e4a25272022976
-Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+== Series Details ==
 
-drm/i915/dip: Enable Common SDP Transmission line
+Series: Add support for Common SDP Transmission Line (rev6)
+URL   : https://patchwork.freedesktop.org/series/162622/
+State : failure
 
-This commit computes and programs the common base transmission line and
-per-SDP stagger values during modesets. It also disables the feature upon
-pipe disable.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
-915/display/intel_ddi.c
-> index dacb4b7588a02..3cdb06e81130b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-[ ... ]
-> @@ -2737,6 +2737,8 @@ static void mtl_ddi_pre_enable_dp(struct intel_atom=
-ic_state *state,
->  	/* 6.o Configure and enable FEC if needed */
->  	intel_ddi_enable_fec(encoder, crtc_state);
-> =20
-> +	intel_dip_cmn_sdp_transmission_line_enable(crtc_state);
-> +
->  	/* 7.a 128b/132b SST. */
+CI Bug Log - changes from CI_DRM_19136 -> Patchwork_162622v6
+====================================================
 
-[Severity: Medium]
-Does hooking this transcoder-specific transmission line programming here
-correctly handle MST streams?=20
+Summary
+-------
 
-Since mtl_ddi_pre_enable_dp() operates at the link level, it appears this
-might only be called once for the first active MST stream. This could leave
-subsequent transcoders in the MST topology uninitialized, causing their SDP
-packets to use incorrect default transmission lines.
+  **FAILURE**
 
-Additionally, should the transmission line computation be added to
-mst_stream_compute_config_late() in intel_dp_mst.c? It looks like it is
-currently omitted during the MST encoder's late compute configuration.
+  Serious unknown changes coming with Patchwork_162622v6 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_162622v6, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-[ ... ]
-> @@ -3124,6 +3126,7 @@ static void intel_ddi_buf_disable(struct intel_enco=
-der *encoder,
->  			     DP_TP_CTL_ENABLE, 0);
->  	}
-> =20
-> +	intel_dip_cmn_sdp_transmission_line_disable(crtc_state);
->  	intel_ddi_disable_fec(encoder, crtc_state);
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v6/index.html
 
-[Severity: Medium]
-Similar to the pre-enable hook, does placing the disable sequence in this
-link-level function cause it to only apply to the transcoder of the last
-active MST stream?
+Participating hosts (38 -> 36)
+------------------------------
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dip.c b/drivers/gpu/drm/i=
-915/display/intel_dip.c
-> index f8e8577b27558..f447150ff7bc0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dip.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dip.c
-[ ... ]
-> @@ -54,14 +55,109 @@ void intel_dip_write_emp_as_sdp_tl(const struct inte=
-l_crtc_state *crtc_state)
-[ ... ]
-> +static
-> +void intel_dip_cmn_sdp_tl_compute_config_late(struct intel_crtc_state *c=
-rtc_state)
-> +{
-[ ... ]
-> +	if (as_sdp)
-> +		crtc_state->dip.cmn_sdp_tl =3D crtc_state->dip.emp_as_sdp_tl;
-> +	else
-> +		crtc_state->dip.cmn_sdp_tl =3D crtc_state->vrr.guardband - 1;
+  Missing    (2): bat-dg2-13 fi-glk-j4005 
 
-[Severity: Medium]
-Can this subtraction underflow if the display mode does not support VRR?
+Possible new issues
+-------------------
 
-If an interlaced mode is set, for example, intel_vrr_compute_config() can
-bail out early and leave vrr.guardband at 0. This would cause the
-computation to evaluate to a large unsigned value (or a negative value that
-is later evaluated as unsigned).
+  Here are the unknown changes that may have been introduced in Patchwork_162622v6:
 
-If this underflow happens, it appears it would cascade into the following
-bounds check:
+### IGT changes ###
 
-> +	if (drm_WARN_ON(display->drm,
-> +			crtc_state->dip.cmn_sdp_tl >=3D
-> +			crtc_state->vrr.guardband + crtc_state->set_context_latency))
-> +		return;
+#### Possible regressions ####
 
-This could trigger a spurious kernel warning and unexpectedly abort the
-rest of the hardware programming sequence for the transmission line.
+  * igt@i915_selftest@live@late_gt_pm:
+    - bat-dg2-14:         [PASS][1] -> [ABORT][2] +1 other test abort
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19136/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v6/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913145649.3240=
-904-1-ankit.k.nautiyal@intel.com?part=3D11
+  
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19136 -> Patchwork_162622v6
+
+  CI-20190529: 20190529
+  CI_DRM_19136: d0f49187686a810b5b83216805c07814ad7542dc @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9093: 932327f15c92ecb52266ced8c0fbe72931a75880 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_162622v6: d0f49187686a810b5b83216805c07814ad7542dc @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v6/index.html
+
+--===============7864385361083465739==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Add support for Common SDP Transmission Line (rev6)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/162622/">https://patchwork.freedesktop.org/series/162622/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v6/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v6/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19136 -&gt; Patchwork_162622v6</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_162622v6 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_162622v6, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v6/index.html</p>
+<h2>Participating hosts (38 -&gt; 36)</h2>
+<p>Missing    (2): bat-dg2-13 fi-glk-j4005 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_162622v6:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@late_gt_pm:<ul>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19136/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v6/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html">ABORT</a> +1 other test abort</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19136 -&gt; Patchwork_162622v6</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19136: d0f49187686a810b5b83216805c07814ad7542dc @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9093: 932327f15c92ecb52266ced8c0fbe72931a75880 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_162622v6: d0f49187686a810b5b83216805c07814ad7542dc @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7864385361083465739==--
