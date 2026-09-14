@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51F60C88E73
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 19:48:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA21C88E73
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 19:52:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D2A10F1B8;
-	Mon, 14 Sep 2026 19:48:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eGkHeg+5";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1358210F1B8;
- Mon, 14 Sep 2026 19:48:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789415292; x=1820951292;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=F1Jjc1H6lSCN6Defskc9Qtk8JbSr5ZdAl17rMvs7tBg=;
- b=eGkHeg+5LD9a25wyNL0acRD6UCX6bf2TLENkqprKZpO1sp6BaNB3et7+
- QnVzPiMAgY+O1lSRMZfgQQ8WZA+nToKiMmHYQVTV8YIW3PmS5iEQ/1h+c
- 6kBZ0fj60b87QnZ/nBeAjwXEvC8aJ0IKjsxNkjEYyPkCKGwm8CWp9ZEuU
- NXfhk4Q4ydgUcVg6Zt2bZ4oxoRsEJX16lLXQc1SoKOCrMxaeTrax2izNz
- N4nbWIcY3QLs7BGXdt5H5MIX9g6ZMfdX3LXabonwUSNDAk9DiU+PCb6j1
- DvW9w2reG0r3RePyiQOSVafZgx8Rfe4S70yWKeZ6G+CwwxCq3q13Tc1Tb A==;
-X-CSE-ConnectionGUID: M0U3rb/7SDC+LQ278EJbLg==
-X-CSE-MsgGUID: 8Sf6ELlDQYq/aml3pzSw3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92284855"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92284855"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 12:48:12 -0700
-X-CSE-ConnectionGUID: +RBpgFpqS52IhhV/Z/32hw==
-X-CSE-MsgGUID: D3or/BSTR8y939gU97GOow==
-X-ExtLoop1: 1
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO
- vgovind2-mobl4.intel.com) ([10.245.251.20])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 12:48:10 -0700
-From: Vinod Govindapillai <vinod.govindapillai@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: jouni.hogander@intel.com
-Subject: [PATCH v6 7/7] drm/i915/hotplug: avoid HPD polling if the device is
- PME capable
-Date: Mon, 14 Sep 2026 22:47:37 +0300
-Message-ID: <20260914194737.272679-8-vinod.govindapillai@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914194737.272679-1-vinod.govindapillai@intel.com>
-References: <20260914194737.272679-1-vinod.govindapillai@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC89610F0DF;
+	Mon, 14 Sep 2026 19:52:09 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF18C10E225;
+ Mon, 14 Sep 2026 19:52:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_pm=5Fpme_support_on_displ?=
+ =?utf-8?q?ay_hotplug_=28rev6=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 14 Sep 2026 19:52:08 -0000
+Message-ID: <178941552890.159192.8797015747016291206@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260914194737.272679-1-vinod.govindapillai@intel.com>
+In-Reply-To: <20260914194737.272679-1-vinod.govindapillai@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,38 +37,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In supported devices, HPDs can generate PME and which in turn
-can invoke runtime resume calls for xe. No need to keep the
-HPD polling in such PME capable devices.
+== Series Details ==
 
-v2: use intel_display_rpm_pme_enabled() directly (JaniN)
+Series: pm_pme support on display hotplug (rev6)
+URL   : https://patchwork.freedesktop.org/series/172306/
+State : failure
 
-Bspec: 52979, 52980, 68857, 68867, 68970
-Assisted-by: GitHub_Copilot:claude-opus-5
-Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hotplug.c | 5 +++++
- 1 file changed, 5 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index 970aa95ee344..d095eb13dc06 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -867,6 +867,11 @@ void intel_hpd_poll_enable(struct intel_display *display)
- 	if (!HAS_DISPLAY(display) || !intel_display_device_enabled(display))
- 		return;
- 
-+	if (intel_display_rpm_pme_enabled(display)) {
-+		drm_dbg_kms(display->drm, "PME wake capable device, skipping HPD polling.\n");
-+		return;
-+	}
-+
- 	WRITE_ONCE(display->hotplug.poll_enabled, true);
- 
- 	/*
--- 
-2.43.0
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/172306/revisions/6/mbox/ not applied
+Applying: drm/xe/pm: initialize the device's system wakeup capabilities
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/xe/xe_pci.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/xe/xe_pci.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/xe/xe_pci.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/xe/pm: initialize the device's system wakeup capabilities
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
+
 
