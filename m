@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBDEFC88E6F
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 20:41:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C0F0C88E6F
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 20:53:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C1F710F235;
-	Mon, 14 Sep 2026 20:41:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E352210E1B6;
+	Mon, 14 Sep 2026 20:53:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h7CRwsxT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ACInN6YM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1E5C10F233;
- Mon, 14 Sep 2026 20:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789418470; x=1820954470;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=F1Jjc1H6lSCN6Defskc9Qtk8JbSr5ZdAl17rMvs7tBg=;
- b=h7CRwsxTzbCBgTVuIsqxabkUZQTK8/iTb2Vu1W1KQ8XFnflwd64cJTxg
- AXdpJFDkxYdMOR1vrJekop8qVDbWlUR42v81h/VKrtWpgeGurZtgwxuH2
- 6GGmeQ0p+nzGcxYQTThtELKtSMthU3hKfDL2JTN5pHgtpXfsfrl8vE1Wn
- 5Ch36fUFxGF/NKDfysFCr509pwbeRPNMZyTw7+VvdwQRRm4HvE16AFvpl
- Bt43qapUgmEi1s437s+Ukx3mV3XyH49J+dnV18ltuvs82jdEpahVX1NzR
- r3n0Vh8WwcS/bQGVf1FMZtoPRF/BVhqMIM0P76Rp2/1U2r4nmLpDBHD5z Q==;
-X-CSE-ConnectionGUID: XtKSUJF6SkyRtdNeLG2VSg==
-X-CSE-MsgGUID: PzuoKlX4QFSeOdz5ZXx2zA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107288143"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="107288143"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 13:41:09 -0700
-X-CSE-ConnectionGUID: +Ab8cYaEQd+EGIOx6LmE9g==
-X-CSE-MsgGUID: bGAWmW8KRbqWrhYnURytuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="270113322"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO
- vgovind2-mobl4.intel.com) ([10.245.251.20])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 13:41:07 -0700
-From: Vinod Govindapillai <vinod.govindapillai@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: jouni.hogander@intel.com
-Subject: [PATCH v7 7/7] drm/i915/hotplug: avoid HPD polling if the device is
- PME capable
-Date: Mon, 14 Sep 2026 23:40:34 +0300
-Message-ID: <20260914204034.309566-8-vinod.govindapillai@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914204034.309566-1-vinod.govindapillai@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C70410E0FA;
+ Mon, 14 Sep 2026 20:53:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 648D360252;
+ Mon, 14 Sep 2026 20:53:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49AE1F000FF;
+ Mon, 14 Sep 2026 20:53:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789419221;
+ bh=qMR914bQzGHjFtaQBYO8/YHgBDF3Zc3/4c21888AcaY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ACInN6YM+siUbVvNkB92+1wCFd8xltdVo1N8VoNohF6ZGWGaWUXi+Bk1CpPdUWNgd
+ JzdDxUhrGEEMpulBCiGI93YI1s+f29h/IFvU9LMImpHRVWsekWlqZlzO+iFWMDS9SI
+ Fm1biL3Vk/NLyzEuf6GAKTRGzjA9JiyY9AEfOTrhWV69CM8we8zFXfQOj6oDThWWF2
+ /Egs6uAaKUw0ROHe7K6tBIvv+26zd57ikuncGh1758BPkqRR7kUQn84bTywLz8Y0X3
+ +4kcBk8Xo3rgIeU/wBPBCzM8MqxqNZMf3AwsNhj+fKK1dC4EYhG/tXo2VmKxuUnGx1
+ GfhHxCDPXUP9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/7] drm/xe/pm: introduce PM PME support
+To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260914204034.309566-3-vinod.govindapillai@intel.com>
 References: <20260914204034.309566-1-vinod.govindapillai@intel.com>
-MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo
-Content-Transfer-Encoding: 8bit
+ <20260914204034.309566-3-vinod.govindapillai@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 20:53:40 +0000
+Message-Id: <20260914205340.E49AE1F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,38 +53,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In supported devices, HPDs can generate PME and which in turn
-can invoke runtime resume calls for xe. No need to keep the
-HPD polling in such PME capable devices.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-v2: use intel_display_rpm_pme_enabled() directly (JaniN)
+Pre-existing issues:
+- [High] Unbalanced GT suspend in error path
+--
 
-Bspec: 52979, 52980, 68857, 68867, 68970
-Assisted-by: GitHub_Copilot:claude-opus-5
-Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hotplug.c | 5 +++++
- 1 file changed, 5 insertions(+)
+commit 5ef22270a5fbbcf3b5f920591e425278fe8a87c6
+Author: Vinod Govindapillai <vinod.govindapillai@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index 970aa95ee344..d095eb13dc06 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -867,6 +867,11 @@ void intel_hpd_poll_enable(struct intel_display *display)
- 	if (!HAS_DISPLAY(display) || !intel_display_device_enabled(display))
- 		return;
- 
-+	if (intel_display_rpm_pme_enabled(display)) {
-+		drm_dbg_kms(display->drm, "PME wake capable device, skipping HPD polling.\n");
-+		return;
-+	}
-+
- 	WRITE_ONCE(display->hotplug.poll_enabled, true);
- 
- 	/*
--- 
-2.43.0
+drm/xe/pm: introduce PM PME support
 
+Introduce PME support for PME capable devices. Whether device is
+PME capable is assessed during PCI probe routine. And the whether
+PME is enabled for a specific context is assessed during the PM
+runtime suspend call if the device is PME capable.
+
+> diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+> index f517bf453b54c..ca5665d015e98 100644
+> --- a/drivers/gpu/drm/xe/xe_pm.c
+> +++ b/drivers/gpu/drm/xe/xe_pm.c
+[ ... ]
+> @@ -650,6 +663,7 @@ int xe_pm_runtime_suspend(struct xe_device *xe)
+>  	return 0;
+> =20
+>  out_resume:
+> +	xe_pm_update_pme_enabled(xe, false);
+>  	xe_display_pm_runtime_resume(xe);
+>  	xe_pxp_pm_resume(xe->pxp);
+>  out:
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does xe_pm_runtime_suspend()
+in drivers/gpu/drm/xe/xe_pm.c leave GTs in a suspended state if a failure
+occurs during the suspension loop?
+
+When xe_pm_runtime_suspend() loops over the GTs, if a suspend fails on any
+GT after the first one, it jumps to out_resume:
+
+	for_each_gt(gt, xe, id) {
+		err =3D xe->d3cold.allowed ? xe_gt_suspend(gt) : xe_gt_runtime_suspend(gt=
+);
+		if (err)
+			goto out_resume;
+	}
+
+The out_resume error path handles resuming the display and PXP, but does
+not unwind the GT suspends that already succeeded before the failure.
+
+Since the suspend function returns an error, the runtime PM core would
+consider the device active, leaving it in a partially suspended state.
+
+Could this cause hardware hangs or crashes on subsequent accesses to the
+successfully suspended GTs?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914204034.3095=
+66-1-vinod.govindapillai@intel.com?part=3D2
