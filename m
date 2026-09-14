@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27CD0C88E6F
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 19:48:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39169C88E73
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 19:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 909D610F1B9;
-	Mon, 14 Sep 2026 19:48:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A284010EFB1;
+	Mon, 14 Sep 2026 19:48:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iAKnzACL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ljbSQlFE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 321DE10F1C9;
- Mon, 14 Sep 2026 19:48:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85D3410EFB1;
+ Mon, 14 Sep 2026 19:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789415280; x=1820951280;
+ t=1789415285; x=1820951285;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0/UAuCZVpK2dphfme56kH/+eqwrBfN9CrlhD1LOgvvw=;
- b=iAKnzACLwwqIfdL7V7EmH3EbnfO6Vg55+NwqTqw3mQKv7TTIUbVJNkZb
- niSNmac8gEFFmf0ccSiArY8tseAM/XFlmynRqut9Sx0lFdovGxsXl3nOi
- 9gM/+mDp5A55PraAV4wY5IAzZqJfdqJAXanRGqchiQkS/Ls54WDZ8Ji2B
- 6ohd5pZCdwT17UNemyndYwCmf6Bw5iLdPp34ZsBPzlIp8CIPPFRPgKpKg
- eX8COhxLpghR6MbmjnP4eqksrrczK0jk5JYNDACwtCaAsd5bXfMqscQpc
- lH5OjBUQSoMotPusISt5nogcBheKzXIfGJX8LIiofTaT7u4gVXc8MtiAO Q==;
-X-CSE-ConnectionGUID: XWHjACyQQuqVjOejMV8ssg==
-X-CSE-MsgGUID: F6/Ot2yVTf+zwdr/Vtn1DA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92284848"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92284848"
+ bh=tULkUlf6HSB2pYUtX+wtVIoEpD1EQhHnLXcZRU0k17E=;
+ b=ljbSQlFEFZhNjmFABoiPFOWQYjYAJNi6KR9f0X8ds4XOv6Gc8e0nVs4q
+ pW6eTijNyoGHTjoujDOgRPFxxu2/PROwdec9dYC6FkGWw/BJTJGzueo9z
+ tYjogPQqMXJJAmTUW5bxUfOPkRDNzZxk9nJZCjfm/nccI5rvCeX0LzPsN
+ veFTdKoYuRDxE/Dbed2kpTvByKIUdvg8qH3GXEnB/xEYJ1uxue3Fo09XL
+ jjTeozz8yWF3gvhKWZfX7BJXoPP5XYYPhC1t3zY3UUnN2DUuxcDW2E0hB
+ rgcpzZx6NvgOl0m8mvthMXO3JEOMd4KJoHMbuzNkcr2TsnRVUxz1/WQ3T g==;
+X-CSE-ConnectionGUID: zvv8inXASLyBEcufPjrwqA==
+X-CSE-MsgGUID: ZwLJLXVOSPmMFTdSr+wDRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92284850"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92284850"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 12:48:00 -0700
-X-CSE-ConnectionGUID: CH68lcTvRXyHeo2r6b1PJA==
-X-CSE-MsgGUID: J7WWvlFVQ0Wiyug9vRfstA==
+ 14 Sep 2026 12:48:05 -0700
+X-CSE-ConnectionGUID: zNb3bPkASCyXRpao07+dXg==
+X-CSE-MsgGUID: R1WqUQjwQVmTP32HwxceaA==
 X-ExtLoop1: 1
 Received: from egrumbac-mobl6.ger.corp.intel.com (HELO
  vgovind2-mobl4.intel.com) ([10.245.251.20])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 12:47:58 -0700
+ 14 Sep 2026 12:48:04 -0700
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: jouni.hogander@intel.com
-Subject: [PATCH v6 3/7] drm/xe/pm: avoid reclaim when arming PME wakeup
-Date: Mon, 14 Sep 2026 22:47:33 +0300
-Message-ID: <20260914194737.272679-4-vinod.govindapillai@intel.com>
+Subject: [PATCH v6 5/7] drm/i915/xe: plug the pme_enabed implementation for xe
+Date: Mon, 14 Sep 2026 22:47:35 +0300
+Message-ID: <20260914194737.272679-6-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260914194737.272679-1-vinod.govindapillai@intel.com>
 References: <20260914194737.272679-1-vinod.govindapillai@intel.com>
@@ -70,52 +70,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-pci_enable_wake() evaluates ACPI methods and allocates with GFP_KERNEL.
-xe's shrinker calls xe_pm_runtime_get() and blocks until the runtime
-suspend transition completes, so fs_reclaim sits above the runtime PM
-lockmap (primed in xe_pm_runtime_lockdep_prime()). An allocation that
-enters reclaim from the suspend path can therefore deadlock against a
-task already holding fs_reclaim and waiting on that transition.
+Plug the pme_enabled query for xe. It will return the current
+PME status for the device. For supported platforms, PME is
+enabled during runtime suspend calls if the device is PME is capable.
 
-Wrap the call in memalloc_noreclaim_save()/restore() so the allocation
-is satisfied from reserves and never enters reclaim.
+v2: use the xe_pm_pme_enabled()
 
 Assisted-by: GitHub_Copilot:claude-opus-5
 Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/xe/xe_pci.c | 6 ++++++
+ drivers/gpu/drm/xe/display/xe_display_rpm.c | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
-index e7e6b5a7d738..2fa051579c0b 100644
---- a/drivers/gpu/drm/xe/xe_pci.c
-+++ b/drivers/gpu/drm/xe/xe_pci.c
-@@ -1385,11 +1385,14 @@ static int xe_pci_runtime_suspend(struct device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct xe_device *xe = pdev_to_xe_device(pdev);
-+	unsigned int flags;
- 	bool pme_enabled;
- 	int err;
+diff --git a/drivers/gpu/drm/xe/display/xe_display_rpm.c b/drivers/gpu/drm/xe/display/xe_display_rpm.c
+index 548b503aa024..57bcfb41bdda 100644
+--- a/drivers/gpu/drm/xe/display/xe_display_rpm.c
++++ b/drivers/gpu/drm/xe/display/xe_display_rpm.c
+@@ -45,6 +45,11 @@ static bool xe_display_rpm_suspended(const struct drm_device *drm)
+ 	return pm_runtime_suspended(xe->drm.dev);
+ }
  
-+	flags = memalloc_noreclaim_save();
- 	pme_enabled = xe->pme.capable && !xe->d3cold.allowed &&
- 		      pci_enable_wake(pdev, PCI_D3hot, true) == 0;
-+	memalloc_noreclaim_restore(flags);
- 
- 	xe_pm_update_pme_enabled(xe, pme_enabled);
- 
-@@ -1405,7 +1408,10 @@ static int xe_pci_runtime_suspend(struct device *dev)
- 	err = xe_pm_runtime_suspend(xe);
- 	if (err) {
- 		if (xe_pm_pme_enabled(xe)) {
-+			flags = memalloc_noreclaim_save();
- 			pci_enable_wake(pdev, PCI_D3hot, false);
-+			memalloc_noreclaim_restore(flags);
++static bool xe_display_rpm_pme_enabled(const struct drm_device *drm)
++{
++	return xe_pm_pme_enabled(to_xe_device(drm));
++}
 +
- 			xe_pm_update_pme_enabled(xe, false);
- 		}
- 
+ static void xe_display_rpm_assert_held(const struct drm_device *drm)
+ {
+ 	/* FIXME */
+@@ -69,6 +74,7 @@ const struct intel_display_rpm_interface xe_display_rpm_interface = {
+ 	.put_raw = xe_display_rpm_put,
+ 	.put_unchecked = xe_display_rpm_put_unchecked,
+ 	.suspended = xe_display_rpm_suspended,
++	.pme_enabled = xe_display_rpm_pme_enabled,
+ 	.assert_held = xe_display_rpm_assert_held,
+ 	.assert_block = xe_display_rpm_assert_block,
+ 	.assert_unblock = xe_display_rpm_assert_unblock
 -- 
 2.43.0
 
