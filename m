@@ -4,81 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5631AC88E7F
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 14:13:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE13DC982D0
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 14:13:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA44010EB57;
-	Tue, 15 Sep 2026 14:13:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02D1310E863;
+	Tue, 15 Sep 2026 14:13:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V1LNalmi";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="V7840osk";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB9C910E1D4
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 06:42:30 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-381b831d535so7380977a91.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 23:42:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789454550; x=1790059350; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=wCSTuPUQ/GLR9/B7uIQrcZbxwMxzx1bd+YZe2GK5X6k=;
- b=V1LNalmipf2mXOoGVzaVUKYT0QltEBi+vXUsK0XY/FoqfLZh6YP7oNLn3p6mwj2/mn
- lOaixee+XP6qMImSQIWSEdwNegB44iQAuIJY7AjEvJhXS1RgpuDPjdNifHL4/H3ElKgA
- EpdRydNpzzyox4rzOSc0BrcMCSb5nIkDwhFL2Q8O7a3nroBrbvfyk6ABb1ONPGNrAloH
- +e1ujlHSTvUwM3P6Kh2KilwLX5BemPTtf2VOlr7Eb17yASFIbVDwcifjuWzJadKXfck0
- LWPsO9zJeSdszeawI8w+oVmccriQSoJYLOczmwkUchVV19rdKv/v3wEmqv6ZMOgLeh8a
- 9NJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789454550; x=1790059350;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=wCSTuPUQ/GLR9/B7uIQrcZbxwMxzx1bd+YZe2GK5X6k=;
- b=O8UgjOC6aWV0yoApzL8h1rNtLYSWHPpxge9XTl8eY33oJq9aExfc5l3yAQk+luqK+m
- iEYWV9A+bmO7REF1MT04JGgmPiOpjSojULvsWBRvybN8rNJx1GnR48KQ1joBSXLWigzd
- 1hX6ScUIbxOPpaE35QAoGvUe5nTdyFuWA7bDcZDR/I5D1v6DchnmaZj1jP9Bv6hQxal5
- LQkb+itfKtJWnkQixMjPPcpc3CYumEOJfJsyxcNjbbqM2muQIeFt5OnpShRhHispaKQH
- Qq8ZljfuVGPtdfb7DtRJNRPzbtgRDcEByVzOutOE5owooQ6Qlc/NPLHt/U/taHqGbITZ
- U4hA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy7aGgaXzohYuIoNeXk9sksBM6hvtMDV719bphWqd5b+N0jpKF8JAdrkRrTrBbzKa4eNT6KCXIWtys=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kVajOpHheFfvMcgZWuDag9zqBNDWwHfXGf4AQYAmnC9YP6nI5l
- vEeQDHOvAFVc76Pvl61Un2kv1br1QGrJbZLMvDQHdREvSXNNIeqlHaKR
-X-Gm-Gg: AYBFou1PdkmltxbnAsfjI6Wl+7kHYKO4iod9IhEoaKQmrk2QuJegDQljRiQo/nC6jDg
- Xq6b7XY2q2IIXACQCUHdtiQMxjkhJUkFtEg4J5DcMxp+fLzl6Orc7HcZ9OhipEnZZXom1FlnLs6
- oNDBSqKBYh5axteQD/8mDoNCBkdkBe7Wl6h5Eem2utTs1Kyhvjvi3nDwQTxEGdPQuc9icqW8vUy
- fAbRdnYAUyyZx8b/va4KBhtO2tlXJRv+0z9qELlBTBd3cQqLbxgfqJqvWv3gmZd2WXUdPMdB4r4
- Nk2QspxH0m4iLNJLfpjNdV5sDwZVi9nm3UXkXtBxTHR6NTJGHO/mepZSyLxHfG/emqaNPSS/T3+
- a092DvlijB7EHGlVb+jWl+3QbZJwVqj6cO3TVhq4fzJGl8lD+c8tX7l0EOrfJdos0JH3vNf48Or
- Mx1tZ1WEW3a7PtrE93gUUJwqL9go0/Z3zNUJgtTau5zNPwM1u88Lqb6Gzyd9kY3xENxl58MWI/S
- PUqPystcJumTHvunZl2RaR8AY+WUdwqA3VTessv1cYAws7kPo7R
-X-Received: by 2002:a17:90b:568b:b0:39e:d2a:e2dc with SMTP id
- 98e67ed59e1d1-39e0d2aeeb9mr114032a91.12.1789454550214; 
- Mon, 14 Sep 2026 23:42:30 -0700 (PDT)
-Received: from alpine.my.domain ([218.188.146.2])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39dfdcb54d8sm3240016a91.6.2026.09.14.23.42.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 23:42:29 -0700 (PDT)
-From: Andrew Zhou <zhoulol888@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Andrew Zhou <zhoulol888@gmail.com>
-Subject: [PATCH v2] drm/xe/display: Remove invalid initial plane PTE check for
- iGPU
-Date: Tue, 15 Sep 2026 06:42:00 +0000
-Message-ID: <20260915064200.23171-1-zhoulol888@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260905142500.17666-1-zhoulol888@gmail.com>
-References: <20260905142500.17666-1-zhoulol888@gmail.com>
+X-Greylist: delayed 751 seconds by postgrey-1.36 at gabe;
+ Mon, 14 Sep 2026 08:41:48 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B40E410E12E;
+ Mon, 14 Sep 2026 08:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=05YNK+h/bbK08U3PySMOR0D54dDL/PFne0Hz4drePO0=; b=V
+ 7840oskOrXrSd13OT4o2/5csns4ndidjLHaNljsbZ5SNaUG64DIbCd4cacW3gFVm
+ tZRertox7LwM8pqDRsBlKYtQW9FqsLRvuCvr6uaGOAqymI6tvl78XXBAS1h1uUJ6
+ eO00eoOYr0ryBvB3zk5+JRqJE4kNn397+UxQYOooQA=
+Date: Mon, 14 Sep 2026 16:28:46 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [BUG] drm/i915: general protection fault in i915_pci_probe on
+ forced bind
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/+cu00p4CaaYOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/KeXO6RNzPecFeNSHcVS0TA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <3c467f81.7d23.1a09f0874aa.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: hygvCgD3P7Y_sKdq_jAPAA--.18779W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3h+-cWqnsD+7swAA3F
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-Mailman-Approved-At: Tue, 15 Sep 2026 14:13:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,78 +59,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pantherlake integrated graphics can have the XE_GGTT_PTEDM bit set in
-the BIOS-initialised framebuffer PTE. The validation rejects this and
-fails to create the initial framebuffer, resulting in static.
-
-Remove the too-strict validation. Since this was the only caller of
-need_pte_local() outside the DGFX path, the helper is now
-unconditionally true there; fold the check and drop the dead
-need_pte_local() and has_lmembar() helpers.
-
-Signed-off-by: Andrew Zhou <zhoulol888@gmail.com>
-Tested-by: Andrew Zhou <zhoulol888@gmail.com>
-Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping
----
-v1 -> v2:
-- Drop need_pte_local() and has_lmembar(), now dead after removing the
-  iGPU validation (sashiko)
----
- drivers/gpu/drm/xe/display/xe_initial_plane.c | 20 +------------------
- 1 file changed, 1 insertion(+), 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/drm/xe/display/xe_initial_plane.c
-index 0f86b7303..3484b3033 100644
---- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
-+++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
-@@ -27,16 +27,6 @@ static bool is_pte_local(u64 pte)
- 	return pte & XE_GGTT_PTE_DM;
- }
- 
--static bool has_lmembar(struct xe_device *xe)
--{
--	return GRAPHICS_VERx100(xe) >= 1270;
--}
--
--static bool need_pte_local(struct xe_device *xe)
--{
--	return IS_DGFX(xe) || has_lmembar(xe);
--}
--
- static struct xe_bo *
- initial_plane_bo(struct xe_device *xe,
- 		 struct intel_initial_plane_config *plane_config)
-@@ -60,7 +50,7 @@ initial_plane_bo(struct xe_device *xe,
- 	if (IS_DGFX(xe)) {
- 		u64 pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
- 
--		if (is_pte_local(pte) != need_pte_local(xe)) {
-+		if (!is_pte_local(pte)) {
- 			drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
- 			return NULL;
- 		}
-@@ -85,7 +75,6 @@ initial_plane_bo(struct xe_device *xe,
- 			    &phys_base);
- 	} else {
- 		struct ttm_resource_manager *stolen;
--		u64 pte;
- 
- 		stolen = ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
- 		if (!stolen) {
-@@ -93,13 +82,6 @@ initial_plane_bo(struct xe_device *xe,
- 			return NULL;
- 		}
- 
--		pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
--
--		if (is_pte_local(pte) != need_pte_local(xe)) {
--			drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
--			return NULL;
--		}
--
- 		phys_base = base;
- 		flags |= XE_BO_FLAG_STOLEN;
- 
--- 
-2.54.0
-
+SGksCgoKSSBhbSByZXBvcnRpbmcgYSBnZW5lcmFsIHByb3RlY3Rpb24gZmF1bHQgaW4gdGhlIGk5
+MTUgUENJIHByb2JlIHBhdGgsIHRyaWdnZXJlZApieSBhIHN5emthbGxlciByZXByb2R1Y2VyLiAg
+VGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3aXRoIEhFQUQgY29tbWl0CmNlZTkzOTVhY2Q4MDQz
+YmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUgKHY3LjMtcmMxLCBMaW51eCA3LjMuMC1yYzEpLgoK
+ClRoZSByZXByb2R1Y2VyIG1vdW50cyBzeXNmcywgd3JpdGVzICJpOTE1IiB0byB0aGUgZHJpdmVy
+X292ZXJyaWRlIGF0dHJpYnV0ZSBvZgpQQ0kgZGV2aWNlIDAwMDA6MDA6MDEuMCwgYW5kIHRoZW4g
+d3JpdGVzIHRoZSBkZXZpY2UgbmFtZSB0byB0aGUgaTkxNSBkcml2ZXIncwpiaW5kIGF0dHJpYnV0
+ZS4gIFRoaXMgYmluZHMgdGhlIGk5MTUgZHJpdmVyIHRvIGEgUENJIGRldmljZSBpdCB3YXMgbmV2
+ZXIgbWVhbnQKdG8gZHJpdmUuCgoKVGhlIHByb2JlIHJ1bnMgaW4gdGhlIHdvcmtxdWV1ZSB3b3Jr
+ZXIga3dvcmtlci8wOjEgaW4gdGhlIHdvcmtfZm9yX2NwdV9mbgpjb250ZXh0LiAgS0FTQU4gcmVw
+b3J0cyBhIG51bGwtcHRyLWRlcmVmIGluIHRoZSByYW5nZSBbMHgxOC0weDFmXSBhbmQgdGhlCmNv
+bnNvbGUgc2hvd3MgYSBnZW5lcmFsIHByb3RlY3Rpb24gZmF1bHQgZm9yIHRoZSBub24tY2Fub25p
+Y2FsIGFkZHJlc3MKMHhkZmZmZmMwMDAwMDAwMDAzLCB3aXRoIFJJUCBpbiBpOTE1X3BjaV9wcm9i
+ZS4gIFRoZSBwYXRoIHJlYWNoZXMgdGhlIGRyaXZlcgp0aHJvdWdoIGxvY2FsX3BjaV9wcm9iZSBh
+bmQgcGNpX2NhbGxfcHJvYmUgZnJvbSB0aGUgc3lzZnMgYmluZCBzdG9yZS4KCgpPbmUgcG9zc2li
+bGUgY2F1c2UgaXMgdGhhdCBpOTE1X3BjaV9wcm9iZSB0YWtlcyBwZXItZGV2aWNlIGluZm9ybWF0
+aW9uIHRoYXQgaXMKb25seSBwb3B1bGF0ZWQgZm9yIGRldmljZXMgdGhlIGRyaXZlciBpcyBzdXBw
+b3NlZCB0byBtYXRjaCwgYW5kIGRlcmVmZXJlbmNlcyBpdAp3aXRob3V0IGEgdmFsaWRpdHkgY2hl
+Y2ssIHNvIGEgZm9yY2VkIGJpbmQgb24gYW4gdW5yZWxhdGVkIFBDSSBkZXZpY2UgbGVhZHMgdG8g
+YQpOVUxMIGRlcmVmZXJlbmNlLiAgVGhpcyBsb29rcyBsaWtlIGEgbWlzc2luZyBndWFyZCBhZ2Fp
+bnN0IGEgZHJpdmVyL2RldmljZQptaXNtYXRjaCBvbiB0aGUgcHJvYmUgcGF0aC4gIEkgYW0gcmVw
+b3J0aW5nIHRoZSBmYXVsdCBhbmQgdGhlIHBhdGggYXMgb2JzZXJ2ZWQuCgoKVGhpcyBhcHBlYXJz
+IHRvIGJlIGEgcmVjdXJyZW5jZSBvZiB0aGUgc3l6Ym90IGlzc3VlIHdob3NlIGV4dGVybmFsIGlk
+IGlzCjY3NTViMWI0YmM4ZWU3NWZjYmE0LiAgSXQgcmVtYWlucyByZXByb2R1Y2libGUgb24gdjcu
+My1yYzEuCgoKUmVwcm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjoKbWtkaXJhdCgweGZmZmZmZmZm
+ZmZmZmZmOWMsICYoMHg3ZjAwMDAwMDAxMDApPScuL3N5c1x4MDAnLCAweDFmZikKbW91bnQoMHgw
+LCAmKDB4N2YwMDAwMDAwMTAwKT0nLi9zeXNceDAwJywgJigweDdmMDAwMDAwMDIwMCk9J3N5c2Zz
+XHgwMCcsIDB4MCwgMHgwKQpyMCA9IG9wZW5hdCgweGZmZmZmZmZmZmZmZmZmOWMsICYoMHg3ZjAw
+MDAwMDAzMDApPScuL3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDowMS4wL2RyaXZlcl9vdmVy
+cmlkZVx4MDAnLCAweDEsIDB4MCkKd3JpdGUocjAsICYoMHg3ZjAwMDAwMDA0MDApPSdpOTE1XHgw
+MCcsIDB4NSkKcjEgPSBvcGVuYXQoMHhmZmZmZmZmZmZmZmZmZjljLCAmKDB4N2YwMDAwMDAwNTAw
+KT0nLi9zeXMvYnVzL3BjaS9kcml2ZXJzL2k5MTUvYmluZFx4MDAnLCAweDEsIDB4MCkKd3JpdGUo
+cjEsICYoMHg3ZjAwMDAwMDA2MDApPScwMDAwOjAwOjAxLjBceDAwJywgMHhkKQoKCmNvbnNvbGUg
+b3V0cHV0OsKgaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L0hrWXJBeTFQCmtlcm5lbCBjb25maWc6
+IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy8yR0xibVdIRgoKCktlcm5lbDoKCgpIRUFEIGNvbW1p
+dDogY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNQpnaXQgdHJlZTogdXBz
+dHJlYW0gKGxpbnV4LmdpdCksIHRlc3RlZCB0aHJvdWdoIHRoZSB2Ny4zLXJjMSBhbm5vdGF0ZWQg
+dGFnIG9iamVjdArCoCDCoCDCoCDCoCDCoCDCoGU1ZTA0NzI2Y2RkMDQzZTMwOTY3NzA3MWFiMWI2
+NWE0YjE4ZjQyMmIKa2VybmVsIHZlcnNpb246IDcuMy4wLXJjMSAjMSBQUkVFTVBUKGZ1bGwpCnRl
+c3RlZCB0YWc6IHY3LjMtcmMxIChMaW51eCA3LjMtcmMxLCAyMDI2LTA4LTMwKQoKCkxldCBtZSBr
+bm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKCkJlc3QgcmVnYXJkcywK
+Q2hhbmdqaWFuCgoKCg==
