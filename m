@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFC87C88E7D
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 19:48:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A273C88E73
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 19:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ECB410E1F0;
-	Mon, 14 Sep 2026 19:48:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC04110F1BE;
+	Mon, 14 Sep 2026 19:48:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CoVCHt5/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Bf0lM4Lg";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E031810F1C2;
- Mon, 14 Sep 2026 19:48:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2408C10F17B;
+ Mon, 14 Sep 2026 19:48:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789415283; x=1820951283;
+ t=1789415289; x=1820951289;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IHWJOpPJ73H9EoPlxv9GHLJhZh5z18q38DIzYj7RtQQ=;
- b=CoVCHt5/tBHZObsSH1SfB+Ig+dngv6c+GNrV+ZDqt6770DmYLwwpD28i
- u4tB4eh4oXyJlYrhz+JFLIpNBQseDCvluCDJAq43u9nPCtph83GRt5TE5
- 3i+dTCI10fo//A/5tlNGdD3Y42BlyNo1dhM4L6SteiyXCSsfRYtHvs0Pm
- tGy9aq618SDSqCPa9Q56gQRpWQZ4SkVVlxBXI2V4Gnnpc9/7TSOQxYOn0
- m8eONh5UkHpqn4BcHyX38ULX7/0GPWRN/QbEK124aCMUn5HhhJJ0MQGIG
- Ev7b3QUEeEAIKz0kQ1mmgpG77eCU4Gvt+1bn3TzFMexEVtMRyQ/Cd/9EP Q==;
-X-CSE-ConnectionGUID: 9ah+aPKvTOWvWeI5Wy2PrQ==
-X-CSE-MsgGUID: Hup/onSyQu+qVq7Ngvjb7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92284849"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92284849"
+ bh=T5UemxPIF+Ia4M6IDKZQLzbg5O+M1Y/u4VFo5kRUe9M=;
+ b=Bf0lM4LgQccLOgoy1foJlIFceAp6qgFTer3jau90TyZfVdW/6H2G+Ezm
+ QzQU3b9y9+YxArVLEfOe9ATKl19LVJgNyMZFWdxujx0cuq6nmf6Rnsnjb
+ VFRxLYszpg3+6xLNeCfPROooe3BtEL7uIxAPpuCCnElcVeY/P8f3egqtR
+ tVjgawquPeT6C4Y+VcGUx8KYj4FJn5yyPT9+2WQpQaJdaSFBuSsh2YbpK
+ 9r+aCgRSZYGphiuiI8NG3T+SWrVcI07tmOry3NH0ajZj9r7mPYK4t2lxn
+ Hw0He7O1Aw1fgv8tGc0ix82FoxqTn1zOTQf2eLIxJqdcWniEbxrriy0XH A==;
+X-CSE-ConnectionGUID: myuyb+qvRd2R+1e72fTdmQ==
+X-CSE-MsgGUID: uWkOrCb6RXabGkiiIRWzrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92284853"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92284853"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 12:48:03 -0700
-X-CSE-ConnectionGUID: ZzIPn8ZnSsiuhwB0b6FkOg==
-X-CSE-MsgGUID: Ly2EX7PkSK2HWOB6QwwjQQ==
+ 14 Sep 2026 12:48:09 -0700
+X-CSE-ConnectionGUID: 6lSuD3JMQCewjsdjMuoQGQ==
+X-CSE-MsgGUID: TYjMqkNXTI2qEGRRByrxEw==
 X-ExtLoop1: 1
 Received: from egrumbac-mobl6.ger.corp.intel.com (HELO
  vgovind2-mobl4.intel.com) ([10.245.251.20])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2026 12:48:01 -0700
+ 14 Sep 2026 12:48:07 -0700
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: jouni.hogander@intel.com
-Subject: [PATCH v6 4/7] drm/i915: add pme_enabled() to the parent interface
-Date: Mon, 14 Sep 2026 22:47:34 +0300
-Message-ID: <20260914194737.272679-5-vinod.govindapillai@intel.com>
+Subject: [PATCH v6 6/7] drm/i915/irq: conditional HPD IRQ resets based on PME
+ capability
+Date: Mon, 14 Sep 2026 22:47:36 +0300
+Message-ID: <20260914194737.272679-7-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260914194737.272679-1-vinod.govindapillai@intel.com>
 References: <20260914194737.272679-1-vinod.govindapillai@intel.com>
@@ -70,64 +71,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PME capabiliy need to be assessed very early during runtime suspend
-routine to avoid resetting HPDs during IRQ resets. As display
-runtime pm routines are being executed in the independent intel
-display driver entry points, we need to have independent access
-to the pme status as well. Add a provision to query the optional
-pme_enabled to the parent interface so that it could be called
-independently based on xe/i915's pme_enabled() implementation.
+If a device supports generating PME from HPDs, resetting HPD IRQs
+will be counter productive as HPDs itself will be lost. During
+suspend routines, all the IRQs are reset. So if the device is
+capable of generating PME rom HPDs, keep the HPD related IRQs from
+reset based on the PME capability of the device on a target power
+state. PME capability will be assessed and updated separately.
 
+v2: change keep_hpd to reset_hpd
+
+v3: use intel_display_rpm_pme_enabled() directly (JaniN)
+
+Bspec: 52979, 52980, 68857, 68867, 68970
 Assisted-by: GitHub_Copilot:claude-opus-5
 Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_rpm.c | 7 +++++++
- drivers/gpu/drm/i915/display/intel_display_rpm.h | 1 +
- include/drm/intel/display_parent_interface.h     | 1 +
- 3 files changed, 9 insertions(+)
+ .../gpu/drm/i915/display/intel_display_irq.c  | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_rpm.c b/drivers/gpu/drm/i915/display/intel_display_rpm.c
-index 0a331f89b4db..9927119a0fd1 100644
---- a/drivers/gpu/drm/i915/display/intel_display_rpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_rpm.c
-@@ -46,6 +46,13 @@ bool intel_display_rpm_suspended(struct intel_display *display)
- 	return display->parent->rpm->suspended(display->drm);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
+index a59b75830bd1..7e71c96c663f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
+@@ -22,6 +22,7 @@
+ #include "intel_fdi_regs.h"
+ #include "intel_fifo_underrun.h"
+ #include "intel_gmbus.h"
++#include "intel_hotplug.h"
+ #include "intel_hotplug_irq.h"
+ #include "intel_lpe_audio.h"
+ #include "intel_parent.h"
+@@ -2217,8 +2218,10 @@ static void gen11_display_irq_reset(struct intel_display *display)
+ 	enum pipe pipe;
+ 	u32 trans_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
+ 		BIT(TRANSCODER_C) | BIT(TRANSCODER_D);
++	bool reset_hpd = !intel_display_rpm_pme_enabled(display);
+ 
+-	intel_de_write(display, GEN11_DISPLAY_INT_CTL, 0);
++	if (reset_hpd)
++		intel_de_write(display, GEN11_DISPLAY_INT_CTL, 0);
+ 
+ 	if (DISPLAY_VER(display) >= 12) {
+ 		enum transcoder trans;
+@@ -2250,13 +2253,15 @@ static void gen11_display_irq_reset(struct intel_display *display)
+ 	irq_reset(display, GEN8_DE_PORT_IRQ_REGS);
+ 	irq_reset(display, GEN8_DE_MISC_IRQ_REGS);
+ 
+-	if (DISPLAY_VER(display) >= 14)
+-		irq_reset(display, PICAINTERRUPT_IRQ_REGS);
+-	else
+-		irq_reset(display, GEN11_DE_HPD_IRQ_REGS);
++	if (reset_hpd) {
++		if (DISPLAY_VER(display) >= 14)
++			irq_reset(display, PICAINTERRUPT_IRQ_REGS);
++		else
++			irq_reset(display, GEN11_DE_HPD_IRQ_REGS);
+ 
+-	if (INTEL_PCH_TYPE(display) >= PCH_ICP)
+-		irq_reset(display, SDE_IRQ_REGS);
++		if (INTEL_PCH_TYPE(display) >= PCH_ICP)
++			irq_reset(display, SDE_IRQ_REGS);
++	}
  }
  
-+bool intel_display_rpm_pme_enabled(struct intel_display *display)
-+{
-+	const struct intel_display_rpm_interface *rpm = display->parent->rpm;
-+
-+	return rpm->pme_enabled && rpm->pme_enabled(display->drm);
-+}
-+
- void assert_display_rpm_held(struct intel_display *display)
- {
- 	display->parent->rpm->assert_held(display->drm);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_rpm.h b/drivers/gpu/drm/i915/display/intel_display_rpm.h
-index 6ef48515f84b..5d9a1cdddfa7 100644
---- a/drivers/gpu/drm/i915/display/intel_display_rpm.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_rpm.h
-@@ -21,6 +21,7 @@ void intel_display_rpm_put(struct intel_display *display, struct ref_tracker *wa
- 
- /* Only for special cases. */
- bool intel_display_rpm_suspended(struct intel_display *display);
-+bool intel_display_rpm_pme_enabled(struct intel_display *display);
- 
- void assert_display_rpm_held(struct intel_display *display);
- void intel_display_rpm_assert_block(struct intel_display *display);
-diff --git a/include/drm/intel/display_parent_interface.h b/include/drm/intel/display_parent_interface.h
-index 5e44c022d1ae..f36134e89cb6 100644
---- a/include/drm/intel/display_parent_interface.h
-+++ b/include/drm/intel/display_parent_interface.h
-@@ -196,6 +196,7 @@ struct intel_display_rpm_interface {
- 	void (*put_unchecked)(const struct drm_device *drm);
- 
- 	bool (*suspended)(const struct drm_device *drm);
-+	bool (*pme_enabled)(const struct drm_device *drm); /* Optional */
- 	void (*assert_held)(const struct drm_device *drm);
- 	void (*assert_block)(const struct drm_device *drm);
- 	void (*assert_unblock)(const struct drm_device *drm);
+ void gen8_irq_power_well_post_enable(struct intel_display *display,
 -- 
 2.43.0
 
