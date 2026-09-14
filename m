@@ -4,63 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CEE3C88E75
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 14:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F4E2C88E53
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 14:13:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99BD610E0F8;
-	Tue, 15 Sep 2026 14:10:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 032A610E3F6;
+	Tue, 15 Sep 2026 14:13:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pyzat2xq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YtwJzP5K";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0632010E071;
- Tue, 15 Sep 2026 14:10:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789481456; x=1821017456;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Oxxao6blWXExFijm5Fok3ZVkCi9b1qDzUnzbmJN9OrY=;
- b=Pyzat2xqxenEOPdcBxn4kz5P6X98/50e9LjjxDhW2u6VpzTa9vahhg93
- hfniIvGnrO2dS2dPUo4lE0LiQ9hWOqXSSnuLG8gvyIW4lj6Q8dQINItA6
- MSmOed1qb0mfmvGdgQRlE4QNqVXTF30ikVm+gjuCFuckxgD4BHz8dn3su
- th+UR7CmXc6mCfNz/7jXG/SoGxOaekIuolKV3a6AeDM/b7L59YRtre55C
- xvX8VYeXliAkLo6an6vehevGp0Y/SpEX3+/g8rBN1b69pSm+wdo1xp4qI
- 6NIkbDaScS20XGpCmy3XXncO0DXWVY3AGmNDw523S6xtdwxHk9DET1nwv Q==;
-X-CSE-ConnectionGUID: Jz8iANY5Q+2/z/sJxCjGdQ==
-X-CSE-MsgGUID: 7TCiAOW6QQG1NZ8eE5RuTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77404370"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="77404370"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 07:10:55 -0700
-X-CSE-ConnectionGUID: YLPfbuBUTtOAfdrt260klg==
-X-CSE-MsgGUID: QkvsK42dSOCYYZM+mWL9+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="271206121"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.243])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 07:10:52 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, "open list:DRM DRIVERS"
- <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: Re: [PATCH] drm/i915/fb: replace kmalloc_array with kmalloc_objs
-In-Reply-To: <20260910155846.79513-1-lalitshankarch@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260910155846.79513-1-lalitshankarch@gmail.com>
-Date: Tue, 15 Sep 2026 17:10:50 +0300
-Message-ID: <c45b9b5e99c763e37aafdf0c8d794e2499543ceb@intel.com>
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com
+ [74.125.228.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3077010E151
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 10:45:13 +0000 (UTC)
+Received: by mail-pz2-f43.google.com with SMTP id
+ d2e1a72fcca58-85469e25400so1350643b3a.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 03:45:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789382712; x=1789987512; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3m3SP6e9NrbIRaMkWtj1uZEt6uHgAf5jXfUplg45r+k=;
+ b=YtwJzP5KFQCNTHmwkONV/e62S132ARQUgN7h2slSQDwkML/2Zf2m3OmEQA3zjDdb5v
+ 0/skvy/mbdiFqNRrxORlY4xighQfO5+dSKpK2YX53iHDYf4ROm+EPYz+XZnGDsZAWNdT
+ 1ePp9VXJSUwxutgF6SoRUPGxsuTV/sVnr2CK955M6XPKtGkJOT+Q3PGmGVjNWGyyxKap
+ 6x6yTjkEHspno3V5OD7YG40xbnsZPvCyRghYnNDaMJWMvZxJXQGf+q2JD6YGjnQimgrm
+ kCTKH9arzy7gdo3bQCx9Ct3LC8xOtFBkOjD7oz8ImKG2RI5GsQR/0z21IP8rmWpNksBb
+ MW0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789382712; x=1789987512;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3m3SP6e9NrbIRaMkWtj1uZEt6uHgAf5jXfUplg45r+k=;
+ b=JMJ7s19x5sC0yD39yasKJKAuWvw8TBa3kZ5xTV9Mnqm10ykmbxqTAzvXibw1n9KNcn
+ xHPn4yW1IpbqmZK+ZM5fd4jy/T9VJXbavWb/2iwVPfMQYxi6I5txiY0a9ar/ttn11dWe
+ k1ppdMXPl9hQjfr/F01b106fy5xSZkR/7qQv1iiFp6RPVPKGMSUCcI58EQJSWRdLbPoc
+ N3ozWfXAE2QJwxGul1xZSwEhgHvZjTVdlILCDxBm8BOP40JbuTfq4tJVsnoEtebovLY8
+ TuGJAKCs6W53svQt0JvXxC4rsvmi4RmNYaoMVmWPD/lRN45yGDLAzobt6lHRZK16Q1F/
+ KUHg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxuw+veEnGRCfRsLvmyVBo5O75Eb0m2Fvp85aNJw0+9Q6RF4EDa8jSCbJB6xob9NFT4r8BMviM/U4Y=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kt5HcMqTDFGWAJwNesGA9E176Cly6BtLtSOlkIFvK1X6UxDW3p
+ woco1oKPSzwXeqHFvi88urbs+d0AH9z4teEbvCIV7UCLQlIUnzTLbDfO
+X-Gm-Gg: AYBFou2gLiG2jHtgQLsNvwj+sbe4t8Ml8AAzcCv4Otfx8vdn5GT/dMS97GtWsH1l+7l
+ h34D3AcMHwMssD8s+9P76sjDXY4up4Pn8Rjua+oc0hsyYt/TfG/IcJhuzU7luCXVdj/XGRW37Iz
+ zWoaik4X27EeTU/ev129fJxBdVIE8yp/y91CKHqCAKWHQ8BilB0hKj92YgC6iW0SeHYKAJExbs3
+ 57RxZI9pf/zvA8P5OStgVerWUEFt8hSrVNbBm1zv9vD0MTNtMj3Dr3EDfapiUuAz/VYjLR42+40
+ YwnQCxg5d6AhamEsIi9hbVkiUESf1HdVHOmDbrln493uCfT0wTHOtuOEn3vMviHS0qw4lIwIh1e
+ unRW/b3AOOtnyeAYwO9QDz4lVmBGnELd8vP+Ow8UP1LXGXkV5YJqXTCHUc7kY9QAbL2RlaWBgbw
+ iLZ3QGU/CS8liHvJx10rLAv7BhQrtCYMbL/cwvvGjqoWZDRfqIkOglVn9ZP8eitTa0LpuKZA+9Y
+ Zn0yW0no+kO97VyMTBcEJ/xvNuFS66JZRk4tXV/I4fUGOALpvDELQyGDlW2MKrLMBs9Km74MQna
+ KD1Du7hfxJJ+c4vdf6aAfPjJ0LNMcCmSLfcb4sRm48VLQsdqB0TIaKOqpGHxEeo=
+X-Received: by 2002:a05:6a00:21c2:b0:857:7384:b5fd with SMTP id
+ d2e1a72fcca58-86f8737ced2mr3809414b3a.25.1789382712304; 
+ Mon, 14 Sep 2026 03:45:12 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-86b28fd0e0dsm4234386b3a.26.2026.09.14.03.45.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Sep 2026 03:45:11 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthias Goergens <matthias.goergens@gmail.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Yosry Ahmed <yosry@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+ linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+ util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org
+Subject: [RFC PATCH 0/3] mm/swap: reserve swap areas for deliberate offload
+Date: Mon, 14 Sep 2026 18:44:58 +0800
+Message-ID: <20260914104501.3960616-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 15 Sep 2026 14:13:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,32 +107,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 10 Sep 2026, Lalit Shankar Chowdhury <lalitshankarch@gmail.com> wrote:
-> Replace the remaining kmalloc_array instance with kmalloc_objs.
->
-> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Some swap backends are useful for deliberate cold-page offload but are poor
+dependencies for ordinary reclaim under acute memory pressure. Swap on ZFS
+zvols is an existing example, with documented deadlocks under memory
+pressure [3]. Compressed swap is another attractive target: accepting a
+write may require memory for compression or storage even when logical swap
+slots remain free.
 
-Thanks, pushed to drm-intel-next.
+This series adds an offload-only swap-area policy for such deployments,
+alongside a conventional swap reserve for pressure reclaim.
 
-BR,
-Jani.
+Proactive offloading is already established by TMO/Senpai [4], which uses
+pressure feedback to offload cold pages to compressed memory or SSDs.
+DAMON_RECLAIM [5] also uses free-memory watermarks to suspend proactive
+reclaim under severe pressure. These control when reclaim runs; this RFC
+restricts which swap areas ordinary reclaim may write, including through
+retained swap entries. The existing memory.zswap.writeback control [6]
+restricts backing-swap writes per cgroup, rather than reserving individual
+swap areas for explicitly admitted offload.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_fb.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-> index 1c0859d5f829..c3e4c3f6d8cf 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-> @@ -596,7 +596,7 @@ u64 *intel_fb_plane_get_modifiers(struct intel_display *display,
->  			count++;
->  	}
->  
-> -	list = kmalloc_array(count, sizeof(*list), GFP_KERNEL);
-> +	list = kmalloc_objs(*list, count);
->  	if (drm_WARN_ON(display->drm, !list))
->  		return NULL;
+The minimum contract is that ordinary reclaim must not initiate a new,
+non-zero backend write to an offload-only area. Reads, swapoff, zero-page
+metadata, architecture preparation, and I/O that was already admitted remain
+valid. If no eligible swap remains, existing reclaim and OOM behaviour applies.
+This RFC does not promise a performance result or define a new workload policy.
 
+Cgroup v2 memory.reclaim and per-node reclaim establish admission. Manual
+MGLRU eviction currently does too, but its debugfs interface is not stable
+ABI. Ordinary direct reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim do not
+gain access. This is an explicit operator policy; the kernel does not measure
+physical headroom or automatically classify backends.
+
+The three patches are based on mm-new as refreshed on 11 September, at
+995829088503:
+
+1. The complete swap-area policy, including eligible-capacity accounting and
+   recovery of eligible cache entries.
+2. zram03/zram04 coverage for reclaim routing, zswap bypass, discard policy
+   and file workingset activation.
+3. zram05 coverage for retained swap entries, including ordinary-write
+   refusal, proactive recovery, data integrity and checked teardown.
+
+The implementation is intended to make these questions reviewable:
+
+1. Should pressure eligibility be a durable property activated with the
+   physical swap area, or should it be selected late during backend migration?
+2. Do provenance, allocation filtering, eligible capacity, and retained-entry
+   refusal provide a useful minimum contract for userspace and controllers?
+3. Is redirtying or activating a retained dirty folio, with possible churn or
+   OOM, acceptable, or is backend migration a prerequisite?
+4. How should persistent activation fail closed and remain auditable when
+   /proc/swaps and swapon --show do not expose the policy?
+5. Should an ineligible fast-path cluster be invalidated immediately, and
+   should an offload-only area recover its own cache entries based on eligible
+   fullness rather than global swap fullness?
+6. Should the workingset activation heuristic continue to count offload-only
+   capacity when pressure reclaim cannot allocate from it?
+
+Build checks passed on x86 with i915 built-in or modular, and with swap or
+memory cgroups disabled. The affected arm64 MTE objects also compiled.
+
+The routing and workingset tests passed in x86 QEMU guests. In the
+retained-entry test, ordinary reclaim wrote nothing to offload-only swap;
+proactive reclaim then wrote the dirty folio, and all data verified
+correctly. With the write guard removed, the same test failed because
+ordinary reclaim wrote to the offload-only area.
+
+Persistent fstab encoding remains unsettled. When hibernation is about to
+save an image, an active offload-only area named by resume= is rejected as
+the image target with -ENODEV. Virtual Swap Space v4 [1] separates swap
+entries from their physical backing, while swap tiers v10 [2] proposes
+per-cgroup backend selection. These raise the question of whether offload
+eligibility belongs to physical swap areas or a later placement decision;
+this RFC does not assume those interfaces are settled.
+
+An explicit-only util-linux companion implementing swapon --offload-only
+is prepared for separate submission.
+
+Feedback on the eligibility contract, its placement in the swap stack,
+and the unresolved ABI and reclaim-policy questions would be welcome.
+
+[1] https://patchew.org/linux/20260825153238.2695446-1-nphamcs@gmail.com/
+[2] https://patchew.org/linux/20260713025644.170839-1-youngjun.park@lge.com/
+[3] https://openzfs.github.io/openzfs-docs/Project%20and%20Community/FAQ.html#using-a-zvol-for-a-swap-device-on-linux
+[4] https://engineering.fb.com/2022/06/20/data-infrastructure/transparent-memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/
+[5] https://www.kernel.org/doc/html/latest/admin-guide/mm/damon/reclaim.html
+[6] https://www.kernel.org/doc/html/latest/admin-guide/mm/zswap.html
+
+Matthias Goergens (3):
+  mm: restrict offload-only swap to proactive reclaim
+  selftests: zram: cover offload-only swap policy
+  selftests: zram: cover retained offload-only entries
+
+ Documentation/mm/swap.rst                     |  87 ++++
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |   2 +-
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |   6 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c        |   2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c         |   2 +-
+ drivers/gpu/drm/ttm/ttm_backup.c              |   2 +-
+ drivers/gpu/drm/xe/tests/xe_bo.c              |   2 +-
+ include/linux/swap.h                          |  29 +-
+ include/linux/vm_event_item.h                 |   1 +
+ mm/memcontrol.c                               |  20 +-
+ mm/page_io.c                                  |  24 +-
+ mm/swapfile.c                                 | 126 +++++-
+ mm/vmscan.c                                   |  31 +-
+ mm/vmstat.c                                   |   1 +
+ tools/testing/selftests/zram/.gitignore       |   2 +
+ tools/testing/selftests/zram/Makefile         |   4 +-
+ tools/testing/selftests/zram/config           |  10 +-
+ tools/testing/selftests/zram/swap_offload.c   | 402 ++++++++++++++++++
+ .../selftests/zram/workingset_offload.c       | 206 +++++++++
+ tools/testing/selftests/zram/zram03.sh        | 166 ++++++++
+ tools/testing/selftests/zram/zram04.sh        | 149 +++++++
+ tools/testing/selftests/zram/zram05.sh        | 360 ++++++++++++++++
+ tools/testing/selftests/zram/zram_lib.sh      |  28 ++
+ 23 files changed, 1620 insertions(+), 42 deletions(-)
+ create mode 100644 tools/testing/selftests/zram/swap_offload.c
+ create mode 100644 tools/testing/selftests/zram/workingset_offload.c
+ create mode 100755 tools/testing/selftests/zram/zram03.sh
+ create mode 100755 tools/testing/selftests/zram/zram04.sh
+ create mode 100755 tools/testing/selftests/zram/zram05.sh
+
+
+base-commit: 9958290885035431e2494159f555e332c3c14906
 -- 
-Jani Nikula, Intel
+2.55.0
+
