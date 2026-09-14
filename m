@@ -4,27 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F781C88E72
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 17:12:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51C37C88E73
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 19:47:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1712A10E130;
-	Mon, 14 Sep 2026 17:12:38 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6CE10E130;
- Mon, 14 Sep 2026 17:12:37 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3168223217250279276=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF28810E589;
+	Mon, 14 Sep 2026 19:47:53 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ldWqYoBW";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E872410E1F0;
+ Mon, 14 Sep 2026 19:47:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789415272; x=1820951272;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=dsRRx0v+/q1aymo+o0jrYyNCFHyn2XIAdL8a3Z0B8Uk=;
+ b=ldWqYoBWt6ziWSU0ISHbS/CTwsNPRAU17XOfTfPBBWRScobaGSHqxr0s
+ V27QGpNOyDUubsj6KHTb1oO15zi0/nEUnkUxmoCW2JhMzShHMEzOX40D+
+ wro0DFfVJiRK9wLbFNS6rzILf3fEbjEg1W9Qi/zT8tsu1vL9TDQK/yrQ/
+ O7GsJtWr75J6cCR/ysz0FjYSwxKEUlyDPbh/c5zhYSIfabXhLKcoxqx7o
+ xuwE9hpkg2QCcW1aqT/PVwPMglbYyW4yZz3UmZM2ivK2KTZ1JLpx3HGdK
+ yjsORf8psYmBMe20v+OMKp8yMQRmatH1GTn4Qa+RmcaGCWSSe2HRC8wqD A==;
+X-CSE-ConnectionGUID: 34o9JY4SSvGc6Ob+Sy20dw==
+X-CSE-MsgGUID: m0voQQUkSjqc8n/Hp7Jbzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92284842"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92284842"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 12:47:51 -0700
+X-CSE-ConnectionGUID: XPKmcDK1QEu7C69PpKoJQg==
+X-CSE-MsgGUID: MRqXQ0zST7CQaefi/hk8Eg==
+X-ExtLoop1: 1
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO
+ vgovind2-mobl4.intel.com) ([10.245.251.20])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2026 12:47:50 -0700
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: jouni.hogander@intel.com
+Subject: [PATCH v6 0/7] pm_pme support on display hotplug
+Date: Mon, 14 Sep 2026 22:47:30 +0300
+Message-ID: <20260914194737.272679-1-vinod.govindapillai@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/ddi=3A_add_DDI_A?=
- =?utf-8?q?_force_4_lanes_quirk_for_Apple_MacBookPro11=2C_5_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Theo Andersen Carton" <andersen.theo@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Sep 2026 17:12:37 -0000
-Message-ID: <178940595744.159192.381533826649967519@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260912091805.531666-1-andersen.theo@gmail.com>
-In-Reply-To: <20260912091805.531666-1-andersen.theo@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +65,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3168223217250279276==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Introduce PME support for PME capable devices and avoid
+HPD polling on runtime suspend. For PME capable devices
+HPD will trigger PME which will wakeup the system. And
+rest of the runtime resume call is same as before.
 
-== Series Details ==
+v2: Instead of plumbing keep_hpd and pme_capability to
+    the existing interfaces, a separate helper function to
+    set and get pme capability is added.
 
-Series: drm/i915/ddi: add DDI A force 4 lanes quirk for Apple MacBookPro11, 5 (rev3)
-URL   : https://patchwork.freedesktop.org/series/174000/
-State : success
+    HPD polling is handled directly inside the
+    intel_hpd_poll_enable() based on the pme capability
+    flag
 
-== Summary ==
+v3: Lockdep related splats were observed during some rare testing
+    scenarios. The PCI PME api to enable wake internally use kmalloc
+    and can trigger deadlocks. So the calls to the PCI PME APIs are
+    updated and placed within the no reclaim loop. Also any display
+    specific calls are isolated within xe / i915 blocks and display
+    parent interface is used to tackle the inter dependencies to
+    keep the display module design clean. 
 
-CI Bug Log - changes from CI_DRM_19143 -> Patchwork_174000v3
-====================================================
+v4: No need to maintaining another variable to keep track of PME
+    can be generated from HPD in intel_hotplug. Instead the parent
+    interface function can be used directly to get the xe.pme.enabled
+    to know PME is enabled and configure the IRQ resets and HPD polling
 
-Summary
--------
+Vinod Govindapillai (7):
+  drm/xe/pm: initialize the device's system wakeup capabilities
+  drm/xe/pm: introduce PM PME support
+  drm/xe/pm: avoid reclaim when arming PME wakeup
+  drm/i915: add pme_enabled() to the parent interface
+  drm/i915/xe: plug the pme_enabed implementation for xe
+  drm/i915/irq: conditional HPD IRQ resets based on PME capability
+  drm/i915/hotplug: avoid HPD polling if the device is PME capable
 
-  **SUCCESS**
+ .../gpu/drm/i915/display/intel_display_irq.c  | 19 +++++++----
+ .../gpu/drm/i915/display/intel_display_rpm.c  |  7 ++++
+ .../gpu/drm/i915/display/intel_display_rpm.h  |  1 +
+ drivers/gpu/drm/i915/display/intel_hotplug.c  |  5 +++
+ drivers/gpu/drm/xe/display/xe_display_rpm.c   |  6 ++++
+ drivers/gpu/drm/xe/xe_device_types.h          | 13 ++++++++
+ drivers/gpu/drm/xe/xe_pci.c                   | 26 ++++++++++++++-
+ drivers/gpu/drm/xe/xe_pm.c                    | 33 +++++++++++++++++++
+ drivers/gpu/drm/xe/xe_pm.h                    |  2 ++
+ include/drm/intel/display_parent_interface.h  |  1 +
+ 10 files changed, 105 insertions(+), 8 deletions(-)
 
-  No regressions found.
+-- 
+2.43.0
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174000v3/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19143 -> Patchwork_174000v3
-
-  CI-20190529: 20190529
-  CI_DRM_19143: 7d3acf4579249aa2d991192f3452017a3d72b797 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9093: 932327f15c92ecb52266ced8c0fbe72931a75880 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_174000v3: 7d3acf4579249aa2d991192f3452017a3d72b797 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174000v3/index.html
-
---===============3168223217250279276==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/ddi: add DDI A force 4 lanes quirk for Apple MacBookPro11, 5 (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174000/">https://patchwork.freedesktop.org/series/174000/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174000v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174000v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19143 -&gt; Patchwork_174000v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174000v3/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19143 -&gt; Patchwork_174000v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19143: 7d3acf4579249aa2d991192f3452017a3d72b797 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9093: 932327f15c92ecb52266ced8c0fbe72931a75880 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_174000v3: 7d3acf4579249aa2d991192f3452017a3d72b797 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============3168223217250279276==--
