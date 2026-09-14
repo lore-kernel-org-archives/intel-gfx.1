@@ -4,45 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE13DC982D0
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 14:13:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6021BC982D1
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 14:13:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02D1310E863;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA8610E929;
 	Tue, 15 Sep 2026 14:13:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="V7840osk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZJM+t/54";
 	dkim-atps=neutral
-X-Greylist: delayed 751 seconds by postgrey-1.36 at gabe;
- Mon, 14 Sep 2026 08:41:48 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B40E410E12E;
- Mon, 14 Sep 2026 08:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=05YNK+h/bbK08U3PySMOR0D54dDL/PFne0Hz4drePO0=; b=V
- 7840oskOrXrSd13OT4o2/5csns4ndidjLHaNljsbZ5SNaUG64DIbCd4cacW3gFVm
- tZRertox7LwM8pqDRsBlKYtQW9FqsLRvuCvr6uaGOAqymI6tvl78XXBAS1h1uUJ6
- eO00eoOYr0ryBvB3zk5+JRqJE4kNn397+UxQYOooQA=
-Date: Mon, 14 Sep 2026 16:28:46 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [BUG] drm/i915: general protection fault in i915_pci_probe on
- forced bind
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/+cu00p4CaaYOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/KeXO6RNzPecFeNSHcVS0TA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7118410ED4A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 10:56:12 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-8692be1cda4so2496015b3a.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 03:56:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789383372; x=1789988172; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Gj8h2lt98zX4NzJl96Knw548gSSkkGwsjExtVdozT0A=;
+ b=ZJM+t/54UkS88PI+ugp+p4grc1x/wunR07RivP38z03zBSEmSug3m4qR0NJWknLB5b
+ 3O3lc1BIgn5TD3OZwwgjQxS/7+4SEw34LMfF6nFrwxfynbYD2nwYEYUZ3bR7Zvnugddp
+ lg7HZfxjqpPOpvw03CjtotuUfcfSDJhel6jUVV8zSUOihSg8OVe1xelGBRyGT/+SM9tx
+ 1JJ992VX+Ul9fnsGwItivDlvopyaJtBEe0LpxdRt3bncH561IEkwCjRf8KXEmJ3sH5id
+ BOD8ACBlulxqsZ7QBiWlg+/RPJogIRyNCbuXZpMBiqgkZUzoZKL7xTUX5lA0OSh2gz4P
+ pikA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789383372; x=1789988172;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Gj8h2lt98zX4NzJl96Knw548gSSkkGwsjExtVdozT0A=;
+ b=NU2iwotR1vsRqyMnz+bye4/VyPivl90p3RpBUdy+Ri7MT6TI6JJ/zjIL3HJqgeN1xd
+ IaU3u2LO7Mciw5WS02MAncqGhkmCu5/Rub1RgziHR0ChTYbFeSvzH20Zk1vlG73YKuKw
+ NnVXmCxWbPP6bF6Cci3a2Hmcnqj2lsZKzFVzVjSmh9XbeRljdxbgexXYCH0G1JVoAAxp
+ Ojcd/Zt3qRSxuUY6OojOELn31I2j27uvpAD+NnIzCIVzdvse1LCJQbfeSyvDICPUnclN
+ lRjC2TLYLNkmS7g8qOoYJly3xyBwwAt8Q/gCqF8spJ6AjQtGZ249CnIVaZ9MeQAWsUvR
+ Vdjw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBygJ8M+CyC4m39JnmQ1ol0fzHSHRjJ/ZBGjy5Dran5mQq0Z3FQDAtdZ0ybDq/Uqvj0xQkAbb5QnA6w=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l7r6dh8Flybb54KBTERKPfSG2h8sEkbCzGWCsShPEk4L5fLiwq
+ 3D6TO1l9E2ZmemFWevlpOusXwS1sc7gERfZjNyL5z14rd9lwSuyY8uG3
+X-Gm-Gg: AYBFou2f0oX/pxVuAFFVQyLxyBINAbmHN9Qf4zFvm9V6idKqCs3xycu9Tbi+xOjd0+/
+ 0L516q+VpQCw2diGapYQvRHFDv4ccRWcDHip0X8LL8iaiVB2HR+bH/P0tKYc5MRE8TY40uA+oYC
+ Bke+76a2pxLtw7sbh2uaJO/mGkma33k82ctKXT+5gnCqXFFjoe7QYxGwCUr/IdSiAwfocOUqWIh
+ K6s9LpE3jTH6JcQLUtTFtuSBVErt0xtVIOGfEt4ZK7UR1lbaxs8+TKvM6yojCBo4aW1L6csDHcn
+ P2OyZOGrCw8KAnF6cBqYcuK1l4NPFadLpn1jSFFYEyaEDMZCVdQcWPj9x17mkHaBU16nWwHjREn
+ 5ru5w2OH2JFpy/msBLKz+rj8TjhB8gOXiTKiB05aAoxVmujkN0h2l85/rVXevAK8gWbtiCk0x1I
+ lfau5xcSRkE41BhEjU1Dw1sOqpqThaZ9qBzhOhqJXiwneGhK32YvV4uf6VdoctgjogN4urA930s
+ fFgi8nlJIlAQqJijoK4HYwQ90imjw9yZQ5QuY/aGl6X5jcA6zZISQVQc1xK2Z6JbWTOeOlD7OF1
+ QM8eqMKA1S7D+QPDQgQUmeU7oOjBru+A9jOwFIOp3GJISNEMGh132D34EuiNbJA=
+X-Received: by 2002:a05:6a00:438d:b0:86a:9be:6bf9 with SMTP id
+ d2e1a72fcca58-86f85108442mr4695374b3a.12.1789383371846; 
+ Mon, 14 Sep 2026 03:56:11 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-86b287c481asm4589354b3a.11.2026.09.14.03.56.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Sep 2026 03:56:11 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Matthias Goergens <matthias.goergens@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] drm/i915: unlock shmem folios after skipped writeback
+Date: Mon, 14 Sep 2026 18:56:06 +0800
+Message-ID: <20260914105606.3997649-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Message-ID: <3c467f81.7d23.1a09f0874aa.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: hygvCgD3P7Y_sKdq_jAPAA--.18779W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3h+-cWqnsD+7swAA3F
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 15 Sep 2026 14:13:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,45 +97,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-SGksCgoKSSBhbSByZXBvcnRpbmcgYSBnZW5lcmFsIHByb3RlY3Rpb24gZmF1bHQgaW4gdGhlIGk5
-MTUgUENJIHByb2JlIHBhdGgsIHRyaWdnZXJlZApieSBhIHN5emthbGxlciByZXByb2R1Y2VyLiAg
-VGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3aXRoIEhFQUQgY29tbWl0CmNlZTkzOTVhY2Q4MDQz
-YmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUgKHY3LjMtcmMxLCBMaW51eCA3LjMuMC1yYzEpLgoK
-ClRoZSByZXByb2R1Y2VyIG1vdW50cyBzeXNmcywgd3JpdGVzICJpOTE1IiB0byB0aGUgZHJpdmVy
-X292ZXJyaWRlIGF0dHJpYnV0ZSBvZgpQQ0kgZGV2aWNlIDAwMDA6MDA6MDEuMCwgYW5kIHRoZW4g
-d3JpdGVzIHRoZSBkZXZpY2UgbmFtZSB0byB0aGUgaTkxNSBkcml2ZXIncwpiaW5kIGF0dHJpYnV0
-ZS4gIFRoaXMgYmluZHMgdGhlIGk5MTUgZHJpdmVyIHRvIGEgUENJIGRldmljZSBpdCB3YXMgbmV2
-ZXIgbWVhbnQKdG8gZHJpdmUuCgoKVGhlIHByb2JlIHJ1bnMgaW4gdGhlIHdvcmtxdWV1ZSB3b3Jr
-ZXIga3dvcmtlci8wOjEgaW4gdGhlIHdvcmtfZm9yX2NwdV9mbgpjb250ZXh0LiAgS0FTQU4gcmVw
-b3J0cyBhIG51bGwtcHRyLWRlcmVmIGluIHRoZSByYW5nZSBbMHgxOC0weDFmXSBhbmQgdGhlCmNv
-bnNvbGUgc2hvd3MgYSBnZW5lcmFsIHByb3RlY3Rpb24gZmF1bHQgZm9yIHRoZSBub24tY2Fub25p
-Y2FsIGFkZHJlc3MKMHhkZmZmZmMwMDAwMDAwMDAzLCB3aXRoIFJJUCBpbiBpOTE1X3BjaV9wcm9i
-ZS4gIFRoZSBwYXRoIHJlYWNoZXMgdGhlIGRyaXZlcgp0aHJvdWdoIGxvY2FsX3BjaV9wcm9iZSBh
-bmQgcGNpX2NhbGxfcHJvYmUgZnJvbSB0aGUgc3lzZnMgYmluZCBzdG9yZS4KCgpPbmUgcG9zc2li
-bGUgY2F1c2UgaXMgdGhhdCBpOTE1X3BjaV9wcm9iZSB0YWtlcyBwZXItZGV2aWNlIGluZm9ybWF0
-aW9uIHRoYXQgaXMKb25seSBwb3B1bGF0ZWQgZm9yIGRldmljZXMgdGhlIGRyaXZlciBpcyBzdXBw
-b3NlZCB0byBtYXRjaCwgYW5kIGRlcmVmZXJlbmNlcyBpdAp3aXRob3V0IGEgdmFsaWRpdHkgY2hl
-Y2ssIHNvIGEgZm9yY2VkIGJpbmQgb24gYW4gdW5yZWxhdGVkIFBDSSBkZXZpY2UgbGVhZHMgdG8g
-YQpOVUxMIGRlcmVmZXJlbmNlLiAgVGhpcyBsb29rcyBsaWtlIGEgbWlzc2luZyBndWFyZCBhZ2Fp
-bnN0IGEgZHJpdmVyL2RldmljZQptaXNtYXRjaCBvbiB0aGUgcHJvYmUgcGF0aC4gIEkgYW0gcmVw
-b3J0aW5nIHRoZSBmYXVsdCBhbmQgdGhlIHBhdGggYXMgb2JzZXJ2ZWQuCgoKVGhpcyBhcHBlYXJz
-IHRvIGJlIGEgcmVjdXJyZW5jZSBvZiB0aGUgc3l6Ym90IGlzc3VlIHdob3NlIGV4dGVybmFsIGlk
-IGlzCjY3NTViMWI0YmM4ZWU3NWZjYmE0LiAgSXQgcmVtYWlucyByZXByb2R1Y2libGUgb24gdjcu
-My1yYzEuCgoKUmVwcm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjoKbWtkaXJhdCgweGZmZmZmZmZm
-ZmZmZmZmOWMsICYoMHg3ZjAwMDAwMDAxMDApPScuL3N5c1x4MDAnLCAweDFmZikKbW91bnQoMHgw
-LCAmKDB4N2YwMDAwMDAwMTAwKT0nLi9zeXNceDAwJywgJigweDdmMDAwMDAwMDIwMCk9J3N5c2Zz
-XHgwMCcsIDB4MCwgMHgwKQpyMCA9IG9wZW5hdCgweGZmZmZmZmZmZmZmZmZmOWMsICYoMHg3ZjAw
-MDAwMDAzMDApPScuL3N5cy9idXMvcGNpL2RldmljZXMvMDAwMDowMDowMS4wL2RyaXZlcl9vdmVy
-cmlkZVx4MDAnLCAweDEsIDB4MCkKd3JpdGUocjAsICYoMHg3ZjAwMDAwMDA0MDApPSdpOTE1XHgw
-MCcsIDB4NSkKcjEgPSBvcGVuYXQoMHhmZmZmZmZmZmZmZmZmZjljLCAmKDB4N2YwMDAwMDAwNTAw
-KT0nLi9zeXMvYnVzL3BjaS9kcml2ZXJzL2k5MTUvYmluZFx4MDAnLCAweDEsIDB4MCkKd3JpdGUo
-cjEsICYoMHg3ZjAwMDAwMDA2MDApPScwMDAwOjAwOjAxLjBceDAwJywgMHhkKQoKCmNvbnNvbGUg
-b3V0cHV0OsKgaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L0hrWXJBeTFQCmtlcm5lbCBjb25maWc6
-IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy8yR0xibVdIRgoKCktlcm5lbDoKCgpIRUFEIGNvbW1p
-dDogY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNQpnaXQgdHJlZTogdXBz
-dHJlYW0gKGxpbnV4LmdpdCksIHRlc3RlZCB0aHJvdWdoIHRoZSB2Ny4zLXJjMSBhbm5vdGF0ZWQg
-dGFnIG9iamVjdArCoCDCoCDCoCDCoCDCoCDCoGU1ZTA0NzI2Y2RkMDQzZTMwOTY3NzA3MWFiMWI2
-NWE0YjE4ZjQyMmIKa2VybmVsIHZlcnNpb246IDcuMy4wLXJjMSAjMSBQUkVFTVBUKGZ1bGwpCnRl
-c3RlZCB0YWc6IHY3LjMtcmMxIChMaW51eCA3LjMtcmMxLCAyMDI2LTA4LTMwKQoKCkxldCBtZSBr
-bm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKCkJlc3QgcmVnYXJkcywK
-Q2hhbmdqaWFuCgoKCg==
+writeback_iter() returns a locked folio.  The mapped-folio path redirties
+the folio without unlocking it, so shrinking can leave the folio locked
+indefinitely.
+
+shmem_write_folio() can also return AOP_WRITEPAGE_ACTIVATE with the folio
+locked.  Passing that positive control value back to writeback_iter()
+triggers its warning, stops asynchronous writeback, and leaves the folio
+locked.  This can occur when zswap rejects a folio while memcg zswap
+writeback is disabled.
+
+Unlock folios on both paths and consume AOP_WRITEPAGE_ACTIVATE so the
+best-effort writeback scan can continue.
+
+Fixes: 776a853a43c9 ("i915: Use writeback_iter()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index ef9440166295..e7b18f7f9644 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -322,10 +322,16 @@ void __shmem_writeback(size_t size, struct address_space *mapping)
+ 	 * as normal.
+ 	 */
+ 	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
+-		if (folio_mapped(folio))
++		if (folio_mapped(folio)) {
+ 			folio_redirty_for_writepage(&wbc, folio);
+-		else
++			folio_unlock(folio);
++		} else {
+ 			error = shmem_write_folio(folio);
++			if (error == AOP_WRITEPAGE_ACTIVATE) {
++				folio_unlock(folio);
++				error = 0;
++			}
++		}
+ 	}
+ }
+ 
+
+base-commit: cbd3dafc2003db679ccd2f6c6a2551db79657049
+-- 
+2.55.0
+
