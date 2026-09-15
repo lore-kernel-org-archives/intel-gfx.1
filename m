@@ -4,67 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C38EC982C1
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 19:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01BE6C88E77
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 19:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69C4510E2C6;
-	Tue, 15 Sep 2026 19:43:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pwrpKISZ";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4E910E2B4;
- Tue, 15 Sep 2026 19:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=jDSMNgE2SYpBhNEuvByimCISegwGBd2LQBDn3FJ6A8g=; b=pwrpKISZ2dAyS5vSmnRzWCUj4c
- WC7dWtrl3zWoF+NJXN2fMptA0PySKUKxIuA5Ty0HcdN9bOyp0bykNKiWFrOYkAT/2FZYBhIm4x2fE
- 3TR5Fieh7E+hFoofxB3Lq1QtekqaXNAwbvcwoBMoc7zq4hF5PXtwhvRMdCq5PBVsuJx8Sc+52aY+O
- zILgNSIFq0G6QS1k8xSyvEpHy2m+G4qPbftkg5g1IRW/LZMcsDenYFS/ZcEE3zqU+u0AzsW+215lU
- OUAQwV38tUfPF2lFPuY76sHSNRmOqy4SYUfIICxaTx7aeYwoq+D7yZN9Xlo0ccPiXl3JrY31GDYrb
- /LcLhnNA==;
-Received: from [179.105.94.163] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6Z4G-002bhq-Oa; Tue, 15 Sep 2026 21:43:48 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Tue, 15 Sep 2026 16:42:22 -0300
-Subject: [PATCH v3 7/7] drm: Rename drm_utils.h to drm_panel_quirks.h
+	by gabe.freedesktop.org (Postfix) with ESMTP id 763BA10E17C;
+	Tue, 15 Sep 2026 19:52:39 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1017910E17C;
+ Tue, 15 Sep 2026 19:52:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4986917926315844985=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260915-drm-timeout-helpers-v3-7-f2ae987d861f@igalia.com>
-References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
-In-Reply-To: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6059; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=V51c0b6MqPdt8lxioNAIs0WefPi+KFRC/9D+cdo9mI8=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqZ+orcjQh4JP8xkkV+hL1b53flZrwZ/l6od1F
- kAej7Busa6JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmfqAAKCRA/8w6Kdoj6
- qv6NCADWxJQJA8mijp4Q4lzJOQvwAS9ObRzJXNhREsEeij/vnNvKQfxm9+BWGms9OfJkY+OGbIU
- 8zJJ4/70BT9HbPabH4hraGgf/q+4ehSgDEE0UqvyAlSYQmKvG8PTONOiOI7H2aETSqaEjYPYBN3
- oZ9nfWcVmGsjy255KEi4Hp85gOMoH7j0xNtKRrTLtj4qmYOENKMtLj+RhT92EjYif/7g/yn3i6X
- nQiVBVd1REQA64Iv18qRLJtO8lalOTZUf0O7NC8arJOcZN3hBmB0k981GH14DeW2X5+mEKKtKg5
- LDlhSHBO76Rq7O3KqmG/BJDwMi+Ushr4ydOd0kSGJ9e2At9X
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_use_EXPORT?=
+ =?utf-8?q?=5FSYMBOL=5FIF=5FKUNIT=28=29_for_kunit_helpers?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 15 Sep 2026 19:52:38 -0000
+Message-ID: <178950195805.167993.3505883629927623899@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260915160620.779372-1-jani.nikula@intel.com>
+In-Reply-To: <20260915160620.779372-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,163 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the timeout-related functions were removed from drm_utils.h,
-the header has exclusively panel orientation and backlight quirk getters.
+--===============4986917926315844985==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Therefore, rename the header accordingly and update all files that
-include it. The files amdgpu_dm.c, amdgpu_dm_connector.c and panthor_drv.c
-include the header but don't use it, so drop the include there.
+== Series Details ==
 
-No functional change.
+Series: drm/i915/dp: use EXPORT_SYMBOL_IF_KUNIT() for kunit helpers
+URL   : https://patchwork.freedesktop.org/series/174184/
+State : success
 
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 1 -
- drivers/gpu/drm/drm_connector.c                             | 2 +-
- drivers/gpu/drm/drm_panel_backlight_quirks.c                | 2 +-
- drivers/gpu/drm/drm_panel_orientation_quirks.c              | 2 +-
- drivers/gpu/drm/panthor/panthor_drv.c                       | 1 -
- drivers/video/fbdev/efifb.c                                 | 2 +-
- include/drm/{drm_utils.h => drm_panel_quirks.h}             | 8 +++-----
- 9 files changed, 8 insertions(+), 13 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 4426e18f7543..5f20fff2d466 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -98,7 +98,6 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_eld.h>
- #include <drm/drm_mode.h>
--#include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_colorop.h>
- #include <drm/drm_gem_atomic_helper.h>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index b9e90ea449ca..3211bd1472b2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -41,7 +41,7 @@
- #include <linux/backlight.h>
- #include <linux/power_supply.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_utils.h>
-+#include <drm/drm_panel_quirks.h>
- 
- #include <acpi/video.h>
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index e7b555fa666f..9e43e70afe8d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -62,7 +62,6 @@
- #include <drm/drm_fixed.h>
- #include <drm/drm_mode.h>
- #include <drm/drm_probe_helper.h>
--#include <drm/drm_utils.h>
- #include <drm/display/drm_dp_mst_helper.h>
- #include <drm/display/drm_hdmi_helper.h>
- #include <drm/drm_privacy_screen_consumer.h>
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 8b4baed060f3..c4d844205971 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -28,10 +28,10 @@
- #include <drm/drm_file.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_panel.h>
-+#include <drm/drm_panel_quirks.h>
- #include <drm/drm_print.h>
- #include <drm/drm_privacy_screen_consumer.h>
- #include <drm/drm_sysfs.h>
--#include <drm/drm_utils.h>
- 
- #include <linux/export.h>
- #include <linux/platform_device.h>
-diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-index e417c7533053..dcb91e12bac6 100644
---- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
-+++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-@@ -5,7 +5,7 @@
- #include <linux/export.h>
- #include <linux/module.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_utils.h>
-+#include <drm/drm_panel_quirks.h>
- 
- struct drm_panel_match {
- 	enum dmi_field field;
-diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c b/drivers/gpu/drm/drm_panel_orientation_quirks.c
-index 3a218fb592ce..813a204cd201 100644
---- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
-+++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
-@@ -12,7 +12,7 @@
- #include <linux/export.h>
- #include <linux/module.h>
- #include <drm/drm_connector.h>
--#include <drm/drm_utils.h>
-+#include <drm/drm_panel_quirks.h>
- 
- #ifdef CONFIG_DMI
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 46a3080b0b20..4bb74102acb1 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -25,7 +25,6 @@
- #include <drm/drm_ioctl.h>
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
--#include <drm/drm_utils.h>
- #include <drm/gpu_scheduler.h>
- #include <drm/panthor_drm.h>
- 
-diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
-index ad8dec7807c3..3411be06d3e6 100644
---- a/drivers/video/fbdev/efifb.c
-+++ b/drivers/video/fbdev/efifb.c
-@@ -18,8 +18,8 @@
- #include <linux/sysfb.h>
- #include <video/vga.h>
- #include <asm/efi.h>
--#include <drm/drm_utils.h> /* For drm_get_panel_orientation_quirk */
- #include <drm/drm_connector.h>  /* For DRM_MODE_PANEL_ORIENTATION_* */
-+#include <drm/drm_panel_quirks.h> /* For drm_get_panel_orientation_quirk */
- 
- struct bmp_file_header {
- 	u16 id;
-diff --git a/include/drm/drm_utils.h b/include/drm/drm_panel_quirks.h
-similarity index 63%
-rename from include/drm/drm_utils.h
-rename to include/drm/drm_panel_quirks.h
-index c61dee76451c..60711a49d403 100644
---- a/include/drm/drm_utils.h
-+++ b/include/drm/drm_panel_quirks.h
-@@ -1,14 +1,12 @@
- /* SPDX-License-Identifier: MIT */
- /*
-- * Function prototypes for misc. drm utility functions.
-- * Specifically this file is for function prototypes for functions which
-- * may also be used outside of drm code (e.g. in fbdev drivers).
-+ * Function prototypes for panel-related quirks.
-  *
-  * Copyright (C) 2017 Hans de Goede <hdegoede@redhat.com>
-  */
- 
--#ifndef __DRM_UTILS_H__
--#define __DRM_UTILS_H__
-+#ifndef __DRM_PANEL_QUIRKS_H__
-+#define __DRM_PANEL_QUIRKS_H__
- 
- #include <linux/types.h>
- 
+CI Bug Log - changes from CI_DRM_19152 -> Patchwork_174184v1
+====================================================
 
--- 
-2.55.0
+Summary
+-------
 
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174184v1/index.html
+
+Participating hosts (39 -> 37)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-glk-j4005 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19152 -> Patchwork_174184v1
+
+  CI-20190529: 20190529
+  CI_DRM_19152: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9098: 9098
+  Patchwork_174184v1: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174184v1/index.html
+
+--===============4986917926315844985==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: use EXPORT_SYMBOL_IF_KUNIT() for kunit helpers</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174184/">https://patchwork.freedesktop.org/series/174184/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174184v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174184v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19152 -&gt; Patchwork_174184v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174184v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-dg2-13 fi-glk-j4005 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19152 -&gt; Patchwork_174184v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19152: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9098: 9098<br />
+  Patchwork_174184v1: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4986917926315844985==--
