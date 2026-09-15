@@ -4,81 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF60EC88E75
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0959C88E7B
 	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 14:13:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6473610E842;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7462910E78A;
 	Tue, 15 Sep 2026 14:13:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TiGuyvcb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pG52829U";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAFD10E23A
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 06:32:57 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-396ccb1a990so2493419a91.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 23:32:57 -0700 (PDT)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58B710E27E
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 13:59:18 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-9120eda2195so10158976d6.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 06:59:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789480758; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Fyq2T6OZCKsTyNDQ5YHTRoMthzuJxQYX9SDMA6BRrrW2Wnhk0bWHpnczyI+Z3teVyj
+ QIeEwKSYBGEag+TYS30ELPVwjA4ne6i1nVk1kXujIwu2rLE9yuf0kKI0qRZekWqQAbal
+ 6/jkej8Xcib2zkfJ1dY2u70T+PoAyqsc2RHMBmQ23qCttW9GrhCXAg+t77ATFnTj/D5L
+ A4GL1bdIT8R+XUujNmmsCD2SZ3SBbjKHP01mxBmem+rPN+xkC9zW2VReBH6ODGGE/qcu
+ yWL0odecjLxE7IwGmnkFKz7t410wVUaX34E0uNqiMjgXsH/ygOSKvjLtojPwnryLqxCT
+ etcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=qtYpuKUyAlpc4Ck0pC2uxBVaD63r9WyFlbfA/VDUwk0=;
+ fh=t+X1qxuVS5lpJ3zIrTqOEtQL4/2WBdOnlQxjlQhMeXk=;
+ b=ds6Vmd5j0LbTFnL0KhmsX5lrJLCVbT7C5lOKA96/1SzU0XmOKnWUpvx3gM7jFfHNHF
+ 9lXsVZUdPWhbFJnKcqIwCX/vvqClV8dsII4iC9kAWFxj+N57ceXnMmG+NFaRnkjiWwHh
+ EW/fahoCELrjSS150vhrmmZZ1rxE/DTH7gRO7GMwc94wmjHzJITazpOLeJVWr3KgKGDL
+ YgICi5jlWZlCqx7woiHW4bPm/5nHaVd61TxS+IBBN47+vI/IoHHTHNXft/gVxEEgew5h
+ /9PEVvf4DWQgfIaRFvQKix3Er5r6Y5W7uOHafW3J0c+0moLtbNaqbodM+B01V+60y8+L
+ Vmew==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789453976; x=1790058776; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=QqArEvzGbVkfAltQ7Gy444plDqM6Su1k8Ceju0cJ61Q=;
- b=TiGuyvcbn0yt2akXVpN1Rz2lJdQNffV7W4hPiGvoxmATobo3LKvJySMW3gpivhNqyg
- 99P7FbbBwlSC6Z4j/5QVKl4FEgJJrDNmk40cAtjNTxg6ggfQ85PCOTGKdRKNvlRAxki3
- cccumrC3X+yNlD59p3MSaVFN8kZ8oBpJ83KZ4kWa4uGb10NtlfXwZ4Z+KNxMiTKktbg2
- PxC0QWWb75cmDtrzdsTgm2ZQB38Gbz5mehVgoQWOWv2rt1wbRMkYndAAdkszAJOwD2e7
- eg6+9YsX0d1n9q0cooikRyarrocdayHDfgdHzbuRQYK/chnXDuPqXQ/Gma9Y8hoiQ866
- NbKA==
+ d=gmail.com; s=20251104; t=1789480758; x=1790085558; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=qtYpuKUyAlpc4Ck0pC2uxBVaD63r9WyFlbfA/VDUwk0=;
+ b=pG52829Ut1IqxJphqI2yqA2U7m3G+wm9LAGwQdlZ2d3ZhfAzfpBIq2lk8kqxPDC9XX
+ hrCYmPNjMmWD73xjV0Y/T1kVU5TzlIg61aSkM+nwgGLGyYplHakXKjZpTRe3p66r9/+a
+ VD11Hvs0zAkC34hfVZTHljuq+T0vRn/RDQ2I+agE7q9FfZjtLq/a25k46NWy2VVyDini
+ ILnHKh7gVXMpDTSGEwPdjnBeruvXK1I8SAmmy7nmxU/Nw+YfDxAM3NKw4VgnwRgR99x6
+ GSt4KgegNr+Xk9ooGKCLmBdm6S4hmd0zOrdXwzaIyqfmAP7ub1UqnbIAWj6GyZs6udY4
+ balw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789453976; x=1790058776;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QqArEvzGbVkfAltQ7Gy444plDqM6Su1k8Ceju0cJ61Q=;
- b=PBHL6KBJAcI8ESkOTOCy3H8+oJGnydJwP3kvZa1Ndf87FJLcghB/JW6KQv3iPvO7Zc
- 1ZcHefkKe/6InBlTvA+RQP4M9F/jSzHUmGCsEBEp1jNJAIvXId262IK0aRSLCyWE/hXR
- ranKmX25DuxKl8cQ7w4JE5U88cFoMR0XqucO9kmp/TFmiahL1sk2di8mR/gj1fkQV2s/
- Q+jNF8+sxfYEEIHdDkgss3Rh8Ddg2l5U6+EeYipT2ieEnnd10h6ovk3xfVwQeBh2nQuT
- PWem0hiMMBxcedwAqvuoQATSP69WjZKkaAnRKQb+dgbpgdP3LJswVRbawiBlsBdtygUd
- 3Cdw==
+ d=1e100.net; s=20260707; t=1789480758; x=1790085558;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=qtYpuKUyAlpc4Ck0pC2uxBVaD63r9WyFlbfA/VDUwk0=;
+ b=TMeYQewjefVl71YuffyNYg1E6qyEoGIn0IxEN/9NckHKw4K/L0/NZNZZNDvoBRxECY
+ 2RVMf6REBdfznzIYboHwxgtik60ptA6ZgYoRvgle4aoSZZAPBbyI/PFwzEE3YMBr8Og9
+ k2H417G6evaeckUj/hz+pyFYmlO/fLguGglN8SpLCcazSPrVQ6EWqW15LI/Cfdp+JMtq
+ xodt229HdsKNfJfxNun96ORbsyvN0zWTm2VMBka0QXXNnQxr6A9lILyU1Q4H5/0ZwRrK
+ hNyyRlSAXzjhMs/anrdBl4LhVufItgJmReCDL8re4+t3NNaoCE5KlRJB7CIQVduYPZkm
+ QPtw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzqGnV81SvJb7pnGuGpZDbQ4G+4v14NbOXFU4CcrRNx7T8LYjYjxLlPEuekLXLM2cVTJGeNIcda3IU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nAqyehtcZ1OSSRk9pYNlFp7QYlrehYzT21dDGLWjGbirjS2MN8
- QwTXP2DUz8KR9FPt3Lc6D8jij8u1hcjx+9hlhxsKJAGSQo6UKK/o/b4L
-X-Gm-Gg: AYBFou2Mwitnea5bwCyHsER7JYYeR+jg8dumeWEhaQ/gOokYFbedHtSO7DmaHNrbeVc
- Dd6Bkq3qLkVeDtfYq+UfH8OeWITKrFWDSVyjhuCoUmJuf2oYULioi81tsNQ3MzytQkinORuu2wU
- EL0WM/rOT5Cv2FcHXWOLN/VjztCYCj5Ux2hSkhuk8YoqOnTvDKQGDgjzvRRTXf/k7QA/HOFvmqm
- 9wQYMemsAjAYaVNa3sIH9HBZClMaiF93UYeypYikIk30lSpeqBlok8Xy6Oa0Na132Aumx96XLa/
- uMYhThLT0FhDiCBHfEN88uI4SlNOvLSqFdOC8HvMvuO6f5BHvU1rfe6G/udqH/05Wfy2Bzap5/l
- MJQO5ViXM0zdxzYapFvKNG4oHHV0HEz8VH5Xb3wpsBTw02lH/IeUWOuq856TikRG5CO96NILbHF
- 8VMSDi3lKCoeh4jpVz+M/ZXBqqe2GUR7zdb3LDXRFdjyOrVO4E1tkuq+LETZ6Zldkbm7ctg9yD5
- rMSLTyiYTNa4kjOQs/BiwZt2nJNK03K+s8OoJSiyhPYvUDTlEn3Tmu6aicAfmyGK01An1xiyyQT
- WrXbUE2MOCqo20aZp0ec5+nrvNPWaCar5KuCz923fEiSWOvPQcRgV6J1iTgr088=
-X-Received: by 2002:a17:90b:4b10:b0:39d:e54c:a28a with SMTP id
- 98e67ed59e1d1-39debf9b35dmr11228325a91.8.1789453976485; 
- Mon, 14 Sep 2026 23:32:56 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39dfd9baad9sm3254695a91.4.2026.09.14.23.32.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 23:32:56 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Matthias Goergens <matthias.goergens@gmail.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915: unlock shmem folios after skipped writeback
-Date: Tue, 15 Sep 2026 14:32:53 +0800
-Message-ID: <20260915063253.2471499-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914111511.648711F000FF@smtp.kernel.org>
-References: <20260914105606.3997649-1-matthias.goergens@gmail.com>
- <20260914111511.648711F000FF@smtp.kernel.org>
+ AKwUvBxbBWMK0XmzusKKrW1qejWikp9t9WhEIfpsgMpuvEAVxl+fOvzaKHPL1VkOyiLnpDkivZzApvK3ZDI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mxlCrFvqPSd3Ubj+tkJTXpNRqUYqh0AYfUYg02ZyYa77+6yABj
+ MsRHPnQTSt+3KqHpizqhA3Kf6UeV1+2F3abQ/wntyABIi5EQP4uNlga86H94hCJ08O8SmYFxsQ4
+ +9Aq7do51kHbuQ9IdTESRvlXYQrFDf00=
+X-Gm-Gg: AYBFou3QsCa18DoqP90KLos5JaeF746ZYgaV6e63RKaxxopoSdrWmjgkPwOhYtC3q4V
+ xs8Wy7oq0/TuN5UZHUpDtpW4cNyhmgM6tuye7Wf+5A3M+3gVkBI9fcOhpoiA0n3Iw0IErnJgI/K
+ rJnWoKU0C0zxGJ7aIwxCzKw4xLTJPg7gq6XqtINWlR6MBo8+SZzFYuofbo8OKw22nHeR7G6eACI
+ ZvBdYf0i0jqm4f3jZuOQ1V8Jcx2ps7fRwa8U8w0jaOVcXKOuXerTabizZPn88M3d2ffCwrkuXVD
+ l2zBG7MV0JyJev9VfR6/Pj9Y5exKvyTbk+/MiWeMV17qgkgQFrdOj54chBoBguRDNhGtovqqeXy
+ 0HSqpN1IofNWh1YO/sG0=
+X-Received: by 2002:a05:6214:428c:b0:910:6ca7:cad4 with SMTP id
+ 6a1803df08f44-91234347c67mr48629936d6.5.1789480757416; Tue, 15 Sep 2026
+ 06:59:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260905142500.17666-1-zhoulol888@gmail.com>
+ <20260915064200.23171-1-zhoulol888@gmail.com>
+ <69d0f3f3566521e516e439e818a619766561567c@intel.com>
+In-Reply-To: <69d0f3f3566521e516e439e818a619766561567c@intel.com>
+From: Activate Windows <zhoulol888@gmail.com>
+Date: Tue, 15 Sep 2026 21:59:06 +0800
+X-Gm-Features: AcwNN1V-PMybVCwMGP9Ri_2RLLkQkWkHW6MDdwoRi03kcrCMTtjQFFHabyW8iaM
+Message-ID: <CAEnyS7FrjPdkErjnNO5bOkEvrRdGfWYNB-GnhjpB2iKYFMJx5g@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/xe/display: Remove invalid initial plane PTE check
+ for iGPU
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Content-Type: multipart/alternative; boundary="000000000000e0da58065b85f47d"
 X-Mailman-Approved-At: Tue, 15 Sep 2026 14:13:14 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,22 +112,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Yes, the budget should use the supplied object size. The current limit
-is a separate regression from
-776a853a43c9 ("i915: Use writeback_iter()"). The old loop walked
-size >> PAGE_SHIFT pages; the iterator now honours the pre-existing
-SWAP_CLUSTER_MAX budget, leaving size unused.
+--000000000000e0da58065b85f47d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The reclaim-accounting consequence needs some qualification, though.
-Before optional writeback, i915 drops its references to the whole object's
-pages and clears mapping unevictability. The remaining pages can be
-reclaimed by the MM. The shrinker also counts the object when writeback
-isn't requested, so that count doesn't mean every page reached swap.
+Thank you.
+Follow-up: reading 0d5d5d0c2c72, the check assumes GRAPHICS_VERx100(xe) >=
+=3D
+1270 stands in for "MTL+ with LMEMBAR". On the PTL I hit this on, the
+initial plane is rejected.
 
-I have sent a separate patch [1], "drm/i915: size shmem writeback budget
-to the object", using an object-sized nr_to_write budget to restore the
-previous writeback scope. It remains best-effort.
-I have not measured the effect of the current limit on reclaim latency
-or OOM.
+I'm working out whether the BIOS PTE actually lacks XE_GGTT_PTE_DM there --
+I'll follow up with a proper v2. I don't have the machine in front of me
+for a few days.
 
-[1] https://lore.kernel.org/all/20260915062924.2410550-1-matthias.goergens@gmail.com/
+On Tue, Sep 15, 2026 at 4:40=E2=80=AFPM Jani Nikula <jani.nikula@linux.inte=
+l.com>
+wrote:
+
+> On Tue, 15 Sep 2026, Andrew Zhou <zhoulol888@gmail.com> wrote:
+> > Pantherlake integrated graphics can have the XE_GGTT_PTEDM bit set in
+> > the BIOS-initialised framebuffer PTE. The validation rejects this and
+> > fails to create the initial framebuffer, resulting in static.
+> >
+> > Remove the too-strict validation. Since this was the only caller of
+> > need_pte_local() outside the DGFX path, the helper is now
+> > unconditionally true there; fold the check and drop the dead
+> > need_pte_local() and has_lmembar() helpers.
+> >
+> > Signed-off-by: Andrew Zhou <zhoulol888@gmail.com>
+> > Tested-by: Andrew Zhou <zhoulol888@gmail.com>
+> > Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping
+>
+> This is basically a revert of 0d5d5d0c2c72 ("drm/xe: Check the PTE local
+> memory bit for initial FB in stolen"). You'd do well to dig a bit of git
+> blame and see what changed, why, and by whom.
+>
+> Cc: Ville, Maarten, Matthew
+>
+>
+> BR,
+> Jani.
+>
+> > ---
+> > v1 -> v2:
+> > - Drop need_pte_local() and has_lmembar(), now dead after removing the
+> >   iGPU validation (sashiko)
+> > ---
+> >  drivers/gpu/drm/xe/display/xe_initial_plane.c | 20 +------------------
+> >  1 file changed, 1 insertion(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> > index 0f86b7303..3484b3033 100644
+> > --- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> > +++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> > @@ -27,16 +27,6 @@ static bool is_pte_local(u64 pte)
+> >       return pte & XE_GGTT_PTE_DM;
+> >  }
+> >
+> > -static bool has_lmembar(struct xe_device *xe)
+> > -{
+> > -     return GRAPHICS_VERx100(xe) >=3D 1270;
+> > -}
+> > -
+> > -static bool need_pte_local(struct xe_device *xe)
+> > -{
+> > -     return IS_DGFX(xe) || has_lmembar(xe);
+> > -}
+> > -
+> >  static struct xe_bo *
+> >  initial_plane_bo(struct xe_device *xe,
+> >                struct intel_initial_plane_config *plane_config)
+> > @@ -60,7 +50,7 @@ initial_plane_bo(struct xe_device *xe,
+> >       if (IS_DGFX(xe)) {
+> >               u64 pte =3D xe_ggtt_read_pte(tile0->mem.ggtt, base);
+> >
+> > -             if (is_pte_local(pte) !=3D need_pte_local(xe)) {
+> > +             if (!is_pte_local(pte)) {
+> >                       drm_err(&xe->drm, "Initial plane PTE has bad loca=
+l
+> memory bit\n");
+> >                       return NULL;
+> >               }
+> > @@ -85,7 +75,6 @@ initial_plane_bo(struct xe_device *xe,
+> >                           &phys_base);
+> >       } else {
+> >               struct ttm_resource_manager *stolen;
+> > -             u64 pte;
+> >
+> >               stolen =3D ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
+> >               if (!stolen) {
+> > @@ -93,13 +82,6 @@ initial_plane_bo(struct xe_device *xe,
+> >                       return NULL;
+> >               }
+> >
+> > -             pte =3D xe_ggtt_read_pte(tile0->mem.ggtt, base);
+> > -
+> > -             if (is_pte_local(pte) !=3D need_pte_local(xe)) {
+> > -                     drm_err(&xe->drm, "Initial plane PTE has bad loca=
+l
+> memory bit\n");
+> > -                     return NULL;
+> > -             }
+> > -
+> >               phys_base =3D base;
+> >               flags |=3D XE_BO_FLAG_STOLEN;
+>
+> --
+> Jani Nikula, Intel
+>
+
+--000000000000e0da58065b85f47d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Thank you.<br><span class=3D"gmail-">Foll=
+ow-up: reading 0d5d5d0c2c72, the check assumes </span><code>GRAPHICS_VERx10=
+0(xe) &gt;=3D 1270</code><span class=3D"gmail-"> stands in for &quot;MTL+ w=
+ith LMEMBAR&quot;. On the PTL I hit this on, the initial plane is rejected.=
+=C2=A0<br><br>I&#39;m working out whether the BIOS PTE actually lacks XE_GG=
+TT_PTE_DM there -- I&#39;ll follow up with a proper v2. I don&#39;t have th=
+e machine in front of me for a few days.</span></div><br><div class=3D"gmai=
+l_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue=
+, Sep 15, 2026 at 4:40=E2=80=AFPM Jani Nikula &lt;<a href=3D"mailto:jani.ni=
+kula@linux.intel.com">jani.nikula@linux.intel.com</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">On Tue, 15 Sep 2026, Andre=
+w Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com" target=3D"_blank">zhoulo=
+l888@gmail.com</a>&gt; wrote:<br>
+&gt; Pantherlake integrated graphics can have the XE_GGTT_PTEDM bit set in<=
+br>
+&gt; the BIOS-initialised framebuffer PTE. The validation rejects this and<=
+br>
+&gt; fails to create the initial framebuffer, resulting in static.<br>
+&gt;<br>
+&gt; Remove the too-strict validation. Since this was the only caller of<br=
+>
+&gt; need_pte_local() outside the DGFX path, the helper is now<br>
+&gt; unconditionally true there; fold the check and drop the dead<br>
+&gt; need_pte_local() and has_lmembar() helpers.<br>
+&gt;<br>
+&gt; Signed-off-by: Andrew Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com"=
+ target=3D"_blank">zhoulol888@gmail.com</a>&gt;<br>
+&gt; Tested-by: Andrew Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com" tar=
+get=3D"_blank">zhoulol888@gmail.com</a>&gt;<br>
+&gt; Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping<=
+br>
+<br>
+This is basically a revert of 0d5d5d0c2c72 (&quot;drm/xe: Check the PTE loc=
+al<br>
+memory bit for initial FB in stolen&quot;). You&#39;d do well to dig a bit =
+of git<br>
+blame and see what changed, why, and by whom.<br>
+<br>
+Cc: Ville, Maarten, Matthew<br>
+<br>
+<br>
+BR,<br>
+Jani.<br>
+<br>
+&gt; ---<br>
+&gt; v1 -&gt; v2:<br>
+&gt; - Drop need_pte_local() and has_lmembar(), now dead after removing the=
+<br>
+&gt;=C2=A0 =C2=A0iGPU validation (sashiko)<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/xe/display/xe_initial_plane.c | 20 +------------=
+------<br>
+&gt;=C2=A0 1 file changed, 1 insertion(+), 19 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/g=
+pu/drm/xe/display/xe_initial_plane.c<br>
+&gt; index 0f86b7303..3484b3033 100644<br>
+&gt; --- a/drivers/gpu/drm/xe/display/xe_initial_plane.c<br>
+&gt; +++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c<br>
+&gt; @@ -27,16 +27,6 @@ static bool is_pte_local(u64 pte)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return pte &amp; XE_GGTT_PTE_DM;<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; -static bool has_lmembar(struct xe_device *xe)<br>
+&gt; -{<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0return GRAPHICS_VERx100(xe) &gt;=3D 1270;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static bool need_pte_local(struct xe_device *xe)<br>
+&gt; -{<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0return IS_DGFX(xe) || has_lmembar(xe);<br>
+&gt; -}<br>
+&gt; -<br>
+&gt;=C2=A0 static struct xe_bo *<br>
+&gt;=C2=A0 initial_plane_bo(struct xe_device *xe,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct intel_in=
+itial_plane_config *plane_config)<br>
+&gt; @@ -60,7 +50,7 @@ initial_plane_bo(struct xe_device *xe,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_DGFX(xe)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 pte =3D xe_g=
+gtt_read_pte(tile0-&gt;mem.ggtt, base);<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (is_pte_local(pte)=
+ !=3D need_pte_local(xe)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!is_pte_local(pte=
+)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0drm_err(&amp;xe-&gt;drm, &quot;Initial plane PTE has bad local=
+ memory bit\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0return NULL;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; @@ -85,7 +75,6 @@ initial_plane_bo(struct xe_device *xe,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;phys_base);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct ttm_resou=
+rce_manager *stolen;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 pte;<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stolen =3D ttm_m=
+anager_type(&amp;xe-&gt;ttm, XE_PL_STOLEN);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!stolen) {<b=
+r>
+&gt; @@ -93,13 +82,6 @@ initial_plane_bo(struct xe_device *xe,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0return NULL;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pte =3D xe_ggtt_read_=
+pte(tile0-&gt;mem.ggtt, base);<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (is_pte_local(pte)=
+ !=3D need_pte_local(xe)) {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0drm_err(&amp;xe-&gt;drm, &quot;Initial plane PTE has bad local memor=
+y bit\n&quot;);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0return NULL;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0phys_base =3D ba=
+se;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0flags |=3D XE_BO=
+_FLAG_STOLEN;<br>
+<br>
+-- <br>
+Jani Nikula, Intel<br>
+</blockquote></div></div>
+
+--000000000000e0da58065b85f47d--
