@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E80CC88E75
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 18:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D110CC88E75
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 18:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B05110E625;
-	Tue, 15 Sep 2026 18:08:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC9110E468;
+	Tue, 15 Sep 2026 18:38:49 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6A6310E622;
- Tue, 15 Sep 2026 18:08:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4400610E468;
+ Tue, 15 Sep 2026 18:38:48 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/xe/display?=
- =?utf-8?q?=3A_Remove_invalid_initial_plane_PTE_check_for_iGPU_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915=3A_unl?=
+ =?utf-8?q?ock_shmem_folios_after_skipped_writeback?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Andrew Zhou" <zhoulol888@gmail.com>
+To: "Matthias Goergens" <matthias.goergens@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Sep 2026 18:08:47 -0000
-Message-ID: <178949572767.166927.8233046810870105962@61270ab9df2a>
+Date: Tue, 15 Sep 2026 18:38:48 -0000
+Message-ID: <178949752827.166934.9464801479317822270@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260905142500.17666-1-zhoulol888@gmail.com>
-In-Reply-To: <20260905142500.17666-1-zhoulol888@gmail.com>
+References: <20260914105606.3997649-1-matthias.goergens@gmail.com>
+In-Reply-To: <20260914105606.3997649-1-matthias.goergens@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,15 +43,15 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/xe/display: Remove invalid initial plane PTE check for iGPU (rev2)
-URL   : https://patchwork.freedesktop.org/series/173618/
+Series: drm/i915: unlock shmem folios after skipped writeback
+URL   : https://patchwork.freedesktop.org/series/174153/
 State : failure
 
 == Summary ==
 
-Series author address 'zhoulol888@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
+Series author address 'matthias.goergens@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
 If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
 Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187567/ (on built-in)
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187569/ (on built-in)
 
 
