@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E89C982C4
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 18:39:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE1AEC88E7D
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 18:39:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35AD010E661;
-	Tue, 15 Sep 2026 18:39:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5153410EE0D;
+	Tue, 15 Sep 2026 18:39:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EDVqjtae";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ioLgQZio";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D491A10E4C0;
- Tue, 15 Sep 2026 18:39:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9703F10EE58;
+ Tue, 15 Sep 2026 18:39:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789497564; x=1821033564;
+ t=1789497566; x=1821033566;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bIdI2iCQpw0asbXUucKB25jMAjgVM2wvcs3ks7/Q9zo=;
- b=EDVqjtaezfHIgRnA8Eb7B7t+jYl9U5JAP1W5oCsO/CrKacDMFgNL4FuP
- YvHTN1XvBfkxxekTk8rhBhaUPZjjCqZOPwgxphBW2VmpjYJlNfXvVBhuK
- 58Cub9C40Mnz0widqkFBcZajE/Agpja0oHdd0IJ62el5EqMmX+xKKOEep
- g6TR/GVehB90CQ844+HTzKTSttobslgttGgLu1jan07sg2nox9xGVbeFG
- s82Djhq9ZOBJLvk0n0HsrwYbhRz7J6/GbJCbeGVFFJEjoujLw2VnyEy8y
- RkzNPYuGe5zlPsSnj6VQYKGXHSu17xg6UrglyXBsgfIu3srPv94ExiBlb w==;
-X-CSE-ConnectionGUID: /DOcPWz+TEaxdG4dSkZQIA==
-X-CSE-MsgGUID: QK7X66c1QDGU5jxfuboBJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92380301"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92380301"
+ bh=1V4wxwpRXDjKanfN7R/II44SQXTaeWmIy8v2ucs10f8=;
+ b=ioLgQZiocnkgerQsyCWPwHl2M59KoFcKSPy/kWf0jrmXS0vZnxQcAzmH
+ JCzyxCR+AUt+lgrV/v+wINfWdfLQeLTXxZcYeaEKiM7FGmeWGRy91E4je
+ GkqvLCJ/SZdrMcOuXVjBnqajmIF/30IHX4V20aL5XhNoh5X5VuO8BjGl5
+ vR5ys2Qwmf6P9XjQZAjX3KcZIjMwXhzzLN/CvMJsa9FQRja46shFSZYsp
+ 3GOSzIo+qnefILehkDhr8ya8fl5jGLrqb2wm8rmhRucys35cq+BOA4j2O
+ V7tqg2fJCQmfO8UYZ/Uklgc30zmRSBNJyIz/biXaNok/5pGEoqzihIm7W Q==;
+X-CSE-ConnectionGUID: qMxfASpcQiaufvJHKcCpKw==
+X-CSE-MsgGUID: 6OHnRcoWTEuKRkFFPiKmpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92380305"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="92380305"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 11:39:24 -0700
-X-CSE-ConnectionGUID: H+XfMcX8QRSnuPMNTYIRIA==
-X-CSE-MsgGUID: ZDYG2lP3RL+g9JkWyOcdKw==
+ 15 Sep 2026 11:39:26 -0700
+X-CSE-ConnectionGUID: 7BDgh6oDQ82LYuLg+mZvMg==
+X-CSE-MsgGUID: dsX5RymeTTOtC62KcofbHA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298148503"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="298148506"
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
- by fmviesa001.fm.intel.com with ESMTP; 15 Sep 2026 11:39:21 -0700
+ by fmviesa001.fm.intel.com with ESMTP; 15 Sep 2026 11:39:24 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: jouni.hogander@intel.com, jani.nikula@intel.com, suraj.kandpal@intel.com,
  Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v6 09/18] drm/i915/alpm: Half LFPS cycle calculation
-Date: Tue, 15 Sep 2026 23:34:40 +0530
-Message-Id: <20260915180449.277933-10-animesh.manna@intel.com>
+Subject: [PATCH v6 10/18] drm/i915/alpm: Modify LFPS cycle count for DP ALPM
+Date: Tue, 15 Sep 2026 23:34:41 +0530
+Message-Id: <20260915180449.277933-11-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20260915180449.277933-1-animesh.manna@intel.com>
 References: <20260915180449.277933-1-animesh.manna@intel.com>
@@ -69,82 +69,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add support for half LFPS cycle calculation for DP2.1 ALPM as dependent
-parameters got changed.
-
-v1: Initial version.
-v2: Avoid returning early. [Jani]
-v3: Use intel_crtc_has_type(). [Suraj]
-v4: Split in separate function based on HAS_LT_PHY() check. [Jouni]
+For DP minimum LFPS count is set to minimum 16.
 
 Cc: Jouni Högander <jouni.hogander@intel.com>
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_alpm.c | 41 ++++++++++++++++++-----
- 1 file changed, 33 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_alpm.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index cb24bba801a1..14ecb27095b2 100644
+index 14ecb27095b2..22ed341763fa 100644
 --- a/drivers/gpu/drm/i915/display/intel_alpm.c
 +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -74,24 +74,49 @@ static int get_silence_period_symbols(const struct intel_crtc_state *crtc_state)
- 		1000 / 1000;
- }
+@@ -24,7 +24,8 @@
+ 				(SILENCE_PERIOD_MAX_TIME -	\
+ 				 SILENCE_PERIOD_MIN_TIME) / 2)
  
--static void get_lfps_cycle_min_max_time(const struct intel_crtc_state *crtc_state,
--					int *min, int *max)
-+static void lnl_get_lfps_period_min_max_time(const struct intel_crtc_state *crtc_state,
-+					     int *min, int *max)
+-#define LFPS_CYCLE_COUNT 10
++#define LFPS_CYCLE_COUNT	10
++#define LFPS_CYCLE_COUNT_DP	16
+ 
+ bool intel_alpm_aux_wake_supported(struct intel_dp *intel_dp)
  {
--	if (crtc_state->port_clock < 540000) {
--		*min = 65 * LFPS_CYCLE_COUNT;
--		*max = 75 * LFPS_CYCLE_COUNT;
--	} else {
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
-+		if (crtc_state->port_clock < 540000) {
-+			*min = 65 * LFPS_CYCLE_COUNT;
-+			*max = 75 * LFPS_CYCLE_COUNT;
-+		} else {
-+			*min = 140;
-+			*max = 800;
-+		}
-+	}
-+}
-+
-+static void xe3plpd_get_lfps_period_min_max_time(const struct intel_crtc_state *crtc_state,
-+						 int *min, int *max)
-+{
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
- 		*min = 140;
- 		*max = 800;
-+	} else {
-+		*min = 320;
-+		*max = 1600;
- 	}
- }
- 
-+static void get_lfps_period_min_max_time(const struct intel_crtc_state *crtc_state,
-+					int *min, int *max)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+
-+	if (HAS_LT_PHY(display))
-+		xe3plpd_get_lfps_period_min_max_time(crtc_state, min, max);
-+	else
-+		lnl_get_lfps_period_min_max_time(crtc_state, min, max);
-+}
-+
- static int get_lfps_cycle_time(const struct intel_crtc_state *crtc_state)
- {
- 	int tlfps_cycle_min, tlfps_cycle_max;
- 
--	get_lfps_cycle_min_max_time(crtc_state, &tlfps_cycle_min,
--				    &tlfps_cycle_max);
-+	get_lfps_period_min_max_time(crtc_state, &tlfps_cycle_min,
-+				     &tlfps_cycle_max);
- 
+@@ -121,10 +122,19 @@ static int get_lfps_cycle_time(const struct intel_crtc_state *crtc_state)
  	return tlfps_cycle_min +  (tlfps_cycle_max - tlfps_cycle_min) / 2;
  }
+ 
++static int get_lfps_cycle_count(const struct intel_crtc_state *crtc_state)
++{
++	/* External DP uses a minimum of 16 LFPS cycles. */
++	if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP))
++		return LFPS_CYCLE_COUNT_DP;
++
++	return LFPS_CYCLE_COUNT;
++}
++
+ static int get_lfps_half_cycle_clocks(const struct intel_crtc_state *crtc_state)
+ {
+ 	return get_lfps_cycle_time(crtc_state) * crtc_state->port_clock / 1000 /
+-		1000 / (2 * LFPS_CYCLE_COUNT);
++		1000 / (2 * get_lfps_cycle_count(crtc_state));
+ }
+ 
+ #define ML_PHY_LOCK_LEN		252
+@@ -779,7 +789,7 @@ void intel_alpm_port_configure(struct intel_dp *intel_dp,
+ 			PORT_ALPM_CTL_MAX_PHY_SWING_HOLD(0) |
+ 			PORT_ALPM_CTL_SILENCE_PERIOD(
+ 				crtc_state->alpm_state.silence_period_sym_clocks);
+-		lfps_ctl_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(LFPS_CYCLE_COUNT) |
++		lfps_ctl_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(get_lfps_cycle_count(crtc_state)) |
+ 			PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(
+ 				crtc_state->alpm_state.lfps_half_cycle_num_of_syms) |
+ 			PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(
 -- 
 2.29.0
 
