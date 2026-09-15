@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC7EC88E77
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 20:14:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3048C88E75
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 20:23:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BD9D10E10B;
-	Tue, 15 Sep 2026 20:14:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NBpm2Oj8";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1921B10E10B;
- Tue, 15 Sep 2026 20:14:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A4F034064B;
- Tue, 15 Sep 2026 20:14:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528661F000FF;
- Tue, 15 Sep 2026 20:14:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789503283;
- bh=zXSKz1TNKBhnCcHbjA4TmFmP+8CMVuwA2eZXsz7mBoU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NBpm2Oj8erY/LXuYig1QSmcoIo47CaO/RRjICB2DkMHWUyK7eF+vHjoxTKw89vg1m
- fiSTzG9jbiJKFAuJmrWo6CtFjwaXu9fxtmZxftnZh73cwdqOjbA2vGfwW9RLb1Hl7v
- 6xA3GFSRWZHqCbK5d0LjkHN6VTTaP568Y0BwyqobSlH51VkNE9SHv8cvH03qPWkCUr
- 8xFhFW8fAVRtGjiMjzup4DovgIeLr1T7ni+0zQOZuqmTuwuEInB/GwHHDJCeaYnq9E
- DadAOsRGmI59KmF44R3KHFfnUIjEAEWh+r/0ODJsCvbFJK29wK2aO9DU0xDMw+rSiX
- ByIz4rvq1ptVg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/10] drm/i915/selftests: use intel_gtt_view_is_*()
- helpers more
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <c626ae37eed76d8b94333ba0202fdfe34ec88dd5.1789502902.git.jani.nikula@intel.com>
-References: <cover.1789502902.git.jani.nikula@intel.com>
- <c626ae37eed76d8b94333ba0202fdfe34ec88dd5.1789502902.git.jani.nikula@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 20:14:42 +0000
-Message-Id: <20260915201443.528661F000FF@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2622710E581;
+	Tue, 15 Sep 2026 20:23:03 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D3D510E581;
+ Tue, 15 Sep 2026 20:23:01 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0095794378395048054=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Add_support_for_Common_SD?=
+ =?utf-8?q?P_Transmission_Line_=28rev7=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 15 Sep 2026 20:23:01 -0000
+Message-ID: <178950378137.167993.11018509521978085687@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260915164657.3429075-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260915164657.3429075-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,76 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915/selftests: incorrect view type check breaks igt_vma_rem=
-apped_gtt
---
+--===============0095794378395048054==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit b3029da419b0bcdce00e05ce10b2c3fff729069e
-Author: Jani Nikula <jani.nikula@intel.com>
+== Series Details ==
 
-drm/i915/selftests: use intel_gtt_view_is_*() helpers more
+Series: Add support for Common SDP Transmission Line (rev7)
+URL   : https://patchwork.freedesktop.org/series/162622/
+State : success
 
-This commit replaces direct view type comparisons with intel_gtt_view_is_*()
-helpers.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/=
-i915/selftests/i915_vma.c
-> index b16297a6a4e8d..ca340a94f7728 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-[ ... ]
-> @@ -1057,7 +1057,7 @@ static int igt_vma_remapped_gtt(void *arg)
->  				goto out;
->  			}
-> =20
-> -			GEM_BUG_ON(vma->gtt_view.type !=3D I915_GTT_VIEW_NORMAL);
-> +			GEM_BUG_ON(!intel_gtt_view_is_normal(&vma->gtt_view));
-> =20
->  			map =3D i915_vma_pin_iomap(vma);
->  			i915_vma_unpin(vma);
-[ ... ]
-> @@ -1072,7 +1072,7 @@ static int igt_vma_remapped_gtt(void *arg)
->  					u32 exp =3D y << 16 | x;
->  					u32 val;
-> =20
-> -					if (*t =3D=3D I915_GTT_VIEW_ROTATED)
-> +					if (intel_gtt_view_is_rotated(&vma->gtt_view))
->  						src_idx =3D rotated_index(&view.rotated, 0, x, y);
->  					else
->  						src_idx =3D remapped_index(&view.remapped, 0, x, y);
+CI Bug Log - changes from CI_DRM_19152 -> Patchwork_162622v7
+====================================================
 
-[Severity: Medium]
-Will this check always evaluate to false? Earlier in igt_vma_remapped_gtt(),
-the vma is pinned with a normal view, and verified with the GEM_BUG_ON
-shown above. Because vma->gtt_view is normal, this condition will fail even
-when testing a rotated view, incorrectly taking the remapped_index() path
-and causing spurious test failures.
+Summary
+-------
 
-Should this check continue to evaluate the original test context instead,
-such as by using intel_gtt_view_is_rotated(&view)?
+  **SUCCESS**
 
-> @@ -1081,7 +1081,7 @@ static int igt_vma_remapped_gtt(void *arg)
->  					val =3D ioread32(&map[offset / sizeof(*map)]);
->  					if (val !=3D exp) {
->  						pr_err("%s VMA write test failed, expected 0x%x, found 0x%x\n",
-> -						       *t =3D=3D I915_GTT_VIEW_ROTATED ? "Rotated" : "Remapped",
-> +						       intel_gtt_view_is_rotated(&vma->gtt_view) ? "Rotated" : "Re=
-mapped",
->  						       exp, val);
->  						i915_vma_unpin_iomap(vma);
->  						err =3D -EINVAL;
+  No regressions found.
 
-[Severity: Medium]
-Does this error message also need to check the original view context? For
-the same reason as above, if the test fails for a rotated view, it will
-incorrectly print Remapped because vma->gtt_view is normal here.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v7/index.html
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789502902.gi=
-t.jani.nikula@intel.com?part=3D8
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19152 -> Patchwork_162622v7
+
+  CI-20190529: 20190529
+  CI_DRM_19152: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9098: 9098
+  Patchwork_162622v7: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v7/index.html
+
+--===============0095794378395048054==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Add support for Common SDP Transmission Line (rev7)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/162622/">https://patchwork.freedesktop.org/series/162622/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v7/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v7/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19152 -&gt; Patchwork_162622v7</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162622v7/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19152 -&gt; Patchwork_162622v7</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19152: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9098: 9098<br />
+  Patchwork_162622v7: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0095794378395048054==--
