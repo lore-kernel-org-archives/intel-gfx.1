@@ -4,27 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55ED4C982C3
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 14:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3E2C982C3
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 15:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB30710E19A;
-	Wed, 16 Sep 2026 14:47:16 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E59C810E19A;
- Wed, 16 Sep 2026 14:47:15 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0182899054577182037=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EBA110E078;
+	Wed, 16 Sep 2026 15:29:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DkY52Btf";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 957B010E078;
+ Wed, 16 Sep 2026 15:29:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789572571; x=1821108571;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=6jjlBo5vH8VfDOZxByAJ9kJyb7Cid3lL7Re0ANg8Gqo=;
+ b=DkY52BtfQvtZcJ1Lamy9DXarUuWY7s+6lopS4mzWbvtivbE8y/sacdl+
+ xOnbOWb5ROOto7zDFVBN3yegXVsgcsiWUEGdv7OVAQDWfFzfyzMX5gz6n
+ DmMpQUo1kHh2AAL3nXbP0TtUTgTlUmnVYQETbIwyjb9wColv7qimHl7kW
+ q9DHU40hYYHNNXs0Q2WpXy8TMIcqcWB9vUiYsT9L14leSmPi5FrE0+O04
+ L1krXDM+VE7UFlZ49PIqavKs9IuKO9JfMOi5bXm3Tl0+DF+uE+EauIW9p
+ S4aoGU5RsAog+pQWf0kxkH6sBvSFi4mnl0hl33tH4sW6+S7ihHv7Hbzzf Q==;
+X-CSE-ConnectionGUID: MUm0hEvlTA2jpZOYjUq8Tw==
+X-CSE-MsgGUID: 58Au64W9Q02lZoGmMfieqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93824187"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93824187"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 08:29:31 -0700
+X-CSE-ConnectionGUID: vzabtHFASuS+4n8qE3KJXA==
+X-CSE-MsgGUID: S1mJMB5uSD6ZS74x0yBzfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="273346065"
+Received: from dbhadane-mobl1.iind.intel.com ([10.190.239.58])
+ by orviesa007.jf.intel.com with ESMTP; 16 Sep 2026 08:29:30 -0700
+From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+Subject: [PATCH] drm/i915/cx0_phy: Fix ARL-S host bridge detection
+Date: Wed, 16 Sep 2026 20:59:28 +0530
+Message-ID: <20260916152928.185110-1-dnyaneshwar.bhadane@intel.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_fix_incorrect?=
- =?utf-8?q?_RCU_teardown_order_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Sep 2026 14:47:15 -0000
-Message-ID: <178957003593.173156.5766663254226473884@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260903113621.54660-1-christian.koenig@amd.com>
-In-Reply-To: <20260903113621.54660-1-christian.koenig@amd.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +62,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0182899054577182037==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+is_arrowlake_s_by_host_bridge() re-assigned pdev in the while()
+exited (that's the loop's exit condition). This made
+condition itself, so pdev was always NULL by the time the loop
+"return pdev && ..." always false, so an Arrow Lake S host bridge
+was never detected and intel_c20_hdmi_tmds_tx_cgf_1() always used
+the wrong tx_misc value for that platform.
 
-== Series Details ==
+Check the ID as each host bridge is enumerated instead of after the
+loop, and drop the reference pci_get_class() took on the matching
+device before returning.
 
-Series: drm/i915: fix incorrect RCU teardown order (rev3)
-URL   : https://patchwork.freedesktop.org/series/173302/
-State : success
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
+Fixes: 3630a47b700e ("drm/i915/cx0_phy: Update HDMI TMDS C20 algorithm value")
+Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index dbebd7210848..de450ebf541f 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -2342,12 +2342,14 @@ static void intel_c10pll_dump_hw_state(struct drm_printer *p,
+ static bool is_arrowlake_s_by_host_bridge(void)
+ {
+ 	struct pci_dev *pdev = NULL;
+-	u16 host_bridge_pci_dev_id;
+-
+-	while ((pdev = pci_get_class(PCI_CLASS_BRIDGE_HOST << 8, pdev)))
+-		host_bridge_pci_dev_id = pdev->device;
++	while ((pdev = pci_get_class(PCI_CLASS_BRIDGE_HOST << 8, pdev))) {
++		if (IS_ARROWLAKE_S_BY_HOST_BRIDGE_ID(pdev->device)) {
++			pci_dev_put(pdev);
++			return true;
++		}
++	}
+ 
+-	return pdev && IS_ARROWLAKE_S_BY_HOST_BRIDGE_ID(host_bridge_pci_dev_id);
++	return false;
+ }
+ 
+ static u16 intel_c20_hdmi_tmds_tx_cgf_1(struct intel_display *display)
+-- 
+2.54.0
 
-CI Bug Log - changes from CI_DRM_19155 -> Patchwork_173302v3
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v3/index.html
-
-Participating hosts (38 -> 37)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19155 -> Patchwork_173302v3
-
-  CI-20190529: 20190529
-  CI_DRM_19155: 3b18c5132fd3bbc7e74490b64d814df76edffd60 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9099: 9099
-  Patchwork_173302v3: 3b18c5132fd3bbc7e74490b64d814df76edffd60 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v3/index.html
-
---===============0182899054577182037==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: fix incorrect RCU teardown order (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173302/">https://patchwork.freedesktop.org/series/173302/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19155 -&gt; Patchwork_173302v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173302v3/index.html</p>
-<h2>Participating hosts (38 -&gt; 37)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19155 -&gt; Patchwork_173302v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19155: 3b18c5132fd3bbc7e74490b64d814df76edffd60 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9099: 9099<br />
-  Patchwork_173302v3: 3b18c5132fd3bbc7e74490b64d814df76edffd60 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============0182899054577182037==--
