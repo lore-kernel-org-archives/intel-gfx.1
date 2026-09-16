@@ -4,43 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7582C88E7F
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 03:08:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FBAAC88E77
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 03:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6416910E1DC;
-	Wed, 16 Sep 2026 03:08:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aObzt9Cy";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E01D6896EC;
- Wed, 16 Sep 2026 03:08:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1424560008;
- Wed, 16 Sep 2026 03:08:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C57D1F000FF;
- Wed, 16 Sep 2026 03:08:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789528122;
- bh=ZuTSLOMnezNW+eQB5qiJDONObooRW6Sw/8p9IJSCAS8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aObzt9CyuoNd/u0uXcunl9spe3e8nmt/bINGCEeGtBaBevP/QQKENBN7z3IcfXDWW
- cVyaF0Phw/GRMJ9rApfMAYkGN6TivvTyPlCLeI9iouj0P+8GxV40ji/u4Nhpu6M8IW
- ZrOPjomVSdJHkkYsdR0yNkbRq/0KYvEQAoZCKfPcge8EHRcMvwXeDt4Tn10iE/BJSX
- XwWyJPhyD9+FWfNZIQSRTyeMWHzo0U3Cz3ZNXh7yY4vHaV808kRuRTFxQ+cps2ezdG
- 09si3MLDgiKaUlLBCjDMmUnbx53FxcxWHcRDyukWMcuwa5KP3RXBOX3yJPTemetjyi
- c2/1zs5ITVt0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/10] drm/i915/dp_mst: Limit M/N ratio for MST
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260916025710.432281-4-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA0EF10E030;
+	Wed, 16 Sep 2026 03:47:45 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A712310E030;
+ Wed, 16 Sep 2026 03:47:44 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3318247770143044063=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Implement_Wa=5F1402176879?=
+ =?utf-8?q?2_to_bypass_m=5Fn_ratio_limit_=28rev7=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 16 Sep 2026 03:47:44 -0000
+Message-ID: <178953046467.169164.11580681947906537600@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260916025710.432281-1-suraj.kandpal@intel.com>
- <20260916025710.432281-4-suraj.kandpal@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 03:08:42 +0000
-Message-Id: <20260916030842.8C57D1F000FF@smtp.kernel.org>
+In-Reply-To: <20260916025710.432281-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,71 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915/dp_mst: mode_valid prunes modes on UHBR due to M/N rati=
-o logic flaw
---
+--===============3318247770143044063==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit d987781a69cc401d2c2bdee227fee0cfd510d97e
-Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+== Series Details ==
 
-drm/i915/dp_mst: Limit M/N ratio for MST
+Series: Implement Wa_14021768792 to bypass m_n ratio limit (rev7)
+URL   : https://patchwork.freedesktop.org/series/138257/
+State : success
 
-This commit enforces the maximum M/N ratio limit for MST configurations in
-mst_connector_mode_valid_ctx(), mirroring the SST path. It evaluates the
-limit using the highest available link rate, dropping modes if the maximum
-rate cannot support the required ratio.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index 6a869d0f6ffc0..3f4ab9573d0c0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-[ ... ]
-> @@ -1564,6 +1565,15 @@ mst_connector_mode_valid_ctx(struct drm_connector =
-*_connector,
->  					   min_link_bpp_x16,
->  					   bw_overhead_flags);
-> =20
-> +	if (intel_dp_link_caps_get_max_config(intel_dp->link.caps,
-> +					      INTEL_DP_LINK_CAPS_ORDER_KEY_RATE_LANE,
-> +					      INTEL_DP_LINK_CAPS_FILTER_ALL,
-> +					      &max_rate_config) &&
-> +	    !intel_dp_can_support_m_n(display, mode->clock, max_rate_config.rat=
-e)) {
+CI Bug Log - changes from CI_DRM_19152 -> Patchwork_138257v7
+====================================================
 
-[Severity: Medium]
-Will this logic incorrectly prune high pixel-clock display modes (like
-4K@240Hz or 8K) on UHBR-capable displays?
+Summary
+-------
 
-The commit message states "the ratio shrinks as the link rate grows", but
-when crossing from HBR3 (8.1 Gbps, 8b/10b, 10-bit symbol) to UHBR10 (10 Gbp=
-s,
-128b/132b, 32-bit symbol), the symbol clock drops drastically.
+  **SUCCESS**
 
-Since the M/N ratio is proportional to pixel_clock / symbol_clock, evaluati=
-ng
-at the UHBR10 rate inflates the ratio. This might cause the ratio to exceed
-the max limit (10) and fail here, even though the mode might have passed if
-evaluated at HBR3.
+  No regressions found.
 
-Does this falsely prevent valid high-bandwidth modes from reaching the comp=
-ute
-config stage on modern DP 2.0/2.1 monitors?
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v7/index.html
 
-> +		*status =3D MODE_CLOCK_HIGH;
-> +		return 0;
-> +	}
-> +
->  	/*
->  	 * TODO:
->  	 * - Also check if compression would allow for the mode
+Participating hosts (39 -> 37)
+------------------------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916025710.4322=
-81-1-suraj.kandpal@intel.com?part=3D3
+  Missing    (2): bat-dg2-13 fi-glk-j4005 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_138257v7 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [PASS][1] -> [FAIL][2] ([i915#16664])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19152/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v7/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#16664]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19152 -> Patchwork_138257v7
+
+  CI-20190529: 20190529
+  CI_DRM_19152: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9098: 9098
+  Patchwork_138257v7: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v7/index.html
+
+--===============3318247770143044063==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Implement Wa_14021768792 to bypass m_n ratio limit (rev7)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/138257/">https://patchwork.freedesktop.org/series/138257/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v7/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v7/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19152 -&gt; Patchwork_138257v7</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v7/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-dg2-13 fi-glk-j4005 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_138257v7 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@kms_hdmi_inject@inject-audio:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19152/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v7/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664">i915#16664</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19152 -&gt; Patchwork_138257v7</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19152: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9098: 9098<br />
+  Patchwork_138257v7: 0fb8d1900f1a6b9d21aadbfa5f784979b950bcf8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3318247770143044063==--
