@@ -4,27 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CE1C982C9
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 16:30:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E40EC982C9
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA23C10E3C1;
-	Wed, 16 Sep 2026 16:30:18 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A959210E3C1;
- Wed, 16 Sep 2026 16:30:17 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8046551774832759574=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9932C10E197;
+	Wed, 16 Sep 2026 17:26:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ck1OGOhe";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E801010E251
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:26:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789579606; x=1821115606;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=WBPC+qP5/J+46m2cj9buYBvg4f0hgvW8kMQtB122HKc=;
+ b=ck1OGOheO4e6jTR3gJZdQUxgg4RupWK9ARLSN4e/kfmWkoSrE1ZoemlB
+ rR9cMVWHhgQh7qXrOLCTE7mDPPcd6cnvVpM3DkEOP+gSLhLJ7NtmooRtD
+ Yw0r7ra0XPgd9VOV8ig3MBqOkKN12oAv8j3fQ3O2N4HUsf/pcbMbwCYP0
+ KveA/kQ5heXvyKnCkylZEgBS5eq29UQyqpd8mdlP8yM3ocV53p9prGS8v
+ Lm5mFlmZZ2Fxw7HO6B04+gqdDwsBFiNbucoRIrGtSBVFkZ51y7di20k+9
+ evoj9YCbkBprOMD22Y3hwixlyMgXhDlwtO1RgLvBTgN8EDX9TOnoUREt1 g==;
+X-CSE-ConnectionGUID: yfjCp3ZPRVCJMwHx0ctKaw==
+X-CSE-MsgGUID: BNjgNjCRSxG/JPwQt/XG7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115499460"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="115499460"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 10:26:45 -0700
+X-CSE-ConnectionGUID: 0oxytLzxS5qSWKo/I6lgUw==
+X-CSE-MsgGUID: TUQXpHquRLG5KeN1Z8dO/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1630763"
+Received: from jesusnar-desk.jf.intel.com ([10.88.27.172])
+ by fmviesa012.fm.intel.com with ESMTP; 16 Sep 2026 10:26:45 -0700
+From: Jesus Narvaez <jesus.narvaez@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Jesus Narvaez <jesus.narvaez@intel.com>,
+ Martin Hodo <martin.hodo@intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Alan Previn <alan.previn.teres.alexis@intel.com>, stable@vger.kernel.org
+Subject: [PATCH v2 1/2] drm/i915/huc: Validate the CPD entry offset before
+ manifest read
+Date: Wed, 16 Sep 2026 10:26:16 -0700
+Message-ID: <20260916172615.681135-3-jesus.narvaez@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/cx0=5Fphy=3A_Fix?=
- =?utf-8?q?_ARL-S_host_bridge_detection?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Dnyaneshwar Bhadane" <dnyaneshwar.bhadane@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Sep 2026 16:30:17 -0000
-Message-ID: <178957621768.173807.16268873737891634346@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260916152928.185110-1-dnyaneshwar.bhadane@intel.com>
-In-Reply-To: <20260916152928.185110-1-dnyaneshwar.bhadane@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +66,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8046551774832759574==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+The CPD manifest offset was dereferenced without checking whether the
+offset was out of bounds or not. Validate the offset is within the FW
+blob before continuing with the read.
 
-== Series Details ==
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
 
-Series: drm/i915/cx0_phy: Fix ARL-S host bridge detection
-URL   : https://patchwork.freedesktop.org/series/174301/
-State : success
+v2:
+  - Add parenthesis to clarify offset check (Daniele)
 
-== Summary ==
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: 93a575ab1533 ("drm/i915/huc: Parse the GSC-enabled HuC binary")
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: <stable@vger.kernel.org> # v6.5+
+Signed-off-by: Jesus Narvaez <jesus.narvaez@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-CI Bug Log - changes from CI_DRM_19156 -> Patchwork_174301v1
-====================================================
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
+index b648238cc675..3560961d606f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
+@@ -216,9 +216,19 @@ int intel_huc_fw_get_binary_info(struct intel_uc_fw *huc_fw, const void *data, s
+ 	entry = data + header->header_length;
+ 
+ 	for (i = 0; i < header->num_of_entries; i++, entry++) {
+-		if (strcmp(entry->name, "HUCP.man") == 0)
++		if (strcmp(entry->name, "HUCP.man") == 0) {
++			u32 offset = entry_offset(entry);
++
++			if (offset >= size ||
++			    ((size - offset) < sizeof(struct intel_gsc_manifest_header))) {
++				huc_err(huc, "CPD manifest offset 0x%x out of bounds (size %zu)\n",
++					offset, size);
++				return -ENODATA;
++			}
++
+ 			intel_uc_fw_version_from_gsc_manifest(&huc_fw->file_selected.ver,
+-							      data + entry_offset(entry));
++							      data + offset);
++		}
+ 
+ 		if (strcmp(entry->name, "huc_fw") == 0) {
+ 			u32 offset = entry_offset(entry);
+-- 
+2.43.0
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v1/index.html
-
-Participating hosts (38 -> 36)
-------------------------------
-
-  Missing    (2): bat-dg2-13 bat-adls-6 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19156 -> Patchwork_174301v1
-
-  CI-20190529: 20190529
-  CI_DRM_19156: bb38af66c2f21340a7c081afbb7ace249357fbb5 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9099: 9099
-  Patchwork_174301v1: bb38af66c2f21340a7c081afbb7ace249357fbb5 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v1/index.html
-
---===============8046551774832759574==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/cx0_phy: Fix ARL-S host bridge detection</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174301/">https://patchwork.freedesktop.org/series/174301/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19156 -&gt; Patchwork_174301v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v1/index.html</p>
-<h2>Participating hosts (38 -&gt; 36)</h2>
-<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19156 -&gt; Patchwork_174301v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19156: bb38af66c2f21340a7c081afbb7ace249357fbb5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9099: 9099<br />
-  Patchwork_174301v1: bb38af66c2f21340a7c081afbb7ace249357fbb5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8046551774832759574==--
