@@ -4,27 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47569C88E72
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F78EC88E72
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C575910EE85;
-	Thu, 17 Sep 2026 12:09:38 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B35C10EE4E;
- Thu, 17 Sep 2026 12:09:37 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2419053305186125962=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1E910EE67;
+	Thu, 17 Sep 2026 12:16:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="XrnN/ayq";
+	dkim-atps=neutral
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAF2B10E2D3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 21:18:33 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49cd4ba9f68so2451825e9.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 14:18:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789593512;
+ x=1790198312; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8c7Lrwf6LLYMTB0zxM6IKxndmvRTeS9nJzIt6c8lINU=;
+ b=XrnN/ayq1WTDX10IsxxPHPFBuqBGLVubeyJDRItcR29CKupXRZnu4Vx3FAKnhYQFek
+ +i+zCQs+5/WT8gAp6zo7pw2Kujz7apN0cvXSF5GJDLKzC+0Nkbtpe/rehGhkJnAjBvI7
+ PznlHj3Q07qwL7YGvja3SZLtdn1k3JbI86MbGZy1Ssc7kRMXB8uh+gFGJTsTw5/u+/HD
+ NVNteJAICcoQBTtjAHWYQFLhmg0RCvELiYKQlRfMkkOBmRPIIO1GRAV7svkL56g4UyQB
+ upaJg1PNquMludcjRv9EZfZfzKt6H1rC4F44rprQ9PzlO4/+sSE+w0xKE7pyu1M9YAr4
+ CnWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789593512; x=1790198312;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8c7Lrwf6LLYMTB0zxM6IKxndmvRTeS9nJzIt6c8lINU=;
+ b=nwOag+W8duJHn5q4tfdeZQCzW8fLCJHZLKjH5lpuF34USDptPOayTvT1nqyaaIXBWm
+ qFSgeqj6ceF6QnbdDnlsVGxtV/PqoPKEqJWjqHmzPM0g3yd5eQlVzJWr0pJ5R2AOi6vA
+ PKJGd13CVrUBtG91wgzR00boLrXyOWCuWz6NI7uaedscLgl9IJiEEuj9nXDr6+T9FKER
+ t4QtgSG0xTNzcj4GI5sRGGCDHzX7xpf/EQhjsfnP0ncw0rlgSbd86Xt23GLgddD3mT1H
+ l0u17GoETCCFvgCgCH5nxEtZjW4LWtfOg6IdA8lxSIS5HcE4PSgeQ8ss8U+DLERNkd7h
+ Lt0g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwaCaSUnbWAOgD4RzQKr6ATYib+okFsUD64WTLulNTJ39unk/7qKx+aIF9lUSuIeZJ+KYXf0RAI6gk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nk9R1i7Tdv8K0j0iSwEORPOhXgbfKLcGzpf6WSrj6q6PELLJ5k
+ nvso4xX4jqqN/hK1oGY4xzFh2nqvzp62HQgjhEzs0dY6rbcJ7iR6qLtuFLYxIND58WGV13uJN5e
+ /euIzLQ==
+X-Gm-Gg: AYBFou3S33rVYLdUFvMg1M3JPJF/8/s57coGaPe9/Ai+fo55lmRLfm3+A5P5m+1MQC8
+ nFFSDwl1dWHT7ujL9xvRNR+UcUaOFxuNUfhIYDsJfgZNf+/x3i+ASpV+wypNfmNE9ulYHmtM7g4
+ Da6EGa+qRjAlMokGkR0cT99NmR3MpWNUioDhQaQL80pVw0e3A5jdiCRrQa7hfiVTDaJDvuaJtwr
+ 7wnBVdzqUrAONkwaYmNHAaqZSCSjeC+dIXjZfxumIwZ1fAL7qH/ik1ukA3Ga4Lp/liaCkQCxCC0
+ 4HA3kBK4PX4q4Q1ULKpRRsXOcFajqjWUMmueGWZfIMByTDHfsm9utXQlg5ZovkKoVfdYO1hjoU1
+ U04IDwIXn7PRNp+f5R3fd9p8xr3Yd/iwnbNxlwFbxnJDq08yT/mTUjSoRDkDVuUgLy5G0hHW6zg
+ f3sETSe5utailCJCwWfkdyEvOFhzfu/w0Niq18AnlI7dF84VN8d3mN9odDIVmI5jjrQVBRBfdb9
+ M0I6995si8TmAr/32Uy1WvT0w==
+X-Received: by 2002:a05:600c:8b78:b0:49c:fc6e:8cb4 with SMTP id
+ 5b1f17b1804b1-49ebb4297c4mr52763795e9.24.1789593511641; 
+ Wed, 16 Sep 2026 14:18:31 -0700 (PDT)
+Received: from horizon ([217.155.46.38]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fbbd83e39sm46567695e9.4.2026.09.16.14.18.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2026 14:18:31 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: linux-kernel@vger.kernel.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/i915/drrs: Ignore sync polarity when matching modes
+Date: Wed, 16 Sep 2026 22:18:30 +0100
+Message-ID: <6436114aa461b08bf0abddadf2c091c45dc81075.1789593508.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/selftests=3A_Fix?=
- =?utf-8?q?_unlocked_mm=2Estolen_in_reset_selftest_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Sep 2026 12:09:37 -0000
-Message-ID: <178964697762.177275.2128719962320439442@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
-In-Reply-To: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 17 Sep 2026 12:16:01 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,136 +90,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2419053305186125962==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Some panels advertise DRRS modes with matching timings but different sync
+polarities. is_alt_drrs_mode() currently includes DRM_MODE_MATCH_FLAGS and
+rejects such pairs.
 
-== Series Details ==
+Commit 2bd0db4b3f0b ("drm/i915: Allow panel fixed modes to have differing
+sync polarities") already made is_alt_fixed_mode() ignore H/V sync polarity
+because panels can declare alternate modes with different values and
+Windows/GOP accepts them. Apply the same rule when matching DRRS modes.
+Continue to require matching timings, 3D flags, and all other mode flags.
 
-Series: drm/i915/selftests: Fix unlocked mm.stolen in reset selftest (rev3)
-URL   : https://patchwork.freedesktop.org/series/172573/
-State : failure
+Tested: BOE NE160QAM-NZ1 (3840x2400); DRRS reached low refresh.
+Tested: Huawei 23040676 (2520x1680); DRRS reached low refresh.
+Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+---
+ drivers/gpu/drm/i915/display/intel_panel.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19160 -> Patchwork_172573v3
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_172573v3 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_172573v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v3/index.html
-
-Participating hosts (39 -> 37)
-------------------------------
-
-  Missing    (2): bat-dg2-13 bat-adls-6 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_172573v3:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live:
-    - bat-arlh-3:         [PASS][1] -> [INCOMPLETE][2] +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/bat-arlh-3/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v3/bat-arlh-3/igt@i915_selftest@live.html
-
-  
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19160 -> Patchwork_172573v3
-
-  CI-20190529: 20190529
-  CI_DRM_19160: d709485448984efaa7ca726c5340ef088f930cac @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9099: 9099
-  Patchwork_172573v3: d709485448984efaa7ca726c5340ef088f930cac @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v3/index.html
-
---===============2419053305186125962==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/selftests: Fix unlocked mm.stolen in reset selftest (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172573/">https://patchwork.freedesktop.org/series/172573/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19160 -&gt; Patchwork_172573v3</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_172573v3 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_172573v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v3/index.html</p>
-<h2>Participating hosts (39 -&gt; 37)</h2>
-<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_172573v3:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v3/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> +1 other test incomplete</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19160 -&gt; Patchwork_172573v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19160: d709485448984efaa7ca726c5340ef088f930cac @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9099: 9099<br />
-  Patchwork_172573v3: d709485448984efaa7ca726c5340ef088f930cac @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2419053305186125962==--
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 81e638d0c7b3..e79c51a1c33c 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -144,10 +144,13 @@ intel_panel_fixed_mode(struct intel_connector *connector,
+ static bool is_alt_drrs_mode(const struct drm_display_mode *mode,
+ 			     const struct drm_display_mode *preferred_mode)
+ {
++	u32 sync_flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NHSYNC |
++		DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC;
++
+ 	return drm_mode_match(mode, preferred_mode,
+ 			      DRM_MODE_MATCH_TIMINGS |
+-			      DRM_MODE_MATCH_FLAGS |
+ 			      DRM_MODE_MATCH_3D_FLAGS) &&
++		(mode->flags & ~sync_flags) == (preferred_mode->flags & ~sync_flags) &&
+ 		mode->clock != preferred_mode->clock;
+ }
+ 
