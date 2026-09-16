@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3515C88E72
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:17:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70587C982CF
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:17:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1992810EE8B;
-	Thu, 17 Sep 2026 12:17:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D72C210E6FC;
+	Thu, 17 Sep 2026 12:17:22 +0000 (UTC)
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7867610E420;
- Wed, 16 Sep 2026 17:36:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5638089316;
+ Wed, 16 Sep 2026 17:26:29 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-05 (Coremail) with SMTP id zQCowADnUDud06pq_bluCA--.22964S2;
- Thu, 17 Sep 2026 01:36:29 +0800 (CST)
+ by APP-05 (Coremail) with SMTP id zQCowADnVD9A0apqapZuCA--.23115S2;
+ Thu, 17 Sep 2026 01:26:24 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: John.C.Harrison@Intel.com
-Cc: airlied@gmail.com, daniele.ceraolospurio@intel.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- linux-kernel@vger.kernel.org, matthew.brost@intel.com,
- rodrigo.vivi@intel.com, simona@ffwll.ch, tursulin@ursulin.net,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/guc: Fix sched_engine reference leak in
- guc_create_virtual()
-Date: Wed, 16 Sep 2026 17:36:01 +0000
-Message-Id: <20260916173601.2088347-1-vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: chris@chris-wilson.co.uk, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, linux-kernel@vger.kernel.org,
+ matthew.auld@intel.com, rodrigo.vivi@intel.com, simona@ffwll.ch,
+ tursulin@ursulin.net, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/i915/gt: Fix rq use-after-free in perf_mi_noop()
+Date: Wed, 16 Sep 2026 17:25:56 +0000
+Message-Id: <20260916172556.2087724-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowADnUDud06pq_bluCA--.22964S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKFyUtF1xJF48CryDAryfCrg_yoWkWFb_Ca
- 4Yvr93GFy7AFn3Cw12yrnxZrWvkFyUZr4Fyw18t3yrA3yjvr4UXwsI9F98Xr13KF4UJFWD
- Aa18uF1fAFn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb-8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
- Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
- 1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
- 6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r
- 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
- 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
- IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
- MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
- W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
- JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
- 1UYxBIdaVFxhVjvjDU0xZFpf9x0JUtgA7UUUUU=
+X-CM-TRANSID: zQCowADnVD9A0apqapZuCA--.23115S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrtF4DXr48WFW8Wryktw18Zrb_yoW8JF4rpF
+ 4rJF4YvrZxJrWIka1fJrW0vFy5Ka1SyFWxKrnrKwnxZr15X3Z5Jr1Iv3WagryUArZ7Wr43
+ JFs7KFW3WFnFkrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+ WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+ Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+ WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+ xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+ kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+ WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+ I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+ 6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
+ 4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqpO9oaQAAsK
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqozVqnAAAs0
 X-Mailman-Approved-At: Thu, 17 Sep 2026 12:17:12 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,31 +64,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-guc_create_virtual() takes a reference on guc->sched_engine for the
-virtual engine, mirroring execlists, but the GuC destroy path never
-drops it; rcu_virtual_context_destroy() does. Release the reference in
-__guc_context_destroy() alongside the breadcrumbs reference.
+The i915_request_put() after the wait may drop the final reference and
+free the request, yet the following cycle counting still reads
+rq->hwsp_seqno. Compute the cycles[] entry while the reference taken
+before i915_request_add() is still held.
 
-Fixes: 556120256ecd ("drm/i915/guc: GuC virtual engines")
+Fixes: 3c7a44bbbfa7 ("drm/i915/selftests: Perform some basic cycle counting of MI ops")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 788e59cdfac9..7b88e081c76d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3487,6 +3487,8 @@ static void __guc_context_destroy(struct intel_context *ce)
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+index 5ffa5e30f419..7503763136b2 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+@@ -351,13 +351,14 @@ static int perf_mi_noop(void *arg)
  
- 		if (ve->base.breadcrumbs)
- 			intel_breadcrumbs_put(ve->base.breadcrumbs);
-+		if (ve->base.sched_engine)
-+			i915_sched_engine_put(ve->base.sched_engine);
- 
- 		kfree(ve);
- 	} else {
+ 			if (i915_request_wait(rq, 0, HZ / 5) < 0)
+ 				err = -EIO;
++			if (err == 0)
++				cycles[i] =
++					(rq->hwsp_seqno[4] - rq->hwsp_seqno[3]) -
++					(rq->hwsp_seqno[3] - rq->hwsp_seqno[2]);
++
+ 			i915_request_put(rq);
+ 			if (err)
+ 				break;
+-
+-			cycles[i] =
+-				(rq->hwsp_seqno[4] - rq->hwsp_seqno[3]) -
+-				(rq->hwsp_seqno[3] - rq->hwsp_seqno[2]);
+ 		}
+ 		i915_vma_put(nop);
+ 		i915_vma_put(base);
 -- 
 2.34.1
 
