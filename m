@@ -4,127 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC829C88E5C
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:53:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA2FFC982C4
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 13:08:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2057810E23B;
-	Wed, 16 Sep 2026 12:53:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AF1810E984;
+	Wed, 16 Sep 2026 13:08:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V0Yj2c2j";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NrG7S+UY";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010028.outbound.protection.outlook.com [52.101.46.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 569C510E23B;
- Wed, 16 Sep 2026 12:53:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wkYc+cH1MY6/06a2HzX53STgGxO5HUSKr3rtoqTb1u7K0l2an5MZAd/bnPgQLhLDlyNjCCdkCNgt3gnGn4vuJ2y/Noc4bEQVGFDdJ5fWQ1bC3tF2Q6zQHk1vmKT7cGlvtWsJLvdT8jpiBItWIKAbonLLP18xTxOjv3KohAAo7g+OxP6AirLimFkDE81ounTBCTqeSBncAJ0xpf8XWZT2F/mK5qOZtag1mXEUzpX/aTEtJgsBtO2ZwOEvbNJ3+e6AE5Nj2fw+NqHKxVYbKRZcOJkJ2zMWGjJIz9HM3vZXIphANS251u7nFmhfhGknNlrLpo23DI/IN3bYv0J+WIT0UA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yCBWKEDEIoeb+Ek3ChX8vdbJwJ5mRBzOzkQNoHOT0WQ=;
- b=YVYvnnoicpgb1In3+DWBdlW+P851vK1JDmgAY3fCfGvbJjdxvyyy9fIJCtJ391nd+5Ep+iiHaANheixMpkLfNjzt7jzMKxYeWLiHrpbcZHvqS5YuHg9io3gjl+7fkWNF8rLYr+huBRw6KdsjLj8kMQVZXnSuR57G5Hhwm2U7GWuObUx+ER276xAOCox2RNwz5YeYst6Q0ZTdYQhDBno4RVni17COSR8HjiLtS6jcgLc0h15bK6xk8IDz30rjSisH1FkBGU0Sp2ceX8Rb+Fxi8me1aQRo3HDwmI4485tkeeiyoAA8Oh5i4P1r8cpuIglNrzbvQVmY+uOQu9GYcy+FZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yCBWKEDEIoeb+Ek3ChX8vdbJwJ5mRBzOzkQNoHOT0WQ=;
- b=V0Yj2c2jBpmAofACo4kKpPJg5ipME8YU7nDrI/M+7IBQC9hfdWkmykXaGlU2TQji7Ynt6XY50BupqOlZgsa5KtjR4I6MjteY4nmOyFBotrUsUfmhuM7HuHQX/Kf30/aDx15QK27zeCyiV+TZfngyiGckQV0UnHNh90fRhzJfI9M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8257.namprd12.prod.outlook.com (2603:10b6:610:121::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 12:53:50 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 12:53:47 +0000
-Message-ID: <120a913c-2522-4601-a17a-708778de2036@amd.com>
-Date: Wed, 16 Sep 2026 14:53:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915: fix incorrect RCU teardown order
-To: Tvrtko Ursulin <tursulin@ursulin.net>, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260903113621.54660-1-christian.koenig@amd.com>
- <30c0848e-e8f6-4bb7-8505-89316158c49e@ursulin.net>
- <2030085d-5f14-4bd7-8694-dc8a6a2a25ed@amd.com>
- <0e10455a-a328-42a8-981f-43dbb46593a2@ursulin.net>
- <378d447a-a285-451c-b001-5c6dd6ea74b6@amd.com>
- <0ea708d8-eef4-4245-8b49-fe47d30ca343@ursulin.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <0ea708d8-eef4-4245-8b49-fe47d30ca343@ursulin.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0292.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e7::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9AE10E665;
+ Wed, 16 Sep 2026 13:08:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=X2rxwilczNJ6ldHARZUdKBvRtCkMFchMNSB1ii9fkZk=; b=NrG7S+UYe3WaWMj2cKDB/dU80O
+ UtZ7RwfEmHvOUvah0KiMxldqn8ttnycG1Js/mLdipLaPDhoPA2f8vknKDT1FWToE/FMR/8PNWHOYz
+ beXqpU7U2r1tJAmA5GxM0ZvYXF6EpLyUoYfgqRu8GGIbWrX7a5FddYJvkcJyKZfXzTrpMMUtoPjhK
+ xYHlkfI5rhUXLAPhBK5aq5oto88zogJh7TeaQ1NBs311rzJs8D/6I9+1fBgojnV+bEplQRLdGmjGR
+ JBoxJCuhkOWsbfYui4hhLW6TCctbbVBcDClIlzG32rK+MhKcJf3kzOyhlSPwDYSRAAvYOyb03dv8L
+ FMIEZ2RQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x6pN8-002wbV-Tp; Wed, 16 Sep 2026 15:08:22 +0200
+Message-ID: <3f134188-0af1-4c7e-8bb8-ddb2504c9efe@igalia.com>
+Date: Wed, 16 Sep 2026 10:08:11 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8257:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7028a334-218f-4b8d-df7e-08df13f18c45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: L/Jf8jWvqQNYI8S/sSUvLuv2BW9YgEhswymjjJObeIlDCGRYy08wA8RH8Bbf1kmYdBFqjvqjWPfW6KWtjLoV3R4Wug4xxr7Vu/SjN5S0cFd+A1S+6G6OlMiTiO6DRX8vDuCT7r8yW1m4wv2iyYfxplsW4fkKpUDJ06QRGYQ6Qd2HiJNuw5FGUT/X04HJbfvEgmlybe3sr9jviotQTexgLtLuHjzxGF3Iu/DWyXNVwvSdKnPYpUD1EAvS8zu8dUllG4mpSnWqLvUFaEVcN3w9MGgUYm+4620jBuHtZt9MyeGh0m/77z5OuKxBWo4IW2CmKlT5aYn2HTOtpkvik7SExsZsC9xbsiWx1ISWY7niXL90F5JfbDpouks+ma36pAmumVXsQvSFKPe5j0EPiNaSXkEhsz24WkRSVTV63u/10HhSrATpwtXOlxJEyL+sVDfFbc0gnA17qkA63xlaKXhQDUf5SskoDO/UpcnuclN5NnPGN2BEmSo2q+jOz0dQwKrSHATXSiTvj3kGQcF5YMsSYdyCgRcb0F/JawE2TtO5UOh1xYKQPjVOs1WWciZI+scf783zTQ8Q9o0rc9UMVlQ/k9Ho6uud0vziBuWeionrHx4RawB1gBzQrdUTca//5N2ON4MTuFtlBTfJHl4j5YIsFCUyeZREKeEFBGAFbhHarAs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dTlJcCtibE9kSEJOZGpUZlhFaWNVY0dqMHJKNlZoWG1BcFR3UXF1SVFHLzI5?=
- =?utf-8?B?VXhYSnRmN2NreEk3ZjQ4WGVCNDJ5SXRBajBOazZnWERlNlVkcWU0OTc0Ny9H?=
- =?utf-8?B?WWZmcnp0QVZSSFNndUZWTUQybDNIS0podWNvRnoxejBrOEpyQXBiNUlqL2Zv?=
- =?utf-8?B?QTBuZlh0YklSTmRoditidW0rNXRmZW12bDArY1k3aW41Z1BZMXgxYitoVGVO?=
- =?utf-8?B?eGJPejZ5ZG9KL3I5MHNGQ2Fzd0pRUDIzSm5PbWpCUDQwZmRIRExWV2xmdHU1?=
- =?utf-8?B?cmFVTXYwaFYwbjBGaEVMM3NJZjFJRytBOXZGRVlRZ1dWOStZRE9XS2RQTzkw?=
- =?utf-8?B?SE5ldnl1aHJSalo4ajhKNEN6Um9Ia201c2dDaUxOUXhOczUxVStPWkZrT0c1?=
- =?utf-8?B?TWJoTXVWdGxGcEV0YzBiTXJTTFc0NDFMb0xsTldQak5rOVo5TEhSUzBqQ1pL?=
- =?utf-8?B?VlU2VWhJakI5SVR1VXlrS1dUWHBZaEg0OGRVb084aXFzdXNGOERFaFV2WWg1?=
- =?utf-8?B?NDRGU0I0Z3IrWGI2akFaUFhGTWZWaEFLVFc3WEZaSmRYVWZ0TjAwY2ZlSW5p?=
- =?utf-8?B?NmsvbjlBUy8zdm9wdzdOdWFPYU9CWmthOGUySXFHTHQxYUg3RzdobzdWVk1r?=
- =?utf-8?B?VlYrQjlwV2VtVnU3QkxaNmFsWUtucjBSNGtMTnpXNVNCQkZmbE0ydjBLczJF?=
- =?utf-8?B?QTR6Qk5Md1RNRlN5TlBQdlZNOTNyVStqVzMxYnBnb3Jsb0RTNnNNOEU4VHNO?=
- =?utf-8?B?QlBXbWpuMEFkbG51R1dubFkzVjMyWS8zTzZnU29taEU3UjI5QWlZMWtPMFVM?=
- =?utf-8?B?aEx1MHlJSUtGUyt0cG9Pc041MHRqRnlYMTI2NlBidzRYSCtmQWJnanFCZHBz?=
- =?utf-8?B?NitOSndWSU03U3hwanoxNERoaHN3TmFTeEVIejU0NC8rRnZpNHdSV3FMY24x?=
- =?utf-8?B?SHJpbExpSEY2RlV3NCsrR1FWRmlVU3l6NE5sbDl4em5BejZJRFQ3R0UxY21Z?=
- =?utf-8?B?MVBMYzdSY0plekdvRlNwbEo3eGNnNjQrWXF2WE9jTklZQSs0T09jR05BOElK?=
- =?utf-8?B?VWVLWnI1eFM2R0VPckNLY1B6REpRUEUwUmVZMzRKOWh4Wm1iNE5Wc3J2YjJ4?=
- =?utf-8?B?MnpqNnUrZ3lOeTJRZXArRzBQK1R1Z0JLMmErMStYbDcvZHZsMFozNmxZSmZ3?=
- =?utf-8?B?eG51eGxXdThMMWREUnhac1o5WGhNYWpROVBrd0VUUGZ5MzZQbENYUUFOOEtw?=
- =?utf-8?B?N0VBSmphczdQL0xVKzN4ZmlqTkVvKy80Uit6andUSFY2dG9PL1R6MlpLeEJC?=
- =?utf-8?B?L2M0OVVyd3gxOE9VS21kYjkwcTBkRmxHSnlSMG9DZ3VQRlNUK1NSeU1ZVXhL?=
- =?utf-8?B?VUN2RGdOQmRjOC91NThRSEVEZEFvTWc4U2N0Y1o0R1RlTzNVM3pjUmFSWWt4?=
- =?utf-8?B?V0I4ZXE4N3hycko2S2Nld1JLWncwdThGZXZEcGdGaUR2L3Y3Q20vS3Jtd0Vu?=
- =?utf-8?B?ZkI0YVFaeUp2T3c2SmtxUkRCTm1Hd05kcysvamljUjVJSDZkME16aU05OVZN?=
- =?utf-8?B?eTlGU2hsYnl2VjI5ZzZrN0tndlRHL3JnQzFuUUtUajdhMUZsb05LR3dtYlNN?=
- =?utf-8?B?U2ZZeDlKUEUraEFjWlN4Q3o0cnZ5OWp2aXBjQkRnVUxJbjIrRFNTa0pSUUtR?=
- =?utf-8?B?cEJnSkVXZXFRajFjd29GUk1GS0ZrSDgrSTBvMWVxKzFqY1ZzSUo1Z0sxQ0tT?=
- =?utf-8?B?T2ZGaFlWanhzTmw3aGVRYXZaODVaaS93RUg4TzNZNkQydGY5ajFyeEF3aS9m?=
- =?utf-8?B?Q1l5NHB6N1A5ZnZHcVZLTGtvcW9YNTRjbmdtYU1LOTgwUUplK1FXd0VDS3NU?=
- =?utf-8?B?TThWV3ZFQitEUmZkKzVjNXNGUFZKTGgrTE9XemNQaEtVMjdyVFVLRXRyaS95?=
- =?utf-8?B?bkw0UkpmTklLQjVMSjR4N0kwbzNuaUpJV3JpMTlja1ZkRWo3WkhIY000bXhl?=
- =?utf-8?B?K2JxdzRWcTFySldJRXJodXJBMGpTeXRlZFpZdmh6L24vUTRsNFVOVXBzU3pK?=
- =?utf-8?B?azlCOVRxWVRPUXFjRXNkSXVSNmV1NjRoWjQzK3FqQ3NTSTdVVzdJd3hWaGVy?=
- =?utf-8?B?eWVSRUk1aVJMc2o4U3REalhrZEdlajQ1Z3NkT1hFUHBFK3o5bkdaUWJra25B?=
- =?utf-8?B?MERyUUdLTktOa3NIcUk1RjVnamhPYllic1lOUWMrS3dQS25nTVZoZk9kTm1a?=
- =?utf-8?B?dFZvWEJQazVHejQrd0RldG1PVUh6OGFyOFhqRHBzVi9qbzFOMzF6bDhMMFRI?=
- =?utf-8?Q?CrTUSVCIelpcx/+W30?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7028a334-218f-4b8d-df7e-08df13f18c45
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 12:53:47.6020 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QIoxJqUb5Gx/632uQvng1GDa2GYhZL2F1VDtwVYMgBrPlkQNbP4KUuD1P5+RiH7e
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8257
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
+ <c20c43109d3ebb08ad6a0c811ffaeb48f90efed5@intel.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <c20c43109d3ebb08ad6a0c811ffaeb48f90efed5@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,108 +95,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 9/16/26 11:51, Tvrtko Ursulin wrote:
-...
->>> [Severity: Critical]
->>> Does this synchronous free cause a use-after-free for concurrent lockless
->>> RCU readers?
->>>
->>> In the i915 driver, GEM objects are destroyed using call_rcu() (via
->>> __i915_gem_free_object_rcu). Lockless readers like i915_gem_busy_ioctl()
->>> look up objects under rcu_read_lock() and access obj->base.resv.
->>>
->>> If an object shares its resv instance (e.g., via obj->shares_resv_from with
->>> an i915_address_space), __i915_gem_free_object() drops the lock reference
->>> synchronously via i915_vm_resv_put(). If that drops the last reference,
->>> dma_resv_release() synchronously frees the memory here.
->>>
->>> However, the GEM object itself remains valid during the RCU grace period.
->>> Can concurrent RCU readers dereference the already freed dma_resv pointer
->>> when calling dma_resv_iter_begin(&cursor, obj->base.resv, ...) in
->>> i915_gem_busy_ioctl()?
-> 
-> I guess the shared dma-resv part you will solve in the context of the reference counting series.
+Hi Jani,
 
-Yes, of course.
+On 16/09/26 07:38, Jani Nikula wrote:
+> On Tue, 15 Sep 2026, Maíra Canal <mcanal@igalia.com> wrote:
+>> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
+>> absolute deadline, but there is no equivalent for the drivers that
+>> express a wait as a duration. Drivers such as i915 and v3d convert the
+>> value themselves.
+>>
+>> Converting a nanosecond duration to jiffies needs some care.
+>> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
+>> userspace-supplied timeout overflows its range and is silently truncated.
+>>
+>> i915 already handles both cases in a local helper, which v3d has a copy
+>> of. Add the same conversion to the core, so that it is available to any
+>> driver and both copies can be dropped.
+>>
+>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+>> ---
+>>   drivers/gpu/drm/drm_timeout.c | 45 +++++++++++++++++++++++++++++++++++++++++++
+>>   include/drm/drm_timeout.h     |  1 +
+>>   2 files changed, 46 insertions(+)
+>>
 
->>> Is the dma_fence_get_rcu() inside dma_resv_iter_walk_unlocked() what triggers the endless restarts?
->>
->> Yes, exactly that one. When it can't grab a fence reference it tries to get a new list, but when there isn't any new list it just tries that forever.
->>
->>> It's been some time since I looked at the dma-resv walks.. but fences on the list have reference held so that can trigger either via dma_resv_fini() or dma_resv_replace_fences(), right?
->>
->> No, dma_resv_replace_fences() replaces an old fence with a valid new one. So the loop never becomes endless.
-> 
-> What I was wondering about is that dma_resv_replace_fences() has no RCU protection so how does it co-operate with unlocked walks?
+[...]
 
-Hui?
+>> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
+>> index cd9621c52062..6ee222a3e97c 100644
+>> --- a/include/drm/drm_timeout.h
+>> +++ b/include/drm/drm_timeout.h
+>> @@ -12,5 +12,6 @@
+>>   #include <linux/types.h>
+>>   
+>>   signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
+>> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
+> 
+> The signed/unsigned differences here bug me a little. Maybe explain why
+> in the commit message if there's a rationale?
+> 
 
-dma_resv_replace_fences() asserts on holding the reservation lock and uses dma_resv_list_set() to update the entry with the replacement. dma_resv_list_set() then uses RCU_INIT_POINTER().
+Answering both your e-mails, the rational behind this change was: don't
+make any changes to drm_timeout_abs_to_jiffies(); only move it as it is.
+As I'm the one introducing drm_timeout_rel_to_jiffies(), I took the
+liberty to implement it in a way that makes more sense to me, which is
+using `unsigned long`, considering that a timeout in jiffies should
+always be positive. Also, i915 and v3d implement the function returning
+an unsigned long.
 
-Could be that using rcu_assign_pointer() instead of RCU_INIT_POINTER() would be better, but apart from that I don't see why that shouldn't be correctly RCU protected.
->> Same for dma_resv_reserve_fences(), here we replace a whole list with a new one and make sure that we free up the old one only after an RCU grace period.
->>
->> The problem happens only when drivers incorrectly call dma_resv_fini() while a call to dma_resv_for_each_fence_unlocked() is still ongoing at the same time. And that is pretty obviously a bug.
->>
->>> If second is true then how does i915 having the dma-resv containing object RCU freed cause the problem?
->>
->> I also considered setting obj->fences to NULL in dma_resv_fini() as alternative workaround, but that would break again when I try to reference count the dma_resv object in the future.
->>
->> So I would need to free the dma_resv object RCU safe as well just because of the problem in i915 and that is not something I like to do when it is actually a trivial fix in i915.
-> 
-> Fix looks plausible to me but I still wonder of the implication any driver which would use  dma_resv_for_each_fence_unlocked would need to ensure a RCU grace before calling dma_resv_fini, no? I do not see it documented in dma_resv_for_each_fence_unlocked kerneldoc so if that is true we should add it.
-> 
-> For this patch:
-> 
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> 
-> There were some CI failures so I have queued a re-test. If things will look reasonable I will merge it.
+I believe that drm_timeout_abs_to_jiffies() historically returned a
+signed long because dma_fence_wait_timeout() takes a signed long timeout
+parameter (I'm not sure why).
 
-Please let me know when it landed in drm-tip since I want to rebase on that.
+Best regards,
+- Maíra
 
-Thanks,
-Christian.
+> I note that drm_timeout_rel_to_jiffies() return value is assigned to
+> unsigned long variables half the time. I guess its kernel-doc could say
+> it never returns negative values?
+> 
+> BR,
+> Jani.
+> 
 
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->>>>>> The solution is to drop the fence references only after the RCU grace
->>>>>> period.
->>>>>>
->>>>>> The fixes tag is not necessary the patch introducing the problem, but the
->>>>>> one making it so worse that we need to address it.
->>>>>>
->>>>>> This problem was pointed out by Sashiko-bot.
->>>>>>
->>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>>>> Fixes: 912ff2ebd695 ("drm/i915: use the new iterator in i915_gem_busy_ioctl v2")
->>>>>> CC: stable@vger.kernel.org
->>>>>> ---
->>>>>>     drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
->>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
->>>>>> index 5172d3982654..9e01f8b2079a 100644
->>>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
->>>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
->>>>>> @@ -89,6 +89,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
->>>>>>       void i915_gem_object_free(struct drm_i915_gem_object *obj)
->>>>>>     {
->>>>>> +    dma_resv_fini(&obj->base._resv);
->>>>>>         return kmem_cache_free(slab_objects, obj);
->>>>>>     }
->>>>>>     @@ -144,7 +145,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
->>>>>>     {
->>>>>>         mutex_destroy(&obj->mm.get_page.lock);
->>>>>>         mutex_destroy(&obj->mm.get_dma_page.lock);
->>>>>> -    dma_resv_fini(&obj->base._resv);
->>>>>>     }
->>>>>>       /**
->>>>>
->>>>
->>>
->>
-> 
 
