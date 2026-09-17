@@ -4,79 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F78EC88E72
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 924BCC982D3
 	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1E910EE67;
-	Thu, 17 Sep 2026 12:16:01 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="XrnN/ayq";
-	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAF2B10E2D3
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 21:18:33 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49cd4ba9f68so2451825e9.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 14:18:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789593512;
- x=1790198312; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=8c7Lrwf6LLYMTB0zxM6IKxndmvRTeS9nJzIt6c8lINU=;
- b=XrnN/ayq1WTDX10IsxxPHPFBuqBGLVubeyJDRItcR29CKupXRZnu4Vx3FAKnhYQFek
- +i+zCQs+5/WT8gAp6zo7pw2Kujz7apN0cvXSF5GJDLKzC+0Nkbtpe/rehGhkJnAjBvI7
- PznlHj3Q07qwL7YGvja3SZLtdn1k3JbI86MbGZy1Ssc7kRMXB8uh+gFGJTsTw5/u+/HD
- NVNteJAICcoQBTtjAHWYQFLhmg0RCvELiYKQlRfMkkOBmRPIIO1GRAV7svkL56g4UyQB
- upaJg1PNquMludcjRv9EZfZfzKt6H1rC4F44rprQ9PzlO4/+sSE+w0xKE7pyu1M9YAr4
- CnWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789593512; x=1790198312;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=8c7Lrwf6LLYMTB0zxM6IKxndmvRTeS9nJzIt6c8lINU=;
- b=nwOag+W8duJHn5q4tfdeZQCzW8fLCJHZLKjH5lpuF34USDptPOayTvT1nqyaaIXBWm
- qFSgeqj6ceF6QnbdDnlsVGxtV/PqoPKEqJWjqHmzPM0g3yd5eQlVzJWr0pJ5R2AOi6vA
- PKJGd13CVrUBtG91wgzR00boLrXyOWCuWz6NI7uaedscLgl9IJiEEuj9nXDr6+T9FKER
- t4QtgSG0xTNzcj4GI5sRGGCDHzX7xpf/EQhjsfnP0ncw0rlgSbd86Xt23GLgddD3mT1H
- l0u17GoETCCFvgCgCH5nxEtZjW4LWtfOg6IdA8lxSIS5HcE4PSgeQ8ss8U+DLERNkd7h
- Lt0g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwaCaSUnbWAOgD4RzQKr6ATYib+okFsUD64WTLulNTJ39unk/7qKx+aIF9lUSuIeZJ+KYXf0RAI6gk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nk9R1i7Tdv8K0j0iSwEORPOhXgbfKLcGzpf6WSrj6q6PELLJ5k
- nvso4xX4jqqN/hK1oGY4xzFh2nqvzp62HQgjhEzs0dY6rbcJ7iR6qLtuFLYxIND58WGV13uJN5e
- /euIzLQ==
-X-Gm-Gg: AYBFou3S33rVYLdUFvMg1M3JPJF/8/s57coGaPe9/Ai+fo55lmRLfm3+A5P5m+1MQC8
- nFFSDwl1dWHT7ujL9xvRNR+UcUaOFxuNUfhIYDsJfgZNf+/x3i+ASpV+wypNfmNE9ulYHmtM7g4
- Da6EGa+qRjAlMokGkR0cT99NmR3MpWNUioDhQaQL80pVw0e3A5jdiCRrQa7hfiVTDaJDvuaJtwr
- 7wnBVdzqUrAONkwaYmNHAaqZSCSjeC+dIXjZfxumIwZ1fAL7qH/ik1ukA3Ga4Lp/liaCkQCxCC0
- 4HA3kBK4PX4q4Q1ULKpRRsXOcFajqjWUMmueGWZfIMByTDHfsm9utXQlg5ZovkKoVfdYO1hjoU1
- U04IDwIXn7PRNp+f5R3fd9p8xr3Yd/iwnbNxlwFbxnJDq08yT/mTUjSoRDkDVuUgLy5G0hHW6zg
- f3sETSe5utailCJCwWfkdyEvOFhzfu/w0Niq18AnlI7dF84VN8d3mN9odDIVmI5jjrQVBRBfdb9
- M0I6995si8TmAr/32Uy1WvT0w==
-X-Received: by 2002:a05:600c:8b78:b0:49c:fc6e:8cb4 with SMTP id
- 5b1f17b1804b1-49ebb4297c4mr52763795e9.24.1789593511641; 
- Wed, 16 Sep 2026 14:18:31 -0700 (PDT)
-Received: from horizon ([217.155.46.38]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fbbd83e39sm46567695e9.4.2026.09.16.14.18.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2026 14:18:31 -0700 (PDT)
-From: Sean Rhodes <sean@starlabs.systems>
-To: linux-kernel@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DDA10EE86;
+	Thu, 17 Sep 2026 12:16:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E07D10EE1E;
+ Thu, 17 Sep 2026 11:55:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DE62541680;
+ Thu, 17 Sep 2026 11:55:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40CAD1F0089E;
+ Thu, 17 Sep 2026 11:55:18 +0000 (UTC)
+Date: Thu, 17 Sep 2026 13:55:14 +0200
+From: Maxime Ripard <self@mripard.dev>
+To: Dave Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/i915/drrs: Ignore sync polarity when matching modes
-Date: Wed, 16 Sep 2026 22:18:30 +0100
-Message-ID: <6436114aa461b08bf0abddadf2c091c45dc81075.1789593508.git.sean@starlabs.systems>
-X-Mailer: git-send-email 2.53.0
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <aqvVENQ4ksJEIcdb@houat>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="l556737gsdzolcq4"
+Content-Disposition: inline
 X-Mailman-Approved-At: Thu, 17 Sep 2026 12:16:01 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,39 +54,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some panels advertise DRRS modes with matching timings but different sync
-polarities. is_alt_drrs_mode() currently includes DRM_MODE_MATCH_FLAGS and
-rejects such pairs.
 
-Commit 2bd0db4b3f0b ("drm/i915: Allow panel fixed modes to have differing
-sync polarities") already made is_alt_fixed_mode() ignore H/V sync polarity
-because panels can declare alternate modes with different values and
-Windows/GOP accepts them. Apply the same rule when matching DRRS modes.
-Continue to require matching timings, 3D flags, and all other mode flags.
+--l556737gsdzolcq4
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: [PULL] drm-misc-fixes
+MIME-Version: 1.0
 
-Tested: BOE NE160QAM-NZ1 (3840x2400); DRRS reached low refresh.
-Tested: Huawei 23040676 (2520x1680); DRRS reached low refresh.
-Signed-off-by: Sean Rhodes <sean@starlabs.systems>
----
- drivers/gpu/drm/i915/display/intel_panel.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Hi,
 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 81e638d0c7b3..e79c51a1c33c 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -144,10 +144,13 @@ intel_panel_fixed_mode(struct intel_connector *connector,
- static bool is_alt_drrs_mode(const struct drm_display_mode *mode,
- 			     const struct drm_display_mode *preferred_mode)
- {
-+	u32 sync_flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NHSYNC |
-+		DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC;
-+
- 	return drm_mode_match(mode, preferred_mode,
- 			      DRM_MODE_MATCH_TIMINGS |
--			      DRM_MODE_MATCH_FLAGS |
- 			      DRM_MODE_MATCH_3D_FLAGS) &&
-+		(mode->flags & ~sync_flags) == (preferred_mode->flags & ~sync_flags) &&
- 		mode->clock != preferred_mode->clock;
- }
- 
+Here's this week drm-misc-fixes PR
+
+Maxime
+
+drm-misc-fixes-2026-09-17:
+Two ttm fixes for ttm_tt_swapout(), one page-alignment and one overflow
+fix for dma-buf, a drm_pending_vblank_event leak fix for drm,
+suspend/resume fixes for nouveau, one out-of-bounds access fix for gud,
+a use-after-free fix for vc4, a fence signaling fix, a race condition
+fix for sched, planes formats fixes for verisilicon, and add the blend
+mode property for loongson
+The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
+
+  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-20=
+26-09-17
+
+for you to fetch changes up to 5535d5e61a77ad79118ea7665ce1c14f857f0f12:
+
+  drm/loongson: Create blend mode property for cursor plane (2026-09-17 15:=
+12:26 +0800)
+
+----------------------------------------------------------------
+Two ttm fixes for ttm_tt_swapout(), one page-alignment and one overflow
+fix for dma-buf, a drm_pending_vblank_event leak fix for drm,
+suspend/resume fixes for nouveau, one out-of-bounds access fix for gud,
+a use-after-free fix for vc4, a fence signaling fix, a race condition
+fix for sched, planes formats fixes for verisilicon, and add the blend
+mode property for loongson
+
+----------------------------------------------------------------
+Christian K=F6nig (1):
+      dma-buf/dma-fence: fix checking signaling bit for timeline and driver=
+ name v3
+
+David Hu (2):
+      dma-buf: Fix silent overflow for phys vec to sgt
+      dma-buf: Split sgl by largest page-aligned chunk
+
+Huacai Chen (1):
+      drm/loongson: Create blend mode property for cursor plane
+
+Icenowy Zheng (3):
+      drm/verisilicon: set blend mode for the cursor plane
+      drm/verisilicon: add primary modifier for format tables
+      drm/verisilicon: remove ARGB formats from primary plane
+
+Karl Mehltretter (2):
+      dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels
+      drm/vc4: Use managed KMS polling to fix UAF on unbind
+
+Lyude Paul (4):
+      Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
+      drm/nouveau/gsp/r570: Set GcOff =3D 0 in fbsr
+      drm/nouveau/gsp/r570: Enable S/R Display workaround in GSP
+      drm/nouveau/gsp: Increase delay for magic sleep in r535_gsp_fini()
+
+Maxime Ripard (1):
+      Merge fdo/drm/drm-fixes into drm-misc-fixes
+
+Sajal Gupta (1):
+      drm/gud: fix out-of-bounds write in gud_plane_atomic_check()
+
+Sophie D (1):
+      drm/gud: Ignore damage clips in full update mode
+
+Thadeu Lima de Souza Cascardo (1):
+      drm: Fix drm_pending_vblank_event leak in error path for out_fence_ptr
+
+Tvrtko Ursulin (1):
+      drm/sched: Fix virtual runtime race
+
+Vadim Nikitushkin (2):
+      drm/ttm: fix swapped-out resources never leaving their bulk_move range
+      drm/ttm: apply the swapout bulk_move fix to the intended condition
+
+ drivers/dma-buf/Kconfig                            |  2 +-
+ drivers/dma-buf/dma-buf-mapping.c                  | 31 ++++++++++-----
+ drivers/dma-buf/dma-fence.c                        | 14 ++++++-
+ drivers/gpu/drm/drm_atomic_uapi.c                  | 13 +++++--
+ drivers/gpu/drm/gud/gud_pipe.c                     |  7 +++-
+ drivers/gpu/drm/loongson/lsdc_plane.c              |  5 ++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  8 +++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c |  8 ++--
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c  |  3 +-
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h |  8 ++++
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h    |  2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c           |  8 +++-
+ drivers/gpu/drm/scheduler/sched_rq.c               | 20 +++++-----
+ drivers/gpu/drm/ttm/ttm_bo.c                       |  2 +-
+ drivers/gpu/drm/vc4/vc4_kms.c                      |  2 +-
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c      |  2 +
+ drivers/gpu/drm/verisilicon/vs_hwdb.c              | 44 +++---------------=
+----
+ drivers/gpu/drm/verisilicon/vs_hwdb.h              |  4 +-
+ drivers/gpu/drm/verisilicon/vs_primary_plane.c     |  4 +-
+ include/linux/dma-fence.h                          |  6 +++
+ 21 files changed, 110 insertions(+), 85 deletions(-)
+
+--l556737gsdzolcq4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqvVIgAKCRAnX84Zoj2+
+dnEgAX90JkLYTLQJyOLedTAfWZ0aj+eK0/GHmdeNjE6Yll62wrc99KZD73sbpsYo
+Uqc+sPsBfRnlxKgUOk/tEuobnk5PHyPjqkZLl6sM1U06wFVjDyXJFWb8/sg1Y1At
+lGFQIlLWoA==
+=zb9x
+-----END PGP SIGNATURE-----
+
+--l556737gsdzolcq4--
