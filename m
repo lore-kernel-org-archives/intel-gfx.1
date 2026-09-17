@@ -4,27 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13039C88E72
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:32:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDB5C982CF
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86EC910E70A;
-	Thu, 17 Sep 2026 12:32:41 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E358610E70A;
- Thu, 17 Sep 2026 12:32:39 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 737E410EEB6;
+	Thu, 17 Sep 2026 12:46:34 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ch/sueME";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E12E10EEB0;
+ Thu, 17 Sep 2026 12:46:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789649192; x=1821185192;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=qOOhgVVoPkRxMPW8XJPQBswAwBSN0D789OQcJOTa+Y4=;
+ b=ch/sueMEoU8e7Lde5yLUE9Wsj++ClWCJLknsgATLz5ebbooHAJo3mBf6
+ 3nywm7eOrpbvzQK+/qVd+qzjwdJzDOiirUj/wtC4ukx3rzUOwRfy2eL33
+ SeLc2bJR6ZE3WDceQ8kX9lfFEQvaj7iLaj/LmhbTkNlJEzU+ftR9duWxV
+ W7aiW52c2Ka6ZnR8KF6aIagqwW0IFBIiRKx0cPc8Scb2ADSSmzIFKCZxI
+ lVind/gCYHQAA/qq7twalWqMvHD7GEaQFm9MGvXLtoE0WK+WJM/N+yVgG
+ PMl9eKamdC1x3g+wm+0i2uHfz429kEFC74gwLSNHaotYppM7TYkcZXfLN A==;
+X-CSE-ConnectionGUID: +/Lp9h7yRlu0MgWLfSPXjA==
+X-CSE-MsgGUID: ly6EsdWdQZeitvPxBZPEPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90198648"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90198648"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 05:46:32 -0700
+X-CSE-ConnectionGUID: ejZc73hdSxWhw9uUO1IKVg==
+X-CSE-MsgGUID: JR/6Qbe+TSGShUuQJC0InA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="269492794"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.90])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 05:46:30 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, maarten.lankhorst@linux.intel.com, Suraj
+ Kandpal <suraj.kandpal@intel.com>
+Subject: Re: [PATCH 0/4] drm/i915/display: stop using the configurable fence
+ timeout, cleanups
+In-Reply-To: <cover.1789069102.git.jani.nikula@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1789069102.git.jani.nikula@intel.com>
+Date: Thu, 17 Sep 2026 15:46:27 +0300
+Message-ID: <2a6bcbed728a686b31da650614e395144901b630@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/drrs?=
- =?utf-8?q?=3A_Ignore_sync_polarity_when_matching_modes?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Sean Rhodes" <sean@starlabs.systems>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Sep 2026 12:32:39 -0000
-Message-ID: <178964835992.177429.16235797150633189231@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <6436114aa461b08bf0abddadf2c091c45dc81075.1789593508.git.sean@starlabs.systems>
-In-Reply-To: <6436114aa461b08bf0abddadf2c091c45dc81075.1789593508.git.sean@starlabs.systems>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,21 +68,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Thu, 10 Sep 2026, Jani Nikula <jani.nikula@intel.com> wrote:
+> This is a combination and rebase and rehash of a number of patches from
+> before, and I've lost count. So no series version number...
+>
+> Patch 1 is the same as [1], but it should work now that we do full wedge
+> on display reset.
+>
+> Patches 2-4 are from [2] and [3].
+>
+> Fingers crossed.
 
-Series: drm/i915/drrs: Ignore sync polarity when matching modes
-URL   : https://patchwork.freedesktop.org/series/174410/
-State : failure
+Thanks for the reviews, pushed to din.
 
-== Summary ==
+BR,
+Jani.
 
-Series author address 'sean@starlabs.systems' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187677/ (on built-in)
+>
+>
+> [1] https://lore.kernel.org/r/20251113155332.789554-1-jani.nikula@intel.com
+> [2] https://lore.kernel.org/r/cover.1787148235.git.jani.nikula@intel.com
+> [3] https://lore.kernel.org/r/cover.1787833879.git.jani.nikula@intel.com
+>
+> Jani Nikula (4):
+>   drm/i915/display: stop using the configurable fence timeout
+>   drm/i915/display: use struct intel_atomic_state *state variable naming
+>   drm/i915/display: reduce indent in intel_atomic_commit_fence_wait()
+>   drm/i915/display: debug log about fence wait errors
+>
+>  drivers/gpu/drm/i915/display/intel_display.c  | 23 +++++++++++--------
+>  .../drm/xe/compat-i915-headers/i915_config.h  | 16 -------------
+>  2 files changed, 13 insertions(+), 26 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_config.h
 
-
+-- 
+Jani Nikula, Intel
