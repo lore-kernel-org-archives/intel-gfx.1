@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F9A0C88E72
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 16:00:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BBC6C88E72
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 17:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C24810EF91;
-	Thu, 17 Sep 2026 16:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2D1F10EB3F;
+	Thu, 17 Sep 2026 17:54:46 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB1910E732;
- Thu, 17 Sep 2026 16:00:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB4310E76E;
+ Thu, 17 Sep 2026 17:54:45 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/dsi=3A?=
- =?utf-8?q?_fix_i2c_adapter_reference_leak_in_i2c=5Fadapter=5Flookup=28=29_?=
- =?utf-8?q?=28rev4=29?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/gt=3A_?=
+ =?utf-8?q?Fix_ce_use-after-free_in_signal=5Firq=5Fwork=28=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ma Ke" <make_ruc2021@163.com>
+To: "Wentao Liang" <vulab@iscas.ac.cn>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Sep 2026 16:00:08 -0000
-Message-ID: <178966080825.177999.12889433056778038933@61270ab9df2a>
+Date: Thu, 17 Sep 2026 17:54:45 -0000
+Message-ID: <178966768557.178464.15934559278425690957@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260916172053.2087412-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916172053.2087412-1-vulab@iscas.ac.cn>
+References: <20260916172312.2087555-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916172312.2087555-1-vulab@iscas.ac.cn>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,8 +43,8 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/dsi: fix i2c adapter reference leak in i2c_adapter_lookup() (rev4)
-URL   : https://patchwork.freedesktop.org/series/168523/
+Series: drm/i915/gt: Fix ce use-after-free in signal_irq_work()
+URL   : https://patchwork.freedesktop.org/series/174416/
 State : failure
 
 == Summary ==
@@ -53,6 +52,6 @@ State : failure
 Series author address 'vulab@iscas.ac.cn' is not on the allowlist, which prevents CI from being automatically triggered.
 If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
 Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187685/ (on built-in)
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/187687/ (on built-in)
 
 
