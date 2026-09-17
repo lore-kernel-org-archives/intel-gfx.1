@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDB5C982CF
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:46:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91165C982CF
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:49:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 737E410EEB6;
-	Thu, 17 Sep 2026 12:46:34 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ch/sueME";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E12E10EEB0;
- Thu, 17 Sep 2026 12:46:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789649192; x=1821185192;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=qOOhgVVoPkRxMPW8XJPQBswAwBSN0D789OQcJOTa+Y4=;
- b=ch/sueMEoU8e7Lde5yLUE9Wsj++ClWCJLknsgATLz5ebbooHAJo3mBf6
- 3nywm7eOrpbvzQK+/qVd+qzjwdJzDOiirUj/wtC4ukx3rzUOwRfy2eL33
- SeLc2bJR6ZE3WDceQ8kX9lfFEQvaj7iLaj/LmhbTkNlJEzU+ftR9duWxV
- W7aiW52c2Ka6ZnR8KF6aIagqwW0IFBIiRKx0cPc8Scb2ADSSmzIFKCZxI
- lVind/gCYHQAA/qq7twalWqMvHD7GEaQFm9MGvXLtoE0WK+WJM/N+yVgG
- PMl9eKamdC1x3g+wm+0i2uHfz429kEFC74gwLSNHaotYppM7TYkcZXfLN A==;
-X-CSE-ConnectionGUID: +/Lp9h7yRlu0MgWLfSPXjA==
-X-CSE-MsgGUID: ly6EsdWdQZeitvPxBZPEPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90198648"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90198648"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2026 05:46:32 -0700
-X-CSE-ConnectionGUID: ejZc73hdSxWhw9uUO1IKVg==
-X-CSE-MsgGUID: JR/6Qbe+TSGShUuQJC0InA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="269492794"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.90])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2026 05:46:30 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, maarten.lankhorst@linux.intel.com, Suraj
- Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH 0/4] drm/i915/display: stop using the configurable fence
- timeout, cleanups
-In-Reply-To: <cover.1789069102.git.jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cover.1789069102.git.jani.nikula@intel.com>
-Date: Thu, 17 Sep 2026 15:46:27 +0300
-Message-ID: <2a6bcbed728a686b31da650614e395144901b630@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4FB310EEBA;
+	Thu, 17 Sep 2026 12:49:00 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5334D10EEB8;
+ Thu, 17 Sep 2026 12:49:00 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4244153580470996579=="
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/selftests=3A_Fix?=
+ =?utf-8?q?_unlocked_mm=2Estolen_in_reset_selftest_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 17 Sep 2026 12:49:00 -0000
+Message-ID: <178964934033.177521.16711397030916668528@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260917113717.2852-1-sebastian.brzezinka@intel.com>
+In-Reply-To: <20260917113717.2852-1-sebastian.brzezinka@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,41 +37,168 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 10 Sep 2026, Jani Nikula <jani.nikula@intel.com> wrote:
-> This is a combination and rebase and rehash of a number of patches from
-> before, and I've lost count. So no series version number...
->
-> Patch 1 is the same as [1], but it should work now that we do full wedge
-> on display reset.
->
-> Patches 2-4 are from [2] and [3].
->
-> Fingers crossed.
+--===============4244153580470996579==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Thanks for the reviews, pushed to din.
+== Series Details ==
 
-BR,
-Jani.
+Series: drm/i915/selftests: Fix unlocked mm.stolen in reset selftest (rev4)
+URL   : https://patchwork.freedesktop.org/series/172573/
+State : failure
 
->
->
-> [1] https://lore.kernel.org/r/20251113155332.789554-1-jani.nikula@intel.com
-> [2] https://lore.kernel.org/r/cover.1787148235.git.jani.nikula@intel.com
-> [3] https://lore.kernel.org/r/cover.1787833879.git.jani.nikula@intel.com
->
-> Jani Nikula (4):
->   drm/i915/display: stop using the configurable fence timeout
->   drm/i915/display: use struct intel_atomic_state *state variable naming
->   drm/i915/display: reduce indent in intel_atomic_commit_fence_wait()
->   drm/i915/display: debug log about fence wait errors
->
->  drivers/gpu/drm/i915/display/intel_display.c  | 23 +++++++++++--------
->  .../drm/xe/compat-i915-headers/i915_config.h  | 16 -------------
->  2 files changed, 13 insertions(+), 26 deletions(-)
->  delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_config.h
+== Summary ==
 
--- 
-Jani Nikula, Intel
+CI Bug Log - changes from CI_DRM_19160 -> Patchwork_172573v4
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_172573v4 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_172573v4, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_172573v4:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live:
+    - fi-bsw-n3050:       [PASS][1] -> [DMESG-FAIL][2] +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/fi-bsw-n3050/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/fi-bsw-n3050/igt@i915_selftest@live.html
+    - fi-glk-j4005:       [PASS][3] -> [DMESG-FAIL][4] +1 other test dmesg-fail
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/fi-glk-j4005/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/fi-glk-j4005/igt@i915_selftest@live.html
+    - bat-apl-1:          [PASS][5] -> [DMESG-FAIL][6] +1 other test dmesg-fail
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/bat-apl-1/igt@i915_selftest@live.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/bat-apl-1/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@reset:
+    - fi-bsw-nick:        [PASS][7] -> [DMESG-FAIL][8] +1 other test dmesg-fail
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/fi-bsw-nick/igt@i915_selftest@live@reset.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/fi-bsw-nick/igt@i915_selftest@live@reset.html
+
+  * igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1:
+    - bat-jsl-5:          [PASS][9] -> [ABORT][10] +1 other test abort
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/bat-jsl-5/igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/bat-jsl-5/igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1.html
+
+  
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19160 -> Patchwork_172573v4
+
+  CI-20190529: 20190529
+  CI_DRM_19160: d709485448984efaa7ca726c5340ef088f930cac @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9099: 9099
+  Patchwork_172573v4: d709485448984efaa7ca726c5340ef088f930cac @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/index.html
+
+--===============4244153580470996579==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/selftests: Fix unlocked mm.stolen in reset selftest (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172573/">https://patchwork.freedesktop.org/series/172573/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19160 -&gt; Patchwork_172573v4</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_172573v4 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_172573v4, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_172573v4:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/fi-bsw-n3050/igt@i915_selftest@live.html">DMESG-FAIL</a> +1 other test dmesg-fail</li>
+<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/fi-glk-j4005/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/fi-glk-j4005/igt@i915_selftest@live.html">DMESG-FAIL</a> +1 other test dmesg-fail</li>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/bat-apl-1/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/bat-apl-1/igt@i915_selftest@live.html">DMESG-FAIL</a> +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@reset:</p>
+<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/fi-bsw-nick/igt@i915_selftest@live@reset.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/fi-bsw-nick/igt@i915_selftest@live@reset.html">DMESG-FAIL</a> +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1:</p>
+<ul>
+<li>bat-jsl-5:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19160/bat-jsl-5/igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v4/bat-jsl-5/igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1.html">ABORT</a> +1 other test abort</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19160 -&gt; Patchwork_172573v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19160: d709485448984efaa7ca726c5340ef088f930cac @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9099: 9099<br />
+  Patchwork_172573v4: d709485448984efaa7ca726c5340ef088f930cac @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4244153580470996579==--
