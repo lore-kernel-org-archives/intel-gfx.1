@@ -4,56 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B1D6C982D3
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 05:08:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35E46C982D0
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 05:19:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC70910E6FA;
-	Thu, 17 Sep 2026 05:08:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98ADF10E419;
+	Thu, 17 Sep 2026 05:19:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WR+pXiXU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cp9a6AL9";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 925DE10E3CA;
- Thu, 17 Sep 2026 05:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789621671; x=1821157671;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=umjZfcbOwpNS2IuQB4TKEW8R+K787+5qlmWbNRE4YWE=;
- b=WR+pXiXUPU6X1SqT6kxq2XpgEWLwb8ptl40T4FDBraaOXhms+63vhJoH
- x0D7nNKAwCTzZ0uAFJus7LX7IDUhXulH8qrKXA8c0j6x5AoODIzWvnaLP
- DnLVSQaIg1SU69sV+TpxsJLxlwvTL4JbThHzQSKvQ6Fawiwl2xKACyB2G
- JlgAmzKRmpJOJk5bKRhp2tgBlVPBjYl76RQGfviHM8R2v+uoA+TtjL/Wg
- ChaI4CgKRPbsLfP8tVMBi9NapTa4Nrvp6J4KlgxSx5uSwA4LRHBM3+KlK
- EPiavzP62ZyNERZKlu1HR07+pl+cES4Yay9ZzX+tCSUMyaObkO3UgF4Hx w==;
-X-CSE-ConnectionGUID: 7l+qPdadToaKZELH0uFc0Q==
-X-CSE-MsgGUID: dzJNnqU6QMm1v9z8opH+Lg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77569713"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="77569713"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 22:07:50 -0700
-X-CSE-ConnectionGUID: uvzvFXuHSFeam76jT7JVMg==
-X-CSE-MsgGUID: nzpapZ69T3+HSIP2xygz6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="278799091"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa005.fm.intel.com with ESMTP; 16 Sep 2026 22:07:49 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v4 08/10] drm/i915/display: Implement Wa_14021768792 for BMG
- DP for link_m/n ratio > 10
-Date: Thu, 17 Sep 2026 10:36:47 +0530
-Message-Id: <20260917050649.871960-9-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260917050649.871960-1-suraj.kandpal@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0603E10E419;
+ Thu, 17 Sep 2026 05:19:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 77DC140A30;
+ Thu, 17 Sep 2026 05:19:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6171F000FF;
+ Thu, 17 Sep 2026 05:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789622343;
+ bh=0BklnUeb095oberaLTpTX7fuyUp2f0FwDqhaW9HrJ5g=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Cp9a6AL9zB7/cvy/lWBumaA/2homZduiIpXqx+NHuGWl0eLu/QS4ls72bD1/mZ0uR
+ bkfIhAP7Ngq4waROYzyyIxlCFCDgoI34XW6wQg5aQBr5Z5QCAdWyzjRNojTVPXFgL4
+ SKVp9Iv404mY1AopmO4/104rdfaJ6KcjDJWLoTVr7FSMLwy6EcQnMyIgxfE5Hb/UyF
+ uucW2aIELM/S415NkpLrVOxM8ZxQXN9KoRxDDcFwvnLjXKMV7KVdgfZhLWwOEPhpDE
+ oFlDGB8zxjb92qSuMheXfIe1CWXS/obPM+NwBIbF/qsH/WhDvi1Sr5l23kvPCRluN9
+ LJ8VNFGsWWrjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 07/10] drm/i915/display: Add bits for Wa_14021768792
+ for linkm/n ratio > 10
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260917050649.871960-8-suraj.kandpal@intel.com>
 References: <20260917050649.871960-1-suraj.kandpal@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260917050649.871960-8-suraj.kandpal@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 05:19:02 +0000
+Message-Id: <20260917051903.2F6171F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,91 +54,101 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/i915/display: TGDDA workaround state leaks to HDMI modesets
+--
 
-Handle the bypass logic for the M/N ratio limit for DP.
-Calculate the M/N ratio, check if it can bypass the limit, and set the
-appropriate flags for the workaround.
+commit 7ca764c5b58c7f2901c9b7de8005ba2561ae1426
+Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-v2:
--Restrict the workaround to 128b/132b links.
--Clear bypass_m_n_ratio_limit on entry, so a rejected link rate cannot
-leave it set for the rate that gets used. (Sashiko)
+    drm/i915/display: Add bits for Wa_14021768792 for linkm/n ratio > 10
+   =20
+    To support a Link M/N ratio between 10.0 and 15.0, for some BMG
+    ultrajoiner cases we need Wa_14021768792.
+   =20
+    To bypass the hardware limitation within the Timing Generator DDA
+    (TGDDA), we need to program the LINKM and LINKN registers as defined in
+    the WA. Along with this we also need the relevant bits in HDMI_EMP_DATA
+    and CHICKEN_TRANS.
 
-Bspec: 49266
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 31 +++++++++++++++++++++----
- 1 file changed, 26 insertions(+), 5 deletions(-)
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index 6d2025e109956..1e9d8943626a7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+[ ... ]
+> @@ -2738,6 +2749,26 @@ bool intel_cpu_transcoder_has_m2_n2(struct intel_d=
+isplay *display,
+>  	return IS_DISPLAY_VER(display, 5, 7) || display->platform.cherryview;
+>  }
+> =20
+> +static void bmg_enhanced_tgdda_write(struct intel_crtc *crtc,
+> +				     enum transcoder transcoder,
+> +				     const struct intel_link_m_n *m_n)
+> +{
+> +	struct intel_display *display =3D to_intel_display(crtc);
+> +	bool enable =3D m_n->bypass_m_n_ratio_limit && m_n->link_n;
+> +	u32 link_m_frac =3D enable ? m_n->link_m % m_n->link_n : 0;
+> +
+> +	if (!intel_display_wa(display, INTEL_DISPLAY_WA_14021768792))
+> +		return;
+> +
+> +	intel_de_rmw(display, HDMI_EMP_DATA(display, transcoder),
+> +		     HDMI_EMP_DATA_LINK_M_FRAC_MASK,
+> +		     REG_FIELD_PREP(HDMI_EMP_DATA_LINK_M_FRAC_MASK, link_m_frac));
+> +
+> +	intel_de_rmw(display, CHICKEN_TRANS(display, transcoder),
+> +		     DP_ENHANCED_TGDDA_ENABLE,
+> +		     enable ? DP_ENHANCED_TGDDA_ENABLE : 0);
+> +}
+> +
+>  void intel_cpu_transcoder_set_m1_n1(struct intel_crtc *crtc,
+>  				    enum transcoder transcoder,
+>  				    const struct intel_link_m_n *m_n)
+> @@ -2745,6 +2776,8 @@ void intel_cpu_transcoder_set_m1_n1(struct intel_cr=
+tc *crtc,
+>  	struct intel_display *display =3D to_intel_display(crtc);
+>  	enum pipe pipe =3D crtc->pipe;
+> =20
+> +	bmg_enhanced_tgdda_write(crtc, transcoder, m_n);
+> +
+>  	if (DISPLAY_VER(display) >=3D 5)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index fbfc00101886..9c327008b733 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3373,6 +3373,9 @@ static bool can_enable_drrs(struct intel_connector *connector,
- 	if (pipe_config->vrr.enable)
- 		return false;
- 
-+	if (pipe_config->dp_m_n.bypass_m_n_ratio_limit)
-+		return false;
-+
- 	/*
- 	 * DRRS and PSR can't be enable together, so giving preference to PSR
- 	 * as it allows more power-savings by complete shutting down display,
-@@ -3397,18 +3400,35 @@ void intel_dp_check_m_n_ratio(struct intel_crtc_state *crtc_state,
- 			      struct intel_link_m_n *m_n)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	int max_m_n_ratio = intel_dp_get_max_m_n_ratio(display);
- 	int m_n_ratio;
- 
--	if (!m_n || !m_n->link_n)
-+	if (!m_n)
-+		return;
-+
-+	m_n->bypass_m_n_ratio_limit = false;
-+
-+	if (!m_n->link_n)
- 		return;
- 
- 	m_n_ratio = DIV_ROUND_UP(m_n->link_m, m_n->link_n);
- 
--	if (m_n_ratio > max_m_n_ratio)
-+	if (m_n_ratio <= max_m_n_ratio)
-+		return;
-+
-+	if (intel_dp_is_uhbr(crtc_state) &&
-+	    intel_display_can_bypass_m_n_limit(display, m_n_ratio, crtc->pipe)) {
-+		m_n->bypass_m_n_ratio_limit = true;
- 		drm_dbg_kms(display->drm,
--			    "Link M/N ratio (%d) exceeds max allowed (%d)\n",
--			    m_n_ratio, max_m_n_ratio);
-+			    "Bypassing Link_m/Link_n ratio limit (ratio %d)\n",
-+			    m_n_ratio);
-+		return;
-+	}
-+
-+	drm_dbg_kms(display->drm,
-+		    "Link M/N ratio (%d) exceeds max allowed (%d)\n",
-+		    m_n_ratio, max_m_n_ratio);
- }
- 
- static void
-@@ -3425,7 +3445,8 @@ intel_dp_drrs_compute_config(struct intel_connector *connector,
- 	 * FIXME all joined pipes share the same transcoder.
- 	 * Need to account for that when updating M/N live.
- 	 */
--	if (has_seamless_m_n(connector) && !pipe_config->joiner_pipes)
-+	if (has_seamless_m_n(connector) && !pipe_config->joiner_pipes &&
-+	    !pipe_config->dp_m_n.bypass_m_n_ratio_limit)
- 		pipe_config->update_m_n = true;
- 
- 	if (!can_enable_drrs(connector, pipe_config, downclock_mode)) {
--- 
-2.34.1
+[Severity: Medium]
+The commit message states that CHICKEN_TRANS and HDMI_EMP_DATA "are explici=
+tly
+cleared when the mechanism is not in use, so that state cannot leak from a
+previous modeset." Does this clearing logic work if the transcoder is repur=
+posed
+for HDMI?
 
+The clearing logic is placed in bmg_enhanced_tgdda_write(), which is called
+exclusively from intel_cpu_transcoder_set_m1_n1().
+
+Looking at hsw_configure_cpu_transcoder(), intel_cpu_transcoder_set_m1_n1()=
+ is
+only called for DP and FDI encoders:
+
+    } else if (intel_crtc_has_dp_encoder(crtc_state)) {
+        intel_cpu_transcoder_set_m1_n1(crtc, cpu_transcoder,
+                                       &crtc_state->dp_m_n);
+        intel_cpu_transcoder_set_m2_n2(crtc, cpu_transcoder,
+                                       &crtc_state->dp_m2_n2);
+    }
+
+If a transcoder is first used for DisplayPort (triggering the workaround and
+setting DP_ENHANCED_TGDDA_ENABLE) and subsequently repurposed for HDMI,
+intel_cpu_transcoder_set_m1_n1() is completely skipped.
+
+Will the Transcoder's Timing Generator DDA remain in the enhanced DP workar=
+ound
+mode and potentially corrupt HDMI timings?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917050649.8719=
+60-1-suraj.kandpal@intel.com?part=3D7
