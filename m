@@ -4,99 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF27BC982DA
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 15:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1BC8C982D8
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 15:27:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3657610E92C;
-	Fri, 18 Sep 2026 15:27:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3709310E934;
+	Fri, 18 Sep 2026 15:27:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ViZbifj8";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H+WzPnKr";
 	dkim-atps=neutral
-Received: from mail-qv2-f37.google.com (mail-qv2-f37.google.com
- [74.125.230.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA71710F396
- for <intel-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 13:54:39 +0000 (UTC)
-Received: by mail-qv2-f37.google.com with SMTP id
- 6a1803df08f44-91235f46716so7441916d6.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 06:54:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789739679; cv=none;
- d=google.com; s=arc-20260327;
- b=ngjs/zPzIbLCzEMHFxzcIin0m39REM/aUkkrlmvkPc/OvPB3XLi3feJRZ1gPAmsAyQ
- KdXVOy3LiDW85sXuW4ueOC1+SPKuyytW3Ns/QwPn85ZZcciGOGdOxhU08d3kIAKli04m
- LoGm7w/8QGF+0ZDzVwLx/ETOkjCcuFDdyaMHk9HKm5Gc5w9kFaVYeMVec6kch8qeBTvG
- a3+T5otlCuQr02AcoM9Br6VeG3G9EiFs/UPaovKNvs5OgHNrHanYNwWa1WdlmNFMGIOm
- JWKHc2caD22aBzmbL8CCoFDXv2eQrrlDtSgF4srNLj6bK/72e2YlvQQqmMldpocrpZ4Q
- A3eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=S9k8FKG4j03MJBTpWsc8b7htP2TIjKMqy+TI/78aQ4Q=;
- fh=sXFIbhzc/flOqQEyKszvKmToxhaLdfb0UgYUGcZRU2s=;
- b=rY6V9Xfou5vpNNn87GdNO/UETK+e/xo0bq+NmGbHff4Ex/ycxSuRojcb9Tw2SyhIzh
- r9c1k07RSXFXesEry9fajUDvGHQB2Uhkn4VoA0GGGEjLUe9sPjRYXECEaP/G70X94yzL
- fVVkmps524m2Geb6nC/fkdJTVCM247wMWuwTl7B0cVFpY1xtH1UKoBGLpFPu0sGCQYDu
- I7a3GyeHrBds8FbRiJRy7D5DOcDAJEFAs8ZISQfymk0UIh2Pz5769b2wbmGiWySyTi/r
- UBb+9pJIqDk4HYKYBewSLrj//07cf3OvNN+YwrJwnG5nADUGBHD5Idf48S6AWtklPWz4
- 3LCQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com
+ [74.125.228.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10E6410F069
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 18:52:58 +0000 (UTC)
+Received: by mail-ed2-f35.google.com with SMTP id
+ 4fb4d7f45d1cf-6a6063d7daaso1790064a12.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 11:52:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789739679; x=1790344479; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=S9k8FKG4j03MJBTpWsc8b7htP2TIjKMqy+TI/78aQ4Q=;
- b=ViZbifj8LsRotP3z7bXZ6zsLT3ZnYn/CmIL+O0SqEKpLqnL1C9CWIhQAGh3oIbhpCZ
- 0BpAN/ao9s6f/WAmdekCTSwpOx+z3Fm+2dgLfx/MH3k5d7/PDJ2O08kz2mSSgktsAu5t
- F7GLU/fBs81VjPvfJTq6xuwhXYPj+qw+9kgP5SikZUZHan8emynkVSmrYVj6eWLqaFC2
- HPn+5Y+i74x05524BFriAZFdP4Rzq2L7wbg01nWxRKuOhPGVz/Ps15Ym+n1hcMq66Lqs
- ZVRGjLby2WtAYi5DtK6iVee/N6CkCVhm3dQZBVzhzuuut4A/xti7OCucsJWcABzA35Fh
- Ep3g==
+ d=gmail.com; s=20251104; t=1789671176; x=1790275976; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Rja8CkyCHKN0BB+9VZU25/yAjyQ+Z2Lz6sA9AfSQojE=;
+ b=H+WzPnKrQhzoyV9HGhcOA9NqhXcfhS/qhR++9/kbJdbJ72YqSFpq5rOwBgn70LP5xJ
+ GsGHHHVgGAAYOA105PcOmMkXBSb4Ngdmo1Xl4HWfWjucS7K35Xkqiuxh/kekz5fFcEQp
+ e+4yQoDA27YtO+9MHk4vutPEhm2lNt9yrvDGjFWaw+FY+KnEBqnLOI/spgcFQYFNUXXy
+ r/3tpM0M6WCgvjgNyoS3xpPc16rhM7DqaWoWAkkrDtjeP6DdgWxIZOloTJpvHqYPGFCm
+ urLT7hR2s64aAX7Jk2hDKHkGJfibD5OU8fqQ4IpyVNtzeV0MSetJAkmmEiTB8+8YKqPS
+ EvaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789739679; x=1790344479;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=S9k8FKG4j03MJBTpWsc8b7htP2TIjKMqy+TI/78aQ4Q=;
- b=iE17w2NG7z+VMWy2CaRivh/VfrzrY9XgzR7MmnqO1tyzk39q3iuJ064p9lHKttPmmE
- tb+WtlKkYR4RFI85kAPCFaiWKpTBp2bBTznLQnHSKsLAvkXQceQOO9fdYl63HCF4atVH
- Dci56ylBNwYL35nqRaGIIq5iOAQqq1o+ui3YpLv8Lkko6gEL+Wnmf2U5FuJqEUFsPPbF
- ugEr6x7P1ARqdxWdr8Gt29VZo9Hf8mQXf3SXhczIKyIoP0+w0G0JLDfWSVu+7dJRQLge
- h2rCj0MG3Dg4FiqyOYaYaPm659MfVXLExC5HS6cegzX2QECcygcamqH5vPnmsC1rNeTU
- krTQ==
+ d=1e100.net; s=20260707; t=1789671176; x=1790275976;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Rja8CkyCHKN0BB+9VZU25/yAjyQ+Z2Lz6sA9AfSQojE=;
+ b=yYx4OaqARyQ9a0wE+Nag8P7uW/4CxVtWvjHhd8zj4KrA/snDo/KovZ/8UM8olHrn80
+ jbCKImgqX1fTkx10W7SGlEGHah1mvErUtCe3QfGGnybiFCuMSwpuWRkntBaNZ0y3BFCP
+ 4KUlWFdXBVBp9yfvtiDUbVCQF5YLPAOuvYg9bH+3+CJQj3SbltNj06sUZB3Xz8WqDtvm
+ 5n2n/PIdV1O1yhogfPAa/eOEQbuf38cq6m3fJh/RD6uiN9K2AyOESxinsujG06+SiBxV
+ xo5nKYThH/htSaibvV0QkpX3B38vgv4HC0FPl4Mjg8A/MY760Ec++Dn0YCSRKR0Cvjit
+ FvkQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxXdEPYqQq+6WEGW5F+NQQIh3LAf3PqtjB0tRzRa+NZUpXs6rnHbBPBAIfqX8AHKRKGAiRy+d9UReE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mKe9b/c687FGR73EQyx/asASKKnnu4eHYDMKOuDOVjLf5cwDGa
- 4MixrYx/hIPSifQdVJO4P7ar94rD52eZbeRsGkcMmD/b4S+iy7AWFUMKh2mf00S67pdFT58Mc3r
- GNfQbZq5E0mGntfjFZ6zhDUaydfVoJ1I=
-X-Gm-Gg: AYBFou3T6HC/lZWeUmTkAHbaYSPfjupZoGaKtk53+evEEzEUxyfEWrzkfBrfXC5qQCp
- rSp3cX+hOnY1R1qxOyPC4s7c272oGB4Bl8dvgTYWJ0PrOjoyitr825cJledtWI8UyqI9vwmQROg
- WwxMt/eQrNAPS19+2r5CMXLJXXtWZSD8tE4qzgG2TB+geUm+8P/forWNjHEp0C6Z2N5CyczonS7
- l+tR+Oy9AbjgoW6jN7agGKNqKBKb1Ief8iXitZ7QoTFMm1XJysnwezXU4tPsFrpmXhf/5FTpMXX
- pX4VknZKmrLDig7WU2eCMuB5PM5yw0aoqQgDxO3jJhHElfcXqBOqcGwcOeUlRNzlifWx/WCChRi
- gcz/60x8CF2frTBq/MA==
-X-Received: by 2002:ad4:5c69:0:b0:912:517b:918 with SMTP id
- 6a1803df08f44-91254cf9991mr42645216d6.55.1789739676490; Fri, 18 Sep 2026
- 06:54:36 -0700 (PDT)
+ AKwUvBzvqIZatkTlVjHWqfgtKMx80rEuvBPnye9Olw5ifKdBKnbJe3djXFwthGNtTNxds3wSs09jnAGg9O4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++moLDKUjGYHU3p0n+O2V/RrGIqQGW1jXvIUkTh5BaiWtPQaSCv5
+ /cRrGPDN2FSQyUjiZaKcc4PaSmG8+Od7bMnaAUrD5L5X+Bq7ullJYOgx
+X-Gm-Gg: AYBFou24xi5x/xiTwiD7+ZlLmwVL3BnHCmnJpjyR6PWhVFCinAuP8KX11mYlpqbHB+Y
+ 8y9BfoiHIe5tiOhhP5To3+nk2j3uMeNKlZp9AtKYXqp7x6cKPnm06y+nqpYby/ANqqUn0SlQUSK
+ dXS6OoULF59pi33JDBAsd1wm3PD4n8/VgaUnYspbFcsxPNr0QrgUB1GRyb2/2BMmrm0tbxL1P7K
+ znFmLlDsayfMbtyRIDAUV7nj+BXFTi2eODTgGIQlHVvNL05fPRYrU62d57RuhsJ1JaQP230oaPD
+ SYLTtf6fSAjpDmKHcy/y9Tj0SpKWQK70YhUFXjnNn3zydLfroSKSKmboBXumJoAUwzUJk6oLwXg
+ uTsy4pZeIp0SzqXMaiNw7eVjijR6aAzapyqqh7t7YgSzEuyDocalXUaHT/APWvGWs17SFqiVrlM
+ VLVw4+9fnS1M08O6g+OdhIDE3MAuyGcJ/oCi39wkByuBNBhfNsTHbwB+rI1HjjJUe2YL8=
+X-Received: by 2002:a05:6402:24c5:b0:6aa:13a8:beea with SMTP id
+ 4fb4d7f45d1cf-6aa22452a31mr10658257a12.21.1789671175963; 
+ Thu, 17 Sep 2026 11:52:55 -0700 (PDT)
+Received: from cartold ([77.213.69.61]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6aa1d286e76sm3610549a12.23.2026.09.17.11.52.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Sep 2026 11:52:55 -0700 (PDT)
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+To: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Theo Andersen Carton <andersen.theo@gmail.com>
+Subject: [PATCH v3] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple
+ MacBookPro11, 5
+Date: Thu, 17 Sep 2026 20:52:35 +0200
+Message-ID: <20260917185235.23792-1-andersen.theo@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-References: <20260905142500.17666-1-zhoulol888@gmail.com>
- <20260915064200.23171-1-zhoulol888@gmail.com>
- <69d0f3f3566521e516e439e818a619766561567c@intel.com>
- <CAEnyS7FrjPdkErjnNO5bOkEvrRdGfWYNB-GnhjpB2iKYFMJx5g@mail.gmail.com>
-In-Reply-To: <CAEnyS7FrjPdkErjnNO5bOkEvrRdGfWYNB-GnhjpB2iKYFMJx5g@mail.gmail.com>
-From: Activate Windows <zhoulol888@gmail.com>
-Date: Fri, 18 Sep 2026 21:54:24 +0800
-X-Gm-Features: AcwNN1WIs6CkWfPv2-lF5nz3B4wj_E4yv2c-VP8ml3oZP8t0e1qvS-gWSEP-GOc
-Message-ID: <CAEnyS7GUNiOCReMzVrOqutxbpaOPX+AxJ5AueTvQbgODyVweWA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/xe/display: Remove invalid initial plane PTE check
- for iGPU
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Content-Type: multipart/alternative; boundary="000000000000a85d1e065bc23d7f"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 18 Sep 2026 15:27:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,265 +91,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000a85d1e065bc23d7f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
+GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
+As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
+back a source maximum of two lanes for port A.
 
-Please drop this. Removing the check changes nothing, so the PTE check
-isn't the cause. Sorry for the noise.
+intel_dp_max_common_lane_count() then takes min3(source_max = 2,
+sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
+bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
+every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
+with no usable modes at all -- the panel stays dark whenever i915 is
+made to drive it, which looks like a hardware limitation but is not.
 
-On Tue, Sep 15, 2026 at 9:59=E2=80=AFPM Activate Windows <zhoulol888@gmail.=
-com>
-wrote:
+The lanes are physically there. Reading the panel's DPCD from the AMD
+side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
+i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
+at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
+native resolution, so all four lanes are routed through the gmux to
+DDI A. Only the register bit is unset.
 
-> Thank you.
-> Follow-up: reading 0d5d5d0c2c72, the check assumes GRAPHICS_VERx100(xe)
-> >=3D 1270 stands in for "MTL+ with LMEMBAR". On the PTL I hit this on, th=
-e
-> initial plane is rejected.
->
-> I'm working out whether the BIOS PTE actually lacks XE_GGTT_PTE_DM there
-> -- I'll follow up with a proper v2. I don't have the machine in front of =
-me
-> for a few days.
->
-> On Tue, Sep 15, 2026 at 4:40=E2=80=AFPM Jani Nikula <jani.nikula@linux.in=
-tel.com>
-> wrote:
->
->> On Tue, 15 Sep 2026, Andrew Zhou <zhoulol888@gmail.com> wrote:
->> > Pantherlake integrated graphics can have the XE_GGTT_PTEDM bit set in
->> > the BIOS-initialised framebuffer PTE. The validation rejects this and
->> > fails to create the initial framebuffer, resulting in static.
->> >
->> > Remove the too-strict validation. Since this was the only caller of
->> > need_pte_local() outside the DGFX path, the helper is now
->> > unconditionally true there; fold the check and drop the dead
->> > need_pte_local() and has_lmembar() helpers.
->> >
->> > Signed-off-by: Andrew Zhou <zhoulol888@gmail.com>
->> > Tested-by: Andrew Zhou <zhoulol888@gmail.com>
->> > Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping
->>
->> This is basically a revert of 0d5d5d0c2c72 ("drm/xe: Check the PTE local
->> memory bit for initial FB in stolen"). You'd do well to dig a bit of git
->> blame and see what changed, why, and by whom.
->>
->> Cc: Ville, Maarten, Matthew
->>
->>
->> BR,
->> Jani.
->>
->> > ---
->> > v1 -> v2:
->> > - Drop need_pte_local() and has_lmembar(), now dead after removing the
->> >   iGPU validation (sashiko)
->> > ---
->> >  drivers/gpu/drm/xe/display/xe_initial_plane.c | 20 +-----------------=
--
->> >  1 file changed, 1 insertion(+), 19 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c
->> b/drivers/gpu/drm/xe/display/xe_initial_plane.c
->> > index 0f86b7303..3484b3033 100644
->> > --- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
->> > +++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
->> > @@ -27,16 +27,6 @@ static bool is_pte_local(u64 pte)
->> >       return pte & XE_GGTT_PTE_DM;
->> >  }
->> >
->> > -static bool has_lmembar(struct xe_device *xe)
->> > -{
->> > -     return GRAPHICS_VERx100(xe) >=3D 1270;
->> > -}
->> > -
->> > -static bool need_pte_local(struct xe_device *xe)
->> > -{
->> > -     return IS_DGFX(xe) || has_lmembar(xe);
->> > -}
->> > -
->> >  static struct xe_bo *
->> >  initial_plane_bo(struct xe_device *xe,
->> >                struct intel_initial_plane_config *plane_config)
->> > @@ -60,7 +50,7 @@ initial_plane_bo(struct xe_device *xe,
->> >       if (IS_DGFX(xe)) {
->> >               u64 pte =3D xe_ggtt_read_pte(tile0->mem.ggtt, base);
->> >
->> > -             if (is_pte_local(pte) !=3D need_pte_local(xe)) {
->> > +             if (!is_pte_local(pte)) {
->> >                       drm_err(&xe->drm, "Initial plane PTE has bad
->> local memory bit\n");
->> >                       return NULL;
->> >               }
->> > @@ -85,7 +75,6 @@ initial_plane_bo(struct xe_device *xe,
->> >                           &phys_base);
->> >       } else {
->> >               struct ttm_resource_manager *stolen;
->> > -             u64 pte;
->> >
->> >               stolen =3D ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
->> >               if (!stolen) {
->> > @@ -93,13 +82,6 @@ initial_plane_bo(struct xe_device *xe,
->> >                       return NULL;
->> >               }
->> >
->> > -             pte =3D xe_ggtt_read_pte(tile0->mem.ggtt, base);
->> > -
->> > -             if (is_pte_local(pte) !=3D need_pte_local(xe)) {
->> > -                     drm_err(&xe->drm, "Initial plane PTE has bad
->> local memory bit\n");
->> > -                     return NULL;
->> > -             }
->> > -
->> >               phys_base =3D base;
->> >               flags |=3D XE_BO_FLAG_STOLEN;
->>
->> --
->> Jani Nikula, Intel
->>
->
+intel_ddi_a_force_4_lanes() already exists for exactly this situation --
+its neighbouring comment notes that "Some BIOS might fail to set this
+bit on port A if eDP wasn't lit up at boot" -- but it only covers
+Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
+the correct lane count too.
 
---000000000000a85d1e065bc23d7f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The DMI match is deliberately narrow. Other dual-GPU models in the same
+family are very likely affected identically, but they are untested, so
+widen the match only as reports come in.
 
-<div dir=3D"ltr">Please drop this. Removing the check changes nothing, so t=
-he PTE check isn&#39;t the cause. Sorry for the noise.</div><br><div class=
-=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr=
-">On Tue, Sep 15, 2026 at 9:59=E2=80=AFPM Activate Windows &lt;<a href=3D"m=
-ailto:zhoulol888@gmail.com">zhoulol888@gmail.com</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=
-=3D"ltr">Thank you.<br><span>Follow-up: reading 0d5d5d0c2c72, the check ass=
-umes </span><code>GRAPHICS_VERx100(xe) &gt;=3D 1270</code><span> stands in =
-for &quot;MTL+ with LMEMBAR&quot;. On the PTL I hit this on, the initial pl=
-ane is rejected.=C2=A0<br><br>I&#39;m working out whether the BIOS PTE actu=
-ally lacks XE_GGTT_PTE_DM there -- I&#39;ll follow up with a proper v2. I d=
-on&#39;t have the machine in front of me for a few days.</span></div><br><d=
-iv class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Sep =
-15, 2026 at 4:40=E2=80=AFPM Jani Nikula &lt;<a href=3D"mailto:jani.nikula@l=
-inux.intel.com" target=3D"_blank">jani.nikula@linux.intel.com</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Tue, 15 Sep=
- 2026, Andrew Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com" target=3D"_b=
-lank">zhoulol888@gmail.com</a>&gt; wrote:<br>
-&gt; Pantherlake integrated graphics can have the XE_GGTT_PTEDM bit set in<=
-br>
-&gt; the BIOS-initialised framebuffer PTE. The validation rejects this and<=
-br>
-&gt; fails to create the initial framebuffer, resulting in static.<br>
-&gt;<br>
-&gt; Remove the too-strict validation. Since this was the only caller of<br=
->
-&gt; need_pte_local() outside the DGFX path, the helper is now<br>
-&gt; unconditionally true there; fold the check and drop the dead<br>
-&gt; need_pte_local() and has_lmembar() helpers.<br>
-&gt;<br>
-&gt; Signed-off-by: Andrew Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com"=
- target=3D"_blank">zhoulol888@gmail.com</a>&gt;<br>
-&gt; Tested-by: Andrew Zhou &lt;<a href=3D"mailto:zhoulol888@gmail.com" tar=
-get=3D"_blank">zhoulol888@gmail.com</a>&gt;<br>
-&gt; Tested-on: Intel Core Ultra X7 358H, integrated graphics, B0 stepping<=
-br>
-<br>
-This is basically a revert of 0d5d5d0c2c72 (&quot;drm/xe: Check the PTE loc=
-al<br>
-memory bit for initial FB in stolen&quot;). You&#39;d do well to dig a bit =
-of git<br>
-blame and see what changed, why, and by whom.<br>
-<br>
-Cc: Ville, Maarten, Matthew<br>
-<br>
-<br>
-BR,<br>
-Jani.<br>
-<br>
-&gt; ---<br>
-&gt; v1 -&gt; v2:<br>
-&gt; - Drop need_pte_local() and has_lmembar(), now dead after removing the=
-<br>
-&gt;=C2=A0 =C2=A0iGPU validation (sashiko)<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/xe/display/xe_initial_plane.c | 20 +------------=
-------<br>
-&gt;=C2=A0 1 file changed, 1 insertion(+), 19 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/g=
-pu/drm/xe/display/xe_initial_plane.c<br>
-&gt; index 0f86b7303..3484b3033 100644<br>
-&gt; --- a/drivers/gpu/drm/xe/display/xe_initial_plane.c<br>
-&gt; +++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c<br>
-&gt; @@ -27,16 +27,6 @@ static bool is_pte_local(u64 pte)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return pte &amp; XE_GGTT_PTE_DM;<br>
-&gt;=C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt; -static bool has_lmembar(struct xe_device *xe)<br>
-&gt; -{<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0return GRAPHICS_VERx100(xe) &gt;=3D 1270;<br>
-&gt; -}<br>
-&gt; -<br>
-&gt; -static bool need_pte_local(struct xe_device *xe)<br>
-&gt; -{<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0return IS_DGFX(xe) || has_lmembar(xe);<br>
-&gt; -}<br>
-&gt; -<br>
-&gt;=C2=A0 static struct xe_bo *<br>
-&gt;=C2=A0 initial_plane_bo(struct xe_device *xe,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct intel_in=
-itial_plane_config *plane_config)<br>
-&gt; @@ -60,7 +50,7 @@ initial_plane_bo(struct xe_device *xe,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_DGFX(xe)) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 pte =3D xe_g=
-gtt_read_pte(tile0-&gt;mem.ggtt, base);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (is_pte_local(pte)=
- !=3D need_pte_local(xe)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!is_pte_local(pte=
-)) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0drm_err(&amp;xe-&gt;drm, &quot;Initial plane PTE has bad local=
- memory bit\n&quot;);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0return NULL;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; @@ -85,7 +75,6 @@ initial_plane_bo(struct xe_device *xe,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;phys_base);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct ttm_resou=
-rce_manager *stolen;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u64 pte;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stolen =3D ttm_m=
-anager_type(&amp;xe-&gt;ttm, XE_PL_STOLEN);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!stolen) {<b=
-r>
-&gt; @@ -93,13 +82,6 @@ initial_plane_bo(struct xe_device *xe,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0return NULL;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pte =3D xe_ggtt_read_=
-pte(tile0-&gt;mem.ggtt, base);<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (is_pte_local(pte)=
- !=3D need_pte_local(xe)) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0drm_err(&amp;xe-&gt;drm, &quot;Initial plane PTE has bad local memor=
-y bit\n&quot;);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return NULL;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; -<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0phys_base =3D ba=
-se;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0flags |=3D XE_BO=
-_FLAG_STOLEN;<br>
-<br>
--- <br>
-Jani Nikula, Intel<br>
-</blockquote></div></div>
-</blockquote></div>
+Tested on a MacBookPro11,5 (Haswell Crystal Well, Iris Pro 5200 +
+Radeon R9 M370X): with the quirk, DDI A comes up as 4 lanes, link
+training passes at link rate 270000 / lane count 4, and i915 drives the
+internal panel at its native 2880x1800.
 
---000000000000a85d1e065bc23d7f--
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
+Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+---
+Numbering note: neither earlier posting was labelled, so to match the
+numbering already used on the list this is v3. v1 [1] was pasted into a
+mail client by hand, which hard-wrapped the diff and detabbed it, leaving
+it unapplicable. v2 [2] was the same patch resent with git send-email,
+unlabelled.
+
+v3:
+- No functional change since v2.
+- Commit message: the machine is Haswell (Crystal Well), not Broadwell as
+  v1/v2 claimed. The DMI match was always by model, so no code change.
+- Added Closes: tag for the bug report, which carries the failing-case
+  logs, the VBT dump and the EDID.
+
+[1] https://lore.kernel.org/r/CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com
+[2] https://lore.kernel.org/lkml/20260912091805.531666-1-andersen.theo@gmail.com/
+ drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
+ drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+ 3 files changed, 42 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 02a53c9848e1..f746287830b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
+ 	if (display->platform.geminilake || display->platform.broxton)
+ 		return true;
+ 
++	/*
++	 * Machines whose firmware leaves eDP dark on the Intel side never set
++	 * the bit, so trust the quirk rather than the register.
++	 */
++	if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
++		return true;
++
+ 	return false;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..feb28956a013 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
+ 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+ }
+ 
++/*
++ * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
++ * the firmware never lights up eDP on the Intel side and consequently never
++ * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
++ * to DDI A. Without the bit, port A is capped at two lanes, which is not
++ * enough bandwidth for the panel's native mode, leaving the connector with no
++ * usable modes at all.
++ */
++static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
++{
++	intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
++	drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
+ 	return 1;
+ }
+ 
++static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
++{
++	DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
++
++	return 1;
++}
++
+ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 	{
+ 		.dmi_id_list = &(const struct dmi_system_id[]) {
+@@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 		},
+ 		.hook = quirk_no_pps_backlight_power_hook,
+ 	},
++	{
++		.dmi_id_list = &(const struct dmi_system_id[]) {
++			{
++				.callback = intel_dmi_ddi_a_force_4_lanes,
++				.ident = "Apple MacBookPro11,5",
++				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
++				},
++			},
++			{ }
++		},
++		.hook = quirk_ddi_a_force_4_lanes,
++	},
+ };
+ 
+ static struct intel_quirk intel_quirks[] = {
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe52faf..d2b8e9183c62 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_DDI_A_FORCE_4_LANES,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
+
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+-- 
+2.55.0
+
