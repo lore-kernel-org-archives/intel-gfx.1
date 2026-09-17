@@ -4,64 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A94C982D0
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 09:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE172C88E72
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 11:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6C7110E47C;
-	Thu, 17 Sep 2026 09:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2831110E6E6;
+	Thu, 17 Sep 2026 11:37:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BpplGb/5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yqqt+KA2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF7E610E47C;
- Thu, 17 Sep 2026 09:59:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D57610E6E6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 11:37:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789639192; x=1821175192;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=Mk9Bdo8WeSWLdlY3kVy3c9IZmIBUDNXJJG5+iJ0Plv0=;
- b=BpplGb/5vPZggBRGNfll2CnS9dmGa+cd5JGqLbLO8vG8jugxyYj3Bk9L
- jMUQEWoZGxBLwe0jXaWR627OEZzlgF0CqVsFgxrSoj9/JP6e/urtZWw2S
- hHi+cZvgu2yyfjL9tDY+pcta9mj7NsNG711mD7rEinkreycVfVv0fc3ei
- Pt24xbNLTQ5MGki9jlv5WuEjgJXTsobwh3KV/nCL6cbe5GLUNnA3CTVIl
- Hk/3Wukt72N8TnBXs7HPgNZLC2qNLe4OoZOV7635eFxkpitULpaFzpr09
- lBUoLzqOsdMF7YCxzdUYYJRAEr4ypbtaMYIVYstgnq9mvP8z73lgSEbKy g==;
-X-CSE-ConnectionGUID: Ecg3uRa0QaWoPFBx+RI6VQ==
-X-CSE-MsgGUID: ITNAGMrzStu9ZR02h6blbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90178592"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90178592"
+ t=1789645077; x=1821181077;
+ h=from:to:cc:subject:date:message-id:
+ content-transfer-encoding:mime-version;
+ bh=qqdaaj6W6E8G/rmkt4eQU0aPi8MfputZXIi2ygwGhWc=;
+ b=Yqqt+KA2pzYeh7HDLnf5+jER6jrgzEPTk/7uLjddcqOR+SC/RSTSr3hl
+ HFt0/wwqY6Z/47TpyxACpxKXJL/wkjZcdrzeep4s1GZer0nsCe5KrzZrs
+ lTUPJ9vrkzfraj6vq7l7hayVXxvvrNeNfXs1BLTIWrqbenNK/lGltA40M
+ l+hMpgWZJBDYEO72kcu3TIo54cdUiMiinqEFG6bnxY3f9LE8eyj1w1Zb8
+ wROJvxXMBsZGH8bpm7YZIDo3D6lgLX1lDOeElZygCeTOgK9+GHrKluxRu
+ ODG0hl9pdZEaohJRzUC3zKmObTuWC0ASXf/oSVLyZRoplclwTA+AW5Ubt g==;
+X-CSE-ConnectionGUID: 4z8zahOTTPGoeQbaantFnQ==
+X-CSE-MsgGUID: pkmDVH+FScKgI+hn+azUzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77622157"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="77622157"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2026 02:59:51 -0700
-X-CSE-ConnectionGUID: eis/V58fQSOqK5wTKEJxLA==
-X-CSE-MsgGUID: 2e/XBX4hQjiy2chgGcl9YQ==
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 04:37:56 -0700
+X-CSE-ConnectionGUID: eZ6L/gxJSGqPk7oEu/QlPQ==
+X-CSE-MsgGUID: kha2/W44QP+9qoKgj7WQkQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="271063053"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.83])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2026 02:59:48 -0700
-Message-ID: <9bfa7e89cb777f5e32fe82adb77615fef58f5d69.camel@linux.intel.com>
-Subject: Re: [PATCH v6 2/7] drm/i915/gem: Count mapped pages in a folio
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- iommu@lists.linux.dev
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, Robin Murphy
- <robin.murphy@arm.com>,  =?UTF-8?Q?Micha=C5=82?= Grzelak	
- <michal.grzelak@intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>,  Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Date: Thu, 17 Sep 2026 11:59:45 +0200
-In-Reply-To: <20260902082525.1149367-3-krzysztof.karas@intel.com>
-References: <20260902082525.1149367-1-krzysztof.karas@intel.com>
- <20260902082525.1149367-3-krzysztof.karas@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="271096624"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 04:37:56 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 04:37:56 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 04:37:56 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.45) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 04:37:55 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O6dSojKaEmXTmD6rAy/yd4WJnHEiOXV4uEMZXxkg6CUi0hHQo1jN0LbazBwsRQcb/sx8WtuejnFrNpERKE1zE5cWFZ94JMGleCt+OfonanHIz5D0KYK0XouF+bN2Qar1I2kMeh/kBHlsCcSjEFV0gL6k9WFyft2wcEYNE+G/8MMafn1sYJl02m26x6JTq2V7p45NjAHOksDGbVrKyMIUevNI2jZxBGRVaf318AlDeJLPG+ZAPIvt8bAixik/5qooPaXa2sdnRPv1SQXlDSZZ01+3L6af4u3qSLuSBaiJGa+0fHxBu1eTqL458wo85FQEO+uro96wSSeaqXsYERErDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CTwIva/3fl/P+KAoJcgAel2fTVTadzpT3BnwPrqBMpk=;
+ b=meEyNjFWrWDEMlp/v1FdfZOsXQKlKPDcc6OOBeN2f3UzgZLTtOXinp+bTSjxpZewOwi1B3wilrkqHAA2Z0riIp/gq05sbim4uJnjEBwyRWhO1OWLhsn9eoM5hU07bQj3qSXcZ7wZ94Ly/cb+GKKJilwKED8PoKbfy8nZzvkJum4vRaFNxN0Ts+ig7eIcRWgt0isu9aJnfxgY0v22WFa3V35wl3Ft1/XWGZYxIr4Dk1HzSwnEQUYoWojty/mpEg29V1Qc4Vfhn7MjNOV2zQT1ALdjyKfApa+3oB5KZlHoXKjWCXOZES46b+2SI9BUQ5AIyAzcwwACHeN3PYb8+OORwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
+ by PH7PR11MB6650.namprd11.prod.outlook.com (2603:10b6:510:1a8::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 17 Sep
+ 2026 11:37:54 +0000
+Received: from MW4PR11MB6909.namprd11.prod.outlook.com
+ ([fe80::9eab:962:806:3794]) by MW4PR11MB6909.namprd11.prod.outlook.com
+ ([fe80::9eab:962:806:3794%4]) with mapi id 15.21.0428.008; Thu, 17 Sep 2026
+ 11:37:53 +0000
+From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+To: <intel-gfx@lists.freedesktop.org>
+CC: Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ <andi.shyti@linux.intel.com>, <krzysztof.karas@intel.com>,
+ <krzysztof.niemiec@intel.com>, <chris.p.wilson@intel.com>
+Subject: [PATCH v2] drm/i915/selftests: Fix unlocked mm.stolen in reset
+ selftest
+Date: Thu, 17 Sep 2026 13:37:17 +0200
+Message-ID: <20260917113717.2852-1-sebastian.brzezinka@intel.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VIVP296CA0085.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:35b::14) To MW4PR11MB6909.namprd11.prod.outlook.com
+ (2603:10b6:303:224::12)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|PH7PR11MB6650:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51aa71c6-5f3c-4202-5079-08df14b01c53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|23010399003|1800799024|6133799003|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: f5VC7tm7GF5syQXq2zzO5mAaUCQ9qolbxjrQ9moEPx/IiMudsY9lg278y0Mu9HZSa1cp8WPW9i/8CM5Ss1B8Uf7Xs/8pBacfMIvgb4ThToAkZ6Hxl6rwojFAIOpfRBRQRRte/73zTgOJFlxarG6QDoTLPApE6uA2L6Kq7X7yqPwpHbjcrIV/vzJFvBQmrCHa+EqK8BoO/1HSLKbf6cPYaXmMGS78SZKRBlm75DIzXO0BP8B53OIVDRc124NaZk2rD77a9qzmLhz8LF1CsRWQj3KYvEqzSbrtEad0BFzWAZmdV9uQyrWMDOdjJG73awSGhBrjcY1ndGOmHNKbrg0egesXnA1zcQbbCJrX4uhufKR4VeIPlX7w5tGROM0W5qw63tlriS4XrXpIK3kn5CIiriJkMt4H5yYlblKtYyni0hREd+4/KhNyFJhZ38RIjq5ZRhbnqC0J8Al09+Fb7PtBsvE7UGc2tdYDWchJDto1Vo0nMOPzwtVeA1igg5lsWh0TirmhuA0XPAmB8lN4rDpHNxpeu8vhh31DJ8+RDWpExK4+NWC1zJtji1xshBre+cvpq0Ecd2t1Qr8QlKS4wK9Vzpcy5g2fgW66hhQGceqsF7j2/DbQSuPj3FbGza4hOYTk
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(6133799003)(56012099006)(10067099003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UsCNm6bETKj7vulqTLkGN1g7oOI7SobLUdKgXh6TcVs5e3V4pjaO6FYMlkbi?=
+ =?us-ascii?Q?ZIbfheBqCVTlK2HajJSJ7p9bYfNvWaVazZob80KXVBXoI/0uU5bXE4/JN4MN?=
+ =?us-ascii?Q?jp7Kw4jOF16pTaCDzXCoL/eSWzzCFG8GjPBaHJSjFn6QfbkZwKJLA2jiieRk?=
+ =?us-ascii?Q?Uy/apXK3Ng9a6jHY2FOGbgtexQ/pd2Y2LCwY8+TSjqMaTa2vRfLvBq07q9Hm?=
+ =?us-ascii?Q?alwSN8+KiCOEtrZnADKL3dJK3HwCj3eo0HLxBXuDnYSE0KY4UKmxkIGPrUWF?=
+ =?us-ascii?Q?0UPtJscLp8lagRyxP2mbApPk/CWnl5dDhbQ9Gu0qAd9Jkaxg53OXNbY21SqN?=
+ =?us-ascii?Q?I9hdlEvyWz63rm+s7oURIAsX/3D3w0IELPkhsTmBwikeDZoyO6uTAkLpCg1I?=
+ =?us-ascii?Q?KXl1FGCEKvEXrOThNf2CPNqQs9XhKY3kgo2Ac3yDF7pD76hK5ktiAG5jFH/S?=
+ =?us-ascii?Q?nRLZw9h7XHmhquvNpuAIZ23a3rICMqG0kuI5i+8MUJKcTp1H4jGwtAH555Ho?=
+ =?us-ascii?Q?U2EZMH6bkMw4JVRzPSYfQ7OrNEx0J3qbPJxFq1/LzOtSH6CkpOGWn++Qaioo?=
+ =?us-ascii?Q?3NcxCNYcqH8O+GVyHiD5VxIXmXAzD2SPMOM80x/4PR+DQwp2ER11yrWuoGbK?=
+ =?us-ascii?Q?QL1U/HJ8I5vlibKdMbVBbKH7rsz1NsjLC2WPFYQiv3n7p6oiec3O17o3GuoD?=
+ =?us-ascii?Q?iTca7ga3MgrzS8bZ09LPXpof0l//HAcdbpzhCKfy1g08+0oJv7w2NXNFtKo9?=
+ =?us-ascii?Q?QP/7cXZJR8zlxCLaBFfrKO9myMxSpe9VdTnduAk7eitDkmPrx3/Sg+uoaDKG?=
+ =?us-ascii?Q?Sfy2ntgWIS4pTQb6d+f6mqsf1zKybVln+T3pJuPAlLk86oQXaUOFiqGOBebO?=
+ =?us-ascii?Q?rg9oJ6MrhT32TZyeC4sb498KHHY0Ylh+qTx6KTF3YnGMgzz1jBICHn2M0mNM?=
+ =?us-ascii?Q?wua88XJZ1sVKwv0AWyXvQYXE+3hvqzVWggA4Pbm99WSFzGb6JYzRf1/YPYHn?=
+ =?us-ascii?Q?EmvkQILgOy16ZSeLCWWeJK8bPlEKD+TEmReuuH3xfAvaPGd8AyoIyNIazNFL?=
+ =?us-ascii?Q?CYcSLTOV6Jx3H5uGMZWp992shOsOIa3nRfK/0vCuv4CwAPlU4CK08yPvDDSn?=
+ =?us-ascii?Q?9JLB9YCXbTBerGtprvJRzgByVnQ+Dh7Sz1dbdD7p/mEub2EtNRE7gNSej7+G?=
+ =?us-ascii?Q?GuAv0rkI8tn4DXlCu5/NeezNi2ke//SkuHLzHHUXUrfM+jxBdm1chaiQFlsF?=
+ =?us-ascii?Q?6/caz4uziHTuCBbllV5mX9dwcLOVi71KqMSiEBq0QndTdcnZdXsuKFYZMV43?=
+ =?us-ascii?Q?PZ+2Nhidksdc6+s3rbhCbtXGJFTuPWWNaaXxZtFAWfTdXlZX/pPPNtWZj0W3?=
+ =?us-ascii?Q?VtgyHzZHR6UZQNCD9UjGFcfSO4D4c+1eneDxL1hCfGzKKdf5F8wGPxwQugSf?=
+ =?us-ascii?Q?nilEQYBfdbV8KtoI2aFnaS06ymh/vDk3gYnUtXL+wZk2RlYx/cz9vyLpERl5?=
+ =?us-ascii?Q?OGDrYDeRqeKXIvNB1kTQS5BcPS+6lMimsR2lq8prmJcahCp2zt92HkgHtKxD?=
+ =?us-ascii?Q?7t+TXlHezpww+5uA6rE5G2bIVoC+MhV45yuS57ovLCUVoW97phs5mgVw5sYP?=
+ =?us-ascii?Q?JJrk+zHU2jOoungrVDvk6QSgur+Tq6uLxbo2xh8/YSga9enphpXZ9sth3vQ2?=
+ =?us-ascii?Q?lNv8EmQA+qwO/kWU5zpJw2bLbX1dq4aBjOTgfg79SNMo+W/N/ePn8PyRXQ83?=
+ =?us-ascii?Q?Nw0rxCE76A4r64zg7qk3Jzk0PVatUZw=3D?=
+X-Exchange-RoutingPolicyChecked: 1WSzkTXSUv/JzM5IXpjhXCqlWf/I7PryE+TpbRzCCJR21mzfpRsXCKH7jrKhSEvDRa1f3STGl3BLgHOn5jimQOcp9s8Wi4JFgJBoGSsxqKXRdN7jjMgAuZOjgDQo06lPhhUW4EfxjI7aQa+IUypaNfKJfKgUZOU1nb973946/nOvvWBA5mkA6pk7iEnzjJuTVzwtHOQ3kvYcMdyd2No777illixTXujc+pLFjss0JsQ+jD9xk+cMJaTg9E+gIk/xjPIVdzJ99hrQFTK8PKMqOocnmsNzMebxRqhA3rBfpk/ORPG2KX2ipjT5WjIP+T/DCuLSGVBVOBjAKEWrjx+4Eg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51aa71c6-5f3c-4202-5079-08df14b01c53
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 11:37:53.5011 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bvVhAOgolGdnxUT5US648StgdCTEosBwYukGmEBktOHzl2RLblDIZ/frQcW/3CG+yusrZAd2ZZfUN5FwTlNCo8NtYdefQaz5KB0FsJRcrz4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6650
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,229 +159,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+_igt_reset_stolen() use via __drm_mm_interval_first(), but
+does so without holding i915->mm.stolen_lock. Every writer of this
+(i915_gem_stolen.c: drm_mm_insert_node_in_range(), drm_mm_reserve_node(),
+drm_mm_remove_node()) takes stolen_lock, so the selftest's unlocked
+reader can race.
 
-Since you are going to submit another version, here are still some comments
-of mine for you to consider.
+This was observed as a NULL pointer dereference in
+__drm_mm_interval_first() during igt_reset_device_stolen():
 
-On Wed, 2026-09-02 at 08:25 +0000, Krzysztof Karas wrote:
-> Before addition of commit 029ae067431a
-> ("drm/i915: Fix potential overflow of shmem scatterlist length")
-> and after folios were introduced complete folios were always
-> allocated, possibly overloading the scatterlist capacity which
-> was never truly limited to PAGE_SIZE when requested via
-> max_segment. The above commit addressed scatterlist overloading,
-> but unintentionally disabled PAGE_SIZE as a valid max_segment
-> value and failed to take care of remaining pages from folios
-> above max_segment boundary.
-> This created a state, where multitude of scatterlists were used
-> for the same folio, but never counting enough of its pages to
-> jump to the next folio.
->=20
-> Furthermore, current do-while loop goes over the same folio
-> multiple times, increasing the refcount each time, and breaks
-> get/put symmetry: many shmem_read_folio_gfp() gets and only one
-> put in i915_gem_object_put_pages_shmem() per folio.
->=20
-> Track how many pages have already been counted in a folio and
-> use that number as an offset on consecutive allocations from the
-> same folio to ensure it is fully covered before reading next
-> folio.
->=20
-> Fixes: 029ae067431a ("drm/i915: Fix potential overflow of shmem scatterli=
-st length")
-> Cc: stable@vger.kernel.org
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15816
-> Assisted-by: GitHub Copilot:claude-opus-5
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
-> v6:
->  * moved max_segment check into its own patch;
->  * moved comment about gcc warnings above block of
->    initializations;
->  * removed
->    WARN_ON_ONCE(folio_page_index >=3D folio_nr_pages(folio))
->    block (Andi);
->  * restored original condition (folio_pfn(folio) !=3D next_pfn)
->    (Janusz);
->  * dropped folio_page_index and folio initializations;
->  * expanded the commit message to contain information about
->    previously unexplained folio reference leaks;
->  * ran final checks with Claude Opus and added a tag.
->=20
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 112 +++++++++++++---------
->  1 file changed, 67 insertions(+), 45 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> index 4b5ce9a2f74f..8e5f2a7d5f6b 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -70,7 +70,11 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915=
-, struct sg_table *st,
->  	unsigned int page_count; /* restricted by sg_alloc_table */
->  	unsigned long i;
->  	struct scatterlist *sg;
-> -	unsigned long next_pfn =3D 0;	/* suppress gcc warning */
-> +	/* suppress gcc warnings */
-> +	unsigned long next_pfn =3D 0;
-> +	unsigned long folio_start =3D 0;
-> +	unsigned long folio_end =3D 0;
-> +	struct folio *folio;
->  	gfp_t noreclaim;
->  	int ret;
-> =20
-> @@ -104,7 +108,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  	sg =3D st->sgl;
->  	st->nents =3D 0;
->  	for (i =3D 0; i < page_count; i++) {
-> -		struct folio *folio;
-> +		unsigned long folio_page_index;
->  		unsigned long nr_pages;
->  		const unsigned int shrink[] =3D {
->  			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
-> @@ -112,51 +116,58 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  		}, *s =3D shrink;
->  		gfp_t gfp =3D noreclaim;
-> =20
-> -		do {
-> -			cond_resched();
-> -			folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> -			if (!IS_ERR(folio))
-> -				break;
-> +		/* Grab the next folio if we exhausted the current one. */
-> +		if (!i || i > folio_end) {
-> +			do {
-> +				cond_resched();
-> +				folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> +				if (!IS_ERR(folio))
-> +					break;
-> =20
-> -			if (!*s) {
-> -				ret =3D PTR_ERR(folio);
-> -				goto err_sg;
-> -			}
-> +				if (!*s) {
-> +					ret =3D PTR_ERR(folio);
-> +					goto err_sg;
-> +				}
-> =20
-> -			i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> -
-> -			/*
-> -			 * We've tried hard to allocate the memory by reaping
-> -			 * our own buffer, now let the real VM do its job and
-> -			 * go down in flames if truly OOM.
-> -			 *
-> -			 * However, since graphics tend to be disposable,
-> -			 * defer the oom here by reporting the ENOMEM back
-> -			 * to userspace.
-> -			 */
-> -			if (!*s) {
-> -				/* reclaim and warn, but no oom */
-> -				gfp =3D mapping_gfp_mask(mapping);
-> +				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> =20
->  				/*
-> -				 * Our bo are always dirty and so we require
-> -				 * kswapd to reclaim our pages (direct reclaim
-> -				 * does not effectively begin pageout of our
-> -				 * buffers on its own). However, direct reclaim
-> -				 * only waits for kswapd when under allocation
-> -				 * congestion. So as a result __GFP_RECLAIM is
-> -				 * unreliable and fails to actually reclaim our
-> -				 * dirty pages -- unless you try over and over
-> -				 * again with !__GFP_NORETRY. However, we still
-> -				 * want to fail this allocation rather than
-> -				 * trigger the out-of-memory killer and for
-> -				 * this we want __GFP_RETRY_MAYFAIL.
-> -				 */
-> -				gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> -			}
-> -		} while (1);
-> -
-> -		nr_pages =3D min3(folio_nr_pages(folio),
-> +				* We've tried hard to allocate the memory by reaping
-> +				* our own buffer, now let the real VM do its job and
-> +				* go down in flames if truly OOM.
-> +				*
-> +				* However, since graphics tend to be disposable,
-> +				* defer the oom here by reporting the ENOMEM back
-> +				* to userspace.
-> +				*/
-> +				if (!*s) {
-> +					/* reclaim and warn, but no oom */
-> +					gfp =3D mapping_gfp_mask(mapping);
-> +
-> +					/*
-> +					 * Our bo are always dirty and so we require
-> +					 * kswapd to reclaim our pages (direct reclaim
-> +					 * does not effectively begin pageout of our
-> +					 * buffers on its own). However, direct reclaim
-> +					 * only waits for kswapd when under allocation
-> +					 * congestion. So as a result __GFP_RECLAIM is
-> +					 * unreliable and fails to actually reclaim our
-> +					 * dirty pages -- unless you try over and over
-> +					 * again with !__GFP_NORETRY. However, we still
-> +					 * want to fail this allocation rather than
-> +					 * trigger the out-of-memory killer and for
-> +					 * this we want __GFP_RETRY_MAYFAIL.
-> +					 */
-> +					gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> +				}
-> +			} while (1);
-> +
-> +			folio_start =3D folio_pgoff(folio);
-> +			folio_end =3D folio_start + folio_nr_pages(folio) - 1;
-> +		}
-> +
-> +		folio_page_index =3D i - folio_start;
+BUG: kernel NULL pointer dereference, address: 0000000000000010
+...
+RIP: 0010:__drm_mm_interval_first+0x2c/0x90
+...
+Call Trace:
+  __igt_reset_stolen+0x565/0x6a0 [i915]
+  igt_reset_device_stolen+0x1a/0x30 [i915]
+  __i915_subtests+0xb8/0x250 [i915]
+...
 
-While your point about the need to address more than one reference to a
-folio unnecessarily being held was valid, I'm still not sure if what you
-propose is the most simple way to resolve it.  For me, checking if next_pfn
-is still inside the current folio range and omitting shmem_read_folio_gfp()
-if true would be a good enough way to avoid re-getting it.
+Fixes: 3da3c5c1c982 ("drm/i915: Exclude low pages (128KiB) of stolen from use")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16841
+Signed-off-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+---
+v1 -> v2:
+- Fix always false !__drm_mm_interval_first() check (Andi)
+- Extend stolen_lock over the poison/verify writes, not just
+  the lookup (Andi)
+- Move the lookup into stolen_page_unused() helper
+---
+ drivers/gpu/drm/i915/gt/selftest_reset.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-Moreover, I haven't heard from you about my idea of reusing that already
-maintained next_pfn for calculation of folio_page_index, then still
-simplifying the code changes that way.  Can you see any cons?
+diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
+index 2cfc23c58e90..77af788314ff 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_reset.c
++++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
+@@ -14,6 +14,16 @@
+ #include "selftests/igt_atomic.h"
+ #include "selftests/igt_spinner.h"
+ 
++static bool stolen_page_unused(struct intel_gt *gt, resource_size_t page)
++{
++	lockdep_assert_held(&gt->i915->mm.stolen_lock);
++
++	return __drm_mm_interval_first(&gt->i915->mm.stolen,
++					page << PAGE_SHIFT,
++					((page + 1) << PAGE_SHIFT) - 1) ==
++	       &gt->i915->mm.stolen.head_node;
++}
++
+ static int
+ __igt_reset_stolen(struct intel_gt *gt,
+ 		   intel_engine_mask_t mask,
+@@ -95,10 +105,10 @@ __igt_reset_stolen(struct intel_gt *gt,
+ 				      ggtt->error_capture.start,
+ 				      PAGE_SIZE);
+ 
+-		if (!__drm_mm_interval_first(&gt->i915->mm.stolen,
+-					     page << PAGE_SHIFT,
+-					     ((page + 1) << PAGE_SHIFT) - 1))
++		mutex_lock(&gt->i915->mm.stolen_lock);
++		if (stolen_page_unused(gt, page))
+ 			memset_io(s, STACK_MAGIC, PAGE_SIZE);
++		mutex_unlock(&gt->i915->mm.stolen_lock);
+ 
+ 		in = (void __force *)s;
+ 		if (i915_memcpy_from_wc(tmp, in, PAGE_SIZE))
+@@ -143,16 +153,15 @@ __igt_reset_stolen(struct intel_gt *gt,
+ 			in = tmp;
+ 		x = crc32_le(0, in, PAGE_SIZE);
+ 
+-		if (x != crc[page] &&
+-		    !__drm_mm_interval_first(&gt->i915->mm.stolen,
+-					     page << PAGE_SHIFT,
+-					     ((page + 1) << PAGE_SHIFT) - 1)) {
++		mutex_lock(&gt->i915->mm.stolen_lock);
++		if (x != crc[page] && stolen_page_unused(gt, page)) {
+ 			pr_debug("unused stolen page %pa modified by GPU reset\n",
+ 				 &page);
+ 			if (count++ == 0)
+ 				igt_hexdump(in, PAGE_SIZE);
+ 			max = page;
+ 		}
++		mutex_unlock(&gt->i915->mm.stolen_lock);
+ 
+ 		io_mapping_unmap(s);
+ 	}
+-- 
+2.55.0
 
-Thanks,
-Janusz
-
-
-> +		nr_pages =3D min3(folio_nr_pages(folio) - folio_page_index,
->  				page_count - i, max_segment / PAGE_SIZE);
-> =20
->  		if (!i ||
-> @@ -166,13 +177,24 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  				sg =3D sg_next(sg);
-> =20
->  			st->nents++;
-> -			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
-> +			sg_set_page(sg, folio_page(folio, folio_page_index),
-> +				    nr_pages * PAGE_SIZE, 0);
->  		} else {
-> +			/*
-> +			 * If our prediction about folio placement is true and
-> +			 * scatterlist still has space left for more pages,
-> +			 * then we land here.
-> +			 */
->  			nr_pages =3D min(nr_pages, (max_segment - sg->length) / PAGE_SIZE);
-> =20
->  			sg->length +=3D nr_pages * PAGE_SIZE;
->  		}
-> -		next_pfn =3D folio_pfn(folio) + nr_pages;
-> +
-> +		/*
-> +		 * We assume folios are placed one after the other in memory
-> +		 * and predict where the next folio begins.
-> +		 */
-> +		next_pfn =3D folio_pfn(folio) + folio_page_index + nr_pages;
->  		i +=3D nr_pages - 1;
-> =20
->  		/* Check that the i965g/gm workaround works. */
