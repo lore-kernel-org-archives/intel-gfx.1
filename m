@@ -4,27 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79586C88E75
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:34:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FE5C88E75
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB1310E830;
-	Fri, 18 Sep 2026 07:34:50 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD8B10E827;
- Fri, 18 Sep 2026 07:34:49 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5382642378738052552=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAB2D10F246;
+	Fri, 18 Sep 2026 07:49:09 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nDRgRPlt";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5C310F245;
+ Fri, 18 Sep 2026 07:49:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2394C41318;
+ Fri, 18 Sep 2026 07:49:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E541F000FF;
+ Fri, 18 Sep 2026 07:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789717748;
+ bh=vJKvMLbmElK8KttkMQ8hkz5u79hzTkh0lL7FQh+PFqI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=nDRgRPltaEljYrKy94fX1kR91hzN+MpRB9MPYQ1+4X04V6e9jP3UfdRBCwxDx9K5k
+ HXbmXYGRYtQCwaFnLwhM994HkXABJDE1B7q288wgf2cSwxgOV0X+nst+TUVfWYtSZV
+ nbSiMiW0yIZ1cYuVI9XNOBUIv7iAr3VnyAaxvUeKTQTQH4RcNVgcALNTYovLq/EN9a
+ Q1whWRiOGgumpL4WL/RbxPaThWEKILE9Un6A3b/6x6Fho1G8BwsQfgIpsV1ilZZX+8
+ Uyt2Gb849GzU3liO1eddWwgQAd5v1SYlhj/O25klzrxqM2SI7i35i+7BFnqaob9Lhv
+ jWTT3uwM5QgwQ==
+Message-ID: <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
+Date: Fri, 18 Sep 2026 09:49:01 +0200
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Disable_DC?=
- =?utf-8?q?5/6_before_AUX_programming_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 18 Sep 2026 07:34:49 -0000
-Message-ID: <178971688945.177999.9729671539047279011@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260918060426.1162123-1-suraj.kandpal@intel.com>
-In-Reply-To: <20260918060426.1162123-1-suraj.kandpal@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+To: Jani Nikula <jani.nikula@linux.intel.com>, Armin Wolf <W_Armin@gmx.de>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux@weissschuh.net" <linux@weissschuh.net>,
+ "rafael@kernel.org" <rafael@kernel.org>, "lenb@kernel.org"
+ <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "tursulin@ursulin.net" <tursulin@ursulin.net>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+ <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
+ <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+ <11976ed3784675ad241646287a909286a42675a8@intel.com>
+ <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
+ <62d7da838e7042df8456e76190db792093065b57@intel.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <62d7da838e7042df8456e76190db792093065b57@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,246 +85,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5382642378738052552==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi,
 
-== Series Details ==
+On 16-Sep-26 09:16, Jani Nikula wrote:
+> On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
+>> Am 15.09.26 um 14:31 schrieb Jani Nikula:
+>>
+>>> On Tue, 15 Sep 2026, Ilpo Järvinen <ilpo.jarvinen@linux.intel.com> wrote:
+>>>> GPU people heads up!!
+>>>>
+>>>> On Wed, 2 Sep 2026, Armin Wolf wrote:
+>>>>
+>>>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> index 12e4a41bf1f0..50305630f533 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
+>>>>>>>         # ACPI_VIDEO's dependencies must also be selected.
+>>>>>>>         select INPUT if ACPI
+>>>>>>>         select ACPI_VIDEO if ACPI
+>>>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+>>>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
+>>>>>> The change below makes sense, but this one looks like it should remain
+>>>>>> unless X86_PLATFORM_DEVICES is handled some other way?
+>>>>>>
+>>>>>> Alex
+>>>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
+>>>>> ACPI-WMI depended on it in the past.
+>>>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
+>>>> Hi all,
+>>>>
+>>>> Could more GPU people besides Alex take a look on this. I'd want to make
+>>>> progress with this series within this cycle but would prefer to have Acks
+>>>> from GPU side.
+>>> I share the same concern with Alex. It seems to me we could now end up
+>>> with x86 configurations without X86_PLATFORM_DEVICES, which handle
+>>> e.g. backlight on a lot of platforms.
+>>>
+>>> I think the safer option might be to go for:
+>>>
+>>> 	depends on X86_PLATFORM_DEVICES || !X86
+>>>
+>>> in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
+>>>
+>>> The alternative is to find out, and handle the fallout, if any.
+>>>
+>>>
+>>> BR,
+>>> Jani.
+>>
+>> Alright, should i leave the original "select X86_PLATFORM_DEVICES if ..." statements
+>> as-is or should is change them to "depends on X86_PLATFORM_DEVICES || !X86" everywhere?
+> 
+> There are some places that depends on X86_PLATFORM_DEVICES. I think it's
+> almost always a mistake to have some places select and some places
+> depends on, and select should anyway be used with care. I'd go for
+> depends on.
 
-Series: drm/i915/dp: Disable DC5/6 before AUX programming (rev2)
-URL   : https://patchwork.freedesktop.org/series/174475/
-State : success
+I'm a bit late to the party here, sorry.
 
-== Summary ==
+Note that X86_PLATFORM_DEVICES is an option which enables / disables
+a menu and does nothing more.
 
-CI Bug Log - changes from CI_DRM_19175 -> Patchwork_174475v2
-====================================================
+Enabling it or depending on it by itself does nothing.
 
-Summary
--------
+The select used to be there since it must be selected to be able
+to select ACPI_WMI (which is no longer the case after this series).
 
-  **SUCCESS**
+To depends on in XE was probably copy pasted from the existing
+select-s and then changed to a depends and already was a completely
+no-op since depending on ACPI_WMI was enough as that itself
+dependend on ACPI_WMI.
 
-  No regressions found.
+As for X86_PLATFORM_DEVICES being needed for some backlight
+interfaces, depending on it by itself does not result in those
+interfaces being there. That requires enabling the actual drivers
+providing those interfaces.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/index.html
+And I don't think that the GPU drivers should start depending
+on those since that will become very unyielding.
 
-Participating hosts (38 -> 38)
-------------------------------
+TL;DR: I believe Armin's original patch is fine and this is
+a welcome cleanup / simplification of the DRM drivers Kconfig
+bits.
 
-  Additional (1): bat-adls-6 
-  Missing    (1): bat-dg2-13 
+Regards,
 
-Known issues
-------------
-
-  Here are the changes found in Patchwork_174475v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][6]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#3291]) +2 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@gt_pm:
-    - fi-skl-6600u:       [INCOMPLETE][11] ([i915#17093]) -> [PASS][12] +1 other test pass
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19175/fi-skl-6600u/igt@i915_selftest@live@gt_pm.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/fi-skl-6600u/igt@i915_selftest@live@gt_pm.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#17093]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17093
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+Hans
 
 
-Build changes
--------------
-
-  * Linux: CI_DRM_19175 -> Patchwork_174475v2
-
-  CI-20190529: 20190529
-  CI_DRM_19175: 15f7465765dc45d58738fc05a1c11a785e709c05 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9100: 80e998fdbe300b1ca29901099f35316bd83781e4 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_174475v2: 15f7465765dc45d58738fc05a1c11a785e709c05 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/index.html
-
---===============5382642378738052552==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: Disable DC5/6 before AUX programming (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174475/">https://patchwork.freedesktop.org/series/174475/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19175 -&gt; Patchwork_174475v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/index.html</p>
-<h2>Participating hosts (38 -&gt; 38)</h2>
-<p>Additional (1): bat-adls-6 <br />
-  Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_174475v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_pm:<ul>
-<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19175/fi-skl-6600u/igt@i915_selftest@live@gt_pm.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17093">i915#17093</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174475v2/fi-skl-6600u/igt@i915_selftest@live@gt_pm.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19175 -&gt; Patchwork_174475v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19175: 15f7465765dc45d58738fc05a1c11a785e709c05 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9100: 80e998fdbe300b1ca29901099f35316bd83781e4 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_174475v2: 15f7465765dc45d58738fc05a1c11a785e709c05 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============5382642378738052552==--
