@@ -4,62 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6E61C982D7
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 10:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58EAFC982D9
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 10:12:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3242810F2D1;
-	Fri, 18 Sep 2026 10:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C703F10E0C8;
+	Fri, 18 Sep 2026 10:12:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vjl0vNmR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AesZuwD1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE37110F2C1;
- Fri, 18 Sep 2026 10:08:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3EC910E0C8;
+ Fri, 18 Sep 2026 10:12:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789726116; x=1821262116;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=4caR/YRJfQ9hZuxvoEXZ0uKGtIOxawTP6tzRZ2JNq14=;
- b=Vjl0vNmR12fZWGNDShLxmUK+m62UKZdROJ+XoH9GVZdLOZUydpAUaUc+
- awiC2hnO/w7E96enuZKjsLMF7vUUvevGYInxE7x8jW4FVdCD9+9CCZVWq
- 3L3LVc7NKGbBJJEdLCx1F3rRvo0LhRcSylapj8b8dP3FuwYIFSJnavekg
- xCsoogC0Scucv63bCxnheoxLCK/RxedbMUcvjxs0+wdZ53IH7MroazaWW
- ZQojnUpAA05BinMhZQHuRnpONBiGQkLo1hVf0uMjbGR9q8cEyTdtv+keL
- ifLSXEYpJ4xmuigzevAQW0JzjVz6cToVG7qAyaARQb3ELsjalPbr5eSyu A==;
-X-CSE-ConnectionGUID: Qsh5u0EzTgm4ogBxffHIBg==
-X-CSE-MsgGUID: FryG/0FAQ+ysjUQLHoT9Yg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90353245"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90353245"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2026 03:08:35 -0700
-X-CSE-ConnectionGUID: U3LuIJBnQV6kEcNXcoi/1g==
-X-CSE-MsgGUID: mdSFEWjaRWqoJsS6sDG3dw==
+ t=1789726328; x=1821262328;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=5de4J7uo+CgCIXFwu7a4Esv/7de3E0WbJXUmEhuJ4b4=;
+ b=AesZuwD1eqaoR7Hwz5FBxxZs6qWMaebkhIdvAI40THLkamPb5rXbK7/k
+ SU+iZ309azVK7WW9H5x9mgr96sPAIuAoKKacYNe/KTAnkyPRWs+yEi9YG
+ rdbu74R+blvpmfNeoxPghPKqPsu3+glGZJ1oUZGJja+ztF9G0+ekv3jKp
+ iAIKUW/+ZjvLaJCTy/2bG6NXHDOv9usEF1eDffq77Hqtlyh0gJz6eYtBD
+ 6E4gRuwtTy9syeVnm966JBcHK+ztHKriuSar+rM5N3LlCGNtR6sPSP6EV
+ QAUFUQqwaBkoWxqcMGplQYxLhI12bJDLhJc9qSyEe8kHd8caEMEG79qIj A==;
+X-CSE-ConnectionGUID: xZpqCmKqRNCL/3Atw3X1pw==
+X-CSE-MsgGUID: VNW9B0shTiigY/wlH6cdMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90238528"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="90238528"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 03:12:07 -0700
+X-CSE-ConnectionGUID: Kk7+0y3kRbO6P58QOEd0bg==
+X-CSE-MsgGUID: 8RD7H50dQeaAFrZH/hSHuw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="2745244"
+   d="scan'208";a="2520664"
 Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.216])
+ ([10.245.245.180])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2026 03:08:33 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
- uma.shankar@intel.com, swati2.sharma@intel.com, Suraj Kandpal
- <suraj.kandpal@intel.com>, Ramanaidu Naladala
- <ramanaidu.naladala@intel.com>
-Subject: Re: [PATCH v2] drm/i915/dp: Disable DC5/6 before AUX programming
-In-Reply-To: <20260918063829.1321703-1-suraj.kandpal@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260918060426.1162123-1-suraj.kandpal@intel.com>
- <20260918063829.1321703-1-suraj.kandpal@intel.com>
-Date: Fri, 18 Sep 2026 13:08:30 +0300
-Message-ID: <990495a5048d910d16fbd0452db5fbc21cd65701@intel.com>
+ 18 Sep 2026 03:12:05 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706122026.IJAiyhhw@linutronix.de>
+ <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
+ <20260709110200.2_5Eg8xF@linutronix.de>
+ <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
+ <20260918083118.POmXtJuv@linutronix.de>
+ <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
+ PREEMPT_RT.
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+To: Jani Nikula <jani.nikula@intel.com>, Maarten Lankhorst <dev@lankhorst.se>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Date: Fri, 18 Sep 2026 13:12:02 +0300
+Message-ID: <178972632228.60564.16756848994208751058@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,61 +80,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 18 Sep 2026, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
-> From Xe2Lpd we removed the step to disable DC5/6 because as per Bspec
-> for SNPS PHY Aux will be always up. But from Xe3p LT PHY was introduced
-> which powers down the PHY. Which means we need to make sure
-> "Disable DC5/6" of AUX Programming sequence is honored.
-> Disable Dc5/6 when programming AUX.
->
-> Bspec: 68851, 68967
-> Co-developed-by: Ramanaidu Naladala <ramanaidu.naladala@intel.com>
+Quoting Tvrtko Ursulin (2026-09-18 12:44:43)
+>=20
+> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
+> > On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
+> >> Hey,
+> > Hi Maarten,
+> >=20
+> >> Yeah the problem was similar, I believe neither check should exist,
+> >> instead the caller should give this information like the comment menti=
+ons.
+> >=20
+> > Any update here? Maybe I have been left out on reposts. Any chance this
+> > gets in before the LTS of this year gets out?
+>=20
+> Side question, there was a bunch of sashiko issues against v4 - have=20
+> those been addressed?
+>=20
+> As today it is the first time I see patch 7/7 which is a bit of a scary=20
+> one. I have to ask how much does Intel commit to fixing out any=20
+> potential breakage given the status of i915?
 
-Per submitting-patches.rst, "Since Co-developed-by: denotes authorship,
-every Co-developed-by: must be immediately followed by a Signed-off-by:
-of the associated co-author."
+I'd say there is very close to zero chance of accepting patch 7. And
+that would take massive functional and performance validation efforts
+done by the person wanting the patch to get merged.
 
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
-> v1 -> v2:
-> -Fix commit message (Arun)
-> -Fix the if typo (Arun, Sashiko)
->
->  drivers/gpu/drm/i915/display/intel_dp_aux.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> index 3cb07b0a901c..879b203f9258 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> @@ -260,6 +260,7 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
->  	u32 aux_clock_divider;
->  	enum intel_display_power_domain aux_domain;
->  	struct ref_tracker *aux_wakeref;
-> +	struct ref_tracker *dc_off_wakeref = NULL;
->  	struct ref_tracker *pps_wakeref = NULL;
->  	int i, ret, recv_bytes;
->  	int try, clock = 0;
-> @@ -286,6 +287,9 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
->  
->  	aux_wakeref = intel_display_power_get(display, aux_domain);
->  
-> +	if (HAS_LT_PHY(display))
-> +		dc_off_wakeref = intel_display_power_get(display, POWER_DOMAIN_DC_OFF);
-> +
->  	/*
->  	 * The PPS state needs to be locked for:
->  	 * - eDP on all platforms, since AUX transfers on eDP need VDD power
-> @@ -459,6 +463,9 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
->  	if (pps_wakeref)
->  		intel_pps_unlock(intel_dp, pps_wakeref);
->  
-> +	if (dc_off_wakeref)
-> +		intel_display_power_put(display, POWER_DOMAIN_DC_OFF, dc_off_wakeref);
-> +
->  	intel_display_power_put_async(display, aux_domain, aux_wakeref);
->  out_unlock:
->  	intel_digital_port_unlock(encoder);
+And yes, there would also need to be commitment to fix any fallout by
+that same person in weekly -rc cadence. So please raise your hand, whoever
+wants to volunteer.
 
--- 
-Jani Nikula, Intel
+There's already the earlier much smaller patch about vblank that needs
+to get reviewes and acceptance and it hasn't been able to be driven
+to completion.
+
+So projecting from that, I don't exactly expect patch like 7 in this
+series to get merged in any near future without somebody really stepping
+forward and signing to do all the validation and and perf regression
+testing.
+
+Regards, Joonas
