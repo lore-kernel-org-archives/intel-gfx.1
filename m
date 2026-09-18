@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6126AC88E75
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 06:38:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25C00C88E75
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 06:46:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D217310E03F;
-	Fri, 18 Sep 2026 06:38:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A39D10F1A3;
+	Fri, 18 Sep 2026 06:46:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WWMeCai2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fnyIe6FZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC0010E03F;
- Fri, 18 Sep 2026 06:38:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789713514; x=1821249514;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=5L0Irvp9grMYA5Ip/aXoatCg+id4fZjM7eoqqQaDt+Y=;
- b=WWMeCai2XbJydWCL+D1tQ4nck0OqkzFEpfPnIurFjH3fC+E+nh3W6+Gr
- Abwx2ebn8Gb7W+T2DbEvOTF0k+DS13dLvopUg6wAPTE3g/ELM6iTFJJvV
- Aw6NUS0lxbF7fCHoXY73iOFAjPKngiHHUqxRhkgftAOfUhoYpMOwp6HiW
- nGZ4mwK2YDyQKwGnTgWY5L2s0FYAaH6VlfN8Zq6TacpHuDj5paJh+cyoF
- VXptjCMoWh6+Ub5rEBQzXT3lOd7YDKxwQUm1g3DxFbMPookS7hskuO9Lh
- Z5GBogRCOx6O3aAAj0mFCALOID+dM28nTHkdwNj9GPJ86cdfcoboAlnp/ w==;
-X-CSE-ConnectionGUID: oQHjuM/QTT2aAFhYlztPqQ==
-X-CSE-MsgGUID: B7Eo5Si4Q+qclhl20TxFSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92708265"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208,223";a="92708265"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2026 23:38:34 -0700
-X-CSE-ConnectionGUID: fmsDcd/iQ1Kyt0NYieJw7Q==
-X-CSE-MsgGUID: k0RdTS8TTS2NsFn7P6hy3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
- d="scan'208,223";a="270548798"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa010.fm.intel.com with ESMTP; 17 Sep 2026 23:38:31 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com, uma.shankar@intel.com,
- swati2.sharma@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>,
- Ramanaidu Naladala <ramanaidu.naladala@intel.com>
-Subject: [PATCH v2] drm/i915/dp: Disable DC5/6 before AUX programming
-Date: Fri, 18 Sep 2026 12:08:29 +0530
-Message-Id: <20260918063829.1321703-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918060426.1162123-1-suraj.kandpal@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E75A310F19F;
+ Fri, 18 Sep 2026 06:46:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 98E7F40816;
+ Fri, 18 Sep 2026 06:46:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464C71F000FF;
+ Fri, 18 Sep 2026 06:46:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789714015;
+ bh=Iz8GPUsC6vyaeQ9A9E3t8NGOsigHUmOBfRpi63ETWRY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fnyIe6FZ0Jeklc7g84jGZWzPQecd+jPjse48TjzCfB685wtChJcX8pn4O30jftqqj
+ H8y+RNB8mIoz6VzCu9bMmO5e6AgLJQakcHfKYtc2x8GlYk0qRxYj3xWKLH0pc+Bh4K
+ qNlgcOraFLVc+dxutZ+VG3o0IxglAjodNmv/F1dRwuDJV+XvQg9Zyv0/byiX1T79wj
+ yGrqQAnRmPk5gt5Zu8TTL4Ei/og2c3bSoq42jzwBWX9iIYyj5RBlZdPBwq7Z6c+kqJ
+ FkutpCn9w1rbtFhK9x42nE8BWqqqOEwc+2iMtGsL00AhsHW0On3A5kcS1ZOmOsM7pV
+ 57wcM45CmOwLQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/i915/dp: Disable DC5/6 before AUX programming
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260918063829.1321703-1-suraj.kandpal@intel.com>
 References: <20260918060426.1162123-1-suraj.kandpal@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260918063829.1321703-1-suraj.kandpal@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 06:46:54 +0000
+Message-Id: <20260918064655.464C71F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,58 +53,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From Xe2Lpd we removed the step to disable DC5/6 because as per Bspec
-for SNPS PHY Aux will be always up. But from Xe3p LT PHY was introduced
-which powers down the PHY. Which means we need to make sure
-"Disable DC5/6" of AUX Programming sequence is honored.
-Disable Dc5/6 when programming AUX.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/i915/dp: incorrect power sequencing for DC_OFF and AUX domains
+--
 
-Bspec: 68851, 68967
-Co-developed-by: Ramanaidu Naladala <ramanaidu.naladala@intel.com>
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
-v1 -> v2:
--Fix commit message (Arun)
--Fix the if typo (Arun, Sashiko)
+commit f07687ba1d41d832937531ae2d822e56d80de373
+Author: Suraj Kandpal <suraj.kandpal@intel.com>
 
- drivers/gpu/drm/i915/display/intel_dp_aux.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+drm/i915/dp: Disable DC5/6 before AUX programming
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 3cb07b0a901c..879b203f9258 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -260,6 +260,7 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 	u32 aux_clock_divider;
- 	enum intel_display_power_domain aux_domain;
- 	struct ref_tracker *aux_wakeref;
-+	struct ref_tracker *dc_off_wakeref = NULL;
- 	struct ref_tracker *pps_wakeref = NULL;
- 	int i, ret, recv_bytes;
- 	int try, clock = 0;
-@@ -286,6 +287,9 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 
- 	aux_wakeref = intel_display_power_get(display, aux_domain);
- 
-+	if (HAS_LT_PHY(display))
-+		dc_off_wakeref = intel_display_power_get(display, POWER_DOMAIN_DC_OFF);
-+
- 	/*
- 	 * The PPS state needs to be locked for:
- 	 * - eDP on all platforms, since AUX transfers on eDP need VDD power
-@@ -459,6 +463,9 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 	if (pps_wakeref)
- 		intel_pps_unlock(intel_dp, pps_wakeref);
- 
-+	if (dc_off_wakeref)
-+		intel_display_power_put(display, POWER_DOMAIN_DC_OFF, dc_off_wakeref);
-+
- 	intel_display_power_put_async(display, aux_domain, aux_wakeref);
- out_unlock:
- 	intel_digital_port_unlock(encoder);
--- 
-2.34.1
+This commit introduces explicit disabling of DC5/6 states during the
+AUX programming sequence on Xe3p and later platforms with LT PHY. The
+change aims to honor the hardware Bspec which requires the PHY to be
+powered down before AUX programming.
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_aux.c
+> index 3cb07b0a901cf..879b203f92585 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+[ ... ]
+> @@ -286,6 +287,9 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
+> =20
+>  	aux_wakeref =3D intel_display_power_get(display, aux_domain);
+> =20
+> +	if (HAS_LT_PHY(display))
+> +		dc_off_wakeref =3D intel_display_power_get(display, POWER_DOMAIN_DC_OF=
+F);
+> +
+
+[Severity: High]
+The commit message states we need to make sure DC5/6 is disabled before
+the AUX programming sequence. However, does this sequence actually power
+on the AUX domain before disabling the DC states?
+
+By calling intel_display_power_get() for aux_domain before grabbing the
+POWER_DOMAIN_DC_OFF wakeref, we seem to be violating the hardware
+requirement to disable DC5/6 first. Could this regression cause AUX
+programming failures or display bring-up issues on platforms with LT PHY?
+
+[ ... ]
+> @@ -459,6 +463,9 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
+>  	if (pps_wakeref)
+>  		intel_pps_unlock(intel_dp, pps_wakeref);
+> =20
+> +	if (dc_off_wakeref)
+> +		intel_display_power_put(display, POWER_DOMAIN_DC_OFF, dc_off_wakeref);
+> +
+>  	intel_display_power_put_async(display, aux_domain, aux_wakeref);
+>  out_unlock:
+>  	intel_digital_port_unlock(encoder);
+
+[Severity: High]
+Does this regression cause rapid hardware toggling during back-to-back
+AUX transactions?
+
+The aux_domain wakeref is released asynchronously right after this via
+intel_display_power_put_async(), which usually prevents rapid toggling
+between transfers. But because dc_off_wakeref is released synchronously
+first, it appears we allow DC states to re-enable while the AUX domain
+is still powered.=20
+
+Should the POWER_DOMAIN_DC_OFF wakeref also be released asynchronously,
+or at least released after the AUX domain is fully powered down?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918063829.1321=
+703-1-suraj.kandpal@intel.com?part=3D1
