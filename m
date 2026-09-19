@@ -4,78 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F753C982EE
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 12:56:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14901C982ED
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 12:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11EDE10E1DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE2410E065;
 	Mon, 21 Sep 2026 12:56:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="F1wae6Xc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V6dVz1gv";
 	dkim-atps=neutral
-X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
- Mon, 21 Sep 2026 01:58:22 UTC
-Received: from mail-m81133.xmail.ntesmail.com (mail-m81133.xmail.ntesmail.com
- [156.224.81.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D428610E1A7;
- Mon, 21 Sep 2026 01:58:22 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4e7dcd1ab;
- Mon, 21 Sep 2026 09:53:12 +0800 (GMT+08:00)
-Message-ID: <b6ccf98c-58f3-4fdc-bd7b-3eb1bc3b6e98@rock-chips.com>
-Date: Mon, 21 Sep 2026 09:53:12 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/8] drm/connector: pass down IRQ_HPD to the drivers
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C869410E130
+ for <intel-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 17:39:44 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-4843c3ee4cfso923382f8f.2
+ for <intel-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 10:39:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789839583; x=1790444383; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4EHMIGahq49+RZLtM+Kl+epi4IOt/noj9kfBGnfIJZY=;
+ b=V6dVz1gvgNIwA/ZmKCIQeZjEXoGSBCzvNlBD8qHXgO3xb4dFKK/5AovMttbHjri6aO
+ eDA4mwANfBpBctS8hue9yhjk9tn+/SnC30Wb2W3N+TNxiUq2gomOJ8HeOgr8mFTnPgMM
+ fKIlL1UdylGKV9aI+iKRUbXumjxr8m/lgy12lbmrZW0OHR+xkIxZWh53z4loadRWY/+8
+ 9PJJNX+zGb5INpjwFyFWsY5pvg4qm2iftEuzCfntvJYC/c3aiQNfM3V5FSxy4vdn7yaz
+ s30SYze8r5A1xZGMfL2l6C34hPPmnDjtqpdqk50Rehfbw/hvAOxajcF2YToFKfJ7tGUf
+ r96w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789839583; x=1790444383;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4EHMIGahq49+RZLtM+Kl+epi4IOt/noj9kfBGnfIJZY=;
+ b=0vVCnwOdnxdLYY+sNABNOjHxpCCScDvhy88P7rCGFFDMyto3iANVQKJ0OmA6kc909e
+ c+wUjnqUfQPnxsFICVfrsBRvm1PmG92xPvo1VKfRsQWKtaZkSJO69/1ITQoQAlzfCdrf
+ 1rucL3/5w3CzxBeBrkMsleICGgcG9LjUjd7MY2GjQOUV64YNfgH7Mo/3vBdKRltAM5B6
+ jPnlTCrH8hUdYNoG/7MQdXyZAHySxEE8PPjyPTCMMzsoyCQczF0VSQxmasrIvF8KaZjD
+ lrb06ThBf1kiO7WD7dDY8CK4eYu0EsnxU6otPMrApuKZmYB1sJ6x+3+psR+LvZhrPOOk
+ b4jg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzGvh7JkduTjq7zcb0zjfykG8GH7r2znk2uM83LulN8x5utl6IEKwKy1+C9zTULuU7jjTlKNCTl2iU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lajQUTA5yH0x8i9TfK7lM0ACwwCvBxgYARi4vQRtkGyJt8Ki9x
+ hwbFMvJvgD7BK+NvrXb6opN2su3Kj+WAcrjzvcqRmf/sGscFc/KoYp6q
+X-Gm-Gg: AYBFou3dXP7eq8jmqqHKVQBbYz5Ew+wDsfyBcwwSWXk8QXY/Ik7KL5HXQrUohJQuELY
+ S1/0qgB+3BD+izIcs+F8PxCjkULxNlMmC+HHoFtJ8EE12VqvGDAMjP3IPCsnASYlzGIQVfhMFO4
+ O3WLXT26o5ME89nCGPUzhbrSG88f7/iq/iHjFyYZGHeQW9qm0WIdlmqbppHDMPRvI9ND4byHbSm
+ isBLwUApLJBym0nirJuTlr3qZStKPmok7wfv0ch/BpsgFcgGnJ8/4vkiBVcqozBYwPeU3FNtywt
+ Oor4GTQ0DkBN02YVt34OfaOWl/7xR1Lw0znCeOMejS6Sd4/CJNRxs0ST2epwJ6oQVbdmSI/zLib
+ b4TKxChUXBsPf5KuaMRYD1RG5phLcjb9uyeilgwcm//CNRDs2JnqyT1EIzzLBKVvlxwvb8lMKzD
+ vcFBZYFNoVvIFcoHA7BwmJiVCF7frfhMO1BcjCNU91HLKnlQyBI2VxQK2cW6aX
+X-Received: by 2002:a05:6000:2081:b0:487:936:7ce0 with SMTP id
+ ffacd0b85a97d-4871e268810mr7891242f8f.28.1789839582833; 
+ Sat, 19 Sep 2026 10:39:42 -0700 (PDT)
+Received: from fedora ([2a02:587:200a:7d00:31a7:37b6:ee54:4eca])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48724562bcbsm9173384f8f.16.2026.09.19.10.39.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 19 Sep 2026 10:39:42 -0700 (PDT)
+From: George Karagounis <taterraster@gmail.com>
+X-Google-Original-From: George Karagounis <mail@taterr.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
- Nikita Travkin <nikita@trvn.ru>, Yongxing Mou
- <yongxing.mou@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Francesco Dolcini <francesco@dolcini.it>, Abel Vesa <abelvesa@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com>
- <20260920-hpd-irq-events-v5-2-ff1de0090c72@oss.qualcomm.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260920-hpd-irq-events-v5-2-ff1de0090c72@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa0c1aad18703a7kunm0bf2730011828ad
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS0xNVh4YQx9JSEhLGB0aGFYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=F1wae6Xc2Ll98E4oH3aX72tWpdTNBpUF/4Id0y1xtGULdLtcXmREe+rQNGcB3XdtZo+IKwJ/iDsWwlE1VZ5+iFWx+r8nsHoh8utA9dquAo25H8sCGGSNxUgNNRvgYaEMnEVgr09gpsnUdeon8tvQ8GlQryjz6eiIHmj7zAX49V0=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=JkQGzk7JtUmJhDI7/lc646wm8+od1xD4GOgStSiB+TI=;
- h=date:mime-version:subject:message-id:from;
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, George Karagounis <mail@taterr.org>
+Subject: [PATCH] drm/i915/display: Split i845 and i9xx cursor updates into
+ arm/noarm
+Date: Sat, 19 Sep 2026 20:39:14 +0300
+Message-ID: <20260919173914.111150-1-mail@taterr.org>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 21 Sep 2026 12:56:44 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,143 +91,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+There was a problem with the i845 and i9xx cursor update functions
+they handled both position updates and control/base/size updates in
+a single armed sequence. This prevented the cursor position from
+being updated asynchronously, which can make the cursor feel laggy
 
-On 9/20/2026 11:01 PM, Dmitry Baryshkov wrote:
-> The DisplayPort standard defines a special kind of HPD events called
-> IRQ_HPD. These events are used to notify DP Source about the events on
-> the Sink side.
-> 
-> Extend drm_connector_funcs::oob_hotplug_event() to pass the
-> notifications about the IRQ_HPD events down to the individual drivers,
-> letting them handle those as required.
-> 
-> Reviewed-by: Pengyu Luo <mitltlatltl@gmail.com>
-> Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/display/drm_bridge_connector.c | 17 ++++++++++-------
->  drivers/gpu/drm/drm_connector.c                |  2 +-
->  drivers/gpu/drm/i915/display/intel_dp.c        |  3 ++-
->  include/drm/drm_connector.h                    |  3 ++-
->  4 files changed, 15 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-> index 00feb73e63d7..a51567d19550 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -141,7 +141,8 @@ struct drm_bridge_connector {
->   */
->  
->  static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
-> -					    enum drm_connector_status status)
-> +					    enum drm_connector_status status,
-> +					    enum drm_connector_dp_event event)
->  {
->  	struct drm_bridge_connector *bridge_connector =
->  		to_drm_bridge_connector(connector);
-> @@ -154,7 +155,8 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
->  }
->  
+To fix this i split the updates into two phases
+1. noarm Calculates and writes the CURPOS register immediately.
+2. arm Calculates and writes CURCNTR, CURBASE, and CURSIZE to
+   latch the control and memory updates at vblank
 
-It looks like you only changed the function signature. 
-Don't the "bridge->funcs->hpd_notify" inside this function need to pass the event?
+Also handled a hardware quirk on i9xx platforms where CURPOS requires
+a CURBASE write to arm the update. The arm phase now writes CURBASE
+even if only the position changed
 
-	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
-		if (bridge->funcs->hpd_notify)
-			bridge->funcs->hpd_notify(bridge, connector, status);
-	}
+This resolves two inline TODOs and improves cursor responsiveness
 
+Signed-off-by: George Karagounis <mail@taterr.org>
+---
+ drivers/gpu/drm/i915/display/intel_cursor.c | 44 +++++++++++++++------
+ 1 file changed, 33 insertions(+), 11 deletions(-)
 
->  static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bridge_connector,
-> -					    enum drm_connector_status status)
-> +					    enum drm_connector_status status,
-> +					    enum drm_connector_dp_event event)
->  {
->  	struct drm_connector *connector = &drm_bridge_connector->base;
->  	struct drm_device *dev = connector->dev;
-> @@ -163,7 +165,7 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
->  	connector->status = status;
->  	mutex_unlock(&dev->mode_config.mutex);
->  
-> -	drm_bridge_connector_hpd_notify(connector, status);
-> +	drm_bridge_connector_hpd_notify(connector, status, event);
->  
->  	drm_kms_helper_connector_hotplug_event(connector);
->  }
-> @@ -171,16 +173,17 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
->  static void drm_bridge_connector_hpd_cb(void *cb_data,
->  					enum drm_connector_status status)
->  {
-> -	drm_bridge_connector_handle_hpd(cb_data, status);
-> +	drm_bridge_connector_handle_hpd(cb_data, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
->  }
->  
->  static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connector,
-> -						   enum drm_connector_status status)
-> +						   enum drm_connector_status status,
-> +						   enum drm_connector_dp_event event)
->  {
->  	struct drm_bridge_connector *bridge_connector =
->  		to_drm_bridge_connector(connector);
->  
-> -	drm_bridge_connector_handle_hpd(bridge_connector, status);
-> +	drm_bridge_connector_handle_hpd(bridge_connector, status, event);
->  }
->  
->  static void drm_bridge_connector_enable_hpd(struct drm_connector *connector)
-> @@ -223,7 +226,7 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
->  		if (hdmi)
->  			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
->  
-> -		drm_bridge_connector_hpd_notify(connector, status);
-> +		drm_bridge_connector_hpd_notify(connector, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
->  	} else {
->  		switch (connector->connector_type) {
->  		case DRM_MODE_CONNECTOR_DPI:
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 5d4945ea1e95..f0facccb7859 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -3698,7 +3698,7 @@ void drm_connector_dp_oob_status(struct fwnode_handle *connector_fwnode,
->  		return;
->  
->  	if (connector->funcs->oob_hotplug_event)
-> -		connector->funcs->oob_hotplug_event(connector, status);
-> +		connector->funcs->oob_hotplug_event(connector, status, event);
->  
->  	drm_connector_put(connector);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 50ed615cf0f6..a2acff240b45 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -6800,7 +6800,8 @@ static int intel_dp_connector_atomic_check(struct drm_connector *_connector,
->  }
->  
->  static void intel_dp_oob_hotplug_event(struct drm_connector *_connector,
-> -				       enum drm_connector_status hpd_state)
-> +				       enum drm_connector_status hpd_state,
-> +				       enum drm_connector_dp_event event)
->  {
->  	struct intel_connector *connector = to_intel_connector(_connector);
->  	struct intel_display *display = to_intel_display(connector);
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 906aaefca7e1..c3374cd2598e 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -1884,7 +1884,8 @@ struct drm_connector_funcs {
->  	 * has been received from a source outside the display driver / device.
->  	 */
->  	void (*oob_hotplug_event)(struct drm_connector *connector,
-> -				  enum drm_connector_status status);
-> +				  enum drm_connector_status status,
-> +				  enum drm_connector_dp_event event);
->  
->  	/**
->  	 * @debugfs_init:
-> 
-
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 0673f16f6fd0..c12a7222f2f6 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -270,14 +270,27 @@ static int i845_check_cursor(struct intel_crtc_state *crtc_state,
+ 	return 0;
+ }
+ 
+-/* TODO: split into noarm+arm pair */
++static void i845_cursor_update_noarm(struct intel_dsb *dsb,
++				     struct intel_plane *plane,
++				     const struct intel_crtc_state *crtc_state,
++				     const struct intel_plane_state *plane_state)
++{
++	struct intel_display *display = to_intel_display(plane);
++	u32 pos = 0;
++
++	if (plane_state && plane_state->uapi.visible)
++		pos = intel_cursor_position(crtc_state, plane_state, false);
++
++	intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
++}
++
+ static void i845_cursor_update_arm(struct intel_dsb *dsb,
+ 				   struct intel_plane *plane,
+ 				   const struct intel_crtc_state *crtc_state,
+ 				   const struct intel_plane_state *plane_state)
+ {
+ 	struct intel_display *display = to_intel_display(plane);
+-	u32 cntl = 0, base = 0, pos = 0, size = 0;
++	u32 cntl = 0, base = 0, size = 0;
+ 
+ 	if (plane_state && plane_state->uapi.visible) {
+ 		unsigned int width = drm_rect_width(&plane_state->uapi.dst);
+@@ -289,7 +302,6 @@ static void i845_cursor_update_arm(struct intel_dsb *dsb,
+ 		size = CURSOR_HEIGHT(height) | CURSOR_WIDTH(width);
+ 
+ 		base = plane_state->surf;
+-		pos = intel_cursor_position(crtc_state, plane_state, false);
+ 	}
+ 
+ 	/* On these chipsets we can only modify the base/size/stride
+@@ -301,14 +313,11 @@ static void i845_cursor_update_arm(struct intel_dsb *dsb,
+ 		intel_de_write_fw(display, CURCNTR(display, PIPE_A), 0);
+ 		intel_de_write_fw(display, CURBASE(display, PIPE_A), base);
+ 		intel_de_write_fw(display, CURSIZE(display, PIPE_A), size);
+-		intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
+ 		intel_de_write_fw(display, CURCNTR(display, PIPE_A), cntl);
+ 
+ 		plane->cursor.base = base;
+ 		plane->cursor.size = size;
+ 		plane->cursor.cntl = cntl;
+-	} else {
+-		intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
+ 	}
+ }
+ 
+@@ -645,7 +654,21 @@ static void skl_write_cursor_wm(struct intel_dsb *dsb,
+ 			   skl_cursor_ddb_reg_val(ddb));
+ }
+ 
+-/* TODO: split into noarm+arm pair */
++static void i9xx_cursor_update_noarm(struct intel_dsb *dsb,
++				     struct intel_plane *plane,
++				     const struct intel_crtc_state *crtc_state,
++				     const struct intel_plane_state *plane_state)
++{
++	struct intel_display *display = to_intel_display(plane);
++	enum pipe pipe = plane->pipe;
++	u32 pos = 0;
++
++	if (plane_state && plane_state->uapi.visible)
++		pos = intel_cursor_position(crtc_state, plane_state, false);
++
++	intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
++}
++
+ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+ 				   struct intel_plane *plane,
+ 				   const struct intel_crtc_state *crtc_state,
+@@ -653,7 +676,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+ {
+ 	struct intel_display *display = to_intel_display(plane);
+ 	enum pipe pipe = plane->pipe;
+-	u32 cntl = 0, base = 0, pos = 0, fbc_ctl = 0;
++	u32 cntl = 0, base = 0, fbc_ctl = 0;
+ 
+ 	if (plane_state && plane_state->uapi.visible) {
+ 		int width = drm_rect_width(&plane_state->uapi.dst);
+@@ -666,7 +689,6 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+ 			fbc_ctl = CUR_FBC_EN | CUR_FBC_HEIGHT(height - 1);
+ 
+ 		base = plane_state->surf;
+-		pos = intel_cursor_position(crtc_state, plane_state, false);
+ 	}
+ 
+ 	/*
+@@ -703,14 +725,12 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+ 		if (HAS_CUR_FBC(display))
+ 			intel_de_write_dsb(display, dsb, CUR_FBC_CTL(display, pipe), fbc_ctl);
+ 		intel_de_write_dsb(display, dsb, CURCNTR(display, pipe), cntl);
+-		intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
+ 		intel_de_write_dsb(display, dsb, CURBASE(display, pipe), base);
+ 
+ 		plane->cursor.base = base;
+ 		plane->cursor.size = fbc_ctl;
+ 		plane->cursor.cntl = cntl;
+ 	} else {
+-		intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
+ 		intel_de_write_dsb(display, dsb, CURBASE(display, pipe), base);
+ 	}
+ }
+@@ -1019,6 +1039,7 @@ intel_cursor_plane_create(struct intel_display *display,
+ 	if (display->platform.i845g || display->platform.i865g) {
+ 		cursor->max_stride = i845_cursor_max_stride;
+ 		cursor->min_alignment = i845_cursor_min_alignment;
++		cursor->update_noarm = i845_cursor_update_noarm;
+ 		cursor->update_arm = i845_cursor_update_arm;
+ 		cursor->disable_arm = i845_cursor_disable_arm;
+ 		cursor->get_hw_state = i845_cursor_get_hw_state;
+@@ -1036,6 +1057,7 @@ intel_cursor_plane_create(struct intel_display *display,
+ 		if (intel_scanout_needs_vtd_wa(display))
+ 			cursor->vtd_guard = 2;
+ 
++		cursor->update_noarm = i9xx_cursor_update_noarm;
+ 		cursor->update_arm = i9xx_cursor_update_arm;
+ 		cursor->disable_arm = i9xx_cursor_disable_arm;
+ 		cursor->get_hw_state = i9xx_cursor_get_hw_state;
 -- 
-Best, 
-Chaoyi
+2.55.0
+
