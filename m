@@ -4,46 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D0AFC982DA
-	for <intel-gfx@archiver.kernel.org>; Sun, 20 Sep 2026 15:14:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0DFFC982D8
+	for <intel-gfx@archiver.kernel.org>; Sun, 20 Sep 2026 15:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4938A10E27E;
-	Sun, 20 Sep 2026 15:14:01 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FRXCrKeL";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D6E110E071;
- Sun, 20 Sep 2026 15:13:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 57CEF601DB;
- Sun, 20 Sep 2026 15:13:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9CB21F000FF;
- Sun, 20 Sep 2026 15:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789917238;
- bh=uskhW3QppAJj/1NNU0uiHhxLbJ4x1v2R7+YF0xtUvtg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FRXCrKeLMKGkj+arWmRQtuiFHeB3QY/j1SduJ/TVNI4W2RggCrvr0uEWX9dotct5Q
- 3umdAR8vVG+bimbJkxWItMf+LxqXP//1b9S8HX9ntgXMkTaWc1eOCb9jsOT9tGkh7r
- 3dJucHw2x+bWxrJl1uFKRdoqqJYok0UPM1rCAp6r9aojSRCHm2lFcy7i5bLtJFvU7o
- 5zHAQfWdyQjVacHPSp1XJ40e/l6nm4DnEBFj25RBFXuCSxIlzF/vRmElqN8nxlOa8H
- s+xW3oUAzaUQQT/uooAtBSXuh22jLCwttheetYZGCIVCrh35J9ps5M72TOlH+Zh/92
- 6ZPKaN2ncjrGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/8] drm/msm: dp: handle the IRQ_HPD events reported
- by USB-C
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0675710E1D3;
+	Sun, 20 Sep 2026 15:44:52 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2660410E0F3;
+ Sun, 20 Sep 2026 15:44:51 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1891884592578547531=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm=3A_handle_IRQ=5FHPD_e?=
+ =?utf-8?q?vents_correctly_=28rev6=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-amlogic@lists.infradead.org, intel-xe@lists.freedesktop.org,
- neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260920-hpd-irq-events-v5-6-ff1de0090c72@oss.qualcomm.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 20 Sep 2026 15:44:51 -0000
+Message-ID: <178991909115.184334.10012324396789194107@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com>
- <20260920-hpd-irq-events-v5-6-ff1de0090c72@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 15:13:57 +0000
-Message-Id: <20260920151357.A9CB21F000FF@smtp.kernel.org>
+In-Reply-To: <20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/msm/dp: missing display initialization on coalesced plug and I=
-RQ_HPD events
---
+--===============1891884592578547531==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit de969f3016008fcb55e0b380cb8e0c733c719543
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+== Series Details ==
 
-drm/msm: dp: handle the IRQ_HPD events reported by USB-C
+Series: drm: handle IRQ_HPD events correctly (rev6)
+URL   : https://patchwork.freedesktop.org/series/164957/
+State : success
 
-This commit allows the MSM DisplayPort driver to handle IRQ_HPD events
-delivered over OOB events (like USB-C AltMode).
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1559,11 +1559,12 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *=
-bridge,
-[ ... ]
->  	if (status =3D=3D connector_status_connected) {
-> -		if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
-> +		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
-> +		    event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD) {
-> +			msm_dp_irq_hpd_handle(dp);
-> +		} else if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
->  			msm_dp_hpd_unplug_handle(dp);
->  			msm_dp_hpd_plug_handle(dp);
-> -		} else if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT) {
-> -			msm_dp_irq_hpd_handle(dp);
->  		} else {
->  			msm_dp_hpd_plug_handle(dp);
->  		}
+CI Bug Log - changes from CI_DRM_19183 -> Patchwork_164957v6
+====================================================
 
-[Severity: High]
-Does this code handle coalesced connection and IRQ_HPD events correctly?
+Summary
+-------
 
-If the USB Type-C AltMode driver coalesces an initial connection and a pend=
-ing
-IRQ_HPD event into a single notification, msm_dp_bridge_hpd_notify() receiv=
-es
-both status =3D=3D connector_status_connected and event =3D=3D
-DRM_CONNECTOR_DP_IRQ_HPD.
+  **SUCCESS**
 
-The mutual exclusion block in drivers/gpu/drm/msm/dp/dp_display.c prioritiz=
-es
-event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD, branching to msm_dp_irq_hpd_handle()=
- and
-entirely skipping msm_dp_hpd_plug_handle().
+  No regressions found.
 
-Because msm_dp_hpd_plug_handle() is skipped, dp->plugged remains false,
-the DP PHY is not initialized, and AUX transfers remain disabled. The
-subsequent msm_dp_irq_hpd_handle() then attempts an AUX read which immediat=
-ely
-fails with -ENXIO, abandoning the initialization and leaving the display
-blank.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v6/index.html
 
-Is it possible to ensure msm_dp_hpd_plug_handle() is still called when a new
-connection occurs alongside an IRQ_HPD event?
+Participating hosts (39 -> 38)
+------------------------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-hpd-irq-ev=
-ents-v5-0-ff1de0090c72@oss.qualcomm.com?part=3D6
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19183 -> Patchwork_164957v6
+
+  CI-20190529: 20190529
+  CI_DRM_19183: e56378c725f82208a52da0a3b5eecd67ddcbf750 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9103: f307fd753abbe6c03d0a6e1c769fc6020ebd5d86 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_164957v6: e56378c725f82208a52da0a3b5eecd67ddcbf750 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v6/index.html
+
+--===============1891884592578547531==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm: handle IRQ_HPD events correctly (rev6)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164957/">https://patchwork.freedesktop.org/series/164957/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v6/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v6/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19183 -&gt; Patchwork_164957v6</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v6/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19183 -&gt; Patchwork_164957v6</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19183: e56378c725f82208a52da0a3b5eecd67ddcbf750 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9103: f307fd753abbe6c03d0a6e1c769fc6020ebd5d86 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_164957v6: e56378c725f82208a52da0a3b5eecd67ddcbf750 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1891884592578547531==--
