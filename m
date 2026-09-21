@@ -4,26 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43EBFC982DE
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 05:46:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F380C982DE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 06:31:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0794510E217;
-	Mon, 21 Sep 2026 05:46:08 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E14E210E217;
- Mon, 21 Sep 2026 05:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0188610E1E0;
+	Mon, 21 Sep 2026 06:31:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wtk5edny";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF47A10E1E0;
+ Mon, 21 Sep 2026 06:30:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789972260; x=1821508260;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=HtBwz7MpjVfsvm3vZY/Sk05dMHNZT6Od24wsVNFrNxk=;
+ b=Wtk5edny4RduoWLcZxji1Oinn7JvOrHt/fpj1g75iCkUJkXoBeSY0w6m
+ 7cnz7TrmmxffWzbv7ogfQw4Ai9gMlWPupli+UyaWFGu0c17j7FDmDyd+5
+ 44V8lhBL5+0c78EqsuWTyL/lP29rBwcfZ/OvZFfLwgEHrCkW5fLbSSzk+
+ hIn8TmsoaTHJzFMfDInTdao+N951/4X7vksy0WnOrhcz90KNrXD/+Ld/9
+ Jub3oM+zeSIbw5Z11o+A7LhhTkS+sfvSnQHQdb+q2V+I0CPARtIKwswcf
+ iLtikAPbBBWGOE/pKqBeJLYU9pmdW/wuBsF/B1NKEHgbw9OPz8fJrXPRT w==;
+X-CSE-ConnectionGUID: KzO6NTyJQoCJbpB2shnidA==
+X-CSE-MsgGUID: B42YPWZzR3iyFxmQPaYJFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="971839"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="971839"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2026 23:30:59 -0700
+X-CSE-ConnectionGUID: WdnO2D4rQri/9a2FF6dXig==
+X-CSE-MsgGUID: nX8TpcC+Q0+GS22QJVfQWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="300460814"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.142])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2026 23:30:56 -0700
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_log_DPCD_access_errors?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 21 Sep 2026 05:46:06 -0000
-Message-ID: <178996956691.185577.9134795915089289417@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260921053710.1586776-1-suraj.kandpal@intel.com>
-In-Reply-To: <20260921053710.1586776-1-suraj.kandpal@intel.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context allocation
+ failure
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: stable@vger.kernel.org
+To: Chris Wilson <chris@chris-wilson.co.uk>, David Airlie <airlied@gmail.com>,
+ Guangshuo Li <lgs201920130244@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 09:30:49 +0300
+Message-ID: <178997224953.20141.15039837012698810465@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,31 +74,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Quoting Guangshuo Li (2026-09-19 20:17:10)
+> mock_context_alloc() creates ce->ring before allocating and pinning the
+> context timeline. mock_ring() initializes the ring reference count and
+> returns the initial reference to the context.
+>=20
+> If intel_timeline_create() fails, mock_context_alloc() returns without
+> dropping the ring reference. The same leak occurs when
+> mock_timeline_pin() fails after the timeline has been created. Since
+> context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
+> the later context teardown does not release the ring.
+>=20
+> Drop the initial ring reference with kref_put() on both failure paths.
+> When the reference count reaches zero, intel_ring_free() releases the
+> ring VMA and frees the ring allocation. Clear ce->ring after dropping
+> the reference to avoid retaining a stale pointer.
+>=20
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+>=20
+> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
+> Cc: stable@vger.kernel.org
 
-Series: log DPCD access errors
-URL   : https://patchwork.freedesktop.org/series/174553/
-State : failure
+We're not going to put Fixes and especially not Cc stable in
+for selftests.
 
-== Summary ==
+You should use onion teardown idiom instead of duplicating code.
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/174553/revisions/1/mbox/ not applied
-Applying: drm/i915/lspcon: log DPCD access errors
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/display/intel_lspcon.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/display/intel_lspcon.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_lspcon.c
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915/lspcon: log DPCD access errors
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
+Commit message also reeks of LLM generation as an average developer
+doesn't need "explain to me like I have never programmed before".
 
+Regards, Joonas
 
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915=
+/gt/mock_engine.c
+> index 79741f043f03..fa4368730d33 100644
+> --- a/drivers/gpu/drm/i915/gt/mock_engine.c
+> +++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+> @@ -170,6 +170,8 @@ static int mock_context_alloc(struct intel_context *c=
+e)
+> =20
+>         ce->timeline =3D intel_timeline_create(ce->engine->gt);
+>         if (IS_ERR(ce->timeline)) {
+> +               kref_put(&ce->ring->ref, intel_ring_free);
+> +               ce->ring =3D NULL;
+>                 kfree(ce->engine);
+>                 return PTR_ERR(ce->timeline);
+>         }
+> @@ -178,6 +180,8 @@ static int mock_context_alloc(struct intel_context *c=
+e)
+>         if (err) {
+>                 intel_timeline_put(ce->timeline);
+>                 ce->timeline =3D NULL;
+> +               kref_put(&ce->ring->ref, intel_ring_free);
+> +               ce->ring =3D NULL;
+>                 return err;
+>         }
+> =20
+> --=20
+> 2.43.0
+>
