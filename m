@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D7CC982E6
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 15:09:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6F89C982F8
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 15:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 653A910E3D2;
-	Mon, 21 Sep 2026 15:09:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6327910E8D9;
+	Mon, 21 Sep 2026 15:16:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a37yIKpR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h4nVxrJ8";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFA110E3D2;
- Mon, 21 Sep 2026 15:09:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46C2D10E8D7;
+ Mon, 21 Sep 2026 15:15:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BCA04600C8;
- Mon, 21 Sep 2026 15:09:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B120E1F000FF;
- Mon, 21 Sep 2026 15:09:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 771A1600C8;
+ Mon, 21 Sep 2026 15:15:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D24D1F00899;
+ Mon, 21 Sep 2026 15:15:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790003375;
+ s=k20260515; t=1790003758;
  bh=Pa7Ft/ijJMnGxUHvP/pkiFeMmDY5E8M9itOTKRJ8E0A=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=a37yIKpR7CmkgDvDOsMGCXKWaNcNsStWl6fHm32Bkxy2yk9jYr+PMY5/xrmyUplbq
- oJi7fzUcqK7fwPQNuR7INp2S4DAQMogLZEAGYG2G0nIsaBHLyh0hQTsKIBqYH4y9e2
- NiEC53Fw/gEJuaPz1dH9NjbXatVo0vMpWDnWYu/LQM/ogXGTJdGnXEGJxLxfYGmLy9
- vG3D7eKr+u2KYDr0dj1QaFLrY2qLH3vEdi/zGXA1aIc9sibhgdKyltS3FANi3Rf8s0
- mWPnKly3hK7QVeNUm0Yat1qCFtJuW8ZjBai4YLTG+r1kiobG6ZTGifJsi0t9NIHapg
- lBUG6/S0xvAXg==
-Date: Mon, 21 Sep 2026 17:09:32 +0200
+ b=h4nVxrJ8g3YF025hvaiGNr0MdFiGK034N3EzYm6Eq5q5IUw+KfLqfwhAGQEs1iS5J
+ g157pX2XvAsaCz4Emgu1SiUAaMr67jPYhGKvYyZhuJ/3N6odu1/KHNltPPe/FPTC3e
+ ZMqHYYMK/cCF5XndgTo6PnmWrR4hH48Q4pofQHdJZEu6I8OhUSo2pssBaGDySivRjp
+ kMf6zlhq4c0W4vytLtaHsI+SxTi+wujMf7wvrB89vcIqIrfqAvfedHB2u14iE2eaNY
+ 8Mc60p2xDxdBbX8vnQ9tB+nQ/qyOpTWXVlg1imXOXHtq5X0njvbQTMAI0HI2c09dOC
+ xP42vLSfP0cxg==
+Date: Mon, 21 Sep 2026 17:15:55 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
- Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Matthew Auld <matthew.auld@intel.com>
+Cc: stable@vger.kernel.org, Matthew Auld <matthew.auld@intel.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org, 
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org, 
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>, 
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context
  allocation failure
-Message-ID: <arFIqOl-H6DYQ2k_@quoll>
+Message-ID: <arFKKZ_0siQVQAdB@quoll>
 References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
