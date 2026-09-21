@@ -4,68 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 854B4C982DE
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 06:51:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 184F1C982DE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F98210E225;
-	Mon, 21 Sep 2026 06:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B87310E4A6;
+	Mon, 21 Sep 2026 07:10:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fkpZp60f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YNHGhFM0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5AEB10E225;
- Mon, 21 Sep 2026 06:51:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789973511; x=1821509511;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=SUr2x92m0kq0N82NhWMY7MpEDbdPZzPwC/maMFz4Ze0=;
- b=fkpZp60f9QlIPcg1M+UjUF416OkSdtv+AgInHpWkz/rNxYzrJseBX5uD
- Qa06f7tkcyRxtxhwk1tCpPKzpEYB3xaxUZvUcsBoe9UwLK6bsF9XhBwvR
- MK2HmPF1Tuw573Pk2Q2cOh/E7usCJ1OVuIFMyarsWpeQ9J2bqUBPQz7w1
- ThrU53QQ0rv73LQCN5J7kysz+QwbqQhwvJOTzTA5HCBxWfyFLkYzhANol
- 0r5GVLh0zxrB0bkNhfYF/0rbFAeOx2H7uxe8lvjFpAtmuYYgrdxUzATsd
- SXBuADm662Ugde6U+lRKnCLLSgNkNw+fJofygEedneO3drsz8IINw6sQz Q==;
-X-CSE-ConnectionGUID: jnRkyxj8SuCj38qSrKXI7w==
-X-CSE-MsgGUID: NRDi+pkxQQSedHbN0WngOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="94292574"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="94292574"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2026 23:51:50 -0700
-X-CSE-ConnectionGUID: nWKMdSgDRYO74M9Q0HEw1Q==
-X-CSE-MsgGUID: MqvGeTRZRrGzuqZuk+UK/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="272683213"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.142])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2026 23:51:48 -0700
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <43a77431-f24e-4e26-890b-d60b1844f028@lankhorst.se>
-References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706122026.IJAiyhhw@linutronix.de>
- <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
- <20260709110200.2_5Eg8xF@linutronix.de>
- <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
- <20260918083118.POmXtJuv@linutronix.de>
- <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
- <178972632228.60564.16756848994208751058@jlahtine-mobl>
- <43a77431-f24e-4e26-890b-d60b1844f028@lankhorst.se>
-Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
- PREEMPT_RT.
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB17A10E4B0;
+ Mon, 21 Sep 2026 07:10:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 24276600D1;
+ Mon, 21 Sep 2026 07:10:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6FD1F00893;
+ Mon, 21 Sep 2026 07:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789974606;
+ bh=zU7DwviVV4w3gwqIINq2ovAtABCjJKgf5MhOd5b/D5M=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YNHGhFM0bncMEhIEHjABrsq3T4VEho0aZsjFm+nZqmj4V4DtHe6qLZKRVJBvkl4Qb
+ fNt8huUnjUSUJMImniVocyIBrMTeYlSLXYtQSbs0vaRTEnqPen8/0RuFU25Dt5wy1X
+ H1139uaRkB32gIBuqsISvJ6SOfXnTtZ6+i2G+XeM1bqle6Gczg9gRuWCxqWzwuHEZb
+ FIrk/8fNIe4hZsFblt4j+X+7+VKHyJdHsHcCTPY1VPukhb4ZJ+v8JEQl6MPsUwhPoQ
+ tEOMVLvf7sX/OhESfHJ0El57pZaP+f3rhVkdiuHUiz6Rf/PUKwhhi/2oop6+wKpY6J
+ CElVsQHXfUJnA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/display: Replace bw_constrained with
+ max_link_bpp_x16
+To: "George Karagounis" <taterraster@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-To: Jani Nikula <jani.nikula@intel.com>, Maarten Lankhorst <dev@lankhorst.se>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Date: Mon, 21 Sep 2026 09:51:45 +0300
-Message-ID: <178997350548.20141.1094942452589748749@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+In-Reply-To: <20260919161927.98829-1-mail@taterr.org>
+References: <20260919161927.98829-1-mail@taterr.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 07:10:06 +0000
+Message-Id: <20260921071006.9B6FD1F00893@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,95 +53,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Maarten Lankhorst (2026-09-18 17:24:39)
-> Hello,
->=20
->=20
-> On 9/18/26 12:12, Joonas Lahtinen wrote:
-> > Quoting Tvrtko Ursulin (2026-09-18 12:44:43)
-> >>
-> >> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
-> >>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
-> >>>> Hey,
-> >>> Hi Maarten,
-> >>>
-> >>>> Yeah the problem was similar, I believe neither check should exist,
-> >>>> instead the caller should give this information like the comment men=
-tions.
-> >>>
-> >>> Any update here? Maybe I have been left out on reposts. Any chance th=
-is
-> >>> gets in before the LTS of this year gets out?
-> >>
-> >> Side question, there was a bunch of sashiko issues against v4 - have=20
-> >> those been addressed?
-> >>
-> >> As today it is the first time I see patch 7/7 which is a bit of a scar=
-y=20
-> >> one. I have to ask how much does Intel commit to fixing out any=20
-> >> potential breakage given the status of i915?
-> >=20
-> > I'd say there is very close to zero chance of accepting patch 7. And
-> > that would take massive functional and performance validation efforts
-> > done by the person wanting the patch to get merged.
-> >=20
->=20
-> I don't mind taking the responsibility to debug and troubleshoot if thing=
-s break.
-> Patch 7/7 fixes a real bug that is hard to trigger otherwise, but can mos=
-t definitely
-> happen.
->=20
-> I believe it should be treated it as any other fix, merge it and when the=
-re are
-> bug reports, solve those.
->
-> Most of my energy and work is going to other projects now, so I won't be =
-able to do
-> the entire validation in advance.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/i915/display: incomplete cleanup of bw_constrained flag
+--
 
-For a patch with such potential to cause breakage (functional and
-performance), we really need the validation efforts up front.
+commit f4c7087cb31d33cb453437886f7788a5ffe134a2
+Author: George Karagounis <taterraster@gmail.com>
 
-> I will definitely ensure CI is clean and passing,
-> it's how I came across this bugfix in the first place.
->=20
-> If bug reports come in and point to this patch, I will be able to take a =
-look and
-> solve the reported issues, but I won't be able to hunt for them in advanc=
-e.
+drm/i915/display: Replace bw_constrained with max_link_bpp_x16
 
-I think somebody will actually need to run real workloads on such kernel
-across a few HW generations.
+This commit replaces the legacy bw_constrained boolean flag checks with
+direct comparisons against the max_link_bpp_x16 fixed-point API in both
+intel_crt.c and intel_lvds.c.
 
-Couple of browser based GPU benchmarks and video transcode benchmarks
-would be a good start.
+> diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/=
+i915/display/intel_lvds.c
+> index 872753478cf21..6bbd13ab5da7b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_lvds.c
+> +++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+[ ... ]
+> @@ -443,10 +443,10 @@ static int intel_lvds_compute_config(struct intel_a=
+tomic_state *state,
+>  	else
+>  		lvds_bpp =3D 6*3;
+> =20
+> -	/* TODO: Check crtc_state->max_link_bpp_x16 instead of bw_constrained */
+> -	if (lvds_bpp !=3D crtc_state->pipe_bpp && !crtc_state->bw_constrained) {
+> +	if (lvds_bpp !=3D crtc_state->pipe_bpp &&
+> +	    crtc_state->max_link_bpp_x16 >=3D fxp_q4_from_int(lvds_bpp)) {
 
-> It's only a few weeks until the -rc cutoff, so we can make it part of the=
- next cycle.
+[Severity: Low]
+Does this commit intentionally leave the bw_constrained flag definition and
+other writes intact?
 
-Definitely not a fan of sending such a patch to mainline under the holiday
-season without any testing.
+While this patch removes the readers of bw_constrained, the flag remains
+defined in struct intel_crtc_state:
 
-Regards, Joonas
+drivers/gpu/drm/i915/display/intel_display_types.h:struct intel_crtc_state {
+...
+	bool bw_constrained;
+...
+}
 
-> > And yes, there would also need to be commitment to fix any fallout by
-> > that same person in weekly -rc cadence. So please raise your hand, whoe=
-ver
-> > wants to volunteer.
-> >=20
-> > There's already the earlier much smaller patch about vblank that needs
-> > to get reviewes and acceptance and it hasn't been able to be driven
-> > to completion.
-> >=20
-> > So projecting from that, I don't exactly expect patch like 7 in this
-> > series to get merged in any near future without somebody really stepping
-> > forward and signing to do all the validation and and perf regression
-> > testing.
-> >=20
-> > Regards, Joonas
-> Kind regards,
-> ~Maarten Lankhorst
+It also still appears to be stored whenever crtc_state->pipe_bpp >=20
+fxp_q4_to_int(crtc_state->max_link_bpp_x16) during mode setting:
+
+drivers/gpu/drm/i915/display/intel_display.c:intel_modeset_pipe_config() {
+...
+	crtc_state->bw_constrained =3D true;
+...
+}
+
+Because the readers were removed, this causes unnecessary code complexity a=
+nd
+leaves behind a dead store. Is there a plan to remove the flag entirely, or
+was this an oversight?
+
+>  		drm_dbg_kms(display->drm,
+> -			    "forcing display bpp (was %d) to LVDS (%d)\n",
+> +			   "forcing display bpp (was %d) to LVDS (%d)\n",
+>  			    crtc_state->pipe_bpp, lvds_bpp);
+>  		crtc_state->pipe_bpp =3D lvds_bpp;
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919161927.9882=
+9-1-mail@taterr.org?part=3D1
