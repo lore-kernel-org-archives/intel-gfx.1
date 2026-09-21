@@ -4,54 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19C79C982E1
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 09:02:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D640EC982DE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 09:41:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ACC110E371;
-	Mon, 21 Sep 2026 09:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6531A10E5C1;
+	Mon, 21 Sep 2026 09:41:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RA3YJ/ua";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kzEnwv8Z";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBD910E057;
- Mon, 21 Sep 2026 09:02:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D7E710E1BA;
+ Mon, 21 Sep 2026 09:41:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789981354; x=1821517354;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=HjhdWz3TL+zKMQgCb85LDtJBaoQ8IO3yBXPgS+ZrfP8=;
- b=RA3YJ/uagckoVe5bI0Ndg98pQJNA3WhSyvowOTayit9kkFLsZQ+BPntY
- ci98oIh8/VprLv2yjv21+bkWu7ked44G1hzL7e08KBCLUiEEQScEyw7e8
- o6F6KkVuL1i/FCsjKMMW213TVv+C9KtrzD2K/YYnWn5KSIOndRTVIL0CX
- sGfFU5C9g2dzjMaFrzEwBosDQCEIcJHykoQC6K7zkxrFepTCw99hPpAUU
- YO1uTERzz88WaYU1xiBUlg8wL+Dr3dfRZJ6/zXO5IBZNaKgD9diBkiNOo
- 72JaacbkjoGZWZMhna0zj61eJCaMGIvrseAa4I2+110HRBhO0Cym+wUbJ A==;
-X-CSE-ConnectionGUID: 903gAvjvSZyazYjPuwzovw==
-X-CSE-MsgGUID: azg4MVQWQtOY6J8vDIsPhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="988897"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="988897"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 02:02:33 -0700
-X-CSE-ConnectionGUID: XAjLis+pTS+zvPF4cFLCLA==
-X-CSE-MsgGUID: 6Bg0dk8wSLCundcoR7RiPg==
+ t=1789983671; x=1821519671;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=gmjz8CVNbMdWpSIDvUKrUXaC3yqPNSun31BV2ocAFtw=;
+ b=kzEnwv8ZDdlSyyt2KihmjH3so8Qradigew4ePx0mG2rJo2mhhVu6AmRB
+ 6b7wGZq2IC82r5Lhq9KXS7gdS5nmQqA41A+FSvfAr5YLLiMS/Z+5NsUbt
+ AYlR6cj6btomVcrxjIBU8wkIfw1Q5hyw2yVeq7KEqLd/v0iHTw2d13PAO
+ 2sahkfLMr7ju8OdhSD3bwOe9JW6lnZ/aZxz1cYJ1WFHiAx7XJMPSidQlQ
+ lQACsrLS08t8ieeBYSjbIiTYbu9qBF4qH8EyV614pc78s4jq5BAjAJ/wE
+ pCfdv6flwN0L65HXiXWkmBbuJU9rQtqQNKdereCfRmrzGcg0/H6tS3D6Q w==;
+X-CSE-ConnectionGUID: GSY34BSoQ7mnq4vFrgV5uA==
+X-CSE-MsgGUID: gtxbQu/OQrOLTR/KVOepMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="101834228"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="101834228"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 02:41:09 -0700
+X-CSE-ConnectionGUID: frCaIK50Qm6NHGu17/tNvw==
+X-CSE-MsgGUID: VrDJq7RCRqW8OIKryJJhVg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="271102552"
-Received: from dbhadane-mobl1.iind.intel.com ([10.190.239.58])
- by fmviesa006.fm.intel.com with ESMTP; 21 Sep 2026 02:02:31 -0700
-From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
- Jani Nikula <jani.nikula@intel.com>, stable@vger.kernel.org,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Subject: [PATCH v2] drm/i915/cx0_phy: Fix ARL-S host bridge detection
-Date: Mon, 21 Sep 2026 14:32:26 +0530
-Message-ID: <20260921090226.946472-1-dnyaneshwar.bhadane@intel.com>
-X-Mailer: git-send-email 2.54.0
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="300518287"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.180])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 02:41:08 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: suraj.kandpal@intel.com
+Subject: [PATCH v2] drm/i915/hdcp: switch to drm_dp_dpcd_{read_byte, read_data,
+ write_data}()
+Date: Mon, 21 Sep 2026 12:41:03 +0300
+Message-ID: <20260921094103.701841-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <e168dad72f78fdb74419da94b0a38d732159fc82.1789547331.git.jani.nikula@intel.com>
+References: <e168dad72f78fdb74419da94b0a38d732159fc82.1789547331.git.jani.nikula@intel.com>
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,50 +72,370 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix is_arrowlake_s_by_host_bridge() which always returned false.
-The while loop always exits with pdev as NULL, so the return
-condition was always false, causing the wrong tx_misc value to be used.
+Switch to the modern DPCD access functions that return negative error
+codes on errors, -EIO for incomplete access, and 0 on success.
 
-Check the host bridge ID inside the loop body.  Once found early exit
-from the loop release the pci reference "pdev" and return true.
+This simplifies error handling all over the place. Convert the error
+logging to use %pe and ERR_PTR() while at it.
 
-v2:
- - Update commit message (Chaitanya)
+Add comments to the read/write places that depend on the functions that
+return the number of bytes read/written for incomplete access.
 
-Bspec:74165,74491
-Suggested-by: Jani Nikula <jani.nikula@intel.com>
-Cc: <stable@vger.kernel.org>
-Fixes: 3630a47b700e ("drm/i915/cx0_phy: Update HDMI TMDS C20 algorithm value")
-Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+v2: return length from get_receiver_id_list_rx_info() (Sashiko)
+
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 176 +++++++++----------
+ 1 file changed, 88 insertions(+), 88 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index dbebd7210848..de450ebf541f 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2342,12 +2342,14 @@ static void intel_c10pll_dump_hw_state(struct drm_printer *p,
- static bool is_arrowlake_s_by_host_bridge(void)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+index 14ed0ea22dd3..566a921d18a1 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
+@@ -60,16 +60,15 @@ int intel_dp_hdcp_write_an_aksv(struct intel_digital_port *dig_port,
  {
- 	struct pci_dev *pdev = NULL;
--	u16 host_bridge_pci_dev_id;
--
--	while ((pdev = pci_get_class(PCI_CLASS_BRIDGE_HOST << 8, pdev)))
--		host_bridge_pci_dev_id = pdev->device;
-+	while ((pdev = pci_get_class(PCI_CLASS_BRIDGE_HOST << 8, pdev))) {
-+		if (IS_ARROWLAKE_S_BY_HOST_BRIDGE_ID(pdev->device)) {
-+			pci_dev_put(pdev);
-+			return true;
-+		}
-+	}
+ 	struct intel_display *display = to_intel_display(dig_port);
+ 	u8 aksv[DRM_HDCP_KSV_LEN] = {};
+-	ssize_t dpcd_ret;
++	int ret;
  
--	return pdev && IS_ARROWLAKE_S_BY_HOST_BRIDGE_ID(host_bridge_pci_dev_id);
-+	return false;
+ 	/* Output An first, that's easy */
+-	dpcd_ret = drm_dp_dpcd_write(&dig_port->dp.aux, DP_AUX_HDCP_AN,
++	ret = drm_dp_dpcd_write_data(&dig_port->dp.aux, DP_AUX_HDCP_AN,
+ 				     an, DRM_HDCP_AN_LEN);
+-	if (dpcd_ret != DRM_HDCP_AN_LEN) {
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Failed to write An over DP/AUX (%zd)\n",
+-			    dpcd_ret);
+-		return dpcd_ret >= 0 ? -EIO : dpcd_ret;
++			    "Failed to write An over DP/AUX (%pe)\n", ERR_PTR(ret));
++		return ret;
+ 	}
+ 
+ 	/*
+@@ -79,14 +78,14 @@ int intel_dp_hdcp_write_an_aksv(struct intel_digital_port *dig_port,
+ 	 * the destination address which will tickle the hardware to output the
+ 	 * Aksv on our behalf after the header is sent.
+ 	 */
+-	dpcd_ret = drm_dp_dpcd_write(&dig_port->dp.aux, DP_AUX_HDCP_AKSV,
++	ret = drm_dp_dpcd_write_data(&dig_port->dp.aux, DP_AUX_HDCP_AKSV,
+ 				     aksv, DRM_HDCP_KSV_LEN);
+-	if (dpcd_ret != DRM_HDCP_KSV_LEN) {
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Failed to write Aksv over DP/AUX (%zd)\n",
+-			    dpcd_ret);
+-		return dpcd_ret >= 0 ? -EIO : dpcd_ret;
++			    "Failed to write Aksv over DP/AUX (%pe)\n", ERR_PTR(ret));
++		return ret;
+ 	}
++
+ 	return 0;
  }
  
- static u16 intel_c20_hdmi_tmds_tx_cgf_1(struct intel_display *display)
+@@ -94,15 +93,16 @@ static int intel_dp_hdcp_read_bksv(struct intel_digital_port *dig_port,
+ 				   u8 *bksv)
+ {
+ 	struct intel_display *display = to_intel_display(dig_port);
+-	ssize_t ret;
++	int ret;
+ 
+-	ret = drm_dp_dpcd_read(&dig_port->dp.aux, DP_AUX_HDCP_BKSV, bksv,
+-			       DRM_HDCP_KSV_LEN);
+-	if (ret != DRM_HDCP_KSV_LEN) {
++	ret = drm_dp_dpcd_read_data(&dig_port->dp.aux, DP_AUX_HDCP_BKSV, bksv,
++				    DRM_HDCP_KSV_LEN);
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Read Bksv from DP/AUX failed (%zd)\n", ret);
+-		return ret >= 0 ? -EIO : ret;
++			    "Read Bksv from DP/AUX failed (%pe)\n", ERR_PTR(ret));
++		return ret;
+ 	}
++
+ 	return 0;
+ }
+ 
+@@ -110,20 +110,21 @@ static int intel_dp_hdcp_read_bstatus(struct intel_digital_port *dig_port,
+ 				      u8 *bstatus)
+ {
+ 	struct intel_display *display = to_intel_display(dig_port);
+-	ssize_t ret;
++	int ret;
+ 
+ 	/*
+ 	 * For some reason the HDMI and DP HDCP specs call this register
+ 	 * definition by different names. In the HDMI spec, it's called BSTATUS,
+ 	 * but in DP it's called BINFO.
+ 	 */
+-	ret = drm_dp_dpcd_read(&dig_port->dp.aux, DP_AUX_HDCP_BINFO,
+-			       bstatus, DRM_HDCP_BSTATUS_LEN);
+-	if (ret != DRM_HDCP_BSTATUS_LEN) {
++	ret = drm_dp_dpcd_read_data(&dig_port->dp.aux, DP_AUX_HDCP_BINFO,
++				    bstatus, DRM_HDCP_BSTATUS_LEN);
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Read bstatus from DP/AUX failed (%zd)\n", ret);
+-		return ret >= 0 ? -EIO : ret;
++			    "Read bstatus from DP/AUX failed (%pe)\n", ERR_PTR(ret));
++		return ret;
+ 	}
++
+ 	return 0;
+ }
+ 
+@@ -132,14 +133,13 @@ int intel_dp_hdcp_read_bcaps(struct drm_dp_aux *aux,
+ 			     struct intel_display *display,
+ 			     u8 *bcaps)
+ {
+-	ssize_t ret;
++	int ret;
+ 
+-	ret = drm_dp_dpcd_read(aux, DP_AUX_HDCP_BCAPS,
+-			       bcaps, 1);
+-	if (ret != 1) {
++	ret = drm_dp_dpcd_read_byte(aux, DP_AUX_HDCP_BCAPS, bcaps);
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Read bcaps from DP/AUX failed (%zd)\n", ret);
+-		return ret >= 0 ? -EIO : ret;
++			    "Read bcaps from DP/AUX failed (%pe)\n", ERR_PTR(ret));
++		return ret;
+ 	}
+ 
+ 	return 0;
+@@ -166,16 +166,16 @@ int intel_dp_hdcp_read_ri_prime(struct intel_digital_port *dig_port,
+ 				u8 *ri_prime)
+ {
+ 	struct intel_display *display = to_intel_display(dig_port);
+-	ssize_t ret;
++	int ret;
+ 
+-	ret = drm_dp_dpcd_read(&dig_port->dp.aux, DP_AUX_HDCP_RI_PRIME,
+-			       ri_prime, DRM_HDCP_RI_LEN);
+-	if (ret != DRM_HDCP_RI_LEN) {
++	ret = drm_dp_dpcd_read_data(&dig_port->dp.aux, DP_AUX_HDCP_RI_PRIME,
++				    ri_prime, DRM_HDCP_RI_LEN);
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Read Ri' from DP/AUX failed (%zd)\n",
+-			    ret);
+-		return ret >= 0 ? -EIO : ret;
++			    "Read Ri' from DP/AUX failed (%pe)\n", ERR_PTR(ret));
++		return ret;
+ 	}
++
+ 	return 0;
+ }
+ 
+@@ -184,17 +184,18 @@ int intel_dp_hdcp_read_ksv_ready(struct intel_digital_port *dig_port,
+ 				 bool *ksv_ready)
+ {
+ 	struct intel_display *display = to_intel_display(dig_port);
+-	ssize_t ret;
+ 	u8 bstatus;
++	int ret;
+ 
+-	ret = drm_dp_dpcd_read(&dig_port->dp.aux, DP_AUX_HDCP_BSTATUS,
+-			       &bstatus, 1);
+-	if (ret != 1) {
++	ret = drm_dp_dpcd_read_byte(&dig_port->dp.aux, DP_AUX_HDCP_BSTATUS,
++				    &bstatus);
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Read bstatus from DP/AUX failed (%zd)\n", ret);
+-		return ret >= 0 ? -EIO : ret;
++			    "Read bstatus from DP/AUX failed (%pe)\n", ERR_PTR(ret));
++		return ret;
+ 	}
+ 	*ksv_ready = bstatus & DP_BSTATUS_READY;
++
+ 	return 0;
+ }
+ 
+@@ -203,23 +204,24 @@ int intel_dp_hdcp_read_ksv_fifo(struct intel_digital_port *dig_port,
+ 				int num_downstream, u8 *ksv_fifo)
+ {
+ 	struct intel_display *display = to_intel_display(dig_port);
+-	ssize_t ret;
++	int ret;
+ 	int i;
+ 
+ 	/* KSV list is read via 15 byte window (3 entries @ 5 bytes each) */
+ 	for (i = 0; i < num_downstream; i += 3) {
+ 		size_t len = min(num_downstream - i, 3) * DRM_HDCP_KSV_LEN;
+-		ret = drm_dp_dpcd_read(&dig_port->dp.aux,
+-				       DP_AUX_HDCP_KSV_FIFO,
+-				       ksv_fifo + i * DRM_HDCP_KSV_LEN,
+-				       len);
+-		if (ret != len) {
++		ret = drm_dp_dpcd_read_data(&dig_port->dp.aux,
++					    DP_AUX_HDCP_KSV_FIFO,
++					    ksv_fifo + i * DRM_HDCP_KSV_LEN,
++					    len);
++		if (ret < 0) {
+ 			drm_dbg_kms(display->drm,
+-				    "Read ksv[%d] from DP/AUX failed (%zd)\n",
+-				    i, ret);
+-			return ret >= 0 ? -EIO : ret;
++				    "Read ksv[%d] from DP/AUX failed (%pe)\n",
++				    i, ERR_PTR(ret));
++			return ret;
+ 		}
+ 	}
++
+ 	return 0;
+ }
+ 
+@@ -228,19 +230,19 @@ int intel_dp_hdcp_read_v_prime_part(struct intel_digital_port *dig_port,
+ 				    int i, u32 *part)
+ {
+ 	struct intel_display *display = to_intel_display(dig_port);
+-	ssize_t ret;
++	int ret;
+ 
+ 	if (i >= DRM_HDCP_V_PRIME_NUM_PARTS)
+ 		return -EINVAL;
+ 
+-	ret = drm_dp_dpcd_read(&dig_port->dp.aux,
+-			       DP_AUX_HDCP_V_PRIME(i), part,
+-			       DRM_HDCP_V_PRIME_PART_LEN);
+-	if (ret != DRM_HDCP_V_PRIME_PART_LEN) {
++	ret = drm_dp_dpcd_read_data(&dig_port->dp.aux, DP_AUX_HDCP_V_PRIME(i), part,
++				    DRM_HDCP_V_PRIME_PART_LEN);
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Read v'[%d] from DP/AUX failed (%zd)\n", i, ret);
+-		return ret >= 0 ? -EIO : ret;
++			    "Read v'[%d] from DP/AUX failed (%pe)\n", i, ERR_PTR(ret));
++		return ret;
+ 	}
++
+ 	return 0;
+ }
+ 
+@@ -258,14 +260,13 @@ bool intel_dp_hdcp_check_link(struct intel_digital_port *dig_port,
+ 			      struct intel_connector *connector)
+ {
+ 	struct intel_display *display = to_intel_display(dig_port);
+-	ssize_t ret;
+ 	u8 bstatus;
++	int ret;
+ 
+-	ret = drm_dp_dpcd_read(&dig_port->dp.aux, DP_AUX_HDCP_BSTATUS,
+-			       &bstatus, 1);
+-	if (ret != 1) {
++	ret = drm_dp_dpcd_read_byte(&dig_port->dp.aux, DP_AUX_HDCP_BSTATUS, &bstatus);
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Read bstatus from DP/AUX failed (%zd)\n", ret);
++			    "Read bstatus from DP/AUX failed (%pe)\n", ERR_PTR(ret));
+ 		return false;
+ 	}
+ 
+@@ -346,15 +347,14 @@ intel_dp_hdcp2_read_rx_status(struct intel_connector *connector,
+ 	struct intel_display *display = to_intel_display(connector);
+ 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
+ 	struct drm_dp_aux *aux = &dig_port->dp.aux;
+-	ssize_t ret;
++	int ret;
+ 
+-	ret = drm_dp_dpcd_read(aux,
+-			       DP_HDCP_2_2_REG_RXSTATUS_OFFSET, rx_status,
+-			       HDCP_2_2_DP_RXSTATUS_LEN);
+-	if (ret != HDCP_2_2_DP_RXSTATUS_LEN) {
++	ret = drm_dp_dpcd_read_data(aux, DP_HDCP_2_2_REG_RXSTATUS_OFFSET, rx_status,
++				    HDCP_2_2_DP_RXSTATUS_LEN);
++	if (ret < 0) {
+ 		drm_dbg_kms(display->drm,
+-			    "Read bstatus from DP/AUX failed (%zd)\n", ret);
+-		return ret >= 0 ? -EIO : ret;
++			    "Read bstatus from DP/AUX failed (%pe)\n", ERR_PTR(ret));
++		return ret;
+ 	}
+ 
+ 	return 0;
+@@ -474,8 +474,8 @@ int intel_dp_hdcp2_write_msg(struct intel_connector *connector,
+ 		len = bytes_to_write > DP_AUX_MAX_PAYLOAD_BYTES ?
+ 				DP_AUX_MAX_PAYLOAD_BYTES : bytes_to_write;
+ 
+-		ret = drm_dp_dpcd_write(aux,
+-					offset, (void *)byte, len);
++		/* Note: This may return < len for partial writes. */
++		ret = drm_dp_dpcd_write(aux, offset, byte, len);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -487,20 +487,20 @@ int intel_dp_hdcp2_write_msg(struct intel_connector *connector,
+ 	return size;
+ }
+ 
++/* return number of bytes read on success */
+ static
+ ssize_t get_receiver_id_list_rx_info(struct intel_connector *connector,
+ 				     u32 *dev_cnt, u8 *byte)
+ {
+ 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
+ 	struct drm_dp_aux *aux = &dig_port->dp.aux;
+-	ssize_t ret;
+ 	u8 *rx_info = byte;
++	int ret;
+ 
+-	ret = drm_dp_dpcd_read(aux,
+-			       DP_HDCP_2_2_REG_RXINFO_OFFSET,
+-			       (void *)rx_info, HDCP_2_2_RXINFO_LEN);
+-	if (ret != HDCP_2_2_RXINFO_LEN)
+-		return ret >= 0 ? -EIO : ret;
++	ret = drm_dp_dpcd_read_data(aux, DP_HDCP_2_2_REG_RXINFO_OFFSET,
++				    rx_info, HDCP_2_2_RXINFO_LEN);
++	if (ret < 0)
++		return ret;
+ 
+ 	*dev_cnt = (HDCP_2_2_DEV_COUNT_HI(rx_info[0]) << 4 |
+ 		   HDCP_2_2_DEV_COUNT_LO(rx_info[1]));
+@@ -508,7 +508,7 @@ ssize_t get_receiver_id_list_rx_info(struct intel_connector *connector,
+ 	if (*dev_cnt > HDCP_2_2_MAX_DEVICE_COUNT)
+ 		*dev_cnt = HDCP_2_2_MAX_DEVICE_COUNT;
+ 
+-	return ret;
++	return HDCP_2_2_RXINFO_LEN;
+ }
+ 
+ static
+@@ -566,11 +566,11 @@ int intel_dp_hdcp2_read_msg(struct intel_connector *connector,
+ 					       hdcp2_msg_data->msg_read_timeout);
+ 		}
+ 
+-		ret = drm_dp_dpcd_read(aux, offset,
+-				       (void *)byte, len);
++		/* Note: This may return < len for partial reads. */
++		ret = drm_dp_dpcd_read(aux, offset, byte, len);
+ 		if (ret < 0) {
+-			drm_dbg_kms(display->drm, "msg_id %d, ret %zd\n",
+-				    msg_id, ret);
++			drm_dbg_kms(display->drm, "msg_id %d, ret %pe\n",
++				    msg_id, ERR_PTR(ret));
+ 			return ret;
+ 		}
+ 
+@@ -660,11 +660,11 @@ int _intel_dp_hdcp2_get_capability(struct drm_dp_aux *aux,
+ 	 * declare a monitor not capable of HDCP 2.2.
+ 	 */
+ 	for (i = 0; i < 3; i++) {
+-		ret = drm_dp_dpcd_read(aux,
+-				       DP_HDCP_2_2_REG_RX_CAPS_OFFSET,
+-				       rx_caps, HDCP_2_2_RXCAPS_LEN);
+-		if (ret != HDCP_2_2_RXCAPS_LEN)
+-			return ret >= 0 ? -EIO : ret;
++		ret = drm_dp_dpcd_read_data(aux,
++					    DP_HDCP_2_2_REG_RX_CAPS_OFFSET,
++					    rx_caps, HDCP_2_2_RXCAPS_LEN);
++		if (ret < 0)
++			return ret;
+ 
+ 		if (rx_caps[0] == HDCP_2_2_RX_CAPS_VERSION_VAL &&
+ 		    HDCP_2_2_DP_HDCP_CAPABLE(rx_caps[2])) {
 -- 
-2.54.0
+2.47.3
 
