@@ -4,160 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA849C982EE
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 12:14:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F753C982EE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 12:56:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5078010E3B2;
-	Mon, 21 Sep 2026 12:14:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11EDE10E1DF;
+	Mon, 21 Sep 2026 12:56:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P5Ec/C20";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="F1wae6Xc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFAA910E33A;
- Mon, 21 Sep 2026 12:14:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789992861; x=1821528861;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=mmg5UVfVCLPITafVUVzhywwT9RNtjt/VwPE+5QBClDM=;
- b=P5Ec/C20UIKOx2xLVWfzfsm9k6I+RZWoQaJstAQHIPf4HIP64SswyAfq
- Zc6PGYK9GbMdMcGzwFEGtFhCfTBaUsDcCijs3Z+hXzB7DsR5zv7EWDmUO
- oi046APVTlCJ8X2fKrKKDaXAV8SmESY5UnpgmUE4UtXbrWTwt0mQu6iGE
- zrvr/9/bGAp6lBjnomUIFQELFwfwdcJJye/a5SFk8d1r/6nmE1XoS6Q/3
- ol7sXvaBxNy7DGBae9UOtHr2R8hpcp9RCBX+o/1/q/6UAbvuigA66tSpt
- 7U+rFjwuL6c7G0YOA5GwVpGSrSMOud+eVh1qrPJyyQoUqpE8hbCvaqFhs Q==;
-X-CSE-ConnectionGUID: rXyar5DFQMyMWMd+sVR91Q==
-X-CSE-MsgGUID: +681WGa0TKauAp7RsW7Q0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="1003861"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="1003861"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 05:14:20 -0700
-X-CSE-ConnectionGUID: /6pX7F0URF2a3ib6hW3Cyw==
-X-CSE-MsgGUID: E7C643DpQrqLLyvl8v/dpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="3623010"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 05:14:21 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 21 Sep 2026 05:14:20 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 21 Sep 2026 05:14:20 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.15) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 21 Sep 2026 05:14:19 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gtcAUxhNTa9hY7JvOYCo9qrGRgcbCGxIDXYHsmPe2bB4GGHeBJORIqqV28Ytni6XSINIITkpBNCxiHoyL5PgHIhpMLtHBpsoYx75FDuVRXwTxqPEne6tn6/grm5a54h5BLgRevIMY7ATD8gYQHUAZjcS6Mqk1z+sqbVlov7X4GcWTGqN1mPX0W/DCKai2p/cw6N/SIRbgw/K21b86SG0RtFG9cRqyJ3hMB/i9o5iF37tUot4lml+brWxJSUPqVV3d6qDL7j+4EBrmWQJNqZcq3xcyX8tcUs0bjrb7Z3P+Cvf/DtA3qSaQeZ5gloya7yLqaaeOBX7W7EvQUDeskInOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RjgP7ULD97yqBxqBo7VPnULQ9wK49NCdEK/J/zIsMjY=;
- b=lL0yaBtt5GswcbeZ2G+C6JixvAVy+2xzZh1sE4RbeQa4wU46Q5BrjvTSi+9VjnHmM1MjsH3Hk489yhRhjTCun36UhWzJ53wp/t5WAPMSJ8y5bzhvYSLz49D9/+BK9bV/nF2c+lDR2jS1pD1gOpR4eQQoK8gjokXIVXhr0XNfzbpjxYhiN+1Mlvudiawk9JlXRn8X/yN0GbCGKe8q3mQvYS+HnFQStoxkmTvzWbWsIZCshrnjNFkKz6+805sAFABl8KwEOBBcTisHLomvT2ZBn/RSWq9XBEql32RSqgOeqRJO8JQ2axDa7O6b0wnYZTOQ0TrItoqmnFuhCcxio8g3OQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from LV2PR11MB148960.namprd11.prod.outlook.com
- (2603:10b6:408:40f::21) by DM6PR11MB4562.namprd11.prod.outlook.com
- (2603:10b6:5:2a8::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 12:14:17 +0000
-Received: from LV2PR11MB148960.namprd11.prod.outlook.com
- ([fe80::9761:b20d:6f27:5460]) by LV2PR11MB148960.namprd11.prod.outlook.com
- ([fe80::9761:b20d:6f27:5460%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 12:14:17 +0000
-Message-ID: <edba2605-9d84-4750-9ddd-fdc4ce72fe63@intel.com>
-Date: Mon, 21 Sep 2026 17:44:09 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/i915/vrr: Disable DC balance by default
-To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- <intel-gfx@lists.freedesktop.org>
-CC: <intel-xe@lists.freedesktop.org>, <jani.nikula@linux.intel.com>,
- <chaitanya.kumar.borah@intel.com>, <stable@vger.kernel.org>
-References: <20260917074322.2606738-1-mitulkumar.ajitkumar.golani@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260917074322.2606738-1-mitulkumar.ajitkumar.golani@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0051.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b8::13) To LV2PR11MB148960.namprd11.prod.outlook.com
- (2603:10b6:408:40f::21)
+X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
+ Mon, 21 Sep 2026 01:58:22 UTC
+Received: from mail-m81133.xmail.ntesmail.com (mail-m81133.xmail.ntesmail.com
+ [156.224.81.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D428610E1A7;
+ Mon, 21 Sep 2026 01:58:22 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4e7dcd1ab;
+ Mon, 21 Sep 2026 09:53:12 +0800 (GMT+08:00)
+Message-ID: <b6ccf98c-58f3-4fdc-bd7b-3eb1bc3b6e98@rock-chips.com>
+Date: Mon, 21 Sep 2026 09:53:12 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR11MB148960:EE_|DM6PR11MB4562:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2e73b3f-1397-40e1-3eb0-08df17d9dbe8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: G2Du0Ibj6ioagIIpurKRvNQH2sQA6UCBA3SZcV9B4waXlYB6XuGjGN5FwyOva4zvH0OiExyQ2fBJmfTjd7SXDcpSpNw14KtulI7lyyZPyc9bQXc8nVpJHTdu3h2eD3uXZWtrA+9TNoV7H4NxUL2u79UpKmy+ohAs7SfiWLjQ4T+nM5Y4tzz4leEGcgHEhlf1wOPOJQErgPFKRsTZGEbpf36s0SAto1j7sfA9DUxm+lRdHc+cUczs62zKMPZjGuzXCcV61ll/ugt6g4RXd3I3e1o2+N/eUTAOA5IIko2UkEjzzq2GQPNsCH1cC3Wjre+nz75RYwA5xFmPrNMG2KCuv2kmvDwV3pi4kkukTWIcqhVcTbwaPhulSKS5woF4bE8k6FP+95dxjExuXNFdO3kidCM5dgChOco8hHefFvHk9bVoFtyOa6Fis6IolNm5sONvYVhPFcnF2xcFVKDH824wG6zjsgToeBJL7m4X/eug/CYz6gT5gO9W4k475/WSb/x7AkZNzbFjsYJ0v0eGbYCs1CuZseGdPHYl/A3nT2sQLZD2SYaMiXUpEkR//gN2JfXHayg/NNd2pnCZbEeMpmSLIfwJ0e1yGNiV2GLaA93Zc0LmeXGYHnlL4/ZwmuFDsFEIrStztSPUkPOu8iO3J5hhL3fb9R8YJ4E7sl7pqReFllU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR11MB148960.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXlKWjBYY01VOVJKQVRlRmZzMkhMVnBBOHBCQjI0VnYrWHJJSXEveHNHUEI2?=
- =?utf-8?B?cFNMbndxeTNVYjFZTkVBRVM5alNuZDhxVWxCTExocEVIYzhmMm4vZHBNUDd2?=
- =?utf-8?B?K25YN3R5KzVkSUwzNFVEbkM5WmxPVFh1bUdVUXVLUmRWRE1XdWNMT2hObUdN?=
- =?utf-8?B?anhyVStKL3BOSEU3M0NHSHhrNjk5Zy9WbkpjRjB0MUJhK3ppSSsvY3E0VTBn?=
- =?utf-8?B?TndSaDBBdFlVdnpLWGtDVjdTS21sZ1R6bkY2ekg2bUJoVG50cmxIN3NTZ0E3?=
- =?utf-8?B?cEc2ZGwyaE1KbWFmT2J3b2R4VFMzMDVwaGMwdS9iN09YMEtKSlNoVVE5R3kz?=
- =?utf-8?B?OFp6ZTQxNFZxWVZVbjU4RE1na0d0L09lSldhc1VWa3FWTXJWMkdYYitqYnpv?=
- =?utf-8?B?dGhBSzhMWnN4azd1dEJHVUVGdmVmKzhOakxxQU4zV0ZTV3UyeGg5QkdPeTJN?=
- =?utf-8?B?anE4UHlQS2hPNnRsTE5DalJ4dnpBUE5GUnhZcnR2VkovNG9BRGlldlRibk9a?=
- =?utf-8?B?SkdsUTJiMDZOb1JlT3UxdGFLV0xBczBWMC9FNzNYbGNtZlJITEZkOFF6VzJL?=
- =?utf-8?B?cW83SmN4dlhYU1hJOHA2V1U5VGlXQTFPbHM1RzMzcmRWNWdNOFRKZk5GcXBE?=
- =?utf-8?B?TWJjbWNmZTYvWTZ4TzBhaStmTVpaRzZFZ3pJMkkrQkw2K0l3TVdyVDI5N2ZC?=
- =?utf-8?B?MEZYTDcyWGdNYlp5RWV4d2l4bVhXaXB5b3V6OGVSNC9UYWNvZVdINUM2bktl?=
- =?utf-8?B?V3hJbkI4a2Y5ZUUwNGRHc2hPcjRkMkxOK2l3UVZPRmxZekV2enQ5K0x0WXgv?=
- =?utf-8?B?Zkpla2hRUU02cHY1dk9ZZExtVFd5SUVtbGVDVmlUSmFtQ01LOTFkRC9ScTVz?=
- =?utf-8?B?dDBsV0RGN1JuY1VSQk9rMmJKL0dKeEthcVFGOFNhNWFtUm05R3EzUHdOa1Bl?=
- =?utf-8?B?UDhDUEtkT2JkL1dyNE1CMG11RmQ5TEh4YWJZaFU0Z3hna25ZTFBLT21tbDNj?=
- =?utf-8?B?NHRCaC9ZcExpLzZBYXdjTzhzeUU4L2UwRFV3d3dTUXJsYW5uT2tsay9zVEVK?=
- =?utf-8?B?WWNHdlZlTG9GQnlYeW0vZmozNERrNjQ3L05yYUoxSHNJWXhhK1Y3L3p1a3po?=
- =?utf-8?B?S3E1UXpYRUllckp3UVZnR3grTk9OUWd4MkFPKytyS0lSTUplUUlCcjRsYnZn?=
- =?utf-8?B?Y0VKK2s0d3VEMmlPZGQ3MTZrejlFck9QcFgvRUhLYVRDWFFBa3RnU01MQlo0?=
- =?utf-8?B?emJaQ1IyeTZPQWIxNWtKOWZWb0xranhpTTdOemdRY2tiMXVrYjRVOFlhSFFU?=
- =?utf-8?B?QmxqQnhKWFM3cFl2YW80N0F6TVZpOExhOGFZcFI5c3MzTTByRHh1ZFdzODVs?=
- =?utf-8?B?T3dPSTczK3BRVzVjV0djbGxKQzIwOXJuSW01WWcyTjZsYVkyNWlyS2FiMzRN?=
- =?utf-8?B?MWtmMzk4ZVd6MkROKzlRQ3dKSTRKNmdEY1g3a2FGMWcrOUUwTGhISkYyS2pM?=
- =?utf-8?B?YWtnN3J1WWZGUEp3SGV1aDJiYm1QNHNZazBhT29hUzQ2MUYvZU1YNTdTWFV3?=
- =?utf-8?B?djJxa0J0V3ZYU3FlNFlUaStHQ013eGd3eXF4WkdEMEd4eVZVTXkzTktiUEZH?=
- =?utf-8?B?YVB6NXJVdlorYzBLd0h6cHF6RS9HQmVMVWU2dWRXUHNPR2l4eWp1S3hFK3VL?=
- =?utf-8?B?TjcxUW1zSmpnazZOejhZaFNRbnZFc29uMmRmSU91SFEyYW5YbEZhdDBHdENE?=
- =?utf-8?B?SjZWL2ZGZHZhOHZ6QXNKY3NtYVovTHk3TThiOXRKays5WjRDelI1MXhNaVRa?=
- =?utf-8?B?RXc0T2o2V2syazlvaUxSTzA1SWhMdW1KNTA4Tit2Z2xHUmE2c1NVa1hReGow?=
- =?utf-8?B?N2xIV1FrMEdOUktseXdUNXMyeWhxZUZmK05KMmUwSUV1WkQ5R1VINElIalcw?=
- =?utf-8?B?bjhxWVVJSW05MVFUR3BuMEtEeno1dmsvSkc4STVwM1R2dTlDakhZVUNIMnJY?=
- =?utf-8?B?Wnh5bVIrWUVKN3pNSCtUSVNaZTR3R1NQL2U1R3lzMDgwaHJncnVTaUhTbisy?=
- =?utf-8?B?cnMrdmJ1REkwamNqMVlqcFFOcEFMWFN1UnZSQjIrejZKdWl3bDFldXhlbHNv?=
- =?utf-8?B?cFA5SlIzZklNY3J1UkVIb01DR0tyWHlad3JvNVJHVlB0NUQreVZrREE5dENE?=
- =?utf-8?B?OUNwTXUxQm1wOS9RclJtb0xrU2xIRGd1TGp1Sk5kZDYvU0d1QzlUa0FUT3d2?=
- =?utf-8?B?VG5peEtmZ1FUdTFYQ0tPM0VERldCNXV4Q0ViazJDTERidGVwWWF3N29uMnpO?=
- =?utf-8?B?U2FHUG9maytnNzh3M1ZxeXlkalJTYXFUN21oN0xCdXdaYjBBdVBuYXVkTVFw?=
- =?utf-8?Q?AsneWOJueAoZcL/o=3D?=
-X-Exchange-RoutingPolicyChecked: TYRwnJZa9eBWv0ZANRjR1mC3kOFiYk4trdKXG6hFybIyaKbH2HbybcqftWpFhALGBlo8tZpiw+pIuiW3otlxTvJCkcY25fIgB5SF0ukO6WzFwRRBoGhVpDHzNxgeF2WubmifCoSe6ck/rsz8uXW3AqRCQHrAUi1u9FK3NJstsb3U2vPvXsylpTzQhiNxTczslh1QL8XNyKh8iqFFoIXZ0ZykrnAWSUKeiKHqvwXttl0wx6DIN76g77AdqCweAfnKpnDV7VhnKEtWYqmP/loT7gxCZza/IHhv4fy3xW5kCV8/AGPE+rCgNgqoobC9rx1xgyAmuELH3Ui92VJ3JneN0g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2e73b3f-1397-40e1-3eb0-08df17d9dbe8
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB148960.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 12:14:17.7978 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P5/HS5aiOMZuY2wzO790oOp8EwWvnqdzBuk2lgEV5VyVOQ17CJryRbl8aQFN+tz+HG3iARF6l0pAFgry3j12oCKzVkHuWvvMNsGh5NFcq70=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4562
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/8] drm/connector: pass down IRQ_HPD to the drivers
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
+ Nikita Travkin <nikita@trvn.ru>, Yongxing Mou
+ <yongxing.mou@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Francesco Dolcini <francesco@dolcini.it>, Abel Vesa <abelvesa@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com>
+ <20260920-hpd-irq-events-v5-2-ff1de0090c72@oss.qualcomm.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260920-hpd-irq-events-v5-2-ff1de0090c72@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa0c1aad18703a7kunm0bf2730011828ad
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS0xNVh4YQx9JSEhLGB0aGFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=F1wae6Xc2Ll98E4oH3aX72tWpdTNBpUF/4Id0y1xtGULdLtcXmREe+rQNGcB3XdtZo+IKwJ/iDsWwlE1VZ5+iFWx+r8nsHoh8utA9dquAo25H8sCGGSNxUgNNRvgYaEMnEVgr09gpsnUdeon8tvQ8GlQryjz6eiIHmj7zAX49V0=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=JkQGzk7JtUmJhDI7/lc646wm8+od1xD4GOgStSiB+TI=;
+ h=date:mime-version:subject:message-id:from;
+X-Mailman-Approved-At: Mon, 21 Sep 2026 12:56:44 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,82 +92,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Dmitry,
 
-On 9/17/2026 1:13 PM, Mitul Golani wrote:
-> Disable VRR DC balance by default due to timing issues observed on some
-> panel/TCON combinations.
->
-> Keep the module parameter to enable DC balance during debugging and to
-> isolate DC balance effects from underlying VRR/display timing issues.
-
-LGTM.
-
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-
-
->
-> --v2:
-> - Make enable_dc_balance a bool and keep it disabled by default; fix the
->    parameter type/value mismatch and correct the description (Chaitanya
->    Kumar Borah, Jani Nikula)
-> - Explain in the commit message why the feature is gated and why a
->    module parameter is used (Jani Nikula)
->
-> --v3:
-> - Commit message update (Jani Nikula)
->
-> Fixes: 555819270707 ("drm/i915/vrr: Enable DC Balance")
-> Cc: <stable@vger.kernel.org> # v7.0+
-> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+On 9/20/2026 11:01 PM, Dmitry Baryshkov wrote:
+> The DisplayPort standard defines a special kind of HPD events called
+> IRQ_HPD. These events are used to notify DP Source about the events on
+> the Sink side.
+> 
+> Extend drm_connector_funcs::oob_hotplug_event() to pass the
+> notifications about the IRQ_HPD events down to the individual drivers,
+> letting them handle those as required.
+> 
+> Reviewed-by: Pengyu Luo <mitltlatltl@gmail.com>
+> Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->   drivers/gpu/drm/i915/display/intel_display_params.c | 4 ++++
->   drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
->   drivers/gpu/drm/i915/display/intel_vrr.c            | 4 +++-
->   3 files changed, 8 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-> index 2aed110c5b090..ca0ef466bb103 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_params.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-> @@ -120,6 +120,10 @@ intel_display_param_named_unsafe(enable_psr, int, 0400,
->   	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
->   	"Default: -1 (use per-chip default)");
->   
-> +intel_display_param_named_unsafe(enable_dc_balance, bool, 0400,
-> +	"Enable VRR DC balance (0=disabled, 1=enabled). "
-> +	"Default: 0 (disabled)");
-> +
->   intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
->   	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
->   
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-> index ba01aeaf89440..5c5a1a1358c32 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_params.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-> @@ -46,6 +46,7 @@ struct drm_printer;
->   	param(bool, enable_dp_mst, true, 0600) \
->   	param(int, enable_fbc, -1, 0600) \
->   	param(int, enable_psr, -1, 0600) \
-> +	param(bool, enable_dc_balance, false, 0600) \
->   	param(int, enable_panel_replay, -1, 0600) \
->   	param(bool, psr_safest_params, false, 0400) \
->   	param(bool, enable_psr2_sel_fetch, true, 0400) \
-> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-> index e36db11744405..1698c54e258b4 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-> @@ -439,10 +439,12 @@ static bool intel_vrr_dc_balance_possible(const struct intel_crtc_state *crtc_st
->   static void
->   intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
->   {
-> +	struct intel_display *display = to_intel_display(crtc_state);
->   	int guardband_usec, adjustment_usec;
->   	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
->   
-> -	if (!intel_vrr_dc_balance_possible(crtc_state) || !crtc_state->vrr.enable)
-> +	if (!intel_vrr_dc_balance_possible(crtc_state) ||
-> +	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
->   		return;
->   
->   	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
+>  drivers/gpu/drm/display/drm_bridge_connector.c | 17 ++++++++++-------
+>  drivers/gpu/drm/drm_connector.c                |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dp.c        |  3 ++-
+>  include/drm/drm_connector.h                    |  3 ++-
+>  4 files changed, 15 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+> index 00feb73e63d7..a51567d19550 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -141,7 +141,8 @@ struct drm_bridge_connector {
+>   */
+>  
+>  static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
+> -					    enum drm_connector_status status)
+> +					    enum drm_connector_status status,
+> +					    enum drm_connector_dp_event event)
+>  {
+>  	struct drm_bridge_connector *bridge_connector =
+>  		to_drm_bridge_connector(connector);
+> @@ -154,7 +155,8 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
+>  }
+>  
+
+It looks like you only changed the function signature. 
+Don't the "bridge->funcs->hpd_notify" inside this function need to pass the event?
+
+	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
+		if (bridge->funcs->hpd_notify)
+			bridge->funcs->hpd_notify(bridge, connector, status);
+	}
+
+
+>  static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bridge_connector,
+> -					    enum drm_connector_status status)
+> +					    enum drm_connector_status status,
+> +					    enum drm_connector_dp_event event)
+>  {
+>  	struct drm_connector *connector = &drm_bridge_connector->base;
+>  	struct drm_device *dev = connector->dev;
+> @@ -163,7 +165,7 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
+>  	connector->status = status;
+>  	mutex_unlock(&dev->mode_config.mutex);
+>  
+> -	drm_bridge_connector_hpd_notify(connector, status);
+> +	drm_bridge_connector_hpd_notify(connector, status, event);
+>  
+>  	drm_kms_helper_connector_hotplug_event(connector);
+>  }
+> @@ -171,16 +173,17 @@ static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bri
+>  static void drm_bridge_connector_hpd_cb(void *cb_data,
+>  					enum drm_connector_status status)
+>  {
+> -	drm_bridge_connector_handle_hpd(cb_data, status);
+> +	drm_bridge_connector_handle_hpd(cb_data, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
+>  }
+>  
+>  static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connector,
+> -						   enum drm_connector_status status)
+> +						   enum drm_connector_status status,
+> +						   enum drm_connector_dp_event event)
+>  {
+>  	struct drm_bridge_connector *bridge_connector =
+>  		to_drm_bridge_connector(connector);
+>  
+> -	drm_bridge_connector_handle_hpd(bridge_connector, status);
+> +	drm_bridge_connector_handle_hpd(bridge_connector, status, event);
+>  }
+>  
+>  static void drm_bridge_connector_enable_hpd(struct drm_connector *connector)
+> @@ -223,7 +226,7 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
+>  		if (hdmi)
+>  			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
+>  
+> -		drm_bridge_connector_hpd_notify(connector, status);
+> +		drm_bridge_connector_hpd_notify(connector, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
+>  	} else {
+>  		switch (connector->connector_type) {
+>  		case DRM_MODE_CONNECTOR_DPI:
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index 5d4945ea1e95..f0facccb7859 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -3698,7 +3698,7 @@ void drm_connector_dp_oob_status(struct fwnode_handle *connector_fwnode,
+>  		return;
+>  
+>  	if (connector->funcs->oob_hotplug_event)
+> -		connector->funcs->oob_hotplug_event(connector, status);
+> +		connector->funcs->oob_hotplug_event(connector, status, event);
+>  
+>  	drm_connector_put(connector);
+>  }
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 50ed615cf0f6..a2acff240b45 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -6800,7 +6800,8 @@ static int intel_dp_connector_atomic_check(struct drm_connector *_connector,
+>  }
+>  
+>  static void intel_dp_oob_hotplug_event(struct drm_connector *_connector,
+> -				       enum drm_connector_status hpd_state)
+> +				       enum drm_connector_status hpd_state,
+> +				       enum drm_connector_dp_event event)
+>  {
+>  	struct intel_connector *connector = to_intel_connector(_connector);
+>  	struct intel_display *display = to_intel_display(connector);
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 906aaefca7e1..c3374cd2598e 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1884,7 +1884,8 @@ struct drm_connector_funcs {
+>  	 * has been received from a source outside the display driver / device.
+>  	 */
+>  	void (*oob_hotplug_event)(struct drm_connector *connector,
+> -				  enum drm_connector_status status);
+> +				  enum drm_connector_status status,
+> +				  enum drm_connector_dp_event event);
+>  
+>  	/**
+>  	 * @debugfs_init:
+> 
+
+-- 
+Best, 
+Chaoyi
