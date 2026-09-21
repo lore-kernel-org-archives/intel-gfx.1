@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB426C982EE
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 15:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D7CC982E6
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 15:09:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E5B510E13E;
-	Mon, 21 Sep 2026 15:06:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 653A910E3D2;
+	Mon, 21 Sep 2026 15:09:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YjXi4MWU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a37yIKpR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55B4510E13E;
- Mon, 21 Sep 2026 15:06:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFA110E3D2;
+ Mon, 21 Sep 2026 15:09:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EC2E143A60;
- Mon, 21 Sep 2026 15:06:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA5F1F008A7;
- Mon, 21 Sep 2026 15:06:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BCA04600C8;
+ Mon, 21 Sep 2026 15:09:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B120E1F000FF;
+ Mon, 21 Sep 2026 15:09:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790003205;
+ s=k20260515; t=1790003375;
  bh=Pa7Ft/ijJMnGxUHvP/pkiFeMmDY5E8M9itOTKRJ8E0A=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=YjXi4MWUska829Ripnk/wWccXf7whhoR+eq2q+djP79wgcJba+rnsOCOQPOx9fOXs
- cRTsbUhcx++BzmXSfae1jFqx3Ce9FGKiaOa6+6yZ6EZ4+dKF8pkkS23cTowheQpeld
- 66qoS1RWGzcfH/8xg+mvPplB6HyloRd0nDwjV4FEtX53R8L1GmEc4E0kQ3uMCKLYYO
- oXv3ltRdzIPuNQZr5hXNrbxKWzce4hATU98WOq84J6Yk21CA1uotMb84mi+W7PrAV/
- CC3zkvKkt1T/eSop835tSWwCqhrLDoDGTZQ67IaDGudWeA3aKQQzdy/3W0Dt85jUCe
- p9YCc41A84n9A==
-Date: Mon, 21 Sep 2026 17:06:42 +0200
+ b=a37yIKpR7CmkgDvDOsMGCXKWaNcNsStWl6fHm32Bkxy2yk9jYr+PMY5/xrmyUplbq
+ oJi7fzUcqK7fwPQNuR7INp2S4DAQMogLZEAGYG2G0nIsaBHLyh0hQTsKIBqYH4y9e2
+ NiEC53Fw/gEJuaPz1dH9NjbXatVo0vMpWDnWYu/LQM/ogXGTJdGnXEGJxLxfYGmLy9
+ vG3D7eKr+u2KYDr0dj1QaFLrY2qLH3vEdi/zGXA1aIc9sibhgdKyltS3FANi3Rf8s0
+ mWPnKly3hK7QVeNUm0Yat1qCFtJuW8ZjBai4YLTG+r1kiobG6ZTGifJsi0t9NIHapg
+ lBUG6/S0xvAXg==
+Date: Mon, 21 Sep 2026 17:09:32 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
 Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, stable@vger.kernel.org,
- Simona Vetter <simona@ffwll.ch>, 
- Chris Wilson <chris@chris-wilson.co.uk>, linux-kernel@vger.kernel.org, 
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
+ Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
  Matthew Auld <matthew.auld@intel.com>
 Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context
  allocation failure
-Message-ID: <arFH__nd1-T-6kft@quoll>
+Message-ID: <arFIqOl-H6DYQ2k_@quoll>
 References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
