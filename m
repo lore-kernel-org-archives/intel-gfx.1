@@ -4,85 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74F93C98313
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:17:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60010C98312
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:17:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEFB10F083;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D369A10F099;
 	Wed, 23 Sep 2026 14:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="MyhJ3PLN";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="uyMUOZj6";
 	dkim-atps=neutral
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
- [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB6F10E052
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 04:13:47 +0000 (UTC)
-Received: by mail-vs2-f12.google.com with SMTP id
- 71dfb90a1353d-5c67e2ff27eso503922e0c.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 21:13:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1790136826;
- x=1790741626; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=uY7JdksW0dTmvrMShfTjEy2ny76rGHlPsZMFTYu8kuQ=;
- b=MyhJ3PLNO6vyxWGQo0Pu1mSBdeOwJjO3d1Q5V96mrhjiAwMVCjJg/HA17222kv+fM+
- 09CuVobRFts35A2wrL9pXkEYm4uy9sbvcDJKN4Nb2Gd+PfpzNGhp8NJemz8vqFaZWHAu
- o0cwEgWLQs/L/0Hvt3UCZ+Hi2fU1OO2iYuaHv/kuMSFP1q+yHtzaP86iG6I3AK2/itiW
- fg3m5+QT9Q9VvhW6QcjQy/d1xNR4UmBIIKfZpJQZAu8ig+ibd6FWfo0k/r0KI7BEoU7w
- mfXHkd9S0ofqum0ny4MYRXpeNKpDdU9BjeuFhzJYSuZyvE4CNy++p6WiK+lhC8CQS98F
- bWIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790136826; x=1790741626;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=uY7JdksW0dTmvrMShfTjEy2ny76rGHlPsZMFTYu8kuQ=;
- b=su1TKMvF3d41xRP/fkMuQoGTKCclYxCNOtFPbcFG1HUxzLDfvS/ZRx/nEyFn0VDBUZ
- 8ejAYxxvm7OOhmy8R+UU03WjZYp6LhigeIDRMPUgyLFikaAf8IshRyfXVC6piUpzoYYL
- QRANi7AsYFgTwQsSoYGNsxXwv78bdBFoIa//cEVDL2BDBsMR1dTy0Gizi9WNPmQwNTms
- 5Wry3vgU9mBtQOCruqnyjJ4vQ43VlElLvxadxkU02HU2AdXYKO8MsLS2OPAYgS2v/dX8
- VjdEjsvi2fwTygtbgMmAJy16KWlmoFvTcjmEX2qvYikBONNp97FFDEetVSsKN3Oy7ri9
- ANXQ==
-X-Gm-Message-State: AFuF++lo3hSrwoDT3CTjrZKMhc29obQwufE+zh3E6LJuu/VGoFy9Dx4P
- Q6rQPffYq4Xh/r0FkiKkU+F+HPM6qdwWP1gtTzOOWL3MU9q08x+KGtkyZCfAEFd3RCK2LKd9cEX
- WriFfyHVjW74PVSs0K6egBVeMZVMNuNyru/Ifgglvk7WzOPAiY0eZPabsbPi4mq2iGBodNphbIE
- EPHpqoYvHv+H8lYzi41YmF/Z+Me9AWiLVdd7T8xZ/GRd9o6AnWmwzi4nw=
-X-Gm-Gg: AYBFou39kNfuv8y4eyFDTKmwaF93BeNjWK+o0fD+F/MkIvstQ2NWvj3tx/4Ezxz+Gyz
- IXL2RGFSLpWH5b4gvhr3YYZ9MApXV9jWjadUx6zOYhU3PooL8jJpvKbfBDs8sVS/8FoqwVlUQlj
- taklw8TwPF9aCFS8/MlMtw23xGVKDYA+lu+m0q55V7vRCxHZw68M/YNEAvshokmZOGokriFwTYt
- 5NobjiMYkt3eldFo9N88vHNkkXxBVrspTTAvQ4K+G/0zi3GnWVBv89cyzqxa2RYi5ROtHgDlQhJ
- p5IZOZaFkDxcwelRIEjw/fcg8LjFi8D7xaWZoGckwrweWTtfYsiLSQlsPTCARUJigSJyls8D4dG
- 70ZibjDzSBXlpl3pfMNrvhMCepb5jt4+zHxRkFOed/XJRjCD7z8COesYOJt8vvmAyJ5yieaBruP
- eNxPRO3FNh9Svbg1CmhImdwZBzY53J3xG4WTBTqgUALHOIHz1mIcETAuqE1n8zC+4j9Egtc4//J
- RLjb70pGxPJTIwrv/nHCGRoRoxllTg3PiRCwuaBPAZPi5WFkHMfiVUnjmY1TTMe3FATaf+/TMIV
- vd3MtWoa8iglEKYev+t6HfquPWeXSf8CWz8EbFqb5WHSiGWqUwt1+6gJkmeSjX8kZI5EREl4Uw=
- =
-X-Received: by 2002:a05:6122:f92:b0:5c9:a60b:e5a3 with SMTP id
- 71dfb90a1353d-5c9f165900dmr1979665e0c.14.1790136825877; 
- Tue, 22 Sep 2026 21:13:45 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::12ac])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9f053a418sm1828790e0c.13.2026.09.22.21.13.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 21:13:45 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com, rodrigo.vivi@intel.com,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Animesh Manna <animesh.manna@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH] drm/i915/dp: Don't promise AS SDPs in PR Active when they are
- disabled
-Date: Wed, 23 Sep 2026 00:13:42 -0400
-Message-ID: <20260923041342.2146450-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.55.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 79B3D10E4F6;
+ Tue, 22 Sep 2026 17:14:21 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B61A1576;
+ Tue, 22 Sep 2026 10:14:17 -0700 (PDT)
+Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D30003F86C;
+ Tue, 22 Sep 2026 10:14:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1790097261; bh=m1/Zj1kl1r4NT70p2V5vARYiyafZNwoUEY016kfXI6M=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=uyMUOZj6R5njDUnUE0WViDRG203+0ImQf8L3e4R3tvNeiQX8hthSWT3MmAozquZCC
+ MtaevHRyysWE/QOR2DnQlqNWb2SZ0tKdXvT/wq71vEr+9CY6J3c/VDmp9lE+PtmgLq
+ I6LApZTWohZd2n0AKddZqBwhz/kVnU82kKMdtcjU=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Date: Tue, 22 Sep 2026 18:12:34 +0100
+Subject: [PATCH v3 6/9] mm: add hw_pte_val for HW PTE storage
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 23 Sep 2026 14:17:20 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-pte0-v3-6-5670b8cb9059@arm.com>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+In-Reply-To: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev, 
+ kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+X-Mailer: b4 0.16.0
+X-Mailman-Approved-At: Wed, 23 Sep 2026 14:17:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,157 +119,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since commit 38a7e9bf69bd ("drm/i915/dp: Set relevant Downspread Ctrl
-DPCD bits for PR + Auxless ALPM") link training sets
-DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE (DPCD 0x107 bit 6) whenever eDP
-Panel Replay runs with the Adaptive-Sync SDP enabled. That tells the
-sink that fixed-vtotal AS SDPs keep coming while PR is active.
+Atomic PTE updates need an lvalue for the bits stored in an HW PTE.
+pte_val() only accepts a SW PTE value, so it cannot operate directly on
+a distinct hw_pte_t.
 
-When the sink supports asynchronous video timing in PR (DPCD 0xb1
-ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR clear),
-disable_as_sdp_when_pr_active is set and PR_ALPM_CTL[AS SDP
-Transmission in Active Disable] is programmed, so the source stops
-sending the AS SDP for as long as PR is active. The sink is promised
-AS SDPs that never arrive.
+Add hw_pte_val() to expose the underlying pte_val() lvalue. Access the
+wrapper's __pte member when hw_pte_t is distinct, and use pte_val()
+directly when it remains an alias of pte_t.
 
-This is not a VRR-only case: intel_vrr_compute_config() always
-computes fixed refresh timings with vrr.flipline set, so the AS SDP is
-enabled on every eDP sink that supports it (from code reading; the
-measurements below used an EDID override).
-
-The commit that added the bit notes that it applies even if AS SDPs
-are briefly suspended. With the PR_ALPM_CTL bit set they are not
-briefly suspended, they are off for the whole of PR Active.
-
-Commit 186113b419a2 ("drm/i915/dp: Compute and include coasting vtotal
-for AS SDP") notes that the hardware reflects the PR_ALPM_CTL bit in
-the AS SDP payload. Even so, with 0x107 bit 6 set this sink stutters,
-and with it clear it does not (below).
-
-Seen on a Dell XPS 16 DA16260 (Panther Lake, LG eDP panel, sink OUI
-00:22:b9, 3200x2000@120 with DSC) with the Panel Replay quirk removed
-locally: PR_ALPM_CTL = 0x11, DPCD 0x107 = 0xc0 (bit 7 because this
-setup uses an EDID override that adds a 20-120 Hz range with unchanged
-timings; the stock EDID has none). The desktop visibly stutters under
-Panel Replay while the source flips at a steady 8.33 ms (1434 of 1437
-commit intervals over 12 s).
-
-Both ways of making source and sink agree were tested with a local
-debug switch selecting each behaviour, PR entered by a full modeset
-each time:
-
-  AS SDP kept on in PR Active   PR_ALPM_CTL 0x01, 0x107 0xc0
-  (this patch) AS SDP off       PR_ALPM_CTL 0x11, 0x107 0x80
-
-Both are smooth on the desktop right after PR entry. With this patch,
-some stutter comes back after several minutes on this panel; that is
-left for a separate change. On a static VT (no compositor, one update
-per second, 30 s each) the first gets 0 DC5 entries and this patch
-gets 550 (DMC DC3->DC5 count; on the KDE desktop neither mode reached
-DC5 because the compositor keeps vblank interrupts enabled). So keep
-the AS SDP off and stop promising it.
-
-Only set the bit when the source keeps sending the AS SDP in PR
-Active: disable_as_sdp_when_pr_active is clear, or AS SDP skip frames
-is in use, which clears the PR_ALPM_CTL bit and keeps a periodic AS
-SDP going.
-
-Also fix the comment in intel_dp_compute_as_sdp(), added by the
-coasting vtotal commit above, which says the PR_ALPM_CTL bit is never
-programmed. It was already being programmed when that comment was
-added.
-
-Fixes: 38a7e9bf69bd ("drm/i915/dp: Set relevant Downspread Ctrl DPCD bits for PR + Auxless ALPM")
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9119
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
-Notes:
+Changes in v3:
+- Moved from the arm64 series to generic series as it makes more sense
+  to add this in generic with all other changes. Usually we only add
+  code where its get used. But this whole series wouldn't get used
+  until an arch started using HW PTEs.
+---
+ include/linux/pgtable_types.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-- Based on drm-tip of 2026-09-22, also applies to next-20260922.
-  The measurements used an equivalent local debug switch on 7.3-rc4
-  (its second setting programs the same PR_ALPM_CTL 0x11 / 0x107 0x80
-  as this patch does there). The rc4 version of this change (without
-  the skip-frames term, which rc4 lacks) builds but has not been run
-  on its own yet. The drm-tip version builds cleanly with W=1 (i915
-  and xe) but has not been run.
-
-- Ankit, does this match your reading of the spec for 0x107 bit 6?
-  The public material I could find does not settle it; the argument
-  here is consistency with PR_ALPM_CTL plus the measurements above.
-
-- With skip frames, a seamless VRR toggle reprograms PR_ALPM_CTL but
-  0x107 is only written at link training, so bit 6 can go stale on
-  display version 35+ in either direction (also if
-  enable_periodic_assdp is toggled without a modeset). Before this
-  patch only the bit-set direction could happen. It cannot happen on
-  PTL.
-
-- Not fixed here: on this panel, with no AS SDP at all in PR Active,
-  a fresh PR enable (e.g. DPMS on after the screen blanked) can leave
-  the sink locked to a bad phase, and a 1 s AS SDP burst cleared it. PTL
-  appears not to implement the skip-frames field. That and the
-  question of how Intel wants it handled are in the bug thread:
-  https://lore.kernel.org/intel-gfx/20260902162150.58778-1-j@metarealtyinc.ca/
-  The DA16260 Panel Replay quirk stays until that is settled.
-
- drivers/gpu/drm/i915/display/intel_dp.c               | 11 ++++++-----
- drivers/gpu/drm/i915/display/intel_dp_link_training.c | 11 +++++++++++
- 2 files changed, 17 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index ffddf4b33728..f7d32ed98745 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3156,11 +3156,12 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+index d6c5a7548550b..ee4eace5c3e1c 100644
+--- a/include/linux/pgtable_types.h
++++ b/include/linux/pgtable_types.h
+@@ -9,9 +9,13 @@
+ #ifdef CONFIG_ARCH_HAS_HW_PTE_T
+ typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
+ #define __pte_from_hw(pte)	((pte).__pte)
++
++#define hw_pte_val(x)  pte_val((x).__pte)
+ #else
+ #define hw_pte_t pte_t
+ #define __pte_from_hw(pte)	(pte)
++
++#define hw_pte_val(x)  pte_val(x)
+ #endif
  
- 	/*
- 	 * For Panel Replay with Async Video Timing support, the source can
--	 * disable sending the AS SDP during PR Active state. In that case,
--	 * the sink needs the coasting vtotal value to maintain the refresh
--	 * rate. The HW only samples this on PR_ALPM_CTL[AS SDP Transmission
--	 * in Active Disable], which we never program, so providing the value
--	 * unconditionally when the sink advertises the capability is safe.
-+	 * stop sending the AS SDP during PR Active (PR_ALPM_CTL[AS SDP
-+	 * Transmission in Active Disable], see intel_alpm_configure_pr_as_sdp())
-+	 * and the sink then keeps the refresh rate using the coasting vtotal of
-+	 * the last AS SDP it received. The coasting vtotal bytes are fully
-+	 * under driver control, so fill them in whenever the sink advertises
-+	 * the capability.
- 	 *
- 	 * #TODO:
- 	 * If we ever advertise support for coasting at other refresh targets,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index b6e8b13ee4db..6fe4c1e47eff 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -29,6 +29,7 @@
- #include <drm/display/drm_dp_helper.h>
- #include <drm/drm_print.h>
- 
-+#include "intel_alpm.h"
- #include "intel_display.h"
- #include "intel_display_core.h"
- #include "intel_display_jiffies.h"
-@@ -1124,7 +1125,17 @@ static bool
- intel_dp_pr_with_as_sdp_enabled(struct intel_dp *intel_dp,
- 				const struct intel_crtc_state *crtc_state)
- {
-+	/*
-+	 * DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE tells the sink that the AS SDP
-+	 * keeps coming during PR Active. With disable_as_sdp_when_pr_active,
-+	 * intel_alpm_configure_pr_as_sdp() sets PR_ALPM_CTL[AS SDP Transmission
-+	 * in Active Disable] and the source stops sending it for as long as PR
-+	 * is active, unless AS SDP skip frames is used. The sink then keeps
-+	 * the refresh rate using the coasting vtotal of the last AS SDP.
-+	 */
- 	return intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
-+		(!crtc_state->disable_as_sdp_when_pr_active ||
-+		 intel_alpm_pr_as_sdp_skip_frames_enabled(intel_dp, crtc_state)) &&
- 		(crtc_state->infoframes.enable &
- 		 intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC));
- }
+ #endif /* !__ASSEMBLY__ */
+
+-- 
+2.47.3
+
