@@ -4,150 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDAE0C98302
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:00:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D24C982F1
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:04:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF7710EC0C;
-	Tue, 22 Sep 2026 09:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6871910EC0D;
+	Tue, 22 Sep 2026 09:04:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g21wM5Jh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hV2PGgas";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF3010EC02;
- Tue, 22 Sep 2026 08:59:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F68910EC0D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:04:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790067599; x=1821603599;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=VDP0fSZJCysfX2a/i4F82R8tJUEUyXhtTxHUiWLqYmw=;
- b=g21wM5JhF2vi9R9hzAB1IdGIyn1CoPeX/t88XMJWzPDElo0pHVYfTbRZ
- 6B984tYNhxi8HcVfDD22i3FE4eU6plJ2Jw0hX/5iOaJUALlGYLhzKMNxJ
- CWL9wvR3+eqE2Uu5X8u45BiwT9nyVpw+HMme41HTBxUpqgeFqOBX7Nycw
- tdzt0EdJHOAHCOGp4r0DLJ1fGCvQVOu8DLkRh5erNjn3C01AwIpkY9EKb
- H7pBaI5wLQS9QxFelEeQh97wW5/cU8qCzFAOxMeLB9pZN11b2VedQIX2J
- wFmosdfr45hJmMf4VXpmnNcl2OipG+wILsr3Ru3wADzPAcjQDM0I2svH1 w==;
-X-CSE-ConnectionGUID: oBInEQ8pQx+PzVcQhAKHGw==
-X-CSE-MsgGUID: N3EzPuBnSsGbircEOL7Y7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="101313537"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="101313537"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 01:59:38 -0700
-X-CSE-ConnectionGUID: zOHbRSNzRSGTbszrVkANXA==
-X-CSE-MsgGUID: liensNflROKwcW2ne5dDRQ==
+ t=1790067897; x=1821603897;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=O3bc4gFQ+exec4W0dvCKWzcGfOIIpwcykh5fTt0ppxg=;
+ b=hV2PGgaszf171PPdfFIlr4H5JvNsadRD1VeLlBMg90B54wGfLOasiApc
+ 6G+Jm+irFO6dJD8/vc7vTJyvhV6Vw+IUodXFnq8mfLsbOQ4XQUxsE2TQ9
+ zM8ciCe5dKGnHsYRFNXd+8dgG0ivN/smqNmNM8lfipqtIRSZfMFMu1c/z
+ lLAqNpgb4zwudNdur80wOjjHBgUrzmVZIoLQR19nl1JgK+yH024YRPgZw
+ hvgL1AAfadNRFpj/GaNQAV4jgWCjxt/EJZ+c+EjxrGxyh12btVHVXcYRw
+ NnhADeEIk8pusc3j36FGuK1NZfWwMH+4EXDB2CYkHsXWS5CEL6WpRk+DY w==;
+X-CSE-ConnectionGUID: 9HQ4jcDPTO6ElY34Gb69eQ==
+X-CSE-MsgGUID: A4SPQHfdTx+wl4tL18Cp3A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1160727"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1160727"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 02:04:44 -0700
+X-CSE-ConnectionGUID: Lnz84abjQK6XmSPn2eYU/A==
+X-CSE-MsgGUID: p2St7UTbQgm/etzj9OwZiw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="272246115"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 01:59:38 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 01:59:37 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 01:59:37 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.70) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 01:59:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gEkjHO568091DZ6mUyWewnbGB5PddyT5Gzs47oRv7cmA7nEw6TB9BwjRxmhQynCMe3kpjW3sjQ23mXE9utdoslhsraO3nQI44hHmVQZCOolPQhvvVKpqpYcqlsdi4sl4mPNuFumuMU18uy4KgiWKfkXtnZtzNFUzLREh3I+KXF9NYhyrojeoGZvJXRftV8jFDiFCnDHB1iG2/mqfUM6Cc/cQX635bE00cr/sj+tJZt2QZ3z2wSG+TSbcS8MzfJ6BYlXA8y1/5qZGuqQA17S9DdDa7GCYh3HkOCRQvASY+uSwzaRvtBkPEu+kqDzqmqcpSP22r/DqFCMAl5Mdn4gUwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A86uPSsqdxo84bKaZSEVY2mu6hUN0lK3FzsmnGZzmjI=;
- b=qC3mMIUgYld1c2YW8MufNZzPNbrGInNVZH5VMlisidXP4KhWNtJhyOSkFSRT+hn16pTcdyTYcpAAdBqE0y5xeyC3kd4WL/hgk+UULeGeVhjzlkyuEh6jlRrw5/sD+6C5sketZKBvNa5QdYwzLOAuuPxyXQtVSKZRg9A8id+AnsKstvNtCk1dzlAf19kLf/QuW+0bCyXAiDFlEUGt6UJ/PSO9+kW4lWvAnzpOx9H393XSvH75+qm5zyuxw/s6L/gJ8ncSD3kW7IS8asUDSKCubnFzy3slleaujIqwZrZnL5xFrwQhOYEFP5GrlL6xF/QsSRu0S4qOhBzT8MQS55CWCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from MW4PR11MB6887.namprd11.prod.outlook.com (2603:10b6:303:225::16)
- by DS4PR11MB872716.namprd11.prod.outlook.com (2603:10b6:8:509::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 08:59:35 +0000
-Received: from MW4PR11MB6887.namprd11.prod.outlook.com
- ([fe80::91f5:637d:7c4a:6494]) by MW4PR11MB6887.namprd11.prod.outlook.com
- ([fe80::91f5:637d:7c4a:6494%5]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 08:59:35 +0000
-From: "Garg, Nemesa" <nemesa.garg@intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "Nikula, Jani" <jani.nikula@intel.com>, "Kandpal, Suraj"
- <suraj.kandpal@intel.com>
-Subject: RE: [PATCH 4/8] drm/i915/backlight: log DPCD access errors
-Thread-Topic: [PATCH 4/8] drm/i915/backlight: log DPCD access errors
-Thread-Index: AQHdSYyV3si3XLVeF0OkSrUi3XlyBbbaTiVQ
-Date: Tue, 22 Sep 2026 08:59:35 +0000
-Message-ID: <MW4PR11MB688739EBC3D0EB0C88971D2FE3832@MW4PR11MB6887.namprd11.prod.outlook.com>
-References: <20260921053710.1586776-1-suraj.kandpal@intel.com>
- <20260921053710.1586776-5-suraj.kandpal@intel.com>
-In-Reply-To: <20260921053710.1586776-5-suraj.kandpal@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR11MB6887:EE_|DS4PR11MB872716:EE_
-x-ms-office365-filtering-correlation-id: 99b005e2-6512-4765-9b76-08df1887d380
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|38070700021|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003|3023799007;
-x-microsoft-antispam-message-info: gtd7RCBoIvjy26QI3Y9mrp4Ddeb6r5Parul4OpQXUo5fBxuJFD8z6kBTmNs2qIAF0ak8acU/4t4e91dqt7UmkaauhQvh0k0X9OJcMyB9Uj0ZPw7nmMHaBNFEuhrKgb5yEPx3pWzkNKIfLVURl3Ac2Gf27Evo1HLTD8i/T+tor/tGPmgA80iYU4hAtnnrIHTG4xZKPnPhaex1BoNLabHaOEM5utrlQ0q80z1OedDf5cUKNcJPbwWXwtNW0HLTrwRZcRStNxsGbdFp/LlEKcGeqnAi9OY+mPkauyHyWhnjiIuoefQMu8aXX7BCBwquDIIBNeFk5ItKcWjMxvem1ZFLoF8q58BBh1Wa6Vl7SWtYUcXcf/fec5CvKVOqtI+MeMuge35UWoGLxItWmjITFevcxotg0l0FDOhu4RPVbe9GZ34LHF1064/9h/tMnINHIJlIVi8FcxuYEHzHxMmUBjuRKQqsnuc/hZjtsnuEUTjlTX1lSTewwJ0gIiZSbRyvlT7yTLPEdUe+qXrrp6DMpMFo81UksKy0cMof0WFLhiVCzkpNKWqWcIW4Nj86wPkbER4I3dWXdauVkRQs6NxVHNACZDeH/qR7ZXFcGaF6dliR10SRMjTtEuUN/iOdJkMKtJNq6tGrHXNRYxUrFKY9PNKB47UVd1c7sSXMnVRmU57sT+yr+E5lEJWhEs4cDe5+chRaOwFw/1o2K39dZ1GWu7LQ/TBuV/yu1MhnDFdc0sIw404=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR11MB6887.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(38070700021)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dHMERmpEKmNfS1g7R/rJwH2yiMQ85rtzSmPqsSED2CRNeCPYu8JvIYqSYXvj?=
- =?us-ascii?Q?9wVNtwqNaU9soHevGZtR1/w21DNrQqSMmo/0idnry03+QpOUrdxgbWVQwt6d?=
- =?us-ascii?Q?VBSRC15crG71Gf/s2ExDLlhZa3vHS97DO+K9J84LnUy2BIWY04JO6N6qLN7Y?=
- =?us-ascii?Q?eO+a+iFv4FYXndBYmzZAxJH54H3SWGYq78pJ8QEYSF3d6WMJPyWN3903SH0d?=
- =?us-ascii?Q?VkZzqJs1GjuJ1JnMM2srwPl2dCcZDqaBwzCpJUMlscsw4ojeWTz8alvvZi7C?=
- =?us-ascii?Q?P4YloArTec5d0QCmJt3jY7nJmAkRokA6xSiJ8nC0/tF297oAS0ay3hzGDqfs?=
- =?us-ascii?Q?AiTfHhvgp4IWC1l4U+lt+9Vk/oLPV5Jq+I2v5pWUqc3f0Ra9kfySzn9TXKFy?=
- =?us-ascii?Q?DQ3E99m17RVbFH1bUPnjaHgMBP8LZWLBrMvyKBP4CH3PAFCdpWSShFIeQWmB?=
- =?us-ascii?Q?cG71SJBGbmBmAerR+LFRwizS4g/ZZ90PmPkwq1Kmpitvlqit+khuvYp+irNE?=
- =?us-ascii?Q?hvIlZH/wrfH7bnaCoQ/LpBsF9R6KDggwjLrjgHFtqcHCD6BaSkKY/ftEgEZ2?=
- =?us-ascii?Q?4Bl2PdgAkttwcysmqZDYyzC2CS5hesxmvLiWP7H8nFjzUpMjaFZTjR8DCq7y?=
- =?us-ascii?Q?8oprz5ru4KihlYM1OWIgXaOd8RdqxcQuTZz0gmLptb4DlKK3cUipRvOqSYHV?=
- =?us-ascii?Q?tcbEYsDP09QExEN3d6vRdIUqH7go1G0GlR/fxLWk0ED12oixlFHDo4fqpXCR?=
- =?us-ascii?Q?7/L/CWXhKR+oN6zeWciQ14bq7MOslaUwImVV1mxrAPLHGxvg8OIXOpW6Sy0Y?=
- =?us-ascii?Q?NuWg4nfQE8Gf4SjHOTIHRg3QtCCNvlkoasT4Z5kUNL+n4ObVR3pwql+dotWR?=
- =?us-ascii?Q?GmN87HPIvXoEG8brZOuqAtEbfzHZHnfsuPCk38aGAP3Psjr+HnQ4CmRRoVhH?=
- =?us-ascii?Q?c7dP+ld6DJtTvKoYS1qo33vsNKrbghR51dTUNT1bl+/EyMKrszzNDbYZ4Joa?=
- =?us-ascii?Q?NeaoRKDVQSvbT8/0wEg2mBhKoW9380pNviwcUM81wxSdhdZOSYO9X6GW4zfu?=
- =?us-ascii?Q?vuUe9pghc10HDZjtSB6xXHyXGUei1qeKJEfa+6ufBw3AONkt47sg9lhaQmNW?=
- =?us-ascii?Q?1u1hcKPCEZMehGe1HnrjtW4a77nv9NHleEsYODrV7GMaFZ5Cg1coQbnUoR+C?=
- =?us-ascii?Q?99SiDFJwM3NobQD+LrJ2p52+wo/83VnDHEsbk1yW6FNX2VpxfdF6vHTCgluR?=
- =?us-ascii?Q?MRqwQMVsgxB1dCXPybZ3CSvzPz/0gktRDKKYHrFuWWTUEMpVYO9ltWzb1RJy?=
- =?us-ascii?Q?x12JLaQLco95SlWLB3PRqV3CuTu0GUflQ9d92V83g4mht1SXl/+9WunxpTUx?=
- =?us-ascii?Q?viv1SE5WhDRk0fzqBcqWIimHGhC5KkPsdoJUa3IKEJ7Ly/R4ko7VswSBS80w?=
- =?us-ascii?Q?GmI9Ur20AFY7S73vaO0DWfTldUIhXOiZGu3Xun/tfxSgtOBipuPmoW8CwXwr?=
- =?us-ascii?Q?tJtWL77OjXDP8qy/Psf/VxFPEOdTgmbFbYByy7VT274nw1B/5oI0RDliuqDW?=
- =?us-ascii?Q?GOaD9Xt8qDa5NRG9C6z5SODwTPoaKLoAsifQhD2n1Kd7Wll0outIZkBQrJ7Q?=
- =?us-ascii?Q?gZF8oWhGWZIr+7lj7SOmobEWqIBWQmtcn76EkfscxhJx+wgarJb/C0Ua3hpw?=
- =?us-ascii?Q?dHiHIeISRRo5YmmpOGr3XMemAn4V2g+PFDRucIzmpVF6dGQn?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="269576553"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.71])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 02:04:41 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Xiao Lu <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tvrtko.ursulin@linux.intel.com, Xiao Lu <xiaolu.xie@intel.com>
+Subject: Re: [PATCH] drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use
+ actual video bandwidth
+In-Reply-To: <20260922081258.1995510-1-xiaolu.xie@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260922081258.1995510-1-xiaolu.xie@intel.com>
+Date: Tue, 22 Sep 2026 12:04:39 +0300
+Message-ID: <ebfe85875a9d47151426913de39e49159498be8e@intel.com>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Xskv7bLI80pvvOsNZp6UTFcJrKC+sVedM7MY1+b4d8crd3K2YR8AE3tGi3J4jMAByNEt2QtPnqINRAUPLYVmNHsn5WWqE1kbdVZ4wougywGDgmFUIoCWiwJxusbaol5xENxoxgWm0yN0tMMrONk7cW7DQa3t976VKoFDyH6pF9eHnBxY+leY+f2oCA+Dxd2aLJWmdwP3/tBO8eDSiccVZmuMfWfvTPU2dvFxbT13+S/vwDqq29n8oSuNd2dYloqKF8nF0Oe4zEAA7vJBiMi12xALSp96uxUiGQWV895dbuNFfZJak8uyzTXmGV9H3FJOfk+ryEWZg3oWy/6isHfNqQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6887.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99b005e2-6512-4765-9b76-08df1887d380
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 08:59:35.7823 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: w5d+x9/WK98m7u/yeJZTb41lQ8J2VUYddys48lrgJvu+OHD6uDz+Yhky70Ss6u333wSKQuciIO2WjUgOL7+V/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB872716
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,128 +73,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 22 Sep 2026, Xiao Lu <xiaolu.xie@intel.com> wrote:
+> When computing the number of time slots for an MST stream,
+> intel_dp_mtp_tu_compute_config() was passing the TU-aligned PBN value
+> to drm_dp_atomic_find_time_slots() instead of the actual video
+> bandwidth PBN.
+>
+> The aligned PBN is computed by rounding up the raw video bandwidth to
+> the nearest TU boundary and aligning to the hardware TU granularity
+> (4 / lane_count). This inflated PBN is then used as the requested PBN
+> in the ALLOCATE_PAYLOAD sideband message, causing the MST core's
+> bandwidth check in drm_dp_mst_atomic_check_port_bw_limit() to
+> incorrectly reject configurations that should fit within the available
+> link bandwidth.
+>
+> Per DP v2.1b Section 2.6.4.1, the PBN in an ALLOCATE_PAYLOAD request
+> represents the video stream bandwidth and is independent of the source
+> TX link rate. The same video stream should result in the same PBN value
+> regardless of the link rate used on the source side. Passing the
+> TU-aligned PBN violates this requirement, as it incorporates link-rate-
+> specific TU granularity into the payload bandwidth value.
+>
+> This was observed in a 3-display MST daisy-chain topology (PS8650 MST
+> hub =E2=86=92 ViewSonic VP2468 =C3=97 2 =E2=86=92 Lenovo Pro 27UD-10) whe=
+re switching
+> Lenovo to 4K@60Hz failed with -ENOSPC despite the actual video
+> bandwidth fitting within the DFP link capacity. The inflated PBN of
+> the VP2468 streams (537 instead of the correct 532 for 1920x1080@60Hz)
+> consumed excess slots, leaving insufficient room for the 4K@60Hz stream.
+>
+> Fix this by separating raw_pbn (the actual video bandwidth used for
+> payload allocation and ALLOCATE_PAYLOAD) from the aligned pbn (used
+> only for TU hardware programming). Pass raw_pbn to
+> drm_dp_atomic_find_time_slots() so that bandwidth accounting in the
+> MST core reflects the true stream requirements.
+>
+> Depends-on: <20260908132844.2309047-1-xiaolu.xie@intel.com>
+>   ("drm/dp/mst: track allocated_pbn from ALLOCATE_PAYLOAD reply")
 
+This is not a thing. If you have multiple patches with dependencies,
+please send them together.
 
-> -----Original Message-----
-> From: Intel-xe <intel-xe-bounces@lists.freedesktop.org> On Behalf Of Sura=
-j
-> Kandpal
-> Sent: Monday, September 21, 2026 11:07 AM
-> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
-> Cc: Nikula, Jani <jani.nikula@intel.com>; Kandpal, Suraj
-> <suraj.kandpal@intel.com>
-> Subject: [PATCH 4/8] drm/i915/backlight: log DPCD access errors
->=20
-> Now that the DPCD accessors return a proper error code, include it in the
-> error messages using %pe and ERR_PTR(), instead of just stating that the
-> access failed.
->=20
-> Store the brightness control write result in ret as well, so that it can =
-be logged
-> the same way.
->=20
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+BR,
+Jani.
+
+>
+> The companion patch above tracks the allocated_pbn returned in the
+> ALLOCATE_PAYLOAD reply from the branch device. Together with this fix,
+> the correct raw_pbn is used as the requested PBN in the
+> ALLOCATE_PAYLOAD request, and the allocated_pbn from the reply is used
+> for bandwidth limit checks. This pairing ensures that both the request
+> and the check accurately reflect the actual video stream bandwidth
+> and any per-hop capacity constraints along the MST path.
+>
+> Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
 > ---
->  .../drm/i915/display/intel_dp_aux_backlight.c | 29 ++++++++++---------
->  1 file changed, 16 insertions(+), 13 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> index f30da5f7e3d2..36aebc32971b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> @@ -183,8 +183,8 @@ intel_dp_aux_hdr_get_backlight(struct
-> intel_connector *connector, enum pipe pipe
->  	ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux,
-> INTEL_EDP_HDR_GETSET_CTRL_PARAMS, &tmp);
->  	if (ret < 0) {
->  		drm_err(display->drm,
-> -			"[CONNECTOR:%d:%s] Failed to read current backlight
-> mode from DPCD\n",
-> -			connector->base.base.id, connector->base.name);
-> +			"[CONNECTOR:%d:%s] Failed to read current backlight
-> mode from DPCD (%pe)\n",
-> +			connector->base.base.id, connector->base.name,
-> ERR_PTR(ret));
->  		return 0;
->  	}
->=20
-> @@ -203,8 +203,8 @@ intel_dp_aux_hdr_get_backlight(struct
-> intel_connector *connector, enum pipe pipe
->  				    sizeof(buf));
->  	if (ret < 0) {
->  		drm_err(display->drm,
-> -			"[CONNECTOR:%d:%s] Failed to read brightness from
-> DPCD\n",
-> -			connector->base.base.id, connector->base.name);
-> +			"[CONNECTOR:%d:%s] Failed to read brightness from
-> DPCD (%pe)\n",
-> +			connector->base.base.id, connector->base.name,
-> ERR_PTR(ret));
->  		return 0;
->  	}
->=20
-> @@ -226,8 +226,8 @@ intel_dp_aux_hdr_set_aux_backlight(const struct
-> drm_connector_state *conn_state,
->  	ret =3D drm_dp_dpcd_write_data(&intel_dp->aux,
-> INTEL_EDP_BRIGHTNESS_NITS_LSB, buf,
->  				     sizeof(buf));
->  	if (ret < 0)
-> -		drm_err(dev, "[CONNECTOR:%d:%s] Failed to write brightness
-> level to DPCD\n",
-> -			connector->base.base.id, connector->base.name);
-> +		drm_err(dev, "[CONNECTOR:%d:%s] Failed to write brightness
-> level to DPCD (%pe)\n",
-> +			connector->base.base.id, connector->base.name,
-> ERR_PTR(ret));
->  }
->=20
->  static void
-> @@ -341,11 +341,14 @@ intel_dp_aux_hdr_enable_backlight(const struct
-> intel_crtc_state *crtc_state,
->=20
->  	intel_dp_aux_fill_hdr_tcon_params(conn_state, &ctrl);
->=20
-> -	if (ctrl !=3D old_ctrl &&
-> -	    drm_dp_dpcd_write_byte(&intel_dp->aux,
-> INTEL_EDP_HDR_GETSET_CTRL_PARAMS, ctrl) < 0)
-> -		drm_err(display->drm,
-> -			"[CONNECTOR:%d:%s] Failed to configure DPCD
-> brightness controls\n",
-> -			connector->base.base.id, connector->base.name);
-> +	if (ctrl !=3D old_ctrl) {
-> +		ret =3D drm_dp_dpcd_write_byte(&intel_dp->aux,
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c | 33 +++++++++++++++------
+>  1 file changed, 24 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_mst.c
+> index 0c362784a..31e846aad 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -350,6 +350,7 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *i=
+ntel_dp,
+>  		if (is_mst) {
+>  			int remote_bw_overhead;
+>  			int remote_tu;
+> +			int raw_pbn;
+>  			fixed20_12 pbn;
+>=20=20
+>  			remote_bw_overhead =3D intel_dp_mst_bw_overhead(crtc_state,
+> @@ -369,9 +370,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *=
+intel_dp,
+>  			 * crtc_state->dp_m_n.tu), provided that the driver doesn't
+>  			 * enable SSC on the corresponding link.
+>  			 */
+> -			pbn.full =3D dfixed_const(intel_dp_mst_calc_pbn(adjusted_mode->crtc_c=
+lock,
+> -								      link_bpp_x16,
+> -								      remote_bw_overhead));
+> +			raw_pbn =3D intel_dp_mst_calc_pbn(adjusted_mode->crtc_clock,
+> +							 link_bpp_x16,
+> +							 remote_bw_overhead);
+> +			pbn.full =3D dfixed_const(raw_pbn);
+>  			remote_tu =3D DIV_ROUND_UP(pbn.full, mst_state->pbn_div.full);
+>=20=20
+>  			/*
+> @@ -384,11 +386,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp =
+*intel_dp,
+>  			remote_tu =3D ALIGN(remote_tu, 4 / crtc_state->lane_count);
+>=20=20
+>  			/*
+> -			 * Also align PBNs accordingly, since MST core will derive its
+> -			 * own copy of TU from the PBN in drm_dp_atomic_find_time_slots().
+> -			 * The above comment about the difference between the PBN
+> -			 * allocated for the whole path and the TUs allocated for the
+> -			 * first branch device's link also applies here.
+> +			 * Keep the PBN corresponding to the aligned hardware TU separate
+> +			 * from raw_pbn. The aligned value describes the TU granularity of
+> +			 * the first downstream branch link; raw_pbn is the video bandwidth
+> +			 * value passed to the MST payload allocator and ALLOCATE_PAYLOAD.
+>  			 */
+>  			pbn.full =3D remote_tu * mst_state->pbn_div.full;
+>=20=20
+> @@ -397,7 +398,21 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *=
+intel_dp,
+>=20=20
+>  			slots =3D drm_dp_atomic_find_time_slots(state, &intel_dp->mst.mgr,
+>  							      connector->mst.port,
+> -							      dfixed_trunc(pbn));
+> +							      raw_pbn);
 > +
-> INTEL_EDP_HDR_GETSET_CTRL_PARAMS, ctrl);
-> +		if (ret < 0)
-> +			drm_err(display->drm,
-> +				"[CONNECTOR:%d:%s] Failed to configure
-> DPCD brightness controls (%pe)\n",
-> +				connector->base.base.id, connector-
-> >base.name, ERR_PTR(ret));
-> +	}
->=20
->  	if (intel_dp_in_hdr_mode(conn_state)) {
->  		hdr_metadata =3D conn_state->hdr_output_metadata->data;
-> @@ -463,8 +466,8 @@ static u32 intel_dp_aux_vesa_get_backlight(struct
-> intel_connector *connector, en
->  					    sizeof(buf));
->  		if (ret < 0) {
->  			drm_err(intel_dp->aux.drm_dev,
-> -				"[CONNECTOR:%d:%s] Failed to read
-> Luminance from DPCD\n",
-> -				connector->base.base.id, connector-
-> >base.name);
-> +				"[CONNECTOR:%d:%s] Failed to read
-> Luminance from DPCD (%pe)\n",
-> +				connector->base.base.id, connector-
-> >base.name, ERR_PTR(ret));
->  			return 0;
->  		}
->=20
-LGTM,
-Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
+> +			drm_dbg_kms(display->drm,
+> +				    "MST TU %s pipe %c: clock=3D%d lanes=3D%d bpp=3D%d link_bpp=3D%d=
+ fec=3D%d\n",
+> +				    connector->base.name,
+> +				    pipe_name(to_intel_crtc(crtc_state->uapi.crtc)->pipe),
+> +				    crtc_state->port_clock, crtc_state->lane_count,
+> +				    fxp_q4_to_int(bpp_x16), fxp_q4_to_int(link_bpp_x16),
+> +				    crtc_state->fec_enable);
+> +			drm_dbg_kms(display->drm,
+> +				    "MST TU %s: overhead=3D%d raw_pbn=3D%d pbn=3D%d pbn_div=3D%d tu=
+=3D%d slots=3D%d full_pbn=3D%d\n",
+> +				    connector->base.name,
+> +				    remote_bw_overhead, raw_pbn,
+> +				    dfixed_trunc(pbn), dfixed_trunc(mst_state->pbn_div),
+> +				    remote_tu, slots, connector->mst.port->full_pbn);
+>=20=20
+>  			/* TODO: Check this already in drm_dp_atomic_find_time_slots(). */
+>  			if (slots > mst_state->total_avail_slots)
 
-> --
-> 2.34.1
-
+--=20
+Jani Nikula, Intel
