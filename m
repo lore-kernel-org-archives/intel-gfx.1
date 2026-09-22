@@ -4,27 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF290C982FA
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E29C982FA
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:34:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCC610ECA5;
-	Tue, 22 Sep 2026 12:30:36 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 844E310ECA2;
- Tue, 22 Sep 2026 12:30:35 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3807261840230908079=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC2C110ECA2;
+	Tue, 22 Sep 2026 12:34:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jS091ptc";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 417F210ECA2;
+ Tue, 22 Sep 2026 12:34:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790080454; x=1821616454;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=c5gQrebTXEBevifiyuJR+hf/KMDnwG/q32/DNrxe4xU=;
+ b=jS091ptcRsTHuDJhauBIyXUXlwrd6/lGzAvfq8TtJw9FBS5xQBbK65yd
+ g3PXkJYaV5t3c96Sua5SuhOyPVo79LdKIlLpSA1boZZP/HvFKb23peR6Y
+ gRlghGlrRgnKdybZvQG/7FIyk6+wF92pbzI/Mz5mLjYCbt5EkJ3ES9hC0
+ Zp+qEFdPpvNrgfo3Icxqve7GMshtUpYr/Tnqw+iyLTvtIC+it1lpJxt0K
+ VbPf3aDzSSh76f/FbMTacdJM2P4Je7ryJh0hPWpMlqImSnNgRncHnTFjc
+ lNMAEOrLep0MPY8UM0FjEEnh4gzFD2a/u+UJlLujWDkK0UpHLmqhKhRt7 g==;
+X-CSE-ConnectionGUID: g+nHiucFS6aRFIV7IRQleQ==
+X-CSE-MsgGUID: FgZmFZWaTGq2GlfkbhgK3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90795246"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="90795246"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 05:34:14 -0700
+X-CSE-ConnectionGUID: n81KunzKSRC5eZT3wAdxSA==
+X-CSE-MsgGUID: HA9CxVhUToKcTmTPlfI0rA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="301035810"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 05:34:14 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 05:34:13 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 05:34:13 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.24) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 05:34:13 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d9XGKH8Pxu21AOjUJQwRWT18uKSKAZL+odoev4IMbywP2wE7Q00u5eIQkwEFuXuZTt1Z215NkPneMtlZ7J0VH2sDaGvb6uC+RVqUMi095ZMR3vpIyDnRZT/49xE2LbZEIsw/U3WBGJCTIdG1eA1CRSn/tIVKC+VZICTyQ7Oa6ImiIfXmCJSwmLeFqux4YIWOtAxdQjTxuXUT1wVlde+49/HBcC90LU3YoCoC3PtuT3C8lk/EeKXC6zH+0WRKBsLok2BP8viNHorGFmCtA0veoBkBLiofCs+F4MyxdGFsIRU7JhcWx/g2Y+YJTwQKlaUQg5PMQ3OQHFvp8un16aJOiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R+CLp1hZZvVp3/K5y+BkB9JCNyO3rC3+9SetuJD4kU4=;
+ b=vsz+EY1MZIftqiuQ52gN7JYmJe7HWQMKf/4JtkcBmRoHB3Os3Y9BnPp5Aks2n07kOyK5RVmlCuJfv74gXZppFQMB1trOFgA2h1tdNR1pZW7InHt4DnpTgBBp6cEmrWyxBDAXJMedKXtSMYVUjCRP9WuTWrye+HUbHmZEpwe90D6vy0g6WrUxgshTpd8x3/uz0hsarFWn86qndMD6+eYA3f9MdD4cd8JKU59HhU9CxXv+eF6hHuc4bH/oJddxkAUAedHHimOFsVfRTmadtmPt4bufhUwx77WyPpkvv63N6WpnYykIslnCJ1iHQ5xk4MG6FV1vvQnflpznzRE++q2M7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from LV2PR11MB148960.namprd11.prod.outlook.com
+ (2603:10b6:408:40f::21) by CO1PR11MB4851.namprd11.prod.outlook.com
+ (2603:10b6:303:9b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 12:34:11 +0000
+Received: from LV2PR11MB148960.namprd11.prod.outlook.com
+ ([fe80::9761:b20d:6f27:5460]) by LV2PR11MB148960.namprd11.prod.outlook.com
+ ([fe80::9761:b20d:6f27:5460%5]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 12:34:11 +0000
+Message-ID: <853d6b79-6644-4e62-8bd6-585050f7fd48@intel.com>
+Date: Tue, 22 Sep 2026 18:04:03 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/i915/vrr: Disable DC balance by default
+To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ <intel-gfx@lists.freedesktop.org>
+CC: <intel-xe@lists.freedesktop.org>, <jani.nikula@linux.intel.com>,
+ <chaitanya.kumar.borah@intel.com>, <stable@vger.kernel.org>
+References: <20260917074322.2606738-1-mitulkumar.ajitkumar.golani@intel.com>
+Content-Language: en-US
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260917074322.2606738-1-mitulkumar.ajitkumar.golani@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0011.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:80::9) To LV2PR11MB148960.namprd11.prod.outlook.com
+ (2603:10b6:408:40f::21)
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/dp/mst=3A_fix_MST_pay?=
- =?utf-8?q?load_PBN_accounting?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Xiao Lu" <xiaolu.xie@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Sep 2026 12:30:35 -0000
-Message-ID: <179008023553.192893.2869052847168449156@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260922092647.2263962-1-xiaolu.xie@intel.com>
-In-Reply-To: <20260922092647.2263962-1-xiaolu.xie@intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV2PR11MB148960:EE_|CO1PR11MB4851:EE_
+X-MS-Office365-Filtering-Correlation-Id: 661dcd3c-f250-41df-7e57-08df18a5cdeb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: AwlFA4kW4YjEpD0nzH30YYZQQRKW0pHrFYg1IwKM056AoZbGb2ZOrZlOCYqjY2hYJADp6WKHqrAwEAn/n5VJ4L2UIS5Ary0rllOTckKrGPBW2y682g+M5MNb2jFNHsjjdztMtBcMhT9CTsrfxMzTKZOu8ImaUCRiRUliJ+EOWKBFRQMCMQ/eDGXbFFIY+Vwtcrs7qqV2/43UIRkPT2XOMrBoMqyJpY3mmveUCSOGdmnA3GbN6f5z4cZxvLgFDo+MOaI3hz3qpSiQnyJKdUz7IYE4VgjO1djtKk8y2Pwm09x/x3gONchDoh78ab/Vp+uWKjUiJwzjXclYdb38+H2SBIufKxbFp5xBZeWcYSx13PbaPvhUJpGp7l1x1LcMf1qD5M7WLDud0acDdN5d1SyRhyLrqzS9edZ6IKlVvnAh1JW4fwYdwwMly13ugh5uGZPS8ae+6keS7B0BzGlzF83pLAte6SU4443CwmYXA9S/zugyQpF/31kYiHh/ZnZIr6QWbIAbwmIp8jSKHFepB6so14QrRJQeL1Dqww+2INPW9knaSDNj1/wjckb+LLQdo1i8jie8Ya/ergzLFoNFxH5VgMN2lgdc3MA5PZKy3maiIMpTlFzWdfnQsxyU+uXGOZ+MiF+794ff0R58tLx6TJJEtB453VcwYbHCo/CbQ/b/PPQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV2PR11MB148960.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QXcrTk9OK25zVGMzY25sVkxkbXJnNXNyZnlrODNMN1AxTENvL1l1b01SUXRa?=
+ =?utf-8?B?S3c1SmJIUDNWQlJUUC9TUGJFa2gvWE01bTVqY1FneWhWdlREY1VOOG03RDdj?=
+ =?utf-8?B?Z3U4RUpkVnQzT2wrUTBValJORVVZRnJ5Z1V3MHZPSnhacGNTTkxiTFAzMHpw?=
+ =?utf-8?B?UHMzSEVRaVFaME5ER25IOEltN3Y2THlyZmFHSElVdWJjaWRlYld6ZGg2bEZw?=
+ =?utf-8?B?eVo5N2VNZ09WWVUwNStqZ0dXdkl0UnBvU29wbUtoRUhFamV1VGx1M1FrNE8z?=
+ =?utf-8?B?NTl0bjF2ZzJsU3JZTzNqRGhNRmI0Ymwyb3F2Uk5qZWxlbVNBcjlEVjhmaE9W?=
+ =?utf-8?B?Q2dRcDEyWlZ6eUZuajJWWVVDRmhsMW4xREdwUlRtMU1SZmRzVkdtSEhUM3Jt?=
+ =?utf-8?B?MmtEU3B0WlY3N2ZFYWhFN0N6aUFaQkZRT3NaZTVCaWljS1RGR2VhMW90LzI5?=
+ =?utf-8?B?cUtncXZRVHg5N1NsTVI4bzJxcDJ3Q0htbTh5dmhDZEhlVWNrZlI4ZWZwVGQr?=
+ =?utf-8?B?KzZObXlEUU84L3hnbnpabms4SDV4bm1BeGZjbHRhRU91eWRnaFY5dXN1dm1Z?=
+ =?utf-8?B?OWV0dCtsMWpXZFNTa3hZb0VCZnhNL00yRmJzQzArWFpiaXRtaXJIckV5bDQz?=
+ =?utf-8?B?MEprSUVsczQrS1pNeVpnTFE3QXJjVVJHUEg3Y1BwK29jSmh3aGI1MXRmam9M?=
+ =?utf-8?B?U1llclY2SkkrRFZYRW14MWhUWTZQMDREOWFFejJManEwelFWanZLRDhaSHpO?=
+ =?utf-8?B?WGFZNFUvTXJwREtDRDdJU2ViUUJhU2kzem82Ti9VdkRTMmRIZFYzOUlTdUQr?=
+ =?utf-8?B?V2tCczd4RFlrYXRWVjZSSURzZ0NFTnpoZE5wOFlocWNCWjFpK0FjMDlCV1po?=
+ =?utf-8?B?MUU3NjhVSFZJSTMyUnFRNnBKa1l5aC8xUHkwcXlPL25QUkloOXJ3TlhpZWpm?=
+ =?utf-8?B?VmExbEQ0RXY3eHI1ZHBlRHBqWThCTHIvQ01LOGpsL2tPUnh6elhXQ0trMTls?=
+ =?utf-8?B?cTh0L2dpdEJNTGg3VkJGUms2V3NJMnA2dE5GTklzZ3NlblpiMzdlTUh5VmpT?=
+ =?utf-8?B?YVpjR3pvRG16QzQ5SklaMit3dEUwMHdGbE82Q1YxV1psbVB6VUtmSVpiVUc3?=
+ =?utf-8?B?YXRUekdRK2p5YzFQSHh2YWdRT0JWWTJOTnkrK3I2ckl0TDZkUmNZc2tLYWlW?=
+ =?utf-8?B?YmF6akRWcTYzZVpHNHVRZGJxWTBmK0ZyU3VMQzVKS1g0a3B2dzYwRjlkcEdj?=
+ =?utf-8?B?Q1A4amdIV2d3ajBKM1Y1MUxITWpQVk1xWjVBK0YyMUhyVVVDRTNlaTl1WTlR?=
+ =?utf-8?B?V0hpYjk4QkpxcUxMNDVtdkZjcUUwSy9aMGkvejdXemRXcFFXbjVlaWswelVr?=
+ =?utf-8?B?RGRWMVFXaklUQXoxNHBzSElzeE91ZUZvUytWd2Q3OHkxM3ZjUW9qTEV6d1pl?=
+ =?utf-8?B?VWlsUnBmb1RNWmNwNUNwU1pvTk5VUFh2MjF3S0Zadm9OT3VIZmxQY0F1ZzNk?=
+ =?utf-8?B?bUd4TzdMQXVRRFpJSTNqa1lCV3M3TnREOE1TVlZhSDhQTzhRd3JNMWdtNi9n?=
+ =?utf-8?B?ekVnRHRYQXo1ZUxvNVFoQm9OMmQyck9MTCtDTlpXdHl5WXZ4SkpWQVlRWStH?=
+ =?utf-8?B?T2M4NTRETEdPcldvb0o5bHFmWUU1RzhzSmV1bDZVQ1gwTS9oRHNSMFliNnI3?=
+ =?utf-8?B?dzBvZW1wTFZaN1JqNE02emZIdTlwVld5L2pxQi9JbVNwaHFYTERyM3B2QXp3?=
+ =?utf-8?B?WEZQOUkzSDl0c3hYNWpLR3dTdG80am0rY0NhUTk3ZUFwdVNuRkVtSDZtMWZ0?=
+ =?utf-8?B?Uk1vbHEvcnhobUxDOTViZmRTczdzcmdwMUJmcXJLaXB3SzBaMEtoOW44V3h2?=
+ =?utf-8?B?Zmt4S0o2azVaYytlWkFwN2diWk5nd2hpbCtLQVAvNmVMTmdxNWxJcG50VStn?=
+ =?utf-8?B?VkxKdzk5OTdmR0xDdmJaUnYyRXpFeUZmSW1XOGttTFhpbDdRTENzUG15REpY?=
+ =?utf-8?B?Zk5SRUozaFRUUjBsWWIxQTBIbXZJOUZIcGs0OUZwVjBJTEcxWnJLUUN3V1RV?=
+ =?utf-8?B?eDRKSFg4RTF2cDBCdkwxZFNtaWQwQy94cHF3SHRhYlNKdDErS1Q4WTkvSytL?=
+ =?utf-8?B?akFpRTZzSjFiMFV5c25nNHR3VVNRT3lnNG5WZnVSYVhuQXViU24xNm9pZUpU?=
+ =?utf-8?B?T05nRlBwcloyWW5MbkhzcmkyWFRWNlF4M1A5ODRLZ3RaSDd6TWM1bmRHZW1V?=
+ =?utf-8?B?aUgybkFhamtXS0FVc1ViK3ozOTc3WEJUQm05aitpcjVsMzJKaXAyUktYdVJ0?=
+ =?utf-8?B?UWxKZzBFOTA5UUV5U2J1ZXdCZUNadzkrbWRIZkZUSm9QYXh3a2U1TjJLc1hk?=
+ =?utf-8?Q?xdoUSSj2a150PHJY=3D?=
+X-Exchange-RoutingPolicyChecked: njLCRb+GSbZiA8gilKer4/oBsLFYLMhu5RziqLRhhNWexNg3T/jQNmxYA0Btaz+MMKWUwStLaEHkV9WTL7cMv3GTeJ+zcKJCQ7/etIbjvCrRdP5WeTfymn7bIFRwmOjGjPYcDk1m38PssNylj+qwH6w/cp3uHFnCjHAFPQvtxMnax4VdE08nXDs+8L2jnOOS2CV6crABePE9IbAq33LQF5yPBf/Zf4q1ySNi+KBslDQIPzdqMZ7FdE209MsF1qUd+oCMQVdkCcw+tu0n8XWaFQPbs/8a+atgy0qLBjtPX58p9jlz5gbCG+WVmmF0QfTlGGGaziKTXq1FuErnYaJ/qQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 661dcd3c-f250-41df-7e57-08df18a5cdeb
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB148960.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 12:34:11.6609 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7fxzWwLkkrn68IjNeUrzrHpo7DwcYbxfPjdCMfIbNEtEfSPNK1CMxWBBvIu/ke5E6qbc8h+Ye8NbLA7cWiElLBZWDrf4xOzkNr5+UmjuTvI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB4851
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +168,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3807261840230908079==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
-== Series Details ==
-
-Series: drm/dp/mst: fix MST payload PBN accounting
-URL   : https://patchwork.freedesktop.org/series/174696/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19199 -> Patchwork_174696v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174696v1/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
+On 9/17/2026 1:13 PM, Mitul Golani wrote:
+> Disable VRR DC balance by default due to timing issues observed on some
+> panel/TCON combinations.
+>
+> Keep the module parameter to enable DC balance during debugging and to
+> isolate DC balance effects from underlying VRR/display timing issues.
+>
+> --v2:
+> - Make enable_dc_balance a bool and keep it disabled by default; fix the
+>    parameter type/value mismatch and correct the description (Chaitanya
+>    Kumar Borah, Jani Nikula)
+> - Explain in the commit message why the feature is gated and why a
+>    module parameter is used (Jani Nikula)
+>
+> --v3:
+> - Commit message update (Jani Nikula)
+>
+> Fixes: 555819270707 ("drm/i915/vrr: Enable DC Balance")
+> Cc: <stable@vger.kernel.org> # v7.0+
+> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>   drivers/gpu/drm/i915/display/intel_display_params.c | 4 ++++
+>   drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
+>   drivers/gpu/drm/i915/display/intel_vrr.c            | 4 +++-
+>   3 files changed, 8 insertions(+), 1 deletion(-)
 
 
-Changes
--------
-
-  No changes found
+Thanks for the patch, pushed to drm-intel-next.
 
 
-Build changes
--------------
+Regards,
 
-  * Linux: CI_DRM_19199 -> Patchwork_174696v1
+Ankit
 
-  CI-20190529: 20190529
-  CI_DRM_19199: b372dd4fe9fba280fd4aef02e14a024bfbeffdc8 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9107: bba540a799a5f1a3c7ddc3a2b864678241377773 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_174696v1: b372dd4fe9fba280fd4aef02e14a024bfbeffdc8 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174696v1/index.html
-
---===============3807261840230908079==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/dp/mst: fix MST payload PBN accounting</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174696/">https://patchwork.freedesktop.org/series/174696/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174696v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174696v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19199 -&gt; Patchwork_174696v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174696v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19199 -&gt; Patchwork_174696v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19199: b372dd4fe9fba280fd4aef02e14a024bfbeffdc8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9107: bba540a799a5f1a3c7ddc3a2b864678241377773 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_174696v1: b372dd4fe9fba280fd4aef02e14a024bfbeffdc8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============3807261840230908079==--
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+> index 2aed110c5b090..ca0ef466bb103 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_params.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+> @@ -120,6 +120,10 @@ intel_display_param_named_unsafe(enable_psr, int, 0400,
+>   	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
+>   	"Default: -1 (use per-chip default)");
+>   
+> +intel_display_param_named_unsafe(enable_dc_balance, bool, 0400,
+> +	"Enable VRR DC balance (0=disabled, 1=enabled). "
+> +	"Default: 0 (disabled)");
+> +
+>   intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
+>   	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
+>   
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
+> index ba01aeaf89440..5c5a1a1358c32 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_params.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+> @@ -46,6 +46,7 @@ struct drm_printer;
+>   	param(bool, enable_dp_mst, true, 0600) \
+>   	param(int, enable_fbc, -1, 0600) \
+>   	param(int, enable_psr, -1, 0600) \
+> +	param(bool, enable_dc_balance, false, 0600) \
+>   	param(int, enable_panel_replay, -1, 0600) \
+>   	param(bool, psr_safest_params, false, 0400) \
+>   	param(bool, enable_psr2_sel_fetch, true, 0400) \
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+> index e36db11744405..1698c54e258b4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> @@ -439,10 +439,12 @@ static bool intel_vrr_dc_balance_possible(const struct intel_crtc_state *crtc_st
+>   static void
+>   intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
+>   {
+> +	struct intel_display *display = to_intel_display(crtc_state);
+>   	int guardband_usec, adjustment_usec;
+>   	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+>   
+> -	if (!intel_vrr_dc_balance_possible(crtc_state) || !crtc_state->vrr.enable)
+> +	if (!intel_vrr_dc_balance_possible(crtc_state) ||
+> +	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
+>   		return;
+>   
+>   	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
