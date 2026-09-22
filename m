@@ -4,58 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BDB0C98302
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29728C98302
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 13:36:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1411B10ECA8;
-	Tue, 22 Sep 2026 12:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95B5010E5A4;
+	Tue, 22 Sep 2026 13:36:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="he9VcILG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MhuJAnbW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1483F10ECA4;
- Tue, 22 Sep 2026 12:35:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A42A940D65;
- Tue, 22 Sep 2026 12:35:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01B331F000FF;
- Tue, 22 Sep 2026 12:35:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790080532;
- bh=S3cL58T1PySwvHM7yYfD83o55hu0YlN8sd9oqJkR+5Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=he9VcILGtw4iCvSgoGjWy3p9ij5THpqbhsGJlx5Ev+Ex/LIy4og0X5LW0/Ndp4VBt
- zipxsKj2H01rYy86e1iXaFp8Q/S1ObdVDP4Z+jybXTQVibldGwLphK7aZZ5Y6RDWLc
- CGeGUljpY7VEVZ/gx0ml4hGizDFq0BNHHffWKFCkj3YCzPjZsRTRBT8MXJdOcUz4a6
- XErVTPeMOaPSkZAOjVd8Ai2TJ8mV10rFRfJDLvKS9YbZPHJPf/bQR3YWMVS4OjcQB9
- NNqYjm1hy9HqtiWzUCV+8WmrbEcB0UFFPDWRSy7ALbN8rr2pSgwrn6ogAiifp5uipj
- V0f+Vt6euk/qg==
-Date: Tue, 22 Sep 2026 14:35:28 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, 
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, 
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
-Message-ID: <arJ0huW356NjqpGR@houat>
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
- <32f96551-358b-4874-8fd1-a685b02853e1@amd.com>
- <arJwOSq6-oSywTK6@houat>
- <08e47991-0d72-471f-9955-0b4ebbcffcdf@suse.de>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0FBE10E5A4;
+ Tue, 22 Sep 2026 13:36:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790084164; x=1821620164;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=iHIe8xLqFKO/d9RHhAhYl7b7Bf3Hvcqp1VHvevYoYTI=;
+ b=MhuJAnbW+ahhSxG+jtoIUVc5yvfFXMETqEoq+I5U1j8s73zCY3aEbYWE
+ 4N3ulhzkbxCFTrjPNoo68GA7FlM2UtRO1Fhq7SlTv0FJBsDwaHRFlbigk
+ sUho3gMmUYmmNae8JH2TVbRTLGKjdMhg+tAp89yyh5oqA71Wk/FzhRKY6
+ CpaTTEr1I+3mh7aFh9w0MsSM6KSRAxnOD1dYtHI7VBzVHO5uJhEv1B0Jn
+ vxpMGy9Z2qjG+wToScklBSnxo/++Rgvol8usEe9LtfCqmyj4Iq1VLhFgz
+ pr1ggYGmV2YioI6zIw9AArKXe/tE+O05/rfryuNqv0h6JrxjA4ctB6ybX Q==;
+X-CSE-ConnectionGUID: fjbxXPa0QK6ncBGgU1Bgpg==
+X-CSE-MsgGUID: Ukv8JZSzQIe6/Hj7GV6okg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="102036730"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="102036730"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 06:36:03 -0700
+X-CSE-ConnectionGUID: oh/JjnajQpehNRZvaWw5sQ==
+X-CSE-MsgGUID: 06DfE0CpTtiAXwrqFE9Jcg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="301053399"
+Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 06:36:02 -0700
+From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: mitulkumar.ajitkumar.golani@intel.com,
+	jani.nikula@linux.intel.com
+Subject: [PATCH v5 0/2] Add validation for DMC firmware header parsing
+Date: Tue, 22 Sep 2026 19:05:36 +0530
+Message-ID: <20260922133535.3180973-4-dibin.moolakadan.subrahmanian@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="aphxvy3mdbvxymga"
-Content-Disposition: inline
-In-Reply-To: <08e47991-0d72-471f-9955-0b4ebbcffcdf@suse.de>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,99 +67,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The DMC firmware parser does not validate the firmware load address
+stored in version 3 headers before it is used by dmc_load_program().
 
---aphxvy3mdbvxymga
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
-MIME-Version: 1.0
+The firmware size conversion from dwords to bytes can overflow while
+calculating the payload size.
 
-On Tue, Sep 22, 2026 at 02:23:17PM +0200, Thomas Zimmermann wrote:
-> Hi
->=20
-> Am 22.09.26 um 14:16 schrieb Maxime Ripard:
-> > On Tue, Sep 22, 2026 at 06:41:32AM -0500, Mario Limonciello wrote:
-> > >=20
-> > > On 9/22/26 03:33, Javier Martinez Canillas wrote:
-> > > > Hello Mario,
-> > > >=20
-> > > > On Tue, Sep 8, 2026 at 6:41=E2=80=AFAM Mario Limonciello
-> > > > <mario.limonciello@amd.com> wrote:
-> > > > > At Display Next Hackfest 2026 we reviewed progress moving brightn=
-ess
-> > > > > control into the DRM connector properties.
-> > > > >=20
-> > > > > There is a range LUMINANCE property that will default to 0->0.
-> > > > > Once a driver attaches a backlight it will be updated to 1->max.
-> > > > > If the panel supports the minimum backlight turning off the displ=
-ay
-> > > > > the range can later be updated to 0->max instead of 1->max.
-> > > > >=20
-> > > > > The legacy sysfs interface is synchronized with the DRM connector.
-> > > > > When a compositor using this feature is loaded, sysfs writes are =
-disabled
-> > > > > to prevent legacy tools from going out of sync with the composito=
-r.
-> > > > >=20
-> > > > I don't think I agree with the direction of this series. The main
-> > > > issue for me is that if the sysfs interface is disabled, then I don=
-'t
-> > > > understand the value of doing all the hops between the DRM and
-> > > > backlight subsystems...
-> > > The reason for all the hops is that users can switch between composit=
-ors
-> > > that support this and don't.  If you're in a compositor that supports=
- it
-> > > that compositor will want to affirm it's in control.  If you're in a
-> > > compositor without support then you should still have a way to change
-> > > things, and that's what the sysfs interface exists for.
-> > Couldn't we make a sysfs write trigger an atomic commit then? That way,
-> > it would always go through the atomic commit path, no matter whether
-> > you're on a "legacy" compositor or not.
-> >=20
-> > It would also somewhat untangle the uapi from the backlight subsystem,
-> > because it's only really relevant for panels. For all the other use
-> > cases, you might want to control the brightness but you have no matching
-> > backlight device.
->=20
-> I suggested to treat these backlight changes like display-hotplug events.
-> When it happens, we'd send a uevent to user space, so it can update its
-> internal state.=C2=A0 Such an event could then come from any source besid=
-es
-> backlight's sysfs.=C2=A0 =C2=A0Compositors could also implement policies =
-that are
-> currently implicit in this series, such as brightness of 0 means "display
-> off".=C2=A0 This is likely something a compositor should track.
->=20
-> Would that work?
+Fix both by validating the firmware load address against the expected
+range and using check_mul_overflow() for the firmware size conversion.
 
-It probably would, but it would create a precedent I'm not really
-familiar with. Hotplug events are kind of separate because it really is
-a hardware event most of the time: you get an interrupt, and report it
-to userspace. And it's largely outside of the properties space (except
-maybe for things like edid).
+v2:
+Added Fixes tag in commit messages for both patches.
+v3:
+Address Sashiko's parser-hardening review comments in patch 2
+v4:
+Publish mmio_count, start_mmioaddr and dmc_fw_size only after the
+payload allocation succeeds, so a failed allocation cannot leave
+stale state for a later dmc_load_mmio() call (Sashiko)
+v5:
+Change patch ordering (Mitul)
+Change drm_warn to MISSING_CASE (Mitul)
 
-If we start having the argument that a property changing must trigger a
-uevent, then it means that we can expect *any* property to do so, and
-"the compositor needs to be in control of it" can apply to many, like
-color formats, positions, tiling, etc.
+Dibin Moolakadan Subrahmanian (2):
+  drm/i915/dmc: Harden DMC firmware payload parsing
+  drm/i915/dmc: Add sanity check for DMC load address
 
-It would be a much saner design to put it behind DRM_MASTER, and
-deprecate the sysfs interface entirely.
+ drivers/gpu/drm/i915/display/intel_dmc.c      | 76 +++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_dmc_regs.h | 12 +++
+ 2 files changed, 83 insertions(+), 5 deletions(-)
 
-Maxime
+-- 
+2.43.0
 
---aphxvy3mdbvxymga
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarJ2DwAKCRAnX84Zoj2+
-dmeOAX4rOUubD98Ry5IKU/TpA134hAFav7UZzPVSp35hLz9sC3+xpRafxbKuTWcr
-R37oo2cBfiUHt8bOOeHaOxxd/E9WM5PjM/+QhvfRqb/T72CoZjfPCN1zhYZEDNfx
-Tu7d8Iqs1w==
-=5sv1
------END PGP SIGNATURE-----
-
---aphxvy3mdbvxymga--
