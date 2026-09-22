@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C21CC982FA
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:14:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD481C98305
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90B4E10E20C;
-	Tue, 22 Sep 2026 12:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4972E10EC99;
+	Tue, 22 Sep 2026 12:15:22 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 761E010E20C;
- Tue, 22 Sep 2026 12:14:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88AF210EC98;
+ Tue, 22 Sep 2026 12:15:21 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4348698400452571725=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_log_DPCD_access_errors_?=
- =?utf-8?q?=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_fix_PBN_in?=
+ =?utf-8?q?_ALLOCATE=5FPAYLOAD_request_to_use_actual_video_bandwidth?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+To: "Xiao Lu" <xiaolu.xie@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Sep 2026 12:14:09 -0000
-Message-ID: <179007924947.192893.2807556850116048465@61270ab9df2a>
+Date: Tue, 22 Sep 2026 12:15:21 -0000
+Message-ID: <179007932155.192854.5999214715157704464@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260921053710.1586776-1-suraj.kandpal@intel.com>
-In-Reply-To: <20260921053710.1586776-1-suraj.kandpal@intel.com>
+References: <20260922081258.1995510-1-xiaolu.xie@intel.com>
+In-Reply-To: <20260922081258.1995510-1-xiaolu.xie@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,27 +41,105 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============4348698400452571725==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
-Series: log DPCD access errors (rev2)
-URL   : https://patchwork.freedesktop.org/series/174553/
-State : failure
+Series: drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use actual video bandwidth
+URL   : https://patchwork.freedesktop.org/series/174687/
+State : success
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/174553/revisions/2/mbox/ not applied
-Applying: drm/i915/lspcon: log DPCD access errors
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/display/intel_lspcon.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/display/intel_lspcon.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_lspcon.c
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915/lspcon: log DPCD access errors
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
+CI Bug Log - changes from CI_DRM_19199 -> Patchwork_174687v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174687v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
 
 
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19199 -> Patchwork_174687v1
+
+  CI-20190529: 20190529
+  CI_DRM_19199: b372dd4fe9fba280fd4aef02e14a024bfbeffdc8 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9107: bba540a799a5f1a3c7ddc3a2b864678241377773 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_174687v1: b372dd4fe9fba280fd4aef02e14a024bfbeffdc8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174687v1/index.html
+
+--===============4348698400452571725==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use actual video bandwidth</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174687/">https://patchwork.freedesktop.org/series/174687/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174687v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174687v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19199 -&gt; Patchwork_174687v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174687v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19199 -&gt; Patchwork_174687v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19199: b372dd4fe9fba280fd4aef02e14a024bfbeffdc8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9107: bba540a799a5f1a3c7ddc3a2b864678241377773 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_174687v1: b372dd4fe9fba280fd4aef02e14a024bfbeffdc8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4348698400452571725==--
