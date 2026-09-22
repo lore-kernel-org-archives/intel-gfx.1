@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6282FC98302
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 13:43:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 631DDC982FA
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 14:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D463D10ECD6;
-	Tue, 22 Sep 2026 13:43:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92EF410ED23;
+	Tue, 22 Sep 2026 14:17:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FBCW2d/R";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="npM6Y7+S";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A21A010ECCB;
- Tue, 22 Sep 2026 13:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790084586; x=1821620586;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=nf3U+HOtEsUXDvWg4ER9c+NBPHvl6dTKMKnT9lsX+CA=;
- b=FBCW2d/Rs5VWDoRs0pr6hCYrDc6nTYad+ZbTLqigAhl9MVtoW5V80MxZ
- Vj6kjGoIcbYzdcby9jPXfop11TUiBbV4tplj70lM98avC67kHX/qY7WEA
- cXtiYrCWCeZ7MdORU70xGUfQjZm2M7lbNNOTwWmDYba8tXphGB7higsJX
- EzUPBkYY5xon9mU4pDv2zENDu0xlslGYrfEv20cN4MFS4OpKA/u3+2eo1
- +hq0MIfnDz5yMtxcRcwsNCR5uJxg8JT4zgt3mtwMiF3MzgdApbsi5Nnnu
- CLo6bKVINJ8a6IN1LetakJcsx+TgCYFwzZa2HiDq1vVAckyN/HnQUHNsE Q==;
-X-CSE-ConnectionGUID: K4dk/IgIR6eVddRAnIiapA==
-X-CSE-MsgGUID: ArLYlhiHTdCnHFImZ+PR1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90805117"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="90805117"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 06:43:06 -0700
-X-CSE-ConnectionGUID: FRH+3ib4TV6mGhF/6XIWUg==
-X-CSE-MsgGUID: vf24GCBiTJmCPw9c7IpFrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="4435553"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.71])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 06:43:05 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Subject: RE: [PATCH v2] drm/i915/hdcp: switch to
- drm_dp_dpcd_{read_byte,read_data,write_data}()
-In-Reply-To: <DS4PPFE901A304F108943697D7853999374E3832@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <e168dad72f78fdb74419da94b0a38d732159fc82.1789547331.git.jani.nikula@intel.com>
- <20260921094103.701841-1-jani.nikula@intel.com>
- <DS4PPFE901A304F108943697D7853999374E3832@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Date: Tue, 22 Sep 2026 16:43:02 +0300
-Message-ID: <a64d0bae43513a03528539bbf6cbcaa42c60acd5@intel.com>
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65AA510ED37;
+ Tue, 22 Sep 2026 14:17:03 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hq2Gg20pSzKp2B;
+ Tue, 22 Sep 2026 16:16:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1790086619;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=OVOufLgA9WAz0la1Oh+jjfdwzqg4zKoAiYSmro+Ag1c=;
+ b=npM6Y7+Sre4CKi4VOvtHxwNWJrWhitpu0gGV2rutv1bBwQ270oIGis6/TFWikcglaMMpuL
+ 3r0i5PCJuI44zCT2ARMWTOVm2Fkq6XS2ihCCfcMdOUqyDO62hBg9t+laG9+m+awwkLNLVu
+ 4MqLwXspQUJqCFCeu/9zyi34pAUKcZvhtOuY7BXS1IDJIEPYxIyCNdGGMSdh7AOn3dlOnk
+ zB/ae5hSrkBYMXS98HQ6qOSpfEF4w2kAchZ4iWfUTqA43N5WdaEBXsFOxR4aoBGnqsdZun
+ M31+j0hm3GZ7Cjujmd4m0S/FLhHHtPhAjODsAUEc6f2fP0wPFJiHyFUK4l/qsA==
+Message-ID: <737a7039-9b77-416f-a331-698a9cd980a2@mailbox.org>
+Date: Tue, 22 Sep 2026 16:16:54 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: Re: [PATCH libdrm 2/2] tests/crtclist: add utility to inspect CRTC
+ usage
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "G M, Adarsh" <adarsh.g.m@intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20260921130747.2557722-1-arun.r.murthy@intel.com>
+ <20260921130747.2557722-3-arun.r.murthy@intel.com>
+ <IA0PR11MB7307D575C550CFF4AB2866BCBA842@IA0PR11MB7307.namprd11.prod.outlook.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <IA0PR11MB7307D575C550CFF4AB2866BCBA842@IA0PR11MB7307.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: qxq4w5b5wxq4cgj3i4hfdrigxxtipxbp
+X-MBO-RS-ID: 242a110dd16996b28fa
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,30 +71,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 22 Sep 2026, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
->> Subject: [PATCH v2] drm/i915/hdcp: switch to
->> drm_dp_dpcd_{read_byte,read_data,write_data}()
->> 
->> Switch to the modern DPCD access functions that return negative error codes on
->> errors, -EIO for incomplete access, and 0 on success.
->> 
->> This simplifies error handling all over the place. Convert the error logging to use
->> %pe and ERR_PTR() while at it.
->> 
->> Add comments to the read/write places that depend on the functions that return
->> the number of bytes read/written for incomplete access.
->> 
->> v2: return length from get_receiver_id_list_rx_info() (Sashiko)
->> 
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> LGTM,
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+On 9/21/26 16:07, Murthy, Arun R wrote:
+>> From: Murthy, Arun R <arun.r.murthy@intel.com>
+>>
+>> Add a small diagnostic utility built on the new drmModeGetCrtcList() API. It
+>> prints the total number of CRTCs, how many are free vs in use, and a per-CRTC
+>> line with state, scanout framebuffer and active mode.
+>>
+>> Built like the other tests/ utilities (drmdevice, modeprint); it is a human-facing
+>> tool and is intentionally not registered as a meson test, since correctness is
+>> covered by the drmmode_crtc_list_ult suite.
+>>
+> ULT is removed from this patch, as this utility itself should suffice.
+> This paragraph will be removed in the next version.
 
-Thanks for the reviews, pushed the lot to drm-intel-next.
-
-BR,
-Jani.
+Note that we use gitlab MRs for libdrm: https://gitlab.freedesktop.org/mesa/libdrm/-/merge_requests
 
 
 -- 
-Jani Nikula, Intel
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
