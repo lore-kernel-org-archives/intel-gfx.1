@@ -4,60 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D24C982F1
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:04:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78777C982FA
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6871910EC0D;
-	Tue, 22 Sep 2026 09:04:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE8210E478;
+	Tue, 22 Sep 2026 09:14:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hV2PGgas";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I0v63XrU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F68910EC0D
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:04:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E1CC10E478;
+ Tue, 22 Sep 2026 09:14:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790067897; x=1821603897;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=O3bc4gFQ+exec4W0dvCKWzcGfOIIpwcykh5fTt0ppxg=;
- b=hV2PGgaszf171PPdfFIlr4H5JvNsadRD1VeLlBMg90B54wGfLOasiApc
- 6G+Jm+irFO6dJD8/vc7vTJyvhV6Vw+IUodXFnq8mfLsbOQ4XQUxsE2TQ9
- zM8ciCe5dKGnHsYRFNXd+8dgG0ivN/smqNmNM8lfipqtIRSZfMFMu1c/z
- lLAqNpgb4zwudNdur80wOjjHBgUrzmVZIoLQR19nl1JgK+yH024YRPgZw
- hvgL1AAfadNRFpj/GaNQAV4jgWCjxt/EJZ+c+EjxrGxyh12btVHVXcYRw
- NnhADeEIk8pusc3j36FGuK1NZfWwMH+4EXDB2CYkHsXWS5CEL6WpRk+DY w==;
-X-CSE-ConnectionGUID: 9HQ4jcDPTO6ElY34Gb69eQ==
-X-CSE-MsgGUID: A4SPQHfdTx+wl4tL18Cp3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1160727"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1160727"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 02:04:44 -0700
-X-CSE-ConnectionGUID: Lnz84abjQK6XmSPn2eYU/A==
-X-CSE-MsgGUID: p2St7UTbQgm/etzj9OwZiw==
+ t=1790068456; x=1821604456;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=AHqKd9vg2TWeYXq10IHw0jSSTd4SjcT6VGMc48JdLR8=;
+ b=I0v63XrU1CDtjvY5C4ytBqWU6b0kDR+9TGIdlDbfDIMzygTxxU6pmofk
+ 90wTr6+TewdK2QUCAwsVa7lDdnJqAiyNCq1LTQomXYcDUr5xUMdIN5UU2
+ +jstftt70P00kDyrEYljoUNYloFbzNRe0BD0PxaSWuZn0W4aLlcuyx/X/
+ duYXZSx2nI852J/M9TqCxF01/XaS8f6IftYFW6mtZ2tkC6dHS85YQ/uis
+ wB2G6NLcPWCni/eeo/cDtY82FbfEPO46x+gfoDqDxT6uvZuKhqn0OpPS8
+ M2SdIbCJPglTul4hcipIB+EKg4LQMN847qVTiIC0M2ct+NXSxMcb9YNzr g==;
+X-CSE-ConnectionGUID: OdSoxQs1TLClUqmPHCaBIQ==
+X-CSE-MsgGUID: HWTgowDiTaOJjDOiDOcyow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116175634"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="116175634"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 02:14:16 -0700
+X-CSE-ConnectionGUID: CKhVy9/aQHuH5VhaKYCECg==
+X-CSE-MsgGUID: B4bUCxlFQE6T1ciUCKd/5w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="269576553"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.71])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 02:04:41 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Xiao Lu <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tvrtko.ursulin@linux.intel.com, Xiao Lu <xiaolu.xie@intel.com>
-Subject: Re: [PATCH] drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use
- actual video bandwidth
-In-Reply-To: <20260922081258.1995510-1-xiaolu.xie@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260922081258.1995510-1-xiaolu.xie@intel.com>
-Date: Tue, 22 Sep 2026 12:04:39 +0300
-Message-ID: <ebfe85875a9d47151426913de39e49159498be8e@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="4356161"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 02:14:17 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 02:14:15 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 02:14:15 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.0) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 02:14:15 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v4aq0oZgbKLDyqeONFZ5aHmEAJhBBfkbL/kiLiSQhC22Ll/1+0yavmqZ2jaBX2VmNgzBWWp9meBiB9kSUJQHOlchHk/yPCQPpvBfXBUhpv7Z8a9xqh9TJeuUypwX5DJHc4y9Qlk7HZsRHNNIgNXvDX6Y7NjU7JgUM6sPQyJa1b2iA51z0NPjbJx+IhN4BKCL7gTplhSAezDMCzBT+ssv2Ay+vRZwF7K823eLvPDE0knVPRij9nI4DGjHehKx6dTI7R16iqEguV0y3FB8yyw1/+pPRUavnsm8TtQaH3TcUHVhENRY+BxjpSZ6vhpgJLrqAbv8lHYDvpafmTCBugyFkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qip3RC+Bl+zNNwsYDHwusGMlA90eCxAQSLoFymsZrVc=;
+ b=cvoWHIB+8WudBa2sXcT196lK9+GuvVwrwrNr3Lo1sIiCOoky4njG1IHZs3K5Hc7XQSNzpZHvR677EaSI8zFXSsxaZzTo7w8VYnXydAqEzQN1cggXDABAu3ruF4dIHxqNtr9BBjT3ot8kIqrm6gvxskJ4/vB2zsG+omkAIwUmwtKYfHrgBXLYrV2B9FL8Sy74DGi0Z3Q2uLQ1QF0P4JOZRqNUZsJB8vUsutUQmvfu7aLcEY/3TmZdVjTV8UqzPcqOVX6gsZn0lXS4XdoBGa9FjdznADXICb1YfURdfZWG1l2LVHUKfDJm0aaZxX3+lUAR0oVusMQnn7QoiCOQ2qxuXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from MW4PR11MB6887.namprd11.prod.outlook.com (2603:10b6:303:225::16)
+ by SA3PR11MB069086.namprd11.prod.outlook.com (2603:10b6:806:532::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 09:14:09 +0000
+Received: from MW4PR11MB6887.namprd11.prod.outlook.com
+ ([fe80::91f5:637d:7c4a:6494]) by MW4PR11MB6887.namprd11.prod.outlook.com
+ ([fe80::91f5:637d:7c4a:6494%5]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 09:14:09 +0000
+From: "Garg, Nemesa" <nemesa.garg@intel.com>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+CC: "Nikula, Jani" <jani.nikula@intel.com>, "Kandpal, Suraj"
+ <suraj.kandpal@intel.com>
+Subject: RE: [PATCH 6/8] drm/i915/linktraining: log link training DPCD access
+ errors
+Thread-Topic: [PATCH 6/8] drm/i915/linktraining: log link training DPCD access
+ errors
+Thread-Index: AQHdSZDHtkllamR2SEmc0/XRuYe3UrbaUjeQ
+Date: Tue, 22 Sep 2026 09:14:09 +0000
+Message-ID: <MW4PR11MB6887C30578E64D2395F58F6AE3832@MW4PR11MB6887.namprd11.prod.outlook.com>
+References: <20260921053710.1586776-1-suraj.kandpal@intel.com>
+ <20260921053710.1586776-7-suraj.kandpal@intel.com>
+In-Reply-To: <20260921053710.1586776-7-suraj.kandpal@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW4PR11MB6887:EE_|SA3PR11MB069086:EE_
+x-ms-office365-filtering-correlation-id: b1527cb9-7756-4eef-6221-08df1889dc19
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|38070700021|11063799006|10067099003|4143699003|56012099006|22082099003|18002099003;
+x-microsoft-antispam-message-info: MZOdHU/7YOmcwAyvkDrvzuwVo57Pjrf+C3kemQVtoLUovuajNoLD2SVmxPp/L7U8mpUEMi0rGVzSlEPNR/ayhB7I2TnYZaim6xIdO/stAFMdU7Y9Sy40Rj2ycBiWVr8ZFguBTpMND0iOKbRVJh1/YHZMOYC/5IiqLlgNlA1HTWG31202iqqH97+ENjQpq7ZdfM1TJgySk6kZU0Zj3IU2l05cGDo6jLpn4w1QwBljwdXkagIwqqyScrcCWTKo1Ssu9D1IWSdC5J2e0tKGqaMEHjYQyZB8+cewaJ8eUHMucBTU3o258nvaE271sJsLhd6Tibo7xaNDgtcU9E6mAIVvC8UB3ORXj2bDQoINX2thSiij7LyWzz5VM4AFc3JR8HfbVIJGh4xMTWrsLV2nf3WHB5yCjn33PlmTIQkLLRtN9pHVal20zByjez5HWt+Z1G528jjVSNBE+hT536Z/VaU0JRcGEoDask0/Yh5lKmS1CNHVy/kunYymKpqoHVzMAgDYiJKhKCf6y0cN1s560xLLn/Sj8YimJUoJy7rkzZoZp7zcgqAfj/S0r160UHvPc1oMHToOtOOlNbJg7lKXEIp1/E+TfsPBII4adybrnUUW8lYjbRhvCUqPcb0K/tR43apUyzSeZCyLtBC448C/rZ/NX3IK6Tlstpv0a6PAXvqpdhZIYGqhQbbd2m7m6k+Hz421svjotxzg/zRMAei0qkS2sJdTqSusKzpuA0rU7E/wnQE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR11MB6887.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(38070700021)(11063799006)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ikFN5k2nD3blbvjKoFPptawvCYFHQbmEpsiAC58OlNKNmTGJMz2GZ1q24jQg?=
+ =?us-ascii?Q?McdUb+z7KlwoagO5NBjVuSZhYyVmhbvnnOuAHpKnDmi+fqvNgrqp4LW+O7dD?=
+ =?us-ascii?Q?IjgWtB+IkTXNqCPu2HV3mZBlbar7l4QB5aRI5bcvE980QiuDstJpAmmLogm0?=
+ =?us-ascii?Q?YLnS3EyeEnpiKXI+VK6mbrC0DZKLnHYdnK4qrI4EPSphuSYTJx1k5W6b/zdC?=
+ =?us-ascii?Q?kHMj5M/Z/LTVwQCP5s5tII1Gjr3m2oi8ti/2sxZPcKSVabKaNtgLdrOyWpNl?=
+ =?us-ascii?Q?yJcICV+b6lAKyXPIh7TEtuZ8UlLw9yaIZGKXBIk7QxTzeY2M5F6lwfZMWhsd?=
+ =?us-ascii?Q?4HJ6fcenlx15SiiQrDgSPjEGXrJM4d/73Dh9YWtMo3xyrDJb/mLT56/2LtbC?=
+ =?us-ascii?Q?umYWoA9icweSa8ILm57wET7RTfggYw+NFYFXXJbVwjoBAnhozH/ruf/w7R/u?=
+ =?us-ascii?Q?YjxXpE4zGdOvduvZcIuzOKLMecm/fwbf5ZBbqwwm7maJWdqyl/0znFdpx7zN?=
+ =?us-ascii?Q?wOWXb6qTmzXzt4w2gOJ62pUnP3cAhE9t7ZNVSp0nEFDifyrl2AQ3YUx4Nypw?=
+ =?us-ascii?Q?tSyiVKRIKj5w0YSwszKBrjF2RAC9YVcTDHTnXkEy9IamfXM6xwIPMqcjHsnx?=
+ =?us-ascii?Q?qXKXkhVZ93DPr4RRUPIRC8zOvKXxlOO+0MxFs8bafe2/Q+BtVF9uoDItORIP?=
+ =?us-ascii?Q?3rbOTwP+WaWrszkWCW1sNtzEF7u3sBH13CO/fRSP6QpdBlgE0hCpmhKKc5+6?=
+ =?us-ascii?Q?GDnHcsEqHdbit5NxQ+OZx9VQOdgRa8zDpZgVDifWt6UrYN3hD5pAl4HmP12h?=
+ =?us-ascii?Q?pBdX03ZFbEBJ05m1If3sy86EjrAzznBTl3sxA+yjC1Fd91u4MM2vde78Nbpo?=
+ =?us-ascii?Q?Op0j7lN88y9LwieKgaY8BzAjGyOujEhMPP7PM14JDq2eyj6CPSMEfXzmuAOR?=
+ =?us-ascii?Q?m5izKVk0xPeVjfIHM9T6lFEe+hyL494QhYfOmpxellpwHlNMPzD3wEBTtyFB?=
+ =?us-ascii?Q?63YGzGeCrwCYpdQ0Op0Ds7JBti+mRbeLqIBYeWzpPN29bd0w9wynsAEYo8nN?=
+ =?us-ascii?Q?a4CIpkyA8hDaX/oZaCTWw5M1uVfdAjrp1H5mod1sKwNEEOBC0EgJKZjD7any?=
+ =?us-ascii?Q?g9AR+UvUYdB2fy3Dpor8sBdjnnl0Tv7B/Cm8KsGI64ivRDfZY9VS3MbWeTVm?=
+ =?us-ascii?Q?Ujekc+mImoeW38niDL6iinNNcW/1fBiTXv/udMSzd4UhSD3u4yvWFWOtxlx6?=
+ =?us-ascii?Q?AFbiu6WoUE8cgequw0YMWYrJlpCgq+CstZkaShNre+JkaR0hsg53unD/voyx?=
+ =?us-ascii?Q?JpJVTcK0sXxIJz5rIlxS3QMdVBDRCbSfNa32/MgpC1DRoFhMj7hOnYbHIoYy?=
+ =?us-ascii?Q?uvZcIkyi01xKiaw5ECdgiJJzp2+O55MoLJ4cVcRbGY2kBl3QXlRoLLxl4bhc?=
+ =?us-ascii?Q?C1HsBpPNLyhAihqOo0tMKh9cx1YKh86fSD1HEP5kDcovPj26IZDhXOOnBV46?=
+ =?us-ascii?Q?xRzqRY0M8mDL0AfS3/uXEqy1tMHOQpigIiVebAmFD+xLDni/TsJTGxtT1wH7?=
+ =?us-ascii?Q?Xr1wGK87s8yHkyL1/pRxC98r1j5t2DfXKBcBVDdFkuh8BSziOeyo8foI+McD?=
+ =?us-ascii?Q?T2I44C4oWLMBVkw5m1wKfGLBWozQ58FS3PLzF9SAxYBqXCvcXhCCxygXzCwg?=
+ =?us-ascii?Q?Jr07Zmnn5DyYi42xwagkl5X3auAKOhkM2T+bfalFJlcF54Wc?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: VkiTi0nQfwvu3syKNM4HEnhQeX0vDL299zM3srEMqd/tHJPE+9xm3d/mJO4PtpJuv+oaBSUwlPWL1nlrslVqzLMrCqYLpiM3e07PPabU5ryhsinhaEKjaz4zAC+Opc7FKncoE41U4SsWpDwuo2POYVg4n9cnDnPry+aCq43LvHMtESnWa0huATQ83E0hVMMP/He0z5yf+XqUZWBie3M+rgY59dA1eicWU8u6sal4p6bYuwEGKMMWxk0l+ssizZ07UO+ClNEXc1DpwIB+LKX5FbNKdCkswhaY2bxw7p37GqclK6iWasSgeEfoaP7BiLsv/mm8j70aBcXn4mDZrJu9yw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6887.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1527cb9-7756-4eef-6221-08df1889dc19
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 09:14:09.1944 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PxSdpl8kyR6HiWeoUBnSeeQNUwyKOf6efYLH2FhsLYPGadqm5Y0Q6dWV2fFoLTI+XRq4diohB8bQFn9SpyDm9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB069086
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,137 +166,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 22 Sep 2026, Xiao Lu <xiaolu.xie@intel.com> wrote:
-> When computing the number of time slots for an MST stream,
-> intel_dp_mtp_tu_compute_config() was passing the TU-aligned PBN value
-> to drm_dp_atomic_find_time_slots() instead of the actual video
-> bandwidth PBN.
->
-> The aligned PBN is computed by rounding up the raw video bandwidth to
-> the nearest TU boundary and aligning to the hardware TU granularity
-> (4 / lane_count). This inflated PBN is then used as the requested PBN
-> in the ALLOCATE_PAYLOAD sideband message, causing the MST core's
-> bandwidth check in drm_dp_mst_atomic_check_port_bw_limit() to
-> incorrectly reject configurations that should fit within the available
-> link bandwidth.
->
-> Per DP v2.1b Section 2.6.4.1, the PBN in an ALLOCATE_PAYLOAD request
-> represents the video stream bandwidth and is independent of the source
-> TX link rate. The same video stream should result in the same PBN value
-> regardless of the link rate used on the source side. Passing the
-> TU-aligned PBN violates this requirement, as it incorporates link-rate-
-> specific TU granularity into the payload bandwidth value.
->
-> This was observed in a 3-display MST daisy-chain topology (PS8650 MST
-> hub =E2=86=92 ViewSonic VP2468 =C3=97 2 =E2=86=92 Lenovo Pro 27UD-10) whe=
-re switching
-> Lenovo to 4K@60Hz failed with -ENOSPC despite the actual video
-> bandwidth fitting within the DFP link capacity. The inflated PBN of
-> the VP2468 streams (537 instead of the correct 532 for 1920x1080@60Hz)
-> consumed excess slots, leaving insufficient room for the 4K@60Hz stream.
->
-> Fix this by separating raw_pbn (the actual video bandwidth used for
-> payload allocation and ALLOCATE_PAYLOAD) from the aligned pbn (used
-> only for TU hardware programming). Pass raw_pbn to
-> drm_dp_atomic_find_time_slots() so that bandwidth accounting in the
-> MST core reflects the true stream requirements.
->
-> Depends-on: <20260908132844.2309047-1-xiaolu.xie@intel.com>
->   ("drm/dp/mst: track allocated_pbn from ALLOCATE_PAYLOAD reply")
 
-This is not a thing. If you have multiple patches with dependencies,
-please send them together.
 
-BR,
-Jani.
-
->
-> The companion patch above tracks the allocated_pbn returned in the
-> ALLOCATE_PAYLOAD reply from the branch device. Together with this fix,
-> the correct raw_pbn is used as the requested PBN in the
-> ALLOCATE_PAYLOAD request, and the allocated_pbn from the reply is used
-> for bandwidth limit checks. This pairing ensures that both the request
-> and the check accurately reflect the actual video stream bandwidth
-> and any per-hop capacity constraints along the MST path.
->
-> Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
+> -----Original Message-----
+> From: Intel-xe <intel-xe-bounces@lists.freedesktop.org> On Behalf Of Sura=
+j
+> Kandpal
+> Sent: Monday, September 21, 2026 11:07 AM
+> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
+> Cc: Nikula, Jani <jani.nikula@intel.com>; Kandpal, Suraj
+> <suraj.kandpal@intel.com>
+> Subject: [PATCH 6/8] drm/i915/linktraining: log link training DPCD access
+> errors
+>=20
+> Now that the DPCD accessors return a proper error code, include it in the
+> error messages using %pe and ERR_PTR(), instead of just stating that the
+> access failed.
+>=20
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c | 33 +++++++++++++++------
->  1 file changed, 24 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index 0c362784a..31e846aad 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -350,6 +350,7 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *i=
-ntel_dp,
->  		if (is_mst) {
->  			int remote_bw_overhead;
->  			int remote_tu;
-> +			int raw_pbn;
->  			fixed20_12 pbn;
->=20=20
->  			remote_bw_overhead =3D intel_dp_mst_bw_overhead(crtc_state,
-> @@ -369,9 +370,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *=
-intel_dp,
->  			 * crtc_state->dp_m_n.tu), provided that the driver doesn't
->  			 * enable SSC on the corresponding link.
->  			 */
-> -			pbn.full =3D dfixed_const(intel_dp_mst_calc_pbn(adjusted_mode->crtc_c=
-lock,
-> -								      link_bpp_x16,
-> -								      remote_bw_overhead));
-> +			raw_pbn =3D intel_dp_mst_calc_pbn(adjusted_mode->crtc_clock,
-> +							 link_bpp_x16,
-> +							 remote_bw_overhead);
-> +			pbn.full =3D dfixed_const(raw_pbn);
->  			remote_tu =3D DIV_ROUND_UP(pbn.full, mst_state->pbn_div.full);
->=20=20
->  			/*
-> @@ -384,11 +386,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp =
-*intel_dp,
->  			remote_tu =3D ALIGN(remote_tu, 4 / crtc_state->lane_count);
->=20=20
->  			/*
-> -			 * Also align PBNs accordingly, since MST core will derive its
-> -			 * own copy of TU from the PBN in drm_dp_atomic_find_time_slots().
-> -			 * The above comment about the difference between the PBN
-> -			 * allocated for the whole path and the TUs allocated for the
-> -			 * first branch device's link also applies here.
-> +			 * Keep the PBN corresponding to the aligned hardware TU separate
-> +			 * from raw_pbn. The aligned value describes the TU granularity of
-> +			 * the first downstream branch link; raw_pbn is the video bandwidth
-> +			 * value passed to the MST payload allocator and ALLOCATE_PAYLOAD.
->  			 */
->  			pbn.full =3D remote_tu * mst_state->pbn_div.full;
->=20=20
-> @@ -397,7 +398,21 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *=
-intel_dp,
->=20=20
->  			slots =3D drm_dp_atomic_find_time_slots(state, &intel_dp->mst.mgr,
->  							      connector->mst.port,
-> -							      dfixed_trunc(pbn));
-> +							      raw_pbn);
-> +
-> +			drm_dbg_kms(display->drm,
-> +				    "MST TU %s pipe %c: clock=3D%d lanes=3D%d bpp=3D%d link_bpp=3D%d=
- fec=3D%d\n",
-> +				    connector->base.name,
-> +				    pipe_name(to_intel_crtc(crtc_state->uapi.crtc)->pipe),
-> +				    crtc_state->port_clock, crtc_state->lane_count,
-> +				    fxp_q4_to_int(bpp_x16), fxp_q4_to_int(link_bpp_x16),
-> +				    crtc_state->fec_enable);
-> +			drm_dbg_kms(display->drm,
-> +				    "MST TU %s: overhead=3D%d raw_pbn=3D%d pbn=3D%d pbn_div=3D%d tu=
-=3D%d slots=3D%d full_pbn=3D%d\n",
-> +				    connector->base.name,
-> +				    remote_bw_overhead, raw_pbn,
-> +				    dfixed_trunc(pbn), dfixed_trunc(mst_state->pbn_div),
-> +				    remote_tu, slots, connector->mst.port->full_pbn);
->=20=20
->  			/* TODO: Check this already in drm_dp_atomic_find_time_slots(). */
->  			if (slots > mst_state->total_avail_slots)
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> index b6e8b13ee4db..ac1aff6edf05 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -1635,7 +1635,8 @@ intel_dp_128b132b_intra_hop(struct intel_dp
+> *intel_dp,
+>=20
+>  	ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux, DP_SINK_STATUS,
+> &sink_status);
+>  	if (ret < 0) {
+> -		lt_dbg(intel_dp, DP_PHY_DPRX, "Failed to read sink
+> status\n");
+> +		lt_dbg(intel_dp, DP_PHY_DPRX, "Failed to read sink status
+> (%pe)\n",
+> +		       ERR_PTR(ret));
+>  		return ret;
+>  	}
+>=20
+> @@ -2180,7 +2181,8 @@ intel_dp_128b132b_lane_cds(struct intel_dp
+> *intel_dp,
+>  	ret =3D drm_dp_dpcd_write_byte(&intel_dp->aux,
+> DP_TRAINING_PATTERN_SET,
+>  				     DP_TRAINING_PATTERN_2_CDS);
+>  	if (ret < 0) {
+> -		lt_err(intel_dp, DP_PHY_DPRX, "Failed to start 128b/132b
+> TPS2 CDS\n");
+> +		lt_err(intel_dp, DP_PHY_DPRX, "Failed to start 128b/132b
+> TPS2 CDS (%pe)\n",
+> +		       ERR_PTR(ret));
+>  		return false;
+>  	}
+>=20
+LGTM,
+Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
 
---=20
-Jani Nikula, Intel
+> --
+> 2.34.1
+
