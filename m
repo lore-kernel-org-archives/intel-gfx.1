@@ -4,84 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3E2CC9830C
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:17:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E67CC9830E
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:17:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2735C10F094;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F22E10F095;
 	Wed, 23 Sep 2026 14:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="EbJlCfu1";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="SBP5DIfa";
 	dkim-atps=neutral
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com
- [74.125.227.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E80010E052
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 04:14:15 +0000 (UTC)
-Received: by mail-vs2-f40.google.com with SMTP id
- ada2fe7eead31-78a4c5c582eso212987137.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 21:14:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1790136854;
- x=1790741654; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=bOPldxKk7+mRW3zFHHInuzu1Tjp600CWMyEZdszoKso=;
- b=EbJlCfu1hgMTgVfzqFxBNCTQ2qdzwQwVdqi7UAewGB+w0oaxKlory0DdvqkGZ+bcye
- 4r4bXp4cfKl9c7nosRkEaHRnXETDtn504zwwUxEV5ErFOtiKm+uzHspJgIQiw3G36v62
- oZ0VN+P20jA/iDJr8qNaw572UwpFU7gChP+wtzfecvh2dmwE8/h/fkQJqs53qUsop8ZU
- T/a3MZ8Yz8wZZzNVJSMtA8H24omrWQynLNv88kGOU37xijJ+cY+Zc20Z3tzifhxz2C+J
- ERju67sxu2Ky/WX15nbyf6FZP8dksxY6MORPrp90xyJJUm1GK8zyBUWnePUxsb8BZDeG
- dJng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790136854; x=1790741654;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=bOPldxKk7+mRW3zFHHInuzu1Tjp600CWMyEZdszoKso=;
- b=C2Ss48M6wKMcfvRpoBZK+MgJPtYxwDiaphuq9TWhH51nNnC5gSAVvAxAXYt8kKW9oG
- y2Rt8VNJgrFyAbe3t/yiP5EKtRzjOXNkn5ei63tbX00yPr8x/9/cuH14OeHPEpZhja9k
- 3zOHEpjgjoYY2OPTjLQuIhU+/2a/eu3ljWuOUf8Qn4jBtyWUO1PvEaCISVHeuYAtitja
- EDpEzk2s6mesAOMOwaumR0RHpvF9Dk6t6lHB0Cm9vSL3YRu81219m/VRYefczGsFA2bc
- amQSzTlBygrgPTVY1kDFnSiOuycW3grmNJ9B7P61ou83vVzxbVT1YzMZrwUr4pst3j+H
- QBzQ==
-X-Gm-Message-State: AFuF++m/B8LE8jsHI5/WQ5IPiCD/tYxPfl7p7oDZKQicwE+Hi4Fhgs+k
- vNOJJ1zKDaMvJCXjh7zL9MySp/MiMXyd4xwyv1FJb0FkTdwMpdhRLYnVkOzp6ezF2cNU0A3pCPZ
- jTA7OG6cTkfkMAEwnMEHXvudnIAJ4pkTFWtEfo1gaFqg8I5kaNBKFEe94cH5/tKSGjR5gH9ky2s
- /Dg1/5+PeO2oNNDOlsqIwkQfU81wGZ2f5bJB3FHZWhi5xiO4Kdg3hpqfo=
-X-Gm-Gg: AYBFou3NDBMzFHyscYr42UNCDNF/tnLW8XvonCbMRS+UpsW78nc3bn3h8drvzZeZ8L2
- ZelawgdES7ZxZNV2T2uiy0TwCrY7uQw6vxf6RTiDWmAforaN6K4pcOShAF/T/5pz5Ji3lSee6ZW
- peWGkQl60mL18NPBIeXP3taTqHUdeNc0JlakFgtBiZdJ9q7eoKex11N3EOrB3v2RAHNL/AOmjHm
- FUUCP/ZHCJafDkM20xDWGk2TecIf4XAdbu+q07Qnqy2w5pTkQopDtciwCHzrqQmeS4JE4cz0mpn
- Y3myTRzgFrOPwy8NY8EL5XmUk3fNSYY2m0wuaowJi36WIT3/b5TJkNbWacwCOlh/+PyRBt24Ou/
- hhDS12HSvABOQw7NtAy+HkrD+iPBcunJQgVjb59coOQJNcuq8wh0w9HPwmW6KOXKDGN+L/XdMif
- 1hNV+pEyM1DDVjEOR+reqXK/WnaS/mpvhT3s+F/QvtVDPcgvJniMTp0CGQ9YeIlOLLInZvhcIK3
- Em2xwmfUai/y9piYlpOZB3R9z5ExA5/kpFgykTNGHkpzQ5s3PAFYp+s11c4ijemCLKzrxobzJoK
- IDqRvj1aRgv1ZFPl0oIrIf29negLSDUTLljfFwBIwrbzAitrfhxt
-X-Received: by 2002:a05:6102:3ec3:b0:7a1:f7d2:e839 with SMTP id
- ada2fe7eead31-7ac1da2381bmr1499378137.25.1790136854075; 
- Tue, 22 Sep 2026 21:14:14 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::12ac])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7abf5c6d7b2sm2564818137.8.2026.09.22.21.14.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 21:14:13 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jouni.hogander@intel.com, animesh.manna@intel.com,
- ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
- ville.syrjala@linux.intel.com, jani.nikula@intel.com,
- rodrigo.vivi@intel.com
-Subject: Re: [BUG] PTL eDP PSR2 SU / Panel Replay: engine parks in SU_STANDBY,
- panel never refreshed (Dell XPS 16 DA16260)
-Date: Wed, 23 Sep 2026 00:14:11 -0400
-Message-ID: <20260923041411.2147282-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907202337.152269-1-j@metarealtyinc.ca>
-References: <20260907202337.152269-1-j@metarealtyinc.ca>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0D1F410E4F6;
+ Tue, 22 Sep 2026 17:14:07 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E2F91576;
+ Tue, 22 Sep 2026 10:14:04 -0700 (PDT)
+Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF53A3FA32;
+ Tue, 22 Sep 2026 10:13:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1790097247; bh=ycUddICsfxEifMnQljPG5LJ+QAfshpGj42pAhJYJWAs=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=SBP5DIfa3nHM7wg1pyznXr/QOoBKyjohtWTUL8njVjJ2HZJ7Dx+/2lyN5lNkmMRzt
+ MkKJj6bY+fLt8c5gDKfHKPh91F5Et1R0ROJrwOWzqHfSea49QFldK5bBAeUeM9p2Ca
+ sZJWLtBML/JGGl2eO59i8Nq/hvCyVDsIRYBYPmlc=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Date: Tue, 22 Sep 2026 18:12:33 +0100
+Subject: [PATCH v3 5/9] mm: convert PTE table entry to pte
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 23 Sep 2026 14:17:20 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-pte0-v3-5-5670b8cb9059@arm.com>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+In-Reply-To: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev, 
+ kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+X-Mailer: b4 0.16.0
+X-Mailman-Approved-At: Wed, 23 Sep 2026 14:17:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,104 +119,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This thread did not age well. I spent a week chasing a freeze that my
-own patch created, so please file most of what I wrote above under
-"learning experience". Here is what holds up.
+The non-MMU stub receives hw_pte_t but returns a software PTE value. It
+has no attached PTE that requires ptep_get(), so convert only the stored
+entry through __pte_from_hw().
 
-Short version: PSR2 works here at stock, and Panel Replay works too
-once one bit is fixed (patch below).
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+---
+Changes since v1:
+- Explain why the NOMMU stub does not use ptep_get().
+- Use software PTE value terminology.
+---
+ include/linux/hugetlb.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-PSR2: the SU_STANDBY park was self-inflicted. My fast wake patch (fast
-wake 12 lines, above the IO buffer wake of 11) stops every selective
-update after entry. Jouni was right that io >= fast is required. An
-unpatched CachyOS 7.3-rc4 kernel with xe.enable_psr=2 works fine here:
-after each update the sink goes 2 -> 3 -> 2 with last SDP 0x29
-(SU_VALID), a damage band at y=600..799 gets per-frame selective
-updates at ~120 and ~24 fps (one Link CRC flag and one SU per update),
-the sink test CRC is deterministic per image, and 15 s of desktop use
-gave 291 captures and no resync. The fast wake series is withdrawn in
-its own thread.
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 0d2101facaa50..637fc863d3687 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -1278,7 +1278,8 @@ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+ #ifdef CONFIG_MMU
+ 	return ptep_get(ptep);
+ #else
+-	return *ptep;
++	/* No attached PTE that requires ptep_get(). */
++	return __pte_from_hw(*ptep);
+ #endif
+ }
+ 
 
-Panel Replay: my early "PR freezes in every variant" came from turning
-PR on through a psr_debug fastset, which never programs PORT_ALPM_CTL,
-so the sink was never woken. That was my test method, not the driver.
+-- 
+2.47.3
 
-Also retracted: "PR is the same failed-wake resync loop". The Link CRC
-flag does not mean a failed wake: the sink stays in PR active (0x2022
-= 0x02 in every poll) and never resyncs.
-
-With the DA16260 quirk removed locally and PR entered by a full
-modeset, PR SU with Early Transport delivers every update: sink test
-CRC at ~120/s, CRCs identical to PSR2 for the same 125 images. The
-desktop stutters though. Not a freeze, just a low-framerate feel much
-like the original quirk reports, while the source flips at a steady
-8.33 ms (1434 of 1437 intervals over 12 s).
-
-The cause is one bit that source and sink disagree on. The sink
-supports async video timing in PR (0xb1 = 0x20), so the driver sets
-PR_ALPM_CTL[AS SDP Transmission in Active Disable] (PR_ALPM_CTL =
-0x11) and stops sending the AS SDP in PR Active. Link training still
-sets FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE (DPCD 0x107 = 0xc0; bit 7 is
-MSA_TIMING_PAR_IGNORE_EN, set because I run an EDID override with a
-20-120 Hz range). So the sink is promised AS SDPs that never arrive.
-As far as I can tell nobody had spotted it: Panel Replay on these
-machines was quirked off before that bit was ever set (38a7e9bf69bd,
-v7.2), so the combination never ran here. It also means I can't say
-it explains the original quirk reports, only that today's symptom
-looks the same.
-
-I tested both ways of making them agree, with a local debug switch
-and a full modeset each time:
-
-- keep the AS SDP on (0x01 / 0xc0): smooth, but 0 DC5 entries in 30 s
-  on a static VT (no compositor, 1 update/s)
-- stop promising it (0x11 / 0x80): smooth (but see the PR entry
-  issue below), 550 DC5 entries in the same test
-
-On the KDE desktop neither mode reached DC5, because the compositor
-keeps vblank interrupts enabled; that is a separate issue.
-
-The patch does the second, rebased on drm-tip including the AS SDP
-skip frames case:
-https://lore.kernel.org/r/20260923041342.2146450-1-j@metarealtyinc.ca
-
-What is left on PTL: with the AS SDP off, the sink can come out of a
-PR enable locked to a bad phase. Here it showed up after the screen
-blanked on idle and came back (DPMS off/on, so a fresh PR enable):
-straight from smooth to stuttery, no gradual drift. A manual 1 s AS
-SDP burst (PR_ALPM_CTL 0x11 -> 0x01 -> 0x11, written live) made it
-smooth again right away, and it stayed smooth with the AS SDP off
-again. My guess (not proven) is that without any AS SDP in PR Active
-the sink picks its refresh phase at entry and never re-aligns.
-
-Xe3p_LPD (display version 35, Nova Lake) has a hardware way to keep a
-periodic AS SDP going: AS SDP skip frames, PR_ALPM_CTL bits 27:16, one
-AS SDP then N skipped frames. Upstream added it to reach the panel's
-minimum refresh, and it is behind a debugfs switch for now. It would
-also cover this case. My manual burst is a hand-rolled version of the
-same idea, and it worked. I also checked whether PTL has the field:
-writing 0x0fff0001 and 0x00050001 to PR_ALPM_CTL both read back
-0x00000001, so those bits appear not to be implemented on display
-version 30.
-
-So a question for Intel: how would you like PTL handled? A short
-software AS SDP burst after each PR enable (and optionally now and
-then while PR is active), keeping the AS SDP on for such sinks (which
-costs DC5/DC6), or something else? Locally I'm about to test a burst
-about 2 s after every PR enable. I'm happy to implement and test
-whichever you prefer. The DA16260 quirk removal will follow once that
-is settled and tested.
-
-One thing I still can't explain: in PSR2 and PR (never in PSR1), the
-sink sets the Link CRC error bit once per update (DP_PSR_ERROR_STATUS
-in PSR2, DP_PANEL_REPLAY_ERROR_STATUS in PR). Under PSR2 it latches
-even with no AUX traffic from me for 10 s. PSR stays enabled, so the
-driver evidently gets no IRQ_HPD for it, the sink never resyncs, and
-nothing is visible on screen. Is that expected for this TCON?
-
-The gitlab issue has the same summary:
-https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9119
-
-Thanks Jouni for the patience and the reference trace.
-
-Jake
