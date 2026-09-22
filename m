@@ -4,55 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAD2CC982FA
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A31EDC982FA
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:23:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3290410E96C;
-	Tue, 22 Sep 2026 08:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1117710E668;
+	Tue, 22 Sep 2026 08:23:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QUvAUCc3";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xK5NoVzk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QA1GXq2p";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QFNfSnfv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="53hBZT3V";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2D7D10E96C
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 08:15:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790064923; x=1821600923;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=VcmQrORzDPYON7a1kpg7FxVSiQsluwV+TAnKBk9x9PM=;
- b=QUvAUCc3/3U+9nkFYXAsR6oTUOma+x5CRYkxskmhOldBLIdSWIBt2dHI
- H02O3oYKYKDWPMIs6RCVlGCvT+pt+aZwjl+/fYMedcqVDg9G9gL+5yFUV
- mlkHzB5UmGSYaC3oMwD6JoCCEX6WS2r73RpFFlqBMXjDbCEhgiMrUaKqM
- gwDFrbhA3dEeVDjwr8tmqcJ7B6iZcH/vJNvlF+Xds/ExUiSNP5nGT8wc/
- sGI2V2ZJ4JNu83I8yNWVt6UoiLvucIPi02/kuZMQzJzeuYTv6ziAhNTAp
- PffUK7SkQD6VrnC4ypHH9ahIqP3RRdVUBURsqFxFUQH2YEagFfEF+VGEJ Q==;
-X-CSE-ConnectionGUID: tFVuOWoiTJmtL1JgWUvsVg==
-X-CSE-MsgGUID: FHP4IxVuQlCbExuburKpMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90513126"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="90513126"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 01:15:22 -0700
-X-CSE-ConnectionGUID: Cux8bf+KT1qvDTX7LNHxyw==
-X-CSE-MsgGUID: b57KyDJpQrGHv/1/PhHNHQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="272232909"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by fmviesa010.fm.intel.com with ESMTP; 22 Sep 2026 01:15:21 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com,
- Xiao Lu <xiaolu.xie@intel.com>
-Subject: [PATCH] drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use
- actual video bandwidth
-Date: Tue, 22 Sep 2026 16:12:58 +0800
-Message-ID: <20260922081258.1995510-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA0CF10E668;
+ Tue, 22 Sep 2026 08:23:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5C7331F769;
+ Tue, 22 Sep 2026 08:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790065425; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W3ND6DVrzWx/s1g+qbrdwBJ3l+UBU2v/2dJ3/tEVJYM=;
+ b=xK5NoVzkOA8RfHUWyIjLPrSa+YoakJWuV+lsrVi80WWlaAGEKZBP+YptjBml7hRDkh4BgI
+ PaTZXADl/5rdHbPPCwY7EglFpdqztmNFYjlTgzRuZiG9Ktn/okU2gQza0YONEmUoW8w6zD
+ cKMdQw+FqwuviOJ8/Hn483QUxjl0VnY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790065425;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W3ND6DVrzWx/s1g+qbrdwBJ3l+UBU2v/2dJ3/tEVJYM=;
+ b=QA1GXq2pXotS9o/4FmsK1dWzuRVtv8ftma8DkiKMp0SCoqkyYNlQsmML/wMtgrMB412Jgk
+ DK4rHtIC9HMELGCA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QFNfSnfv;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=53hBZT3V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790065421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W3ND6DVrzWx/s1g+qbrdwBJ3l+UBU2v/2dJ3/tEVJYM=;
+ b=QFNfSnfvjZ2RtJUUQpA58DazcdY6xKEyeVNxyraXBRMoQSTCu1Q+i7fax7Uf3sKoywACjt
+ 39htyB3wvs+P4oWbAf0yggq8OVKmC/KHfVUlO6MIavfmzW9Va8ZO3Nf4U/Cjt1iT7ck/WW
+ OSZQyVdjN4RlNrVIkVF9w4VeM3v0Ihg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790065421;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W3ND6DVrzWx/s1g+qbrdwBJ3l+UBU2v/2dJ3/tEVJYM=;
+ b=53hBZT3Vx5mtfi21vt6KRoLckPXA9pqu7RJhKj/AFMIZPy1aWik97uB/RC45cM9jt4Ihdh
+ BrbaPAubMjg+kBAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CAE81132D3;
+ Tue, 22 Sep 2026 08:23:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id GFg9HAw7smrFGwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 22 Sep 2026 08:23:40 +0000
+Message-ID: <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
+Date: Tue, 22 Sep 2026 10:23:40 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>,
+ David Herrmann <dh.herrmann@gmail.com>,
+ Marta Lofstedt <marta.lofstedt@intel.com>,
+ Mario Limonciello <superm1@kernel.org>
+References: <20260908044035.62093-1-mario.limonciello@amd.com>
+ <20260908044035.62093-3-mario.limonciello@amd.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908044035.62093-3-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 5C7331F769
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_TO(0.00)[amd.com,lists.freedesktop.org,ffwll.ch,linux.intel.com,kernel.org,gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[16];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,lists.freedesktop.org,kernel.org,intel.com];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url, intel.com:email, suse.de:dkim,
+ suse.de:mid]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,120 +163,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When computing the number of time slots for an MST stream,
-intel_dp_mtp_tu_compute_config() was passing the TU-aligned PBN value
-to drm_dp_atomic_find_time_slots() instead of the actual video
-bandwidth PBN.
+Hi Mario
 
-The aligned PBN is computed by rounding up the raw video bandwidth to
-the nearest TU boundary and aligning to the hardware TU granularity
-(4 / lane_count). This inflated PBN is then used as the requested PBN
-in the ALLOCATE_PAYLOAD sideband message, causing the MST core's
-bandwidth check in drm_dp_mst_atomic_check_port_bw_limit() to
-incorrectly reject configurations that should fit within the available
-link bandwidth.
+Am 08.09.26 um 06:40 schrieb Mario Limonciello:
+> So far backlights have only been controlled via sysfs. However, sysfs is
+> not a proper user-space API for runtime modifications, and never was
+> intended to provide such. The DRM drivers are now prepared to provide
+> such a backlight link so user-space can control backlight via DRM
+> connector properties. This allows us to employ the same access-management
+> we use for mode-setting.
+>
+> This patch adds a few kernel-internal backlight helpers so we can modify
+> backlights from within DRM, a brightness-changed notification, and a
+> per-device takeover count so that legacy sysfs writes can be inhibited
+> (-EBUSY) while a luminance-aware DRM client is in control.
+>
+> Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
+>
+> V2: Marta Lofstedt <marta.lofstedt@intel.com>
+> - rebase
+> - minor edit for checkpatch warning
+>
+> Signed-off-by: Marta Lofstedt <marta.lofstedt@intel.com>
+>
+> V3: Mario Limonciello (AMD) <superm1@kernel.org>
+>   - rebase
+>   - Use guard(mutex)
+>
+> V4: Mario Limonciello (AMD) <superm1@kernel.org>
+>   - Adjust return type for backlight_set_brightness() to return errors
+>   - Stop clamping in backlight_set_brightness()
+>   - Drop backlight_device_lookup()
+>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>   drivers/video/backlight/backlight.c | 66 +++++++++++++++++++++++++++++
+>   include/linux/backlight.h           | 45 ++++++++++++++++++++
+>   2 files changed, 111 insertions(+)
+>
+> diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
+> index 4401f6294ccc8..1c700c1e77c3f 100644
+> --- a/drivers/video/backlight/backlight.c
+> +++ b/drivers/video/backlight/backlight.c
+> @@ -126,6 +126,9 @@ static void backlight_generate_event(struct backlight_device *bd,
+>   	case BACKLIGHT_UPDATE_HOTKEY:
+>   		envp[0] = "SOURCE=hotkey";
+>   		break;
+> +	case BACKLIGHT_UPDATE_DRM:
+> +		envp[0] = "SOURCE=drm";
+> +		break;
+>   	default:
+>   		envp[0] = "SOURCE=unknown";
+>   		break;
+> @@ -150,6 +153,13 @@ static ssize_t bl_power_store(struct device *dev, struct device_attribute *attr,
+>   	struct backlight_device *bd = to_backlight_device(dev);
+>   	unsigned long power, old_power;
+>   
+> +	/* A luminance-aware DRM client has taken over this backlight; the
+> +	 * legacy sysfs interface is disabled until the last such client
+> +	 * goes away.
+> +	 */
+> +	if (atomic_read(&bd->drm_takeover) > 0)
+> +		return -EBUSY;
+> +
+>   	rc = kstrtoul(buf, 0, &power);
+>   	if (rc)
+>   		return rc;
+> @@ -214,6 +224,13 @@ static ssize_t brightness_store(struct device *dev,
+>   	struct backlight_device *bd = to_backlight_device(dev);
+>   	unsigned long brightness;
+>   
+> +	/* A luminance-aware DRM client has taken over this backlight; the
+> +	 * legacy sysfs interface is disabled until the last such client
+> +	 * goes away.
+> +	 */
+> +	if (atomic_read(&bd->drm_takeover) > 0)
+> +		return -EBUSY;
 
-Per DP v2.1b Section 2.6.4.1, the PBN in an ALLOCATE_PAYLOAD request
-represents the video stream bandwidth and is independent of the source
-TX link rate. The same video stream should result in the same PBN value
-regardless of the link rate used on the source side. Passing the
-TU-aligned PBN violates this requirement, as it incorporates link-rate-
-specific TU granularity into the payload bandwidth value.
+Can you really do that?  AFAIU sysfs is now a de-facto uapi for backlights.
 
-This was observed in a 3-display MST daisy-chain topology (PS8650 MST
-hub → ViewSonic VP2468 × 2 → Lenovo Pro 27UD-10) where switching
-Lenovo to 4K@60Hz failed with -ENOSPC despite the actual video
-bandwidth fitting within the DFP link capacity. The inflated PBN of
-the VP2468 streams (537 instead of the correct 532 for 1920x1080@60Hz)
-consumed excess slots, leaving insufficient room for the 4K@60Hz stream.
 
-Fix this by separating raw_pbn (the actual video bandwidth used for
-payload allocation and ALLOCATE_PAYLOAD) from the aligned pbn (used
-only for TU hardware programming). Pass raw_pbn to
-drm_dp_atomic_find_time_slots() so that bandwidth accounting in the
-MST core reflects the true stream requirements.
+> +
+>   	rc = kstrtoul(buf, 0, &brightness);
+>   	if (rc)
+>   		return rc;
+> @@ -514,6 +531,41 @@ static int devm_backlight_device_match(struct device *dev, void *res,
+>   	return *r == data;
+>   }
+>   
+> +/**
+> + * backlight_set_brightness - set brightness on a backlight device
+> + * @bd: backlight device to operate on
+> + * @value: brightness value to set on the device
+> + * @reason: backlight-change reason to use for notifications
+> + *
+> + * This is the in-kernel API equivalent of writing into the 'brightness' sysfs
+> + * file. It calls into the underlying backlight driver to change the brightness
+> + * value.
+> + * A uevent notification is sent with the reason set to @reason.
+> + * Return: 0 if successfully notified, -EINVAL for invalid values, -ENXIO if the
+> + * device has no ops (e.g. it is being unregistered)
+> + */
+> +int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
+> +			      enum backlight_update_reason reason)
+> +{
+> +	int rc = -ENXIO;
+> +
+> +	scoped_guard(mutex, &bd->ops_lock) {
+> +		if (bd->ops) {
+> +			if (value > bd->props.max_brightness)
+> +				return -EINVAL;
+> +
+> +			dev_dbg(&bd->dev, "set brightness to %u\n", value);
+> +			bd->props.brightness = value;
+> +			rc = backlight_update_status(bd);
+> +		}
+> +	}
+> +	if (rc == 0)
+> +		backlight_generate_event(bd, reason);
+> +
+> +	return rc;
+> +}
+> +EXPORT_SYMBOL_GPL(backlight_set_brightness);
+> +
+>   /**
+>    * backlight_register_notifier - get notified of backlight (un)registration
+>    * @nb: notifier block with the notifier to call on backlight (un)registration
+> @@ -548,6 +600,20 @@ int backlight_unregister_notifier(struct notifier_block *nb)
+>   }
+>   EXPORT_SYMBOL(backlight_unregister_notifier);
+>   
+> +/**
+> + * backlight_notify_brightness - notify brightness change to listeners
+> + * @bd: backlight device that changed
+> + *
+> + * Notify registered listeners that the backlight brightness has changed.
+> + * This is called automatically after successful brightness updates.
+> + */
+> +void backlight_notify_brightness(struct backlight_device *bd)
+> +{
+> +	blocking_notifier_call_chain(&backlight_notifier,
+> +				     BACKLIGHT_BRIGHTNESS_CHANGED, bd);
+> +}
+> +EXPORT_SYMBOL(backlight_notify_brightness);
 
-Depends-on: <20260908132844.2309047-1-xiaolu.xie@intel.com>
-  ("drm/dp/mst: track allocated_pbn from ALLOCATE_PAYLOAD reply")
+With the sysfs interfaces disabled, who is going to trigger this code 
+except DRM?
 
-The companion patch above tracks the allocated_pbn returned in the
-ALLOCATE_PAYLOAD reply from the branch device. Together with this fix,
-the correct raw_pbn is used as the requested PBN in the
-ALLOCATE_PAYLOAD request, and the allocated_pbn from the reply is used
-for bandwidth limit checks. This pairing ensures that both the request
-and the check accurately reflect the actual video stream bandwidth
-and any per-hop capacity constraints along the MST path.
+AFAICT when the DRM connector updates the backlight status, backlight 
+runs this notifier only to call back into DRM to read back the value. 
+But the luminance property should already store that same value.
 
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 33 +++++++++++++++------
- 1 file changed, 24 insertions(+), 9 deletions(-)
+Best regards
+Thomas
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 0c362784a..31e846aad 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -350,6 +350,7 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 		if (is_mst) {
- 			int remote_bw_overhead;
- 			int remote_tu;
-+			int raw_pbn;
- 			fixed20_12 pbn;
- 
- 			remote_bw_overhead = intel_dp_mst_bw_overhead(crtc_state,
-@@ -369,9 +370,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 			 * crtc_state->dp_m_n.tu), provided that the driver doesn't
- 			 * enable SSC on the corresponding link.
- 			 */
--			pbn.full = dfixed_const(intel_dp_mst_calc_pbn(adjusted_mode->crtc_clock,
--								      link_bpp_x16,
--								      remote_bw_overhead));
-+			raw_pbn = intel_dp_mst_calc_pbn(adjusted_mode->crtc_clock,
-+							 link_bpp_x16,
-+							 remote_bw_overhead);
-+			pbn.full = dfixed_const(raw_pbn);
- 			remote_tu = DIV_ROUND_UP(pbn.full, mst_state->pbn_div.full);
- 
- 			/*
-@@ -384,11 +386,10 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 			remote_tu = ALIGN(remote_tu, 4 / crtc_state->lane_count);
- 
- 			/*
--			 * Also align PBNs accordingly, since MST core will derive its
--			 * own copy of TU from the PBN in drm_dp_atomic_find_time_slots().
--			 * The above comment about the difference between the PBN
--			 * allocated for the whole path and the TUs allocated for the
--			 * first branch device's link also applies here.
-+			 * Keep the PBN corresponding to the aligned hardware TU separate
-+			 * from raw_pbn. The aligned value describes the TU granularity of
-+			 * the first downstream branch link; raw_pbn is the video bandwidth
-+			 * value passed to the MST payload allocator and ALLOCATE_PAYLOAD.
- 			 */
- 			pbn.full = remote_tu * mst_state->pbn_div.full;
- 
-@@ -397,7 +398,21 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 
- 			slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst.mgr,
- 							      connector->mst.port,
--							      dfixed_trunc(pbn));
-+							      raw_pbn);
-+
-+			drm_dbg_kms(display->drm,
-+				    "MST TU %s pipe %c: clock=%d lanes=%d bpp=%d link_bpp=%d fec=%d\n",
-+				    connector->base.name,
-+				    pipe_name(to_intel_crtc(crtc_state->uapi.crtc)->pipe),
-+				    crtc_state->port_clock, crtc_state->lane_count,
-+				    fxp_q4_to_int(bpp_x16), fxp_q4_to_int(link_bpp_x16),
-+				    crtc_state->fec_enable);
-+			drm_dbg_kms(display->drm,
-+				    "MST TU %s: overhead=%d raw_pbn=%d pbn=%d pbn_div=%d tu=%d slots=%d full_pbn=%d\n",
-+				    connector->base.name,
-+				    remote_bw_overhead, raw_pbn,
-+				    dfixed_trunc(pbn), dfixed_trunc(mst_state->pbn_div),
-+				    remote_tu, slots, connector->mst.port->full_pbn);
- 
- 			/* TODO: Check this already in drm_dp_atomic_find_time_slots(). */
- 			if (slots > mst_state->total_avail_slots)
+> +
+>   /**
+>    * devm_backlight_device_register - register a new backlight device
+>    * @dev: the device to register
+> diff --git a/include/linux/backlight.h b/include/linux/backlight.h
+> index 015183d129f96..fac1acbc698a1 100644
+> --- a/include/linux/backlight.h
+> +++ b/include/linux/backlight.h
+> @@ -31,6 +31,12 @@ enum backlight_update_reason {
+>   	 * @BACKLIGHT_UPDATE_SYSFS: The backlight was updated using sysfs.
+>   	 */
+>   	BACKLIGHT_UPDATE_SYSFS,
+> +
+> +	/**
+> +	 * @BACKLIGHT_UPDATE_DRM: The backlight was updated from DRM, i.e. through
+> +	 * a connector LUMINANCE property rather than the legacy sysfs interface.
+> +	 */
+> +	BACKLIGHT_UPDATE_DRM,
+>   };
+>   
+>   /**
+> @@ -82,6 +88,11 @@ enum backlight_notification {
+>   	 * @BACKLIGHT_UNREGISTERED: The backlight revice is unregistered.
+>   	 */
+>   	BACKLIGHT_UNREGISTERED,
+> +
+> +	/**
+> +	 * @BACKLIGHT_BRIGHTNESS_CHANGED: The backlight brightness has changed.
+> +	 */
+> +	BACKLIGHT_BRIGHTNESS_CHANGED,
+>   };
+>   
+>   /** enum backlight_scale - the type of scale used for brightness values
+> @@ -310,8 +321,23 @@ struct backlight_device {
+>   	 * @use_count: The number of unblanked displays.
+>   	 */
+>   	int use_count;
+> +
+> +	/**
+> +	 * @drm_takeover: Number of luminance-aware DRM clients that have
+> +	 * taken over brightness control of this device. When non-zero,
+> +	 * writes to the legacy sysfs ``brightness`` attribute return
+> +	 * ``-EBUSY``. Managed by the DRM backlight helpers.
+> +	 */
+> +	atomic_t drm_takeover;
+>   };
+>   
+> +/* Forward declaration for backlight_update_status */
+> +#if IS_REACHABLE(CONFIG_BACKLIGHT_CLASS_DEVICE)
+> +void backlight_notify_brightness(struct backlight_device *bd);
+> +#else
+> +static inline void backlight_notify_brightness(struct backlight_device *bd) {}
+> +#endif
+> +
+>   /**
+>    * backlight_update_status - force an update of the backlight device status
+>    * @bd: the backlight device
+> @@ -325,6 +351,10 @@ static inline int backlight_update_status(struct backlight_device *bd)
+>   		ret = bd->ops->update_status(bd);
+>   	mutex_unlock(&bd->update_lock);
+>   
+> +	/* Notify DRM and other listeners that brightness changed */
+> +	if (ret == 0)
+> +		backlight_notify_brightness(bd);
+> +
+>   	return ret;
+>   }
+>   
+> @@ -431,6 +461,21 @@ static inline void backlight_notify_blank_all(struct device *display_dev,
+>   { }
+>   #endif
+>   
+> +int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
+> +			      enum backlight_update_reason reason);
+> +
+> +static inline void backlight_device_ref(struct backlight_device *bd)
+> +{
+> +	if (bd)
+> +		get_device(&bd->dev);
+> +}
+> +
+> +static inline void backlight_device_unref(struct backlight_device *bd)
+> +{
+> +	if (bd)
+> +		put_device(&bd->dev);
+> +}
+> +
+>   #define to_backlight_device(obj) container_of(obj, struct backlight_device, dev)
+>   
+>   /**
+
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
