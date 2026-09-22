@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8496FC982FA
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 17:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAB74C98302
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 17:27:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDA310EDF0;
-	Tue, 22 Sep 2026 17:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6758810EDF8;
+	Tue, 22 Sep 2026 17:27:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iJ+COoeH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XftxNA+L";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D45A210EDE6;
- Tue, 22 Sep 2026 17:25:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71BE110EDF8;
+ Tue, 22 Sep 2026 17:27:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8EC95417E1;
- Tue, 22 Sep 2026 17:25:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE771F000FF;
- Tue, 22 Sep 2026 17:25:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2C6EE417B5;
+ Tue, 22 Sep 2026 17:27:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD9401F00893;
+ Tue, 22 Sep 2026 17:27:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790097956;
- bh=GH5NHM9SMF3Y3qqzIYDs7t0XJRudoDanszTIA7TBNl8=;
+ s=k20260515; t=1790098033;
+ bh=JfrULAjAYTN79xyC19YGhCr1rxdcFCCfrSjIGCo/tkw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iJ+COoeHnUsfulxKqmrHOgHPmfFsPFDR1BHEd7DN5EkuDT+uLwT+DVh6nKnhhx0kd
- 6jOF39OHwCoQKodyfnRa9zMMqnPruPv0F5Y4uRUrN3i+bQ9O82bTIwnkGhf350SmMH
- fsgZAIwzEREmJcXInwshoN3qyHED7DKELRu6bhNyO3e4WXLGerFLhQjDY2VwWNbOPs
- 5xPMvggl9ITtHem2X3h4BEL3c41zYL7BElmVh0TwPXZSbMUSIQdUP9iD5gdynrNlcl
- XZmQaxOGRU7L/ratpMDHur9SA9WJNWu1+3H6a5o8mZyCiwZeiKCL5nCsJ0trfBvRm5
- y6D9shH+H31Vw==
+ b=XftxNA+LTBLkWQxw1kEjRiShug4MURxMfQ4eZynKtivgcS37l35AheQ4qlLtnb0w9
+ 6hXfjqPJM2AruNtPphAPfwWfwVKntrDqAMQJ9Fa9uBPUq3v9tKJBdRRgDzmqPDpciO
+ VnaJLkLZvXo1/kFVexlruPNm8ETnkBRJ/HMAB/03cXE6BMioul0DHbT9urywfCAX4c
+ RUH4GyHmAaWqqqpjsQEWR2Fp24aRF6V3JPKt1FBYWu99DfTYkFuG1tiPy/p1lCwQ6M
+ DRRc8JEt/xtB3bnXX0ioL0VJJx5Xx4eqJiLBkeeOFzviEssH1jUkd6cWRdop1cGc9P
+ GV3Oqi6Jj+6jQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/9] mm: convert PTE table entries in ptep_get()
+Subject: Re: [PATCH v3 3/9] mm: use hw_pte_t for generic PTE table storage
 To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
-Cc: linux-perf-users@vger.kernel.org, dri-devel@lists.freedesktop.org,
- damon@lists.linux.dev, bpf@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-trace-kernel@vger.kernel.org
-In-Reply-To: <20260922-pte0-v3-4-5670b8cb9059@arm.com>
+Cc: linux-perf-users@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-trace-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ damon@lists.linux.dev, bpf@vger.kernel.org
+In-Reply-To: <20260922-pte0-v3-3-5670b8cb9059@arm.com>
 References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-4-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-3-5670b8cb9059@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 17:25:55 +0000
-Message-Id: <20260922172556.1BE771F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 17:27:12 +0000
+Message-Id: <20260922172712.AD9401F00893@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,62 +59,35 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] mm: build failure in ptep_get_lockless() with ARCH_HAS_HW_PTE_T
---
+> Generic page-table interfaces use pte_t * for both pointers to PTE table
+> storage and pointers to software PTE values. Convert the generic
+> declarations and their MM, fs, and kernel users together so parameters,
+> return types, callbacks, and local pointers that designate table storage
+> use hw_pte_t *.
+>=20
+> Include linux/pgtable_types.h from headers that expose the converted
+> interfaces. It continues to provide pgprot_t to vmalloc.h through
+> asm/page.h.
+>=20
+> Keep software PTE values as pte_t and retain pte_t * for value interfaces.
+>=20
+> No architecture selects ARCH_HAS_HW_PTE_T at this point, so hw_pte_t
+> remains an alias of pte_t and this changes the interface vocabulary witho=
+ut
+> changing representation or behavior.
+>=20
+> Most of this mechanical conversion was generated with the Coccinelle scri=
+pt
+> included in the cover letter. The script deliberately ignores pte_t *
+> pointers named ptentp because they designate software PTE values. The
+> result was then audited, and sites the script could not convert were
+> updated by hand.
+>=20
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
-commit 5a58c0b37be320a1ff8bd51ae9ca94d50bf27375
-Author: Muhammad Usama Anjum <usama.anjum@arm.com>
-
-mm: convert PTE table entries in ptep_get()
-   =20
-ptep_get() now accepts a pointer to hw_pte_t storage but must continue to
-return a software PTE value. Add __pte_from_hw for both generic hw_pte_t
-definitions. Read the hw_pte_t table element atomically before converting
-it to pte_t.
-
-[ ... ]
-
-> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> index 07da05d375c2c..d6c5a7548550b 100644
-> --- a/include/linux/pgtable_types.h
-> +++ b/include/linux/pgtable_types.h
-> @@ -8,8 +8,10 @@
-> =20
->  #ifdef CONFIG_ARCH_HAS_HW_PTE_T
->  typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
-> +#define __pte_from_hw(pte)	((pte).__pte)
-
-[Severity: Low]
-Does this wrapper struct cause a build failure in ptep_get_lockless()
-when architectures using CONFIG_GUP_GET_PXX_LOW_HIGH (like x86-32 PAE)=20
-opt into ARCH_HAS_HW_PTE_T?
-
-When hw_pte_t is a wrapper struct instead of a typedef, the direct member=20
-access fails to compile:
-
-include/linux/pgtable.h:ptep_get_lockless() {
-    ...
-	do {
-		pte.pte_low =3D ptep->pte_low;
-		smp_rmb();
-		pte.pte_high =3D ptep->pte_high;
-		smp_rmb();
-	} while (unlikely(pte.pte_low !=3D ptep->pte_low));
-    ...
-}
-
-Since ptep is a pointer to the wrapper struct, it lacks the pte_low and
-pte_high members.
-
->  #else
->  #define hw_pte_t pte_t
-> +#define __pte_from_hw(pte)	(pte)
->  #endif
-> =20
->  #endif /* !__ASSEMBLY__ */
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-pte0-v3-0-=
-5670b8cb9059@arm.com?part=3D4
+5670b8cb9059@arm.com?part=3D3
+
