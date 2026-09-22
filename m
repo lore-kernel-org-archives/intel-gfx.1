@@ -4,99 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD339C98306
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 744C8C98302
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20EF610EC9B;
-	Tue, 22 Sep 2026 12:25:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78E8410E6E0;
+	Tue, 22 Sep 2026 12:26:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="g1EMx2NH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oOP4PATQ";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97BDF10E1BE
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 12:25:07 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49b912e4b11so22502555e9.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 05:25:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1790079906; x=1790684706; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Z0UH5f4Xwx0eHqEEdAgzMEXfye5CzpFBUkt22qJELao=;
- b=g1EMx2NHfVWs8pDd4hQYQo3szxAMrQbN1rEc7DKVei04dq9WOPnxdjerKAJGOucTS0
- EY/yxaA5qX6eqfEs0AA3lMxK6Er8l8uZg/tCG4tsUDjwiUjHlLUF2dZ/Pq8Au3MTOuDZ
- 1iKOGviAJfw5cKWurnk6YWQbtjT7KUYkrmftRqudgGAcpXOq2L2+Z8f/rJh+UZgdz/LX
- SWCmv5krwSo6ZLteVSscBULRHV1Zj0SJit2Z+lHgxcgELVaArhCm0i+pLdvRiA3ei9hX
- RICn8oPekC+or/cLa9ZyjCrh5bG6nFMspfkVil2B4JgujqXF7+EaxRsJDDV5pWH7yjBq
- SQJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790079906; x=1790684706;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Z0UH5f4Xwx0eHqEEdAgzMEXfye5CzpFBUkt22qJELao=;
- b=ZPxaKO1l1KryVDq9yCYOQ1brbFUTj1m5tFM2hBwlN8cpS4fiqe4UdDPzNy9EO5sYLp
- WErHsCX8FAIReUxUSfEyAS3ztUDNWALy66ZAActGlvfBejjRftn+ZlAPKbvbTtGjR0ge
- QZPZWEEaMi2rAKyymumIcvfSpijnSRTbMBc7PE7M1tW3YNHgJKCaNp4DiMuTGDUS6Put
- rz5vw7ULOZYhXgeJmQC1ENyxg3CSewVAsJEsFLU5Zki4izvNxr6+0t+MJnLxl8hvlYtv
- LFBPotsLhpy8NsxQ6L4yPX4rSqZ6/AQfiTFEbR7rVenxqvlubuD2ILHxNP8RpMXAMeT4
- BPKg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByXbGC9Kz37H1HcdqGK28dIQINBfH1FlQF1qBq4OmRVS87SRutzdy9AIeTtwTYIrg/9tCnAoWvh13U=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lmxbhcHAmGevTtfQy8GPDZXNy4fZ2XOzxmRKY6041j26daT7OP
- olbQ+f12tKyD2q9zX34llToeF4NcyDEP30BMzQz2wHfibSq3QaNMn96QkSQrMfYEcHU=
-X-Gm-Gg: AYBFou17tee+OqPLBhUrEIcoyNF/pR/gMOk+IEcPZGCl9nAUP3Ig0kJJU3ogebg+m5G
- qKEf0a9cQKdPGO94C5gv+iN3bCYfd0HrAuN5UQxCuXqoVKQHFo2aIXaE2QzLLWU5jjR/Qk1JPm4
- xPXlLVfNYK4NZYKzQ3vPagp27gYKPkSNDXhwB5A1D8fyZ+tRjtcMLRsfRGKMjeC6+dBCWbFRiRf
- wo5l8U2z4bFRFKjbr/UPrHWFq8f2VvzcenBD1vA6EXGrE5WlLImImVAgWeDMAkeLCDU1zdzzMFJ
- EHMGqLQ4dWj5jAkB/YAYi1O2b/U41HqmC364fWm2glJR3iHr/9WzOy74jME8/zZvL2cVAZBUON9
- 28vzLkGui/Sqjvnr3ik1+LNB4TXJx+3vOx3cAW3ppKyS11+7efupAYHXvJg9yK0Tw2vUSY+Yq5U
- 2louBOud5/JXmReVExf3YVSkKpSb4OdjJ+JPnGPev0GYu+K0mIuRR7bab441gFRJfzV4ysnh+S+
- 2M2z6pjzgL3j2QW+31ZiLInnuJpkXzmqtvX6DrnnpQoQPUiOwi7b1vbBfQJcrs7KVQBdruxubEa
- 4adKuD2GOJ/rONmFi8ukNJ9EplyG/q3i+yxeqxK8
-X-Received: by 2002:a05:600c:1f95:b0:49e:7862:c09e with SMTP id
- 5b1f17b1804b1-49fc57238b8mr181860835e9.14.1790079905892; 
- Tue, 22 Sep 2026 05:25:05 -0700 (PDT)
-Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
- (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
- [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fdad40b4dsm48644925e9.10.2026.09.22.05.25.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Sep 2026 05:25:05 -0700 (PDT)
-Message-ID: <d7bdb421-4c65-4133-95fa-ecf3ea2b7374@suse.com>
-Date: Tue, 22 Sep 2026 14:25:04 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08C3910EC9E;
+ Tue, 22 Sep 2026 12:26:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A63960E01;
+ Tue, 22 Sep 2026 12:26:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5FF1F00893;
+ Tue, 22 Sep 2026 12:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790079989;
+ bh=w4aB76axzrssB4npu/BeQaYm/BiVjUcaP5/wHU05wIU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=oOP4PATQtOWLwfCRcNrV+ErBdPhCe0qOiUsaZ74yWQ5QyQirZR3g1WaQVlOsVKub3
+ 87fdI3cbBIr5jTuTOgNgYI6PU15TyWiZxB6fS67QJQxIQzP88UAoZKb34cVxlFt2sh
+ rynm1VjwmLyJXKSjzxQQuQiiYHJ18DPjYJFAeWZYklsh9879Vp+LUE2a8Fi5mhCh9I
+ 3yFkTGLvdtRs8havX9NUbr3sq78a3GQKfq+Xlhd+jv9Eh4PPg1FR/gptquI4Y6bZUj
+ EEOSIhRudxNGZ3zwZfOzyaIquxdkYsAyjyzwj+UDCmQIsBQBAzAtaJOv81YalH9V2C
+ SF6e0tiUjLXVQ==
+Date: Tue, 22 Sep 2026 14:26:26 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, 
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, 
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>, 
+ David Herrmann <dh.herrmann@gmail.com>,
+ Marta Lofstedt <marta.lofstedt@intel.com>, 
+ Mario Limonciello <superm1@kernel.org>
+Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
+Message-ID: <arJzqMwgppZBSUNY@houat>
+References: <20260908044035.62093-1-mario.limonciello@amd.com>
+ <20260908044035.62093-3-mario.limonciello@amd.com>
+ <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
+ <CAFOAJEdFPrwHZV5y1E_u_Wd6oE_viPsPztxYW6PRZHJ-zdPFMQ@mail.gmail.com>
+ <ff86caeb-4388-4660-b3c0-ddc42bc274e3@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] Remove the error-injection.h include from
- linux/module.h
-To: Jens Axboe <axboe@kernel.dk>, Jakub Kicinski <kuba@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Simon Horman <horms@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Francois Dugast
- <francois.dugast@intel.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, linux-block@vger.kernel.org,
- netdev@vger.kernel.org, linux-api@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="bdt3dgaj2va4yx7w"
+Content-Disposition: inline
+In-Reply-To: <ff86caeb-4388-4660-b3c0-ddc42bc274e3@amd.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,29 +74,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 9/11/26 5:04 PM, Petr Pavlu wrote:
-> linux/module.h appears in roughly 15k #include directives across the
-> kernel. This makes it a "hot" header, so it should avoid pulling in
-> unnecessary definitions.
-> 
-> The header currently includes linux/error-injection.h to obtain the
-> definition of `struct error_injection_entry`. However, this is unnecessary
-> because the type is only referenced in the file as a pointer, for which an
-> incomplete type is sufficient.
-> 
-> Add explicit includes of linux/error-injection.h to files that use the
-> ALLOW_ERROR_INJECTION() macro and currently rely on it being provided
-> indirectly via linux/module.h. Then remove the linux/error-injection.h
-> include from linux/module.h.
-> 
-> The first five patches can go through their respective trees if preferred.
-> The final patch depends on the preceding cleanups.
 
-Thanks for the Reviewed-by and Acked-by tags so far. They cover the
-majority of the changes, so I plan to pick up this series on
-modules-next at the end of the week. Acked-by tags from the relevant
-maintainers on the remaining patches are still appreciated.
+--bdt3dgaj2va4yx7w
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
+MIME-Version: 1.0
 
--- 
-Thanks,
-Petr
+On Tue, Sep 22, 2026 at 06:34:51AM -0500, Mario Limonciello wrote:
+>=20
+>=20
+> On 9/22/26 03:49, Javier Martinez Canillas wrote:
+> > On Tue, Sep 22, 2026 at 10:24=E2=80=AFAM Thomas Zimmermann <tzimmermann=
+@suse.de> wrote:
+> > >=20
+> > > Hi Mario
+> > >=20
+> > > Am 08.09.26 um 06:40 schrieb Mario Limonciello:
+> > > > So far backlights have only been controlled via sysfs. However, sys=
+fs is
+> > > > not a proper user-space API for runtime modifications, and never was
+> > > > intended to provide such. The DRM drivers are now prepared to provi=
+de
+> > > > such a backlight link so user-space can control backlight via DRM
+> > > > connector properties. This allows us to employ the same access-mana=
+gement
+> > > > we use for mode-setting.
+> > > >=20
+> > > > This patch adds a few kernel-internal backlight helpers so we can m=
+odify
+> > > > backlights from within DRM, a brightness-changed notification, and a
+> > > > per-device takeover count so that legacy sysfs writes can be inhibi=
+ted
+> > > > (-EBUSY) while a luminance-aware DRM client is in control.
+> > > >=20
+> > > > Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
+> > > >=20
+> >=20
+> > [...]
+> >=20
+> > > > @@ -150,6 +153,13 @@ static ssize_t bl_power_store(struct device *d=
+ev, struct device_attribute *attr,
+> > > >        struct backlight_device *bd =3D to_backlight_device(dev);
+> > > >        unsigned long power, old_power;
+> > > >=20
+> > > > +     /* A luminance-aware DRM client has taken over this backlight=
+; the
+> > > > +      * legacy sysfs interface is disabled until the last such cli=
+ent
+> > > > +      * goes away.
+> > > > +      */
+> > > > +     if (atomic_read(&bd->drm_takeover) > 0)
+> > > > +             return -EBUSY;
+> > > > +
+> > > >        rc =3D kstrtoul(buf, 0, &power);
+> > > >        if (rc)
+> > > >                return rc;
+> > > > @@ -214,6 +224,13 @@ static ssize_t brightness_store(struct device =
+*dev,
+> > > >        struct backlight_device *bd =3D to_backlight_device(dev);
+> > > >        unsigned long brightness;
+> > > >=20
+> > > > +     /* A luminance-aware DRM client has taken over this backlight=
+; the
+> > > > +      * legacy sysfs interface is disabled until the last such cli=
+ent
+> > > > +      * goes away.
+> > > > +      */
+> > > > +     if (atomic_read(&bd->drm_takeover) > 0)
+> > > > +             return -EBUSY;
+> > >=20
+> > > Can you really do that?  AFAIU sysfs is now a de-facto uapi for backl=
+ights.
+> >=20
+> > And regardless if this can be done or not, I belive that would be
+> > better if this is something that drivers decide to do and just return
+> > -EBUSY from their struct backlight_ops..update_status.
+> >=20
+> > Ideally the sysfs interface should continue to be work as Thomas said
+> > and a write could trigger a mode set for example, but I don't know if
+> > that is feasible to do due locking.
+> >=20
+>=20
+> Well the problem ends up being that something can change brightness behind
+> the compositor's back if you leave sysfs available.
+>=20
+> The whole design here is to put the compositor in control.  For example if
+> compositor wants to enforce brightness to be a certain value when certain
+> content is being displayed.
+
+I don't see how you can solve this. The sysfs interface already shows
+this behaviour, so it's not a regression or anything. That being said,
+one way to mitigate this would be to consider the sysfs backlight
+interface as legacy and disable it by default.
+
+Maxime
+
+--bdt3dgaj2va4yx7w
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarJz8QAKCRAnX84Zoj2+
+dkofAX4jmz48Pf2VeV3XBte3Y5RIW41vw7fQ5QCOGbuxcy7REtrl9RTPaghzVMPI
+/hzLeKsBfjjWyB3buiex+nTYyGhTk3eQPnlKaHo96IMb38tNqHa0QE65EB0dH+g7
+3l2ltyf1uA==
+=i0A9
+-----END PGP SIGNATURE-----
+
+--bdt3dgaj2va4yx7w--
