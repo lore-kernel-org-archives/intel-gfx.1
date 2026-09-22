@@ -4,78 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0207C9830C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2389C98311
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:17:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2EF210F0AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C112310F0AF;
 	Wed, 23 Sep 2026 14:17:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TroCqQXZ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Q1VpCxlu";
 	dkim-atps=neutral
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
- [74.125.227.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F89410EF1B
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 07:04:05 +0000 (UTC)
-Received: by mail-pj2-f13.google.com with SMTP id
- d9443c01a7336-2d747ed6d6eso3520555ad.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 00:04:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790147045; x=1790751845; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=28LBVb7sQliLk2qYNv8ldKxvaKLQWjPAUNF+mEIsBHI=;
- b=TroCqQXZK5AZOBEKVcllV6RQVZTe+2WGRu+hMUycq+2xtTh4np9vrrvjxr0PLpH/D+
- HQP4CFkHcqA84zVEvcZDzq7LntQJ5iWdh75Dp14vEA8HbV0flCdnnbin2Tn+qZJJ2UGc
- 4ryx0zIie+kV4PgNva/f8QvtcWGA93/ra0a991jkm19X69TUfhTn7z70Juq8wOtTbhj/
- A7ZtMiB25wyrI2OXK1OE+xeIxM7qnzYZXkXVd+jFVb4pAivr9DgDr/PFgD/PG+obAIov
- A+j72Mmx3OYu8AOmrkAfJ+CrUH0gOo2eHoLJU8RVyZye9YXW18LK+ICM1nNIHuYhjC+R
- IUxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790147045; x=1790751845;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=28LBVb7sQliLk2qYNv8ldKxvaKLQWjPAUNF+mEIsBHI=;
- b=H+BD2rmnevjbqqVy6xYwra6oTpI9+UDjf8T49ds2gpN6isrU98/Rl+MXubtGrD+HMw
- +UgoMzZphg4PE2m7TpmUVkrg/yLkKBeREB/ttQE1rhmt/kX3CdIxp0y0JSEWzrLzzeTh
- LtItZGpf8M9oF2LckOuWRZ6VlysOucq04IymJYw4JO4PYemqrogfF00Ji6gJiHmHobrX
- bTaZXyGyKwbEX6NNZXRZK3oFbK4oFr6ZDR1VQivtAPDdANj/Kw/Xs9xCboPIveKVXzTQ
- NBvWxoXMQ9zzeQpUmhXJZMEqVKRiF7tkXRATjmr3uFKiPuh3r6wDF2wNZGgV0sKgtW4u
- LycQ==
-X-Gm-Message-State: AFuF++nBnmQ3gS49cbl7/oaA5cCmF4g4O2lrEpguWmccXt9OlzpMMOFI
- yST28l3CdDKc0FPq61CZ+v2Sc+fZ3EEgLIZfMLUiWb7cblcZ0vD+Y1u2
-X-Gm-Gg: AYBFou3iTa9suMLI0jM6FOzUgSthf5qhv+lQwpCtBFR0WXE8TLXw/58E4Fnq+q7S60F
- PId2AvMRrX7MzjWhmhAHQ82Vj0Ua5lQNcufsFOm0fJFWK3LLcT4kJKHS/dTItZ5xdvcA4OiyXjQ
- TKJXXHhMqKqwccgZrPyMh2Lwhf29+lLoQpIBsijUSmpnn6PjDsKe3B/jMWGXDEyvLxOWWTHJgB5
- 4aHWYo4SbxKAhqUBhhLmMrI7xPxbHBU+aKzxiDP5mDqBrXCt+WiZIlCQ1XrPBDykudXrHrqY+hB
- b0R02KHlOcRGvJMpCIdjYfUePqw57jWGKK9fCXl8R/kJKJLqBwzPdF+fsLZvOZBFyBzdHj5YgJh
- +60cLuGNRc2fwQTsMsYLINsExOX1J+YPIVh3esP4h1rbKsn6kCizsWQUCNOlyGgvv1wPWCNt5BR
- +PyDnfuba2lkl6VAkBgr1UFvCHEDp4VOASOeHKsbV7ZHh3TBMZQD1UjJorzUfFeGROR6YrGFS71
- OG9BNMWyWVQg7QJi+oaCvKuoEnqWHiCc2Few5BeHjgjbq7+VPFOT1YpFGNyEQW8Sj97nUPbQP8P
- l22J0vrMfNH648EkTxQmYHCQs5HPOGPonP7EOs6BfB+Yd+/bsQv+lx3ItEI43A==
-X-Received: by 2002:a17:903:245:b0:2db:63cb:1b17 with SMTP id
- d9443c01a7336-2df69d3515dmr15195935ad.18.1790147044903; 
- Wed, 23 Sep 2026 00:04:04 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2df6a5a4dafsm5959455ad.24.2026.09.23.00.04.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 00:04:04 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915: size shmem writeback budget to the object
-Date: Wed, 23 Sep 2026 15:04:01 +0800
-Message-ID: <179014701977.1658553.16622035964431254845.budget@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915062924.2410550-1-matthias.goergens@gmail.com>
-References: <20260915062924.2410550-1-matthias.goergens@gmail.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3C60C10E4F6;
+ Tue, 22 Sep 2026 17:14:49 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 33B321576;
+ Tue, 22 Sep 2026 10:14:45 -0700 (PDT)
+Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4E50C3F86C;
+ Tue, 22 Sep 2026 10:14:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1790097288; bh=FzOwmvXA/ZsaFfwRIrSgTUueXbfZi9w1ND4q544oILg=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=Q1VpCxluEzmguxI26Ee7wNqjVLyFcXsyK9/dTWuDEaV5LI432tzfpNULGi1fic9rT
+ Bmjsh3ZnFfh+9S7gpmlxZgPGzuuQpx+nqgYUgF5ZWR3Ua8oDKnB0+1kZHIWXY9gb9N
+ 2rdmHfnaacSFRGJxxoea+piZgL6JIpAkwsMHQgwc=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Date: Tue, 22 Sep 2026 18:12:36 +0100
+Subject: [PATCH v3 8/9] drm/i915: use hw_pte_t for PTE range callbacks
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-pte0-v3-8-5670b8cb9059@arm.com>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+In-Reply-To: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev, 
+ kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Wed, 23 Sep 2026 14:17:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,12 +119,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A gentle ping on this fix. CI appears to have stopped because my address
-isn't on the allowlist; could a project owner trigger a retest?
+apply_to_page_range() now passes PTE table storage to its callback as
+hw_pte_t *. Update the i915 remap and selftest callbacks to match the new
+type.
 
-https://patchwork.freedesktop.org/series/174152/
+Continue to use ptep_get() for software PTE values and set_pte_at() for
+updates.
+The type remains an alias of pte_t on x86 until that architecture opts in.
 
-I'd also appreciate review when someone has a chance.
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+---
+Changes since v1:
+- Use software PTE value terminology.
 
-Thanks,
-Matthias
+Changes since RFC v1:
+- Clarify the effect on architectures that have not opted in.
+---
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 4 ++--
+ drivers/gpu/drm/i915/i915_mm.c                     | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index d01acfb7d93d0..056faf4a3618b 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -1690,7 +1690,7 @@ static int igt_mmap_gpu(void *arg)
+ 	return 0;
+ }
+ 
+-static int check_present_pte(pte_t *pte, unsigned long addr, void *data)
++static int check_present_pte(hw_pte_t *pte, unsigned long addr, void *data)
+ {
+ 	pte_t ptent = ptep_get(pte);
+ 
+@@ -1703,7 +1703,7 @@ static int check_present_pte(pte_t *pte, unsigned long addr, void *data)
+ 	return 0;
+ }
+ 
+-static int check_absent_pte(pte_t *pte, unsigned long addr, void *data)
++static int check_absent_pte(hw_pte_t *pte, unsigned long addr, void *data)
+ {
+ 	pte_t ptent = ptep_get(pte);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_mm.c b/drivers/gpu/drm/i915/i915_mm.c
+index fd89e7c7d8d6f..aab88e8edf946 100644
+--- a/drivers/gpu/drm/i915/i915_mm.c
++++ b/drivers/gpu/drm/i915/i915_mm.c
+@@ -48,7 +48,7 @@ static inline unsigned long sgt_pfn(const struct remap_pfn *r)
+ 		return r->sgt.pfn + (r->sgt.curr >> PAGE_SHIFT);
+ }
+ 
+-static int remap_sg(pte_t *pte, unsigned long addr, void *data)
++static int remap_sg(hw_pte_t *pte, unsigned long addr, void *data)
+ {
+ 	struct remap_pfn *r = data;
+ 
+@@ -70,7 +70,7 @@ static int remap_sg(pte_t *pte, unsigned long addr, void *data)
+ #define EXPECTED_FLAGS (VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP)
+ 
+ #if IS_ENABLED(CONFIG_X86)
+-static int remap_pfn(pte_t *pte, unsigned long addr, void *data)
++static int remap_pfn(hw_pte_t *pte, unsigned long addr, void *data)
+ {
+ 	struct remap_pfn *r = data;
+ 
+
+-- 
+2.47.3
+
