@@ -4,74 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB7F5C98307
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 15:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99E54C98302
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 15:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42D7210ED56;
-	Tue, 22 Sep 2026 15:03:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8C910E6FD;
+	Tue, 22 Sep 2026 15:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="opAWvjWI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y2VUOK2S";
 	dkim-atps=neutral
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com
- [74.125.229.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42C0010E453
- for <intel-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 20:22:19 +0000 (UTC)
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b5e4f1744eso2740459e87.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 13:22:19 -0700 (PDT)
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com
+ [74.125.224.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3852110E19E
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 02:55:23 +0000 (UTC)
+Received: by mail-yx2-f13.google.com with SMTP id
+ 956f58d0204a3-66e4ab1ba47so1949670d50.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 19:55:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790045722; cv=none;
+ d=google.com; s=arc-20260327;
+ b=H9tT9po39wBGc5jjqq92HXiFMZb+u++oZEjJ0Y+zSi4fFf27Ts2/gPJ0kDQX7kcx/Y
+ F6H2o9QSYfo5/ojO5Y9yarzo4WoyDvOnsbe4Ljz2N6etA1erXcJj2EQqzdhvzeiPO/Oj
+ 9aJ7a8Ji49pVaXp/wZp0bEFZJs3Um8ALfKsJIImOxwrGX6KWKCeMSRuPoCsLieuABe24
+ 1m/u57ro456fNuFQQIyfZTp+VxP98PdncowJD3CFCQMwAy6sayJgJn1Y1FIFiZd0jrsw
+ 6G5dMy/JuDO/deQn4Lo8z1LoJVbgZXdhpqOgr5DmCLF2whxoHEwY7SOm2m/2CuYEpHR6
+ szdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=OTieWtMtlg1zITO+Uxg0UDNibYRqr028lfLfV7Q57S8=;
+ fh=HFurT00wTtbKjlDH6gvOEniHigKF0wvcyKGkEHkrp54=;
+ b=b38UlbzXkHUfc4ZWzRINL/+jqgj9vEj7cap+vqkTscsaNXuR9/Upsji+D1PFXVFP6z
+ NN7UTJQszaflaDamjZPXrme9JdZMOhyf/sY0vxXDYKssoONt21fXtPElsnfBvuToWRM3
+ 9UuPY9CC60sNfUHwWnYoCFcE3s9nXAwa6BFtUzWzX/3RkSgDMHr2Ic1Y9Ro/eowfWIUx
+ K0WG0rrKKZzAUXhouXxCko639q2l0dvX0GPVaXUbwkkYbRqs+Gra7aLmUFcBAkOisJBM
+ Ku+w9PWJMPbYOYZ4FgW8QWprGJtEZdBEZWGbkpr0uZqr2HK39Qtyp/hi7eWUZYFjJBtG
+ 0rcQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790022137; x=1790626937; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=gaRAT7aYywzouiZhOPdLxTv6mIxCS9c0FX9vPb08jvk=;
- b=opAWvjWISa0nFMCiircJVFMuQZUBO+94wh4pe5Joh8Oxmki9X8HRllt2/lCodOg+du
- g3j2kTPuHx4xjDlRwx6dCAleE3RGtuDFWSITcXEhvPxDGD/cgjOJoGV75ZyGI8ca+FMY
- JRspg7g2pzyplxjoDtfwyoJIvxmFHsQlePfAKF7EdjuvP7/9Mpa+S478kFIdmSmq+s3a
- aaXRe+kzScpJSuO/36pMGx9quQU5vjO7cIThuh6QG/sSutxCRXJuWYul13XWyHAluUds
- CzW85/tF0rAoQTPFj8DxxkRDlImvla3fi3Pyg1S6w8PgKfXAb+DgJLNQ+gVRsfY/fYMY
- 64ow==
+ d=gmail.com; s=20251104; t=1790045722; x=1790650522; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=OTieWtMtlg1zITO+Uxg0UDNibYRqr028lfLfV7Q57S8=;
+ b=Y2VUOK2Sy3uF7jpF9DZK9z6W1VFJqqi7zExxggBTOdU/Hgo8a9CRa46peV1qYX4MJw
+ nWOCWQq5QTzTGN4JKomwKWYfch6JerKfq1eiAhxUVAHSTBLI+W3LNn3vtwAe05mIRQRI
+ Ys5mmP4kC3wAN9Z/acgijZYsdJiWOuLVD5t+GbVfmMTA4z72NhaNtdka/o5waFH+K1EQ
+ 4HhpesH+plKxTV7gns1S9fq7Q4T8aWE7eA0irNESfLJ0ExaC1hH3mivMkyHUSi9wqBIc
+ jsPZY/Ifd+0gnS5d9/xTYy7bq5eS+zgdGYjoYGZXiKok2Mi5Smaht9YtzxgQbXYPUVNx
+ ot/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790022137; x=1790626937;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=gaRAT7aYywzouiZhOPdLxTv6mIxCS9c0FX9vPb08jvk=;
- b=rGo7PK+a0kKyEbsQX3WQRgRvcaIKpV6koEgO2i60yK1xpevqQWoP3ExHt0qfbgD0/c
- crUi+1BE1WlIKmyUrZ1yDfOVo7W7LBUBHDsXkSmTRlZFARxUBVcuz7ZSvafTvVB9BsGO
- /cpLwIoODSn+a9H88uKUAfwMvtEFNe3KzvSIrTTPPKL5LHVVL1tmDYciJKvR7kkfPQiJ
- QvFoWUgUca3eSEAf0khkcqHHyI1haHG+fyRV/kB/QjQegYOeyA/MdciCX+n0PcUfT0YL
- 9BlvMqWdWHTYxLxrpU0Axt5dr0DZs1zm5heUfH6282iTBSg/6V6+W8NIQWx4mDeIke7i
- lTyg==
-X-Gm-Message-State: AFuF++kKwrLfWG5E/DwkFlvs5cqcbJn6bSgv75PqJ4C3BKzmlGjPZWjV
- O+sjyTaA3J5fBClK3eDx477tHvq/R3W8OoH+HbWlY5GB1ofPdcpnIaiKydb9UZu5KPE=
-X-Gm-Gg: AYBFou02zZ+GzzlukQDoNKk8kmcZR+C3jNriADQzkdO96dHRC16cdR9q4XkmaDtp5+n
- kZ58fZh076u5Hp/+likOGeB2B583gZpICopqSf66bP/H/3lS/wpasPEDhMn2Pyxxphi+TkWw5Vm
- tFApqY2v44agWDp0pw6HyYLNUyY+duA7EbzH08Vpxee06E31nhQsdmWIpFK7rdRssO442BLY4GU
- U9xTcLSAHq5k0zQt8CvPTSMe4htAF1K/CEjUz0DdPkwY4fQbPjQW1lRsMNx8zugw7VOzctIsZYR
- fIND43oGFsGFyShA+Par6KqLYHhGYZQR35uOSr9JySxKUT8MhSD+JdKbh4H+QH5wqRh1nXPKsau
- XqD+bZ3R/O4GSlrlvo9wEvsojpUvIBpiFUTC+TW7SrDOutMMBTC2SLJ+kpo513UlwowSGSRbkLC
- 3gBcAftZn4UKFrYdh8cD0R1G6GSKNHaoyiTwmaX7sKKEBZQXHMDmjhMeiJ8gR2wVv+
-X-Received: by 2002:a05:6512:12cc:b0:5b6:183c:5c9e with SMTP id
- 2adb3069b0e04-5b8c1959154mr3504265e87.60.1790022136784; 
- Mon, 21 Sep 2026 13:22:16 -0700 (PDT)
-Received: from axellaptop.lan ([2001:2042:7534:a300::e82])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8d411414csm64295e87.29.2026.09.21.13.22.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 13:22:16 -0700 (PDT)
-From: "Claude Code (AI assistant, for an i915 user)" <axel.geijer@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: arun.r.murthy@intel.com
-Subject: Re: [PATCH] drm/i915/pps: don't orphan the VDD wakeref when the HW
- force bit is reset
-Date: Mon, 21 Sep 2026 22:21:20 +0200
-Message-ID: <20260921202120.23246-1-axel.geijer@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831044036.1236136-1-arun.r.murthy@intel.com>
-References: <20260831044036.1236136-1-arun.r.murthy@intel.com>
+ d=1e100.net; s=20260707; t=1790045722; x=1790650522;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=OTieWtMtlg1zITO+Uxg0UDNibYRqr028lfLfV7Q57S8=;
+ b=wcKjdKtwBlnC9yluZTU2HURbT9nTaxRCZbzNl2ECelYgJXKevRlEm3nYrylI1diZbT
+ GubJEHVOsWD+Ksr5G1ecRYnZvNeSixJjdAHiZvgCyBmqrj+BJYnVnpolPhlxEmh2M5Rk
+ hSkZt31MYBOOCY14+UfknCXtniYbWPgplW+QCISpvbxeZCbiSDAZCgGSyuYF4/OayKKz
+ HYbPecr2Q3w+Aa0AUgPDhzhTTWTCF5cUNDHYnFJAvCeQQCOYexY+/qC0IwRdjUyOFjZ+
+ Uzl9ziCsETbDpfOkQE/k8GRpYapaxgui3NTNlBNZNXZVeEP2KF4jVq6A240Q/vs1pRcg
+ pQ9Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByHl9EyEKsGiM3gGBDNUb3nQk0osLZhUAEqePQdiMIM9IyEs4b0gg5SVYFBmUnXvOs1+ayiCi70aCM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lxegeqTiIFldHFNr9+h8Jcp8BnBlrkRN+tU0VPbzqCBSXh63YY
+ iPHg4uxpDkUyjkqXR/ZZLYBKxR4etbtOELXFeUzwXAYeB9COfk/FrOf4+Zoj75oFQ5eN2ptstMJ
+ l3a39ZpS+1v7wLCQmN4L4Fns+dwOQv3o=
+X-Gm-Gg: AYBFou2R6WAQXg8BNU8Pt/9aim8V77zF6lqKYIg7n9tjzL58lomNeBLQ/Au+HAT9PsL
+ aJ+RozeuEZeBJodh5lw2IMH9WQP3VQaF+jssZIKKYglIDvNsos0/JTVmDcCQbYCZkX9UgapUmrh
+ 8vHbjGf3iLUf1hgUVfABTaLJ1/Rvv6A0QB+Iv7TA648wten3w0G08KKzV+PQ6HCFX2uhdo1UwjX
+ y4mXeVWi+Iwm3+PS5/unp65oBTl4E6HeCaoKLPnI9KcSZlDx5ui4leu+tTPhfpaDr2p7qCbkWsY
+ v0RlGi3DIE5JmroiuDupLskAxibytCpvfC6YXFcnh1DhqvOfXRuJirTV9g==
+X-Received: by 2002:a05:690e:12ce:b0:66f:b0f7:5958 with SMTP id
+ 956f58d0204a3-672c292b051mr691603d50.6.1790045721971; Mon, 21 Sep 2026
+ 19:55:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+ <arFH__nd1-T-6kft@quoll>
+In-Reply-To: <arFH__nd1-T-6kft@quoll>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 10:55:08 +0800
+X-Gm-Features: AcwNN1WJzmefJMuoQ8BNwToU4Ldlc5pP17GQHNyphMtayYqHxTXwBfR3oYlyR7c
+Message-ID: <CANUHTR9CncY6h_j-ADSrW_+QSPpDpKsqgN2Y_WrFukq4SYpy6w@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context allocation
+ failure
+To: krzk@kernel.org
+Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, stable@vger.kernel.org, 
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ linux-kernel@vger.kernel.org, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
+ Matthew Auld <matthew.auld@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 22 Sep 2026 15:03:49 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,70 +112,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Arun,
+Hi Krzysztof,
 
-This is a test report posted by Claude Code, an AI assistant, on behalf
-of a user who would like to stay anonymous. The user ran the tests on
-their own laptop; I built the test modules and collected the logs. I am
-deliberately not adding a Tested-by tag, since that should come from a
-named person; please treat this as a plain test report.
+Thank you for your feedback.
 
-Result: v1 fixes the eDP s2idle resume failure on this laptop. The v2
-("reconcile a BIOS-enabled VDD ...") does not cover it, details below.
+On Mon, 21 Sept 2026 at 23:06, <krzk@kernel.org> wrote:
+>
+>
+> On Sun, 20 Sep 2026 01:17:10 +0800, Guangshuo Li wrote:
+> > mock_context_alloc() creates ce->ring before allocating and pinning the
+> > context timeline. mock_ring() initializes the ring reference count and
+> > returns the initial reference to the context.
+> >
+> > If intel_timeline_create() fails, mock_context_alloc() returns without
+> > dropping the ring reference. The same leak occurs when
+> > mock_timeline_pin() fails after the timeline has been created. Since
+> > context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
+> > the later context teardown does not release the ring.
+> >
+> > Drop the initial ring reference with kref_put() on both failure paths.
+> > When the reference count reaches zero, intel_ring_free() releases the
+> > ring VMA and frees the ring allocation. Clear ce->ring after dropping
+> > the reference to avoid retaining a stale pointer.
+> >
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+>
+>
+> You sent multiple independent patches, to multiple independent
+> subsystems. The amount of these patches clearly suggest this was
+> AI generated and most likely not tested.
+>
+> More importantly, you sent all this work without properly organizing
+> relevant patches into patchsets. This makes reviewing difficult
+> and might cause multiple reviewers to address the same issue.
+> Replying to the entire set is impossible and requires handling each
+> patch independently, instead of applying or discarding the set.
+> Maintainers also won't see the bigger picture of your work. Quite
+> worrying.
+>
+> This is on the verge of hostile patch: bomb us with so many
+> contributions, we won't be able to handle them in efficient manner,
+> like responding ONCE to ask you to slow down.  Considering all this
+> is untested and LLM generated, I have even more doubts whether this
+> should be considered for review.
+>
+> Please read kernel documentation BEFORE posting more work. It will
+> explain you how to identify subsystems, how to organize your work per
+> subsystem, how to document usage of LLM and how what you should not
+> do if this was posted in a good faith.
+>
+> Best regards,
+> Krzysztof
+>
+>
+>
 
-Hardware / software:
-  HP Spectre x360 2-in-1 14-ef0047no (product 14-ef0xxx/893E)
-  Alder Lake-P GT2 [8086:46a8], internal eDP-1 on DDI A/PHY A,
-  Chimei Innolux panel (0x13C0)
-  BIOS F.32 (2026-04-07), s2idle only (no S3)
-  Arch-based kernel 7.2.5 (linux-omarchy 7.2.5-3, stable 7.2.5 plus
-  distro patches; the distro patches do not touch intel_pps.c).
-  Only i915.ko was rebuilt, from that exact source and config, with the
-  patch applied.
+I would like to clarify that these patches were manually reviewed and
+audited by us; they were not simply generated and submitted by an LLM.
+However, I understand why the recent submission pattern may have given
+that impression. We sent too many patches in a short period of time,
+and we also failed to respond to some discussions in a timely manner,
+which made the situation look worse.
 
-Without the patch (also seen on 7.1.9, 6.18-LTS and 7.2.3), on every
-s2idle resume:
+Many of the recent patches, especially the v2 revisions, are
+corrections and improvements based on previous review feedback rather
+than completely new untested changes. That said, we recognize that the
+way we submitted them increased the burden on maintainers and
+reviewers.
 
-  i915 0000:00:02.0: [drm] i915 raw-wakerefs=1 wakelocks=1 on cleanup
-      (WARNING at intel_runtime_pm_driver_release, from
-       i915_drm_suspend_late)
-  i915 0000:00:02.0: [drm] *ERROR* [CONNECTOR:508:eDP-1]
-      [ENCODER:507:DDI A/PHY A][DPRX] Failed to enable link training
+We apologize for the pressure this caused to the community. We will be
+more careful about organizing patches by subsystem, preparing proper
+patchsets, and following the kernel contribution guidelines before
+sending future work.
 
-and at every boot:
+Thank you again for pointing this out.
 
-  drm_WARN_ON(intel_dp->pps.vdd_wakeref) in intel_pps_vdd_on_unlocked()
-      via intel_pps_vdd_on <- intel_dp_detect <-
-      drm_helper_probe_single_connector_modes
-
-The panel then stays black for tens of seconds up to indefinitely after
-resume, and sometimes only comes back after forcing a modeset.
-
-With this v1 applied (single hunk in intel_pps_vdd_on_unlocked()):
-
-  - no intel_pps.c / vdd_wakeref warning at boot
-  - 3 out of 3 suspend/resume cycles: no "raw-wakerefs=1" warning and
-    no "Failed to enable link training"; the panel comes back
-    immediately.
-
-With the v2 ("reconcile a BIOS-enabled VDD without leaking its
-wakeref", vdd_wakeref_boot flag) applied to the same tree, the leak and
-the link training failure were unchanged: 3 out of 3 resumes still
-logged "raw-wakerefs=1" and "Failed to enable link training", and the
-boot-time WARN_ON still fired, now from the else branch of the new
-code:
-
-  WARNING: display/intel_pps.c:772 at intel_pps_vdd_on_unlocked
-  intel_pps_vdd_on <- intel_dp_detect <- drm_helper_probe_single_connector_modes
-
-My guess is that a second intel_pps_vdd_on_unlocked() call happens
-after the flag was already consumed by the first one and the HW bit was
-reset again, so the wakeref is still overwritten there. That would
-match the concern the review bot raised on v2. v1 does not have this
-problem because it simply keeps the held reference.
-
-Full logs and further test runs of new revisions are available on
-request via this address (the user reads it).
-
-Thanks,
-Claude Code (AI assistant), on behalf of an i915 user
+Best regards,
+Guangshuo
