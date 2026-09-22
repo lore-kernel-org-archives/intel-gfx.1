@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11E26C982FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 15:16:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7593C982FA
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 17:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91DF610E4D0;
-	Tue, 22 Sep 2026 15:16:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A23410E4F6;
+	Tue, 22 Sep 2026 17:19:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g2Gq2D7p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DdYKdpmx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A234810E4D0;
- Tue, 22 Sep 2026 15:16:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2884410E2FE;
+ Tue, 22 Sep 2026 17:19:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C6D2B60204;
- Tue, 22 Sep 2026 15:16:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5013C1F000FF;
- Tue, 22 Sep 2026 15:16:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E02AC41FEB;
+ Tue, 22 Sep 2026 17:19:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AD91F000FF;
+ Tue, 22 Sep 2026 17:19:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790090195;
- bh=G//VzGJ2nQRmfUKZCQ1JtVPVbNs9yJ5lWvSn8+Sjqh0=;
+ s=k20260515; t=1790097554;
+ bh=7lz0VgCpGAx/LnBgEFLc5j8/O+Qhz3D9nWW31eDU4eY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g2Gq2D7p/m1Y5oDjjjO3FnB2tGxeFNbDJoJr5P/9Jy0+tsIOzbul14X3aYzSvt6Bv
- SsUMcGb1k/KtQiN2on+fws6/fOfWBF8X1qJK7sG8Mb/kH6TOwPUijELH7TlgzGPSoj
- ZcSmWilbDTOsK9iPr4e1GpicXffXJlxwG6ecBYxMdjT7FvwpJZNOsuN+uRg7Rst31N
- qfHeXLkgC0W8x/kd1K9P40DAPL4CNjHtMEAZRZX3x2wVLa8rYK9+9vvVzf442HnKyN
- gi2NTKorZU5XaL+oB0yOhWmUE7Ub3qh1INAFuleexJI47/vx3V88NYNzVxUk0bdX44
- Y4CKX6l3/FGnQ==
+ b=DdYKdpmxo2sEdyUjPnkVLHzQz9QdIEM3niWUbASl1udcAIEcqmumcPhCK2lpnwBqy
+ Wuec7t4087JyxfNzIkUo47F21Z0h/v4xqCpCa72hOQZWEPbNvyZFZ6YhwAeR3Xevxo
+ JR2DDykynr3Dtpcc32/+WO1va3T/9Q7zel9RMP/DKCMjpmeMfyfLIZ1tm8Ihw91U1M
+ ep2vQD3ux8jaCmOdQy2YM1fQMrRhw9g9QWhR7AIUwV6f0k5ZpRg4d9ZU9rZ0foCjrS
+ NSpdntQDtRB5f6c4oynGd4GJKJtx6yB54TXJAGqiyC4LdnhOQqhv86jYPxhpwdkNA6
+ s0lhp90rc50LA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] drm/{i915, xe}: move intel_opregion_suspend() to
- intel_display_driver_pm_suspend_late()
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <050b935fa3fd85101ea0241b60a2e7893d3ad546.1790089118.git.jani.nikula@intel.com>
-References: <cover.1790089118.git.jani.nikula@intel.com>
- <050b935fa3fd85101ea0241b60a2e7893d3ad546.1790089118.git.jani.nikula@intel.com>
+Subject: Re: [PATCH v3 5/9] mm: convert PTE table entry to pte
+To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
+Cc: bpf@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, damon@lists.linux.dev,
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+In-Reply-To: <20260922-pte0-v3-5-5670b8cb9059@arm.com>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-5-5670b8cb9059@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 15:16:34 +0000
-Message-Id: <20260922151635.5013C1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 17:19:13 +0000
+Message-Id: <20260922171914.63AD91F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,128 +59,15 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/i915: Use-after-suspend of asle_work due to late intel_opregio=
-n_suspend()
-- [High] drm/i915: Hard system hang risk from late ACPI SMI notification
-- [High] drm/xe: ACPI state corruption via double intel_opregion_suspend()
---
+> The non-MMU stub receives hw_pte_t but returns a software PTE value. It
+> has no attached PTE that requires ptep_get(), so convert only the stored
+> entry through __pte_from_hw().
+>=20
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
-commit fc3c0277d6ab46a7da2ef12128f2682dd8013140
-Author: Jani Nikula <jani.nikula@intel.com>
-
-drm/{i915, xe}: move intel_opregion_suspend() to intel_display_driver_pm_su=
-spend_late()
-
-Try to unify the suspend paths and behaviour by moving the
-intel_opregion_suspend() calls to
-intel_display_driver_pm_suspend_late().
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/driver=
-s/gpu/drm/i915/display/intel_display_driver.c
-> index 77009dca7d0d9..abab457bce3a3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> @@ -783,6 +783,8 @@ void intel_display_driver_pm_suspend_late(struct inte=
-l_display *display, bool s2
->  	if (!HAS_DISPLAY(display))
->  		return;
-> =20
-> +	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
-> +
->  	intel_display_power_suspend_late(display, s2idle);
->  }
-
-[Severity: High]
-Does moving intel_opregion_suspend() here cause it to execute too late in t=
-he
-suspend sequence?
-
-In i915_drm_suspend_late(), the GTs and uncore are suspended before calling
-intel_display_driver_pm_suspend_late():
-
-drivers/gpu/drm/i915/i915_driver.c:i915_drm_suspend_late() {
-	...
-	for_each_gt(gt, dev_priv, i)
-		intel_uncore_suspend(gt->uncore);
-
-	intel_display_driver_pm_suspend_late(display, s2idle);
-	...
-}
-
-Because intel_opregion_suspend() calls cancel_work_sync(&opregion->asle_wor=
-k),
-delaying this sync until after intel_uncore_suspend() could allow asle_work
-to execute concurrently with or after uncore suspension, risking MMIO acces=
-ses
-on suspended hardware.
-
-Additionally, could triggering a System Management Interrupt (SMI) via
-intel_opregion_notify_adapter() while the GT/uncore is already suspended ca=
-use
-the BIOS to access powered-down GPU registers and result in a hard system h=
-ang?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe=
-/display/xe_display.c
-> index 184a5a2378805..b013ec00b75da 100644
-> --- a/drivers/gpu/drm/xe/display/xe_display.c
-> +++ b/drivers/gpu/drm/xe/display/xe_display.c
-> @@ -246,14 +246,11 @@ static bool suspend_to_idle(void)
->  void xe_display_pm_suspend(struct xe_device *xe)
->  {
->  	struct intel_display *display =3D xe->display;
-> -	bool s2idle =3D suspend_to_idle();
-> =20
->  	if (!xe->info.probe_display)
->  		return;
-> =20
->  	intel_display_driver_pm_suspend(display);
-> -
-> -	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
->  }
-
-[Severity: High]
-Will this lead to a double intel_opregion_suspend() and ACPI state corrupti=
-on
-during runtime suspend?
-
-When xe->d3cold.allowed is true, xe_display_pm_runtime_suspend() calls
-xe_display_enable_d3cold() which explicitly suspends the OpRegion to PCI_D3=
-cold:
-
-drivers/gpu/drm/xe/display/xe_display.c:xe_display_enable_d3cold() {
-	...
-	intel_opregion_suspend(display, PCI_D3cold);
-	...
-}
-
-Then xe_display_pm_runtime_suspend_late() calls xe_display_pm_suspend_late(=
-):
-
-drivers/gpu/drm/xe/display/xe_display.c:xe_display_pm_runtime_suspend_late(=
-) {
-	...
-	if (xe->d3cold.allowed) {
-		xe_display_pm_suspend_late(xe);
-	...
-}
-
-Since xe_display_pm_suspend_late() calls intel_display_driver_pm_suspend_la=
-te(),
-which now includes the new intel_opregion_suspend() call, it will be execut=
-ed a
-second time. Because suspend_to_idle() evaluates to true during runtime sus=
-pend
-(S0), it will be called with PCI_D1 instead of PCI_D3cold.
-
-Will this overwrite the ACPI power state from PCI_D3cold to PCI_D1 and corr=
-upt
-the BIOS state?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790089118.gi=
-t.jani.nikula@intel.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-pte0-v3-0-=
+5670b8cb9059@arm.com?part=3D5
+
