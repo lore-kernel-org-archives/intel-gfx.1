@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D965C98304
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:27:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7483BC98304
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FF8710F0D4;
-	Wed, 23 Sep 2026 14:27:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F149510F0DA;
+	Wed, 23 Sep 2026 14:27:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="NQVOFLx+";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+DuVX7oE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gEehRBHT";
 	dkim-atps=neutral
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 171DA10F0BB
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 14:27:06 +0000 (UTC)
-Date: Wed, 23 Sep 2026 16:27:02 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1790173623;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uY2ER/NnHNPcTPJ6x4T/wTLpxx779yr+rcQm3bEsP1c=;
- b=NQVOFLx+FF939nSjq/H+3t3iLQ+OKGnsAYgwe7UWfib6H9WVNkSn2fFMlbqea2D2f+Zk1h
- zlZ2BtwxWb6dtHi34VwMqiIFpl0XVrMpoE6dJ0qq5TTaKKDd3/iK7WaH7JXtKXPjVqsl4M
- WSW/n5ohHG9N3OP7guA0ln4K3U/c3eghfMs+iak0c0zymxNiCUoVkNjORjl+hWKzeLu1NQ
- N8bcDoVrroTbngMf0Txt5QhEdqp2rwzGwYky0M07yngOsc7lMrnUGQ1GN98sa4LKNW20xA
- 3Yq60GBnykLyA5I/pICavN/mwwSQU+YWLpqeMh6rLbGrkaZgzkyuFUsBHhhhHw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1790173623;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uY2ER/NnHNPcTPJ6x4T/wTLpxx779yr+rcQm3bEsP1c=;
- b=+DuVX7oE4RCPiYQGpnQqgid4IbHskXplR5CNkndbRbOU35Ue9fWtCCRylq3hUjj7Phztr5
- C9fLz/J7+g0QTpDQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: [PATCH v5 5/6] drm/i915/gt: Set stop_timeout() correctly on
- PREEMPT-RT
-Message-ID: <20260923142702.I8mInjdQ@linutronix.de>
-References: <20260923111518.310430-8-dev@lankhorst.se>
- <20260923111518.310430-13-dev@lankhorst.se>
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7657A10F0D0;
+ Wed, 23 Sep 2026 14:27:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5FB3B407A0;
+ Wed, 23 Sep 2026 14:27:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183E61F000FF;
+ Wed, 23 Sep 2026 14:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790173641;
+ bh=vga9v/QyLK4GbDSVHsHxoBkyma312ueia/NHZLlnbjY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gEehRBHTO6mZJ85H8z20CRRkBo4WgY1vdZWpxbqroP2X0eRBt4yvB9JLu4Dd7kt+k
+ zKRNXAqzSSHJHJNbF2LD71QQ4MgE8l3AxIr59HHqqvfVu2hrbyxtDAeFSdKq5OSrC9
+ +ACUJ7mIEkpH2aw6a3ejVe6PI9EgwRaZRqrthkuVJZAKEbiDnW6w/oV8WaNmihrQFz
+ Tic6tjM/Wuj3gOe5rQcLYxA58qJBzVev/wyWHSKS2zJT/l+c5UpcHuTiJLz5tKF2BH
+ PJhULiiRGe2hf/m0m9HDYut3jbWbgJvsCYJkD1M1wv5iAVLY4yYfvVFVf4egPZ7Y5/
+ Iw71fUVQx6Qyg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/dp: Don't promise AS SDPs in PR Active when
+ they are disabled
+To: "Jake Steinman" <j@metarealtyinc.ca>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260923041342.2146450-1-j@metarealtyinc.ca>
+References: <20260923041342.2146450-1-j@metarealtyinc.ca>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260923111518.310430-13-dev@lankhorst.se>
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 14:27:20 +0000
+Message-Id: <20260923142721.183E61F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,18 +53,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2026-09-23 13:15:24 [+0200], Maarten Lankhorst wrote:
-> Also check if RCU is disabled for PREEMPT-RT, which is the case when
-> local_bh_disable() is called.
-> 
-> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/i915: build failure due to undefined intel_alpm_pr_as_sdp_skip_=
+frames_enabled()
+--
 
-This looks familiar ;)
+commit b6467ba689abbe92a2f289d4eb766436f8714a78
+Author: Jake Steinman <j@metarealtyinc.ca>
 
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+drm/i915/dp: Don't promise AS SDPs in PR Active when they are disabled
 
-Sebastian
+This commit conditionally disables DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE
+during link training if AS SDP skip frames are not in use. It also attempts
+to clarify documentation about when PR_ALPM_CTL[AS SDP Transmission in
+Active Disable] is programmed.
+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9119
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 0cd5e6b5034cf..217795e155607 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3154,11 +3154,12 @@ static void intel_dp_compute_as_sdp(struct intel_=
+dp *intel_dp,
+> =20
+>  	/*
+>  	 * For Panel Replay with Async Video Timing support, the source can
+> -	 * disable sending the AS SDP during PR Active state. In that case,
+> -	 * the sink needs the coasting vtotal value to maintain the refresh
+> -	 * rate. The HW only samples this on PR_ALPM_CTL[AS SDP Transmission
+> -	 * in Active Disable], which we never program, so providing the value
+> -	 * unconditionally when the sink advertises the capability is safe.
+> +	 * stop sending the AS SDP during PR Active (PR_ALPM_CTL[AS SDP
+> +	 * Transmission in Active Disable], see intel_alpm_configure_pr_as_sdp(=
+))
+
+[Severity: Low]
+Does the referenced intel_alpm_configure_pr_as_sdp() function exist in the
+codebase? A tree-wide search doesn't show it being defined here or in any
+subsequent patches. Was this perhaps renamed to lnl_alpm_configure(), or
+is there a missing patch dependency?
+
+> +	 * and the sink then keeps the refresh rate using the coasting vtotal of
+> +	 * the last AS SDP it received. The coasting vtotal bytes are fully
+> +	 * under driver control, so fill them in whenever the sink advertises
+> +	 * the capability.
+>  	 *
+>  	 * #TODO:
+>  	 * If we ever advertise support for coasting at other refresh targets,
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/driv=
+ers/gpu/drm/i915/display/intel_dp_link_training.c
+> index cb92cff906146..5729ecaba1499 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -1122,7 +1123,17 @@ static bool
+>  intel_dp_pr_with_as_sdp_enabled(struct intel_dp *intel_dp,
+>  				const struct intel_crtc_state *crtc_state)
+>  {
+> +	/*
+> +	 * DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE tells the sink that the AS SDP
+> +	 * keeps coming during PR Active. With disable_as_sdp_when_pr_active,
+> +	 * intel_alpm_configure_pr_as_sdp() sets PR_ALPM_CTL[AS SDP Transmission
+> +	 * in Active Disable] and the source stops sending it for as long as PR
+> +	 * is active, unless AS SDP skip frames is used. The sink then keeps
+> +	 * the refresh rate using the coasting vtotal of the last AS SDP.
+> +	 */
+>  	return intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
+> +		(!crtc_state->disable_as_sdp_when_pr_active ||
+> +		 intel_alpm_pr_as_sdp_skip_frames_enabled(intel_dp, crtc_state)) &&
+
+[Severity: Low]
+Is intel_alpm_pr_as_sdp_skip_frames_enabled() defined anywhere in this tree?
+This causes a build failure due to an implicit declaration and undefined
+reference.
+
+Additionally, the commit message states that when AS SDP skip frames are in
+use, it clears the PR_ALPM_CTL bit and keeps a periodic AS SDP going.
+However, looking at lnl_alpm_configure() in intel_alpm.c, the bit seems to
+be programmed without a skip frames check:
+
+	if (crtc_state->disable_as_sdp_when_pr_active)
+		pr_alpm_ctl |=3D PR_ALPM_CTL_AS_SDP_TRANSMISSION_IN_ACTIVE_DISABLE;
+
+Are we missing the patch that introduces both these missing functions and t=
+he
+updated PR_ALPM_CTL programming logic?
+
+>  		(crtc_state->infoframes.enable &
+>  		 intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC));
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923041342.2146=
+450-1-j@metarealtyinc.ca?part=3D1
