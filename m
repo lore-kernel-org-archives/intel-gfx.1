@@ -4,27 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7243C98304
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 22:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8919CC9830D
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 22:21:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48C0F10E188;
-	Wed, 23 Sep 2026 22:13:36 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E5910E177;
- Wed, 23 Sep 2026 22:13:36 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7834253031525881694=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Updat?=
- =?utf-8?q?e_the_CMN=5FSDP=5FTL_in_fastset_path?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Sep 2026 22:13:36 -0000
-Message-ID: <179020161602.198725.3905623421339109234@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260923133307.323439-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260923133307.323439-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 093F010E177;
+	Wed, 23 Sep 2026 22:21:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MQW2YFty";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A93B10E177;
+ Wed, 23 Sep 2026 22:21:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F412D4023A;
+ Wed, 23 Sep 2026 22:21:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953501F000FF;
+ Wed, 23 Sep 2026 22:21:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790202093;
+ bh=HnpSOg48K9AyG/QV+c/oO3ibbB0Xil2A4DY+Ahe8o+M=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MQW2YFtyGm+yTls87ESx/JD72pVtNWeslnz22zFvE8TNH++BtsSsMzQk80JbyJ6Kh
+ /lBPi16q9k8u/x3cGI9kvtoztZVdSfqoFMASPnH3umVKaGXkecaZsUtGeGYpivu4j0
+ 2AB2yziTpSBCZZdHQvQf4S6Cw9x3MW4Gy6mAy0lYe6PoiA4aBLf+QnVcok1sZyeR5A
+ qsooyFQsQeW06JYaq7Kj6jsng3e93eNxljzXWmaiolgQeEtTBLfPHMkpWTLa9Bjo/p
+ bstWjUGv/IriXJqo+z8iYr8uOY1y/fqeFfPWLkkIxehnxOQRoF1fgU6dZq5l1uSESp
+ 3i2hEg+yb8K5Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH] drm/i915/dp: Ignore inconsistent TMDS limits on an
+ Anker DP branch
+To: "Conor Svensson" <conor10@gmail.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260923221018.42133-1-conor10@gmail.com>
+References: <20260923221018.42133-1-conor10@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 22:21:33 +0000
+Message-Id: <20260923222133.953501F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,154 +54,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7834253031525881694==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/i915/dp: incomplete downstream ports signature match
+--
 
-== Series Details ==
+commit 025075775ae9b93d6ea2089caff0dfbc102027cd
+Author: Conor Svensson <conor10@gmail.com>
 
-Series: drm/i915/display: Update the CMN_SDP_TL in fastset path
-URL   : https://patchwork.freedesktop.org/series/174801/
-State : success
+drm/i915/dp: Ignore inconsistent TMDS limits on an Anker DP branch
 
-== Summary ==
+This commit adds an experimental workaround to clear derived TMDS limits
+for a specific Anker DP branch device that reports inconsistent capabilities
+when hotplugged, which can cause the loss of native modes.
 
-CI Bug Log - changes from CI_DRM_19210 -> Patchwork_174801v1
-====================================================
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
 
-Summary
--------
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 0cd5e6b5034cf..beba989860056 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+[ ... ]
+> +static bool
+> +intel_dp_has_anker_tmds_mismatch(struct intel_dp *intel_dp,
+> +				 const struct drm_edid *drm_edid)
+> +{
+> +	static const struct drm_dp_dpcd_ident branch =3D {
+> +		.oui =3D { 0x90, 0xcc, 0x24 },
+> +		.device_id =3D { 'S', 'Y', 'N', 'A', 'b', 0x10 },
+> +		.hw_rev =3D 0x10,
+> +		.sw_major_rev =3D 0x06,
+> +		.sw_minor_rev =3D 0x05,
+> +	};
+> +	static const u8 downstream_ports[] =3D {
+> +		0x0a, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+> +	};
+[ ... ]
+> +	return !memcmp(&intel_dp->desc.ident, &branch, sizeof(branch)) &&
+> +		!memcmp(intel_dp->downstream_ports, downstream_ports,
+> +			sizeof(downstream_ports)) &&
 
-  **SUCCESS**
+[Severity: Low]
+Does this comparison in intel_dp_has_anker_tmds_mismatch() strictly validate
+the entire downstream port state as intended?
 
-  No regressions found.
+Because the local downstream_ports array is defined with only 8 elements,
+sizeof(downstream_ports) evaluates to 8. However, intel_dp->downstream_ports
+is a 16-byte array (DP_MAX_DOWNSTREAM_PORTS).
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/index.html
+This partial match could theoretically trigger the quirk on a different dev=
+ice
+that shares the same firmware and first 8 bytes of port capabilities but
+differs in the remaining 8 bytes, which seems contrary to the deliberately
+narrow intent described in the commit message.
 
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_174801v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@sanitycheck:
-    - fi-kbl-7567u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +79 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19210/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-
-  * igt@kms_busy@basic@flip:
-    - fi-kbl-7567u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#180])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19210/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-
-  * igt@kms_pm_rpm@basic-pci-d3-state:
-    - fi-kbl-7567u:       [PASS][5] -> [DMESG-WARN][6] ([i915#13735] / [i915#15673] / [i915#180]) +52 other tests dmesg-warn
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19210/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19210 -> Patchwork_174801v1
-
-  CI-20190529: 20190529
-  CI_DRM_19210: 703cd271db3a35088460ab3fec0a96bd48e7fe04 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9110: 9110
-  Patchwork_174801v1: 703cd271db3a35088460ab3fec0a96bd48e7fe04 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/index.html
-
---===============7834253031525881694==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: Update the CMN_SDP_TL in fastset path</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174801/">https://patchwork.freedesktop.org/series/174801/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19210 -&gt; Patchwork_174801v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_174801v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@sanitycheck:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19210/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +79 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_busy@basic@flip:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19210/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19210/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174801v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +52 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19210 -&gt; Patchwork_174801v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19210: 703cd271db3a35088460ab3fec0a96bd48e7fe04 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9110: 9110<br />
-  Patchwork_174801v1: 703cd271db3a35088460ab3fec0a96bd48e7fe04 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7834253031525881694==--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923221018.4213=
+3-1-conor10@gmail.com?part=3D1
