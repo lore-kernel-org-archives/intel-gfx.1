@@ -4,54 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2A6EC9830D
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 13:49:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61BC8C98304
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4392510F054;
-	Wed, 23 Sep 2026 13:49:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B2510F073;
+	Wed, 23 Sep 2026 14:00:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YpABlCUh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UBSgrKQg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A12C10F054;
- Wed, 23 Sep 2026 13:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790171369; x=1821707369;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=K7ZTXUF0JYsYrWDm/9C0KQJWGK1UvMTiVg2Th9HSRbM=;
- b=YpABlCUhtc9YNbzfjG2qJFsctuj2IFP5hvBjIIhUikqLl8PZn6DoPDXj
- d16K5yl0AmA5h/Ik8Bh5eQ33ZIYA5KoQVFlHikE9pPerLf0i1E3ECKBDN
- MiABGAnjFQidChu8CDvoaKOkf2tHHlwq5p+iHAarCzxEfMQyxoPunBFAn
- eSoHNtArUQ1foUROmCkbyXZJu9MNYL8R8UvEjMHTzvGD/DRf+J82w4Tkg
- a8sEZMbkc3qT+bLVk2/kElwzLsoYLXG7qRg09BFQ/5jLFQkUXfdSPwXPX
- 4zkis6T9Z6ZDsuQ7d66IJflBHksbIBOh29SzHIrEMBZGC3Vp8C4r0DMJz g==;
-X-CSE-ConnectionGUID: usCJNWzyRxWJomtawyA32g==
-X-CSE-MsgGUID: eoLkU7xpRDqYLB12TNz/ag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="116390615"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="116390615"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 06:49:28 -0700
-X-CSE-ConnectionGUID: 643Fwmp6SBqsrkIYPuxh8Q==
-X-CSE-MsgGUID: sN7UPeDpQ86rqA9OA9cUMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="301550157"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 06:49:27 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: suraj.kandpal@intel.com,
-	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH] drm/i915/display: Update the CMN_SDP_TL in fastset path
-Date: Wed, 23 Sep 2026 19:03:07 +0530
-Message-ID: <20260923133307.323439-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F06E610F073;
+ Wed, 23 Sep 2026 14:00:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2325F601FB;
+ Wed, 23 Sep 2026 14:00:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35151F000FF;
+ Wed, 23 Sep 2026 14:00:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790172049;
+ bh=XvxyEFyoChu1F3k7Sb1iEgshJdY6HiIn9V80Br1EJVM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UBSgrKQgTagCG6bKoHA8E2kTaWi2bE/gZJBcSpwsv0/YMVYpHsQEnSHlOfb/LoUSi
+ RlwLqGJR9jmAajyR427wlBr+ZOA8DpFR/ofzr+AB8nLaqHffCANTqvFmzfzGPo3dMn
+ Ppf/HtqhzWT6YmiVpqs6GnTJIa1lwdvnjtDSRwzdlW68z0i/04CVTz3n2xwUO0Dtqe
+ tl45p7ZyywrVyuqYjJbJehvSaStVFab2+OtYCrAlsFnmpFB3KK/ChQWykrhh63xiP/
+ DSWEMwYIzv+mA3IxkYYGIKoWgfHsxkSipUPV10S8SLqt165Ot/UMJ6M5XPavm5jIox
+ x6SWO+AREV9rw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/display: Update the CMN_SDP_TL in fastset path
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260923133307.323439-1-ankit.k.nautiyal@intel.com>
+References: <20260923133307.323439-1-ankit.k.nautiyal@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 14:00:49 +0000
+Message-Id: <20260923140049.B35151F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,63 +52,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/i915: missing stagger values in cmn_sdp_changed() during fas=
+tset
+--
+
+commit ff9e34489c7caadda60fd7bbc48f29b27fcbfe10
+Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+
+drm/i915/display: Update the CMN_SDP_TL in fastset path
+
 Commit bfa597238073 ("drm/i915/dip: Enable Common SDP Transmission line")
 enabled the CMN_SDP_TL for the modeset path, but missed to add it to the
-fastset path.
+fastset path. This commit updates the CMN_SDP_TL register during fastsets
+if it has changed, similar to EMP_AS_SDP_TL.
 
-Since dip.cmn_sdp_tl is already skipped from the strict pipe-config
-comparison during fastsets, it was always intended to get updated
-without full modeset, but the update to the register was missed.
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index e3e0d2f8faefd..01604c4e8615c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+[ ... ]
+> @@ -999,6 +1000,12 @@ static bool cmrr_params_changed(const struct intel_=
+crtc_state *old_crtc_state,
+>  		old_crtc_state->vrr.cmrr.cmrr_n !=3D new_crtc_state->vrr.cmrr.cmrr_n;
+>  }
+> =20
+> +static bool cmn_sdp_changed(const struct intel_crtc_state *old_crtc_stat=
+e,
+> +			    const struct intel_crtc_state *new_crtc_state)
+> +{
+> +	return old_crtc_state->dip.cmn_sdp_tl !=3D new_crtc_state->dip.cmn_sdp_=
+tl;
+> +}
+> +
 
-During a fastset, if CMN_SDP_TL changes, update the register
-similar to the EMP_AS_SDP_TL, which gets updated in
-intel_vrr_set_transcoder_timings().
+[Severity: Medium]
+Should cmn_sdp_changed() in drivers/gpu/drm/i915/display/intel_display.c al=
+so
+check other transmission line fields like gmp_sdp_tl, pps_sdp_tl, and
+vsc_ext_sdp_tl?
 
-Fixes: bfa597238073 ("drm/i915/dip: Enable Common SDP Transmission line")
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+intel_dip_cmn_sdp_transmission_line_enable() programs the CMN_SDP_TL_STGR_C=
+TL
+register using these stagger values. During a fastset taking over from BIOS,
+if the BIOS programmed non-default stagger values but left the base cmn_sdp=
+_tl
+identical to the driver's default, cmn_sdp_changed() will return false.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index e3e0d2f8faef..01604c4e8615 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -69,6 +69,7 @@
- #include "intel_cx0_phy.h"
- #include "intel_ddi.h"
- #include "intel_de.h"
-+#include "intel_dip.h"
- #include "intel_display_driver.h"
- #include "intel_display_power.h"
- #include "intel_display_regs.h"
-@@ -999,6 +1000,12 @@ static bool cmrr_params_changed(const struct intel_crtc_state *old_crtc_state,
- 		old_crtc_state->vrr.cmrr.cmrr_n != new_crtc_state->vrr.cmrr.cmrr_n;
- }
- 
-+static bool cmn_sdp_changed(const struct intel_crtc_state *old_crtc_state,
-+			    const struct intel_crtc_state *new_crtc_state)
-+{
-+	return old_crtc_state->dip.cmn_sdp_tl != new_crtc_state->dip.cmn_sdp_tl;
-+}
-+
- static bool intel_crtc_vrr_enabling(struct intel_atomic_state *state,
- 				    struct intel_crtc *crtc)
- {
-@@ -6924,6 +6931,9 @@ static void intel_pre_update_crtc(struct intel_atomic_state *state,
- 		if (vrr_params_changed(old_crtc_state, new_crtc_state) ||
- 		    cmrr_params_changed(old_crtc_state, new_crtc_state))
- 			intel_vrr_set_transcoder_timings(new_crtc_state);
-+
-+		if (cmn_sdp_changed(old_crtc_state, new_crtc_state))
-+			intel_dip_cmn_sdp_transmission_line_enable(new_crtc_state);
- 	}
- 
- 	intel_fbc_update(state, crtc);
--- 
-2.50.1
+Since intel_pipe_config_compare() ignores differences in these stagger fiel=
+ds,
+intel_dip_cmn_sdp_transmission_line_enable() would never be called to update
+CMN_SDP_TL_STGR_CTL, leaving the hardware operating with the inherited BIOS
+values.
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923133307.3234=
+39-1-ankit.k.nautiyal@intel.com?part=3D1
