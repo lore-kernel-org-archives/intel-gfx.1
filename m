@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FD1EC982FA
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 12:00:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D58ECC9830B
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 12:17:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AACD110F010;
-	Wed, 23 Sep 2026 12:00:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hQEEPdgN";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0760510F006;
- Wed, 23 Sep 2026 12:00:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790164830; x=1821700830;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=RiEGIBSlHetG6q4spG6s4fqN6dK4yI0PK0xkHt0pfog=;
- b=hQEEPdgN3XWpy8pMaDYhmWIE5nWtsCSOXklk+Zd1aoEhv78EBF7TR6BR
- l+3dLQOxlmgSwjl56xaXZgjSwKViVn+iJ4AfzdRBLQ0LkJJd12APi8vIH
- mDSGuveSQhYK++qZLa0cRB8ddMGA+bb93oG/oXpuKyO1PJmd4GexAIDtQ
- lohq9OcAA0m8zfAt+C9RQ4t/SFa9U/rKPwhL0KOc7NYRNxWUB8LscsHii
- 1NovXrBCDKiAC7AT4FDlIG2abfiCFWPpf5IKt1MXP+jC64PZLvCJQJoy4
- JG8HX4YqYVCWdBubpGKga/hIUVEdUhEZfDLs82uiyiGvEIGrjTTeo8+iR A==;
-X-CSE-ConnectionGUID: beREUdQUQzGlwmb3IiQ3yw==
-X-CSE-MsgGUID: vZF+yWouS2+oy8YYWvOTww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90965154"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="90965154"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 04:59:49 -0700
-X-CSE-ConnectionGUID: 94vrxPCYQySwAVl6OaKf7w==
-X-CSE-MsgGUID: nmgxOrK1RRSLUL2y1UUG9w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="4665833"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa012.fm.intel.com with ESMTP; 23 Sep 2026 04:59:49 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jouni.hogander@intel.com,
-	Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH] drm/i915/psr: Allow Panel Replay and PSR2 with joiner
-Date: Wed, 23 Sep 2026 11:59:40 +0000
-Message-ID: <20260923115941.746934-5-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923115941.746934-1-mika.kahola@intel.com>
-References: <20260923115941.746934-1-mika.kahola@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4330C10E7F4;
+	Wed, 23 Sep 2026 12:17:16 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5033F10E88E;
+ Wed, 23 Sep 2026 12:17:15 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2319510443451262452=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/fbdev=3A_Move_helpers?=
+ =?utf-8?q?_to_clients/_subdirectory?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 23 Sep 2026 12:17:15 -0000
+Message-ID: <179016583532.196549.5145370391245158910@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260923110537.451614-1-tzimmermann@suse.de>
+In-Reply-To: <20260923110537.451614-1-tzimmermann@suse.de>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,135 +37,183 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Each joined pipe has its own PSR register block, so Panel Replay and
-PSR2 selective update work with the pipe A/B joiner. Plain PSR1 does
-not, keep rejecting that.
+--===============2319510443451262452==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Assisted-by: Copilot:claude-opus-5
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 73 ++++++++++++++++++++----
- 1 file changed, 62 insertions(+), 11 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 4743b5b91743..c830332b33f2 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1587,6 +1587,50 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
- 	return true;
- }
- 
-+/*
-+ * Joiner needs a per-pipe PSR/Panel Replay register block, only
-+ * supported on pipe A/B.
-+ */
-+static bool psr_joiner_config_valid(struct intel_dp *intel_dp,
-+				    const struct intel_crtc_state *crtc_state,
-+				    const char *what)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	if (!crtc_state->joiner_pipes)
-+		return true;
-+
-+	if (crtc_state->joiner_pipes & ~(BIT(PIPE_A) | BIT(PIPE_B))) {
-+		drm_dbg_kms(display->drm,
-+			    "%s not enabled, joiner only supported on pipe A/B\n", what);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+/*
-+ * PSR2 selective fetch and Panel Replay Selective Update share the same
-+ * joiner limits, plus no uncompressed joiner configuration in YUV 4:2:0.
-+ */
-+static bool psr2_joiner_config_valid(struct intel_dp *intel_dp,
-+				     const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	if (!psr_joiner_config_valid(intel_dp, crtc_state, "Selective update"))
-+		return false;
-+
-+	if (crtc_state->joiner_pipes && !crtc_state->dsc.compression_enable &&
-+	    crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
-+		drm_dbg_kms(display->drm,
-+			    "Selective update not enabled, uncompressed joiner does not support YUV 4:2:0\n");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- static bool intel_sel_update_config_valid(struct intel_crtc_state *crtc_state,
- 					  struct drm_connector_state *conn_state)
- {
-@@ -1594,6 +1638,9 @@ static bool intel_sel_update_config_valid(struct intel_crtc_state *crtc_state,
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	struct intel_display *display = to_intel_display(intel_dp);
- 
-+	if (!psr2_joiner_config_valid(intel_dp, crtc_state))
-+		goto unsupported;
-+
- 	if (HAS_PSR2_SEL_FETCH(display) &&
- 	    !intel_psr2_sel_fetch_config_valid(intel_dp, crtc_state) &&
- 	    !HAS_PSR_HW_TRACKING(display)) {
-@@ -1733,6 +1780,9 @@ static bool _panel_replay_compute_config(struct intel_crtc_state *crtc_state,
- 		return false;
- 	}
- 
-+	if (!psr_joiner_config_valid(intel_dp, crtc_state, "Panel Replay"))
-+		return false;
-+
- 	crtc_state->link_off_after_as_sdp_when_pr_active = compute_link_off_after_as_sdp_when_pr_active(connector);
- 	crtc_state->disable_as_sdp_when_pr_active = compute_disable_as_sdp_when_pr_active(connector);
- 
-@@ -1886,17 +1936,6 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
- 		return;
- 	}
- 
--	/*
--	 * FIXME figure out what is wrong with PSR+joiner and
--	 * fix it. Presumably something related to the fact that
--	 * PSR is a transcoder level feature.
--	 */
--	if (crtc_state->joiner_pipes) {
--		drm_dbg_kms(display->drm,
--			    "PSR disabled due to joiner\n");
--		return;
--	}
--
- 	/* Only used for state verification. */
- 	crtc_state->panel_replay_dsc_support = connector->dp.panel_replay_caps.dsc_support;
- 	crtc_state->has_panel_replay = _panel_replay_compute_config(crtc_state, conn_state);
-@@ -1908,6 +1947,14 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
- 		return;
- 
- 	crtc_state->has_sel_update = intel_sel_update_config_valid(crtc_state, conn_state);
-+
-+	/* Plain PSR1 is not supported with joiner. */
-+	if (crtc_state->joiner_pipes && !crtc_state->has_panel_replay &&
-+	    !crtc_state->has_sel_update) {
-+		drm_dbg_kms(display->drm,
-+			    "PSR disabled, PSR1 not supported with joiner\n");
-+		crtc_state->has_psr = false;
-+	}
- }
- 
- void intel_psr_get_config(struct intel_encoder *encoder,
-@@ -4728,6 +4775,10 @@ void intel_psr_compute_config_late(struct intel_dp *intel_dp,
- 		crtc_state->has_sel_update = false;
- 		crtc_state->enable_psr2_su_region_et = false;
- 		crtc_state->enable_psr2_sel_fetch = false;
-+
-+		/* Plain PSR1 is not supported with joiner. */
-+		if (crtc_state->joiner_pipes)
-+			crtc_state->has_psr = false;
- 	}
- 
- 	/* Wa_18037818876 */
+Series: drm/fbdev: Move helpers to clients/ subdirectory
+URL   : https://patchwork.freedesktop.org/series/174786/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19207 -> Patchwork_174786v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_174786v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@fbdev@info:
+    - fi-hsw-4770:        [SKIP][1] ([i915#1849] / [i915#2582]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@info.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/fi-hsw-4770/igt@fbdev@info.html
+
+  * igt@fbdev@nullptr:
+    - fi-hsw-4770:        [SKIP][3] ([i915#2582]) -> [PASS][4] +3 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@nullptr.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/fi-hsw-4770/igt@fbdev@nullptr.html
+
+  * igt@gem_softpin@safe-alignment:
+    - fi-hsw-4770:        [FAIL][5] ([i915#15527]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [DMESG-FAIL][7] ([i915#12964]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-8/igt@i915_selftest@live.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/bat-mtlp-8/igt@i915_selftest@live.html
+
+  
+#### Warnings ####
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-mtlp-9:         [SKIP][9] ([i915#16119] / [i915#4213]) -> [SKIP][10] ([i915#16119]) +1 other test skip
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/bat-mtlp-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  
+  [i915#12964]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12964
+  [i915#15527]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527
+  [i915#16119]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16119
+  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
+  [i915#2582]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582
+  [i915#4213]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4213
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19207 -> Patchwork_174786v1
+
+  CI-20190529: 20190529
+  CI_DRM_19207: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_174786v1: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/index.html
+
+--===============2319510443451262452==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/fbdev: Move helpers to clients/ subdirectory</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174786/">https://patchwork.freedesktop.org/series/174786/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19207 -&gt; Patchwork_174786v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_174786v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@fbdev@info:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/fi-hsw-4770/igt@fbdev@info.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@fbdev@nullptr:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@nullptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/fi-hsw-4770/igt@fbdev@nullptr.html">PASS</a> +3 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_softpin@safe-alignment:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527">i915#15527</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12964">i915#12964</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16119">i915#16119</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4213">i915#4213</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v1/bat-mtlp-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16119">i915#16119</a>) +1 other test skip</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19207 -&gt; Patchwork_174786v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19207: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_174786v1: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2319510443451262452==--
