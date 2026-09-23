@@ -4,149 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E4F0C98309
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 10:37:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEBF0C98307
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 11:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A82DA10E0AA;
-	Wed, 23 Sep 2026 10:37:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2430610EFC3;
+	Wed, 23 Sep 2026 11:06:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NX7KQvLK";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ePtxV5xp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="J+WdkfMv";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="m5yKt4a2";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vsplEf8y";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D150B10E0A6;
- Wed, 23 Sep 2026 10:37:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790159841; x=1821695841;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- in-reply-to:mime-version;
- bh=oqluRD+ljN7JGy3yNxunpmXhWBbNOffQA1xcIdzL1V8=;
- b=NX7KQvLKELUoCmobRZtUWT2gTcKWWlXgUmIu6gOJQc7S4Dsw+BynHamT
- 2FCyi5s6fjSuZ7YAfDEoea0D5WP71Qj1tBqUkRlxQPz2Dd6be6iOIQEz7
- nEaCQpQGkO4nmdoOgYQpe4/+xH8TWyII2zqxGXS38UaGeau4DmCzdpHgT
- B9T/BIKVCs9TYBdsst9nExaUZIxBMmIAgF894IIOhBf8po3UC1+Z4nsKa
- UBIEA8gwJ9wZhipG9wIsiX3+P6MmvB20TLjAIY9Us57sr9s38HOJnXmIQ
- fwCLsuGyCSXNjGzmqziefo6LOu3V1l3ttpxnAjj23weRmCY+Ql5UU2iru g==;
-X-CSE-ConnectionGUID: P8oy308KQPCIqBveXEKUkg==
-X-CSE-MsgGUID: y8hbO9C8QpyUhlXlEmeJRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="108337398"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="108337398"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 03:37:21 -0700
-X-CSE-ConnectionGUID: WlUT/va5Q2yl9qGMp55VgA==
-X-CSE-MsgGUID: MXzkRK3sS+yiYZzTJr7BvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="273724795"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 03:37:20 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 03:37:20 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 03:37:20 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.41) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 03:37:18 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sNRBQ2ObymTukZky3ofMBUWT1jYzibxjt9x6N1hYsANy0iF7iF+dm79+XdtEI3vwO+mu4ZU60e9I7eA+4sznDePjOvG5HCxabGevf6dMOtRzoAyTRPKpDk8F6JyfikKLLQdWirdY3KsuiELOHkgT1yK4IDgb1JMx6JaBxvGd5Cmv0koGDlyah1/tL70rp+9TB+kQJW9ZE5/2ZYRAChkPJe9IOUyDqNwCRivZuKjO8+/uDwWQPhqfzRAnzn822CiljZt874gUYsixo1jQtyNKeMAriPsAx4yU+0kM7EZAjvLjA1mf1rin+8iEPeYKWnfN6SjLIs9fl0wspGPc11e+qA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tjv4rruknC9zDw8N44XRmn7OWfcp0iTcugp8fyA80BY=;
- b=DmsP6pHI21D1Z1+wadJX2eyzucsuGWGbBz93LVxgdLIoI/sj6Ifm7c8+4aaXSaNuPHKsqxhIQjGc77vJqZWR8b1v7Db1WCaFNsJuygGT0n+HGapiSncBb3UbSzCcnQTmVbakkd+ySzeS5xezSS4eXeRmmWhdBaghrNbp/R2TRWTHHWBkN8zqymhtv1FJ9hYQDyPuBKh8Mn6v2XZJxdDEFqlxX35Oyv325VAbwX7hT4viWRGQ11TACAAqaYmCwl4ZO8gQK++iZDPjBGbHgvQCZAzFhtpRsJ9DmVZ1Nw/kAVpbF2+MNceFeJv+mddGy1vRlNOcfDBbKV6TGLI2dyG9Yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
- by PH3PPF248AC5624.namprd11.prod.outlook.com (2603:10b6:518:1::d0f)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 10:37:16 +0000
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 10:37:16 +0000
-Date: Wed, 23 Sep 2026 13:37:10 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH 1/4] drm/{i915,xe}: make intel_dmc_suspend() part of
- display suspend/shutdown calls
-Message-ID: <arOr1sYWoQvHVC5l@ideak-desk.lan>
-References: <cover.1790089118.git.jani.nikula@intel.com>
- <0b8cb03babd960025f8948124a9d99358d8cc0f3.1790089118.git.jani.nikula@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <0b8cb03babd960025f8948124a9d99358d8cc0f3.1790089118.git.jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-X-ClientProxiedBy: GV3P280CA0056.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:9::10) To IA3PR11MB9273.namprd11.prod.outlook.com
- (2603:10b6:208:573::17)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DED610E4F1;
+ Wed, 23 Sep 2026 11:05:58 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E84C321C07;
+ Wed, 23 Sep 2026 11:05:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790161546; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=yig4P1nR/KUuXfkyUGF4O2Z2u6hzgy5a9b/28nBUgkg=;
+ b=ePtxV5xpT8kK69c6QxNDO4furdu3M40140REdmVhxy9as5dPbyUr/uRJe4N4go7xr2pmJl
+ l0v8XBmVn1yllU9MKy1JgKgxZKHJx50yXMCUuy9q4gyrdSLjvQfb97KAN/hknQugGtRkag
+ 0+PLjCx0AqRtQKcBf5pWdIuMgaQNU2E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790161546;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=yig4P1nR/KUuXfkyUGF4O2Z2u6hzgy5a9b/28nBUgkg=;
+ b=J+WdkfMvtx3Z6FGXkOBbFg76sR2NA+Es/PJiyFaiCgBuoWQ17D0vNc9YnSYL/TpED8BzRx
+ gINVHglNrjfPlBAw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=m5yKt4a2;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vsplEf8y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790161542; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=yig4P1nR/KUuXfkyUGF4O2Z2u6hzgy5a9b/28nBUgkg=;
+ b=m5yKt4a2fXeCzHw3ipzn/lBSRUYdp4k+kJ2mRUn6c5+U5r36PMvgsOZm+jr+0CnafI7kg/
+ QXnk4w90i0Mpc340hjS4jh//qAF7Co8aKR9Tcu65KB6N3wQTYuBqfT6CxPP70pew59GWa/
+ KuenZdsmc6j4ZiSTH0FZeNbuL9d5kUk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790161542;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=yig4P1nR/KUuXfkyUGF4O2Z2u6hzgy5a9b/28nBUgkg=;
+ b=vsplEf8yfCWyorb1CPQA1FraVVbOxPtSXYOyp7RR2I/wEotb7KJZ/+630wDBb9sEMz2oTV
+ ezeJIaUYCNypgTBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 54EFA13432;
+ Wed, 23 Sep 2026 11:05:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id VCF1C4Wys2qeBAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 23 Sep 2026 11:05:41 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: jfalempe@redhat.com, javierm@redhat.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/2] drm/fbdev: Move helpers to clients/ subdirectory
+Date: Wed, 23 Sep 2026 12:59:08 +0200
+Message-ID: <20260923110537.451614-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|PH3PPF248AC5624:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc2238e3-4b3a-413f-7a7b-08df195ea2f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|11063799006|10067099003|56012099006|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: jL30rwblJZv2IG7CGlNORuyOBJLxhMp0eb69CVb/4pP8F2xVwU3zG2RTj/yEADiYg42nSU38asl1WW+jWjxFAcr2HzBglJ7USzZ5LXIBLvw7QpDrgw/hEQZN9uYSiyjfjjrTe7oh1qogS/UgaYwqiJLK8tOdF4IaTXW/vkRlolXIzzaSHvFoboOOOte5lFawUD0mcJx/WLhLNFai/L0yFfAKrA3oE2D+fFZWgxeZioJn9PxxFnkckx0T5bF+OtxqP7B9LcCrTs9Yt7nNl1cJOTr7c2KSCailHmp0ckMNfyKy2w4VNeHUkZHpj9SNkMWMGWRR54vsLuZmrMAzBlcwjytxIJVBtZUOh88l38yZKlozxFVGkfjA4CF8K47w6zA8DKw7MBZvWV4Ek7S94aWDWE4b9irWJ3ll7c1f+T8Tedhjf0xAW9rg5mi8E1LShF1Wapw8OvGeFxdzgCve9qEKYlYcCB5qxl0W4/0kITiDjAV25iLMiWJcLQIK3DScGHijSc4uodMCVIzCWgmb8e4mJagiN8UTuEwhesTydYN6hrUYViPfLI37hK/kBi0YLpXkA5y1aBvJyolDAgRY3ATOz0JzaFoLAiNtxIbeX9GiT0txyikdaQe7+ywubezVXBvAxX5tCRlx7jdXHfse9yrRU20aPY4jQIQAHOkMV4erPWc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA3PR11MB9273.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+lLQawMRAFMZxeCeDCBdXsSHqk+lhqQD6y4RGOH4jy+g4nMTaOdicI9y//Sg?=
- =?us-ascii?Q?vONIbFm5m1obygWC/PAx6FLq95TIVtd0rzY/G/jyA1b8l7oXOtWe+CZEWykG?=
- =?us-ascii?Q?mE00rEbKmOCveTYh4aYGQqg2+4XVSLo69L+1PVvTMTkdFtiIfCLmuxpKhbhf?=
- =?us-ascii?Q?WoNpMVfpVqZxChia0TDPC8kH9OzxjLJKTxrdIkfwbj6MJpiAHjykr37WO+EN?=
- =?us-ascii?Q?K3/PSt5VrTdEpuux3kJVSBb8Ape2DkbB8XlLkJJY4gDKZVsUas2Yc1gH3m3V?=
- =?us-ascii?Q?ir2lwBbwZX42Veln8oxs4pUZLlVszQaReSZjWZB4mynTHLTwewInJ5F4/sRy?=
- =?us-ascii?Q?JuGWnk5Kd0Q2MPEO0TLWZsBb5VsMdHT5FjYhff5o4Lozev2MEnxMmLaqGR6K?=
- =?us-ascii?Q?a1ivFF/Vg9Kuf2P5Flgs8q3lCyW2P13bya9R0gs+QHppG2HaWvGLyM5yFTKZ?=
- =?us-ascii?Q?02HgM74cPNxhJsT5XQnJ+cPrKmX+K4Ykog4kgUxR5PJ3v/wcikt0gHGtt+mF?=
- =?us-ascii?Q?Jm4Lof0ZPXOGuIeWFq66qRFiApUxrhAeIyzptjPMHYKGS2ZIsQ4ySZJjOO0I?=
- =?us-ascii?Q?QcS8xNDffbXWrumEsb42Pkk1eyAQF8tbgbR8Aru5yNFuUarJCu9CMXcspCuw?=
- =?us-ascii?Q?u5mqscdqHCv+KKJ9EP34vKpXQTL0DYrsleNB+WqVnvh02oKvIJR2ZnsoCpf+?=
- =?us-ascii?Q?CO8UklnNHUEAvEQJ2L6eIXogammqd4MTj2C83I4Aooc3cmJD+wNEm/uzx/1Q?=
- =?us-ascii?Q?e1ApcY51tm5hLoShDHVEvrLA5rPa5BRYVSySAWREqqCEvF4lQDi9V9oX6+26?=
- =?us-ascii?Q?klyhmfoToA8TdJrv9qdSYKjnJ2Y9PSBRYpJkyTjXFWmGVlK6L2r0uqGzp3ZI?=
- =?us-ascii?Q?Yrpw1sg45YR/2715lNeiN/xfD3LVOLZgJIK8ttok0eH+bPBcPcUA5/58qYRh?=
- =?us-ascii?Q?vxbNRKMdGIvfF5WQAEYuDbFc2zMY28Fz3jUIrjkvokVGGwVMabV8cePX4/HF?=
- =?us-ascii?Q?/zfHsMLOhiYYJfvXg0XkYztmo7m6NhzDk5zA5dpQg0VwmEzED4tiAp5u+uZM?=
- =?us-ascii?Q?1noRkOWjM8uV52cre2vZCCfyWuKC3wAzsV+p1phFNdCz6+MGDJBmfFczapv9?=
- =?us-ascii?Q?hPcDDi/G9XhdADvoogrZ0oI+8CrQjf3daFAj4U3R4JULVeQ9qMHN8YtlrCf7?=
- =?us-ascii?Q?L8oVDh7paxaBWbZiJuee4+tawoBhsjl1glZjCNTVpmj43QIb1LfM0f+i0inC?=
- =?us-ascii?Q?3aTbYapQGJrorc3EhGQSkh12lasu7T8CNM0lr+oBUrca0LffAB1JmcE0Fat+?=
- =?us-ascii?Q?45iHXUoaxhgCoUgYyNsU63yqHY7cYgZmB5UehtG/+pkuSTTogYul0eBHZXw8?=
- =?us-ascii?Q?P72vVu2VV+vA9evAt8SzcPyPrEMZh44uUUFnHiivDnftqSvaWYmlG0s+VbaL?=
- =?us-ascii?Q?tqyvM0s6dxe5SDkeHdTARDYOJSOKLT1HxeR6TO+CeCf5xzvNP5Fx7vuMdUGa?=
- =?us-ascii?Q?CzOWpVNx904IoOED172Cd8r9kWyu83NiXomxW9Or+z1oTz4l6Dme4ErisZ6E?=
- =?us-ascii?Q?lxEwmz7fHh3mVX6BwcxAGHnoTC4IpkI4YezM1i+dWi5AtHHcwg0+sv0nPJFG?=
- =?us-ascii?Q?cboZFlGqbpw0GogOL+DFvdY3sCprIXMR2p7ii3fZRzCQN9WRdke1xUI3Zkwa?=
- =?us-ascii?Q?NjJ9aunWv8w/FUQ2C1jB044jDnSDro2yHoKjsUoN02aGd06/W5FQjI1GsvR1?=
- =?us-ascii?Q?MUmRWgrBHA=3D=3D?=
-X-Exchange-RoutingPolicyChecked: WQ0z5qVrAPYb+GrqxDWWff+5clyEN+YvKZ0nWs/+g+cA/V6444Nw7pOTHsjMminAqjKTe0thN6hOGJD4YWm4K4vhAHfZ0dkqO0qhqvJhnxRUYH6EAIIc80EA1E/0367cYpmmweoH9gq0wwYYypzUNXu4iXV619c/GjAtrYt0lhjCnFLi/uQZt3x4pqyQHcAH2aKMfWdmz82j8At6QtupTpx+2FM1YOqAoq903zemlO4fLzKX6CpLCvI+6HFySQqlFjQLa7AN2F/jQPyyczGe02HCdoCNxNNiPWkMarXXEkten1HPtjGAdjXErcp/RRIgPoevrD+l2fHaDbYCKGiXhw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc2238e3-4b3a-413f-7a7b-08df195ea2f0
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 10:37:16.2895 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8axwG7RFb8ykAikLdE7qHH6vy9YZ8ZAnIuBsQRcZMHLBPlZXYLB/UJfkfOM5htEj5c9pVsqnf+UnUiT8SCJVZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF248AC5624
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E84C321C07
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_TWELVE(0.00)[19]; RCVD_TLS_ALL(0.00)[];
+ TO_DN_SOME(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,86 +114,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2026 at 06:00:49PM +0300, Jani Nikula wrote:
-> Move the intel_dmc_suspend() calls from i915 and xe suspend and shutdown
-> hooks all the way down to a shared location in
-> __intel_display_driver_pm_suspend().
-> 
-> This is a change in the suspend/shutdown sequences, but hopefully one
-> without problems. The main change is moving intel_dmc_suspend() before
-> irq suspend.
-> 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Helpers for fbdev emulation are still linked into drm_kms_helper.ko,
+which is for mode setting. Move the source and header files to the
+clients/ subdirectory and link them into drm_client_lib.ko. This has
+some fallout throughout drivers, but it's all trivial.
 
-Reviewed-by: Imre Deak <imre.deak@intel.com>
+There are 3 module parameters to drm_kms_helper.ko that control fbdev
+emulation. For compatibility with existing installations, leave them
+in this module.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_display_driver.c | 2 ++
->  drivers/gpu/drm/i915/i915_driver.c                  | 4 ----
->  drivers/gpu/drm/xe/display/xe_display.c             | 4 ----
->  3 files changed, 2 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> index 70d112fd4287..77009dca7d0d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> @@ -768,6 +768,8 @@ static int __intel_display_driver_pm_suspend(struct intel_display *display, bool
->  
->  	intel_encoder_suspend_all(display);
->  
-> +	intel_dmc_suspend(display);
-> +
->  	return ret;
->  }
->  
-> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-> index ce6d20958320..9e047c27a153 100644
-> --- a/drivers/gpu/drm/i915/i915_driver.c
-> +++ b/drivers/gpu/drm/i915/i915_driver.c
-> @@ -1024,8 +1024,6 @@ void i915_driver_shutdown(struct drm_i915_private *i915)
->  
->  	intel_irq_suspend(i915);
->  
-> -	intel_dmc_suspend(display);
-> -
->  	i915_gem_suspend(i915);
->  
->  	/*
-> @@ -1096,8 +1094,6 @@ static int i915_drm_suspend(struct drm_device *dev)
->  
->  	dev_priv->suspend_count++;
->  
-> -	intel_dmc_suspend(display);
-> -
->  	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
->  
->  	i915_gem_drain_freed_objects(dev_priv);
-> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-> index 7b25c0814674..184a5a237880 100644
-> --- a/drivers/gpu/drm/xe/display/xe_display.c
-> +++ b/drivers/gpu/drm/xe/display/xe_display.c
-> @@ -178,8 +178,6 @@ void xe_display_shutdown(struct xe_device *xe)
->  	intel_display_driver_shutdown(display);
->  
->  	intel_opregion_suspend(display, PCI_D3cold);
-> -
-> -	intel_dmc_suspend(display);
->  }
->  
->  void xe_display_shutdown_late(struct xe_device *xe)
-> @@ -256,8 +254,6 @@ void xe_display_pm_suspend(struct xe_device *xe)
->  	intel_display_driver_pm_suspend(display);
->  
->  	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
-> -
-> -	intel_dmc_suspend(display);
->  }
->  
->  void xe_display_pm_suspend_late(struct xe_device *xe)
-> -- 
-> 2.47.3
-> 
+Thomas Zimmermann (2):
+  drm/fbdev: Move fbdev module parameters next to module init
+  drm/fbdev: Move fbdev helpers into client library
+
+ drivers/gpu/drm/Makefile                      |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  2 +-
+ drivers/gpu/drm/clients/Makefile              |  3 +-
+ drivers/gpu/drm/clients/drm_fbdev_client.c    |  2 +-
+ .../drm_fbdev_helper.c}                       | 34 +---------------
+ drivers/gpu/drm/drm_crtc_helper_internal.h    |  9 +++++
+ drivers/gpu/drm/drm_fbdev_dma.c               |  2 +-
+ drivers/gpu/drm/drm_fbdev_shmem.c             |  2 +-
+ drivers/gpu/drm/drm_fbdev_ttm.c               |  2 +-
+ drivers/gpu/drm/drm_kms_helper_common.c       | 39 +++++++++++++++++++
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |  2 +-
+ drivers/gpu/drm/gma500/fbdev.c                |  2 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +-
+ drivers/gpu/drm/msm/msm_debugfs.c             |  2 +-
+ drivers/gpu/drm/msm/msm_fbdev.c               |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  1 -
+ drivers/gpu/drm/omapdrm/omap_debugfs.c        |  2 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c          |  2 +-
+ drivers/gpu/drm/radeon/radeon_device.c        |  2 +-
+ drivers/gpu/drm/radeon/radeon_fbdev.c         |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  2 +-
+ drivers/gpu/drm/sitronix/st7571.c             |  1 -
+ drivers/gpu/drm/tegra/fbdev.c                 |  2 +-
+ drivers/gpu/drm/vboxvideo/vbox_mode.c         |  2 +-
+ .../drm_fbdev_helper.h}                       |  4 +-
+ 26 files changed, 72 insertions(+), 56 deletions(-)
+ rename drivers/gpu/drm/{drm_fb_helper.c => clients/drm_fbdev_helper.c} (97%)
+ rename include/drm/{drm_fb_helper.h => clients/drm_fbdev_helper.h} (99%)
+
+-- 
+2.55.0
+
