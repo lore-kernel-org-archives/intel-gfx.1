@@ -4,27 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91AC4C982FA
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 13:17:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A50DC982FA
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 13:25:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC35410E89E;
-	Wed, 23 Sep 2026 13:17:06 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28B2E10E89E;
- Wed, 23 Sep 2026 13:17:06 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7926324847069860424=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC3910E8B7;
+	Wed, 23 Sep 2026 13:25:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nv9+vQJ4";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F65710E8B7;
+ Wed, 23 Sep 2026 13:25:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5C1F360210;
+ Wed, 23 Sep 2026 13:25:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00C91F000FF;
+ Wed, 23 Sep 2026 13:25:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790169928;
+ bh=zlWa1e2jWcfiiYfu+fJY+2gOtdAjpcg6EpsI0gyoG1M=;
+ h=Date:From:To:Cc:Subject;
+ b=Nv9+vQJ4X1ZPR4LjImDulZSo8D7/jmLZDpa9NesjKRqgcJH9yrUPZXyjOH1hXpFrg
+ Esif4bWydfMzQOEVLOZgkL3cqqsh5VxtSKP/Lq4lc+tLG+4z3i59TzjSMQdkx7gIM/
+ 6m546sdQTDrcbxXaiK7Jl8+rmgGsjdizMLCZdt1MjJOfRf5wn2El1q41PUj/fFQoTO
+ FsKUuiZAIaaSukQ+n5WXssbE7bqYiBPqQD0AKafVWiCMr9snimVBjIyK37RCtyYAu8
+ koaAZJ4Ba/XnQHAvezbFhEMyHKrpaDDk+aRwq2SDMSHZDOsyyqUwAJPb/stjY/oeT0
+ VtmjT+x2oQHAA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 033191AC573B; Wed, 23 Sep 2026 14:25:24 +0100 (BST)
+Date: Wed, 23 Sep 2026 15:25:24 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <arPTRF4qS6o1Q3vD@sirena.co.uk>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/psr=3A_Allow_Pan?=
- =?utf-8?q?el_Replay_and_PSR2_with_joiner?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Mika Kahola" <mika.kahola@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Sep 2026 13:17:06 -0000
-Message-ID: <179016942615.196549.3862156301595731511@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260923115941.746934-1-mika.kahola@intel.com>
-In-Reply-To: <20260923115941.746934-1-mika.kahola@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="u4iB4BPRsdxcH5TP"
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,166 +59,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7926324847069860424==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
-== Series Details ==
+--u4iB4BPRsdxcH5TP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Series: drm/i915/psr: Allow Panel Replay and PSR2 with joiner
-URL   : https://patchwork.freedesktop.org/series/174791/
-State : success
+Hi all,
 
-== Summary ==
+After merging the drm-misc tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
 
-CI Bug Log - changes from CI_DRM_19207 -> Patchwork_174791v1
-====================================================
+/tmp/next/build/drivers/gpu/drm/amd/amdgpu/../display/dc/dc_memory_pool.c:8=
+7:37: error: stack frame size (8264) exceeds limit (2048) in 'dc_memory_poo=
+l_create' [-Werror,-Wframe-larger-than]
+   87 | __must_check struct dc_memory_pool *dc_memory_pool_create(size_t si=
+ze,
+      |                      =20
 
-Summary
--------
+which I am exceptionally frustrated to see was caused by commit
 
-  **SUCCESS**
+  bc3f07516a992 (Merge drm/drm-next into drm-misc-next)
 
-  No regressions found.
+which merged the bug I originally reported in the amdgpu tree:
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html
+  https://lore.kernel.org/r/aq0vYhZXtMqA41wZ@sirena.org.uk
 
-Participating hosts (39 -> 38)
-------------------------------
+and then in the drm tree when that was sent upstream without the report
+having been addressed in any way:
 
-  Missing    (1): bat-dg2-13 
+  https://lore.kernel.org/r/arJoCiRM1hRbgRb5@sirena.co.uk
 
-Known issues
-------------
+neither of which have had any response at all.  It really seems like
+there is some room for improvement in your processes here, currently
+that's three drm trees all held out of -next with the same fairly simple
+build issue.  Can I suggest at least check to see if the code you are
+trying to merge is in -next, the drm merge was done after amdgpu had
+been held out of -next for several days.
 
-  Here are the changes found in Patchwork_174791v1 that come from known issues:
+--u4iB4BPRsdxcH5TP
+Content-Type: application/pgp-signature; name="signature.asc"
 
-### IGT changes ###
+-----BEGIN PGP SIGNATURE-----
 
-#### Possible fixes ####
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqz0zsACgkQJNaLcl1U
+h9BLTAf9EIijiMYDxEApkxScDx3f4Bi3xFEdhyaF/pQC0o575r2k4NOF7iZA3cTA
+Az6mwVvR/OYFKgiWlMud0jcrwYH8F3oPL714/AlXxlrkGQFPQlHrjo8tk+DdWJoU
+RX3gZP7VDGoNe9Ag20ZvcFUvUyPiBSp5NJENkGwaEBLzYwnmBjPluldBbHJPQ5Bh
+D/HK0N+S+HWHq1/d8Jvbo9yaUKg3ZM+hNu37MMQjCuXCLREmwpfRg5mVtBwk99aI
+jkx9SxUnZ665U0cPxMYskag0aiHxsdbDqkKXhafCLVJRooZpSGvNtDmbPSnl25rT
+9N0YB0GV4MGYCpWVkpKIJUFaoCyqTQ==
+=c41z
+-----END PGP SIGNATURE-----
 
-  * igt@fbdev@info:
-    - fi-hsw-4770:        [SKIP][1] ([i915#1849] / [i915#2582]) -> [PASS][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@info.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@fbdev@info.html
-
-  * igt@fbdev@nullptr:
-    - fi-hsw-4770:        [SKIP][3] ([i915#2582]) -> [PASS][4] +3 other tests pass
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@nullptr.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@fbdev@nullptr.html
-
-  * igt@gem_softpin@safe-alignment:
-    - fi-hsw-4770:        [FAIL][5] ([i915#15527]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
-
-  * igt@i915_selftest@live:
-    - bat-mtlp-8:         [DMESG-FAIL][7] ([i915#12964]) -> [PASS][8] +1 other test pass
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-8/igt@i915_selftest@live.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/bat-mtlp-8/igt@i915_selftest@live.html
-
-  
-  [i915#12964]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12964
-  [i915#15527]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527
-  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
-  [i915#2582]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19207 -> Patchwork_174791v1
-
-  CI-20190529: 20190529
-  CI_DRM_19207: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_174791v1: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html
-
---===============7926324847069860424==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/psr: Allow Panel Replay and PSR2 with joiner</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174791/">https://patchwork.freedesktop.org/series/174791/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19207 -&gt; Patchwork_174791v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_174791v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@fbdev@info:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@fbdev@info.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@fbdev@nullptr:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@nullptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@fbdev@nullptr.html">PASS</a> +3 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_softpin@safe-alignment:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527">i915#15527</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12964">i915#12964</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19207 -&gt; Patchwork_174791v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19207: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_174791v1: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7926324847069860424==--
+--u4iB4BPRsdxcH5TP--
