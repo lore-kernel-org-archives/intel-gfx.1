@@ -4,42 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61BC8C98304
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:00:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1BAC98304
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:01:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B2510F073;
-	Wed, 23 Sep 2026 14:00:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B372410E8C9;
+	Wed, 23 Sep 2026 14:01:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UBSgrKQg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MdpajThS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F06E610F073;
- Wed, 23 Sep 2026 14:00:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2325F601FB;
- Wed, 23 Sep 2026 14:00:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35151F000FF;
- Wed, 23 Sep 2026 14:00:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790172049;
- bh=XvxyEFyoChu1F3k7Sb1iEgshJdY6HiIn9V80Br1EJVM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UBSgrKQgTagCG6bKoHA8E2kTaWi2bE/gZJBcSpwsv0/YMVYpHsQEnSHlOfb/LoUSi
- RlwLqGJR9jmAajyR427wlBr+ZOA8DpFR/ofzr+AB8nLaqHffCANTqvFmzfzGPo3dMn
- Ppf/HtqhzWT6YmiVpqs6GnTJIa1lwdvnjtDSRwzdlW68z0i/04CVTz3n2xwUO0Dtqe
- tl45p7ZyywrVyuqYjJbJehvSaStVFab2+OtYCrAlsFnmpFB3KK/ChQWykrhh63xiP/
- DSWEMwYIzv+mA3IxkYYGIKoWgfHsxkSipUPV10S8SLqt165Ot/UMJ6M5XPavm5jIox
- x6SWO+AREV9rw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/display: Update the CMN_SDP_TL in fastset path
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260923133307.323439-1-ankit.k.nautiyal@intel.com>
-References: <20260923133307.323439-1-ankit.k.nautiyal@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 14:00:49 +0000
-Message-Id: <20260923140049.B35151F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8B3110F076;
+ Wed, 23 Sep 2026 14:01:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790172077; x=1821708077;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=lWWYV/6sgrtGiy6kcFwdqaWktcyek5dC6Sfm7CBJFM4=;
+ b=MdpajThSKD56z5AZ5/nbDqGHpjvYj3M7X61/8cVtk8YuF/2T9CZFEct8
+ KWe7F1WstHlCSlfQESVTCKSO/ZbCgwgaFLbHWGghnjwPvsACTCBn/Bvg9
+ mMG/F/U4sZRKQQLBCZrulR2ZqKZ64kUDAZAdnrw04kFSthLabaidfUuYw
+ QHonKXjzDIRWt8RMcox9HiOIGdeyxzzuNVKcGmZX1HK1Qp613fXeWpt5z
+ 6EQP9coaSR5doLsye9YuVLQMDsejneKclQzS8pbYgVnI7c/lEWevraGyA
+ nBTZPUVx1j2KsE8dHkK6hWjIUCjx3s92KHNct3Z12QU8hPXrLDLnHwEnO A==;
+X-CSE-ConnectionGUID: i+9n67DdQqW3n5fPNvhx4A==
+X-CSE-MsgGUID: SOhZ62NbRDWfd4+4scLKcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="78423053"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="78423053"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 07:01:16 -0700
+X-CSE-ConnectionGUID: 4NUtWgeQR9uSbPYK1Rb4WA==
+X-CSE-MsgGUID: 6S8LK0O6SUSe1we/VeL+1A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="299871741"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.253])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 07:01:14 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>, Alex Deucher
+ <alexdeucher@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>, Intel
+ Graphics <intel-gfx@lists.freedesktop.org>, DRI
+ <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next
+ Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+In-Reply-To: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+Date: Wed, 23 Sep 2026 17:01:11 +0300
+Message-ID: <70527adbe5ab6c73b87abf6a866e8ff34de96d42@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,65 +71,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915: missing stagger values in cmn_sdp_changed() during fas=
-tset
---
+On Wed, 23 Sep 2026, Mark Brown <broonie@kernel.org> wrote:
+> Hi all,
+>
+> After merging the drm-misc tree, today's linux-next build (x86_64
+> allmodconfig) failed like this:
+>
+> /tmp/next/build/drivers/gpu/drm/amd/amdgpu/../display/dc/dc_memory_pool.c:87:37: error: stack frame size (8264) exceeds limit (2048) in 'dc_memory_pool_create' [-Werror,-Wframe-larger-than]
+>    87 | __must_check struct dc_memory_pool *dc_memory_pool_create(size_t size,
+>       |                       
+>
+> which I am exceptionally frustrated to see was caused by commit
+>
+>   bc3f07516a992 (Merge drm/drm-next into drm-misc-next)
+>
+> which merged the bug I originally reported in the amdgpu tree:
+>
+>   https://lore.kernel.org/r/aq0vYhZXtMqA41wZ@sirena.org.uk
+>
+> and then in the drm tree when that was sent upstream without the report
+> having been addressed in any way:
+>
+>   https://lore.kernel.org/r/arJoCiRM1hRbgRb5@sirena.co.uk
+>
+> neither of which have had any response at all.  It really seems like
+> there is some room for improvement in your processes here, currently
+> that's three drm trees all held out of -next with the same fairly simple
+> build issue.  Can I suggest at least check to see if the code you are
+> trying to merge is in -next, the drm merge was done after amdgpu had
+> been held out of -next for several days.
 
-commit ff9e34489c7caadda60fd7bbc48f29b27fcbfe10
-Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+I don't really have a skin in the game, but it all builds fine for me. I
+have CONFIG_FRAME_WARN=2048.
 
-drm/i915/display: Update the CMN_SDP_TL in fastset path
+I presume the problem is the compound literal in
+dc_memory_pool_create():
 
-Commit bfa597238073 ("drm/i915/dip: Enable Common SDP Transmission line")
-enabled the CMN_SDP_TL for the modeset path, but missed to add it to the
-fastset path. This commit updates the CMN_SDP_TL register during fastsets
-if it has changed, similar to EMP_AS_SDP_TL.
+	*pool = (struct dc_memory_pool){
+		.size = size,
+		.capacity = capacity,
+		.unaligned_pool = unaligned_pool,
+		.unaligned_memory = kcalloc(lines + 1, PAGE_SIZE, GFP_KERNEL),
+		.free_list = kcalloc((uint32_t)capacity, sizeof(atomic_t),
+				     GFP_KERNEL),
+		.free_head = ATOMIC_INIT(0),
+	};
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index e3e0d2f8faefd..01604c4e8615c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-[ ... ]
-> @@ -999,6 +1000,12 @@ static bool cmrr_params_changed(const struct intel_=
-crtc_state *old_crtc_state,
->  		old_crtc_state->vrr.cmrr.cmrr_n !=3D new_crtc_state->vrr.cmrr.cmrr_n;
->  }
-> =20
-> +static bool cmn_sdp_changed(const struct intel_crtc_state *old_crtc_stat=
-e,
-> +			    const struct intel_crtc_state *new_crtc_state)
-> +{
-> +	return old_crtc_state->dip.cmn_sdp_tl !=3D new_crtc_state->dip.cmn_sdp_=
-tl;
-> +}
-> +
+sizeof(struct dc_memory_pool) == 2 * PAGE_SIZE, so it's clearly not to
+be stored on stack. However, I think it's up to the compiler whether it
+actually holds all of that on stack or not. It could just generate the
+equivalent code instead.
 
-[Severity: Medium]
-Should cmn_sdp_changed() in drivers/gpu/drm/i915/display/intel_display.c al=
-so
-check other transmission line fields like gmp_sdp_tl, pps_sdp_tl, and
-vsc_ext_sdp_tl?
 
-intel_dip_cmn_sdp_transmission_line_enable() programs the CMN_SDP_TL_STGR_C=
-TL
-register using these stagger values. During a fastset taking over from BIOS,
-if the BIOS programmed non-default stagger values but left the base cmn_sdp=
-_tl
-identical to the driver's default, cmn_sdp_changed() will return false.
+BR,
+Jani.
 
-Since intel_pipe_config_compare() ignores differences in these stagger fiel=
-ds,
-intel_dip_cmn_sdp_transmission_line_enable() would never be called to update
-CMN_SDP_TL_STGR_CTL, leaving the hardware operating with the inherited BIOS
-values.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923133307.3234=
-39-1-ankit.k.nautiyal@intel.com?part=3D1
+-- 
+Jani Nikula, Intel
