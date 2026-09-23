@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E92CDC98302
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1300C98311
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A61FC10E8E8;
-	Wed, 23 Sep 2026 14:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 149E710F07B;
+	Wed, 23 Sep 2026 14:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="GtbBBWx8";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="G7Rg8/hP";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B270010EFE9;
- Wed, 23 Sep 2026 11:56:54 +0000 (UTC)
+X-Greylist: delayed 386 seconds by postgrey-1.36 at gabe;
+ Wed, 23 Sep 2026 05:38:33 UTC
+Received: from mail-proxy25229.mail.163.com (mail-proxy25229.mail.163.com
+ [103.129.252.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6597C10EEA9;
+ Wed, 23 Sep 2026 05:38:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ri
- 8FyuOCQtYkwZzSZfiHKNrXOAfY81g/ycbm8C3SdHw=; b=GtbBBWx8o3bPyAJuvu
- mZ5CAfp92OTbH0OiXcS8saYWkl9/TxX7eVhvvhP7MlGjO/faZ2acic7M0pyfapc2
- B2P9ZOXJsDO3iHShLjk0XkKn6MiUjPoQPR3ifh38jke1LDDBsahgRoQoX2XTMU9d
- bAVVA5lD/FcdY/07NHjY25IV8=
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=W2
+ h9gMcg8AIBxkjSH5hoPQoSv06aXDLkRFWvXIrAklo=; b=G7Rg8/hPAkOrjnoGki
+ 6Gguh1r3NR3gaU6yW2TaRV24ZfHv0isx4WgfmoZhfd6awLSG1pg3nzwckpRWZJ5O
+ Inb624A+r7WukY5sdfRePr9s2Dt5suqZY0g4FbNF3HPU9oYtkriTAKT9EYxi1TZG
+ ZlfHDXwTtqeSu+BwXRKkw6AmI=
 Received: from fedora (unknown [])
- by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wD3X_VzvrNqsRlYAQ--.35554S2; 
- Wed, 23 Sep 2026 19:56:36 +0800 (CST)
+ by gzsmtp4 (Coremail) with SMTP id PygvCgCXnEO_Y7NqRsm6Aw--.58379S2;
+ Wed, 23 Sep 2026 13:29:36 +0800 (CST)
 From: Xizhe Tang <xizheTang2005@163.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Xizhe Tang <xizheTang2005@163.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or
- PR !async
-Date: Thu, 24 Sep 2026 03:51:59 +0800
-Message-ID: <20260923195200.21362-1-xizheTang2005@163.com>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Xe/PTL eDP: panel vertically streaked since v7.2 - AS SDP sent with
+ VRR disabled
+Date: Wed, 23 Sep 2026 13:28:46 +0800
+Message-ID: <20260923052846.22781-1-xizheTang2005@163.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3X_VzvrNqsRlYAQ--.35554S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4xAw4kAFy5ur45AF1DJrb_yoWrJF18pw
- 47WryFyr4fXFyIqFWxXFn2vFy5WwsrJ34rGF98G3y8Z3Wqk343trZavayj9a4Dur4xXF1F
- yrZ5JFWqka10vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pKLvuiUUUUU=
+X-CM-TRANSID: PygvCgCXnEO_Y7NqRsm6Aw--.58379S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tr4DAw15AFW8uF1rCFy7trb_yoW8KF4kpr
+ ZxWF9Y9w1DJr1S9F1xWr40qF1ruws7J3y3Gas5Gr9rZas8Ka4avrnayF4YvFy7X395u3Wj
+ qrZ5Jr9Yka18X3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2q2NUUUUU=
 X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
-X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6hRUq2qzvnR+ggAA3u
+X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6gGQ52qzY8FVFwAA3l
 X-Mailman-Approved-At: Wed, 23 Sep 2026 14:17:21 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,87 +62,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A Panther Lake eDP panel that advertises VRR in EDID but runs at a fixed
-refresh rate has received an Adaptive-Sync SDP since commit 6a1712052859
-("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async").
-On this panel the first modeset at boot is vertically streaked.
+Hi,
 
-intel_vrr_possible() is only crtc_state->vrr.flipline != 0. Fixed-refresh
-timings program flipline too:
+A Panther Lake eDP panel is streaked with vertical bands from the first modeset
+at boot on 7.2.x, and clean on 7.1.13. The only measurable difference I can find
+is that the AS SDP is now programmed on a link that is not running VRR, and I
+have confirmed that this is exactly the field the new predicate reads:
 
-	intel_vrr_compute_fixed_rr_timings():
-		/* For fixed rr,  vmin = vmax = flipline */
-		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+	drivers/gpu/drm/i915/display/intel_dp.c:3226 (v7.2.6; :3119 on mainline)
+	return intel_vrr_possible(crtc_state);   /* was: crtc_state->vrr.enable */
 
-intel_vrr_compute_config() takes that path when VRR is not actually
-enabled (uapi.vrr_enabled is false, or vmin == vmax). Then
-intel_dp_needs_as_sdp() is true with `vrr: no, fixed rr: yes`, and
-intel_dp_compute_as_sdp() programs DP_AS_SDP_AVT_FIXED_VTOTAL.
+with
 
-Gate the terminal condition on the states that consume the SDP:
-crtc_state->vrr.enable (VRR) or crtc_state->cmrr.enable (CMRR / FAVT).
-Leave the Panel Replay aux-less-ALPM early-return from the same commit
-unchanged.
+	bool intel_vrr_possible(const struct intel_crtc_state *crtc_state)
+	{
+		return crtc_state->vrr.flipline;
+	}
 
-CMRR is still hard-disabled (is_cmrr_frac_required() has "|| true"), so
-cmrr.enable stays false today and the OR is a no-op versus v1 at fixed
-refresh. intel_vrr_compute_cmrr_timings() sets cmrr.enable without
-vrr.enable; the OR keeps the FAVT branch reachable when CMRR is re-enabled.
+On this panel flipline is programmed for a fixed refresh rate as well, so the
+predicate is non-zero with VRR off. All 34 of the fixed-refresh state dumps I
+have, across 7.1.13, 7.2.4 and 7.2.6, read
 
-This is a no-op while VRR is actually active. It does not fix Adaptive
-Sync = Always corruption, nor the non-atomic SDP update named by the
-#FIXME above intel_dp_compute_as_sdp(). Trailer is Link:, not Closes:.
+	vrr: no, fixed rr: yes, vmin: 2016, vmax: 2016, flipline: 2016, pipeline full: 0, ...
 
-Tested on LENOVO 21VG (PTL eDP, 8086:b080), v7.2.6-200.fc44.x86_64,
-rebuilding only xe.ko with this hunk:
+including the runs where the VRR state itself was not stable.
 
-  Adaptive Sync = Never (Tested-by): vrr: no, fixed rr: yes,
-  infoframes enabled: 0x6 (no BIT(3)), zero Adaptive-Sync SDP, panel
-  clean. This boot: six s2idle suspend/resume cycles, all clean.
+I rebuilt only xe.ko from the 7.2.6 tree with that one line restored, signed it,
+and loaded it in place of the distribution module. The streak is gone at the
+first modeset. Same kernel, same firmware, same compositor, same panel - the
+module is the only variable - and the loaded module is identified by build-id
+rather than assumed, because vermagic matches for any build of the same kernel.
 
-  Adaptive Sync = Always (not Tested-by): vrr: yes, vmin 2016 / vmax 8064,
-  infoframes enabled: 0xe, Adaptive-Sync SDP still sent. Panel
-  appearance on Always is not claimed.
+The full report, with the state dumps, log excerpts, the commit list and
+everything that is still open, is the work item:
 
-  CMRR / FAVT: not tested.
+	https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
 
-On the same panel, Adaptive Sync = Never, first modeset, drm.debug=0xe:
+The raw drm.debug=0xe logs and the source snapshots are attachments there, so I
+am not attaching them here.
 
-  7.1.13 (clean):     infoframes enabled: 0x4  (VSC only)
-  7.2.4  (streaked):  infoframes enabled: 0xc  (VSC + AS SDP,
-                      operation mode 1 = DP_AS_SDP_AVT_FIXED_VTOTAL)
+Two things I would rather state than leave to be found:
 
-  Later dumps of those boots are 0x6 vs 0xe; each non-zero bad mask is
-  good | BIT(3).
+  - This removes the fixed-refresh trigger only. While VRR is actually active,
+    crtc_state->vrr.enable is already true, so the change is a no-op on that
+    path, and I have not isolated the VRR-active path in testing.
 
-Changes in v2:
-- OR crtc_state->cmrr.enable so CMRR still gets AS SDP (v1 review).
-  At fixed refresh v2 matches v1.
-  v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
+  - The non-determinism on suspend/resume is not explained by this. There is a
+    #FIXME inside intel_dp_compute_as_sdp() saying that SDP/infoframe updates
+    "aren't truly atomic, and with the new cdclk->tc clock crossing we may
+    transiently send a corrupted packet if the update lands mid-transmission".
+    That is my candidate, but it is a guess and I have not instrumented the
+    window.
 
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
-Fixes: 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async")
-Cc: stable@vger.kernel.org # 7.2.x
-Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
-Tested-by: Xizhe Tang <xizheTang2005@163.com> # v7.2.6, PTL eDP, Adaptive Sync=Never
----
- drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The patch follows as a separate mail, since it stands on its own.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3115,8 +3115,9 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
- 	    !intel_psr_pr_async_video_timing_supported(intel_dp))
- 		return true;
- 
--	return intel_vrr_possible(crtc_state);
-+	return crtc_state->vrr.enable ||
-+	       crtc_state->cmrr.enable;
- }
- 
- static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
---
-2.47.0
+Thanks,
+Xizhe Tang
 
