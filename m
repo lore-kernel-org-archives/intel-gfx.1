@@ -4,27 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F1C6C98302
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:10:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08923C98302
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E219E10F07D;
-	Wed, 23 Sep 2026 14:10:41 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5116A10F07D;
- Wed, 23 Sep 2026 14:10:40 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4435247455435846515=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Split?=
- =?utf-8?q?_i845_and_i9xx_cursor_updates_into_arm/noarm_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "George Karagounis" <taterraster@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Sep 2026 14:10:40 -0000
-Message-ID: <179017264032.197850.4043110882108290559@61270ab9df2a>
-X-Patchwork-Hint: ignore
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90E5F10F090;
+	Wed, 23 Sep 2026 14:11:34 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VWbRHlMA";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B61A10E0E9;
+ Wed, 23 Sep 2026 14:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790172693; x=1821708693;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=5grS7nCtM9KyKhO/kor9IGznsy+6PeSOl65OjspMIPc=;
+ b=VWbRHlMAY3OwRALXg+DwnyPZuldlylYPAtcrBW3GIlRs2pzOfet4F5eb
+ muKyrC1+zjwSup05CeopnsFLBMsq8fd3ECbPJBUxpfhoenv62a/TGbya3
+ RerSS7aD+8F2Mn39PsamokClrGqOsU5Zr91kMqDp0pNhVtq6Q8yDSh/v6
+ NMgSLEL6O7KT+ZWHpoH+1242Qa2qbVg8j982fDg2LNDDNPXKrE+zAABhl
+ evx85ofat0VEkNq3vkl7+qXWXrzT4Bnlzh6l8SYHpIJb/YKeT6vX34D56
+ tmxgKm0lNWOjybaMy+b7xSBlKKq9dRaULh6mpgc4l9yBjk8dPYC4Up54T g==;
+X-CSE-ConnectionGUID: xXfciBBERhaR8fNsg6yQgg==
+X-CSE-MsgGUID: C2AKtPmrTW2EyXR4amUDrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="108369886"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="108369886"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 07:11:33 -0700
+X-CSE-ConnectionGUID: H5sZFnXuRymtbmitfpBpvQ==
+X-CSE-MsgGUID: scvGZqAgTu+v2c2qD3qSjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="278356180"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.46])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 07:11:30 -0700
+Date: Wed, 23 Sep 2026 17:11:27 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: George Karagounis <taterraster@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ George Karagounis <mail@taterr.org>
+Subject: Re: [PATCH] drm/i915/display: Split i845 and i9xx cursor updates
+ into arm/noarm
+Message-ID: <arPeD2dcyUIEGGn3@intel.com>
 References: <20260919173914.111150-1-mail@taterr.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 In-Reply-To: <20260919173914.111150-1-mail@taterr.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,207 +75,179 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4435247455435846515==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Sat, Sep 19, 2026 at 08:39:14PM +0300, George Karagounis wrote:
+> There was a problem with the i845 and i9xx cursor update functions
+> they handled both position updates and control/base/size updates in
+> a single armed sequence. This prevented the cursor position from
+> being updated asynchronously, which can make the cursor feel laggy
 
-== Series Details ==
+The noarm vs. arm split has nothing to do with that. What it does is
+(slightly) reduce the amount of work we have to do inside the vblank
+evasion critical section. And in order to do the split one has to
+evaluate each an every register to confirm whether they are self
+arming or not.
 
-Series: drm/i915/display: Split i845 and i9xx cursor updates into arm/noarm (rev2)
-URL   : https://patchwork.freedesktop.org/series/174624/
-State : success
+And as for the cursor we can't really do that because of the mailbox
+updates being performed from the legacy cursor path. That is, when
+performing mailbox updates the non-arming registers must also be
+updated during the vblank evasion critical section or else they might
+disarm the arming that was done by a previous update in the same frame.
+The full legacy cursor fastpath would actually work fine there because
+it does both the noarm+arm inside the critical section, but the
+non-fastpath route for legacy_cursor_update==true does not so it
+would need additional changes.
 
-== Summary ==
+> 
+> To fix this i split the updates into two phases
+> 1. noarm Calculates and writes the CURPOS register immediately.
+> 2. arm Calculates and writes CURCNTR, CURBASE, and CURSIZE to
+>    latch the control and memory updates at vblank
+> 
+> Also handled a hardware quirk on i9xx platforms where CURPOS requires
+> a CURBASE write to arm the update. The arm phase now writes CURBASE
+> even if only the position changed
+> 
+> This resolves two inline TODOs and improves cursor responsiveness
+> 
+> Signed-off-by: George Karagounis <mail@taterr.org>
+> ---
+>  drivers/gpu/drm/i915/display/intel_cursor.c | 44 +++++++++++++++------
+>  1 file changed, 33 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+> index 0673f16f6fd0..c12a7222f2f6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cursor.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+> @@ -270,14 +270,27 @@ static int i845_check_cursor(struct intel_crtc_state *crtc_state,
+>  	return 0;
+>  }
+>  
+> -/* TODO: split into noarm+arm pair */
+> +static void i845_cursor_update_noarm(struct intel_dsb *dsb,
+> +				     struct intel_plane *plane,
+> +				     const struct intel_crtc_state *crtc_state,
+> +				     const struct intel_plane_state *plane_state)
+> +{
+> +	struct intel_display *display = to_intel_display(plane);
+> +	u32 pos = 0;
+> +
+> +	if (plane_state && plane_state->uapi.visible)
+> +		pos = intel_cursor_position(crtc_state, plane_state, false);
+> +
+> +	intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
+> +}
+> +
+>  static void i845_cursor_update_arm(struct intel_dsb *dsb,
+>  				   struct intel_plane *plane,
+>  				   const struct intel_crtc_state *crtc_state,
+>  				   const struct intel_plane_state *plane_state)
+>  {
+>  	struct intel_display *display = to_intel_display(plane);
+> -	u32 cntl = 0, base = 0, pos = 0, size = 0;
+> +	u32 cntl = 0, base = 0, size = 0;
+>  
+>  	if (plane_state && plane_state->uapi.visible) {
+>  		unsigned int width = drm_rect_width(&plane_state->uapi.dst);
+> @@ -289,7 +302,6 @@ static void i845_cursor_update_arm(struct intel_dsb *dsb,
+>  		size = CURSOR_HEIGHT(height) | CURSOR_WIDTH(width);
+>  
+>  		base = plane_state->surf;
+> -		pos = intel_cursor_position(crtc_state, plane_state, false);
+>  	}
+>  
+>  	/* On these chipsets we can only modify the base/size/stride
+> @@ -301,14 +313,11 @@ static void i845_cursor_update_arm(struct intel_dsb *dsb,
+>  		intel_de_write_fw(display, CURCNTR(display, PIPE_A), 0);
+>  		intel_de_write_fw(display, CURBASE(display, PIPE_A), base);
+>  		intel_de_write_fw(display, CURSIZE(display, PIPE_A), size);
+> -		intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
+>  		intel_de_write_fw(display, CURCNTR(display, PIPE_A), cntl);
+>  
+>  		plane->cursor.base = base;
+>  		plane->cursor.size = size;
+>  		plane->cursor.cntl = cntl;
+> -	} else {
+> -		intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
+>  	}
+>  }
+>  
+> @@ -645,7 +654,21 @@ static void skl_write_cursor_wm(struct intel_dsb *dsb,
+>  			   skl_cursor_ddb_reg_val(ddb));
+>  }
+>  
+> -/* TODO: split into noarm+arm pair */
+> +static void i9xx_cursor_update_noarm(struct intel_dsb *dsb,
+> +				     struct intel_plane *plane,
+> +				     const struct intel_crtc_state *crtc_state,
+> +				     const struct intel_plane_state *plane_state)
+> +{
+> +	struct intel_display *display = to_intel_display(plane);
+> +	enum pipe pipe = plane->pipe;
+> +	u32 pos = 0;
+> +
+> +	if (plane_state && plane_state->uapi.visible)
+> +		pos = intel_cursor_position(crtc_state, plane_state, false);
+> +
+> +	intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
+> +}
+> +
+>  static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+>  				   struct intel_plane *plane,
+>  				   const struct intel_crtc_state *crtc_state,
+> @@ -653,7 +676,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+>  {
+>  	struct intel_display *display = to_intel_display(plane);
+>  	enum pipe pipe = plane->pipe;
+> -	u32 cntl = 0, base = 0, pos = 0, fbc_ctl = 0;
+> +	u32 cntl = 0, base = 0, fbc_ctl = 0;
+>  
+>  	if (plane_state && plane_state->uapi.visible) {
+>  		int width = drm_rect_width(&plane_state->uapi.dst);
+> @@ -666,7 +689,6 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+>  			fbc_ctl = CUR_FBC_EN | CUR_FBC_HEIGHT(height - 1);
+>  
+>  		base = plane_state->surf;
+> -		pos = intel_cursor_position(crtc_state, plane_state, false);
+>  	}
+>  
+>  	/*
+> @@ -703,14 +725,12 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+>  		if (HAS_CUR_FBC(display))
+>  			intel_de_write_dsb(display, dsb, CUR_FBC_CTL(display, pipe), fbc_ctl);
+>  		intel_de_write_dsb(display, dsb, CURCNTR(display, pipe), cntl);
+> -		intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
+>  		intel_de_write_dsb(display, dsb, CURBASE(display, pipe), base);
+>  
+>  		plane->cursor.base = base;
+>  		plane->cursor.size = fbc_ctl;
+>  		plane->cursor.cntl = cntl;
+>  	} else {
+> -		intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
+>  		intel_de_write_dsb(display, dsb, CURBASE(display, pipe), base);
+>  	}
+>  }
+> @@ -1019,6 +1039,7 @@ intel_cursor_plane_create(struct intel_display *display,
+>  	if (display->platform.i845g || display->platform.i865g) {
+>  		cursor->max_stride = i845_cursor_max_stride;
+>  		cursor->min_alignment = i845_cursor_min_alignment;
+> +		cursor->update_noarm = i845_cursor_update_noarm;
+>  		cursor->update_arm = i845_cursor_update_arm;
+>  		cursor->disable_arm = i845_cursor_disable_arm;
+>  		cursor->get_hw_state = i845_cursor_get_hw_state;
+> @@ -1036,6 +1057,7 @@ intel_cursor_plane_create(struct intel_display *display,
+>  		if (intel_scanout_needs_vtd_wa(display))
+>  			cursor->vtd_guard = 2;
+>  
+> +		cursor->update_noarm = i9xx_cursor_update_noarm;
+>  		cursor->update_arm = i9xx_cursor_update_arm;
+>  		cursor->disable_arm = i9xx_cursor_disable_arm;
+>  		cursor->get_hw_state = i9xx_cursor_get_hw_state;
+> -- 
+> 2.55.0
 
-CI Bug Log - changes from CI_DRM_19207 -> Patchwork_174624v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_174624v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@core_debugfs@read-all-entries:
-    - bat-adlp-6:         [PASS][1] -> [DMESG-WARN][2] ([i915#15673])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-
-  * igt@kms_pm_rpm@basic-rte:
-    - bat-rpls-4:         [PASS][3] -> [DMESG-WARN][4] ([i915#13400])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_auth@basic-auth:
-    - bat-adlp-6:         [DMESG-WARN][5] ([i915#15673]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-adlp-6/igt@core_auth@basic-auth.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/bat-adlp-6/igt@core_auth@basic-auth.html
-
-  * igt@fbdev@info:
-    - fi-hsw-4770:        [SKIP][7] ([i915#1849] / [i915#2582]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@info.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/fi-hsw-4770/igt@fbdev@info.html
-
-  * igt@fbdev@nullptr:
-    - fi-hsw-4770:        [SKIP][9] ([i915#2582]) -> [PASS][10] +3 other tests pass
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@nullptr.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/fi-hsw-4770/igt@fbdev@nullptr.html
-
-  * igt@gem_softpin@safe-alignment:
-    - fi-hsw-4770:        [FAIL][11] ([i915#15527]) -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
-
-  * igt@i915_selftest@live:
-    - bat-mtlp-8:         [DMESG-FAIL][13] ([i915#12964]) -> [PASS][14] +1 other test pass
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-8/igt@i915_selftest@live.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/bat-mtlp-8/igt@i915_selftest@live.html
-
-  
-  [i915#12964]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12964
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#15527]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
-  [i915#2582]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19207 -> Patchwork_174624v2
-
-  CI-20190529: 20190529
-  CI_DRM_19207: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_174624v2: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/index.html
-
---===============4435247455435846515==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: Split i845 and i9xx cursor updates into arm/noarm (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174624/">https://patchwork.freedesktop.org/series/174624/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19207 -&gt; Patchwork_174624v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_174624v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@core_debugfs@read-all-entries:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-adlp-6/igt@core_debugfs@read-all-entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/bat-adlp-6/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-rte:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@core_auth@basic-auth:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-adlp-6/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/bat-adlp-6/igt@core_auth@basic-auth.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@fbdev@info:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/fi-hsw-4770/igt@fbdev@info.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@fbdev@nullptr:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@nullptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/fi-hsw-4770/igt@fbdev@nullptr.html">PASS</a> +3 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_softpin@safe-alignment:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527">i915#15527</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12964">i915#12964</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174624v2/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19207 -&gt; Patchwork_174624v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19207: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_174624v2: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4435247455435846515==--
+-- 
+Ville Syrjälä
+Intel
