@@ -4,129 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E07BDC98308
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 05:01:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 294FBC982EA
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 06:19:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC5210EEF8;
-	Wed, 23 Sep 2026 05:01:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8799B10E403;
+	Wed, 23 Sep 2026 06:19:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pVHTWgKy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lAGK2YW7";
 	dkim-atps=neutral
-Received: from mail-oi2-f35.google.com (mail-oi2-f35.google.com
- [74.125.231.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F57310EEEB
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 05:01:20 +0000 (UTC)
-Received: by mail-oi2-f35.google.com with SMTP id
- 46e09a7af769-8055dcba0a5so147075a34.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 22:01:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790139679; cv=none;
- d=google.com; s=arc-20260327;
- b=kH7ZbNRciWxbbgh2RUcZ1xIEtwbqC+5ZeTIM15NGSfEaDNicJpGLTi3L2dzU2a30bx
- uCu1b1COU37ygSyuVGLegDllktbimmzZmHoT4FXkMf+Wsi79F1sdWc4Togud4s6/g/Xz
- aMhJmaAL9T1X861aIPFSUSJa28xwUF8VwwXONajAg8SSFPD+DjFYPCUCVxTlBAra5JwZ
- C71DFEhJVu/cxQuOTMAVVoAO0glnElfLsg4RniQzBA0Gb6E7AyuSsjrdB8zN3mLWKuy5
- QidOGM6m/F9YSPkT5ZB0+WRg/beO3ZfjKpZX0ECxk4AOkFfGtKMQ4THwX5jlskgY9Gga
- h7iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=s9t+pGf5Jdws57vhvMQ8eJxDP4MEnxA9XvPVPFGvtB4=;
- fh=E3yMQVNtdi0keFELUcnx5PvBzt7Q5p64d2WvPfgA3pU=;
- b=kGZScUZ0/C6R1EOgzzPLEvo3edJ/54FmrwZNWYFco+vEXVGfrVDPtX7Ox5E7ZqxyIx
- g7v4Uu3IMmP4GiAyhDgQ6utFe09ajdRxS91pj2i0CNc6+kkjH9cqden2BSpEQe+LzW7l
- 5kduI081979V3bJVyLIgXqhyuqP4H5Gj5n7oXGGIxUARk5xvVlwlq/bnZU2PdD6ovOOn
- dm4+4uT8oYyHhVi1Zz0JJQj5Gr3Rd83vxaIjTuMtUsaeBHgzvGuARzq80FG/kpDW/i03
- O9zrz+XiC61NXuS83aDk3CSZQToIeaWGApOZF+twofiircRj4l0srIIe56bd6QXXBnH4
- R6fA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790139679; x=1790744479; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=s9t+pGf5Jdws57vhvMQ8eJxDP4MEnxA9XvPVPFGvtB4=;
- b=pVHTWgKyb9M5s4+3AHQyBwFFysdLqfpwoWdBbq3XQq0PxGXBzOjavotffHXV3UVWbp
- A8plUjqyV/H3chcgZJdrgDYCK9ntcIRKTh+l5YksSHhExoJvje8toN/zBakclWRB3utL
- EpihgPQiNtFIS5jAp9PsNFUZr58c3K+OpHhUFG42Y1QP1DrGBHccDGVqeuF4zWYuPytA
- h7B9UpPgtaXO89lLNzH58ouC5NzzrKGxf6CUGqQf4R2CM+DD17UxmypF7I1+Mr8qq0YI
- 65QhIi7w0PEHeHDR7BYmbrkMfwEGAqaUcUGUAdgeb65eXP17SYc+757+TZJtHNUWXGD1
- HgOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790139679; x=1790744479;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=s9t+pGf5Jdws57vhvMQ8eJxDP4MEnxA9XvPVPFGvtB4=;
- b=0rHW8Fb1i2J9nirIZ6GykLL1BYutsXIzfwjFE/1yLJPIwJGlY/ptmD+Co15trFz+Gj
- AGRs/dWSK/ObR63GuUwMRhPyQOoRfmLlXiydaK36AnFKJoW+QchN9xwfKfW0gR58BB2U
- 0m8nnHaNfu9+rMlkarwpEUO/c1Qy2EcXvuC3DGJAVAdYAQaD9wYhWylykH6U11JuI293
- KmMCLCKCkxtshprB8Ol0YZuAVLbmo2oPQDbXXvvBBwN76Tk84hxa4vNCOjTarNzShBL4
- LvGuhP2p5hAqmQsUR3Ajs9HanBmhDOEHWcaYxRZ841eR60FBqNcUCoK1hA93XRq8lAFL
- L9/A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy2GxCmX+G9nPrWpYSMNgOiiAQe9ArL5KAa+n4TVc3bAtNG59keirBdBqHp8z+gIC/D2RWv2kafxLQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kK+kcUEtR6bzoeH1qQ3KpJZJ8ldBRGyf9FplPit6ouS4woGGlW
- +W0CNfgggtXKFu/d3s83WRc3Px1LPm0K8EPHRKxDysTtfqRKgUzg97D7C5Nj9VzoFdLIc4pV723
- Eg7WvQAbIHqHYSDAVLXNKif6nWyTCfAY=
-X-Gm-Gg: AYBFou0kWATPfklMv839AYpRa0/NwOBX5fHOAK/GaMwrwmkruB1drS7UshZA4+8GQU0
- b4GIzhGtqDZ8jaRaZ+ifcyyHzu1chuUeZUTwYx0lylb4xrkVn3r8+gOYuwDhVNKB+caRyjdpBWZ
- Vv3LmyN23ZBOXrgtFl7j9aJtPcc9ysXLDp26QIpnf6axiT4eNDjzEtEIKWcQTKFgtY+Y0MXpe2h
- uHsWBxWHX7pOIbuuhCLYqUSF+4IhE59I1cT1Li1ZQp+EeAH03CxkoPg60yA1LrAja0LqfCZd486
- JgeLFbTdtWPZaA1N4nLBQ1A/NJlCy8qVJ8H6X3zz68s8ZTIjOK11AioRUf+x1zxzSw==
-X-Received: by 2002:a05:6830:2105:b0:814:fd96:b005 with SMTP id
- 46e09a7af769-815fa7a3aa8mr1368055a34.10.1790139679573; Tue, 22 Sep 2026
- 22:01:19 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1961C10E403;
+ Wed, 23 Sep 2026 06:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790144380; x=1821680380;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=cm88Vn1kc3+vthhK5u9VFqmpYG+RqovMmtE0iiUbWGo=;
+ b=lAGK2YW7ZiN/6UTfaNW7xQE8wTzshyG+p5AYAPnVd71urjWDeTL1Ow+i
+ votjJI7C6XteEX7ZhuYQWXnGhVGFmzQPHsp/qX9tuUDuPH4nUCe+YyQ1M
+ b1eKA8VR3QFfHh4RxLhthjPm0xXwx+rULJbyHd0AthfgFWC0qH9+dv/au
+ FsZFbomTT/F9GpM3xDzR18OVzLNmeTiEf9i/1VY0L4+fapnqapYlcEXgK
+ +nmHD+80VdeZd3AH7n22kP5YTvhoNbHeA9TySJjhLajniO1HGzClMbCKY
+ +SjpXPQXnkNsgv9MAXkPMLz0pZv6Y/2l11AmaVQnLHlsy7LgfFpRPlgTv Q==;
+X-CSE-ConnectionGUID: +2M2dRAjTk+R6VeioSpnQQ==
+X-CSE-MsgGUID: Dogj+DGaS+aWG6z1OSbvcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="78359561"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="78359561"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 23:19:40 -0700
+X-CSE-ConnectionGUID: s/RlFsZkQgmZmkIo8nxzaQ==
+X-CSE-MsgGUID: yakqA1VqQDyyZXxSojAxag==
+X-ExtLoop1: 1
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 23:19:39 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 23:19:39 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 23:19:39 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.39)
+ by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 23:19:38 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hNhUby+VftoqZvOt+PVUeQjMoU0J9L1zwcTXm7iSvjMRjVotEXppv7PNhfGgeYozpQ17d13bild8JxHe+oiyd/UxBx0LrkMjE0y7L8dzP50oRmfvzDrAVqL2xW7G2rs4qMn9xcZN2oAY+RSMLU9j6X4hIAkcAoBC/zKUNwTB97PdSu9YDFZv0IJ4/fptUuIp+nnm3rJwbaunnmU5EctPGHXO/tQlUlOWS5LWGpcy8zpORUvxBaSAFIss4Hlh7+nRuXy1MjDp1/twHkxZHE4Ust1C3XmZJtMXNZboZNdYI1RLQR38+3zkqeviYUS/ghT98IgOwXna9Wba+NAGWX3SmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J2Xcis6hsGwshGmuQnBgzCL+sDgSvctJr6HpDskfXrk=;
+ b=F9ydM8kARS9fyB8LGBkxLC5QZyhVG1SjJpF/SKmFRTpDM5Xy0ETciLxY0GiwVmsnXL+DCR+vVR53cvUafdcbjjzVNR2u5+eyAoTBftMQ7u59zDt+yFPryX28HXu/YsU/3qpzYeAq7d3h3QlMdcQR83iFfIjEHuf7xiwJqXNFp0E8SHE7iUwoUpsGQIze2dB3GCsNBNiO74N6MWcddk8Hub+yZv5BW6qm7iGfb4C86WCma9m/3lryNSCDRxteRULczNUotdtqdxCTYCeRsY+ywpzi44W5nZBTB2NIZaKUyg4tRM7Awq+7ijEEk98UnmQbmq+85sKRIYEADhXoz9/LmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
+ by SA1PR11MB8325.namprd11.prod.outlook.com (2603:10b6:806:38c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 06:19:36 +0000
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 06:19:28 +0000
+Date: Wed, 23 Sep 2026 06:19:19 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+CC: Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>, "Simona
+ Vetter" <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, David Airlie <airlied@gmail.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Janusz Krzysztofik
+ <janusz.krzysztofik@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>
+Subject: Re: [PATCH v3 1/2] drm: Unwind drm device registration upon error
+Message-ID: <r5hcjsnb54yvntn2a6epxaka52hsbo4ofynd5ntntamjpvk3e6@cfgq4xecszou>
+"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
+References: <20260827143447.99553-1-krzysztof.niemiec@intel.com>
+ <20260827143447.99553-2-krzysztof.niemiec@intel.com>
+ <apC_eePJyeGnVQTG@zenone.zhora.eu>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <apC_eePJyeGnVQTG@zenone.zhora.eu>
+X-ClientProxiedBy: DU2P250CA0030.EURP250.PROD.OUTLOOK.COM
+ (2603:10a6:10:231::35) To PH0PR11MB7424.namprd11.prod.outlook.com
+ (2603:10b6:510:287::7)
 MIME-Version: 1.0
-References: <20260724025959.142826-1-W_Armin@gmx.de>
- <20260724025959.142826-3-W_Armin@gmx.de>
- <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
- <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
- <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
- <11976ed3784675ad241646287a909286a42675a8@intel.com>
- <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
- <62d7da838e7042df8456e76190db792093065b57@intel.com>
- <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
- <d696d85c44930d2124054ce11a06d3096c0db04a@intel.com>
- <CADnq5_PT7s6ixTqDSwe9ai9tUQa04z7UnwhMn7bo7CcsH5Qf0w@mail.gmail.com>
- <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
-In-Reply-To: <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
-From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Date: Wed, 23 Sep 2026 07:01:07 +0200
-X-Gm-Features: AclHuK9iIINoALCOYPcubT5-e7bSzbMlB0XgN7hLaVHol59ylJMeoZCRLCs4o-M
-Message-ID: <CAMeQTsZw8P+__EXsUSW8G6LONN85HPwmG1+zQXwpmHEC=npWyw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
- nvidia_wmi_ec_supported()
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "linux@weissschuh.net" <linux@weissschuh.net>,
- "rafael@kernel.org" <rafael@kernel.org>, 
- "lenb@kernel.org" <lenb@kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, 
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, 
- "simona@ffwll.ch" <simona@ffwll.ch>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
- "mripard@kernel.org" <mripard@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, 
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>, 
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "tursulin@ursulin.net" <tursulin@ursulin.net>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
- "matthew.brost@intel.com" <matthew.brost@intel.com>, 
- "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>, 
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|SA1PR11MB8325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4bfc9d5a-5cab-448c-a27b-08df193a9f98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: v38yAOO/Nf5PW9TX/7S4vyQSHKWOvfMptEdSjLlk/rk1neLdsJGsSskLvFQHhOrtdsJMjI0ztHqdIS2UBixenrxkJI4OYWY/E9hTrgdMCCOdvVD7JAA3AM6ohSgqbiQqXmGXnSYjzaSOOdXHae4GDEbplLrvVIDl+oIHcFYPr8uIx3vMdybjjvuN2s4Gmh4Y6jbSJOhxXmitMCd2esN2MIM4kb2IGXwmyKDDOO97LCt8nMCpSH/dLNTVK9BvmMyB9gn0Cl6JbnvMB9KtVi/AdoiwktZjT6jLX4M3/W2fu9sBD3gxryZVUp3IeIkWajzcL40WXfye1YsjaCzvoYuTR4v3u0eXU1QwP8fJ07zQVkHnXOv168P/7nqzL4j5C4/l6CP+E+OJK3oQyfI5Kjie7bil6LIc1dGeAcR8gDxC1ns4DA9uRILHnJfK5D9wu4Pf4glqNhLnMWb5UMs87v14k858h9QEl4mPJWiXKovbKxlVccNGhLpN9eiG1imrFcJajNmQeSPdHcG5Mx1VvS6jZk8L3KVEJt2PLjiw+f4Dv7aDdEolMSkwGEwqhj+fMtNUpehV7KgtOCKskrzdZ5nHCWfjuuHVKCX7HLRkTdBD18jGKJpxz078xxPtCfI0x6TmCqcxJY9OcENN26m3LWo7Qc/oNd6I1nO3PTdSVRmnVCg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bnBVYmdIQ0dZOVZBc3NrT1hvcHhoUHZ2ZnoraW9KaC9DOUhqTktQZWltQ3F1?=
+ =?utf-8?B?dHJLZFBJMzhkMWprOEFrcDRZNldKOHlHVlhNR2dVTk5Ob1pOTVgxdkVLWWpC?=
+ =?utf-8?B?QXo5MlB3VmtjdTRINFFZNHRDSEErTmlFazdNUlJla3RNc2YxcjBQNWtTc3VN?=
+ =?utf-8?B?aldFN215Y1BXVEhBRm9QVEg0Q2pFMmVKWFdZOHl3MkwwdHBMVG1QMjRaWFRt?=
+ =?utf-8?B?QXo3ZCtkMW15SkUvUUg3Q1d2NTF0cjQ3MkliZ3kxaGFzbXo0RTBjZDVNK2g3?=
+ =?utf-8?B?ZkdabmJzS1daRUtDQjBCa0hrZEM5aUVwRVpRb0NGclZ5Myt0cnR0Ym11TUdt?=
+ =?utf-8?B?TWh1eGVRSWNHYTN0OXRFeU1UVzR5UUFWMDhRc2d6TnNWT0ZSMnNJMVdPaUk0?=
+ =?utf-8?B?eTVOZ3RrSU95RExndkxuV1hvdklycm93OXRWa1JQWnhzV3FRdWtwYUtIODVM?=
+ =?utf-8?B?VkpvdXk1WUZwc3VFYXJiSGt2WHVsVTdXWDJsK1FzQ0d2WENqWUljUnNDUklx?=
+ =?utf-8?B?RFArVnZDQytOK0lQWk5QdzVaeHNSaVJVUkVRSmJEQjROSGpvdmw2d3lGRHBp?=
+ =?utf-8?B?N3pQN01jaGFMRWRWdDZCZXpLL3l2ZFJGRGVhV0ZLRHJpR3lKU2E4czRFMXoz?=
+ =?utf-8?B?REpQSGdUTm11NDRIMDR2anVyVURKdG96RG9aTE1YNUpXbXNFVWJDWmVZekV4?=
+ =?utf-8?B?dTQ4SkUrQlFBRTFCbUhUZTNpVmp3Z0lYN0ZVMUpCYmxuTUY3WkdIQU85Rnp0?=
+ =?utf-8?B?bTUrQmJ0RzhlaFhpbFJOak1TUEUwNlE5cXNTY3dTQkw4eWtadkhnQWJTc0RM?=
+ =?utf-8?B?VjNIaXhYUlpCZk5Qejg3R1NUU3ROUzB3RjRvb2pvV1MyWHJUUWo1Ym5HNXJh?=
+ =?utf-8?B?VXFBN0tqaUpOK1VCbHF2SmpvWi9QVjYvN0toNXlOZ2pzMXE3YkltOU4wTTVF?=
+ =?utf-8?B?enpVSEI3UWF1ZFdieW1BdmVKK3lEMlpKaEhBRkh3MHg4S3R1Wis3ZHYvdmkv?=
+ =?utf-8?B?QjJhTkhZTXZCUGZMeGZJVTNpVDd4NU1EMU5JOEcyV0U2ZnJJV2RsUTY3aGF6?=
+ =?utf-8?B?MWViSTJ1V2h4NUdWcDRhdUFFbHZ4SVljb0lPZ2ZBcVVhQi9QU3RKQ2UxN2xV?=
+ =?utf-8?B?NzliMStIL2lQT0xsTTVlMGMyUnEweGhlTFhJa1NQUGFNRXBWNWo1Q2tmTkJ0?=
+ =?utf-8?B?Mk9OUHJzK3NFRU04TGxZOWpvQnZPVEZTb2RxeEVBY1VmQXlzb2p0K2RISU5L?=
+ =?utf-8?B?NENYczlhOVRBZDBMbGJveVBIRXd0ZjhVUUdpK0ZLeHcrRTFtSXEramdSZWxx?=
+ =?utf-8?B?WDcxVEROR0tBVGE3RXNjUVVNNnA2d1RhNlZwMVVkNzN6S0FDMXVMQnhpODRW?=
+ =?utf-8?B?d3ZFM3VuSnFoTG9EMjJWK1Nib0VSdyszUXZJWUJXMGRiUkFPWWh5QWhxMDEx?=
+ =?utf-8?B?bkJaZSt3QmROM0pwY0EyTnFqcnYwTXZleThPK1NTTU1HYTdxb0czSklxYklz?=
+ =?utf-8?B?U3RiSHBrV2VERXRlQjFtQ2VrcmdsTFJlcnZDeU15ZmxuMnBKOXpvVHhjenB5?=
+ =?utf-8?B?S1Y3TGd1T3Nob1JVeWNIZUFOZ1FmdGQwa1NTb1o4cVl1dHBqYmU2dnQ1dXZO?=
+ =?utf-8?B?UDFLclZiS3lXd3ZGNVZLbGE0N2VDME4zVHF2eWJJZ056ZWQxMkRLVExPYlV3?=
+ =?utf-8?B?RTR2N1p1cmFWMnIrUUU0SUxCL2VDVElybnNaeEROcnB4a1EzQjhtdWl0b3VH?=
+ =?utf-8?B?OWhTU1I0ZVJCV2RISi91UGQxUEc3MWZXMTB0OGtjTkRqRU5TQjM2K05SOVp4?=
+ =?utf-8?B?MkJ1Ri9tZDhSZ2pnMFpQV3gxd0l0eHlTQ2tWRGpsdWp1VHJYNHdHYzJmSndJ?=
+ =?utf-8?B?TTh1ZWFxT0RYMjUwcUV3VXBWVFBreVpyaFowcUhjNGI2OWhsNm13REhrTUR1?=
+ =?utf-8?B?QzJNN1BwVHRFb3AvN0FWZEdjYlNtOW5RMDUzNVU2c095YlY1dUJ5ZnlmTzlN?=
+ =?utf-8?B?V2I5OVN1RTc0VDNJOU40YU9nUlVCaXN4QWxFSzd3MnYzaVYvRkxTb2pNQjJB?=
+ =?utf-8?B?d05mMDZKUTFBdW1qd3JjQVMvamwxZUlFcDdvbC9tU3ZzOEN3T2p2L01SaGFV?=
+ =?utf-8?B?SFVMNTRDcW9zYm9Vamc2anY4L0FTdk9neTR2eGRTcUkwVzJLQzhDdS91NXI2?=
+ =?utf-8?B?blB0RnpLdXdpQUVEaW1XcTBDRlptdFViRHZveHZZTTJ4Sk9ibTNXMk5FRDZO?=
+ =?utf-8?B?ZWJ1WStTZTdxT2hySDhpMzB2NXFMQkN6ZWdrYkxLZUhwSFpsU1ZMYXBuZHZY?=
+ =?utf-8?B?SmlCZWZSbVZTS0k4a2c1SVJyNGgwUHRYNXliakYxYWlzdk1ONW1STno1dkMw?=
+ =?utf-8?Q?s34w6yidIN75MUZc=3D?=
+X-Exchange-RoutingPolicyChecked: hOdYBWvkx1yBsZw5/Wf7IBvnI2iYDevfGbGkQXJ925Usk5QyPuhp6/mfJJUrSjvh1bOOSvsdUA+BMib2H6wVOL/tU6dfmxsXIXIPn0NPf663Vvhn4zTFchb5q5j4ZmsPCFZ8A/Y32r71EieMXxME53vzePZTQL63MWX9+wfq1xdG38PWqOpmY9k/1ankjMcARNroCyFwPi5nf3BaRUIOyKXCwWXYgCIvolwemFbVmYdCdBYRg8zaMeo/KiQrIe+EcV03cwhXYHU4SJgAXty3/HZT7FXd6zmYSHAmHG1mbUzlscri/Ky6M6FtGgtEvJCRQKlnHoGZWJZwatOu4mAmtw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4bfc9d5a-5cab-448c-a27b-08df193a9f98
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 06:19:28.8082 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oPxuaPHicj5sl0MhS7Pw4bGNuPcI0AT0OcTcAkKv85ZLSTYzLyjzQM48yRD0HupoYSmvSDWN53zls8vczuqV2IGMV3/WghWEVjXhjPof9wA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8325
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,123 +175,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2026 at 9:57=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
->
-> Am 18.09.26 um 15:03 schrieb Alex Deucher:
->
-> > On Fri, Sep 18, 2026 at 7:01=E2=80=AFAM Jani Nikula <jani.nikula@linux.=
-intel.com> wrote:
-> >> On Fri, 18 Sep 2026, Hans de Goede <hansg@kernel.org> wrote:
-> >>> Hi,
-> >>>
-> >>> On 16-Sep-26 09:16, Jani Nikula wrote:
-> >>>> On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
-> >>>>> Am 15.09.26 um 14:31 schrieb Jani Nikula:
-> >>>>>
-> >>>>>> On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel=
-.com> wrote:
-> >>>>>>> GPU people heads up!!
-> >>>>>>>
-> >>>>>>> On Wed, 2 Sep 2026, Armin Wolf wrote:
-> >>>>>>>
-> >>>>>>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
-> >>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> >>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> >>>>>>>>>> index 12e4a41bf1f0..50305630f533 100644
-> >>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> >>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> >>>>>>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
-> >>>>>>>>>>          # ACPI_VIDEO's dependencies must also be selected.
-> >>>>>>>>>>          select INPUT if ACPI
-> >>>>>>>>>>          select ACPI_VIDEO if ACPI
-> >>>>>>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
-> >>>>>>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
-> >>>>>>>>> The change below makes sense, but this one looks like it should=
- remain
-> >>>>>>>>> unless X86_PLATFORM_DEVICES is handled some other way?
-> >>>>>>>>>
-> >>>>>>>>> Alex
-> >>>>>>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary =
-because
-> >>>>>>>> ACPI-WMI depended on it in the past.
-> >>>>>>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 a=
-nymore.
-> >>>>>>> Hi all,
-> >>>>>>>
-> >>>>>>> Could more GPU people besides Alex take a look on this. I'd want =
-to make
-> >>>>>>> progress with this series within this cycle but would prefer to h=
-ave Acks
-> >>>>>>> from GPU side.
-> >>>>>> I share the same concern with Alex. It seems to me we could now en=
-d up
-> >>>>>> with x86 configurations without X86_PLATFORM_DEVICES, which handle
-> >>>>>> e.g. backlight on a lot of platforms.
-> >>>>>>
-> >>>>>> I think the safer option might be to go for:
-> >>>>>>
-> >>>>>>     depends on X86_PLATFORM_DEVICES || !X86
-> >>>>>>
-> >>>>>> in all of the cases that select/depend on X86_PLATFORM_DEVICES in =
-drm.
-> >>>>>>
-> >>>>>> The alternative is to find out, and handle the fallout, if any.
-> >>>>>>
-> >>>>>>
-> >>>>>> BR,
-> >>>>>> Jani.
-> >>>>> Alright, should i leave the original "select X86_PLATFORM_DEVICES i=
-f ..." statements
-> >>>>> as-is or should is change them to "depends on X86_PLATFORM_DEVICES =
-|| !X86" everywhere?
-> >>>> There are some places that depends on X86_PLATFORM_DEVICES. I think =
-it's
-> >>>> almost always a mistake to have some places select and some places
-> >>>> depends on, and select should anyway be used with care. I'd go for
-> >>>> depends on.
-> >>> I'm a bit late to the party here, sorry.
-> >>>
-> >>> Note that X86_PLATFORM_DEVICES is an option which enables / disables
-> >>> a menu and does nothing more.
-> >>>
-> >>> Enabling it or depending on it by itself does nothing.
-> >>>
-> >>> The select used to be there since it must be selected to be able
-> >>> to select ACPI_WMI (which is no longer the case after this series).
-> >>>
-> >>> To depends on in XE was probably copy pasted from the existing
-> >>> select-s and then changed to a depends and already was a completely
-> >>> no-op since depending on ACPI_WMI was enough as that itself
-> >>> dependend on ACPI_WMI.
-> >>>
-> >>> As for X86_PLATFORM_DEVICES being needed for some backlight
-> >>> interfaces, depending on it by itself does not result in those
-> >>> interfaces being there. That requires enabling the actual drivers
-> >>> providing those interfaces.
-> >>>
-> >>> And I don't think that the GPU drivers should start depending
-> >>> on those since that will become very unyielding.
-> >>>
-> >>> TL;DR: I believe Armin's original patch is fine and this is
-> >>> a welcome cleanup / simplification of the DRM drivers Kconfig
-> >>> bits.
-> >> Your explanation makes sense, thanks.
-> > Yeah, sounds good.  Thanks!
-> >
-> > Alex
->
-> Nice, i suppose we can apply this series as-is then?
+On 2026-08-28 at 01:14:57 +0200, Andi Shyti wrote:
+> Hi Krzysztof,
+> 
+> ...
+> 
+> > Amend the problem by removing debugfs entries and marking
+> > registered flag as false upon error in drm_dev_register().
+> > 
+> > Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> > Co-developed-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+> > Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+> 
+> I think the right order should be:
+> 
+> Co-developed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+> 
+> > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> > index e51ed959da89..b98e8af6f1c1 100644
+> > --- a/drivers/gpu/drm/drm_drv.c
+> > +++ b/drivers/gpu/drm/drm_drv.c
+> > @@ -1140,6 +1140,8 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+> >  	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
+> >  	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
+> >  	drm_minor_unregister(dev, DRM_MINOR_RENDER);
+> > +	drm_debugfs_dev_fini(dev);
+> 
+> I think sashiko is right here, this should be removed.
+> 
+> > +	dev->registered = false;
+> 
+> dev->registered = false should be set at the very beginning,
+> maybe something like this:
+> 
+> err_unload:
+> 	dev->registered = false;
+> 	if (dev->driver->unload)
+> 		dev->driver->unload(dev);
+> 	goto err_cleanup;
+> err_minors:
+> 	dev->registered = false;
+> err_clenup:
+> 	...
+> 
+I think we may need another label. Currently, dev->registered
+state is ambiguous, because it is set to true before the last
+goto err_minors. That would mean that putting it under
+err_unload would still leave a gap, where registered == true and
+is never unset on the error path, if driver->load() would fail.
 
-Sorry I'm a bit late here, but for the gma500 part:
-Acked-by: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+How about:
 
->
-> Thanks,
-> Armin Wolf
->
-> >> BR,
-> >> Jani.
-> >>
-> >>
-> >> --
-> >> Jani Nikula, Intel
+        if (driver->load) {
+                ret = driver->load(dev, flags);
+                if (ret)
+                        goto err_registered;
+        }
+
+...
+
+err_unload:
+        if (dev->driver->unload)
+                dev->driver->unload(dev);
+err_registered:
+        dev->registered = false;
+err_minors:
+...
+
+-- 
+Best Regards,
+Krzysztof
