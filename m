@@ -4,67 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A548AC982EA
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 06:52:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0928C982EA
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 06:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33E1F10EF09;
-	Wed, 23 Sep 2026 06:52:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WG/P6Su8";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65DDA10E7FF;
- Wed, 23 Sep 2026 06:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790146334; x=1821682334;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=hTMiXPl4WbKEJ1YMTZWqxrXiBFu1K6Gg2Aq+TrT3yiQ=;
- b=WG/P6Su8Q2J1G6j2p/pvJGk1bi8eVgHE4LNXbCnUfOLZvXqqLeMId7eq
- wNuBo4qcWX9QzdYUbDupXsmb33aIYVuY3/554NRcXbJOLomJYFTICKM67
- Eg2neqtbaP7jyWBZIHya5dwWs23/HTv+m0o4XvWetnuZ3fkvJH9E1vTQ/
- Xxb2wonh3EpiQrWHrucwa77dI5KVxxOIyMAmHhqV6f4ERcbZIomrpAgT+
- IvRq+gGW5WQE9tsLaMI6gnYmMIVHf5q4aFkJImMHQfZkbhjOQ8Si8U71T
- RxKeD8zU9TY96YpHWMF4m8xflBmZIR/RAk6OHr4KWvXsnsWfbpQug5tUA A==;
-X-CSE-ConnectionGUID: OO0lAb5cS+OeOeaFV2a/8Q==
-X-CSE-MsgGUID: cU/T8RjWRAKSz++JCDgeUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="102167908"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="102167908"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 23:52:13 -0700
-X-CSE-ConnectionGUID: K0PZ+RDiTLmTX4t+ilRhUQ==
-X-CSE-MsgGUID: 69MZ1TYBTKOhG5aDx4RwEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="273654392"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.213])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 23:52:10 -0700
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B97210E04C;
+	Wed, 23 Sep 2026 06:59:15 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E25510E04C;
+ Wed, 23 Sep 2026 06:59:14 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0018487865572518138=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <PH8PR11MB8040A8F215B997982530CE44F4832@PH8PR11MB8040.namprd11.prod.outlook.com>
-References: <20260630223946.2107382-1-jia.yao@intel.com>
- <20260630225349.984AB1F000E9@smtp.kernel.org>
- <178290749714.224587.15234445443946207851@jlahtine-mobl>
- <178292444166.273574.16738251742448073960@jlahtine-mobl>
- <PH8PR11MB8040EFAAE8210F2C6B53AC1BF4842@PH8PR11MB8040.namprd11.prod.outlook.com>
- <179005959984.27165.4749331452130832177@jlahtine-mobl>
- <PH8PR11MB8040A8F215B997982530CE44F4832@PH8PR11MB8040.namprd11.prod.outlook.com>
-Subject: RE: [PATCH v9] drm/i915/dg2: Add per-context control for
- Wa_22013059131
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Roper,
- Matthew D" <matthew.d.roper@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-To: "Yao, Jia" <jia.yao@intel.com>,
- "sashiko-bot@kernel.org" <sashiko-bot@kernel.org>,
- "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-Date: Wed, 23 Sep 2026 09:52:07 +0300
-Message-ID: <179014632773.19856.4107893493544612438@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/xe/display=3A_Remove_?=
+ =?utf-8?q?invalid_initial_plane_PTE_check_for_iGPU_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Activate Windows" <zhoulol888@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 23 Sep 2026 06:59:14 -0000
+Message-ID: <179014675457.195677.10930664138277963202@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260905142500.17666-1-zhoulol888@gmail.com>
+In-Reply-To: <20260905142500.17666-1-zhoulol888@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,107 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Yao, Jia (2026-09-22 17:34:08)
-> Hi @Joonas Lahtinen,
->=20
-> For RCS -> UNSET
-> For CCS
-> 1. Old compute runtime -> UNSET
-> 2. New compute runtime -> USER
->=20
-> If we take there's only one compute runtime version, and priority USER > =
-UNSET?  Where's the conflict come from?
+--===============0018487865572518138==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-See below.
+== Series Details ==
 
-> But if we take there's more than one compute runtime version, and their p=
-riority is equal,  UNSET can cover USER,  USER can cover UNSET,  even with =
-two clients they could cover each other.
+Series: drm/xe/display: Remove invalid initial plane PTE check for iGPU (rev3)
+URL   : https://patchwork.freedesktop.org/series/173618/
+State : success
 
-I didn't follow this part. How does the priority come into play?
+== Summary ==
 
-We have to keep switching the mode as the DRM clients come and go.
+CI Bug Log - changes from CI_DRM_19205 -> Patchwork_173618v3
+====================================================
 
-> We should take it easy.
-> Once we reached USER, set by new compute, we should latch it, for the WA =
-has been implemented by USER.
+Summary
+-------
 
-That won't work. If you are running two different containers, you may
-have different compute runtime versions. Also, Mesa can be submitting
-to CCS too for async compute, AFAIK.
+  **SUCCESS**
 
-To properly cover things, we should make it into per DRM-client setting
-and switch the mode accordingly when different DRM client is run.
+  No regressions found.
 
-And for the given SKU with only one CCS, as explained earlier, it should
-be already guaranteed that two different DRM clients are not active on
-the hardware at the same time due to the address space mathing
-requirement between RCS and CCS.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173618v3/index.html
 
-If this needs to be extended to multi CCS SKUs, then it'd be a bigger
-implementation effort.
+Participating hosts (39 -> 37)
+------------------------------
 
-Regards, Joonas
+  Missing    (2): bat-dg2-13 bat-adls-6 
 
->=20
-> Thanks,
-> Jia=20
->=20
-> > -----Original Message-----
-> > From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > Sent: Monday, September 21, 2026 11:47 PM
-> > To: Yao, Jia <jia.yao@intel.com>; sashiko-bot@kernel.org; sashiko-
-> > reviews@lists.linux.dev
-> > Cc: dri-devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; R=
-oper,
-> > Matthew D <matthew.d.roper@intel.com>; Tvrtko Ursulin
-> > <tursulin@ursulin.net>
-> > Subject: RE: [PATCH v9] drm/i915/dg2: Add per-context control for
-> > Wa_22013059131
-> >=20
-> > Quoting Yao, Jia (2026-09-21 20:33:03)
-> > > Hi @Lahtinen, Joonas,
-> > >
-> > > The key is LSC_CHICKEN_BIT_0 is a global register.
-> > >
-> > > Even we use per-client,  we should consider the following cases:
-> > >
-> > > 1. Should conflicting configurations within a client be rejected?
-> > > I recommend the first setting should be latched.
-> >=20
-> > From uAPI perspective it would be simpler to set this at the DRM client=
- level at
-> > once. However we don't seem to have such uAPI in active use currently (=
-all
-> > drm_noop) so you'd have to compare the complexity between indirectly
-> > setting it at DRM client level by first created context or adding such =
-an uAPI to
-> > set it explicitly per client.
-> >=20
-> > > 2. Should conflicting configurations across different clients be reje=
-cted?
-> > > I think the latter setting can cover previous one.
-> >=20
-> > DRM clients need to be indepenent from the driver perspective, we can't=
- do
-> > that.
-> >=20
-> > The whole point of making it per DRM client is that given the impacted =
-SKU
-> > only has 1 CCS engine. We have the address space matching requirement
-> > between CCS and RCS, so when both CCS and RCS are running, we know they
-> > belong to the same DRM client and thus they will not conflict with the =
-WA
-> > mode. And if only one of them is running, there can be no conflict eith=
-er as it's
-> > just one context.
-> >=20
-> > > Even like this, still can't cover all the race condition.
-> >=20
-> > Which race conditions do you think would remain? We definitely have to
-> > eliminate any race conditions to land this.
-> >=20
-> > Regards, Joonas
+Known issues
+------------
+
+  Here are the changes found in Patchwork_173618v3 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - bat-arls-6:         [INCOMPLETE][1] ([i915#17007]) -> [PASS][2] +1 other test pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19205/bat-arls-6/igt@i915_selftest@live@gt_heartbeat.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173618v3/bat-arls-6/igt@i915_selftest@live@gt_heartbeat.html
+
+  
+  [i915#17007]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17007
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19205 -> Patchwork_173618v3
+
+  CI-20190529: 20190529
+  CI_DRM_19205: 7cdd31de20cd320f9a1539bb5c3949275326f017 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_173618v3: 7cdd31de20cd320f9a1539bb5c3949275326f017 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173618v3/index.html
+
+--===============0018487865572518138==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/xe/display: Remove invalid initial plane PTE check for iGPU (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173618/">https://patchwork.freedesktop.org/series/173618/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173618v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173618v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19205 -&gt; Patchwork_173618v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173618v3/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_173618v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@gt_heartbeat:<ul>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19205/bat-arls-6/igt@i915_selftest@live@gt_heartbeat.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17007">i915#17007</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173618v3/bat-arls-6/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19205 -&gt; Patchwork_173618v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19205: 7cdd31de20cd320f9a1539bb5c3949275326f017 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_173618v3: 7cdd31de20cd320f9a1539bb5c3949275326f017 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0018487865572518138==--
