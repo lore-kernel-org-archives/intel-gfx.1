@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBD96C98328
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 19:11:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1382AC98330
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 19:11:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 800FF10FC26;
-	Fri, 25 Sep 2026 19:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36DD110FC2A;
+	Fri, 25 Sep 2026 19:11:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FrTEqPjb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pH7Opx6b";
 	dkim-atps=neutral
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
  [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D504E10F7B4
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 21:19:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48E3F10E177
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 22:12:10 +0000 (UTC)
 Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49ce364488dso859565e9.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 14:19:30 -0700 (PDT)
+ 5b1f17b1804b1-49e620fa473so8406175e9.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:12:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790284769; x=1790889569; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=3b2nna4xnlk7YBC6uF1VaaYbEm9ppYIUbn/RXDv0QcY=;
- b=FrTEqPjblL1/z7NXBMMi29ZkNGTKIcpBeUe/VrJMpOMrbaUW3mmNTvPgkVMBBYy6yJ
- qiAr0+sd1ZGSWivH7m5aMJztJGHRZjwMBBb1pycPb4irzL9EaUqwB1qKgOdv11rKR2Sy
- R8/A6MN1l094otNpAmi+R58Wh1QxOHpg9wHItREqPB228GyNLv2XMsQsOotiBTGvZt7u
- EqA8dwCwdEcyfKGFdG5gXQFkJ5JUrWFAQjN/4uhBJI4UNCF057Qs8rExQt0j1iNbg4xM
- dbXjPYpNbm00tbO93S7mLEUjYLgDzbGzlmzMozBgqEGJlLMTexSNgqZ1ssGRwkwRqonq
- ZBoA==
+ d=gmail.com; s=20251104; t=1790201528; x=1790806328; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
+ b=pH7Opx6bRjVASpzqlEZgWEs3rwQHcAZbqyEjYLGAMSqIWfz7QsYlYDI3mwL0Nu+CpP
+ lk9pxc5VLXaERYhgwkEVYwYkRwDOj5XXfZk6CCyNy/nFua/mHxN8D9w5rWiGI7a02M/9
+ 29eUJ/AAguy06p5Ysp1h9HUyUCdqHeuW+/CyB7JiFJa4BgHgZK8UnZWmE9DyHNkbsM/q
+ qLmFLvPA6nDopMj4tqmbugd6wUbtszWl6SxcFSx+YK+jSbxVtlqDGVQfBe5QSj6WMn9H
+ mZoONBLCszN0Iv0NH3dJ8Ohc9t1/xYzFZJqXIzERe7If8F6RvLTItoBGolL2khDH8RuT
+ yIOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790284769; x=1790889569;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=3b2nna4xnlk7YBC6uF1VaaYbEm9ppYIUbn/RXDv0QcY=;
- b=A51vgShxjBeEEa/GWZSy0H7PXpCzXLfgMvrebNfhPvHoceQOCupNYiNmXve9pl7mjL
- qIQQ0uHSQT1SYhkz4sopWNVMRCfna9Ka/O8tlOPWghYcQNjcr6hT8rU8vlD6yEfE5Jo/
- PAmOPiqmlQQ2JuNuA1Hs/rXALFAQbGiGXaS1ihh2bc3ilOH8/qqBquDblP7liX3H/aFI
- dqYn2xvHr1IIhmV/pkpm3/LgYMK2QPTwFPWp6WJqmcM0PLmc54xKhZu19G2x72iMx7w+
- bkNGFast0Ex3gtnCZ9qqBNHdWpj1StMRDtUJpKXAv47R4sieaYbcsYlGZpa2bCSP9ha7
- C7cQ==
-X-Gm-Message-State: AFuF++lDGjnsdaEpYsttb6mz5FRmWoDlyWRg9cE3NXnYT64wtMNtXbv3
- jmi559mlySjhEsG4ih47E7WMzbrxaVKTvjPRFazNxJKlfQZsBVy+CniDnIDE7RY0rlY=
-X-Gm-Gg: AYBFou3OUlig1n8zOyIA/X/1dxEeRFK4/JmXOdVeH1fVd0pPcOtytlQPbJiB5rHs29c
- vSj4OjcIiJ3j8Ib/Igs9vUT7/rRN+y3zir3z5LbbGJuh5k78Rewnoe6kL7fq7CxYQIeyIEO7K0+
- KjRF0WyOtoOUWjbRgf611q7xnI+9hL1ujvbQnvY2XfrUf2dm03Fjrt52kifw9hwNIX9/D3wlk+5
- xViUznmAxbA3B4n1hCETsTrevvYRb/qL10XEYGXEHUZ1CD/Lc0JryNtxL4HzeIz9RnQwrTbPIs9
- wrHhVSkHIF2+Rtky+WHa74dbRHQ2f3d9yacR2S644f2Pk4sVGlcBZtgpHKYT23cS+CIXqHpOcCp
- b5XAWzFvwudXTm6tGSJ3QvbJ35Bp8gNGx6BS19Y6u/yuRpsHcDt+RuDJSxoDUyf8MvMzVQgzgT/
- 54ekOhSaPYNRRVAtKiPdvdNRRcSWrYEbov/RGOxqLUSa1GBc5GJF7HOWrvbhnAwRJlcE3Ai1h/q
- yA/taUclka7KNNffL9l4rQ/kDAP0xgdhFfWrWt8OwQhGFma/ef7YdjgcBZHi5WhfIPWTDMidXqJ
- baXM3sgcQ0L5HCGnphlFx5QjOUqJZ73PrCVyB35qYPOi+G4=
-X-Received: by 2002:a05:600c:c096:b0:49f:f099:6f92 with SMTP id
- 5b1f17b1804b1-49ff0997108mr2146345e9.9.1790284768860; 
- Thu, 24 Sep 2026 14:19:28 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790201528; x=1790806328;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
+ b=p7PkoVtxO3wndm2u7an0793axSEHCj7y3M1TFhMSuSBBqrpSOr3N/bBvIDSfnZEnEM
+ K1t82grH/uaNCD0YViT8xUyskuzSctSVhhzsE2TqaIMNjYFFUMa4u3BA2J/93/+Fls2p
+ NecB+mL998dY0AZhz66AY1O/wkSzEn896g2Oz+/9tejgQcdoo7DKK317y2E4t83R4gxH
+ n4HxzSI1Of1Bi8eTIwQVb3tPPDdd+JHNtwKwQ1Fc+P1VJJb9GSZb4+LsyE2kq/NtkO6l
+ rcwYE+c8yjp2WVI8XYStVpvyoo6HeDpcjXX4O2NHdhRC7JruqJ4lbV403xjB+R8KRWO+
+ eB/w==
+X-Gm-Message-State: AFuF++l5Tp+tkRVTno2vmCi8X2FcoNLGCyOMJ+pBaopdjl/tp5bS8tmE
+ 8cCiXiK8OyQczEWMdb1fcd6bUzoGgbHfx92kAM8RJl89Vr+BJp+Re3H3EOzQu3/2j8U=
+X-Gm-Gg: AYBFou1NJ0QBgV/7QLTehwt9jH8mJ4k1EGb6hmofWmGhYkAS0c/BXCL0JOrEMgDeLnw
+ qVwZ5Lqqe4oKOH/k6+Jv+9TBTTf2wFaZxM5MFs+hX2JMCatHXeeIladnVvRs6Ror3L8GvkmRTde
+ 3/qxeF937l1SDEpkXcV4OCTVUxSjOv/ecrIQ97Lz1qnSpEcD+AHBIZpGM18/ddYcY1YFppCayaf
+ LweGgZlbolpBei/mlEShyGpodECyqnIbWOv+CDe04oZCNXzIARfCjmKxmj2MOa86ZaTLCo146Zd
+ VQBd1/vElC4F0rhdxU0bHNBzDem2JMdFK5SBAd70/0CdQ8c7DrJTtEjhZSVU5/l7ySGkAC28Jyo
+ SZTlKGgm3VsuQVDz8gyASJZTZFm4lfKhfJe8uYTYbYnphA2bdu6ow0AYWJF5H+sp9qpM+I1ahTB
+ 5RG/jVKqZ7iG9zM0PSXLKSKR+biAldkiyNS4iFtmoMbC9fI5LmIzo8y+JtOsty/kqkUbBI8EEnT
+ 9bDr+EASyT9xAzejsD/SNv2R7WkGjAE0zf6pRJ7qqe4YdD89MZ8Tqx6xiv9VgAXz1uxF9lWCKBi
+ QHQSDa6hry8vQ07DOmdrZQy3hHDnxGrGUD85Sdfhs3MaCJI=
+X-Received: by 2002:a05:600c:a00d:b0:49f:ce73:7ab with SMTP id
+ 5b1f17b1804b1-49fe6708b23mr9674415e9.34.1790201528357; 
+ Wed, 23 Sep 2026 15:12:08 -0700 (PDT)
 Received: from tulkas.localdomain (95f12971.skybroadband.com. [149.241.41.113])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fef5f876esm6403155e9.2.2026.09.24.14.19.28
+ 5b1f17b1804b1-49fe5dff204sm24977495e9.14.2026.09.23.15.12.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 14:19:28 -0700 (PDT)
+ Wed, 23 Sep 2026 15:12:07 -0700 (PDT)
 From: Conor Svensson <conor10@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Conor Svensson <conor10@gmail.com>, intel-xe@lists.freedesktop.org,
@@ -69,13 +68,11 @@ Cc: Conor Svensson <conor10@gmail.com>, intel-xe@lists.freedesktop.org,
  rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
  tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/dp: Configure protocol converter only for TMDS
- outputs
-Date: Thu, 24 Sep 2026 22:18:09 +0100
-Message-ID: <20260924211852.436787-1-conor10@gmail.com>
+Subject: [RFC PATCH] drm/i915/dp: Ignore inconsistent TMDS limits on an Anker
+ DP branch
+Date: Wed, 23 Sep 2026 23:07:50 +0100
+Message-ID: <20260923221018.42133-1-conor10@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com>
-References: <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 19:11:15 +0000
@@ -94,75 +91,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_dp_configure_protocol_converter() currently writes the HDMI/DVI
-output-selection control for every DP 1.3+ branch. The write is only
-meaningful for a TMDS downstream output; a native DisplayPort output should
-not be switched to the HDMI/DVI protocol-converter mode.
+Reconnecting an Anker 565 A8388 USB-C hub with a DisplayPort monitor
+attached can leave the branch reporting a DVI downstream descriptor
+with 25-165 MHz TMDS limits. On a ThinkPad L14 Gen 4 Intel with a Dell
+S3422DWG, this removes the native 3440x1440 mode from the connector's
+mode list even though the EDID still contains it. An explicit native
+modeline works with the same hardware state.
 
-An Anker 565 branch (Synaptics OUI 90:cc:24) changes its downstream port
-descriptor from DisplayPort to DVI immediately after this write. i915 then
-derives a 165 MHz TMDS limit on the next hotplug probe and drops the
-monitor's native modes. Skipping the write for non-TMDS outputs prevents
-the transition.
+Ignore the derived TMDS limits only for the captured branch identity,
+firmware and downstream descriptor when EDID 1.4 identifies a digital
+DisplayPort input. Retain the raw descriptor and other mode checks.
+Do not restrict the match to a particular monitor or laptop model.
 
-The existing dfp.min_tmds_clock classification is nonzero for HDMI/DVI
-outputs and zero for native DisplayPort outputs, so retain the write for
-the protocol-converter cases that need it. Colour-conversion controls are
-unchanged.
+With otherwise matching upstream Linux 7.2.5 control/patched builds,
+the control loses native modes after USB-C reconnect, while the patched
+kernel selects 3440x1440 at 59.973 Hz automatically. Repeated reconnects,
+both USB-C ports, suspend/resume, undocking while asleep and docked boot
+pass. HDMI also works and does not activate the workaround. Periodic
+picture cycling observed on the control stops with the patch.
 
-Tested on a ThinkPad L14 Gen 4 with an Anker 565 A8388 hub and a Dell
-S3422DWG:
-
-- native 3440x1440@59.973 after DP recovery
-- three USB-C reconnects on the first USB-C port
-- one test on the second USB-C port
-- suspend/resume on the second port
-- HDMI through the hub at 3440x1440@59.973, with HDMI-specific modes
-  present
-
-On the unpatched control kernel, the live descriptor changed from
-08 f0 01 1e 00 00 00 00 to 0a 42 00 00 00 00 00 00 across the 0x3050 write.
+The branch identity is not proven unique to this retail adapter. This
+is an experimental workaround for review, not an explanation of why the
+branch reports inconsistent capabilities. Other adapters and monitors
+have not been tested.
 
 Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
-
-Root-cause findings and validation details were added to the linked issue.
-
-Assisted-by: LLM Codex GPT-6
-
+Assisted-by: LLM
 Signed-off-by: Conor Svensson <conor10@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+RFC: is this best handled as a branch quirk here, or in the common DP
+helpers? The captured identity and descriptor match is deliberately narrow;
+there is no monitor/laptop model restriction. The informational log marker
+is retained to show exactly when this experimental workaround executes.
+The commit introducing the underlying problem has not been identified, so
+there is no speculative Fixes tag.
+
+Hardware A/B testing used upstream Linux 7.2.5 with otherwise identical
+configurations. This RFC applies the same 48 added lines to drm-tip at the
+base commit below. This drm-tip revision has not been boot-tested. The affected intel_dp.o
+compiles successfully here with no compiler warnings; strict checkpatch
+passes (human sign-off pending), and 426 predicate boundary cases pass
+with ASan/UBSan. These predicate tests are not DRM integration tests.
+
+Results: three USB-C reconnects, alternate USB-C port, docked s2idle
+resume plus reconnect, undock while asleep/wake/reconnect, and docked
+DisplayPort reboot all passed. HDMI also passed without activating the
+workaround. The control lost native modes and showed periodic picture
+cycling; that cycling stopped on the patched kernel. No custom modeline
+was used in either test kernel. Other hardware and higher refresh rates
+remain untested.
+
+AI assistance: Codex (GPT-6) helped investigate the reported hotplug
+failure, wrote the match/limit-clearing change, prepared the predicate
+tests, collected diagnostics and drafted this message. The human reporter
+performed the physical reconnect, suspend and reboot tests and confirmed
+the visible results. The assistance arose from an extended troubleshooting
+session, rather than a single code-generation prompt.
+
+Evidence and detailed test results:
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180#note_3677750
+
+This is my first kernel patch submission. I'd appreciate feedback on
+whether this belongs here or in the common DP helpers, and whether the
+matching criteria are appropriate.
+
+Thanks,
+Conor
+
+ drivers/gpu/drm/i915/display/intel_dp.c | 48 +++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index ffddf4b33..cdc3d7786 100644
+index ffddf4b33..6d6767ca7 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4422,14 +4422,17 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
- 	if (!drm_dp_is_branch(intel_dp->dpcd))
- 		return;
+@@ -6153,6 +6153,39 @@ intel_dp_get_edid(struct intel_dp *intel_dp)
+ 	return drm_edid_read_ddc(&connector->base, &intel_dp->aux.ddc);
+ }
  
--	tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
-+	/* HDMI/DVI output selection only applies to TMDS downstream ports. */
-+	if (intel_dp->dfp.min_tmds_clock) {
-+		tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
++static bool
++intel_dp_has_anker_tmds_mismatch(struct intel_dp *intel_dp,
++				 const struct drm_edid *drm_edid)
++{
++	static const struct drm_dp_dpcd_ident branch = {
++		.oui = { 0x90, 0xcc, 0x24 },
++		.device_id = { 'S', 'Y', 'N', 'A', 'b', 0x10 },
++		.hw_rev = 0x10,
++		.sw_major_rev = 0x06,
++		.sw_minor_rev = 0x05,
++	};
++	static const u8 downstream_ports[] = {
++		0x0a, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	};
++	const struct edid *edid = drm_edid_raw(drm_edid);
++
++	if (intel_dp_is_edp(intel_dp) || intel_dp->is_mst ||
++	    !drm_dp_is_branch(intel_dp->dpcd) || !edid)
++		return false;
++
++	/* HDMI and DVI inputs must retain their downstream limits. */
++	if (edid->version != 1 || edid->revision < 4 ||
++	    !(edid->input & DRM_EDID_INPUT_DIGITAL) ||
++	    (edid->input & DRM_EDID_DIGITAL_TYPE_MASK) != DRM_EDID_DIGITAL_TYPE_DP)
++		return false;
++
++	return !memcmp(&intel_dp->desc.ident, &branch, sizeof(branch)) &&
++		!memcmp(intel_dp->downstream_ports, downstream_ports,
++			sizeof(downstream_ports)) &&
++		intel_dp->dfp.min_tmds_clock == 25000 &&
++		intel_dp->dfp.max_tmds_clock == 165000;
++}
++
+ static void
+ intel_dp_update_dfp(struct intel_dp *intel_dp,
+ 		    const struct drm_edid *drm_edid)
+@@ -6181,6 +6214,21 @@ intel_dp_update_dfp(struct intel_dp *intel_dp,
+ 		drm_dp_get_pcon_max_frl_bw(intel_dp->dpcd,
+ 					   intel_dp->downstream_ports);
  
--	ret = drm_dp_dpcd_write_byte(&intel_dp->aux,
--				     DP_PROTOCOL_CONVERTER_CONTROL_0, tmp);
--	if (ret < 0)
--		drm_dbg_kms(display->drm,
--			    "Failed to %s protocol converter HDMI mode\n",
--			    str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
-+		ret = drm_dp_dpcd_write_byte(&intel_dp->aux,
-+					     DP_PROTOCOL_CONVERTER_CONTROL_0, tmp);
-+		if (ret < 0)
-+			drm_dbg_kms(display->drm,
-+				    "Failed to %s protocol converter HDMI mode\n",
-+				    str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
++	/*
++	 * Experimental workaround for the branch observed in an Anker A8388.
++	 * USB-C hotplug can expose a DVI descriptor for the DP output. The
++	 * monitor's native timing works when requested explicitly, despite
++	 * the reported 165 MHz limit. Keep the captured identity and failure
++	 * signature checks narrow until the underlying cause is understood.
++	 */
++	if (intel_dp_has_anker_tmds_mismatch(intel_dp, drm_edid)) {
++		intel_dp->dfp.min_tmds_clock = 0;
++		intel_dp->dfp.max_tmds_clock = 0;
++		drm_info(display->drm,
++			 "[CONNECTOR:%d:%s] experimental Anker DP TMDS limit workaround\n",
++			 connector->base.base.id, connector->base.name);
 +	}
- 
- 	if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
- 		switch (crtc_state->output_format) {
++
+ 	drm_dbg_kms(display->drm,
+ 		    "[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d, TMDS clock %d-%d, PCON Max FRL BW %dGbps\n",
+ 		    connector->base.base.id, connector->base.name,
 
 base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
 -- 
