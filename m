@@ -4,37 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48EC5C98307
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 11:15:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46695C982FA
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 11:15:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7546C10E87E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 822B910E12B;
 	Wed, 23 Sep 2026 11:15:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="boHgWP7v";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="fHkr3R15";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D51410E12B
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 11:15:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93B2610E12B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 11:15:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1790162114;
- bh=gqFey1S94md+t5c6Tjr5UMvscdsliU9tyYTY09hCxfg=;
- h=From:To:Cc:Subject:Date:From;
- b=boHgWP7vyhOuolNUbaDnMPomlv3WLNmSxHNJR8jl1qBpb0VbPkFaTIEpMpfAOl5LM
- u+/yHtY1G8YuXVUxXG7n3J6bW/xeB/UovT4eKoVDge2tq1H8qGhZmkdCxrkuGXqRDU
- us5QhJh2rgLEc/R4OjpBxfkCwfGpg7ZoiRfCo34PPUDn4Rd+w/gOT6kPMlJk2mYM8K
- D5+8C0UZ1WO4H+6tYnu2ZaOiEjokbVyd80WFDlAwjnTCnXMSINAutvjIEuWiPaYOW/
- QtgPnFpmbdZhFROHdN+oY4hi1EIdm2nNFYaSpdVFKw0c5JSO89+VimyrpZnMtsh6c0
- ft50ZOpxNvK9A==
+ s=default; t=1790162116;
+ bh=iqJAMOQUN7/byAOprzZvtwi8M7if7uOvONRAsalFxTY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=fHkr3R15LkPVj1Kjt0T4FeBxOJkBwEOOArjhNKSQotAlzM6h47sNye9zYKwzXG/W6
+ xXMAhxCzLppWj7o7Omn4BAY/xJyk7st7cRrzq/GGTQUNJFnSkjFw4DpG9VXXteU3Vg
+ avPlGCZTLrvMs1MuqMxlKIc/5752ZLZp0r4OgcprxbgoEbk6aVnPXKv1aDEh7Ncyti
+ RwyIP+XGx1grnQStlTjDU5usgRFcbgLSWNnfFFKDLetDGdTQRp3NqztiyTJ19ubmcQ
+ KPaL+MqKVMfrydMRwJSUW6988753nZBCKAnFoxQQ9Q+Vvw06iOxCRI1Ft79McPUwwq
+ elXdivBfY6dNQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v5 0/6] drm/i915: Most fixes to make i915 work well with
- PREEMPT_RT.
-Date: Wed, 23 Sep 2026 13:15:19 +0200
-Message-ID: <20260923111518.310430-8-dev@lankhorst.se>
+Cc: "John B. Wyatt IV" <jwyatt@redhat.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v5 3/6] drm/i915/guc: Consider also RCU depth in busy loop.
+Date: Wed, 23 Sep 2026 13:15:22 +0200
+Message-ID: <20260923111518.310430-11-dev@lankhorst.se>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923111518.310430-8-dev@lankhorst.se>
+References: <20260923111518.310430-8-dev@lankhorst.se>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -52,35 +54,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series has dropped 'drm/i915/gt: Use signalers_lock to prevent
-starvation of irq_work.', but otherwise includes all fixes I have 
-created so far to make the core i915 module work correctly on
-PREEMPT_RT.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-I'm hoping by reducing the delta, the remaining patches will become
-easier to review and accept. A major patch series with nearly 30 patches
-over the entire code is harder to review and accept than a few isolated
-series targeting specific parts of the driver.
+intel_guc_send_busy_loop() looks at in_atomic() and irqs_disabled() to
+decide if it should busy-spin while waiting or if it may sleep.
+Both checks will report false on PREEMPT_RT if sleeping spinlocks are
+acquired leading to RCU splats while the function sleeps.
 
-Maarten Lankhorst (3):
-  drm/i915/gt: Fix selftests on PREEMPT_RT
-  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
-  drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
+Check also if RCU has been disabled.
 
-Sebastian Andrzej Siewior (3):
-  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
-    spin_lock()
-  drm/i915: Drop the irqs_disabled() check
-  drm/i915/guc: Consider also RCU depth in busy loop.
+Reported-by: "John B. Wyatt IV" <jwyatt@redhat.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/i915/gt/intel_engine_cs.c       |  2 +-
- .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
- drivers/gpu/drm/i915/gt/selftest_engine_pm.c    |  8 ++++----
- drivers/gpu/drm/i915/gt/uc/intel_guc.h          |  2 +-
- drivers/gpu/drm/i915/i915_request.c             |  2 --
- drivers/gpu/drm/i915/selftests/igt_atomic.c     |  7 +++++++
- 6 files changed, 18 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 053780f562c1a..b25fa8f4dc4bd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc *guc,
+ {
+ 	int err;
+ 	unsigned int sleep_period_ms = 1;
+-	bool not_atomic = !in_atomic() && !irqs_disabled();
++	bool not_atomic = !in_atomic() && !irqs_disabled() && !rcu_preempt_depth();
+ 
+ 	/*
+ 	 * FIXME: Have caller pass in if we are in an atomic context to avoid
 -- 
 2.55.0
 
