@@ -4,40 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E089C98309
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 11:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F898C98307
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 11:16:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA15210EFD1;
-	Wed, 23 Sep 2026 11:15:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84CD010EFD6;
+	Wed, 23 Sep 2026 11:16:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Z7V+3Kei";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WpK965Rj";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF4D910EFC4
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 11:15:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1790162117;
- bh=8QMvzx+zt2ycBjp3o3xV8VyWJ3IFBwSXu+RAT1NSrOA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z7V+3Keink2n/uSjq5s75FyR5qhxyqBOSOQcMNP/hdhb9sYKgokFlQNCcuB91I9XS
- SCWNYoSoULHrkU4EMUW/FyekZazTrVT3oe1aSbwCgG2WnrMdH6qttL6EUettqcYdzX
- /fta71H+s8oNhTmWhzJd/6ivTUuqN1nOJiZ6/EJwb7hzbaqTNuf67oRVv+gSv1pQ9l
- TLTubg8Tl6Nfb5JcWoFd2HlvtZrGUY3vxPKuqLfAnuwQvTFfJ0Qs29cD3KPIDPLPLj
- StKAI34cP4ZOWFX5MCfTthxvPgtizwFa2DfXHlKUYs7vMHz+8Ua4xPQZn60lE3rDCr
- 8g4cyM75sUs6A==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org
-Cc: Maarten Lankhorst <dev@lankhorst.se>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: [PATCH v5 5/6] drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
-Date: Wed, 23 Sep 2026 13:15:24 +0200
-Message-ID: <20260923111518.310430-13-dev@lankhorst.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923111518.310430-8-dev@lankhorst.se>
-References: <20260923111518.310430-8-dev@lankhorst.se>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6805E10EFD6;
+ Wed, 23 Sep 2026 11:16:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 38D1B43DDB;
+ Wed, 23 Sep 2026 11:16:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7CB61F000FF;
+ Wed, 23 Sep 2026 11:16:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790162166;
+ bh=GZbmNp0hOi/EWJZ4QMV2oZg5jG4TOnCN9i5rVy9+ytQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WpK965RjOooOddvHoEvzBrXMzOSpDwdZkzbDO2IxSEnFpPJZzYYx+FdOW9sSAVcy2
+ t9c9jfo+cQX6OVGJSFYFpl1NvurltXJ4N0rFB7JPyqcz+QaFy44zBi3ymRZfC6/ZAz
+ hoGTakmtQTCUukKblZy3Onr4c0mq75bAzeWEb19HF6cUOUnhjeAYKQd8yh09WcBls3
+ 2bFj2ffpB+X34bdLnRtkf8dEgyPFpzitlYPpMtuBry11NkjsdbXEAcSaMPUJGNORpH
+ 1rQGFvZUwitnMauPxI1g7jZRcwXJRjvcn8ORyozQpIMGlxnOh94eiTNd3qtk1ExS5T
+ vB2pEIb/rYKJQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/fbdev: Move fbdev helpers into client library
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260923110537.451614-3-tzimmermann@suse.de>
+References: <20260923110537.451614-1-tzimmermann@suse.de>
+ <20260923110537.451614-3-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 11:16:05 +0000
+Message-Id: <20260923111605.D7CB61F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,31 +54,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Also check if RCU is disabled for PREEMPT-RT, which is the case when
-local_bh_disable() is called.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] drm: build failure in armada driver due to missing header rename
+- [Low] drm: sphinx documentation build fails due to un-updated kernel-doc =
+paths
+--
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit eec385087eda413784c5684a793dc7987f6f4f49
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index c0fd349a4600c..9dd9665128caa 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1607,7 +1607,7 @@ u64 intel_engine_get_last_batch_head(const struct intel_engine_cs *engine)
- 
- static unsigned long stop_timeout(const struct intel_engine_cs *engine)
- {
--	if (in_atomic() || irqs_disabled()) /* inside atomic preempt-reset? */
-+	if (in_atomic() || irqs_disabled() || rcu_preempt_depth()) /* inside atomic preempt-reset? */
- 		return 0;
- 
- 	/*
--- 
-2.55.0
+drm/fbdev: Move fbdev helpers into client library
 
+This commit moves DRM's fbdev helpers into the client-library module and
+fixes include statements throughout the DRM drivers. It also renames the
+files from drm_fb_helper to drm_fbdev_helper.
+
+> diff --git a/include/drm/drm_fb_helper.h b/include/drm/clients/drm_fbdev_=
+helper.h
+> similarity index 99%
+> rename from include/drm/drm_fb_helper.h
+> rename to include/drm/clients/drm_fbdev_helper.h
+> index 0c5e5ed7b5e74..7575aaf34c620 100644
+> --- a/include/drm/drm_fb_helper.h
+> +++ b/include/drm/clients/drm_fbdev_helper.h
+
+[Severity: Low]
+Does drivers/gpu/drm/armada/armada_fbdev.c need to be updated to include the
+new header path?  This file still includes the old header path, which causes
+a build failure because the header was renamed:
+
+drivers/gpu/drm/armada/armada_fbdev.c:
+#include <drm/drm_fb_helper.h>
+
+[Severity: Low]
+Do the kernel-doc directives in Documentation/gpu/drm-kms-helpers.rst need
+to be updated?  These directives reference the old file paths, breaking the
+Sphinx documentation build:
+
+Documentation/gpu/drm-kms-helpers.rst:
+.. kernel-doc:: drivers/gpu/drm/drm_fb_helper.c
+   :doc: fbdev helpers
+
+.. kernel-doc:: include/drm/drm_fb_helper.h
+   :internal:
+
+.. kernel-doc:: drivers/gpu/drm/drm_fb_helper.c
+   :export:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923110537.4516=
+14-1-tzimmermann@suse.de?part=3D2
