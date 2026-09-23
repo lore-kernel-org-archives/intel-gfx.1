@@ -4,79 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEF46C98311
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74F93C98313
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:17:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A6B110F098;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEFB10F083;
 	Wed, 23 Sep 2026 14:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GkH8qfZF";
+	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="MyhJ3PLN";
 	dkim-atps=neutral
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
- [74.125.228.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92EED10EF1B
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 07:03:50 +0000 (UTC)
-Received: by mail-pz2-f41.google.com with SMTP id
- d2e1a72fcca58-85469e211a3so344250b3a.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 00:03:50 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
+ [74.125.227.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB6F10E052
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 04:13:47 +0000 (UTC)
+Received: by mail-vs2-f12.google.com with SMTP id
+ 71dfb90a1353d-5c67e2ff27eso503922e0c.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 21:13:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790147030; x=1790751830; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=8rBu9v9IPDZdqktgE9+wPOf1WKfm6hYZZk7Hv5Q2JoU=;
- b=GkH8qfZF95xpELPdgPaE+p5fSJS66Loz69uL1O7QT3bBcJrhmSpbAWKm+hnWPety6o
- sUC6Mp7I6f9aGgxIYXaXSpzf19hw01dwHGbq9FbzK8rxbm0HaPMD2ttUL44LIj9UgRVt
- mj9BhgvrSnXDjJklfIc+fshZpYfe7+acl8pQ+/fsPa7ia9oUT/PdWc+z6CD3KnopYd3F
- cYqHwBhmFSuM+hb0H6W7lFFf2Km+dN8fHVqGVpDYrM7QcQst8xqJCvBze0Lu0xOwbb83
- PUS7I1+juhXCJlzuGSZ8tYoTqbDGy54XJYjUwambCtwy1iXBtuu7eoT8X1SsyPfJAoG1
- LL6w==
+ d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1790136826;
+ x=1790741626; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=uY7JdksW0dTmvrMShfTjEy2ny76rGHlPsZMFTYu8kuQ=;
+ b=MyhJ3PLNO6vyxWGQo0Pu1mSBdeOwJjO3d1Q5V96mrhjiAwMVCjJg/HA17222kv+fM+
+ 09CuVobRFts35A2wrL9pXkEYm4uy9sbvcDJKN4Nb2Gd+PfpzNGhp8NJemz8vqFaZWHAu
+ o0cwEgWLQs/L/0Hvt3UCZ+Hi2fU1OO2iYuaHv/kuMSFP1q+yHtzaP86iG6I3AK2/itiW
+ fg3m5+QT9Q9VvhW6QcjQy/d1xNR4UmBIIKfZpJQZAu8ig+ibd6FWfo0k/r0KI7BEoU7w
+ mfXHkd9S0ofqum0ny4MYRXpeNKpDdU9BjeuFhzJYSuZyvE4CNy++p6WiK+lhC8CQS98F
+ bWIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790147030; x=1790751830;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=8rBu9v9IPDZdqktgE9+wPOf1WKfm6hYZZk7Hv5Q2JoU=;
- b=lS394e8MeqxU6/ez3eTjQMLp5JRCo01FAp1nyRmNfHaWT45NQbr1HWau2AzXjx9qko
- zOS3XUbYUCbQAQaGfIUeO8s0eePH3snfpG1TPU1AT//mQC2ovXUNtSX+S4xQ4q4tsx2h
- LdxjalZh+46TZIBEmkODt7simz85ZcCpg7cL8/bGkPJ5UNpZnRcMdTCSyIm7F4g8prnz
- SImx7OcG1lZxmYPOpBFyqPiB1SO+S9Zd6pgHJS5A3bFR9fpjHf4rowJ2m2+aAwTBAFao
- r6DIZ4rF20F20KjV4k7F/xJp9dAMT4GTbpLdKn8M+QDXbs4CcNLIu/wqXhbBWg1LjQhn
- TvDg==
-X-Gm-Message-State: AFuF++kifQJhO6yO226BATZgYIGpO+By4qdiAdmd2Uk66NEYY0TEAsSL
- biAp5AjF6a3GC4eQvv0EJ+RxwPdbfFzWmMUiXme1YMki35YBGTRLqOwg
-X-Gm-Gg: AYBFou3ALVSSiQ+1JgiVHIMXBXkPilcENM2nDjgm7DOmJ4Vae/ytdc5VY6Pvbed+hNh
- jlBRDAhZ+MwdcYD66JRFsJI1AlOJU9raD189WD+0CKYUPeSmqvHgJJNZ0S7J2JCPo6Vg1JPwPya
- cssSoh/7Ga9MmaNcDLWqa9JYrYT320RY+zn8xtIwGntiKxoXcVGxZBmyrm7P1URQs7XG7VIyjOV
- xNjZpneSTalwmImT6xybJnngtscTwBGziOhGOujeZbk3v0folWpDM3m+i3YEvAysufU5rRTIX3v
- VSWfmRKJ+Qu142x+XChtknw0ME0POgGoyNEWKLfbFwyK8DBUIpFCf1CYCKZavn5K+N2ZGkQTdH6
- y2g8sqJRblEJ/SRdRscHtb3X9gunfZpCYo0RX4N1gfeTlTvo++TbLPvAWDT56yah1aJM5keGMOk
- wYyshIk2p27zAnHiSNuWnHVKo65NoSsDyyUhirjPpSy6wOrxWagZk2539sIxP6FVR2As4vn+BDP
- ugf5tOsbM7QoJqw6KiboD2hmj5CnueIcBde2fxpNnx1gbQIrdoww3kTyU7GV45ERyY0HjhLmguz
- q+y9zY7NDGYYbkPllfabQbx+AhgpcZxwnl/eXMBZDp2lyx1DRDBuxKq9zelCrA==
-X-Received: by 2002:a05:6a00:7705:b0:87d:6df6:103 with SMTP id
- d2e1a72fcca58-87d6df605a6mr697117b3a.34.1790147029958; 
- Wed, 23 Sep 2026 00:03:49 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
+ d=1e100.net; s=20260707; t=1790136826; x=1790741626;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=uY7JdksW0dTmvrMShfTjEy2ny76rGHlPsZMFTYu8kuQ=;
+ b=su1TKMvF3d41xRP/fkMuQoGTKCclYxCNOtFPbcFG1HUxzLDfvS/ZRx/nEyFn0VDBUZ
+ 8ejAYxxvm7OOhmy8R+UU03WjZYp6LhigeIDRMPUgyLFikaAf8IshRyfXVC6piUpzoYYL
+ QRANi7AsYFgTwQsSoYGNsxXwv78bdBFoIa//cEVDL2BDBsMR1dTy0Gizi9WNPmQwNTms
+ 5Wry3vgU9mBtQOCruqnyjJ4vQ43VlElLvxadxkU02HU2AdXYKO8MsLS2OPAYgS2v/dX8
+ VjdEjsvi2fwTygtbgMmAJy16KWlmoFvTcjmEX2qvYikBONNp97FFDEetVSsKN3Oy7ri9
+ ANXQ==
+X-Gm-Message-State: AFuF++lo3hSrwoDT3CTjrZKMhc29obQwufE+zh3E6LJuu/VGoFy9Dx4P
+ Q6rQPffYq4Xh/r0FkiKkU+F+HPM6qdwWP1gtTzOOWL3MU9q08x+KGtkyZCfAEFd3RCK2LKd9cEX
+ WriFfyHVjW74PVSs0K6egBVeMZVMNuNyru/Ifgglvk7WzOPAiY0eZPabsbPi4mq2iGBodNphbIE
+ EPHpqoYvHv+H8lYzi41YmF/Z+Me9AWiLVdd7T8xZ/GRd9o6AnWmwzi4nw=
+X-Gm-Gg: AYBFou39kNfuv8y4eyFDTKmwaF93BeNjWK+o0fD+F/MkIvstQ2NWvj3tx/4Ezxz+Gyz
+ IXL2RGFSLpWH5b4gvhr3YYZ9MApXV9jWjadUx6zOYhU3PooL8jJpvKbfBDs8sVS/8FoqwVlUQlj
+ taklw8TwPF9aCFS8/MlMtw23xGVKDYA+lu+m0q55V7vRCxHZw68M/YNEAvshokmZOGokriFwTYt
+ 5NobjiMYkt3eldFo9N88vHNkkXxBVrspTTAvQ4K+G/0zi3GnWVBv89cyzqxa2RYi5ROtHgDlQhJ
+ p5IZOZaFkDxcwelRIEjw/fcg8LjFi8D7xaWZoGckwrweWTtfYsiLSQlsPTCARUJigSJyls8D4dG
+ 70ZibjDzSBXlpl3pfMNrvhMCepb5jt4+zHxRkFOed/XJRjCD7z8COesYOJt8vvmAyJ5yieaBruP
+ eNxPRO3FNh9Svbg1CmhImdwZBzY53J3xG4WTBTqgUALHOIHz1mIcETAuqE1n8zC+4j9Egtc4//J
+ RLjb70pGxPJTIwrv/nHCGRoRoxllTg3PiRCwuaBPAZPi5WFkHMfiVUnjmY1TTMe3FATaf+/TMIV
+ vd3MtWoa8iglEKYev+t6HfquPWeXSf8CWz8EbFqb5WHSiGWqUwt1+6gJkmeSjX8kZI5EREl4Uw=
+ =
+X-Received: by 2002:a05:6122:f92:b0:5c9:a60b:e5a3 with SMTP id
+ 71dfb90a1353d-5c9f165900dmr1979665e0c.14.1790136825877; 
+ Tue, 22 Sep 2026 21:13:45 -0700 (PDT)
+Received: from jake-laptop ([2607:fea8:e5:500::12ac])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-87d1e5fb67fsm802939b3a.58.2026.09.23.00.03.48
+ 71dfb90a1353d-5c9f053a418sm1828790e0c.13.2026.09.22.21.13.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 00:03:49 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915: unlock shmem folios after skipped writeback
-Date: Wed, 23 Sep 2026 15:03:45 +0800
-Message-ID: <179014701977.1658553.14126788544517221490.unlock@gmail.com>
+ Tue, 22 Sep 2026 21:13:45 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com, rodrigo.vivi@intel.com,
+ =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH] drm/i915/dp: Don't promise AS SDPs in PR Active when they are
+ disabled
+Date: Wed, 23 Sep 2026 00:13:42 -0400
+Message-ID: <20260923041342.2146450-1-j@metarealtyinc.ca>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914105606.3997649-1-matthias.goergens@gmail.com>
-References: <20260914105606.3997649-1-matthias.goergens@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 23 Sep 2026 14:17:21 +0000
+X-Mailman-Approved-At: Wed, 23 Sep 2026 14:17:20 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,12 +98,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A gentle ping on this fix. CI appears to have stopped because my address
-isn't on the allowlist; could a project owner trigger a retest?
+Since commit 38a7e9bf69bd ("drm/i915/dp: Set relevant Downspread Ctrl
+DPCD bits for PR + Auxless ALPM") link training sets
+DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE (DPCD 0x107 bit 6) whenever eDP
+Panel Replay runs with the Adaptive-Sync SDP enabled. That tells the
+sink that fixed-vtotal AS SDPs keep coming while PR is active.
 
-https://patchwork.freedesktop.org/series/174153/
+When the sink supports asynchronous video timing in PR (DPCD 0xb1
+ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR clear),
+disable_as_sdp_when_pr_active is set and PR_ALPM_CTL[AS SDP
+Transmission in Active Disable] is programmed, so the source stops
+sending the AS SDP for as long as PR is active. The sink is promised
+AS SDPs that never arrive.
 
-I'd also appreciate review when someone has a chance.
+This is not a VRR-only case: intel_vrr_compute_config() always
+computes fixed refresh timings with vrr.flipline set, so the AS SDP is
+enabled on every eDP sink that supports it (from code reading; the
+measurements below used an EDID override).
 
-Thanks,
-Matthias
+The commit that added the bit notes that it applies even if AS SDPs
+are briefly suspended. With the PR_ALPM_CTL bit set they are not
+briefly suspended, they are off for the whole of PR Active.
+
+Commit 186113b419a2 ("drm/i915/dp: Compute and include coasting vtotal
+for AS SDP") notes that the hardware reflects the PR_ALPM_CTL bit in
+the AS SDP payload. Even so, with 0x107 bit 6 set this sink stutters,
+and with it clear it does not (below).
+
+Seen on a Dell XPS 16 DA16260 (Panther Lake, LG eDP panel, sink OUI
+00:22:b9, 3200x2000@120 with DSC) with the Panel Replay quirk removed
+locally: PR_ALPM_CTL = 0x11, DPCD 0x107 = 0xc0 (bit 7 because this
+setup uses an EDID override that adds a 20-120 Hz range with unchanged
+timings; the stock EDID has none). The desktop visibly stutters under
+Panel Replay while the source flips at a steady 8.33 ms (1434 of 1437
+commit intervals over 12 s).
+
+Both ways of making source and sink agree were tested with a local
+debug switch selecting each behaviour, PR entered by a full modeset
+each time:
+
+  AS SDP kept on in PR Active   PR_ALPM_CTL 0x01, 0x107 0xc0
+  (this patch) AS SDP off       PR_ALPM_CTL 0x11, 0x107 0x80
+
+Both are smooth on the desktop right after PR entry. With this patch,
+some stutter comes back after several minutes on this panel; that is
+left for a separate change. On a static VT (no compositor, one update
+per second, 30 s each) the first gets 0 DC5 entries and this patch
+gets 550 (DMC DC3->DC5 count; on the KDE desktop neither mode reached
+DC5 because the compositor keeps vblank interrupts enabled). So keep
+the AS SDP off and stop promising it.
+
+Only set the bit when the source keeps sending the AS SDP in PR
+Active: disable_as_sdp_when_pr_active is clear, or AS SDP skip frames
+is in use, which clears the PR_ALPM_CTL bit and keeps a periodic AS
+SDP going.
+
+Also fix the comment in intel_dp_compute_as_sdp(), added by the
+coasting vtotal commit above, which says the PR_ALPM_CTL bit is never
+programmed. It was already being programmed when that comment was
+added.
+
+Fixes: 38a7e9bf69bd ("drm/i915/dp: Set relevant Downspread Ctrl DPCD bits for PR + Auxless ALPM")
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9119
+Cc: Jouni Högander <jouni.hogander@intel.com>
+Cc: Animesh Manna <animesh.manna@intel.com>
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+---
+Notes:
+
+- Based on drm-tip of 2026-09-22, also applies to next-20260922.
+  The measurements used an equivalent local debug switch on 7.3-rc4
+  (its second setting programs the same PR_ALPM_CTL 0x11 / 0x107 0x80
+  as this patch does there). The rc4 version of this change (without
+  the skip-frames term, which rc4 lacks) builds but has not been run
+  on its own yet. The drm-tip version builds cleanly with W=1 (i915
+  and xe) but has not been run.
+
+- Ankit, does this match your reading of the spec for 0x107 bit 6?
+  The public material I could find does not settle it; the argument
+  here is consistency with PR_ALPM_CTL plus the measurements above.
+
+- With skip frames, a seamless VRR toggle reprograms PR_ALPM_CTL but
+  0x107 is only written at link training, so bit 6 can go stale on
+  display version 35+ in either direction (also if
+  enable_periodic_assdp is toggled without a modeset). Before this
+  patch only the bit-set direction could happen. It cannot happen on
+  PTL.
+
+- Not fixed here: on this panel, with no AS SDP at all in PR Active,
+  a fresh PR enable (e.g. DPMS on after the screen blanked) can leave
+  the sink locked to a bad phase, and a 1 s AS SDP burst cleared it. PTL
+  appears not to implement the skip-frames field. That and the
+  question of how Intel wants it handled are in the bug thread:
+  https://lore.kernel.org/intel-gfx/20260902162150.58778-1-j@metarealtyinc.ca/
+  The DA16260 Panel Replay quirk stays until that is settled.
+
+ drivers/gpu/drm/i915/display/intel_dp.c               | 11 ++++++-----
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 11 +++++++++++
+ 2 files changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ffddf4b33728..f7d32ed98745 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3156,11 +3156,12 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 
+ 	/*
+ 	 * For Panel Replay with Async Video Timing support, the source can
+-	 * disable sending the AS SDP during PR Active state. In that case,
+-	 * the sink needs the coasting vtotal value to maintain the refresh
+-	 * rate. The HW only samples this on PR_ALPM_CTL[AS SDP Transmission
+-	 * in Active Disable], which we never program, so providing the value
+-	 * unconditionally when the sink advertises the capability is safe.
++	 * stop sending the AS SDP during PR Active (PR_ALPM_CTL[AS SDP
++	 * Transmission in Active Disable], see intel_alpm_configure_pr_as_sdp())
++	 * and the sink then keeps the refresh rate using the coasting vtotal of
++	 * the last AS SDP it received. The coasting vtotal bytes are fully
++	 * under driver control, so fill them in whenever the sink advertises
++	 * the capability.
+ 	 *
+ 	 * #TODO:
+ 	 * If we ever advertise support for coasting at other refresh targets,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index b6e8b13ee4db..6fe4c1e47eff 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -29,6 +29,7 @@
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/drm_print.h>
+ 
++#include "intel_alpm.h"
+ #include "intel_display.h"
+ #include "intel_display_core.h"
+ #include "intel_display_jiffies.h"
+@@ -1124,7 +1125,17 @@ static bool
+ intel_dp_pr_with_as_sdp_enabled(struct intel_dp *intel_dp,
+ 				const struct intel_crtc_state *crtc_state)
+ {
++	/*
++	 * DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE tells the sink that the AS SDP
++	 * keeps coming during PR Active. With disable_as_sdp_when_pr_active,
++	 * intel_alpm_configure_pr_as_sdp() sets PR_ALPM_CTL[AS SDP Transmission
++	 * in Active Disable] and the source stops sending it for as long as PR
++	 * is active, unless AS SDP skip frames is used. The sink then keeps
++	 * the refresh rate using the coasting vtotal of the last AS SDP.
++	 */
+ 	return intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
++		(!crtc_state->disable_as_sdp_when_pr_active ||
++		 intel_alpm_pr_as_sdp_skip_frames_enabled(intel_dp, crtc_state)) &&
+ 		(crtc_state->infoframes.enable &
+ 		 intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC));
+ }
