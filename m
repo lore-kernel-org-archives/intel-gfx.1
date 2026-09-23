@@ -4,44 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0833C98302
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A8D2C98302
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:27:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3352710F0DD;
-	Wed, 23 Sep 2026 14:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C062B10F0DF;
+	Wed, 23 Sep 2026 14:27:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ahSVsNsK";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="Q0jbMzL4";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MSuIFuOn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C28810F0D6;
- Wed, 23 Sep 2026 14:27:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 34EBF401D5;
- Wed, 23 Sep 2026 14:27:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D56F11F00893;
- Wed, 23 Sep 2026 14:27:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790173642;
- bh=xo37cdmnh+svtcxNkd5zKazT/OKpa6V/sR3x6PQMQC8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ahSVsNsK0t4OhaxqU3UAxp4Kk63mjC304tOhgP+F9OjMH4UXQiHJYJYxB2XnKatbz
- O6UuIypRVixa2nF6IqMZlG/+Va+/zO24O5ZGr30O5N779SJe/MCpjaXx0mPRlpuYfr
- ijvCsTzVATTNR+BtDCQ/FuOUjm2o//9C9fGhc2q5qzOTQH2GNMkJsjk1BiNh81UPkq
- B+4YXKzc7ldvv5dpFYKwo59ntO37l9xKXOcSogBjix0lO9A0yDDkMh6QJEs3qq2KUM
- p/KAwPKcE4Q05wMmMnflaF4JPxvina+g0IaYkNXYJbrX8i6iRwfiKlp0NuxGu101zW
- Njl0rUeBR31OA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is
- enabled or PR !async
-To: "Xizhe Tang" <xizheTang2005@163.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20260923195200.21362-1-xizheTang2005@163.com>
-References: <20260923195200.21362-1-xizheTang2005@163.com>
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7567E10F0DF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 14:27:29 +0000 (UTC)
+Date: Wed, 23 Sep 2026 16:27:26 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1790173648;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ebK7tpidbnUNnloCxx9cKA11zOnukdGDKHVYcAIpvLM=;
+ b=Q0jbMzL4lbDyHQ6HaZ0wG8WWdaMgj5kF2iK2bh40UsJb5jq2z9sR2AAnovhgROhs+Ik6lx
+ Rz79fZ5hb703Y6QnIVMEC/E8mC0oduUW6KKNHJV+HzhEMGZcJkNLp+V9Dz4kpZddmr/Unr
+ DCrj3sdDK1dJeZFXlAiyMfbx7VuQx8gq+dmaEJya27FiTDVIfGLwzohaOXzxTq1IKqAq3e
+ D48mlXgG9HE1vvMNnPcmCsOtQlKIjsrPTQpXjRwABoFyGgKTNu1MXo1iJvf/Dva2c7u50P
+ Aj9nyhIR8gJTQa2CAjoNkC9T5cqrPqEusrP+Y0TNyXl5NSAZGW2Rj8oUt+L2Bg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1790173648;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ebK7tpidbnUNnloCxx9cKA11zOnukdGDKHVYcAIpvLM=;
+ b=MSuIFuOnIpJTvdOxIRaJg/6A1ht9yZhl662tZBy5Mw0oGwpMb64KcuY93oZETqL/4DpXyU
+ Ve3YTifE3EgNotCQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v5 6/6] drm/i915: Use sleeping selftests for igt_atomic
+ on PREEMPT_RT
+Message-ID: <20260923142726.LlwKVINw@linutronix.de>
+References: <20260923111518.310430-8-dev@lankhorst.se>
+ <20260923111518.310430-14-dev@lankhorst.se>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 14:27:21 +0000
-Message-Id: <20260923142721.D56F11F00893@smtp.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20260923111518.310430-14-dev@lankhorst.se>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,68 +61,23 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] drm/i915: build failure due to missing vrr qualifier for cmrr
---
+On 2026-09-23 13:15:25 [+0200], Maarten Lankhorst wrote:
+> This makes the i915 selftests slightly happier, especially
+> related to GPU reset.
+> 
+> All of the i915 code that used to run in BH's, IRQ's, etc is
+> converted to preemptible code when compiled with PREEMPT_RT,
+> so adding coverage for those situations would require
+> 
+> This is a better approach than trying to convert all locks
+> in i915 from spinlock_t to to raw_spinlock_t just to increase
+> test coverage for situations that no longer happen.
+> 
+> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 
-commit 040a3a223ae954dab43478f6da5edfc88f5ff693
-Author: Xizhe Tang <xizheTang2005@163.com>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or PR !async
-
-This commit alters the condition for sending the Adaptive-Sync SDP by check=
-ing
-explicitly for VRR or CMRR enablement in the CRTC state. This prevents vert=
-ical
-streaking on eDP panels that advertise VRR but run at fixed refresh rates.
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 0cd5e6b5034cf..612bc2846475b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3111,7 +3111,8 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *=
-intel_dp,
->  	    !intel_psr_pr_async_video_timing_supported(intel_dp))
->  		return true;
-> =20
-> -	return intel_vrr_possible(crtc_state);
-> +	return crtc_state->vrr.enable ||
-> +	       crtc_state->cmrr.enable;
-
-[Severity: Low]
-Does this cause a compilation error in intel_dp_needs_as_sdp()?=20
-
-Looking at the definition of intel_crtc_state in
-drivers/gpu/drm/i915/display/intel_display_types.h, cmrr is nested inside v=
-rr:
-
-    struct intel_crtc_state {
-        ...
-        struct {
-            ...
-            /* Content Match Refresh Rate state */
-            struct {
-                bool enable;
-                u64 cmrr_n, cmrr_m;
-            } cmrr;
-        } vrr;
-        ...
-    };
-
-Because cmrr is nested, accessing it directly via crtc_state->cmrr.enable w=
-ill
-fail to compile. Should this be accessed as crtc_state->vrr.cmrr.enable
-instead, similar to how it is checked in intel_dp_compute_as_sdp() further
-down in this same file?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923195200.2136=
-2-1-xizheTang2005@163.com?part=3D1
+Sebastian
