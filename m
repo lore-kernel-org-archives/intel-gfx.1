@@ -4,64 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64BF5C9830D
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 13:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91AC4C982FA
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 13:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02CBA10F028;
-	Wed, 23 Sep 2026 13:12:19 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eXW6NNPv";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB23E10F002;
- Wed, 23 Sep 2026 13:12:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790169137; x=1821705137;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=BHvDLUI9nqVAlvcjaV5O4v/nRyJ1BP74c0k2XszR2Bo=;
- b=eXW6NNPvUsu80dIYsHl3LDzWkCLM6zDegeY32k8t90PvvvNRfY2owvI6
- 27r9zmM4ecqPjnQ2RF2sFOtDMxu3YpvPVyzNuxI1XfHcYUmGVVthP2lFq
- 9tsLxRqYnYAmAWcGu5vIOfMcWK9Nk+TbEWRBZHfTk6CriR4aeUuv4qZGf
- vwfj6Jz3OgTrSf44xYRM6gCAJoMfjhCjXdalEV6LkRYtDZSWDLznkYULp
- HIdjeT4gr4lU4tm79cvkKEbac+rVzo6SFwOkBRoSQKgEgsdKEPQlGWmLP
- FR5l5frwK2rbVcF2pxfkrwxC+mKG+6sLKWhSPEcz/sQesamH9jLF47yFN g==;
-X-CSE-ConnectionGUID: qnx/MmrKSwmKn+pMQFM8GQ==
-X-CSE-MsgGUID: MPQ7KB8uRhq3va7nPx6nIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="89996437"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="89996437"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 06:12:16 -0700
-X-CSE-ConnectionGUID: iEZUdQppQA+APPRF92xoGA==
-X-CSE-MsgGUID: 47uPzuqWRuag9QeVQneEQw==
-X-ExtLoop1: 1
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.253])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 06:12:11 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, jfalempe@redhat.com,
- javierm@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, sashiko-reviews@lists.linux.dev, Thomas
- Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 2/2] drm/fbdev: Move fbdev helpers into client library
-In-Reply-To: <20260923110537.451614-3-tzimmermann@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260923110537.451614-1-tzimmermann@suse.de>
- <20260923110537.451614-3-tzimmermann@suse.de>
-Date: Wed, 23 Sep 2026 16:12:09 +0300
-Message-ID: <acbe05d92420f09ea69054b1215ec4dcab4c6953@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC35410E89E;
+	Wed, 23 Sep 2026 13:17:06 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28B2E10E89E;
+ Wed, 23 Sep 2026 13:17:06 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7926324847069860424=="
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/psr=3A_Allow_Pan?=
+ =?utf-8?q?el_Replay_and_PSR2_with_joiner?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 23 Sep 2026 13:17:06 -0000
+Message-ID: <179016942615.196549.3862156301595731511@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260923115941.746934-1-mika.kahola@intel.com>
+In-Reply-To: <20260923115941.746934-1-mika.kahola@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,416 +37,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 23 Sep 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> DRM's fbdev helpers are for the fbdev-emulation clients. Move them
-> into the client-library module. Fix include statements throughout
-> DRM drivers.
+--===============7926324847069860424==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-FWIW,
+== Series Details ==
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Series: drm/i915/psr: Allow Panel Replay and PSR2 with joiner
+URL   : https://patchwork.freedesktop.org/series/174791/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19207 -> Patchwork_174791v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_174791v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@fbdev@info:
+    - fi-hsw-4770:        [SKIP][1] ([i915#1849] / [i915#2582]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@info.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@fbdev@info.html
+
+  * igt@fbdev@nullptr:
+    - fi-hsw-4770:        [SKIP][3] ([i915#2582]) -> [PASS][4] +3 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@nullptr.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@fbdev@nullptr.html
+
+  * igt@gem_softpin@safe-alignment:
+    - fi-hsw-4770:        [FAIL][5] ([i915#15527]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [DMESG-FAIL][7] ([i915#12964]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-8/igt@i915_selftest@live.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/bat-mtlp-8/igt@i915_selftest@live.html
+
+  
+  [i915#12964]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12964
+  [i915#15527]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527
+  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
+  [i915#2582]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582
 
 
->
-> While at it, rename the files from drm_fb_helper to drm_fbdev_helper.
-> The old name was too reminiscent of DRM's framebuffer code.
->
-> The GEM support code for fbdev remains part of DRM's memory managers.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/Makefile                                      | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c                   | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c                       | 2 +-
->  drivers/gpu/drm/clients/Makefile                              | 3 ++-
->  drivers/gpu/drm/clients/drm_fbdev_client.c                    | 2 +-
->  .../gpu/drm/{drm_fb_helper.c => clients/drm_fbdev_helper.c}   | 2 +-
->  drivers/gpu/drm/drm_fbdev_dma.c                               | 2 +-
->  drivers/gpu/drm/drm_fbdev_shmem.c                             | 2 +-
->  drivers/gpu/drm/drm_fbdev_ttm.c                               | 2 +-
->  drivers/gpu/drm/exynos/exynos_drm_fbdev.c                     | 2 +-
->  drivers/gpu/drm/gma500/fbdev.c                                | 2 +-
->  drivers/gpu/drm/i915/display/intel_fbdev.c                    | 2 +-
->  drivers/gpu/drm/msm/msm_debugfs.c                             | 2 +-
->  drivers/gpu/drm/msm/msm_fbdev.c                               | 2 +-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c                       | 1 -
->  drivers/gpu/drm/omapdrm/omap_debugfs.c                        | 2 +-
->  drivers/gpu/drm/omapdrm/omap_fbdev.c                          | 2 +-
->  drivers/gpu/drm/radeon/radeon_device.c                        | 2 +-
->  drivers/gpu/drm/radeon/radeon_fbdev.c                         | 2 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_gem.c                   | 2 +-
->  drivers/gpu/drm/sitronix/st7571.c                             | 1 -
->  drivers/gpu/drm/tegra/fbdev.c                                 | 2 +-
->  drivers/gpu/drm/vboxvideo/vbox_mode.c                         | 2 +-
->  include/drm/{drm_fb_helper.h => clients/drm_fbdev_helper.h}   | 4 ++--
->  24 files changed, 23 insertions(+), 25 deletions(-)
->  rename drivers/gpu/drm/{drm_fb_helper.c => clients/drm_fbdev_helper.c} (99%)
->  rename include/drm/{drm_fb_helper.h => clients/drm_fbdev_helper.h} (99%)
->
-> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> index f0c340aa2ec6..3a0f2095de3c 100644
-> --- a/drivers/gpu/drm/Makefile
-> +++ b/drivers/gpu/drm/Makefile
-> @@ -158,7 +158,6 @@ drm_kms_helper-y := \
->  drm_kms_helper-$(CONFIG_DRM_PANEL_BRIDGE) += bridge/panel.o
->  drm_kms_helper-$(CONFIG_DRM_PANIC_HELPER) += drm_panic_helper.o
->  drm_kms_helper-$(CONFIG_DRM_PANIC_SCREEN_QR_CODE) += drm_panic_helper_qr.o
-> -drm_kms_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fb_helper.o
->  obj-$(CONFIG_DRM_KMS_HELPER) += drm_kms_helper.o
->  
->  #
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index 59ea338b554c..126bfd9bb89e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -38,11 +38,11 @@
->  
->  #include <linux/pci.h>
->  #include <linux/pm_runtime.h>
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_crtc_helper.h>
->  #include <drm/drm_damage_helper.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_edid.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_modeset_helper.h>
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index f2f179421c4d..51a7a4091376 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -28,8 +28,8 @@
->  
->  #include "amdgpu.h"
->  #include <drm/amdgpu_drm.h>
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fb_helper.h>
->  #include "amdgpu_uvd.h"
->  #include "amdgpu_vce.h"
->  #include "atom.h"
-> diff --git a/drivers/gpu/drm/clients/Makefile b/drivers/gpu/drm/clients/Makefile
-> index c16addbc327f..1304ff358509 100644
-> --- a/drivers/gpu/drm/clients/Makefile
-> +++ b/drivers/gpu/drm/clients/Makefile
-> @@ -4,5 +4,6 @@ subdir-ccflags-y += -I$(src)/..
->  
->  drm_client_lib-y := drm_client_setup.o
->  drm_client_lib-$(CONFIG_DRM_CLIENT_LOG) += drm_log.o
-> -drm_client_lib-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fbdev_client.o
-> +drm_client_lib-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fbdev_client.o \
-> +						drm_fbdev_helper.o
->  obj-$(CONFIG_DRM_CLIENT_LIB) += drm_client_lib.o
-> diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
-> index 7574bd36f45e..eec463d19943 100644
-> --- a/drivers/gpu/drm/clients/drm_fbdev_client.c
-> +++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
-> @@ -1,9 +1,9 @@
->  // SPDX-License-Identifier: MIT
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_client.h>
->  #include <drm/drm_crtc_helper.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_print.h>
->  
-> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/clients/drm_fbdev_helper.c
-> similarity index 99%
-> rename from drivers/gpu/drm/drm_fb_helper.c
-> rename to drivers/gpu/drm/clients/drm_fbdev_helper.c
-> index 76195410db60..fff3cf6a0aed 100644
-> --- a/drivers/gpu/drm/drm_fb_helper.c
-> +++ b/drivers/gpu/drm/clients/drm_fbdev_helper.c
-> @@ -32,9 +32,9 @@
->  #include <linux/console.h>
->  #include <linux/export.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_atomic.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_dma.c
-> index 9412d9fdd74b..452f84400350 100644
-> --- a/drivers/gpu/drm/drm_fbdev_dma.c
-> +++ b/drivers/gpu/drm/drm_fbdev_dma.c
-> @@ -4,10 +4,10 @@
->  #include <linux/fb.h>
->  #include <linux/vmalloc.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_fbdev_dma.h>
->  #include <drm/drm_fb_dma_helper.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_dma_helper.h>
->  #include <drm/drm_print.h>
-> diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
-> index 458c899b5d4f..8eb05fe9bc98 100644
-> --- a/drivers/gpu/drm/drm_fbdev_shmem.c
-> +++ b/drivers/gpu/drm/drm_fbdev_shmem.c
-> @@ -3,9 +3,9 @@
->  #include <linux/export.h>
->  #include <linux/fb.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_fbdev_shmem.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_gem_shmem_helper.h>
-> diff --git a/drivers/gpu/drm/drm_fbdev_ttm.c b/drivers/gpu/drm/drm_fbdev_ttm.c
-> index 160bc35d8738..8eb59c2ac5ea 100644
-> --- a/drivers/gpu/drm/drm_fbdev_ttm.c
-> +++ b/drivers/gpu/drm/drm_fbdev_ttm.c
-> @@ -4,9 +4,9 @@
->  #include <linux/moduleparam.h>
->  #include <linux/vmalloc.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_crtc_helper.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem.h>
->  #include <drm/drm_print.h>
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> index 8641c9e84d4c..f412269d6323 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> @@ -10,9 +10,9 @@
->  
->  #include <linux/fb.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_crtc_helper.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_prime.h>
-> diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
-> index d1e93588234f..428912574f20 100644
-> --- a/drivers/gpu/drm/gma500/fbdev.c
-> +++ b/drivers/gpu/drm/gma500/fbdev.c
-> @@ -7,9 +7,9 @@
->  
->  #include <linux/fb.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_crtc_helper.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_framebuffer.h>
->  
->  #include "gem.h"
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> index db0e36dd8722..219ee17de3f6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> @@ -38,10 +38,10 @@
->  #include <linux/vga_switcheroo.h>
->  
->  #include <drm/clients/drm_client_setup.h>
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/intel/display_parent_interface.h>
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_crtc_helper.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_gem.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-> index f12701e286ec..d05307bfa123 100644
-> --- a/drivers/gpu/drm/msm/msm_debugfs.c
-> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
-> @@ -9,8 +9,8 @@
->  #include <linux/debugfs.h>
->  #include <linux/fault-inject.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_debugfs.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_framebuffer.h>
->  
-> diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
-> index dd6d6c507d77..f37cc3f97a21 100644
-> --- a/drivers/gpu/drm/msm/msm_fbdev.c
-> +++ b/drivers/gpu/drm/msm/msm_fbdev.c
-> @@ -6,9 +6,9 @@
->  
->  #include <linux/fb.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_crtc_helper.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_framebuffer.h>
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> index add19d479ebe..e91130f93db6 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -40,7 +40,6 @@
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_edid.h>
->  #include <drm/drm_eld.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_fixed.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/drm_vblank.h>
-> diff --git a/drivers/gpu/drm/omapdrm/omap_debugfs.c b/drivers/gpu/drm/omapdrm/omap_debugfs.c
-> index 9edc1b3f9f95..1c40c489ed72 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_debugfs.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_debugfs.c
-> @@ -6,10 +6,10 @@
->  
->  #include <linux/seq_file.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_debugfs.h>
->  #include <drm/drm_file.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_print.h>
->  
-> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> index 4881777642d2..e1dcc3cb7c55 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> @@ -7,9 +7,9 @@
->  #include <linux/fb.h>
->  
->  #include <drm/clients/drm_client_setup.h>
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_crtc_helper.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_framebuffer.h>
-> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> index 9523240110a6..fdbdcefa84e7 100644
-> --- a/drivers/gpu/drm/radeon/radeon_device.c
-> +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> @@ -33,11 +33,11 @@
->  #include <linux/vga_switcheroo.h>
->  #include <linux/vgaarb.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_cache.h>
->  #include <drm/drm_client_event.h>
->  #include <drm/drm_crtc_helper.h>
->  #include <drm/drm_device.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_probe_helper.h>
-> diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
-> index 3e243f5e2f44..e40c23d9dff2 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-> @@ -29,9 +29,9 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/vga_switcheroo.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_crtc_helper.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> index 9a1dc9f12072..b55113a7a00b 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> @@ -8,9 +8,9 @@
->  #include <linux/iommu.h>
->  #include <linux/vmalloc.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm.h>
->  #include <drm/drm_dumb_buffers.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_gem.h>
->  #include <drm/drm_gem_dma_helper.h>
->  #include <drm/drm_prime.h>
-> diff --git a/drivers/gpu/drm/sitronix/st7571.c b/drivers/gpu/drm/sitronix/st7571.c
-> index fc3ba5e8600f..5e60c4685671 100644
-> --- a/drivers/gpu/drm/sitronix/st7571.c
-> +++ b/drivers/gpu/drm/sitronix/st7571.c
-> @@ -20,7 +20,6 @@
->  #include <drm/drm_damage_helper.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_encoder.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_fbdev_shmem.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_framebuffer.h>
-> diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
-> index 003e80cf7b9a..64c2e64f219b 100644
-> --- a/drivers/gpu/drm/tegra/fbdev.c
-> +++ b/drivers/gpu/drm/tegra/fbdev.c
-> @@ -11,9 +11,9 @@
->  #include <linux/fb.h>
->  #include <linux/vmalloc.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_crtc_helper.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-> index bb3f7f0ad7c4..7c34299fa531 100644
-> --- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
-> +++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-> @@ -13,11 +13,11 @@
->  #include <linux/iosys-map.h>
->  #include <linux/export.h>
->  
-> +#include <drm/clients/drm_fbdev_helper.h>
->  #include <drm/drm_atomic.h>
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_blend.h>
->  #include <drm/drm_edid.h>
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_fourcc.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_atomic_helper.h>
-> diff --git a/include/drm/drm_fb_helper.h b/include/drm/clients/drm_fbdev_helper.h
-> similarity index 99%
-> rename from include/drm/drm_fb_helper.h
-> rename to include/drm/clients/drm_fbdev_helper.h
-> index 0c5e5ed7b5e7..7575aaf34c62 100644
-> --- a/include/drm/drm_fb_helper.h
-> +++ b/include/drm/clients/drm_fbdev_helper.h
-> @@ -27,8 +27,8 @@
->   *      Dave Airlie <airlied@linux.ie>
->   *      Jesse Barnes <jesse.barnes@intel.com>
->   */
-> -#ifndef DRM_FB_HELPER_H
-> -#define DRM_FB_HELPER_H
-> +#ifndef DRM_FBDEV_HELPER_H
-> +#define DRM_FBDEV_HELPER_H
->  
->  struct drm_clip_rect;
->  struct drm_fb_helper;
+Build changes
+-------------
 
--- 
-Jani Nikula, Intel
+  * Linux: CI_DRM_19207 -> Patchwork_174791v1
+
+  CI-20190529: 20190529
+  CI_DRM_19207: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_174791v1: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html
+
+--===============7926324847069860424==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/psr: Allow Panel Replay and PSR2 with joiner</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174791/">https://patchwork.freedesktop.org/series/174791/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19207 -&gt; Patchwork_174791v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_174791v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@fbdev@info:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@fbdev@info.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@fbdev@nullptr:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@fbdev@nullptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@fbdev@nullptr.html">PASS</a> +3 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_softpin@safe-alignment:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527">i915#15527</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19207/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12964">i915#12964</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174791v1/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19207 -&gt; Patchwork_174791v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19207: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9109: 65f84b280be2caf8ce376295d97987a808affdee @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_174791v1: 890d1157247d8ad65d9a2d44c065accd550b61f4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7926324847069860424==--
