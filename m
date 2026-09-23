@@ -4,44 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 306D9C982FA
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 11:28:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 414E5C982EA
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 11:47:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A756810EFE2;
-	Wed, 23 Sep 2026 11:28:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A984610E709;
+	Wed, 23 Sep 2026 11:47:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nX1/DtsJ";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ceYSL3st";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C5810EFE2
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 11:28:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 33D7741072;
- Wed, 23 Sep 2026 11:28:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3DC51F00898;
- Wed, 23 Sep 2026 11:28:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790162936;
- bh=8VlQIonqTtzxEPvNCdffmHMeIKXMqoI8HOdC143mMAk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nX1/DtsJ8P8XYO/srD2lZuPyBE2h7rBEZGfmE2/LBIyPA47OmjryGe6q+eBTRHa48
- iJS5TTVFp3zvLi9LRydXzuQFLIl9vywG+ToKo2fkUsLyqkzrj0uAXDoeawZcqixsbD
- VESQ4rO/wVAU3x3EshSlXcY/vMzziWqnftpTAnD/qOkbOgSc6FEC+XKB5+lumZJaYA
- Kq0YMi/MnTrGgJ5FONB+lNBozKm3iMG8LKnZ0KWgRdWTr75enjWaCwDm8UmlAwSZe0
- 5vuC6eJUWRxmyCB9DzuiSFv2iYVHo9QfL+/tPJkbjqch3b/F0hTPfLI9NWiyK5D9mp
- iRcwOPu8cKbGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/6] drm/i915: Use sleeping selftests for igt_atomic
- on PREEMPT_RT
-To: "Maarten Lankhorst" <dev@lankhorst.se>
-Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260923111518.310430-14-dev@lankhorst.se>
-References: <20260923111518.310430-8-dev@lankhorst.se>
- <20260923111518.310430-14-dev@lankhorst.se>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 11:28:55 +0000
-Message-Id: <20260923112855.F3DC51F00898@smtp.kernel.org>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8204310E08D;
+ Wed, 23 Sep 2026 11:47:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1790164018;
+ bh=6ZM7U7B23fZdP8KfJT13YymZsJzXrFdTfmOBL5ZqVLo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ceYSL3st+7DSoVOzMoqE6VusNMSF8XkpQfB66v67myqZlQVZMR25jlXVabewaaRfo
+ 2Ajl1A97jnOooMeeuv0TZwGb5wz+LOO96xa1MJhajqaASakgVTLKPDwY98ctVEEXhB
+ u91avSNws4UBPTPaMZXepOCSuz0urtNS7Dng+wZmR61/XLLqu1JdaCaECfr9TTX8iJ
+ CE5wOtOq6vqQHfuQnA1G6U4nS8TX18QAyGYf03bMTI2ftBVZ6O2p5IjxiucicTwJTW
+ KsGCga1KKEZBQiI+kTqFV4YnXUe9c2+cGsXtBvC4jNyLjfQGYXlE6r8Web8cp565G7
+ 1fN8ew63gP0XA==
+Message-ID: <22d31b4d-5efc-46ca-ab40-2205a77fa33d@lankhorst.se>
+Date: Wed, 23 Sep 2026 13:47:04 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
+ PREEMPT_RT.
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706122026.IJAiyhhw@linutronix.de>
+ <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
+ <20260709110200.2_5Eg8xF@linutronix.de>
+ <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
+ <20260918083118.POmXtJuv@linutronix.de>
+ <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+ <0ed50720-3533-4cd7-8579-0dc175a822dd@lankhorst.se>
+ <32eb2a14-8684-4e61-98a0-882d12dddc16@ursulin.net>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <32eb2a14-8684-4e61-98a0-882d12dddc16@ursulin.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,55 +62,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] drm/i915: dead data in igt_atomic_phases and truncated commit messa=
-ge
---
+Hey,
 
-commit 321dc694013c1b67cd828bf70f5c9cc0726f1768
-Author: Maarten Lankhorst <dev@lankhorst.se>
+On 9/23/26 09:19, Tvrtko Ursulin wrote:
+> 
+> On 18/09/2026 12:19, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> On 9/18/26 11:44, Tvrtko Ursulin wrote:
+>>>
+>>> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
+>>>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
+>>>>> Hey,
+>>>> Hi Maarten,
+>>>>
+>>>>> Yeah the problem was similar, I believe neither check should exist,
+>>>>> instead the caller should give this information like the comment mentions.
+>>>>
+>>>> Any update here? Maybe I have been left out on reposts. Any chance this
+>>>> gets in before the LTS of this year gets out?
+>>>
+>>> Side question, there was a bunch of sashiko issues against v4 - have those been addressed?
+>>>
+>>> As today it is the first time I see patch 7/7 which is a bit of a scary one. I have to ask how much does Intel commit to fixing out any potential breakage given the status of i915?
+>>>
+>>> + other maintainers FYI
+>> Patch 7/7 addresses a real issue, it just happened to be more easily found on PREEMPT_RT.
+> 
+> In this case, have you pulled it out from the series and sent standalone?
+> 
+>> I haven't had much time to look at PREEMPT_RT lately, I'll see if I can get some time to look at
+>> sashiko, but lack of reviews have not been helping.
+>>
+>> Every time I send out revised patches, it takes a few months before I receive a response.
+>> By that time I have moved on to other projects, and finding time takes a lot of time again.
+>> If the cycle took only a few days I could finish this quickly and get it merged.
+> 
+> Sounds like Intel is not officially supporting/funding your effort. I am also helping out unfunded in my private time so cannot really promise to improve things much in terms of promptness of reviews, or even promise to review in the short term.
+> 
+> In any case it sounds like the best plan is to send the fix which applies to !PREEMPT_RT as standalone and see if anyone bites. Problem still be merging such a large change so I expect maintainer acks will be needed in any case.
 
-drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
+I've sent the other fixes instead, still missing 2 r-b's:
 
-This commit updates the i915 igt_atomic selftest to use sleeping test
-phases on PREEMPT_RT builds. It adds PREEMPT_RT specific phases and
-terminates the test array early.
+https://patchwork.freedesktop.org/series/174789/
 
->     All of the i915 code that used to run in BH's, IRQ's, etc is
->     converted to preemptible code when compiled with PREEMPT_RT,
->     so adding coverage for those situations would require
-
-[Severity: Low]
-This isn't a bug, but the commit message is visibly truncated mid-sentence
-here.
-
-> diff --git a/drivers/gpu/drm/i915/selftests/igt_atomic.c b/drivers/gpu/dr=
-m/i915/selftests/igt_atomic.c
-> index fb506b6990956..8ae39cf570b76 100644
-> --- a/drivers/gpu/drm/i915/selftests/igt_atomic.c
-> +++ b/drivers/gpu/drm/i915/selftests/igt_atomic.c
-[ ... ]
->  const struct igt_atomic_section igt_atomic_phases[] =3D {
-> +#if IS_ENABLED(CONFIG_PREEMPT_RT)
-> +	{ "sleeping", __nop, __nop },
-> +	{ },
-> +#endif
->  	{ "preempt", __preempt_begin, __preempt_end },
-
-[Severity: Low]
-Does adding this early null sentinel abandon the remaining elements
-("preempt", "softirq", "hardirq") in igt_atomic_phases as unreachable dead
-data in the binary on PREEMPT_RT builds?
-
-While this avoids unused function warnings for the callbacks, it leaves
-unreachable data in the array. Could the remaining elements be explicitly
-guarded with an #else instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923111518.3104=
-30-8-dev@lankhorst.se?part=3D6
+I'll send 7/7 separately, and see what happens. If nothing else, it'll be on the mailing list to pick up. I believe that a concrete goal "Fix this specific code to work with PREEMPT_RT, it's the only thing holding us back", will eventually add motivation to merge the specific fixes, or develop another solution that will be accepted.
