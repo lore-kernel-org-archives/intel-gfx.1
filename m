@@ -4,107 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9160BC9832C
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 19:11:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBD96C98328
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 19:11:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D232B10FC28;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800FF10FC26;
 	Fri, 25 Sep 2026 19:11:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UWttT2gq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FrTEqPjb";
 	dkim-atps=neutral
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com
- [74.125.230.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C151610FA45
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 12:52:47 +0000 (UTC)
-Received: by mail-qk2-f13.google.com with SMTP id
- af79cd13be357-939656ff6d9so92117085a.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 05:52:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790340767; cv=none;
- d=google.com; s=arc-20260327;
- b=EWjrxzCmCFmZ+Y+hlf8nNiCK8mZ1+m3E7VKYIwDLrhNKgKLK4lF30sQMvNpuhM95if
- zrqPMUezKJyCgihw240PrWSh9ZROwxQtExje5WOuk/w00V5GJTGFriAcgoUKZUlmpIdu
- aPCoNX3Y6DuSM+EF1hWPt4Z902R0hRqDe/T6ipO/f5QyrIEYW08uEwGQM1he+kCcKEmv
- z1WngQTo93968Wr/P/oBWYQtwKLNXhbWn8qnL7P/wqT1lc4pfQSYW+V1EFkxBZRTVlFA
- s2wV7XypInaL+NhgUoPXPLte7pwoKv7zIvjTqwJHzpfuzDXSF1CAfTHG02jkyj9DZKD9
- 8D0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=9LWDCzcn0ysfmdsUdgkxA//1tZg5vvX+0Vm1HrB/0WM=;
- fh=UTsqFai/n+KyO3hID7NFEwj4v64mfikmS6A9/qAuAzg=;
- b=e22SSsDPwTz231EXMg706JcdaX4xZNsLWolAfG1uJ3OY0bimdrBk7g4dwMhU5f+dK8
- tCEu/gB3SQtbq6WWlzfd4wFvdGhQKpxjxP4m6XA2lIVbtAhaGr1JKud11fTnpmSJl/fm
- tVEyBO28fVLhFvVaw4synl47zmWQMLIbTKE0jKfLgvKCnzc3nMRG/yE8fiLy2oL7O5bp
- bicVB5J6TEY/mlKuDbkX72rjIduX5jexBbx6icLEQ58mGTC98EojpzeyiEoKTEtvEVff
- VvpIg5DkUY2J0WPTTpySoNYvkVeoBvEHTaNfkZFepth5TjB6o4+Klce2WNYrYhLrj8KN
- 20EA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D504E10F7B4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 21:19:30 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49ce364488dso859565e9.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 14:19:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790340767; x=1790945567; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=9LWDCzcn0ysfmdsUdgkxA//1tZg5vvX+0Vm1HrB/0WM=;
- b=UWttT2gqZVLPbAc3FiQ6UUGZWc71HKtC/B9fYuDd5qL85uSR+/wc9OtTujQ9mTJw0W
- UO7LxC4yuGDfZ7UcyjXLpjhi4WO407347tRmvp8U8YJHROJ82XEugNWIy44v/suliVg3
- isYdQHw3bbfMqgLWvrwNMuPhuv6dmwWOUxfMrguj7ZpSeijQAK/w5BUQxEkoHvTKPhcx
- 4zD/CxDAJBPgk1NydMPyLO344UYulyWFzYtET5Ub5pxal42wOLsn+W83zwZL+zqgEudx
- SQqG3A+NNqNNTT33p9INoEh4yc3DklM22rw6iR/P93G2drzEtFJ9N8vXBPZl+QLjF2On
- 1mqA==
+ d=gmail.com; s=20251104; t=1790284769; x=1790889569; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3b2nna4xnlk7YBC6uF1VaaYbEm9ppYIUbn/RXDv0QcY=;
+ b=FrTEqPjblL1/z7NXBMMi29ZkNGTKIcpBeUe/VrJMpOMrbaUW3mmNTvPgkVMBBYy6yJ
+ qiAr0+sd1ZGSWivH7m5aMJztJGHRZjwMBBb1pycPb4irzL9EaUqwB1qKgOdv11rKR2Sy
+ R8/A6MN1l094otNpAmi+R58Wh1QxOHpg9wHItREqPB228GyNLv2XMsQsOotiBTGvZt7u
+ EqA8dwCwdEcyfKGFdG5gXQFkJ5JUrWFAQjN/4uhBJI4UNCF057Qs8rExQt0j1iNbg4xM
+ dbXjPYpNbm00tbO93S7mLEUjYLgDzbGzlmzMozBgqEGJlLMTexSNgqZ1ssGRwkwRqonq
+ ZBoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790340767; x=1790945567;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=9LWDCzcn0ysfmdsUdgkxA//1tZg5vvX+0Vm1HrB/0WM=;
- b=btCYRWLu8PkHmWBBRShrV3aFhNqvnEQv8ZbxKwLyWpZliJyhkIs+CAO3YhY5dS7K4t
- 7s8jz0Jjwg5w8A5O2Ecq5aA50Ot5qNNHeISO6EYqR8GzNqiDToItTnjSeyTuMsQZLCOh
- SLvkHMTEedzNZzmdKbo5SbFFISNEni6BRqa6Dhaysr1SqFCWPzsDZ75SHGu0m1sZyNLM
- qpH5i1SQPojHL72MnOWP0OvGCW/pc/ptbVknWERBt0vGQxjWym+e4suJ2FvIHaY/iMrF
- QLAhk10PxeFs3RtnfTVUXSieqr/I7cUSeMeqhdN8vPu4ho7FUrPGxb7cDyYbFHJB6T5+
- 9W/g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz+KGBvnND72kbVDRmQ1coWrjgHH6Fiwg8Eq5wsfZIJeyNJ8WvBFoEIWEQrjkEpDauz1G2acp51Y6w=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lt6pkEHBy0XPT5cacKM7ddfXRuhAVIaBUbN+G0oWrSOdMyOCmm
- puUW7CqIjg20e/XUe+cT8iY1WyPVE6mAN9nFx+yKlq6jZSch0M0Z+hWDP5gxtoI/1eOjFDJbvG6
- AcR1aRdMsbtnO/DB0rQKf7Ied5CS58h4=
-X-Gm-Gg: AYBFou1ZL0wX65NTUcgu+78/KystTa9uG4MqFTyuwP9M4jJFkuz5lkGxKHdIKLEQhRD
- a2Lq5kjcKao/th/3GaJx802HAAxBsdK8JV+r8Xyh5LpBsxf7WXrTm/7oCGYVp6EabbGjaRAz9iU
- wqkSJ0z+OJa6qir9FHesHJlyBLLnRSSkhamvlaMLPpWHbD8cXT+rpMrLkVgRXWCK4hzoiPwKhrm
- 7Cc3OL8fVcnm0KZQUhi1yOztRGUzoxPQ8Y1GusLwW+y2NGDvwvrgvl8d3n1tNJb+bsI0DKj9huE
- mq9nUHv089kQypklaSi4D0J+Bz6tvT1OFGD5RmJU5xhJWeKv5UGkWGBJlA==
-X-Received: by 2002:a05:620a:8389:b0:93a:3d22:3122 with SMTP id
- af79cd13be357-93c43cc7043mr442767385a.3.1790340766713; Fri, 25 Sep 2026
- 05:52:46 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790284769; x=1790889569;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3b2nna4xnlk7YBC6uF1VaaYbEm9ppYIUbn/RXDv0QcY=;
+ b=A51vgShxjBeEEa/GWZSy0H7PXpCzXLfgMvrebNfhPvHoceQOCupNYiNmXve9pl7mjL
+ qIQQ0uHSQT1SYhkz4sopWNVMRCfna9Ka/O8tlOPWghYcQNjcr6hT8rU8vlD6yEfE5Jo/
+ PAmOPiqmlQQ2JuNuA1Hs/rXALFAQbGiGXaS1ihh2bc3ilOH8/qqBquDblP7liX3H/aFI
+ dqYn2xvHr1IIhmV/pkpm3/LgYMK2QPTwFPWp6WJqmcM0PLmc54xKhZu19G2x72iMx7w+
+ bkNGFast0Ex3gtnCZ9qqBNHdWpj1StMRDtUJpKXAv47R4sieaYbcsYlGZpa2bCSP9ha7
+ C7cQ==
+X-Gm-Message-State: AFuF++lDGjnsdaEpYsttb6mz5FRmWoDlyWRg9cE3NXnYT64wtMNtXbv3
+ jmi559mlySjhEsG4ih47E7WMzbrxaVKTvjPRFazNxJKlfQZsBVy+CniDnIDE7RY0rlY=
+X-Gm-Gg: AYBFou3OUlig1n8zOyIA/X/1dxEeRFK4/JmXOdVeH1fVd0pPcOtytlQPbJiB5rHs29c
+ vSj4OjcIiJ3j8Ib/Igs9vUT7/rRN+y3zir3z5LbbGJuh5k78Rewnoe6kL7fq7CxYQIeyIEO7K0+
+ KjRF0WyOtoOUWjbRgf611q7xnI+9hL1ujvbQnvY2XfrUf2dm03Fjrt52kifw9hwNIX9/D3wlk+5
+ xViUznmAxbA3B4n1hCETsTrevvYRb/qL10XEYGXEHUZ1CD/Lc0JryNtxL4HzeIz9RnQwrTbPIs9
+ wrHhVSkHIF2+Rtky+WHa74dbRHQ2f3d9yacR2S644f2Pk4sVGlcBZtgpHKYT23cS+CIXqHpOcCp
+ b5XAWzFvwudXTm6tGSJ3QvbJ35Bp8gNGx6BS19Y6u/yuRpsHcDt+RuDJSxoDUyf8MvMzVQgzgT/
+ 54ekOhSaPYNRRVAtKiPdvdNRRcSWrYEbov/RGOxqLUSa1GBc5GJF7HOWrvbhnAwRJlcE3Ai1h/q
+ yA/taUclka7KNNffL9l4rQ/kDAP0xgdhFfWrWt8OwQhGFma/ef7YdjgcBZHi5WhfIPWTDMidXqJ
+ baXM3sgcQ0L5HCGnphlFx5QjOUqJZ73PrCVyB35qYPOi+G4=
+X-Received: by 2002:a05:600c:c096:b0:49f:f099:6f92 with SMTP id
+ 5b1f17b1804b1-49ff0997108mr2146345e9.9.1790284768860; 
+ Thu, 24 Sep 2026 14:19:28 -0700 (PDT)
+Received: from tulkas.localdomain (95f12971.skybroadband.com. [149.241.41.113])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fef5f876esm6403155e9.2.2026.09.24.14.19.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Sep 2026 14:19:28 -0700 (PDT)
+From: Conor Svensson <conor10@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Conor Svensson <conor10@gmail.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/dp: Configure protocol converter only for TMDS
+ outputs
+Date: Thu, 24 Sep 2026 22:18:09 +0100
+Message-ID: <20260924211852.436787-1-conor10@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com>
+References: <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com>
 MIME-Version: 1.0
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-3-mario.limonciello@amd.com>
- <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
- <CAFOAJEdFPrwHZV5y1E_u_Wd6oE_viPsPztxYW6PRZHJ-zdPFMQ@mail.gmail.com>
- <ff86caeb-4388-4660-b3c0-ddc42bc274e3@amd.com>
- <b60d3430-ca99-40b6-aaa0-7b8d481ebda6@suse.de>
-In-Reply-To: <b60d3430-ca99-40b6-aaa0-7b8d481ebda6@suse.de>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Fri, 25 Sep 2026 14:52:34 +0200
-X-Gm-Features: AclHuK_7Zf-6pQcm6muMqKFw6mcOuy1gYopDSlUKmT8vyhgjq4Te-A38Cn1BR-c
-Message-ID: <CAFZQkGzUuOh2tGa_otw7yDUd9rSne2PG5Vdte-hwhLZEDf24dA@mail.gmail.com>
-Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>, 
- David Herrmann <dh.herrmann@gmail.com>,
- Marta Lofstedt <marta.lofstedt@intel.com>, 
- Mario Limonciello <superm1@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 19:11:15 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,24 +94,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am Di., 22. Sept. 2026 um 14:05 Uhr schrieb Thomas Zimmermann
-<tzimmermann@suse.de>:
-> > The whole design here is to put the compositor in control.  For
-> > example if compositor wants to enforce brightness to be a certain
-> > value when certain content is being displayed.
->
-> And as I mentioned, it might not be that easy. Sysfs has been the entry
-> point to backlight brightness so far AFAIU.
-Yes, but this doesn't remove or break the sysfs API for old userspace,
-it just allows new userspace to handle things more properly.
+intel_dp_configure_protocol_converter() currently writes the HDMI/DVI
+output-selection control for every DP 1.3+ branch. The write is only
+meaningful for a TMDS downstream output; a native DisplayPort output should
+not be switched to the HDMI/DVI protocol-converter mode.
 
-> Did you consider treating this similar to display hotplugging?  When the
-> user plug a display in or out, the DRM driver sends a message to the
-> compositor in user space. [1]  I think it might be possible to do a
-> similar thing for changes to brightness.
-Notifying the compositor after the fact would not be ok. All the other
-display properties are under exclusive control of the process that
-holds drm master, backlight being different is one of the problems
-fixed by this new API.
+An Anker 565 branch (Synaptics OUI 90:cc:24) changes its downstream port
+descriptor from DisplayPort to DVI immediately after this write. i915 then
+derives a 165 MHz TMDS limit on the next hotplug probe and drops the
+monitor's native modes. Skipping the write for non-TMDS outputs prevents
+the transition.
 
-- Xaver
+The existing dfp.min_tmds_clock classification is nonzero for HDMI/DVI
+outputs and zero for native DisplayPort outputs, so retain the write for
+the protocol-converter cases that need it. Colour-conversion controls are
+unchanged.
+
+Tested on a ThinkPad L14 Gen 4 with an Anker 565 A8388 hub and a Dell
+S3422DWG:
+
+- native 3440x1440@59.973 after DP recovery
+- three USB-C reconnects on the first USB-C port
+- one test on the second USB-C port
+- suspend/resume on the second port
+- HDMI through the hub at 3440x1440@59.973, with HDMI-specific modes
+  present
+
+On the unpatched control kernel, the live descriptor changed from
+08 f0 01 1e 00 00 00 00 to 0a 42 00 00 00 00 00 00 across the 0x3050 write.
+
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
+
+Root-cause findings and validation details were added to the linked issue.
+
+Assisted-by: LLM Codex GPT-6
+
+Signed-off-by: Conor Svensson <conor10@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ffddf4b33..cdc3d7786 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4422,14 +4422,17 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 	if (!drm_dp_is_branch(intel_dp->dpcd))
+ 		return;
+ 
+-	tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
++	/* HDMI/DVI output selection only applies to TMDS downstream ports. */
++	if (intel_dp->dfp.min_tmds_clock) {
++		tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
+ 
+-	ret = drm_dp_dpcd_write_byte(&intel_dp->aux,
+-				     DP_PROTOCOL_CONVERTER_CONTROL_0, tmp);
+-	if (ret < 0)
+-		drm_dbg_kms(display->drm,
+-			    "Failed to %s protocol converter HDMI mode\n",
+-			    str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
++		ret = drm_dp_dpcd_write_byte(&intel_dp->aux,
++					     DP_PROTOCOL_CONVERTER_CONTROL_0, tmp);
++		if (ret < 0)
++			drm_dbg_kms(display->drm,
++				    "Failed to %s protocol converter HDMI mode\n",
++				    str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
++	}
+ 
+ 	if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
+ 		switch (crtc_state->output_format) {
+
+base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
+-- 
+2.55.0
+
