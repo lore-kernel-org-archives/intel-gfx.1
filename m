@@ -4,40 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1411C98318
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 14:43:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EFB7C98318
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 15:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2B510F61E;
-	Thu, 24 Sep 2026 14:43:07 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2107B10F602;
- Thu, 24 Sep 2026 14:43:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C109F40A8A;
- Thu, 24 Sep 2026 14:43:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291F41F000FF;
- Thu, 24 Sep 2026 14:43:04 +0000 (UTC)
-Date: Thu, 24 Sep 2026 16:43:01 +0200
-From: Maxime Ripard <self@mripard.dev>
-To: Dave Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <arU22zzqUGDEco1y@houat>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDE7910F65F;
+	Thu, 24 Sep 2026 15:25:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="knVp+2Oz";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C169C10F65F;
+ Thu, 24 Sep 2026 15:25:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790263505; x=1821799505;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=cThOwPkWRtVCpd9Kanw1fKj8lF7C2N6VhX3mcSHSYao=;
+ b=knVp+2OzKgFSG6cgsoxgkQTrndyzCS1LaG0j7IfHIeTfZ0p3oVmVrRAB
+ pxCF7DUmcck0ZhjmNvMiyZnpwOBgNd78pf92AkVGAS3/7Y6igLlAdmvqh
+ BNfHyxkskC0wmJHnC3pU6s4N/S3RCmOJaD3uwEe1dXEs0jIS5msiqTCw1
+ dhtS+g+dM0ILrCqeOAXQPOCbpGItLW8/QvQoM7rbxyIZDYTXyNtR5pFAX
+ TVQDZhpj7cmKXx5qSydPsYzy6XYMCyPAaO0JQpIEjobOe64xKOuF+oX4j
+ hb6NByD0T8IcUfIFHsJf25WQ6PcXezid/k3m282MTY7J4A9BLt3uJwdHD A==;
+X-CSE-ConnectionGUID: evFtlil3S4+FgGseuV2e9w==
+X-CSE-MsgGUID: Nvie6H24SC+lJF1ZYZQnfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91058149"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="91058149"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 08:25:05 -0700
+X-CSE-ConnectionGUID: 2m5vTAG5TJ6v1Bqsqp0XIg==
+X-CSE-MsgGUID: 8F8lJMWhSwWq2CGxU4TwkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="301981490"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.29])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 08:25:02 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: igt-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ =?UTF-8?q?Zbigniew=20Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Subject: [PATCH i-g-t 1/2] tests/intel/gem_softpin: Skip safe-alignment
+ without full-ppgtt
+Date: Thu, 24 Sep 2026 17:24:17 +0200
+Message-ID: <20260924152443.829382-5-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
+References: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="7xeej45t6wsocj7w"
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,181 +76,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+gem_detect_min_start_offset_for_region(), gem_detect_safe_start_offset()
+and gem_detect_safe_alignment() exist solely to bootstrap
+intel_allocator's start offset and default alignment. Without
+full-ppgtt the kernel can't see the ranges intel_allocator considers
+reserved and may hand them out to other users, so calling these
+helpers is pointless there, as already acknowledged by
+__intel_bb_create() which enforces relocations and skips the
+allocator entirely in that case.
 
---7xeej45t6wsocj7w
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: [PULL] drm-misc-fixes
-MIME-Version: 1.0
+gem_softpin@safe-alignment called these helpers unconditionally,
+outside the file's full-ppgtt gated subtest group. Require
+gem_uses_full_ppgtt() directly on this subtest so it is skipped
+instead of exercising meaningless values.
 
-Hi Dave, Sima,
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15527
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: "Zbigniew Kempczyński" <zbigniew.kempczynski@intel.com>
+Assisted-by: GitHub Copilot (Claude Sonnet 5)
+---
+ tests/intel/gem_softpin.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-Here's this week drm-misc-fixes PR
+diff --git a/tests/intel/gem_softpin.c b/tests/intel/gem_softpin.c
+index e67259b001..3fafde94ba 100644
+--- a/tests/intel/gem_softpin.c
++++ b/tests/intel/gem_softpin.c
+@@ -1573,8 +1573,19 @@ int igt_main()
+ 	}
+ 
+ 	igt_describe("Check start offset and alignment detection.");
+-	igt_subtest("safe-alignment")
++	igt_subtest("safe-alignment") {
++		/*
++		 * The min-start-offset/alignment probing helpers exist
++		 * solely to bootstrap intel_allocator, which the driver
++		 * itself only relies on under full-ppgtt (see the comment
++		 * in __intel_bb_create()). Without full-ppgtt the kernel
++		 * can't see the ranges intel_allocator considers reserved
++		 * and may hand them out to other users, making the detected
++		 * values meaningless.
++		 */
++		igt_require(gem_uses_full_ppgtt(fd));
+ 		safe_alignment(fd);
++	}
+ 
+ 	igt_describe("Check softpinning of a gem buffer object.");
+ 	igt_subtest("softpin")
+-- 
+2.55.0
 
-Maxime
-
-drm-misc-fixes-2026-09-24:
-A number of fixes:
-  - bridge:
-    - samsung-dsim: fix GPIO lifetime
-  - client: Null pointer dereference fix
-  - imagination: error handling fix, page handling fix
-  - nouveau: fix reference leaks, double-frees, out-of-bounds accesses,
-    use-after-frees, don't reject config without SCDC,  a number of
-    workarounds
-  - virtio: fix memory leak, reference leaks, null pointer dereference,
-    add pixel blend mode, cache coherency fix
-The following changes since commit 5535d5e61a77ad79118ea7665ce1c14f857f0f12:
-
-  drm/loongson: Create blend mode property for cursor plane (2026-09-17 15:12:26 +0800)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-09-24
-
-for you to fetch changes up to 45585c3aa285854face65293acc95eff73063d6d:
-
-  drm/imagination: clamp freelist reconstruction requests (2026-09-24 14:59:22 +0530)
-
-----------------------------------------------------------------
-A number of fixes:
-  - bridge:
-    - samsung-dsim: fix GPIO lifetime
-  - client: Null pointer dereference fix
-  - imagination: error handling fix, page handling fix
-  - nouveau: fix reference leaks, double-frees, out-of-bounds accesses,
-    use-after-frees, don't reject config without SCDC,  a number of
-    workarounds
-  - virtio: fix memory leak, reference leaks, null pointer dereference,
-    add pixel blend mode, cache coherency fix
-
-----------------------------------------------------------------
-Benjamin Leggett (1):
-      drm/virtio: sync shmem backing on guest-bound transfers
-
-Brajesh Gupta (2):
-      drm/imagination: Propagate map failures correctly from pvr_mmu_map_sgl()
-      drm/imagination: Fix page count for page table for map() interface
-
-Dan Carpenter (1):
-      drm/nouveau/clk: fix list cursor use after loop in nvkm_clk_ustate_update
-
-Dmitry Osipenko (1):
-      Revert "drm/virtio: Allow importing prime buffers when 3D is enabled"
-
-Francesco Magazzu (3):
-      drm/nouveau/clk: don't use the pstate cursor after the loop
-      drm/nouveau/device: don't use the pstate cursor after the loop
-      drm/nouveau/clk: don't clobber reclock status when restoring volt/fan
-
-Giuseppe Ranieri (1):
-      drm/nouveau/disp: don't reject HDMI config on cards without SCDC
-
-Guangshuo Li (1):
-      drm/nouveau: fix autosuspend cleanup during teardown
-
-Jakub Pawlak (1):
-      accel/ivpu: Use separate flag for job timeout
-
-Jonghyuk Kim(MalHyuk) (1):
-      drm/nouveau: RCU-free the scheduler-containing nouveau_sched
-
-Junrui Luo (5):
-      drm/nouveau/dmem: pin VRAM for the whole registered range
-      drm/virtio: fix object leak when drm_gem_handle_create() fails
-      drm/virtio: fix object leak in virtio_gpu_resource_create_ioctl()
-      drm/virtio: fix object leaks in virtio_gpu_resource_create_blob_ioctl()
-      drm/virtio: release the GEM object on virtio_gpu_vram_create() errors
-
-Li Youhong (1):
-      drm/bridge: samsung-dsim: fix TE GPIO lifetime for host attach
-
-Lyude Paul (5):
-      drm/nouveau/gsp/r570: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
-      drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
-      drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
-      drm/nouveau/gsp/r570: Start saving comptag backing stores
-      drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
-
-Peiyang He (5):
-      drm/nouveau: fix double-free in nvif_vmm_dtor
-      drm/nouveau/uvmm: fix UAF in nouveau_uvmm_sm when BO is in TTM_PL_SYSTEM
-      drm/nouveau: don't bump pin count on failed re-pin in nouveau_bo_pin_locked()
-      drm/virtio: fix memory leak of fence event on execbuffer failure
-      drm/virtio: fix NULL pointer dereference on fence allocation failure
-
-Pengpeng Hou (1):
-      drm/imagination: clamp freelist reconstruction requests
-
-Shixiong Ou (1):
-      drm/virtio: Add pixel blend mode property to cursor plane
-
-Wentao Liang (3):
-      drm/nouveau: Fix bridge reference leak in nv1a_ram_new()
-      drm/nouveau: Fix gem reference leak in validate_init()
-      drm/nouveau: Fix runtime PM leak in nouveau_connector_detect()
-
-shechenglong (1):
-      drm/client: fix restore of partially initialized client
-
- drivers/accel/ivpu/ivpu_drv.c                      |  3 +-
- drivers/accel/ivpu/ivpu_drv.h                      |  2 +-
- drivers/accel/ivpu/ivpu_job.c                      |  7 +-
- drivers/accel/ivpu/ivpu_mmu.c                      |  1 -
- drivers/accel/ivpu/ivpu_pm.c                       |  1 +
- drivers/gpu/drm/bridge/samsung-dsim.c              |  2 +-
- drivers/gpu/drm/clients/drm_fbdev_client.c         |  8 +++
- drivers/gpu/drm/imagination/pvr_free_list.c        | 15 ++++-
- drivers/gpu/drm/imagination/pvr_mmu.c              | 19 ++++--
- drivers/gpu/drm/imagination/pvr_mmu.h              |  2 +-
- drivers/gpu/drm/imagination/pvr_vm.c               |  4 +-
- drivers/gpu/drm/nouveau/include/nvif/cl0080.h      | 10 +++
- drivers/gpu/drm/nouveau/include/nvif/device.h      |  1 +
- drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h  |  6 ++
- drivers/gpu/drm/nouveau/nouveau_bo.c               |  3 +-
- drivers/gpu/drm/nouveau/nouveau_connector.c        |  5 +-
- drivers/gpu/drm/nouveau/nouveau_dmem.c             |  4 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c              | 18 ++++-
- drivers/gpu/drm/nouveau/nouveau_gem.c              |  2 +
- drivers/gpu/drm/nouveau/nouveau_sched.c            |  2 +-
- drivers/gpu/drm/nouveau/nouveau_sched.h            |  1 +
- drivers/gpu/drm/nouveau/nouveau_uvmm.c             | 13 +++-
- drivers/gpu/drm/nouveau/nvif/device.c              | 13 ++++
- drivers/gpu/drm/nouveau/nvif/vmm.c                 |  1 +
- drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c  |  8 ++-
- drivers/gpu/drm/nouveau/nvkm/engine/device/user.c  | 35 ++++++++++
- drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c   |  3 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c     | 31 ++++++---
- drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramnv1a.c   |  2 +
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c     | 10 +++
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h     |  1 +
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  | 17 +++++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h | 45 +++++++++++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 77 +++++++++++++++++++++-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c  | 36 ++++++++++
- .../nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h    | 29 ++++++++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h |  7 ++
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h    |  3 +
- drivers/gpu/drm/virtio/virtgpu_drv.h               |  5 ++
- drivers/gpu/drm/virtio/virtgpu_gem.c               |  2 +-
- drivers/gpu/drm/virtio/virtgpu_ioctl.c             | 49 +++++++++++++-
- drivers/gpu/drm/virtio/virtgpu_plane.c             | 13 ++++
- drivers/gpu/drm/virtio/virtgpu_prime.c             |  2 +-
- drivers/gpu/drm/virtio/virtgpu_submit.c            | 11 +++-
- drivers/gpu/drm/virtio/virtgpu_vq.c                | 46 +++++++++++++
- drivers/gpu/drm/virtio/virtgpu_vram.c              | 17 ++---
- 46 files changed, 531 insertions(+), 61 deletions(-)
-
---7xeej45t6wsocj7w
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarU29QAKCRAnX84Zoj2+
-dsciAYCgVQRAgfrIkT1CXZY6X9UyVBjOE8sJWpbKykkrOml4OXLw8B1cXhP/0Bb+
-bEfGWgwBegLIz7FMhRo9pbwMDM8SINw+OOlGhiFVnxw498nHGOcyglEu8g0Ww1SE
-LWDNQn2OYw==
-=PGv/
------END PGP SIGNATURE-----
-
---7xeej45t6wsocj7w--
