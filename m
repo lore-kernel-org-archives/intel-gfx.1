@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EFB7C98318
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 15:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBF6CC98321
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 15:25:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE7910F65F;
-	Thu, 24 Sep 2026 15:25:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 523D510F660;
+	Thu, 24 Sep 2026 15:25:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="knVp+2Oz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LOsUzwj8";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C169C10F65F;
- Thu, 24 Sep 2026 15:25:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C04A10F660;
+ Thu, 24 Sep 2026 15:25:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790263505; x=1821799505;
+ t=1790263507; x=1821799507;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cThOwPkWRtVCpd9Kanw1fKj8lF7C2N6VhX3mcSHSYao=;
- b=knVp+2OzKgFSG6cgsoxgkQTrndyzCS1LaG0j7IfHIeTfZ0p3oVmVrRAB
- pxCF7DUmcck0ZhjmNvMiyZnpwOBgNd78pf92AkVGAS3/7Y6igLlAdmvqh
- BNfHyxkskC0wmJHnC3pU6s4N/S3RCmOJaD3uwEe1dXEs0jIS5msiqTCw1
- dhtS+g+dM0ILrCqeOAXQPOCbpGItLW8/QvQoM7rbxyIZDYTXyNtR5pFAX
- TVQDZhpj7cmKXx5qSydPsYzy6XYMCyPAaO0JQpIEjobOe64xKOuF+oX4j
- hb6NByD0T8IcUfIFHsJf25WQ6PcXezid/k3m282MTY7J4A9BLt3uJwdHD A==;
-X-CSE-ConnectionGUID: evFtlil3S4+FgGseuV2e9w==
-X-CSE-MsgGUID: Nvie6H24SC+lJF1ZYZQnfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91058149"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="91058149"
+ bh=Jur/jamhTM+iUAuVNyj/F7g2shSZRyg0t6DQvxkIB3w=;
+ b=LOsUzwj8iMYUHpZodxQyopAoNBHHH3rikh1aAK665igyG31C5oDkRib1
+ Rh3HZ5onX6pfJINrJF/b4ZJcPv58H4Mbf/tuadmNpEimGX0ovCalHHjfb
+ ohxl4wf91+85hykKqq6L2ySlCi034G3bhExOrXUzm/F1GD0TcanZldNL4
+ qOwLuHBW3PxCmax3fas7MzqpTwgYKH321GvcuN9fK9cxT2Z8INuKw4vgp
+ JVzcujY/ENRcgXCZcVzc91lKKrTwEea9auPIsDdz4jIv2bvDVYMxJIW5e
+ M9TaYq1jl68WS5tfigQVZcJjyf44qYdGNMli3maHv3vlL0fDieVVzswCi w==;
+X-CSE-ConnectionGUID: dzjNY6hrR/2IDw+UillDSQ==
+X-CSE-MsgGUID: eCo3YMkxRg64gVTGFN+S6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91058153"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="91058153"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2026 08:25:05 -0700
-X-CSE-ConnectionGUID: 2m5vTAG5TJ6v1Bqsqp0XIg==
-X-CSE-MsgGUID: 8F8lJMWhSwWq2CGxU4TwkA==
+ 24 Sep 2026 08:25:07 -0700
+X-CSE-ConnectionGUID: TrHyMG9GRkeaaWBFcNsteA==
+X-CSE-MsgGUID: zR2FUnIGQP2VPTiGLu+KSQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="301981490"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="301981527"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.29])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2026 08:25:02 -0700
+ 24 Sep 2026 08:25:05 -0700
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
@@ -51,15 +51,14 @@ Cc: intel-gfx@lists.freedesktop.org,
  Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Subject: [PATCH i-g-t 1/2] tests/intel/gem_softpin: Skip safe-alignment
+Subject: [PATCH i-g-t 2/2] tests/intel/gem_close_race: Skip offset probing
  without full-ppgtt
-Date: Thu, 24 Sep 2026 17:24:17 +0200
-Message-ID: <20260924152443.829382-5-janusz.krzysztofik@linux.intel.com>
+Date: Thu, 24 Sep 2026 17:24:18 +0200
+Message-ID: <20260924152443.829382-6-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
 References: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,53 +75,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-gem_detect_min_start_offset_for_region(), gem_detect_safe_start_offset()
-and gem_detect_safe_alignment() exist solely to bootstrap
-intel_allocator's start offset and default alignment. Without
-full-ppgtt the kernel can't see the ranges intel_allocator considers
-reserved and may hand them out to other users, so calling these
-helpers is pointless there, as already acknowledged by
-__intel_bb_create() which enforces relocations and skips the
-allocator entirely in that case.
+gem_close_race computed exec_addr/data_addr via
+gem_detect_safe_start_offset() and gem_detect_safe_alignment()
+whenever the kernel disallowed relocations, without checking ppgtt
+mode. Those helpers exist solely to bootstrap intel_allocator and are
+meaningless without full-ppgtt, since the kernel can't see the ranges
+intel_allocator considers reserved and may hand them out to other
+users, as already acknowledged by __intel_bb_create() which enforces
+relocations and skips the allocator entirely in that case.
 
-gem_softpin@safe-alignment called these helpers unconditionally,
-outside the file's full-ppgtt gated subtest group. Require
-gem_uses_full_ppgtt() directly on this subtest so it is skipped
-instead of exercising meaningless values.
+Require gem_uses_full_ppgtt() as well before enabling the softpin
+path, mirroring __intel_bb_create()'s logic, and skip the probing
+calls otherwise so the existing relocation fallback is used.
 
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15527
 Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: "Zbigniew Kempczyński" <zbigniew.kempczynski@intel.com>
+Cc: Kamil Konieczny <kamil.konieczny@linux.intel.com>
 Assisted-by: GitHub Copilot (Claude Sonnet 5)
 ---
- tests/intel/gem_softpin.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ tests/intel/gem_close_race.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/tests/intel/gem_softpin.c b/tests/intel/gem_softpin.c
-index e67259b001..3fafde94ba 100644
---- a/tests/intel/gem_softpin.c
-+++ b/tests/intel/gem_softpin.c
-@@ -1573,8 +1573,19 @@ int igt_main()
- 	}
+diff --git a/tests/intel/gem_close_race.c b/tests/intel/gem_close_race.c
+index b2688774d7..ff2877f67e 100644
+--- a/tests/intel/gem_close_race.c
++++ b/tests/intel/gem_close_race.c
+@@ -348,11 +348,20 @@ int igt_main()
  
- 	igt_describe("Check start offset and alignment detection.");
--	igt_subtest("safe-alignment")
-+	igt_subtest("safe-alignment") {
+ 		devid = intel_get_drm_devid(fd);
+ 		has_64bit_relocations = intel_gen(devid) >= 8;
+-		has_softpin = !gem_has_relocations(fd);
+-		exec_addr = gem_detect_safe_start_offset(fd);
+-		data_addr = gem_detect_safe_alignment(fd);
+-		exec_addr = max_t(exec_addr, exec_addr, data_addr);
+-		data_addr += exec_addr;
 +		/*
-+		 * The min-start-offset/alignment probing helpers exist
-+		 * solely to bootstrap intel_allocator, which the driver
-+		 * itself only relies on under full-ppgtt (see the comment
-+		 * in __intel_bb_create()). Without full-ppgtt the kernel
-+		 * can't see the ranges intel_allocator considers reserved
-+		 * and may hand them out to other users, making the detected
-+		 * values meaningless.
++		 * Without full-ppgtt the kernel can't see the ranges the
++		 * detected offsets are meant to reserve and may hand them
++		 * out to other users, so pinning at a detected offset isn't
++		 * meaningful; fall back to relocations in that case, same
++		 * as __intel_bb_create() does.
 +		 */
-+		igt_require(gem_uses_full_ppgtt(fd));
- 		safe_alignment(fd);
-+	}
++		has_softpin = !gem_has_relocations(fd) && gem_uses_full_ppgtt(fd);
++		if (has_softpin) {
++			exec_addr = gem_detect_safe_start_offset(fd);
++			data_addr = gem_detect_safe_alignment(fd);
++			exec_addr = max_t(exec_addr, exec_addr, data_addr);
++			data_addr += exec_addr;
++		}
  
- 	igt_describe("Check softpinning of a gem buffer object.");
- 	igt_subtest("softpin")
+ 		gpu_count = igt_device_filter_count();
+ 
 -- 
 2.55.0
 
