@@ -4,43 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B13EEC9830E
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 15:36:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3EF2C98318
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 16:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D8D110F66C;
-	Thu, 24 Sep 2026 15:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D6FA10E18B;
+	Thu, 24 Sep 2026 16:54:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gsARZPL+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kNCdcQU6";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBF910F66C;
- Thu, 24 Sep 2026 15:36:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5A610E18B;
+ Thu, 24 Sep 2026 16:54:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E78F7601DE;
- Thu, 24 Sep 2026 15:36:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2891F000FF;
- Thu, 24 Sep 2026 15:36:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 76E3C601EF;
+ Thu, 24 Sep 2026 16:54:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6081F000FF;
+ Thu, 24 Sep 2026 16:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790264201;
- bh=GVD/OkLLNkpzpvvBUDDvU2PFPsttaitYj94/0tnnw2o=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gsARZPL+APvFcCEgHdnuC4a9QeLn0KKhWoY/tMr+H5EUMRE4Snxxpv++yvdCy2T5j
- 1676IJ4mBGTIyh2vAeVpTId7yi2VTJMkSwUA8sNfJ45VNUV9vkGaS1+IBoFhJ9fHrp
- /9+hECI9SXKJm2rsdJJTVt4EreFvedJwRz1+F2B3XBAmlQbMLOsfQ9i0t9WSXgSB66
- bftBj/6e2tFNzsfIYV+xMTzZWu7DTpc3YD5jWanrnD2KFkBLa87JdTJVQAnWlumYyG
- Vi+RUHP/FP7G6lwZyxPP5rd8lSWq07lI8/ZJWWA+DQbapNcULb8AH8XrIHdx78ZrC9
- PnBj7XsHvZyDA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/1] drm/i915/gmbus: Add bit-banging debugfs control
-To: "Naladala Ramanaidu" <ramanaidu.naladala@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260924152812.439986-2-ramanaidu.naladala@intel.com>
-References: <20260924152812.439986-1-ramanaidu.naladala@intel.com>
- <20260924152812.439986-2-ramanaidu.naladala@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 15:36:40 +0000
-Message-Id: <20260924153641.6B2891F000FF@smtp.kernel.org>
+ s=k20260515; t=1790268872;
+ bh=BkzAkiWdzegc3H0KCcLioXPh2WESOPx/9LTCwHSdQDI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=kNCdcQU6ajBlxqBQ4LfRJawizexIf/eZEFukJwJ57sYk18nimzTBcWPVDNFLDHySK
+ rCpOtZA+6PjhIT0E19ZwrY6scDJaa+kMEqqFeyfTdgpH8EUcEUxWofrpidInfRhorz
+ EV6X5OWA1t8WELdvJb576pvporyY7+awdjs7lKrT6+Ll1DoQ31/5LDLw7+QWcbP3nj
+ Do3oI4kuwVWIkgszw5O7APGw5hxlzcMtvWkXf5Tvxv/FI94tneDDkfx7FjvLobLgrB
+ n1n3FLH+U0uyRftC8u+m/goilZncfB7C00KlmZ6CLUe0kDbxn5ZbDuYeweKevJcCBv
+ Mw8EOwFeVQHaQ==
+Date: Thu, 24 Sep 2026 17:54:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <4ddbd29e-3524-4f4c-b6d7-1e2e677641b5@sirena.org.uk>
+References: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+ <CADnq5_NUH1MBU15Vs287by4P37YV+6F1Q3J1e4Q4KuOvPwK9Fw@mail.gmail.com>
+ <arPhsTaiqXPgCqAU@sirena.co.uk>
+ <CADnq5_OJ=kP+0=iXbpcjsWbTx8=sNfov0wLSW53qLcFU0fmVVg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="TfUEtMAqWQQDRMnd"
+Content-Disposition: inline
+In-Reply-To: <CADnq5_OJ=kP+0=iXbpcjsWbTx8=sNfov0wLSW53qLcFU0fmVVg@mail.gmail.com>
+X-Cookie: Memory fault -- brain fried
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,78 +63,106 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915: race in debugfs write causes force_bit refcount corrup=
-tion
---
 
-commit dbe416d20c046e80d3b0b6e516a640339bbbd1e9
-Author: Naladala Ramanaidu <ramanaidu.naladala@intel.com>
+--TfUEtMAqWQQDRMnd
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-drm/i915/gmbus: Add bit-banging debugfs control
+On Wed, Sep 23, 2026 at 05:57:24PM -0400, Alex Deucher wrote:
 
-This commit adds a connector debugfs interface to enable or disable I2C
-bit-banging for Intel GMBUS adapters.
+> Your reports are valuable and we always take them seriously even if I
+> don't reply as quickly as I should.  For the issues at hand they
+> should all be fixed with the following patches:
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm=
-/i915/display/intel_gmbus.c
-> index 60a70dea5d856..38d6d11483994 100644
-> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+> https://patchwork.freedesktop.org/patch/755725/?series=3D174828&rev=3D1
+> https://patchwork.freedesktop.org/patch/755741/?series=3D174834&rev=3D1
+> https://patchwork.freedesktop.org/patch/755769/?series=3D172614&rev=3D2
 
-[ ... ]
+> I'll push a new -next branch with those fixes later today.
 
-> +static ssize_t intel_force_bit_banging_write(struct file *file,
-> +						     const char __user *ubuf,
-> +						     size_t len, loff_t *offp)
-> +{
-> +	struct seq_file *m =3D file->private_data;
-> +	struct intel_connector *connector =3D m->private;
-> +	bool force_bit_banging;
-> +	int ret;
-> +
-> +	ret =3D kstrtobool_from_user(ubuf, len, &force_bit_banging);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (force_bit_banging !=3D connector->force_bit_banging) {
-> +		intel_gmbus_force_bit(connector->base.ddc, force_bit_banging);
-> +		connector->force_bit_banging =3D force_bit_banging;
-> +	}
+I'm still seeing at least:
 
-[Severity: Medium]
-Is this state transition safe against concurrent debugfs writes?
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn30/display_mode_vba_30.c: In function =E2=80=98UseMinimumDCFCLK=E2=80=
+=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn30/display_mode_vba_30.c:6666:1: error: the frame size of 2064 bytes i=
+s larger than 2048 bytes [-Werror=3Dframe-larger-than=3D]
+ 6666 | }
+      | ^
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn31/display_mode_vba_31.c: In function =E2=80=98UseMinimumDCFCLK=E2=80=
+=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn31/display_mode_vba_31.c:7460:1: error: the frame size of 2128 bytes i=
+s larger than 2048 bytes [-Werror=3Dframe-larger-than=3D]
+ 7460 | }
+      | ^
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn32/display_mode_vba_util_32.c: In function =E2=80=98dml32_UseMinimumDC=
+FCLK=E2=80=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn32/display_mode_vba_util_32.c:3278:1: error: the frame size of 2176 by=
+tes is larger than 2048 bytes [-Werror=3Dframe-larger-than=3D]
+ 3278 | }
+      | ^
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn314/display_mode_vba_314.c: In function =E2=80=98UseMinimumDCFCLK=E2=
+=80=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn314/display_mode_vba_314.c:7546:1: error: the frame size of 2128 bytes=
+ is larger than 2048 bytes [-Werror=3Dframe-larger-than=3D]
+ 7546 | }
+      | ^
+cc1: all warnings being treated as errors
+make[7]: *** [/home/broonie/git/next/sfr/next/scripts/Makefile.build:290: d=
+rivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_32.=
+o] Error 1
+make[7]: *** Waiting for unfinished jobs....
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l2_0/display_mode_core.c: In function =E2=80=98dml_prefetch_check=E2=80=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l2_0/display_mode_core.c:6821:1: error: the frame size of 2160 bytes is lar=
+ger than 2056 bytes [-Werror=3Dframe-larger-than=3D]
+ 6821 | }
+      | ^
 
-Since this read-modify-write block on connector->force_bit_banging
-is not protected by any locks, multiple threads concurrently writing to
-the intel_force_bit_banging debugfs file could trigger multiple calls to
-intel_gmbus_force_bit() for the same state change.
+after merging amdgpu today, note that this is in the -next merge and not
+just the amdgpu tree in isolation.  I am currently holding drm and
+drm-misc at next-20260921, there is a conflict with the old version of
+them though that was just comments but they'll be in the history at the
+point I'm building so possibly whatever git did with the merge is
+causing issues.
 
-Looking at intel_gmbus_force_bit(), it manages bus->force_bit as a
-reference count:
+Any fixes will also need to propagate into drm and drm-misc.
 
-drivers/gpu/drm/i915/display/intel_gmbus.c:intel_gmbus_force_bit() {
-    ...
-    mutex_lock(&display->gmbus.mutex);
-    bus->force_bit +=3D force_bit ? 1 : -1;
-    ...
-}
+I'm also still carrying a build fix marking the display KUnit tests as
+BROKEN due to the issues with the conflicting changes with drm-misc
+which several people have noticed, for example there's this from Arnd
+last week:
 
-Could unbalanced calls resulting from a race here cause the refcount to
-underflow or leak, permanently forcing bit-banging mode for the adapter?
+   https://lore.kernel.org/r/20260915201006.3526945-1-arnd@kernel.org
 
-> +	*offp +=3D len;
-> +
-> +	return len;
-> +}
+None of the mails I saw about that or the issues resulting from my
+mismerge got any response either.
 
-[ ... ]
+--TfUEtMAqWQQDRMnd
+Content-Type: application/pgp-signature; name="signature.asc"
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924152812.4399=
-86-1-ramanaidu.naladala@intel.com?part=3D1
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1VcMACgkQJNaLcl1U
+h9DVrwf/fFeeDT5pfDcxHGFhYdqb+fTkCDcSDPtwkCUrKEHGBTabJ2uY/V+h36yq
+BgYE6dIWD14pzaSAhnum5ZSwk8Ht2+mf9uJFA9qx5Pa/TCLMZmkMijGwXMLR7vNe
+oUOINfjXh2fVgdOZ0EfDoFOdOV9xtGI6Ar3sQV5pqvcFg7I5H4xUx8RAQJQdNBUC
+kEB/dcwF2sLC7sHhaTdbkbnuRBgC9fkQbvurG8VJE35xKbd8x3xs3PTUbm4Egx6b
+q+V4Ly9Qm8NZbNu1EvLy8XvgXfR+lpDJ5YjrQpBWPBkTVNJ/9O7dW/rItnEPHdEF
+zbarZkyx0UmPvj5Aw1uvvvcWaAatPA==
+=O+Zt
+-----END PGP SIGNATURE-----
+
+--TfUEtMAqWQQDRMnd--
