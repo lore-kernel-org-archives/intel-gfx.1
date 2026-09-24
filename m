@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCEF7C9830E
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 17:16:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02030C9830E
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 17:33:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2EE10E1BD;
-	Thu, 24 Sep 2026 17:16:09 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NQIE+sBD";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 353AE10E1BD;
- Thu, 24 Sep 2026 17:16:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B9C3601E4;
- Thu, 24 Sep 2026 17:16:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2722D1F000FF;
- Thu, 24 Sep 2026 17:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790270166;
- bh=l7EPunzNere6TJZFXapnJ1i2B/w1f51shg7LoArRGlc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=NQIE+sBDeMt/YoeadQk9mIsTsTckafsht6vi76MdnUeacqf1sGvrUbEGWUHt7jx6d
- jMd5uu4Eb5SqJdlmCTQKm5dLNqhCgGmoiH4yzUAO7gxIcJ1vcm0EVQAfYxfOyf9ijE
- RDc7lKIMaleckJL1/ULkCl9FZ0hpZcHRvLfMz4NuHUC9LjNnlbGk3TTvIBQc/9sFIb
- aq82QdDAkd4i2wsqkFGKa5XETnYsuGzGHFXWs9/NvAXh6WpNSxIb8KrWoIY5Wa2QAQ
- AaRKHJzuWrc/8zmQei4wBS8y1ibWr+6kE6QGuYhysV4nxxkTOLJOH6dUgIkVX0MrCB
- I4v2Owp5nXrIw==
-Date: Thu, 24 Sep 2026 18:16:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <9f1008c5-5529-4916-acb7-81a75593aaf2@sirena.org.uk>
-References: <arPTRF4qS6o1Q3vD@sirena.co.uk>
- <CADnq5_NUH1MBU15Vs287by4P37YV+6F1Q3J1e4Q4KuOvPwK9Fw@mail.gmail.com>
- <arPhsTaiqXPgCqAU@sirena.co.uk>
- <CADnq5_OJ=kP+0=iXbpcjsWbTx8=sNfov0wLSW53qLcFU0fmVVg@mail.gmail.com>
- <4ddbd29e-3524-4f4c-b6d7-1e2e677641b5@sirena.org.uk>
- <CADnq5_OPPnSs9Bv8LxRp104Cejf3H3JFkBE4XSfiTYgkdmjbHg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C86A10F6C9;
+	Thu, 24 Sep 2026 17:33:42 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEEB310F6C6;
+ Thu, 24 Sep 2026 17:33:41 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8773979174803328192=="
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="22uyFBtZ7Xdfmy+p"
-Content-Disposition: inline
-In-Reply-To: <CADnq5_OPPnSs9Bv8LxRp104Cejf3H3JFkBE4XSfiTYgkdmjbHg@mail.gmail.com>
-X-Cookie: Oh, so there you are!
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/gmbus=3A_Add_bit?=
+ =?utf-8?q?-banging_debugfs_control?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Naladala Ramanaidu" <ramanaidu.naladala@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 24 Sep 2026 17:33:41 -0000
+Message-ID: <179027122184.204817.16387707162885638092@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260924152812.439986-1-ramanaidu.naladala@intel.com>
+In-Reply-To: <20260924152812.439986-1-ramanaidu.naladala@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,40 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============8773979174803328192==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---22uyFBtZ7Xdfmy+p
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+== Series Details ==
 
-On Thu, Sep 24, 2026 at 01:01:15PM -0400, Alex Deucher wrote:
-> On Thu, Sep 24, 2026 at 12:54=E2=80=AFPM Mark Brown <broonie@kernel.org> =
-wrote:
+Series: drm/i915/gmbus: Add bit-banging debugfs control
+URL   : https://patchwork.freedesktop.org/series/174931/
+State : success
 
-> > I'm still seeing at least:
+== Summary ==
 
-> Does this patch fix it?
-> https://patchwork.freedesktop.org/patch/755883/?series=3D174861&rev=3D1
+CI Bug Log - changes from CI_DRM_19218 -> Patchwork_174931v1
+====================================================
 
-I don't have the tree any more since I'm further into -next but I'd
-expect so, thanks.
+Summary
+-------
 
---22uyFBtZ7Xdfmy+p
-Content-Type: application/pgp-signature; name="signature.asc"
+  **SUCCESS**
 
------BEGIN PGP SIGNATURE-----
+  No regressions found.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1WtAACgkQJNaLcl1U
-h9C12gf/aQ67+bp5y1NEDx5tDqCCRsjTxQOkH7d95rMPicLmNQihy16Y67eiJkPK
-I5Z6lL99GkYECImspYxhbQxcddeH58gzVhNCBDG++u2dJ+Iq3MNZfFlberCIn0HF
-RXfbsVwYZmb6fhhehnyqz/koznMQn2ZN2IFzYd7bF+EcnVC94C9JnH0Mnyq9zhtT
-05/Yvu5FYiD2Aj26ePQAe8XsDVYMXq06Xa8iXbomfn0JD3DIp1TsFdo+z780+d1o
-9BXKE2BSS3KI+5socMhxFhmNgH46XH+EPu/XH2N3Mwx67ojaVgp/0HMmdFtSY8CQ
-mJFa1191yu51i9KOq7Yf+H83LNLXbQ==
-=h98E
------END PGP SIGNATURE-----
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174931v1/index.html
 
---22uyFBtZ7Xdfmy+p--
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19218 -> Patchwork_174931v1
+
+  CI-20190529: 20190529
+  CI_DRM_19218: 2ac16c180109b3f1ed00e7a2c4459eaacfc80371 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_174931v1: 2ac16c180109b3f1ed00e7a2c4459eaacfc80371 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174931v1/index.html
+
+--===============8773979174803328192==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gmbus: Add bit-banging debugfs control</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174931/">https://patchwork.freedesktop.org/series/174931/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174931v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174931v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19218 -&gt; Patchwork_174931v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174931v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19218 -&gt; Patchwork_174931v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19218: 2ac16c180109b3f1ed00e7a2c4459eaacfc80371 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_174931v1: 2ac16c180109b3f1ed00e7a2c4459eaacfc80371 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8773979174803328192==--
