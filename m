@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5DE5C9830D
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 05:34:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19121C98306
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 06:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD1710E9E5;
-	Fri, 25 Sep 2026 05:34:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gd5EJMW4";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E033C10E9E5;
- Fri, 25 Sep 2026 05:34:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C0CDB60514;
- Fri, 25 Sep 2026 05:34:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E991F000FF;
- Fri, 25 Sep 2026 05:34:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790314466;
- bh=HTWk6IZy6orlfSRnx8oFTjANOFafgh0ZAqnhUrDC3w0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gd5EJMW4fcIPeQReUdhOqtaw4UHacfJIoW1GWiPHvfrchswjBf9f61ykRTCOpPobW
- FOyPPcZ7WeQTioF3GAa823xkTOty9lCiJz9ARGRXr6rmqxgTfG2YbyiayOiG1/fzTC
- 4J0oQf/A3H+iIzJqeI2ypXsM696ydBkWLGu7+Rucxo7qkiDMweNC06WDLd0S3sPc2+
- xuzbjD1BCyLNaGzjq6gVgwNcCjwYLNjVg+Uh5/AwKb6/aSLUru/In+OeK/YyFKPjhy
- 0QZwf+kZ6CPVSvPzgLxjNPWjS4TeiLd2EY6lvK7ulUrppKGLwg4VgsA8mlLQomptzi
- 8ZFpQbenIfCDQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/i915/hdcp: Fail fast when HDCP Type 1 is
- unsupported via MST
+	by gabe.freedesktop.org (Postfix) with ESMTP id A495F10E10A;
+	Fri, 25 Sep 2026 06:06:33 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0654B10F855;
+ Fri, 25 Sep 2026 06:06:32 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6677325750373999814=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/hdcp=3A_Fail_fas?=
+ =?utf-8?q?t_when_HDCP_Type_1_is_unsupported_via_MST_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "George D. Sworo" <george.d.sworo@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260925052703.2068117-1-george.d.sworo@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 25 Sep 2026 06:06:32 -0000
+Message-ID: <179031639202.206383.1849357254745998838@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260925035639.2034315-1-george.d.sworo@intel.com>
- <20260925052703.2068117-1-george.d.sworo@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 05:34:25 +0000
-Message-Id: <20260925053426.43E991F000FF@smtp.kernel.org>
+In-Reply-To: <20260925035639.2034315-1-george.d.sworo@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,95 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/i915/hdcp: stale type1_unsupported cache on MST hotplug
-- [Medium] drm/i915/hdcp: bypass of Type 1 fast-fail validation
---
+--===============6677325750373999814==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit fb3d7b407b5fff7eb8ca9312ac9476d293a32b63
-Author: George D. Sworo <george.d.sworo@intel.com>
+== Series Details ==
 
-drm/i915/hdcp: Fail fast when HDCP Type 1 is unsupported via MST
+Series: drm/i915/hdcp: Fail fast when HDCP Type 1 is unsupported via MST (rev3)
+URL   : https://patchwork.freedesktop.org/series/174955/
+State : success
 
-This commit attempts to fail early in the atomic check phase when userspace
-requests HDCP Content Type 1 for a downstream MST sink that lacks HDCP 2.x
-support. It queries and caches the sink's capability during initialization
-and uses the cached result to reject unsupported configurations.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/=
-i915/display/intel_hdcp.c
-> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+CI Bug Log - changes from CI_DRM_19219 -> Patchwork_174955v3
+====================================================
 
-[ ... ]
+Summary
+-------
 
-> @@ -2421,6 +2454,9 @@ int intel_hdcp_init(struct intel_connector *connect=
-or,
->  	if (is_hdcp2_supported(display))
->  		intel_hdcp2_init(connector, dig_port, shim);
-> =20
-> +	/* Cache the capability for the currently attached MST sink only. */
-> +	intel_hdcp_mst_update_type1_capability(connector, shim);
-> +
+  **SUCCESS**
 
-[Severity: High]
-Could this cached capability become permanently stale after a hotplug event?
+  No regressions found.
 
-Since DRM MST connectors represent topological branch ports rather than the
-sinks themselves, they persist across sink hotplug events. If a user connec=
-ts
-an HDCP 1.x monitor, type1_unsupported will be cached as true here in
-intel_hdcp_init(). If the user then unplugs that monitor and connects an
-HDCP 2.x capable monitor to the same port, the cached value is never update=
-d.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v3/index.html
 
-Will this cause valid HDCP Type 1 requests to be permanently and incorrectly
-rejected for the new monitor?
+Participating hosts (39 -> 38)
+------------------------------
 
-[ ... ]
+  Missing    (1): bat-dg2-13 
 
-> @@ -2700,7 +2739,20 @@ void intel_hdcp_atomic_check(struct drm_connector =
-*connector,
->  		if (old_cp =3D=3D DRM_MODE_CONTENT_PROTECTION_ENABLED)
->  			new_state->content_protection =3D
->  				DRM_MODE_CONTENT_PROTECTION_DESIRED;
-> -		return;
-> +		return 0;
-> +	}
-> +
-> +	/*
-> +	 * Fail fast if userspace asks for Type1 but neither the platform nor
-> +	 * the downstream sink can do HDCP 2.x, instead of only discovering
-> +	 * this once intel_hdcp_enable() is reached.
-> +	 */
-> +	if (new_cp =3D=3D DRM_MODE_CONTENT_PROTECTION_DESIRED &&
-> +	    new_state->hdcp_content_type =3D=3D DRM_MODE_HDCP_CONTENT_TYPE1 &&
-> +	    intel_connector->mst.type1_unsupported) {
+Known issues
+------------
 
-[Severity: Medium]
-Does this condition inadvertently allow invalid configurations to bypass the
-fast-fail validation?
+  Here are the changes found in Patchwork_174955v3 that come from known issues:
 
-If userspace has already enabled HDCP Type 0, the content_protection
-property will be in the ENABLED state. If a subsequent atomic commit
-changes only the hdcp_content_type to TYPE1, new_cp will inherit the
-ENABLED state.
+### IGT changes ###
 
-Since this check strictly requires new_cp to be DESIRED, it appears it will
-evaluate to false, allowing the invalid request to proceed and fail
-asynchronously during hardware enablement later. Should this check also
-account for the ENABLED state?
+#### Issues hit ####
 
-> +		drm_dbg_kms(connector->dev,
-> +			    "HDCP Type1 requested without HDCP 2.x support\n");
-> +		return -EOPNOTSUPP;
->  	}
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-kbl-7567u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +32 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19219/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v3/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925052703.2068=
-117-1-george.d.sworo@intel.com?part=3D1
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19219 -> Patchwork_174955v3
+
+  CI-20190529: 20190529
+  CI_DRM_19219: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_174955v3: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v3/index.html
+
+--===============6677325750373999814==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/hdcp: Fail fast when HDCP Type 1 is unsupported via MST (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174955/">https://patchwork.freedesktop.org/series/174955/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19219 -&gt; Patchwork_174955v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v3/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_174955v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live@gt_heartbeat:<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19219/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v3/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +32 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19219 -&gt; Patchwork_174955v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19219: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_174955v3: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6677325750373999814==--
