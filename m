@@ -4,64 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F124CC9830D
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 09:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8138FC9830D
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 10:30:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8830A10E18F;
-	Fri, 25 Sep 2026 09:47:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2DA110F9CA;
+	Fri, 25 Sep 2026 10:30:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MkNJoUo6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JKJvy+7s";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559A810E18F;
- Fri, 25 Sep 2026 09:47:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C5BA10F9CA;
+ Fri, 25 Sep 2026 10:30:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790329671; x=1821865671;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=7jCyDsrImsgxQCCxRXav0zNRPkXp5ZKmOJfPy8JyXis=;
- b=MkNJoUo6YqQEhnlR+1tcZDBq/dAJsLAMmmgaYMM1coDSwqkncNAPBt6q
- UNESjWwr4WJHzl71lKcJg2AIT+Asl7QwKH3cSlBKD/abr7ebSmS/l0WNB
- S43o3ZpjgU0sZpjZSm7NHglBvmYxkZy1iFz9qDcVIJY7xeTVi9HgEELHE
- NG34JXEp1tU8QF87BOZqFLRScdTAyAiTglaLUbb/j7x2W81dFUyxUDOqi
- nTM7ZINqvehdEEiZpxGza3auC+63OJQeyEopgpB18uOYiuucv8xUBfado
- dNcNmc8M9gRdqoXNoRjogWmN8j2pLPMr20I1mOsAT/ZG4sVmLO5/G3Y5A w==;
-X-CSE-ConnectionGUID: sczIzrBKQnWC6gihnwLRzA==
-X-CSE-MsgGUID: oMBDORvqSaqNodgjz/9uQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="112898719"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="112898719"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 02:47:48 -0700
-X-CSE-ConnectionGUID: c5zxOml7TgyI35+NdD8hHw==
-X-CSE-MsgGUID: VRQtCCQrSFCc43z1aFvcYQ==
+ t=1790332212; x=1821868212;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=tdIAs/dpz2Z7UVtdZSYRgTG6F9dIY1PgsnpQndrYA2k=;
+ b=JKJvy+7sSXwoK3U/QNi9uHdvUr3Ax6qG2HzXf+aldyCh7Q3WASFjnpFL
+ xloT8UeSF/dbdikA652X7b0jeVy6O3Hhb9wF6foo1uboeGuAPXNjiRk0s
+ 5OIYTZ+gTqandGOan1gVI6m7roaGuysiSIkh9Nrgful4L8Nt8VmMSs8tS
+ xPPSK7KdttE8bVkilFBd7RZYEWQglApm3L4Olt17F+rDoxGPufaSnGJBk
+ bJjxpwnmbIOj6Q1t++qcilRJqSh2DwZA+hkhe7B4V81a0ad+mMnDRzKQz
+ 1tiG37XUOYkOcOPRMTd9c63A4RRvgZEe5IlfN4CdLGXY7DK2Lmm8mTII0 A==;
+X-CSE-ConnectionGUID: UR7eBNs/Rsm0n+OMjhyyVQ==
+X-CSE-MsgGUID: 7xZdEy0vQYyz9wgP+6lNlA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89980006"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="89980006"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 03:30:12 -0700
+X-CSE-ConnectionGUID: 2IA90UGXSJqO3TvnE5veVg==
+X-CSE-MsgGUID: YKi5sfdcSWqclw08ZF67uQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="303800610"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.67])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 02:47:44 -0700
-Message-ID: <5fc31c9b0fd3e9fc469102b726174e165bec8161.camel@linux.intel.com>
-Subject: Re: [PATCH i-g-t 2/2] tests/intel/gem_close_race: Skip offset
- probing without full-ppgtt
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Zbigniew =?UTF-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>
-Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, Kamil
- Konieczny <kamil.konieczny@linux.intel.com>, Andi Shyti
- <andi.shyti@linux.intel.com>, Krzysztof Karas	 <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,  Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Date: Fri, 25 Sep 2026 11:47:41 +0200
-In-Reply-To: <7tycj7qmuxox256zwdz57uictfkg4fdufzvkfnwg3z4wrujnmd@oi6lpt7yhtz5>
-References: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
- <20260924152443.829382-6-janusz.krzysztofik@linux.intel.com>
- <7tycj7qmuxox256zwdz57uictfkg4fdufzvkfnwg3z4wrujnmd@oi6lpt7yhtz5>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="274393514"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.90])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 03:30:09 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Naladala Ramanaidu <ramanaidu.naladala@intel.com>,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com, Naladala Ramanaidu
+ <ramanaidu.naladala@intel.com>
+Subject: Re: [PATCH v2 1/1] drm/i915/gmbus: Add bit-banging debugfs control
+In-Reply-To: <20260924152812.439986-2-ramanaidu.naladala@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260924152812.439986-1-ramanaidu.naladala@intel.com>
+ <20260924152812.439986-2-ramanaidu.naladala@intel.com>
+Date: Fri, 25 Sep 2026 13:30:06 +0300
+Message-ID: <ee11604db9b3c47383e1c32e68a34ffdca2fde86@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,84 +72,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Zbyszek,
+On Thu, 24 Sep 2026, Naladala Ramanaidu <ramanaidu.naladala@intel.com> wrote:
+> Add a connector debugfs interface to enable or disable I2C
+> bit-banging for Intel GMBUS adapters.
+>
+> v1: Address below review comments: (Jani Nikula)
+>     - Remove HDMI-specific EDID read path changes.
+>     - Control bit-banging directly from debugfs via intel_gmbus_force_bit()
+>
+> Assisted-by: OpenAI Codex:GPT-5
+> Signed-off-by: Naladala Ramanaidu <ramanaidu.naladala@intel.com>
+> ---
+>  .../drm/i915/display/intel_display_debugfs.c  |  3 +
+>  .../drm/i915/display/intel_display_types.h    |  1 +
+>  drivers/gpu/drm/i915/display/intel_gmbus.c    | 61 +++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_gmbus.h    |  3 +
+>  4 files changed, 68 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> index 3e302f23f247..74f065175a72 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> @@ -40,6 +40,7 @@
+>  #include "intel_fb.h"
+>  #include "intel_fbc.h"
+>  #include "intel_fbdev.h"
+> +#include "intel_gmbus.h"
+>  #include "intel_hdcp.h"
+>  #include "intel_hdmi.h"
+>  #include "intel_hotplug.h"
+> @@ -1327,6 +1328,8 @@ void intel_connector_debugfs_add(struct intel_connector *connector)
+>  	if (!root)
+>  		return;
+>  
+> +	intel_gmbus_connector_debugfs_add(connector);
+> +
 
-Thanks for looking at this.
+Superfluous newline. All the other calls below are back to back.
 
-On Fri, 2026-09-25 at 10:40 +0200, Zbigniew Kempczy=C5=84ski wrote:
-> On Thu, Sep 24, 2026 at 05:24:18PM +0200, Janusz Krzysztofik wrote:
-> > gem_close_race computed exec_addr/data_addr via
-> > gem_detect_safe_start_offset() and gem_detect_safe_alignment()
-> > whenever the kernel disallowed relocations, without checking ppgtt
-> > mode. Those helpers exist solely to bootstrap intel_allocator and are
-> > meaningless without full-ppgtt, since the kernel can't see the ranges
-> > intel_allocator considers reserved and may hand them out to other
-> > users, as already acknowledged by __intel_bb_create() which enforces
-> > relocations and skips the allocator entirely in that case.
-> >=20
-> > Require gem_uses_full_ppgtt() as well before enabling the softpin
-> > path, mirroring __intel_bb_create()'s logic, and skip the probing
-> > calls otherwise so the existing relocation fallback is used.
-> >=20
-> > Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> > Cc: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-> > Assisted-by: GitHub Copilot (Claude Sonnet 5)
-> > ---
-> >  tests/intel/gem_close_race.c | 19 ++++++++++++++-----
-> >  1 file changed, 14 insertions(+), 5 deletions(-)
-> >=20
-> > diff --git a/tests/intel/gem_close_race.c b/tests/intel/gem_close_race.=
-c
-> > index b2688774d7..ff2877f67e 100644
-> > --- a/tests/intel/gem_close_race.c
-> > +++ b/tests/intel/gem_close_race.c
-> > @@ -348,11 +348,20 @@ int igt_main()
-> > =20
-> >  		devid =3D intel_get_drm_devid(fd);
-> >  		has_64bit_relocations =3D intel_gen(devid) >=3D 8;
-> > -		has_softpin =3D !gem_has_relocations(fd);
-> > -		exec_addr =3D gem_detect_safe_start_offset(fd);
-> > -		data_addr =3D gem_detect_safe_alignment(fd);
-> > -		exec_addr =3D max_t(exec_addr, exec_addr, data_addr);
-> > -		data_addr +=3D exec_addr;
-> > +		/*
-> > +		 * Without full-ppgtt the kernel can't see the ranges the
-> > +		 * detected offsets are meant to reserve and may hand them
-> > +		 * out to other users, so pinning at a detected offset isn't
-> > +		 * meaningful; fall back to relocations in that case, same
-> > +		 * as __intel_bb_create() does.
-> > +		 */
-> > +		has_softpin =3D !gem_has_relocations(fd) && gem_uses_full_ppgtt(fd);
->=20
-> Which platforms don't have relocations and are not using full ppgtt?
+>  	intel_drrs_connector_debugfs_add(connector);
+>  	intel_hdcp_connector_debugfs_add(connector);
+>  	intel_pps_connector_debugfs_add(connector);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> index 79f30660c2b6..5cef2582c361 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -558,6 +558,7 @@ struct intel_connector {
+>  	u8 polled;
+>  
+>  	int force_joined_pipes;
+> +	bool force_bit_banging;
 
-Correct, today all configurations without relocations also expose full
-PPGTT, so the added check does not currently change runtime behavior.
-However, the purpose of the check is not to distinguish existing platforms.
-The probing helpers are conceptually valid only with full PPGTT, as they
-rely on allocator-managed address space reservations being respected by the
-kernel. Therefore I would prefer to keep the explicit gem_uses_full_ppgtt()
-requirement to document that dependency and to keep the code aligned with
-the logic already described in __intel_bb_create().  The condition is
-intentionally expressing the semantic requirement of the helpers, not
-distinguishing currently known hardware configurations.
+This should be hidden in struct intel_gmbus next to force_bit, maybe as
+debugfs_force_bit or something.
 
-Thanks,
-Janusz
+>  
+>  	struct {
+>  		struct drm_dp_aux *dsc_decompression_aux;
+> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+> index 60a70dea5d85..38d6d1148399 100644
+> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
+> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+> @@ -27,6 +27,7 @@
+>   *	Chris Wilson <chris@chris-wilson.co.uk>
+>   */
+>  
+> +#include <linux/debugfs.h>
+>  #include <linux/export.h>
+>  #include <linux/i2c-algo-bit.h>
+>  #include <linux/i2c.h>
+> @@ -871,6 +872,66 @@ static const struct i2c_algorithm gmbus_algorithm = {
+>  	.functionality	= gmbus_func
+>  };
+>  
+> +bool intel_gmbus_is_adapter(struct i2c_adapter *adapter)
 
->=20
-> --
-> Zbigniew
->=20
-> > +		if (has_softpin) {
-> > +			exec_addr =3D gem_detect_safe_start_offset(fd);
-> > +			data_addr =3D gem_detect_safe_alignment(fd);
-> > +			exec_addr =3D max_t(exec_addr, exec_addr, data_addr);
-> > +			data_addr +=3D exec_addr;
-> > +		}
-> > =20
-> >  		gpu_count =3D igt_device_filter_count();
-> > =20
-> > --=20
-> > 2.55.0
-> >=20
+This should be static.
+
+> +{
+> +	return adapter->algo == &gmbus_algorithm;
+> +}
+> +
+> +static int intel_force_bit_banging_show(struct seq_file *m, void *data)
+> +{
+> +	struct intel_connector *connector = m->private;
+> +
+> +	seq_printf(m, "%u\n", connector->force_bit_banging);
+> +
+> +	return 0;
+> +}
+> +
+> +static ssize_t intel_force_bit_banging_write(struct file *file,
+> +						     const char __user *ubuf,
+> +						     size_t len, loff_t *offp)
+> +{
+> +	struct seq_file *m = file->private_data;
+> +	struct intel_connector *connector = m->private;
+> +	bool force_bit_banging;
+> +	int ret;
+> +
+> +	ret = kstrtobool_from_user(ubuf, len, &force_bit_banging);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (force_bit_banging != connector->force_bit_banging) {
+> +		intel_gmbus_force_bit(connector->base.ddc, force_bit_banging);
+> +		connector->force_bit_banging = force_bit_banging;
+> +	}
+> +
+> +	*offp += len;
+> +
+> +	return len;
+> +}
+> +
+> +static int intel_force_bit_banging_open(struct inode *inode, struct file *file)
+> +{
+> +	return single_open(file, intel_force_bit_banging_show, inode->i_private);
+> +}
+> +
+> +static const struct file_operations intel_force_bit_banging_fops = {
+> +	.owner = THIS_MODULE,
+> +	.open = intel_force_bit_banging_open,
+> +	.read = seq_read,
+> +	.llseek = seq_lseek,
+> +	.release = single_release,
+> +	.write = intel_force_bit_banging_write,
+> +};
+> +
+> +void intel_gmbus_connector_debugfs_add(struct intel_connector *connector)
+> +{
+> +	if (connector->base.ddc &&
+> +	    intel_gmbus_is_adapter(connector->base.ddc))
+
+The connector->base.ddc != NULL check should be inside
+intel_gmbus_is_adapter().
+
+> +		debugfs_create_file("intel_force_bit_banging", 0644,
+> +				    connector->base.debugfs_entry, connector,
+> +				    &intel_force_bit_banging_fops);
+> +}
+> +
+>  static void gmbus_lock_bus(struct i2c_adapter *adapter,
+>  			   unsigned int flags)
+>  {
+> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.h b/drivers/gpu/drm/i915/display/intel_gmbus.h
+> index 5fdeab1aa794..968f8cb42821 100644
+> --- a/drivers/gpu/drm/i915/display/intel_gmbus.h
+> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.h
+> @@ -9,6 +9,7 @@
+>  #include <linux/types.h>
+>  
+>  struct i2c_adapter;
+> +struct intel_connector;
+>  struct intel_display;
+>  
+>  #define GMBUS_PIN_DISABLED	0
+> @@ -41,6 +42,8 @@ int intel_gmbus_output_aksv(struct i2c_adapter *adapter);
+>  
+>  struct i2c_adapter *
+>  intel_gmbus_get_adapter(struct intel_display *display, unsigned int pin);
+> +bool intel_gmbus_is_adapter(struct i2c_adapter *adapter);
+> +void intel_gmbus_connector_debugfs_add(struct intel_connector *connector);
+>  void intel_gmbus_force_bit(struct i2c_adapter *adapter, bool force_bit);
+>  bool intel_gmbus_is_forced_bit(struct i2c_adapter *adapter);
+>  void intel_gmbus_reset(struct intel_display *display);
+
+-- 
+Jani Nikula, Intel
