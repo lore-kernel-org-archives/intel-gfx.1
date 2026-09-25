@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2102AC98321
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 20:33:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E468C98321
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 20:58:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA00710FC69;
-	Fri, 25 Sep 2026 20:33:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E388710E1B3;
+	Fri, 25 Sep 2026 20:58:19 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15C3B10E2B4;
- Fri, 25 Sep 2026 20:33:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FED310E1B3;
+ Fri, 25 Sep 2026 20:58:19 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/irq=3A?=
- =?utf-8?q?_crtc_guard_inside_interrupt_handlers?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/displa?=
+ =?utf-8?q?y=3A_Replace_bw=5Fconstrained_with_max=5Flink=5Fbpp=5Fx16_=28rev2?=
+ =?utf-8?q?=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Marcel Hamer" <marcel@solidxs.se>
+To: "George Karagounis" <taterraster@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Sep 2026 20:33:22 -0000
-Message-ID: <179036840208.208907.4875056078813421035@61270ab9df2a>
+Date: Fri, 25 Sep 2026 20:58:19 -0000
+Message-ID: <179036989912.208907.5302081694125927229@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260925115511.1655213-1-marcel@solidxs.se>
-In-Reply-To: <20260925115511.1655213-1-marcel@solidxs.se>
+References: <20260919161927.98829-1-mail@taterr.org>
+In-Reply-To: <20260919161927.98829-1-mail@taterr.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,15 +44,15 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/irq: crtc guard inside interrupt handlers
-URL   : https://patchwork.freedesktop.org/series/175017/
+Series: drm/i915/display: Replace bw_constrained with max_link_bpp_x16 (rev2)
+URL   : https://patchwork.freedesktop.org/series/174626/
 State : failure
 
 == Summary ==
 
-Series author address 'marcel@solidxs.se' is not on the allowlist, which prevents CI from being automatically triggered.
+Series author address 'taterraster@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
 If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
 Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/188503/ (on built-in)
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/188505/ (on built-in)
 
 
