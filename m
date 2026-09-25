@@ -4,27 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B7E5C9830D
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 08:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65D99C98325
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 08:41:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8234610F952;
-	Fri, 25 Sep 2026 08:05:48 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25BA810F941;
- Fri, 25 Sep 2026 08:05:47 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4287175516379383010=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7BA210EA0D;
+	Fri, 25 Sep 2026 08:41:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WnYBaut4";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4BC10E9F1;
+ Fri, 25 Sep 2026 08:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790325641; x=1821861641;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hLbGVzFLwL99Vp777ZumY3DpxGKxxiV5KwpvEfUyv7c=;
+ b=WnYBaut44Q8pn8ZD5ZGINct7z4zsBEkjCQtZcD1OC6xBux8QiRc39mJc
+ MlYeq42ISTqcc/tufNKpYUXJcfiem+JBf956FrpxT4tj0gId/BPIzqlTk
+ iOBxHAab/SR0gbdedeQ1bb8zj5SEN8iUPBbggtkfsIZbvT2v+Dm9//mpv
+ wSsyIGi5O3UmRBC4Jo39xlwjB3E6k/FNrMqaQTaxYGLbIpqp210/Cw/gi
+ rqTS8xSFVYPPdPJxv1VvulHsTTxmx+iUmZbdlmhBAmTl7ksU57WNfwY73
+ v1ohoYLnrEV9wFF9/sM3xmHldzWwGStq8ClnMYk4tubS8xudzt75X6XyN w==;
+X-CSE-ConnectionGUID: dU0mUtnFS7iyahVWLDHuVQ==
+X-CSE-MsgGUID: xneBYepgTVep5ODukNI34A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101282719"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="101282719"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 01:40:40 -0700
+X-CSE-ConnectionGUID: 8q9W/b3STGCfwJnST7n1Mw==
+X-CSE-MsgGUID: dz/5wMwZSn2BGjFb25gvGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="300539640"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.42])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 01:40:38 -0700
+Date: Fri, 25 Sep 2026 10:40:35 +0200
+From: Zbigniew =?utf-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, 
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH i-g-t 2/2] tests/intel/gem_close_race: Skip offset
+ probing without full-ppgtt
+Message-ID: <7tycj7qmuxox256zwdz57uictfkg4fdufzvkfnwg3z4wrujnmd@oi6lpt7yhtz5>
+References: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
+ <20260924152443.829382-6-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/fbdev=3A_Move_helpers?=
- =?utf-8?q?_to_clients/_subdirectory_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Sep 2026 08:05:47 -0000
-Message-ID: <179032354714.206281.17865509955116176694@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260925071933.44283-1-tzimmermann@suse.de>
-In-Reply-To: <20260925071933.44283-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924152443.829382-6-janusz.krzysztofik@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +72,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4287175516379383010==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Sep 24, 2026 at 05:24:18PM +0200, Janusz Krzysztofik wrote:
+> gem_close_race computed exec_addr/data_addr via
+> gem_detect_safe_start_offset() and gem_detect_safe_alignment()
+> whenever the kernel disallowed relocations, without checking ppgtt
+> mode. Those helpers exist solely to bootstrap intel_allocator and are
+> meaningless without full-ppgtt, since the kernel can't see the ranges
+> intel_allocator considers reserved and may hand them out to other
+> users, as already acknowledged by __intel_bb_create() which enforces
+> relocations and skips the allocator entirely in that case.
+> 
+> Require gem_uses_full_ppgtt() as well before enabling the softpin
+> path, mirroring __intel_bb_create()'s logic, and skip the probing
+> calls otherwise so the existing relocation fallback is used.
+> 
+> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> Cc: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+> Assisted-by: GitHub Copilot (Claude Sonnet 5)
+> ---
+>  tests/intel/gem_close_race.c | 19 ++++++++++++++-----
+>  1 file changed, 14 insertions(+), 5 deletions(-)
+> 
+> diff --git a/tests/intel/gem_close_race.c b/tests/intel/gem_close_race.c
+> index b2688774d7..ff2877f67e 100644
+> --- a/tests/intel/gem_close_race.c
+> +++ b/tests/intel/gem_close_race.c
+> @@ -348,11 +348,20 @@ int igt_main()
+>  
+>  		devid = intel_get_drm_devid(fd);
+>  		has_64bit_relocations = intel_gen(devid) >= 8;
+> -		has_softpin = !gem_has_relocations(fd);
+> -		exec_addr = gem_detect_safe_start_offset(fd);
+> -		data_addr = gem_detect_safe_alignment(fd);
+> -		exec_addr = max_t(exec_addr, exec_addr, data_addr);
+> -		data_addr += exec_addr;
+> +		/*
+> +		 * Without full-ppgtt the kernel can't see the ranges the
+> +		 * detected offsets are meant to reserve and may hand them
+> +		 * out to other users, so pinning at a detected offset isn't
+> +		 * meaningful; fall back to relocations in that case, same
+> +		 * as __intel_bb_create() does.
+> +		 */
+> +		has_softpin = !gem_has_relocations(fd) && gem_uses_full_ppgtt(fd);
 
-== Series Details ==
+Which platforms don't have relocations and are not using full ppgtt?
 
-Series: drm/fbdev: Move helpers to clients/ subdirectory (rev3)
-URL   : https://patchwork.freedesktop.org/series/174786/
-State : success
+--
+Zbigniew
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19219 -> Patchwork_174786v3
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19219 -> Patchwork_174786v3
-
-  CI-20190529: 20190529
-  CI_DRM_19219: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_174786v3: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html
-
---===============4287175516379383010==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/fbdev: Move helpers to clients/ subdirectory (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174786/">https://patchwork.freedesktop.org/series/174786/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19219 -&gt; Patchwork_174786v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19219 -&gt; Patchwork_174786v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19219: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_174786v3: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4287175516379383010==--
+> +		if (has_softpin) {
+> +			exec_addr = gem_detect_safe_start_offset(fd);
+> +			data_addr = gem_detect_safe_alignment(fd);
+> +			exec_addr = max_t(exec_addr, exec_addr, data_addr);
+> +			data_addr += exec_addr;
+> +		}
+>  
+>  		gpu_count = igt_device_filter_count();
+>  
+> -- 
+> 2.55.0
+> 
