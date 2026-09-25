@@ -4,27 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14980C98306
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 04:36:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EAA6C9830D
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 04:59:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5657F10E93F;
-	Fri, 25 Sep 2026 04:36:44 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28E9910E44C;
- Fri, 25 Sep 2026 04:36:43 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2791996035944846039=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/hdcp=3A_Fail_fas?=
- =?utf-8?q?t_when_HDCP_Type_1_is_unsupported_via_MST?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "George D. Sworo" <george.d.sworo@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Sep 2026 04:36:43 -0000
-Message-ID: <179031100313.206070.14239996979986637436@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260925035639.2034315-1-george.d.sworo@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABB6110F86A;
+	Fri, 25 Sep 2026 04:58:58 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OC/2zjMn";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F86510F858;
+ Fri, 25 Sep 2026 04:58:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790312337; x=1821848337;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8Dkk4oJwvZCcswUWqzOd3RRTYzoakF3bQMXeNMULP0M=;
+ b=OC/2zjMnEiJyGAikloD08vYiobKChh4Bj6MTsQ5y37bjaT/3BaULkEKd
+ bz1H7DL9eS30hFzL2uhS214kC3/6L7qgoDpPPPQejeMhbicS4NGrw7rgb
+ 7QEiJVbsrTaE5g4cYbs67pOiy1UINaUTddX5rJX7uFg7NhwBoK8TI34wi
+ exZiL++IFDt6EQeEkMC+H0WIGlomN35P17yoCmTtLjxAkpQj7Dv40fEnk
+ PPtfTj/00ZO/qPkFlKRxPgcEnM1qN1fvC4agKlPs2ktG0k4IrBqjHQb5d
+ k05WPT/eX+QACXFMC2h8jMgJX+cW1HU5hSaGbpg0a6ipSdLFQJBHp10QY Q==;
+X-CSE-ConnectionGUID: IY12S4wNTmiTXdXlzNlKoQ==
+X-CSE-MsgGUID: qJ3hKpf9TOufUHvM10u8Sg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90001724"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; d="scan'208";a="90001724"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 21:58:55 -0700
+X-CSE-ConnectionGUID: Uq+QI5DKSRqGK1FfB7M2Ag==
+X-CSE-MsgGUID: MAUwL8XoSHuAkToy9F6uyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; d="scan'208";a="273785851"
+Received: from gdsworo-desk4-x299-aorus-gaming-3-pro.jf.intel.com
+ ([10.54.67.206])
+ by orviesa007.jf.intel.com with ESMTP; 24 Sep 2026 21:58:55 -0700
+From: "George D. Sworo" <george.d.sworo@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ "George D. Sworo" <george.d.sworo@intel.com>
+Subject: [PATCH v2] drm/i915/hdcp: refresh MST Type1 capability per sink
+Date: Thu, 24 Sep 2026 22:03:10 -0700
+Message-ID: <20260925050310.2058392-1-george.d.sworo@intel.com>
+X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260925035639.2034315-1-george.d.sworo@intel.com>
+References: <20260925035639.2034315-1-george.d.sworo@intel.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +67,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2791996035944846039==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thanks for the review.
 
-== Series Details ==
+You are right: the cached Type1 capability is only valid for the current MST sink,
+and it must not outlive a hotplug or topology change. I've updated the patch to
+clear the cached value when a new MST connector is created and when it is torn
+down, and to refresh it only for the active sink.
 
-Series: drm/i915/hdcp: Fail fast when HDCP Type 1 is unsupported via MST
-URL   : https://patchwork.freedesktop.org/series/174955/
-State : success
+This keeps the atomic check AUX-free while avoiding stale results across MST
+hotplug events.
 
-== Summary ==
+HDCP Content Type 1 requires HDCP 2.x support from both the source and
+the downstream MST sink. A request for a sink that supports HDCP 1.x but
+cannot use HDCP 2.x currently passes atomic validation and fails later in
+the HDCP enable path.
 
-CI Bug Log - changes from CI_DRM_19219 -> Patchwork_174955v1
-====================================================
+Use the refreshed per-sink capability to reject unsupported Type1 requests
+with -EOPNOTSUPP in intel_hdcp_atomic_check(), and propagate the error through
+the digital connector atomic check.
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v1/index.html
-
-Participating hosts (39 -> 37)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-glk-j4005 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19219 -> Patchwork_174955v1
-
-  CI-20190529: 20190529
-  CI_DRM_19219: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_174955v1: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v1/index.html
-
---===============2791996035944846039==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/hdcp: Fail fast when HDCP Type 1 is unsupported via MST</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174955/">https://patchwork.freedesktop.org/series/174955/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19219 -&gt; Patchwork_174955v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174955v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 37)</h2>
-<p>Missing    (2): bat-dg2-13 fi-glk-j4005 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19219 -&gt; Patchwork_174955v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19219: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_174955v1: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2791996035944846039==--
+Signed-off-by: George D. Sworo <george.d.sworo@intel.com>
+---
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 7023619aaaba..da54699fb121 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1838,6 +1838,7 @@ mst_topology_add_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	connector->sync_state = intel_dp_connector_sync_state;
+ 	connector->mst.dp = intel_dp;
+ 	connector->mst.port = port;
++	connector->mst.type1_unsupported = false;
+ 	drm_dp_mst_get_port_malloc(port);
+ 
+ 	ret = drm_connector_dynamic_init(display->drm, &connector->base, &mst_connector_funcs,
+@@ -332,6 +332,19 @@ intel_hdcp_mst_type1_is_unsupported(struct intel_connector *connector,
+ 	return hdcp_capable && (!hdcp->hdcp2_supported || !hdcp2_capable);
+ }
+ 
++static void
++intel_hdcp_mst_update_type1_capability(struct intel_connector *connector,
++						       const struct intel_hdcp_shim *shim)
++{
++	connector->mst.type1_unsupported = false;
++
++	if (!shim || !shim->get_remote_hdcp_capability)
++		return;
++
++	connector->mst.type1_unsupported =
++		intel_hdcp_mst_type1_is_unsupported(connector, shim);
++}
++
+ static bool intel_hdcp_in_use(struct intel_display *display,
+ 			      enum transcoder cpu_transcoder, enum port port)
+ {
+@@ -2441,9 +2454,8 @@ int intel_hdcp_init(struct intel_connector *connector,
+ 	if (is_hdcp2_supported(display))
+ 		intel_hdcp2_init(connector, dig_port, shim);
+ 
+-	/* Cache the remote capability before atomic checks can run. */
+-	connector->mst.type1_unsupported =
+-		intel_hdcp_mst_type1_is_unsupported(connector, shim);
++	/* Cache the capability for the currently attached MST sink only. */
++	intel_hdcp_mst_update_type1_capability(connector, shim);
+ 
+ 	ret = drm_connector_attach_content_protection_property(&connector->base,
+ 											   hdcp->hdcp2_supported);
+@@ -2676,6 +2688,8 @@ void intel_hdcp_cleanup(struct intel_connector *connector)
+ {
+ 	struct intel_hdcp *hdcp = &connector->hdcp;
+ 
++	connector->mst.type1_unsupported = false;
++
+ 	if (!hdcp->shim)
+ 		return;
