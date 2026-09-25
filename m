@@ -4,44 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC53C98321
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C71AC9830D
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F50510F8F6;
-	Fri, 25 Sep 2026 07:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE9A610E5A5;
+	Fri, 25 Sep 2026 07:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B20BRjtT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YRk+uvqC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5537310F8D3;
- Fri, 25 Sep 2026 07:34:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 259B843414;
- Fri, 25 Sep 2026 07:34:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4371F000FF;
- Fri, 25 Sep 2026 07:34:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790321651;
- bh=vmC6c4Z4BJWCF29OvqSo1ljeNOmLH8nUz+0tStjLmyo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B20BRjtT4LAqOmxcP+I/+d51QN0OOhgbULQRwuK1XPM50AS0dyz/Ro3PbhBbMbUaN
- iyMTOv4Hx1IXBrHiKnIjI5QQya2wkPwtEa7lSaGFROhJVx5pDm+TrcmWLRfC073znJ
- S/jYheY2xJTwxzIo9yn6WbkMcXswcT3O5OnbYocIcuN3FOvcQcNTKwaigolusacXyA
- KG7I8sS8fUL4iWky/e0sIXoGZq2WAtN6RizxD49RDeDncPy1CsQCLl1EOfVImx0FHh
- 3rOx0YkqUx0s2i1mnJBMO9jtW6sMckV8RCjs+k56gBk6KPPPf4REyRZ4c55Y8VvSOL
- mpakLDB7lQwiw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] drm/fbdev: Move fbdev helpers into client library
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20260925071933.44283-3-tzimmermann@suse.de>
-References: <20260925071933.44283-1-tzimmermann@suse.de>
- <20260925071933.44283-3-tzimmermann@suse.de>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4556A10E5A5;
+ Fri, 25 Sep 2026 07:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790322861; x=1821858861;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=PJDAV/NFxyHPQvM3tB9nKVe6/iruS2EGKw1ziCqORAs=;
+ b=YRk+uvqCNpGBgXcBmrot3+PDZ6rMKVolupC8NyHi2hRsn8BwtoCUhZ6O
+ j8VgA7pi3uQaEdFSKZn1F7s4uYIpjPwE9SAoPiGpruHpZYKXhVu0cfGNn
+ rFG6K9+UOhn4Gq/7jrTsxPvbXXJqdH5BhldwOa45xN/V2DXHHe+hZnhSJ
+ lNrBj14+HK23GDUXAt5sTGXQ14+mjvZd15Dqto560huVvShxmKeU1tiur
+ mbgrGxAyw7ciWSXo/lUfsTehMGgv/iQzqhxQ6i3MdT2XHrg+YvOA7s/f4
+ KjxaivFw3SZE+jIwy1Uic0HIDv1vTyLCISYjjgY4JyD7dWFrUoNjZRZ3+ A==;
+X-CSE-ConnectionGUID: ixnmtoHqSvKseqD7I0xftw==
+X-CSE-MsgGUID: TF+1q9e3SC+PaQQvHzHLqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="94924000"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="94924000"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 00:54:21 -0700
+X-CSE-ConnectionGUID: qkNizncYTeGINIm67CI2vQ==
+X-CSE-MsgGUID: NEMTj2nCRruDS2UPgzSjGQ==
+X-ExtLoop1: 1
+Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.42])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 00:54:19 -0700
+Date: Fri, 25 Sep 2026 09:54:16 +0200
+From: Zbigniew =?utf-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, 
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH i-g-t 1/2] tests/intel/gem_softpin: Skip safe-alignment
+ without full-ppgtt
+Message-ID: <hrhmsdfbgata43oftcsxewh4saerdeqt5dmmvotyrxyv5nbthp@iolo6rxdlyeb>
+References: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
+ <20260924152443.829382-5-janusz.krzysztofik@linux.intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 07:34:10 +0000
-Message-Id: <20260925073410.BD4371F000FF@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260924152443.829382-5-janusz.krzysztofik@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,69 +72,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] kbuild: link error when GEM helpers are built-in and DRM_CLIENT_LIB=
- is modular
+On Thu, Sep 24, 2026 at 05:24:17PM +0200, Janusz Krzysztofik wrote:
+> gem_detect_min_start_offset_for_region(), gem_detect_safe_start_offset()
+> and gem_detect_safe_alignment() exist solely to bootstrap
+> intel_allocator's start offset and default alignment. Without
+> full-ppgtt the kernel can't see the ranges intel_allocator considers
+> reserved and may hand them out to other users, so calling these
+> helpers is pointless there, as already acknowledged by
+> __intel_bb_create() which enforces relocations and skips the
+> allocator entirely in that case.
+> 
+> gem_softpin@safe-alignment called these helpers unconditionally,
+> outside the file's full-ppgtt gated subtest group. Require
+> gem_uses_full_ppgtt() directly on this subtest so it is skipped
+> instead of exercising meaningless values.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15527
+> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> Cc: "Zbigniew Kempczyński" <zbigniew.kempczynski@intel.com>
+> Assisted-by: GitHub Copilot (Claude Sonnet 5)
+> ---
+>  tests/intel/gem_softpin.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tests/intel/gem_softpin.c b/tests/intel/gem_softpin.c
+> index e67259b001..3fafde94ba 100644
+> --- a/tests/intel/gem_softpin.c
+> +++ b/tests/intel/gem_softpin.c
+> @@ -1573,8 +1573,19 @@ int igt_main()
+>  	}
+>  
+>  	igt_describe("Check start offset and alignment detection.");
+> -	igt_subtest("safe-alignment")
+> +	igt_subtest("safe-alignment") {
+> +		/*
+> +		 * The min-start-offset/alignment probing helpers exist
+> +		 * solely to bootstrap intel_allocator, which the driver
+> +		 * itself only relies on under full-ppgtt (see the comment
+> +		 * in __intel_bb_create()). Without full-ppgtt the kernel
+> +		 * can't see the ranges intel_allocator considers reserved
+> +		 * and may hand them out to other users, making the detected
+> +		 * values meaningless.
+> +		 */
+> +		igt_require(gem_uses_full_ppgtt(fd));
+
+LGTM:
+
+Reviewed-by: Zbigniew Kempczyński <zbigniew.kempczynski@intel.com>
+
 --
+Zbigniew
 
-commit d69668549441f21758d69fc518df18536eb9bb24
-Author: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: drm/fbdev: Move fbdev helpers into client library
-
-This commit moves DRM's fbdev emulation helpers into the client library
-module and renames them from drm_fb_helper to drm_fbdev_helper.
-
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-[ ... ]
-> @@ -256,7 +255,6 @@ config DRM_TTM_HELPER
->  	tristate
->  	depends on DRM
->  	select DRM_TTM
-> -	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
->  	select FB_CORE if DRM_FBDEV_EMULATION
->  	select FB_SYSMEM_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
->  	help
-
-[Severity: Low]
-When DRM_KMS_HELPER is removed here, is there a replacement needed for the
-client library? If a built-in driver selects DRM_TTM_HELPER=3Dy and
-DRM_FBDEV_EMULATION=3Dy, but a modular driver forces DRM_CLIENT_LIB=3Dm, can
-this result in a vmlinux link error because the fbdev emulation code in
-the client library is not built-in?
-
-> @@ -265,7 +263,6 @@ config DRM_TTM_HELPER
->  config DRM_GEM_DMA_HELPER
->  	tristate
->  	depends on DRM
-> -	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
->  	select FB_CORE if DRM_FBDEV_EMULATION
->  	select FB_DMAMEM_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
->  	help
-
-[Severity: Low]
-Does this missing replacement for the client library dependency also leave
-config DRM_GEM_DMA_HELPER susceptible to the same link error when built-in?
-
-> @@ -274,7 +271,6 @@ config DRM_GEM_DMA_HELPER
->  config DRM_GEM_SHMEM_HELPER
->  	tristate
->  	depends on DRM && MMU
-> -	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
->  	select FB_CORE if DRM_FBDEV_EMULATION
->  	select FB_SYSMEM_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
->  	help
-
-[Severity: Low]
-Similarly, should config DRM_GEM_SHMEM_HELPER select the client library to
-prevent a link error when DRM_FBDEV_EMULATION is enabled?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925071933.4428=
-3-1-tzimmermann@suse.de?part=3D2
+>  		safe_alignment(fd);
+> +	}
+>  
+>  	igt_describe("Check softpinning of a gem buffer object.");
+>  	igt_subtest("softpin")
+> -- 
+> 2.55.0
+> 
