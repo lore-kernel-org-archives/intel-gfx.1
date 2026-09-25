@@ -4,62 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C71AC9830D
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B7E5C9830D
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 08:05:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE9A610E5A5;
-	Fri, 25 Sep 2026 07:54:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YRk+uvqC";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4556A10E5A5;
- Fri, 25 Sep 2026 07:54:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790322861; x=1821858861;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=PJDAV/NFxyHPQvM3tB9nKVe6/iruS2EGKw1ziCqORAs=;
- b=YRk+uvqCNpGBgXcBmrot3+PDZ6rMKVolupC8NyHi2hRsn8BwtoCUhZ6O
- j8VgA7pi3uQaEdFSKZn1F7s4uYIpjPwE9SAoPiGpruHpZYKXhVu0cfGNn
- rFG6K9+UOhn4Gq/7jrTsxPvbXXJqdH5BhldwOa45xN/V2DXHHe+hZnhSJ
- lNrBj14+HK23GDUXAt5sTGXQ14+mjvZd15Dqto560huVvShxmKeU1tiur
- mbgrGxAyw7ciWSXo/lUfsTehMGgv/iQzqhxQ6i3MdT2XHrg+YvOA7s/f4
- KjxaivFw3SZE+jIwy1Uic0HIDv1vTyLCISYjjgY4JyD7dWFrUoNjZRZ3+ A==;
-X-CSE-ConnectionGUID: ixnmtoHqSvKseqD7I0xftw==
-X-CSE-MsgGUID: TF+1q9e3SC+PaQQvHzHLqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="94924000"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="94924000"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 00:54:21 -0700
-X-CSE-ConnectionGUID: qkNizncYTeGINIm67CI2vQ==
-X-CSE-MsgGUID: NEMTj2nCRruDS2UPgzSjGQ==
-X-ExtLoop1: 1
-Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.245.42])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 00:54:19 -0700
-Date: Fri, 25 Sep 2026 09:54:16 +0200
-From: Zbigniew =?utf-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, 
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH i-g-t 1/2] tests/intel/gem_softpin: Skip safe-alignment
- without full-ppgtt
-Message-ID: <hrhmsdfbgata43oftcsxewh4saerdeqt5dmmvotyrxyv5nbthp@iolo6rxdlyeb>
-References: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
- <20260924152443.829382-5-janusz.krzysztofik@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8234610F952;
+	Fri, 25 Sep 2026 08:05:48 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25BA810F941;
+ Fri, 25 Sep 2026 08:05:47 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4287175516379383010=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260924152443.829382-5-janusz.krzysztofik@linux.intel.com>
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/fbdev=3A_Move_helpers?=
+ =?utf-8?q?_to_clients/_subdirectory_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 25 Sep 2026 08:05:47 -0000
+Message-ID: <179032354714.206281.17865509955116176694@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260925071933.44283-1-tzimmermann@suse.de>
+In-Reply-To: <20260925071933.44283-1-tzimmermann@suse.de>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,65 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 05:24:17PM +0200, Janusz Krzysztofik wrote:
-> gem_detect_min_start_offset_for_region(), gem_detect_safe_start_offset()
-> and gem_detect_safe_alignment() exist solely to bootstrap
-> intel_allocator's start offset and default alignment. Without
-> full-ppgtt the kernel can't see the ranges intel_allocator considers
-> reserved and may hand them out to other users, so calling these
-> helpers is pointless there, as already acknowledged by
-> __intel_bb_create() which enforces relocations and skips the
-> allocator entirely in that case.
-> 
-> gem_softpin@safe-alignment called these helpers unconditionally,
-> outside the file's full-ppgtt gated subtest group. Require
-> gem_uses_full_ppgtt() directly on this subtest so it is skipped
-> instead of exercising meaningless values.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15527
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> Cc: "Zbigniew Kempczyński" <zbigniew.kempczynski@intel.com>
-> Assisted-by: GitHub Copilot (Claude Sonnet 5)
-> ---
->  tests/intel/gem_softpin.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tests/intel/gem_softpin.c b/tests/intel/gem_softpin.c
-> index e67259b001..3fafde94ba 100644
-> --- a/tests/intel/gem_softpin.c
-> +++ b/tests/intel/gem_softpin.c
-> @@ -1573,8 +1573,19 @@ int igt_main()
->  	}
->  
->  	igt_describe("Check start offset and alignment detection.");
-> -	igt_subtest("safe-alignment")
-> +	igt_subtest("safe-alignment") {
-> +		/*
-> +		 * The min-start-offset/alignment probing helpers exist
-> +		 * solely to bootstrap intel_allocator, which the driver
-> +		 * itself only relies on under full-ppgtt (see the comment
-> +		 * in __intel_bb_create()). Without full-ppgtt the kernel
-> +		 * can't see the ranges intel_allocator considers reserved
-> +		 * and may hand them out to other users, making the detected
-> +		 * values meaningless.
-> +		 */
-> +		igt_require(gem_uses_full_ppgtt(fd));
+--===============4287175516379383010==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-LGTM:
+== Series Details ==
 
-Reviewed-by: Zbigniew Kempczyński <zbigniew.kempczynski@intel.com>
+Series: drm/fbdev: Move helpers to clients/ subdirectory (rev3)
+URL   : https://patchwork.freedesktop.org/series/174786/
+State : success
 
---
-Zbigniew
+== Summary ==
 
->  		safe_alignment(fd);
-> +	}
->  
->  	igt_describe("Check softpinning of a gem buffer object.");
->  	igt_subtest("softpin")
-> -- 
-> 2.55.0
-> 
+CI Bug Log - changes from CI_DRM_19219 -> Patchwork_174786v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19219 -> Patchwork_174786v3
+
+  CI-20190529: 20190529
+  CI_DRM_19219: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_174786v3: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html
+
+--===============4287175516379383010==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/fbdev: Move helpers to clients/ subdirectory (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174786/">https://patchwork.freedesktop.org/series/174786/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19219 -&gt; Patchwork_174786v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174786v3/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19219 -&gt; Patchwork_174786v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19219: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9112: 8d3284b5ae16ca1aef353dfaffb6c0896ceacc19 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_174786v3: 999838292166407bbe911a41dee23112c49e9d44 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4287175516379383010==--
