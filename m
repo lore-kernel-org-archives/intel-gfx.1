@@ -4,79 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E2BFCA5FB1
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:54:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41612CA5FA5
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACFB810EE92;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF97F10EE98;
 	Tue, 29 Sep 2026 12:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESq97FFa";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="CndcBI1i";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92D9010E1A1
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ACA6B601F9
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634F81F0089A
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790641666;
- bh=APJhL/UXcBCjjwICTLFT+qLin1KDXiRR0y2N5bPp8T8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=ESq97FFaS8q6O+WGq8mTMUSToYKUb+XzvsNnBGTw4Yfq//3liXu2B3bAv7bcygdli
- EcHwpI4uM9pG+PUVngoWR6FzLO0tgC/0cKz935SPY0E8pLtZbxVA2GkK9LZprUpqw2
- kp586WFL9UgLZZQwTNyhbLUWzYUgkY8T2hW91Gxa2Jj7QLSxcnI/egjRJOFsyE6zTH
- MQitmOsQu/01PuHkjjIBs3OQA+lJn8aPHg151owirTWk+5lo2DtlA/4bwfsWrrPey4
- MOb1YDPRUwN4TweCY78GvrHPfK0ZNR7urK4fizgTgf4M+q8ttD/pIntwgzWSW9hTmc
- eAfxlQdMmxqdg==
-Received: by mail-ej2-f42.google.com with SMTP id
- a640c23a62f3a-c2da4eea067so305553566b.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 17:27:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwEnUO/kx2NuvVVZlYFFaBfgEoCYcnskGGSmyuM+x1zoTujHGh9zB1YMQsns1DHx4lTPLLvdNnxYRM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m2lyceHbCjK3Cb7wniR9Odx1f3czMoumTbHWBjtIBlAkFKZV/p
- UKOkH1iWtUKiSPCVmfQIQidNgsY800S18FGP/1mLO6BQoX+4yisczJftQnGdYkZQqAoH4FosXK2
- AnTM3kjVvi1+m4pnNxV8ngdtGmDq/ZL/ZTo2E1UTpSQ==
-X-Received: by 2002:a17:907:a909:b0:c26:1649:47b4 with SMTP id
- a640c23a62f3a-c2ac53fbdb4mr1170576266b.42.1790641665270; Mon, 28 Sep 2026
- 17:27:45 -0700 (PDT)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE55910E987;
+ Mon, 28 Sep 2026 18:51:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+ Content-Type; bh=5qnV7EXhoJJFalznK0XSuqpTf5BmngP99eEFgR/0CXs=;
+ b=CndcBI1iX95SD7YrTr9oVR148/T/UGzqfpsXqRoEELwYwfVgN6/HYBprUkjRm+
+ thJpJ3dUrJvoLFZVOwaMoj0v7MQYHbcpZTIeJtTyWBsDFOv/6d5OKu27KCQW+Gem
+ ii/9fFWxBlw2D6+CC2SFQquDg5K5Czz+GYJa+C59fdKpk=
+Received: from fedora.localnet (unknown [])
+ by gzsmtp5 (Coremail) with SMTP id QCgvCgA3NmsQt7pq6yiKBw--.44976S2;
+ Tue, 29 Sep 2026 02:50:57 +0800 (CST)
+From: "xizheTang2005@163.com" <xizheTang2005@163.com>
+To: intel-gfx@lists.freedesktop.org,
+ Ville Syrjala <ville.syrjala@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH 1/3] drm/i915/vrr: Use vrr.in_range to determine if we
+ need the AS SDP
+Date: Tue, 29 Sep 2026 02:50:56 +0800
+Message-ID: <tUu3Qs03RZO9Y8ZvpXUc7w@163.com>
+In-Reply-To: <a902dd489a317d5c0d07e0703ec905caee0ed89b@intel.com>
+References: <20260923164321.9230-1-ville.syrjala@linux.intel.com>
+ <RxSA9gIRRBSaKwxlF7t96Q@163.com>
+ <a902dd489a317d5c0d07e0703ec905caee0ed89b@intel.com>
 MIME-Version: 1.0
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
- <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
- <20260928151924.2686290-1-matthias.goergens@gmail.com>
-In-Reply-To: <20260928151924.2686290-1-matthias.goergens@gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Mon, 28 Sep 2026 14:27:33 -1000
-X-Gmail-Original-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
-X-Gm-Features: AclHuK_oifA42INPrgsCc_iqlMTCQtFcDVPMyqJSWfGYorE6tGAaJtv8iXHRTRc
-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
- offload
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
- Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
- Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
- Karel Zak <kzak@redhat.com>, 
- util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-CM-TRANSID: QCgvCgA3NmsQt7pq6yiKBw--.44976S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Jw47tFy7tF4DWF1xXrW3Awb_yoW3KwcEqF
+ ySqrsrW348tFyjva1rCF4xWF4xGay7try8X3y8W3WkZryrGasrZFW8GFn2yrn7Ja13Awn8
+ C34Yvw1ruana9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUb8u45UUUUU==
+X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
+X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6hE7kmq6txHVRgAA33
 X-Mailman-Approved-At: Tue, 29 Sep 2026 12:54:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,79 +63,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 28, 2026 at 5:19=E2=80=AFAM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> Hi Chris,
->
-> Thanks for resolving the conflicts yourself and reviewing it.
->
-> > What is the high-level user-visible impact of this series?
->
-> Being able to use more interesting swap backends and logic when the
-> machine is not under memory pressure.  It is much easier to write a
-> swap backend that may occasionally allocate memory than one that is
-> guaranteed never to, so today such backends are either unsafe as swap
+I retested on drm-tip, same SHA with and without series 174831.
 
-I actually don't know of a swap backend that absolutely will not
-allocate memory on swap out yet. Some backends allocate more than
-others. Because the proactive reclaim can write to the non-offloaded
-swap backend. That brings me back to my original question, in what way
-this series helps.
+Baseline: 972eeb850a4c (drm-tip 2026y-09m-28d-15h-36m-03s,
+v7.3-rc5-601). Full kernels, not a distro xe.ko:
 
-So the answer seems to be that previously, some backends were unusable
-by swap, due to possible memory allocation. With this series, those
-back ends are usable for the proactive reclaim now. It is a 0 to 0.5
-improvement because direct reclaim can't use it yet.
+  A: 7.3.0-rc5-drmtip-A+  (no 174831)
+  B: 7.3.0-rc5-drmtip-B+  (174831 applied;
+     intel_dp_needs_as_sdp() returns crtc_state->vrr.in_range)
+
+Machine is still the 21VG / 8086:b080 eDP from #9252
+(EDID range 30-120 Hz).
+
+Boot full modeset shows the same vertical corruption on A
+and on B as Fedora 7.2. Suspend/resume on B is unchanged.
+I did not dump drm.debug on these boots. If a dump is
+needed I can recapture it and attach it to #9252.
+
+This is not a Fedora stable-backport artefact: vanilla
+drm-tip already breaks the same way. That matches #9252, 
+174831 changes the gate to in_range, which is still true here, 
+so B is expected not to fix it.
+
+Thanks,
+Xizhe Tang
 
 
-> or ruled out (btrfs, for example, refuses swapfiles that are
-> copy-on-write, checksummed or compressed).
->
-> > I am curious: if we never run out of swap file space on the
-> > non-offload swap area, does that mean we don't need this patch series?
->
-> No: running out of conventional swap isn't the point.  Without the
-> series, any active swap area may be written under pressure, so a
-> backend that may allocate can't be used as swap at all, however much
-> conventional swap there is next to it.
-
-But proactive reclaim can also use the non-offload swap area. So if we
-have plenty of non-offload swap area, both proactive reclaim and
-direct reclaim can use that non-offload area. The value of this series
-isn't apparent. If you don't have a traditional swap-capable backend,
-then your non-offload area is zero.  That is considered a special case
-of running out of non-offload swap area: never having a traditional
-swap area in the first place.
-
->
-> > However, direct reclaim can use both types of swap areas.
->
-> In v2 it can't: only memory.reclaim, per-node reclaim and MGLRU's
-
-Sorry I meant proactive reclaim can use both types, nothing constrains
-proactive reclaim.
-
-> debugfs eviction may write new data to an offload-only area; direct
-> reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim may not.  But I think
-> your suggestion to flip it round is closer to what I want: mark the
-
-Flipping it around might provide additional benefit. I know some users
-maintain off tree patches to turn off zswap on the direct reclaim path
-exactly because zswap might allocate more memory before it can free
-some. If the kernel can be smart about it. It provides additional
-value to the status quo.
-
-> areas whose writes may allocate, and keep pressure reclaim away from
-> those, rather than tying it to what started the reclaim.  I'll work
-> that into v3, together with Kairui's suggestion to build on the swap
-> tiers work.
-
-Yes, I feel that cluster-level marking might not be needed, you can
-remember which si has the offload flag. However the per cpu cache
-needs to know which context might require using a different cached
-cluster. That is the trickiest part. The rest of the patch is just
-enough plumbing to preserve whether the swap-out context is proactive
-or not.
-
-Chris
