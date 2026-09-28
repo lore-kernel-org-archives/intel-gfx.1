@@ -4,78 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 638E3C9833F
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 13:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 619F2CA5FA2
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 13:59:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D283610EA94;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE35E10EA96;
 	Mon, 28 Sep 2026 13:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q8TZD+Kc";
+	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="cRZPqkJK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE06010E4C5
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 00:19:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 887B442A76
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 00:19:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9411F00898
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 00:19:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790554771;
- bh=QP6xyVeWK0fjKYOX13CdCHacAmA58q94pWWFU7WezpA=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=Q8TZD+KcqH7MAX6dUpS/JSAVMhLxLCz/zKjss7NWuWteWhn4UPDXrNDTw4/3wJkzu
- s0A7Sjr9iUneoZmNMS6n41xk58hMloD6szVNGTpPcNlvLwtWtHe1zI1SpzYUY71fs0
- euQ8yCgYZj0M5Pn++1NUZ+XhF4WZhkFhpQxcN3QLWTc78ucAx0zfGa9u1CwhoSql9K
- MMJlEK18oXfl81axHE7227Mf2OPzIvDCuz0iKyckAoqhel+s+dk+sHdJIY8Yzng8LM
- 4ct4VucEoZlYQzCkk6Ywu0aMBNgxbDnfAC8Wi+uM/UaM0qE8+qPddtXDjHc6Y7OXR+
- CnAKxfVBpSEAw==
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c293c683202so348477466b.3
- for <intel-gfx@lists.freedesktop.org>; Sun, 27 Sep 2026 17:19:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzZSYZC87k1B5SOttufZtuLosMtekknPvRuC+M/c2OdfcoJbPtfc6UbkaqQRyWFNLM9Ddgi0EZTaJ0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kQ/eRMs1NhAc0l9T2GPKkTl39uBmQKXILsjV4cNWI0PknCf3Y0
- R8fkxzdvoYgyot8LKMdgwJrwGV0coHocbU/EDDE/pKqn4HvEoyNsCfGjtUMYhaECo771xLxREL6
- zlHrqoKSNXpLZrDi8Tp1Zqhurgcma7EV9dHnkro4mnw==
-X-Received: by 2002:a17:907:3f91:b0:c21:450d:cd88 with SMTP id
- a640c23a62f3a-c2ae979e5eamr638636266b.6.1790554770310; Sun, 27 Sep 2026
- 17:19:30 -0700 (PDT)
+Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com
+ [74.125.230.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D3B10E4F1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 12:23:55 +0000 (UTC)
+Received: by mail-qv2-f42.google.com with SMTP id
+ 6a1803df08f44-9144fbfdc76so18467556d6.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 05:23:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1790598235;
+ x=1791203035; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ackCyxWNUU3rNFIvxE9uMr/6z+0jDu2f3tDqHq/JIMo=;
+ b=cRZPqkJK5jiZ/3O2iBCqvxbPVB/92uVgqH5YAO97sUFputThiBrUyVo4cUCZYiKzg+
+ QGeQffju81/8MGgcG9crjEk6N953GJO4vruFTDUzLNKmWRejAp6oH2ddSfMmJlwmaJDi
+ rFcNqgzPfDrSo/BBi6/HDExUfWaKp3F+57I4dKW8yYv1BUPd0xaSiihxfxhpfheCIoOm
+ KethtFt9TN2q4Km/w6uSD9zk6PDYKYgdkmxLJTf2b+Uc/yPOTKFXpt9dG1j8ey9e10c/
+ HliPzAe/kqepFYhyjeLM1OqxsQb6nucoyjXhcxRRRPpVuqqLF7m35cZiN8xoJKr1Iqt9
+ LzbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790598235; x=1791203035;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ackCyxWNUU3rNFIvxE9uMr/6z+0jDu2f3tDqHq/JIMo=;
+ b=zR+dvn1N+/13Tf2QCW8Obr/W3KpT75RNld4mlfQ+G9tGLXSGbk72d1aPM7EioWVKxf
+ 13pIVK04r8aqvzhaeAbpONi0up+KIgwvs9PSM4B0OdkDLI/2JxqeeNykLvlMQ1RM4DWV
+ XUbcV9RXQkDFTxpVxznTGJpaBg3ptcRWqlTBFqjxfOJLk7OGb6n6qDq1YlhkXVenlm5G
+ aq2BMgYqNAuNyAqfMZrjRYeMonC5KODrIBHsUBVg8RfBmaVadvPXr3SoWszE8MwTdeUo
+ bGwZWyWirMxoDRFkl9F7IC6wXn01mElHcd+Uq8yaSv0MYQ3LZmv7T13ZcKFEgJhDJhN3
+ /K7Q==
+X-Gm-Message-State: AFuF++mVKndYH8cvr+qJNs7g4/9F9KjEIeWucWGyd0Tejh+fYG1m/hLD
+ 39vYF46xTbqL+m+Zi96bS7uaPTITWt242WltR71/YVwnXRkSVx1Whuk7w0zi6b/uyyAoXXxZ1Gd
+ IP1b5tleRRAkd3aopvV9dPzrNDNkdpyKpR94P099AlJy5w4YXmUJfLLJ6nQj9MpoXWmT53sSLbl
+ DP02COK2vu+/z3LFcIlZSdsQx4YD/tYrenXtf60C76eShr572SKK3BcthXAw==
+X-Gm-Gg: AYBFou1XPck1VRpVfYCUhv4vddviKTTuoBEn0RYJ3L8vPSHb//xnXe8W9Bv1htw5y8d
+ hS2zzKntOchYjToGHGVRoFme7Avsvn9GESlr6d8CNwaZNH8teRZL4SQhlwB8j2FgmJoZyY9ZVej
+ +e5ZWXr9eOLSv8wRpeTJ4YDIRGZej6NTrjmuaYLcna/dTgJAp/x1h7y3Do9QxjP0o6Z2r6EkQ3G
+ NCaUXo9D6oxyt0HgoYZJrqsCdPuglIHeuB83rhji35WmBWMXBE151BfAXtjM2Q3+ta2jBz9ZWFu
+ A2zX7/mRErYvP+BP3mdZB0plJeDELTKufuiz5TnJkAYfoF7dfE+40xbwPbVnuD3suYMdXRgNs4Z
+ ibYy+XDk0T/ibXabNvVeF6xSwIc/NQU1IaJWcBSVLZXHbmgpoO1drwofKZC9ldV9g2KHvef3la3
+ 1GwLiGK+E+kSh8eyYsdoOH0GNh9ku4fDXH75ikkpQIeYJeQ/pLZB2Uo0aA2LLxfGIvTadTOHgEe
+ AHoGCtrK8LLRfLEaKY652K2JSHztyvQK5otjSu67lZqy7uQ3HNb7zbXy4tjJPDRtUa4N18z/CKr
+ Elf+tuAvCfOd0RwdT7J1EeZgLK6ArYnl8Ab+yKTuBDYKBMabf3nD
+X-Received: by 2002:a05:620a:370d:b0:93b:d7a2:83cc with SMTP id
+ af79cd13be357-93c43d235b9mr2074892585a.59.1790598234553; 
+ Mon, 28 Sep 2026 05:23:54 -0700 (PDT)
+Received: from jake-laptop ([2607:fea8:e5:500::662b])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91430da9123sm78933846d6.16.2026.09.28.05.23.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Sep 2026 05:23:53 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ jouni.hogander@intel.com, animesh.manna@intel.com,
+ ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
+ ville.syrjala@linux.intel.com
+Subject: Re: [PATCH] drm/i915/dp: Don't promise AS SDPs in PR Active when they
+ are disabled
+Date: Mon, 28 Sep 2026 08:23:52 -0400
+Message-ID: <20260928122352.51004-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923041342.2146450-1-j@metarealtyinc.ca>
+References: <20260923041342.2146450-1-j@metarealtyinc.ca>
 MIME-Version: 1.0
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
-In-Reply-To: <20260926045517.3458413-1-matthias.goergens@gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sun, 27 Sep 2026 14:19:18 -1000
-X-Gmail-Original-Message-ID: <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
-X-Gm-Features: AclHuK_Emqiw5PPDnEui2wzXu2lByLHdjYDOsTY-4bLEBoChvn9DrfIUdVmpewI
-Message-ID: <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
- offload
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
- Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
- Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
- Karel Zak <kzak@redhat.com>, 
- util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 28 Sep 2026 13:59:48 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 28 Sep 2026 13:59:47 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,152 +97,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 25, 2026 at 6:55=E2=80=AFPM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> This RFC adds offload-only swap areas for deliberate cold-page offload to
-> backends unsuitable for pressure reclaim. ZFS zvol swap has documented
-> deadlocks under memory pressure [3]; compressed swap is another target
-> because writes may need memory despite free logical slots.
+Hi Jouni, all,
 
-What is the high-level user-visible impact of this series?
+Gentle ping, with an update on the stutter left open in the notes.
 
-I am curious: if we never run out of swap file space on the
-non-offload swap area, does that mean we don't need this patch series?
+AS SDP bursts turned out not to be reliable on this panel, but leaving
+the AS SDP on in PR Active is always smooth, also with 0x107 bit 6
+clear. What works here now: clear PR_ALPM_CTL[AS SDP Transmission in
+Active Disable] while vblank interrupts are enabled and set it again
+when they are disabled. PR already holds DC_OFF while vblank is on
+(intel_psr_notify_vblank_enable_disable()), so this costs no DC5/DC6
+residency. Smooth here so far; I switched to it this morning.
 
-The series discusses proactive reclaim and direct reclaim. The
-offload-only swap area is for proactive reclaim. However, direct
-reclaim can use both types of swap areas. Wouldn't using the
-non-offload case cause memory allocation which you want to avoid?
+Would that be acceptable upstream for sinks with async video timing in
+PR? Happy to send it as an RFC on top of this patch.
 
-I was wondering if we should actually flip things around. Mark the
-type of swap device that avoids memory allocation during swap out.
-Then direct reclaim prioritizes using those.That would make the happy
-path allocate less memory during direct reclaim. Right now this series
-does not seem to guarantee that direct reclaim stays away from the
-area that allocates memory.
-
-Chris
-
->
-> Explicit proactive reclaim can use these areas alongside conventional
-> swap, ordered by priority. Ordinary reclaim cannot initiate non-zero
-> writes to them, including through retained swap entries. Conventional
-> capacity is not reserved for emergencies. Operators choose the policy;
-> the kernel does not measure headroom or make an allocating backend safe.
->
-> TMO/Senpai [4] and DAMON_RECLAIM [5] are related cold-page reclaim
-> approaches. This RFC admits offload-only swap through memory.reclaim and
-> per-node reclaim, but not DAMON. Other related work includes per-cgroup
-> zswap writeback control [6], Virtual Swap Space v4 [1] and swap tiers v10
-> [2].
->
-> The util-linux companion [8] proposes swapon --offload-only and an fstab
-> option. Older swapon silently ignores the fstab token, so persistent
-> activation needs discussion. Apply the separate i915 fix [9] first to avo=
-id
-> a pre-existing folio-lock leak when shmem writeback is skipped.
->
-> The series fixes zram selftest device tracking and error reporting, adds
-> the swap policy with DRM eligibility checks, and tests routing, workingse=
-t
-> activation and retained-entry write refusal. It is based on mm-new at
-> 995829088503.
->
-> Feedback is particularly welcome on:
->
-> - Activation-time eligibility versus backend placement or migration:
->   is retained-entry refusal, with possible reclaim churn or OOM,
->   acceptable without migration?
-> - Eligible-capacity accounting, including overcommit limits and OOM
->   scoring; cache recovery, cluster invalidation and workingset activation=
-.
-> - Persistent activation and visibility: current swap listings do not
->   expose the policy.
->
-> Validation includes x86 builds, affected arm64 MTE objects and builds
-> without swap or memory cgroups. QEMU tests covered routing, retained-entr=
-y
-> recovery, data integrity and cleanup, with negative controls for write
-> refusal and teardown failure.
->
-> I have also been using this policy on my own machine with experimental
-> bcachefs swap support, with no problems observed so far. Deliberate stres=
-s
-> testing is confined to VMs; I do not deliberately stress-test this machin=
-e.
->
-> Changes since v1, incorporating Sashiko's public review [7]:
->
-> - Improve selftest isolation, retained-swap measurement and memlock skips=
-.
-> - Track allocated zram devices, wait for udev probes and report cleanup
->   errors without deleting data through a mount that could not be released=
-.
-> - Clarify activation, capacity reporting and conventional fallback limits=
-.
->
-> [1] https://patchew.org/linux/20260825153238.2695446-1-nphamcs@gmail.com/
-> [2] https://patchew.org/linux/20260713025644.170839-1-youngjun.park@lge.c=
-om/
-> [3] https://openzfs.github.io/openzfs-docs/Project%20and%20Community/FAQ.=
-html#using-a-zvol-for-a-swap-device-on-linux
-> [4] https://engineering.fb.com/2022/06/20/data-infrastructure/transparent=
--memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/
-> [5] https://www.kernel.org/doc/html/latest/admin-guide/mm/damon/reclaim.h=
-tml
-> [6] https://www.kernel.org/doc/html/latest/admin-guide/mm/zswap.html
-> [7] https://sashiko.dev/#/patchset/20260914104501.3960616-1-matthias.goer=
-gens@gmail.com
-> [8] https://github.com/util-linux/util-linux/pull/4633
-> [9] https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergen=
-s@gmail.com/
->
-> v1: https://lore.kernel.org/all/20260914104501.3960616-1-matthias.goergen=
-s@gmail.com/
->
-> Matthias Goergens (4):
->   selftests: zram: track owned devices and report cleanup failures
->   mm: restrict offload-only swap to proactive reclaim
->   selftests: zram: cover offload-only swap policy
->   selftests: zram: cover retained offload-only entries
->
->  Documentation/mm/swap.rst                     | 105 ++++
->  drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |   2 +-
->  .../gpu/drm/i915/gem/selftests/huge_pages.c   |   6 +-
->  drivers/gpu/drm/msm/msm_gem_shrinker.c        |   2 +-
->  drivers/gpu/drm/panthor/panthor_gem.c         |   2 +-
->  drivers/gpu/drm/ttm/ttm_backup.c              |   2 +-
->  drivers/gpu/drm/xe/tests/xe_bo.c              |   2 +-
->  include/linux/swap.h                          |  29 +-
->  include/linux/vm_event_item.h                 |   1 +
->  mm/memcontrol.c                               |  20 +-
->  mm/page_io.c                                  |  24 +-
->  mm/swapfile.c                                 | 123 ++++-
->  mm/vmscan.c                                   |  31 +-
->  mm/vmstat.c                                   |   1 +
->  tools/testing/selftests/zram/.gitignore       |   2 +
->  tools/testing/selftests/zram/Makefile         |   4 +-
->  tools/testing/selftests/zram/README           |  20 +-
->  tools/testing/selftests/zram/config           |  10 +-
->  tools/testing/selftests/zram/settings         |   1 +
->  tools/testing/selftests/zram/swap_offload.c   | 425 +++++++++++++++++
->  .../selftests/zram/workingset_offload.c       | 207 ++++++++
->  tools/testing/selftests/zram/zram.sh          |   9 +
->  tools/testing/selftests/zram/zram01.sh        |   9 +-
->  tools/testing/selftests/zram/zram02.sh        |   9 +-
->  tools/testing/selftests/zram/zram03.sh        | 174 +++++++
->  tools/testing/selftests/zram/zram04.sh        | 164 +++++++
->  tools/testing/selftests/zram/zram05.sh        | 447 ++++++++++++++++++
->  tools/testing/selftests/zram/zram_lib.sh      | 189 ++++++--
->  28 files changed, 1926 insertions(+), 94 deletions(-)
->  create mode 100644 tools/testing/selftests/zram/settings
->  create mode 100644 tools/testing/selftests/zram/swap_offload.c
->  create mode 100644 tools/testing/selftests/zram/workingset_offload.c
->  create mode 100755 tools/testing/selftests/zram/zram03.sh
->  create mode 100755 tools/testing/selftests/zram/zram04.sh
->  create mode 100755 tools/testing/selftests/zram/zram05.sh
->
-> --
-> 2.55.0
->
+Thanks,
+Jake
