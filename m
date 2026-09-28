@@ -4,151 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B5DEC9833F
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 13:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 638E3C9833F
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 13:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90E2D10EA40;
-	Mon, 28 Sep 2026 13:20:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D283610EA94;
+	Mon, 28 Sep 2026 13:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QNG23SAQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q8TZD+Kc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB10810EA40;
- Mon, 28 Sep 2026 13:20:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790601641; x=1822137641;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=Atntx37GDB1HcHZCkn0fBYfHYzluCXaCblZPHcxhobs=;
- b=QNG23SAQPXA0P3ZQLVMJIIMdm+Dln75u2hW46RJIz6CGcHEkqd+MtfEE
- TfnhaJ48Rf9tkVw+FlB5P/XtI6OXSS/CImz9O7yGbNaO5berMo0stBkad
- QJjk8l2h3blzZ3znofnC2tJ7gfi4CNBA1/zryIoOjoQrfXiv69hTHsNSY
- HmUs5qIzGmV/vGD9Dkr8+vKJB01G2WajWr3sI2foY1y0EqxsD61I1J7Bm
- EM4cUcMzF0PcvRZ6BeuFCJrudQBOtdMr6Z6k6KlTzVyX7u0vkZD0n2KXd
- kAq+C1WgN+K3keBZJyU/IKtRepjKBSG4wUXGvLG4i4Ev2YTPG4v3ALkpc Q==;
-X-CSE-ConnectionGUID: oGFHc+gTSJKsFw/GQewLFA==
-X-CSE-MsgGUID: lrX8Z4vMR2+t4Oox46uWPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="91318494"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; d="scan'208";a="91318494"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2026 06:20:40 -0700
-X-CSE-ConnectionGUID: yenRvH0PRuaMp+h7dPTsDA==
-X-CSE-MsgGUID: 2Mx8choWQ0CkSKrlaQRncw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; d="scan'208";a="312970570"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2026 06:20:41 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 28 Sep 2026 06:20:39 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 28 Sep 2026 06:20:39 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.6) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 28 Sep 2026 06:20:39 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zW/i7+j5sr3TdsrpANnpsFEl+bEIitjvPLojSLA2i1/ROkOLkwzVwsUk23luK/cKaQB9LOfQTo8ObvS1EFSXzjuf7zqrne8iE8as32dtRziq2Eo4XdWZ8IRxNu/jLRtBRADnwpkLfhzO8zoC8h7bLOPb9o3UebviD62Zhe3Be9ZuEfRrJwnzawxLr1BNtKpX7tZBIsrBz/u8k5MwbcU8pz4sKVuCeOtpeEKMzYdoEtLE40h+y7pIHMbP0vug03DYhY8C0teHvreOxC0XfrfpYOqLosFAxzy2EbH+Sn5n0U2z/ZD4XHabX5yuVxAds/sRmrRlPsWtPHV3lrnTz3qKhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ginZbDApmFJyYjTdis37RCaD2sVXlmD9xpqXbdGleu4=;
- b=CuSL+AEbrw37z9Ict1zZuHbYPDaixE5eA16G12y91oVaWA9iUkWVdkptJnc5eBVTbQ/wWcLQgrpHrch/8tT8SlnkYZp1PvPsdgeIgDL/kkUWu6kMgBlVI0iBoXvLuMKvP1DMZFmVaNdYnPpTgo/nlKLUHQgMV5JLaP78XwbGqYlBMQ0IlA9kwobNhFFVBTZKjsXcWTTaCLP8052wzLQ6BhKw9x7ru6eIVy3QVPezTYI0YplyINmsBz9robL+c1oayXIhcLGnD5npfnkr5WHTzjLKByLeZXh3GWd9tmWYJW1Et3x+G1HNemBAjC9qpl2XIGh3QOb1V8Y3j5EF79QcOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM6PR11MB3787.namprd11.prod.outlook.com (2603:10b6:5:143::10)
- by PH0PR11MB5063.namprd11.prod.outlook.com (2603:10b6:510:3d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 13:20:36 +0000
-Received: from DM6PR11MB3787.namprd11.prod.outlook.com
- ([fe80::8ae8:5fb9:cf27:18dc]) by DM6PR11MB3787.namprd11.prod.outlook.com
- ([fe80::8ae8:5fb9:cf27:18dc%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 13:20:36 +0000
-From: "Golani, Mitulkumar Ajitkumar" <mitulkumar.ajitkumar.golani@intel.com>
-To: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>
-Subject: RE: [PATCH v5 2/2] drm/i915/dmc: Add sanity check for DMC load address
-Thread-Topic: [PATCH v5 2/2] drm/i915/dmc: Add sanity check for DMC load
- address
-Thread-Index: AQHdSpdYtYBeTN5RaEe4nV+ywrXY77bkAwbQ
-Date: Mon, 28 Sep 2026 13:20:36 +0000
-Message-ID: <DM6PR11MB3787A09208ECA6A192888E95B28D2@DM6PR11MB3787.namprd11.prod.outlook.com>
-References: <20260922133535.3180973-4-dibin.moolakadan.subrahmanian@intel.com>
- <20260922133535.3180973-6-dibin.moolakadan.subrahmanian@intel.com>
-In-Reply-To: <20260922133535.3180973-6-dibin.moolakadan.subrahmanian@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR11MB3787:EE_|PH0PR11MB5063:EE_
-x-ms-office365-filtering-correlation-id: 1609ce0a-a228-42d7-b128-08df1d6348b3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|38070700021|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
-x-microsoft-antispam-message-info: iEub+YPcgBEgGXuTnB7UmNFeXU4XN2rRD3A59IMSdck8XLPJJ1/0XyMeeP/e7bUuJZhkH5wuhH28VsnDoKfX8BtOdvtFSDvRX+23O6a7sjZ+ioUAHAoDpIoFH228yQ1fSoYIeo7xXFlR29C5rFVVOGxvSVM56z6zQ/BmAJhP+3pCbarzg5cNMFdKLic/I6b7+LdbUWQG26u46Y2t8BzN5fBxPvQ40dlIou/lmXYGEPblpBM4SPMRPy4v2eJzKisrR/9V6bcjuG6UQcFqutwMkYlfh6WVujHhfUTQotPPlO7NLiseBdqBFw0RjPT1ZtMn1f+r7tuxYTo/uVGtJq6NTryYq9BAjBaJuTsHAyRHJXaJPBx93mCeQlBd2qOfy2gcKlTeVVL1M5Z+eftNa7IWyodme08MftPF2C/XU/1sFKk6JtEl41HEcnU8tKM5Y7K9+el9oklFr6F3CWvpcekYBEAiWYRdPv7JQcNZVu00AOwh+xMF3Ye04kBFcVQ/otVC5gm7BHj5xt5qLPIL71SiE/FkjNRmUO9XgtLrbT6iGuK28JBO811+nX5G5DevY+tx2qBvESMlfUwXQuDY3f8RjQKnREjqjqtoIE3XbS8eycAK1Ti9bVSHkAC8t92RuXgMplz+VKqLRkvOfU6Qbwpzzof2VYUxZSF5syVX9aVLNe1gw02K+0LhKvvLewnkiOIfbfjlQDbGbeveGVJeqKnCC+/cpvq/i3NCf1BGuEPlNiw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB3787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(38070700021)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?sdpv4jetq5upi2MfblU3ajKDvxUuTj2C7r79JdB77lCmn/baamtj8Kz3RMFh?=
- =?us-ascii?Q?CL9hzXsSTNQqtm85jmby9pl1+Y9uYvy0CdHRO6aFuY2mfPwV40rOex89meHt?=
- =?us-ascii?Q?jd3x5OlXZDJrC1nr70SRT6cywG9dp0to1RFgSYtCBFz5UPjR2+a6U38d5BxF?=
- =?us-ascii?Q?8sfkjGrCDgFJgVj+0lMUUJ/Ul9PUDs07bqMlRZrgdFmTEXdQseuFx0oJ4+6X?=
- =?us-ascii?Q?t/IFGZEszy9Gad1HImsMtM3nXYXiQ30utXZWSHWKwjlruyfU+uuukbM18cGE?=
- =?us-ascii?Q?AKqY2HgZe1fsT4bcCNCG1+KVOq5FE95iu1KYGlbnfvOuY3aqDDIyDNxsvPKk?=
- =?us-ascii?Q?tFaF3rtfsqUWFK8oT0CrkEAxENcGmpBfSHFI7cNZdzisIoSk0UtUYRs669CK?=
- =?us-ascii?Q?XPIEEnXrtpdC92HB4ZzBFtgES9gJ6DFQ9s19vBxUReIXwsFo/h3LoEcmi3vz?=
- =?us-ascii?Q?Wvfl06X7zRov1p8Lizpm5u6T7UvCicxogOMCtRRbFTuVgxtDRxCq0g83Mmwe?=
- =?us-ascii?Q?JzXwDLEELz4SCWCAOR5GkBs0v3JuBgdqNJXzlCzKFw/jP+J/8H4v8UTEOaci?=
- =?us-ascii?Q?R1gz0coc5dzBTIOYnJn/YZkunWlqsm5kHubrkWv9EhS4dT2jnAbowbJ8sog9?=
- =?us-ascii?Q?RnSN1kbN3GRQUj8xFn9ZjGDrFeaUn0FtgF60/PVjEuV0iNlHJbyD5zSc+0AM?=
- =?us-ascii?Q?PYbJlmWoT3uiqtUHFZ+peQpfDQssbukomiBbffnTru8eERwDGTxf4CSS5kqk?=
- =?us-ascii?Q?Mz+ZOElYLNe/mOM8ru3B51k6kebT/6wjX5faIxQxC0iX5noZu8v9Ac17NaYv?=
- =?us-ascii?Q?4RV4HnffeBijnsQcxafSSvh/v8/WVbUZ48FHo32y6NG4qiI4mrO1VzHlZ0v4?=
- =?us-ascii?Q?aaDDZaGw7YwkJwRX1QgefR9EalR36xvvSLSb3X/aOqpJTQiGneequshc3gHH?=
- =?us-ascii?Q?Hdo4wQF/G/pWZN/WMPIJBPKjO5S+ACngnbhmCdbfW8SFFS8gjtQmEQJY9r6U?=
- =?us-ascii?Q?AkL9/8MNzW07Xe9QX1Uw9pz08k+nIjnBKHzS0gXmXO5K8dquuZWKiwNQL8ri?=
- =?us-ascii?Q?fGef4yoXyYLzaBKwev6/0CwauYrvAkVyDARsVVwPipWavN/2t++1ssNXY0aq?=
- =?us-ascii?Q?0L1txI37RfJZtNqq/LZtatGmrhkgDbraDlYylvhn0HbV5MrsFK3bQd/T2FqE?=
- =?us-ascii?Q?S8kyRRrJ/c1hosKiU4pnDruOEhtiG5I24R6MsVjtniKiFl8Ip5MLeIrnzQUv?=
- =?us-ascii?Q?xjKyyQdl8G9JdZGViNoif457PBmCit1ERZQOwK1OsH/Xt81byVQT3fAWh9A5?=
- =?us-ascii?Q?QOcfHHaRwb4C6sJirXtFjeQcHWQ9XPFtH/noQ8UHCo9+tnZgaqcbqU45x0hR?=
- =?us-ascii?Q?CzAGO/3vKHhPLv8Wb8Yvhb9ZqtP48sXu+O3+xXk2Z0DGrw7raha+r5MO0ot5?=
- =?us-ascii?Q?Q4PxShsCRo/OznPlRDDuxDk0xG2Qlj+CbBWoXnRcEQVkHE0WTXAz1+gaTlMk?=
- =?us-ascii?Q?vRBQ0v0Sv4nax5VdVht2YuDav48ciEIZqZ0PA6pkAQx6qyBk3YzAEy95l099?=
- =?us-ascii?Q?uh4CyuM/sBpsyGxA6yaroRqWtpyJp/KaFZcIrH75S23LWiZIdn+1xGMiuqEY?=
- =?us-ascii?Q?W4GSDA60YYHsoaTXpXSomk39CwyXz5gdaSYNImAV4xeD9bpUUBzwr/bjH8LI?=
- =?us-ascii?Q?4lTDKEVxw1XpuutOsiCL8I2aELY5u4th4YGsfMSMkj6Mtsdt4Yr82hKbq3kC?=
- =?us-ascii?Q?DLe4gTVyxq8+1HM4pqi09ChrZhBvTFM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE06010E4C5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 00:19:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 887B442A76
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 00:19:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9411F00898
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 00:19:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790554771;
+ bh=QP6xyVeWK0fjKYOX13CdCHacAmA58q94pWWFU7WezpA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=Q8TZD+KcqH7MAX6dUpS/JSAVMhLxLCz/zKjss7NWuWteWhn4UPDXrNDTw4/3wJkzu
+ s0A7Sjr9iUneoZmNMS6n41xk58hMloD6szVNGTpPcNlvLwtWtHe1zI1SpzYUY71fs0
+ euQ8yCgYZj0M5Pn++1NUZ+XhF4WZhkFhpQxcN3QLWTc78ucAx0zfGa9u1CwhoSql9K
+ MMJlEK18oXfl81axHE7227Mf2OPzIvDCuz0iKyckAoqhel+s+dk+sHdJIY8Yzng8LM
+ 4ct4VucEoZlYQzCkk6Ywu0aMBNgxbDnfAC8Wi+uM/UaM0qE8+qPddtXDjHc6Y7OXR+
+ CnAKxfVBpSEAw==
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c293c683202so348477466b.3
+ for <intel-gfx@lists.freedesktop.org>; Sun, 27 Sep 2026 17:19:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzZSYZC87k1B5SOttufZtuLosMtekknPvRuC+M/c2OdfcoJbPtfc6UbkaqQRyWFNLM9Ddgi0EZTaJ0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kQ/eRMs1NhAc0l9T2GPKkTl39uBmQKXILsjV4cNWI0PknCf3Y0
+ R8fkxzdvoYgyot8LKMdgwJrwGV0coHocbU/EDDE/pKqn4HvEoyNsCfGjtUMYhaECo771xLxREL6
+ zlHrqoKSNXpLZrDi8Tp1Zqhurgcma7EV9dHnkro4mnw==
+X-Received: by 2002:a17:907:3f91:b0:c21:450d:cd88 with SMTP id
+ a640c23a62f3a-c2ae979e5eamr638636266b.6.1790554770310; Sun, 27 Sep 2026
+ 17:19:30 -0700 (PDT)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: w7Qd35E6Cj9A1u39ibYjSX2+MP5YPCIlEmjo99iU47TCt+L2d6xFrY75RiUPfjD/+G6hWoMPQoMknvTkovlXd4EucUUeELe/qaCqWmHIwBSCEHBaIj7wiS3+8rIVYFdbqR+DeFkzRwNZTadsZ3+y682HjLdMOVbGbWlRw5Keu3da9mIOIdXl/Fw240XOnJUCeyY3USPJaAjR7NtUBMxg7pAIG/ablPJkx0EDAKjmt5BcIwSmrw7pZfaervGnsrLHlN6kUSC1M6b33Dlcj9X0MXwoeQO0JjIhcASxa21gvWFVk63hy8HA8ZNKDo77E/kUYiCYD6NLQ6USGRtpuk4CYg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3787.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1609ce0a-a228-42d7-b128-08df1d6348b3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 13:20:36.7951 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Z41LsMnc+TV5SyYvmF8h896h2GJvT56TbOApC3RZ+IYL+jbRDpTcxk+bli2WpJf20VcrltwM9iYbQaUYvnx9gL0g7MW4Ove9q1TTJLguwXidUli5kFByeq8snG8EgPpi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5063
-X-OriginatorOrg: intel.com
+References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
+In-Reply-To: <20260926045517.3458413-1-matthias.goergens@gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Sun, 27 Sep 2026 14:19:18 -1000
+X-Gmail-Original-Message-ID: <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
+X-Gm-Features: AclHuK_Emqiw5PPDnEui2wzXu2lByLHdjYDOsTY-4bLEBoChvn9DrfIUdVmpewI
+Message-ID: <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
+ offload
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
+ Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+ Karel Zak <kzak@redhat.com>, 
+ util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 28 Sep 2026 13:59:48 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,143 +91,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Fri, Sep 25, 2026 at 6:55=E2=80=AFPM Matthias Goergens
+<matthias.goergens@gmail.com> wrote:
+>
+> This RFC adds offload-only swap areas for deliberate cold-page offload to
+> backends unsuitable for pressure reclaim. ZFS zvol swap has documented
+> deadlocks under memory pressure [3]; compressed swap is another target
+> because writes may need memory despite free logical slots.
 
+What is the high-level user-visible impact of this series?
 
-> -----Original Message-----
-> From: Dibin Moolakadan Subrahmanian
-> <dibin.moolakadan.subrahmanian@intel.com>
-> Sent: 22 September 2026 19:06
-> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
-> Cc: Golani, Mitulkumar Ajitkumar <mitulkumar.ajitkumar.golani@intel.com>;
-> jani.nikula@linux.intel.com
-> Subject: [PATCH v5 2/2] drm/i915/dmc: Add sanity check for DMC load
-> address
->=20
-> For DMC firmware header version 3, the firmware load address is stored in
-> dmc_info->start_mmioaddr and later used by dmc_load_program().
->=20
-> Unlike the MMIO address table, the firmware load address is not validated=
+I am curious: if we never run out of swap file space on the
+non-offload swap area, does that mean we don't need this patch series?
+
+The series discusses proactive reclaim and direct reclaim. The
+offload-only swap area is for proactive reclaim. However, direct
+reclaim can use both types of swap areas. Wouldn't using the
+non-offload case cause memory allocation which you want to avoid?
+
+I was wondering if we should actually flip things around. Mark the
+type of swap device that avoids memory allocation during swap out.
+Then direct reclaim prioritizes using those.That would make the happy
+path allocate less memory during direct reclaim. Right now this series
+does not seem to guarantee that direct reclaim stays away from the
+area that allocates memory.
+
+Chris
+
+>
+> Explicit proactive reclaim can use these areas alongside conventional
+> swap, ordered by priority. Ordinary reclaim cannot initiate non-zero
+> writes to them, including through retained swap entries. Conventional
+> capacity is not reserved for emergencies. Operators choose the policy;
+> the kernel does not measure headroom or make an allocating backend safe.
+>
+> TMO/Senpai [4] and DAMON_RECLAIM [5] are related cold-page reclaim
+> approaches. This RFC admits offload-only swap through memory.reclaim and
+> per-node reclaim, but not DAMON. Other related work includes per-cgroup
+> zswap writeback control [6], Virtual Swap Space v4 [1] and swap tiers v10
+> [2].
+>
+> The util-linux companion [8] proposes swapon --offload-only and an fstab
+> option. Older swapon silently ignores the fstab token, so persistent
+> activation needs discussion. Apply the separate i915 fix [9] first to avo=
+id
+> a pre-existing folio-lock leak when shmem writeback is skipped.
+>
+> The series fixes zram selftest device tracking and error reporting, adds
+> the swap policy with DRM eligibility checks, and tests routing, workingse=
+t
+> activation and retained-entry write refusal. It is based on mm-new at
+> 995829088503.
+>
+> Feedback is particularly welcome on:
+>
+> - Activation-time eligibility versus backend placement or migration:
+>   is retained-entry refusal, with possible reclaim churn or OOM,
+>   acceptable without migration?
+> - Eligible-capacity accounting, including overcommit limits and OOM
+>   scoring; cache recovery, cluster invalidation and workingset activation=
 .
-> Add a sanity check to ensure it is within the valid range.
->=20
-> BSpec: 69671, 68378
-> Fixes: 3d5928a168a9 ("drm/i915/xelpd: Pipe A DMC plugging")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude-Code:Sonnet-5
-> Signed-off-by: Dibin Moolakadan Subrahmanian
-> <dibin.moolakadan.subrahmanian@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dmc.c      | 55 +++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dmc_regs.h | 12 ++++
->  2 files changed, 67 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c
-> b/drivers/gpu/drm/i915/display/intel_dmc.c
-> index 725481012578..6611765fd62c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dmc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-> @@ -1023,6 +1023,55 @@ static void dmc_set_fw_offset(struct intel_dmc
-> *dmc,
->  	}
->  }
->=20
-> +/*
-> + * Check if the load address is within the valid range for the given DMC=
- ID.
-> + */
-> +static bool dmc_load_addr_sanity_check(struct intel_dmc *dmc,
-> +				       u32 start_addr, u32 payload_size,
-> +				       int header_ver, enum intel_dmc_id
-> dmc_id) {
-> +	u32 start_range, end_range, end_addr;
-> +
-> +	if (header_ver !=3D 3)
-> +		return true;
-> +
-> +	switch (dmc_id) {
-> +	case DMC_FW_MAIN:
-> +		start_range =3D DMC_MAIN_PROGRAM_BASE_START;
-> +		end_range =3D DMC_MAIN_PROGRAM_BASE_END;
-> +		break;
-> +	case DMC_FW_PIPEA:
-> +		start_range =3D DMC_PIPEA_PROGRAM_BASE_START;
-> +		end_range =3D DMC_PIPEA_PROGRAM_BASE_END;
-> +		break;
-> +	case DMC_FW_PIPEB:
-> +		start_range =3D DMC_PIPEB_PROGRAM_BASE_START;
-> +		end_range =3D DMC_PIPEB_PROGRAM_BASE_END;
-> +		break;
-> +	case DMC_FW_PIPEC:
-> +		start_range =3D DMC_PIPEC_PROGRAM_BASE_START;
-> +		end_range =3D DMC_PIPEC_PROGRAM_BASE_END;
-> +		break;
-> +	case DMC_FW_PIPED:
-> +		start_range =3D DMC_PIPED_PROGRAM_BASE_START;
-> +		end_range =3D DMC_PIPED_PROGRAM_BASE_END;
-> +		break;
-> +	default:
-> +		MISSING_CASE(dmc_id);
-> +		return false;
-> +	}
-> +
-> +	if (payload_size =3D=3D 0)
-> +		end_addr =3D start_addr;
-> +	else if (check_add_overflow(start_addr, payload_size - 1, &end_addr))
-> +		return false;
-> +
-> +	if (start_addr < start_range || end_addr > end_range)
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
->  static bool dmc_mmio_addr_sanity_check(struct intel_dmc *dmc,
->  				       const u32 *mmioaddr, u32 mmio_count,
->  				       int header_ver, enum intel_dmc_id
-> dmc_id) @@ -1189,6 +1238,12 @@ static u32 parse_dmc_fw_header(struct
-> intel_dmc *dmc,
->  		return 0;
->  	}
->=20
-> +	if (!dmc_load_addr_sanity_check(dmc, start_mmioaddr, payload_size,
-> +					dmc_header->header_ver, dmc_id)) {
-> +		drm_err(display->drm, "DMC %d: firmware has wrong load
-> address\n", dmc_id);
-> +		return 0;
-> +	}
-> +
->  	dmc_info->payload =3D kmalloc(payload_size, GFP_KERNEL);
->  	if (!dmc_info->payload)
->  		return 0;
-> diff --git a/drivers/gpu/drm/i915/display/intel_dmc_regs.h
-> b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
-> index 6b7978fb8986..324320afad58 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dmc_regs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
-> @@ -521,6 +521,18 @@ enum pipedmc_event_id {
->  #define TGL_PIPE_MMIO_END(dmc_id)	_PICK_EVEN(((dmc_id) - 1),
-> _TGL_PIPEA_MMIO_END,\
->  					      _TGL_PIPEB_MMIO_END)
->=20
-> +/* For DMC header version v3*/
-> +#define DMC_MAIN_PROGRAM_BASE_START	0x80000
-> +#define DMC_MAIN_PROGRAM_BASE_END	0x86fff
-> +#define DMC_PIPEA_PROGRAM_BASE_START	0x90000
-> +#define DMC_PIPEA_PROGRAM_BASE_END	0x96fff
-> +#define DMC_PIPEB_PROGRAM_BASE_START	0x98000
-> +#define DMC_PIPEB_PROGRAM_BASE_END	0x9efff
-> +#define DMC_PIPEC_PROGRAM_BASE_START	0x52000
-> +#define DMC_PIPEC_PROGRAM_BASE_END	0x53fff
-> +#define DMC_PIPED_PROGRAM_BASE_START	0x59000
-> +#define DMC_PIPED_PROGRAM_BASE_END	0x5afff
-> +
-
-Changes LGTM
-Reviewed-by: Mitul Golani<mitulkumar.ajitkumar.golani@intel.com>
-
->  #define SKL_DMC_DC3_DC5_COUNT	_MMIO(0x80030)
->  #define SKL_DMC_DC5_DC6_COUNT	_MMIO(0x8002C)
->  #define BXT_DMC_DC3_DC5_COUNT	_MMIO(0x80038)
+> - Persistent activation and visibility: current swap listings do not
+>   expose the policy.
+>
+> Validation includes x86 builds, affected arm64 MTE objects and builds
+> without swap or memory cgroups. QEMU tests covered routing, retained-entr=
+y
+> recovery, data integrity and cleanup, with negative controls for write
+> refusal and teardown failure.
+>
+> I have also been using this policy on my own machine with experimental
+> bcachefs swap support, with no problems observed so far. Deliberate stres=
+s
+> testing is confined to VMs; I do not deliberately stress-test this machin=
+e.
+>
+> Changes since v1, incorporating Sashiko's public review [7]:
+>
+> - Improve selftest isolation, retained-swap measurement and memlock skips=
+.
+> - Track allocated zram devices, wait for udev probes and report cleanup
+>   errors without deleting data through a mount that could not be released=
+.
+> - Clarify activation, capacity reporting and conventional fallback limits=
+.
+>
+> [1] https://patchew.org/linux/20260825153238.2695446-1-nphamcs@gmail.com/
+> [2] https://patchew.org/linux/20260713025644.170839-1-youngjun.park@lge.c=
+om/
+> [3] https://openzfs.github.io/openzfs-docs/Project%20and%20Community/FAQ.=
+html#using-a-zvol-for-a-swap-device-on-linux
+> [4] https://engineering.fb.com/2022/06/20/data-infrastructure/transparent=
+-memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/
+> [5] https://www.kernel.org/doc/html/latest/admin-guide/mm/damon/reclaim.h=
+tml
+> [6] https://www.kernel.org/doc/html/latest/admin-guide/mm/zswap.html
+> [7] https://sashiko.dev/#/patchset/20260914104501.3960616-1-matthias.goer=
+gens@gmail.com
+> [8] https://github.com/util-linux/util-linux/pull/4633
+> [9] https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergen=
+s@gmail.com/
+>
+> v1: https://lore.kernel.org/all/20260914104501.3960616-1-matthias.goergen=
+s@gmail.com/
+>
+> Matthias Goergens (4):
+>   selftests: zram: track owned devices and report cleanup failures
+>   mm: restrict offload-only swap to proactive reclaim
+>   selftests: zram: cover offload-only swap policy
+>   selftests: zram: cover retained offload-only entries
+>
+>  Documentation/mm/swap.rst                     | 105 ++++
+>  drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |   2 +-
+>  .../gpu/drm/i915/gem/selftests/huge_pages.c   |   6 +-
+>  drivers/gpu/drm/msm/msm_gem_shrinker.c        |   2 +-
+>  drivers/gpu/drm/panthor/panthor_gem.c         |   2 +-
+>  drivers/gpu/drm/ttm/ttm_backup.c              |   2 +-
+>  drivers/gpu/drm/xe/tests/xe_bo.c              |   2 +-
+>  include/linux/swap.h                          |  29 +-
+>  include/linux/vm_event_item.h                 |   1 +
+>  mm/memcontrol.c                               |  20 +-
+>  mm/page_io.c                                  |  24 +-
+>  mm/swapfile.c                                 | 123 ++++-
+>  mm/vmscan.c                                   |  31 +-
+>  mm/vmstat.c                                   |   1 +
+>  tools/testing/selftests/zram/.gitignore       |   2 +
+>  tools/testing/selftests/zram/Makefile         |   4 +-
+>  tools/testing/selftests/zram/README           |  20 +-
+>  tools/testing/selftests/zram/config           |  10 +-
+>  tools/testing/selftests/zram/settings         |   1 +
+>  tools/testing/selftests/zram/swap_offload.c   | 425 +++++++++++++++++
+>  .../selftests/zram/workingset_offload.c       | 207 ++++++++
+>  tools/testing/selftests/zram/zram.sh          |   9 +
+>  tools/testing/selftests/zram/zram01.sh        |   9 +-
+>  tools/testing/selftests/zram/zram02.sh        |   9 +-
+>  tools/testing/selftests/zram/zram03.sh        | 174 +++++++
+>  tools/testing/selftests/zram/zram04.sh        | 164 +++++++
+>  tools/testing/selftests/zram/zram05.sh        | 447 ++++++++++++++++++
+>  tools/testing/selftests/zram/zram_lib.sh      | 189 ++++++--
+>  28 files changed, 1926 insertions(+), 94 deletions(-)
+>  create mode 100644 tools/testing/selftests/zram/settings
+>  create mode 100644 tools/testing/selftests/zram/swap_offload.c
+>  create mode 100644 tools/testing/selftests/zram/workingset_offload.c
+>  create mode 100755 tools/testing/selftests/zram/zram03.sh
+>  create mode 100755 tools/testing/selftests/zram/zram04.sh
+>  create mode 100755 tools/testing/selftests/zram/zram05.sh
+>
 > --
-> 2.43.0
-
+> 2.55.0
+>
