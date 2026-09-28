@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A641C98328
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 03:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3125C98328
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 03:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D150D10E73C;
-	Mon, 28 Sep 2026 03:28:19 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KgrgZFuZ";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2F6110E73C;
- Mon, 28 Sep 2026 03:28:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 60E6642D71;
- Mon, 28 Sep 2026 03:28:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4881F00898;
- Mon, 28 Sep 2026 03:28:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790566098;
- bh=x5E93TzSV5UZFPjcxA8df3ePrvbelS73tqPIjXO5Dvg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KgrgZFuZd5Vc2K8Tby1QtS1cXfsoZMj7j3qCqml9arxrh6RZ0cgnY3JQmRKHGW5/+
- grtCDBvXp/rHrARc+tpIqcHkHO6+njQNCAlYoGEjoyz9AyM9QzbcoXGJdcPk//feCx
- HFaHlvUBW54eUgeqcIkAh38tKm7t72HcmzY79wYXxrJ82iq3EaJ+hyBxTC9LqLIuRz
- eozyE93xMrdARy/FsmJf2N5gdy2U66LzrscxM8SPdCh6nB9tU0YUTTdPNQSP31zJ/4
- 35kOQeHnr5ZEQcwySI89lZ/UOnvM0iF7DxuuW6oykORrAjldY02Dyd4YwkNGau6qYQ
- mF2YjLLRmDX8w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10] drm/i915/dg2: Add per-client control for
- Wa_22013059131
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6545310E509;
+	Mon, 28 Sep 2026 03:57:37 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDF6010E509;
+ Mon, 28 Sep 2026 03:57:35 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============9029197100663469959=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dg2=3A_Add_per-c?=
+ =?utf-8?q?ontext_control_for_Wa=5F22013059131_=28rev11=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jia Yao" <jia.yao@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260928031341.2958178-1-jia.yao@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 28 Sep 2026 03:57:35 -0000
+Message-ID: <179056785575.211322.7885307595167746441@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260630223946.2107382-1-jia.yao@intel.com>
- <20260928031341.2958178-1-jia.yao@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 03:28:17 +0000
-Message-Id: <20260928032818.0F4881F00898@smtp.kernel.org>
+In-Reply-To: <20260630223946.2107382-1-jia.yao@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,102 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/i915: missing WA_22013059131 in ctx_setparam breaks uAPI for d=
-efault context
---
+--===============9029197100663469959==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 6bbdc7d4f28ec7ac3f465eca7548193f1bf2364e
-Author: Jia Yao <jia.yao@intel.com>
-Subject: drm/i915/dg2: Add per-client control for Wa_22013059131
+== Series Details ==
 
-This commit introduces a new context parameter I915_CONTEXT_PARAM_WA_220130=
-59131
-to allow userspace to handle the SLM contention workaround itself. It track=
-s the
-opt-out per client and latches the value once before any context is submitt=
-ed.
+Series: drm/i915/dg2: Add per-context control for Wa_22013059131 (rev11)
+URL   : https://patchwork.freedesktop.org/series/164198/
+State : success
 
-Link: https://github.com/intel/compute-runtime/pull/919
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/dr=
-m/i915/gem/i915_gem_context.c
-> index c58ffa5a8fa6f..2a9141e83936c 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-[ ... ]
-> @@ -918,6 +941,15 @@ static int set_proto_ctx_param(struct drm_i915_file_=
-private *fpriv,
->  			ret =3D -EINVAL;
->  		break;
-> =20
-> +	case I915_CONTEXT_PARAM_WA_22013059131:
-> +		if (args->size)
-> +			ret =3D -EINVAL;
-> +		else if (!IS_DG2_G11(i915))
-> +			ret =3D -ENODEV;
-> +		else
-> +			ret =3D set_client_wa_22013059131(fpriv, args->value);
-> +		break;
-> +
+CI Bug Log - changes from CI_DRM_19229 -> Patchwork_164198v11
+====================================================
 
-[Severity: High]
-Does this missing implementation in ctx_setparam() break the uAPI for the
-default context?
+Summary
+-------
 
-The parameter is added here in set_proto_ctx_param(), but it appears to be
-missing from ctx_setparam() and i915_gem_context_getparam_ioctl().
+  **SUCCESS**
 
-Because the default context (id 0) is fully finalized during
-i915_gem_context_open(), it is not a proto-context. When userspace attempts
-to set this parameter on ctx_id =3D 0, i915_gem_context_setparam_ioctl()
-routes the call to ctx_setparam() instead:
+  No regressions found.
 
-i915_gem_context_setparam_ioctl()
-   ctx =3D i915_gem_context_lookup(file_priv, args->ctx_id);
-   if (ctx) {
-       ret =3D ctx_setparam(file_priv, ctx, args);
-       ...
-   }
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v11/index.html
 
-Since ctx_setparam() lacks this new case, it will fall through to the
--EINVAL default case, which prevents userspace from configuring this
-workaround on the default context as documented.
+Participating hosts (39 -> 37)
+------------------------------
 
-Additionally, because it is missing from i915_gem_context_getparam_ioctl(),
-the new UAPI parameter is strictly write-only and impossible to query.
+  Missing    (2): bat-dg2-13 fi-glk-j4005 
 
-[ ... ]
-> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-> index 535cb68fdb5c4..a9821e2cc3a26 100644
-> --- a/include/uapi/drm/i915_drm.h
-> +++ b/include/uapi/drm/i915_drm.h
-[ ... ]
-> + * any context of the client being submitted for the first time.  A later
-> + * request for the opposite value fails with -EINVAL.  Userspace that wa=
-nts
-> + * to opt out must therefore do so before submitting any work on this fd,
-> + * including via the default context (id 0) created on open().
-> + *
-> + * Note: LSC_CHICKEN_BIT_0_UDW MAXREQS_PER_BANK (bits 39:37) is the
-> + * other part of Wa_22013059131 and remains unconditionally programmed
-> + * by the kernel regardless of this setting.  DG2-G11 only.
-> + */
-> +#define I915_CONTEXT_PARAM_WA_22013059131	0x10
 
-[Severity: Low]
-Can this documentation be fulfilled if the parameter is rejected for the
-default context?
+Changes
+-------
 
-The documentation states that userspace can opt out via the default context
-(id 0) created on open, but because the parameter is only handled for
-proto-contexts, that ioctl request will fail with -EINVAL.
+  No changes found
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928031341.2958=
-178-1-jia.yao@intel.com?part=3D1
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19229 -> Patchwork_164198v11
+
+  CI-20190529: 20190529
+  CI_DRM_19229: 183265fddd55ef951adb7bcd5703927abaa76bb5 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9113: 691cc6fd50d5a3f6f2b5805c9698af1df28f6830 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_164198v11: 183265fddd55ef951adb7bcd5703927abaa76bb5 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v11/index.html
+
+--===============9029197100663469959==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dg2: Add per-context control for Wa_22013059131 (rev11)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164198/">https://patchwork.freedesktop.org/series/164198/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v11/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v11/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19229 -&gt; Patchwork_164198v11</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v11/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-dg2-13 fi-glk-j4005 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19229 -&gt; Patchwork_164198v11</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19229: 183265fddd55ef951adb7bcd5703927abaa76bb5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9113: 691cc6fd50d5a3f6f2b5805c9698af1df28f6830 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_164198v11: 183265fddd55ef951adb7bcd5703927abaa76bb5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============9029197100663469959==--
