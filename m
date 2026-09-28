@@ -4,43 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30CEFC9833F
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 12:24:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD1BC9833F
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 12:40:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B473710E5A1;
-	Mon, 28 Sep 2026 12:24:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE0A610E45C;
+	Mon, 28 Sep 2026 12:40:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fnG1C1CC";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dod74sO2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0312D10E2AD;
- Mon, 28 Sep 2026 12:24:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3975060052;
- Mon, 28 Sep 2026 12:24:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF9211F000FF;
- Mon, 28 Sep 2026 12:24:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790598278;
- bh=z+nF1H/1dc6GvHT/1VWP10dOAeD4/evEObFp2T9woJA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fnG1C1CCcVm49GYTFPF70k9XTkePD8t8VRpZUbmqvr2Hlj/PCSoMg/WOAMCBPbQWN
- kKuT5cJGfBEdS5SSXsXb/Whyk4OgvR4KDhq0DqRj+Pr4CshftprC34Ojb4KhSIWcbD
- BkeY+lMISQFwpWi3+HdpfUXR70ahcdsm1r6pdsX+NXBgz6ZbgFsiCM+v25TE9CUut9
- /LpDOYdSa2tiOr906onqzq1Xtb26pp9H7pRzHLgTqNxgSfWB15AHXfMkWgkE+okP80
- 2No+luhiRMBDw+5BA04Cxvu0LZdBfYjCg315xruTEJfZvTx/MzR6olk28uGmOxxvlH
- OJiz4ryF5glKQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/1] drm/i915/gmbus: Add bit-banging debugfs control
-To: "Naladala Ramanaidu" <ramanaidu.naladala@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260928121940.728102-2-ramanaidu.naladala@intel.com>
-References: <20260928121940.728102-1-ramanaidu.naladala@intel.com>
- <20260928121940.728102-2-ramanaidu.naladala@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 12:24:38 +0000
-Message-Id: <20260928122438.AF9211F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA3D10E2AD;
+ Mon, 28 Sep 2026 12:40:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790599222; x=1822135222;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=AzpcIZA3dngKSt7ap47qd6sX46+AlEE10lXCZ3CWonY=;
+ b=dod74sO21CwDp3mSqd3LBiRvWAJ6RPaRTNdiw962rkUG/iygFxLREHv2
+ Ojfr3ozbImdT3YRfVJWCIJlvLZSNcHiwTQrluhmx0YGIYXxGCFc2Xj9zD
+ miBJczRRlxOlT31dal5JRbVNXXu+Lsk17PHsPgMDqSi+3BVfqDRqd2xpa
+ YjQljcy3MiBNUeLrVoBAmey3fERuLAscyAUzuF81S7pCEF272p6RSEyjU
+ Qs8PLEoyNEa199leTYR5LWI6l+GHgFxd4uUWHdLCV3jx90AgaYMjHIwI9
+ 5ctRPx933bg40sBl9qDlh05HieyzrJy1uJpnZ78LAqj55YpKsQs+WSXd2 A==;
+X-CSE-ConnectionGUID: 0W9pFLyQTCWIE2HTVP/ljg==
+X-CSE-MsgGUID: A8E9YcvsT6mnltMpr0pZTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="107675534"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; d="scan'208";a="107675534"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2026 05:40:22 -0700
+X-CSE-ConnectionGUID: 2nLwI736QG64+xxeZOSrig==
+X-CSE-MsgGUID: UzcoPp9cQRy6DrVkR4pofQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; d="scan'208";a="302992646"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.54])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2026 05:40:21 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ ville.syrjala@linux.intel.com
+Subject: Re: [PATCH 00/10] drm/{i915, xe}: use a shared gtt_view_types.h header
+In-Reply-To: <cover.1789502902.git.jani.nikula@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1789502902.git.jani.nikula@intel.com>
+Date: Mon, 28 Sep 2026 15:40:17 +0300
+Message-ID: <239bd8bca68d576aeeccdbbe554ac3aa600ead15@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,80 +65,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] i915: gmbus force_bit counter leak via concurrent debugfs writes
---
+On Tue, 15 Sep 2026, Jani Nikula <jani.nikula@intel.com> wrote:
+> Move i915_gtt_view_types.h under include/drm/intel, and clean up.
 
-commit f09d193c0d7afc5fe7e1a110befe13bd976b0393
-Author: Naladala Ramanaidu <ramanaidu.naladala@intel.com>
+Ville, any feedback on this?
 
-drm/i915/gmbus: Add bit-banging debugfs control
+BR,
+Jani.
 
-This commit adds a debugfs interface, intel_force_bit_banging, to allow
-enabling or disabling I2C bit-banging for Intel GMBUS adapters directly
-from userspace.
+>
+> Jani Nikula (10):
+>   drm/intel: move i915_gtt_view_types.h to include/drm/intel
+>   drm/intel: rename i915_gtt_view_is_*() helpers to
+>     intel_gtt_view_is_*()
+>   drm/intel: rename i915_gtt_view* struct/enum to intel_gtt_view*
+>   drm/intel: add intel_gtt_view_is_partial() for completeness
+>   drm/xe/display: use intel_gtt_view_is_*() helpers more
+>   drm/i915/gem: use intel_gtt_view_is_*() helpers more
+>   drm/i915/vma: use intel_gtt_view_is_*() helpers more
+>   drm/i915/selftests: use intel_gtt_view_is_*() helpers more
+>   drm/i915/debugfs: use the intel_gtt_view_is_*() helpers more
+>   drm/intel: rename I915_GTT_VIEW_* enumerations to INTEL_GTT_VIEW_*
+>
+>  .../drm/i915/display/intel_display_types.h    |  4 +-
+>  drivers/gpu/drm/i915/display/intel_fb.c       | 18 +++---
+>  drivers/gpu/drm/i915/display/intel_parent.c   |  4 +-
+>  drivers/gpu/drm/i915/display/intel_parent.h   |  6 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_domain.c    |  4 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_mman.c      | 14 ++---
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h    |  2 +-
+>  .../drm/i915/gem/selftests/i915_gem_mman.c    |  4 +-
+>  drivers/gpu/drm/i915/i915_debugfs.c           | 20 ++-----
+>  drivers/gpu/drm/i915/i915_gem.c               |  6 +-
+>  drivers/gpu/drm/i915/i915_gem.h               |  6 +-
+>  drivers/gpu/drm/i915/i915_vma.c               | 44 +++++---------
+>  drivers/gpu/drm/i915/i915_vma.h               | 12 ++--
+>  drivers/gpu/drm/i915/i915_vma_types.h         | 29 +++++----
+>  drivers/gpu/drm/i915/selftests/i915_vma.c     | 60 +++++++++----------
+>  .../compat-i915-headers/i915_gtt_view_types.h |  7 ---
+>  drivers/gpu/drm/xe/display/xe_fb_pin.c        | 28 ++++-----
+>  include/drm/intel/display_parent_interface.h  |  8 +--
+>  .../drm/intel/gtt_view_types.h                | 37 +++++++-----
+>  19 files changed, 143 insertions(+), 170 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_gtt_view_types.h
+>  rename drivers/gpu/drm/i915/i915_gtt_view_types.h => include/drm/intel/gtt_view_types.h (50%)
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm=
-/i915/display/intel_gmbus.c
-> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-[ ... ]
-> @@ -871,6 +873,71 @@ static const struct i2c_algorithm gmbus_algorithm =
-=3D {
-[ ... ]
-> +static ssize_t intel_force_bit_banging_write(struct file *file,
-> +						     const char __user *ubuf,
-> +						     size_t len, loff_t *offp)
-> +{
-> +	struct seq_file *m =3D file->private_data;
-> +	struct intel_connector *connector =3D m->private;
-> +	struct intel_gmbus *bus =3D container_of(connector->base.ddc,
-> +					       struct intel_gmbus, adapter);
-> +	bool force_bit_banging;
-> +	int ret;
-> +
-> +	ret =3D kstrtobool_from_user(ubuf, len, &force_bit_banging);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (force_bit_banging !=3D bus->debugfs_force_bit) {
-> +		intel_gmbus_force_bit(connector->base.ddc, force_bit_banging);
-> +		bus->debugfs_force_bit =3D force_bit_banging;
-> +	}
-
-[Severity: Medium]
-Could this check-then-act block cause an issue if multiple threads write to
-the debugfs file concurrently?
-
-Since there is no lock protecting the read of bus->debugfs_force_bit and
-the subsequent update, concurrent writes could see the same value for
-bus->debugfs_force_bit and call intel_gmbus_force_bit() multiple times.
-
-Because intel_gmbus_force_bit() manages a reference counter internally:
-
-void intel_gmbus_force_bit(struct i2c_adapter *adapter, bool force_bit)
-{
-	...
-	bus->force_bit +=3D force_bit ? 1 : -1;
-	...
-}
-
-Redundant calls could permanently leak or underflow the bus->force_bit
-counter, locking the GMBUS adapter into bit-banging mode and corrupting
-the hardware transfer strategy. While debugfs is typically restricted to
-root, a concurrent write sequence could still trigger this.
-
-> +
-> +	*offp +=3D len;
-> +
-> +	return len;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928121940.7281=
-02-1-ramanaidu.naladala@intel.com?part=3D1
+-- 
+Jani Nikula, Intel
