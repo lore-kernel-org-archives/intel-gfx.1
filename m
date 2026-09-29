@@ -4,54 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60B7DCA5FAC
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 21:27:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AA30CA5FA5
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 21:35:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E326A10F0FE;
-	Tue, 29 Sep 2026 21:27:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AuXYWiys";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F2EC10F045;
- Tue, 29 Sep 2026 21:27:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 05DCC438F9;
- Tue, 29 Sep 2026 21:27:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E47C01F000FF;
- Tue, 29 Sep 2026 21:27:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790717223;
- bh=UE/hrsGxz16noEvTsN6oFLNfwwQHiEcByfB5OGcmBL4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=AuXYWiysNAPhhIfNjP8ZYoMzz28wGAsy9MhJUSiWTK+jS3vNbjq+jOkYlmWTNoOsJ
- /UUkdYf29dlXZnmDy77oJ/xeREVywf0mjTpzwC3T+OUXd2XuZaXIryT4LAuObzn7F7
- Vxmwnsmp5jMhmTSNyz8fdAPFvER6OEQsZk3oX0x2CH7TT3UTgYYMX+ZGWU0PEAOs/d
- Q8YFOMcDVgTqBdfrkhID5WApTQMCpeGpNmw8X3juZlznBCn6laxI/HTC3E7vDjLP/z
- VJh8O7o4+ATddfbbW8YqtReTjOAdkij77hcrn0MkmxrS3x8GhXvN/oDo1b/ZXOVJGC
- 2O7a8tEh7Qfmw==
-Date: Tue, 29 Sep 2026 23:27:00 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v3 4/8] drm/i915/gt/selftests: Use drm_* prints in
- aggregated gt selftests
-Message-ID: <arws71LttyyKPINu@zenone.zhora.eu>
-References: <20260828100339.72304-1-krzysztof.karas@intel.com>
- <20260828100339.72304-5-krzysztof.karas@intel.com>
- <apGwueLe3rE7gPLj@zenone.zhora.eu>
- <dnxu2clblnzurzncqpvwztmcmgs6vygq2yd5w6zldcnjhtvtsc@shzi3wcxynvw>
- <aqHOZatceKX5Gljr@zenone.zhora.eu>
- <d6n6pdqhf62m33vvawh2b2ayzsratsoae6n6v57kyjbbrvyius@zs3wyc6jszov>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C69DC10E1F3;
+	Tue, 29 Sep 2026 21:35:07 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC45610E1F3;
+ Tue, 29 Sep 2026 21:35:06 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7628764386663947517=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d6n6pdqhf62m33vvawh2b2ayzsratsoae6n6v57kyjbbrvyius@zs3wyc6jszov>
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fixup_deadlock_scenarios_?=
+ =?utf-8?q?in_the_PMU_path_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 29 Sep 2026 21:35:06 -0000
+Message-ID: <179071770676.221285.12134986391910950503@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260929190147.2886670-5-umesh.nerlige.ramappa@intel.com>
+In-Reply-To: <20260929190147.2886670-5-umesh.nerlige.ramappa@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,52 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+--===============7628764386663947517==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 12:06:15PM +0000, Krzysztof Karas wrote:
-> On 2026-09-09 at 23:25:55 +0200, Andi Shyti wrote:
-> > On Thu, Sep 03, 2026 at 12:39:10PM +0000, Krzysztof Karas wrote:
-> > > On 2026-08-28 at 18:18:35 +0200, Andi Shyti wrote:
-> > > > On Fri, Aug 28, 2026 at 10:03:35AM +0000, Krzysztof Karas wrote:
-> > > > > Move away from generic pr prints to device context aware drm
-> > > > > versions.
-> > > > > 
-> > > > > Assisted-by: GitHub-Copilot:claude-opus-5
-> > > > 
-> > > > what a ride!
-> > > > 
-> > > > While reviewing everything I was thinking whether it would make
-> > > > sense to add an i915_err() like xe and gt.
-> > > The idea makes sense, the question is when to introduce this
-> > > macro. I have the v4 pretty much ready to send, apart from a few
-> > > minor issues I have to fix, but I am not against modifying it to
-> > > accomodate i915_* family of prints.
-> > > If we agreed on this, then we'd have this new macro ready when
-> > > we'd be replacing pr_* prints in other parts of the driver.
-> > > 
-> > > I think it would be worth to keep the series in the oven for a
-> > > few more days, especially when it is not that critical of a
-> > > change. What do you think?
-> > 
-> > yes, i915_* can come later, of course, it's out of the scope of
-> > this series.
-> > 
-> > Andi
-> 
-> I checked again and again these past two weeks for your reply
-> and none came into my inbox, only for me to notice today that it
-> was finally pulled by my mailer client recently. I posted
-> another version of this series, because I was under the
-> impression that silence meant I should introduce the i915_*
-> prints. That version was met with disapproval from Jani as well,
-> so please just ignore v4.
-> Sorry for the spam.
+== Series Details ==
 
-it's also true that I haven't been very active in reviews lately.
+Series: Fixup deadlock scenarios in the PMU path (rev2)
+URL   : https://patchwork.freedesktop.org/series/173809/
+State : success
 
-Are you now preparing a v5?
+== Summary ==
 
-Andi
+CI Bug Log - changes from CI_DRM_19238 -> Patchwork_173809v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173809v2/index.html
+
+Participating hosts (38 -> 37)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19238 -> Patchwork_173809v2
+
+  CI-20190529: 20190529
+  CI_DRM_19238: 268539e75898afc1b1f6d39fae4f34f3faf24313 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9116: 9d4b6ef512b4e2e4d05129c6519313fd13a306d2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_173809v2: 268539e75898afc1b1f6d39fae4f34f3faf24313 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173809v2/index.html
+
+--===============7628764386663947517==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fixup deadlock scenarios in the PMU path (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173809/">https://patchwork.freedesktop.org/series/173809/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173809v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173809v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19238 -&gt; Patchwork_173809v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173809v2/index.html</p>
+<h2>Participating hosts (38 -&gt; 37)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19238 -&gt; Patchwork_173809v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19238: 268539e75898afc1b1f6d39fae4f34f3faf24313 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9116: 9d4b6ef512b4e2e4d05129c6519313fd13a306d2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_173809v2: 268539e75898afc1b1f6d39fae4f34f3faf24313 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7628764386663947517==--
