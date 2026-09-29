@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 004F2CA5FB3
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 18:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83172CA5FAD
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 19:01:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF7E510F03C;
-	Tue, 29 Sep 2026 18:51:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E743910F006;
+	Tue, 29 Sep 2026 19:01:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SIHKfoEv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RAipOS4H";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD38F10F039;
- Tue, 29 Sep 2026 18:51:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5166860261;
- Tue, 29 Sep 2026 18:51:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1BC1F00898;
- Tue, 29 Sep 2026 18:51:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790707882;
- bh=qPNs7Rgi+Iv3ryAPWPYU9WVflP8sBYe+8hX6x7y4Bo8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=SIHKfoEvzuctZnvv9mDmYJc0pCuYcsAe2Ht2WOOohi8uqg3n0XbHXKmWMLp3drukx
- UhQ8pXixl2GFHMVdMrCjl0X0L/rlc/KFtJP0e9V9LXpTF3ShqK+h58Ve9VTjJj2M3M
- 6vkpQGTnrzlY0xsAWICEKq7LsumTU9LHaWyzozbzFOXteWRo8o8bS4mhR37uL2YbiQ
- eMZnI0g5x1cxvktvllb+x7FAHL61elLMzweaLNHK8BSKwzpb4bdqAJCRMTRjI3bijE
- vbV6gAJbamEU0kmexn5ftc3p5ftQsb+ZHBPAs5GGbyLs743nCm1EyqkTWeKnG5QOtR
- JF5R0N23WWzfA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>, Artem Dinaburg <artem@trailofbits.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
- Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 6.6.y] drm/i915/hdcp: Add encoder check in
- intel_hdcp_get_capability
-Date: Tue, 29 Sep 2026 14:50:55 -0400
-Message-ID: <2026-09-29-daily-reply-0012-re-i915-hdcp-encoder-check-v2-6-6@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929031728.88004-1-artem@trailofbits.com>
-References: <20260929031728.88004-1-artem@trailofbits.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6463610F03F
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 19:01:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790708514; x=1822244514;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0+/tvSi1MDXNSAgNR6fmMhG5nOLszHkdDS8hIQKWrsc=;
+ b=RAipOS4HVV/TNE4CjrE2pc7Myzn6HLgZ3MhkuC10ODsjGI4rPnd+ZRme
+ sKbgIAqPXRXWwghC6oMGLhdAiq2kmY9bQGvxkKNryexqHeMrL3z9Yae3/
+ wIf7YwlvVJ/xWxa2Oksd3ajjPLSJ55+U5TH+oLNZQWNewidvtZurbb+Ho
+ HgiAXf54CT56clSGwE4G+e6VPD88nfNONNydXuV9hYvJkmUZzkYHjbEtY
+ BBcrT7yCz80Zb0vYLXk5Rw+8HijEL83WYfa/lTybMcBXDmkCUtr8INc2U
+ dqUQJp0aSy7RqmlKNjJnyRiG8MNwd6r8eO7gYnQXE9FEphtURYM9RUy0Y w==;
+X-CSE-ConnectionGUID: pgbCilhYQfizUpIxEYEamA==
+X-CSE-MsgGUID: +hSbkuHgT/ih9ottryf/KA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90564110"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="90564110"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 12:01:53 -0700
+X-CSE-ConnectionGUID: D1kEWnMySTSiVntVLPf18g==
+X-CSE-MsgGUID: 3an4xjkJRfmnBcAKaN8Xmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="274062216"
+Received: from orsosgc001.jf.intel.com ([10.54.56.63])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 12:01:53 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	vinay.belgaumkar@intel.com
+Cc: dev@lankhorst.se
+Subject: [PATCH 1/3] drm/i915/pmu: Disable on PREEMPT_RT
+Date: Tue, 29 Sep 2026 12:01:49 -0700
+Message-ID: <20260929190147.2886670-6-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929190147.2886670-5-umesh.nerlige.ramappa@intel.com>
+References: <20260929190147.2886670-5-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,28 +68,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
->  bool intel_hdcp_capable(struct intel_connector *connector)
->  {
-> -	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-> +	struct intel_digital_port *dig_port;
-[...]
-> +	if (!intel_attached_encoder(connector))
-> +		return capable;
+From: Maarten Lankhorst <dev@lankhorst.se>
 
-On 6.6 this doesn't stop the oops. The debugfs intel_hdcp_info() calls
-intel_hdcp2_capable() right after intel_hdcp_capable(), and
-intel_hdcp2_capable() still starts with intel_attached_dig_port(connector)
-without an encoder check, so the NULL deref just moves one call later.
+I tried to come up with alternative and lockless approaches
+to make pmu work, but since the perf events are run in
+atomic context on PREEMPT_RT, ordinary spinlocks no longer
+work and forcewake and register accesses become problematic.
 
-Upstream fixed that half in d34f4f058edf ("drm/i915/hdcp: Add encoder
-check in hdcp2_get_capability"), CVE-2024-53050. Its CVE record says the
-bug arrived in 6.7, but 130849f8ec14 ("drm/i915/hdcp: Use intel_connector
-as argument for hdcp_2_2_capable") only moved the deref into the DP/HDMI
-shims. 6.6 still has it in intel_hdcp2_capable() itself.
+Disable perf events on PREEMPT_RT for now, without affecting
+!PREEMPT_RT users.
 
-Could you resend this as a 2-patch 6.6.y series: this backport plus a 6.6
-adaptation of the hdcp2 fix that guards intel_hdcp2_capable()?
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+---
+v2: s/reeturn/return/
+---
+ drivers/gpu/drm/i915/i915_pmu.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 1c3bafda9c70..9ea5626399e5 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -1156,6 +1156,16 @@ void i915_pmu_register(struct drm_i915_private *i915)
+ 	};
+ 	int ret = -ENOMEM;
+ 
++	/*
++	 * PREEMPT_RT has problems with forcewake. Forcewake is used by the
++	 * engine 'busy' event when guc submission is enabled, and to measure
++	 * rc6 residency.
++	 *
++	 * Disable pmu events on PREEMPT_RT entirely to prevent deadlocks.
++	 */
++	if (IS_ENABLED(CONFIG_PREEMPT_RT))
++		return;
++
+ 	spin_lock_init(&pmu->lock);
+ 	hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+ 	init_rc6(pmu);
 -- 
-Thanks,
-Sasha
+2.55.0
+
