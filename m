@@ -4,27 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F910CA5FA7
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 19:56:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90577CA5FA5
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 20:56:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC0DA10F085;
-	Tue, 29 Sep 2026 19:56:04 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF96C10F085;
- Tue, 29 Sep 2026 19:56:03 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1670956625652611686=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 244DE10F0C9;
+	Tue, 29 Sep 2026 20:56:11 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qs6W0L7O";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2666510F0C9;
+ Tue, 29 Sep 2026 20:56:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B225B409C9;
+ Tue, 29 Sep 2026 20:56:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A3F1F000FF;
+ Tue, 29 Sep 2026 20:56:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790715369;
+ bh=egeJiaAABQ6NN/KxfVE7y0aHVwqQk0f06ablB231vIU=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=Qs6W0L7ODxRwl5KzB9FwrQyINYr7k7hSASbeNZeaNn4oxg0yzRCDjlG9vXh0oElPm
+ TU+mCK4lsMfk+TfBefehlWEG6IgNuMEYzooCzfFfArRmnb0mp/TkIvngqEhE6tgHfX
+ Zf7cS1AMMJXpwlhr1h7CKunFIKV59ZYgzgvZ5I0Hdh41+VDUQaH+bInjD+zUBpVoUZ
+ TNsXvzryzPY7A0CuvQtvp15dtF39kDHIXqqocxOGE1TRC8UGj/FcOVaPwKqL1RCuBF
+ jLkCysPHFFC4NYiVswiXu98R5V8B0zFrU2CYDYcMlpvzEsqHrVZv1Z6bH0ncQZW2CC
+ toY5jIwNFu/yA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>, Anna-Maria Behnsen
+ <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
+ <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross
+ <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
+ <work@onurozkan.dev>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>, John
+ Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andreas
+ Hindborg <a.hindborg@kernel.org>
+Subject: Re: [PATCH 1/6] hrtimer: add expiry injecting callback variant
+In-Reply-To: <20260825-expires-v2-v1-1-90411c6217c7@kernel.org>
+References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+ <20260825-expires-v2-v1-1-90411c6217c7@kernel.org>
+Date: Tue, 29 Sep 2026 22:56:06 +0200
+Message-ID: <877bk3ixp5.ffs@fw13>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dg2=3A_Add_per-c?=
- =?utf-8?q?ontext_control_for_Wa=5F22013059131_=28rev12=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jia Yao" <jia.yao@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Sep 2026 19:56:03 -0000
-Message-ID: <179071176377.220833.14280788524594414495@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260630223946.2107382-1-jia.yao@intel.com>
-In-Reply-To: <20260630223946.2107382-1-jia.yao@intel.com>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,230 +69,112 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1670956625652611686==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, Aug 25 2026 at 14:16, Andreas Hindborg wrote:
+> A hrtimer callback may modify its own expiry with hrtimer_forward()
+> and read it with hrtimer_get_expires(). Both run after
+> __run_hrtimer() has dropped the cpu_base->lock, so they race with a
+> concurrent hrtimer_start_range_ns() on another CPU, which rewrites
+> node.expires under the base lock and requeues the timer:
+>
+> - The unlocked read-modify-write of node.expires in
+>   hrtimer_forward() is a data race against the locked write in the
+>   start path.
+>
+> - The is_queued check in hrtimer_forward() is racy with
+>   a time-of-check-time-of-use bug as well: a concurrent
+>   start can enqueue the timer between the check and the expiry
+>   update, and forwarding an already queued timer changes the expiry
+>   of a node inside the timerqueue without re-sorting, leaving the
+>   tree unordered.
+>
+> Timer users which both forward in the callback and arm from other contexts
+> must provide their own serialization, e.g. perf's cpc->hrtimer_lock plus
+> hrtimer_active flag, see commit 4cfafd3082af ("sched,perf: Fix periodic
+> timers"). The requirement is subtle and not enforced; i915_pmu and taprio
+> currently get it wrong. For the Rust hrtimer abstraction it is a soundness
+> problem: safe code can arm a timer whose callback is running, so callback
+> context forward and expiry reads cannot be offered as safe API.
+>
+> Add an alternative callback variant that removes the race
+> structurally instead of requiring serialization. An expiry injecting
+> callback receives the expiry snapshotted under the base lock by
+> value and, to restart the timer, fills a struct hrtimer_forward_args
+> and returns HRTIMER_RESTART. __run_hrtimer() then applies the
+> forward and the enqueue with the base lock held. The callback never
+> accesses live timer state.
+>
+> If a concurrent start enqueued the timer while the callback ran, the
+> restart request is discarded and the start wins, matching the
+> existing "restart == HRTIMER_RESTART && !timer->is_queued" handling
+> for classic callbacks. The is_queued check is reliable here: while
+> base->running == timer, hrtimer_try_to_cancel() bails out before
+> remove_hrtimer() and the timer cannot switch bases, so only a
+> concurrent start can enqueue it, and the start path writes the
+> expiry and is_queued in the same critical section. Thus !is_queued
+> at requeue time guarantees the expiry still equals the snapshot
+> handed to the callback: the deferred hrtimer_forward() cannot hit
+> its concurrent start check, and an overrun count the callback
+> derived from the snapshot is consistent with the forward that is
+> applied.
+>
+> The new callback pointer shares storage with the classic one in an
+> anonymous union, discriminated by a new is_ext flag placed in
+> existing padding; sizeof(struct hrtimer) is unchanged and the
+> classic callback path is unaffected. hrtimer_update_function()
+> rejects timers with an expiry injecting callback.
 
-== Series Details ==
+Aside of the horrible name (what is "ext"?) the whole mechanism is
+creating a false sense of "safety" as the same problem exists when the
+timer callback simply sets the new expiry time without invoking
+hrtimer_forward().
 
-Series: drm/i915/dg2: Add per-context control for Wa_22013059131 (rev12)
-URL   : https://patchwork.freedesktop.org/series/164198/
-State : success
+Also why is Rust special and wants to delegate the external
+serialization requirement to the hrtimer core code and thereby adding a
+boatload of extra conditionals into the hotpath to distinguish between
+the two callback variants?
 
-== Summary ==
+Yes, you found an example for the downside of this design in the i915
+code. That's not surprising because i915 is generally known for ignoring
+documentation and making up their own rules just because they can. So
+I'm not accepting this as an argument at all.
 
-CI Bug Log - changes from CI_DRM_19235 -> Patchwork_164198v12
-====================================================
+I agree with you that the lack of enforcement of that external
+serialization rule is suboptimal. External serialization is hard to
+validate/enforce in general though it's not impossible.
 
-Summary
--------
+But let's first take a step back and look at the larger picture.
 
-  **SUCCESS**
+The obvious question is:
 
-  No regressions found.
+   Why is the base lock dropped when invoking the callback?
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/index.html
+The answer is simply that the callback might and in many cases will
+acquire a lock which is used in the reverse lock order for the purpose
+of external serialization.
 
-Participating hosts (37 -> 37)
-------------------------------
+If you think about that then it's pretty obvious that you can introduce
+a safe variant of hrtimer_forward() which can be invoked from the
+callback:
 
-  Additional (1): bat-adls-6 
-  Missing    (1): bat-dg2-13 
+hrtimer_forward_safe_from_callback(timer)
+{
+        base = lock_running_timer_base(timer);
+        if (!hrtimer_is_queued(timer))
+        	hrtimer_forward(timer);
+        unlock_timer_base(base);
+}
 
-Known issues
-------------
+That prevents the scenario you described in a completely safe way, no?
 
-  Here are the changes found in Patchwork_164198v12 that come from known issues:
+Coming back to validation/enforcement of external serialization. That's
+a problem which has been solved in other places already. Look at the
+seqlock code for inspiration.
 
-### IGT changes ###
+Thanks,
 
-#### Issues hit ####
-
-  * igt@gem_lmem_swapping@verify-random:
-    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@gem_lmem_swapping@verify-random.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][6]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#3291]) +2 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19235 -> Patchwork_164198v12
-
-  CI-20190529: 20190529
-  CI_DRM_19235: f4c2483a5135be957b52ab801f7cae9a250d6989 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9116: 9d4b6ef512b4e2e4d05129c6519313fd13a306d2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_164198v12: f4c2483a5135be957b52ab801f7cae9a250d6989 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/index.html
-
---===============1670956625652611686==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+        tglx
 
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dg2: Add per-context control for Wa_22013059131 (rev12)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164198/">https://patchwork.freedesktop.org/series/164198/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19235 -&gt; Patchwork_164198v12</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/index.html</p>
-<h2>Participating hosts (37 -&gt; 37)</h2>
-<p>Additional (1): bat-adls-6 <br />
-  Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_164198v12 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_lmem_swapping@verify-random:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@gem_lmem_swapping@verify-random.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v12/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19235 -&gt; Patchwork_164198v12</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19235: f4c2483a5135be957b52ab801f7cae9a250d6989 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9116: 9d4b6ef512b4e2e4d05129c6519313fd13a306d2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_164198v12: f4c2483a5135be957b52ab801f7cae9a250d6989 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1670956625652611686==--
