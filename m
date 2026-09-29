@@ -4,99 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC661CA5FA1
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5204BCA5FA1
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:55:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F035110EE99;
-	Tue, 29 Sep 2026 12:54:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UQKntXCO";
-	dkim-atps=neutral
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com
- [74.125.227.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E304A10EADE
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 15:19:44 +0000 (UTC)
-Received: by mail-pj2-f43.google.com with SMTP id
- 98e67ed59e1d1-3a48b349480so254439a91.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 08:19:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790608784; x=1791213584; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=h2+B+TCtU6LhjPX3KEHp5ZhDWyuT2oD8RctAdhdkStc=;
- b=UQKntXCO5cfqim0D/5yZBwy/Gf61jdKONe12aLFZU6o3BbQoOCfXxvDMlhGz8Xx9cH
- U36sCP9Pwc1mbB7EK9DB/UTnXJGAq1KjIf6gUv+UaROPbrEdMY3VRbiR1U5TGgtEfnh2
- vGUDmHR3g7zEDrqUxIbhXBTZRVK0iqWc8ZNFEGwkxrsd+NOSFvQdMgXar65pXh7TK59k
- LXCi4qYbeyXOKg3q9fyZ/BFykO0/U8XGDIAz+FB9jD/qydUMv+g5WE8BvvoILB7y5AHJ
- EG/zzWzWQQz6Wdtbr3joYJonGRS+8EGlu7rZ9glchk74KAOMQ3+CLHmND2ZbN+unOdJU
- 0+9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790608784; x=1791213584;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=h2+B+TCtU6LhjPX3KEHp5ZhDWyuT2oD8RctAdhdkStc=;
- b=L708Qejj7g7xxMqtsFpeXpTrwoOzufkPK+EctNsDiTcEjtkcBby42SwobHYjSKIwTr
- QuzXQDfMVVlHy8lkm6F6WWvHqBe8ii6MeIYK1L3pW9JveQm+2ZjTciVgCVnOU5jRthqf
- s6bmO2GXVb08wkpmi/ECiWD2bZSzMnOnCKFrs+rYq4LD7PHHuFdIspa7upvpFtmNoGK3
- 3RbEcUmLF+vxgfzATDcGEIu9J8h+fwZ4NEpPqIE8raKDcGNGt2M8I3cdTWwtKNOe4KHo
- +fy3OYn5WmxhdloVzajHhMuVnE1Fo50oJB3hTlgoT5lG2NSWzus0qYF92NBdQOYiqaJt
- HAVA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzUmIjx8SAQcNw2TYbHr2jdcH2+AOeLaa30u2fKUZZk3ZlIXxQstfsL8bwuNWsuYIWJb4fGqRyF+AU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJR9MF6U/ihZHnL60tROVt0yKr8ZNL8X610dGx2h7iLqAPLGJy0
- UuZcvOd0NT74L42ISnHTh9NKwtCLWf+dH5h2hg/+YuYTDhKS/Y+DjxMf
-X-Gm-Gg: AYBFou2tj6p2rB0L6VeZHUgjCsx7BZ9EXmYpGm8vx0akPk/3bcSUZe1DqnLxw1IBpjx
- i+Eobvbekxwc+z/y9jg4Q8RC3GnjOhiJcH8LJYhtica1eEf3WWUvoh7Fcfgqlmmrt6bX60NvdBb
- Z5bjNTv6PzcTvjOP7FxCRXkdbcINntX9AMmwT0s8Pn63D4sMiV3hh266XjUtX52jL4LjeavVVrY
- Osl5JYXIE0XlDo0E1evFICx/gphNlgyWb95s3pEGz3waskA0UwYP33VzGvtRUfjx/CJ8oijq+SU
- gnzhBRGcL/YvdH+r0W7nXwRFlBYWNL2V0DhjSjRm+u+zSw1sH6wr1Hc3y2z0ThPepkLZ13Qj+S6
- GPSMQKDuL/sKWDmpyI23rE4i1r9m1tYIcrMlaocXK0GrLcWSVt/prX4bLuRfb56nffNgmVb0gNB
- upU1QbV8rjpd5eKEbEe8ZeXLW0WlHQyaapIJPFuDzPBWa+VhYrC7DD7BJf3ZziuayTdWdHRHpr4
- Lx+PwKfkimiGGF4eKdvnbEuNf6pr76A3cyLufPKSYNF6cQMdo7vOUFHGI4dWEESCeJ35tMxAJOx
- EXpQNU+y5oIIH+E4hI1RQHEVSrpl3KhFDseZZ1JU50ehQMl4NIMMTuuEoNQ=
-X-Received: by 2002:a17:90b:3908:b0:3a0:c20b:2fdf with SMTP id
- 98e67ed59e1d1-3a0c20b3132mr6450444a91.17.1790608784281; 
- Mon, 28 Sep 2026 08:19:44 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a0b9feddd0sm7247965a91.2.2026.09.28.08.19.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 08:19:43 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Yosry Ahmed <yosry@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
- linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
- util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
- offload
-Date: Mon, 28 Sep 2026 23:19:34 +0800
-Message-ID: <20260928151934.2686418-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <arn4xOIxFRD8qY_x@infradead.org>
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
- <arn4xOIxFRD8qY_x@infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC35E10EE9F;
+	Tue, 29 Sep 2026 12:55:39 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC7D10E651;
+ Tue, 29 Sep 2026 12:55:39 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1814792168784519795=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 29 Sep 2026 12:54:31 +0000
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_DP-HDMI_PCON_DSC_fixes_?=
+ =?utf-8?q?=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 29 Sep 2026 12:55:39 -0000
+Message-ID: <179068653924.218638.8287433570744688111@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260929104835.1050882-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260929104835.1050882-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,29 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Christoph,
+--===============1814792168784519795==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> Either way block devices must be safe to be called from paging paths,
-> not just for swap but also for file system based paging.  So this is
-> a bug in the implementation, and not something worked around in the
-> swap code.
+== Series Details ==
 
-Agreed that a backend used for paging has to make progress under
-pressure, and the zvol example was a poor lead.  The series isn't
-meant to excuse a backend that can deadlock; that would still be a bug
-to fix in the backend.
+Series: DP-HDMI PCON DSC fixes (rev3)
+URL   : https://patchwork.freedesktop.org/series/171345/
+State : success
 
-What I'm after is different: backends that are correct but need
-memory to accept a write, where the better policy is to use them for
-cold-page offload when memory isn't tight and keep pressure reclaim on
-areas that don't need to allocate.  Two in-tree examples: zram
-allocates on writes and fails with -ENOMEM, with no fallback, while its
-logical size still shows free slots; and filesystem swapfiles must
-give up copy-on-write, checksums and compression today, because swap
-writes bypass the filesystem.  I'll make that the case for v3 instead.
+== Summary ==
 
-Thanks,
-Matthias
+CI Bug Log - changes from CI_DRM_19233 -> Patchwork_171345v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171345v3/index.html
+
+Participating hosts (39 -> 37)
+------------------------------
+
+  Missing    (2): bat-dg2-13 bat-jsl-5 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_171345v3 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-apl-1:          [DMESG-FAIL][1] ([i915#14808]) -> [PASS][2] +1 other test pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19233/bat-apl-1/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171345v3/bat-apl-1/igt@i915_selftest@live.html
+
+  
+  [i915#14808]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19233 -> Patchwork_171345v3
+
+  CI-20190529: 20190529
+  CI_DRM_19233: ecc5a84be849c400af610cdc613a0274e3b101b2 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9114: 916c79cfb7675ca01607dcd821f8c49d4f633a6f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_171345v3: ecc5a84be849c400af610cdc613a0274e3b101b2 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171345v3/index.html
+
+--===============1814792168784519795==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>DP-HDMI PCON DSC fixes (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171345/">https://patchwork.freedesktop.org/series/171345/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171345v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171345v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19233 -&gt; Patchwork_171345v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171345v3/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-dg2-13 bat-jsl-5 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_171345v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19233/bat-apl-1/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808">i915#14808</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171345v3/bat-apl-1/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19233 -&gt; Patchwork_171345v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19233: ecc5a84be849c400af610cdc613a0274e3b101b2 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9114: 916c79cfb7675ca01607dcd821f8c49d4f633a6f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_171345v3: ecc5a84be849c400af610cdc613a0274e3b101b2 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1814792168784519795==--
