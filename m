@@ -4,28 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0747BCA5FA5
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBE0FCA5FA5
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79AFF10E82D;
-	Tue, 29 Sep 2026 12:27:24 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 821B910E462;
- Tue, 29 Sep 2026 12:27:22 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7305875165618577126=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75EA310EEB0;
+	Tue, 29 Sep 2026 12:43:59 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ItxVnuUN";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7F9D10EEA4
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 12:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790685839; x=1822221839;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=cuM1T8h7bHTj89KMM6sYpPBuNUQ6/HEeTbmta0xoST4=;
+ b=ItxVnuUN0mfOJ1tSGs/2CT8SYoWRWtek4N/dBPEHwmc+fUckbBc6Joes
+ YBMR2l9CnW56PqW65asDr3Yb/Usbq5KsbqowTHiFWoLWcg3kVzIOSQuc2
+ NQt/gnJ7rCR6wbtRH/3cx3DqJctKob1przTVF0hfgud9A1Geak09HQOq7
+ 4v/+tn3XZDtRV1lm6h78Yj1SpLCSFpsITfcnlkQC/QMz6oAQ64D5XSKZp
+ CAti5Rf8kgosKbqeXzryyNc8C+wedWJ1X9gesaLmc1AuGtf7PJSIetmOd
+ DNT6NzlgjfzILy06yueF/3z6Oa+ehiyhlX8roN9qU/2LhsXX4iIXUOL6k w==;
+X-CSE-ConnectionGUID: Nu4btz+IQK+tCdPWzzEMgg==
+X-CSE-MsgGUID: WJpXIr+YRqKH0XgXbKnAhA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90622632"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="90622632"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 05:43:58 -0700
+X-CSE-ConnectionGUID: q5J5CXMlS86MH13bRPDinw==
+X-CSE-MsgGUID: Sj936NYBQUGLdodPxMd0bw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="278569880"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.233])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 05:43:56 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Karas
+ <krzysztof.karas@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Andi Shyti <andi.shyti@linux.intel.com>, Janusz Krzysztofik
+ <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH] drm/i915/gt: Do not destroy uninitialized timer
+In-Reply-To: <DLRRUM4IIQX2.2AYNTH45B6AF0@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260929111259.2359138-1-krzysztof.karas@intel.com>
+ <DLRRUM4IIQX2.2AYNTH45B6AF0@intel.com>
+Date: Tue, 29 Sep 2026 15:43:54 +0300
+Message-ID: <890f98a19e790ab09feb3b990330cd52d82a68c2@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5Bv?=
- =?utf-8?q?2=2C1/2=5D_gpu/buddy=3A_fix_missing_split-undo_on_allocation-sear?=
- =?utf-8?q?ch_exhaustion?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Arunpravin Paneer Selvam" <arunpravin.paneerselvam@amd.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Sep 2026 12:27:22 -0000
-Message-ID: <179068484252.218638.18017084649686069021@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260929105407.484707-1-arunpravin.paneerselvam@amd.com>
-In-Reply-To: <20260929105407.484707-1-arunpravin.paneerselvam@amd.com>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,128 +71,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7305875165618577126==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, 29 Sep 2026, Sebastian Brzezinka <sebastian.brzezinka@intel.com> wrote:
+> Hi Krzysztof,
+>
+> On Tue Sep 29, 2026 at 1:12 PM CEST, Krzysztof Karas wrote:
+>> If intel_ring_begin() fails in live_emit_pte_full_ring(), then
+>> cleanup is performed on an uninitialized timer.
+>>
+>> Check if the timer has been set up, before trying to remove it.
+>>
+>> Assisted-by: Copilot-Claude-Opus-5
+>> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+>> ---
+> How about something like this:
 
-== Series Details ==
-
-Series: series starting with [v2,1/2] gpu/buddy: fix missing split-undo on allocation-search exhaustion
-URL   : https://patchwork.freedesktop.org/series/175209/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19233 -> Patchwork_175209v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175209v1/index.html
-
-Participating hosts (39 -> 37)
-------------------------------
-
-  Missing    (2): bat-dg2-13 bat-jsl-5 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_175209v1 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - bat-apl-1:          [DMESG-FAIL][1] ([i915#14808]) -> [PASS][2] +1 other test pass
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19233/bat-apl-1/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175209v1/bat-apl-1/igt@i915_selftest@live.html
-
-  
-  [i915#14808]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808
+That makes no sense.
 
 
-Build changes
--------------
+>
+> diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+> index 5b986a7687d9..7efdc8d9d8cd 100644
+> --- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
+> +++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
+> @@ -626,7 +626,8 @@ static int live_emit_pte_full_ring(void *arg)
+>                 cs = intel_ring_begin(rq, sz);
+>                 if (IS_ERR(cs)) {
+>                         err = PTR_ERR(cs);
+> -                       goto out_rq;
+> +                       i915_request_add(rq);
+> +                       goto out_unpin;
+>                 }
+>  
+>                 memset32(cs, MI_NOOP, sz);
 
-  * Linux: CI_DRM_19233 -> Patchwork_175209v1
-
-  CI-20190529: 20190529
-  CI_DRM_19233: ecc5a84be849c400af610cdc613a0274e3b101b2 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9114: 916c79cfb7675ca01607dcd821f8c49d4f633a6f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_175209v1: ecc5a84be849c400af610cdc613a0274e3b101b2 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175209v1/index.html
-
---===============7305875165618577126==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [v2,1/2] gpu/buddy: fix missing split-undo on allocation-search exhaustion</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175209/">https://patchwork.freedesktop.org/series/175209/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175209v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175209v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19233 -&gt; Patchwork_175209v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175209v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 37)</h2>
-<p>Missing    (2): bat-dg2-13 bat-jsl-5 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_175209v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19233/bat-apl-1/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808">i915#14808</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175209v1/bat-apl-1/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19233 -&gt; Patchwork_175209v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19233: ecc5a84be849c400af610cdc613a0274e3b101b2 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9114: 916c79cfb7675ca01607dcd821f8c49d4f633a6f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_175209v1: ecc5a84be849c400af610cdc613a0274e3b101b2 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7305875165618577126==--
+-- 
+Jani Nikula, Intel
