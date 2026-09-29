@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B578CA5FAD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F0ADCA5FA5
 	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 19:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 008DE10F04C;
-	Tue, 29 Sep 2026 19:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF69410F047;
+	Tue, 29 Sep 2026 19:01:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="frTny/Cu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IsTRCDEV";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2AC610F006
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F56210F047
  for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 19:01:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1790708514; x=1822244514;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iLGnG0G7MNQljCMe2DDTdilJNq4gepnrABEmEM3BmKc=;
- b=frTny/Cu3bUNChXmvGkUevyI2zgNHjcjF282m1AZKBTPS031+6EeCeKB
- TSWVpXx2gA1u1RoKPix3RguHMFqCpxz8ZAcWccXjYe3GrPqzbYfXTjNg+
- sJWNDTAtg0JACuwpXSbHrEdTq+2Q4dBbuOTWx1DMmiI2XT0K8eqfZ5HyM
- rgW1vOWTnHpWyxcj7GMkNkgl5WxEQ2mjX8jNBJF+Kyk8KmiylryvdGimV
- BVUQvxHJatcM9yGADSu2quGdwjE75GIumdMgBdWChYke86S3m9vAU58ii
- aUiwdssxRVtzHSJz2kf+p/8dWkaMxdC6yCH2nSkPk5jpDkdvLJ4V9C7L3 g==;
-X-CSE-ConnectionGUID: lK9104IcQh2BtWNX15AAXw==
-X-CSE-MsgGUID: Xap+b/8SQsSjp0KpE/iVoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90564114"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="90564114"
+ bh=v2Z98pVSjp1/0TZN8uXaJZY254nJuFWe+zIdEFregIo=;
+ b=IsTRCDEVNi7YLcoYSP+eu6PWPj+Q/6S7hueo3MYFHOOvHsTlduU+mZLW
+ 2qbZkGbPjQQSppTdBSD2PIkMZU/ehV6JDRzKwzDogyNWE0Fr+o40I2vG/
+ 37TzJbUnFbGETck5kupksURzs4xHI0jPx1qUTcWpoyc5erVzZyyMEbwpN
+ O3VXUSpQ61PeOFNxIIX5qRbaOTpITPICIVJohJ2C6ZGZHd+uoX9lFmFYf
+ CuJ7YTTBjUA/LtkF41KQYy8R4YLXQoxBRHpWn5XYBfLQkCtY3gTGD39Fu
+ Vkv1NUavkbQJk7owBPago9/mOEswtOxypiNK+omcps0WxLsHKok6NwUpp w==;
+X-CSE-ConnectionGUID: OKXKYy8SSbK/ioF1precWA==
+X-CSE-MsgGUID: HPH/xrlPQ+2ZOQsujj9wNg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90564112"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="90564112"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Sep 2026 12:01:54 -0700
-X-CSE-ConnectionGUID: LtS4+Ez1QByvB/lhm6fpBQ==
-X-CSE-MsgGUID: vzIF/CUxQPuEfhgw5ennHQ==
+X-CSE-ConnectionGUID: J0DCP/c0TMa60Qp4xfNp9g==
+X-CSE-MsgGUID: 6kTSkrwXRbSl3KXlrl42Aw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="274062223"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="274062220"
 Received: from orsosgc001.jf.intel.com ([10.54.56.63])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Sep 2026 12:01:54 -0700
@@ -45,9 +45,10 @@ From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	vinay.belgaumkar@intel.com
 Cc: dev@lankhorst.se
-Subject: [PATCH 3/3] drm/i915/pmu: Use a delayed wakeref put in get_rc6()
-Date: Tue, 29 Sep 2026 12:01:51 -0700
-Message-ID: <20260929190147.2886670-8-umesh.nerlige.ramappa@intel.com>
+Subject: [PATCH 2/3] drm/i915/guc: Use a delayed wakeref put in
+ guc_engine_busyness()
+Date: Tue, 29 Sep 2026 12:01:50 -0700
+Message-ID: <20260929190147.2886670-7-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929190147.2886670-5-umesh.nerlige.ramappa@intel.com>
 References: <20260929190147.2886670-5-umesh.nerlige.ramappa@intel.com>
@@ -68,47 +69,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-get_rc6() has the same runqueue lock deadlock as guc_engine_busyness():
-it is called from the PMU callbacks, which perf can invoke from the
-scheduler with the runqueue lock held, and intel_gt_pm_put_async() there
-can wake a workqueue worker via try_to_wake_up().
+perf can invoke the PMU callbacks from the scheduler with the runqueue
+lock held, e.g. pmu->del() via perf_cgroup_switch() from
+finish_task_switch(). guc_engine_busyness() drops its GT wakeref there
+with intel_gt_pm_put_async(), which lands in mod_delayed_work() with a
+zero delay. That queues the work immediately and wakes a worker via
+try_to_wake_up(), which then deadlocks on the runqueue lock we are
+already holding. The put also happens under guc->timestamp.lock, so the
+stall blocks any concurrent __guc_context_update_stats() too, and the
+machine hard locks up.
 
-Use intel_gt_pm_put_delay() so the deferred put arms a timer instead.
+Only reachable when a concurrent put drops the refcount to 1 inside the
+get_if_awake()/put_async() window, which makes it rare and load
+dependent.
 
-The remaining async puts in atomic contexts (hrtimer, tasklet, irq_work,
-G2H handlers) cannot run with the runqueue lock held and are left alone.
+Add intel_gt_pm_put_delay() and use it with a 1 jiffy delay. A non-zero
+delay takes the add_timer_on() path in __queue_delayed_work() instead,
+so no task is ever woken from here.
 
-Fixes: 07779a76ee1f ("drm/i915: Mark up the calling context for intel_wakeref_put()")
+Fixes: 77cdd054dd2c ("drm/i915/pmu: Connect engine busyness stats from GuC to pmu")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16984
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Assisted-by: Claude:claude-opus-5
 ---
-v2: Reword comment in code (Vinay)
----
- drivers/gpu/drm/i915/i915_pmu.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h         | 24 +++++++++++++++++++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  7 +++++-
+ 2 files changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 9ea5626399e5..0ebf1620519b 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -229,7 +229,16 @@ static u64 get_rc6(struct intel_gt *gt)
- 	wakeref = intel_gt_pm_get_if_awake(gt);
- 	if (wakeref) {
- 		val = __get_rc6(gt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+index 6f25c747bc29..24c8b014864d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+@@ -72,6 +72,30 @@ static inline void intel_gt_pm_put_async(struct intel_gt *gt, intel_wakeref_t ha
+ 	intel_gt_pm_put_async_untracked(gt);
+ }
+ 
++/**
++ * intel_gt_pm_put_delay - release the GT wakeref, deferred by a timer
++ *
++ * @gt: pointer to the gt
++ * @handle: the handle returned by the matching intel_gt_pm_get*()
++ * @delay: delay, in jiffies, before the release is processed
++ *
++ * As intel_gt_pm_put_async(), except that dropping the last reference arms a
++ * timer instead of queueing the release immediately.
++ *
++ * intel_gt_pm_put_async() ends up in mod_delayed_work() with a zero delay,
++ * which queues the work straight away and so wakes a workqueue worker through
++ * try_to_wake_up(). That deadlocks if the caller already holds a runqueue
++ * lock, since try_to_wake_up() then tries to take it again. Callers which can
++ * run from inside the scheduler must use this variant with a non-zero @delay,
++ * which takes the add_timer_on() path and never wakes a task.
++ */
++static inline void intel_gt_pm_put_delay(struct intel_gt *gt, intel_wakeref_t handle,
++					 unsigned long delay)
++{
++	intel_wakeref_untrack(&gt->wakeref, handle);
++	intel_wakeref_put_delay(&gt->wakeref, delay);
++}
++
+ #define with_intel_gt_pm(gt, wf) \
+ 	for ((wf) = intel_gt_pm_get(gt); (wf); intel_gt_pm_put((gt), (wf)), (wf) = NULL)
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 788e59cdfac9..32d722c378e8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1361,7 +1361,12 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
+ 		 */
+ 		guc_update_engine_gt_clks(engine);
+ 		guc_update_pm_timestamp(guc, now);
 -		intel_gt_pm_put_async(gt, wakeref);
 +		/*
-+		 * Perf framework may invoke this from the scheduler with the
-+		 * runqueue lock held. If we are the last to drop the reference
-+		 * here, then we cannot use intel_gt_pm_put_async since that can
-+		 * result in waking up a task from this context which would try
-+		 * to re-acquire the runqueue lock. To avoid such a deadlock,
-+		 * defer the put on a timer so that waking the task can happen
-+		 * from a timer context.
++		 * We are reached from the perf callbacks, which perf may invoke
++		 * from the scheduler with the runqueue lock held. Defer the put
++		 * on a timer so that it can never wake a task from here.
 +		 */
 +		intel_gt_pm_put_delay(gt, wakeref, 1);
- 	}
- 
- 	spin_lock_irqsave(&pmu->lock, flags);
+ 		if (i915_reset_count(gpu_error) != reset_count) {
+ 			*stats = stats_saved;
+ 			guc->timestamp.gt_stamp = gt_stamp_saved;
 -- 
 2.55.0
 
