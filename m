@@ -4,88 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4F0BCA5FAC
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E2BFCA5FB1
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C8A110E96F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACFB810EE92;
 	Tue, 29 Sep 2026 12:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="cyuIbM5N";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESq97FFa";
 	dkim-atps=neutral
-Received: from mail-dl2-f23.google.com (mail-dl2-f23.google.com
- [74.125.229.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE22310EC6F
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 03:17:33 +0000 (UTC)
-Received: by mail-dl2-f23.google.com with SMTP id
- a92af1059eb24-144efd1ea76so2133463c88.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 20:17:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1790651853; x=1791256653;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=FsP2Z39yDHYgidPq7LJCuoklm/2VErUU9c6HnTD+Pa0=;
- b=cyuIbM5N25lc9nM9XWo+Qir6olmu9J8Kd/pL2X1BOfgpPkX4JguOF5xlXFWRz2mWzs
- U4HfxsG9Nc6BQ1OGyzty0DOnP7o2qha7yxC6z2voepWEHdGXcGj5wq5iwcSHuO+nonk4
- pdKFfMD+4WNgLVPY+GeTKIbDEyHYTxyK8OILFjpE3RY9r995195lPT/mcAqafvffwdOm
- oSTLR5ejfIUoDBnJc4Tzdd1jaUCuWlhBWLQBDwQ3/te0zV0Wpd91+FuiDwKI4AjunXoQ
- Oqjx3cvMGhT+APKkbTAFVOIELB0lOKGOvg16gejUOd6qXQTsTrIF+ecfec2kxqX2hm3P
- ax5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790651853; x=1791256653;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=FsP2Z39yDHYgidPq7LJCuoklm/2VErUU9c6HnTD+Pa0=;
- b=ZD4nGrDddA7joKpLwaoGRCnyYeNNko1xeIvA+IYBFspD03289RxMEKsSt2Yw1pVqVq
- dQGYz7Q8EK97Tk6Ssn3MIK4ebguCwNzthsjcRr6efb2BOBoGyHGGjz8ZU14KDlVXgrMZ
- y37eE7uFj5NTwixaSzAPzoY/mr/z1CjQxaz8t5+JaflGdQaMY9JFVlsoUSey5eXjwh5p
- C9kopcNXjfU9SUvJamOF0/f6MIKuCpTiz0JUygsIeVaF2pDhlnKWzWIZi9BHRJhHSZ3T
- ZmpbbSUms49OnSK6oTPQbKtu5ZkMgaYBNxElIac8bxuhMWzR62uP/lW5L4R0S6qVVg5n
- kL2A==
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92D9010E1A1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id ACA6B601F9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634F81F0089A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790641666;
+ bh=APJhL/UXcBCjjwICTLFT+qLin1KDXiRR0y2N5bPp8T8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=ESq97FFaS8q6O+WGq8mTMUSToYKUb+XzvsNnBGTw4Yfq//3liXu2B3bAv7bcygdli
+ EcHwpI4uM9pG+PUVngoWR6FzLO0tgC/0cKz935SPY0E8pLtZbxVA2GkK9LZprUpqw2
+ kp586WFL9UgLZZQwTNyhbLUWzYUgkY8T2hW91Gxa2Jj7QLSxcnI/egjRJOFsyE6zTH
+ MQitmOsQu/01PuHkjjIBs3OQA+lJn8aPHg151owirTWk+5lo2DtlA/4bwfsWrrPey4
+ MOb1YDPRUwN4TweCY78GvrHPfK0ZNR7urK4fizgTgf4M+q8ttD/pIntwgzWSW9hTmc
+ eAfxlQdMmxqdg==
+Received: by mail-ej2-f42.google.com with SMTP id
+ a640c23a62f3a-c2da4eea067so305553566b.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 17:27:46 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBxr4cvb9z2vJ8VliOmt3Sj+WcR1RhOuM8ThtNF8hvGHXr3E0iM/vJs8B+Fq+gF5bPiWXuOLpvLV08M=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m/YH0RK1xpraRKg6YVX0FC0SczEZL2ONSb2jNRKRF6iIFI6Oxy
- xyUXN4VuK4RpDf+HJzWHPz8by94umRWY3BhtrKIcUyP7BdrrsKLfAjLDhNDXM/AheXw=
-X-Gm-Gg: AYBFou0OS3iglKfaQIVIm2acFiHpHAD8y8l8/+9EJG9vyoLKZ9CjxcYhsKcnBlBpsJ8
- 59LavhF8uPL8QdznW/+Kj0VuI9dFStvX/iyuEdzJZCI8IK5Gq1wB9CG6zDgP+0ybNGsp2Tv19Qk
- 3uRClAp+0uSJZnEKVUHGHCP/jrBxMUs21CQIKd+V/PoMEMw3YK0pYQVQUD5p056Ok5PmfgrMNhy
- KoR+OzUVx+8ZqtwPdKjgxxD1NWnO9QHn0FOYsEJDyCcm+XyvSMzWWM6YBLRvs+cs2ld7Z5njQbQ
- f4HxciV+DltaPxBAGS8ymO4pEZ4crUmMo4145C4+OhOiZB9WbypBBvk6LRReZY5nhW0Jf8GLELb
- yuCho02PaZz9gpJcRKnh09oEgdql27PKGV42rbgkMZakefyrjCARkc17iPUWYvr8qUxsPaTSDns
- uutUFqQDiwNX22/PYQSDxUsHmxvc5XpO57JYtky6x3OZeXShaiWco6u9zViqC2rSr/u4Ks03mvB
- NXzjqXmostgKIfxjW1zTo8yF/aBqRyLCuMhsb9TjNeTgwTY8+9Cy2cfPV3jumI4dyq27SMTZhpm
- cUaG4Q==
-X-Received: by 2002:a05:701b:21c7:b0:143:46a6:b01f with SMTP id
- a92af1059eb24-146cfec8e21mr13180519c88.31.1790651852851; 
- Mon, 28 Sep 2026 20:17:32 -0700 (PDT)
-Received: from localhost.localdomain
- ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-145ad9e097fsm31321186c88.13.2026.09.28.20.17.31
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 28 Sep 2026 20:17:32 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Suraj Kandpal <suraj.kandpal@intel.com>,
- Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
- Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org
-Subject: [PATCH 6.6.y] drm/i915/hdcp: Add encoder check in
- intel_hdcp_get_capability
-Date: Mon, 28 Sep 2026 23:17:26 -0400
-Message-ID: <20260929031728.88004-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+ AKwUvBwEnUO/kx2NuvVVZlYFFaBfgEoCYcnskGGSmyuM+x1zoTujHGh9zB1YMQsns1DHx4lTPLLvdNnxYRM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m2lyceHbCjK3Cb7wniR9Odx1f3czMoumTbHWBjtIBlAkFKZV/p
+ UKOkH1iWtUKiSPCVmfQIQidNgsY800S18FGP/1mLO6BQoX+4yisczJftQnGdYkZQqAoH4FosXK2
+ AnTM3kjVvi1+m4pnNxV8ngdtGmDq/ZL/ZTo2E1UTpSQ==
+X-Received: by 2002:a17:907:a909:b0:c26:1649:47b4 with SMTP id
+ a640c23a62f3a-c2ac53fbdb4mr1170576266b.42.1790641665270; Mon, 28 Sep 2026
+ 17:27:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
+ <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
+ <20260928151924.2686290-1-matthias.goergens@gmail.com>
+In-Reply-To: <20260928151924.2686290-1-matthias.goergens@gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Mon, 28 Sep 2026 14:27:33 -1000
+X-Gmail-Original-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
+X-Gm-Features: AclHuK_oifA42INPrgsCc_iqlMTCQtFcDVPMyqJSWfGYorE6tGAaJtv8iXHRTRc
+Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
+ offload
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
+ Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+ Karel Zak <kzak@redhat.com>, 
+ util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 29 Sep 2026 12:54:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,67 +93,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+On Mon, Sep 28, 2026 at 5:19=E2=80=AFAM Matthias Goergens
+<matthias.goergens@gmail.com> wrote:
+>
+> Hi Chris,
+>
+> Thanks for resolving the conflicts yourself and reviewing it.
+>
+> > What is the high-level user-visible impact of this series?
+>
+> Being able to use more interesting swap backends and logic when the
+> machine is not under memory pressure.  It is much easier to write a
+> swap backend that may occasionally allocate memory than one that is
+> guaranteed never to, so today such backends are either unsafe as swap
 
-[ Upstream commit 31b42af516afa1e184d1a9f9dd4096c54044269a ]
+I actually don't know of a swap backend that absolutely will not
+allocate memory on swap out yet. Some backends allocate more than
+others. Because the proactive reclaim can write to the non-offloaded
+swap backend. That brings me back to my original question, in what way
+this series helps.
 
-Sometimes during hotplug scenario or suspend/resume scenario encoder is
-not always initialized when intel_hdcp_get_capability add
-a check to avoid kernel null pointer dereference.
+So the answer seems to be that previously, some backends were unusable
+by swap, due to possible memory allocation. With this series, those
+back ends are usable for the proactive reclaim now. It is a 0 to 0.5
+improvement because direct reclaim can't use it yet.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240722064451.3610512-2-suraj.kandpal@intel.com
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and drm i915 maintainers,
 
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2024-53051. It rejects the HDCP capability query
-when hotplug or resume left the encoder unset.
+> or ruled out (btrfs, for example, refuses swapfiles that are
+> copy-on-write, checksummed or compressed).
+>
+> > I am curious: if we never run out of swap file space on the
+> > non-offload swap area, does that mean we don't need this patch series?
+>
+> No: running out of conventional swap isn't the point.  Without the
+> series, any active swap area may be written under pressure, so a
+> backend that may allocate can't be used as swap at all, however much
+> conventional swap there is next to it.
 
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-The code change is identical to upstream.
+But proactive reclaim can also use the non-offload swap area. So if we
+have plenty of non-offload swap area, both proactive reclaim and
+direct reclaim can use that non-offload area. The value of this series
+isn't apparent. If you don't have a traditional swap-capable backend,
+then your non-offload area is zero.  That is considered a special case
+of running out of non-offload swap area: never having a traditional
+swap area in the first place.
 
-Could you please queue it for 6.6.y?
+>
+> > However, direct reclaim can use both types of swap areas.
+>
+> In v2 it can't: only memory.reclaim, per-node reclaim and MGLRU's
 
-CVE: CVE-2024-53051
-Upstream: 31b42af516afa1e184d1a9f9dd4096c54044269a
+Sorry I meant proactive reclaim can use both types, nothing constrains
+proactive reclaim.
 
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
+> debugfs eviction may write new data to an offload-only area; direct
+> reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim may not.  But I think
+> your suggestion to flip it round is closer to what I want: mark the
 
-Thanks,
-Artem Dinaburg
+Flipping it around might provide additional benefit. I know some users
+maintain off tree patches to turn off zswap on the direct reclaim path
+exactly because zswap might allocate more memory before it can free
+some. If the kernel can be smart about it. It provides additional
+value to the status quo.
 
- drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+> areas whose writes may allocate, and keep pressure reclaim away from
+> those, rather than tying it to what started the reclaim.  I'll work
+> that into v3, together with Kairui's suggestion to build on the swap
+> tiers work.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index f377c4484e1857..f7987fb90bb1ac 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -142,11 +142,16 @@ int intel_hdcp_read_valid_bksv(struct intel_digital_port *dig_port,
- /* Is HDCP1.4 capable on Platform and Sink */
- bool intel_hdcp_capable(struct intel_connector *connector)
- {
--	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_digital_port *dig_port;
- 	const struct intel_hdcp_shim *shim = connector->hdcp.shim;
- 	bool capable = false;
- 	u8 bksv[5];
- 
-+	if (!intel_attached_encoder(connector))
-+		return capable;
-+
-+	dig_port = intel_attached_dig_port(connector);
-+
- 	if (!shim)
- 		return capable;
- 
--- 
-2.39.5
+Yes, I feel that cluster-level marking might not be needed, you can
+remember which si has the offload flag. However the per cpu cache
+needs to know which context might require using a different cached
+cluster. That is the trickiest part. The rest of the patch is just
+enough plumbing to preserve whether the swap-out context is proactive
+or not.
 
+Chris
