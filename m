@@ -4,39 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D516CA5FCB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADAF9CA5FCC
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:17:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E71D10F64D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0574410F64C;
 	Thu,  1 Oct 2026 12:17:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iSG5PXXs";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="e5YpwPeH";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="e5YpwPeH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3D4510E029;
- Thu,  1 Oct 2026 11:24:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6B58D4062D;
- Thu,  1 Oct 2026 11:24:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A9C91F000FF;
- Thu,  1 Oct 2026 11:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790853862;
- bh=E2dd2FaoT8IGI/PmgsNFfX51uTun/lYmybhUFgOLuQg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=iSG5PXXsSQzGXjfn20lgjsoWKzQYmPp7ZZXFI6SGrx91yr02VUHV298N5BBJlMHaP
- M9ZYf/JJLZ9V8qfBwvqO39KJ8+pNUBetBcscChkH+0df5TkZ2sUcFBudzEgRioe8yb
- SSkRXj8/C/QKoSKPE6PW6Q2KDh9nZ+k4kuF1lqoDkQ0AIPD3Wb5f0fv4N/DCMAQq4z
- R7kwBsOJxrzykRLowKMFHGd4yy52IjUUPzYvPJjS5LMo0p5dAUpW9qrXPHDQCcdIJT
- g69Nx3deHliOYXzfa8TMAC4jPCvHeac6QoZcwkh6WGoSh+fwx0mvq3d2tEJx9NgDLq
- bPMwFw16qyx8Q==
-Message-ID: <28b5590b-e2e2-4eee-ac7b-c5c402822a24@kernel.org>
-Date: Thu, 1 Oct 2026 13:21:51 +0200
-MIME-Version: 1.0
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011036.outbound.protection.outlook.com [52.101.65.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD95610F1F3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 17:46:53 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=JwiS2CIGnOkUV+AZMoeIIiArw3Q+f+CWoy77vL+I6EUZy9uApE3RLTRNfPjt8Vw+6Gfeo45mBBHTdkI3HyLRa8kUdCZIokvaCCc7/RhY5G6Wl7ZpY7VZgLR6yo9E0rM7v3RjCQi6Oyqg6FdRTPal2MrVqAgl2U32tsLC0UinugBKo8GROCRr3Ou14xjlH4184F3rPxkCpCduiOHjHThHUUPUjpuOcdLcUNmbeq6+dHyfg6wTzbgy8+20r4FmhwIpeNLTMejkF16CZCcHJDw4+ncB19PvNIs4P+2QjW41HvnVZtWACPxnkqRvyFpMSmEmlNxo1SBiHnwvPWogSaPaMA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9aEn4ubSlfZC8d5zvTQtfBiiaBLSDPSceR3sArTbNzQ=;
+ b=HfbfXNDEQN4ttV2I5UHEqYbL201TEUR6a50q5exuAo52Ht83TOj+Za8wv9kzDcMCIERs/NQr6EwI99BoTETuglQ520LwSHXkS5t8oNsNP1XqPIkvyd/WNCW4j8UTey9Z85bSSlysSkek+0aUIx5MnPpEzzk1Ntj/41EHXmovkHmmsejeipEmhedZw4lQTI5mn3X8cV97kUSf/vVApGGT+UCgC0b7C57/JLHDT6va4L9oS3Pkf/oxc5GVleF/fYlJgnLOdBsv6JX2XnwD9Pv65JEkMFQ2URS1jCSDY2H/Mp00FVAysO7QFdi8hPeC0Q6jxz01GptsfuMAhw2TZDJ0zg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9aEn4ubSlfZC8d5zvTQtfBiiaBLSDPSceR3sArTbNzQ=;
+ b=e5YpwPeHK7pAtQ/qb0k69OTcEWf/KbpXCCJPLXQkuM8RXGXpBhD/XPcWItkbKTshWp5HIMPueTjwLWHAXHn4t9PsGA361buN5J/XU1M89pp9C/PNyWjkcNsKAMkkyZGxuuGzBHmaWDRIw9Bj2+WXSKzelCztognoPierPFf1d6w=
+Received: from DU2PR04CA0358.eurprd04.prod.outlook.com (2603:10a6:10:2b4::31)
+ by PAWPR08MB9053.eurprd08.prod.outlook.com (2603:10a6:102:341::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Wed, 30 Sep
+ 2026 17:46:46 +0000
+Received: from DB1PEPF000509EE.eurprd03.prod.outlook.com
+ (2603:10a6:10:2b4:cafe::66) by DU2PR04CA0358.outlook.office365.com
+ (2603:10a6:10:2b4::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 17:46:46 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com;
+ dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF000509EE.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Wed, 30 Sep 2026 17:46:46 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kfkl2k50yIYjdGeMbUiIF0rrLLmt5/RkXdUnQVABHxYJT7Eh5OTIl9ZObXkohhFG/096DXxPKea0hK+UdBVNlB+rbDP7uCbeg8t2jb/PojZQarJ1Pq7hFRj0NDZ/5dm1E/3ESQk9QjWSDqa9mIaODPbhxpXkrbMBZ0+WsboP9vwclEhC1h2qhT4yqozVlGZgxkbrd54IDCGcrwprbr42T7K9hqSI3+VoDRa6hY9eBZf2laSJhfFIzeUiEs48q9IcvMZL21RmgNbsMoEa3eXqYx0EqNIMxVO/US3fFjvorKO4EOKTZ1R3TnjECWby5jX2YlQw3vwCGKR0YzXImFfEBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9aEn4ubSlfZC8d5zvTQtfBiiaBLSDPSceR3sArTbNzQ=;
+ b=ZsggRuyxLjcd8+2f4JXPpiWJb7z/RdwMlc/1OsaKp3QfGH+7efVgUS7TRQ08hawPnxT9HZf0Io06NQwMx7j+vsSWq5URWBJVw9sLsLR2GraphdNuJscW6zflIaCHH/VRlwWOAb1g57Q3XS51Vg4QO4Ae8jm2ddAN89NCXmxeHIIrXnrbqSmZpUAe8CqLiabrAa9ZMZduVNzTwW8sqCtOIDiRW3qj1eNCtci7hVWc9hoDkgcKRT8lpEKnTS4wtgDGyRHQpTnF3mH5aMVZT0kPlClhF0tYKmwGQyNzhYcm+Bgezg9a0RlXWmcc2WOVk9GbmrodsgUUfb4Bt15Ani7PBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9aEn4ubSlfZC8d5zvTQtfBiiaBLSDPSceR3sArTbNzQ=;
+ b=e5YpwPeHK7pAtQ/qb0k69OTcEWf/KbpXCCJPLXQkuM8RXGXpBhD/XPcWItkbKTshWp5HIMPueTjwLWHAXHn4t9PsGA361buN5J/XU1M89pp9C/PNyWjkcNsKAMkkyZGxuuGzBHmaWDRIw9Bj2+WXSKzelCztognoPierPFf1d6w=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
+ by GVXPR08MB11787.eurprd08.prod.outlook.com (2603:10a6:150:316::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Wed, 30 Sep
+ 2026 17:46:10 +0000
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0472.012; Wed, 30 Sep 2026
+ 17:46:09 +0000
+Message-ID: <872cb298-8187-41b9-9553-b0db8ce0557d@arm.com>
+Date: Wed, 30 Sep 2026 18:46:04 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/9] drm/i915: use hw_pte_t for PTE range callbacks
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+Cc: usama.anjum@arm.com, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
  Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
@@ -91,64 +139,67 @@ To: Muhammad Usama Anjum <usama.anjum@arm.com>,
  <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
  kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 4/9] mm: convert PTE table entries in ptep_get()
+To: Anshuman Khandual <anshuman.khandual@arm.com>
 References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-8-5670b8cb9059@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+ <20260922-pte0-v3-4-5670b8cb9059@arm.com>
+ <dhokijjou3rh3poqnqqpyoyac7wrqeprl4vlhzqokvh4lgjyya@g5hwn7sve3uw>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260922-pte0-v3-8-5670b8cb9059@arm.com>
+In-Reply-To: <dhokijjou3rh3poqnqqpyoyac7wrqeprl4vlhzqokvh4lgjyya@g5hwn7sve3uw>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PA7P264CA0519.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:3db::14) To VI1PR08MB3421.eurprd08.prod.outlook.com
+ (2603:10a6:803:80::16)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|GVXPR08MB11787:EE_|DB1PEPF000509EE:EE_|PAWPR08MB9053:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a19c08c-6695-4268-362e-08df1f1acc0c
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|23010399003|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original: l9hI3Oabjw6gk2JG4lKodRzavQcorcEJkMoiVGYQoSx+pVgXjpBAlCH28YVA/H2bcu8jFMcs8yxnXb7xuyR2ZeeuN3A+u+X5jWuxffvkJQbZsvGB8tb2uBFZcMGLiivoy9dPd61bi2sHr35UxZvCyrTIrPQ76+Sh2sG/3DyjHP+QMizypilAoFcP8nV/cWA80tumvBfHgDXt8s0K5GgeCvYY30O1n0DPnxNUBEBPK+clJf86c/ecxBanrf0WDwK5w1+ohTRBoty/hYdwebuCRhj3cWPqashM4L0j6hDkKLqyQwS4J0YSQA/fplSLcEQGX1nPD6kXh+XgqZ6u1kmMaCT0thxOi//qNQRgYxJwV7Tww3rnybN+1/5+/OZFh3zTQRTc37nGRDbROuSbe44gV3OlKhLbhjydQHt9rXpzeKHFAxCsX4ymZEQn5KfvB9SPdu1nsJM5tQjBQIyHn+Ax5Lmxko0RWGD8vb4+F3SUxwt4u0CysC7ovuOkCU81v7Rv7a3BNzVKZn6M3zRo4+hWZaMuHrUz1Fk81k6aU40s+kApEGWtVaan+h7nng4xRstkSkwPCfXrCT6XRLfHKHjpddNUzRQL84YDM4N29vH/K1BYa1Hyqiiw1Z6rGf4ABzjRiNlIyrEPDqwbJOjoy3McCnuETTq+P+jtnn0aqiqe/oE=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: eoqglAgi1nBFmowgDYlmh5NsECyYCBBi4iKTD9HbyKVulUPH7OOZZLsafvPdLMO0oGoyPr7qaWHY2xesx2OQgVrH8JjZWtRk+t2XFLls+miJxEpk/QNUHsdCTIVRZIEYchd2GxPo17AQbM8nOhpZGYr16kOEfKUAasNgX6hcSVq8VsP38DSl9e0Y2dXy4RuwwYxY7Q7tBFLpU23WrT+9OyoCvb2Zu+xtx9O6NODp48Vj6lwcxGV6VqlXLdLC+Am5PnyTIMZsyGsZpqGmVHqTEhQOsvasmM9HQmSiTCySlMCmtES5hRd3FveryCz/uei0/g82wRy4F+uBe1UTxz5Qiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11787
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB1PEPF000509EE.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 99ea4608-baf6-473c-408a-08df1f1ab5ff
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|36860700016|23010399003|376014|14060799003|1800799024|35042699022|82310400026|22082099003|18002099003|10067099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: M9psLUbm67Gle7zWN7Mv5g2T1S2+5/Aj31RAA8Wb249+xK8m37LW7a2HOJ873nKuNl964dlF050bXvIC4ICTsVyMS/cNmuacIDoNpTlY2Pc01MxboOlLbQNwDqM2bzpx/GIO14R3b+f/qoudBKlg7S8LL34FwdbnH7vx4/TFtMpzpS5MU9VrxVq0bdywmLxLlfpyK3wwTj3vNkeM6Rs0q1OccW0SkH07VeQsyoveU3aOaPN9DtjzWDvHk/6YNrTdBiexQ4QuJFeocM5Pgmn5nWXxnSHlTyfF00ZSVnoJuHwTQojt6BRn14Fq0Slzyq/Zq1aRtICORrSM8phBVvcQzs27x9iK/LfZRKxDRm4toeWD4OWmhRUFjo0FqHIdRN2B+I6Y8J6skPmKk0PTzsld8WGw3QyF8XOcwEfiLt+TLIvZnGIyA3B3WF/MC/Ai+yTHRsGIFgD4z7UgNa0Rd1ZhMP7YdvXMzMu6tYUSe4+W3zSMnaH3qfr7lxQbI/5BI0owLcH9NmR3obF4WFErn38CmqELIG35z0ghMJyHZxMtyRkJnAAgp735rbWVW15ULzVhVgXLGmdnX4QySA85XyyiEGA6W7UVKkDrSYtCn4agfMknhzXc4tnv+XvkhMI5xbWvz9Cw3cu2vUr3M942ognYwysfWeHh6Sdl7j0XyS2+DhkLhYDdqihJ7QPvwLR4P2mOUjenqG+dG2GU41pKJ6a5nQ==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(36860700016)(23010399003)(376014)(14060799003)(1800799024)(35042699022)(82310400026)(22082099003)(18002099003)(10067099003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ltLhjch6TQqHa86+LyWu/PDTVk90j5rUxriYipjlz9Qj6BIveih3d1jHl+ZgpT9pJfc9gTZNA7DnzrIw10lDIV55MVEQKu+vsWplj0iH96OAxoduQRF1CJvYPZ3JJsPaFzBYFEfg41fqE1bN0lj4C2hgdvuo3/k91DeBcoSq5hsr1wCaoMFn8f+JFh/aekN8xAOCp/X51CUz6CilUwgKqk3sA5n4vCSCYVY92zYGFQu0Zhlig+u4G0vJaEcmGqN978RpoBOhDhr8jhhBF8WPV5S6NOjQrgYjsTlULvc+ROAan+ifWfmRHIdxLydYJfrDdXd/JR4AfbyG4Qem5huAWDeLqwi3DCLSMe49TH/GlTB58ZlZd3bVK4J29mciIasOpDai/flrQzW9A2ObsGSsAyT6JYBb3eMp+BBDzXjOdaXbp1B8KTUAbJIoDan2fOBF
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 17:46:46.2135 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a19c08c-6695-4268-362e-08df1f1acc0c
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509EE.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9053
 X-Mailman-Approved-At: Thu, 01 Oct 2026 12:17:30 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -165,81 +216,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 9/22/26 19:12, Muhammad Usama Anjum wrote:
-> apply_to_page_range() now passes PTE table storage to its callback as
-> hw_pte_t *. Update the i915 remap and selftest callbacks to match the new
-> type.
+On 30/09/2026 6:10 am, Anshuman Khandual wrote:
+> On Tue, Sep 22, 2026 at 06:12:32PM +0100, Muhammad Usama Anjum wrote:
+>> ptep_get() now accepts a pointer to hw_pte_t storage but must continue to
+>> return a software PTE value. Add __pte_from_hw for both generic hw_pte_t
+>> definitions. Read the hw_pte_t table element atomically before converting
+>> it to pte_t.
+>>
+>> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>> ---
+>> Changes since v1:
+>> - Use software PTE value terminology.
+>>
+>> Changes since RFC v1:
+>> - Define __pte_from_hw for the opted-in generic wrapper.
+>> - Apply READ_ONCE() to hw_pte_t before converting it to pte_t.
+>> ---
+>>  include/linux/pgtable.h       | 2 +-
+>>  include/linux/pgtable_types.h | 2 ++
+>>  2 files changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+>> index 19098e302b75a..41337da0d65aa 100644
+>> --- a/include/linux/pgtable.h
+>> +++ b/include/linux/pgtable.h
+>> @@ -493,7 +493,7 @@ static inline int pudp_set_access_flags(struct vm_area_struct *vma,
+>>  #ifndef ptep_get
+>>  static inline pte_t ptep_get(hw_pte_t *ptep)
+>>  {
+>> -	return READ_ONCE(*ptep);
+>> +	return __pte_from_hw(READ_ONCE(*ptep));
+>>  }
 > 
-> Continue to use ptep_get() for software PTE values and set_pte_at() for
-> updates.
-> The type remains an alias of pte_t on x86 until that architecture opts in.
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> ---
-> Changes since v1:
-> - Use software PTE value terminology.
-> 
-> Changes since RFC v1:
-> - Clarify the effect on architectures that have not opted in.
-> ---
->  drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 4 ++--
->  drivers/gpu/drm/i915/i915_mm.c                     | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-> index d01acfb7d93d0..056faf4a3618b 100644
-> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-> @@ -1690,7 +1690,7 @@ static int igt_mmap_gpu(void *arg)
->  	return 0;
->  }
->  
-> -static int check_present_pte(pte_t *pte, unsigned long addr, void *data)
-> +static int check_present_pte(hw_pte_t *pte, unsigned long addr, void *data)
->  {
->  	pte_t ptent = ptep_get(pte);
->  
-> @@ -1703,7 +1703,7 @@ static int check_present_pte(pte_t *pte, unsigned long addr, void *data)
->  	return 0;
->  }
->  
-> -static int check_absent_pte(pte_t *pte, unsigned long addr, void *data)
-> +static int check_absent_pte(hw_pte_t *pte, unsigned long addr, void *data)
->  {
->  	pte_t ptent = ptep_get(pte);
->  
-> diff --git a/drivers/gpu/drm/i915/i915_mm.c b/drivers/gpu/drm/i915/i915_mm.c
-> index fd89e7c7d8d6f..aab88e8edf946 100644
-> --- a/drivers/gpu/drm/i915/i915_mm.c
-> +++ b/drivers/gpu/drm/i915/i915_mm.c
-> @@ -48,7 +48,7 @@ static inline unsigned long sgt_pfn(const struct remap_pfn *r)
->  		return r->sgt.pfn + (r->sgt.curr >> PAGE_SHIFT);
->  }
->  
-> -static int remap_sg(pte_t *pte, unsigned long addr, void *data)
-> +static int remap_sg(hw_pte_t *pte, unsigned long addr, void *data)
->  {
->  	struct remap_pfn *r = data;
->  
-> @@ -70,7 +70,7 @@ static int remap_sg(pte_t *pte, unsigned long addr, void *data)
->  #define EXPECTED_FLAGS (VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP)
->  
->  #if IS_ENABLED(CONFIG_X86)
-> -static int remap_pfn(pte_t *pte, unsigned long addr, void *data)
-> +static int remap_pfn(hw_pte_t *pte, unsigned long addr, void *data)
->  {
->  	struct remap_pfn *r = data;
->  
-> 
+> Just curious - when would other pgtable levels (PMD, PUD, P4D and PGD) be converted
+> in this format as well ?
 
-We really have to get rid of apply_to_page_range(). A horrible interface for
-drivers to hack around stuff.
-
-For the time being
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+I've patches for conversion of all levels offline. But it would have been
+so much difficult and complex (to review and rebase) if I would have posted
+all of them. That's why this split was done. I'll be sending other conversion
+after acceptance of these current series. PMD conversions has some patches
+which require discussion. Other remaining levels are going to be straight
+forward. Maybe I'll send those together.
 
 -- 
-Cheers,
-
-David
+Thanks,
+Usama
