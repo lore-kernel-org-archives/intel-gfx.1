@@ -4,90 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E7A3CA5FC5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 029D4CA5FCB
 	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 13:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0420410F415;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0248510F411;
 	Wed, 30 Sep 2026 13:49:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="ddBuN2zg";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="lgC6/g+m";
 	dkim-atps=neutral
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com
- [74.125.229.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD88E10E9CF
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 01:03:40 +0000 (UTC)
-Received: by mail-dy2-f12.google.com with SMTP id
- 5a478bee46e88-328664c2da6so4037187eec.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 18:03:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1790730220; x=1791335020;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=PFwFCHroA09S10Beb/3mqXg3PAfAFcLcaaVX6WAqpVQ=;
- b=ddBuN2zgwAb3C2/PPsOg9EosO+Pwe2QaQXKAt1r4leL8SnwAXtcv9Mi6AmNltbvZy3
- c30IBxPmPBfh/RyWEH7a3enHs3PXa+lPokmeIvqnVoQAQbi1zzUgi4JxxxiZPIoJU6/z
- kS1mna+9eY5UHie1aAJiC9yWrxbwv8vhn40u28jMB0vNLHg3+GdXcNJD9TpCjpzIa1sM
- PUNJxnkf+0OuK3qLKLt6aW2D0g+PqjbI5j4QMWwBGNrKX0k4gEGU4pgAnEM6AbMDTEMx
- WEGnTXuK9avveUDQJMjlGoSNMeUQnF0JBw4bQKoEOhd98p+cRdwQQifM1vW4pdK71mZ6
- 96SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790730220; x=1791335020;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=PFwFCHroA09S10Beb/3mqXg3PAfAFcLcaaVX6WAqpVQ=;
- b=RT/DT7+cbeLDLxtz5ukswsUorpN3b1riNPMaHePFHOLA+dsEgceHIxzcun9W0mpe3w
- CkMQFmFSdy1s0FXvBNSLIqVbfcFliA1/gk9VpPRQEql2CuT7/WwHMW2mXVad4ha8g3Iy
- JrvojOzu5Iq2WLNDMlmhdDovmERKkdlneK6G9cTiIdUDb4YQGzHFI0Q6OQbVo/itswFK
- d5pAKthZ6tOmqUbNbf5AQHNLgYzM7T6La9lqvJ/9VSYf7ZRNDgxMNPjVrgabQHXZLSiQ
- 9uDHfZ4SBXwlMzO5tIIXL1ovGngt+c4yreIqh1age+lVYxjn1wEqtxJ/Y1cz8VcGQrMV
- dQXw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwyn6YJyHgZfN9RB/6DeimE0GJBqJ8mj5unx/XIpTB+gUeelenqptsEYzSsz3m2chnq2jWNjviTADw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kT8twmPn/MmZ9ireoKuAY8+AHUNwit4CG+4VY0d6+363/DsE6Q
- Z37B3gL7e85ZZu+BhwW3LL3icI/rlRm1kTFdriFDhj5QLOvFZTLQ/oIf08POWLfzinA=
-X-Gm-Gg: AYBFou3Ag5VlHEwGgph8hIbQELnpLNw2T9/fk/95od7+QHC58NIYtlz+GzeONT2cLo8
- GzMRc/xF2TGdgCatwSJWaO0Z5IGKoA3dqy7g/8ofPGai8RGyfTeBQ04m+OBiIBNp2/FHRqIlAxu
- sfAuDbwHlk1JzoYvoidX95Ut3DzjgW/1FLdh6xdHtfo5z0pIuLK4A8mX83aiSCaYv7uDgSxTmw7
- l6BSr8VXRGnlvfvHV6iebsZm1JvqCbI2LxjPCn8Vq/ZRALMfEKHhpOGzjNHQjh1yj2TeDu+rNGB
- fFIlN/xBEluIyS0K9sT/dJ0z6RXhwj8Xuy8ch0an3jxlL2XNjAzQjTfLTdlcw0RSPznB9D0IlVw
- zIQxxkOc3EijHnWHEZyDMM60+gDnDzrVMZY5UPAlQBY9ij01XHKVMDWED+eznM1cYRAa+Lz9DzH
- bBx0rw1jX60iTZBzzkOTjJu/Edz4rs7cqGq9Diua50wroUDH7EkAcNXSZupfJsI2uyagvfnaCY3
- eT+cW0zQoenx+IgCmihYDTIZHayz6UFKvVNWha11lvD3vMGCX/68Y+8cVrfjkzy3I/k/N0=
-X-Received: by 2002:a05:7301:701:b0:341:b570:8d75 with SMTP id
- 5a478bee46e88-34c6605302dmr1125938eec.14.1790730219815; 
- Tue, 29 Sep 2026 18:03:39 -0700 (PDT)
-Received: from localhost.localdomain
- ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-34c386c2723sm2179993eec.18.2026.09.29.18.03.33
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 29 Sep 2026 18:03:38 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Suraj Kandpal <suraj.kandpal@intel.com>,
- Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Simona Vetter <simona@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y v2 1/2] drm/i915/hdcp: Add encoder check in
- intel_hdcp_get_capability
-Date: Tue, 29 Sep 2026 21:03:20 -0400
-Message-ID: <20260930010323.93999-2-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930010323.93999-1-artem@trailofbits.com>
-References: <20260930010323.93999-1-artem@trailofbits.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BEADD10E231;
+ Wed, 30 Sep 2026 04:35:18 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 990121477;
+ Tue, 29 Sep 2026 21:35:14 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 957183F85F;
+ Tue, 29 Sep 2026 21:35:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1790742918; bh=JkHtlPokOn2BvzhlFVjlfx9DCaqfOaYocdfBH7PqihI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lgC6/g+mujq1Di8KZWt65mHC5uA/Qzc5xT80jreFuxXslxLv02NzQrV6JYjehoAuH
+ 2P1nYefRlxZyTLzAxT6VXMQKFBlCuTP7bT5bKmsIoL0fufhFfULbvB17Y8MsgFrD5W
+ iGRIG26gVobM8X7tH+/OJ4uUJIzt6YNGzZ9HwqE0=
+Date: Wed, 30 Sep 2026 10:05:14 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, 
+ Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+ Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Leon Romanovsky <leon@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, 
+ Christoph Lameter <cl@gentwo.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
+ kasan-dev@googlegroups.com, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 3/9] mm: use hw_pte_t for generic PTE table storage
+Message-ID: <xzlxdkrjilskjcagnl33eed7ijxrgfhoalmmmq5ks3wgjmkkhi@zchtxpr2amff>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-3-5670b8cb9059@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-pte0-v3-3-5670b8cb9059@arm.com>
 X-Mailman-Approved-At: Wed, 30 Sep 2026 13:49:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,53 +124,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+On Tue, Sep 22, 2026 at 06:12:31PM +0100, Muhammad Usama Anjum wrote:
+> Generic page-table interfaces use pte_t * for both pointers to PTE table
+> storage and pointers to software PTE values. Convert the generic
+> declarations and their MM, fs, and kernel users together so parameters,
+> return types, callbacks, and local pointers that designate table storage
+> use hw_pte_t *.
+> 
+> Include linux/pgtable_types.h from headers that expose the converted
+> interfaces. It continues to provide pgprot_t to vmalloc.h through
+> asm/page.h.
+> 
+> Keep software PTE values as pte_t and retain pte_t * for value interfaces.
+> 
+> No architecture selects ARCH_HAS_HW_PTE_T at this point, so hw_pte_t
+> remains an alias of pte_t and this changes the interface vocabulary without
+> changing representation or behavior.
+> 
+> Most of this mechanical conversion was generated with the Coccinelle script
+> included in the cover letter. The script deliberately ignores pte_t *
 
-[ Upstream commit 31b42af516afa1e184d1a9f9dd4096c54044269a ]
-
-Sometimes during hotplug scenario or suspend/resume scenario encoder is
-not always initialized when intel_hdcp_get_capability add
-a check to avoid kernel null pointer dereference.
-
-[ Backport to 6.6.y: this tree uses the older intel_hdcp_capable()
-  helper name. Apply the same guard there; the code change is otherwise
-  unchanged. ]
-
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240722064451.3610512-2-suraj.kandpal@intel.com
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-CVE: CVE-2024-53051
-Upstream: 31b42af516afa1e184d1a9f9dd4096c54044269a
-Code change unchanged from v1; only the retained backport note was added.
-v1: https://lore.kernel.org/r/20260929031728.88004-1-artem@trailofbits.com
-
- drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index f377c4484e18..f7987fb90bb1 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -142,11 +142,16 @@ int intel_hdcp_read_valid_bksv(struct intel_digital_port *dig_port,
- /* Is HDCP1.4 capable on Platform and Sink */
- bool intel_hdcp_capable(struct intel_connector *connector)
- {
--	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_digital_port *dig_port;
- 	const struct intel_hdcp_shim *shim = connector->hdcp.shim;
- 	bool capable = false;
- 	u8 bksv[5];
- 
-+	if (!intel_attached_encoder(connector))
-+		return capable;
-+
-+	dig_port = intel_attached_dig_port(connector);
-+
- 	if (!shim)
- 		return capable;
- 
--- 
-2.39.5
+Just wondering - should this Coccinelle script that converted all these
+instances be saved inside ./scripts/coccinelle/ for future referene.
