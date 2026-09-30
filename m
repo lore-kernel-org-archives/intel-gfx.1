@@ -4,28 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B94DCA5FBB
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 13:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD57CA5FCB
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 14:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9E1210F424;
-	Wed, 30 Sep 2026 13:52:51 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2037E10F424;
- Wed, 30 Sep 2026 13:52:50 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8023755054325541232=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5B1?=
- =?utf-8?q?/3=5D_drm/i915/gmbus=3A_Switch_GMBUS_fully_to_=5Ffw=28=29_registe?=
- =?utf-8?q?r_accesses?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 30 Sep 2026 13:52:50 -0000
-Message-ID: <179077637012.223713.16759381256701728695@61270ab9df2a>
-X-Patchwork-Hint: ignore
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56F9A10E14E;
+	Wed, 30 Sep 2026 14:15:19 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CudfoPdh";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1706B10E14E;
+ Wed, 30 Sep 2026 14:15:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790777719; x=1822313719;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=JKNTWJ7wVtVJZZ8zxAPTRVS9+QKjhghjSwBF/gZH1SE=;
+ b=CudfoPdhvPsiYJHK4Bbt6ULbSaJ2Kqzgd2jmdZ+ufIC5UEO3MuS6viMa
+ EYYfhx9RwYWlkF2SLQMZRu+H/ot9sQeAX9veGALmIWSctI0UxIb8LQURD
+ BroMdHmJjeqAWClmSO/ZtU5xc+HCm1qUFf3HhqohL8t8iLG0/Q+UrHu7h
+ Y91aCS/bvIN7Tf/TRyaNEl4MuC0TvioUNtjjUGNewGcmLJWDOo/5EWIV6
+ GxgIvR8c+BL4B+NzMtGlxgvo9BjUUvpkoYJ5tbLNZb//EDXQhNXskuAUU
+ qyG7sxEuwNVoxx44XhcRHLCD/qLhUQxR1C6y9BdzVFR1QFZexy1YMEPzn A==;
+X-CSE-ConnectionGUID: 8m1e1yrCT/u9TE7U/ryOcA==
+X-CSE-MsgGUID: F2gl6Jh9SaSl4bnEz3pHAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90469982"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="90469982"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 07:14:58 -0700
+X-CSE-ConnectionGUID: nhHqCdAWQayCOXhJKw//KA==
+X-CSE-MsgGUID: VAjeGIDtQ2Kl5i+SD1aVLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="273782527"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.107])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 07:14:56 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/3] drm/i915/gmbus: Switch GMBUS fully to _fw()
+ register accesses
+In-Reply-To: <20260930131619.17218-1-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260930115303.24285-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20260930115303.24285-1-ville.syrjala@linux.intel.com>
+ <20260930131619.17218-1-ville.syrjala@linux.intel.com>
+Date: Wed, 30 Sep 2026 17:14:53 +0300
+Message-ID: <80fbc8a0c45810eea37f6bfc38a92a485b9af832@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,128 +70,212 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8023755054325541232==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, 30 Sep 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> Switch the gmbus code over from _notrace() to _fw() register
+> accesses.
+>
+> My original goal was just to eliminate the _notrace() variants
+> to shrink the intel_de.h API a bit, but while doing this I
+> stumbled on a huge performance issue with the current code;
+> Bit banging turns out to be extremely expensive on PCH
+> platforms while in DC5/6, and cause turns out not to be the
+> actual south GMBUS/GPIO register accesses, but rather the
+> extra north FPGA_DBG register access done from the non _fw()
+> register access functions. Those accesses cause a DC5/6 exit
+> which take a huge chunk of time.
+>
+> $ time echo detect > /sys/class/drm/card0/HDMI-A-1/status
+> -real	0m16.281s
+> +real	0m1.459s
+> ...
+>
+> There does still seem to be a smallish (maybe ~15%) performance
+> penalty for accessing PCH registers while in DC5/6. Not really
+> sure what's causing it, but seems to be small enough to not cause
+> a huge performance problem for bit banging. When not in DC5/6
+> the same HDMI detect cycle takes ~1.25 seconds. If we want to
+> further speed that up we could completely disable DC5/6 during
+> big banged i2c transfers. Currently we only do that on BXT/GLK
+> because there the GMBUS hardware lives on the SoC and thus is
+> affected by DC states, even for non-bit banged transfers.
+>
+> Note that by using the _fw() register accessors we also lose the
+> uncore.lock protection, but that's fine because everything is
+> already protected by the gmbus mutex, and nothing else should
+> live on the same cachelines of registers. So even platforms like
+> IVB/HSW which may have some issues with concurrent register
+> accesses to the same cacheline are still covered.
+>
+> v2: Drop the accidental wait_for_fw_ms()->wait_for_ms() change
+>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-== Series Details ==
+I'm basically losing track when we're okay to use the _fw variants and
+when not. Because it's not just forcewake anymore, it's also the DMC
+wakelock now.
 
-Series: series starting with [1/3] drm/i915/gmbus: Switch GMBUS fully to _fw() register accesses
-URL   : https://patchwork.freedesktop.org/series/175283/
-State : success
+I've been complaining about pretty much the same thing with the display
+PREEMPT_RT changes.
 
-== Summary ==
+I'm sure a lot of people know exactly when it's okay, but then there's
+also going to be a lot of cargo culting around _fw. :(
 
-CI Bug Log - changes from CI_DRM_19242 -> Patchwork_175283v1
-====================================================
+This does seem fine, though.
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v1/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_175283v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@late_gt_pm:
-    - bat-dg2-14:         [PASS][1] -> [ABORT][2] ([i915#17063]) +1 other test abort
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19242/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v1/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html
-
-  
-  [i915#17063]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17063
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19242 -> Patchwork_175283v1
-
-  CI-20190529: 20190529
-  CI_DRM_19242: dde43fa4801498eefd0280da6c729ff5a178f866 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9118: 26513be3e0f711ed835ec50d5cdcb723ef224105 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_175283v1: dde43fa4801498eefd0280da6c729ff5a178f866 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v1/index.html
-
---===============8023755054325541232==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
+> ---
+>  drivers/gpu/drm/i915/display/intel_de.h    |  6 ++++
+>  drivers/gpu/drm/i915/display/intel_gmbus.c | 32 +++++++++++-----------
+>  2 files changed, 22 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i9=
+15/display/intel_de.h
+> index 102979019429..8144588d3cf7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_de.h
+> +++ b/drivers/gpu/drm/i915/display/intel_de.h
+> @@ -158,6 +158,12 @@ intel_de_rmw_fw(struct intel_display *display, intel=
+_reg_t reg, u32 clear, u32 s
+>  	return old;
+>  }
+>=20=20
+> +static inline void
+> +intel_de_posting_read_fw(struct intel_display *display, intel_reg_t reg)
+> +{
+> +	intel_de_read_fw(display, reg);
+> +}
+
+Side note, I've thought about adding intel_de_write_post() to do the
+posting read internally. Probably 99% of the intel_de_posting_read()
+calls could be handled with that, reducing quite a bit of duplication,
+especially for verbose cases like:
+
+	intel_de_write(display, BXT_BLC_PWM_CTL(panel->backlight.controller), pwm_=
+ctl);
+	intel_de_posting_read(display, BXT_BLC_PWM_CTL(panel->backlight.controller=
+));
+->
+	intel_de_write_post(display, BXT_BLC_PWM_CTL(panel->backlight.controller),=
+ pwm_ctl);
 
 
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [1/3] drm/i915/gmbus: Switch GMBUS fully to _fw() register accesses</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175283/">https://patchwork.freedesktop.org/series/175283/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v1/index.html</a></td></tr>
-
-</table>
+BR,
+Jani.
 
 
-    <h1>CI Bug Log - changes from CI_DRM_19242 -&gt; Patchwork_175283v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_175283v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@late_gt_pm:<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19242/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v1/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17063">i915#17063</a>) +1 other test abort</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19242 -&gt; Patchwork_175283v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19242: dde43fa4801498eefd0280da6c729ff5a178f866 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9118: 26513be3e0f711ed835ec50d5cdcb723ef224105 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_175283v1: dde43fa4801498eefd0280da6c729ff5a178f866 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+> +
+>  static inline u32
+>  intel_de_read_notrace(struct intel_display *display, intel_reg_t reg)
+>  {
+> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm=
+/i915/display/intel_gmbus.c
+> index 60a70dea5d85..13bc6ab6b2f6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
+> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+> @@ -218,8 +218,8 @@ to_intel_gmbus(struct i2c_adapter *i2c)
+>  void
+>  intel_gmbus_reset(struct intel_display *display)
+>  {
+> -	intel_de_write(display, GMBUS0(display), 0);
+> -	intel_de_write(display, GMBUS4(display), 0);
+> +	intel_de_write_fw(display, GMBUS0(display), 0);
+> +	intel_de_write_fw(display, GMBUS4(display), 0);
+>  }
+>=20=20
+>  static void pnv_gmbus_clock_gating(struct intel_display *display,
+> @@ -262,7 +262,7 @@ static u32 get_reserved(struct intel_gmbus *bus)
+>  		preserve_bits |=3D GPIO_CLOCK_DIR_MASK | GPIO_CLOCK_VAL_MASK |
+>  				 GPIO_DATA_DIR_MASK | GPIO_DATA_VAL_MASK;
+>=20=20
+> -	return intel_de_read_notrace(display, bus->gpio_reg) & preserve_bits;
+> +	return intel_de_read_fw(display, bus->gpio_reg) & preserve_bits;
+>  }
+>=20=20
+>  static int get_clock(void *data)
+> @@ -271,10 +271,10 @@ static int get_clock(void *data)
+>  	struct intel_display *display =3D bus->display;
+>  	u32 reserved =3D get_reserved(bus);
+>=20=20
+> -	intel_de_write_notrace(display, bus->gpio_reg, reserved | GPIO_CLOCK_DI=
+R_MASK);
+> -	intel_de_write_notrace(display, bus->gpio_reg, reserved);
+> +	intel_de_write_fw(display, bus->gpio_reg, reserved | GPIO_CLOCK_DIR_MAS=
+K);
+> +	intel_de_write_fw(display, bus->gpio_reg, reserved);
+>=20=20
+> -	return (intel_de_read_notrace(display, bus->gpio_reg) & GPIO_CLOCK_VAL_=
+IN) !=3D 0;
+> +	return (intel_de_read_fw(display, bus->gpio_reg) & GPIO_CLOCK_VAL_IN) !=
+=3D 0;
+>  }
+>=20=20
+>  static int get_data(void *data)
+> @@ -283,10 +283,10 @@ static int get_data(void *data)
+>  	struct intel_display *display =3D bus->display;
+>  	u32 reserved =3D get_reserved(bus);
+>=20=20
+> -	intel_de_write_notrace(display, bus->gpio_reg, reserved | GPIO_DATA_DIR=
+_MASK);
+> -	intel_de_write_notrace(display, bus->gpio_reg, reserved);
+> +	intel_de_write_fw(display, bus->gpio_reg, reserved | GPIO_DATA_DIR_MASK=
+);
+> +	intel_de_write_fw(display, bus->gpio_reg, reserved);
+>=20=20
+> -	return (intel_de_read_notrace(display, bus->gpio_reg) & GPIO_DATA_VAL_I=
+N) !=3D 0;
+> +	return (intel_de_read_fw(display, bus->gpio_reg) & GPIO_DATA_VAL_IN) !=
+=3D 0;
+>  }
+>=20=20
+>  static void set_clock(void *data, int state_high)
+> @@ -302,8 +302,8 @@ static void set_clock(void *data, int state_high)
+>  		clock_bits =3D GPIO_CLOCK_DIR_OUT | GPIO_CLOCK_DIR_MASK |
+>  			     GPIO_CLOCK_VAL_MASK;
+>=20=20
+> -	intel_de_write_notrace(display, bus->gpio_reg, reserved | clock_bits);
+> -	intel_de_posting_read(display, bus->gpio_reg);
+> +	intel_de_write_fw(display, bus->gpio_reg, reserved | clock_bits);
+> +	intel_de_posting_read_fw(display, bus->gpio_reg);
+>  }
+>=20=20
+>  static void set_data(void *data, int state_high)
+> @@ -319,15 +319,15 @@ static void set_data(void *data, int state_high)
+>  		data_bits =3D GPIO_DATA_DIR_OUT | GPIO_DATA_DIR_MASK |
+>  			GPIO_DATA_VAL_MASK;
+>=20=20
+> -	intel_de_write_notrace(display, bus->gpio_reg, reserved | data_bits);
+> -	intel_de_posting_read(display, bus->gpio_reg);
+> +	intel_de_write_fw(display, bus->gpio_reg, reserved | data_bits);
+> +	intel_de_posting_read_fw(display, bus->gpio_reg);
+>  }
+>=20=20
+>  static void
+>  ptl_handle_mask_bits(struct intel_gmbus *bus, bool set)
+>  {
+>  	struct intel_display *display =3D bus->display;
+> -	u32 reg_val =3D intel_de_read_notrace(display, bus->gpio_reg);
+> +	u32 reg_val =3D intel_de_read_fw(display, bus->gpio_reg);
+>  	u32 mask_bits =3D GPIO_CLOCK_DIR_MASK | GPIO_CLOCK_VAL_MASK |
+>  			GPIO_DATA_DIR_MASK | GPIO_DATA_VAL_MASK;
+>  	if (set)
+> @@ -335,8 +335,8 @@ ptl_handle_mask_bits(struct intel_gmbus *bus, bool se=
+t)
+>  	else
+>  		reg_val &=3D ~mask_bits;
+>=20=20
+> -	intel_de_write_notrace(display, bus->gpio_reg, reg_val);
+> -	intel_de_posting_read(display, bus->gpio_reg);
+> +	intel_de_write_fw(display, bus->gpio_reg, reg_val);
+> +	intel_de_posting_read_fw(display, bus->gpio_reg);
+>  }
+>=20=20
+>  static int
 
-</body>
-</html>
-
---===============8023755054325541232==--
+--=20
+Jani Nikula, Intel
