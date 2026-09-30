@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E1FCA5FB1
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 12:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B888CA5FB1
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 12:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 373E910F349;
-	Wed, 30 Sep 2026 12:01:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4047D10E214;
+	Wed, 30 Sep 2026 12:02:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hBsM+EqE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NBWtvnyt";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68FF910E814;
- Wed, 30 Sep 2026 12:01:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB8810E214;
+ Wed, 30 Sep 2026 12:02:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 89FD960239;
- Wed, 30 Sep 2026 12:01:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C581F000FF;
- Wed, 30 Sep 2026 12:01:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1C5E14388F;
+ Wed, 30 Sep 2026 12:02:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C990F1F000FF;
+ Wed, 30 Sep 2026 12:02:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790769697;
- bh=mBFFoJhMR/+bLMr+sn9ripYTS4W4xAdM7E4NOT6S99I=;
+ s=k20260515; t=1790769743;
+ bh=GCEUBE4/sTBdDe1YRieuzhIolZ+AVpAIgszrBgvD9dM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hBsM+EqEIaSbS65wWu+Dg0vy5n1sx8Nh0CWrOvnfyFTKAz/Bc5TfzioL1pMHWt/Ir
- 2Loy5ndEXgRIEI5GCOAoUds/Ieg/3mhBg4ZT+8Urct0IuCTCWLfRsv7l80P716S/B6
- q36uN04cjx4zsv/5N3O7lxZVCB1BzXE6FhBbTtNXItHbUgRYIqagf98bu7wnv3slaZ
- iCDYEVSNYV9AxNMVWyeWDhIMJuCqugSq9yFvEC3h+NT0+W5rtpy8LhE83iHY/6ufbt
- +AiX7B9vU4NojdidQtv987WqUUePWaDKiLlBdpSpGsLfg0X+Z7UjwpOxv5vrEY69jT
- JtTZbPsj0ANWw==
+ b=NBWtvnytLYLJALBP3/ZPhc6eA60A8o043jw03quN+2k1gLDEvevDClZxCMsnR4Nb8
+ 5EkiqXdV5Pd7XKWM4+mjusRZnqeWtxM7k8EXgQ79X98hGER8YaAcEs+cLeAChfq1jN
+ lF3QV3Nc6gupSe3TDbfw2+25+88zZnullSm4RK6ZlJUFocLjN9nPHrBIJKnUMc3XWY
+ ++feUgd0FpKSf9bQxA2KOUAkCvhxLFzoINwwudvTXGJrTlG1nQ3NnpeQlDUqj5smc5
+ E10FjKrfSSxKrm4fpMIvtKrQx+78M33iPcBuCWt6pf8JDh4KHbAbi7RjNY3OIO5knL
+ 8qsIoppRn0+tw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/i915/de: Nuke intel_de_{read,write}_notrace()
+Subject: Re: [PATCH 2/3] drm/i915/dp: Drop using intel_de_read_notrace()
 To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260930115303.24285-3-ville.syrjala@linux.intel.com>
+In-Reply-To: <20260930115303.24285-2-ville.syrjala@linux.intel.com>
 References: <20260930115303.24285-1-ville.syrjala@linux.intel.com>
- <20260930115303.24285-3-ville.syrjala@linux.intel.com>
+ <20260930115303.24285-2-ville.syrjala@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 12:01:36 +0000
-Message-Id: <20260930120137.13C581F000FF@smtp.kernel.org>
+Date: Wed, 30 Sep 2026 12:02:22 +0000
+Message-Id: <20260930120222.C990F1F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +59,45 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] drm/i915: unused intel_uncore_write_notrace generator leftover
+- [Low] Tracing redundancy: duplicate trace of DP_AUX_CH_CTL read
 --
 
-commit 63a0967a4211723ada8b8d7082bed7b2f369c08a
+commit afa17c7838a57999000c6a138fccf379e59ccba4
 Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-drm/i915/de: Nuke intel_de_{read,write}_notrace()
+drm/i915/dp: Drop using intel_de_read_notrace()
 
-The commit removes the unused intel_de_read_notrace() and=20
-intel_de_write_notrace() accessors, along with their xe compat wrappers. Th=
-is=20
-reduces the number of register access functions to clean up the code betwee=
-n=20
-i915 and xe.
+This patch eliminates intel_de_read_notrace() to shrink the API, switching
+its last users in intel_dp_aux_wait_done() and intel_dp_aux_xfer() over to
+the normal intel_de_read().
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i9=
-15/display/intel_de.h
-> index 8144588d3cf77..4ae041a96b31a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_de.h
-> +++ b/drivers/gpu/drm/i915/display/intel_de.h
-> @@ -164,18 +164,6 @@ intel_de_posting_read_fw(struct intel_display *displ=
-ay, intel_reg_t reg)
->  	intel_de_read_fw(display, reg);
->  }
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_aux.c
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+
+[ ... ]
+
+> @@ -324,7 +324,7 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
 > =20
-> -static inline u32
-> -intel_de_read_notrace(struct intel_display *display, intel_reg_t reg)
-> -{
-> -	return intel_uncore_read_notrace(__to_uncore(display), reg);
-> -}
-> -
-> -static inline void
-> -intel_de_write_notrace(struct intel_display *display, intel_reg_t reg, u=
-32 val)
-> -{
-> -	intel_uncore_write_notrace(__to_uncore(display), reg, val);
-> -}
+>  	/* Try to wait for any previous AUX channel activity */
+>  	for (try =3D 0; try < 3; try++) {
+> -		status =3D intel_de_read_notrace(display, ch_ctl);
+> +		status =3D intel_de_read(display, ch_ctl);
+>  		if ((status & DP_AUX_CH_CTL_SEND_BUSY) =3D=3D 0)
+>  			break;
+>  		msleep(1);
+>  	}
+>  	/* just trace the final value */
+>  	trace_i915_reg_rw(false, ch_ctl, status, sizeof(status), true);
 
 [Severity: Low]
-With the removal of intel_de_write_notrace(), it looks like
-intel_uncore_write_notrace() is now unused. Should the macro expansion that
-generates it in i915 be removed as well to complete the cleanup?
+Does this leave us with duplicate trace events?
 
-drivers/gpu/drm/i915/intel_uncore.h:
-__uncore_write(write_notrace, 32, l, false)
+Since intel_de_read() internally traces the register read, this explicit
+trace_i915_reg_rw() call in intel_dp_aux_xfer() appears redundant and might
+cause duplicate trace log entries for this final read.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930115303.2428=
-5-1-ville.syrjala@linux.intel.com?part=3D3
+5-1-ville.syrjala@linux.intel.com?part=3D2
