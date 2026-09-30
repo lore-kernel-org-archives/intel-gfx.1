@@ -4,58 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF2DCA5FBA
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 11:53:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E1FCA5FB1
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 12:01:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A618B10F33F;
-	Wed, 30 Sep 2026 11:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 373E910F349;
+	Wed, 30 Sep 2026 12:01:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EnWvCTtq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hBsM+EqE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F41B10F336;
- Wed, 30 Sep 2026 11:53:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790769197; x=1822305197;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=NvNOJzQcipecoUjUimOxPunyPfTrMFsqrjB145Ouh2E=;
- b=EnWvCTtqqD/g8gYMFrQUZ1hQhPsuEUPgtWPei2ktPM5h2jeLUeqJ9sTC
- PADCNkhBUX1mf4cH4d3wx+2AcqpBUJHboB74Ui43ApHQW1RdeqqoauU6W
- 4j1ZbyOcDnWuiGATVOKq+dIwLSxeWm/Lydf5H9d0aANKJiF+sI3nsliEr
- rQAykgtrQWqbHtguzvOnnMw3IfU5qZxUXZWb8WLf0t8xCJbACcGA/Js4W
- r7q7t7BzqIMimvZBeAVN5vtKReBSam8viBa3UwVjvHusRrAVJ6YHomtKS
- 9ZeeomL4hIhZU3nWHnzM7BySAnQCb7VHhlqmFnBybvtLjlrMbRcfdcelw Q==;
-X-CSE-ConnectionGUID: Y693unnTSL+CMuW5J1GVlg==
-X-CSE-MsgGUID: e6L6MSN6TXCOd/PdJi745w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="113290682"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="113290682"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2026 04:53:16 -0700
-X-CSE-ConnectionGUID: hj6+aDwyTLWhnLJJG9Sphw==
-X-CSE-MsgGUID: UkAz3Bb7Sn6exJnd7j8fOQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="273472936"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.175])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2026 04:53:15 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/i915/de: Nuke intel_de_{read,write}_notrace()
-Date: Wed, 30 Sep 2026 14:53:03 +0300
-Message-ID: <20260930115303.24285-3-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260930115303.24285-1-ville.syrjala@linux.intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68FF910E814;
+ Wed, 30 Sep 2026 12:01:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 89FD960239;
+ Wed, 30 Sep 2026 12:01:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C581F000FF;
+ Wed, 30 Sep 2026 12:01:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790769697;
+ bh=mBFFoJhMR/+bLMr+sn9ripYTS4W4xAdM7E4NOT6S99I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hBsM+EqEIaSbS65wWu+Dg0vy5n1sx8Nh0CWrOvnfyFTKAz/Bc5TfzioL1pMHWt/Ir
+ 2Loy5ndEXgRIEI5GCOAoUds/Ieg/3mhBg4ZT+8Urct0IuCTCWLfRsv7l80P716S/B6
+ q36uN04cjx4zsv/5N3O7lxZVCB1BzXE6FhBbTtNXItHbUgRYIqagf98bu7wnv3slaZ
+ iCDYEVSNYV9AxNMVWyeWDhIMJuCqugSq9yFvEC3h+NT0+W5rtpy8LhE83iHY/6ufbt
+ +AiX7B9vU4NojdidQtv987WqUUePWaDKiLlBdpSpGsLfg0X+Z7UjwpOxv5vrEY69jT
+ JtTZbPsj0ANWw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] drm/i915/de: Nuke intel_de_{read,write}_notrace()
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260930115303.24285-3-ville.syrjala@linux.intel.com>
 References: <20260930115303.24285-1-ville.syrjala@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+ <20260930115303.24285-3-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 12:01:36 +0000
+Message-Id: <20260930120137.13C581F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,75 +53,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/i915: unused intel_uncore_write_notrace generator leftover
+--
 
-intel_de_{read,write}_notrace() are now completely unused,
-so nuke them. Reducing the number of different register
-access functions should help a bit with cleaning up the
-final uncore mess between xe vs. i915.
+commit 63a0967a4211723ada8b8d7082bed7b2f369c08a
+Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-And with this we can also nuke the corresponding xe uncore
-compat wrappers.
+drm/i915/de: Nuke intel_de_{read,write}_notrace()
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_de.h          | 12 ------------
- .../drm/xe/compat-i915-headers/intel_uncore.h    | 16 ----------------
- 2 files changed, 28 deletions(-)
+The commit removes the unused intel_de_read_notrace() and=20
+intel_de_write_notrace() accessors, along with their xe compat wrappers. Th=
+is=20
+reduces the number of register access functions to clean up the code betwee=
+n=20
+i915 and xe.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-index 8144588d3cf7..4ae041a96b31 100644
---- a/drivers/gpu/drm/i915/display/intel_de.h
-+++ b/drivers/gpu/drm/i915/display/intel_de.h
-@@ -164,18 +164,6 @@ intel_de_posting_read_fw(struct intel_display *display, intel_reg_t reg)
- 	intel_de_read_fw(display, reg);
- }
- 
--static inline u32
--intel_de_read_notrace(struct intel_display *display, intel_reg_t reg)
--{
--	return intel_uncore_read_notrace(__to_uncore(display), reg);
--}
--
--static inline void
--intel_de_write_notrace(struct intel_display *display, intel_reg_t reg, u32 val)
--{
--	intel_uncore_write_notrace(__to_uncore(display), reg, val);
--}
--
- static __always_inline void
- intel_de_write_dsb(struct intel_display *display, struct intel_dsb *dsb,
- 		   intel_reg_t reg, u32 val)
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-index 08d7ab933672..b8ea8f5b22d1 100644
---- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-+++ b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-@@ -114,22 +114,6 @@ static inline void intel_uncore_write_fw(struct intel_uncore *uncore,
- 	xe_mmio_write32(__compat_uncore_to_mmio(uncore), reg, val);
- }
- 
--static inline u32 intel_uncore_read_notrace(struct intel_uncore *uncore,
--					    i915_reg_t i915_reg)
--{
--	struct xe_reg reg = XE_REG(i915_mmio_reg_offset(i915_reg));
--
--	return xe_mmio_read32(__compat_uncore_to_mmio(uncore), reg);
--}
--
--static inline void intel_uncore_write_notrace(struct intel_uncore *uncore,
--					      i915_reg_t i915_reg, u32 val)
--{
--	struct xe_reg reg = XE_REG(i915_mmio_reg_offset(i915_reg));
--
--	xe_mmio_write32(__compat_uncore_to_mmio(uncore), reg, val);
--}
--
- static inline bool
- intel_uncore_arm_unclaimed_mmio_detection(struct intel_uncore *uncore)
- {
--- 
-2.54.0
+> diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i9=
+15/display/intel_de.h
+> index 8144588d3cf77..4ae041a96b31a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_de.h
+> +++ b/drivers/gpu/drm/i915/display/intel_de.h
+> @@ -164,18 +164,6 @@ intel_de_posting_read_fw(struct intel_display *displ=
+ay, intel_reg_t reg)
+>  	intel_de_read_fw(display, reg);
+>  }
+> =20
+> -static inline u32
+> -intel_de_read_notrace(struct intel_display *display, intel_reg_t reg)
+> -{
+> -	return intel_uncore_read_notrace(__to_uncore(display), reg);
+> -}
+> -
+> -static inline void
+> -intel_de_write_notrace(struct intel_display *display, intel_reg_t reg, u=
+32 val)
+> -{
+> -	intel_uncore_write_notrace(__to_uncore(display), reg, val);
+> -}
 
+[Severity: Low]
+With the removal of intel_de_write_notrace(), it looks like
+intel_uncore_write_notrace() is now unused. Should the macro expansion that
+generates it in i915 be removed as well to complete the cleanup?
+
+drivers/gpu/drm/i915/intel_uncore.h:
+__uncore_write(write_notrace, 32, l, false)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930115303.2428=
+5-1-ville.syrjala@linux.intel.com?part=3D3
