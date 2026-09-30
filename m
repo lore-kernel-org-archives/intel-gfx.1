@@ -4,27 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51F77CA5FC5
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 17:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE005CA5FCC
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 17:25:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D221310E097;
-	Wed, 30 Sep 2026 17:23:23 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 008E210E097;
- Wed, 30 Sep 2026 17:23:22 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/hdcp?=
- =?utf-8?q?=3A_guard_both_capability_checks?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Artem Dinaburg" <artem@trailofbits.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 30 Sep 2026 17:23:21 -0000
-Message-ID: <179078900199.225503.3740168236683633351@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260930010323.93999-1-artem@trailofbits.com>
-In-Reply-To: <20260930010323.93999-1-artem@trailofbits.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E67410F1D6;
+	Wed, 30 Sep 2026 17:25:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cizgxzbg";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 770E610F1D6;
+ Wed, 30 Sep 2026 17:25:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B9830601DE;
+ Wed, 30 Sep 2026 17:25:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1E71F000FF;
+ Wed, 30 Sep 2026 17:25:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790789144;
+ bh=sp41OETltS+I0mLnuMRUftFcjWT8kPhvhFsmitMZgj8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CizgxzbgE7hDMtqDs3tYbjRDrMxngPQe+3gea9vKg+hdsko4SFOm7kgQGNb4ftFXE
+ ZAf/RI2yW8r3kBElgaF/b0t68bq6RlkP/bAO9RubGm6plVIc+RlGPjoxscvcDZ4Azo
+ G7oc+uKnvU/Ig57HiuBIC2r7uTIqoefDIy7QIbJwpUxal/6IFNGDOQzdpUDi3x00qs
+ UMrqlwF+wKecJrx9d4EA9enPFTGCh4N3/Q4bRl52O2R5jQpVLCK5dgjts0GfYrwnLn
+ qnu7h5Q+OtLAhHrGG5SaSqwBICgQidCSFUGaLLrcLYI213d6Wg6F96C7lvFMhptarb
+ EPSuHCc2uBROA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12] drm/i915/dg2: Add per-client control for
+ Wa_22013059131
+To: "Jia Yao" <jia.yao@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260930171334.3636-1-jia.yao@intel.com>
+References: <20260630223946.2107382-1-jia.yao@intel.com>
+ <20260930171334.3636-1-jia.yao@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 17:25:43 +0000
+Message-Id: <20260930172544.3A1E71F000FF@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,21 +54,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/i915/dg2: kernel contexts clear Wa_22013059131 in LSC_CHICKE=
+N_BIT_0
+--
 
-Series: drm/i915/hdcp: guard both capability checks
-URL   : https://patchwork.freedesktop.org/series/175306/
-State : failure
+commit 4fe69a30e73450cf67244b9e1360470b774fd0a5
+Author: Jia Yao <jia.yao@intel.com>
 
-== Summary ==
+drm/i915/dg2: Add per-client control for Wa_22013059131
 
-Series author address 'artem@trailofbits.com' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/188841/ (on built-in)
+Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
+at engine init, but this is known to cause GPU hangs in certain workloads.
+Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
+workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
+kernel know bit 15 programming is not needed.
 
+Link: https://github.com/intel/compute-runtime/pull/919
 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i9=
+15/gt/intel_context.c
+> --- a/drivers/gpu/drm/i915/gt/intel_context.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_context.c
+> @@ -80,6 +81,7 @@ int intel_context_alloc_state(struct intel_context *ce)
+>  			if (ctx->client)
+>  				i915_drm_client_add_context_objects(ctx->client,
+>  								    ce);
+> +			lrc_latch_wa_22013059131(ce, ctx);
+
+[Severity: Medium]
+Since lrc_latch_wa_22013059131() in intel_context_alloc_state() is only cal=
+led=20
+when ctx is not NULL, what happens for kernel-internal contexts where=20
+ce->gem_context is NULL?
+
+If the latch function is skipped, CONTEXT_WA_22013059131_APPLY remains unse=
+t=20
+(0). Does this mean the kernel context will execute with the=20
+FORCE_1_SUB_MESSAGE_PER_FRAGMENT workaround disabled?
+
+>  			i915_gem_context_put(ctx);
+>  		}
+>  	}
+> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/g=
+t/intel_lrc.c
+> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+
+[ ... ]
+
+> +static u32 *
+> +dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
+> +{
+> +	/*
+> +	 * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
+> +	 * other bits of the register will also get overwritten.  The
+> +	 * hardware default for all other bits is 0, but any workarounds
+> +	 * that adjust the other bits in the lower dword of the register
+> +	 * also need to be re-applied here.  At the moment that's just
+> +	 * Wa_22014226127, which is always set for DG2-G11 platforms.
+> +	 */
+> +	u32 val =3D DISABLE_D8_D16_COASLESCE;
+> +
+> +	if (test_bit(CONTEXT_WA_22013059131_APPLY, &ce->flags))
+> +		val |=3D FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
+> +
+> +	*cs++ =3D MI_LOAD_REGISTER_IMM(1);
+> +	*cs++ =3D i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
+> +	*cs++ =3D val;
+
+[Severity: Medium]
+If CONTEXT_WA_22013059131_APPLY is unset for kernel contexts, this will
+unconditionally emit a write that clears FORCE_1_SUB_MESSAGE_PER_FRAGMENT
+in the hardware register.
+
+The commit message indicates that "Kernel-internal context will not change
+workaround settings", but it appears this code clears the workaround during
+kernel context execution. Could this expose the kernel context to the GPU
+hangs the workaround is meant to prevent?
+
+> +
+> +	return cs;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930171334.3636=
+-1-jia.yao@intel.com?part=3D1
