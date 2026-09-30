@@ -4,80 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 518E7CA5FB1
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 08:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09133CA5FB1
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 08:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1B8D10F218;
-	Wed, 30 Sep 2026 08:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C6A10F230;
+	Wed, 30 Sep 2026 08:04:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="n6CTPiPh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JbjJdxQV";
 	dkim-atps=neutral
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com
- [74.125.228.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF06310F218
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 08:02:17 +0000 (UTC)
-Received: by mail-ej2-f43.google.com with SMTP id
- a640c23a62f3a-c2e17363b97so92668366b.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 01:02:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1790755336; x=1791360136; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=UqC6UJWhxlrqGPM5iVHDPkS4jSyFCqeT0mQAjktJVfE=;
- b=n6CTPiPhlq9ZY38Z8q7Q8ADKhxvEuCmSxxAL2dtaKcwcRqkSKW19w6iB4mkU90UsKy
- akST1cw3DU3VojCftvCXNZCi2z95oJOiu7Ebhf0FMFo5MZG2XhlDq/lm4aJzj9/ebArp
- 0rMFgubcrbqNmm8/1aVdW+PZiPOxOBrvcdNhx4ZNK7tz5lMGhhoZsM2jGn76dxxsBU0O
- /wUNMYdkDrInBmCmiz3jK7cKZBER+nZeKmP1AhkgKLsOWB1c7wzR9iifPn+L+izkPiVs
- kWDJw9vVllN5vRdCejYaMRg0j7NgiMSxssw7F18e/zqPg6yp88tvLHUbLiW7LZzQcehk
- bjng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790755336; x=1791360136;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=UqC6UJWhxlrqGPM5iVHDPkS4jSyFCqeT0mQAjktJVfE=;
- b=u4Pk9ypIoGaThWv5/keknxGhBAUv1PnIvVf62sHK7rVEYY0OLwebcOKLLPH3cg71tE
- 8dgLcrArMDdcVC5X/54p3sdmp8slsvSmt20adI+KnFkF3YN1/A3umYXpZlEeOas0/1r3
- tWRTI1DwP0PPRE7rHxw7/ikbAcvrGEBJiv5Wu/Qe5qJuks1NSNwp2og6RfQCcPAP3rW8
- lQIeBgxJ7VC+pegl73Hoffxnp3NCYVsfXfpcGqwuCOE1LMv6mJNaJKOGFZnrRpt50f8F
- b4h5s7e7MJl4kDmH8O3Nx9V5CGnE7v6rFBcOI79KJ3VxdKWPQjHEI/TErt+PnGrBcNiA
- MR1Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw8gPvEzeZR8nHEmqKaUHSrSdBcIoyoKA68wD29jQuCFaLjihWdWZFeGKvbfNrp54Na2VM2Y/GNbZQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lViFKZhWWpZjZxol9K/wsJvO8R7qQhyH/9hZl0vY1Y717tkD0h
- nGqms2t2nlIE4sClk25yc7e40FFbkVANjiffAd4cHgfMJD68CraU0pxoEGb+n0O+xI4=
-X-Gm-Gg: AYBFou2LpH0XCyKadwt1Xx4GpX2RRe95j9oFcI/53wENvSsUReEjoJb9Cs8NewrLLix
- O/Nd9UTF20mILgTmLQA8wKRevXnDNigW2b3zDk3OY3q4u4CsnQ9vDvkAIbmOQsiPj2vWSp5Dhj+
- D4gDwTzbBWPH5sLsoPbDeQsPzYh74f4ifnYLOghCWKNbZbmPqXlNw1IAw5HweYqwuXOB4w07PxP
- B0vZttns+0E/vwDghHCNHBOogMFlIGJmF8Ui+NLLgFEHPvuiYSG18q+V/lf7X7Msawpl8ItWfSE
- RdYLXRRcKMiiXpFGeQhu52l+vzEEx5aG0IkNz4Uj+OcoZhGY56HoqxE1SEFrls+Bup65lRNCzzc
- gQRlPr+RxWQfdNMdoWzqT4rKFeWYh+JkV0hDhB9ixitwcmWlN5S5XK3HBIH7nUPLPmVi+UVDufH
- uZscroj3Yrl7Oa70hEiOhY/PVJOBYIpjNvYA026BdUOJua78H8XX0c4WQAdOKhVwgTJxx2GIrjp
- o8Y0weiq90LWw==
-X-Received: by 2002:a17:907:6ea4:b0:c2d:c7df:50ad with SMTP id
- a640c23a62f3a-c2e23e14586mr44108466b.38.1790755336013; 
- Wed, 30 Sep 2026 01:02:16 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2e274e3473sm4417066b.34.2026.09.30.01.02.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Sep 2026 01:02:15 -0700 (PDT)
-Message-ID: <83bc37f9-e5b5-41de-a03b-6de01966ffe6@ursulin.net>
-Date: Wed, 30 Sep 2026 09:02:14 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0BE10F229;
+ Wed, 30 Sep 2026 08:04:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790755495; x=1822291495;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=aB8Cp4nhgf7pMdLW6i8ghQb1w1f/0/D8MNkDliazAv4=;
+ b=JbjJdxQVlZ7af4VExL1DDfkhiTkrzmiYpL9eXfd0aDaYsp537+TKZk6T
+ JreZSn6MqlYgPcjxU6Or7PFTU0GlXH51cVGsqAhdJ2xgUghK+4FwZ8x1s
+ 8tgAphk0nr494vNh37JGoLLpa7b10T59gILa+aUuLkKt6sZ5eflnujLzk
+ 2qVHm8kp/R+e1aLz2fDcSVa3DV2vGc/hAbvWm790VI4NTOH8EEfXZP/bW
+ R2WCgBdprgSLv2xHQA5ovtpI+79sNcXjCSbFLzwrzcoauUZ25y8vVitOX
+ Ph3QFrlAwXUHD0KahCrYjtXHyynSkcHouiEz3FnbT4+IRm2GgiZL3unn2 Q==;
+X-CSE-ConnectionGUID: BAgFCt9gQJ6Kg1QN/IDbxw==
+X-CSE-MsgGUID: xnjgwFPCS8eLKXPYYBwyXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="107873331"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="107873331"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 01:04:54 -0700
+X-CSE-ConnectionGUID: Cu/v+AVgQF+x1mViGCxdEQ==
+X-CSE-MsgGUID: dg7Wz5AVSvSpELsP3mYYzg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="275761811"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.107])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 01:04:51 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Animesh Manna <animesh.manna@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: jouni.hogander@intel.com, suraj.kandpal@intel.com, Animesh Manna
+ <animesh.manna@intel.com>
+Subject: Re: [PATCH v6 02/18] drm/i915/alpm: Move alpm sink capability
+ readout into a separate function
+In-Reply-To: <20260915180449.277933-3-animesh.manna@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260915180449.277933-1-animesh.manna@intel.com>
+ <20260915180449.277933-3-animesh.manna@intel.com>
+Date: Wed, 30 Sep 2026 11:04:49 +0300
+Message-ID: <2ed6b4ccefd2d302433fb990401b0d62efa75c84@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/i915/pmu: Disable on PREEMPT_RT
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
- intel-gfx@lists.freedesktop.org, vinay.belgaumkar@intel.com
-Cc: dev@lankhorst.se
-References: <20260929190147.2886670-5-umesh.nerlige.ramappa@intel.com>
- <20260929190147.2886670-6-umesh.nerlige.ramappa@intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260929190147.2886670-6-umesh.nerlige.ramappa@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,56 +75,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 29/09/2026 20:01, Umesh Nerlige Ramappa wrote:
-> From: Maarten Lankhorst <dev@lankhorst.se>
-> 
-> I tried to come up with alternative and lockless approaches
-> to make pmu work, but since the perf events are run in
-> atomic context on PREEMPT_RT, ordinary spinlocks no longer
-> work and forcewake and register accesses become problematic.
-
-If it is only those events put the checks into config_status and 
-engine_event_status respectively. That will allow the non-problematic 
-events to work.
-
-> Disable perf events on PREEMPT_RT for now, without affecting
-> !PREEMPT_RT users.
-> 
-> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+On Tue, 15 Sep 2026, Animesh Manna <animesh.manna@intel.com> wrote:
+> Abstract ALPM DPCD initialization into its own function.
+>
+> v2:
+> - Improve commit description. [Suraj, Jouni]
+>
+> Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 > ---
-> v2: s/reeturn/return/
-> ---
->   drivers/gpu/drm/i915/i915_pmu.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-> index 1c3bafda9c70..9ea5626399e5 100644
-> --- a/drivers/gpu/drm/i915/i915_pmu.c
-> +++ b/drivers/gpu/drm/i915/i915_pmu.c
-> @@ -1156,6 +1156,16 @@ void i915_pmu_register(struct drm_i915_private *i915)
->   	};
->   	int ret = -ENOMEM;
->   
-> +	/*
-> +	 * PREEMPT_RT has problems with forcewake. Forcewake is used by the
-> +	 * engine 'busy' event when guc submission is enabled, and to measure
-> +	 * rc6 residency.
-> +	 *
-> +	 * Disable pmu events on PREEMPT_RT entirely to prevent deadlocks.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_PREEMPT_RT))
-> +		return;
+>  drivers/gpu/drm/i915/display/intel_alpm.c | 11 +++++++++++
+>  drivers/gpu/drm/i915/display/intel_alpm.h |  1 +
+>  drivers/gpu/drm/i915/display/intel_dp.c   |  6 +-----
+>  3 files changed, 13 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
+i915/display/intel_alpm.c
+> index 10943539bc7c..a6743fe62d48 100644
+> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
+> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+> @@ -43,6 +43,17 @@ bool intel_alpm_is_alpm_aux_less(struct intel_dp *inte=
+l_dp,
+>  		(crtc_state->has_lobf && intel_alpm_aux_less_wake_supported(intel_dp));
+>  }
+>=20=20
+> +bool intel_alpm_init_dpcd(struct intel_dp *intel_dp)
+> +{
+> +	u8 dpcd;
+> +
+> +	if (drm_dp_dpcd_read_byte(&intel_dp->aux, DP_RECEIVER_ALPM_CAP, &dpcd) =
+< 0)
+> +		return false;
+> +
+> +	intel_dp->alpm_dpcd =3D dpcd;
+> +	return true;
+> +}
 
-It would be nice to emit a suitable drm_notice here, equivalent to how 
-the existing error path does if the registration unexpectedly fails.
+Why not propagate the original error instead of flattening to a boolean?
+What does boolean true/false mean for a function that's not a predicate
+function but "init"?
 
-Regards,
+From a maintenance perspective, the mixing of bool vs. int return values
+is a problem because you never know what is being checked for in the
+caller side:
 
-Tvrtko
+	if (!intel_alpm_init_dpcd())
+
+Does that return bool and false means failure? Or does that return int
+and false means success?!
+
+
+BR,
+Jani.
+
 
 > +
->   	spin_lock_init(&pmu->lock);
->   	hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
->   	init_rc6(pmu);
+>  void intel_alpm_init(struct intel_dp *intel_dp)
+>  {
+>  	mutex_init(&intel_dp->alpm.lock);
+> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.h b/drivers/gpu/drm/=
+i915/display/intel_alpm.h
+> index f8f605d94f96..56c3e1482e37 100644
+> --- a/drivers/gpu/drm/i915/display/intel_alpm.h
+> +++ b/drivers/gpu/drm/i915/display/intel_alpm.h
+> @@ -15,6 +15,7 @@ struct intel_connector;
+>  struct intel_atomic_state;
+>  struct intel_crtc;
+>=20=20
+> +bool intel_alpm_init_dpcd(struct intel_dp *intel_dp);
+>  void intel_alpm_init(struct intel_dp *intel_dp);
+>  bool intel_alpm_compute_params(struct intel_dp *intel_dp,
+>  			       struct intel_crtc_state *crtc_state);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 0cd5e6b5034c..650c8b39270b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4783,7 +4783,6 @@ static bool
+>  intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *c=
+onnector)
+>  {
+>  	struct intel_display *display =3D to_intel_display(intel_dp);
+> -	int ret;
+>  	u8 dprx;
+>=20=20
+>  	/* this function is meant to be called only once */
+> @@ -4829,10 +4828,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp, str=
+uct intel_connector *connector
+>  	 */
+>  	intel_dp_init_source_oui(intel_dp);
+>=20=20
+> -	/* Read the ALPM DPCD caps */
+> -	ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux, DP_RECEIVER_ALPM_CAP,
+> -				    &intel_dp->alpm_dpcd);
+> -	if (ret < 0)
+> +	if (!intel_alpm_init_dpcd(intel_dp))
+>  		return false;
+>=20=20
+>  	/*
 
+--=20
+Jani Nikula, Intel
