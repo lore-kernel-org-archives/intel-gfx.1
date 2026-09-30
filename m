@@ -4,43 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD914CA5FAC
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 11:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 264D0CA5FAC
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 11:53:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5763410F325;
-	Wed, 30 Sep 2026 11:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 992A210F32F;
+	Wed, 30 Sep 2026 11:53:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XWPU6hP3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E6poQJgh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FAF110F325
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 11:46:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E24E74327A;
- Wed, 30 Sep 2026 11:46:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA761F00893;
- Wed, 30 Sep 2026 11:46:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790768764;
- bh=e7CZiazI1LU8i8CbVTSudy+/ovdeQpv7cDdJzUHC7r4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XWPU6hP3Dx2kIM0M+E8BVi4Z31IL5SdSfv1R5RY1Iw5tWxwYTsyoTvWkTe7Qiuz5N
- Hq7xzGX34goVusM09Q0MOtwQM96NoiRSOinclv8O1THqxHD2FSGNmr2aXO1tiiZbrj
- e03r3KVKQ8tZciyJBTgqpcJoWqD6pWNCJE25/TYvj8edOXJNIC7v4Qlp4HQjG+LKAX
- 0dunWnuHh2BDTZfomXf5ZUHxZMt9UToOzNNeaLkggx/gRfNuo9hAFK6K3ZzJpd7wEe
- Hq6Q4zA7KFrBBoITDqRBMOvoUPLaOFp1NZW5eTIRx2kiV6MMzeMNpQ45ioGKhVjNUc
- wd06YNFy6PdgA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/i915/selftests: Fix unlocked mm.stolen in reset
- selftest
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260930113513.15169-1-sebastian.brzezinka@intel.com>
-References: <20260930113513.15169-1-sebastian.brzezinka@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 11:46:04 +0000
-Message-Id: <20260930114604.9BA761F00893@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FCFD10F32F;
+ Wed, 30 Sep 2026 11:53:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790769188; x=1822305188;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ylyzEQcDk48NaOVN5fKUrglkXMxy03urjxfP8E2RkiI=;
+ b=E6poQJghuB9oJs61UeBogIW+ofdx+aim0hETlMJZZGOcfAZECWG1QLFY
+ hRAUJsrIamhVEASntxPac3ksUIsqshiZ0xWvtDcoTHJ78pxhs4ZZ+4GAL
+ +XSTDK2Q9d7HWtH+5lPqdZTtU0K44Q4yyM1CnxVlIuB4ERunm8DlZLAvo
+ Nd/oSiMMFZSsgwlYrx+/I+krzKK9Dpc3g95mc+13uBLcoGchymw0i8kKl
+ 64msbHKEzKRIb27JkhfObnkNWKMeLP5zVdqhylAI1midq25KkCJexMF/N
+ sIChZ0EEDvAt8ZnQG38qUeZlGFGrLeNsvpKDBcRVcnfAWxztMn4RqQ55a Q==;
+X-CSE-ConnectionGUID: UwCdwy60S0yItoRt101itg==
+X-CSE-MsgGUID: qfEFIDdzToGkZsteNHVLjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="93989575"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="93989575"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 04:53:08 -0700
+X-CSE-ConnectionGUID: 9n1Dc82/Ro2xfita9Dl4IA==
+X-CSE-MsgGUID: oSr3N1m7SCqZqRKZui+HzA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="303605282"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.175])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 04:53:06 -0700
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH 1/3] drm/i915/gmbus: Switch GMBUS fully to _fw() register
+ accesses
+Date: Wed, 30 Sep 2026 14:53:01 +0300
+Message-ID: <20260930115303.24285-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,87 +67,171 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] selftests: TOCTOU race in unused stolen memory verification
---
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-commit c306e84112aa79cbd3009b777df94536525c83b4
-Author: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Switch the gmbus code over from _notrace() to _fw() register
+accesses.
 
-drm/i915/selftests: Fix unlocked mm.stolen in reset selftest
+My original goal was just to eliminate the _notrace() variants
+to shrink the intel_de.h API a bit, but while doing this I
+stumbled on a huge performance issue with the current code;
+Bit banging turns out to be extremely expensive on PCH
+platforms while in DC5/6, and cause turns out not to be the
+actual south GMBUS/GPIO register accesses, but rather the
+extra north FPGA_DBG register access done from the non _fw()
+register access functions. Those accesses cause a DC5/6 exit
+which take a huge chunk of time.
 
-This commit fixes an unlocked mm.stolen read by introducing the
-stolen_page_unused() helper and wrapping accesses with stolen_lock. It also
-caps num_pages to avoid the hardware-reserved region.
+$ time echo detect > /sys/class/drm/card0/HDMI-A-1/status
+-real	0m16.281s
++real	0m1.459s
+...
 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i=
-915/gt/selftest_reset.c
-> index 2cfc23c58e909..811ddf991cb27 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_reset.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
+There does still seem to be a smallish (maybe ~15%) performance
+penalty for accessing PCH registers while in DC5/6. Not really
+sure what's causing it, but seems to be small enough to not cause
+a huge performance problem for bit banging. When not in DC5/6
+the same HDMI detect cycle takes ~1.25 seconds. If we want to
+further speed that up we could completely disable DC5/6 during
+big banged i2c transfers. Currently we only do that on BXT/GLK
+because there the GMBUS hardware lives on the SoC and thus is
+affected by DC states, even for non-bit banged transfers.
 
-[ ... ]
+Note that by using the _fw() register accessors we also lose the
+uncore.lock protection, but that's fine because everything is
+already protected by the gmbus mutex, and nothing else should
+live on the same cachelines of registers. So even platforms like
+IVB/HSW which may have some issues with concurrent register
+accesses to the same cacheline are still covered.
 
-> @@ -95,10 +106,10 @@ __igt_reset_stolen(struct intel_gt *gt,
->  				      ggtt->error_capture.start,
->  				      PAGE_SIZE);
-> =20
-> -		if (!__drm_mm_interval_first(&gt->i915->mm.stolen,
-> -					     page << PAGE_SHIFT,
-> -					     ((page + 1) << PAGE_SHIFT) - 1))
-> +		mutex_lock(&gt->i915->mm.stolen_lock);
-> +		if (stolen_page_unused(gt, page))
->  			memset_io(s, STACK_MAGIC, PAGE_SIZE);
-> +		mutex_unlock(&gt->i915->mm.stolen_lock);
-> =20
->  		in =3D (void __force *)s;
->  		if (i915_memcpy_from_wc(tmp, in, PAGE_SIZE))
->  			in =3D tmp;
->  		crc[page] =3D crc32_le(0, in, PAGE_SIZE);
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_de.h    |  6 ++++
+ drivers/gpu/drm/i915/display/intel_gmbus.c | 34 +++++++++++-----------
+ 2 files changed, 23 insertions(+), 17 deletions(-)
 
-[Severity: Medium]
-Since stolen_lock is dropped before computing the CRC, does this introduce a
-race window where a concurrent thread can allocate the page and modify it
-before the initial CRC is calculated?
+diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
+index 102979019429..8144588d3cf7 100644
+--- a/drivers/gpu/drm/i915/display/intel_de.h
++++ b/drivers/gpu/drm/i915/display/intel_de.h
+@@ -158,6 +158,12 @@ intel_de_rmw_fw(struct intel_display *display, intel_reg_t reg, u32 clear, u32 s
+ 	return old;
+ }
+ 
++static inline void
++intel_de_posting_read_fw(struct intel_display *display, intel_reg_t reg)
++{
++	intel_de_read_fw(display, reg);
++}
++
+ static inline u32
+ intel_de_read_notrace(struct intel_display *display, intel_reg_t reg)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index 60a70dea5d85..09171f3db298 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -218,8 +218,8 @@ to_intel_gmbus(struct i2c_adapter *i2c)
+ void
+ intel_gmbus_reset(struct intel_display *display)
+ {
+-	intel_de_write(display, GMBUS0(display), 0);
+-	intel_de_write(display, GMBUS4(display), 0);
++	intel_de_write_fw(display, GMBUS0(display), 0);
++	intel_de_write_fw(display, GMBUS4(display), 0);
+ }
+ 
+ static void pnv_gmbus_clock_gating(struct intel_display *display,
+@@ -262,7 +262,7 @@ static u32 get_reserved(struct intel_gmbus *bus)
+ 		preserve_bits |= GPIO_CLOCK_DIR_MASK | GPIO_CLOCK_VAL_MASK |
+ 				 GPIO_DATA_DIR_MASK | GPIO_DATA_VAL_MASK;
+ 
+-	return intel_de_read_notrace(display, bus->gpio_reg) & preserve_bits;
++	return intel_de_read_fw(display, bus->gpio_reg) & preserve_bits;
+ }
+ 
+ static int get_clock(void *data)
+@@ -271,10 +271,10 @@ static int get_clock(void *data)
+ 	struct intel_display *display = bus->display;
+ 	u32 reserved = get_reserved(bus);
+ 
+-	intel_de_write_notrace(display, bus->gpio_reg, reserved | GPIO_CLOCK_DIR_MASK);
+-	intel_de_write_notrace(display, bus->gpio_reg, reserved);
++	intel_de_write_fw(display, bus->gpio_reg, reserved | GPIO_CLOCK_DIR_MASK);
++	intel_de_write_fw(display, bus->gpio_reg, reserved);
+ 
+-	return (intel_de_read_notrace(display, bus->gpio_reg) & GPIO_CLOCK_VAL_IN) != 0;
++	return (intel_de_read_fw(display, bus->gpio_reg) & GPIO_CLOCK_VAL_IN) != 0;
+ }
+ 
+ static int get_data(void *data)
+@@ -283,10 +283,10 @@ static int get_data(void *data)
+ 	struct intel_display *display = bus->display;
+ 	u32 reserved = get_reserved(bus);
+ 
+-	intel_de_write_notrace(display, bus->gpio_reg, reserved | GPIO_DATA_DIR_MASK);
+-	intel_de_write_notrace(display, bus->gpio_reg, reserved);
++	intel_de_write_fw(display, bus->gpio_reg, reserved | GPIO_DATA_DIR_MASK);
++	intel_de_write_fw(display, bus->gpio_reg, reserved);
+ 
+-	return (intel_de_read_notrace(display, bus->gpio_reg) & GPIO_DATA_VAL_IN) != 0;
++	return (intel_de_read_fw(display, bus->gpio_reg) & GPIO_DATA_VAL_IN) != 0;
+ }
+ 
+ static void set_clock(void *data, int state_high)
+@@ -302,8 +302,8 @@ static void set_clock(void *data, int state_high)
+ 		clock_bits = GPIO_CLOCK_DIR_OUT | GPIO_CLOCK_DIR_MASK |
+ 			     GPIO_CLOCK_VAL_MASK;
+ 
+-	intel_de_write_notrace(display, bus->gpio_reg, reserved | clock_bits);
+-	intel_de_posting_read(display, bus->gpio_reg);
++	intel_de_write_fw(display, bus->gpio_reg, reserved | clock_bits);
++	intel_de_posting_read_fw(display, bus->gpio_reg);
+ }
+ 
+ static void set_data(void *data, int state_high)
+@@ -319,15 +319,15 @@ static void set_data(void *data, int state_high)
+ 		data_bits = GPIO_DATA_DIR_OUT | GPIO_DATA_DIR_MASK |
+ 			GPIO_DATA_VAL_MASK;
+ 
+-	intel_de_write_notrace(display, bus->gpio_reg, reserved | data_bits);
+-	intel_de_posting_read(display, bus->gpio_reg);
++	intel_de_write_fw(display, bus->gpio_reg, reserved | data_bits);
++	intel_de_posting_read_fw(display, bus->gpio_reg);
+ }
+ 
+ static void
+ ptl_handle_mask_bits(struct intel_gmbus *bus, bool set)
+ {
+ 	struct intel_display *display = bus->display;
+-	u32 reg_val = intel_de_read_notrace(display, bus->gpio_reg);
++	u32 reg_val = intel_de_read_fw(display, bus->gpio_reg);
+ 	u32 mask_bits = GPIO_CLOCK_DIR_MASK | GPIO_CLOCK_VAL_MASK |
+ 			GPIO_DATA_DIR_MASK | GPIO_DATA_VAL_MASK;
+ 	if (set)
+@@ -335,8 +335,8 @@ ptl_handle_mask_bits(struct intel_gmbus *bus, bool set)
+ 	else
+ 		reg_val &= ~mask_bits;
+ 
+-	intel_de_write_notrace(display, bus->gpio_reg, reg_val);
+-	intel_de_posting_read(display, bus->gpio_reg);
++	intel_de_write_fw(display, bus->gpio_reg, reg_val);
++	intel_de_posting_read_fw(display, bus->gpio_reg);
+ }
+ 
+ static int
+@@ -454,7 +454,7 @@ gmbus_wait_idle(struct intel_display *display)
+ 	add_wait_queue(&display->gmbus.wait_queue, &wait);
+ 	intel_de_write_fw(display, GMBUS4(display), irq_enable);
+ 
+-	ret = intel_de_wait_fw_ms(display, GMBUS2(display), GMBUS_ACTIVE, 0, 10, NULL);
++	ret = intel_de_wait_ms(display, GMBUS2(display), GMBUS_ACTIVE, 0, 10, NULL);
+ 
+ 	intel_de_write_fw(display, GMBUS4(display), 0);
+ 	remove_wait_queue(&display->gmbus.wait_queue, &wait);
+-- 
+2.54.0
 
-[ ... ]
-
-> @@ -143,16 +154,15 @@ __igt_reset_stolen(struct intel_gt *gt,
->  			in =3D tmp;
->  		x =3D crc32_le(0, in, PAGE_SIZE);
-> =20
-> -		if (x !=3D crc[page] &&
-> -		    !__drm_mm_interval_first(&gt->i915->mm.stolen,
-> -					     page << PAGE_SHIFT,
-> -					     ((page + 1) << PAGE_SHIFT) - 1)) {
-> +		mutex_lock(&gt->i915->mm.stolen_lock);
-> +		if (x !=3D crc[page] && stolen_page_unused(gt, page)) {
-
-[Severity: Medium]
-Similarly, can a concurrent thread legitimately allocate, modify, and free =
-the
-page while the lock is dropped here?
-
-If this happens, when stolen_lock is re-acquired, stolen_page_unused() will
-return true, but the CRC will mismatch. Could this lead the test to falsely
-report that the GPU reset clobbered unused stolen memory?
-
->  			pr_debug("unused stolen page %pa modified by GPU reset\n",
->  				 &page);
->  			if (count++ =3D=3D 0)
->  				igt_hexdump(in, PAGE_SIZE);
->  			max =3D page;
->  		}
-> +		mutex_unlock(&gt->i915->mm.stolen_lock);
-> =20
->  		io_mapping_unmap(s);
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930113513.1516=
-9-1-sebastian.brzezinka@intel.com?part=3D1
