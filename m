@@ -4,92 +4,175 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC976CA5FD2
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:17:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DAC8CA5FCB
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:17:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F262A10F647;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBA8210F645;
 	Thu,  1 Oct 2026 12:17:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ownmail.net header.i=@ownmail.net header.b="AlGfLvMz";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZBhtTHu5";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="D1N0qPH6";
 	dkim-atps=neutral
-X-Greylist: delayed 363 seconds by postgrey-1.36 at gabe;
- Wed, 30 Sep 2026 21:14:26 UTC
-Received: from fhigh-b6-smtp.messagingengine.com
- (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3EAD10F4F0;
- Wed, 30 Sep 2026 21:14:26 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 069F67A00CA;
- Wed, 30 Sep 2026 17:08:23 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Wed, 30 Sep 2026 17:08:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:reply-to:subject:subject:to:to; s=fm1; t=
- 1790802502; x=1790888902; bh=/mJWsmetASNjN6EpOjG8Phb840859a2Kyp4
- 5AGKZV8c=; b=AlGfLvMz2fKCQKGnh34RIKMVKneOYIqwnhoyv5MeeE2QPHE5gE0
- OEBUlmD3DBc3jqxAZvzgVn901v0Pr4NbYDO2PrqeGf1ffuE5qAw9+y0lcLmPuhFx
- TFC+7bL5QFL4KHd3OjR+OpcpWkWBDU3y5WR4DGDZ6M97us4ZqZcc1h50d4QJSOFn
- yS2Av9N7k38QLJw8rtQl1l2DV0hdfqI6lbXuM+wvGE+D0W/LUPX/0K32qpvbjO56
- So5xHPxEc8PFLCfnFoENuHTMMv1vhH3yNbZDpn59T3dS7eA1pI9ztCdl1Yqlgs81
- ZBqEJx9GIbD+APA98jYkbOFNvZb98uNbahQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790802502; x=
- 1790888902; bh=/mJWsmetASNjN6EpOjG8Phb840859a2Kyp45AGKZV8c=; b=Z
- BhtTHu5cUnS1sJJ4d111iSI9kdjOFKSWmqFFoc5ocKjB8yz9ljbRVbw6SbAPRHaA
- rAuoQkuGF/CZGT7PCGXud9nkk7beuXCUtp2++PIm2d0m2JZqGorMdlwKuXR/Nny1
- hQ3TDU8iobSImwF8ZqziEb/XWphky5e+B48Mm3ybf6QkffsWl0BiCswvEFrw9mbf
- HtoTZD5kztKzbMAAU/GRxSOce5CUgipyo6R9wHzyijuumODE+2KMI8qsmqndQIFM
- 3+M10YJ3QxmGXcpMmc4rM163kw7tn7g/Z0xR0FL6JnHUtqcFkk4oiiQEdsxjRPgp
- 9tuMLtGXAwm4H0gqUW7Sg==
-X-ME-Sender: <xms:Rnq9akmaOYILBeSAWvKyYYr2Wwo5Ea4yugV2WUD0S41tjUb_9IMXMA>
- <xme:Rnq9agiTGsqZcIDGUb7POv1iNOlufy2L_JLcaIgLFYol9jruSYcD4wIfxFZUFju8t
- Spre0H4LbQRiEY3UcNVDokLSPBxRoC1GGU5Nx4JH_NUsfcaa18>
-X-ME-Received: <xmr:Rnq9amitt-KytCYjYPxg_7dhfMcnKKa3Lydd_Xi-4Q4oEY--zNOkeHwhNZnLPjBfppEAZwyvCWAY-I5drnuq0ZXNfF3Bpf4>
-X-ME-Proxy-Cause: dmFkZTEhCJ71Y8f3eLXP6QpBlONgllJkJhg8WVruLNQRCp39HogvcBO6NfmvlXMkYwxWmf
- 5JK6nIkXAnxhAAMMkNQrbgUQFxdpu50wsGMxDBYZBmmeUsOOthOuM4D5neqzKuDNHLzabl
- bO9UgEk/AF/mcHVvra5cM5ESWE2mcrh8b6SHROsHYTsj7cgxAaoJznIDY8UG4Khv3dfzc/
- hJbpP1xj8XLVQrMlqAgyG8eZKAqXre83OPvCu/KiOuQOCp1f+7TtC3Qc48jpn0DkSTza6v
- kNjq4jjhTLkXkUXgCT4VuggMfpxgU0b7WtbrUc+c1FeQ3Vjv3P5QZmFvAGkyqXgfHwLfOd
- yMpYIERylXM/qz7XQUkCDe42vZSXgDMAcrQCpP2dXU7tBx0YWZd30j1vc3qWgT7XsPHLoZ
- xTZr2yIMSUkkyrFoqcAGezJzmZop9QeH0m0vbCD6IKPt5yUm4wQgAnZ1oJ+6jahISHTHWH
- d4tGJZIBA/Zv3HHnbI9I0hXT913ObnOCKm0GU2zMU2tl3JUl2O46lSsGdAitzfkhALar1G
- BojvOv85sH1qeWX8Ee0noPn2cTgusBmYPqPmzFShliN7sKXQ4ormkQMccKr/U0Bn5LG/zn
- hoNFVeo7/znCypLVjOjzVIM1TokSZ+CkRA6P1izw/O56cRaA2fK97vuDm70A
-X-ME-Proxy: <xmx:Rnq9aqs4pjeipnvLPD_2ofuA6fdfQCGJIA5oay9vBUlO5XVJnB10Bg>
- <xmx:Rnq9amsQy1c8U4oBqOfurJkm5ebL-w4N3PIzmON-dDDXFVP6jlpTyw>
- <xmx:Rnq9agpnWu-c-8C5vZSwXQeHkIfoBRkhPfJG6vp9jvG3TaukzvdZVg>
- <xmx:Rnq9alJjs-qFtr8kIX0JNhrXhRRDAoHz1FyG-dSrgVP3LcvS_XAeHg>
- <xmx:Rnq9ak7yQXkolz89LhHU6LV4n0TEGgv2Yl0C_uAl1tAXbd6FAJgPE5QL>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 30 Sep 2026 17:08:18 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013046.outbound.protection.outlook.com
+ [40.93.196.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFB6810E26A;
+ Wed, 30 Sep 2026 15:28:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s8uTyHY6ca0S0gFpYdWeYhmt2qrfVim81f/ez5gEyTG7rnWCcA8/efKeY19pYTwnxwABRHXRKolDwQi2UhO6Qz7e2tw2LtkJhsBVye4eWtkujwDZZ27NbV2cskWBD4nzj1Dd3LmiOn4W3u3obhqoFQUlgEbfAT/rGvrdzux+FUcMcTWhIntHiV95U798sZ0k9HBVZ5bIWiu68czDL62rHBAnmeLn4IK07kBZs/ig5ErqAxPLXbvEKipxMPC6OIyzO6xtuBjjFcSmzsvMHjYPfjA5yanrW4EaKx+lblQaKX1kfhoTPznH15l3TzT35GNhWLmss4FkNHGG6SvIvUG8mQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j8w1jBnA80+jx0tcZGoqUFaJ5onaLQirx/OFTHfw1Is=;
+ b=JtWj3321OWFasox9ZMgOhmSAZPBdcjqPps/So50HJ7tSj2RIaFzWfVwmg056K6Itl7SlkJcHCMMvQbbJTMO79OGYAlUlJuGtRtdVkL6sMFAexi7rnPCZHLYdW5ylCqSCWp9Tbtmwyu09O7a/B+uMNCtRv6iEaMwjKiTLORhoRLOqV/0Taa1tt9sChnpupDPn3t2atSyDikEKWBFyLPz6ExmCk3P8/RraolNwzkaYCWDAWdQNlhDsDztRxk7p+U8gIFWQke2ge3GUrf5TMVmjVdk8i+weC5bxjqn4edtnPcOmAcvjaRYdEw7K/USJ6WkTMuC5RDb/DfHvcDWyW50Ymw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j8w1jBnA80+jx0tcZGoqUFaJ5onaLQirx/OFTHfw1Is=;
+ b=D1N0qPH6GDpjju4aIZpuxd1dhaa2+ullhx2NmCdQEzl3PVKYtQiHUacX80CpSDdjg0S1R5ugLiFraR2ypmUMTxGd3LzzhmR/rTewwQlyA92Mi3NJk3EQlxFcyrFGanZDy1OGzsQAUD7urm32U1uSNCKFWM7dEF8VvyJRYcckG81trDtDoXM+IP/gyS2UIZcfmNG4Lwk6NQHtbSLnUzilm8CMps9VuTI1+77XdaqWXsdqZUz2hwiQ3NL+9v2iT0+9kWqOl5A7DD0o3HbuAv6X5Y5zR2uE1C2tjPAIc1EOJrtUqptRVP22RCCLNS8C4ohXmhwm7eqoEgGQhlD+OCe9zQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DM4PR12MB5724.namprd12.prod.outlook.com (2603:10b6:8:5f::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.26; Wed, 30 Sep 2026 15:27:57 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 15:27:57 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
+ kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 1/9] mm: introduce hw_pte_t for PTE table storage
+Date: Wed, 30 Sep 2026 11:27:53 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <51D02557-E9CC-4806-917E-279C6E66AF1A@nvidia.com>
+In-Reply-To: <20260922-pte0-v3-1-5670b8cb9059@arm.com>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-1-5670b8cb9059@arm.com>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BL1PR13CA0112.namprd13.prod.outlook.com
+ (2603:10b6:208:2b9::27) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, "Jeff Layton" <jlayton@kernel.org>,
- "Amir Goldstein" <amir73il@gmail.com>, "Miklos Szeredi" <miklos@szeredi.hu>,
- linux-kernel@vger.kernel.org, ravitejax.veesam@intel.com,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v4 6/7] VFS: add lockdep monitoring of DCACHE_PAR_LOOKUP
- lock.
-In-reply-to: <e3772a51-eabc-4c31-b73d-f3187bf1b3b2@intel.com>
-References: <20260904215142.1060510-1-neilb@ownmail.net>
- <20260904215142.1060510-7-neilb@ownmail.net>
- <e3772a51-eabc-4c31-b73d-f3187bf1b3b2@intel.com>
-Date: Thu, 01 Oct 2026 07:08:14 +1000
-Message-id: <179080249491.37859.6519131410483661870@noble.neil.brown.name>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB5724:EE_
+X-MS-Office365-Filtering-Correlation-Id: d214dff4-b381-4957-d09d-08df1f07674d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|4143699003|11063799006|56012099006|10063799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: NTMS7w3pkwbdyX8kXLQQPd6bmp7vgxhsw8wWUgoxv0BrTrWoioXQwXj9y2sXwxqK/qp94qzNdh/w34dJBNSvbrkk9mQbv2eUPT1dCR5tZ1ctxQM8bgU8kBHD7llfqbs2uDuPa0FCmoZMt4aJnvieWCKHKxci7qcqJAuMjkWfrFU8R5RZ0Pp+gWd6vaVst+KGOu7iQzlS6ZiiLCyEHCFhE5UTWJFFq6SPOOfeik7Z0B1OXZ2zH9V2SuK02wJNgjSYLbszkIqi50F10i5CEUJ3ZGuCkyo3DM/MwDsQAmHM8Bp6vKunIh4HqtMQOnv7zekcp+FzN5RAzsi0FWBm5ZLmamnACbJ3ID8Uhc2HbeBvXNONVsFjYpykdaOuaDLwRN1/WB3MpYmtTWpOhyqq8LIb7VFs6nvId/Ccql4GAZZPIAqWvI0kj6zudAav0tOCf5ocPxPGvqv0srNHGzljQMohQkc5knSeLiz0T7I3twibdB+LZUKnkqS4g6gZxOLx8jHHOrM7CcIMBFvSVOy124A+psloR+Sir++O4fteJpkRLIH2eo2XV3ANbGLdqlMLl7bvZevXSVQuXGwtEFUG0PQnGs49YCqwB44rR9hCbCcjSPAnPCpAXVR+pJ987rdeYw2WIN+jnl6TeeNBBReTpntyPBD6DV97FUla1GcpMqCM9h8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(10063799003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MXu4eQniVxMuLf/9bfDbC7QY5S/GZmk+BEhdZPsCpb2Fwvz+snepEPRv42qo?=
+ =?us-ascii?Q?J+fGc6zIpN2r69MH3j1NbAw+66SPKNJSbZWhUSOYSaWDRf4WysG/w2mdz+cN?=
+ =?us-ascii?Q?vp3KKbYKM8MhsCZWkFB42OashkTTgzj6OZ6vq7YylqGondij1VlWCYNmcP8S?=
+ =?us-ascii?Q?6CXUVF1CZY8gLz31yQcOyjXSX5r+5W5adH8GV43S5daPLgy1FP1pch3Vqrlf?=
+ =?us-ascii?Q?LydlKNFlFcd6CQvLAmRZRg5f+x5EGG7YhPBj+3BMbN4LI/lNWXYIpqiHqL7j?=
+ =?us-ascii?Q?oXhMMivi1j3CAIyHtKjnBqsGsncsD9Df+DEDyitdDfZE5i1G5UrNPgcatcz/?=
+ =?us-ascii?Q?mOfTjD8IZ8ZR2rMuwlWGM7cKyWdpZ5SlTiRxY5CJuWwlCSWlWhK7Mn9edgn9?=
+ =?us-ascii?Q?Abtswnt7rCImfHaCNvjLM8bxzr2VL0lWfaOQoi0ZkND6Uxjx80xWYDeDdcLy?=
+ =?us-ascii?Q?E2M4AQSakyvohHmvNmzUGfYvmOf5UofkU4avmkfn0FAKO3HBNZ84eu6/qB0/?=
+ =?us-ascii?Q?BZkh42wfg4Tpp5AzexqE0YlzTTYdsEhTlxyMDpY0dY/493VkD3G3VmmenLvc?=
+ =?us-ascii?Q?rOsNrznL3Ai/WSC9dPAJ2ZVp4YFIfEewJtaYthUYeM1mHNwkHM57C3jhqJZE?=
+ =?us-ascii?Q?oE/mixWkz2wHs5AScj9awqrTKdoG+D2+UP55curGBCATRmTl/m7GNbhLI8DD?=
+ =?us-ascii?Q?/LpUx+iBAnEP2/sP4eK6DpVctibX9lPiiKkUQDwfqPwHb4HWHRBFrm7hyvbb?=
+ =?us-ascii?Q?1q0FRxmMe40oskj/VcMiMnLOYQolAHPLNrau928odO+HIqfP4yZRqOG4dD0h?=
+ =?us-ascii?Q?PwtkEzoBxPv+ezIzGXMVj6vnzZHj9k+INQcrtqClIA1ORalRBd8jzvtlji5b?=
+ =?us-ascii?Q?/2qlXjfsInReKmjefmVeIOG1K/qzZ5l/6e/Lwvopa6VTFuL+SrhYv9N/Yoc5?=
+ =?us-ascii?Q?j8+pg/TPURR8FqRiO5nzmXCWudtk9pQowrK1N1/noRFW++Oxh5J6KEGxWoBg?=
+ =?us-ascii?Q?bPvscNfCLhlUpVRhJ/HlU6qHXIHRVZT2ops9BEj/kj5gQGfI4gKjYUo8q2wm?=
+ =?us-ascii?Q?EnQA7IeJ2rTYpUTpOztbqVoqKIAugvcp5LpMgIaQJgYyR90PdeQk8rB206pU?=
+ =?us-ascii?Q?OEevidn/mt07l+4qXT8oBb9a22pTAX5Oz0iY9j1ManvQYZpzc2pC2r3XI/7w?=
+ =?us-ascii?Q?yFS4ZzYI7p519xaiDGAOAL210+5azfqWPKAg6FPBqpqqUj4RH+MzvfU0VjFl?=
+ =?us-ascii?Q?OmpY5RRcLDE94Cy1REYNVkR0ntXfbZovloDW2XYuRh1PRBAplbFbVz1CF6j5?=
+ =?us-ascii?Q?HNbo0gHXo8t5IB4239rfrJjNIMAv2hWLBuATBn9RDSclotP3/WVbOlTrrAcA?=
+ =?us-ascii?Q?alpY8++184I9GbRwPtp9oFf7AqX1so53T0aej11fWXSkDCa1pQAAGqrwk30V?=
+ =?us-ascii?Q?IMeN5jH8ijdgbAThHaaerWzyh9CUxr0uM5fjHYLb6lohDLNnl+7gCzQlXXVU?=
+ =?us-ascii?Q?kknZDCREfrCBcTH4jTRN6YVj+UUrdNs44QUakpZEqj9lZJvG3tCBCjQ5tiLa?=
+ =?us-ascii?Q?YWv8bBtBYiNnp4zT2e28zycu04Xl/sgRPaac3E0Vo5JfjdtnbDUBYehX0WWg?=
+ =?us-ascii?Q?lEcYH+QxwZlpE3cj0tzisjeSTXu2N+jw3p9Iel/2Fl9/zZx2i9uYQxMkEDjn?=
+ =?us-ascii?Q?GS3vsX2AB2EzWefPjnuPPbP5XqaqtZOHwLXLZGiQl5NHkVEOqH+nMbTsJp/E?=
+ =?us-ascii?Q?7DP2WO6Skg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d214dff4-b381-4957-d09d-08df1f07674d
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:27:56.9730 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YLttr6nZbAZEgLwiA1BQTWtmyJC4gk3s+HBEIV2F7pIcz4C++d3nVT6aZtPTmkRN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5724
 X-Mailman-Approved-At: Thu, 01 Oct 2026 12:17:30 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,117 +186,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: NeilBrown <neil@brown.name>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 01 Oct 2026, Borah, Chaitanya Kumar wrote:
-> Hello Neil,
->=20
-> On 9/5/2026 3:18 AM, NeilBrown wrote:
-> > From: NeilBrown <neil@brown.name>
-> >=20
-> > DCACHE_PAR_LOOKUP acts like a lock in that threads can block waiting for
-> > it to clear.  As we plan to make changes to lock order for this lock,
-> > teach lockdep to monitor it so as to help detect bugs early.
-> >=20
-> > As NFS allocates an in-lookup dentry to unlink a silly-renamed file, and
-> > completes the lookup in a different thread, we need interfaces to
-> > release and the acquire ownership of the lock.  This avoids lockdep
-> > complaining that a lock is still held on return to user-space.
-> >=20
->=20
-> This seems to be causing regression in our linux-next CI [1] since
-> next-20260928.
->=20
-> <4>[   10.773931] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> <4>[   10.780181] WARNING: possible circular locking dependency detected
-> <4>[   10.786407] 7.3.0-rc5-next-20260928-next-20260928-g6375e61c01e9+=20
-> #1 Not tainted
-> <4>[   10.793773] ------------------------------------------------------
-> <4>[   10.800017] podman/794 is trying to acquire lock:
-> <4>[   10.804801] ffff888133cb8388=20
-> (&type->i_mutex_dir_key#3){++++}-{4:4}, at: lookup_slow+0x31/0x60
-> <4>[   10.814849]
->                    but task is already holding lock:
-> <4>[   10.820743] ffff88812dbd3048 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at:=20
-> __d_alloc_parallel+0x53a/0x920
-> <4>[   10.830976]
->                    which lock already depends on the new lock.
->=20
-> Detailed log can be seen found in [2].
->=20
-> We confirmed that reverting the patch solves the issue.
->=20
-> Could you please check why the patch causes this regression and provide
-> a fix if necessary?
->=20
-> Regards
-> Chaitanya
->=20
-> [1] https://intel-gfx-ci.01.org/tree/linux-next/combined-alt.html?
-> [2]=20
-> https://intel-gfx-ci.01.org/tree/linux-next/next-20260928/bat-arls-6/boot0.=
-txt
+On 22 Sep 2026, at 13:12, Muhammad Usama Anjum wrote:
 
-Thanks for the report!
-The log shows that overlayfs is involved.  overlayfs has special needs
-with respect to lock nesting which I hadn't allowed for.
+> pte_t is used both for software PTE values and for entries stored in a PTE
+> table, so pte_t * does not distinguish a pointer to a software PTE
+> value from a pointer to table storage.
+>
+> Introduce hw_pte_t as the generic name for a PTE table element. Define it
+> as a macro alias of pte_t by default. When an architecture selects
+> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
+> This preserves the representation while allowing converted architectures
+> to enforce the distinction at compile time.
+>
+> Name the generic wrapper structure __hw_pte_t so architectures can
+> forward-declare it when pgtable_t must be defined before the generic
+> hw_pte_t typedef is visible. This avoids header-order dependencies.
+>
+> Keep the C type definitions behind an __ASSEMBLY__ check because
+> architecture assembly sources can include this header indirectly. Include
+> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
+> they previously obtained from that header.
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> ---
+> Changes since v1:
+> - Name the generic wrapper structure __hw_pte_t so architectures can
+>   forward-declare it, and explain why this is required.
+> - Use software PTE value terminology.
+>
+> Changes since RFC v1:
+> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
+> - Exclude the C type definitions from assembly sources.
+> - Update the description for the new opt-in model.
+> ---
+>  MAINTAINERS                   |  1 +
+>  include/linux/pgtable_types.h | 17 +++++++++++++++++
+>  mm/Kconfig                    |  3 +++
+>  3 files changed, 21 insertions(+)
+>
+LGTM.
 
-I think this patch should fix it.  Please let me know.
+Acked-by: Zi Yan <ziy@nvidia.com>
 
-Thanks,
-NeilBrown
-
-
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index e487597337e8..e1448dd776b4 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -163,10 +163,34 @@ static int ovl_dentry_weak_revalidate(struct dentry *de=
-ntry, unsigned int flags)
- 	return ovl_dentry_revalidate_common(dentry, flags, true);
- }
-=20
-+#ifdef CONFIG_LOCKDEP
-+#define OVL_MAX_NESTING FILESYSTEM_MAX_STACK_DEPTH
-+static int ovl_dentry_init(struct dentry *dentry)
-+{
-+	static struct lock_class_key ovl_d_lock_key[OVL_MAX_NESTING];
-+	int depth =3D dentry->d_sb->s_stack_depth - 1;
-+
-+	if (WARN_ON_ONCE(depth < 0 || depth >=3D OVL_MAX_NESTING))
-+		depth =3D 0;
-+
-+	/* Based on lockdep_set_class() */
-+	lockdep_init_map_type(&dentry->lookup_map, "DCACHE_PAR_LOOKUP_OVL",
-+			      &ovl_d_lock_key[depth], 0,
-+			      dentry->lookup_map.wait_type_inner,
-+			      dentry->lookup_map.wait_type_outer,
-+			      dentry->lookup_map.lock_type);
-+
-+	return 0;
-+}
-+#else
-+#define ovl_dentry_init NULL
-+#endif
-+
- static const struct dentry_operations ovl_dentry_operations =3D {
- 	.d_real =3D ovl_d_real,
- 	.d_revalidate =3D ovl_dentry_revalidate,
- 	.d_weak_revalidate =3D ovl_dentry_weak_revalidate,
-+	.d_init =3D ovl_dentry_init,
- };
-=20
- #if IS_ENABLED(CONFIG_UNICODE)
-@@ -176,6 +200,7 @@ static const struct dentry_operations ovl_dentry_ci_opera=
-tions =3D {
- 	.d_weak_revalidate =3D ovl_dentry_weak_revalidate,
- 	.d_hash =3D generic_ci_d_hash,
- 	.d_compare =3D generic_ci_d_compare,
-+	.d_init =3D ovl_dentry_init,
- };
- #endif
-=20
+Best Regards,
+Yan, Zi
