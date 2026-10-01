@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4135CCA5FD2
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA63CCA5FB3
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:17:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A287910F655;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF2C10F650;
 	Thu,  1 Oct 2026 12:17:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S+MQtz7z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HLd6Zyta";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA2F110E029;
- Thu,  1 Oct 2026 11:26:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1E610E21A;
+ Thu,  1 Oct 2026 11:24:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 38FCD60A59;
- Thu,  1 Oct 2026 11:26:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5706D1F00899;
- Thu,  1 Oct 2026 11:26:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7C18D601E4;
+ Thu,  1 Oct 2026 11:24:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6BE1F000FF;
+ Thu,  1 Oct 2026 11:24:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790854016;
- bh=IzfEyFhJfYK+uB46vBwebUVJX9+hiREC1XF3fSfGZUA=;
+ s=k20260515; t=1790853896;
+ bh=OEsjZu9pCpcCr8EB0aUturWNWuV7FWxewuwQYtNdc3Q=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=S+MQtz7zuMo19rFCKE3ytIWk7CFynaGBS50YcTRINWTK/69FE8EU5WXwU4YLcDdeI
- s9Do6bZlpvwiEVwgtaj9tIS7N18dxNolZ/ZEY2StJqCPVzklnEXLteF1u8hE+6KYAs
- 76CrhAdicKoK7qFzSQ6inMlZtqgwGpP4vuGgEKL0Y9/HGMa27vAhF4L10zPhtXLPmP
- at8McMfify9jFinUv+Sdadf2Usvs5QzzGKfUxkmoykUDM3RjU/7T2ETtc60aAVnyot
- kxZGI1ar8zfZG4KRQbayNjm74RVS+RYzqvFsjwaotkhltxiPBfCZ6WHXWFzh5Tiq2g
- 9ag/B8Tf96Twg==
-Message-ID: <fc9919bf-b9e2-45c2-bd7c-70b37341b664@kernel.org>
-Date: Thu, 1 Oct 2026 13:26:17 +0200
+ b=HLd6ZytaONgcOlSzOhFnlQrczv91JhiZybTmAY3u05iS4ayseO+5Yx2VI45gfH68f
+ mXtnRYNGaqZLs733sKIWSmsT/TbTok+iiekr8NPLYf79nh6ARU02xgvH/ohonwP3eo
+ fETOL6iAjIxGEgoSPQobLYfo/Pzi78di1CBooBn4V2h2MI7S5tztfoznGBKtNplWg4
+ eE+r5b2np7RtR7+yCaYzoZA4Lnf38OWea5/zFEHAYkRHQkMtrW1jiFt5EvED5gS914
+ LqZITTH/DuzuhMUXkjsJtLA+anz87SER33y0MFu+awJN5mNP2XIoerPKjoK2r13Kqz
+ aX2KDjXmrqxoA==
+Message-ID: <48123600-5843-4c71-9ca3-1a9f3062af67@kernel.org>
+Date: Thu, 1 Oct 2026 13:22:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/9] mm: use hw_pte_t for generic PTE table storage
+Subject: Re: [PATCH v3 9/9] xen: use hw_pte_t for PTE range callbacks
 To: Muhammad Usama Anjum <usama.anjum@arm.com>,
  Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -99,7 +99,7 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
 References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-3-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-9-5670b8cb9059@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -146,7 +146,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260922-pte0-v3-3-5670b8cb9059@arm.com>
+In-Reply-To: <20260922-pte0-v3-9-5670b8cb9059@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 01 Oct 2026 12:17:30 +0000
@@ -166,28 +166,14 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 9/22/26 19:12, Muhammad Usama Anjum wrote:
-> Generic page-table interfaces use pte_t * for both pointers to PTE table
-> storage and pointers to software PTE values. Convert the generic
-> declarations and their MM, fs, and kernel users together so parameters,
-> return types, callbacks, and local pointers that designate table storage
-> use hw_pte_t *.
+> Generic PTE range and remapping helpers now pass pointers to PTE table
+> storage as hw_pte_t *. Update the Xen callbacks to match those interfaces.
 > 
-> Include linux/pgtable_types.h from headers that expose the converted
-> interfaces. It continues to provide pgprot_t to vmalloc.h through
-> asm/page.h.
+> Keep software PTE values as pte_t and continue to access them through the
+> existing PTE helpers. This is required when Xen is built for an
+> architecture that selects the distinct hw_pte_t wrapper.
 > 
-> Keep software PTE values as pte_t and retain pte_t * for value interfaces.
-> 
-> No architecture selects ARCH_HAS_HW_PTE_T at this point, so hw_pte_t
-> remains an alias of pte_t and this changes the interface vocabulary without
-> changing representation or behavior.
-> 
-> Most of this mechanical conversion was generated with the Coccinelle script
-> included in the cover letter. The script deliberately ignores pte_t *
-> pointers named ptentp because they designate software PTE values. The
-> result was then audited, and sites the script could not convert were
-> updated by hand.
-> 
+> Reviewed-by: Juergen Gross <jgross@suse.com>
 > Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
