@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9E9DCA5FA5
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 09:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F253CA5FB3
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 10:07:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 781D710E360;
-	Thu,  1 Oct 2026 09:52:10 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V2IM42Ny";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE4E910E057;
- Thu,  1 Oct 2026 09:52:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790848329; x=1822384329;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=NJHgq0KsDMhSAYtmq/D/EM57QepkjWdLxw/LXKK10LY=;
- b=V2IM42NynhLTLGAnVaIoM9Dq0O9iY7ACDg01ejjAqRL2EJcIXl1zU4s9
- TtXlRWGjocM/LlsL3bZDGOg8hK4moCUQ2d9+ojOHrZrZkvVfDOEVBO840
- RHyGVqY7uLHTJkEDQgUtD0Q9BoW/cvRrbR46f4yeTcb9UIhdHESMNjSFA
- VlzMED7Ob5oXM8Rd55itJ02hs0T7cltrzogRMoyZtFq7oOackjj4i32Vb
- BHe5Mb3Y4NKjJu3IWlEDQPXzVps+MgHeWV2girY1KussRupTPq+4ynuii
- 5mlgODHHdNnOGV1frv1CJAq9z26zH4UDdKBBwxSKZyS/i205ya6To0b4G A==;
-X-CSE-ConnectionGUID: f8zgH/FmS22R33j7E/CANA==
-X-CSE-MsgGUID: qgTB2I5cQx2zgDdnb3Ianw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="102272559"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="102272559"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 02:52:08 -0700
-X-CSE-ConnectionGUID: WguHdASFQgWRaZDkBmdKnw==
-X-CSE-MsgGUID: zYeduHC8RVGoKiFKMBx7Jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="274035093"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.29])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 02:52:06 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, ville.syrjala@linux.intel.com
-Subject: Re: [CI v2 00/10] drm/{i915, xe}: use a shared gtt_view_types.h header
-In-Reply-To: <cover.1790780340.git.jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cover.1790780340.git.jani.nikula@intel.com>
-Date: Thu, 01 Oct 2026 12:52:03 +0300
-Message-ID: <a6db80c1c771276318586603b6af9ce757155c75@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8BA510F5EC;
+	Thu,  1 Oct 2026 10:07:36 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DABF10F5EC;
+ Thu,  1 Oct 2026 10:07:36 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4293115798867206013=="
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/gt=3A_Do_not_des?=
+ =?utf-8?q?troy_uninitialized_timer_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Krzysztof Karas" <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 01 Oct 2026 10:07:36 -0000
+Message-ID: <179084925611.227991.6461083637153017328@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20261001071757.2688815-1-krzysztof.karas@intel.com>
+In-Reply-To: <20261001071757.2688815-1-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,57 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 30 Sep 2026, Jani Nikula <jani.nikula@intel.com> wrote:
-> Move i915_gtt_view_types.h under include/drm/intel, and clean up.
+--===============4293115798867206013==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Pushed to din, thanks for the reviews.
+== Series Details ==
 
->
-> v2 of [1]
->
-> [1] https://lore.kernel.org/r/cover.1789502902.git.jani.nikula@intel.com
->
->
-> Jani Nikula (10):
->   drm/intel: move i915_gtt_view_types.h to include/drm/intel
->   drm/intel: rename i915_gtt_view_is_*() helpers to
->     intel_gtt_view_is_*()
->   drm/intel: rename i915_gtt_view* struct/enum to intel_gtt_view*
->   drm/intel: add intel_gtt_view_is_partial() for completeness
->   drm/xe/display: use intel_gtt_view_is_*() helpers more
->   drm/i915/gem: use intel_gtt_view_is_*() helpers more
->   drm/i915/vma: use intel_gtt_view_is_*() helpers more
->   drm/i915/selftests: use intel_gtt_view_is_*() helpers more
->   drm/i915/debugfs: use the intel_gtt_view_is_*() helpers more
->   drm/intel: rename I915_GTT_VIEW_* enumerations to INTEL_GTT_VIEW_*
->
->  .../drm/i915/display/intel_display_types.h    |  4 +-
->  drivers/gpu/drm/i915/display/intel_fb.c       | 18 ++---
->  drivers/gpu/drm/i915/display/intel_parent.c   |  4 +-
->  drivers/gpu/drm/i915/display/intel_parent.h   |  6 +-
->  drivers/gpu/drm/i915/gem/i915_gem_domain.c    |  4 +-
->  drivers/gpu/drm/i915/gem/i915_gem_mman.c      | 14 ++--
->  drivers/gpu/drm/i915/gem/i915_gem_object.h    |  2 +-
->  .../drm/i915/gem/selftests/i915_gem_mman.c    |  4 +-
->  drivers/gpu/drm/i915/i915_debugfs.c           | 20 ++---
->  drivers/gpu/drm/i915/i915_gem.c               |  6 +-
->  drivers/gpu/drm/i915/i915_gem.h               |  6 +-
->  drivers/gpu/drm/i915/i915_gtt_view_types.h    | 74 -----------------
->  drivers/gpu/drm/i915/i915_vma.c               | 44 ++++-------
->  drivers/gpu/drm/i915/i915_vma.h               | 12 +--
->  drivers/gpu/drm/i915/i915_vma_types.h         | 29 ++++---
->  drivers/gpu/drm/i915/selftests/i915_vma.c     | 60 +++++++-------
->  .../compat-i915-headers/i915_gtt_view_types.h |  7 --
->  drivers/gpu/drm/xe/display/xe_fb_pin.c        | 28 +++----
->  include/drm/intel/display_parent_interface.h  |  8 +-
->  include/drm/intel/gtt_view_types.h            | 79 +++++++++++++++++++
->  20 files changed, 201 insertions(+), 228 deletions(-)
->  delete mode 100644 drivers/gpu/drm/i915/i915_gtt_view_types.h
->  delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_gtt_view_types.h
->  create mode 100644 include/drm/intel/gtt_view_types.h
+Series: drm/i915/gt: Do not destroy uninitialized timer (rev2)
+URL   : https://patchwork.freedesktop.org/series/175217/
+State : success
 
--- 
-Jani Nikula, Intel
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19257 -> Patchwork_175217v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175217v2/index.html
+
+Participating hosts (38 -> 37)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19257 -> Patchwork_175217v2
+
+  CI-20190529: 20190529
+  CI_DRM_19257: 176fc42afd28308fff5fce3b4f99a324800242af @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9120: c6b08ed60430a3081e5173fbdfbea22d19f22aa4 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_175217v2: 176fc42afd28308fff5fce3b4f99a324800242af @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175217v2/index.html
+
+--===============4293115798867206013==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gt: Do not destroy uninitialized timer (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175217/">https://patchwork.freedesktop.org/series/175217/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175217v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175217v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19257 -&gt; Patchwork_175217v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175217v2/index.html</p>
+<h2>Participating hosts (38 -&gt; 37)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19257 -&gt; Patchwork_175217v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19257: 176fc42afd28308fff5fce3b4f99a324800242af @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9120: c6b08ed60430a3081e5173fbdfbea22d19f22aa4 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_175217v2: 176fc42afd28308fff5fce3b4f99a324800242af @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4293115798867206013==--
