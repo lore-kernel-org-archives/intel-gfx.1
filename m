@@ -4,46 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A5E9CA5FCB
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 11:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB69CA5FB3
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:04:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE0E010E286;
-	Thu,  1 Oct 2026 11:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD9C210F63B;
+	Thu,  1 Oct 2026 12:04:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I6URjSfQ";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sR//HRSz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NTt5X2qO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mu6ii8j3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xSqt8sJJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8971010E259;
- Thu,  1 Oct 2026 11:50:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790855451; x=1822391451;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=P0+uWiHIfgAvnr6p/jiSzEYtzmPFw4b0lDd1UgMM484=;
- b=I6URjSfQRYeQ498mhHbpKVyw0V5TRrZJg5C3WRB3kL3cWDXvVvYiSp2q
- Lfq+iSkriPItXxiNetDrXYbKwD0erNMV4PBX5ha+KW+o6RI73+kMUbwNA
- OUqrrdDeQcxzxdZsAuAgsvh29KwZ90fAU7/LNta/jA7jRCVYrhA152kJV
- zhG9MtNZmq68rJXl5nk7ccT/L1mhMmRsQaTtX6pqSX+CTjCP1HfEKEWjj
- ifeSvi0TwdDZ4CaFiDiXCvBYXlJWUK0IbjG2OVfe2zAxxVYbDT/63FT2K
- Jn92psS+0NgP9qzpL6n8+vZMt+/zxwTxk6KMh8nHM+ke2tMJ5ntOCoo7J Q==;
-X-CSE-ConnectionGUID: Od6qBgsKSIekU68/HnMq0w==
-X-CSE-MsgGUID: 1mP5Nen0RaKhCr4fxyPdnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="109092615"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="109092615"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 04:50:51 -0700
-X-CSE-ConnectionGUID: IX6f4tIXQc2B/0eot1IXng==
-X-CSE-MsgGUID: DwoN/6jiSrOIbpHhqpzvWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="313923843"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.5])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 04:50:47 -0700
-Date: Thu, 1 Oct 2026 14:50:44 +0300
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04E4C10F635;
+ Thu,  1 Oct 2026 12:04:21 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6D1381FB31;
+ Thu,  1 Oct 2026 12:04:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790856247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=j7xttl0ZXgwEZwwiMiJIYwsH5QzvU8IOw0UmJDQHs88=;
+ b=sR//HRSz5Q14W4TNJZ2W4/LZ2EaSDj94BEBjfiihNdB+JnvUzdjBMBLKTTnJCgqNNa3096
+ rUFeAEWtmStp3MLrP6a6a7wSmyY1dqXFaLmnJwAEJz1RKdjQOzbwo/2icS9D3SNColNSGD
+ sCzELn2fBthad9jvqwh4iJ5/zaSLcf4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790856247;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=j7xttl0ZXgwEZwwiMiJIYwsH5QzvU8IOw0UmJDQHs88=;
+ b=NTt5X2qOJYmAbcAg/NMKBZJy1TGs8G6ak9UO5YXfgkWlesySjV8yaoEyZj3clc9lFhrTa9
+ a1IOv4/JB0gSb+AA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mu6ii8j3;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xSqt8sJJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790856243; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=j7xttl0ZXgwEZwwiMiJIYwsH5QzvU8IOw0UmJDQHs88=;
+ b=mu6ii8j3tczZxKKKA5M/EwfWcF68b6F1aaJ04+U8l5yF3ygI5CaPa5fM+uoh56ACO86gxM
+ HO0KuvTHVBBXWs2Lo3mFlB1FgjcTXXPjziPGdwZBKQWS7VeL4d+Nb33SeSHO0/sDdasi36
+ bUyOcfjMHUz7ovZavulAjIFAneKyb2g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790856243;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=j7xttl0ZXgwEZwwiMiJIYwsH5QzvU8IOw0UmJDQHs88=;
+ b=xSqt8sJJC2YZ8gbn2i9eIrIfnfA2GKY5CfSfGLu65O8H494Yijdp6t0m3c9dsnoAheMpCt
+ YH4RcTKrwsJxLmDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF770134B3;
+ Thu,  1 Oct 2026 12:04:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id cN3TIzJMvmrFUwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 12:04:02 +0000
+Date: Thu, 1 Oct 2026 14:04:01 +0200
+From: Thomas Zimmermann <tzimmermann@suse.de>
 To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -57,12 +84,32 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-gt-next
-Message-ID: <ar5JFG3BmldEdDzF@jlahtine-mobl>
+Subject: [PULL] drm-misc-next
+Message-ID: <20261001120401.GA491855@linux.fritz.box>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ MIME_TRACE(0.00)[0:+];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 6D1381FB31
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,76 +125,451 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave & Sima,
+Hi Dave, Sima,
 
-Here goes the singular drm-intel-gt-next PR towards 7.4.
+here's the week's PR from drm-misc-next. On the hardware side, we got
+support for the 10" RasPi Touch Display 2 and for the Renesas RZ/G3L
+SoC. For internal changes, there's a larger refactoring in how the panel
+code interacts with bridges. And, of course, there's the usual naumber
+of fixes and clean ups.
 
-It's all fixes really. Endless loop fix for RCU teardown,
-fix for UAF in command parsing for Gen9 blitter engines and
-one WARN splat fix for RPS boosting.
+Best regards
+Thomas
 
-Then some min*() code simplication and selftest fixes.
+drm-misc-next-2026-10-01:
+drm-misc-next for v7.4:
 
-Regards, Joonas
+Cross-subsystem Changes:
 
-***
+Documentation:
+- Fix indention in display-related DT bindings
 
-drm-intel-gt-next-2026-10-01:
+Core Changes:
+
+- Provide helpers for calculating absolute and relative timeouts
+
+clients:
+- fbdev: Move helpers from drm_kms_helper.ko to drm_client_lib.ko
+
+display:
+- dp/mst: Improve DPCD compliance
+
+sched:
+- Fix locking
 
 Driver Changes:
 
-- Fix incorrect RCU teardown order (Christian)
-- Fix potential UAF in command parsing code (Krzysztof)
+amdxdna:
+- Support AIE2 rev 9
+- Fix UAF access in scheduler fences
+- Update workqueue interface
 
-- Avoid WARN splat during RPS boosting race (Krzysztof)
-- Use simpler versions of min*() functions (Andy)
-- Selftest improvements (Sk, Krzysztof, Jansuz)
+bridge:
+- Select DRM_PANEL_BRIDGE for various drivers that require it
 
-The following changes since commit 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a:
+imagination
+- Clean up firmware interface
 
-  drm/i915/selftests: Fix GT PM sort comparators (2026-07-15 13:06:07 +0100)
+imx:
+- Replace simple-display with regular atomic helpers
+
+ivpu:
+- Simplify NULL-pointer handling in cleanup code
+
+mxsfb:
+- Support bus formats plus DT bindings
+
+panel:
+- ebbg-ft8719: Fix MODULE_LICENSE() string; Improve initialization
+- edp: NV140WU2-M70
+- ilitek-ili9882t: Support Ilitek IL79600A plus DT bindings
+- simple: Support Truly TFT320240-229-E plus DT bindings; Support BOE
+  DV215FHM-R01 plus DT bindings
+- Refactor struct drm_panel to contain struct drm_bridge plus fallout in
+  various panel drivers
+
+panthor:
+- Validate user-space input against firmware limits
+
+renesas:
+- Support RZ/G3L SoC
+
+ssd130x:
+- ssd132x: Set correct hardware window when clearing screen
+
+tve200:
+- Fix interrupt DT bindings
+The following changes since commit 6e375de99d0c420169481fcd36064177ab55b09d:
+
+  drm/v3d: Skip perfmon serialization while a global perfmon is set (2026-09-23 14:28:57 -0300)
 
 are available in the Git repository at:
 
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-gt-next-2026-10-01
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-10-01
 
-for you to fetch changes up to ca4a6deadad15b91ee083afe445fa6bdbfb68206:
+for you to fetch changes up to 7c4bda20eb0f150315d19f1b51058820e75d3f3d:
 
-  drm/i915/gt: Unmask interrupts only when ACTIVE is true (2026-09-30 11:58:59 +0200)
+  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder (2026-10-01 10:46:01 +0100)
 
 ----------------------------------------------------------------
+drm-misc-next for v7.4:
+
+Cross-subsystem Changes:
+
+Documentation:
+- Fix indention in display-related DT bindings
+
+Core Changes:
+
+- Provide helpers for calculating absolute and relative timeouts
+
+clients:
+- fbdev: Move helpers from drm_kms_helper.ko to drm_client_lib.ko
+
+display:
+- dp/mst: Improve DPCD compliance
+
+sched:
+- Fix locking
+
 Driver Changes:
 
-- Fix incorrect RCU teardown order (Christian)
-- Fix potential UAF in command parsing code (Krzysztof)
+amdxdna:
+- Support AIE2 rev 9
+- Fix UAF access in scheduler fences
+- Update workqueue interface
 
-- Avoid WARN splat during RPS boosting race (Krzysztof)
-- Use simpler versions of min*() functions (Andy)
-- Selftest improvements (Sk, Krzysztof, Jansuz)
+bridge:
+- Select DRM_PANEL_BRIDGE for various drivers that require it
+
+imagination
+- Clean up firmware interface
+
+imx:
+- Replace simple-display with regular atomic helpers
+
+ivpu:
+- Simplify NULL-pointer handling in cleanup code
+
+mxsfb:
+- Support bus formats plus DT bindings
+
+panel:
+- ebbg-ft8719: Fix MODULE_LICENSE() string; Improve initialization
+- edp: NV140WU2-M70
+- ilitek-ili9882t: Support Ilitek IL79600A plus DT bindings
+- simple: Support Truly TFT320240-229-E plus DT bindings; Support BOE
+  DV215FHM-R01 plus DT bindings
+- Refactor struct drm_panel to contain struct drm_bridge plus fallout in
+  various panel drivers
+
+panthor:
+- Validate user-space input against firmware limits
+
+renesas:
+- Support RZ/G3L SoC
+
+ssd130x:
+- ssd132x: Set correct hardware window when clearing screen
+
+tve200:
+- Fix interrupt DT bindings
 
 ----------------------------------------------------------------
-Andy Shevchenko (1):
-      drm/i915/gem: Use simpler versions of min*()
+Alessio Belle (2):
+      drm/imagination: Treat FW connection ctl like other interface structures
+      drm/imagination: Don't map FW interface structures unnecessarily
 
-Christian König (1):
-      drm/i915: fix incorrect RCU teardown order
+Alexander Sverdlin (1):
+      dt-bindings: display: simple: Add Truly TFT320240-229-E panel
 
-Janusz Krzysztofik (1):
-      drm/i915/selftests: Wait longer for request to start
+Andrzej Kacprowski (1):
+      accel/ivpu: Make BO free helper NULL-safe
 
-Krzysztof Karas (3):
-      drm/i915/selftest: Fix a typo in alloc_workqueue call
-      drm/i915/gem: Prevent overstepping exec array boundary
-      drm/i915/gt: Unmask interrupts only when ACTIVE is true
+Biju Das (7):
+      drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
+      drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
+      drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info struct
+      drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
+      drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
+      drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
+      drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
 
-Sk Anirban (1):
-      drm/i915/selftests: Report missing RC0 power as an error
+Casey Connolly (1):
+      drm/panel: ebbg-ft8719: Set prepare_prev_first
 
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.c     |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c      | 10 +++-------
- drivers/gpu/drm/i915/gt/intel_rps.c            |  3 ++-
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c   |  2 +-
- drivers/gpu/drm/i915/gt/selftest_rc6.c         |  4 ++--
- drivers/gpu/drm/i915/selftests/i915_sw_fence.c |  2 +-
- 7 files changed, 11 insertions(+), 14 deletions(-)
+David Heidelberg (2):
+      drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE() string
+      drm/panel: ebbg-ft8719: Split initialization into enable/disable fn
+
+Fabio Piparo (1):
+      drm/ssd130x: Set the address window in ssd132x_clear_screen()
+
+Francesco Dolcini (2):
+      dt-bindings: lcdif: Add endpoint bus-width property
+      drm: mxsfb: Add optional DPI output bus-width configuration
+
+Frank Bodammer (1):
+      drm/panel: simple: Add support for Truly TFT320240-229-E panel
+
+George Karagounis (1):
+      accel/amdxdna: Replace create_singlethread_workqueue with alloc_ordered_workqueue
+
+Haikun Zhou (1):
+      drm/panel-edp: Support NV140WU2-M70 edp panel
+
+Krzysztof Kozlowski (1):
+      dt-bindings: display: Use consistent indentation in the example
+
+Linus Walleij (1):
+      dt-bindings: display: faraday,tve200: Use a level-high interrupt
+
+Lizhi Hou (2):
+      accel/amdxdna: Preallocate hardware context schedulers
+      accel/amdxdna: Add support for AIE2 revision 9
+
+Luca Ceresoli (28):
+      drm/bridge: tc358764: don't select unused DRM_PANEL
+      drm/bridge: ti-dlpc3433: don't depend on DRM_PANEL, select DRM_PANEL_BRIDGE
+      drm/bridge: nxp-ptn3460: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: parade-ps8622: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: tc358775: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: tc358767: select DRM_PANEL_BRIDGE
+      drm/bridge: tc358768: select DRM_PANEL_BRIDGE
+      drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
+      drm/bridge: tc358764: select DRM_PANEL_BRIDGE
+      drm: of: move drm_of_find_panel_or_bridge() from drm_of.c to drm_panel.c
+      drm: of: remove now unnecessary forward declarations
+      drm/panel: move to a new module
+      drm/bridge: panel: move all code to drm_panel.c
+      drm/panel: embed a drm_bridge into every drm_panel
+      drm/bridge: remove devm_drm_put_bridge()
+      drm/panel: deprecate panel-bridge APIs
+      drm/todo: add entry for removing the panel_bridge API
+      drm/bridge: tc358767: don't create a panel_bridge
+      drm/bridge: waveshare-dsi: don't create a panel_bridge
+      drm/mcde: dsi: remove unused includes
+      drm/mcde: dsi: don't create a panel_bridge
+      drm/bridge: fsl-ldb: don't create a panel_bridge
+      drm/bridge: samsung-dsim: don't create a panel_bridge
+      drm/bridge: tc358768: don't create a panel_bridge
+      drm/bridge: ssd2825: don't create a panel_bridge
+      drm/omap: dss: don't create a panel_bridge
+      drm/tve200: don't create a panel_bridge
+      drm/bridge: analogix_dp: don't create a panel_bridge
+
+Marek Vasut (4):
+      dt-bindings: display: panel: Document 10" Raspberry Pi Touch Display 2
+      drm/panel: ilitek-ili9882t: Make enable GPIO optional
+      drm/panel: ilitek-ili9882t: Set prepare_prev_first
+      drm/panel: ilitek-ili9882t: Add support for Ilitek IL79600A-based panels
+
+Maíra Canal (7):
+      drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
+      drm: Add drm_timeout_rel_to_jiffies()
+      drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+      drm/v3d: Use drm_timeout_rel_to_jiffies()
+      drm/i915: Use drm_timeout_rel_to_jiffies()
+      drm/vc4: Use drm_timeout_rel_to_jiffies()
+      drm: Rename drm_utils.h to drm_panel_quirks.h
+
+Osama Abdelkader (1):
+      drm/panthor: validate userspace queue count against initialized firmware slot count
+
+Philipp Stanner (2):
+      drm/sched: Remove forgotten header
+      drm/sched: Protect entity->last_scheduled with spinlock
+
+Randy Dunlap (1):
+      Documentation/gpu: fix location of drm_panel kernel-doc
+
+Sasha Levin (1):
+      drm/panel: select DRM_KMS_HELPER
+
+Thomas Zimmermann (2):
+      drm/fbdev: Move fbdev module parameters next to module init
+      drm/fbdev: Move fbdev helpers into client library
+
+Vishnu Saini (2):
+      dt-bindings: display: simple: Add boe,dv215fhm-r01 compatible
+      drm/panel: simple: Add BOE DV215FHM-R01 panel
+
+Xiao Lu (1):
+      drm/dp/mst: reject DPCD read/write on ports with ddps=0
+
+Ze Huang (2):
+      drm/imx/lcdc: avoid duplicate clk_per enable
+      drm/imx: replace struct drm_simple_display_pipe with regular atomic helpers
+
+ .../display/allwinner,sun6i-a31-mipi-dsi.yaml      |  10 +-
+ .../display/bridge/fsl,imx8qxp-pxl2dpi.yaml        |   4 +-
+ .../bindings/display/bridge/lontium,lt8912b.yaml   |   8 +-
+ .../bridge/megachips,stdp2690-ge-b850v3-fw.yaml    |   2 +-
+ .../bindings/display/bridge/nxp,tda998x.yaml       |   2 +-
+ .../bindings/display/bridge/toshiba,tc358764.yaml  |   2 +-
+ .../bindings/display/bridge/toshiba,tc358775.yaml  |  12 +-
+ .../bindings/display/faraday,tve200.yaml           |   2 +-
+ .../devicetree/bindings/display/fsl,lcdif.yaml     |  12 +-
+ .../devicetree/bindings/display/himax,hx8357.yaml  |   2 +-
+ .../bindings/display/imx/fsl,imx-lcdc.yaml         |   2 +-
+ .../bindings/display/imx/fsl,imx6q-ldb.yaml        |  54 +-
+ .../bindings/display/mediatek/mediatek,ethdr.yaml  |  90 +--
+ .../bindings/display/mediatek/mediatek,hdmi.yaml   |  24 +-
+ .../bindings/display/panel/ilitek,il79900a.yaml    |  13 +-
+ .../panel/panel-simple-lvds-dual-ports.yaml        |   2 +
+ .../bindings/display/panel/panel-simple.yaml       |   2 +
+ .../bindings/display/panel/samsung,ams495qa01.yaml |   2 +-
+ .../bindings/display/sitronix,st7567.yaml          |   4 +-
+ .../devicetree/bindings/display/st,stm32-dsi.yaml  |  46 +-
+ .../devicetree/bindings/display/st,stm32-ltdc.yaml |   6 +-
+ .../bindings/display/st,stm32mp25-lvds.yaml        |   4 +-
+ Documentation/gpu/drm-kms-helpers.rst              |   8 +-
+ Documentation/gpu/todo.rst                         |  33 +-
+ drivers/accel/amdxdna/aie2_ctx.c                   | 117 +++-
+ drivers/accel/amdxdna/aie2_msg_priv.h              |   1 +
+ drivers/accel/amdxdna/aie2_pci.c                   |  15 +-
+ drivers/accel/amdxdna/aie2_pci.h                   |   6 +-
+ drivers/accel/amdxdna/amdxdna_mailbox.c            |   2 +-
+ drivers/accel/amdxdna/npu4_regs.c                  |   1 +
+ drivers/accel/ethosu/ethosu_drv.c                  |   2 +-
+ drivers/accel/ivpu/ivpu_fw.c                       |  65 +-
+ drivers/accel/ivpu/ivpu_gem.c                      |   5 +-
+ drivers/accel/ivpu/ivpu_ipc.c                      |  11 +-
+ drivers/accel/ivpu/ivpu_job.c                      |   6 +-
+ drivers/accel/ivpu/ivpu_ms.c                       |  17 +-
+ drivers/accel/rocket/rocket_gem.c                  |   2 +-
+ drivers/gpu/drm/Kconfig                            |   7 +-
+ drivers/gpu/drm/Makefile                           |   5 +-
+ drivers/gpu/drm/adp/adp-mipi.c                     |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |  20 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |   2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   1 -
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |   2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |   1 -
+ drivers/gpu/drm/arm/display/komeda/komeda_crtc.c   |   1 +
+ drivers/gpu/drm/armada/armada_fbdev.c              |   2 +-
+ drivers/gpu/drm/bridge/Kconfig                     |  18 +-
+ drivers/gpu/drm/bridge/analogix/Kconfig            |   1 +
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c |  40 +-
+ drivers/gpu/drm/bridge/aux-bridge.c                |   1 +
+ drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c     |   1 +
+ drivers/gpu/drm/bridge/fsl-ldb.c                   |  19 +-
+ drivers/gpu/drm/bridge/imx/imx93-pdfc.c            |   1 +
+ drivers/gpu/drm/bridge/panel.c                     | 563 -----------------
+ drivers/gpu/drm/bridge/samsung-dsim.c              |  24 +-
+ drivers/gpu/drm/bridge/ssd2825.c                   |  23 +-
+ drivers/gpu/drm/bridge/tc358767.c                  |  64 +-
+ drivers/gpu/drm/bridge/tc358768.c                  |  25 +-
+ drivers/gpu/drm/bridge/ti-tdp158.c                 |   1 +
+ drivers/gpu/drm/bridge/waveshare-dsi.c             |  17 +-
+ drivers/gpu/drm/clients/Makefile                   |   3 +-
+ drivers/gpu/drm/clients/drm_fbdev_client.c         |   2 +-
+ .../drm_fbdev_helper.c}                            |  34 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c     |   1 +
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |   6 +
+ drivers/gpu/drm/drm_bridge.c                       |  17 -
+ drivers/gpu/drm/drm_connector.c                    |   2 +-
+ drivers/gpu/drm/drm_crtc_helper_internal.h         |   9 +
+ drivers/gpu/drm/drm_fbdev_dma.c                    |   2 +-
+ drivers/gpu/drm/drm_fbdev_shmem.c                  |   2 +-
+ drivers/gpu/drm/drm_fbdev_ttm.c                    |   2 +-
+ drivers/gpu/drm/drm_kms_helper_common.c            |  39 ++
+ drivers/gpu/drm/drm_of.c                           |  63 --
+ drivers/gpu/drm/drm_panel.c                        | 664 +++++++++++++++++++--
+ drivers/gpu/drm/drm_panel_backlight_quirks.c       |   2 +-
+ drivers/gpu/drm/drm_panel_orientation_quirks.c     |   2 +-
+ drivers/gpu/drm/drm_syncobj.c                      |  35 +-
+ drivers/gpu/drm/drm_timeout.c                      |  95 +++
+ drivers/gpu/drm/exynos/exynos_dp.c                 |  36 +-
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c          |   2 +-
+ drivers/gpu/drm/gma500/fbdev.c                     |   2 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c         |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c           |  17 +-
+ drivers/gpu/drm/imagination/pvr_fw.c               | 130 ++--
+ drivers/gpu/drm/imagination/pvr_fw.h               |  18 +-
+ drivers/gpu/drm/imx/dc/dc-kms.c                    |   1 +
+ drivers/gpu/drm/imx/dcss/Kconfig                   |   1 +
+ drivers/gpu/drm/imx/lcdc/imx-lcdc.c                | 257 +++++---
+ drivers/gpu/drm/ingenic/Kconfig                    |   1 +
+ drivers/gpu/drm/lima/lima_gem.c                    |   2 +-
+ drivers/gpu/drm/logicvc/Kconfig                    |   1 +
+ drivers/gpu/drm/mcde/Kconfig                       |   2 +-
+ drivers/gpu/drm/mcde/mcde_display.c                |   1 +
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |  45 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |   1 +
+ drivers/gpu/drm/msm/dsi/dsi.c                      |   3 +-
+ drivers/gpu/drm/msm/msm_debugfs.c                  |   2 +-
+ drivers/gpu/drm/msm/msm_fbdev.c                    |   2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c                  |  43 ++
+ drivers/gpu/drm/mxsfb/mxsfb_drv.h                  |   2 +
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c                  |  12 +
+ drivers/gpu/drm/nouveau/dispnv50/disp.c            |   1 -
+ drivers/gpu/drm/omapdrm/dss/omapdss.h              |   1 -
+ drivers/gpu/drm/omapdrm/dss/output.c               |  42 +-
+ drivers/gpu/drm/omapdrm/omap_debugfs.c             |   2 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c               |   2 +-
+ drivers/gpu/drm/panel/Kconfig                      |   3 +-
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c          |  23 +-
+ drivers/gpu/drm/panel/panel-edp.c                  |   1 +
+ drivers/gpu/drm/panel/panel-ilitek-ili9882t.c      | 234 +++++++-
+ drivers/gpu/drm/panel/panel-simple.c               |  57 ++
+ drivers/gpu/drm/panfrost/panfrost_drv.c            |   2 +-
+ drivers/gpu/drm/panthor/panthor_drv.c              |   1 -
+ drivers/gpu/drm/panthor/panthor_sched.c            |   3 +
+ drivers/gpu/drm/pl111/Kconfig                      |   1 +
+ drivers/gpu/drm/radeon/radeon_device.c             |   2 +-
+ drivers/gpu/drm/radeon/radeon_fbdev.c              |   2 +-
+ drivers/gpu/drm/renesas/rz-du/Kconfig              |  13 +
+ drivers/gpu/drm/renesas/rz-du/Makefile             |   1 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c       |  24 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h       |   3 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c   |  24 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c     | 162 ++++-
+ drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c         | 275 +++++++++
+ drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h    |  25 +
+ drivers/gpu/drm/rockchip/Kconfig                   |   2 +
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  11 -
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c        |   2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c           |  51 +-
+ drivers/gpu/drm/scheduler/sched_main.c             |   1 -
+ drivers/gpu/drm/sitronix/st7571.c                  |   1 -
+ drivers/gpu/drm/solomon/ssd130x.c                  |  30 +-
+ drivers/gpu/drm/stm/Kconfig                        |   1 +
+ drivers/gpu/drm/tegra/fbdev.c                      |   2 +-
+ drivers/gpu/drm/tegra/rgb.c                        |   1 +
+ drivers/gpu/drm/tegra/uapi.c                       |   2 +-
+ drivers/gpu/drm/tidss/Kconfig                      |   1 +
+ drivers/gpu/drm/tve200/Kconfig                     |   2 +-
+ drivers/gpu/drm/tve200/tve200_drm.h                |   1 -
+ drivers/gpu/drm/tve200/tve200_drv.c                |  31 +-
+ drivers/gpu/drm/v3d/v3d_bo.c                       |   3 +-
+ drivers/gpu/drm/v3d/v3d_drv.h                      |  10 -
+ drivers/gpu/drm/vboxvideo/vbox_mode.c              |   2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                      |   3 +-
+ drivers/gpu/drm/xe/xe_wait_user_fence.c            |   2 +-
+ drivers/video/fbdev/efifb.c                        |   2 +-
+ include/drm/bridge/analogix_dp.h                   |   1 -
+ .../drm_fbdev_helper.h}                            |   4 +-
+ include/drm/drm_bridge.h                           |  54 --
+ include/drm/drm_of.h                               |  15 +-
+ include/drm/drm_panel.h                            |  99 ++-
+ include/drm/{drm_utils.h => drm_panel_quirks.h}    |  10 +-
+ include/drm/drm_timeout.h                          |  17 +
+ include/drm/gpu_scheduler.h                        |  10 +-
+ 156 files changed, 2592 insertions(+), 1684 deletions(-)
+ delete mode 100644 drivers/gpu/drm/bridge/panel.c
+ rename drivers/gpu/drm/{drm_fb_helper.c => clients/drm_fbdev_helper.c} (97%)
+ create mode 100644 drivers/gpu/drm/drm_timeout.c
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
+ rename include/drm/{drm_fb_helper.h => clients/drm_fbdev_helper.h} (99%)
+ rename include/drm/{drm_utils.h => drm_panel_quirks.h} (57%)
+ create mode 100644 include/drm/drm_timeout.h
+
+-- 
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
