@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B227CCA5FCB
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:17:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42D4ACA5FB3
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:17:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C86510E18E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9530210E25F;
 	Thu,  1 Oct 2026 12:17:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nMbvvVKz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NVCLDxeT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F85B10E25B;
- Thu,  1 Oct 2026 11:19:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A55510E029;
+ Thu,  1 Oct 2026 11:26:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A6BA243E25;
- Thu,  1 Oct 2026 11:19:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E3D31F000FF;
- Thu,  1 Oct 2026 11:19:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5EC12601E4;
+ Thu,  1 Oct 2026 11:26:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD141F000FF;
+ Thu,  1 Oct 2026 11:25:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790853586;
- bh=QFQFkWDnC7jLqttKnpyOh/RzATFY2MNc7SamlM3r9CY=;
+ s=k20260515; t=1790853983;
+ bh=Gpkw0FkXm2sEcS5oXM/km9M95p6Lr/sv8WQxRY54vDc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=nMbvvVKzbLfiBDmwx5000bOF+s2wwI5IUpFYTI/iQmTRFaqEIRPkxAnIgPgtRkbJ0
- aqsar7aBQQWF17j7qm7re98QK2MXp/SjTXPj6Jaave3l2lYP+m0Pz8NwLOPWtJii3d
- +/JslHjvapBJl1QgKIGa/tDOAtKuTUTa7pAFOFLGVfS4bA6CsFZeBwjmyDK95aJdS1
- 9ukUJ793Yc9KrIfWLnhz27LyPhzI15LRk/k7ivImSysTbIiVyAS0KMu7lJbra/Pesz
- pWFxc9zKJFzMFMEYqdxKzyhJGBS5wy0U/BzhIpkvR+1jEWvnD3SfLtCnn4oQTcUb0z
- 8MuItJ69xgTaw==
-Message-ID: <e94dd0fc-3381-4545-9ede-513fcb2b8243@kernel.org>
-Date: Thu, 1 Oct 2026 13:17:18 +0200
+ b=NVCLDxeTK413A0ZVScuOliWCL/BeACZG41ga59YonpVi33x8PdZhsMtn/8oq+ygOX
+ ZKav51j3DB5hvxSALe8T+A85q01eQsw34pLNny1jJJ57fF2idAnltjr0LE9PQl0VtO
+ 2EgWIzgB/LmAzc1XT/UYRxAbbgoVPexalg8KVzcWsDnpuRLWtkfE2p7YRoWrQHp6d6
+ Kpr9E/bjHpPeAud/sdVZeQRfNhP7XdrgducvsrOUBbVhR6XxxcX0rYUJMUmE+ipY0X
+ +8tC+AQSxR9a/ZEWQqt9Y7lkR9+EqYVsu+deESVKbABTftQ15M+EZ1nyBJoEfAoSbU
+ mz8vJo6ciRt9w==
+Message-ID: <b3e226c7-0cbd-4989-937a-edd28cc62ab2@kernel.org>
+Date: Thu, 1 Oct 2026 13:25:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/9] mm: convert PTE table entry to pte
+Subject: Re: [PATCH v3 3/9] mm: use hw_pte_t for generic PTE table storage
 To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Jann Horn <jannh@google.com>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>,
+ Arnd Bergmann <arnd@arndb.de>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
  Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>,
  Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
  Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
@@ -91,15 +93,17 @@ To: Muhammad Usama Anjum <usama.anjum@arm.com>,
  <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
  kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
 References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-5-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-3-5670b8cb9059@arm.com>
+ <xzlxdkrjilskjcagnl33eed7ijxrgfhoalmmmq5ks3wgjmkkhi@zchtxpr2amff>
+ <63db3469-82d0-4997-9bcf-31bb3aa59deb@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -146,7 +150,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260922-pte0-v3-5-5670b8cb9059@arm.com>
+In-Reply-To: <63db3469-82d0-4997-9bcf-31bb3aa59deb@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 01 Oct 2026 12:17:30 +0000
@@ -165,72 +169,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 9/22/26 19:12, Muhammad Usama Anjum wrote:
-> The non-MMU stub receives hw_pte_t but returns a software PTE value. It
-> has no attached PTE that requires ptep_get(), so convert only the stored
-> entry through __pte_from_hw().
+On 9/30/26 19:40, Muhammad Usama Anjum wrote:
+> On 30/09/2026 5:35 am, Anshuman Khandual wrote:
+>> On Tue, Sep 22, 2026 at 06:12:31PM +0100, Muhammad Usama Anjum wrote:
+>>> Generic page-table interfaces use pte_t * for both pointers to PTE table
+>>> storage and pointers to software PTE values. Convert the generic
+>>> declarations and their MM, fs, and kernel users together so parameters,
+>>> return types, callbacks, and local pointers that designate table storage
+>>> use hw_pte_t *.
+>>>
+>>> Include linux/pgtable_types.h from headers that expose the converted
+>>> interfaces. It continues to provide pgprot_t to vmalloc.h through
+>>> asm/page.h.
+>>>
+>>> Keep software PTE values as pte_t and retain pte_t * for value interfaces.
+>>>
+>>> No architecture selects ARCH_HAS_HW_PTE_T at this point, so hw_pte_t
+>>> remains an alias of pte_t and this changes the interface vocabulary without
+>>> changing representation or behavior.
+>>>
+>>> Most of this mechanical conversion was generated with the Coccinelle script
+>>> included in the cover letter. The script deliberately ignores pte_t *
+>>
+>> Just wondering - should this Coccinelle script that converted all these
+>> instances be saved inside ./scripts/coccinelle/ for future referene.
 > 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> ---
-> Changes since v1:
-> - Explain why the NOMMU stub does not use ptep_get().
-> - Use software PTE value terminology.
-> ---
->  include/linux/hugetlb.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-> index 0d2101facaa50..637fc863d3687 100644
-> --- a/include/linux/hugetlb.h
-> +++ b/include/linux/hugetlb.h
-> @@ -1278,7 +1278,8 @@ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
->  #ifdef CONFIG_MMU
->  	return ptep_get(ptep);
->  #else
-> -	return *ptep;
-> +	/* No attached PTE that requires ptep_get(). */
-> +	return __pte_from_hw(*ptep);
->  #endif
->  }
->  
-> 
+> Thanks for the suggestion. This script was written for this one-time conversion
+> and requires manual review to distinguish HW PTE table pointers from SW PTE
+> pointers. After the conversion, it would not be useful.
+> (Maybe other arch can use it to do their conversion. But they can always
+> copy script from the series)
 
-Okay, that looks quite odd. No NOMMU code should ever be calling this helper. I
-can understand that some NOMMU code might, for some odd reason, end up including
-hguetlb.h where we have !CONFIG_HUGETLB_PAGE.
-
-But let's see who actually calls huge_ptep_clear_flush():
-
-arch/arm64/mm/hugetlbpage.c: only with CONFIG_HUGETLB_PAGE
-mm/hugetlb.c: only with CONFIG_HUGETLB_PAGE
-mm/rmap.c: only after checking folio_test_hugetlb().
-
-I suspect we can simply do:
-
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 80a5a03e9cee..8642c863c1b7 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -1268,15 +1268,8 @@ static inline void hugetlb_count_sub(long l, struct
-mm_struct *mm)
- pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep);
- unsigned long huge_pte_dirty(pte_t pte);
-
--static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
--                                         unsigned long addr, pte_t *ptep)
--{
--#ifdef CONFIG_MMU
--       return ptep_get(ptep);
--#else
--       return *ptep;
--#endif
--}
-+pte_t huge_ptep_clear_flush(struct vm_area_struct *vma, unsigned long addr,
-+               pte_t *ptep);
-
- static inline void set_huge_pte_at(struct mm_struct *mm, unsigned long addr,
-                                   pte_t *ptep, pte_t pte, unsigned long sz)
-
+Agreed, the script is not expected to be reused once merged. Which is different
+to other conversions where the old way of doing it can silently sneak in again.
 
 -- 
 Cheers,
