@@ -4,50 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F9D0CA5FCB
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:15:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB06BCA5FCB
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98BB210E3A4;
-	Thu,  1 Oct 2026 12:14:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79AF710F63F;
+	Thu,  1 Oct 2026 12:15:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EazoPou7";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="EoxkaghQ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 306D210E3A4
- for <intel-gfx@lists.freedesktop.org>; Thu,  1 Oct 2026 12:14:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5569760A55;
- Thu,  1 Oct 2026 12:14:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 747F31F00898;
- Thu,  1 Oct 2026 12:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790856897;
- bh=DYmoiuH04vCrKntkd6fvwAuUoeiwmoc5CuyAp/tVUL0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EazoPou70hQV84XiGWeQ+BeuJoBKc/GYwYe9XuLqYpTz2Fg9aFnD6H48Vu8DM3Xtm
- oEz9bOD2d9e95OsLDsvMpuLs2FAV761uBC/zHq3uwi5gvW6Z3fB1g+m3jiR5aQmai2
- Yb3dqLWR+s8ZzSnAqreTt9XMKrDr5r0g5+RH2vXyKSs7oLqxBxVS4AwejkDFNyWXSF
- Kvfn8tQs/1dGByjVSzzMo0lczqFxsxFVwNMbR7wWce+7axsqz/kYQX7gZ2dEAG3dNZ
- xJABUE1EMx0X9LaUUoZszyqKkM5qNugxkFPQJdCMp8h9ERuBaZ/mb4wvnzIctgYfsW
- gten9bB/dSIWg==
-Date: Thu, 1 Oct 2026 14:14:54 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>, 
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: Disable not supported reset methods on DG1 0x4905
-Message-ID: <ar5Ol94SjttvxEAO@zenone.zhora.eu>
-References: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com
+ [74.125.228.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB6E510F63F
+ for <intel-gfx@lists.freedesktop.org>; Thu,  1 Oct 2026 12:15:15 +0000 (UTC)
+Received: by mail-ej2-f41.google.com with SMTP id
+ a640c23a62f3a-c2e3f641442so69897366b.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 01 Oct 2026 05:15:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1790856914; x=1791461714; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Cub+RYGeqgcwVoIVZ0MvGdYX5Fhvas3+q5oj7U0i/v0=;
+ b=EoxkaghQc2J37Rd3yO6bmFY35hIX5Xd6RzNBBgKZGGQYXAGi08pAmzAAXpnchWqqd2
+ rWf/k6F237keG6puZFK9j76cIeL2GG5XyjCkiEDFahsDbBRjKAG6PqsDKUaPxwnNoNbn
+ KpRBJH5UFTwB05g8SAwq+GGiFSVl6G6+mv/5Qgn5lcrwND0BLknH8o3ZBKyKvb9RH0hb
+ UVnBnizamU1gTxNRKR41TcVitmt89IDuKLV0esghsCBiWtznMJjCwDtxJ/mrknS44l2r
+ N+zA/2zVr4Ufqg4ny7bAHqgEhWszHDl83MAwfiJhHyXTKPNT+VmJ/oiC4hNCKcu8nRfk
+ JLKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790856914; x=1791461714;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Cub+RYGeqgcwVoIVZ0MvGdYX5Fhvas3+q5oj7U0i/v0=;
+ b=OxOKmq6I5FeQxUjufoX0jzTucSWbpgHurEiV5C80YMP4LDihSW9CUYXN3w5YK/hS3g
+ qGL73jyFISnRjLjJUZooTdoynDh48XBVfiJ1zMvWeuvl6CVcFjUwLSqP/2+8UbJxlngG
+ S2beTOsogUJv0qDaGgdd4REmz1YQpMgfFOZP/SVeUNWz8nDTtNNohWmPq2NjqDHDCQr0
+ gRkFVH4sSd00Byoq2D29WHE5h5MJ2K3GROR9oVdZfQlyvZO2CXLEFlI1YKOshmjJrVmp
+ dLn+b1KKhoWZ8BIZZV82tKskDu1OKpP4BPvzYN/SWvgWZoEIYhr/FaV93q+0gUIy1TXD
+ VwXA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByLHpVV4yc/4KWB5GUzuvBR8OZKZGkyyOKiw9hl9NPiARcUWIuCBdDaeeA6WdKqt9BhG76Jw2YpNDk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kCgnBJKbHcHT5HfTRE4WTotAH4D1VXHH7JSHi+vEHAIHOzCsJg
+ fnVJsXbvZIciAXsORuv6GAC6yiPFmuHaqo98IwLN2cQS/uTRyZCN3pBWZz1UZ+PZyjyEGqVzOcU
+ h6B25
+X-Gm-Gg: AYBFou2cSytWMcwuDbi2pPRLcQpckXUU32UHhQn8dJfKQcM3Q5Jh4yijx/8dam+i2Ho
+ SOo6UpvtObWLAjkwWkbg/SAP15dQtdJoF7fxgUZrKJylISTYj9d7dIXTpFGPy+yZgdfAm7F8kMr
+ 1OcTU97LECQixCEHJq1G8wrFpD9s2tXvNRKlpfvQHDzDz4wRdrE046mFVLNfhjdg73j1PJH000e
+ MybSayX1yvzgl57nNHlE7JiaHE7Jw0cw6O1Y2AoTUCYVryirYhfggd2TI+LmrNZhI8tGmkILF8Q
+ l6yy1Up0/Txn1yhd8+D0KOqMXdxPwX5GhPhVWyhjqBYDFe8m/iuSRsOMUuYdqEye9re3dME1lTJ
+ EG+5iDWVR+XudBl4S/2bWiDspFehGYNr7gc5SMWYuU5zEI8LuBJgr2kWlRKXB6l2KqS+AfOkUzm
+ AXrfSbn92Z74EZjABhVGo6bYeC1XN3tycJN0sDs1mshR0ggiHFgddrETtY0uogiEuLNgmg3jLf5
+ R1tmlz5kkafog==
+X-Received: by 2002:a17:907:3cca:b0:c29:4cdf:dd70 with SMTP id
+ a640c23a62f3a-c2e23e5d1fcmr394979366b.44.1790856914015; 
+ Thu, 01 Oct 2026 05:15:14 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c2e473ea02fsm1562066b.3.2026.10.01.05.15.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 01 Oct 2026 05:15:12 -0700 (PDT)
+Message-ID: <3938b565-0957-43a8-9f2b-ee8d09fee88e@ursulin.net>
+Date: Thu, 1 Oct 2026 13:15:12 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/i915/pmu: Disable on PREEMPT_RT
+To: Maarten Lankhorst <dev@lankhorst.se>,
+ Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
+ intel-gfx@lists.freedesktop.org, vinay.belgaumkar@intel.com
+References: <20260929190147.2886670-5-umesh.nerlige.ramappa@intel.com>
+ <20260929190147.2886670-6-umesh.nerlige.ramappa@intel.com>
+ <83bc37f9-e5b5-41de-a03b-6de01966ffe6@ursulin.net>
+ <65bdb585-a155-468f-ba49-26387373f83b@lankhorst.se>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <65bdb585-a155-468f-ba49-26387373f83b@lankhorst.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +96,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-any news here? This patch looks to be stuck, can someone please
-give it a look?
+On 30/09/2026 14:25, Maarten Lankhorst wrote:
+> Hello,
+> 
+> On 9/30/26 10:02, Tvrtko Ursulin wrote:
+>>
+>> On 29/09/2026 20:01, Umesh Nerlige Ramappa wrote:
+>>> From: Maarten Lankhorst <dev@lankhorst.se>
+>>>
+>>> I tried to come up with alternative and lockless approaches
+>>> to make pmu work, but since the perf events are run in
+>>> atomic context on PREEMPT_RT, ordinary spinlocks no longer
+>>> work and forcewake and register accesses become problematic.
+>>
+>> If it is only those events put the checks into config_status and engine_event_status respectively. That will allow the non-problematic events to work.
+> 
+> Unfortunately all review happens long long long after I originally wrote the patch.
 
-Thanks,
-Andi
+Yeah we talked about this few days ago so it is what it is.
 
-On Mon, Sep 07, 2026 at 10:59:18AM +0200, Janusz Krzysztofik wrote:
-> DRM CI consistently reports failing device reset attempts on Intel DG1
-> discrete graphics adapters.  Manual reproduction attempts allowed to
-> narrow down the scope of that problem to a specific revision of that
-> hardware, SKU 8086:4905.  It has been confirmed that both reset methods
-> claimed by the device, i.e., flr and bus, suffer from that issue.
+> This means that I have to dig up the things from memory, and CI logs from previous
+> runs are no longer available. My next comment might thus not be completely accurate
 > 
-> Since consecutively failing device resets may lead to system hangs,
-> disable both useless reset methods.  A respective CI test will then be
-> skipped instead of aborting whole CI jobs.
+> I believe it was most visible there, but it affected all other paths as well.
+> But when I started an attempt at fixing  it I came across one that couldn't
+> be fixed, so I gave up on the partial attempts and disabled PMU events altogether.
+
+In this case lets just improve the comment down below and add a 
+drm_notice to make it more user friendly.
+
+Comment should say something like - Events which end up taking the 
+uncore lock via the forcewake path are problematic due.. Until someone 
+establishes which ones are those and mark them individually unsupported 
+in config_status() and engine_event_init(), lets just disable the PMU 
+altogether.
+
+Regards,
+
+Tvrtko
+
+>>> Disable perf events on PREEMPT_RT for now, without affecting
+>>> !PREEMPT_RT users.
+>>>
+>>> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+>>> ---
+>>> v2: s/reeturn/return/
+>>> ---
+>>>    drivers/gpu/drm/i915/i915_pmu.c | 10 ++++++++++
+>>>    1 file changed, 10 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+>>> index 1c3bafda9c70..9ea5626399e5 100644
+>>> --- a/drivers/gpu/drm/i915/i915_pmu.c
+>>> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+>>> @@ -1156,6 +1156,16 @@ void i915_pmu_register(struct drm_i915_private *i915)
+>>>        };
+>>>        int ret = -ENOMEM;
+>>>    +    /*
+>>> +     * PREEMPT_RT has problems with forcewake. Forcewake is used by the
+>>> +     * engine 'busy' event when guc submission is enabled, and to measure
+>>> +     * rc6 residency.
+>>> +     *
+>>> +     * Disable pmu events on PREEMPT_RT entirely to prevent deadlocks.
+>>> +     */
+>>> +    if (IS_ENABLED(CONFIG_PREEMPT_RT))
+>>> +        return;
+>>
+>> It would be nice to emit a suitable drm_notice here, equivalent to how the existing error path does if the registration unexpectedly fails.
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>> +
+>>>        spin_lock_init(&pmu->lock);
+>>>        hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+>>>        init_rc6(pmu);
+>>
 > 
-> Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/11814
-> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-> Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> ---
-> v2: Fix commit description wording (Andi)
->   - add Suggested-by: tag missing from v1,
->   - add collected Reviewed-by: tags.
-> 
->  drivers/pci/quirks.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index de9bbccda21fd..e55475374c6fd 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005, quirk_no_bus_reset);
->   */
->  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_reset);
->  
-> +/* Intel DG1 0x4905 may not recover from bus reset */
-> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_reset);
-> +
->  static void quirk_no_pm_reset(struct pci_dev *dev)
->  {
->  	/*
-> @@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x443, quirk_intel_qat_vf_cap);
->   * AMD Neural Processing Unit 0x1502 0x17f0
->   * Intel 82579LM Gigabit Ethernet Controller 0x1502
->   * Intel 82579V Gigabit Ethernet Controller 0x1503
-> + * Intel DG1 Discrete Graphics Adapter 0x4905
->   * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
->   * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
->   */
-> @@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
->  
-> -- 
-> 2.54.0
-> 
+
