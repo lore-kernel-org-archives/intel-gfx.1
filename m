@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA64ECA5FD6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 797DCCA5FD4
 	for <intel-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 12:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82DB710F649;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7752210F648;
 	Thu,  1 Oct 2026 12:17:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h4CPFslt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ky6X3yIy";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA7610E029;
- Thu,  1 Oct 2026 11:23:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66A3810E0B7;
+ Thu,  1 Oct 2026 11:27:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3B5B760A57;
- Thu,  1 Oct 2026 11:23:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEA3E1F000FF;
- Thu,  1 Oct 2026 11:23:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A0C48601E4;
+ Thu,  1 Oct 2026 11:27:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5491F00898;
+ Thu,  1 Oct 2026 11:27:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790853829;
- bh=kf6DGNVTAfNJlmV6n1mnXsg4ktNEvr3LbpOB3nxPaDE=;
+ s=k20260515; t=1790854056;
+ bh=HRinFgClxsjCxzXrcM5ZxOKZ/5JIquj5jbimxGiUTO8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=h4CPFsltJBUoB1HezA4bvarNWaCYFqBa9hBNxc+xCNO9nmfmhUT/wWKO5h1TlPXIc
- GDcAHYvPrvXUUAdbanMCx0eH+gZVlMuBMNeu1sx6Mkedl4IpqYJoXRAvrhcsyv+r6m
- RMOwLgwZt2tR6GpLFOAQOaF+G9JYEPfVrthsR+29KjdXDX9BD0jIpGaVMsh4wshd8/
- 1V9HgLQZNdCr5wRgqJ8ZKr2TgosbMOG52qE9tjBdGDKvkUBI6BT95ilyElZCxT2gq2
- sTZn6z41rW5NtndnGGja5mbMNd0FQbRt4rsUAYkIglECZ5nHiJQcrjE0Gm51PZvf3T
- wzXZdyJs8fI4A==
-Message-ID: <f61c0ee3-0eb4-47c4-ac52-66b72764e242@kernel.org>
-Date: Thu, 1 Oct 2026 13:20:13 +0200
+ b=Ky6X3yIyUjjGya5AZ2z0J7ES0PO1SfluuP77TdLK4cH/5tB7JmDxOx5JmHguHbTS/
+ /b53SZAJrduEMNol+itQc4hUm3oYIqiOIaUDFLDveSfCnkYT0toHIyq63iOl1Bcr0E
+ LFrUwvyQRwIW6C5fp8PbruCBz0hBOSrd465V01o47SLY4K58h3wExxBgZh69KYO5ZH
+ Wu118EUYFVgD1s1YuYtEhU8Vy5dw/GT2t4WKgiJR1s7vPjJz3t/3IedQszccKYRhy2
+ so7DKhpsR4s+A5udrWW8RI/AbcWyEkjbKrIsp9SorRGRzmZoNzvimOYRr+/vcF4jm5
+ 3ubv4o7hB0KTg==
+Message-ID: <fe7ee974-fb29-43fd-8543-3d9f4e4755fb@kernel.org>
+Date: Thu, 1 Oct 2026 13:27:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/9] mm/kasan: use hw_pte_t for the early shadow PTE
- table
+Subject: Re: [PATCH v3 4/9] mm: convert PTE table entries in ptep_get()
 To: Muhammad Usama Anjum <usama.anjum@arm.com>,
  Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -100,7 +99,7 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
 References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-7-5670b8cb9059@arm.com>
+ <20260922-pte0-v3-4-5670b8cb9059@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -147,7 +146,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260922-pte0-v3-7-5670b8cb9059@arm.com>
+In-Reply-To: <20260922-pte0-v3-4-5670b8cb9059@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 01 Oct 2026 12:17:30 +0000
@@ -167,16 +166,10 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 9/22/26 19:12, Muhammad Usama Anjum wrote:
-> kasan_early_shadow_pte is a complete PTE table rather than a software
-> PTE value. Declare and define its elements as hw_pte_t so the object uses
-> the PTE table storage type.
-> 
-> Read the first element through ptep_get(), which returns the software PTE
-> value expected by note_page_pte(), instead of accessing hw_pte_t storage
-> directly. This also uses the accessor selected by the architecture.
-> 
-> No architecture selects ARCH_HAS_HW_PTE_T at this point, so the storage
-> representation remains unchanged.
+> ptep_get() now accepts a pointer to hw_pte_t storage but must continue to
+> return a software PTE value. Add __pte_from_hw for both generic hw_pte_t
+> definitions. Read the hw_pte_t table element atomically before converting
+> it to pte_t.
 > 
 > Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
