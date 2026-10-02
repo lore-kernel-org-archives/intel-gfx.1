@@ -4,27 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96982CA5FDD
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 17:47:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85EF5CA5FE0
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 18:52:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E02CB10E641;
-	Fri,  2 Oct 2026 17:47:20 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59AD310E4B7;
- Fri,  2 Oct 2026 17:47:19 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6003241564028712259=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 584AF10E667;
+	Fri,  2 Oct 2026 18:52:25 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KN2FJHDY";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7F210E636;
+ Fri,  2 Oct 2026 18:52:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790967143; x=1822503143;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=acZn+DQwzgqtDPZktYzvVkV1BU/0NMyBtMEghpn7H/o=;
+ b=KN2FJHDYTjcHTAj+XUusKTThgQQoqNbom58gEAcVAkRgfH1SpAjvVY6H
+ 5RA42lyO8SWq+TKqs6z4FY+xP31hNwZG0cOHRGsPKLq9gr65gNZH5T2ri
+ yN/2Jc4GINhwOnDyiqJS217mcBjHcdPL3AkxzI6AawxCtGz9jV/g/Tyd/
+ 5K8HuXqdzKVB1jasrxo6iJ7cO+JAHKOBGqI3JAa7oG0aQkEwBiyDqUdqh
+ S3W+9M5BgXlWCwF4vL08dCa09p+JTWNquAxway2peGeGDLwOk2K1H5V3c
+ 2Mf+ctmq6hTJhbN2lNiHVR7o6IwbXuM6X2y1FP49JZlnOGpSiGn5bDaGm g==;
+X-CSE-ConnectionGUID: /SXQJUhLQ9qtJOX7Q+iKLg==
+X-CSE-MsgGUID: 5JlVYsaqT3WdwH4JQeTcyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="90796832"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="90796832"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 11:52:23 -0700
+X-CSE-ConnectionGUID: i+pvZfXuQjmOzwIpjBRQqw==
+X-CSE-MsgGUID: o/UNA2bRR5G0Dm95Wq1/6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="391566"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.245.245.45])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 11:52:19 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+ by kekkonen.fi.intel.com (Postfix) with SMTP id 696F6121BB9;
+ Fri, 02 Oct 2026 21:52:16 +0300 (EEST)
+Date: Fri, 2 Oct 2026 21:52:16 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-pci@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the
+ pci_ids.h
+Message-ID: <ar_9YLJj5_PbzGEO@kekkonen.localdomain>
+References: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pmu=3A_convert_i?=
- =?utf-8?q?915=5Fpmu-=3Elock_to_raw=5Fspinlock=5Ft_from_spinlock=5Ft?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Anubhav Shelat" <ashelat@redhat.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 02 Oct 2026 17:47:19 -0000
-Message-ID: <179096323934.233686.4665645315740267570@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20261002161137.297365-1-ashelat@redhat.com>
-In-Reply-To: <20261002161137.297365-1-ashelat@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +86,16 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6003241564028712259==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Fri, Oct 02, 2026 at 11:43:43AM +0200, Andy Shevchenko wrote:
+> We have a few drivers using same pair of the PCI IDs across the kernel and
+> there seems more to go, consolidate AtomISP v2 PCI IDs in pci_ids.h database.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-== Series Details ==
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-Series: drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t from spinlock_t
-URL   : https://patchwork.freedesktop.org/series/175438/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19276 -> Patchwork_175438v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v1/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19276 -> Patchwork_175438v1
-
-  CI-20190529: 20190529
-  CI_DRM_19276: 28a2edb89a25a41d2a45e27d74dfd946872d0faf @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9126: 4b27241425f55826ff2df54686e8e709f5baf9dc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_175438v1: 28a2edb89a25a41d2a45e27d74dfd946872d0faf @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v1/index.html
-
---===============6003241564028712259==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/pmu: convert i915_pmu-&gt;lock to raw_spinlock_t from spinlock_t</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175438/">https://patchwork.freedesktop.org/series/175438/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19276 -&gt; Patchwork_175438v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19276 -&gt; Patchwork_175438v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19276: 28a2edb89a25a41d2a45e27d74dfd946872d0faf @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9126: 4b27241425f55826ff2df54686e8e709f5baf9dc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_175438v1: 28a2edb89a25a41d2a45e27d74dfd946872d0faf @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6003241564028712259==--
+-- 
+Sakari Ailus
