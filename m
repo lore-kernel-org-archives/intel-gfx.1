@@ -4,203 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E65A6CA5FE7
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 20:45:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE17CA5FE6
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 20:45:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1105610E6CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E5C10F9FB;
 	Fri,  2 Oct 2026 20:45:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Mo2nDH6e";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Mo2nDH6e";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IvjsSOgY";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013017.outbound.protection.outlook.com
- [40.107.162.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F6E410E611;
- Fri,  2 Oct 2026 15:00:14 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=uAQfV3EUJW62CcM0EELXc3JHfIPV2TVgJ5yHWJTdeA4Q4X6MP/f5xbw2g+jHORKQe94uYwgaeN7FuwqkYsLBfzI0lLzODSmRjs13GkZLAPbcffhDra13NKdD2o9kRr8Hpy37vGXf0i7Yjtd1sirIHnnO0KUkBbtTQSUdLje3PhXE3wuBCyxb6XXKpoNM7VPzD0z51N+rPSXSLnFop0h2pLUalALVfCHaaPWi7y6mZ+A79PLLvuLdhg2+bjF/Sgh8nXji/DnCGHN/1tY+Ho8Uf06Sjta+lBb+F6a6wrO8J5dS/rY3Q0jRJi5m8O0m/mD5qjs7SWBXTJ9/I+iLXrWNGQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ti/5xvbZ1AAv74C2/nfdQE1m+h+p3/QI+PEVwvH6dc4=;
- b=Rh7EIoy39F3hpUwlXpL9Lj2nD74UB7MygNQ1r8sQsMqV3zRK0PKBRQ0n4Vik08I94PG6O84vZ56XKOWa6eVPyu4lj62hC47uieSefGZ2m02BL0Ee1j+z8d8znVU8pNgIpfxIwlB7X4VVnHISWNDyh+mcPqqNkJw5fT4HKc/i34eWu64FLHXZFZHNV1n4ogynNJHEjhvPt1gl9D63wt+GoerJGKRHQRgs2a0B4cv48Saej4SljRtl2GJHSv8uLYiRgi4AhNpx5Zq8dazC2wTYawv9rmTc3COr4UzIM+HOsXqlglO5QVQtQi45d6yJj4oHcUvjysD4isQZ25D6rD6PcA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=intel.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ti/5xvbZ1AAv74C2/nfdQE1m+h+p3/QI+PEVwvH6dc4=;
- b=Mo2nDH6eiiPGh7acExyLyD+Jj4WqZLPMkj5+IQJPLowJkHahm3omPF9SasuBLbFHb28M0ZAl0V6NkAsy1KXrrgZQeaXFhpkRCokyjEoOH3JIRVWGzZED5fJ2hndCjXKqF+P40X3gZ6SHd074yuEpTLDkLLIrwKQGrc3ghWf3N9Y=
-Received: from AS4P190CA0028.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:5d0::17)
- by DB3PR08MB9897.eurprd08.prod.outlook.com (2603:10a6:10:436::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.13; Fri, 2 Oct
- 2026 15:00:06 +0000
-Received: from AMS1EPF0000009C.eurprd02.prod.outlook.com
- (2603:10a6:20b:5d0:cafe::9d) by AS4P190CA0028.outlook.office365.com
- (2603:10a6:20b:5d0::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
- Oct 2026 15:00:06 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com;
- dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS1EPF0000009C.mail.protection.outlook.com (10.167.242.73) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Fri, 2 Oct 2026 15:00:06 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l3VEqmKvuZAU0+agmoZzr+8hppPqTJFFjvc4xTWXU7zI0brox9y2VNY0kZVvIu0zzCRwzXjfbOjAKCiBJMsA6BBszQ6ffq1eXuqvdGPo2eMZAXS/WHss44krBPSAGZSY77dO2KIOU8LnF0mTtNiBafcZp2GFVFB80DipFgiLK2R9CBLv94wyyz9Rb3tDTqQFFngoc+JsQV6z/aL5viDSQmIeMif8Ta6JnjNqel+cUuXWxLwcFyjGWoV6sxib1D41Ff3v/P27rUiS2vbzCTkzedgDkhjW6cuMcERqBodwlJm3fFa9e1++PL5XX/b18SxdSKWHD32aOwUuqxu4MeQKDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ti/5xvbZ1AAv74C2/nfdQE1m+h+p3/QI+PEVwvH6dc4=;
- b=ct2u76lGXznHnGAjkKWIvF/QheO8nIZ68MLyiN+rmPU6QfrHfFOfmG5tISyqlCdZKb7bEFIvXMYnOTje6TSEL0GIIAuLIHDZXQax3NVHDvI9ueJDGw3pMFZ83K87pZ7QLqfS6pt7c248vcvHR73N4mQyGe4TSd7w/SXqJ9WHsXmJeF0JcmJcubJG+aOCZ0BmCL9JEpPcCp9YBuzcGCs9s5MGRoOJSBGNNbwXJsdUFbWfBaVVvhPiDVZsFFWzhfsSiLJpRwafrTjgGQ1LvrSnVMuiyEIrXGftQt7U533VnnfVKXIvlqaXGVnHroKkRh+reVZ4xHULl9F3NqgzmSPsrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ti/5xvbZ1AAv74C2/nfdQE1m+h+p3/QI+PEVwvH6dc4=;
- b=Mo2nDH6eiiPGh7acExyLyD+Jj4WqZLPMkj5+IQJPLowJkHahm3omPF9SasuBLbFHb28M0ZAl0V6NkAsy1KXrrgZQeaXFhpkRCokyjEoOH3JIRVWGzZED5fJ2hndCjXKqF+P40X3gZ6SHd074yuEpTLDkLLIrwKQGrc3ghWf3N9Y=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by MI9PR08MB641028.eurprd08.prod.outlook.com (2603:10a6:290:b6::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.12; Fri, 2 Oct
- 2026 14:59:28 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 14:59:27 +0000
-Message-ID: <a142e0ae-3336-47db-90f3-5d22708f9a18@arm.com>
-Date: Fri, 2 Oct 2026 15:59:23 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
- kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
+ [74.125.229.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFF1210F43E
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 07:31:14 +0000 (UTC)
+Received: by mail-dy2-f43.google.com with SMTP id
+ 5a478bee46e88-33e46a156f4so4235504eec.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 02 Oct 2026 00:31:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790926274; x=1791531074; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=xsLYGjShPtiiH52PUv85LU1cMxKjqepVYNFiRNQ0vZw=;
+ b=IvjsSOgYXr5Hqn51LqW/SBUTBk1jeJ40ECfksXwACcL8fwKhitfF8/BMoyXlM6aghL
+ RkmCApeV5ATdm4ICqzLTakRa+yY2vC60r5PmgZ0y9nhg8T95zbG9+NB9tGRqKsMWDXjc
+ unVuvPwB43uc2ezt+XOAPEihkXYgyANJn+ZfbgNhG1PvZ9VPqwFaVn2ztHf/sEBcDvq+
+ WvgWF8hBP2zueIQyq7Pkyty61OhyP3M8BaTzyQ4PoP/83efZx0wniUC9swBFZWStaip4
+ t+9MUMfHvkXc+U87F3eCvvRIlLEIJ6gUhw2rsaOlrys+0xhvnYp9tCpMu6rXBF/vEx83
+ TETA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790926274; x=1791531074;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=xsLYGjShPtiiH52PUv85LU1cMxKjqepVYNFiRNQ0vZw=;
+ b=fSnQXa0HpjSncr9NsgNI18xe+jidmYRVOATSaAEHKHKrNKjjRKOk+kQsuLxpbbS9tJ
+ 2HpFEe8JXCYE6O+S802X5qthK8BWTSOXG+OZGV5pxcyz6kLVj//xYwR8w+GT8UMKvBiE
+ sMlGHZNEVL/9Iq00cPRJBz9+I2838T6LDoRrDfqreFwsxG77yFianNw8VS5X7WaZwipb
+ 0XYX6vOg/BUQlH8iH3vJhTkPafkUEEx5RC+qrR23BTb94Pwbwp7vRTL8zxVdTFeUual9
+ BdjwUFjSdoka7YmrqJn0AMzfFVpuVkf8WtAMU+d/sJW2YCKXZX68yon0rI4hU3dss17q
+ RhGA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx4X0/T2IQJKev7SYI09ODJOy1Nmm4jOubMfIeofOfY9Cfu6WfSPhi0XgV9uG8J6mj3OrSBio3sw9I=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLX3V8Sv07ModryWtdu7O9zRMvCi42ZO2fE8jkfzTto6YTKFdwF
+ YtZwUL8GYb5nZyVEzDjVj9g5L/30m8LUeK/y1+G/OQKr0ZUS7KLJ6u3x
+X-Gm-Gg: AYBFou1JmFTZaNAPollaDeCoNC/VWDIYbIP4c/wAr8kJXDBa5FP3kRGmhu0GM6YCYze
+ ilptxxxIlDlaAXU5/N+oA8ee3Z8x/hp8Jn5KhPXC7ZNSvI87Az2UaNs3G60CMQpnZ25b93CT93C
+ JYAOVa6/MegGxgGIvPDKH2HlNG+0z/QfEMGkWGgTpoCxI68sak3w6rx3sDviJxGKMZVcq6CqaaZ
+ L28SCcO6lovSItsJooami+ZWHlrIvBSd4ud9HlIIieOSi/ZFFAZCQ9oMKMbIuUTgduwJxQu0sB6
+ hC6KRgvb6GmUe7MVsF/uH/VNE6gEsomYdS9B5qMF7JiFHSaoUaC9zqdAGQwerOKPqCFJDTkrsgQ
+ pZfLBysPCpWArUdQpgFhOmz1quZpLLAEdsPwzHGftXEJefW10iHg6Il5uhSTibDSNsuuXF+JFVc
+ fhqhVo9aUJIS9C+NfE5DzCdO744ugbXQKYQ3lfuaLDsNsN5CaaBNulOthZ1X08N/Q8XR9yxeCSG
+ 66Zb8PUWux+4yNEw0UH1milNxY7gjeds/ZBrW7in1IprodYV9a0XjuFbXqRAyfZ0GPcsVPaEMx/
+ rKo3O9yKBB5XhHd/gjAPW9iQ7VAvQC4OXSKaGAOhl4LYpj1k8W9GNJkG+eQ=
+X-Received: by 2002:a05:7301:1a11:b0:327:c036:1c7a with SMTP id
+ 5a478bee46e88-34f15077dcfmr1779187eec.10.1790926272837; 
+ Fri, 02 Oct 2026 00:31:12 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-34f14fdb478sm3912341eec.22.2026.10.02.00.31.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Oct 2026 00:31:12 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH v3 6/9] mm: add hw_pte_val for HW PTE storage
-To: David Hildenbrand <david@kernel.org>
-References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-6-5670b8cb9059@arm.com>
- <2dcd9dbc-99ca-4f5e-8e25-f42977763c84@kernel.org>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <2dcd9dbc-99ca-4f5e-8e25-f42977763c84@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0506.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13b::13) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Christoph Hellwig <hch@infradead.org>,
+ Christian Brauner <brauner@kernel.org>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/i915: look up shmem folios by index for writeback
+Date: Fri,  2 Oct 2026 15:31:07 +0800
+Message-ID: <20261002073107.2209644-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|MI9PR08MB641028:EE_|AMS1EPF0000009C:EE_|DB3PR08MB9897:EE_
-X-MS-Office365-Filtering-Correlation-Id: a034d3be-d90e-477f-407f-08df2095d84f
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original: awZGmDrP+n8iLBKvmVXHTttSmqRxMeSGungA92N+sXf6yE3oI65JXMYjoyoqZU4z92EjLnPwdA3swFEzepXI34dKn43yBmeVvLqIUe/aBv08SgXGzrmAxS717gejGWy8U4rPYkvOIDdyiBxd2MBpfzCJlWMuJUzzr/Wp+j3suycL5rjxd/v30SmewNFgPgNQgQfr10cfje9l+9HvcpHE8UaxFi2m98g/Oi1yFh1Uv7p83MBhZzn3LxcBIRczyIMvxVclUNwFTHfOSqMknRfYtrchbmqunIu6Mb0NweYLrvUPqE6ht4UxNYMe9LubbLj0Z2CDA/bRAHha1WPyDPpEeMgLlZ7ttBS8IhHCFiIstMQ66XUeWBLvVis9enTtmnqK/jdaFIplCGIsd76kNk+meVo8W38oNZdpqw8ADA77Z0k5L3wSocvuaE/Jv02VD4+Yu/fdyYpMGa9TY4CDAu33JydBOUkVs9q39XNddxpJgbW4r+th+qCEhwCOzFeVMy3aAVkJ64e9rj5Db+h19TKi6I1q66jeb6gu8PyGYzRJRxwM8+Ze7MsHhx3jpuXiau+zNi20djXGuN/50xIlRPUpcpXdIeivXUrEcm3rd/dUuKz3a6g4TuBdUDqyIM6I6Rnz3ylxUov8Yd87TbRsm/QMEJl0iwp4KFdC2hGLxcMxCi4=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: O/ShE+MLm7IKbo9g36eL3X0mvPd8jlMxid/HVeiYr6CQ/77qfCa3N/b4vIwk1i1PLKqJlVUWlqDgRxqtKEPjtwupepE/KVG1qbX766JDmNnClOViKhwOGw2odERsg9V2MjPMqfmYMVgxuz4t93xa4jorFwnbmORgOPy4FhhUFe0nYkv1xqlrkn9VHF3vW5h65bao/GxIP1gmv+LW0ignAeRy6AzaqIhaREPatPNVFTOpKJfRCCBw+9xErF4dn+NC6XkhhsqIS5cKm3zOB/HmOtHh5S8/5xktPWw6L8Ata4pti5pA2V19xSSvyXK97GtzwJMmr8bgS0R/wczjrkICXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR08MB641028
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AMS1EPF0000009C.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 8e3e908f-f49f-42a7-a5e9-08df2095c16e
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|35042699022|1800799024|36860700016|82310400026|14060799003|56012099006|11063799006|4143699003|10067099003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: e3PVHNV6Atu4PUVDGTRp8g81vqrcCMJA/whGHwuBhmxf3Bo5KxOpwZ7/t/Dtp55WWTPpJn0EfGRVWhw0dbOxPDtIqsiLjPBUO5SoavPEuHHIj62gBfPg8JelhvQRTTynrhyLfEsO0GQiHAnXOd+chyflqWvmjo7MMw5ZR7npBKEUG23i5lScAFhbAIcJkyu2eFUM6dV2ue8YLiy74oQTnEilKcsLb/7rAfWbEzqWvkVJdJNPoZflu8rEZ++XcI0T0S7stdOKDxNbY9P79NLrB2A+iFbvT3uGhoAXRg5JwgHfe/iTKRIxMzNm8y33mdMwe+MYZbt5WCwfcazjfy427YYThdoFFaME59/Bu6xv6TCthRyipjx9H92z5fIdp7uZc9ffkSGADyyN3St6p0hxoBrGXok/z9hnbPb4/2/MTm0AAr3hpyBtOVreV2zS0X7hmzMapU8GBksu9QFZQN3tdA8f7kHHUu3K1+74WrDSAyrpWEsOzFlEhQ8evkzD6XV0pt6+/rEZCuDr+H8/AkX36t4A+plgvjWc9ev6dDptVq9YGC399Mu1kBXJUCrYR5WqZ31/R7uLa9MInAdfZeK8vRGom+3XMiBfQFGmUcXbA91wDTFed36qS0G4Qg0DBia9gx4+7pW7jQpYL32DjPf6pvOpEHtpYpjyv703KcgQsY6WDSm6N/zAgWD7hdBG1TfU202RzLBYlbX29fmnz5nyjw==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(35042699022)(1800799024)(36860700016)(82310400026)(14060799003)(56012099006)(11063799006)(4143699003)(10067099003)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: nHkjJVNJiDScHS7JCHIRkUZQWOdQ/QJve4xVDinlyoCcIfKtj5o7oAzp92if3AokVhSRa7cY4lXMqEqipvOmJjJwamYgB64kjr4PjseTzYLppgjBVAu35cRVnzCnsVxS4cTzFCng0dStiAaXZrgH0US0jysiQsOCI2idInD1S1/FcT9U2PufYfGi65Bx19hJzZlaw1nZR23T7S2Q3p0bWKV+Yk4/nUIm7Lra0OB/unZOJ8LSVR3SrjXptH+l7zPjbQ7PV9EtFm1Z9kmpSfBoMq4GOgDP+fusWnFi7NnXOxyQAaaS4GLeHj1sdf53NqxUJIEM+BlmGRiaF5WscIVNY1Re6LyzVWVRSYRjL3zvRaxmXAMfEIhLVORgvyISUrYOP/pzMfMQUEMGoIy0PcaxoIphhassmN5iLZEoGI4YY8g0m21Vkz8O/znrRuBmA0iw
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 15:00:06.0457 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a034d3be-d90e-477f-407f-08df2095d84f
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF0000009C.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR08MB9897
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 02 Oct 2026 20:45:17 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -217,53 +95,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 01/10/2026 12:19 pm, David Hildenbrand (Arm) wrote:
-> On 9/22/26 19:12, Muhammad Usama Anjum wrote:
->> Atomic PTE updates need an lvalue for the bits stored in an HW PTE.
->> pte_val() only accepts a SW PTE value, so it cannot operate directly on
->> a distinct hw_pte_t.
->>
->> Add hw_pte_val() to expose the underlying pte_val() lvalue. Access the
->> wrapper's __pte member when hw_pte_t is distinct, and use pte_val()
->> directly when it remains an alias of pte_t.
->>
->> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->> ---
->> Changes in v3:
->> - Moved from the arm64 series to generic series as it makes more sense
->>   to add this in generic with all other changes. Usually we only add
->>   code where its get used. But this whole series wouldn't get used
->>   until an arch started using HW PTEs.
->> ---
->>  include/linux/pgtable_types.h | 4 ++++
->>  1 file changed, 4 insertions(+)
->>
->> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
->> index d6c5a7548550b..ee4eace5c3e1c 100644
->> --- a/include/linux/pgtable_types.h
->> +++ b/include/linux/pgtable_types.h
->> @@ -9,9 +9,13 @@
->>  #ifdef CONFIG_ARCH_HAS_HW_PTE_T
->>  typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
->>  #define __pte_from_hw(pte)	((pte).__pte)
->> +
->> +#define hw_pte_val(x)  pte_val((x).__pte)
->>  #else
->>  #define hw_pte_t pte_t
->>  #define __pte_from_hw(pte)	(pte)
->> +
->> +#define hw_pte_val(x)  pte_val(x)
->>  #endif
-> 
-> I was just about to say: this series doesn't add any users. You should add that
-> detail to the patch description: "prepare for usage in arch code" or sth like that.
-> 
-> With that
-> 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Since commit 776a853a43c9 ("i915: Use writeback_iter()"),
+__shmem_writeback() starts writeback on no folios at all.  In
+WB_SYNC_NONE mode writeback_iter() only returns folios tagged
+PAGECACHE_TAG_DIRTY, and shmem never sets that tag: it dirties folios
+with noop_dirty_folio(), because shmem relies on LRU-based swap writeout
+rather than on the dirty tag (see the comment in __folio_mark_dirty() in
+mm/page-writeback.c).  The loop before that commit looked pages up by
+index and tested the page dirty flag, so it did write.
 
-I'll add to the description. Thanks for reviewing.
+This affects the shrinker's I915_SHRINK_WRITEBACK pass and the i915 TTM
+backend, which both call __shmem_writeback().  The pages stay dirty and
+on the LRU, so reclaim still swaps them out later; what is lost is the
+early writeback.
 
+Go back to walking the object by index, with the folio API.  Mapped
+folios are still skipped.  Unlike the old loop, do not wait for a folio
+lock, since this also runs from the OOM notifier; a locked folio is left
+to reclaim.  shmem_write_folio() returns with the folio unlocked except
+for AOP_WRITEPAGE_ACTIVATE, so unlock it only in that case.  It may
+also split a large folio, so read the folio size only after writing, to
+find the next index.
+
+I came across this while measuring an earlier patch of mine to this
+loop, which changed nothing because the loop never visits a folio.
+This patch was measured without Intel hardware, with a test-only mock
+selftest in a QEMU guest with swap.  Dirty, unpinned objects of 1 to
+256 MiB, with and without THP, went through i915_gem_shrink() with
+I915_SHRINK_WRITEBACK.  Before this patch, no page was written in any
+case; with it, every page that was not mmapped was.  The contents read
+back intact after swap-in, and the mock selftests give the same results
+as before.  This has not been tested on hardware.
+
+Fixes: 776a853a43c9 ("i915: Use writeback_iter()")
+Cc: stable@vger.kernel.org # v6.16+
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+This replaces my two earlier patches to this loop, which can be dropped:
+the loop they change never visits a folio.
+
+https://lore.kernel.org/all/20260915062924.2410550-1-matthias.goergens@gmail.com/
+https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergens@gmail.com/
+
+In 6.18.y and 7.2.y the call is shmem_writeout(folio, NULL, NULL)
+instead of shmem_write_folio(folio), with the same return convention.
+
+In review of 776a853a43c9, Christoph asked for this loop to move behind
+a shmem API instead of living in drivers, and Matthew agreed:
+
+https://lore.kernel.org/all/Z--XtaM7Z3zbjzAu@infradead.org/
+https://lore.kernel.org/all/Z-_hQwNeiOnNYJVp@casper.infradead.org/
+
+I kept this fix inside i915 so that it is one patch for stable.
+
+The test harness is not part of the patch; I can post it if that helps.
+Testing on Intel hardware under memory pressure would be very welcome.
+
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 56 ++++++++++++++++++-----
+ 1 file changed, 44 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index ef9440166295..54424e434f3b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -304,28 +304,60 @@ shmem_truncate(struct drm_i915_gem_object *obj)
+ 	return 0;
+ }
+ 
++/* Start writing a locked folio to swap.  It is unlocked on return. */
++static void shmem_writeback_folio(struct folio *folio)
++{
++	int ret;
++
++	folio_set_reclaim(folio);
++	ret = shmem_write_folio(folio);
++	if (!folio_test_writeback(folio))
++		folio_clear_reclaim(folio);
++
++	/* shmem_write_folio() unlocks the folio unless it returns this. */
++	if (ret == AOP_WRITEPAGE_ACTIVATE)
++		folio_unlock(folio);
++}
++
+ void __shmem_writeback(size_t size, struct address_space *mapping)
+ {
+-	struct writeback_control wbc = {
+-		.sync_mode = WB_SYNC_NONE,
+-		.nr_to_write = SWAP_CLUSTER_MAX,
+-		.range_start = 0,
+-		.range_end = LLONG_MAX,
+-	};
+-	struct folio *folio = NULL;
+-	int error = 0;
++	pgoff_t nr_pages = size >> PAGE_SHIFT;
++	pgoff_t index = 0;
+ 
+ 	/*
++	 * shmem marks folios dirty with noop_dirty_folio(), which does not
++	 * set PAGECACHE_TAG_DIRTY, so writeback_iter() would find none of
++	 * them.  Look up each folio of the object by index and test its
++	 * dirty flag.
++	 *
+ 	 * Leave mmapings intact (GTT will have been revoked on unbinding,
+ 	 * leaving only CPU mmapings around) and add those folios to the LRU
+ 	 * instead of invoking writeback so they are aged and paged out
+ 	 * as normal.
+ 	 */
+-	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
+-		if (folio_mapped(folio))
+-			folio_redirty_for_writepage(&wbc, folio);
++	while (index < nr_pages) {
++		struct folio *folio;
++
++		/*
++		 * Skip folios that are absent or locked: this runs from the
++		 * shrinker and the OOM notifier, so do not wait for a lock.
++		 */
++		folio = __filemap_get_folio(mapping, index,
++					    FGP_LOCK | FGP_NOWAIT, 0);
++		if (IS_ERR(folio)) {
++			index++;
++			continue;
++		}
++
++		index = folio->index;
++		if (!folio_mapped(folio) && folio_clear_dirty_for_io(folio))
++			shmem_writeback_folio(folio);
+ 		else
+-			error = shmem_write_folio(folio);
++			folio_unlock(folio);
++
++		/* Writing may have split the folio, so read its size only now. */
++		index += folio_nr_pages(folio);
++		folio_put(folio);
+ 	}
+ }
+ 
+
+base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
 -- 
-Thanks,
-Usama
+2.56.0
+
