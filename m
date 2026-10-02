@@ -4,28 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68E22CA5FDD
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 16:18:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F9E5CA5FE2
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 16:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E83B310F916;
-	Fri,  2 Oct 2026 16:18:22 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4774610F916;
- Fri,  2 Oct 2026 16:18:21 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8715032088683235168=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 017BE10F91C;
+	Fri,  2 Oct 2026 16:28:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LoyA6D7O";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5CF10E628;
+ Fri,  2 Oct 2026 16:28:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F00B743A71;
+ Fri,  2 Oct 2026 16:28:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1131F000FF;
+ Fri,  2 Oct 2026 16:28:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790958503;
+ bh=mvElZZI+CeG4IxR+qpAqQMv0MhCUAS7GHtlXGfa/VvA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=LoyA6D7OdQ8C6lV81NVZS0Jv3tm+IliOpCGg3Sgcq6yzI7KbOD0jZFBi3+tPFlMkW
+ ai9VFPcPAwsHj1ofV8liuvPNt8j9+wXEiypBdEYiAELaEgvMzCxKvEnxGfc38ln2oM
+ 3fz74075MNhAOfl+rQ3/UfDeSNbFR1CiuntRDC6zRnuocCyCXPYWxDHNc6vSWwH5P9
+ 2RocJpQHh3FW51feBum3TbJnk9QV+hl+SVUrPwhBldki0PBq/w2Zxr3PUbUrYeVqAt
+ mmDtrL/PHN7r4u6zvk3wl3V7mISSjaOE953p7FApbyWzGotN568r9S6JmZPLWZ8Qz3
+ A3pSfvisT37ww==
+Date: Fri, 2 Oct 2026 11:28:22 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-pci@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the
+ pci_ids.h
+Message-ID: <20261002162822.GA103095@bhelgaas>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_series_starting_with_=5Bv?=
- =?utf-8?q?2=2C1/3=5D_drm/i915/gmbus=3A_Switch_GMBUS_fully_to_=5Ffw=28=29_re?=
- =?utf-8?q?gister_accesses_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 02 Oct 2026 16:18:21 -0000
-Message-ID: <179095790128.233267.16881820238905294954@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260930115303.24285-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20260930115303.24285-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,203 +68,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8715032088683235168==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Fri, Oct 02, 2026 at 11:43:43AM +0200, Andy Shevchenko wrote:
+> We have a few drivers using same pair of the PCI IDs across the kernel and
+> there seems more to go, consolidate AtomISP v2 PCI IDs in pci_ids.h database.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-== Series Details ==
+Acked-by: Bjorn Helgaas <bhelgaas@google.com> # pci_ids.h
 
-Series: series starting with [v2,1/3] drm/i915/gmbus: Switch GMBUS fully to _fw() register accesses (rev3)
-URL   : https://patchwork.freedesktop.org/series/175283/
-State : failure
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19275 -> Patchwork_175283v3
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_175283v3 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_175283v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_175283v3:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@dmabuf:
-    - bat-arlh-3:         [PASS][1] -> [INCOMPLETE][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-arlh-3/igt@i915_selftest@live@dmabuf.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-arlh-3/igt@i915_selftest@live@dmabuf.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_175283v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live:
-    - bat-arlh-3:         [PASS][3] -> [INCOMPLETE][4] ([i915#16547])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-arlh-3/igt@i915_selftest@live.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-arlh-3/igt@i915_selftest@live.html
-
-  * igt@kms_addfb_basic@too-high:
-    - bat-apl-1:          [PASS][5] -> [DMESG-WARN][6] ([i915#13735]) +38 other tests dmesg-warn
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-apl-1/igt@kms_addfb_basic@too-high.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-apl-1/igt@kms_addfb_basic@too-high.html
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1:
-    - bat-apl-1:          [PASS][7] -> [DMESG-WARN][8] ([i915#13735] / [i915#180]) +36 other tests dmesg-warn
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html
-
-  
-#### Possible fixes ####
-
-  * igt@kms_pipe_crc_basic@read-crc@pipe-a-dp-1:
-    - bat-apl-1:          [DMESG-WARN][9] ([i915#13735] / [i915#180]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-apl-1/igt@kms_pipe_crc_basic@read-crc@pipe-a-dp-1.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-apl-1/igt@kms_pipe_crc_basic@read-crc@pipe-a-dp-1.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
-  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19275 -> Patchwork_175283v3
-
-  CI-20190529: 20190529
-  CI_DRM_19275: b8b605784137aa007148f4872e958131bb33e341 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9125: 9125
-  Patchwork_175283v3: b8b605784137aa007148f4872e958131bb33e341 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/index.html
-
---===============8715032088683235168==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [v2,1/3] drm/i915/gmbus: Switch GMBUS fully to _fw() register accesses (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175283/">https://patchwork.freedesktop.org/series/175283/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19275 -&gt; Patchwork_175283v3</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_175283v3 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_175283v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_175283v3:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live@dmabuf:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-arlh-3/igt@i915_selftest@live@dmabuf.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-arlh-3/igt@i915_selftest@live@dmabuf.html">INCOMPLETE</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_175283v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_addfb_basic@too-high:</p>
-<ul>
-<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-apl-1/igt@kms_addfb_basic@too-high.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-apl-1/igt@kms_addfb_basic@too-high.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +38 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1:</p>
-<ul>
-<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +36 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_pipe_crc_basic@read-crc@pipe-a-dp-1:<ul>
-<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19275/bat-apl-1/igt@kms_pipe_crc_basic@read-crc@pipe-a-dp-1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175283v3/bat-apl-1/igt@kms_pipe_crc_basic@read-crc@pipe-a-dp-1.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19275 -&gt; Patchwork_175283v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19275: b8b605784137aa007148f4872e958131bb33e341 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9125: 9125<br />
-  Patchwork_175283v3: b8b605784137aa007148f4872e958131bb33e341 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8715032088683235168==--
+> ---
+> 
+> Assuming that media subsystem is the main beneficiary I think it is the best
+> to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
+> are agree.
+> 
+>  drivers/gpu/drm/i915/display/intel_display_power.c   |  6 +++---
+>  drivers/platform/x86/intel/atomisp2/pm.c             |  6 +++---
+>  drivers/staging/media/atomisp/pci/atomisp_internal.h |  2 --
+>  drivers/staging/media/atomisp/pci/atomisp_v4l2.c     | 10 +++++-----
+>  include/linux/pci_ids.h                              |  2 ++
+>  5 files changed, 13 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> index 2e534ddb7347..ee2c59b72b4a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -2086,9 +2086,9 @@ static void assert_ved_power_gated(struct intel_display *display)
+>  static void assert_isp_power_gated(struct intel_display *display)
+>  {
+>  	static const struct pci_device_id isp_ids[] = {
+> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x0f38)},
+> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x22b8)},
+> -		{}
+> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +		{ }
+>  	};
+>  
+>  	drm_WARN(display->drm, !pci_dev_present(isp_ids) &&
+> diff --git a/drivers/platform/x86/intel/atomisp2/pm.c b/drivers/platform/x86/intel/atomisp2/pm.c
+> index ad1f99140962..f3dee0e58f62 100644
+> --- a/drivers/platform/x86/intel/atomisp2/pm.c
+> +++ b/drivers/platform/x86/intel/atomisp2/pm.c
+> @@ -121,9 +121,9 @@ static UNIVERSAL_DEV_PM_OPS(isp_pm_ops, isp_pci_suspend,
+>  			    isp_pci_resume, NULL);
+>  
+>  static const struct pci_device_id isp_id_table[] = {
+> -	{ PCI_VDEVICE(INTEL, 0x0f38), },
+> -	{ PCI_VDEVICE(INTEL, 0x22b8), },
+> -	{ 0, }
+> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(pci, isp_id_table);
+>  
+> diff --git a/drivers/staging/media/atomisp/pci/atomisp_internal.h b/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> index 5a69580b8251..1a05fc331557 100644
+> --- a/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> +++ b/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> @@ -37,7 +37,6 @@
+>  	(((isp)->media_dev.hw_revision & ATOMISP_HW_REVISION_MASK) == \
+>  	 ((rev) << ATOMISP_HW_REVISION_SHIFT))
+>  
+> -#define ATOMISP_PCI_DEVICE_SOC_BYT	0x0f38
+>  /* MRFLD with 0x1178: ISP freq can burst to 457MHz */
+>  #define ATOMISP_PCI_DEVICE_SOC_MRFLD	0x1178
+>  /* MRFLD with 0x1179: max ISP freq limited to 400MHz */
+> @@ -45,7 +44,6 @@
+>  /* MRFLD with 0x117a: max ISP freq is 400MHz and max freq at Vmin is 200MHz */
+>  #define ATOMISP_PCI_DEVICE_SOC_MRFLD_117A	0x117a
+>  #define ATOMISP_PCI_DEVICE_SOC_ANN	0x1478
+> -#define ATOMISP_PCI_DEVICE_SOC_CHT	0x22b8
+>  
+>  #define ATOMISP_PCI_REV_MRFLD_A0_MAX	0
+>  #define ATOMISP_PCI_REV_BYT_A0_MAX	4
+> diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> index 476fe143a591..ab8727a806bf 100644
+> --- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> +++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> @@ -1239,7 +1239,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+>  		}
+>  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
+>  		break;
+> -	case ATOMISP_PCI_DEVICE_SOC_BYT:
+> +	case PCI_DEVICE_ID_INTEL_ISP_BYT:
+>  		isp->media_dev.hw_revision =
+>  		    (ATOMISP_HW_REVISION_ISP2400
+>  		     << ATOMISP_HW_REVISION_SHIFT) |
+> @@ -1284,7 +1284,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+>  		isp->dfs = &dfs_config_merr;
+>  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
+>  		break;
+> -	case ATOMISP_PCI_DEVICE_SOC_CHT:
+> +	case PCI_DEVICE_ID_INTEL_ISP_BSW:
+>  		isp->media_dev.hw_revision = (ATOMISP_HW_REVISION_ISP2401
+>  						 << ATOMISP_HW_REVISION_SHIFT);
+>  		isp->media_dev.hw_revision |= pdev->revision < 2 ?
+> @@ -1487,12 +1487,12 @@ static const struct pci_device_id atomisp_pci_tbl[] = {
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_1179)},
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_117A)},
+>  	/* Baytrail */
+> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_BYT)},
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+>  	/* Anniedale (Merrifield+ / Moorefield) */
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_ANN)},
+>  	/* Cherrytrail */
+> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_CHT)},
+> -	{0,}
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(pci, atomisp_pci_tbl);
+>  
+> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+> index 63774ae2bf71..0693e4532a68 100644
+> --- a/include/linux/pci_ids.h
+> +++ b/include/linux/pci_ids.h
+> @@ -2732,6 +2732,7 @@
+>  #define PCI_DEVICE_ID_INTEL_HDA_HSW_3	0x0d0c
+>  #define PCI_DEVICE_ID_INTEL_HDA_BYT	0x0f04
+>  #define PCI_DEVICE_ID_INTEL_SST_BYT	0x0f28
+> +#define PCI_DEVICE_ID_INTEL_ISP_BYT	0x0f38
+>  #define PCI_DEVICE_ID_INTEL_8257X_SOL	0x1062
+>  #define PCI_DEVICE_ID_INTEL_82573E_SOL	0x1085
+>  #define PCI_DEVICE_ID_INTEL_82573L_SOL	0x108f
+> @@ -2787,6 +2788,7 @@
+>  #define PCI_DEVICE_ID_INTEL_VMD_201D	0x201d
+>  #define PCI_DEVICE_ID_INTEL_HDA_BSW	0x2284
+>  #define PCI_DEVICE_ID_INTEL_SST_BSW	0x22a8
+> +#define PCI_DEVICE_ID_INTEL_ISP_BSW	0x22b8
+>  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MIN	0x2310
+>  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MAX	0x231f
+>  #define PCI_DEVICE_ID_INTEL_82801AA_0	0x2410
+> -- 
+> 2.50.1
+> 
