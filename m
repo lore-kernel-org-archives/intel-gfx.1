@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 102C4CA5FE5
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 19:02:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C479CA5FE0
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 19:02:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C27A10F9DF;
-	Fri,  2 Oct 2026 19:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 137C510F9E5;
+	Fri,  2 Oct 2026 19:02:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c47uqBOn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fJItptgC";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011067.outbound.protection.outlook.com [52.101.52.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23F8010F9D5;
- Fri,  2 Oct 2026 19:02:00 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012012.outbound.protection.outlook.com [52.101.53.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1651810F9E0;
+ Fri,  2 Oct 2026 19:02:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kpz8dkRnGTWvKo3Dww75DZN2pbRMhZzP7uTu+aaI+xMglFKxhnA6b01kV3PiU77UTOqUalWQ6A3nJXDd/xOoId+P75bCjes8lXUni/ZlTDZvw3ZZbasHvBidi+TD1njPw3OeetkeqB3rT51GyklYbr8LiRHSwC5Veczmy+pycuKDQ/fSeBwVm9seQbKd0jxxtlIXFBzkyazN87Bw4aqYdj59Fit5pSLtgtdlCe+EN3NG9lVZRSspDzv4b10sGO06pGGC6bwAeoZW+j0Z/MPuXXFHdESKoz+njExbx9IS3qEKgIfH0E29YhOzSufxwnndd5+FYxCl/FwD3NTqTzQ5eQ==
+ b=jVAWG65PkBF8+VZKynkB/9grCo4dNb4EK9ZcgF35DU+yDvaNhJTtpvkpp/vIZ5YDm1grLtwQ0VIUhR+zlvYyYPpzJHgXMpd7ZQUGk7xNiWfuWnbmhzMsuTAC8LaDBsb3few/DSuc3AVqWo7EOWaiD8+3yKwRFR5nQrjTFJLhvYD4qybYXwU4aVC5DH+bQH7KSkQA4lsqQIZtrOswQnSPy+dvFwe2Kn1rFytnfCN7P5B/U6qgHYpRMHiUWP/s3B9Cfr9alFfIzt8OYRNt4hQO6NSO3NNIDHrQqXP6e8fb5OFdVm0NEI2LJFNwZsIlhA0prTQcKNM8DstqKDQ1QnZzmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XTYAHfBvxj59O0SB0AiKb0VjjVanv8gqHLY86+4UYmI=;
- b=iJpXK7WZNm8LlDEApjoSGUG1EcE3SmbiN2EVu3VK5TDbewnAY6nJO6BDZf6zY2bOgNTNk75e72xE4BcKJHavN4lyD3+ez2sR3DgRhI5+4ntPpaIWzv5bOrfgvZJjM9l6stOYuCV1S5VqXt9r1lq5Qed9a2wT6PTu9dVuBgawN6iBq3Pithr9JPVeKdwnSZ9NR3EwQV8ytRa33QLnh5NOVU9/mW4GVoACbAbmEYYptPdudsQEj5BmCAOptfzSAabIt8lY8aWYLC9L0NKgKcV1mx0Kq3LD9dDGkqRfQKxavDJnTWf+RXsn0geHTbFHdYIfvlJ5aEz+LZNXobc2TztSZA==
+ bh=3/G4R0A85UtzLrPEumDeAEeXzg6NhUsjyoeO5M2/Bx0=;
+ b=EVISodsWdidbcZQVSDqtP8PMv8Qs2LkrnoKKs+M6CnNeHq/rd5RF70XtndPYVeyYp6pAN68piXXr5AcD4yhWbygboLiFgQFZH/hNYCEPziGwqGK0Q+wB2iaAfSKyAUuH4HgQ/3+Q4vybPb2baeaIlY4v34NAGbm7czfc0WI8xSrLqjCcybJE30H3xFCryrL2tcElBfyajakn44LA6daBKgdahD1bmBnLuKddBcQJK74brgt/V+aGu3S82U5CT4z+Khw0cZ1xghDGleIpZnzhAuqDl5Bo1nBmH1zx95wd+CM6B3XwSfz9awx4gcUe6zU3GmocpUhK6+Lh0V4f8ZioUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XTYAHfBvxj59O0SB0AiKb0VjjVanv8gqHLY86+4UYmI=;
- b=c47uqBOnp5GqYy+jH0umQabWuT+ZEnnZpiR94wfG4uw6SrZ9JS10gVHuNdqtrPSezk9tbPW2XbEbW6ZfOo2uR7QzOQl8Gu0rwVd4BXXQeO1DOEFeVV38f2IKSzgdvrCGXqOMxppIvEITzGbxFkpjgWBBRngdREiVgEy919QQsjg=
-Received: from PH8P220CA0032.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:348::10)
- by MN2PR12MB4077.namprd12.prod.outlook.com (2603:10b6:208:1da::15)
+ bh=3/G4R0A85UtzLrPEumDeAEeXzg6NhUsjyoeO5M2/Bx0=;
+ b=fJItptgC16aT/BoUhRIIzJHT/hi19rV/fZ9fvwaoBZ+eXu/VrHuDcksYXnOy8WUeXSUDtpBi+0+JufcUDEEz0NhXzsfchCzpO+hbsZRIWwyHSByjkOgF93jgAPVJ41cost3UlZW2FAUVrDrmQvIcI6KqcLVZCWC78rQ8uw/7nfs=
+Received: from PH7P220CA0048.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::19)
+ by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 19:01:55 +0000
-Received: from MW1PEPF0001615B.namprd21.prod.outlook.com
- (2603:10b6:510:348:cafe::5d) by PH8P220CA0032.outlook.office365.com
- (2603:10b6:510:348::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
- Oct 2026 19:01:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 2 Oct
+ 2026 19:01:56 +0000
+Received: from MW1PEPF00016160.namprd21.prod.outlook.com
+ (2603:10b6:510:32b:cafe::c) by PH7P220CA0048.outlook.office365.com
+ (2603:10b6:510:32b::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Fri, 2
+ Oct 2026 19:01:55 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MW1PEPF0001615B.mail.protection.outlook.com (10.167.249.86) with Microsoft
+ MW1PEPF00016160.mail.protection.outlook.com (10.167.249.91) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Fri, 2 Oct 2026 19:01:54 +0000
+ 15.21.496.3 via Frontend Transport; Fri, 2 Oct 2026 19:01:55 +0000
 Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 14:01:24 -0500
+ 2026 14:01:25 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
  <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
@@ -67,9 +67,9 @@ CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
  <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
  I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Mario Limonciello
  <mario.limonciello@amd.com>
-Subject: [PATCH v9 19/21] drm/gma500: add connector luminance support
-Date: Fri, 2 Oct 2026 14:00:28 -0500
-Message-ID: <20261002190030.211356-20-mario.limonciello@amd.com>
+Subject: [PATCH v9 20/21] drm/bridge: add PS8622 connector luminance support
+Date: Fri, 2 Oct 2026 14:00:29 -0500
+Message-ID: <20261002190030.211356-21-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261002190030.211356-1-mario.limonciello@amd.com>
 References: <20261002190030.211356-1-mario.limonciello@amd.com>
@@ -81,29 +81,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF0001615B:EE_|MN2PR12MB4077:EE_
-X-MS-Office365-Filtering-Correlation-Id: f18aeacc-80d2-4000-625e-08df20b7a005
+X-MS-TrafficTypeDiagnostic: MW1PEPF00016160:EE_|SN7PR12MB6716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66aa3da3-9e15-41c7-0d44-08df20b7a0cc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|82310400026|7416014|376014|36860700016|56012099006|10067099003|11063799006|18002099003|22082099003|3023799007|6133799003;
-X-Microsoft-Antispam-Message-Info: PxFW4v8hnQ0ch4AI3P3myWqMNcj1jgxjsdZQD29t+aFH/uJuuMiUbb7T5vlByNvMuFQGgDNaJDgfo6V9xckfNqeyhDZfBSOytUsbTdkGRnEAvps5jKpa7CobwaraQaxsvUg47wMgWFOxvYHMXyyLfbP+nhgQTZ6j9SX4o8Cw8Fj1VsVzRsA+LTrQba2ZvS0Ba9UUlgWccg20b+4HodGIBlZ4VsaW1kgZaIh1qoL6vXv2L5mcvUIuHI1s08APOuxCESBqPrEK60oCHqXpiGHXyewKr+ebGeP70B1XX+tcxRp+OHgxOuCl+WEUd9VouYfOduBn5ddKmI6sZoboeKwjK4mEA8klz09gEOzMQJbvcaJtgATTAH6b/qjD3dxhMo8HRC3x1ziIVXN548EUzQ9XSzX+jdM4yLcsDK+k+7/rh465LMTC3krJKEfyU0lZyxWiYYUaE2Mz/1bcCBJnewxv1s4s8AqhMXUpUKRBccEvV8cPb/n/w9XHJWnKE6EDNBfZwlbs74C9N864JVmMkViigCFJjYXP90yV9oN5OJWK1EgWsSru4lRZdQw8ifsv9K/q+SlRc+rKdAjzcJjyuLVRLhaSL+6ervnO3uK/qBn+GXaYC0rn8xzK4/rnEN4UtSROAesMqM6M3AHjNaEdieb6rCIuLPoY3bXkUw1p6eD+9rKgz0ElPqW6TFlsS/SMK7qGy46+n5NqsBKHJAd2Z5e1Sw==
+ ARA:13230040|36860700016|7416014|1800799024|23010399003|376014|82310400026|10067099003|56012099006|6133799003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: v4ox/QFJ95eVGktJi0UNbPyXQEA5XplkvY1BMNVuN17iJ6Xi/1BpFDilsw696NjuRCHWY86rR3Ld9EBxkMbBn7CS32+hMrfmC0us5TGauBukGsBwW9hFKPI8UnqLLLg6JINmJmCgOWgrMxc7AEOhjr31b306RKO/vREmeyC0wPecOJImzQedCvZhiZ5vn1iRkXLathIAeOj+wS9POqGOf970z56yTa4oY4rI26v9WjzxsVEFQs61f4+47ny99QcgFww3T92N370M1Jbpl8o5MLzbVEWj+L3lPR7TOOmwoH8awRn80S5JlggWuDxCCo8N1V6KKolkjf/4DNpQACCcLq1ZuVS152RZnXMQfu+9+wt7gUELoWaDZ6cT1QB8YJpJhJc4B3IJLgg/guklVhmwpfJ5u+1FMLuCoImYfBaJgG526k1Ay2bHzuds9QQu1zeGEiDFcAsKLEh0Y+huv3e/yIkBT8wchOeBnQHp+vEgmj0Pc/ht3NQG/eedFoBHXg+TA/aqc3AJDF079gnyhEx+e2dZgrkvXL8fqban+h4IieajFVbezKXCdeaxJ1lC19ueXYbsIXOj72OuScplvnNC/rvN0lwvZKKk7qF79udFe3wDZKs/y9VMFyEdpiIXZZ6/5WIbsqRcSXQXiixDi+aNXLgFh7vg4NG7/brpJqKeivvTQg3hd9IySivBHkwVmvPInx1yCjxgM/i3hTy80xIJ4w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(82310400026)(7416014)(376014)(36860700016)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(3023799007)(6133799003);
+ SFS:(13230040)(36860700016)(7416014)(1800799024)(23010399003)(376014)(82310400026)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6jr43SPxOPHuHft1MB6609vOmUwU8iQin8fPvI828E1gX4o+2joStg0YZo6RaADUi9Q/keZRiQYSJWeFd9z5uLXUZx48n9SoMkZgDsc59ppqtFG6hxxebwNeergFxotjG63BUn+1TIXI9XgutwoizvXKRe/jNJWODrSWS0h8Twc/GBvkCAuzsxfFACm0VC4+17kvxgrt73moZs4hRzol5gMMMVyGHZGXkGrwjXCgZuxHG1fmtero47pYazUa7LXHvYGu4PBZLFkoQvUnK45FbRJPR9mYFgBlT3sD3/iQUlUQ3uZq6zWpvTTONv/0dQiI4W2DOeDiT+eHJkbmrw9muxiu8kk36cAp4AmY2SujUw/L8kt1BeodGop59hmq6X8nIAdyzwB3LkMMj14fpg+QXFxgfg8DObTltHhmrzFR9rvY++9aAckBmj5oRN9rQgXH
+X-MS-Exchange-AntiSpam-MessageData-0: +slbPXnoV1m4M3LFlphOwEnGQwKHVlFvk3AEBowRaboPS/NicnAswfxNmaMB44nYeY3e1sNdhSsq1aIXAesY5rVwgpEZCeQJnUTGK7jBRyXXYc5jMgjnsrVN7jR3xoflksgl6Y/VCwPKH81ihyEGiiDw2b3CnnoQIfJ6X6xnuUJeE3Y2/sfOYkEGBvdfPra8qikXKzXGDM3a517cRlvIbwWjwc8EodsDm83p44LeaD5fds+KUp/rpYw9Oz8rNqup+Bwl8We16sYryX3xjk2XwjDk5dYdFw/6bp4wjAge7wl3okuqpu0qM0v6cSXTGfjItUwClM3crqbtk695YzgrLFm2/U7I4Xa7PldnA3fdN51M4R9yNnstONnmZ3He7HcB9M9a7suQDv6gifU1BfjqmYE7faoCw5G38Pc/lReKPzajQRm3QrHUPwkHj7cGbtT1
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:01:54.4614 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f18aeacc-80d2-4000-625e-08df20b7a005
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:01:55.7513 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66aa3da3-9e15-41c7-0d44-08df20b7a0cc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615B.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF00016160.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4077
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,177 +119,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Expose GMA500 panel brightness through the connector LUMINANCE property
-when DRM_LUMINANCE is enabled. Route updates through the existing platform
-backlight operations and preserve legacy registration otherwise.
+Expose PS8622 brightness through bridge luminance operations when
+DRM_LUMINANCE is enabled. Keep registering the backlight class device
+otherwise.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/gma500/Kconfig          |  2 +-
- drivers/gpu/drm/gma500/backlight.c      | 45 ++++++++++++++++---------
- drivers/gpu/drm/gma500/cdv_intel_lvds.c |  2 ++
- drivers/gpu/drm/gma500/psb_drv.c        |  2 +-
- drivers/gpu/drm/gma500/psb_drv.h        |  4 ++-
- drivers/gpu/drm/gma500/psb_intel_lvds.c |  3 +-
- 6 files changed, 38 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/bridge/Kconfig         |  2 +-
+ drivers/gpu/drm/bridge/parade-ps8622.c | 45 +++++++++++++++++++-------
+ 2 files changed, 34 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
-index a2acaa699dd58..72b14a7d07d5c 100644
---- a/drivers/gpu/drm/gma500/Kconfig
-+++ b/drivers/gpu/drm/gma500/Kconfig
-@@ -9,7 +9,7 @@ config DRM_GMA500
- 	select I2C_ALGOBIT
- 	# GMA500 depends on ACPI_VIDEO when ACPI is enabled, just like i915
- 	select ACPI_VIDEO if ACPI
--	select BACKLIGHT_CLASS_DEVICE if ACPI
-+	select BACKLIGHT_CLASS_DEVICE if ACPI && !DRM_LUMINANCE
- 	select INPUT if ACPI
- 	select X86_PLATFORM_DEVICES if ACPI
- 	select ACPI_WMI if ACPI
-diff --git a/drivers/gpu/drm/gma500/backlight.c b/drivers/gpu/drm/gma500/backlight.c
-index c8f1716a12d52..4bb39fba04539 100644
---- a/drivers/gpu/drm/gma500/backlight.c
-+++ b/drivers/gpu/drm/gma500/backlight.c
-@@ -8,7 +8,6 @@
-  */
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index 837db36cdf48e..d78eb9f117d1e 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -278,7 +278,7 @@ config DRM_PARADE_PS8622
+ 	depends on OF
+ 	select DRM_PANEL
+ 	select DRM_KMS_HELPER
+-	select BACKLIGHT_CLASS_DEVICE
++	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+ 	help
+ 	  Parade eDP-LVDS bridge chip driver.
  
- #include <linux/backlight.h>
--
- #include <acpi/video.h>
+diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
+index 3a2ec482037df..229d9d7218c4e 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8622.c
++++ b/drivers/gpu/drm/bridge/parade-ps8622.c
+@@ -45,6 +45,7 @@ struct ps8622_bridge {
+ 	struct drm_bridge *panel_bridge;
+ 	struct regulator *v12;
+ 	struct backlight_device *bl;
++	u8 brightness;
  
- #include <drm/drm_print.h>
-@@ -73,10 +72,9 @@ static const struct backlight_ops gma_backlight_ops __maybe_unused = {
- 	.update_status  = gma_backlight_update_status,
+ 	struct gpio_desc *gpio_slp;
+ 	struct gpio_desc *gpio_rst;
+@@ -276,7 +277,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
+ 
+ 		/* FFh for 100% brightness, 0h for 0% brightness */
+ 		err = ps8622_set(cl, 0x01, 0xa7,
+-				ps8622->bl->props.brightness);
++				ps8622->brightness);
+ 		if (err)
+ 			goto error;
+ 	} else {
+@@ -324,6 +325,8 @@ static int ps8622_backlight_update(struct backlight_device *bl)
+ 	struct ps8622_bridge *ps8622 = dev_get_drvdata(&bl->dev);
+ 	int ret, brightness = backlight_get_brightness(bl);
+ 
++	ps8622->brightness = brightness;
++
+ 	if (!ps8622->enabled)
+ 		return -EINVAL;
+ 
+@@ -332,6 +335,15 @@ static int ps8622_backlight_update(struct backlight_device *bl)
+ 	return ret;
+ }
+ 
++static void ps8622_set_luminance(struct drm_bridge *bridge,
++				 unsigned int luminance)
++{
++	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
++
++	ps8622->brightness = luminance;
++	ps8622_set(ps8622->client, 0x01, 0xa7, luminance);
++}
++
+ static const struct backlight_ops ps8622_backlight_ops = {
+ 	.update_status	= ps8622_backlight_update,
+ };
+@@ -438,6 +450,7 @@ static const struct drm_bridge_funcs ps8622_bridge_funcs = {
+ 	.atomic_disable = ps8622_disable,
+ 	.atomic_post_disable = ps8622_post_disable,
+ 	.attach = ps8622_attach,
++	.set_luminance = ps8622_set_luminance,
  };
  
--int gma_backlight_init(struct drm_device *dev)
-+int gma_backlight_init(struct drm_device *dev, struct drm_connector *connector)
- {
- 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
--	struct backlight_properties props __maybe_unused = {};
- 	int ret;
- 
- 	dev_priv->backlight_enabled = true;
-@@ -92,28 +90,43 @@ int gma_backlight_init(struct drm_device *dev)
- 		return 0;
+ static const struct of_device_id ps8622_devices[] = {
+@@ -502,18 +515,25 @@ static int ps8622_probe(struct i2c_client *client)
+ 		ps8622->lane_count = ps8622->max_lane_count;
  	}
  
--#ifdef CONFIG_BACKLIGHT_CLASS_DEVICE
--	props.brightness = dev_priv->backlight_level;
--	props.max_brightness = PSB_MAX_BRIGHTNESS;
--	props.type = BACKLIGHT_RAW;
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE))
-+		return drm_connector_attach_luminance_property(connector, 0,
-+							 PSB_MAX_BRIGHTNESS,
-+							 dev_priv->backlight_level);
-+
-+	{
-+		struct backlight_properties props = {};
++	ps8622->brightness = PS8622_MAX_BRIGHTNESS;
+ 	if (!of_property_read_bool(dev->of_node, "use-external-pwm")) {
+-		ps8622->bl = backlight_device_register("ps8622-backlight",
+-				dev, ps8622, &ps8622_backlight_ops,
+-				NULL);
+-		if (IS_ERR(ps8622->bl)) {
+-			DRM_ERROR("failed to register backlight\n");
+-			ret = PTR_ERR(ps8622->bl);
+-			ps8622->bl = NULL;
+-			return ret;
++		if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++			ps8622->bridge.ops |= DRM_BRIDGE_OP_LUMINANCE;
++			ps8622->bridge.luminance_max = PS8622_MAX_BRIGHTNESS;
++			ps8622->bridge.luminance = ps8622->brightness;
++		} else {
++			ps8622->bl = backlight_device_register("ps8622-backlight",
++							       dev, ps8622,
++							 &ps8622_backlight_ops, NULL);
++			if (IS_ERR(ps8622->bl)) {
++				DRM_ERROR("failed to register backlight\n");
++				ret = PTR_ERR(ps8622->bl);
++				ps8622->bl = NULL;
++				return ret;
++			}
++			ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
++			ps8622->bl->props.brightness = ps8622->brightness;
+ 		}
+-		ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
+-		ps8622->bl->props.brightness = PS8622_MAX_BRIGHTNESS;
+ 	}
  
--	dev_priv->backlight_device =
--		backlight_device_register(dev_priv->ops->backlight_name,
--					  dev->dev, dev,
--					  &gma_backlight_ops, &props);
--	if (IS_ERR(dev_priv->backlight_device))
--		return PTR_ERR(dev_priv->backlight_device);
--#endif
-+		props.brightness = dev_priv->backlight_level;
-+		props.max_brightness = PSB_MAX_BRIGHTNESS;
-+		props.type = BACKLIGHT_RAW;
-+
-+		dev_priv->backlight_device =
-+			backlight_device_register(dev_priv->ops->backlight_name,
-+						  dev->dev, dev,
-+						  &gma_backlight_ops, &props);
-+		if (IS_ERR(dev_priv->backlight_device))
-+			return PTR_ERR(dev_priv->backlight_device);
-+	}
- 
- 	return 0;
- }
- 
-+void gma_connector_set_luminance(const struct drm_connector_state *conn_state)
-+{
-+	gma_backlight_set(conn_state->connector->dev, conn_state->luminance);
-+}
-+
-+void gma_connector_disable_luminance(const struct drm_connector_state *conn_state)
-+{
-+	gma_backlight_disable(conn_state->connector->dev);
-+}
-+
- void gma_backlight_exit(struct drm_device *dev)
+ 	ps8622->bridge.type = DRM_MODE_CONNECTOR_LVDS;
+@@ -529,7 +549,8 @@ static void ps8622_remove(struct i2c_client *client)
  {
--#ifdef CONFIG_BACKLIGHT_CLASS_DEVICE
- 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
+ 	struct ps8622_bridge *ps8622 = i2c_get_clientdata(client);
  
- 	if (dev_priv->backlight_device)
- 		backlight_device_unregister(dev_priv->backlight_device);
--#endif
+-	backlight_device_unregister(ps8622->bl);
++	if (ps8622->bl)
++		backlight_device_unregister(ps8622->bl);
+ 	drm_bridge_remove(&ps8622->bridge);
  }
-diff --git a/drivers/gpu/drm/gma500/cdv_intel_lvds.c b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-index 336ab411d6995..cef97f1532358 100644
---- a/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-+++ b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-@@ -412,6 +412,8 @@ static const struct drm_connector_helper_funcs
- 	.get_modes = cdv_intel_lvds_get_modes,
- 	.mode_valid = cdv_intel_lvds_mode_valid,
- 	.best_encoder = gma_best_encoder,
-+	.set_luminance = gma_connector_set_luminance,
-+	.disable_luminance = gma_connector_disable_luminance,
- };
  
- static const struct drm_connector_funcs cdv_intel_lvds_connector_funcs = {
-diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
-index d17cb5b4a4bf2..5de7af651ac39 100644
---- a/drivers/gpu/drm/gma500/psb_drv.c
-+++ b/drivers/gpu/drm/gma500/psb_drv.c
-@@ -396,7 +396,7 @@ static int psb_driver_load(struct drm_device *dev, unsigned long flags)
- 
- 		if (gma_encoder->type == INTEL_OUTPUT_LVDS ||
- 		    gma_encoder->type == INTEL_OUTPUT_MIPI) {
--			ret = gma_backlight_init(dev);
-+			ret = gma_backlight_init(dev, connector);
- 			if (ret == 0)
- 				acpi_video_register_backlight();
- 			break;
-diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
-index db197b865b90a..4fc22c66e6c8f 100644
---- a/drivers/gpu/drm/gma500/psb_drv.h
-+++ b/drivers/gpu/drm/gma500/psb_drv.h
-@@ -604,11 +604,13 @@ int psb_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
- #endif
- 
- /* backlight.c */
--int gma_backlight_init(struct drm_device *dev);
-+int gma_backlight_init(struct drm_device *dev, struct drm_connector *connector);
- void gma_backlight_exit(struct drm_device *dev);
- void gma_backlight_disable(struct drm_device *dev);
- void gma_backlight_enable(struct drm_device *dev);
- void gma_backlight_set(struct drm_device *dev, int v);
-+void gma_connector_set_luminance(const struct drm_connector_state *conn_state);
-+void gma_connector_disable_luminance(const struct drm_connector_state *conn_state);
- 
- /* oaktrail_crtc.c */
- extern const struct drm_crtc_helper_funcs oaktrail_helper_funcs;
-diff --git a/drivers/gpu/drm/gma500/psb_intel_lvds.c b/drivers/gpu/drm/gma500/psb_intel_lvds.c
-index cd882786d9461..fa0bc8492ff7f 100644
---- a/drivers/gpu/drm/gma500/psb_intel_lvds.c
-+++ b/drivers/gpu/drm/gma500/psb_intel_lvds.c
-@@ -610,6 +610,8 @@ const struct drm_connector_helper_funcs
- 	.get_modes = psb_intel_lvds_get_modes,
- 	.mode_valid = psb_intel_lvds_mode_valid,
- 	.best_encoder = gma_best_encoder,
-+	.set_luminance = gma_connector_set_luminance,
-+	.disable_luminance = gma_connector_disable_luminance,
- };
- 
- const struct drm_connector_funcs psb_intel_lvds_connector_funcs = {
-@@ -808,4 +810,3 @@ void psb_intel_lvds_init(struct drm_device *dev,
- err_free_encoder:
- 	kfree(gma_encoder);
- }
--
 -- 
 2.43.0
 
