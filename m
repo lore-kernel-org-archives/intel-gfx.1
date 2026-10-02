@@ -4,61 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F11DCA5FD4
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 09:28:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0331CA5FE3
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 09:48:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91D3E10F813;
-	Fri,  2 Oct 2026 09:28:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3302E10F81B;
+	Fri,  2 Oct 2026 09:48:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WVhrEdIh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FsuJjrU5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1DA610F81B;
- Fri,  2 Oct 2026 09:28:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A24F10E425;
+ Fri,  2 Oct 2026 09:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790933313; x=1822469313;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=sxgt4svY/TgU/8j1VAh62BCWuhGx/pOZGibuvtoS9gk=;
- b=WVhrEdIheFtNDH/ZlaZ2WCxXhH7K4B4NKvhhgzYd/UctG970vSRTI1u7
- wEA639CYzlR2KhhZk+Km+fg9qeJ9Pzv6R3uzGwUzaGehYawD98L5/3o8s
- kikvG/uVTX6Gx1x/7aeDFgnaVh03YbU68yTN6eiiIPZ3LRKaBg7ww9pKP
- H8TWQkgXrLMGjhYBzIBAABpJLLTQrVd3ZK+TSD09CvWGBY3+r1xWWDc5Y
- DfFuK3/2piuiC3w3D8ArxVUkvyerdd4o1tEWd7TXFmo2QOsw4pY1W2hX1
- h/ZFNQbuily2DCHhQi60Ef5dD2YOqaFUKSfRUjYlwwVVMQ5PwqEudYmTM Q==;
-X-CSE-ConnectionGUID: umQwfF0vQImfr0+2Pv2MNQ==
-X-CSE-MsgGUID: mfnOQ11ER8mjVGFREVK6CA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94410617"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="94410617"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2026 02:28:32 -0700
-X-CSE-ConnectionGUID: FSPQd3BKQ9+5htSjEiZsUA==
-X-CSE-MsgGUID: NSsIUt+PTVS3mdFueRNvJg==
+ t=1790934501; x=1822470501;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RbcWBmCUPxJ+y+RKr8MXYk/AIpKv9AVVXztnaBm7aIk=;
+ b=FsuJjrU53WMJgU2igrkRUkGJN0a2+iS6782KSlyGRnw+/t4O3Qdj4THl
+ F192fSbjMXd6mACVeTL1Tk5jN3XQ4dumUbAdsBxPSUVqdpITJ7ayvAoH8
+ 6OCan6Hbg3aY7HywUyW6OruhKzDsaVxmiBDtl/R1VBFKc5wPU55uNc1e9
+ AckbvvUOU25VYD25wjsvMUBc/fJm6mbLWTyIt4Kqnuj75jzUNC1LJQLwN
+ qqyj8TttbKyNU0/5IwheFOBoyx9PLTRQoZUGohWhTGfFKKblmNl8BpIYT
+ kf3yWm34Ns00qfEOx4kn/Rl2KjY9owJ/JdEfzxz0O6s42X8/s9PJOEJpA Q==;
+X-CSE-ConnectionGUID: WsC1y8loSqy/rDx2PNNKcw==
+X-CSE-MsgGUID: KEgTWTPOTp+xmvMxgL0VUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102374093"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="102374093"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 02:48:21 -0700
+X-CSE-ConnectionGUID: p0x8X6ozTo2s8vpYu1Y3mQ==
+X-CSE-MsgGUID: 9fXOdM5bTF2RRK4GAMke+A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="275762357"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.196])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2026 02:28:31 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: FNU VISHWANATHA <fnu.vishwanatha@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, FNU VISHWANATHA
- <fnu.vishwanatha@intel.com>
-Subject: Re: [PATCH 2/2] drm/i915/mst: Force link address reprobe after MST
- resume
-In-Reply-To: <44a15723fd2b9a9152c382dcf8df86e51bfabbe3@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261001215705.3891147-1-fnu.vishwanatha@intel.com>
- <20261001215705.3891147-2-fnu.vishwanatha@intel.com>
- <44a15723fd2b9a9152c382dcf8df86e51bfabbe3@intel.com>
-Date: Fri, 02 Oct 2026 12:28:27 +0300
-Message-ID: <0c60e374cfbeef12abf349b0750de5df8f4f1b9a@intel.com>
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="280959261"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa004.fm.intel.com with ESMTP; 02 Oct 2026 02:48:16 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 6CEE299; Fri, 02 Oct 2026 11:48:15 +0200 (CEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-pci@vger.kernel.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the pci_ids.h
+Date: Fri,  2 Oct 2026 11:43:43 +0200
+Message-ID: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,72 +81,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 02 Oct 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Thu, 01 Oct 2026, FNU VISHWANATHA <fnu.vishwanatha@intel.com> wrote:
->> After resume from warm boot/G3, immediately force a topology link address
->> reprobe to ensure all MST ports are properly detected. This works around a
->> race condition where some MST hubs incorrectly report port status bits before
->> their internal state is fully initialized.
->>
->> By forcing the reprobe immediately after resume, combined with the fix in
->> drm_dp_mst_handle_link_address_port() that detects input->output port
->> transitions, we ensure that all displays are reliably detected even if the
->> hub initially reports incorrect port status.
->>
->> Signed-off-by: FNU VISHWANATHA <fnu.vishwanatha@intel.com>
->
-> Is there a bug report about this with logs?
->
->> ---
->>  drivers/gpu/drm/i915/display/intel_dp.c | 18 ++++++++++++++++++
->>  1 file changed, 18 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->> index 3a67990411b3..fceda523efa3 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -7088,6 +7088,7 @@ void intel_dp_mst_resume(struct intel_display *display)
->>  
->>         for_each_intel_encoder(display->drm, encoder) {
->>                 struct intel_dp *intel_dp;
->> +               struct drm_dp_mst_branch *mstb;
->>                 int ret;
->>  
->>                 if (encoder->type != INTEL_OUTPUT_DDI)
->> @@ -7102,6 +7103,23 @@ void intel_dp_mst_resume(struct intel_display *display)
->>                 if (ret) {
->>                         intel_dp->is_mst = false;
->>                         drm_dp_mst_topology_mgr_set_mst(&intel_dp->mst.mgr, false);
->> +                       continue;
->> +               }
->> +
->> +               /* After resume, force a link address reprobe to ensure all ports
->> +                * are properly detected. This works around a race condition where
->> +                * some MST hubs incorrectly report port status bits during warm boot/G3.
->> +                * Ref: Sporadic second display not detected after warm boot/G3
->> +                */
->> +               if (intel_dp->is_mst) {
->> +                       mutex_lock(&intel_dp->mst.mgr.lock);
->> +                       mstb = intel_dp->mst.mgr.mst_primary;
->> +                       if (mstb) {
->> +                               drm_dp_mst_topology_get_mstb(mstb);
->> +                               mstb->link_address_sent = false;
->> +                               drm_dp_mst_topology_put_mstb(mstb);
->> +                       }
->> +                       mutex_unlock(&intel_dp->mst.mgr.lock);
+We have a few drivers using same pair of the PCI IDs across the kernel and
+there seems more to go, consolidate AtomISP v2 PCI IDs in pci_ids.h database.
 
-This is topology manager internal stuff we have no business messing with
-in drivers. So much so that drm_dp_mst_topology_get_mstb() and
-drm_dp_mst_topology_put_mstb() are *static* functions in
-drm_dp_mst_topology.c.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
 
-How did you build and run this?
+Assuming that media subsystem is the main beneficiary I think it is the best
+to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
+are agree.
 
+ drivers/gpu/drm/i915/display/intel_display_power.c   |  6 +++---
+ drivers/platform/x86/intel/atomisp2/pm.c             |  6 +++---
+ drivers/staging/media/atomisp/pci/atomisp_internal.h |  2 --
+ drivers/staging/media/atomisp/pci/atomisp_v4l2.c     | 10 +++++-----
+ include/linux/pci_ids.h                              |  2 ++
+ 5 files changed, 13 insertions(+), 13 deletions(-)
 
-
->>                 }
->>         }
->>  }
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 2e534ddb7347..ee2c59b72b4a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -2086,9 +2086,9 @@ static void assert_ved_power_gated(struct intel_display *display)
+ static void assert_isp_power_gated(struct intel_display *display)
+ {
+ 	static const struct pci_device_id isp_ids[] = {
+-		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x0f38)},
+-		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x22b8)},
+-		{}
++		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
++		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
++		{ }
+ 	};
+ 
+ 	drm_WARN(display->drm, !pci_dev_present(isp_ids) &&
+diff --git a/drivers/platform/x86/intel/atomisp2/pm.c b/drivers/platform/x86/intel/atomisp2/pm.c
+index ad1f99140962..f3dee0e58f62 100644
+--- a/drivers/platform/x86/intel/atomisp2/pm.c
++++ b/drivers/platform/x86/intel/atomisp2/pm.c
+@@ -121,9 +121,9 @@ static UNIVERSAL_DEV_PM_OPS(isp_pm_ops, isp_pci_suspend,
+ 			    isp_pci_resume, NULL);
+ 
+ static const struct pci_device_id isp_id_table[] = {
+-	{ PCI_VDEVICE(INTEL, 0x0f38), },
+-	{ PCI_VDEVICE(INTEL, 0x22b8), },
+-	{ 0, }
++	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
++	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, isp_id_table);
+ 
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_internal.h b/drivers/staging/media/atomisp/pci/atomisp_internal.h
+index 5a69580b8251..1a05fc331557 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_internal.h
++++ b/drivers/staging/media/atomisp/pci/atomisp_internal.h
+@@ -37,7 +37,6 @@
+ 	(((isp)->media_dev.hw_revision & ATOMISP_HW_REVISION_MASK) == \
+ 	 ((rev) << ATOMISP_HW_REVISION_SHIFT))
+ 
+-#define ATOMISP_PCI_DEVICE_SOC_BYT	0x0f38
+ /* MRFLD with 0x1178: ISP freq can burst to 457MHz */
+ #define ATOMISP_PCI_DEVICE_SOC_MRFLD	0x1178
+ /* MRFLD with 0x1179: max ISP freq limited to 400MHz */
+@@ -45,7 +44,6 @@
+ /* MRFLD with 0x117a: max ISP freq is 400MHz and max freq at Vmin is 200MHz */
+ #define ATOMISP_PCI_DEVICE_SOC_MRFLD_117A	0x117a
+ #define ATOMISP_PCI_DEVICE_SOC_ANN	0x1478
+-#define ATOMISP_PCI_DEVICE_SOC_CHT	0x22b8
+ 
+ #define ATOMISP_PCI_REV_MRFLD_A0_MAX	0
+ #define ATOMISP_PCI_REV_BYT_A0_MAX	4
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+index 476fe143a591..ab8727a806bf 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+@@ -1239,7 +1239,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+ 		}
+ 		isp->hpll_freq = HPLL_FREQ_1600MHZ;
+ 		break;
+-	case ATOMISP_PCI_DEVICE_SOC_BYT:
++	case PCI_DEVICE_ID_INTEL_ISP_BYT:
+ 		isp->media_dev.hw_revision =
+ 		    (ATOMISP_HW_REVISION_ISP2400
+ 		     << ATOMISP_HW_REVISION_SHIFT) |
+@@ -1284,7 +1284,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+ 		isp->dfs = &dfs_config_merr;
+ 		isp->hpll_freq = HPLL_FREQ_1600MHZ;
+ 		break;
+-	case ATOMISP_PCI_DEVICE_SOC_CHT:
++	case PCI_DEVICE_ID_INTEL_ISP_BSW:
+ 		isp->media_dev.hw_revision = (ATOMISP_HW_REVISION_ISP2401
+ 						 << ATOMISP_HW_REVISION_SHIFT);
+ 		isp->media_dev.hw_revision |= pdev->revision < 2 ?
+@@ -1487,12 +1487,12 @@ static const struct pci_device_id atomisp_pci_tbl[] = {
+ 	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_1179)},
+ 	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_117A)},
+ 	/* Baytrail */
+-	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_BYT)},
++	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+ 	/* Anniedale (Merrifield+ / Moorefield) */
+ 	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_ANN)},
+ 	/* Cherrytrail */
+-	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_CHT)},
+-	{0,}
++	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, atomisp_pci_tbl);
+ 
+diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+index 63774ae2bf71..0693e4532a68 100644
+--- a/include/linux/pci_ids.h
++++ b/include/linux/pci_ids.h
+@@ -2732,6 +2732,7 @@
+ #define PCI_DEVICE_ID_INTEL_HDA_HSW_3	0x0d0c
+ #define PCI_DEVICE_ID_INTEL_HDA_BYT	0x0f04
+ #define PCI_DEVICE_ID_INTEL_SST_BYT	0x0f28
++#define PCI_DEVICE_ID_INTEL_ISP_BYT	0x0f38
+ #define PCI_DEVICE_ID_INTEL_8257X_SOL	0x1062
+ #define PCI_DEVICE_ID_INTEL_82573E_SOL	0x1085
+ #define PCI_DEVICE_ID_INTEL_82573L_SOL	0x108f
+@@ -2787,6 +2788,7 @@
+ #define PCI_DEVICE_ID_INTEL_VMD_201D	0x201d
+ #define PCI_DEVICE_ID_INTEL_HDA_BSW	0x2284
+ #define PCI_DEVICE_ID_INTEL_SST_BSW	0x22a8
++#define PCI_DEVICE_ID_INTEL_ISP_BSW	0x22b8
+ #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MIN	0x2310
+ #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MAX	0x231f
+ #define PCI_DEVICE_ID_INTEL_82801AA_0	0x2410
 -- 
-Jani Nikula, Intel
+2.50.1
+
