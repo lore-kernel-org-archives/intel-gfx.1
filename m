@@ -4,93 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8544CA5FE3
-	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 11:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA1FCA5FEC
+	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 13:17:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23EF310E0AA;
-	Sat,  3 Oct 2026 11:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A82F10E011;
+	Sat,  3 Oct 2026 13:17:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="RW75a+r/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CAN/rVvg";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 340BB10E0AA
- for <intel-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 11:37:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1791027436;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lHJZUWTv7rBEBUCND4bSkxxGBQPHEUSgPjoiGT34ol8=;
- b=RW75a+r/ZFCVTheiqwyJ8oYgxLXL6KbvpsXZd9Cqkz8HHw4xye7D0j+PEwnIEkInieWfLt
- Amf40Bj38zqTqCVOH8V3LVdQuQZXmIFyn4JU1Laj7fGqn3Xn6sIBxWLu1L7lSnSKM4sn/H
- QlMj44cJNGbP/9EQmorHs9Nlr63hHqY=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-627-P2n7siTcOa2dzLTwaeegnw-1; Sat, 03 Oct 2026 07:37:14 -0400
-X-MC-Unique: P2n7siTcOa2dzLTwaeegnw-1
-X-Mimecast-MFC-AGG-ID: P2n7siTcOa2dzLTwaeegnw_1791027434
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-48c50ed05abso12205f8f.0
- for <intel-gfx@lists.freedesktop.org>; Sat, 03 Oct 2026 04:37:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791027434; x=1791632234;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lHJZUWTv7rBEBUCND4bSkxxGBQPHEUSgPjoiGT34ol8=;
- b=OpIU6OPBslUeaqLmQQNugOfBCMM4zWppC9XAs7WMlgbEx7qR8VNKr+nsjrFpc1OCdD
- 2iXA8rqhL3T0IOUc4Jg95Dk9tHqAJb9oQM8nljIN29Wk6OcPwe3h4RAyzPX3EIDLiexD
- X6DJyTNL7EhS6fOnWo1DvcRiaYDFddFIgrUgqZhMSEpHUbjftMg8c5e/ZWv3YaAqnYWC
- aR49amWZSp7iCwHDAsxkCNgs8STqHAKQ1bBkTHc0b1dpP/8ZzLzsl9KqisUQtRtdLUB3
- ahuvTdslwXTbULBcIFZKe120sgsjiWXaT3D2tXES+IOluu21b2mHj7H234tTJrbpBEy0
- 2dcg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxW1GTjWp00efZ6qIbZHcWyHH7YAEVzzGVD9mKDzVUAM8rjCTW16MZ4cAuLI8ootsoYJ15y/4TqxGU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKNg6f6xdRd/sxXRSBRMnFozdGrQatrx0slOZh9zN+PykjHzGja
- nz8Gf6JnliHrTODKG3kWjb08EFntWdHbtRAB8n5ORtlbywa1wuP1v5XvIAluzayGKSTpqa0Q5he
- 4yF0cel/eSJ4QOEQ6uVYGptxuIk7aMdjiLEcez7BxTQXxrFSo/BiBx+t468ZfDMWzzSYCuQ==
-X-Gm-Gg: AYBFou0Bdv/DT7XA/H46mdb9xrvqjKS2+5FYL/+natueQNDaluV3rt9u5dVLqhJby0J
- xIF1+uYNvs2EMV7gii6W/8J3iE7PBCSz+AXHV4OKtaeOjhEQGLYbNz/uq/3C4aEANw7F22iND2v
- XlRoLHLl0Lc5LxBCKON7vSWt7oQdu3gsFDtWN6oDhMFw1Vmz04Iegl6VHnKrdUdx3XBjY4lxAJj
- SCqC0as2YJuV3IkRJcoQZ9HFoNWHDXwq03TMG94DYk3WvThqTc2hQuYnRfoREJtn1l6FzwGVUwq
- dxRc5q5ng8fHZDJUm56utSyMribLNu1k5/Dw4Ahw/Z/isieetb4udiaSR3Zbx2IHJrwjmTTn4sw
- AAixpajd14E2PNshHzVd8A1pmWLg2Calx+IQLImzMpoa8sxbT3IztAcjgI3h5ExDPxA==
-X-Received: by 2002:a5d:5f09:0:b0:48a:f464:2cc5 with SMTP id
- ffacd0b85a97d-48c4800d152mr3245839f8f.37.1791027433657; 
- Sat, 03 Oct 2026 04:37:13 -0700 (PDT)
-X-Received: by 2002:a5d:5f09:0:b0:48a:f464:2cc5 with SMTP id
- ffacd0b85a97d-48c4800d152mr3245816f8f.37.1791027433222; 
- Sat, 03 Oct 2026 04:37:13 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b380fab11sm11943111f8f.16.2026.10.03.04.37.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 03 Oct 2026 04:37:12 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com, Simona Vetter
- <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: Re: [PATCH v9 01/21] drm: add connector LUMINANCE property
-In-Reply-To: <20261002190030.211356-2-mario.limonciello@amd.com>
-References: <20261002190030.211356-1-mario.limonciello@amd.com>
- <20261002190030.211356-2-mario.limonciello@amd.com>
-Date: Sat, 03 Oct 2026 13:37:11 +0200
-Message-ID: <xlv1ece7ggm0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B50110E011;
+ Sat,  3 Oct 2026 13:17:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C0FAF60D82;
+ Sat,  3 Oct 2026 13:17:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638301F0089B;
+ Sat,  3 Oct 2026 13:17:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791033465;
+ bh=IzbNPOia8VMKvzs9m7iStPmTfA5edKy5GnhybPACNJg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=CAN/rVvgMSKtbA1KsHN4RGBkEoftMGFQkGSEnSQs+8AEVSkBCWecWeksf/WYsl1JG
+ vex0FEYYejEF5KBKQs3a3h2WUWTGlrypAHO0jB7GcWDeXS+D/+znTX6DKUfidRG83X
+ KItpx2EQPp7inJx6IFStH8dZ+eMtoE7P8nu9DjRFIQNUe6U/ssysH7A+cXRlIPm4Ai
+ uS0zxXdr9FMT2JNfL9NgSa4w/DxjAmkHiv17gFyFjuKU7FUXI5TNUC3F06nl6tEBlE
+ 3czGY7wygWYhTxNlVL3QeN/Tvv2nfFHUwj7QHwOyoenvU3RvYpzPX68Qt38Q5OaCdO
+ N3Jr4jT5uXPxg==
+Message-ID: <d3d70595-4fa3-47d1-8f2c-aa44862cc242@kernel.org>
+Date: Sat, 3 Oct 2026 15:17:39 +0200
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: U2FXVz4_QK2iGfVRPve25OMlFZezxJe4Z81yH85It-U_1791027434
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the
+ pci_ids.h
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-pci@vger.kernel.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andy@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,45 +72,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Mario Limonciello <mario.limonciello@amd.com> writes:
+Hi,
 
-Hello Mario,
+On 2-Oct-26 11:43, Andy Shevchenko wrote:
+> We have a few drivers using same pair of the PCI IDs across the kernel and
+> there seems more to go, consolidate AtomISP v2 PCI IDs in pci_ids.h database.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-> Panel brightness is a property of a display, and thus of a DRM
-> connector. Add an atomic per-connector LUMINANCE range property so
-> compositors can manage relative panel luminance together with the rest
-> of the display state.
->
-> Keep the core backend-agnostic. Drivers create the property with their
-> hardware range and implement connector helper callbacks to set luminance
-> or disable panel emission. The atomic helpers sequence those callbacks
-> around pipeline enable and disable, including luminance-only commits.
->
-> The stored property value is independent of display power. A commit made
-> while the connector is inactive is retained and applied on the next
-> enable; disabling the pipeline does not overwrite it.
->
-> LUMINANCE values are relative, driver-defined levels rather than
-> absolute luminance in cd/m^2. The interface supports emissive panels as
-> well as panels with a separate backlight.
->
-> Keep the interface behind a default-off DRM_LUMINANCE option. Migrated
-> drivers retain their legacy backlight class ABI unless the new interface
-> is explicitly selected, allowing the DRM UAPI and legacy compatibility
-> policy to remain separate.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Thanks, patch looks good to me:
+
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Regards,
+
+Hans
+
+
 > ---
-
-Thanks a lot for the rework. I went through this patch and have no more
-objections on the core bits.
-
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+> 
+> Assuming that media subsystem is the main beneficiary I think it is the best
+> to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
+> are agree.
+> 
+>  drivers/gpu/drm/i915/display/intel_display_power.c   |  6 +++---
+>  drivers/platform/x86/intel/atomisp2/pm.c             |  6 +++---
+>  drivers/staging/media/atomisp/pci/atomisp_internal.h |  2 --
+>  drivers/staging/media/atomisp/pci/atomisp_v4l2.c     | 10 +++++-----
+>  include/linux/pci_ids.h                              |  2 ++
+>  5 files changed, 13 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> index 2e534ddb7347..ee2c59b72b4a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -2086,9 +2086,9 @@ static void assert_ved_power_gated(struct intel_display *display)
+>  static void assert_isp_power_gated(struct intel_display *display)
+>  {
+>  	static const struct pci_device_id isp_ids[] = {
+> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x0f38)},
+> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x22b8)},
+> -		{}
+> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +		{ }
+>  	};
+>  
+>  	drm_WARN(display->drm, !pci_dev_present(isp_ids) &&
+> diff --git a/drivers/platform/x86/intel/atomisp2/pm.c b/drivers/platform/x86/intel/atomisp2/pm.c
+> index ad1f99140962..f3dee0e58f62 100644
+> --- a/drivers/platform/x86/intel/atomisp2/pm.c
+> +++ b/drivers/platform/x86/intel/atomisp2/pm.c
+> @@ -121,9 +121,9 @@ static UNIVERSAL_DEV_PM_OPS(isp_pm_ops, isp_pci_suspend,
+>  			    isp_pci_resume, NULL);
+>  
+>  static const struct pci_device_id isp_id_table[] = {
+> -	{ PCI_VDEVICE(INTEL, 0x0f38), },
+> -	{ PCI_VDEVICE(INTEL, 0x22b8), },
+> -	{ 0, }
+> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(pci, isp_id_table);
+>  
+> diff --git a/drivers/staging/media/atomisp/pci/atomisp_internal.h b/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> index 5a69580b8251..1a05fc331557 100644
+> --- a/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> +++ b/drivers/staging/media/atomisp/pci/atomisp_internal.h
+> @@ -37,7 +37,6 @@
+>  	(((isp)->media_dev.hw_revision & ATOMISP_HW_REVISION_MASK) == \
+>  	 ((rev) << ATOMISP_HW_REVISION_SHIFT))
+>  
+> -#define ATOMISP_PCI_DEVICE_SOC_BYT	0x0f38
+>  /* MRFLD with 0x1178: ISP freq can burst to 457MHz */
+>  #define ATOMISP_PCI_DEVICE_SOC_MRFLD	0x1178
+>  /* MRFLD with 0x1179: max ISP freq limited to 400MHz */
+> @@ -45,7 +44,6 @@
+>  /* MRFLD with 0x117a: max ISP freq is 400MHz and max freq at Vmin is 200MHz */
+>  #define ATOMISP_PCI_DEVICE_SOC_MRFLD_117A	0x117a
+>  #define ATOMISP_PCI_DEVICE_SOC_ANN	0x1478
+> -#define ATOMISP_PCI_DEVICE_SOC_CHT	0x22b8
+>  
+>  #define ATOMISP_PCI_REV_MRFLD_A0_MAX	0
+>  #define ATOMISP_PCI_REV_BYT_A0_MAX	4
+> diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> index 476fe143a591..ab8727a806bf 100644
+> --- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> +++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+> @@ -1239,7 +1239,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+>  		}
+>  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
+>  		break;
+> -	case ATOMISP_PCI_DEVICE_SOC_BYT:
+> +	case PCI_DEVICE_ID_INTEL_ISP_BYT:
+>  		isp->media_dev.hw_revision =
+>  		    (ATOMISP_HW_REVISION_ISP2400
+>  		     << ATOMISP_HW_REVISION_SHIFT) |
+> @@ -1284,7 +1284,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+>  		isp->dfs = &dfs_config_merr;
+>  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
+>  		break;
+> -	case ATOMISP_PCI_DEVICE_SOC_CHT:
+> +	case PCI_DEVICE_ID_INTEL_ISP_BSW:
+>  		isp->media_dev.hw_revision = (ATOMISP_HW_REVISION_ISP2401
+>  						 << ATOMISP_HW_REVISION_SHIFT);
+>  		isp->media_dev.hw_revision |= pdev->revision < 2 ?
+> @@ -1487,12 +1487,12 @@ static const struct pci_device_id atomisp_pci_tbl[] = {
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_1179)},
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_117A)},
+>  	/* Baytrail */
+> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_BYT)},
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
+>  	/* Anniedale (Merrifield+ / Moorefield) */
+>  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_ANN)},
+>  	/* Cherrytrail */
+> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_CHT)},
+> -	{0,}
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
+> +	{ }
+>  };
+>  MODULE_DEVICE_TABLE(pci, atomisp_pci_tbl);
+>  
+> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+> index 63774ae2bf71..0693e4532a68 100644
+> --- a/include/linux/pci_ids.h
+> +++ b/include/linux/pci_ids.h
+> @@ -2732,6 +2732,7 @@
+>  #define PCI_DEVICE_ID_INTEL_HDA_HSW_3	0x0d0c
+>  #define PCI_DEVICE_ID_INTEL_HDA_BYT	0x0f04
+>  #define PCI_DEVICE_ID_INTEL_SST_BYT	0x0f28
+> +#define PCI_DEVICE_ID_INTEL_ISP_BYT	0x0f38
+>  #define PCI_DEVICE_ID_INTEL_8257X_SOL	0x1062
+>  #define PCI_DEVICE_ID_INTEL_82573E_SOL	0x1085
+>  #define PCI_DEVICE_ID_INTEL_82573L_SOL	0x108f
+> @@ -2787,6 +2788,7 @@
+>  #define PCI_DEVICE_ID_INTEL_VMD_201D	0x201d
+>  #define PCI_DEVICE_ID_INTEL_HDA_BSW	0x2284
+>  #define PCI_DEVICE_ID_INTEL_SST_BSW	0x22a8
+> +#define PCI_DEVICE_ID_INTEL_ISP_BSW	0x22b8
+>  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MIN	0x2310
+>  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MAX	0x231f
+>  #define PCI_DEVICE_ID_INTEL_82801AA_0	0x2410
 
