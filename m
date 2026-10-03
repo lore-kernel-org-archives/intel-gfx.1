@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1493ACA5FE4
-	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 11:23:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8544CA5FE3
+	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 11:37:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F49D10E876;
-	Sat,  3 Oct 2026 11:23:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23EF310E0AA;
+	Sat,  3 Oct 2026 11:37:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UkPX7Dqs";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="RW75a+r/";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE9B410E0A1
- for <intel-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 11:22:59 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 340BB10E0AA
+ for <intel-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 11:37:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1791026578;
+ s=mimecast20190719; t=1791027436;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=n6DEk79+AjGFUJq3XsqFxT4woiJPH49kvRHU0q9Llf8=;
- b=UkPX7Dqsfwyoyavy9ZcxENIhMCgDpz6J4oHbqugbL1xZbLjvqFBRdes3S7q4F8OYmPxowy
- T6cV/7LYtK5E+DHKcErb7AM8PyUN/MX61wDG09aqqbOFT7EkjSt08DVhKdxQ+h2UjGBBK4
- I+3pE3YFnoBwOlC39t8aPWqOsX2tBDo=
+ bh=lHJZUWTv7rBEBUCND4bSkxxGBQPHEUSgPjoiGT34ol8=;
+ b=RW75a+r/ZFCVTheiqwyJ8oYgxLXL6KbvpsXZd9Cqkz8HHw4xye7D0j+PEwnIEkInieWfLt
+ Amf40Bj38zqTqCVOH8V3LVdQuQZXmIFyn4JU1Laj7fGqn3Xn6sIBxWLu1L7lSnSKM4sn/H
+ QlMj44cJNGbP/9EQmorHs9Nlr63hHqY=
 Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
  [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-86-0sJZTA-_O7C2aD_ViQ16LA-1; Sat, 03 Oct 2026 07:22:57 -0400
-X-MC-Unique: 0sJZTA-_O7C2aD_ViQ16LA-1
-X-Mimecast-MFC-AGG-ID: 0sJZTA-_O7C2aD_ViQ16LA_1791026576
+ us-mta-627-P2n7siTcOa2dzLTwaeegnw-1; Sat, 03 Oct 2026 07:37:14 -0400
+X-MC-Unique: P2n7siTcOa2dzLTwaeegnw-1
+X-Mimecast-MFC-AGG-ID: P2n7siTcOa2dzLTwaeegnw_1791027434
 Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-486f9d150c3so192535f8f.3
- for <intel-gfx@lists.freedesktop.org>; Sat, 03 Oct 2026 04:22:57 -0700 (PDT)
+ ffacd0b85a97d-48c50ed05abso12205f8f.0
+ for <intel-gfx@lists.freedesktop.org>; Sat, 03 Oct 2026 04:37:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791026576; x=1791631376;
+ d=1e100.net; s=20260707; t=1791027434; x=1791632234;
  h=content-type:mime-version:message-id:date:references:in-reply-to
  :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=n6DEk79+AjGFUJq3XsqFxT4woiJPH49kvRHU0q9Llf8=;
- b=Pz/eic60c20cth0AjOiaERawnTBNRRaY1IHnY+s0S+geRnFJjsEEZilkm/GZFDT86t
- rnNPChC0Ns0EJeReuh4JP+K/lBgpAtHleNzBT7cY+nkzkVqV7CVEv64L3LDL0GbD5QXd
- nX/ZQ0aKgWjcnMwmv+nEWVumbJpFc08GvvBXqDw8pleDLsmOdCg2YXoiDTqeSgDWEH7z
- LqgXs0NHBh0RKxNzZ8TyLrsVrXY6wN4fyZLI2q4/sJX9xW/rO4ZerrrLFPtO6CjboDt2
- gvUes1k456q/fly2lFLDS/NHLMfAFYVEiTy4B0nGeOfTdcMTXMba2bSCd9xZ7yJtt3pB
- 3pmA==
+ bh=lHJZUWTv7rBEBUCND4bSkxxGBQPHEUSgPjoiGT34ol8=;
+ b=OpIU6OPBslUeaqLmQQNugOfBCMM4zWppC9XAs7WMlgbEx7qR8VNKr+nsjrFpc1OCdD
+ 2iXA8rqhL3T0IOUc4Jg95Dk9tHqAJb9oQM8nljIN29Wk6OcPwe3h4RAyzPX3EIDLiexD
+ X6DJyTNL7EhS6fOnWo1DvcRiaYDFddFIgrUgqZhMSEpHUbjftMg8c5e/ZWv3YaAqnYWC
+ aR49amWZSp7iCwHDAsxkCNgs8STqHAKQ1bBkTHc0b1dpP/8ZzLzsl9KqisUQtRtdLUB3
+ ahuvTdslwXTbULBcIFZKe120sgsjiWXaT3D2tXES+IOluu21b2mHj7H234tTJrbpBEy0
+ 2dcg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwR23lEdVYIsLhvTy48VBcMQpdu5g58ZtgOundOYdGTY2i158JYGYwUhgCbwVFAOklOob9eULorA2M=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLFClKvIG/B093WN0Fyf9Ssv0CmvzOZoMbnoV5s5GTfXpsQo5WE
- NCgvFBFwpXhtuRb10BQL8xApuo7lIkNj1KGkk8XRY2fEXsV51edxLCIyzgmM7djiz+HsaZ78Cyq
- 0/5A7/ugvzWdNJIR9mcPGn1gBzCJHutCKseTglcu5d90gSYYpSbJW3qd3MuMjtJqVqXzk5A==
-X-Gm-Gg: AYBFou0nGD+pKAQx9yoasnjrdkMcsGwMNuVI/qKj7KuQThYNddSXbTBUpVz61S2XPLU
- JvRQUaONa2GljdvwGCtkNJMBRnerZI4WljdLysu9vCnhDtiOWkvrfw4ABEATsKjZOx8IP2ejhqJ
- h+xdQzBTUg9MYWTvGJXeuHEKZTT4Z9h150p63gG0+QuoYfM0J7yg5UJ9dH2y+X/LdYhJn2v0YLD
- nFSIK6u4HwdiH82JHxsFqURprF0bWY5YDtifwFIehUWgOjsNkK93jIgdC+JyxBFi4Yi+hGi4+WP
- UeqIgrQUtuO7fz/OcIXKx2WTgpMcG4QEB1oSj1hewI8cmBXJfZE/UmrDjpcRAUlpnIFef5M4d4W
- CUsG9PWoAUspCTF7ltfHzX7QFyDyRbUBWTnmC4vc/AKzzOSK8/2aI3RVvlIZyGGfqtA==
-X-Received: by 2002:a05:6000:18aa:b0:48b:1b1:af12 with SMTP id
- ffacd0b85a97d-48b127623bamr8872512f8f.56.1791026576006; 
- Sat, 03 Oct 2026 04:22:56 -0700 (PDT)
-X-Received: by 2002:a05:6000:18aa:b0:48b:1b1:af12 with SMTP id
- ffacd0b85a97d-48b127623bamr8872483f8f.56.1791026575557; 
- Sat, 03 Oct 2026 04:22:55 -0700 (PDT)
+ AKwUvBxW1GTjWp00efZ6qIbZHcWyHH7YAEVzzGVD9mKDzVUAM8rjCTW16MZ4cAuLI8ootsoYJ15y/4TqxGU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKNg6f6xdRd/sxXRSBRMnFozdGrQatrx0slOZh9zN+PykjHzGja
+ nz8Gf6JnliHrTODKG3kWjb08EFntWdHbtRAB8n5ORtlbywa1wuP1v5XvIAluzayGKSTpqa0Q5he
+ 4yF0cel/eSJ4QOEQ6uVYGptxuIk7aMdjiLEcez7BxTQXxrFSo/BiBx+t468ZfDMWzzSYCuQ==
+X-Gm-Gg: AYBFou0Bdv/DT7XA/H46mdb9xrvqjKS2+5FYL/+natueQNDaluV3rt9u5dVLqhJby0J
+ xIF1+uYNvs2EMV7gii6W/8J3iE7PBCSz+AXHV4OKtaeOjhEQGLYbNz/uq/3C4aEANw7F22iND2v
+ XlRoLHLl0Lc5LxBCKON7vSWt7oQdu3gsFDtWN6oDhMFw1Vmz04Iegl6VHnKrdUdx3XBjY4lxAJj
+ SCqC0as2YJuV3IkRJcoQZ9HFoNWHDXwq03TMG94DYk3WvThqTc2hQuYnRfoREJtn1l6FzwGVUwq
+ dxRc5q5ng8fHZDJUm56utSyMribLNu1k5/Dw4Ahw/Z/isieetb4udiaSR3Zbx2IHJrwjmTTn4sw
+ AAixpajd14E2PNshHzVd8A1pmWLg2Calx+IQLImzMpoa8sxbT3IztAcjgI3h5ExDPxA==
+X-Received: by 2002:a5d:5f09:0:b0:48a:f464:2cc5 with SMTP id
+ ffacd0b85a97d-48c4800d152mr3245839f8f.37.1791027433657; 
+ Sat, 03 Oct 2026 04:37:13 -0700 (PDT)
+X-Received: by 2002:a5d:5f09:0:b0:48a:f464:2cc5 with SMTP id
+ ffacd0b85a97d-48c4800d152mr3245816f8f.37.1791027433222; 
+ Sat, 03 Oct 2026 04:37:13 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b383065a4sm11069220f8f.44.2026.10.03.04.22.52
+ ffacd0b85a97d-48b380fab11sm11943111f8f.16.2026.10.03.04.37.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 03 Oct 2026 04:22:53 -0700 (PDT)
+ Sat, 03 Oct 2026 04:37:12 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Mario Limonciello <mario.limonciello@amd.com>,
  dri-devel@lists.freedesktop.org, harry.wentland@amd.com, Simona Vetter
@@ -80,16 +80,15 @@ Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, "open
  <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
  I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Mario Limonciello
  <mario.limonciello@amd.com>
-Subject: Re: [PATCH v9 09/21] drm/tiny: migrate panel-mipi-dbi to connector
- luminance
-In-Reply-To: <20261002190030.211356-10-mario.limonciello@amd.com>
+Subject: Re: [PATCH v9 01/21] drm: add connector LUMINANCE property
+In-Reply-To: <20261002190030.211356-2-mario.limonciello@amd.com>
 References: <20261002190030.211356-1-mario.limonciello@amd.com>
- <20261002190030.211356-10-mario.limonciello@amd.com>
-Date: Sat, 03 Oct 2026 13:22:51 +0200
-Message-ID: <xlv1h5j3gh9w.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <20261002190030.211356-2-mario.limonciello@amd.com>
+Date: Sat, 03 Oct 2026 13:37:11 +0200
+Message-ID: <xlv1ece7ggm0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 42RQdITNOl3Cb63O_pSsmC6Swml2DDWiXkIZflwPqEY_1791026576
+X-Mimecast-MFC-PROC-ID: U2FXVz4_QK2iGfVRPve25OMlFZezxJe4Z81yH85It-U_1791027434
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -109,73 +108,38 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Mario Limonciello <mario.limonciello@amd.com> writes:
 
-> Attach the connector LUMINANCE property for MIPI DBI compatible panels
-> and retain the legacy backlight class interface only when DRM_LUMINANCE is
-> disabled.
+Hello Mario,
+
+> Panel brightness is a property of a display, and thus of a DRM
+> connector. Add an atomic per-connector LUMINANCE range property so
+> compositors can manage relative panel luminance together with the rest
+> of the display state.
+>
+> Keep the core backend-agnostic. Drivers create the property with their
+> hardware range and implement connector helper callbacks to set luminance
+> or disable panel emission. The atomic helpers sequence those callbacks
+> around pipeline enable and disable, including luminance-only commits.
+>
+> The stored property value is independent of display power. A commit made
+> while the connector is inactive is retained and applied on the next
+> enable; disabling the pipeline does not overwrite it.
+>
+> LUMINANCE values are relative, driver-defined levels rather than
+> absolute luminance in cd/m^2. The interface supports emissive panels as
+> well as panels with a separate backlight.
+>
+> Keep the interface behind a default-off DRM_LUMINANCE option. Migrated
+> drivers retain their legacy backlight class ABI unless the new interface
+> is explicitly selected, allowing the DRM UAPI and legacy compatibility
+> policy to remain separate.
 >
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
->  drivers/gpu/drm/tiny/Kconfig          | 2 +-
->  drivers/gpu/drm/tiny/panel-mipi-dbi.c | 3 +++
->  2 files changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-> index f0e72d4b6a470..e61a429538bc0 100644
-> --- a/drivers/gpu/drm/tiny/Kconfig
-> +++ b/drivers/gpu/drm/tiny/Kconfig
-> @@ -73,7 +73,7 @@ config DRM_PANEL_MIPI_DBI
->  	select DRM_KMS_HELPER
->  	select DRM_GEM_DMA_HELPER
->  	select DRM_MIPI_DBI
-> -	select BACKLIGHT_CLASS_DEVICE
-> +	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
->  	select VIDEOMODE_HELPERS
->  	help
->  	  Say Y here if you want to enable support for MIPI DBI compatible
-> diff --git a/drivers/gpu/drm/tiny/panel-mipi-dbi.c b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-> index 60cd65cae41d8..730f1b219fdec 100644
-> --- a/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-> +++ b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-> @@ -485,6 +485,9 @@ static int panel_mipi_dbi_spi_probe(struct spi_device *spi)
->  	if (ret)
->  		return ret;
->  	drm_connector_helper_add(connector, &panel_mipi_dbi_connector_helper_funcs);
-> +	ret = drm_mipi_dbi_connector_attach_luminance_property(connector);
-> +	if (ret)
-> +		return ret;
->
 
-I don't see how this could work...
+Thanks a lot for the rework. I went through this patch and have no more
+objections on the core bits.
 
-The drm_mipi_dbi_connector_attach_luminance_property() helper only attaches a
-LUMINANCE property to the connector if DRM_LUMINANCE is enabled and backlight
-is not NULL.
-
-But if DRM_LUMINANCE is enabled, then backlight will always be NULL given that
-the drivers/gpu/drm/tiny/panel-mipi-dbi.c driver does:
-
-        dbidev->backlight = devm_of_find_backlight(dev);
-
-and devm_of_find_backlight() is just a stub that unconditionally return NULL if
-BACKLIGHT_CLASS_DEVICE is disabled:
-
-https://elixir.bootlin.com/linux/v7.3-rc5/source/include/linux/backlight.h#L441
-
-I don't think we will be able to add support for the LUMINANCE property to MIPI
-DBI drivers unless the drivers DT binding are changed. Or maybe what this shows
-is that a backlight backend is really needed.
-
-I would leave these drivers out for now and then later figure out how to make
-them work without breaking the backlight sysfs interface.
-
-Maybe what can be done is to add a new CONFIG_BACKLIGHT_SYSFS Kconfig symbol,
-that defaults to y but allows the sysfs interface to be disabled. That way,
-you could still have CONFIG_BACKLIGHT_CLASS_DEVICE enabled but prevent the
-uAPI breakage.
-
-Then in this MIPI DBI drivers you could do:
-
-select DRM_LUMINANCE if !CONFIG_BACKLIGHT_SYSFS, or something like that.
+Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 
 -- 
 Best regards,
