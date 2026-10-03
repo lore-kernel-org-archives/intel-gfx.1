@@ -4,27 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 104BCCA5FE6
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 22:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F234ACA5FE8
+	for <intel-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 01:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7463110E004;
-	Fri,  2 Oct 2026 22:05:17 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84D0710E004;
- Fri,  2 Oct 2026 22:05:16 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/hdcp?=
- =?utf-8?q?=3A_guard_both_capability_checks?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Artem Dinaburg" <artem@trailofbits.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 02 Oct 2026 22:05:16 -0000
-Message-ID: <179097871654.234956.3685051352364748482@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20261002194030.20489-1-artem@trailofbits.com>
-In-Reply-To: <20261002194030.20489-1-artem@trailofbits.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D19310E716;
+	Sat,  3 Oct 2026 01:33:19 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f/RB3EHt";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE73710E714;
+ Sat,  3 Oct 2026 01:33:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5CB8160A97;
+ Sat,  3 Oct 2026 01:33:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90DC1F0089A;
+ Sat,  3 Oct 2026 01:33:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790991197;
+ bh=tRwtVOpXEQqgWSgqNTVcB1+XqGOHmZ/GNHN5nYpi64Q=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=f/RB3EHtr7Oyy8GYV73aXx2SsTUlZDOaT4KcOCMZowVaI9WQZonqrKZ4UWy1z+GMP
+ 4z2EJkWNHyT43Ad3jQDTfcnql8AiC76WaPwmHhVVcE5HLww/cl34lqQmLg3MYvLLEc
+ cXWoG26v0omFySLEfKgXK9drd3W44fEaa7xGqs+daumTdpdiCfolp8Ab/GqLMpUVbN
+ tvdQcEktgbJyOqff/GN+F+hkJgsBRaFKfEDOx0yqSg2q3l1gh2p5nacwv7y9s8egxQ
+ Aig2nz5KlNXB/nss9PmRoOmvs9BUgDEZAb3M+rdID/2UVJaiPTMk4DwPLkkAfRvPFU
+ 01HmZcUEjOfeA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t
+ from spinlock_t
+To: "Anubhav Shelat" <ashelat@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20261002161137.297365-1-ashelat@redhat.com>
+References: <20261002161137.297365-1-ashelat@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 03 Oct 2026 01:33:16 +0000
+Message-Id: <20261003013316.E90DC1F0089A@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,21 +53,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] i915/pmu: sleep in atomic (PREEMPT_RT) lock inversion in i915_pmu_=
+gt_parked()
+--
 
-Series: drm/i915/hdcp: guard both capability checks
-URL   : https://patchwork.freedesktop.org/series/175463/
-State : failure
+commit 4674b42fb5bd16ec1392c65ea4ec0e37639b3618
+Author: Anubhav Shelat <ashelat@redhat.com>
 
-== Summary ==
+drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t from spinlock_t
 
-Series author address 'artem@trailofbits.com' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/188958/ (on built-in)
+This commit converts the pmu lock from spinlock_t to raw_spinlock_t. The
+conversion aims to avoid a sleep-in-atomic error on PREEMPT_RT kernels when
+perf operations are called under a raw spinlock.
 
+> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_=
+pmu.c
+> index 1c3bafda9c708..65771e54b9b51 100644
+> --- a/drivers/gpu/drm/i915/i915_pmu.c
+> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+[ ... ]
+> @@ -304,7 +304,7 @@ void i915_pmu_gt_parked(struct intel_gt *gt)
+>  	if (!pmu->registered)
+>  		return;
+> =20
+> -	spin_lock_irq(&pmu->lock);
+> +	raw_spin_lock_irq(&pmu->lock);
+> =20
+>  	park_rc6(gt);
 
+[Severity: High]
+Does this introduce a lock inversion on PREEMPT_RT kernels?
+
+The patch converts pmu->lock to raw_spinlock_t, but i915_pmu_gt_parked() ca=
+lls
+into a path that acquires a regular spinlock_t while this raw lock is held:
+
+i915_pmu_gt_parked()
+  raw_spin_lock_irq(&pmu->lock);
+  park_rc6()
+    __get_rc6()
+      intel_rc6_residency_ns()
+        spin_lock_irqsave(&uncore->lock, flags);
+
+Because uncore->lock is still a standard spinlock_t, it can sleep on PREEMP=
+T_RT
+kernels. Acquiring it while holding the raw pmu->lock violates the lock
+hierarchy and can cause a sleep-in-atomic panic during normal power managem=
+ent
+operations.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002161137.2973=
+65-1-ashelat@redhat.com?part=3D1
