@@ -4,99 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45391CA5FFC
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 23:53:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33E7ECA6002
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 23:53:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 938F710E2E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9574C10EEDC;
 	Mon,  5 Oct 2026 23:53:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rth59bp1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e+ctMgOT";
 	dkim-atps=neutral
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
- [74.125.227.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15A0D10E18B
- for <intel-gfx@lists.freedesktop.org>; Sun,  4 Oct 2026 18:14:09 +0000 (UTC)
-Received: by mail-pj2-f13.google.com with SMTP id
- 98e67ed59e1d1-396ccc02279so588655a91.1
- for <intel-gfx@lists.freedesktop.org>; Sun, 04 Oct 2026 11:14:09 -0700 (PDT)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 103F110E4EF
+ for <intel-gfx@lists.freedesktop.org>; Sun,  4 Oct 2026 21:24:09 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-53519e20d7bso10044491cf.0
+ for <intel-gfx@lists.freedesktop.org>; Sun, 04 Oct 2026 14:24:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791137648; x=1791742448; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=zvp184+VDrAAELa45MrIVjzHZuD6h0h7teUaAj2z138=;
- b=Rth59bp1xx0Gidl7QDZqRxLy/u7s05Lxnr8eWdc8B3ncP94wGPDcfvWmUNOgpAd6i0
- d4C1JCeJRBP+NriRD+Mw6YIoMTqCz5/wY0Hq7n7abQY0eA17GGR8zJ21f2rfMxuLrRnf
- xdDBW7Qjmjh3EkiN+N7HA38gajhjOXHos7WwaC/aSD4Szff3gqxWDnhQmOP6A/rIl5P+
- bmcfLZAmxZH6q0jBFBd0qAgpB+fdqqeMcfDMQ0tC8naYMB73/vOO343QqQKSVUJ0X6dX
- FFgluQJzxrzK5IAOeEJ3WaDcxITYFSKQgVmB0pgpU92RCK4TP6c7GZYLDQ9AMYXn9Puk
- KKig==
+ d=gmail.com; s=20251104; t=1791149048; x=1791753848; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4FDDBOjHId45sAPhEMEOKQ193Q3Lv9uy6bGqIfQK4UI=;
+ b=e+ctMgOTymF+Tscj1W1FIFRqI4Dwy+XM8Pk6k79X7E8/VxJvQOHYK1uR/bktDOSGwb
+ njE1y5c9Q/iv5GUGKQkTPB7hhccDliwgVaiZLJkNxQ/EYqWa9Pg6DlV8qfCj8BvPkUfk
+ KSqdy6kZ5uXdfedyqKLIE/hIFckfgS0L2UXTzf44/CsLe3nWMrVkCzWk9+8I4Sw3L153
+ 9JmaMMNyXEk1nzC206aO7ISquC4l1m+wV0KswhYJyFPKqMK+v+fFaVC8sWEuu58WkzDz
+ Md7N2CU+Q1lR2MeTBPbciEEzG9MpVYAktZTf+2zXfPFnSpAIjf9SdeqYfr+LftWIrkQi
+ ud7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791137648; x=1791742448;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zvp184+VDrAAELa45MrIVjzHZuD6h0h7teUaAj2z138=;
- b=xaQsbiGvJdRjbcGxF7TDOJOmYTKAOjJKAxTupbJ0pnjcpCcq3dN42yzue0EpiiMLMl
- eUFpRu90stySMw8kaz95iv0F4He2Ig+GKNA+qIPpqQKiwjXs0u+g5VRJK+jpBiVnljqA
- vpTFpEfGrmhHQ4shFxWoxQx/TW/Rjf69izU+umQ3d7iXDlyVDXBsTAQp/5BKxMEKIkVK
- uxMhI+JvEZiEdngRPPBeilxIsc5m7JqBAdFwvqkTjLM++TPjox1ac9CbF2iU+39C3zIh
- iBe6Z0gwtNPni9r8FDZHHyZS2ZO5NzZGLfAqYLT4ITy/mvwk/CzPHQtGHhvEq6UctRU4
- iLZQ==
+ d=1e100.net; s=20260707; t=1791149048; x=1791753848;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4FDDBOjHId45sAPhEMEOKQ193Q3Lv9uy6bGqIfQK4UI=;
+ b=t+E9/1uVMVDZ3yGcIOXzQT+E8blQkRczaMYhOthL4GfeVqWI71hT14mIVTTChbnXk2
+ OVDFzd4oD6s6JgBGlwTNayakugKYgTd3Aa5Z1lv+JaHwpYOwpx1mYQzPYTMLCK0pGjCZ
+ QfZ1xFadcersuYDmaGFAMOrW3cvUUDRQo3uv+Hyf7ElJFZDyoqYnkwJ6/ns0QDHQ59tT
+ p+bZO/j4D8R/HrhI6pbGYWT5/M1sx6SHZxFK39mE3pIejj4tnvaFN1/AMNJd3909LDHu
+ Aw5/n8APVTUnNiLyTNiAftMPLE0T7sOmslf7GEf8dVedNYnxLg9FRS6CbV3dBq7wi53f
+ FMEQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz0D8UN0qZYWRID0coYsOmMVv6bzjqVU4qc/jiIjnzYXuQn2CGf3miG4XMw3GQ5OTCz4EnuZ5epxb8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJv2UFmSGtAWiymC0ihBgC32iswr8pDatpaisOClcdnj9g94MAi
- 1s/o4A6X364Q/kHA5bBinJIGOxnhGSESTI1Gzf4vsggA920gFQayQlAn
-X-Gm-Gg: AYBFou241q5odeeWm2UUxeNJugKBNmtqPT1496jGZIQO4tNXT5pynEFNd/ZvZm0rGo0
- DAb1R+jWJdSuNh6jk55pWuyYliIlmUaMhGYC9T0u0QwpcJW6gWUBOmmh4KpjoSqkLrAHtW5AcAD
- Vut7cW5LX1FYGAuhkDpuEVfrIvBGvfwF3N2965Braje9+uKj4bqE7Rz0DOvLODDDf59rV9mNnZG
- hBHGR/EsTG8S6MhySEii5mk33hAUaVYmedtZM2i5Q2EykDZYfuuQtBE/JyC64E1uusG2nYG1U3j
- nQ97BQLivaLiMjB73hl0otmEmcXSo9VPBU+KakOe3zfAoZslG2cCc05W7otG/ilJCaByXheB+M0
- PF2mTD+C8WTBsU/QNJYIh9yxViFVlC4puhzyaKPIwfPuPuJwsDWUF3IEvURG7mOhEyFmzm8hMMt
- wAerxn2cS0FYwInuGni2D3k2kqzL5Ge+dN8BtLHM2tIybZoKo5yKuPcZ54VZZewzLcOR7It3gq1
- echPPoKgwwB8LP00REoN+hyJXluQgUHOg1g6qc9NQ==
-X-Received: by 2002:a17:90b:4ac3:b0:3a0:a781:2c39 with SMTP id
- 98e67ed59e1d1-3a6ce3a978dmr7662178a91.7.1791137648512; 
- Sun, 04 Oct 2026 11:14:08 -0700 (PDT)
-Received: from gmail.com ([220.85.166.190]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a78d59f1cdsm7460304a91.0.2026.10.04.11.14.00
+ AKwUvBx2U562RknmtNFTpGcWI5ewgHF5oiHy4h9AwjZRlYobYR/VK1wd+cLMn5hklBA9pwOqvdpwBXehAGI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nkYg4AYUoUCSDgURFX3JJaA57y0mm2YFQHebPAxa4RJUCFQusj
+ rEUm5K5zFgN3r62u/lwvwRpYIy3XIomCerD/6RV4MiRvqnuXCurf/Ta5
+X-Gm-Gg: AYBFou2AT+YmmreYYIkjBJmHewtQpyR6i3PQ3rmLkLImPuZbA3HG39JB5m1GhoIp1A9
+ G+OmKvPMAtKyGQKYFZM3pffQ0StBBuiqH681IOcbZcCkF6ydAWCJSIjyqxrqqG+6pO0dDcvhP8R
+ ZKJIqxf+kJAbbLS5q03MDBw0AHiR9fcKFPZS+f1YcA6RGzc0oqJYeC+YuEIfyb8jfgJPY1q3GxX
+ 4HwAmM1Za48AHMEJofv2x2XWJq6tpLVei8dnp4b1V5TeLysgI/e4ZJjv6nGk4Obzir6VNXjTr0Y
+ ioiMbjt6ufVQWTkvKPyiQVKw67oUt0alx93wqZPh8yaFIMV7W5iOso74DYndIoGaGfa3TdVzTol
+ fPJIzLElc03UbYq6KFULk7ypoDb1JSAbFEsYxMUp23Yqpuk0ktA9NXAumFiH0E5YmZwKIiXGq/p
+ hdcc33j3sUCUCpnlpD/A3m28htk8tdoKZ8E0yDTLCh7fkBMXb0Hhdp1jYIf+CPdVtYXeVHvVEpP
+ 1N5Z5vQZHDq6rgdyQQGAA==
+X-Received: by 2002:a05:622a:653:b0:535:1924:d211 with SMTP id
+ d75a77b69052e-5351924d301mr81314081cf.1.1791149047944; 
+ Sun, 04 Oct 2026 14:24:07 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-5339883034csm81689241cf.3.2026.10.04.14.24.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Oct 2026 11:14:06 -0700 (PDT)
-Date: Mon, 5 Oct 2026 03:13:58 +0900
-From: Youngjun Park <her0gyugyu@gmail.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Kairui Song <ryncsn@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
- Chris Li <chrisl@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>,
- Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
- linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
- util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Sun, 04 Oct 2026 14:24:07 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- "Rafael J . Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, Kairui Song <kasong@tencent.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
- offload
-Message-ID: <asKXZv5SxBtxQxqf@gmail.com>
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
- <CAMgjq7B7jem_dwtUEX7ZJPQm_pKBegR6WS9+B7nFp-gZugpUng@mail.gmail.com>
- <20260928151944.2686626-1-matthias.goergens@gmail.com>
+ Xiaolin Zhang <xiaolin.zhang@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yuho Choi <oss.patchbox@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is still in
+ use
+Date: Sun,  4 Oct 2026 17:22:39 -0400
+Message-ID: <20261004212403.208681-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928151944.2686626-1-matthias.goergens@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 05 Oct 2026 23:53:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,46 +94,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2026-09-28 23:19, Matthias Goergens wrote:
+intel_gvt_dma_map_guest_page() unmaps and frees the cache entry of a
+gfn when it is requested with a different size, and maps the page again.
+The entry is still referenced: shadow GTT entries and dma-bufs keep
+using its DMA address after the page is unpinned and the DMA mapping is
+torn down. When the new mapping gets the same DMA address, their later
+intel_gvt_dma_unmap_guest_page() calls also drop the references of the
+new entry.
 
-Hi Matthias !
+Keep the existing entry instead. A 2M mapping covers a 4K request for
+its first page, so take a reference on it. If the entry is smaller than
+the request, fail and let the caller split the 2M entry into 4K pages,
+as it already does when a 2M mapping cannot be set up.
 
-> > Just like we already have a "swappiness=" parameter in the reclaim
-> > interface, perhaps adding a "swap.tier=" would be better and much
-> > cleaner to achieve the same goal? Based on Youngjun's work here:
-> > https://lore.kernel.org/all/20260916183437.2946306-1-youngjun.park@lge.com/
->
-> Thanks, I think that's the right base.  I tried it: on top of
-> Youngjun's v11, a "swap.tier=" argument to memory.reclaim is about 40
-> lines.  In a VM with zram at a higher priority than a disk swap
-> device, and a cgroup whose tier mask allowed only the disk, ordinary
-> reclaim in that cgroup stayed on the disk, while memory.reclaim with
-> "swap.tier=" pointing at zram went to zram only.
+Fixes: 7366aeb77cd8 ("drm/i915/gvt: fix incorrect cache entry for guest page mapping")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+Compile-tested only (x86_64 defconfig + DRM_I915_GVT_KVMGT, W=1, sparse).
 
-There is an earlier attempt that may be worth a look.
-https://lore.kernel.org/all/20260618044857.69439-1-jiahao.kernel@gmail.com/
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-If you go this way, the discussion in that thread worth refering too.
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index ec62db5cc3675..9a3e305253469 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -1626,19 +1626,15 @@ int intel_gvt_dma_map_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
+ 		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
+ 		if (ret)
+ 			goto err_unmap;
+-	} else if (entry->size != size) {
+-		/* the same gfn with different size: unmap and re-map */
+-		gvt_dma_unmap_page(vgpu, gfn, entry->dma_addr, entry->size);
+-		__gvt_cache_remove_entry(vgpu, entry);
+-
+-		ret = gvt_dma_map_page(vgpu, gfn, dma_addr, size);
+-		if (ret)
+-			goto err_unlock;
+-
+-		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
+-		if (ret)
+-			goto err_unmap;
++	} else if (entry->size < size) {
++		/*
++		 * The smaller mapping may still be in use, so don't replace
++		 * it. Fail and let the caller map the range in smaller pages.
++		 */
++		ret = -EBUSY;
++		goto err_unlock;
+ 	} else {
++		/* A mapping of the same or a larger size covers the request */
+ 		kref_get(&entry->ref);
+ 		*dma_addr = entry->dma_addr;
+ 	}
 
-> What it doesn't cover yet is reclaim outside any configured cgroup:
-> under global pressure, a cgroup nobody configured still reached the
+base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
+-- 
+2.43.0
 
-Right, so for now every cgroup has to be set to exclude zram, unless
-another idea or more code covers it.
-
-> zram tier.  So for v3 I'd like to add a system-wide limit on which
-> tiers pressure reclaim may use, on top of the per-cgroup settings.
-> I'll wait for Youngjun's v12 and build on that.
-
-I have looked through the whole series, and I will keep this use case
-in mind while working on v12. :)
-
-Also, to share what I had in mind, I was planning a sysfs interface
-for each swap tier, /sys/kernel/mm/swap/tiers/<tier name> (exact
-naming TBD). Maybe the system-wide limit could be handled there as one
-of its use cases?
-
-Let's discuss it in more detail after v12.
-
-Thanks,
-Youngjun
