@@ -4,46 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9895CA5FF0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B413CA5FF5
 	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 23:53:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB5110E157;
-	Mon,  5 Oct 2026 23:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E992010E0A3;
+	Mon,  5 Oct 2026 23:53:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ajOnJFa3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a355yBC4";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C74FA10E0D2;
- Mon,  5 Oct 2026 10:27:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=7z
- kyvSIZb7yzsrgnBf3y3sUB/QOaKW72wUX6zt/1eFM=; b=ajOnJFa3ozvKO9D3HO
- zKJYE7Ps5dVqZyG4cJ596ymb8NSbeIYWSlv/NY7NQmRYMugdxKnoGrpq8l6imBrd
- lEwOVSUTDZ9CEglOcbFSXN4NsIsuTZROHFzX7g2MeeK4gJFy3tmswdx9O/u4gZTq
- urJrnoB/o1keszUXsFdJ9LRY4=
-Received: from 163.com (unknown [])
- by gzsmtp2 (Coremail) with SMTP id PSgvCgBnX6_tesNql_rOCg--.32055S2;
- Mon, 05 Oct 2026 18:24:45 +0800 (CST)
-From: Xizhe Tang <xizheTang2005@163.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, ankit.k.nautiyal@intel.com, stable@vger.kernel.org
-Subject: [PATCH v3 0/3] drm/i915: stop sending a fake Adaptive-Sync SDP
-Date: Mon,  5 Oct 2026 18:24:42 +0800
-Message-ID: <20261005102445.12710-1-xizheTang2005@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923195200.21362-1-xizheTang2005@163.com>
-References: <20260923195200.21362-1-xizheTang2005@163.com>
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com
+ [74.125.229.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0577110E538
+ for <intel-gfx@lists.freedesktop.org>; Sun,  4 Oct 2026 09:48:32 +0000 (UTC)
+Received: by mail-dy2-f12.google.com with SMTP id
+ 5a478bee46e88-33be7dfcfc1so1057220eec.1
+ for <intel-gfx@lists.freedesktop.org>; Sun, 04 Oct 2026 02:48:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791107312; x=1791712112; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=G/M/uzbIn435hHdgJL6sjcq8jBzkdOxqOZH69iw0GIc=;
+ b=a355yBC4E0xu+eiyzlZHQ9LI9x2UPeAshb8/oJ0EETZ/la08Zw30m1xEEZK9INNbz+
+ iKhI29K+R0BetNVN+HK/M0VIyJMwdtV3KR94MTfOHNYJnwECBrBSBN5Z7yQERSFyJARq
+ 9t4WEnjLhEVl42PN5Kwxst6Zwl35vtlx7BWOT4yLvwjWAGEORQD0K+HsPd9yrZwztsvB
+ fi915y/y901foFS3AFJ7mmcEp/mK5Okc1UMcJe0fhEP0A3uCS3nqTWkhDAyV2hazQ4pr
+ R2CqxQvWXg51sPcvGitXan1MW1rXz1wEenrJTV+IWv1YkViMjEiV+XDLrYL4QC3+iAaA
+ fNYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791107312; x=1791712112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=G/M/uzbIn435hHdgJL6sjcq8jBzkdOxqOZH69iw0GIc=;
+ b=jI9awftVb3YcpzXeiZwsiYSZJVtd1Cw1ub59/WypAaA4d5BLxoTzDNTgqrlPmjMtR6
+ ugu6eItk259uQHG5MnE9Y/T2OzF+Fs1TQAnGXnXCvA/X7GPgXd6ilp8W2HVGfPxdNlm7
+ VDgz78b0k0siH/7PIAbjnES2KMmRdwfUd0DyFmF4HLHvTfnoxwXyKyVfxR+JXphTLGQv
+ DEIqlqhYPwf/C3H5J/J7zO9pvRfsTjpFoQHkHJPMCjdIRhc+kGKLhFfvYzoFspqwz26s
+ olqn/p+LXftREx5bGuW9zYwE9Nw6L4BzN4e6QGH1n0lFi8gyUt7T4D9lrmae+YfZcNzB
+ xKVQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxQcE47Aki3MPrwQ40/tMctvWNKAwJuPmJ2CrFuq4YhPKUfX3WyJld4OV0ORVJdZbTZEOk/RktXHRM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLpztTzCicL4P+HIU/3QmHSzWNeZyBbjzwwvuD7re3sVR2Jo5px
+ RVzgccyDWUSIq7KbgvksIsuzFSxfxyE5kZLd9eAALGIl0Zb8F6P1VYKO
+X-Gm-Gg: AYBFou2JcdBW9ZpdY1uWnS0nafhxuz73WOqlUD1cFoAyExFPAZ2PdCC/6xUq/IT/1BV
+ a1OR9XJuLliMEYQGkriGk76pQDY9o8tNZFEMAOj/acBXdctmehT2nUpSiVb/AcjZbZK7wZjo5Uv
+ XzLYKCZeZ31IPgEmmzV5nVJgDnvIvKQv2ZX94yfDM4LK54spbCYykvQ707VNenmF9pcT4o6BNsf
+ WoT8ucxxKUZfvf6cb43hNHPY7htYvL9WF7U7dFemvuUQTnk2Vme+Ol0cj79ufvd8FWnvBayxr6X
+ ffzdxvqjaXtQEjiKI1gJkob4p0t++tL2GkoJmHpBkbmn/rRKWzqZyGqjFAUjvYfKsg10Aix63iJ
+ J71GqBpL2byJzgT6jXinu+sOaXdKLVvAmxE5i5dtvQCcpsMER2S96DtmDgUBOj0indfdELb7SAN
+ 5SJBIXPb6tf8n+txJgAUkrZ7H7obUX1gJTkH2YMqhcpT9MU8xdZw5CHejJ3mpFNTjjvJZLBmhGU
+ 4hFBV393858WA3WBr2yRgKNKAyJKeSuBBc1vxkWzJo2MubFybtf1sQxncaZsv/lvp/CgcRRpdtU
+ xQ4jPFACFuPNjtlmps97euXNBJKylafTR3mrZZA00FnQdRyp81uWVzSZ0YA=
+X-Received: by 2002:a05:693c:87d5:10b0:34b:e2cf:43b6 with SMTP id
+ 5a478bee46e88-34f14f2b9edmr9396416eec.2.1791107311900; 
+ Sun, 04 Oct 2026 02:48:31 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-35127136b8esm3623589eec.6.2026.10.04.02.48.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 04 Oct 2026 02:48:31 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Christoph Hellwig <hch@infradead.org>,
+ Christian Brauner <brauner@kernel.org>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/i915: look up shmem folios by index for writeback
+Date: Sun,  4 Oct 2026 17:48:27 +0800
+Message-ID: <20261004094827.174193-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PSgvCgBnX6_tesNql_rOCg--.32055S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1kCw4UCF1xGr4rtw48tFb_yoW5uF4xpa
- 1xuF1rKw48JFyIqrWxu3WIyFy5Jws3J3yrG3sxK3sFvas8Ar9rJr4Svw4jgayDuFs2g3WY
- qrn3XFyjkw4UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jY-e5UUUUU=
-X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
-X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6g9lvGrDeu8JMgAA37
 X-Mailman-Approved-At: Mon, 05 Oct 2026 23:53:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,73 +95,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v2 gated intel_dp_needs_as_sdp() on vrr.enable || cmrr.enable. Ville
-pointed out that this function is also how we size the optimized VRR
-guardband, and that looking at vrr.enable there forces a full modeset
-when userspace toggles Adaptive Sync.
+Since commit 776a853a43c9 ("i915: Use writeback_iter()"),
+__shmem_writeback() starts writeback on no folios at all.  In
+WB_SYNC_NONE mode writeback_iter() only returns folios tagged
+PAGECACHE_TAG_DIRTY, and shmem never sets that tag: it dirties folios
+with noop_dirty_folio(), because shmem relies on LRU-based swap writeout
+rather than on the dirty tag (see the comment in __folio_mark_dirty() in
+mm/page-writeback.c).  The loop before that commit looked pages up by
+index and tested the page dirty flag, so it did write.
 
-That coupling is the bug, not the send predicate. Split it:
+This affects the shrinker's I915_SHRINK_WRITEBACK pass and the i915 TTM
+backend, which both call __shmem_writeback().  The pages stay dirty and
+on the LRU, so reclaim still swaps them out later; what is lost is the
+early writeback.
 
-  1/3  intel_dp_sdp_min_guardband(..., true) reserves AS SDP lines on
-       HAS_AS_SDP platforms even when the packet is not enabled. After
-       this, toggling vrr.enable does not change crtc_vblank_start.
+Go back to looking up the folios of the object by index, in batches
+with filemap_get_folios(), and reschedule between batches, as
+writeback_iter() does.  Mapped folios are still skipped.  Unlike the old
+loop, do not wait for a folio lock, since this also runs from the OOM
+notifier; a locked folio is left to reclaim.  shmem_write_folio()
+returns with the folio unlocked except for AOP_WRITEPAGE_ACTIVATE, so
+unlock it only in that case.  It may also split a large folio and leave
+the rest of it dirty, so look the rest up again.
 
-  2/3  Send the packet only when VRR or CMRR is actually running.
-       Predicate is vrr.enable || vrr.cmrr.enable to match drm-tip's
-       nested cmrr (v2 used the older sibling cmrr.enable). Now safe
-       because 1/3 already reserved the guardband. This is the 7.2
-       regression: intel_vrr_possible() is flipline != 0, and fixed-RR
-       timings program flipline, so we transmit DP_AS_SDP_AVT_FIXED_VTOTAL
-       on a constant refresh. Panel Replay aux-less without async video
-       timing still takes the early return in intel_dp_needs_as_sdp()
-       from 6a1712052859 and still gets that packet; this machine does
-       not hit that path. A 7.2 stable backport needs the sibling
-       crtc_state->cmrr.enable spelling.
+I came across this while measuring an earlier patch of mine to this
+loop, which changed nothing because the loop never visits a folio.
+This patch was measured without Intel hardware, with a test-only mock
+selftest in a QEMU guest with swap.  Dirty, unpinned objects of 1 to
+256 MiB, with and without THP, went through i915_gem_shrink() with
+I915_SHRINK_WRITEBACK.  Before this patch, no page was written in any
+case; with it, every page that was not mmapped was, also when swap-out
+split the large folios.  The contents read back intact after swap-in,
+and the mock selftests give the same results as before.  This has not
+been tested on hardware.
 
-  3/3  On this panel, Adaptive Sync = Always still streaks on s2idle
-       resume after 1+2 (operation mode 0, not the mode-1 packet). Write
-       the SDP in intel_ddi_enable() after intel_vrr_transcoder_enable()
-       and before intel_enable_transcoder(). Fastset still updates the
-       packet from intel_ddi_update_pipe_dp() so a runtime Adaptive Sync
-       toggle does not become a full modeset.
+Fixes: 776a853a43c9 ("i915: Use writeback_iter()")
+Cc: stable@vger.kernel.org # v6.16+
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+v1: https://lore.kernel.org/all/20261002073107.2209644-1-matthias.goergens@gmail.com/
 
-1+2 are the regression fix. 3/3 is the Always resume path on this eDP;
-drop it if you want only the Never/Automatic half.
+Changes in v2:
+- Look the folios up in batches with filemap_get_folios() and call
+  cond_resched() between batches, instead of one __filemap_get_folio()
+  call per index with no rescheduling, which Sashiko pointed out:
+  https://lore.kernel.org/all/20261002091439.59C611F00899@smtp.kernel.org/
+  Measured with the same test-only harness in the same guest, v1 against
+  v2: on a fully populated 1 GiB object, the longest time the walk ran
+  without reaching cond_resched() went from about 85 ms to under 0.1 ms;
+  on a 3 GiB object (786432 pages) with 1% of its pages present and the
+  rest holes or swapped out, one call made 255 filemap_get_folios()
+  calls instead of 786432 __filemap_get_folio() calls.  A run of swap
+  entries is still stepped over inside a single filemap_get_folios()
+  call: about 2 ms for a fully swapped-out 3 GiB object.  I did not split
+  the range further, since every page of the object was in memory until
+  just before this runs, so holes and swap entries are the exception.
+- A batch is looked up ahead of the writes, so if writing splits a
+  large folio, look the rest of it up again (v1 got this by reading the
+  folio size after the write).
 
-Why not vrr.in_range (series 174831 1/3): this panel's EDID range is
-30-120 Hz. 60 Hz and 120 Hz with Adaptive Sync = Never stay in_range,
-so that patch still sends AVT_FIXED_VTOTAL here. Reported at
-https://lore.kernel.org/r/RxSA9gIRRBSaKwxlF7t96Q@163.com
+This replaces my two earlier patches to this loop, which can be dropped:
+the loop they change never visits a folio.
 
-Not Closes: #9252. 1+2 do not fix Always. 3/3 does.
+https://lore.kernel.org/all/20260915062924.2410550-1-matthias.goergens@gmail.com/
+https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergens@gmail.com/
 
-These patches are against drm-tip, not 7.2.8.
+In 6.18.y and 7.2.y, the maintained stable trees that have
+776a853a43c9, the call is shmem_writeout(folio, NULL, NULL) instead of
+shmem_write_folio(folio), with the same return convention.
 
-Machine: Lenovo ThinkBook 14 G8+ IPH (21VG), PTL 8086:b080, eDP
-3072x1920, EDID 30-120 Hz. Tested by rebuilding xe.ko on
-7.2.8-200.fc44.x86_64, and on a full drm-tip kernel. Same results
-on both:
+In review of 776a853a43c9, Christoph asked for this loop to move behind
+a shmem API instead of living in drivers, and Matthew agreed:
 
-  Never / Automatic, boot and lid s2idle: clean with 1+2 (and with 1+2+3).
-  Always, lid s2idle: still streaks with 1+2; clean with 1+2+3.
-  Runtime Never <-> Always on an already-lit panel: already clean.
+https://lore.kernel.org/all/Z--XtaM7Z3zbjzAu@infradead.org/
+https://lore.kernel.org/all/Z-_hQwNeiOnNYJVp@casper.infradead.org/
 
-Ville in_range, delayed send, and never-send were tried earlier; the
-first two still streak, never-send is clean on both policies but is
-not upstreamable.
+I kept this fix inside i915 so that it is one patch for stable.
 
-v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
-v2: https://lore.kernel.org/r/20260923195200.21362-1-xizheTang2005@163.com
+The test harness is not part of the patch; I can post it if that helps.
+Testing on Intel hardware under memory pressure would be very welcome.
 
-Xizhe Tang (3):
-  drm/i915/dp: Reserve AS SDP guardband even when VRR is off
-  drm/i915/dp: Send AS SDP only when VRR or CMRR is enabled
-  drm/i915/ddi: Program AS SDP before enabling the transcoder
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 70 ++++++++++++++++++-----
+ 1 file changed, 57 insertions(+), 13 deletions(-)
 
- drivers/gpu/drm/i915/display/intel_ddi.c |  4 ++++
- drivers/gpu/drm/i915/display/intel_dp.c  | 35 ++++++++++++++++++++++++++++----
- drivers/gpu/drm/i915/display/intel_dp.h  |  2 ++
- 3 files changed, 37 insertions(+), 4 deletions(-)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index ef9440166295..d2077b823b1b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -304,28 +304,72 @@ shmem_truncate(struct drm_i915_gem_object *obj)
+ 	return 0;
+ }
+ 
++/* Start writing a locked folio to swap.  It is unlocked on return. */
++static void shmem_writeback_folio(struct folio *folio)
++{
++	int ret;
++
++	folio_set_reclaim(folio);
++	ret = shmem_write_folio(folio);
++	if (!folio_test_writeback(folio))
++		folio_clear_reclaim(folio);
++
++	/* shmem_write_folio() unlocks the folio unless it returns this. */
++	if (ret == AOP_WRITEPAGE_ACTIVATE)
++		folio_unlock(folio);
++}
++
+ void __shmem_writeback(size_t size, struct address_space *mapping)
+ {
+-	struct writeback_control wbc = {
+-		.sync_mode = WB_SYNC_NONE,
+-		.nr_to_write = SWAP_CLUSTER_MAX,
+-		.range_start = 0,
+-		.range_end = LLONG_MAX,
+-	};
+-	struct folio *folio = NULL;
+-	int error = 0;
++	pgoff_t last = (size >> PAGE_SHIFT) - 1;	/* last page, inclusive */
++	struct folio_batch fbatch;
++	pgoff_t index = 0;
++	unsigned int i;
+ 
+ 	/*
++	 * shmem marks folios dirty with noop_dirty_folio(), which does not
++	 * set PAGECACHE_TAG_DIRTY, so writeback_iter() would find none of
++	 * them.  Look up the folios of the object in batches and write out
++	 * the dirty ones.
++	 *
+ 	 * Leave mmapings intact (GTT will have been revoked on unbinding,
+ 	 * leaving only CPU mmapings around) and add those folios to the LRU
+ 	 * instead of invoking writeback so they are aged and paged out
+ 	 * as normal.
+ 	 */
+-	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
+-		if (folio_mapped(folio))
+-			folio_redirty_for_writepage(&wbc, folio);
+-		else
+-			error = shmem_write_folio(folio);
++	folio_batch_init(&fbatch);
++	while (filemap_get_folios(mapping, &index, last, &fbatch)) {
++		for (i = 0; i < folio_batch_count(&fbatch); i++) {
++			struct folio *folio = fbatch.folios[i];
++			long nr_pages = folio_nr_pages(folio);
++
++			/*
++			 * Leave locked folios to reclaim: this runs from the
++			 * shrinker and the OOM notifier, so do not wait for a
++			 * lock.
++			 */
++			if (!folio_trylock(folio))
++				continue;
++
++			if (folio->mapping != mapping || folio_mapped(folio) ||
++			    !folio_clear_dirty_for_io(folio)) {
++				folio_unlock(folio);
++				continue;
++			}
++
++			shmem_writeback_folio(folio);
++
++			/*
++			 * Writing may have split the folio and left the rest
++			 * of it dirty; look the rest up again.
++			 */
++			if (folio_nr_pages(folio) != nr_pages) {
++				index = folio_next_index(folio);
++				break;
++			}
++		}
++		folio_batch_release(&fbatch);
++		cond_resched();
+ 	}
+ }
+ 
 
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
+base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+-- 
+2.56.0
 
