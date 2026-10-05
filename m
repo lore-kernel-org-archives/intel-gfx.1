@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5858DCA5FF0
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 12:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78D7CCA5FF0
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 13:09:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4E3510ECB3;
-	Mon,  5 Oct 2026 12:23:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BSxrdjbF";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 395C210ECAC;
- Mon,  5 Oct 2026 12:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791203001; x=1822739001;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=KeUXObBD8gLkvpJ91KBSDQ1hX7GST1kfeLjMCZQ7XT4=;
- b=BSxrdjbFw5q6dm3nzVT3NqlXHsP3LXoQPdt42iSijz++f3E2MFlgcFnf
- l1Wfxg19nub5gjtc7ZapRkkptcEiTfL/irLUD9qSn9TOorlL/JqxZKbqA
- /AKnfa7l6JInUWSb+KbskdIa6UtBNC/w97F52u6oDCcSAxkKHD2TMFuJ+
- w2BLRSXMJI+mB9oky3KRjtmGwJJZs0GGLI8PZKA9liLOQcffi2j97HkPY
- +kWyZI+BMDbLnLC2hlUPo3TjK9pVeMnKctzpMJVqCdGaD7uzJHaJ605s0
- 9n3qiFYcUxxd/QUAkumeS8fK9wbhuzhQHhx46GkSi/b+GkoGtn8MYRFjJ Q==;
-X-CSE-ConnectionGUID: bGwD9GTETAifa9fxyKItfw==
-X-CSE-MsgGUID: xejgybnyTn6tVOic0WqtqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="109361051"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; d="scan'208";a="109361051"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2026 05:23:21 -0700
-X-CSE-ConnectionGUID: 4f+TIqJpQDGcsac5VggNiw==
-X-CSE-MsgGUID: PGnI8WcYQqitLfiz7ZEeng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; d="scan'208";a="304763349"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO hazy.intel.com)
- ([10.245.245.184])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2026 05:23:19 -0700
-From: Luca Coelho <luciano.coelho@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/i915/dp: only complain about a busy AUX engine when
- it's unexpected
-Date: Mon,  5 Oct 2026 15:22:09 +0300
-Message-ID: <20261005122302.110968-3-luciano.coelho@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005122302.110968-1-luciano.coelho@intel.com>
-References: <20261005122302.110968-1-luciano.coelho@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0A5810ECD8;
+	Mon,  5 Oct 2026 13:09:46 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFCD310ECD8;
+ Mon,  5 Oct 2026 13:09:45 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2506356717056281192=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_don=27t_to?=
+ =?utf-8?q?uch_the_AUX_engine_while_it=27s_still_busy?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Luca Coelho" <luciano.coelho@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 05 Oct 2026 13:09:45 -0000
+Message-ID: <179120578584.240217.11785941885796465373@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20261005122302.110968-1-luciano.coelho@intel.com>
+In-Reply-To: <20261005122302.110968-1-luciano.coelho@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,81 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When intel_dp_aux_xfer() gives up on a transaction because the AUX
-engine is still busy, the DRM helpers retry almost immediately.  If
-the engine still hasn't recovered by then, the pre-transaction busy
-check reports "not started" as an error, even though this is the
-expected outcome of our own earlier decision to leave the engine
-alone.
+--===============2506356717056281192==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Remember that we left the engine busy and only log a debug message in
-that case.  Keep the error for the unexpected cases, namely when
-someone else is using the channel or the engine is hung without us
-having given up on it first.  A permanently hung engine is still
-reported by the 100ms timeout error.
+== Series Details ==
 
-Assisted-by: LLM
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_types.h |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_aux.c        | 14 +++++++++++++-
- 2 files changed, 15 insertions(+), 1 deletion(-)
+Series: drm/i915/dp: don't touch the AUX engine while it's still busy
+URL   : https://patchwork.freedesktop.org/series/175555/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 0e3083e852d5..1987b2dbd151 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1891,6 +1891,8 @@ struct intel_dp {
- 	struct drm_dp_desc desc;
- 	struct drm_dp_aux aux;
- 	u32 aux_busy_last_status;
-+	/* we left the AUX engine busy and are waiting for it to recover */
-+	bool aux_left_busy;
- 	u8 train_set[4];
- 
- 	struct intel_pps pps;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 2e8261cd641a..d0d37ef7556f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -359,7 +359,16 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 	if (try == 3) {
- 		const u32 status = intel_de_read(display, ch_ctl);
- 
--		if (status != intel_dp->aux_busy_last_status) {
-+		/*
-+		 * If we left the engine busy ourselves, this is expected
-+		 * while it recovers.  Otherwise someone else is using the
-+		 * channel or the engine is hung.
-+		 */
-+		if (intel_dp->aux_left_busy) {
-+			drm_dbg_kms(display->drm,
-+				    "%s: not started, still waiting for the AUX engine to recover (status 0x%08x)\n",
-+				    intel_dp->aux.name, status);
-+		} else if (status != intel_dp->aux_busy_last_status) {
- 			drm_err(display->drm,
- 				"%s: not started (status 0x%08x)\n",
- 				intel_dp->aux.name, status);
-@@ -370,6 +379,8 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 		goto out;
- 	}
- 
-+	intel_dp->aux_left_busy = false;
-+
- 	/* Only 5 data registers! */
- 	if (drm_WARN_ON(display->drm, send_bytes > 20 || recv_size > 20)) {
- 		ret = -E2BIG;
-@@ -402,6 +413,7 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 			 * alone, the caller will retry the transaction later.
- 			 */
- 			if (status & DP_AUX_CH_CTL_SEND_BUSY) {
-+				intel_dp->aux_left_busy = true;
- 				ret = -EBUSY;
- 				goto out;
- 			}
--- 
-2.53.0
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_19279 -> Patchwork_175555v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175555v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19279 -> Patchwork_175555v1
+
+  CI-20190529: 20190529
+  CI_DRM_19279: b0bd9fb9e92aae2a653efa1d0407daa2aabe99d0 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9126: 4b27241425f55826ff2df54686e8e709f5baf9dc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_175555v1: b0bd9fb9e92aae2a653efa1d0407daa2aabe99d0 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175555v1/index.html
+
+--===============2506356717056281192==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: don&#x27;t touch the AUX engine while it&#x27;s still busy</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175555/">https://patchwork.freedesktop.org/series/175555/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175555v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175555v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19279 -&gt; Patchwork_175555v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175555v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19279 -&gt; Patchwork_175555v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19279: b0bd9fb9e92aae2a653efa1d0407daa2aabe99d0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9126: 4b27241425f55826ff2df54686e8e709f5baf9dc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_175555v1: b0bd9fb9e92aae2a653efa1d0407daa2aabe99d0 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2506356717056281192==--
