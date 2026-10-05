@@ -4,158 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6F5CA5FCE
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 07:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B3B6CA5FF0
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 08:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46C1D10EBDD;
-	Mon,  5 Oct 2026 07:35:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 623BF10E139;
+	Mon,  5 Oct 2026 08:17:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MlYUadUP";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="j5knjFn1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2012810EBDC;
- Mon,  5 Oct 2026 07:35:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791185717; x=1822721717;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=PH5OthHubCXeGUfAwFzSv8858qXgbPwBauyRUJ2G3hg=;
- b=MlYUadUPgm6f1rXmhkiBDCc9dZGG7calXsdkVepeHf9Do4kVI41+Z0um
- xw10tMVFKM6Q2W2yoNFP9dVoWyZWCTKJfkcmjVHvri35JSTXNfE826oDC
- cBxcORwOfHp3jmUlw6sr1tH+MKv6SILdyM5OE6jWGrjVL57BOR5JvRWYx
- tTF0zkHPmwzD6pK1niP4JtV+GypF6zC84jZIjvTLamvLt+rdbS3YGeOun
- RcaMBpM3OWl8/EuKFwd0lAtarJobnxEPpfodBHcq/YjkeqAYOk6IRCBMB
- YArItf+zi5s/C9GbHQjR2SGBeXSbJSzanSnIVC/v1YH1bbf79JgFoHKJ7 w==;
-X-CSE-ConnectionGUID: RQlMoPlqTVCehDTQazsJYw==
-X-CSE-MsgGUID: xXSzGmlfTuWJvYlG/c/iMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="79408255"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; d="scan'208";a="79408255"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2026 00:35:17 -0700
-X-CSE-ConnectionGUID: ddsPz5y3QfW79A7NEg+ZoA==
-X-CSE-MsgGUID: D7KVdaJvTCGE4YdWANtDBQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; d="scan'208";a="306258264"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2026 00:35:16 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 00:35:16 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 5 Oct 2026 00:35:16 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.37) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 00:35:16 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GcvA41e3r7s2RZDbs8P/9CQOZ8wbadhBi2l3W/0pHl4LXpA0JZio0AQuhvEdgGvrhJVj4aKPCwBWz5KlO9nwGKeXzHSPPntzYyNllIBEg+hSCIAcV0EJ9HYdCrTPU8Pn0igH9fc7Sq+hU0qwfS7zHT9eZWtr0s60D6rYw88uFjgJCB3XqpryBlUXQCl0vQpQhFnd7Cd01d/mUWxqRtmMtAaYU/s+4/99kaW3zKs+4ju1wX/HfQrT1/FKJJtOf32uP+dfOtlwmwwNEBiJTqKn3T+kupx51cOD4GsSImvkApWFLQVMQO24L3aITFp845GvBZ6A2s5OOmleu+kqmhBVvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EtTMWjley0pAvSPhqi62S1qCuy+U44InoiHumXtLgzg=;
- b=nPQ6zD3JlUJzPuTXT4joJEHZeWsIWFzAcXRr7/u1yyg8XFVcfqPSLtiqgbTMdxwpOQP/tVjs78jJUwx/va78VKgJjVVEDTfQxr4RRGkw84ILKvRZylZYNjeJvUzVAEFBGWdWBzyQJf9ndtz1ehaN34TQWbRQG/jsOeluJS0N5SNOECC4RqXKyKK3SFgaCscImF/BUGChVbJaSXAZFPvPyHvU3oIMZK6FdWjbL6NtjqMXkZvtILjtGX/miNFG3MRp4Ef+/+2ZOqmciIBt8qgVhf4bvVsTaO5EQWwwfSOXypm/rwiLxzcktmDm0/NKLORmaqaGs2fYvdhu3jGRF/5mDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by SN7PR11MB6750.namprd11.prod.outlook.com (2603:10b6:806:266::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Mon, 5 Oct
- 2026 07:35:12 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0472.015; Mon, 5 Oct 2026
- 07:35:12 +0000
-Date: Mon, 5 Oct 2026 07:35:02 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <I915-ci-infra@lists.freedesktop.org>
-CC: <intel-gfx@lists.freedesktop.org>
-Subject: Re: =?utf-8?B?4pyXIGk5MTUuQ0kuQkFU?= =?utf-8?Q?=3A?= failure for
- iommu/dma: Catch scatterlist length overflows
-Message-ID: <j4bqc4ege7tdtictkomgcg5fjxtknlwq3qhjkuyqxn4eemjevs@mjkdrkgpczv2>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20261002053320.3145901-1-krzysztof.karas@intel.com>
- <179092448995.231753.2668783847303564171@61270ab9df2a>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <179092448995.231753.2668783847303564171@61270ab9df2a>
-X-ClientProxiedBy: VI1PR0102CA0022.eurprd01.prod.exchangelabs.com
- (2603:10a6:802::35) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56FD710E139;
+ Mon,  5 Oct 2026 08:17:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=NuhGNh33RwpQYIAorkA2VvhjQZ6YMZLfJjskTBdQXyI=; b=j5knjFn1RaLQq9uuPmpU4+3fzU
+ K1B4O6C+MlIn7MMaiUKEHpbjcCadAxow2q1BWjDX4yRIxpUtlNqI4G42kp5za1wmy/2Z11iuuSOqN
+ aei2LDuZfL79O0HopoD6b0SjVBZSPRC6dZ79kH0ElBm+AoarvbwqDOXdhO8NYCxPJMWFeNlFVnP6v
+ wdbSgiKumwwN7yyMAaoiaxUeC6XVVjIHwrhI2xPcq5+1HIpf/E9VbgqVEh7jj0UW7ds8+1i+8HLmm
+ 4xrg9h1+cLyqg4U9KKtPrkoYy+m4Yy64bzlA2vCYXstj9i1XD7/EWjPuczj8IWheuHY8PkmmLSXh+
+ ZNGTf74A==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red
+ Hat Linux)) id 1xDdtM-0000000Fra1-30eo;
+ Mon, 05 Oct 2026 08:17:48 +0000
+Date: Mon, 5 Oct 2026 01:17:48 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Andi Shyti <andi.shyti@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Christoph Hellwig <hch@infradead.org>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
+Subject: Re: [PATCH v2] drm/i915: look up shmem folios by index for writeback
+Message-ID: <asNdLJdbpkUVsQzU@infradead.org>
+References: <20261004094827.174193-1-matthias.goergens@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|SN7PR11MB6750:EE_
-X-MS-Office365-Filtering-Correlation-Id: 443b3750-5a7f-4ab4-0c33-08df22b330a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|13003099007|22082099003|18002099003|5023799004|6133799003|10067099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: 8ROdFjbH64mXov38dSYaS2/N7I7EWFu2uDxT9cgQoW3nInXZt7q807X9JP9BuHaxMXGREQGywlkoAAlG0YRrqe8MFALuTnles98gueT1RxINayVDDn0BXz168f77lko9jQHafEkDD4dhEqA31t+HqWT0ND5nc05eLbXxrOt59MBw3DY2NOgapVh2Z1cyoEXL27Mt0fv1mxnJv1eeU2fsL+W5lSY5GKK90zvVO3CwDoetcpW8EZHSBEpGLFK4cAQ1bEE+sQgZ53dzomOh+om44EUqCXS7V4DFwu1yzBQzIexMsP++/+RpFuJJach/h+4Yu+tqO5UqtPD6hPxFz8OVSagPYINeZwz5eFewaiX527OW3b97oNv4er5FA6X2oXtpFAmDqGdTk8qWIr91oaX3ijrIdcXeHTNar9og5JS2+SaV3B9KFlXyXGhzVT9sz+Te184jq2CuLodzqhuaeNAT2SucQ2SCYeNqxg9m1LuHXjgQLo83NTLScyYqjDqQcDO0izukzAoJPZ8921BpEDQT/VNwB82S53yxUgDaJeQWysz0z2gyivNpy7muqGfc+mFYEmnSD6LxwHZpKHl0Y1udXVlSkMJCesBlFAFfQmdPbME=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(13003099007)(22082099003)(18002099003)(5023799004)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T3oyK3lJbzdRZ016VHlvVGJ4a2o3S2dzRnhIQlJHMk9DU3g5WWdOMlFGWC85?=
- =?utf-8?B?aVAzSEoxMHRVNDJKWkVYeGc5ZTVzSzRyb3p3QWJYa3oxTndrZEhHeHd0YjNi?=
- =?utf-8?B?cytJTFBxNzN0NURSY2RHQkJQaEtXUnBHZVpvQitRMVpaeGd4OWhIUjl4M0VQ?=
- =?utf-8?B?YUVuVjRDV0lvOTJXci9ZZlkrVUFzZ2FlTzlVbDRTaTFCNnMwWGZoaERpV0Yx?=
- =?utf-8?B?clppd0w3VlNUcTd2a0NTdXA4TWtpWHpPVk9YdHlsTXM1WnExMGtoWU1Pem5v?=
- =?utf-8?B?YXlybXZ4aGQ0MWp3MEMvSTFCSUlVcFhVUUZuaHJ1VnVES2dySGc5NTg3V3hs?=
- =?utf-8?B?Y2hSUklONkZHOEF0aXBiN05zbC81QW10a3BOUDVGMWpkcG15TEN3WG1YU3RH?=
- =?utf-8?B?cVNOekk2eEdWZ0ZPMzhra1o2QmNmQjFWT2dQSmdWVnZLUzJ6TUhOVXFNbTYw?=
- =?utf-8?B?WVBxcnNWUXZzbGlqQklMbHl4V3p5TTBaNmFpVGI3eWVHSEorRUNpclQ0VThP?=
- =?utf-8?B?TjQvdE1QdXZmYU9DelFiL2VLZHNrUWVwcXNsSnNQZDBaUEhZeXZSQzZZajZz?=
- =?utf-8?B?SktLSnUrcS9LWmNMUzNSZjJrOVhKUHozVUhoQ3plV2VEVmtZWEQ3cmNWcjRo?=
- =?utf-8?B?c0NyK3ZhNHBLM3dKVTBMNTlHVE83Y3F1ZWxHVWF3bnZ3WFlLMk42NnJaay94?=
- =?utf-8?B?THI4ejV3RGY5UXdsRFlrVXFXT2FqME5nRlRuR2F0dGx6bmNVRFNlNWpRMzBX?=
- =?utf-8?B?RGhhcmtQMHlsQU5QRlRYQmp3SnZqbERlUjF0VlBIVU5JWlJ5QWRFdm9FSTYx?=
- =?utf-8?B?R1Ztc05pYXN4UDZFQjR2WkhwSzhNbGxEZWJmRXE1Und0T0IzUnRvZEpHQ0Y2?=
- =?utf-8?B?TFQxOTRGRERyaHhnczVnSjZZZzJEUjNoMXJMVXgybmVGV21Rdk5nL0xFajhx?=
- =?utf-8?B?Q04vdEdXck4rcTE1RGFpNmR5M3pxSG4zNWF5NjlNcitXRkk1SFFTaWVrSmsx?=
- =?utf-8?B?VEkyV3RaSUwxdmlmSW1QVWkrTEFkNE9aYnU0YjFjQWswUFlrUDdKM0VLMmJv?=
- =?utf-8?B?UDhLTXV6Yi9UZkFPRENnT3hUQVVNUzVuR081aUZFYmo5ZFVZOWRYamtabHdN?=
- =?utf-8?B?TjBGcTBNUFE4Q0h6NHI5RjN2clcyNHB4L3pnbnRCeE53VjZ2czFpcUF4S1Rt?=
- =?utf-8?B?eWEwRHY2R3NId0c4QXVTWHAwd0tvOGIwcWo4UU9neXVYWnQxZ1A1K0Z0SW4x?=
- =?utf-8?B?MVdJVDA4WkNSUHh4T3AyU0JRQnh4cU1jT3kzbi8vb2RMaENmMWFEdHY4NHFt?=
- =?utf-8?B?ZmhWSXNPTm9yNTkva01HVnUxdm1SZW4veTh3WkN5OXN1cXRVUHdNelNGalZy?=
- =?utf-8?B?ZHVKeHFTT3NyY0FmcXpSKzZJdjlPRFRlbkxMWVFoVW5RT2JLK0NSTWZRSHRQ?=
- =?utf-8?B?RkhnTXRXVzFwY013eWxYcm9tclRIRm5HdzRmYXdWOFhEVVFMUHF5SUtjMmQr?=
- =?utf-8?B?SW9LRnZ5TEpucUVuMjQrNmtwSkxzNkdqS1lMT2ZmRDlCdzcwRTdYMy9CMTND?=
- =?utf-8?B?NU5UeXdhR1phOU9oWldjZEdoSTZRL09GZXRzN2FKMngzL0U5UStDc3RiQTdm?=
- =?utf-8?B?MmdBY1Rxa1pmZCtoOHVkcHd4QUtxVnpnOUxmaUNqVDB0cUcxZXdvVkJiVzFP?=
- =?utf-8?B?QWNuRlJ1eTBjdnVIM0owMno3ek82NHpyQ0VOeEVIckRvK3U3Mng5U0t1alph?=
- =?utf-8?B?alRWRzdEVHUxYnN0WTNOWmRDMWJjb2duMGFXWkFaRVJYeTlmU0l6MjBoTXoy?=
- =?utf-8?B?dkphejhlNzJjYmo1M2V4NFdlQ2hMaTh5K1ZvZExTVFhSVG5LclpGell0RVVq?=
- =?utf-8?B?dWNObFN2cUp5NmJlQnlremF5aFJraS92UHlyQVNES3FoNlpENDMrWC9nbWVv?=
- =?utf-8?B?dldHSzBMYkdBUkdmTGtRVjk4UkJNcG92M0RxSHpDdDhFRGtsSlNkaDlWTFFI?=
- =?utf-8?B?N2Z4L2hkWlBjMXRxV0tmMnVCZS9vUC9oYytGTkJDdHduRkNLNnE1cnZ2RXJC?=
- =?utf-8?B?dGdKeW9xbnlvRE1UM2YxeGwzdGNsS011QnNzZXFqRWNkTDQxSWJ4U2NTSnRi?=
- =?utf-8?B?TlA5S0poU0dOYW1HZGl2Y1hKVHAyOUs0cTBCNkk4ZDUxYlk5RGVTQTNrNVJB?=
- =?utf-8?B?ZGFWMFkrL0E0VlY0bFZRWkswZElFNDVmMXl1WlI5NzNqZTFRWlpkcDEzc2kx?=
- =?utf-8?B?SktQdFdHRXZveGxGQXQvMXJLMnpVY2wzQ01qVExobjU5bXJkblNHZm1ZaHpO?=
- =?utf-8?B?UkNFRk51akRvbzM1Y3N4Z3RLWVRtcDJFdUF1UGFTTkd2Rk9mcHFJRkg2cVJV?=
- =?utf-8?Q?yOUQrY/rO0o6C8tQ=3D?=
-X-Exchange-RoutingPolicyChecked: OxnQPrGnoSQK5vcb2ZYY1Y80b7wy9Sa+npiMe97xsMq532bN+F5kQHoNEKkMjJRYyszyLbqR+Ipk/p/lw5dHeKbqlsvG+0bE31yLmTfECMPR3tZYA/cTkP2x///gR3VzLSikQCGvb65XkRRwneMl1Kofl2jLV61vw521UuzY0HgmfGSzBH6g6jS2r1Ip2JjM6Dc3yYH+bjOg4vHtTQiSC1mauhnIXjdhyImMenI1Z6gpIMR9v08RgsgST/kHM7HG4XVH18PpydD0dPpaHGv66zK2t3SKcqbEpIwh9caMkRwqaAmEsWzx+ijeC7AUqwJVMeG+IHwy5fDSKh5UTxvd+w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 443b3750-5a7f-4ab4-0c33-08df22b330a7
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 07:35:12.1765 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /C4OIpD6IiCWdK42sJklJsFFXV/uwwsrQM6040FW3mokAXdXGfAEvFZec687gz4GwMPcwd2daGisvlBhqa3skmCDGQImG7R9Hw1q5BaXjn0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6750
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004094827.174193-1-matthias.goergens@gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,100 +69,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ci Infra Team,
+As mentioned multiple times before, none of this code belongs into a
+driver or anywhere outside of mm.  This has come up basically everytime
+this got touched, and Matthew Brost said he was going to look into it.
 
-The below failure is unrelated to this patch.
+This patch that adds even more mm magic in the driver really is a no-go
+(as is ignoring the shmem and mm maintainers and lists).
 
-On 2026-10-02 at 07:01:29 +0000, Patchwork wrote:
-> == Series Details ==
-> 
-> Series: iommu/dma: Catch scatterlist length overflows
-> URL   : https://patchwork.freedesktop.org/series/175398/
-> State : failure
-> 
-> == Summary ==
-> 
-> CI Bug Log - changes from CI_DRM_19266 -> Patchwork_175398v1
-> ====================================================
-> 
-> Summary
-> -------
-> 
->   **FAILURE**
-> 
->   Serious unknown changes coming with Patchwork_175398v1 absolutely need to be
->   verified manually.
->   
->   If you think the reported changes have nothing to do with the changes
->   introduced in Patchwork_175398v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
->   to document this new failure mode, which will reduce false positives in CI.
-> 
->   External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175398v1/index.html
-> 
-> Participating hosts (39 -> 37)
-> ------------------------------
-> 
->   Missing    (2): bat-dg2-13 fi-glk-j4005 
-> 
-> Possible new issues
-> -------------------
-> 
->   Here are the unknown changes that may have been introduced in Patchwork_175398v1:
-> 
-> ### IGT changes ###
-> 
-> #### Possible regressions ####
-> 
->   * igt@core_hotunplug@unbind-rebind:
->     - bat-arlh-2:         [PASS][1] -> [INCOMPLETE][2]
->    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19266/bat-arlh-2/igt@core_hotunplug@unbind-rebind.html
->    [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175398v1/bat-arlh-2/igt@core_hotunplug@unbind-rebind.html
-> 
->   
-> Known issues
-> ------------
-> 
->   Here are the changes found in Patchwork_175398v1 that come from known issues:
-> 
-> ### IGT changes ###
-> 
-> #### Possible fixes ####
-> 
->   * igt@i915_selftest@live@sanitycheck:
->     - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#13735]) -> [PASS][4] +79 other tests pass
->    [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19266/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
->    [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175398v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-> 
->   * igt@kms_busy@basic@flip:
->     - fi-kbl-7567u:       [DMESG-WARN][5] ([i915#13735] / [i915#180]) -> [PASS][6]
->    [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19266/fi-kbl-7567u/igt@kms_busy@basic@flip.html
->    [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175398v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-> 
->   * igt@kms_pm_rpm@basic-pci-d3-state:
->     - fi-kbl-7567u:       [DMESG-WARN][7] ([i915#13735] / [i915#15673] / [i915#180]) -> [PASS][8] +52 other tests pass
->    [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19266/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
->    [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175398v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-> 
->   
->   [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
->   [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
->   [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
-> 
-> 
-> Build changes
-> -------------
-> 
->   * Linux: CI_DRM_19266 -> Patchwork_175398v1
-> 
->   CI-20190529: 20190529
->   CI_DRM_19266: fc5f5579dbfab13003fd4d6c1c9214a558f58c9d @ git://anongit.freedesktop.org/gfx-ci/linux
->   IGT_9123: afd8cfb7aa15906974dd979b6dc739ed17ab9e33 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
->   Patchwork_175398v1: fc5f5579dbfab13003fd4d6c1c9214a558f58c9d @ git://anongit.freedesktop.org/gfx-ci/linux
-> 
-> == Logs ==
-> 
-> For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175398v1/index.html
+Also if this was broken for a year and a half without anyone noticing,
+I really wonder what the impact really is, but it really does not
+sound like we should optimize for sketchy backports over the proper
+fix.
 
--- 
-Best Regards,
-Krzysztof
+On Sun, Oct 04, 2026 at 05:48:27PM +0800, Matthias Goergens wrote:
+> Since commit 776a853a43c9 ("i915: Use writeback_iter()"),
+> __shmem_writeback() starts writeback on no folios at all.  In
+> WB_SYNC_NONE mode writeback_iter() only returns folios tagged
+> PAGECACHE_TAG_DIRTY, and shmem never sets that tag: it dirties folios
+> with noop_dirty_folio(), because shmem relies on LRU-based swap writeout
+> rather than on the dirty tag (see the comment in __folio_mark_dirty() in
+> mm/page-writeback.c).  The loop before that commit looked pages up by
+> index and tested the page dirty flag, so it did write.
+> 
+> This affects the shrinker's I915_SHRINK_WRITEBACK pass and the i915 TTM
+> backend, which both call __shmem_writeback().  The pages stay dirty and
+> on the LRU, so reclaim still swaps them out later; what is lost is the
+> early writeback.
+> 
+> Go back to looking up the folios of the object by index, in batches
+> with filemap_get_folios(), and reschedule between batches, as
+> writeback_iter() does.  Mapped folios are still skipped.  Unlike the old
+> loop, do not wait for a folio lock, since this also runs from the OOM
+> notifier; a locked folio is left to reclaim.  shmem_write_folio()
+> returns with the folio unlocked except for AOP_WRITEPAGE_ACTIVATE, so
+> unlock it only in that case.  It may also split a large folio and leave
+> the rest of it dirty, so look the rest up again.
+> 
+> I came across this while measuring an earlier patch of mine to this
+> loop, which changed nothing because the loop never visits a folio.
+> This patch was measured without Intel hardware, with a test-only mock
+> selftest in a QEMU guest with swap.  Dirty, unpinned objects of 1 to
+> 256 MiB, with and without THP, went through i915_gem_shrink() with
+> I915_SHRINK_WRITEBACK.  Before this patch, no page was written in any
+> case; with it, every page that was not mmapped was, also when swap-out
+> split the large folios.  The contents read back intact after swap-in,
+> and the mock selftests give the same results as before.  This has not
+> been tested on hardware.
+> 
+> Fixes: 776a853a43c9 ("i915: Use writeback_iter()")
+> Cc: stable@vger.kernel.org # v6.16+
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+> ---
+> v1: https://lore.kernel.org/all/20261002073107.2209644-1-matthias.goergens@gmail.com/
+> 
+> Changes in v2:
+> - Look the folios up in batches with filemap_get_folios() and call
+>   cond_resched() between batches, instead of one __filemap_get_folio()
+>   call per index with no rescheduling, which Sashiko pointed out:
+>   https://lore.kernel.org/all/20261002091439.59C611F00899@smtp.kernel.org/
+>   Measured with the same test-only harness in the same guest, v1 against
+>   v2: on a fully populated 1 GiB object, the longest time the walk ran
+>   without reaching cond_resched() went from about 85 ms to under 0.1 ms;
+>   on a 3 GiB object (786432 pages) with 1% of its pages present and the
+>   rest holes or swapped out, one call made 255 filemap_get_folios()
+>   calls instead of 786432 __filemap_get_folio() calls.  A run of swap
+>   entries is still stepped over inside a single filemap_get_folios()
+>   call: about 2 ms for a fully swapped-out 3 GiB object.  I did not split
+>   the range further, since every page of the object was in memory until
+>   just before this runs, so holes and swap entries are the exception.
+> - A batch is looked up ahead of the writes, so if writing splits a
+>   large folio, look the rest of it up again (v1 got this by reading the
+>   folio size after the write).
+> 
+> This replaces my two earlier patches to this loop, which can be dropped:
+> the loop they change never visits a folio.
+> 
+> https://lore.kernel.org/all/20260915062924.2410550-1-matthias.goergens@gmail.com/
+> https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergens@gmail.com/
+> 
+> In 6.18.y and 7.2.y, the maintained stable trees that have
+> 776a853a43c9, the call is shmem_writeout(folio, NULL, NULL) instead of
+> shmem_write_folio(folio), with the same return convention.
+> 
+> In review of 776a853a43c9, Christoph asked for this loop to move behind
+> a shmem API instead of living in drivers, and Matthew agreed:
+> 
+> https://lore.kernel.org/all/Z--XtaM7Z3zbjzAu@infradead.org/
+> https://lore.kernel.org/all/Z-_hQwNeiOnNYJVp@casper.infradead.org/
+> 
+> I kept this fix inside i915 so that it is one patch for stable.
+> 
+> The test harness is not part of the patch; I can post it if that helps.
+> Testing on Intel hardware under memory pressure would be very welcome.
+> 
+>  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 70 ++++++++++++++++++-----
+>  1 file changed, 57 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> index ef9440166295..d2077b823b1b 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> @@ -304,28 +304,72 @@ shmem_truncate(struct drm_i915_gem_object *obj)
+>  	return 0;
+>  }
+>  
+> +/* Start writing a locked folio to swap.  It is unlocked on return. */
+> +static void shmem_writeback_folio(struct folio *folio)
+> +{
+> +	int ret;
+> +
+> +	folio_set_reclaim(folio);
+> +	ret = shmem_write_folio(folio);
+> +	if (!folio_test_writeback(folio))
+> +		folio_clear_reclaim(folio);
+> +
+> +	/* shmem_write_folio() unlocks the folio unless it returns this. */
+> +	if (ret == AOP_WRITEPAGE_ACTIVATE)
+> +		folio_unlock(folio);
+> +}
+> +
+>  void __shmem_writeback(size_t size, struct address_space *mapping)
+>  {
+> -	struct writeback_control wbc = {
+> -		.sync_mode = WB_SYNC_NONE,
+> -		.nr_to_write = SWAP_CLUSTER_MAX,
+> -		.range_start = 0,
+> -		.range_end = LLONG_MAX,
+> -	};
+> -	struct folio *folio = NULL;
+> -	int error = 0;
+> +	pgoff_t last = (size >> PAGE_SHIFT) - 1;	/* last page, inclusive */
+> +	struct folio_batch fbatch;
+> +	pgoff_t index = 0;
+> +	unsigned int i;
+>  
+>  	/*
+> +	 * shmem marks folios dirty with noop_dirty_folio(), which does not
+> +	 * set PAGECACHE_TAG_DIRTY, so writeback_iter() would find none of
+> +	 * them.  Look up the folios of the object in batches and write out
+> +	 * the dirty ones.
+> +	 *
+>  	 * Leave mmapings intact (GTT will have been revoked on unbinding,
+>  	 * leaving only CPU mmapings around) and add those folios to the LRU
+>  	 * instead of invoking writeback so they are aged and paged out
+>  	 * as normal.
+>  	 */
+> -	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
+> -		if (folio_mapped(folio))
+> -			folio_redirty_for_writepage(&wbc, folio);
+> -		else
+> -			error = shmem_write_folio(folio);
+> +	folio_batch_init(&fbatch);
+> +	while (filemap_get_folios(mapping, &index, last, &fbatch)) {
+> +		for (i = 0; i < folio_batch_count(&fbatch); i++) {
+> +			struct folio *folio = fbatch.folios[i];
+> +			long nr_pages = folio_nr_pages(folio);
+> +
+> +			/*
+> +			 * Leave locked folios to reclaim: this runs from the
+> +			 * shrinker and the OOM notifier, so do not wait for a
+> +			 * lock.
+> +			 */
+> +			if (!folio_trylock(folio))
+> +				continue;
+> +
+> +			if (folio->mapping != mapping || folio_mapped(folio) ||
+> +			    !folio_clear_dirty_for_io(folio)) {
+> +				folio_unlock(folio);
+> +				continue;
+> +			}
+> +
+> +			shmem_writeback_folio(folio);
+> +
+> +			/*
+> +			 * Writing may have split the folio and left the rest
+> +			 * of it dirty; look the rest up again.
+> +			 */
+> +			if (folio_nr_pages(folio) != nr_pages) {
+> +				index = folio_next_index(folio);
+> +				break;
+> +			}
+> +		}
+> +		folio_batch_release(&fbatch);
+> +		cond_resched();
+>  	}
+>  }
+>  
+> 
+> base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+> -- 
+> 2.56.0
+> 
+---end quoted text---
