@@ -4,56 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B3B6CA5FF0
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 08:17:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD961CA5FFC
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 09:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 623BF10E139;
-	Mon,  5 Oct 2026 08:17:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5209E10E44C;
+	Mon,  5 Oct 2026 09:08:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="j5knjFn1";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Dv4VhUkp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ss+09w9S";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Zs1ECutM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8tpnkVhS";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FD710E139;
- Mon,  5 Oct 2026 08:17:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=NuhGNh33RwpQYIAorkA2VvhjQZ6YMZLfJjskTBdQXyI=; b=j5knjFn1RaLQq9uuPmpU4+3fzU
- K1B4O6C+MlIn7MMaiUKEHpbjcCadAxow2q1BWjDX4yRIxpUtlNqI4G42kp5za1wmy/2Z11iuuSOqN
- aei2LDuZfL79O0HopoD6b0SjVBZSPRC6dZ79kH0ElBm+AoarvbwqDOXdhO8NYCxPJMWFeNlFVnP6v
- wdbSgiKumwwN7yyMAaoiaxUeC6XVVjIHwrhI2xPcq5+1HIpf/E9VbgqVEh7jj0UW7ds8+1i+8HLmm
- 4xrg9h1+cLyqg4U9KKtPrkoYy+m4Yy64bzlA2vCYXstj9i1XD7/EWjPuczj8IWheuHY8PkmmLSXh+
- ZNGTf74A==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red
- Hat Linux)) id 1xDdtM-0000000Fra1-30eo;
- Mon, 05 Oct 2026 08:17:48 +0000
-Date: Mon, 5 Oct 2026 01:17:48 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Andi Shyti <andi.shyti@kernel.org>,
- Matthew Wilcox <willy@infradead.org>,
- Christoph Hellwig <hch@infradead.org>,
- Christian Brauner <brauner@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
-Subject: Re: [PATCH v2] drm/i915: look up shmem folios by index for writeback
-Message-ID: <asNdLJdbpkUVsQzU@infradead.org>
-References: <20261004094827.174193-1-matthias.goergens@gmail.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF73410E44C;
+ Mon,  5 Oct 2026 09:08:32 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E71B121E85;
+ Mon,  5 Oct 2026 09:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791191307; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=98F7Rn252eb4cpJvwGOAfOsgXP/KQ/FjyO2QNIyVecI=;
+ b=Dv4VhUkpdbh70qcdEMhqz8DR7r4Bn7EatApwefCOIC/FayX2XsUjm4it1KhOvHCZZqCdEp
+ CKDhf7qJWLqzJImSC/sz7qdusuos98sTE4YqPf10qINSD7Ld6GxJCub3Dk9dmxiNJGRj3l
+ zllrQC2PceioFfU9H13z/LNhHdGEvG4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791191307;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=98F7Rn252eb4cpJvwGOAfOsgXP/KQ/FjyO2QNIyVecI=;
+ b=ss+09w9SgD5DVFBuqNWFeJZhYM33pckhekOFh+uJbjAm7LxZTXRvbRHrkZf4Z2hqxJhYkY
+ ukqjy4DBy35RagBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1791191302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=98F7Rn252eb4cpJvwGOAfOsgXP/KQ/FjyO2QNIyVecI=;
+ b=Zs1ECutMZ4QGeuhh7l2ftvQKabH6cRH3oXt4AsE28tCY+DEgLuO8NUsq5dIa5BANSlpvpA
+ 713mHqgO8GWr/CoLHoCeWq/F5bkTqonVJkNG9jwo0yRwxfPFrhd8Ye+/niGoGgMNpRNG/p
+ EJG1mpP+J/lhymgHmTBcYOvtns3y2xw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1791191302;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=98F7Rn252eb4cpJvwGOAfOsgXP/KQ/FjyO2QNIyVecI=;
+ b=8tpnkVhS52cJHamzdwUWZQOIQ2+rxgBfGJWAKjPpahmrnjWNuWkrGYkifhsX+7cEpOMN5b
+ IjzhpWpg7nE0mDAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5933213A1B;
+ Mon,  5 Oct 2026 09:08:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id tZ/JBgVpw2rMTgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 05 Oct 2026 09:08:21 +0000
+Message-ID: <e9be1ef8-9884-4117-9eed-ba179248ffc6@suse.de>
+Date: Mon, 5 Oct 2026 11:08:20 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004094827.174193-1-matthias.goergens@gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 1/7] drm: Define user readable error codes for atomic
+ ioctl
+To: Arun R Murthy <arun.r.murthy@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, xaver.hugl@kde.org,
+ harry.wentland@amd.com, uma.shankar@intel.com, louis.chauvet@bootlin.com,
+ naveen1.kumar@intel.com, ramya.krishna.yella@intel.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Suraj Kandpal <suraj.kandpal@intel.com>
+References: <20260331-atomic-v11-0-6a1df7ec5af8@intel.com>
+ <20260331-atomic-v11-1-6a1df7ec5af8@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260331-atomic-v11-1-6a1df7ec5af8@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[intel.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,ursulin.net,kde.org,amd.com,bootlin.com];
+ RCPT_COUNT_TWELVE(0.00)[19]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, intel.com:email, bootlin.com:url,
+ suse.de:mid, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,195 +148,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As mentioned multiple times before, none of this code belongs into a
-driver or anywhere outside of mm.  This has come up basically everytime
-this got touched, and Matthew Brost said he was going to look into it.
+Hi,
 
-This patch that adds even more mm magic in the driver really is a no-go
-(as is ignoring the shmem and mm maintainers and lists).
+I just watched the recording of your presentation at XDC2026 and had a 
+thoughts on it. Comments are below
 
-Also if this was broken for a year and a half without anyone noticing,
-I really wonder what the impact really is, but it really does not
-sound like we should optimize for sketchy backports over the proper
-fix.
-
-On Sun, Oct 04, 2026 at 05:48:27PM +0800, Matthias Goergens wrote:
-> Since commit 776a853a43c9 ("i915: Use writeback_iter()"),
-> __shmem_writeback() starts writeback on no folios at all.  In
-> WB_SYNC_NONE mode writeback_iter() only returns folios tagged
-> PAGECACHE_TAG_DIRTY, and shmem never sets that tag: it dirties folios
-> with noop_dirty_folio(), because shmem relies on LRU-based swap writeout
-> rather than on the dirty tag (see the comment in __folio_mark_dirty() in
-> mm/page-writeback.c).  The loop before that commit looked pages up by
-> index and tested the page dirty flag, so it did write.
-> 
-> This affects the shrinker's I915_SHRINK_WRITEBACK pass and the i915 TTM
-> backend, which both call __shmem_writeback().  The pages stay dirty and
-> on the LRU, so reclaim still swaps them out later; what is lost is the
-> early writeback.
-> 
-> Go back to looking up the folios of the object by index, in batches
-> with filemap_get_folios(), and reschedule between batches, as
-> writeback_iter() does.  Mapped folios are still skipped.  Unlike the old
-> loop, do not wait for a folio lock, since this also runs from the OOM
-> notifier; a locked folio is left to reclaim.  shmem_write_folio()
-> returns with the folio unlocked except for AOP_WRITEPAGE_ACTIVATE, so
-> unlock it only in that case.  It may also split a large folio and leave
-> the rest of it dirty, so look the rest up again.
-> 
-> I came across this while measuring an earlier patch of mine to this
-> loop, which changed nothing because the loop never visits a folio.
-> This patch was measured without Intel hardware, with a test-only mock
-> selftest in a QEMU guest with swap.  Dirty, unpinned objects of 1 to
-> 256 MiB, with and without THP, went through i915_gem_shrink() with
-> I915_SHRINK_WRITEBACK.  Before this patch, no page was written in any
-> case; with it, every page that was not mmapped was, also when swap-out
-> split the large folios.  The contents read back intact after swap-in,
-> and the mock selftests give the same results as before.  This has not
-> been tested on hardware.
-> 
-> Fixes: 776a853a43c9 ("i915: Use writeback_iter()")
-> Cc: stable@vger.kernel.org # v6.16+
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Am 31.03.26 um 11:03 schrieb Arun R Murthy:
+> There can be multiple reasons for a failure in atomic_ioctl. Most often
+> in these error conditions -EINVAL is returned. User/Compositor would
+> have to blindly take a call on failure of this ioctl so as to use
+> ALLOW_MODESET or retry. It would be good if user/compositor gets a
+> readable error code on failure so they can take proper corrections in
+> the next commit.
+> The struct drm_mode_atomic is being passed by the user/compositor which
+> holds the properties for modeset/flip. Reusing the same struct for
+> returning the error code in case of failure, thereby creation of new
+> uapi/interface for returning the error code is not required.
+> The element 'reserved' in the struct drm_mode_atomic is used for
+> returning the user readable error code. This points to the struct
+> drm_mode_atomic_err_code. Failure reasons as a string can also be added
+> on need basis by the variable failure_string in the same struct
+> drm_mode_atomic_err_code.
+>
+> v3: Remove fixed error (Jani/Xaver)
+> v5: Fix kernel-doc (Jani)
+> v7: Rephrase the kernel doc description (Suraj)
+> v8: Removed the below enum and suggest to use INVALID_API_USAGE (Xaver)
+> 	DRM_MODE_ATOMIC_ASYNC_NOT_SUPP_PLANE
+> 	DRM_MODE_ATOMIC_ASYNC_MODIFIER_NOT_SUPP
+> v10: Added more error codes for the enum
+> v11: Add default/unspecified error code
+>
+> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 > ---
-> v1: https://lore.kernel.org/all/20261002073107.2209644-1-matthias.goergens@gmail.com/
-> 
-> Changes in v2:
-> - Look the folios up in batches with filemap_get_folios() and call
->   cond_resched() between batches, instead of one __filemap_get_folio()
->   call per index with no rescheduling, which Sashiko pointed out:
->   https://lore.kernel.org/all/20261002091439.59C611F00899@smtp.kernel.org/
->   Measured with the same test-only harness in the same guest, v1 against
->   v2: on a fully populated 1 GiB object, the longest time the walk ran
->   without reaching cond_resched() went from about 85 ms to under 0.1 ms;
->   on a 3 GiB object (786432 pages) with 1% of its pages present and the
->   rest holes or swapped out, one call made 255 filemap_get_folios()
->   calls instead of 786432 __filemap_get_folio() calls.  A run of swap
->   entries is still stepped over inside a single filemap_get_folios()
->   call: about 2 ms for a fully swapped-out 3 GiB object.  I did not split
->   the range further, since every page of the object was in memory until
->   just before this runs, so holes and swap entries are the exception.
-> - A batch is looked up ahead of the writes, so if writing splits a
->   large folio, look the rest of it up again (v1 got this by reading the
->   folio size after the write).
-> 
-> This replaces my two earlier patches to this loop, which can be dropped:
-> the loop they change never visits a folio.
-> 
-> https://lore.kernel.org/all/20260915062924.2410550-1-matthias.goergens@gmail.com/
-> https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergens@gmail.com/
-> 
-> In 6.18.y and 7.2.y, the maintained stable trees that have
-> 776a853a43c9, the call is shmem_writeout(folio, NULL, NULL) instead of
-> shmem_write_folio(folio), with the same return convention.
-> 
-> In review of 776a853a43c9, Christoph asked for this loop to move behind
-> a shmem API instead of living in drivers, and Matthew agreed:
-> 
-> https://lore.kernel.org/all/Z--XtaM7Z3zbjzAu@infradead.org/
-> https://lore.kernel.org/all/Z-_hQwNeiOnNYJVp@casper.infradead.org/
-> 
-> I kept this fix inside i915 so that it is one patch for stable.
-> 
-> The test harness is not part of the patch; I can post it if that helps.
-> Testing on Intel hardware under memory pressure would be very welcome.
-> 
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 70 ++++++++++++++++++-----
->  1 file changed, 57 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> index ef9440166295..d2077b823b1b 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -304,28 +304,72 @@ shmem_truncate(struct drm_i915_gem_object *obj)
->  	return 0;
->  }
->  
-> +/* Start writing a locked folio to swap.  It is unlocked on return. */
-> +static void shmem_writeback_folio(struct folio *folio)
-> +{
-> +	int ret;
+>   include/uapi/drm/drm_mode.h | 56 +++++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 56 insertions(+)
+>
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index a4bdc4bd11bc142e9d3b172397e18a1909a21488..8bf5fd8533912dc7a188aad19cc3741dd2099592 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -48,6 +48,7 @@ extern "C" {
+>   #define DRM_CONNECTOR_NAME_LEN	32
+>   #define DRM_DISPLAY_MODE_LEN	32
+>   #define DRM_PROP_NAME_LEN	32
+> +#define DRM_MODE_ATOMIC_FAILURE_STRING_LEN	128
+>   
+>   #define DRM_MODE_TYPE_BUILTIN	(1<<0) /* deprecated */
+>   #define DRM_MODE_TYPE_CLOCK_C	((1<<1) | DRM_MODE_TYPE_BUILTIN) /* deprecated */
+> @@ -1346,6 +1347,61 @@ struct drm_mode_destroy_dumb {
+>   		DRM_MODE_ATOMIC_NONBLOCK |\
+>   		DRM_MODE_ATOMIC_ALLOW_MODESET)
+>   
+> +/**
+> + * enum drm_mode_atomic_failure_codes -  error codes for failures in atomic_ioctl
+
+I have serious doubts about these failure codes. The core issue to me is 
+that when the kernel driver detects an impossible commit, it probably 
+knows best how to fix it. Yet the failure codes often lack actionable 
+meaning. Examples below
+
+> + * @DRM_MODE_ATOMIC_UNSPECIFIED_ERROR: this is the default/unspecified error.
+
+This one does not give a hint to what happens. Should userspace abort or 
+fall back to TEST_ONLY?
+
+> + * @DRM_MODE_ATOMIC_INVALID_API_USAGE: invallid API usage(DRM_ATOMIC not
+> + *				       enabled, invalid falg, page_flip event
+> + *				       with test-only, etc)
+
+I've seen this being used in the i915 patch for a async flip.  Could 
+mean anything there (format, driver specifics).
+
+> + * @DRM_MODE_ATOMIC_NEED_FULL_MODESET: Need full modeset on all connected crtc's
+
+This one is helpful because it gives user space an actionable hint.
+
+> + * @DRM_MODE_ATOMIC_ASYNC_PROP_CHANGED: Property changed in async flip
+> + * @DRM_MODE_ATOMIC_SCANOUT_BW: For a given resolution, refresh rate and the
+> + *                              color depth cannot be accomodated. Resolution
+> + *                              is to lower the refresh rate or color depth.
+> + * @DRM_MODE_ATOMIC_CONNECTOR_BW: Refers to the limitation on the link rate on
+> + *                                a given connector.
+> + * @DRM_MODE_ATOMIC_PIPE_BW: Limitation on the pipe, either pipe not available
+> + *                           or the pipe scaling factor limitation.
+> + * @DRM_MODE_ATOMIC_MEMORY_DOMAIN: Any other memory/bandwidth related limitation
+> + *                                 other then the ones specified above.
+> + * @DRM_MODE_ATOMIC_SPEC_VIOLOATION: Limitation of a particular feature on that
+> + *                                   hardware. To get to know the feature, the
+> + *                                   property/object causing this is being sent
+> + *                                   back to user @failure_objs_ptr in the
+> + *                                   struct drm_mode_atomic_err_code
+
+There codes don't seem actionable to me.
+
+What I'm proposing is a set if hints (instead of failure) that give user 
+space a clear instruction on what to try next.
+
+I assume you're familiar with the mode-status codes? [1] They do this to 
+some extend.
+
+[1] 
+https://elixir.bootlin.com/linux/v7.2.8/source/include/drm/drm_modes.h#L91
+
+> + */
+> +enum drm_mode_atomic_failure_codes {
+> +	DRM_MODE_ATOMIC_UNSPECIFIED_ERROR,
+> +	DRM_MODE_ATOMIC_INVALID_API_USAGE,
+> +	DRM_MODE_ATOMIC_NEED_FULL_MODESET,
+> +	DRM_MODE_ATOMIC_ASYNC_PROP_CHANGED,
+> +	DRM_MODE_ATOMIC_SCANOUT_BW,
+> +	DRM_MODE_ATTOMIC_CONNECTOR_BW,
+> +	DRM_MODE_ATTOMIC_PIPE_BW,
+> +	DRM_MODE_ATOMIC_MEMORY_DOMAIN,
+> +	DRM_MODE_ATOMIC_SPEC_VIOLOATION,
+> +};
 > +
-> +	folio_set_reclaim(folio);
-> +	ret = shmem_write_folio(folio);
-> +	if (!folio_test_writeback(folio))
-> +		folio_clear_reclaim(folio);
+> +/**
+> + * struct drm_mode_atomic_err_code - struct to store the error code
+> + *
+> + * pointer to this struct will be stored in reserved variable of
+> + * struct drm_mode_atomic to report the failure cause to the user.
+> + *
+> + * @failure_code: error codes defined in enum drm_moide_atomic_failure_code
+> + * @failure_objs_ptr: pointer to the drm_object that caused error
+> + * @reserved: reserved for future use
+> + * @count_objs: count of drm_objects if multiple drm_objects caused error
+> + * @failure_string: user readable error message string
+> + */
+> +struct drm_mode_atomic_err_code {
+> +	__u64 failure_code;
+> +	__u64 failure_objs_ptr;
+> +	__u64 reserved;
+> +	__u32 count_objs;
+> +	char failure_string[DRM_MODE_ATOMIC_FAILURE_STRING_LEN];
+
+I'd don't think we should return error strings from the kernel. If we 
+do, these strings will become uAPI. And I guarantee that someone will 
+start parsing them for information. We'll be in a situation where we 
+cannot ever change the strings.
+
+For error logging, we can put messages directly in the kernel log or you 
+can build them in user space from within libdrm.
+
+Best regards
+Thomas
+
+
+> +};
 > +
-> +	/* shmem_write_folio() unlocks the folio unless it returns this. */
-> +	if (ret == AOP_WRITEPAGE_ACTIVATE)
-> +		folio_unlock(folio);
-> +}
-> +
->  void __shmem_writeback(size_t size, struct address_space *mapping)
->  {
-> -	struct writeback_control wbc = {
-> -		.sync_mode = WB_SYNC_NONE,
-> -		.nr_to_write = SWAP_CLUSTER_MAX,
-> -		.range_start = 0,
-> -		.range_end = LLONG_MAX,
-> -	};
-> -	struct folio *folio = NULL;
-> -	int error = 0;
-> +	pgoff_t last = (size >> PAGE_SHIFT) - 1;	/* last page, inclusive */
-> +	struct folio_batch fbatch;
-> +	pgoff_t index = 0;
-> +	unsigned int i;
->  
->  	/*
-> +	 * shmem marks folios dirty with noop_dirty_folio(), which does not
-> +	 * set PAGECACHE_TAG_DIRTY, so writeback_iter() would find none of
-> +	 * them.  Look up the folios of the object in batches and write out
-> +	 * the dirty ones.
-> +	 *
->  	 * Leave mmapings intact (GTT will have been revoked on unbinding,
->  	 * leaving only CPU mmapings around) and add those folios to the LRU
->  	 * instead of invoking writeback so they are aged and paged out
->  	 * as normal.
->  	 */
-> -	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
-> -		if (folio_mapped(folio))
-> -			folio_redirty_for_writepage(&wbc, folio);
-> -		else
-> -			error = shmem_write_folio(folio);
-> +	folio_batch_init(&fbatch);
-> +	while (filemap_get_folios(mapping, &index, last, &fbatch)) {
-> +		for (i = 0; i < folio_batch_count(&fbatch); i++) {
-> +			struct folio *folio = fbatch.folios[i];
-> +			long nr_pages = folio_nr_pages(folio);
-> +
-> +			/*
-> +			 * Leave locked folios to reclaim: this runs from the
-> +			 * shrinker and the OOM notifier, so do not wait for a
-> +			 * lock.
-> +			 */
-> +			if (!folio_trylock(folio))
-> +				continue;
-> +
-> +			if (folio->mapping != mapping || folio_mapped(folio) ||
-> +			    !folio_clear_dirty_for_io(folio)) {
-> +				folio_unlock(folio);
-> +				continue;
-> +			}
-> +
-> +			shmem_writeback_folio(folio);
-> +
-> +			/*
-> +			 * Writing may have split the folio and left the rest
-> +			 * of it dirty; look the rest up again.
-> +			 */
-> +			if (folio_nr_pages(folio) != nr_pages) {
-> +				index = folio_next_index(folio);
-> +				break;
-> +			}
-> +		}
-> +		folio_batch_release(&fbatch);
-> +		cond_resched();
->  	}
->  }
->  
-> 
-> base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
-> -- 
-> 2.56.0
-> 
----end quoted text---
+>   struct drm_mode_atomic {
+>   	__u32 flags;
+>   	__u32 count_objs;
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
