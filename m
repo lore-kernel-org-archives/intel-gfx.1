@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F634CA5FFC
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 18:39:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 407F9CA5FF0
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 19:55:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 075DA10E5BA;
-	Mon,  5 Oct 2026 18:39:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TUvkBGGl";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 681DB10E5BA;
- Mon,  5 Oct 2026 18:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791225563; x=1822761563;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:to:cc;
- bh=I/aPpxrqyhNHcPRPLxV/k8u50+dkOZzUHS5MUz+nHzM=;
- b=TUvkBGGlxmQaMuPTP41Bn2tjeXfpU+2jr09HlqoyoNym1FFNAQDoQSfN
- QXmVcalAvxVL3yKzUliNTQbKLieIuTmqTa3JC2rKCyPcpmknRJ96i4CJn
- nwu83GXXBK4vGaqzjMnwi81NAfE40ehe2ZC7Z1+9Rmm0mHB0GKd9xih8A
- FUjuk8L622XyK7riaMVg55Aeaw3vEcdeDL7oBaGFJHMlLydzmAbQxn3cI
- GIZjXvfS1q7yYWSGYxjvznZ6+/VXBxId3JpAdoG4sVkHIjZ73RwouSrtI
- WbSIPGvNvCFtXWm6M1aYOnu4nddoZo4MwgVPUq1mlrw8Y32t3JGsOVv3T A==;
-X-CSE-ConnectionGUID: f/cg8ASUQiyY1RC9Qb8Q6Q==
-X-CSE-MsgGUID: khCr1vIAR/m88A1yscAjHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="91040184"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; d="scan'208";a="91040184"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2026 11:39:22 -0700
-X-CSE-ConnectionGUID: 0f4e899CT/mufaMu4xjpyA==
-X-CSE-MsgGUID: Rwqxp9O3QDSRjXR5xYxbjg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; d="scan'208";a="276014857"
-Received: from lstrano-mobl6.amr.corp.intel.com (HELO [192.168.1.16])
- ([10.124.220.73])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2026 11:39:20 -0700
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-Date: Mon, 05 Oct 2026 15:38:46 -0300
-Subject: [PATCH] drm/i915/xe3p_lpd: Reduce lowest CDCLK PLL ratio to 18
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4B7110EE6A;
+	Mon,  5 Oct 2026 19:55:58 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E88D810EE6A;
+ Mon,  5 Oct 2026 19:55:57 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4305836598491570848=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-xe3p-cdclk-pll-18-v1-1-6f1652c224b4@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBtQ++8q0SJ1qiEpUQghunvS8
- lu890CkwBRhLB4IdHPk68yQZQFmX86NkG02KKFaKYTCRJVHY4070DuHssdm0LYbjG50rSF3PtD
- K6X9O8/t+UkRDJWMAAAA=
-X-Change-ID: 20261002-xe3p-cdclk-pll-18-59bd79cb5b4b
-To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org, Gustavo Sousa <gustavo.sousa@intel.com>
-X-Mailer: b4 0.15-dev
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/xe3p=5Flpd=3A_Re?=
+ =?utf-8?q?duce_lowest_CDCLK_PLL_ratio_to_18?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gustavo Sousa" <gustavo.sousa@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 05 Oct 2026 19:55:57 -0000
+Message-ID: <179123015794.241496.568111774750159963@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20261005-xe3p-cdclk-pll-18-v1-1-6f1652c224b4@intel.com>
+In-Reply-To: <20261005-xe3p-cdclk-pll-18-v1-1-6f1652c224b4@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,60 +37,141 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The CDCLK table has been updated on Bspec to reduce the lowest PLL
-ratio to 18 and improve voltage selection in some SKUs.  Update the
-driver to match the new table.
+--===============4305836598491570848==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Bspec: 68861
-Fixes: af28e607fc75 ("drm/i915/xe3p_lpd: Add CDCLK table")
-Cc: stable@vger.kernel.org # v6.19+
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cdclk.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 92e6fca861f6..dad5fbeaa1bd 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1593,16 +1593,18 @@ static const struct intel_cdclk_vals xe3lpd_cdclk_table[] = {
- };
- 
- static const struct intel_cdclk_vals xe3p_lpd_cdclk_table[] = {
--	{ .refclk = 38400, .cdclk = 151200, .ratio = 21, .waveform = 0xa4a4 },
--	{ .refclk = 38400, .cdclk = 176400, .ratio = 21, .waveform = 0xaa54 },
--	{ .refclk = 38400, .cdclk = 201600, .ratio = 21, .waveform = 0xaaaa },
--	{ .refclk = 38400, .cdclk = 226800, .ratio = 21, .waveform = 0xad5a },
--	{ .refclk = 38400, .cdclk = 252000, .ratio = 21, .waveform = 0xb6b6 },
--	{ .refclk = 38400, .cdclk = 277200, .ratio = 21, .waveform = 0xdbb6 },
--	{ .refclk = 38400, .cdclk = 302400, .ratio = 21, .waveform = 0xeeee },
--	{ .refclk = 38400, .cdclk = 327600, .ratio = 21, .waveform = 0xf7de },
--	{ .refclk = 38400, .cdclk = 352800, .ratio = 21, .waveform = 0xfefe },
--	{ .refclk = 38400, .cdclk = 378000, .ratio = 21, .waveform = 0xfffe },
-+	{ .refclk = 38400, .cdclk = 151200, .ratio = 18, .waveform = 0xa54a },
-+	{ .refclk = 38400, .cdclk = 172800, .ratio = 18, .waveform = 0xaaaa },
-+	{ .refclk = 38400, .cdclk = 194400, .ratio = 18, .waveform = 0xad5a },
-+	{ .refclk = 38400, .cdclk = 216000, .ratio = 18, .waveform = 0xb6b6 },
-+	{ .refclk = 38400, .cdclk = 237600, .ratio = 18, .waveform = 0xdbb6 },
-+	{ .refclk = 38400, .cdclk = 259200, .ratio = 18, .waveform = 0xeeee },
-+	{ .refclk = 38400, .cdclk = 280800, .ratio = 18, .waveform = 0xf7de },
-+	{ .refclk = 38400, .cdclk = 302400, .ratio = 18, .waveform = 0xfefe },
-+	{ .refclk = 38400, .cdclk = 324000, .ratio = 18, .waveform = 0xfffe },
-+	{ .refclk = 38400, .cdclk = 345600, .ratio = 18, .waveform = 0xffff },
-+	{ .refclk = 38400, .cdclk = 364800, .ratio = 19, .waveform = 0xffff },
-+	{ .refclk = 38400, .cdclk = 384000, .ratio = 20, .waveform = 0xffff },
- 	{ .refclk = 38400, .cdclk = 403200, .ratio = 21, .waveform = 0xffff },
- 	{ .refclk = 38400, .cdclk = 422400, .ratio = 22, .waveform = 0xffff },
- 	{ .refclk = 38400, .cdclk = 441600, .ratio = 23, .waveform = 0xffff },
+Series: drm/i915/xe3p_lpd: Reduce lowest CDCLK PLL ratio to 18
+URL   : https://patchwork.freedesktop.org/series/175566/
+State : success
 
----
-base-commit: 28a2edb89a25a41d2a45e27d74dfd946872d0faf
-change-id: 20261002-xe3p-cdclk-pll-18-59bd79cb5b4b
+== Summary ==
 
-Best regards,
---  
-Gustavo Sousa <gustavo.sousa@intel.com>
+CI Bug Log - changes from CI_DRM_19281 -> Patchwork_175566v1
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/index.html
+
+Participating hosts (39 -> 36)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-glk-j4005 bat-adls-6 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_175566v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-arlh-3:         [INCOMPLETE][1] ([i915#16547]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19281/bat-arlh-3/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/bat-arlh-3/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@evict:
+    - bat-arlh-3:         [INCOMPLETE][3] -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19281/bat-arlh-3/igt@i915_selftest@live@evict.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/bat-arlh-3/igt@i915_selftest@live@evict.html
+
+  
+  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19281 -> Patchwork_175566v1
+
+  CI-20190529: 20190529
+  CI_DRM_19281: c1341b7b7cec27ca50f287ec497e41a8cc88f22b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9128: 9128
+  Patchwork_175566v1: c1341b7b7cec27ca50f287ec497e41a8cc88f22b @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/index.html
+
+--===============4305836598491570848==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/xe3p_lpd: Reduce lowest CDCLK PLL ratio to 18</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175566/">https://patchwork.freedesktop.org/series/175566/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19281 -&gt; Patchwork_175566v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 36)</h2>
+<p>Missing    (3): bat-dg2-13 fi-glk-j4005 bat-adls-6 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_175566v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19281/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/bat-arlh-3/igt@i915_selftest@live.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@evict:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19281/bat-arlh-3/igt@i915_selftest@live@evict.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175566v1/bat-arlh-3/igt@i915_selftest@live@evict.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19281 -&gt; Patchwork_175566v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19281: c1341b7b7cec27ca50f287ec497e41a8cc88f22b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9128: 9128<br />
+  Patchwork_175566v1: c1341b7b7cec27ca50f287ec497e41a8cc88f22b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4305836598491570848==--
