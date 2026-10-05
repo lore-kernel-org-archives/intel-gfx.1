@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08241CA5FF0
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 11:40:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D46BFCA5FF0
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 12:07:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 856EC10E638;
-	Mon,  5 Oct 2026 11:39:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6518610EB61;
+	Mon,  5 Oct 2026 12:07:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="YUpg1W2C";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EltnP57P";
 	dkim-atps=neutral
-Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C867010E131
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 11:39:57 +0000 (UTC)
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com
- [74.125.230.169]) (Authenticated sender: zamundaaa)
- by letterbox.kde.org (Postfix) with ESMTPSA id 09BE633F244
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 12:39:56 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
- t=1791200396; bh=3XJn2mVSdIQylxqa0RU54rxgqj0u+ROWTib96AVY9mw=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=YUpg1W2CSfMCJhgk/d8IOHMCW3/8rgj3s8OnTP4BOgCzH71K2Qoh7Q0leQ8nMQnZv
- M84dwOVchdD2jKUzN1JkeI0kbGsHpNlRoGE5FusgaXXBfXfHZN4I83YsM7vUcq/kJM
- rZO+Dar3oesKE6ObFYfkTQI70cYXso99BbPKDCPOflV458s6IyIQxZ12xdNZ5zJthi
- AYPBBdLfznIWG3irzSia/EK27q4Bg8RhebgM7TC8Dl4stnGs+KpGu6X+DNb8kwvNnf
- Ref7Qmew4lPYquOWYE5EjYuJ6WNB/clASTg0zqBeSvCzyQMlonp/s/+j2+aq1eqhCH
- pKrQikqnc8knw==
-Received: by mail-qv2-f41.google.com with SMTP id
- 6a1803df08f44-9179750d44eso17804146d6.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 05 Oct 2026 04:39:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBxqej7SHzoSYUeRCe+8pTH9avhbPDRf49O4mhR+WfTtBByujFwM6RQeABlio3f/JMLO8lf2TxPE6Hk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mHf6RyUCGunbf9EgPfKBKT3YCEGzbo7v95UI2O63xkvW4HSr34
- FxPE7TWKb0CXbJZyAhLqDEfDeR03ounH7KeFbMs0GQTjdpSQqy72SbZwI/L7EsK/DOeuUejqac4
- 5yqRdANTqfOG3ZDlfpyhRqHm9zNoOFQc=
-X-Received: by 2002:a05:6214:19ea:b0:919:82c5:43ad with SMTP id
- 6a1803df08f44-91982c544b1mr4394986d6.13.1791200394616; Mon, 05 Oct 2026
- 04:39:54 -0700 (PDT)
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D6B410E5B2;
+ Mon,  5 Oct 2026 12:07:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791202045; x=1822738045;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=NZIhoiBu3FmzTtuIairAkdd6glstAiFDHnqVQ7c6zec=;
+ b=EltnP57PImvuievfbaop12ZE+61ev7Kn/xhVJLq5vKMB6hmFHJHr4EvL
+ 4Pq3skW/F2wxQExX/2Q3pVtgK6B6UpFQV5WRqcQeaPTgbTnEjg4r10tGF
+ iGVft/DijCtzlbn13j8TTd/JSCCgeASzjg5ElGJp310Bxcp0XWhx1Gv4V
+ 8JuCxIQtAHpJlTJNz81OseLOT8HqtZFCZgnyK2BhO9+ZRlajskN8eu9Cf
+ mDnjUfXX6yAuFJ3mJZZRybLQNePEEl/eX8epANKhw6D/mZzKVY2uybhms
+ PD2vTECmlY46lnZntNmuoSAXBFcpU1ZHHmh8Z8TnIcD7UmUKuuIQd3ua6 g==;
+X-CSE-ConnectionGUID: OSEXDPmjRyyHIlqNyctjZQ==
+X-CSE-MsgGUID: DUjHnBwGRrWFzxJljSMOlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="90904711"
+X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; d="scan'208";a="90904711"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2026 05:07:25 -0700
+X-CSE-ConnectionGUID: Vlt/SrZwT6K0+5JyQOzeMw==
+X-CSE-MsgGUID: SHy2l4ZUTUWOfZisSQqOow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; d="scan'208";a="276932252"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.222])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2026 05:07:20 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Arun R Murthy
+ <arun.r.murthy@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ xaver.hugl@kde.org, harry.wentland@amd.com, uma.shankar@intel.com,
+ louis.chauvet@bootlin.com, naveen1.kumar@intel.com,
+ ramya.krishna.yella@intel.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: Re: [PATCH v11 1/7] drm: Define user readable error codes for
+ atomic ioctl
+In-Reply-To: <e9be1ef8-9884-4117-9eed-ba179248ffc6@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260331-atomic-v11-0-6a1df7ec5af8@intel.com>
  <20260331-atomic-v11-1-6a1df7ec5af8@intel.com>
  <e9be1ef8-9884-4117-9eed-ba179248ffc6@suse.de>
-In-Reply-To: <e9be1ef8-9884-4117-9eed-ba179248ffc6@suse.de>
-From: Xaver Hugl <xaver.hugl@kde.org>
-Date: Mon, 5 Oct 2026 13:39:42 +0200
-X-Gmail-Original-Message-ID: <CAFZQkGzSkUZTodjUudhLsYtset=EqviZeqrfv6gj6XmG+ZJOPQ@mail.gmail.com>
-X-Gm-Features: AclHuK9JKTC03NA4ozxQo1TQRCH1D3FyK2zi18UQWiM7SR2tFBvD2G16KXT3IGI
-Message-ID: <CAFZQkGzSkUZTodjUudhLsYtset=EqviZeqrfv6gj6XmG+ZJOPQ@mail.gmail.com>
-Subject: Re: [PATCH v11 1/7] drm: Define user readable error codes for atomic
- ioctl
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Arun R Murthy <arun.r.murthy@intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- harry.wentland@amd.com, uma.shankar@intel.com, louis.chauvet@bootlin.com, 
- naveen1.kumar@intel.com, ramya.krishna.yella@intel.com, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Suraj Kandpal <suraj.kandpal@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 05 Oct 2026 15:07:17 +0300
+Message-ID: <1f3c2a41a80a9e2902e72be385596ce285b96b2e@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,75 +81,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am Mo., 5. Okt. 2026 um 11:08 Uhr schrieb Thomas Zimmermann
-<tzimmermann@suse.de>:
-> I have serious doubts about these failure codes. The core issue to me is
-> that when the kernel driver detects an impossible commit, it probably
-> knows best how to fix it.
-There's lots of different ways you could fix any specific error, with
-different tradeoffs and it all depends a lot on what the compositor is
-actually trying to do. The kernel can't make those kinds of policy
-decisions.
+On Mon, 05 Oct 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> I have serious doubts about these failure codes. The core issue to me is 
+> that when the kernel driver detects an impossible commit, it probably 
+> knows best how to fix it. Yet the failure codes often lack actionable 
+> meaning.
 
-> > + * @DRM_MODE_ATOMIC_UNSPECIFIED_ERROR: this is the default/unspecified error.
->
-> This one does not give a hint to what happens. Should userspace abort or
-> fall back to TEST_ONLY?
-That's up to userspace. It's the same as ret=-EINVAL today.
+From a different perspective, one of my concerns is that not only the
+error codes become ABI, but also the behaviour becomes ABI.
 
-> > + * @DRM_MODE_ATOMIC_INVALID_API_USAGE: invallid API usage(DRM_ATOMIC not
-> > + *                                  enabled, invalid falg, page_flip event
-> > + *                                  with test-only, etc)
->
-> I've seen this being used in the i915 patch for a async flip.  Could
-> mean anything there (format, driver specifics).
-Its purpose is to catch anything that the compositor is supposed to
-know it can't do - using unsupported formats, invalid combinations of
-properties (crtc active=1 without a connector), that sort of thing. It
-should never be anything driver specific though.
+When you're doing atomic check, you usually bail out at the first
+problem you can't wiggle around. It's hard or impossible to figure out
+the next problem or a bigger problem, because you've just detected you
+have a configuration you can't support anyway. You hit the first problem
+and you report that.
 
-> > + * @DRM_MODE_ATOMIC_ASYNC_PROP_CHANGED: Property changed in async flip
-> > + * @DRM_MODE_ATOMIC_SCANOUT_BW: For a given resolution, refresh rate and the
-> > + *                              color depth cannot be accomodated. Resolution
-> > + *                              is to lower the refresh rate or color depth.
-> > + * @DRM_MODE_ATOMIC_CONNECTOR_BW: Refers to the limitation on the link rate on
-> > + *                                a given connector.
-> > + * @DRM_MODE_ATOMIC_PIPE_BW: Limitation on the pipe, either pipe not available
-> > + *                           or the pipe scaling factor limitation.
-> > + * @DRM_MODE_ATOMIC_MEMORY_DOMAIN: Any other memory/bandwidth related limitation
-> > + *                                 other then the ones specified above.
-> > + * @DRM_MODE_ATOMIC_SPEC_VIOLOATION: Limitation of a particular feature on that
-> > + *                                   hardware. To get to know the feature, the
-> > + *                                   property/object causing this is being sent
-> > + *                                   back to user @failure_objs_ptr in the
-> > + *                                   struct drm_mode_atomic_err_code
->
-> There codes don't seem actionable to me.
-Scanout and connector bandwidth are very directly actionable. I agree
-about the others though, adding these error codes should wait until
-there's a compositor actually using them for something.
+Now, let's assume userspace adapts to an error code, retries with
+different settings, and things work. What if we want to do atomic checks
+in a different order in the driver, because it makes sense or is better
+or whatever. Is it a regression to report a different error code because
+we now do the checks in a different order? Is that painting ourselves in
+the corner?
 
-> > +     char failure_string[DRM_MODE_ATOMIC_FAILURE_STRING_LEN];
->
-> I'd don't think we should return error strings from the kernel. If we
-> do, these strings will become uAPI. And I guarantee that someone will
-> start parsing them for information. We'll be in a situation where we
-> cannot ever change the strings.
->
-> For error logging, we can put messages directly in the kernel log
-The error string is half the reason we need the API: When things fail
-on an end user system, we need to be able to find out what happened
-after the fact, without the user needing to have drm debug logging
-enabled and without them having to trigger the bug again (which can be
-very difficult to do).
 
-I think making the error string something more abstract like the file
-+ line number of the failure would also be okay, if that solves the
-concerns about uAPI. We just need some way to figure out what happened
-after something goes wrong, which would usually involve diving through
-kernel sources anyways.
+BR,
+Jani.
 
-> or you can build them in user space from within libdrm.
-libdrm doesn't have any of the information returned in the error string.
 
-- Xaver
+-- 
+Jani Nikula, Intel
