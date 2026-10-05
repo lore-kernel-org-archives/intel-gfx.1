@@ -4,63 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F309CA5FF0
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 19:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15900CA5FF0
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 21:40:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AB7D10EE7F;
-	Mon,  5 Oct 2026 19:58:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VGFXKs4g";
-	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFCB710EE7F
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 19:58:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1791230330;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=qkAznBj0YywD0+o+tAJxW26YenTQuqhgBWYuJ8S0ThE=;
- b=VGFXKs4g8je2cnnDNmDlYBevNwCZewFK9c2xGy75goRGuv7nQNfrOj/jK1TiMrzOjlVMkC
- 6HWrF9G07BQd0lfM2T9mhAZAdl/wSFYhGQkGJtW8rqWNXzAOJi1Xa66dcHzbYbBuevByUu
- sNTgwC57cBPOBJuTn1AjjqKA2sPBXmA=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-564-hHboCxL-Oy-_cKgR77Oxig-1; Mon,
- 05 Oct 2026 15:58:46 -0400
-X-MC-Unique: hHboCxL-Oy-_cKgR77Oxig-1
-X-Mimecast-MFC-AGG-ID: hHboCxL-Oy-_cKgR77Oxig_1791230325
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 900CF195395C; Mon,  5 Oct 2026 19:58:44 +0000 (UTC)
-Received: from ashelat-thinkpadp1gen5.redhat.corp
- (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 68EC73001D2F; Mon,  5 Oct 2026 19:58:42 +0000 (UTC)
-From: Anubhav Shelat <ashelat@redhat.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Anubhav Shelat <ashelat@redhat.com>
-Subject: [PATCH v2] drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t
- from spinlock_t
-Date: Mon,  5 Oct 2026 15:56:58 -0400
-Message-ID: <20261005195658.732657-2-ashelat@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6865510E3F9;
+	Mon,  5 Oct 2026 21:40:58 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57F9310E2DA;
+ Mon,  5 Oct 2026 21:40:57 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1268359588601858292=="
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: w2A4ZL9wjjQsWD-GWRxofSCy0dJ83NosdoMw2yeJ3nQ_1791230325
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pmu=3A_convert_i?=
+ =?utf-8?q?915=5Fpmu-=3Elock_to_raw=5Fspinlock=5Ft_from_spinlock=5Ft_=28rev2?=
+ =?utf-8?q?=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Anubhav Shelat" <ashelat@redhat.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 05 Oct 2026 21:40:57 -0000
+Message-ID: <179123645735.241703.5549425943923156310@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20261005195658.732657-2-ashelat@redhat.com>
+In-Reply-To: <20261005195658.732657-2-ashelat@redhat.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,186 +38,246 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When perf runs event operations, it calls event_function() which takes a
-raw_spinlock_t. This can eventually lead to i915_pmu_enable() taking a
-spinlock_t, which causes lockdep to throw "Bug: Invalid wait context".
-The call chain:
+--===============1268359588601858292==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
- event_function()
-    __perf_ctx_lock()
-      raw_spin_lock(&ctx->lock)
-    __perf_event_enable()                     // efs->func()
-      ctx_resched()
-        perf_event_sched_in()
-          ctx_sched_in()
-            __pmu_ctx_sched_in()
-              merge_sched_in()
-                group_sched_in()
-                  event_sched_in()
-                    event->pmu->add()         // = i915_pmu_event_add()
-                      i915_pmu_event_start()
-                        i915_pmu_enable()
-                          spin_lock_irqsave(&pmu->lock)
+== Series Details ==
 
-On systems running an RT kernel, spinlock_t can sleep which can cause a
-sleep-in-atomic error.
+Series: drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t from spinlock_t (rev2)
+URL   : https://patchwork.freedesktop.org/series/175438/
+State : success
 
-Fix this by using raw_spinlock_t for i915_pmu->lock instead of
-spinlock_t. As a result, in i915_pmu_gt_parked(), we need to call and
-store the return value of get_rc6(), because its call chain will take
-a spinlock_t. This requires modifying park_rc6() to include it as an
-argument.
+== Summary ==
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Anubhav Shelat <ashelat@redhat.com>
----
- drivers/gpu/drm/i915/i915_pmu.c | 31 +++++++++++++++++--------------
- drivers/gpu/drm/i915/i915_pmu.h |  2 +-
- 2 files changed, 18 insertions(+), 15 deletions(-)
+CI Bug Log - changes from CI_DRM_19283 -> Patchwork_175438v2
+====================================================
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 1c3bafda9c70..31630e8f80c7 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -232,7 +232,7 @@ static u64 get_rc6(struct intel_gt *gt)
- 		intel_gt_pm_put_async(gt, wakeref);
- 	}
- 
--	spin_lock_irqsave(&pmu->lock, flags);
-+	raw_spin_lock_irqsave(&pmu->lock, flags);
- 
- 	if (wakeref) {
- 		store_sample(pmu, gt_id, __I915_SAMPLE_RC6, val);
-@@ -253,7 +253,7 @@ static u64 get_rc6(struct intel_gt *gt)
- 	else
- 		store_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED, val);
- 
--	spin_unlock_irqrestore(&pmu->lock, flags);
-+	raw_spin_unlock_irqrestore(&pmu->lock, flags);
- 
- 	return val;
- }
-@@ -278,11 +278,11 @@ static void init_rc6(struct i915_pmu *pmu)
- 	}
- }
- 
--static void park_rc6(struct intel_gt *gt)
-+static void park_rc6(struct intel_gt *gt, u64 val)
- {
- 	struct i915_pmu *pmu = &gt->i915->pmu;
- 
--	store_sample(pmu, gt->info.id, __I915_SAMPLE_RC6, __get_rc6(gt));
-+	store_sample(pmu, gt->info.id, __I915_SAMPLE_RC6, val);
- 	pmu->sleep_last[gt->info.id] = ktime_get_raw();
- }
- 
-@@ -300,13 +300,16 @@ static void __i915_pmu_maybe_start_timer(struct i915_pmu *pmu)
- void i915_pmu_gt_parked(struct intel_gt *gt)
- {
- 	struct i915_pmu *pmu = &gt->i915->pmu;
-+	u64 val;
- 
- 	if (!pmu->registered)
- 		return;
- 
--	spin_lock_irq(&pmu->lock);
-+	val = __get_rc6(gt);
-+
-+	raw_spin_lock_irq(&pmu->lock);
- 
--	park_rc6(gt);
-+	park_rc6(gt, val);
- 
- 	/*
- 	 * Signal sampling timer to stop if only engine events are enabled and
-@@ -316,7 +319,7 @@ void i915_pmu_gt_parked(struct intel_gt *gt)
- 	if (pmu->unparked == 0)
- 		pmu->timer_enabled = false;
- 
--	spin_unlock_irq(&pmu->lock);
-+	raw_spin_unlock_irq(&pmu->lock);
- }
- 
- void i915_pmu_gt_unparked(struct intel_gt *gt)
-@@ -326,7 +329,7 @@ void i915_pmu_gt_unparked(struct intel_gt *gt)
- 	if (!pmu->registered)
- 		return;
- 
--	spin_lock_irq(&pmu->lock);
-+	raw_spin_lock_irq(&pmu->lock);
- 
- 	/*
- 	 * Re-enable sampling timer when GPU goes active.
-@@ -336,7 +339,7 @@ void i915_pmu_gt_unparked(struct intel_gt *gt)
- 
- 	pmu->unparked |= BIT(gt->info.id);
- 
--	spin_unlock_irq(&pmu->lock);
-+	raw_spin_unlock_irq(&pmu->lock);
- }
- 
- static void
-@@ -742,7 +745,7 @@ static void i915_pmu_enable(struct perf_event *event)
- 	if (bit == -1)
- 		goto update;
- 
--	spin_lock_irqsave(&pmu->lock, flags);
-+	raw_spin_lock_irqsave(&pmu->lock, flags);
- 
- 	/*
- 	 * Update the bitmask of enabled events and increment
-@@ -784,7 +787,7 @@ static void i915_pmu_enable(struct perf_event *event)
- 		engine->pmu.enable_count[sample]++;
- 	}
- 
--	spin_unlock_irqrestore(&pmu->lock, flags);
-+	raw_spin_unlock_irqrestore(&pmu->lock, flags);
- 
- update:
- 	/*
-@@ -805,7 +808,7 @@ static void i915_pmu_disable(struct perf_event *event)
- 	if (bit == -1)
- 		return;
- 
--	spin_lock_irqsave(&pmu->lock, flags);
-+	raw_spin_lock_irqsave(&pmu->lock, flags);
- 
- 	if (is_engine_event(event)) {
- 		u8 sample = engine_event_sample(event);
-@@ -838,7 +841,7 @@ static void i915_pmu_disable(struct perf_event *event)
- 		pmu->timer_enabled &= pmu_needs_timer(pmu);
- 	}
- 
--	spin_unlock_irqrestore(&pmu->lock, flags);
-+	raw_spin_unlock_irqrestore(&pmu->lock, flags);
- }
- 
- static void i915_pmu_event_start(struct perf_event *event, int flags)
-@@ -1156,7 +1159,7 @@ void i915_pmu_register(struct drm_i915_private *i915)
- 	};
- 	int ret = -ENOMEM;
- 
--	spin_lock_init(&pmu->lock);
-+	raw_spin_lock_init(&pmu->lock);
- 	hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- 	init_rc6(pmu);
- 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
-index 5826cc81858c..52d4b602310a 100644
---- a/drivers/gpu/drm/i915/i915_pmu.h
-+++ b/drivers/gpu/drm/i915/i915_pmu.h
-@@ -71,7 +71,7 @@ struct i915_pmu {
- 	/**
- 	 * @lock: Lock protecting enable mask and ref count handling.
- 	 */
--	spinlock_t lock;
-+	raw_spinlock_t lock;
- 	/**
- 	 * @unparked: GT unparked mask.
- 	 */
--- 
-2.55.0
+Summary
+-------
 
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/index.html
+
+Participating hosts (38 -> 38)
+------------------------------
+
+  Additional (1): bat-adls-6 
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_175438v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@gem_tiled_pread_basic@basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
+
+  * igt@intel_hwmon@hwmon-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_dsc@dsc-basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_dsc@dsc-basic.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-adls-6:         NOTRUN -> [SKIP][6]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-primary-mmap-gtt:
+    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-fence-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#3291]) +2 other tests skip
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - fi-bsw-n3050:       [DMESG-FAIL][11] ([i915#16997]) -> [PASS][12] +1 other test pass
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19283/fi-bsw-n3050/igt@i915_selftest@live.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/fi-bsw-n3050/igt@i915_selftest@live.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
+  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
+  [i915#16997]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16997
+  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
+  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19283 -> Patchwork_175438v2
+
+  CI-20190529: 20190529
+  CI_DRM_19283: 5d226b433e3f4d7b1fee2cec0030813806f5510f @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9130: 9130
+  Patchwork_175438v2: 5d226b433e3f4d7b1fee2cec0030813806f5510f @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/index.html
+
+--===============1268359588601858292==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pmu: convert i915_pmu-&gt;lock to raw_spinlock_t from spinlock_t (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175438/">https://patchwork.freedesktop.org/series/175438/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19283 -&gt; Patchwork_175438v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/index.html</p>
+<h2>Participating hosts (38 -&gt; 38)</h2>
+<p>Additional (1): bat-adls-6 <br />
+  Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_175438v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_tiled_pread_basic@basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@intel_hwmon@hwmon-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_dsc@dsc-basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19283/fi-bsw-n3050/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16997">i915#16997</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v2/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19283 -&gt; Patchwork_175438v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19283: 5d226b433e3f4d7b1fee2cec0030813806f5510f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9130: 9130<br />
+  Patchwork_175438v2: 5d226b433e3f4d7b1fee2cec0030813806f5510f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1268359588601858292==--
