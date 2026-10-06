@@ -4,94 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35C04CA6007
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB194CA5FF1
 	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 14:06:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FFC010F5FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F75F10F600;
 	Wed,  7 Oct 2026 14:06:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fUHT0L/Y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="krRPklGR";
 	dkim-atps=neutral
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32AA010E482
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 11:42:51 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5ba35c0df4fso2072351e87.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 07 Oct 2026 04:42:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791373369; cv=none;
- d=google.com; s=arc-20260327;
- b=itqHVjbDD239jqlp6Y1wn2wZqvTxOcnvg/PfICtsenRkY6qvrqrKpT/4BDFtrL+jZl
- QNwu4qHZDGVYji/N4OShs049im1H8W4/tiDCZsDzXllzjUJ+yHSLyiAnGPZjjTd4EX+I
- QPlfYGOq7Q5K0d3wqhF7YsSN4EA1OZKGAqUAIZssYkSPQIpeAzeuh/WJsQXk8Y+Bkck+
- BQZeBSbwQwXTUkA7YCMQ30Rklt9DrclVbCv2/9u0GxPVLfwxyOn3H7BXyk46l3TE2TAe
- vtDzf7wjPeahTghK5W91eweIQHnInCEX2tP6n9FwNjnokhfm6Bvo3aCfe11jMJFIrhOb
- sATA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=IMjCS63xhp2WDsieZIPxXdxMp+WK6qGYquq1HDh8w9k=;
- fh=VillYRPBc1USxPUuhH2qEf/4+FdmIY/2mV2DYHvP71Q=;
- b=bebKTINS/+xJigBvy1oNcB+tVMz7MY5JNYIcVL8xWblKJ1t7dEVpnwQ4JR2/uB5p84
- ZgeEBo0I7VJQVMMbpCHzpDiZA+jovTeOJ8J9nvS0oSzoRpiF0Yvhyqb2zgPKJk0G3ZiH
- Mvoci64YGSfoCxHHFdNf1RduGTpxS4dZYtn2lqoR50tXerZWJFZCX1epdCJ3XFUsBUvD
- TSnNpT6bEYNVy8SX7jnwIUksqemCQVXhT4Dop4pH14As0f2/sTq710Kx7JughRRhvuLq
- wsKy3uT0E9PMH0N+PdpzidvCAm9M6t9+Nv42ler4jABW8RcdEugrzY/kkJhdlW/l9BpY
- L0YQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791373369; x=1791978169; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=IMjCS63xhp2WDsieZIPxXdxMp+WK6qGYquq1HDh8w9k=;
- b=fUHT0L/Y6HtW/XVCm0t0gCS3qsRZZYRbxh5q9DNp3EK2haRDq7LPIGxLpx4844qWRT
- FgYpVBN5u/3D5CgrilWi2dn71RGQ8muikXcwTUCxdOkkPZIEGXzh0DsOBqZuTQh5Eegz
- lwKFJJZTQ+Ss4DnAWeOTSwO5a4J1dlQZWmrjb3r9aqLXbodw5exjinRRxNwuOZheqNQY
- ++LrXPSoO0MPUPjgJ6a7lyvp1cf794HgTWCOwdlyc9amxIdWMfu/lIz9tyok+KAyZw8g
- SzgeQfZ86ZI7A17zsjZcN+EdXXFfkepGqAf3vFiYRrFJCpINHhMsn7rk6uQ73nqlu/1q
- /hiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791373369; x=1791978169;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=IMjCS63xhp2WDsieZIPxXdxMp+WK6qGYquq1HDh8w9k=;
- b=un3MlMr6VP6vYmbEz8OP9xNmytt8zK+gF/KFuoHRsc0t3+WSn1RYwlkMmtiwFUo+i1
- f5H4g94haVpkQLxPX+/Vqi7GBz/T0erLPAvMIBUMJSHCr7Ive960UEuPONcX6tV7TuN5
- J3cDApH0PeqdbvmLBTAPf89ExVoZ5mZg3x69sSgMxPM97oS2POpvrU3YmTTxCBizdp+t
- piEQ6BBrDlT70CIlBOXJxBGrDD6J747Wzk1IDoK7/CdNrNxMcyN4jz0NlXK0zKih1Pd2
- G2F5pbZk8WmGCIIvOpV1EEeNp2ZfY4afJwCUrXd+7Ds0Vk5oj/wlfTSSL2EKVyBeI26G
- XNZg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxs37+Ir4pFcAjEu4Y8r0Ho+Kfl4njH4d6V3IAq4+R+cu3JaT/IQjEE3zCBU7TTTA0cpBYuy/szKIY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIdSBnIwmXp30kGOJI4k/vBfhZjhmxqu6JoekczwxgRJKjk65NQ
- k2OJ0yhjbaSTDFd/3WqQgZ6ezmjzfjzczlpmk5jqzJ9OUyT/ubnGHOTFHeh8c59dhUKnPxw5EfQ
- VPE5vKsqjlaFuYLhuBKjNaHdf+6yplx8=
-X-Gm-Gg: AYBFou3CQyrpt3Gg+gdmuY8MTbU2Csy8DSwi2YxKtOT0tAkP4G0DwL0SamaZaIJo1HL
- dkQMKpeRnzJ0TUeedBUWg51HpjMYshOAxq8gTewuNyqc48jOw/O4ineNPf+qyTOf8zLNVfbY/27
- KA3SSlVc+UMSlNq87fcSnGXtVenSEjFWMV2/es39wpKsfWRQo7r/zxbJ6P3y4u3ARBSRfRKH9kj
- IjPI2+ySz/Ufpz7olAqHVdQO9c8pYZi7G/cpewPb2pnqJNp3qrHajm4Vr6KtQAYK9IczVb2Bjew
- HUK03f0lmV5pMGwiunbmtogcoFoT2phqLLAUc2ZJUHkOoFUnJ+/O61EY0dvzk4IC+XM5
-X-Received: by 2002:a05:6512:308d:b0:5b8:e89a:5cb2 with SMTP id
- 2adb3069b0e04-5bcd0716e07mr799097e87.30.1791373369086; Wed, 07 Oct 2026
- 04:42:49 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CF8A10E3FD;
+ Tue,  6 Oct 2026 19:38:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 437DB401E9;
+ Tue,  6 Oct 2026 19:38:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 24ABAC2BCF4;
+ Tue,  6 Oct 2026 19:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1791315519;
+ bh=4gZurF+WxwYW3vECDKp4O+sMU/KQSupKQ0lm4KQpDQI=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=krRPklGRd2XZDLxBWjLwubu0GxHSNhU1WJ8cQwjpa4e9DttFAVJMWl0RJ7OUkCxjl
+ imH8YE101Hfx62uPHWtC0OynEs7kMGQpLreY1mnp27iBOlmZ0EQANXesQqCXvmjfn3
+ 5jqjyBqfLFKjIICd7xJcNdK98Xp/k99lueZriEXYvVVQi1hVsmNfjmT0yZm72Kn1vc
+ Aew4C6AX2NAlnsygz8nBSWaXdY+m/8qBHODbQXDVzJXkp1wZNg+qrOaUhog298hIkm
+ iBv35jUfZlhc1LgFpONix+FASoR6aJkRnMz+lIRzccaBsa2bKTrD1+8ao0j5OVvNNV
+ hsx5+dieT8FKQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 0DD7BCA5FFC;
+ Tue,  6 Oct 2026 19:38:39 +0000 (UTC)
+From: =?utf-8?q?Burak_G=C3=B6nc=C3=BC_via_B4_Relay?=
+ <devnull+burakgon12.gmail.com@kernel.org>
+Date: Tue, 06 Oct 2026 22:38:38 +0300
+Subject: [PATCH RFC] drm/i915/cx0: request TCSS power for the non-TC C20
+ PHY on PTL port B
 MIME-Version: 1.0
-References: <CAN52AYstOLqaX_=_HBLEGKvcEmY+VGwKSbRRRyQbG4ytr6FD_A@mail.gmail.com>
-In-Reply-To: <CAN52AYstOLqaX_=_HBLEGKvcEmY+VGwKSbRRRyQbG4ytr6FD_A@mail.gmail.com>
-From: Jame Jao <jaojame6@gmail.com>
-Date: Wed, 7 Oct 2026 19:42:37 +0800
-X-Gm-Features: AclHuK8CkjCb4LCo3rA5_TpDH7jOz1RVJG5an8ba1-VN7tJJS0Mt-AcDBN_QK4U
-Message-ID: <CAN52AYscu2K0SC9MNhq5Rq0_YxmPJXK9TeB_33mMQb_BZ17nHw@mail.gmail.com>
-Subject: Fwd: [RESEND PATCH 0/5] platform/x86: bitland-mifs-wmi: MIFS v2
- firmware support, Xiaomi Book Pro 14 2026
-To: intel-xe@lists.freedesktop.org
-Cc: "Cc:" <rodrigo.vivi@intel.com>, jani.nikula@linux.intel.com, 
- intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261006-ptl-port-b-tcss-v1-1-240670342cd3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAwMz3YKSHN2C/KIS3STdkuTiYl2LJMPkpGTTFEuLVAMloK6CotS0zAq
+ widFKQW7OSrEQweLSpKzU5BKQWUq1tQBZaHFbeAAAAA==
+X-Change-ID: 20261006-ptl-port-b-tcss-8b1cbc5d98e0
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Imre Deak <imre.deak@intel.com>, 
+ Mika Kahola <mika.kahola@intel.com>, 
+ =?utf-8?q?Burak_G=C3=B6nc=C3=BC?= <burakgon12@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791315518; l=8020;
+ i=burakgon12@gmail.com; s=20261006; h=from:subject:message-id;
+ bh=84O+rVPELklDafjdEzewckIfux8kE8FYZHGvW1Kv7BU=;
+ b=TtxBEXa/wHxX3pLyi88l1wteEfUwhy9lGSs8XgWkAQeZiLqZNUynevfasfnTea5vzR18kNb7k
+ 1Y+sbNm7T3QCt7HSnPwpc4jIMtQw5s4RHctdwx3koGnYZHfSGZHTWdo
+X-Developer-Key: i=burakgon12@gmail.com; a=ed25519;
+ pk=qcexQajnoYGkNqFOy3eFqTzvqTOR/P++ksapi6qUbvw=
+X-Endpoint-Received: by B4 Relay for burakgon12@gmail.com/20261006 with
+ auth_id=1126
+X-Original-From: =?utf-8?q?Burak_G=C3=B6nc=C3=BC?= <burakgon12@gmail.com>
 X-Mailman-Approved-At: Wed, 07 Oct 2026 14:06:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,203 +76,197 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: burakgon12@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+From: Burak Göncü <burakgon12@gmail.com>
 
-I would like to report a WARNING that appears on every boot on a Panther
-Lake laptop, and that is also visible on screen (before the desktop comes
-up) when resuming from hibernation.
+On PTL, port B is driven by a C20 PHY that sits in the Type-C subsystem,
+but port B is not a TC port. The TC PHY code is what sets
+XELPDP_TCSS_POWER_REQUEST, so for port B nothing in the driver does.
 
-Hardware / software
--------------------
+The ASUS Zenbook Duo UX8407AA connects its second internal panel (eDP-2)
+to port B. The firmware lights that panel at power-on only when the
+detachable keyboard is not lying on it. After a power-on with the
+keyboard in place, the first enable of eDP-2 fails:
 
-  laptop    XIAOMI REDMI Book Pro 14 2026 (board TM2426)
-  BIOS      RMAPT4B0P0909 (2026-05-21), EC firmware 1.9
-  GPU       Intel Panther Lake [Arc B370] [8086:b081] (rev 04)
-            xe: "Found pantherlake (device ID b081) integrated display
-                 version 30.00 stepping B0"
-  kernel    7.2.9 (Arch linux-zen packaging: vanilla 7.2.9 + zen patchset
-            + one unrelated local one-file platform/x86 patch)
-  xe        srcversion BB102CAE6B929F8604B5647
+  PHY B failed to request refclk
+  PHY B failed to change powerdown state
+  PHY B failed to bring out of lane reset
+  Failed to bring PHY B to idle.
+  Port B PLL not locked
+  Timeout waiting for DDI BUF B to get active
 
-What happens
-------------
+and every later commit on pipe B waits for the flip_done timeout, or the
+machine hangs. The state survives warm reboots until a full power cycle.
 
-Every boot, about 7.1 s in, while the xe module initializes the display:
+In that state XELPDP_PORT_BUF_CTL1 of port B reads back with both
+XELPDP_TCSS_POWER_REQUEST and XELPDP_TCSS_POWER_STATE clear, and its
+XELPDP_PORT_CLOCK_CTL stays at 0xa0008400 where port A reaches
+0xf0008400. With the request set, the power state is acknowledged, the
+clock control reaches 0xf0008400 too and the panel comes up.
 
-  [    7.10xxxx] xe 0000:00:02.0: [drm] Found pantherlake (device ID
-b081) integrated display version 30.00 stepping B0
-  [    7.11xxxx] ------------[ cut here ]------------
-  [    7.11xxxx] xe 0000:00:02.0: [drm] Port A asks to use VBT
-vswing/preemph tables
-  [    7.11xxxx] WARNING:
-drivers/gpu/drm/i915/display/intel_bios.c:2813 at
-intel_bios_init+0x17fd/0x1f60 [xe], CPU#1: (udev-worker)/207
-  [    7.11xxxx] Modules linked in: xe(+) drm_ttm_helper ttm drm_buddy
-i2c_algo_bit drm_suballoc_helper nvme gpu_sched drm_gpuvm nvme_core
-drm_exec ...
-  [    7.11xxxx] CPU: 1 UID: 0 PID: 207 Comm: (udev-worker) Tainted: G
-    U   7.2.9-zen1-1.1-zen #1 PREEMPT(full)
-  [    7.11xxxx] Hardware name: XIAOMI REDMI Book Pro 14 2026/TM2426,
-BIOS RMAPT4B0P0909 05/21/2026
-  [    7.11xxxx] RIP: 0010:intel_bios_init+0x1806/0x1f60 [xe]
-  [    7.11xxxx] Call Trace:
-  [    7.11xxxx]  <TASK>
-  [    7.11xxxx]  intel_display_driver_probe_noirq+0x3b/0x2e0 [xe]
-  [    7.11xxxx]  xe_display_init_early+0x8b/0x140 [xe]
-  [    7.11xxxx]  xe_device_probe+0x46d/0xc20 [xe]
-  [    7.11xxxx]  xe_pci_probe+0xdf7/0x13d0 [xe]
-  [    7.11xxxx]  pci_call_probe+0x9a/0x270
-  [    7.11xxxx]  pci_device_probe+0xdb/0x180
-  [    7.11xxxx]  really_probe+0xe9/0x440
-  [    7.11xxxx]  __driver_probe_device+0x90/0x190
-  [    7.11xxxx]  __driver_attach+0xb3/0x370
-  [    7.11xxxx]  bus_for_each_dev+0x12f/0x1d0
-  [    7.11xxxx]  bus_add_driver+0x153/0x310
-  [    7.11xxxx]  driver_register+0x75/0xe0
-  [    7.11xxxx]  xe_init+0x27/0x90 [xe]
-  [    7.11xxxx]  ? __pfx_init_module+0x10/0x10 [xe]
-  [    7.11xxxx]  do_one_initcall+0x8e/0x3d0
-  [    7.11xxxx]  do_init_module+0x6a/0x2b0
-  [    7.11xxxx]  init_module_from_file+0xc8/0x180
-  [    7.11xxxx]  idempotent_init_module+0x23e/0x360
-  [    7.11xxxx]  __x64_sys_finit_module+0x7f/0x110
-  [    7.11xxxx]  do_syscall_64+0xaa/0x660
-  [    7.11xxxx]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-  [    7.11xxxx] ---[ end trace 0000000000000000 ]---
+Request TCSS power, including the PTL mailbox handshake the TC code
+uses (Wa_14020908590), before programming the PLL of a non-TC C20 PHY on
+PTL, wait for the acknowledgment, and release the request once the PLL
+is disabled, mirroring what the TC PHY code does for TC ports.
 
-which is exactly the check at intel_bios.c:2813:
+The failure and the TCSS power request as its fix were first identified
+by the zenbook-duo26-Ubuntu26.04 project.
 
-  /*
-   * FIXME need to implement support for VBT
-   * vswing/preemph tables should this ever trigger.
-   */
-  drm_WARN(display->drm, child->use_vbt_vswing,
-           "Port %c asks to use VBT vswing/preemph tables\n",
-           port_name(port));
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9196
+Link: https://github.com/therealarnold666/zenbook-duo26-Ubuntu26.04
+Assisted-by: LLM
+Signed-off-by: Burak Göncü <burakgon12@gmail.com>
+---
+RFC because I cannot check this against Bspec. Questions:
 
-So the VBT of this machine sets use_vbt_vswing for DDI port A.
+- Does port B's C20 PHY on PTL always need the TCSS power request when it
+  is used as a non-TC port, as this patch assumes, or does this belong in
+  the port's power well / AUX handling, or in a board quirk?
+- Should the request be held for as long as the port is in use rather
+  than per PLL enable/disable? Releasing it while the panel is off puts
+  the hardware back into the state an unpatched kernel has; holding it
+  showed no measurable difference in package power or PC10/LPI residency
+  on this machine.
 
-Impact here
------------
+Testing was done on an ASUS Zenbook Duo UX8407AA (BIOS 310) running
+7.2.9, with this change limited to that board by a DMI match and
+otherwise identical: power-on with the keyboard docked, then
+undock/dock/undock, and s2idle with the keyboard docked. No PHY B
+errors; XELPDP_TCSS_POWER_STATE follows the request, and the request is
+clear while the panel is off. An earlier version that kept the request
+set also went through s2idle with the panel on, and brought the panel
+up in a boot that followed a failed eDP-2 enable on an unpatched kernel.
+HDMI/DP on port B could not be tested, as this board only drives eDP
+there.
 
-The display works normally (eDP panel comes up, external output over USB-C
-works, no visible corruption), so for me this is a warning and not a
-functional failure. Two reasons I still wanted to report it:
+Compile-tested on drm-tip with W=1 for i915 and xe (clang). Logs of
+failing boots are in the gitlab issue.
 
-  - it dumps a full backtrace on every boot, which looks alarming in dmesg;
-  - after resume from hibernation the console output stays on screen until
-    the display driver takes over, so this warning is what the user actuall=
-y
-    sees ("a long line with a register dump") before the desktop comes back=
-.
-    It is not hibernation-specific: a plain cold boot shows it too.
+An LLM-based assistant helped with the investigation and with writing
+the patch; I tested it on the hardware and reviewed it.
+---
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 36 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_tc.c      | 23 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_tc.h      |  1 +
+ 3 files changed, 60 insertions(+)
 
-Questions
----------
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index b83f0afaa..597ca94e5 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -54,6 +54,35 @@ bool intel_encoder_is_c10phy(struct intel_encoder *encoder)
+ 	return false;
+ }
+ 
++/*
++ * On PTL, port B is driven by a C20 PHY inside the Type-C subsystem, but
++ * port B is not a TC port, so the TC PHY code never requests TCSS power
++ * for it. Unless the firmware has done so while lighting a display on the
++ * port at boot, the PHY then never acknowledges its refclk and PLL
++ * requests.
++ */
++static bool intel_cx0_needs_tcss_power(struct intel_encoder *encoder)
++{
++	struct intel_display *display = to_intel_display(encoder);
++
++	return display->platform.pantherlake &&
++	       !intel_encoder_is_c10phy(encoder) &&
++	       !intel_encoder_is_tc(encoder);
++}
++
++static void intel_cx0_request_tcss_power(struct intel_encoder *encoder, bool enable)
++{
++	struct intel_display *display = to_intel_display(encoder);
++
++	intel_tc_request_tcss_power(encoder, enable);
++
++	if (enable &&
++	    intel_de_wait_for_set_ms(display, XELPDP_PORT_BUF_CTL1(display, encoder->port),
++				     XELPDP_TCSS_POWER_STATE, 5))
++		drm_warn(display->drm, "Port %c: TCSS power request not acknowledged\n",
++			 port_name(encoder->port));
++}
++
+ static int lane_mask_to_lane(u8 lane_mask)
+ {
+ 	if (WARN_ON((lane_mask & ~INTEL_CX0_BOTH_LANES) ||
+@@ -3191,6 +3220,10 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
+ 	 */
+ 	drm_WARN_ON(display->drm, lane_reversal && intel_tc_port_in_dp_alt_mode(dig_port));
+ 
++	/* The PHY must be powered before its clocks are requested. */
++	if (intel_cx0_needs_tcss_power(encoder))
++		intel_cx0_request_tcss_power(encoder, true);
++
+ 	/*
+ 	 * 1. Program PORT_CLOCK_CTL REGISTER to configure
+ 	 * clock muxes, gating and SSC
+@@ -3536,6 +3569,9 @@ static void intel_cx0pll_disable(struct intel_encoder *encoder)
+ 	intel_de_rmw(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port),
+ 		     XELPDP_FORWARD_CLOCK_UNGATE, 0);
+ 
++	if (intel_cx0_needs_tcss_power(encoder))
++		intel_cx0_request_tcss_power(encoder, false);
++
+ 	intel_cx0_phy_transaction_end(encoder, wakeref);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index f2d86b29c..2a8665d4c 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -1090,6 +1090,29 @@ static void xelpdp_tc_power_request_wa(struct intel_display *display, bool enabl
+ 	}
+ }
+ 
++/**
++ * intel_tc_request_tcss_power - request TCSS power for a non-TC port's PHY
++ * @encoder: encoder of a non-TC port whose PHY sits in the Type-C subsystem
++ * @enable: request or release the power
++ *
++ * TC ports get TCSS power from the TC PHY code. This is for a non-TC port
++ * whose PHY nevertheless needs it, like port B's C20 PHY on PTL.
++ */
++void intel_tc_request_tcss_power(struct intel_encoder *encoder, bool enable)
++{
++	struct intel_display *display = to_intel_display(encoder);
++	intel_reg_t reg = XELPDP_PORT_BUF_CTL1(display, encoder->port);
++
++	if (!!(intel_de_read(display, reg) & XELPDP_TCSS_POWER_REQUEST) == enable)
++		return;
++
++	if (DISPLAY_VER(display) == 30)
++		xelpdp_tc_power_request_wa(display, enable);
++
++	intel_de_rmw(display, reg, XELPDP_TCSS_POWER_REQUEST,
++		     enable ? XELPDP_TCSS_POWER_REQUEST : 0);
++}
++
+ static void __xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool enable)
+ {
+ 	struct intel_display *display = to_intel_display(tc->dig_port);
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm/i915/display/intel_tc.h
+index 6719aea5b..b49a5b5c5 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.h
++++ b/drivers/gpu/drm/i915/display/intel_tc.h
+@@ -88,6 +88,7 @@ bool intel_tc_port_in_legacy_mode(struct intel_digital_port *dig_port);
+ bool intel_tc_port_handles_hpd_glitches(struct intel_digital_port *dig_port);
+ 
+ bool intel_tc_port_connected(struct intel_encoder *encoder);
++void intel_tc_request_tcss_power(struct intel_encoder *encoder, bool enable);
+ 
+ enum intel_tc_pin_assignment
+ intel_tc_port_get_pin_assignment(struct intel_digital_port *dig_port);
 
-  - Is this expected for this VBT, i.e. should the OEM VBT not set
-    use_vbt_vswing for port A at all?
-  - Is support for the VBT vswing/preemph tables planned, or would it make
-    sense to downgrade/ignore the warning for this case (e.g. when the DP
-    link is working fine)?
-  - Is there any information from the VBT you would like me to extract?
+---
+base-commit: daeb062fc40f727fafefed080c6d12a5ad1d0d12
+change-id: 20261006-ptl-port-b-tcss-8b1cbc5d98e0
 
-I can provide
--------------
+Best regards,
+--  
+Burak Göncü <burakgon12@gmail.com>
 
-  - full dmesg / journalctl -k output for a cold boot and for a
-    hibernation/resume cycle;
-  - acpidump output;
-  - the VBT binary (please tell me the preferred way to extract it from thi=
-s
-    platform - e.g. the intel-gpu-tools VBT/opregion decoders - and I will
-    attach it);
-  - a boot with drm.debug=3D0xe, or any other debug options you want;
-  - testing of patches, including on mainline, since I can build kernels
-    locally for this machine.
 
-Thanks a lot for your work on xe.
-
-Note: the local testing and the preparation of this report were done with t=
-he
-assistance of a local AI assistant (DeepSeek Harness WebUI, deepseek-flash
-model); every command, log and result quoted above was actually executed on
-this machine and reviewed by me.
-
-Eason
-1836949523@qq.com
-
-list=EF=BC=88redmibook 14 pro 2026=EF=BC=89display=EF=BC=9A
-[    7.113744] RDX: ffff8d974652d290 RSI: fffffffc0c47b38 RDI: fffffffc0604=
-cb80
-[    7.113746] RBP: 0000000000000000 R08: 0000000000000041 R09: 00000000000=
-00000
-[    7.113748] R10: 0000000001d4c9 R11: 0000000000000000 R12: 0000000000000=
-041
-[    7.113750] R13: 0000000000000001 R14: 0000000000000000 R15: ffff8d974a3=
-bb240
-[    7.113751] FS: 00007f706f7fcc0(0000) GS:ffff8d9f939e0000(0000)
-knlGS:0000000000000000
-[    7.113754] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    7.113756] CR2: 0000771a22aa8000 CR3: 000000010c3ba004 CR4: 0000000108f=
-70ef0
-[    7.113758] PKRU: 55555554
-[    7.113759] Call Trace:
-[    7.113761]  <TASK>
-[    7.113764]  intel_display_driver_probe_noirq+0x3b/0x2e0 [xe
-fe9955369cf4efd202cb08e060d7d8898245273a]
-[    7.113959]  xe_display_init_early+0xb0/0x140 [xe
-fe9955369cf4efd202cb08e060d7d8898245273a]
-[    7.114142]  xe_device_probe+0x45d/0xc20 [xe
-fe9955369cf4efd202cb08e060d7d8898245273a]
-[    7.114283]  xe_pci_probe+0xd7f/0x13d0 [xe
-fe9955369cf4efd202cb08e060d7d8898245273a]
-[    7.114461]  pci_call_probe+0x9a/0x270
-[    7.114468]  ? pci_match_device+0x1b7/0x200
-[    7.114472]  pci_device_probe+0xb0b/0x180
-[    7.114476]  really_probe+0xe9/0x440
-[    7.114480]  ? __pm_runtime_resume+0x5f/0x90
-[    7.114483]  ? __pfx__driver_attach+0x10/0x10
-[    7.114486]  __driver_probe_device+0x90/0x190
-[    7.114488]  driver_attach+0xb3/0x370
-[    7.114491]  bus_for_each_dev+0x12f/0x1d0
-[    7.114495]  bus_add_driver+0x153/0x310
-[    7.114500]  ? __pfx_init_module+0x10/0x10 [xe
-fe9955369cf4efd202cb08e060d7d8898245273a]
-[    7.114635]  driver_register+0x75/0xe0
-[    7.114638]  xe_init+0x27/0x90 [xe fe9955369cf4efd202cb08e060d7d88982452=
-73a]
-[    7.114751]  ? __pfx_init_module+0x10/0x10 [xe
-fe9955369cf4efd202cb08e060d7d8898245273a]
-[    7.114856]  do_one_initcall+0xbe/0x3d0
-[    7.114862]  do_init_module+0x6a/0x280
-[    7.114865]  init_module_from_file+0xc8/0x180
-[    7.114870]  idempotent_init_module+0x23e/0x360
-[    7.114874]  __x64_sys_finit_module+0x7f/0x110
-[    7.114877]  do_syscall_64+0xaa/0x660
-[    7.114881]  ? do_syscall_64+0x5f/0x660
-[    7.114884]  ? irqentry_exit+0x354/0x7b0
-[    7.114888]  ? fred_sysvec_reschedule_ipi+0x1d/0xf0
-[    7.114891]  asm_fred_entrypoint_user+0x41/0x41
-[    7.114895] RIP: 0033:0x7f705f91b4cd
-[    7.114898] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e
-fa 48 89 f8 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05
-<48> 3d 01 f0
-ff 73 01 c3 48 8b 0d 73 a2 0f 00 f7 d8 64 89 01 48
-[    7.114901] RSP: 002b:00007ffed2945a18 EFLAGS: 00000246 ORIG_RAX:
-0000000000000139
-[    7.114904] RAX: ffffffffffffffda RBX: 0000563adfc26cf0 RCX: 00000000000=
-00000
-[    7.114905] RDX: 0000000000000004 RSI: 0000563adfc26190 RDI: 00000000000=
-00005
-[    7.114907] RBP: 00007ffed2945ab0 R08: 0000000000000000 R09: 0000563adfc=
-28010
-[    7.114909] R10: 0000000000000000 R11: 00007f705f77fbcc R12: 0000563adfc=
-26190
-[    7.114910] R13: 0000000000020000 R14: 0000563adfc197b0 R15: 0000563adfc=
-26cf0
-[    7.114912]  </TASK>
-[    7.114914] ---[ end trace 0000000000000000 ]---
