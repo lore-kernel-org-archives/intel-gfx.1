@@ -4,73 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5462BCA6001
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 14:27:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 589ECCA5FED
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 16:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA81F10E187;
-	Tue,  6 Oct 2026 14:27:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SAph0kYM";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF35310E187;
- Tue,  6 Oct 2026 14:27:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791296846; x=1822832846;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=vOisMCBpIVF71mz1epqwZ6zu5BUewVSRbOLJtz4WBa8=;
- b=SAph0kYMjSkCSLoOsNgTGQgLM53+apGN499h7B5dkPlQpMPORKtCFyt9
- ZSHJ23Wu5bQVL8hQZbGJW63sejF7+mIcUtG1H0Brvm+zz1LirIjRpSP0B
- kStSUbsjR/s94n9bU+8MDyRNQ6KHus2cGOO/3NEPlUZsT/jvQIdtDggwJ
- WCTlZ3anJ8GBuJKdYIC4DmuV/Zu9TfYkw1eX8UrE6ujB2rOG6nvH3tH4j
- tfk715i5I6eDWmV3Tj+VP0f1m5RIh4ZebR9UK7rzvaGZGX3NW7v500VLz
- PUBGuLZc22EJf5XNqZ7PITPkzI4JdE0ZiBJMjozoTsSfZ7PWS2Cx/3CbE A==;
-X-CSE-ConnectionGUID: MSAOq9N3TGq+GNTbc4U9pg==
-X-CSE-MsgGUID: J6kTF1kdSoGHb4ghlhpCAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="40338"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="40338"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2026 07:27:22 -0700
-X-CSE-ConnectionGUID: Jogz9JikRvyH3+h669u0lw==
-X-CSE-MsgGUID: pQlpHmalRQ+iXpBK32O3pw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="273533775"
-Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
- by fmviesa009-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 07:27:20 -0700
-Date: Tue, 6 Oct 2026 16:27:18 +0200
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: Zbigniew =?utf-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>,
- igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH i-g-t 2/2] tests/intel/gem_close_race: Skip offset
- probing without full-ppgtt
-Message-ID: <20261006142718.nzikm7la5pql3phi@kamilkon-DESK.igk.intel.com>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Zbigniew =?utf-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>,
- igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-References: <20260924152443.829382-4-janusz.krzysztofik@linux.intel.com>
- <20260924152443.829382-6-janusz.krzysztofik@linux.intel.com>
- <7tycj7qmuxox256zwdz57uictfkg4fdufzvkfnwg3z4wrujnmd@oi6lpt7yhtz5>
- <5fc31c9b0fd3e9fc469102b726174e165bec8161.camel@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E220C10E162;
+	Tue,  6 Oct 2026 16:47:54 +0000 (UTC)
+Received: from coelho.fi (coelho.fi [88.99.146.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 675DB10E161;
+ Tue,  6 Oct 2026 16:47:53 +0000 (UTC)
+Received: from 91-152-156-14.elisa-laajakaista.fi ([91.152.156.14]
+ helo=[192.168.100.138])
+ by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
+ id 1xE8KQ-00000004ADc-04Os; Tue, 06 Oct 2026 19:47:48 +0300
+Message-ID: <7b7d798b50f88455bfc4b74d7906357cf93f4b70.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: Jani Nikula <jani.nikula@linux.intel.com>, Luca Coelho
+ <luciano.coelho@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Date: Tue, 06 Oct 2026 19:47:59 +0300
+In-Reply-To: <7310e6ffaae834a2e822bba31c3ef70647ff7d0b@intel.com>
+References: <20261005122302.110968-1-luciano.coelho@intel.com>
+ <20261005122302.110968-3-luciano.coelho@intel.com>
+ <7310e6ffaae834a2e822bba31c3ef70647ff7d0b@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10+b1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5fc31c9b0fd3e9fc469102b726174e165bec8161.camel@linux.intel.com>
+Subject: Re: [PATCH 2/2] drm/i915/dp: only complain about a busy AUX engine
+ when it's unexpected
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,92 +48,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Janusz,
-On 2026-09-25 at 11:47:41 +0200, Janusz Krzysztofik wrote:
-> Hi Zbyszek,
-> 
-> Thanks for looking at this.
-> 
-> On Fri, 2026-09-25 at 10:40 +0200, Zbigniew Kempczyński wrote:
-> > On Thu, Sep 24, 2026 at 05:24:18PM +0200, Janusz Krzysztofik wrote:
-> > > gem_close_race computed exec_addr/data_addr via
-> > > gem_detect_safe_start_offset() and gem_detect_safe_alignment()
-> > > whenever the kernel disallowed relocations, without checking ppgtt
-> > > mode. Those helpers exist solely to bootstrap intel_allocator and are
-> > > meaningless without full-ppgtt, since the kernel can't see the ranges
-> > > intel_allocator considers reserved and may hand them out to other
-> > > users, as already acknowledged by __intel_bb_create() which enforces
-> > > relocations and skips the allocator entirely in that case.
-> > > 
-> > > Require gem_uses_full_ppgtt() as well before enabling the softpin
-> > > path, mirroring __intel_bb_create()'s logic, and skip the probing
-> > > calls otherwise so the existing relocation fallback is used.
-> > > 
-> > > Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> > > Cc: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-> > > Assisted-by: GitHub Copilot (Claude Sonnet 5)
+On Tue, 2026-10-06 at 15:45 +0300, Jani Nikula wrote:
+> On Mon, 05 Oct 2026, Luca Coelho <luciano.coelho@intel.com> wrote:
+> > When intel_dp_aux_xfer() gives up on a transaction because the AUX
+> > engine is still busy, the DRM helpers retry almost immediately.  If
+> > the engine still hasn't recovered by then, the pre-transaction busy
+> > check reports "not started" as an error, even though this is the
+> > expected outcome of our own earlier decision to leave the engine
+> > alone.
+> >=20
+> > Remember that we left the engine busy and only log a debug message in
+> > that case.  Keep the error for the unexpected cases, namely when
+> > someone else is using the channel or the engine is hung without us
+> > having given up on it first.  A permanently hung engine is still
+> > reported by the 100ms timeout error.
+> >=20
+> > Assisted-by: LLM
+> > Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display_types.h |  2 ++
+> >  drivers/gpu/drm/i915/display/intel_dp_aux.c        | 14 +++++++++++++-
+> >  2 files changed, 15 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drive=
+rs/gpu/drm/i915/display/intel_display_types.h
+> > index 0e3083e852d5..1987b2dbd151 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > @@ -1891,6 +1891,8 @@ struct intel_dp {
+> >  	struct drm_dp_desc desc;
+> >  	struct drm_dp_aux aux;
+> >  	u32 aux_busy_last_status;
+> > +	/* we left the AUX engine busy and are waiting for it to recover */
+> > +	bool aux_left_busy;
+>=20
+> I don't know whether the series makes sense or not, but at some point I
+> need to put my foot down, might as well be now, that struct intel_dp has
+> grown big enough that we can no longer add individual members and there
+> needs to be more structure. For example sub-struct for aux. This is
+> getting impossible to maintain.
 
-Applied, thanks!
+Yeah, you're right.  I don't like adding this kind of stuff to generic
+structs, but this was the easy path, like everyone else seemed to
+think. ;)
 
+How do you want me to handle this? It won't help if I put my new
+elements into a substructure, unless I move the other aux stuff also
+into this sub-struct.  I can see at least these other elements that
+include "aux" in them, and some ops.  Should I add this as a substruct?
 
-Regards,
-Kamil
+struct {
+	struct drm_dp_aux dp_aux; /* this was just aux before */
+	u32 aux_busy_last_status;
 
-> > > ---
-> > >  tests/intel/gem_close_race.c | 19 ++++++++++++++-----
-> > >  1 file changed, 14 insertions(+), 5 deletions(-)
-> > > 
-> > > diff --git a/tests/intel/gem_close_race.c b/tests/intel/gem_close_race.c
-> > > index b2688774d7..ff2877f67e 100644
-> > > --- a/tests/intel/gem_close_race.c
-> > > +++ b/tests/intel/gem_close_race.c
-> > > @@ -348,11 +348,20 @@ int igt_main()
-> > >  
-> > >  		devid = intel_get_drm_devid(fd);
-> > >  		has_64bit_relocations = intel_gen(devid) >= 8;
-> > > -		has_softpin = !gem_has_relocations(fd);
-> > > -		exec_addr = gem_detect_safe_start_offset(fd);
-> > > -		data_addr = gem_detect_safe_alignment(fd);
-> > > -		exec_addr = max_t(exec_addr, exec_addr, data_addr);
-> > > -		data_addr += exec_addr;
-> > > +		/*
-> > > +		 * Without full-ppgtt the kernel can't see the ranges the
-> > > +		 * detected offsets are meant to reserve and may hand them
-> > > +		 * out to other users, so pinning at a detected offset isn't
-> > > +		 * meaningful; fall back to relocations in that case, same
-> > > +		 * as __intel_bb_create() does.
-> > > +		 */
-> > > +		has_softpin = !gem_has_relocations(fd) && gem_uses_full_ppgtt(fd);
-> > 
-> > Which platforms don't have relocations and are not using full ppgtt?
-> 
-> Correct, today all configurations without relocations also expose full
-> PPGTT, so the added check does not currently change runtime behavior.
-> However, the purpose of the check is not to distinguish existing platforms.
-> The probing helpers are conceptually valid only with full PPGTT, as they
-> rely on allocator-managed address space reservations being respected by the
-> kernel. Therefore I would prefer to keep the explicit gem_uses_full_ppgtt()
-> requirement to document that dependency and to keep the code aligned with
-> the logic already described in __intel_bb_create().  The condition is
-> intentionally expressing the semantic requirement of the helpers, not
-> distinguishing currently known hardware configurations.
-> 
-> Thanks,
-> Janusz
-> 
-> > 
-> > --
-> > Zbigniew
-> > 
-> > > +		if (has_softpin) {
-> > > +			exec_addr = gem_detect_safe_start_offset(fd);
-> > > +			data_addr = gem_detect_safe_alignment(fd);
-> > > +			exec_addr = max_t(exec_addr, exec_addr, data_addr);
-> > > +			data_addr += exec_addr;
-> > > +		}
-> > >  
-> > >  		gpu_count = igt_device_filter_count();
-> > >  
-> > > -- 
-> > > 2.55.0
-> > > 
+	u32 (*get_aux_clock_divider)([...]);
+	u32 (*get_aux_send_ctl)([...]);
+	intel_reg_t (*aux_ch_ctl_reg)([...]);
+	intel_reg_t (*aux_ch_data_reg)([...]);
+} aux;
+
+And do you prefer if I add a patch before my series to reorganize these
+into the sub-struct? Or should I do the same as Imre did here:
+
+	struct {
+		/* TODO: move the rest of link specific fields to here */
+		[...]
+	} link;
+
+I think the latter would make more sense, because my series is a
+bugfix, and this kind of code reorg should not be included in potential
+backports.
+
+--
+Cheers,
+Luca.
+
+>=20
+
+> >  	u8 train_set[4];
+> > =20
+> >  	struct intel_pps pps;
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/=
+drm/i915/display/intel_dp_aux.c
+> > index 2e8261cd641a..d0d37ef7556f 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> > @@ -359,7 +359,16 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
+> >  	if (try =3D=3D 3) {
+> >  		const u32 status =3D intel_de_read(display, ch_ctl);
+> > =20
+> > -		if (status !=3D intel_dp->aux_busy_last_status) {
+> > +		/*
+> > +		 * If we left the engine busy ourselves, this is expected
+> > +		 * while it recovers.  Otherwise someone else is using the
+> > +		 * channel or the engine is hung.
+> > +		 */
+> > +		if (intel_dp->aux_left_busy) {
+> > +			drm_dbg_kms(display->drm,
+> > +				    "%s: not started, still waiting for the AUX engine to recover =
+(status 0x%08x)\n",
+> > +				    intel_dp->aux.name, status);
+> > +		} else if (status !=3D intel_dp->aux_busy_last_status) {
+> >  			drm_err(display->drm,
+> >  				"%s: not started (status 0x%08x)\n",
+> >  				intel_dp->aux.name, status);
+> > @@ -370,6 +379,8 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
+> >  		goto out;
+> >  	}
+> > =20
+> > +	intel_dp->aux_left_busy =3D false;
+> > +
+> >  	/* Only 5 data registers! */
+> >  	if (drm_WARN_ON(display->drm, send_bytes > 20 || recv_size > 20)) {
+> >  		ret =3D -E2BIG;
+> > @@ -402,6 +413,7 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
+> >  			 * alone, the caller will retry the transaction later.
+> >  			 */
+> >  			if (status & DP_AUX_CH_CTL_SEND_BUSY) {
+> > +				intel_dp->aux_left_busy =3D true;
+> >  				ret =3D -EBUSY;
+> >  				goto out;
+> >  			}
