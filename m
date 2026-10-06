@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0158ACA5FF0
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 00:31:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B12F3CA5FF0
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 00:56:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307A010E081;
-	Tue,  6 Oct 2026 00:31:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4063510E27E;
+	Tue,  6 Oct 2026 00:56:38 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E4388924F;
- Tue,  6 Oct 2026 00:31:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 814C510E26B;
+ Tue,  6 Oct 2026 00:56:36 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/gvt=3A?=
- =?utf-8?q?_Don=27t_replace_a_DMA_mapping_that_is_still_in_use?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/displa?=
+ =?utf-8?q?y=3A_Correct_the_DKL_PHY_RMW_documentation?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Yuho Choi" <oss.patchbox@gmail.com>
+To: "Tianyi Chen" <hi@tychen.cc>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 06 Oct 2026 00:31:33 -0000
-Message-ID: <179124669324.242094.3667875889407589937@61270ab9df2a>
+Date: Tue, 06 Oct 2026 00:56:36 -0000
+Message-ID: <179124819652.242128.17221264595127082665@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20261004212403.208681-1-oss.patchbox@gmail.com>
-In-Reply-To: <20261004212403.208681-1-oss.patchbox@gmail.com>
+References: <179119248353.3188462.12379850125625100861@tychen.cc>
+In-Reply-To: <179119248353.3188462.12379850125625100861@tychen.cc>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,15 +43,15 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/gvt: Don't replace a DMA mapping that is still in use
-URL   : https://patchwork.freedesktop.org/series/175582/
+Series: drm/i915/display: Correct the DKL PHY RMW documentation
+URL   : https://patchwork.freedesktop.org/series/175583/
 State : failure
 
 == Summary ==
 
-Series author address 'oss.patchbox@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
+Series author address 'hi@tychen.cc' is not on the allowlist, which prevents CI from being automatically triggered.
 If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
 Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/189633/ (on built-in)
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/189635/ (on built-in)
 
 
