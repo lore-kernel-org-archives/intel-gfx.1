@@ -4,63 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F89BCA5FED
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 07:41:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFAC4CA5FED
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 09:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA15E10F226;
-	Tue,  6 Oct 2026 07:41:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D+XhfEht";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7AEF10F226;
- Tue,  6 Oct 2026 07:41:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791272505; x=1822808505;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Jvs7bD7PA4yEwVd5cuhIyWWuagFCWt/2y23LxYYManc=;
- b=D+XhfEht05rjtlkk3M6k8wVn1MeudWGD1X+TFgr8HlOTQgaKcFPHO/BS
- d+qSsvd5J+KCzmH2+WAJwALhOn4HKtFPU1SDhDIOOmifEuCWu9lS0rLD3
- WRiVODjiXSMmjSPU7OudrNdhffpXAk2v3XEqnt2V0oSF/x6FkH8PIJR6J
- VxkaNJsghAbJm8PtwobZhuSgVS029lc/mVsKsVpOB0gpoXupcASzzxBtq
- SSSFPju0ejdB9rD+HXEjKqyJ0UEESC5MNA68V9enp1U/VTLU3JfuWUkSi
- fqZDCxWrXL+XfrDOfeT96NaMRZqrn8rTnEj8c31VntIbopXI7LIs0Qvo9 A==;
-X-CSE-ConnectionGUID: zzXQfweYQj+Y+V4OdaYiLQ==
-X-CSE-MsgGUID: EdSKtirSSHWeNrYeOVW0Wg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="3723"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="3723"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2026 00:41:44 -0700
-X-CSE-ConnectionGUID: NvKzBjS1SFGc6dKHvOE3lg==
-X-CSE-MsgGUID: 7jEUxuY8Qsiw/5ZQ1mJDrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="285187984"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.59])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2026 00:41:41 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Yuho Choi <oss.patchbox@gmail.com>, Zhenyu Wang
- <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin
- Zhang <xiaolin.zhang@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Yuho Choi
- <oss.patchbox@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
- still in use
-In-Reply-To: <20261004212403.208681-1-oss.patchbox@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261004212403.208681-1-oss.patchbox@gmail.com>
-Date: Tue, 06 Oct 2026 10:41:39 +0300
-Message-ID: <5e03928e7817104f062e27f0b14d180549f209c2@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6360510E2C9;
+	Tue,  6 Oct 2026 09:02:02 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6977010E21E;
+ Tue,  6 Oct 2026 09:02:01 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7864543785515077713=="
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5Bv?=
+ =?utf-8?q?3=2C1/2=5D_gpu/buddy=3A_add_range-restricted_contiguous_allocatio?=
+ =?utf-8?q?n_fallback?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Arunpravin Paneer Selvam" <arunpravin.paneerselvam@amd.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 06 Oct 2026 09:02:01 -0000
+Message-ID: <179127732142.243411.4814817417917392242@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20261006072643.211568-1-arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20261006072643.211568-1-arunpravin.paneerselvam@amd.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,73 +38,184 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 04 Oct 2026, Yuho Choi <oss.patchbox@gmail.com> wrote:
-> intel_gvt_dma_map_guest_page() unmaps and frees the cache entry of a
-> gfn when it is requested with a different size, and maps the page again.
-> The entry is still referenced: shadow GTT entries and dma-bufs keep
-> using its DMA address after the page is unpinned and the DMA mapping is
-> torn down. When the new mapping gets the same DMA address, their later
-> intel_gvt_dma_unmap_guest_page() calls also drop the references of the
-> new entry.
->
-> Keep the existing entry instead. A 2M mapping covers a 4K request for
-> its first page, so take a reference on it. If the entry is smaller than
-> the request, fail and let the caller split the 2M entry into 4K pages,
-> as it already does when a 2M mapping cannot be set up.
->
-> Fixes: 7366aeb77cd8 ("drm/i915/gvt: fix incorrect cache entry for guest page mapping")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
-> ---
-> Compile-tested only (x86_64 defconfig + DRM_I915_GVT_KVMGT, W=1, sparse).
+--===============7864543785515077713==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-IOW, you're not hitting the issue yourself? How did you find the issue?
-Did you use LLM to write the patch?
+== Series Details ==
 
-BR,
-Jani.
+Series: series starting with [v3,1/2] gpu/buddy: add range-restricted contiguous allocation fallback
+URL   : https://patchwork.freedesktop.org/series/175598/
+State : success
 
->
->  drivers/gpu/drm/i915/gvt/kvmgt.c | 20 ++++++++------------
->  1 file changed, 8 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> index ec62db5cc3675..9a3e305253469 100644
-> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> @@ -1626,19 +1626,15 @@ int intel_gvt_dma_map_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
->  		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
->  		if (ret)
->  			goto err_unmap;
-> -	} else if (entry->size != size) {
-> -		/* the same gfn with different size: unmap and re-map */
-> -		gvt_dma_unmap_page(vgpu, gfn, entry->dma_addr, entry->size);
-> -		__gvt_cache_remove_entry(vgpu, entry);
-> -
-> -		ret = gvt_dma_map_page(vgpu, gfn, dma_addr, size);
-> -		if (ret)
-> -			goto err_unlock;
-> -
-> -		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
-> -		if (ret)
-> -			goto err_unmap;
-> +	} else if (entry->size < size) {
-> +		/*
-> +		 * The smaller mapping may still be in use, so don't replace
-> +		 * it. Fail and let the caller map the range in smaller pages.
-> +		 */
-> +		ret = -EBUSY;
-> +		goto err_unlock;
->  	} else {
-> +		/* A mapping of the same or a larger size covers the request */
->  		kref_get(&entry->ref);
->  		*dma_addr = entry->dma_addr;
->  	}
->
-> base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
+== Summary ==
 
--- 
-Jani Nikula, Intel
+CI Bug Log - changes from CI_DRM_19286 -> Patchwork_175598v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_175598v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - bat-apl-1:          [PASS][1] -> [DMESG-WARN][2] ([i915#16685])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/bat-apl-1/igt@core_hotunplug@unbind-rebind.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/bat-apl-1/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [PASS][3] -> [FAIL][4] ([i915#16664])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+#### Possible fixes ####
+
+  * igt@fbdev@info:
+    - fi-hsw-4770:        [SKIP][5] ([i915#1849] / [i915#2582]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/fi-hsw-4770/igt@fbdev@info.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/fi-hsw-4770/igt@fbdev@info.html
+
+  * igt@fbdev@nullptr:
+    - fi-hsw-4770:        [SKIP][7] ([i915#2582]) -> [PASS][8] +3 other tests pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/fi-hsw-4770/igt@fbdev@nullptr.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/fi-hsw-4770/igt@fbdev@nullptr.html
+
+  * igt@gem_softpin@safe-alignment:
+    - fi-hsw-4770:        [FAIL][9] ([i915#15527]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/fi-hsw-4770/igt@gem_softpin@safe-alignment.html
+
+  
+  [i915#15527]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527
+  [i915#16664]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664
+  [i915#16685]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16685
+  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
+  [i915#2582]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19286 -> Patchwork_175598v1
+
+  CI-20190529: 20190529
+  CI_DRM_19286: 4043ef7a9db48c52beb26b369cbbb29d623105c6 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9130: 9130
+  Patchwork_175598v1: 4043ef7a9db48c52beb26b369cbbb29d623105c6 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/index.html
+
+--===============7864543785515077713==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [v3,1/2] gpu/buddy: add range-restricted contiguous allocation fallback</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175598/">https://patchwork.freedesktop.org/series/175598/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19286 -&gt; Patchwork_175598v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_175598v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/bat-apl-1/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/bat-apl-1/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16685">i915#16685</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664">i915#16664</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@fbdev@info:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/fi-hsw-4770/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/fi-hsw-4770/igt@fbdev@info.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@fbdev@nullptr:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/fi-hsw-4770/igt@fbdev@nullptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/fi-hsw-4770/igt@fbdev@nullptr.html">PASS</a> +3 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_softpin@safe-alignment:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19286/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15527">i915#15527</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175598v1/fi-hsw-4770/igt@gem_softpin@safe-alignment.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19286 -&gt; Patchwork_175598v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19286: 4043ef7a9db48c52beb26b369cbbb29d623105c6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9130: 9130<br />
+  Patchwork_175598v1: 4043ef7a9db48c52beb26b369cbbb29d623105c6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7864543785515077713==--
