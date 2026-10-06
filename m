@@ -4,64 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F189ECA5FF0
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 09:57:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE394CA5FF0
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 09:59:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BCC710E32C;
-	Tue,  6 Oct 2026 09:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF1D10E321;
+	Tue,  6 Oct 2026 09:59:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F6mxR1Vi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CHHvZmfL";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3549B10E31B;
- Tue,  6 Oct 2026 09:57:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B462F10E341;
+ Tue,  6 Oct 2026 09:59:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791280653; x=1822816653;
- h=message-id:date:mime-version:from:subject:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=dvcD6Mdza44z18eesP636PVopkd0XIhdZd59/uZOhGc=;
- b=F6mxR1Vi9oZ5yyN0R+8MYQZEBagnJfjjbN7NJ33i+iiKm0iIayoBlCdH
- 4pyTKCZE2f43Z397EU36kX5om4lGu0xti7PdDqJUDY/Q62sTxOI7LsTRv
- SAQbomQhVje2ASCcxxTb2X8AId9bis7kpOZiFUj2+scZGbhfDsd55U0kg
- Rc0aKpS893cyJLsTdx015nwKj0GpVJtDBgfGYdTlCqmhxrtUJs+p6nSYH
- syk9GBwCVxIa2t6OjtcBGxi9NzI2dKJg2L9U7XRIyTFeYuFpsJ60mJcMl
- j5QzR8Zu//9ZB9LuKEvcPhXgmAmY256BTRNzPckAbczJrWowbV+qxe9Oi g==;
-X-CSE-ConnectionGUID: OTlK4mzsRJqnE6InS6mT1A==
-X-CSE-MsgGUID: fNlB5dnQTsW6Ggcl4Raogg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="15947"
+ t=1791280744; x=1822816744;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=cJVQ+GO2oxFTlT6uez9H/TIxgijMrpL/bxw1lcRBMwA=;
+ b=CHHvZmfL2ZL/PYNWJKg/N6ZOrxvtkl6iYerzZOIP+pyh285lFmYMaYLb
+ rZjmN6p9aMNt9iormwgYbl6S2BHbndrP8riOAwQgCK5ZG112l7Zq77Dx5
+ sldcmLSWsbyZW/V+Ifm4Z4EgwGHtb3BwmMmQQJAKOjsDZcXRzqbtGDBkt
+ oeUh+Tooblzcy7eZlo6sgOMB3Trz/8UuN3IWuuBmgLB3iAGf/pI9pXsBQ
+ 4g0k01kG+pFwa4G+OwsodERt4nFlZbgsymwDkHFBYLGMloyFBIbK/cQCM
+ R7oVkMsrFfc9JOzFwPfp2SvPJsKBQ2FenTEBNfKBwqPdtIL3wgSi8l/Tm Q==;
+X-CSE-ConnectionGUID: BMAjIz4iTKiIDFKVudW7Qg==
+X-CSE-MsgGUID: C9ZPnnRASwGxnYkUar6pyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="16108"
 X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="15947"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+   d="scan'208";a="16108"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2026 02:57:29 -0700
-X-CSE-ConnectionGUID: WVUKeT+DQvegMMdJ3lLKcA==
-X-CSE-MsgGUID: DzbM6jpGSH+j6g70+7WoEQ==
+ 06 Oct 2026 02:59:04 -0700
+X-CSE-ConnectionGUID: SuE4C/SXRWacrVf5EBz3UQ==
+X-CSE-MsgGUID: bw2r0aCVT9CYHqg+7X4m2g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="276615721"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.244.81])
- ([10.245.244.81])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2026 02:57:22 -0700
-Message-ID: <05785392-b9fd-4d3a-82c5-37b4b6cb5f91@intel.com>
-Date: Tue, 6 Oct 2026 10:57:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Matthew Auld <matthew.auld@intel.com>
-Subject: Re: [PATCH v2] gpu/buddy: add range-restricted contiguous allocation
- fallback
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- Anand.Raghavendra@amd.com
-References: <20260930062117.585089-1-arunpravin.paneerselvam@amd.com>
- <254159a2-66f8-4fce-b185-84e81d126e25@intel.com>
- <b86fd371-289d-479f-bdfe-b2d6136d8d21@amd.com>
-Content-Language: en-GB
-In-Reply-To: <b86fd371-289d-479f-bdfe-b2d6136d8d21@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; d="scan'208";a="277218501"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2026 02:59:04 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 02:59:03 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 02:59:03 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.16) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 02:59:03 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M2CfvKjL4gt34Xr7mce9kQz7eG/UM1DCfcpCcMcJER+1rW50m+RbRN2YXBCOk+twWNmK+8WJNqF2CQLRGEVOL6znntsrKWUK3QnXeebXwQm4YyU/9RYB9ArZSdO+WNixTRxWjty+fBIHncqy6AEt5ZefbREPdxTxXVv1w4O2ihHRQRp3sbXQ+/+D/ld4Zs5q9/8rK+whe3iUWW0Di3quEJQGxkA/rpkUszUmdU46z2jKt5yT1bKODcnd/rUaXosCgGicSnHNTGeSnddE71ZBRdzwZ9G1FsA5mtW6QGaHu8HL7ixoIDfRcGluNQgnxojbDPj4zBe9T84KEKeiAGHJ1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wGQnZwhYjsT5pkFWj3mNPyIkNhnzAOvkHwFH9V9/X3Q=;
+ b=k+5uzYKnFPWnM4xFhXOnCtJZpC0Xn2/B5EHuV/3lcfM6C0js6Ab2EbXW/gLMHi45F//Dl0jUkIPP9EfZDfWeQRipvnD3G03whAQnmf+92Vz8DPJJhq06ybhUTR1cJunvyvVUkL6vPDNkj8OJAZy9f2EHA/43CTHE4v2elcgKzQzNJIIeEiVLaKYz+ranTSyvzghz44XCO3xNe/jHqiMJ9A/a0dc/jJIw1Ickj+2GAHZ4WH6Oa+FyZXR2slVPiJCggAfTagmvxlBZY2ccBHmTxkMUpSKFgMgyyEX5Yrk7Z5mTUdIj/9GunkYvy8+Z4lF+KcrgCA3UQaniIOq/FGJ6BQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
+ by PH7PR11MB6721.namprd11.prod.outlook.com (2603:10b6:510:1ad::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
+ 2026 09:59:00 +0000
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0472.015; Tue, 6 Oct 2026
+ 09:59:00 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Andi Shyti <andi.shyti@linux.intel.com>, =?UTF-8?q?Micha=C5=82=20Grzelak?=
+ <michal.grzelak@intel.com>, Janusz Krzysztofik
+ <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>,
+ Andi Shyti <andi.shyti@kernel.org>
+Subject: [PATCH v7 1/6] drm/i915/shmem: Validate max_segment
+Date: Tue, 6 Oct 2026 09:58:40 +0000
+Message-ID: <20261006095845.451212-2-krzysztof.karas@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261006095845.451212-1-krzysztof.karas@intel.com>
+References: <20261006095845.451212-1-krzysztof.karas@intel.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DB8P191CA0020.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:10:130::30) To PH0PR11MB7424.namprd11.prod.outlook.com
+ (2603:10b6:510:287::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|PH7PR11MB6721:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f60a062-1875-4231-3990-08df239071a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|11063799006|5023799004|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Nzhm9NBXnu8rUpEzmwNJ+wksda0MpyeSajSz2noJmO5Si6hXr3Jl4B0HTMEDxGHZOcsW4ARV7XNqfXYONrr6rNOzx+Y9TX92ayrtUFT2fWaD0KLZ9nNOdItIL9WTRYKgcygMETaZsy0WMz5XDQK03Gc4EcPhBDz/Ya275dm9ZpM+JJVe4lXwQPRX10FjRUMcjr0f2F4SCsntr/zo/ob5Js1MMuuJ2ipq1S00b0CCAdsOck2TayKNvgWjEiQRV7FMNB7gmlVknzAeAIdQtjkRKJ4nyz61rjQCxDs9Nm8nTQIlmC0Gqt7YRd974cETf4Ifh1W5UIieIhasUNgEGAkAJlyu2ur2fY8gFOF7uWIS+r9ZDN10K0/bDMpVcBYZUev1L0QS39G8SFlLe4XDtQz9ZTTWzcwlElUe8pH7v2u2ydJ9UOZAi5CqmOy0o2zB+xfxZZcb4VIg+3MnhjSrfI8Xgar7uq2LpXuSkBic/Y7Zi4d2QdxpFpDadBQB9rQuhAVZdNBttC6LeSaedUo3AOOqLPhhgXa6NVFIZvRM4IRLJf+ho8Zkfy7YmK4/QVW4YCIj6tsSwrGexmQAT/Nl+A5+ATrswKZV4xB2o3ZpmaoDJGhoZFtYJLwZHf3VYCEX5nJvBuzAzpaMuzw3TEKthpo0mjkWiS1bDhkYlHhQYRAnjKI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Jc9LfXyNw3zhUO1snILR13nDWbCycdTw3zRhPbE5Fj4HuZFZMEvqJGbSt7Dc?=
+ =?us-ascii?Q?thPl/VCYwko8sxILsTDEgKezKnOczY2epGz3b5+ZZbqbPs3/rBAeWv//VoSM?=
+ =?us-ascii?Q?6D9zZyyKb+bkwPGMQvlF6a5lpWAL/azuVPYFrdk2tyRlKE8lYKyOToolIMwK?=
+ =?us-ascii?Q?yEv97r9z37VwFMYKtBfmf4Zlucou1m2rDVLqogpYLXTJQiKnYAvqk16zTIFc?=
+ =?us-ascii?Q?c+J8FRHhaS6aRKx1+rFer5ScAWtqCliAtvohwSm6HZtDsahIhmh6aAzfh/Tx?=
+ =?us-ascii?Q?y6Yolk2FH2iSS0suOg7vAj9sYvIi3YozWFVmIyqyZ3qhJjRPrxm0q6vt07yF?=
+ =?us-ascii?Q?iRO/lhaOc5Mqw99fetyqzzR45M3iiMjVxhGUu6gtb51F38EJ5R44ysLEESPX?=
+ =?us-ascii?Q?wgdtkdQxVWprgMK6ngGDvofXSaVx862xuM0YnCnoqJcVTpIhwU0/nk2K7Cvm?=
+ =?us-ascii?Q?C0zbrrXpm3nKyNVaTalhd7SwRVsqpQB9Y3cAnVHTJh6S8b0pfz+enKcDrUaG?=
+ =?us-ascii?Q?yvvDpq6rtIVBJxB9yjWlTF6esyyAD3TNWIieC3PlgRgfIu2OSQcQS55b+pP1?=
+ =?us-ascii?Q?sK3AlDvQloBdaAQPav+FXA5Olh4hjdJfbGbrqAYAWMSoLUZrtYnF8Ji/WIJ7?=
+ =?us-ascii?Q?F2nkjWiyg4smM/33HN45Tp0ncp94UhxA1zSdaWYFEeUSidzVQFDHx59bud9q?=
+ =?us-ascii?Q?LWh81Ioqx8aN25tOAUlKjxsm1pnDhRStPbqn/KvFIPXlFhC9l/pfY/L+DH6M?=
+ =?us-ascii?Q?nZoAftTgdngrZGZswy/HHk57lud1Y7QAjioQ84REFPycrNj4K8X0JwhnvGjO?=
+ =?us-ascii?Q?1Vl0D6BwEtCvaQARJPF9xW7HuLRAJ0Gr0QW9BaaYR7lAnZWkDxi6Nv2okH0i?=
+ =?us-ascii?Q?KIKBBxCuK4LCLBn8T3zLN1Vp9/t0JhDAg6XAXb1X/ITXqj+JUwqn0Z4E7El9?=
+ =?us-ascii?Q?gHV+Kp7tOavBKI+YIieVQVPP0v8xBqM0Ox9jhDFEs+C/3rGFFkEbUaw+WpEQ?=
+ =?us-ascii?Q?piOVh9WSem2hPrHLakKVyQ7O3GP2GOLhIJhyHUAcLC5nveaeTpxwRDNf+8I6?=
+ =?us-ascii?Q?eIs+XhLy9foZxv0axXY7a+r57H2rgJ5vgDOhzh3OjDAPJBuanJ8NJI7Ei5B5?=
+ =?us-ascii?Q?x+UZVOpc57cKyYiyJK2topaXkZwrL1SpPJ2VxS/Lc/NMQzSz6ExVRPMd1g4u?=
+ =?us-ascii?Q?8XFUlK0/QDQoJV+g5UpNPGTLL+ghGLjM0xOvnQ2GgjVnRH+lmNWszF04/NP5?=
+ =?us-ascii?Q?eGiEFMxUtWVS3xbqkUWCHKj8hwB4hLiBW9KaSoJse8K6EpFK+xoQWu6DtvZY?=
+ =?us-ascii?Q?v8u8CfJQTGXnAgwl6mxR931QMkc0rPN4qpgUTdA86OyGJ75K8a6hJ8AeWUKQ?=
+ =?us-ascii?Q?HCjqPBv9HX1w4JxUNhXdpAMZT6FS2bpHFg7zRjaMKWVItKs8fQt1xQqDkrmo?=
+ =?us-ascii?Q?+lot7FSJ46enI9ej++NO7CCzYXgZDIGti4Efpqtlj/fbXpery9HMVV82YdlO?=
+ =?us-ascii?Q?XOjZf766rEwN2RwhhM49f/SJUGbsIyfYeASwG0hb6+8lAfbWG96S5ki1Us7+?=
+ =?us-ascii?Q?oz17UB7AbcdVIoNkRm3+VSiHlPcu6aK8lgg9ekSKUMlLw9bRmvMBAbj9iMdF?=
+ =?us-ascii?Q?pNqEo5WPnmMR1+GslwZDogaSeD48w/6MpKes8QczoOoZ7w2Pp+ehsWtwv+Z+?=
+ =?us-ascii?Q?BE04Jofa57xtFEoEP4NFk5j6oXpKUWZbeSHLFvaBqhSYjbW4JVfbHYBaeTXP?=
+ =?us-ascii?Q?4WeXgEBx9nIKzTHXgU9OfPC4T+TnYCg=3D?=
+X-Exchange-RoutingPolicyChecked: gFqgBvSVAoKFL7QXzy1odstrsbOit0O+zFdQxZh40SOFVSRnb1TRNW/oPxv8w44e5YP7buA0/beL7mcD1AYIx4o/V79UYxsylMhd23XJg+Y+bmPXx0/InLaS5JbxdF21Mwn9t+cL6RVVI9im/V8xH1AYBAJgWazUQZ5Xx8Wn/apF/tvs6rTIj7g876j2tV8tbZyezRNmMiBRwbcnLQsblBNdyH9h2toLxi7kn+O3ErmrWSoT6Z0fWTl60WBPVYzWE6ZWJ2Oxzmax7xVDMH+wOz7PhAy5+e4FO/hTKrcFl0xdSHljzghwaL4CtChQjBalKOjPkEi4ZbbvI4Im43izdw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f60a062-1875-4231-3990-08df239071a8
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 09:59:00.1746 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 62gHnZdfWEvSWRFvfjalHyEi0mYG0WAA8yvJZLRpdhBTT2y6nnEmI5Hhq/ztmYzlYfsSaIOCb3Qe00RGamZBM96t1ITx0cqpn7EZwX9srdU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6721
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,392 +164,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 05/10/2026 15:14, Arunpravin Paneer Selvam wrote:
-> 
-> 
-> On 10/1/2026 11:58 PM, Matthew Auld wrote:
->> On 30/09/2026 07:21, Arunpravin Paneer Selvam wrote:
->>> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>>
->>> A range + contiguous allocation (e.g. a scanout FB confined to the
->>> CPU-visible VRAM aperture) rounds its size up to a power of two and
->>> requires a naturally aligned free block of that size; on a fragmented
->>> aperture no such aligned block may exist even though enough contiguous
->>> space is free, so the allocation fails with -ENOSPC.
->>>
->>> The non-range contiguous path already recovers from this via
->>> __alloc_contig_try_harder(), which stitches an exact-size span from
->>> smaller adjacent blocks, but that fallback was unreachable once
->>> GPU_BUDDY_RANGE_ALLOCATION was set. Give __alloc_contig_try_harder()
->>> a [range_start, range_end) window and route the range + contiguous
->>> case through it: each candidate placement is confined to the window
->>> and aligned to min_block_size. Non-range callers pass [0, mm->size),
->>> where the guards are no-ops, so the existing behaviour is unchanged.
->>> A KUnit regression test covers the fragmentation pattern.
->>>
->>> Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
->>> regression.
->>>
->>> v2:
->>>   - Drop the split-undo patch; the range-bias search always descends to
->>>     an exact-order block or fails the split (already handled), so the
->>>     extra undo was redundant. (Matthew)
->>>   - Verified this fallback alone fixes the kms_plane regression.
->>>
->>> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with 
->>> decoupled dirty tracker")
->>
->> Patch looks more like totally new functionally/feature, so the fixes 
->> here is maybe unexpected? Did something in that fixes commit change 
->> something such that the try_harder is now needed, but that needs some 
->> expansion with bias + contig? Do we know exactly what changed here?
-> That commit removed __force_merge(), which previously helped recover 
-> larger contiguous allocations on demand. As a result, some range- 
+There is nothing preventing user of shmem_sg_alloc_table() from
+passing max_segment smaller than PAGE_SIZE, which would result
+in nr_pages = max_segment / PAGE_SIZE == 0 and cause a
+non-terminating loop.
+Also, ensure that this value io page-aligned.
 
-__force_merge() got nuked, but IIRC I think that was essentially because 
-we now "force merge" on free, so shouldn't we get the ~same result? Or 
-is the fact that we force_merge() on every free giving a different 
-layout of pages, and with some very some specific allocation pattern 
-that difference subtly results in -ENOSPC, somehow?
+Suggested-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Suggested-by: Andi Shyti <andi.shyti@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+---
+v7:
+ * Also reject max_segment values that are not
+   PAGE_SIZE-aligned. (Andi)
 
-> restricted contiguous allocation requests
-> that used to succeed now fail with -ENOSPC (the kms_plane regression). 
-> This patch restores that capability through the try_harder() stitching 
-> logic, so the Fixes: tag reflects a
-> regression introduced by that commit rather than new functionality.
->>
->>> Assisted-by: Claude:claude-opus-4-8
->>
->> Assisted-by: LLM
->>
->>> Cc: Matthew Auld <matthew.auld@intel.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Signed-off-by: Arunpravin Paneer Selvam 
->>> <Arunpravin.PaneerSelvam@amd.com>
->>> ---
->>>   drivers/gpu/buddy.c                | 88 ++++++++++++++++--------------
->>>   drivers/gpu/tests/gpu_buddy_test.c | 83 ++++++++++++++++++++++++++--
->>>   2 files changed, 126 insertions(+), 45 deletions(-)
->>>
->>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->>> index 2f2aaadafe35..5265e1f6a318 100644
->>> --- a/drivers/gpu/buddy.c
->>> +++ b/drivers/gpu/buddy.c
->>> @@ -1685,26 +1685,14 @@ static int __gpu_buddy_alloc_range(struct 
->>> gpu_buddy *mm,
->>>                    blocks, total_allocated_on_err);
->>>   }
->>>   -static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
->>> -                    u64 unaligned_offset,
->>> -                    u64 size,
->>> -                    u64 min_block_size,
->>> -                    unsigned long flags,
->>> -                    struct list_head *blocks)
->>> -{
->>> -    u64 aligned_offset = round_down(unaligned_offset, min_block_size);
->>> -
->>> -    return __gpu_buddy_alloc_range(mm, aligned_offset, size, flags,
->>> -                       NULL, blocks);
->>> -}
->>> -
->>>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->>> +                     u64 range_start, u64 range_end,
->>>                        u64 size,
->>>                        u64 min_block_size,
->>>                        unsigned long flags,
->>>                        struct list_head *blocks)
->>>   {
->>> -    u64 rhs_offset, lhs_offset, filled;
->>> +    u64 rhs_offset, lhs_offset, filled, aligned;
->>>       struct gpu_buddy_block *block;
->>>       struct rb_root *root;
->>>       struct rb_node *iter;
->>> @@ -1734,20 +1722,24 @@ static int __alloc_contig_try_harder(struct 
->>> gpu_buddy *mm,
->>>                              flags, &filled, blocks);
->>>           if (err && err != -ENOSPC)
->>>               return err;
->>> -        if (!err && IS_ALIGNED(rhs_offset, min_block_size))
->>> +        if (!err && IS_ALIGNED(rhs_offset, min_block_size) &&
->>> +            rhs_offset >= range_start && rhs_offset + size <= 
->>> range_end)
->>>               return 0;
->>>           if (!err) {
->>>               /* Allocate the unaligned RHS offset using round_down */
->>>               gpu_buddy_free_list_internal(mm, blocks);
->>> -            err = __alloc_contig_aligned_retry(mm, rhs_offset,
->>> -                               size,
->>> -                               min_block_size,
->>> -                               flags, blocks);
->>> -            if (!err)
->>> -                return 0;
->>> -            if (err != -ENOSPC) {
->>> -                gpu_buddy_free_list_internal(mm, blocks);
->>> -                return err;
->>> +
->>> +            aligned = round_down(rhs_offset, min_block_size);
->>> +            if (aligned >= range_start &&
->>> +                aligned + size <= range_end) {
->>> +                err = __gpu_buddy_alloc_range(mm, aligned, size,
->>> +                                  flags, NULL, blocks);
->>
->> Did you consider doing a bias-range for [start, end] using 
->> min_block_size and using what it returns as the starting point, 
->> extending left/right? If that fails advance start and try again? Maybe 
->> what you have here is much better for the case you have in mind?
-> I took a closer look at the alloc_range_bias approach. My understanding 
-> is that this would repeatedly bias within [start, end], use the returned 
-> min_block_size block as a starting point, and then extend left/right to 
-> build the requested run.
-> While that should work, every failed attempt may require splitting 
-> higher-order blocks to obtain a min_block_size block, followed by a 
-> free/merge back when the extension fails.
-> The free-tree descent evaluates the available starting points through a 
-> tree walk without any splitting or allocation just for enumeration, so I 
-> kept that approach.
-> Please let me know if there is a case where alloc_range_bias would 
-> provide an advantage over the free-tree descent.
-> 
-> While evaluating it, I found two issues in the current try_harder() 
-> implementation:
-> 
-> 1. It only searches free_tree[size_order]. This is insufficient when 
-> min_block_size < size. For example, for a 128 KiB allocation (order-5) 
-> with min_block_size = 4 KiB, free_tree[5] may be empty
-> while two adjacent order-4 (64 KiB) blocks covering [64 KiB, 128 KiB] 
-> and [128 KiB, 192 KiB] are free. These blocks still form a valid 
-> order-5-sized contiguous run, but they can never appear in
-> free_tree[5] because they are not mergeable buddies. As a result, a 
-> search that only considers free_tree[5] will never find this placement. 
-> v3 addresses this by walking the free tree from the
-> requested size order down to min_order, while reusing the existing 
-> extend/stitch logic and min_block_size alignment checks unchanged.
-> 
-> 2. The search is not restricted to the requested range. v3 confines the 
-> walk to [range_start, range_end], skipping candidates at or above 
-> range_end and stopping once the walk falls below range_start.
-> This ensures that range-constrained allocations only consider free 
-> blocks within the requested window and avoids performing allocation/free 
-> attempts on blocks outside the specified range.
-> For non-range callers, the effective window remains [0, mm->size], so 
-> the behavior is unchanged.
-> 
-> Regards,
-> Arun.
->>
->>> +                if (!err)
->>> +                    return 0;
->>> +                if (err != -ENOSPC) {
->>> +                    gpu_buddy_free_list_internal(mm, blocks);
->>> +                    return err;
->>> +                }
->>>               }
->>>               goto next;
->>>           }
->>> @@ -1759,15 +1751,17 @@ static int __alloc_contig_try_harder(struct 
->>> gpu_buddy *mm,
->>>             /* Allocate the unaligned LHS offset using round_down */
->>>           gpu_buddy_free_list_internal(mm, blocks);
->>> -        err = __alloc_contig_aligned_retry(mm, lhs_offset,
->>> -                           size,
->>> -                           min_block_size,
->>> -                           flags, blocks);
->>> -        if (!err)
->>> -            return 0;
->>> -        if (err != -ENOSPC) {
->>> -            gpu_buddy_free_list_internal(mm, blocks);
->>> -            return err;
->>> +
->>> +        aligned = round_down(lhs_offset, min_block_size);
->>> +        if (aligned >= range_start && aligned + size <= range_end) {
->>> +            err = __gpu_buddy_alloc_range(mm, aligned, size,
->>> +                              flags, NULL, blocks);
->>> +            if (!err)
->>> +                return 0;
->>> +            if (err != -ENOSPC) {
->>> +                gpu_buddy_free_list_internal(mm, blocks);
->>> +                return err;
->>> +            }
->>>           }
->>>   next:
->>>           gpu_buddy_free_list_internal(mm, blocks);
->>> @@ -2021,11 +2015,18 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->>>       min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
->>>         if (order > mm->max_order || size > mm->size) {
->>> -        if ((flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) &&
->>> -            !(flags & GPU_BUDDY_RANGE_ALLOCATION))
->>> -            return __alloc_contig_try_harder(mm, original_size,
->>> +        if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
->>> +            u64 range_start, range_end;
->>> +
->>> +            range_start = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? 
->>> start : 0;
->>> +            range_end = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? end : 
->>> mm->size;
->>> +
->>> +            return __alloc_contig_try_harder(mm, range_start,
->>> +                             range_end,
->>> +                             original_size,
->>>                                original_min_size,
->>>                                flags, blocks);
->>> +        }
->>>             return -EINVAL;
->>>       }
->>> @@ -2058,9 +2059,14 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->>>                * Try contiguous block allocation through
->>>                * try harder method.
->>>                */
->>> -            if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
->>> -                !(flags & GPU_BUDDY_RANGE_ALLOCATION)) {
->>> -                err = __alloc_contig_try_harder(mm,
->>> +            if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
->>> +                u64 range_start, range_end;
->>> +
->>> +                range_start = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? 
->>> start : 0;
->>> +                range_end = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? 
->>> end : mm->size;
->>> +
->>> +                err = __alloc_contig_try_harder(mm, range_start,
->>> +                                range_end,
->>>                                   original_size,
->>>                                   original_min_size,
->>>                                   flags,
->>> @@ -2068,9 +2074,9 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->>>                   if (!err)
->>>                       return 0;
->>>                   if (err != -ENOSPC)
->>> -                    return err;
->>> -                goto err_free;
->>> +                    goto err_free;
->>>               }
->>> +
->>>               err = -ENOSPC;
->>>               goto err_free;
->>>           } while (1);
->>> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/ 
->>> gpu_buddy_test.c
->>> index b75d32ca6ca0..2c445870b808 100644
->>> --- a/drivers/gpu/tests/gpu_buddy_test.c
->>> +++ b/drivers/gpu/tests/gpu_buddy_test.c
->>> @@ -1251,6 +1251,77 @@ static void 
->>> gpu_test_buddy_alloc_contiguous(struct kunit *test)
->>>       gpu_buddy_fini(&mm);
->>>   }
->>>   +static void gpu_test_buddy_alloc_range_contiguous(struct kunit *test)
->>> +{
->>> +    const unsigned long ps = SZ_4K, mm_size = 16 * ps;
->>> +    const unsigned long range_end = 8 * ps;
->>> +    struct gpu_buddy_block *block, *prev;
->>> +    LIST_HEAD(allocated);
->>> +    struct gpu_buddy mm;
->>> +    LIST_HEAD(pin_lo);
->>> +    LIST_HEAD(pin_hi);
->>> +    u64 total;
->>> +
->>> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, ps),
->>> +                   "buddy_init failed\n");
->>> +
->>> +    /*
->>> +     * Idea is to confine the test to the sub-range [0, 32K), which 
->>> a 12K
->>> +     * contiguous request (rounded up to 16K) splits into two naturally
->>> +     * aligned 16K slots: [0, 16K) and [16K, 32K). We pin the first 
->>> 4K page
->>> +     * of each slot ([0, 4K) and [16K, 20K)) so that neither aligned 
->>> slot
->>> +     * can satisfy the rounded-up 16K allocation, yet the freed 
->>> remainder
->>> +     * still leaves a contiguous 12K hole at offset 4K, which is 
->>> page-aligned
->>> +     * but not 16K-aligned. A 12K contiguous+range allocation must 
->>> therefore
->>> +     * fall back to stitching that span instead of returning -ENOSPC.
->>> +     */
->>> +    KUNIT_ASSERT_FALSE_MSG(test,
->>> +                   gpu_buddy_alloc_blocks(&mm, 0, ps, ps, ps,
->>> +                              &pin_lo, 0),
->>> +                   "failed to pin low page\n");
->>> +    KUNIT_ASSERT_FALSE_MSG(test,
->>> +                   gpu_buddy_alloc_blocks(&mm, 4 * ps, 5 * ps, ps,
->>> +                              ps, &pin_hi, 0),
->>> +                   "failed to pin high page\n");
->>> +
->>> +    /* No aligned 16K block is free; the range-aware fallback must 
->>> stitch
->>> +     * the unaligned [ps, 4*ps) hole instead of returning -ENOSPC.
->>> +     */
->>> +    KUNIT_ASSERT_FALSE_MSG(test,
->>> +                   gpu_buddy_alloc_blocks(&mm, 0, range_end, 3 * ps,
->>> +                              ps, &allocated,
->>> +                              GPU_BUDDY_CONTIGUOUS_ALLOCATION |
->>> +                              GPU_BUDDY_RANGE_ALLOCATION),
->>> +                   "range-restricted contiguous alloc failed\n");
->>> +
->>> +    /* The result must be exactly 3*ps, contiguous, and inside the 
->>> range. */
->>> +    total = 0;
->>> +    prev = NULL;
->>> +    list_for_each_entry(block, &allocated, link) {
->>> +        u64 offset = gpu_buddy_block_offset(block);
->>> +        u64 bsize = gpu_buddy_block_size(&mm, block);
->>> +
->>> +        KUNIT_EXPECT_TRUE_MSG(test, offset + bsize <= range_end,
->>> +                      "block [%llx, %llx) outside range\n",
->>> +                      offset, offset + bsize);
->>> +        if (prev)
->>> +            KUNIT_EXPECT_EQ_MSG(test,
->>> +                        gpu_buddy_block_offset(prev) +
->>> +                        gpu_buddy_block_size(&mm, prev),
->>> +                        offset,
->>> +                        "block at %llx not contiguous\n",
->>> +                        offset);
->>> +        prev = block;
->>> +        total += bsize;
->>> +    }
->>> +    KUNIT_EXPECT_EQ(test, total, 3 * ps);
->>> +
->>> +    gpu_buddy_free_list(&mm, &allocated, 0);
->>> +    gpu_buddy_free_list(&mm, &pin_lo, 0);
->>> +    gpu_buddy_free_list(&mm, &pin_hi, 0);
->>> +    gpu_buddy_fini(&mm);
->>> +}
->>> +
->>>   static void gpu_test_buddy_alloc_pathological(struct kunit *test)
->>>   {
->>>       u64 mm_size, size, start = 0;
->>> @@ -1534,10 +1605,13 @@ static void 
->>> gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
->>>                        GPU_BUDDY_RANGE_ALLOCATION);
->>>       KUNIT_EXPECT_EQ(test, err, -EINVAL);
->>>   -    /* CONTIGUOUS + RANGE should return -EINVAL (no try_harder for 
->>> RANGE) */
->>> -    err = gpu_buddy_alloc_blocks(&mm, 0, mm_size, size, SZ_4K, &blocks,
->>> -                     GPU_BUDDY_CONTIGUOUS_ALLOCATION | 
->>> GPU_BUDDY_RANGE_ALLOCATION);
->>> -    KUNIT_EXPECT_EQ(test, err, -EINVAL);
->>> +    /* CONTIGUOUS + RANGE should succeed via the range-aware 
->>> try_harder */
->>> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, 
->>> mm_size, size,
->>> +                                SZ_4K, &blocks,
->>> +                                GPU_BUDDY_CONTIGUOUS_ALLOCATION |
->>> +                                GPU_BUDDY_RANGE_ALLOCATION),
->>> +                   "range contiguous alloc hit an error 
->>> size=%llu\n", size);
->>> +    gpu_buddy_free_list(&mm, &blocks, 0);
->>>         gpu_buddy_fini(&mm);
->>>   }
->>> @@ -1603,6 +1677,7 @@ static struct kunit_case gpu_buddy_tests[] = {
->>>       KUNIT_CASE(gpu_test_buddy_alloc_pessimistic),
->>>       KUNIT_CASE(gpu_test_buddy_alloc_pathological),
->>>       KUNIT_CASE(gpu_test_buddy_alloc_contiguous),
->>> +    KUNIT_CASE(gpu_test_buddy_alloc_range_contiguous),
->>>       KUNIT_CASE(gpu_test_buddy_alloc_clear),
->>>       KUNIT_CASE(gpu_test_buddy_alloc_range),
->>>       KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
->>>
->>> base-commit: 744f262401cc2e1f3827496c72a47e072d31a852
->>
-> 
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index bf9e7480f0f5..e35ee4bd456f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -85,6 +85,9 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+ 	if (size > resource_size(&mr->region))
+ 		return -ENOMEM;
+ 
++	if (max_segment < PAGE_SIZE || !PAGE_ALIGNED(max_segment))
++		return -EINVAL;
++
+ 	if (sg_alloc_table(st, page_count, GFP_KERNEL | __GFP_NOWARN))
+ 		return -ENOMEM;
+ 
+-- 
+2.34.1
 
