@@ -4,59 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB697CA5FFC
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 13:46:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 546ACCA5FFC
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 14:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69A2A10E1BE;
-	Wed,  7 Oct 2026 13:46:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF3FF10F5F5;
+	Wed,  7 Oct 2026 14:06:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H5pBEx7F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H0sJ/KTU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7413610E1BE;
- Wed,  7 Oct 2026 13:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791380767; x=1822916767;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6reivc1cjcdS6A2H9elivNVKq/l2kWZ/7Ke/ldARydw=;
- b=H5pBEx7Faok+8R6zvhswoaIab5iqkrdoUC2LodxJpawyyNHfIsUsxeYB
- UJ+hGlYjDxNsyoks+VdnIiHmAnQbm6lAWACxutRmXqmnjyVwdJtmcdjom
- Qr8UF7BScsUaJwaXmjGbVdAjgM4mQ5aNco6T7jB70ncUjo3SolbokpNSv
- xXSeYDe25LxRi5ukvM2pASuJNEmj4AVkkBLCg8YUuLEhTGk9rTX6cU20L
- uNixBXcw3hyz8BiKZpqEXkxFaVWU2tfGcO4mON2Ajyd+uq4gRzM4eTDy2
- bptsPUxrC32hjscR+NWOmL34jobNbFND5Km8T6d167G1ixTRDGJraPlfe Q==;
-X-CSE-ConnectionGUID: hj4rdeCIS+mUVlEiLmzb8g==
-X-CSE-MsgGUID: 3+RXhv16SoK5linQxfDkpg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="42443"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="42443"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 06:46:06 -0700
-X-CSE-ConnectionGUID: FUy7PAdAQUuu6easqp0zCw==
-X-CSE-MsgGUID: PSJ3Y/4oTvuwucoWk91eqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; d="scan'208";a="280734375"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.231])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 06:46:04 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	Imre Deak <imre.deak@intel.com>
-Subject: [CI try #2] drm/{i915,
- xe}: make intel_dmc_suspend() part of display suspend/shutdown calls
-Date: Wed,  7 Oct 2026 16:46:01 +0300
-Message-ID: <20261007134601.2433046-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 579A410E3E9
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 22:14:21 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-3a1981228f8so9249741fa.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 06 Oct 2026 15:14:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791324859; cv=none;
+ d=google.com; s=arc-20260327;
+ b=leykx97jVKorS715lJU6ITSeeF8eS610EH5OcOqEMaK/1kG4nEhisMzYohtJ9FJHJI
+ lpaYdTw7y2ry0u6u1uZAF4wruLa3hwDSDtSnZZ1yVkNlRmM03/qGEJEeelJz0aR9svEe
+ VmTI8XL4Kxd8KM3mkMrV2GyFaJQgbRa7UNBb8r/weODsvkIhE/xQ6TIfjXLdGMjtc2wc
+ lE5YKQdGhLhDfVDJQOg/J+7T8rITMlkOk7ZnJIU4hBsxQLxETnuMEb2XGk4x5xCcJRW/
+ 5teDOQzCpPNe+CLMzOYTUU2gml5a6ag+IKjvwMNyup7Aa4iU7YJTvepgyrRVFT4L8BKN
+ HsTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
+ fh=KIPc/yZkdw6Pp12kQ1QXMQxelEr/xSrlPjYo/1mAmd4=;
+ b=F32jxKdAvMgrfMwooEavtqjNptkEvyESOH2C+f90oHPEI3wnb+02IY690N5bZTRtGH
+ /li+QBijiV3roaHmwOGk0eVvT15AN/ErfyjjgJch4Zx50LoKgTqOncbZ1WngOIu0fOLR
+ djqW5ppnAEO2T7I2BLVNglmEMYrmUYnpoIKn6cj+KZX/G6h3E7xQItCmHs3Hwnl8hvUt
+ xJWMsVsovqJDRZjgprehjhWGQcNuM3X8VDcxcSVY9yN8d0+bCM7FCFUXG2kVF1Jyola7
+ ieUbltAnmRRTnbg+fFFjZMhlEEMnu+ESlJBKi/BW20/z8SMn+4LTnSEGQMH01hJcZwOf
+ 95iQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791324859; x=1791929659; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
+ b=H0sJ/KTUVwg/ILyiB3enmAoFbFguvrD+UYaZ4X+QOFULlPBT+Fk++TndkBb01RpzS+
+ R2tCHpRZTIbKuy41uQhNzmoS/2A5Q4/MxLWVvkzxYFeKtzcOVfUApqF19YjSSXFUU2qE
+ /gsZjmymUsOeGkfe1oKTFMBCxYpK+wKPt5cOo6fAD9bOPgH0iB592WCfW4q8SbnnZin6
+ Qd17kQZplKSOp4BtAkRB1Gw2KmmnmxAoMf8h12Jpag0PmRnSlMsp5Icnk54WfZOmBUVm
+ mEC9ye2Guy/7mxMb3qwNsWtME1227mxZvUoB7TX5EMF2arzgqHbXn8YwyGNH3ny8IDB8
+ 6tDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791324859; x=1791929659;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=15LJZtOorGFDC0T9o118Z9LBqCQ9DwdnV9oqHmbiXbw=;
+ b=qhHfy0ivkmTfwQTr4/DqfD2Ebm0qhlK4IAicpLTlG+rHl02swVnyL/BY2W2ul8iok+
+ sOXDIzqu3iZF8gnftiSLSVm1sibXGYrcXivep1u7yfv5y9TPallq+cSpI2pGb7Jf+tS9
+ 8xEoio0key2zla7SBiSAZBwhwHl4X0mQgwZWXkqk0oF3BuHdh8+fm28PZy6t2J+NKCu3
+ zf/HNmu6T4+cdnBmlGFJMnFrNEnTaLTXhbxKKaIo+CWbNLVCbiwIJLAXzG/ZcKosEL6I
+ wkACTowkK2vU55tJWGER3oox48DK8xHJd36f9EFAEurqtLJOcj61ABYiqSkmtoLLyA7p
+ eT0g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz4DKg3jIiuw37o0nvmRMMhw+CWWmfQFxonbkYggNgdQ9HqBiKp7EMcHKjGqbXFkodWHdXyz71Xyu0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIsnQAGqoCEdQSaxk34ZxprlzdlahnGtJb75Rl90BBegucGTVlR
+ sdQCuASg4hCfif5ZkmdQ7HFwssEllBTbmThzo7D1eydEEt7NkLxCTLHiBgFiHbHrNZofam66UEh
+ R4RudTgoZulY7lHGadXuijKgXxRKIPnU=
+X-Gm-Gg: AYBFou1YQWSfWKmrqYuKTwL4+PYnLBIEMBxu8vzRgp9gpFN4OP/kD838uQBEhfejP/n
+ HRnHyWNbNp1cb1hRZDsF3+k4ZgjnZUG/AhVc3f1Joh/uc1/VRucRbGpIEr2ZqVKUMGMn9U/5tXx
+ 47pvA67x1LUpstljgWj6pVISZd0yGC6ofUIhxtQJzpK0VP7jvciTXiUPmQfgwEh3UcL3I5+dMuB
+ tdBkbGaweJCPQse3heuvqDLdYSCrporH0lbQcQ+hwZrefBfiak0jYisg8Yxfav/ZJGaJGtEkEJQ
+ aaxDMsRt9VRAgv1glE+dQEPYIYu0xe9/bgYyGM4nQB7+hyLxABDugQc=
+X-Received: by 2002:a2e:be84:0:b0:3a9:7160:e83e with SMTP id
+ 38308e7fff4ca-3a9a2cc1e75mr696691fa.8.1791324858938; Tue, 06 Oct 2026
+ 15:14:18 -0700 (PDT)
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+References: <20261004212403.208681-1-oss.patchbox@gmail.com>
+ <5e03928e7817104f062e27f0b14d180549f209c2@intel.com>
+In-Reply-To: <5e03928e7817104f062e27f0b14d180549f209c2@intel.com>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Tue, 6 Oct 2026 18:14:07 -0400
+X-Gm-Features: AclHuK-H1P6XAfW5WOEyeLge3myteWvfLBr0lYFKR2exJpjCcMV3nLYXUK8SvaY
+Message-ID: <CAGG=RgCoBZwks5CR9GK0+xk8kexj_wWZf23WwmSTLZBu1hW=eg@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
+ still in use
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin Zhang <xiaolin.zhang@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 07 Oct 2026 14:06:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,79 +110,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the intel_dmc_suspend() calls from i915 and xe suspend and shutdown
-hooks all the way down to a shared location in
-__intel_display_driver_pm_suspend().
+Thank you for reviewing.
 
-This is a change in the suspend/shutdown sequences, but hopefully one
-without problems. The main change is moving intel_dmc_suspend() before
-irq suspend.
+On Tue, 6 Oct 2026 at 03:41, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>
+> IOW, you're not hitting the issue yourself? How did you find the issue?
+> Did you use LLM to write the patch?
 
-Reviewed-by: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_driver.c | 2 ++
- drivers/gpu/drm/i915/i915_driver.c                  | 4 ----
- drivers/gpu/drm/xe/display/xe_display.c             | 4 ----
- 3 files changed, 2 insertions(+), 8 deletions(-)
+As part of security research, I am reviewing how virtualization code manages
+the lifetime of resources it shares with guests and devices.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 70d112fd4287..77009dca7d0d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -768,6 +768,8 @@ static int __intel_display_driver_pm_suspend(struct intel_display *display, bool
- 
- 	intel_encoder_suspend_all(display);
- 
-+	intel_dmc_suspend(display);
-+
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index ce6d20958320..9e047c27a153 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1024,8 +1024,6 @@ void i915_driver_shutdown(struct drm_i915_private *i915)
- 
- 	intel_irq_suspend(i915);
- 
--	intel_dmc_suspend(display);
--
- 	i915_gem_suspend(i915);
- 
- 	/*
-@@ -1096,8 +1094,6 @@ static int i915_drm_suspend(struct drm_device *dev)
- 
- 	dev_priv->suspend_count++;
- 
--	intel_dmc_suspend(display);
--
- 	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
- 
- 	i915_gem_drain_freed_objects(dev_priv);
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index 506f26e9c59a..aab416485e3e 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -170,8 +170,6 @@ void xe_display_shutdown(struct xe_device *xe)
- 	intel_display_driver_shutdown(display);
- 
- 	intel_opregion_suspend(display, PCI_D3cold);
--
--	intel_dmc_suspend(display);
- }
- 
- void xe_display_shutdown_late(struct xe_device *xe)
-@@ -248,8 +246,6 @@ void xe_display_pm_suspend(struct xe_device *xe)
- 	intel_display_driver_pm_suspend(display);
- 
- 	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
--
--	intel_dmc_suspend(display);
- }
- 
- void xe_display_pm_suspend_late(struct xe_device *xe)
--- 
-2.47.3
+> Did you use LLM to write the patch?
 
+While preparing this patch, I asked an AI assistant questions to confirm my
+understanding of how the driver works. So technically yes, an LLM was used
+in making this patch. I should have disclosed this in the submission; v2 will
+carry it.
