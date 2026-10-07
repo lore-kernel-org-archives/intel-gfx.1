@@ -4,78 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D3B1CA600A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2E4CA6004
 	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 14:06:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9157C10F620;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C374210F609;
 	Wed,  7 Oct 2026 14:06:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="Uoti1ZnQ";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="ikiGO9qA";
 	dkim-atps=neutral
-Received: from mail-qk2-f0.google.com (mail-qk2-f0.google.com [74.125.230.192])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6543C10E195
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 22:05:04 +0000 (UTC)
-Received: by mail-qk2-f0.google.com with SMTP id
- d75a77b69052e-53396c7c8e6so15080131cf.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 06 Oct 2026 15:05:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791324303;
- x=1791929103; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=uXqQO72vQX+CVyP9Remda0/fLyiwnBhlCt4n7YoBuOk=;
- b=Uoti1ZnQUfmURcV3F1cXVgJt4dDEFHkKg3fvkt2fa3lMaFHS+w5oBueHW3Po35rAF4
- m5TLrLVRX/kCaV1fr+MJiRdRa6Fh+rRVjFpXcI0Q8nLfOp9WbXW5JQ3VoHnT7hCyRZA8
- Lrb8bFRxqooP1hnjUXNrLszhD4AkiRZ/UwGe+LBzHvxJTSLWPLb9nLSUSKgnuQ7R/zfX
- NMVnR1SBlBTxT4c+ohTMBlKOsahYcfJsBVEB459NSutiEKXbEAg8EO3QwxAtKZD5X9hp
- BEfXm8GL9icUJpuTsjAEOTQTEJ2RKh4qpDDARMMtyUWi54UM0GQ/jvmXKifz+4xkehuP
- jO/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791324303; x=1791929103;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=uXqQO72vQX+CVyP9Remda0/fLyiwnBhlCt4n7YoBuOk=;
- b=PUQofvMcIKFmnCjjR5cbtBjn1Yt3T1tgwCh+ajIyAZouktBJHfLxUGG8rjjhK9YOLn
- K98jxj34Nh0fmxxXga0ihe5Nl+O1XS5ho3Nd5mQqsqUmgRH9bDsDY2B12MoSKQ3NZ4GN
- PT9kYhVBaHQb2R7qOc41rKBTFYBM2wXn4hxJxEL4ReWcXzAITybiXI8fRmY4itX7IwPp
- fgqP4kKUnXV/0mmKdmNa2+fkDbfhIEhIt+tudprKmS9vepXLurwx8mYe0O3D+BRUBWjJ
- RWx4Yej0uy3n2Szmgd/JRmci/rZcLOu2BNu33ZnjqO4bJZawomLX3MbRt065x/3ykPOv
- onTA==
-X-Gm-Message-State: AFuF++l5YhgbQI7WjgEdS7rH0VfWLLJjyyfzOmhlBMIyo7eXZnPWh9AM
- ommkLW8Dc4TW7gE4nwAhGapSZaZreKoenW1uY2iz2GJDONLS5jGOXIAuqcUYwIomtOA=
-X-Gm-Gg: AYBFou3YWMMOyTFRZcFspHKx3oPspu4SDhEM1mQaSXIwOkC/OBuLvdrdHWUbYx6q3ES
- 3QwKt/oPYE2WtEjrd/Zbqak2Pk0Pa9wHDe7JQkC0ofty6QEPQWvD99xbKuSdVLtfVRXVLOU64yt
- rnKuHKMo/J5gAK4Vg2G1WVfHwYaIFJfLWgZvHxeEXK3kK9tNHL/efrrlOfP6d/CQcaoa56Tql8q
- fFBNqC6UlJuKshwIj7oJaRVqymUasGvog8ikjW00WbpPTc4BjxMgNR+LSgueMakSPjMVdwz9K82
- AuRPS5KOhEuLF8Q7CivzN5TEAJDN/nDij+sok8lztNuxXXRm6062stq8tX34wS6+J1nNeJAaMkh
- L4eRDQ6ZAiPnHChxjGx4hs/oDv7auLQ2zSonkUiOgqPV1HIT9RUT2TiCm2dKePjaxCgyKnzkdWa
- Vuuvo9KpWLjLpvtKtDYSak/y+LiLLYufM1ivVaSFD6tE+LejmOeMp4HrYtfWeu8sQHgxAYttwvE
- oZDjOS8nVke7ZJtQy7sZCVLNyaLxltbhaUK3iC7T0QaDm+3OPWj2J8echB1ZdvzIZW6UZazxtyT
- 5D80OLJkxaMSd7UQCsMj6jYJMGUqM6ucc+unv9aTnZ3QQLPCZTS9DLC5Ocu2YTI=
-X-Received: by 2002:a05:620a:19a1:b0:93e:980a:2ff1 with SMTP id
- af79cd13be357-93e9b802152mr58804085a.69.1791324302737; 
- Tue, 06 Oct 2026 15:05:02 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::662b])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93e990fdb6bsm62466685a.7.2026.10.06.15.05.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2026 15:05:02 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: jouni.hogander@intel.com
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- animesh.manna@intel.com, ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
- ville.syrjala@linux.intel.com
-Subject: [RFC PATCH] drm/i915/psr: Send the AS SDP in PR Active while vblank
- is enabled
-Date: Tue,  6 Oct 2026 18:05:00 -0400
-Message-ID: <20261006220500.3417572-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260923041342.2146450-1-j@metarealtyinc.ca>
-References: <20260923041342.2146450-1-j@metarealtyinc.ca>
+Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com
+ [203.205.221.153])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFEC10E1A0
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 10:55:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1791370505; bh=PUrsW9QGleEa4tKnQJ9BZnmWEhq88y9ma4fL35Srg9o=;
+ h=Date:From:To:Cc:Cc:Cc:Subject;
+ b=ikiGO9qAll7MNsMUpUAAkhmoziZCtO2F1ieEnYdiPpH2DrCSOkY5Gd1DPfufLoizz
+ oSdKm+YoUbmt7kYG7c+bsqL5IvmZpQUCBMy7Snl3Q65Dkpde+xA7m/kWlqDb+aU59k
+ XOGPjQ1D3g8ewgWsAt1Rva8frZaavwlhqchFUHNI=
+Received: from localhost ([39.144.128.134])
+ by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+ id D79B241B; Wed, 07 Oct 2026 18:53:57 +0800
+X-QQ-mid: xmsmtpt1791370437twx43rnro
+Message-ID: <tencent_F0B7A92DA405622129C8AC48F3CF490B9B07@qq.com>
+X-QQ-XMAILINFO: MEx+xBdGVwfV5eb97qcA8GTxuLYrZQLfHlx6iEcRtUxw6KKH5jWU0mqvIHUuLq
+ 4hTaQFhsSHanmBvPeIG9DZy3ZLuIQ/KhdUFnaMJrmBAaFZHnL0/QWkU9DWb3GIly3+3XsqOAEJj9
+ uIXAfGWu5hvgLnf5lHhdbIvmec0dlo8wbsuDPBkdhDHrEoG4dKMVOLbRkyKp2/2aHnY397DL2ZfH
+ 2dinKjLKHoHqPgj1Ysf2Pwkp7GJDOd9NgFoXmwqkmdg7hpG2R1NEVHkxnhtfbFjFYDyXyBKbINmQ
+ S0l46rdcFQtjC6tJEJF8uBqqCQQn+XDob1gCg5FecDe3h6jOs/D9TZqAeP4xYPdkJtzqANT5ii2B
+ Ss3FObQxWtZffzfX/fE8wo3tJPALyqHq1dAYY2SlFkNslgge2J2rCCP2hwFUIcCKt9CZU8bAGojN
+ PuDOO1EIiGN0KI5qsMRluxCFL8qsfcYi4NDgrwgFrctEf6vINFqsfE2CVpNXzYxlCVfnlXx2pCfd
+ b7UQeKge13toVB+B5BwzFQ3jrTY8xnNMEi80YrbZSvyRBeu5xb+Zau/jbUaFzWHkLIXCH2AIhVeI
+ 7MC7VyH8NN6ZCbuIwcqBJTXfmmBlMZg4iz+24956TPVRSOdRThqBEgKleHdMpJGpOAY5iaYH6l2X
+ dOUiz/0vlmrFUryqgJsJ7WuYehRjJCvbs5wFUf8iHMGmDnCd1xnUq8qp0ZAles90tH7T/Q9eW8x4
+ ouUlrcENie5q3czjiqZkDBR0FoFtBx/BdRdgY19Fbb1SHbY8OgO81q25KDOI1UQR+zSMCTdpvlC7
+ B0ZgNnSHuCy8wjnUs2HFG3B5gA/NOICNNaoinzpJd5hPbbp36a7mZS/5EIaIG6KKOPJbLSsqcBVL
+ Yar4+eLFm1mLcRjWfMMhybooOqvhU3Pwlt7ICEsZqVdBCYKaR1D8KcU5zQZoi4E4iS+M06/Kxidk
+ mdn0y6Sb8vz9uyufpaEFlrEGc65PWF+6fhheAgH66OsULtlQK3mWHYkJ3S3tH0VIcCwoS/wEk=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+Date: Wed, 07 Oct 2026 18:53:57 +0800
+X-OQ-MSGID: <121677a3811a0561268ce6cc8d73faa1@qq.com>
+From: Eason <1836949523@qq.com>
+To: intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [BUG] drm/xe: WARNING in intel_bios_init(): "Port A asks to use VBT
+ vswing/preemph tables" on Panther Lake [8086:b081]
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -95,131 +70,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sinks that support async video timing in PR get the AS SDP suspended in
-PR Active (disable_as_sdp_when_pr_active). The LG panel in the Dell XPS
-16 DA16260 (sink OUI 00:22:b9, "Balsa2") then judders while frames are
-updating, with the source flipping at a steady 8.33 ms. Leaving the AS
-SDP on fixes it but blocks DC5/DC6.
+Hello,
 
-Clear PR_ALPM_CTL[AS SDP Transmission in Active Disable] while vblank
-interrupts are enabled and set it again when they are disabled. Panel
-Replay already holds DC_OFF while vblank is enabled, so no DC5/DC6
-residency is lost. Not done when AS SDP skip frames is in use.
+I would like to report a WARNING that appears on every boot on a Panther
+Lake laptop, and that is also visible on screen (before the desktop comes
+up) when resuming from hibernation.
 
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9119
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/8930
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
----
-Jouni, this is the fix for the stutter in the thread below. The 0x107
-bit 6 patch there is still correct but is not enough on its own.
-https://lore.kernel.org/r/20260923041342.2146450-1-j@metarealtyinc.ca
+Hardware / software
+-------------------
 
-- Run as an equivalent change on 7.3-rc4 and rc5 (PTL, xe) since 28 Sep:
-  smooth, DC5 still reached when idle. This drm-tip version is build
-  tested only (W=1, i915 and xe).
-- A seamless VRR toggle rewrites PR_ALPM_CTL through
-  intel_alpm_configure_pr_as_sdp() and sets the bit again until the
-  next vblank enable. Not handled here.
-- A second machine shows the same thing: XPS 13 (1028:0e53, same sink
-  OUI), fixed downstream by exiting PR on every flush (issue 8930).
-- Separate from this: the panel judders for a few seconds after panel
-  power-on. Locally I hold PR inactive after power-on; 3 s was not
-  quite enough, 8 s is clean. Not part of this patch.
-- CI has never run on my patches (address not on the allowlist, asked
-  twice). Could someone trigger it for this one and for series 174810?
- .../drm/i915/display/intel_display_types.h    |  3 ++
- drivers/gpu/drm/i915/display/intel_psr.c      | 36 ++++++++++++++++++-
- 2 files changed, 38 insertions(+), 1 deletion(-)
+  laptop    XIAOMI REDMI Book Pro 14 2026 (board TM2426)
+  BIOS      RMAPT4B0P0909 (2026-05-21), EC firmware 1.9
+  GPU       Intel Panther Lake [Arc B370] [8086:b081] (rev 04)
+            xe: "Found pantherlake (device ID b081) integrated display
+                 version 30.00 stepping B0"
+  kernel    7.2.9 (Arch linux-zen packaging: vanilla 7.2.9 + zen patchset
+            + one unrelated local one-file platform/x86 patch)
+  xe        srcversion BB102CAE6B929F8604B5647
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 0e3083e85..75113ed10 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1816,6 +1816,9 @@ struct intel_psr {
- 	bool dc3co_allowed;
- 	/* DC3CO disable work */
- 	struct delayed_work dc3co_work;
-+	/* AS SDP in PR Active follows vblank enable */
-+	bool pr_as_sdp_follow_vblank;
-+	bool vblank_enabled;
- 	u16 su_w_granularity;
- 	u16 su_y_granularity;
- 	bool source_panel_replay_support;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 00d0146b2..0f0b1fc94 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2166,6 +2166,29 @@ static bool psr_interrupt_error_check(struct intel_dp *intel_dp)
- 	return true;
- }
- 
-+/*
-+ * Sinks that support async video timing in PR get the AS SDP suspended in PR
-+ * Active. Some then drift out of phase with the source and judder while
-+ * frames are being updated. Send the AS SDP in PR Active while vblank
-+ * interrupts are enabled: Panel Replay holds DC_OFF then anyway, so this
-+ * costs no DC5/DC6 residency. Suspend it again when vblank interrupts are
-+ * disabled, before DC_OFF is dropped.
-+ */
-+static void intel_psr_pr_as_sdp_update(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	lockdep_assert_held(&intel_dp->psr.lock);
-+
-+	if (!intel_dp->psr.enabled || !intel_dp->psr.pr_as_sdp_follow_vblank)
-+		return;
-+
-+	intel_de_rmw(display, PR_ALPM_CTL(display, intel_dp->psr.transcoder),
-+		     PR_ALPM_CTL_AS_SDP_TRANSMISSION_IN_ACTIVE_DISABLE,
-+		     intel_dp->psr.vblank_enabled ? 0 :
-+		     PR_ALPM_CTL_AS_SDP_TRANSMISSION_IN_ACTIVE_DISABLE);
-+}
-+
- static void intel_psr_enable_locked(struct intel_dp *intel_dp,
- 				    const struct intel_crtc_state *crtc_state)
- {
-@@ -2225,6 +2248,12 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
- 	intel_dp->psr.enabled = true;
- 	intel_dp->psr.pause_counter = 0;
- 
-+	intel_dp->psr.pr_as_sdp_follow_vblank = crtc_state->has_panel_replay &&
-+		crtc_state->disable_as_sdp_when_pr_active &&
-+		intel_dp->as_sdp_supported && intel_dp_is_edp(intel_dp) &&
-+		!intel_alpm_pr_as_sdp_skip_frames_enabled(intel_dp, crtc_state);
-+	intel_psr_pr_as_sdp_update(intel_dp);
-+
- 	/*
- 	 * Link_ok is sticky and set here on PSR enable. We can assume link
- 	 * training is complete as we never continue to PSR enable with
-@@ -2400,6 +2429,7 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 	intel_dp->psr.pkg_c_latency_used = 0;
- 	cancel_delayed_work(&intel_dp->psr.dc3co_work);
- 	intel_dp->psr.dc3co_allowed = false;
-+	intel_dp->psr.pr_as_sdp_follow_vblank = false;
- }
- 
- /**
-@@ -4163,7 +4193,11 @@ void intel_psr_notify_vblank_enable_disable(struct intel_display *display,
- 				intel_dp->psr.vblank_wakeref =
- 					intel_display_power_get(display,
- 								POWER_DOMAIN_DC_OFF);
--			else
-+
-+			intel_dp->psr.vblank_enabled = enable;
-+			intel_psr_pr_as_sdp_update(intel_dp);
-+
-+			if (!enable)
- 				intel_display_power_put(display, POWER_DOMAIN_DC_OFF,
- 							intel_dp->psr.vblank_wakeref);
- 		}
+What happens
+------------
 
-base-commit: daeb062fc40f727fafefed080c6d12a5ad1d0d12
--- 
-2.56.0
+Every boot, about 7.1 s in, while the xe module initializes the display:
+
+  [    7.10xxxx] xe 0000:00:02.0: [drm] Found pantherlake (device ID b081) integrated display version 30.00 stepping B0
+  [    7.11xxxx] ------------[ cut here ]------------
+  [    7.11xxxx] xe 0000:00:02.0: [drm] Port A asks to use VBT vswing/preemph tables
+  [    7.11xxxx] WARNING: drivers/gpu/drm/i915/display/intel_bios.c:2813 at intel_bios_init+0x17fd/0x1f60 [xe], CPU#1: (udev-worker)/207
+  [    7.11xxxx] Modules linked in: xe(+) drm_ttm_helper ttm drm_buddy i2c_algo_bit drm_suballoc_helper nvme gpu_sched drm_gpuvm nvme_core drm_exec ...
+  [    7.11xxxx] CPU: 1 UID: 0 PID: 207 Comm: (udev-worker) Tainted: G     U   7.2.9-zen1-1.1-zen #1 PREEMPT(full)
+  [    7.11xxxx] Hardware name: XIAOMI REDMI Book Pro 14 2026/TM2426, BIOS RMAPT4B0P0909 05/21/2026
+  [    7.11xxxx] RIP: 0010:intel_bios_init+0x1806/0x1f60 [xe]
+  [    7.11xxxx] Call Trace:
+  [    7.11xxxx]  <TASK>
+  [    7.11xxxx]  intel_display_driver_probe_noirq+0x3b/0x2e0 [xe]
+  [    7.11xxxx]  xe_display_init_early+0x8b/0x140 [xe]
+  [    7.11xxxx]  xe_device_probe+0x46d/0xc20 [xe]
+  [    7.11xxxx]  xe_pci_probe+0xdf7/0x13d0 [xe]
+  [    7.11xxxx]  pci_call_probe+0x9a/0x270
+  [    7.11xxxx]  pci_device_probe+0xdb/0x180
+  [    7.11xxxx]  really_probe+0xe9/0x440
+  [    7.11xxxx]  __driver_probe_device+0x90/0x190
+  [    7.11xxxx]  __driver_attach+0xb3/0x370
+  [    7.11xxxx]  bus_for_each_dev+0x12f/0x1d0
+  [    7.11xxxx]  bus_add_driver+0x153/0x310
+  [    7.11xxxx]  driver_register+0x75/0xe0
+  [    7.11xxxx]  xe_init+0x27/0x90 [xe]
+  [    7.11xxxx]  ? __pfx_init_module+0x10/0x10 [xe]
+  [    7.11xxxx]  do_one_initcall+0x8e/0x3d0
+  [    7.11xxxx]  do_init_module+0x6a/0x2b0
+  [    7.11xxxx]  init_module_from_file+0xc8/0x180
+  [    7.11xxxx]  idempotent_init_module+0x23e/0x360
+  [    7.11xxxx]  __x64_sys_finit_module+0x7f/0x110
+  [    7.11xxxx]  do_syscall_64+0xaa/0x660
+  [    7.11xxxx]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  [    7.11xxxx] ---[ end trace 0000000000000000 ]---
+
+which is exactly the check at intel_bios.c:2813:
+
+  /*
+   * FIXME need to implement support for VBT
+   * vswing/preemph tables should this ever trigger.
+   */
+  drm_WARN(display->drm, child->use_vbt_vswing,
+           "Port %c asks to use VBT vswing/preemph tables\n",
+           port_name(port));
+
+So the VBT of this machine sets use_vbt_vswing for DDI port A.
+
+Impact here
+-----------
+
+The display works normally (eDP panel comes up, external output over USB-C
+works, no visible corruption), so for me this is a warning and not a
+functional failure. Two reasons I still wanted to report it:
+
+  - it dumps a full backtrace on every boot, which looks alarming in dmesg;
+  - after resume from hibernation the console output stays on screen until
+    the display driver takes over, so this warning is what the user actually
+    sees ("a long line with a register dump") before the desktop comes back.
+    It is not hibernation-specific: a plain cold boot shows it too.
+
+Questions
+---------
+
+  - Is this expected for this VBT, i.e. should the OEM VBT not set
+    use_vbt_vswing for port A at all?
+  - Is support for the VBT vswing/preemph tables planned, or would it make
+    sense to downgrade/ignore the warning for this case (e.g. when the DP
+    link is working fine)?
+  - Is there any information from the VBT you would like me to extract?
+
+I can provide
+-------------
+
+  - full dmesg / journalctl -k output for a cold boot and for a
+    hibernation/resume cycle;
+  - acpidump output;
+  - the VBT binary (please tell me the preferred way to extract it from this
+    platform - e.g. the intel-gpu-tools VBT/opregion decoders - and I will
+    attach it);
+  - a boot with drm.debug=0xe, or any other debug options you want;
+  - testing of patches, including on mainline, since I can build kernels
+    locally for this machine.
+
+Thanks a lot for your work on xe.
+
+Note: the local testing and the preparation of this report were done with the
+assistance of a local AI assistant (DeepSeek Harness WebUI, deepseek-flash
+model); every command, log and result quoted above was actually executed on
+this machine and reviewed by me.
+
+Eason
+1836949523@qq.com
 
