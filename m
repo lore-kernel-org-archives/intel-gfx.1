@@ -4,60 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C962CA600A
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 22:24:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55126CA6002
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 23:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76FD510F81B;
-	Wed,  7 Oct 2026 22:24:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lcN5nzIU";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A959010F810;
- Wed,  7 Oct 2026 22:23:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791411811; x=1822947811;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6sttHJs7jAXszBeTkG9YoMape6jBbER4It5EHiuHHf4=;
- b=lcN5nzIUzEbF+a+2ovTRwOM7ov3zjQgnZgp8ZEUO+uejEtTl358SUSgI
- 3QiyL1b/Iol3a46J0394nNI2SckA49TV2+u0/WXh/uMFmCmJp552Zq0HL
- a22eErr90204wH3ApsyXiMr9Fn6gl/dGZAc6LmHzjl6n+ApJw7MCwHtWf
- HHSQMj/ixl9w30kh96abAXASlUn998YptFCadd4WwvM129EP05ykOc1wh
- L+KNTNNXx4dSyvbEulVm/BQWFL8dDHDj6x8WVkmxzTUE+C1E8FtUprIHS
- kVyY/CDb057PgpIjb6fcsgn8ggyLBtsWDRl4FGYQDGw0exZEEsUHXIZEH g==;
-X-CSE-ConnectionGUID: BnTloN/qRj+yL2ISr1PRew==
-X-CSE-MsgGUID: Yj5lYwFoQGe1ZyzZpL0HYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="88785"
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="88785"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 15:23:30 -0700
-X-CSE-ConnectionGUID: QCzq4J59SKWx9XmijmCgWQ==
-X-CSE-MsgGUID: VZojqnILQ3mm+5PDTOhjVA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="193218"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.62])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 15:23:29 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 3/5] drm/i915/gmbus: Reorder the PNV clock gating GPIO w/a
-Date: Thu,  8 Oct 2026 01:23:12 +0300
-Message-ID: <20261007222314.5714-4-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007222314.5714-1-ville.syrjala@linux.intel.com>
-References: <20261007222314.5714-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5BE510E6D4;
+	Wed,  7 Oct 2026 23:36:51 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59D3110E055;
+ Wed,  7 Oct 2026 23:36:50 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5333905237466531838=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/gmbus=3A_Fix_PTL?=
+ =?utf-8?q?+_i2c_bit_banging?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 07 Oct 2026 23:36:50 -0000
+Message-ID: <179141621036.250359.4226908605262720901@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20261007222314.5714-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261007222314.5714-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,56 +37,200 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============5333905237466531838==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Move the PNV bit banging clock gating toggle to be the
-outermost operation in the pre/post xfer hooks. We don't
-want the clock gating to kick in once we've touched something
-in the GPIO registers. Right now this doesn't really matter,
-but upcoming changes to the GPIO register mask handling will
-need this.
+== Series Details ==
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_gmbus.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Series: drm/i915/gmbus: Fix PTL+ i2c bit banging
+URL   : https://patchwork.freedesktop.org/series/175719/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index e808f5c4106b..854f439ac5ba 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -339,11 +339,11 @@ intel_gpio_pre_xfer(struct i2c_adapter *adapter)
- 	struct intel_gmbus *bus = to_intel_gmbus(adapter);
- 	struct intel_display *display = bus->display;
- 
--	intel_gmbus_reset(display);
--
- 	if (display->platform.pineview)
- 		pnv_gmbus_clock_gating(display, false);
- 
-+	intel_gmbus_reset(display);
-+
- 	if (intel_display_wa(display, INTEL_DISPLAY_WA_16025573575))
- 		ptl_handle_mask_bits(bus, true);
- 
-@@ -362,11 +362,11 @@ intel_gpio_post_xfer(struct i2c_adapter *adapter)
- 	set_data(bus, 1);
- 	set_clock(bus, 1);
- 
--	if (display->platform.pineview)
--		pnv_gmbus_clock_gating(display, true);
--
- 	if (intel_display_wa(display, INTEL_DISPLAY_WA_16025573575))
- 		ptl_handle_mask_bits(bus, false);
-+
-+	if (display->platform.pineview)
-+		pnv_gmbus_clock_gating(display, true);
- }
- 
- static void
--- 
-2.55.0
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_19297 -> Patchwork_175719v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/index.html
+
+Participating hosts (39 -> 37)
+------------------------------
+
+  Missing    (2): bat-dg2-13 bat-adls-6 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_175719v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-jsl-5:          NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - bat-dg2-14:         [PASS][2] -> [ABORT][3] ([i915#17063]) +1 other test abort
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19297/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-jsl-5:          NOTRUN -> [SKIP][4]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - bat-jsl-5:          NOTRUN -> [SKIP][5] ([i915#15205])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-primary-page-flip:
+    - bat-jsl-5:          NOTRUN -> [SKIP][6] ([i915#1072]) +3 other tests skip
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_psr@psr-primary-page-flip.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-jsl-5:          NOTRUN -> [SKIP][7] ([i915#3555])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_setmode@basic-clone-single-crtc.html
+
+  
+#### Possible fixes ####
+
+  * igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1:
+    - bat-jsl-5:          [ABORT][8] ([i915#17262]) -> [PASS][9] +1 other test pass
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19297/bat-jsl-5/igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#15205]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15205
+  [i915#17063]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17063
+  [i915#17262]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17262
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19297 -> Patchwork_175719v1
+
+  CI-20190529: 20190529
+  CI_DRM_19297: facc562ab96d7b9fa3dec0528022e0009a5bf875 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9134: 23f88758399c4e526aab1db26f35208faea9816a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_175719v1: facc562ab96d7b9fa3dec0528022e0009a5bf875 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/index.html
+
+--===============5333905237466531838==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gmbus: Fix PTL+ i2c bit banging</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175719/">https://patchwork.freedesktop.org/series/175719/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19297 -&gt; Patchwork_175719v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_175719v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-jsl-5:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19297/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17063">i915#17063</a>) +1 other test abort</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-jsl-5:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-jsl-5:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15205">i915#15205</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-page-flip:</p>
+<ul>
+<li>bat-jsl-5:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_psr@psr-primary-page-flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-jsl-5:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1:<ul>
+<li>bat-jsl-5:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19297/bat-jsl-5/igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17262">i915#17262</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175719v1/bat-jsl-5/igt@kms_flip@basic-flip-vs-dpms@c-hdmi-a1.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19297 -&gt; Patchwork_175719v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19297: facc562ab96d7b9fa3dec0528022e0009a5bf875 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9134: 23f88758399c4e526aab1db26f35208faea9816a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_175719v1: facc562ab96d7b9fa3dec0528022e0009a5bf875 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============5333905237466531838==--
