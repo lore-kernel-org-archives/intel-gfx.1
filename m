@@ -4,27 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADB38CA5FFF
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 09:34:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D7ECCA5FFF
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 09:51:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D722F10E3DD;
-	Wed,  7 Oct 2026 09:34:22 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC1110E3DD;
- Wed,  7 Oct 2026 09:34:21 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8675915399136309162=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE0710E579;
+	Wed,  7 Oct 2026 09:51:36 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m/p7UH3N";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5489710E579
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 09:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791366695; x=1822902695;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=mt+iq0lWCHzQfDYrfrlqEtd5P+ap0Q2mMhBWwH5H8S8=;
+ b=m/p7UH3NWcxNwKN8tj45noJ8beGY4+rkCzsbc8/xaDRPb3guets44ZOQ
+ +TVQqZRi4MZXqqRd0vQFqWZgdTd72+u6Yl7IT8vHW1oaxsaiyf74KTWDs
+ xTSJouSTdGSMskqDqaYvX3rSnQasypgdwIZlmd2R/avu/2KO0wnvfTHfk
+ m3OuQkrlNUJdvOHsB+KwNONXJZgV7FXVnWgW4nlnXasydFcdVE/BGVEUy
+ rHQAF93tB63tVyt0LGY+XJ+jHFIzoxrOuJfOct44CiJ9U9MbQ7VEYmULF
+ EgsiQx1QzP8DXkEJvnZWgI5hY8pRQTPTtl+3RRBPvaZiIyRoq220Cjh8n w==;
+X-CSE-ConnectionGUID: aBzlDQFuTXKkWD4gLwe+wg==
+X-CSE-MsgGUID: 5a/kJNBxR6q1ttE/H8UPgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="5198"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="5198"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 02:51:35 -0700
+X-CSE-ConnectionGUID: kaBsrKAkS+yZ1OBMmGXWjQ==
+X-CSE-MsgGUID: MGf0vOAkRRiC1Xg2PU0PqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; d="scan'208";a="285490563"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.150])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 02:51:32 -0700
+Message-ID: <1c9905719331e6229d0f8eb197f547dc060052fc.camel@linux.intel.com>
+Subject: Re: [PATCH v2] PCI: Disable not supported reset methods on DG1 0x4905
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, intel-gfx@lists.freedesktop.org, Joonas
+ Lahtinen	 <joonas.lahtinen@linux.intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>,  Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>, linux-kernel@vger.kernel.org
+Date: Wed, 07 Oct 2026 11:51:29 +0200
+In-Reply-To: <ap_nbJWGXWTI8ARq@intel.com>
+References: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
+ <ap_nbJWGXWTI8ARq@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/psr=3A_ASYNC=5FV?=
- =?utf-8?q?IDEO=5FTIMING=5FNOT=5FSUPPORTED=5FIN=5FPR_not_valid_for_eDP?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 07 Oct 2026 09:34:21 -0000
-Message-ID: <179136566124.247212.14161104034158308265@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20261007083443.647649-1-jouni.hogander@intel.com>
-In-Reply-To: <20261007083443.647649-1-jouni.hogander@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,178 +74,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8675915399136309162==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Ville, Bjorn,
 
-== Series Details ==
+On Tue, 2026-09-08 at 13:46 +0300, Ville Syrj=C3=A4l=C3=A4 wrote:
+> On Mon, Sep 07, 2026 at 10:59:18AM +0200, Janusz Krzysztofik wrote:
+> > DRM CI consistently reports failing device reset attempts on Intel DG1
+> > discrete graphics adapters.  Manual reproduction attempts allowed to
+> > narrow down the scope of that problem to a specific revision of that
+> > hardware, SKU 8086:4905.  It has been confirmed that both reset methods
+> > claimed by the device, i.e., flr and bus, suffer from that issue.
+>=20
+> IIRC the documented workaround for the issue is some kind of magic
+> register write after the FLR to unblock some internal state machine,
+> but the CPU isn't allowed to do that write and instead it has to be
+> performed by the GuC. That means we'd somehow have to reinitialize
+> the GuC very early after the FLR, which sounds rather difficult.
 
-Series: drm/i915/psr: ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR not valid for eDP
-URL   : https://patchwork.freedesktop.org/series/175652/
-State : failure
+@Ville, thank you for providing details of the mentioned workaround (off-
+list).  I can see that workaround already included in GuC firmware, =C2=A0
+however, it doesn't fix the issue I'm trying to address here.  Then,=C2=A0
+disabling problematic PCI reset methods on the affected SKU, as proposed,=
+=C2=A0
+seems the only feasible solution left, I believe.
 
-== Summary ==
+@Bjorn, can you please get back to this patch and push it forward?
 
-CI Bug Log - changes from CI_DRM_19291 -> Patchwork_175652v1
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_175652v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_175652v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_175652v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@coherency:
-    - bat-arlh-3:         [PASS][1] -> [INCOMPLETE][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19291/bat-arlh-3/igt@i915_selftest@live@coherency.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/bat-arlh-3/igt@i915_selftest@live@coherency.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_175652v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live:
-    - bat-arlh-3:         [PASS][3] -> [INCOMPLETE][4] ([i915#16547])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19291/bat-arlh-3/igt@i915_selftest@live.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/bat-arlh-3/igt@i915_selftest@live.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_auth@basic-auth:
-    - fi-bsw-n3050:       [DMESG-WARN][5] ([i915#17305]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19291/fi-bsw-n3050/igt@core_auth@basic-auth.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/fi-bsw-n3050/igt@core_auth@basic-auth.html
-
-  
-  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
-  [i915#17305]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17305
+Thanks,
+Janusz
 
 
-Build changes
--------------
-
-  * Linux: CI_DRM_19291 -> Patchwork_175652v1
-
-  CI-20190529: 20190529
-  CI_DRM_19291: daeb062fc40f727fafefed080c6d12a5ad1d0d12 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9131: 5e43e9df3a1581074f0de2bbeddd939ebd950b93 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_175652v1: daeb062fc40f727fafefed080c6d12a5ad1d0d12 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/index.html
-
---===============8675915399136309162==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/psr: ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR not valid for eDP</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175652/">https://patchwork.freedesktop.org/series/175652/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19291 -&gt; Patchwork_175652v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_175652v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_175652v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_175652v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live@coherency:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19291/bat-arlh-3/igt@i915_selftest@live@coherency.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/bat-arlh-3/igt@i915_selftest@live@coherency.html">INCOMPLETE</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_175652v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19291/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@core_auth@basic-auth:<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19291/fi-bsw-n3050/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17305">i915#17305</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175652v1/fi-bsw-n3050/igt@core_auth@basic-auth.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19291 -&gt; Patchwork_175652v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19291: daeb062fc40f727fafefed080c6d12a5ad1d0d12 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9131: 5e43e9df3a1581074f0de2bbeddd939ebd950b93 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_175652v1: daeb062fc40f727fafefed080c6d12a5ad1d0d12 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8675915399136309162==--
+>=20
+> >=20
+> > Since consecutively failing device resets may lead to system hangs,
+> > disable both useless reset methods.  A respective CI test will then be
+> > skipped instead of aborting whole CI jobs.
+> >=20
+> > Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/118=
+14
+> > Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> > Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> > Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> > ---
+> > v2: Fix commit description wording (Andi)
+> >   - add Suggested-by: tag missing from v1,
+> >   - add collected Reviewed-by: tags.
+> >=20
+> >  drivers/pci/quirks.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >=20
+> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> > index de9bbccda21fd..e55475374c6fd 100644
+> > --- a/drivers/pci/quirks.c
+> > +++ b/drivers/pci/quirks.c
+> > @@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005=
+, quirk_no_bus_reset);
+> >   */
+> >  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_r=
+eset);
+> > =20
+> > +/* Intel DG1 0x4905 may not recover from bus reset */
+> > +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_res=
+et);
+> > +
+> >  static void quirk_no_pm_reset(struct pci_dev *dev)
+> >  {
+> >  	/*
+> > @@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x44=
+3, quirk_intel_qat_vf_cap);
+> >   * AMD Neural Processing Unit 0x1502 0x17f0
+> >   * Intel 82579LM Gigabit Ethernet Controller 0x1502
+> >   * Intel 82579V Gigabit Ethernet Controller 0x1503
+> > + * Intel DG1 Discrete Graphics Adapter 0x4905
+> >   * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
+> >   * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
+> >   */
+> > @@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502=
+, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
+> > +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
+> > =20
+> > --=20
+> > 2.54.0
