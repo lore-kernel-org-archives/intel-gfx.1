@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C634CA5FF1
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 12:20:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB697CA5FFC
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 13:46:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22B4410F548;
-	Wed,  7 Oct 2026 12:20:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A2A10E1BE;
+	Wed,  7 Oct 2026 13:46:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e8DGhKcf";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H5pBEx7F";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B21BA10F548;
- Wed,  7 Oct 2026 12:19:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7413610E1BE;
+ Wed,  7 Oct 2026 13:46:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791375600; x=1822911600;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=TIjuGHnOsnKe6YpSsBEWlIGYqh6gr8uigH+aonS911c=;
- b=e8DGhKcf+M3ZM4ALCK3qgS+4SwlaKdxmj8LAtsavzLtn7NilLk72jG4j
- c0mvfUbo4p7B865eUIEDSqt7IQGfDnbtzVt9NLNPzrvEov7gSyktQIl+u
- RG0rwg2KH/NVi4l0c4WW7Ux543BMllJ5Lya3BI+I1+yWh0Sijc408kQak
- FZBoHMdMg6myXB94ZlawayjSNrMWQfHMWnWbFpKZw3zZryz7+X9NmrepQ
- pXdXYED/YPrmIAXtjUVN1vBX1hmmDvjPzxYLOQiMvFAoKf4NSUo81DtZX
- g5CnI1eW1e/ABWPsmEpDqIeWNZ5XjZjG1JSkikB8SSlh6IMJqif3iNm0J A==;
-X-CSE-ConnectionGUID: P8ww+WkrROS+3G+U/7ctIg==
-X-CSE-MsgGUID: e7CKPQBCQv2gCl1epunXkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="17720"
+ t=1791380767; x=1822916767;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=6reivc1cjcdS6A2H9elivNVKq/l2kWZ/7Ke/ldARydw=;
+ b=H5pBEx7Faok+8R6zvhswoaIab5iqkrdoUC2LodxJpawyyNHfIsUsxeYB
+ UJ+hGlYjDxNsyoks+VdnIiHmAnQbm6lAWACxutRmXqmnjyVwdJtmcdjom
+ Qr8UF7BScsUaJwaXmjGbVdAjgM4mQ5aNco6T7jB70ncUjo3SolbokpNSv
+ xXSeYDe25LxRi5ukvM2pASuJNEmj4AVkkBLCg8YUuLEhTGk9rTX6cU20L
+ uNixBXcw3hyz8BiKZpqEXkxFaVWU2tfGcO4mON2Ajyd+uq4gRzM4eTDy2
+ bptsPUxrC32hjscR+NWOmL34jobNbFND5Km8T6d167G1ixTRDGJraPlfe Q==;
+X-CSE-ConnectionGUID: hj4rdeCIS+mUVlEiLmzb8g==
+X-CSE-MsgGUID: 3+RXhv16SoK5linQxfDkpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="42443"
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="17720"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 05:19:59 -0700
-X-CSE-ConnectionGUID: MQ4HoILCTS+wUn9TlOlSlA==
-X-CSE-MsgGUID: 0EeyA1NJSPCCdPnkJe6XsA==
+   d="scan'208";a="42443"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 06:46:06 -0700
+X-CSE-ConnectionGUID: FUy7PAdAQUuu6easqp0zCw==
+X-CSE-MsgGUID: PSJ3Y/4oTvuwucoWk91eqA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; d="scan'208";a="303726666"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; d="scan'208";a="280734375"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.245.244.231])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 05:19:58 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Eason <1836949523@qq.com>, intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: [BUG] drm/xe: WARNING in intel_bios_init(): "Port A asks to use
- VBT vswing/preemph tables" on Panther Lake [8086:b081]
-In-Reply-To: <tencent_F0B7A92DA405622129C8AC48F3CF490B9B07@qq.com>
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 06:46:04 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+	Imre Deak <imre.deak@intel.com>
+Subject: [CI try #2] drm/{i915,
+ xe}: make intel_dmc_suspend() part of display suspend/shutdown calls
+Date: Wed,  7 Oct 2026 16:46:01 +0300
+Message-ID: <20261007134601.2433046-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
+MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <tencent_F0B7A92DA405622129C8AC48F3CF490B9B07@qq.com>
-Date: Wed, 07 Oct 2026 15:19:55 +0300
-Message-ID: <721437b18fe84aef08d5d13782e4da1be5ee7c66@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,19 +72,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 07 Oct 2026, Eason <1836949523@qq.com> wrote:
-> I would like to report a WARNING that appears on every boot on a Panther
-> Lake laptop, and that is also visible on screen (before the desktop comes
-> up) when resuming from hibernation.
+Move the intel_dmc_suspend() calls from i915 and xe suspend and shutdown
+hooks all the way down to a shared location in
+__intel_display_driver_pm_suspend().
 
-Please file a bug as described at [1]. Please include the VBT.
+This is a change in the suspend/shutdown sequences, but hopefully one
+without problems. The main change is moving intel_dmc_suspend() before
+irq suspend.
 
-Thanks,
-Jani.
+Reviewed-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_driver.c | 2 ++
+ drivers/gpu/drm/i915/i915_driver.c                  | 4 ----
+ drivers/gpu/drm/xe/display/xe_display.c             | 4 ----
+ 3 files changed, 2 insertions(+), 8 deletions(-)
 
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index 70d112fd4287..77009dca7d0d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -768,6 +768,8 @@ static int __intel_display_driver_pm_suspend(struct intel_display *display, bool
+ 
+ 	intel_encoder_suspend_all(display);
+ 
++	intel_dmc_suspend(display);
++
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index ce6d20958320..9e047c27a153 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1024,8 +1024,6 @@ void i915_driver_shutdown(struct drm_i915_private *i915)
+ 
+ 	intel_irq_suspend(i915);
+ 
+-	intel_dmc_suspend(display);
+-
+ 	i915_gem_suspend(i915);
+ 
+ 	/*
+@@ -1096,8 +1094,6 @@ static int i915_drm_suspend(struct drm_device *dev)
+ 
+ 	dev_priv->suspend_count++;
+ 
+-	intel_dmc_suspend(display);
+-
+ 	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+ 
+ 	i915_gem_drain_freed_objects(dev_priv);
+diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
+index 506f26e9c59a..aab416485e3e 100644
+--- a/drivers/gpu/drm/xe/display/xe_display.c
++++ b/drivers/gpu/drm/xe/display/xe_display.c
+@@ -170,8 +170,6 @@ void xe_display_shutdown(struct xe_device *xe)
+ 	intel_display_driver_shutdown(display);
+ 
+ 	intel_opregion_suspend(display, PCI_D3cold);
+-
+-	intel_dmc_suspend(display);
+ }
+ 
+ void xe_display_shutdown_late(struct xe_device *xe)
+@@ -248,8 +246,6 @@ void xe_display_pm_suspend(struct xe_device *xe)
+ 	intel_display_driver_pm_suspend(display);
+ 
+ 	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
+-
+-	intel_dmc_suspend(display);
+ }
+ 
+ void xe_display_pm_suspend_late(struct xe_device *xe)
 -- 
-Jani Nikula, Intel
+2.47.3
+
