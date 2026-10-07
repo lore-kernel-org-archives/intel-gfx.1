@@ -4,56 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D88CCA5FFF
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 07:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8869CA5FFF
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 07:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C68E210E2E7;
-	Wed,  7 Oct 2026 07:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4876510E502;
+	Wed,  7 Oct 2026 07:17:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pc+yLGV2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ogSpH9UG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C64110E24A;
- Wed,  7 Oct 2026 07:07:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791356830; x=1822892830;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=grg/dZHsD/m3/1iNDT7N9gmiTUfRdj+5XMs3rrmKI7Y=;
- b=Pc+yLGV2bue/Jeibr9YY5LUh5U4lV9oPEQNsBZpNLsZ/dpGEwHj9s1fx
- wsrU3esklFxoKgk0uO9mctLYKFnDoaIiNMctSDqECh9aXCItYPAgW3UDa
- B9L7cG/YMrtmsnePh2JczeB6B8gSymMxpcnLoQBTUDFLOQ16+XKqgfiEO
- K71BsYoWidKpEgH4a7owcxaKpsyygNyImiPfJcBgV4LiIsUw7F5tYXZL4
- Ent3ugAXjO+J4NAn86/P1ZP1VxV9T7KCyYLhGJRuiIBUPD65QeXswakk+
- LvSCH3iW8gt3SxgKGmSIkHUy4SnnoK6sgF5m0cx13NRAZ17hsjyxAOl8V g==;
-X-CSE-ConnectionGUID: ETBV7QO5QqCgGz7EAyI2dA==
-X-CSE-MsgGUID: KeAtUZToR7uyt+QXVcMDiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="5576"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="5576"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 00:07:10 -0700
-X-CSE-ConnectionGUID: BpEkSBnpS7afrFHdv+VZRg==
-X-CSE-MsgGUID: 6Fvl+rutSDquEXcvMW+R5g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="1468688"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa011.fm.intel.com with ESMTP; 07 Oct 2026 00:07:08 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: suraj.kandpal@intel.com, ankit.k.nautiyal@intel.com,
- Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH] drm/i915/scaler: Prune YUV420 modes against the max source
- width
-Date: Wed,  7 Oct 2026 12:36:01 +0530
-Message-Id: <20261007070601.3611674-1-arun.r.murthy@intel.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBF6A10E502;
+ Wed,  7 Oct 2026 07:17:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A1B784188F;
+ Wed,  7 Oct 2026 07:17:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7E21F0089B;
+ Wed,  7 Oct 2026 07:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791357453;
+ bh=oru6efE/yTSl+Dykgr1ufj/8/mo1DiRzrSrQE2tU7oU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ogSpH9UG50gw4byFfOsUI3PzirVCMtfgFXmTsAutNFAO0mX8kFCwjfUJp+H1YCUpK
+ HckCjQxWe0u5g3URZL6zB62BXxBpeWKwuP+z3WwxHdL2L99qy2CB0JzH/wbY7F6JIk
+ iUx+CD/fTH26G5P4dMIF39uS4uvzplgEdJxE6r5FYpcHxQkI6ozSTnOHjo5oKYh6oY
+ XkoHMIUQqpEVpkNOHVI9rs+1q23xH1Hp9VimfRTnhaQ1LyALg5x0Wjw3SB+J/lnwO+
+ wkl6izGKje0QfZrKhfaDDBDSL3yJLfCWwztKaA1+2X7mxiLlw2C7Bu3C+oVDsp4ulu
+ qp+4EFeCq4SSA==
+Message-ID: <sashiko-outbox-162702@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/scaler: Prune YUV420 modes against the max
+ source width
+To: "Arun R Murthy" <arun.r.murthy@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20261007070601.3611674-1-arun.r.murthy@intel.com>
+References: <20261007070601.3611674-1-arun.r.murthy@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 07 Oct 2026 07:17:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,41 +53,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-skl_scaler_mode_valid() compares the mode's hdisplay against the pipe
-scaler maximum source height instead of the maximum source width, so
-single pipe YUV420 modes are pruned against the wrong limit.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] drm/i915/scaler: missing vertical limit check for YUV420 modes
+- [Medium] drm/i915/scaler: invalid joined pipe modes exposed due to skippe=
+d scaler limit check
+--
 
-Commit 3347b55f2c6c ("drm/i915/xe3lpd: Prune modes for YUV420") intended
-to reject modes whose hdisplay exceeds the scaler horizontal source
-limit, since pipe scaling does not support YUV420 for a source width
-above 4096. Comparing against max_h makes the check far too permissive
-from display 12 onwards, where max_h is 8192, and too strict on display
-11, where max_h is 4096 while the horizontal limit is 5120.
+commit 59a282a072c72ed078bc3b442b7aded1b908a674
+Author: Arun R Murthy <arun.r.murthy@intel.com>
 
-Compare against max_w instead.
+drm/i915/scaler: Prune YUV420 modes against the max source width
 
-Fixes: 3347b55f2c6c ("drm/i915/xe3lpd: Prune modes for YUV420")
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/skl_scaler.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This commit updates the YUV420 mode validation in skl_scaler_mode_valid to
+check the horizontal dimension against max_w instead of max_h. This fixes an
+issue where single-pipe YUV420 modes were being evaluated against the verti=
+cal
+scaler limits.
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 7994b983d509..7e65c4fffbc0 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -145,7 +145,7 @@ skl_scaler_mode_valid(struct intel_display *display,
- 
- 	if (num_joined_pipes < 2 && output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
- 		skl_scaler_max_src_size(display, &max_w, &max_h);
--		if (mode->hdisplay > max_h)
-+		if (mode->hdisplay > max_w)
- 			return MODE_NO_420;
- 	}
- 
--- 
-2.25.1
+> diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/=
+i915/display/skl_scaler.c
+> index 7994b983d509d..7e65c4fffbc0c 100644
+> --- a/drivers/gpu/drm/i915/display/skl_scaler.c
+> +++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+> @@ -145,7 +145,7 @@ skl_scaler_mode_valid(struct intel_display *display,
+> =20
+>  	if (num_joined_pipes < 2 && output_format =3D=3D INTEL_OUTPUT_FORMAT_YC=
+BCR420) {
 
+[Severity: Medium]
+By restricting this check to num_joined_pipes < 2, does this bypass the
+scaler limit check for joined pipe modes?
+
+When using Bigjoiner or Ultrajoiner (num_joined_pipes >=3D 2), the effective
+per-pipe source width is mode->hdisplay / num_joined_pipes. If this effecti=
+ve
+width still exceeds max_w, the mode will pass mode_valid but fail later
+during the atomic_check phase in skl_update_scaler, potentially causing a
+failed modeset or black screen.
+
+>  		skl_scaler_max_src_size(display, &max_w, &max_h);
+> -		if (mode->hdisplay > max_h)
+> +		if (mode->hdisplay > max_w)
+
+[Severity: Medium]
+Does this code also need to validate the vertical dimension against max_h?
+
+The function skl_scaler_max_src_size populates both max_w and max_h, but on=
+ly
+the horizontal dimension is checked. On Display 11, a maximum height up to
+4320 is allowed by intel_mode_valid_max_plane_size, but the scaler's max_h
+limit is 4096.
+
+If a YUV420 mode with a vdisplay greater than 4096 is evaluated, it will pa=
+ss
+this check but could fail with -EINVAL during atomic commit in
+skl_update_scaler when src_h exceeds the scaler limits.
+
+>  			return MODE_NO_420;
+>  	}
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007070601.3611=
+674-1-arun.r.murthy@intel.com?part=3D1
