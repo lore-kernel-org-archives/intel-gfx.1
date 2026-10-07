@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2E4CA6004
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 14:06:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC4ACCA6004
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 14:19:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C374210F609;
-	Wed,  7 Oct 2026 14:06:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3709C10F60E;
+	Wed,  7 Oct 2026 14:19:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="ikiGO9qA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DzaG2eMt";
 	dkim-atps=neutral
-Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com
- [203.205.221.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFEC10E1A0
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 10:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1791370505; bh=PUrsW9QGleEa4tKnQJ9BZnmWEhq88y9ma4fL35Srg9o=;
- h=Date:From:To:Cc:Cc:Cc:Subject;
- b=ikiGO9qAll7MNsMUpUAAkhmoziZCtO2F1ieEnYdiPpH2DrCSOkY5Gd1DPfufLoizz
- oSdKm+YoUbmt7kYG7c+bsqL5IvmZpQUCBMy7Snl3Q65Dkpde+xA7m/kWlqDb+aU59k
- XOGPjQ1D3g8ewgWsAt1Rva8frZaavwlhqchFUHNI=
-Received: from localhost ([39.144.128.134])
- by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
- id D79B241B; Wed, 07 Oct 2026 18:53:57 +0800
-X-QQ-mid: xmsmtpt1791370437twx43rnro
-Message-ID: <tencent_F0B7A92DA405622129C8AC48F3CF490B9B07@qq.com>
-X-QQ-XMAILINFO: MEx+xBdGVwfV5eb97qcA8GTxuLYrZQLfHlx6iEcRtUxw6KKH5jWU0mqvIHUuLq
- 4hTaQFhsSHanmBvPeIG9DZy3ZLuIQ/KhdUFnaMJrmBAaFZHnL0/QWkU9DWb3GIly3+3XsqOAEJj9
- uIXAfGWu5hvgLnf5lHhdbIvmec0dlo8wbsuDPBkdhDHrEoG4dKMVOLbRkyKp2/2aHnY397DL2ZfH
- 2dinKjLKHoHqPgj1Ysf2Pwkp7GJDOd9NgFoXmwqkmdg7hpG2R1NEVHkxnhtfbFjFYDyXyBKbINmQ
- S0l46rdcFQtjC6tJEJF8uBqqCQQn+XDob1gCg5FecDe3h6jOs/D9TZqAeP4xYPdkJtzqANT5ii2B
- Ss3FObQxWtZffzfX/fE8wo3tJPALyqHq1dAYY2SlFkNslgge2J2rCCP2hwFUIcCKt9CZU8bAGojN
- PuDOO1EIiGN0KI5qsMRluxCFL8qsfcYi4NDgrwgFrctEf6vINFqsfE2CVpNXzYxlCVfnlXx2pCfd
- b7UQeKge13toVB+B5BwzFQ3jrTY8xnNMEi80YrbZSvyRBeu5xb+Zau/jbUaFzWHkLIXCH2AIhVeI
- 7MC7VyH8NN6ZCbuIwcqBJTXfmmBlMZg4iz+24956TPVRSOdRThqBEgKleHdMpJGpOAY5iaYH6l2X
- dOUiz/0vlmrFUryqgJsJ7WuYehRjJCvbs5wFUf8iHMGmDnCd1xnUq8qp0ZAles90tH7T/Q9eW8x4
- ouUlrcENie5q3czjiqZkDBR0FoFtBx/BdRdgY19Fbb1SHbY8OgO81q25KDOI1UQR+zSMCTdpvlC7
- B0ZgNnSHuCy8wjnUs2HFG3B5gA/NOICNNaoinzpJd5hPbbp36a7mZS/5EIaIG6KKOPJbLSsqcBVL
- Yar4+eLFm1mLcRjWfMMhybooOqvhU3Pwlt7ICEsZqVdBCYKaR1D8KcU5zQZoi4E4iS+M06/Kxidk
- mdn0y6Sb8vz9uyufpaEFlrEGc65PWF+6fhheAgH66OsULtlQK3mWHYkJ3S3tH0VIcCwoS/wEk=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-Date: Wed, 07 Oct 2026 18:53:57 +0800
-X-OQ-MSGID: <121677a3811a0561268ce6cc8d73faa1@qq.com>
-From: Eason <1836949523@qq.com>
-To: intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [BUG] drm/xe: WARNING in intel_bios_init(): "Port A asks to use VBT
- vswing/preemph tables" on Panther Lake [8086:b081]
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 07 Oct 2026 14:06:25 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C49310F60E;
+ Wed,  7 Oct 2026 14:19:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F200B41AEF;
+ Wed,  7 Oct 2026 14:19:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC231F0089C;
+ Wed,  7 Oct 2026 14:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791382743;
+ bh=cr35rXH3khnyGPMlM9ckLcYDAxBWERVa52+0uPAx+0w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DzaG2eMtc/sCHSXO6mOSRYh4ND5oIW7wRuj8pSJddXg2jBaFLL4N+mo88yJRImgxH
+ c/lXMmRAcPGieSWrX9dGrrf9zfrIu4OLZLFW5JPlwaBEiSj27iYbgoaLfPn08gX9Jb
+ KSwhIpbFRB7AxxqxIVv2lc+7pmCJwSlJECKAvVEMUD6DJfqCBhnY8zavTK99zUGQpk
+ Nwm0Gd6eJRG5H1Cr9eyQBPpyWimgVWpfccrdEc0ImHAk43H8KvwfVglInzwr34+rqf
+ 45xHDc12KE9WfsR45HH0/c/NvFLF1cPvnukoYtK9NhrcXm7MiZXZCiNHGetUGK8lt7
+ qdvSZDUeXxhkQ==
+Message-ID: <sashiko-outbox-163094@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC] drm/i915/cx0: request TCSS power for the non-TC C20
+ PHY on PTL port B
+To: =?utf-8?b?QnVyYWsgR8O2bmPDvA==?= <burakgon12@gmail.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20261006-ptl-port-b-tcss-v1-1-240670342cd3@gmail.com>
+References: <20261006-ptl-port-b-tcss-v1-1-240670342cd3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 07 Oct 2026 14:19:03 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,120 +53,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/i915/tc: Race condition on global TCSS mailbox registers
+- [Medium] i915/cx0: missing wait for TCSS power state to clear on disable
+--
 
-I would like to report a WARNING that appears on every boot on a Panther
-Lake laptop, and that is also visible on screen (before the desktop comes
-up) when resuming from hibernation.
+commit 61a233a7f9a55965dffb355729a4d07449153a73
+Author: Burak G=C3=B6nc=C3=BC <burakgon12@gmail.com>
 
-Hardware / software
--------------------
+drm/i915/cx0: request TCSS power for the non-TC C20 PHY on PTL port B
 
-  laptop    XIAOMI REDMI Book Pro 14 2026 (board TM2426)
-  BIOS      RMAPT4B0P0909 (2026-05-21), EC firmware 1.9
-  GPU       Intel Panther Lake [Arc B370] [8086:b081] (rev 04)
-            xe: "Found pantherlake (device ID b081) integrated display
-                 version 30.00 stepping B0"
-  kernel    7.2.9 (Arch linux-zen packaging: vanilla 7.2.9 + zen patchset
-            + one unrelated local one-file platform/x86 patch)
-  xe        srcversion BB102CAE6B929F8604B5647
+This commit requests TCSS power for the non-TC C20 PHY on PTL port B before
+programming the PLL, waits for the acknowledgment, and releases the request
+once the PLL is disabled. This mirrors what the TC PHY code does for TC por=
+ts.
 
-What happens
-------------
+Link: https://github.com/therealarnold666/zenbook-duo26-Ubuntu26.04
 
-Every boot, about 7.1 s in, while the xe module initializes the display:
+> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/d=
+rm/i915/display/intel_cx0_phy.c
+> index dbebd72108484..010c7db063518 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+[ ... ]
+> +static void intel_cx0_request_tcss_power(struct intel_encoder *encoder, =
+bool enable)
+> +{
+> +	struct intel_display *display =3D to_intel_display(encoder);
+> +
+> +	intel_tc_request_tcss_power(encoder, enable);
+> +
+> +	if (enable &&
+> +	    intel_de_wait_for_set_ms(display, XELPDP_PORT_BUF_CTL1(display, enc=
+oder->port),
+> +				     XELPDP_TCSS_POWER_STATE, 5))
+> +		drm_warn(display->drm, "Port %c: TCSS power request not acknowledged\n=
+",
+> +			 port_name(encoder->port));
+> +}
 
-  [    7.10xxxx] xe 0000:00:02.0: [drm] Found pantherlake (device ID b081) integrated display version 30.00 stepping B0
-  [    7.11xxxx] ------------[ cut here ]------------
-  [    7.11xxxx] xe 0000:00:02.0: [drm] Port A asks to use VBT vswing/preemph tables
-  [    7.11xxxx] WARNING: drivers/gpu/drm/i915/display/intel_bios.c:2813 at intel_bios_init+0x17fd/0x1f60 [xe], CPU#1: (udev-worker)/207
-  [    7.11xxxx] Modules linked in: xe(+) drm_ttm_helper ttm drm_buddy i2c_algo_bit drm_suballoc_helper nvme gpu_sched drm_gpuvm nvme_core drm_exec ...
-  [    7.11xxxx] CPU: 1 UID: 0 PID: 207 Comm: (udev-worker) Tainted: G     U   7.2.9-zen1-1.1-zen #1 PREEMPT(full)
-  [    7.11xxxx] Hardware name: XIAOMI REDMI Book Pro 14 2026/TM2426, BIOS RMAPT4B0P0909 05/21/2026
-  [    7.11xxxx] RIP: 0010:intel_bios_init+0x1806/0x1f60 [xe]
-  [    7.11xxxx] Call Trace:
-  [    7.11xxxx]  <TASK>
-  [    7.11xxxx]  intel_display_driver_probe_noirq+0x3b/0x2e0 [xe]
-  [    7.11xxxx]  xe_display_init_early+0x8b/0x140 [xe]
-  [    7.11xxxx]  xe_device_probe+0x46d/0xc20 [xe]
-  [    7.11xxxx]  xe_pci_probe+0xdf7/0x13d0 [xe]
-  [    7.11xxxx]  pci_call_probe+0x9a/0x270
-  [    7.11xxxx]  pci_device_probe+0xdb/0x180
-  [    7.11xxxx]  really_probe+0xe9/0x440
-  [    7.11xxxx]  __driver_probe_device+0x90/0x190
-  [    7.11xxxx]  __driver_attach+0xb3/0x370
-  [    7.11xxxx]  bus_for_each_dev+0x12f/0x1d0
-  [    7.11xxxx]  bus_add_driver+0x153/0x310
-  [    7.11xxxx]  driver_register+0x75/0xe0
-  [    7.11xxxx]  xe_init+0x27/0x90 [xe]
-  [    7.11xxxx]  ? __pfx_init_module+0x10/0x10 [xe]
-  [    7.11xxxx]  do_one_initcall+0x8e/0x3d0
-  [    7.11xxxx]  do_init_module+0x6a/0x2b0
-  [    7.11xxxx]  init_module_from_file+0xc8/0x180
-  [    7.11xxxx]  idempotent_init_module+0x23e/0x360
-  [    7.11xxxx]  __x64_sys_finit_module+0x7f/0x110
-  [    7.11xxxx]  do_syscall_64+0xaa/0x660
-  [    7.11xxxx]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-  [    7.11xxxx] ---[ end trace 0000000000000000 ]---
+[Severity: Medium]
+When releasing the power request during intel_cx0pll_disable() where enable
+is false, does this skip the wait-for-clear logic?
 
-which is exactly the check at intel_bios.c:2813:
+The wait condition here strictly requires enable to be true. Tearing down
+power domains, such as POWER_DOMAIN_DC_OFF in intel_cx0_phy_transaction_end=
+(),
+while the PHY is still asynchronously powering down could cause hardware ha=
+ngs
+or failures on the next enable.
 
-  /*
-   * FIXME need to implement support for VBT
-   * vswing/preemph tables should this ever trigger.
-   */
-  drm_WARN(display->drm, child->use_vbt_vswing,
-           "Port %c asks to use VBT vswing/preemph tables\n",
-           port_name(port));
+The corresponding TC PHY code in xelpdp_tc_phy_enable_tcss_power() appears
+to correctly wait for the power state to clear via
+xelpdp_tc_phy_wait_for_tcss_power(). Should a similar wait for clear be
+added here when enable is false?
 
-So the VBT of this machine sets use_vbt_vswing for DDI port A.
+[ ... ]
+> diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i9=
+15/display/intel_tc.c
+> index f2d86b29c4154..2a8665d4cd0b4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_tc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_tc.c
+[ ... ]
+> +void intel_tc_request_tcss_power(struct intel_encoder *encoder, bool ena=
+ble)
+> +{
+> +	struct intel_display *display =3D to_intel_display(encoder);
+> +	intel_reg_t reg =3D XELPDP_PORT_BUF_CTL1(display, encoder->port);
+> +
+> +	if (!!(intel_de_read(display, reg) & XELPDP_TCSS_POWER_REQUEST) =3D=3D =
+enable)
+> +		return;
+> +
+> +	if (DISPLAY_VER(display) =3D=3D 30)
+> +		xelpdp_tc_power_request_wa(display, enable);
 
-Impact here
------------
+[Severity: High]
+Could this introduce a race condition on the global TCSS mailbox registers?
 
-The display works normally (eDP panel comes up, external output over USB-C
-works, no visible corruption), so for me this is a warning and not a
-functional failure. Two reasons I still wanted to report it:
+The TCSS mailbox registers, TCSS_DISP_MAILBOX_IN_CMD and
+TCSS_DISP_MAILBOX_IN_DATA, are a single set of global MMIO registers per
+display engine.
 
-  - it dumps a full backtrace on every boot, which looks alarming in dmesg;
-  - after resume from hibernation the console output stays on screen until
-    the display driver takes over, so this warning is what the user actually
-    sees ("a long line with a register dump") before the desktop comes back.
-    It is not hibernation-specific: a plain cold boot shows it too.
+The xelpdp_tc_power_request_wa() function executes a multi-step
+read-modify-write sequence on these registers:
 
-Questions
----------
+intel_tc.c:xelpdp_tc_power_request_wa() {
+	...
+	intel_de_write(display, TCSS_DISP_MAILBOX_IN_DATA, enable ? 1 : 0);
+	intel_de_write(display, TCSS_DISP_MAILBOX_IN_CMD,
+		       TCSS_DISP_MAILBOX_IN_CMD_RUN_BUSY |
+		       TCSS_DISP_MAILBOX_IN_CMD_DATA(0x1));
+	...
+}
 
-  - Is this expected for this VBT, i.e. should the OEM VBT not set
-    use_vbt_vswing for port A at all?
-  - Is support for the VBT vswing/preemph tables planned, or would it make
-    sense to downgrade/ignore the warning for this case (e.g. when the DP
-    link is working fine)?
-  - Is there any information from the VBT you would like me to extract?
+This sequence currently lacks a global lock to serialize access.
 
-I can provide
--------------
+By introducing a new caller here, the global mailbox is exposed to concurre=
+nt
+modeset paths that are only protected by display->dpll.lock. Because the
+existing TC port hotplug and disconnect work items only hold the per-port
+tc->lock, concurrent execution could interleave the DATA and CMD writes.
 
-  - full dmesg / journalctl -k output for a cold boot and for a
-    hibernation/resume cycle;
-  - acpidump output;
-  - the VBT binary (please tell me the preferred way to extract it from this
-    platform - e.g. the intel-gpu-tools VBT/opregion decoders - and I will
-    attach it);
-  - a boot with drm.debug=0xe, or any other debug options you want;
-  - testing of patches, including on mainline, since I can build kernels
-    locally for this machine.
+For example, if a TC port disconnects while Port B is executing a modeset,
+or if two TC ports disconnect simultaneously, the mailbox command payload
+could be corrupted, potentially leading to hardware handshake failures or
+invalid power states. Is there a need for a global lock here to serialize
+these mailbox writes?
 
-Thanks a lot for your work on xe.
+> +
+> +	intel_de_rmw(display, reg, XELPDP_TCSS_POWER_REQUEST,
+> +		     enable ? XELPDP_TCSS_POWER_REQUEST : 0);
+> +}
 
-Note: the local testing and the preparation of this report were done with the
-assistance of a local AI assistant (DeepSeek Harness WebUI, deepseek-flash
-model); every command, log and result quoted above was actually executed on
-this machine and reviewed by me.
-
-Eason
-1836949523@qq.com
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-ptl-port-b=
+-tcss-v1-1-240670342cd3@gmail.com?part=3D1
