@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC48BCA6004
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 20:52:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0B44CA6009
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 22:23:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E7EC10E6A1;
-	Wed,  7 Oct 2026 20:52:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43E4910E6D2;
+	Wed,  7 Oct 2026 22:23:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IKXAOZGW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MJCJyh7/";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F88C10E6A1
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 20:52:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 603D060A53;
- Wed,  7 Oct 2026 20:51:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAC7D1F000FF;
- Wed,  7 Oct 2026 20:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791406319;
- bh=fSnkBBtzKq/ulj3XKnVf2ZgADiUGXEZk9M5NXU7fseM=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=IKXAOZGWImOprSYjFPyZq9KhE00T3p7ZpFQnQ3ir8VU9gWoM7P/ahuoWtnOkTvKwL
- RJcWYU07frr/5y7NBToxVkH51krGl+5sP+nlgOMz/t/eBZpdGn7rP5G+0SxQnKd0to
- EZvIaW1RgN3jPWc60DRYPW8mCuyDBD0ivozWADICHIMSiSvN5v1Jd4nQmDKtw48Ayx
- pqD5m0aqj7raRfrSN5nyMpl5S/P8kb1VA32WFiA6q6KOGkbwtm58a/tnXt/nsB0zUT
- Kfy+EHk+ouhxtbUiS77iD2VTcyfr0zg4WaW1gUSYBkg2eDx+sWS6pXwjk6ffAaWcJ2
- AhFMUh6TjVYxw==
-Date: Wed, 7 Oct 2026 15:51:57 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: Disable not supported reset methods on DG1 0x4905
-Message-ID: <20261007205157.GA786789@bhelgaas>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E44F210E6D2;
+ Wed,  7 Oct 2026 22:23:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791411799; x=1822947799;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=O28imWIn3mGs4xCeYzyuZ6ieOe9ddKdncD1qqHUEYnQ=;
+ b=MJCJyh7/GJPegHRsLiMUPqVuaZ9VHRlvZffC1j9mSUwUlDb4UJt9XUc6
+ jfsvrXfEIesTfxDLmG/BYfOB254x6mbRhLX6cApwg2iU18jXk8Z0Y0+kR
+ MnHyeSr26UytqNHjOQrp9eHaHAWdIo89sKXnVmIod5tensFDVbtaDXZKm
+ typxnpIS9eDWfY/YXg0u+45Cj0xNiHxeOHj69wmpQhbizpueyNAOd+miY
+ pvoHXUwf43hsrp6wFRVaWdmiziQCTey1x48UqmPfTuV6vsWypDFhwq5jb
+ EPVIHo6mAWpwu38mlnNwDhKIWF/SEzaggLrK7JIzbED2EA77NnMPRK6xw A==;
+X-CSE-ConnectionGUID: 8IqmpWL3SFeVx3gzkSi6FQ==
+X-CSE-MsgGUID: nPcsc+bpTzKVNbo1IezG3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="84691"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="84691"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 15:23:19 -0700
+X-CSE-ConnectionGUID: DUcsxqRBRQWdAjPi4AQv+g==
+X-CSE-MsgGUID: YKXK1ynzQLC2X0HQf8kJyg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="1590855"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.62])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 15:23:17 -0700
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH 0/5] drm/i915/gmbus: Fix PTL+ i2c bit banging
+Date: Thu,  8 Oct 2026 01:23:09 +0300
+Message-ID: <20261007222314.5714-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,63 +71,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 07, 2026 at 10:59:18AM +0200, Janusz Krzysztofik wrote:
-> DRM CI consistently reports failing device reset attempts on Intel DG1
-> discrete graphics adapters.  Manual reproduction attempts allowed to
-> narrow down the scope of that problem to a specific revision of that
-> hardware, SKU 8086:4905.  It has been confirmed that both reset methods
-> claimed by the device, i.e., flr and bus, suffer from that issue.
-> 
-> Since consecutively failing device resets may lead to system hangs,
-> disable both useless reset methods.  A respective CI test will then be
-> skipped instead of aborting whole CI jobs.
-> 
-> Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/11814
-> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-> Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Applied to pci/reset for v7.4, thanks!
+Fix i2c bit banging on PTL+, and clean up some other warts
+from the code.
 
-> ---
-> v2: Fix commit description wording (Andi)
->   - add Suggested-by: tag missing from v1,
->   - add collected Reviewed-by: tags.
-> 
->  drivers/pci/quirks.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index de9bbccda21fd..e55475374c6fd 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005, quirk_no_bus_reset);
->   */
->  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_reset);
->  
-> +/* Intel DG1 0x4905 may not recover from bus reset */
-> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_reset);
-> +
->  static void quirk_no_pm_reset(struct pci_dev *dev)
->  {
->  	/*
-> @@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x443, quirk_intel_qat_vf_cap);
->   * AMD Neural Processing Unit 0x1502 0x17f0
->   * Intel 82579LM Gigabit Ethernet Controller 0x1502
->   * Intel 82579V Gigabit Ethernet Controller 0x1503
-> + * Intel DG1 Discrete Graphics Adapter 0x4905
->   * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
->   * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
->   */
-> @@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
->  
-> -- 
-> 2.54.0
-> 
+Ville Syrjälä (5):
+  drm/i915/gmbus: Stop frobbing with pin direction in
+    .getsda()/.getscl()
+  drm/i915/gmbus: Handle the internal pullup disable bits more sensibly
+  drm/i915/gmbus: Reorder the PNV clock gating GPIO w/a
+  drm/i915/gmbus: Fix i2c bit banging for PTL+
+  drm/i915/gmbus: Remove the INTEL_DISPLAY_WA_16025573575 leftovers
+
+ .../gpu/drm/i915/display/intel_display_wa.c   |  13 --
+ .../gpu/drm/i915/display/intel_display_wa.h   |   1 -
+ drivers/gpu/drm/i915/display/intel_gmbus.c    | 118 ++++++++++--------
+ 3 files changed, 68 insertions(+), 64 deletions(-)
+
+-- 
+2.55.0
+
