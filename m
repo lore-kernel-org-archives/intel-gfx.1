@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97684CA5FF1
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 07:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ADDDCA5FFF
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 07:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2376610E3B1;
-	Wed,  7 Oct 2026 07:52:41 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U1ndikiX";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2055A10E3B1;
- Wed,  7 Oct 2026 07:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791359560; x=1822895560;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=krYiri3CL4fiJBh+gK9AojxZ6JeD9QS2iC9ssOEWK6E=;
- b=U1ndikiX6abgwBC9L/6egZvVf9V7URWwtfqQDA1zPt2qDsZe59GjhJjv
- vFrM479uK/3a2A8IFJrqHkTbVGAfmdFIotIhf40cNxO4oJox+TOcbxLSi
- OfLpYUyhuLo8xn7h0i4X/RLIKTc5L91M+ik9STYQFPd3AUKtDAOrhOPPH
- l8wxP9EL8t76vodavsI8XBdp5VFt7oGcKolrRihzLtWuTkYrP4VnKGILO
- 3R3AdoJfAEH/hk+hBlFRTXw8TPD3dltWOeb6/SzKsPveTrNSu9g3Zb++S
- In4WswReEdWDMhsOyxlspgKBuQj+0V463A/tpw7NN938Bacle8u01vWIk w==;
-X-CSE-ConnectionGUID: 7WFYgk9kRj2Kr9dwB6Ophw==
-X-CSE-MsgGUID: UAGg1IJ5S2WTPjXtJbVKfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="119874"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="119874"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2026 00:33:07 -0700
-X-CSE-ConnectionGUID: huDzaYH1TJOj56w0WTUjvA==
-X-CSE-MsgGUID: rhB4wqWCTv6wLgoF9VaFlw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; d="scan'208";a="285466410"
-Received: from vsrini4-xps-8920.iind.intel.com ([10.223.167.75])
- by fmviesa005.fm.intel.com with ESMTP; 07 Oct 2026 00:33:04 -0700
-From: Vidya Srinivas <vidya.srinivas@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
- Vidya Srinivas <vidya.srinivas@intel.com>,
- Charlton Lin <charlton.lin@intel.com>
-Subject: [PATCH] drm/i915/display: Limit scaler count and disable pipe joiner
- on WCL
-Date: Wed,  7 Oct 2026 12:53:34 +0530
-Message-ID: <20261007072334.1801956-1-vidya.srinivas@intel.com>
-X-Mailer: git-send-email 2.45.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC98E10E3E1;
+	Wed,  7 Oct 2026 07:58:31 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35F4C10E35D;
+ Wed,  7 Oct 2026 07:58:30 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2894911202346449697=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/scaler=3A_Prune_?=
+ =?utf-8?q?YUV420_modes_against_the_max_source_width?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 07 Oct 2026 07:58:30 -0000
+Message-ID: <179135991021.246803.7619605622248832667@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20261007070601.3611674-1-arun.r.murthy@intel.com>
+In-Reply-To: <20261007070601.3611674-1-arun.r.murthy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,56 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pipe joining is not supported in the WCL display configuration.
-Modes that would require joining are rejected, matching the
-4k 60Hz maximum resolution documented for the platform.
+--===============2894911202346449697==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Single pipe scaler instead of two.
+== Series Details ==
 
-Bspec: 74286
+Series: drm/i915/scaler: Prune YUV420 modes against the max source width
+URL   : https://patchwork.freedesktop.org/series/175645/
+State : success
 
-Suggested-by: Charlton Lin <charlton.lin@intel.com>
-Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_device.c | 5 ++++-
- drivers/gpu/drm/i915/display/intel_dp.c             | 4 ++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index f17fc2c68472..c74256359c25 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -1813,7 +1813,10 @@ static void __intel_display_device_info_runtime_init(struct intel_display *displ
- 	if (intel_display_wa(display, INTEL_DISPLAY_WA_14011765242))
- 		for_each_pipe(display, pipe)
- 			display_runtime->num_scalers[pipe] = 0;
--	else if (DISPLAY_VER(display) >= 11) {
-+	else if (DISPLAY_VERx100(display) == 3002) {
-+		for_each_pipe(display, pipe)
-+			display_runtime->num_scalers[pipe] = 1;
-+	} else if (DISPLAY_VER(display) >= 11) {
- 		for_each_pipe(display, pipe)
- 			display_runtime->num_scalers[pipe] = 2;
- 	} else if (DISPLAY_VER(display) >= 9) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d8c0d9381471..47741957935a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -477,9 +477,9 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
- 	    !connector->panel.vbt.edp.pipe_joiner_enable)
- 		return false;
- 
--	return DISPLAY_VER(display) >= 12 ||
-+	return ((DISPLAY_VER(display) >= 12 && DISPLAY_VERx100(display) != 3002) ||
- 		(DISPLAY_VER(display) == 11 &&
--		 encoder->port != PORT_A);
-+		 encoder->port != PORT_A));
- }
- 
- static int dg2_max_source_rate(struct intel_dp *intel_dp)
--- 
-2.45.2
+CI Bug Log - changes from CI_DRM_19291 -> Patchwork_175645v1
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175645v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_175645v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@core_auth@basic-auth:
+    - fi-bsw-n3050:       [DMESG-WARN][1] ([i915#17305]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19291/fi-bsw-n3050/igt@core_auth@basic-auth.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175645v1/fi-bsw-n3050/igt@core_auth@basic-auth.html
+
+  
+  [i915#17305]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17305
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19291 -> Patchwork_175645v1
+
+  CI-20190529: 20190529
+  CI_DRM_19291: daeb062fc40f727fafefed080c6d12a5ad1d0d12 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9131: 5e43e9df3a1581074f0de2bbeddd939ebd950b93 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_175645v1: daeb062fc40f727fafefed080c6d12a5ad1d0d12 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175645v1/index.html
+
+--===============2894911202346449697==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/scaler: Prune YUV420 modes against the max source width</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175645/">https://patchwork.freedesktop.org/series/175645/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175645v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175645v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19291 -&gt; Patchwork_175645v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175645v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_175645v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@core_auth@basic-auth:<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19291/fi-bsw-n3050/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17305">i915#17305</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175645v1/fi-bsw-n3050/igt@core_auth@basic-auth.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19291 -&gt; Patchwork_175645v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19291: daeb062fc40f727fafefed080c6d12a5ad1d0d12 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9131: 5e43e9df3a1581074f0de2bbeddd939ebd950b93 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_175645v1: daeb062fc40f727fafefed080c6d12a5ad1d0d12 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2894911202346449697==--
