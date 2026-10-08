@@ -4,64 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB731CA600C
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 14:08:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF9FDCA6007
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 14:32:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3EA10E8C0;
-	Thu,  8 Oct 2026 14:08:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UPJhlrz7";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C06410E8A2;
- Thu,  8 Oct 2026 14:08:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791468483; x=1823004483;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=s2uVbRXLVOSm9D7G8EeEgzSFVqTdnwqXhdPcnUoc59Q=;
- b=UPJhlrz7zGoOQrH5VN0t5TP05D4OAd9TvXdW9ZBw+g602wWyYcPwNAmf
- u4zrhUNdNzsT6OTbnh5QPbnITj/+ClXLyua0bMYsSOFkq5F2jEMCamHoy
- 98QuKNhi2vjE+HcIxOLMESe8g6Y2gRrFJQwbR7G/VEGbu+GimU2WJxC//
- b5pI7FcOvMvd023I3FJKRbPIqABjwV9HTM7frEvrSG/70LQpCUaOX41i1
- qz4gr5Gj5lYAjnAGUPBs75o/f9VNnAHp6byMaNGdErdbogC1bioGxdGIL
- WQsd5AL6136qe4qe/EgJkKSbBlF1MNA9l8DWhKlsfJuH/XKz9ZuW4J5wT g==;
-X-CSE-ConnectionGUID: DyqeTb6jQUOyGJKlj4xbMA==
-X-CSE-MsgGUID: V0o99/4oRXWpA6t7qPFKmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="145851"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="145851"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2026 07:08:03 -0700
-X-CSE-ConnectionGUID: CFfkPoUMSvSb0ENmxv5wBw==
-X-CSE-MsgGUID: 3l4lkhvfQCCuHcrsL4nM6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="377535"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.142])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2026 07:08:01 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>, "Murthy, Arun R"
- <arun.r.murthy@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>
-Cc: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] drm/i915/scaler: Prune YUV420 modes against the max
- source width
-In-Reply-To: <DS4PPFE901A304F1782FA1CD962D6DDE3BFE3942@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261007070601.3611674-1-arun.r.murthy@intel.com>
- <DS4PPFE901A304F1782FA1CD962D6DDE3BFE3942@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Date: Thu, 08 Oct 2026 17:07:59 +0300
-Message-ID: <013890ff0c99723aeb304a0a6997543ba646524d@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E9D10E00F;
+	Thu,  8 Oct 2026 14:32:01 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26ACA10E00F;
+ Thu,  8 Oct 2026 14:32:00 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============9120128630500444063=="
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: =?utf-8?b?4pyTIGk5MTUuQ0kuQkFUOiBzdWNjZXNzIGZvciBkcm0ve2k5MTUsIHhlfTogbW92?=
+ =?utf-8?b?ZSBpbnRlbF9vcHJlZ2lvbl9zdXNwZW5kKCkgdG8gaW50ZWxfZGlzcGxheV9kcml2?=
+ =?utf-8?b?ZXJfcG1fc3VzcGVuZF9sYXRlKCk=?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 08 Oct 2026 14:32:00 -0000
+Message-ID: <179146992015.252520.15069738436680048180@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20261008114735.2662427-1-jani.nikula@intel.com>
+In-Reply-To: <20261008114735.2662427-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,80 +38,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 07 Oct 2026, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
->> Subject: [PATCH] drm/i915/scaler: Prune YUV420 modes against the max
->> source width
->> 
->> skl_scaler_mode_valid() compares the mode's hdisplay against the pipe scaler
->> maximum source height instead of the maximum source width, so single pipe
->> YUV420 modes are pruned against the wrong limit.
->> 
->> Commit 3347b55f2c6c ("drm/i915/xe3lpd: Prune modes for YUV420")
->> intended to reject modes whose hdisplay exceeds the scaler horizontal source
->
-> I think no need to mention  this commit since you already mention this in fixes
-> Also 
-> Cc: stable@vger.kernel.org
+--===============9120128630500444063==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Yeah we have 'dim fixes' for this.
+== Series Details ==
 
-$ dim fixes 3347b55f2c6c
-Fixes: 3347b55f2c6c ("drm/i915/xe3lpd: Prune modes for YUV420")
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: Jonathan Cavitt <jonathan.cavitt@intel.com> #v2
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.18+
+Series: drm/{i915, xe}: move intel_opregion_suspend() to intel_display_driver_pm_suspend_late()
+URL   : https://patchwork.freedesktop.org/series/175764/
+State : success
 
-Don't put all of it in the trailers, but it gives you an idea who should
-perhaps be Cc'd and what the stable target should be.
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19298 -> Patchwork_175764v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_175764v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +80 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19298/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#15673]) +49 other tests dmesg-warn
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19298/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
 
 
-BR,
-Jani.
+Build changes
+-------------
+
+  * Linux: CI_DRM_19298 -> Patchwork_175764v1
+
+  CI-20190529: 20190529
+  CI_DRM_19298: 95bc52ddf34f72a3996b1f32e946304d3823be3c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9135: 9135
+  Patchwork_175764v1: 95bc52ddf34f72a3996b1f32e946304d3823be3c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/index.html
+
+--===============9120128630500444063==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
 
->
-> Otherwise LGTM,
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
->
->> limit, since pipe scaling does not support YUV420 for a source width above
->> 4096. Comparing against max_h makes the check far too permissive from
->> display 12 onwards, where max_h is 8192, and too strict on display 11, where
->> max_h is 4096 while the horizontal limit is 5120.
->> 
->> Compare against max_w instead.
->> 
->> Fixes: 3347b55f2c6c ("drm/i915/xe3lpd: Prune modes for YUV420")
->> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
->> ---
->>  drivers/gpu/drm/i915/display/skl_scaler.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->> 
->> diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c
->> b/drivers/gpu/drm/i915/display/skl_scaler.c
->> index 7994b983d509..7e65c4fffbc0 100644
->> --- a/drivers/gpu/drm/i915/display/skl_scaler.c
->> +++ b/drivers/gpu/drm/i915/display/skl_scaler.c
->> @@ -145,7 +145,7 @@ skl_scaler_mode_valid(struct intel_display *display,
->> 
->>  	if (num_joined_pipes < 2 && output_format ==
->> INTEL_OUTPUT_FORMAT_YCBCR420) {
->>  		skl_scaler_max_src_size(display, &max_w, &max_h);
->> -		if (mode->hdisplay > max_h)
->> +		if (mode->hdisplay > max_w)
->>  			return MODE_NO_420;
->>  	}
->> 
->> --
->> 2.25.1
->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
 
--- 
-Jani Nikula, Intel
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/{i915, xe}: move intel_opregion_suspend() to intel_display_driver_pm_suspend_late()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175764/">https://patchwork.freedesktop.org/series/175764/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19298 -&gt; Patchwork_175764v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_175764v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19298/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +80 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19298/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175764v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +49 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19298 -&gt; Patchwork_175764v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19298: 95bc52ddf34f72a3996b1f32e946304d3823be3c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9135: 9135<br />
+  Patchwork_175764v1: 95bc52ddf34f72a3996b1f32e946304d3823be3c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============9120128630500444063==--
