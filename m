@@ -4,61 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A3F8CA600C
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 11:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 432B7CA600B
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 12:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D124410E7E2;
-	Thu,  8 Oct 2026 11:51:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D125F10E7F3;
+	Thu,  8 Oct 2026 12:12:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JsjFA8RC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SAvZY2Mw";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B90510E7E5
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 11:51:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54CEE10E7F3;
+ Thu,  8 Oct 2026 12:12:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791460298; x=1822996298;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=YQHS7+lAcP5CwzAe03cYiW0ooMHArJB0KUeJTVLizkc=;
- b=JsjFA8RC04QDmurZFOhUOhII3lSDEJTSBrbvfD4ShVNmOnVp9n9ScpQD
- w7kX+FKbsgEf+ictmbfYI3NqlosJekNDy0fwuMDHS4/O8nqRRQ0c4fqqx
- 0600u1bCertu4MwioXn9JzVWE3OiGBsKWVfqgb+Wi0Y99817togCGZVFY
- wNTGaeVI5b2tLfqafWGtAVkzleEffPcsg/kGp3pFogYfPDDD22/EwpehJ
- FGiTfOSVfpcLpakxYz7SsVB4pl4jgmIL8NkhXMEgEig3/OcPK3zxbBy+Y
- 61EVYZ4gW++RIm7CPZw8sUadJRKSpRzbvpoaLt/iXlYJbISp41bvUFNRY w==;
-X-CSE-ConnectionGUID: VH56qfPaRtOivbRFgGM18w==
-X-CSE-MsgGUID: OGIdAukoTaabE2pMMxfETQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="249429"
+ t=1791461575; x=1822997575;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=BuYPbVcx428BOePAmpCEr+lY39VHfLI8kPd0n73xMg8=;
+ b=SAvZY2MwGW71eGcGHVoKtF5f/kmateA9Uk2NR07Rh7/B5N4X0S0ParUz
+ GPUL2AIDrXCBCLQR5Op4+2siSaP4kZ0/Or+GugjMxHXYQCjkY150JneU+
+ Up6SmFxUEhLcF82Hhb+qqAWYgtIoh7eFJTAFFSK6Boi9Yiz/OT/RLSSPX
+ 6fnraKEj6bC2Ov9+gIciW25ztZFDKYB0WOjknsePv8Ny3U1j/JXfW9D+A
+ sirCpStB0wMM27oYMUuL9lFhNu955b8rcdFnukGU8FQVbxn4W+qN7JreX
+ JGcRIBUjKLuOifz/0QbYWVmktl4TAkkyBxSGn/662DSzpD4GSqNnGY3H0 g==;
+X-CSE-ConnectionGUID: dsl1BYmtTRuPDtK+Mf/QUw==
+X-CSE-MsgGUID: o7gjqP1nQsadKlPb9lJt4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="354255"
 X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="249429"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2026 04:51:37 -0700
-X-CSE-ConnectionGUID: /qpQ4QZwQ869cmXaWSBsXA==
-X-CSE-MsgGUID: 69bNkjkQTty8Co/4MaFNAw==
+   d="scan'208";a="354255"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2026 05:12:54 -0700
+X-CSE-ConnectionGUID: m0lASYQ6R+O57PVcF3VUhQ==
+X-CSE-MsgGUID: bbQcI3mSRHKUlVC+qM8vVQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="353295"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.142])
+   d="scan'208";a="48446"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.62])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2026 04:51:37 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "jp_2422-git@yahoo.com" <jp_2422-git@yahoo.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- imre.deak@intel.com
-Subject: Re: adlp_tc_phy_connect [i915] floods logs with
- drm_WARN_ON(tc->mode == TC_PORT_LEGACY) call traces
-In-Reply-To: <fd77de823c5d30b4587676a7a71962f517979616@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <348041964.128703.1791459745347.ref@mail.yahoo.com>
- <348041964.128703.1791459745347@mail.yahoo.com>
- <fd77de823c5d30b4587676a7a71962f517979616@intel.com>
-Date: Thu, 08 Oct 2026 14:51:34 +0300
-Message-ID: <d8206010e6ffca3a0cbf480247d9e78060ab2cdf@intel.com>
+ 08 Oct 2026 05:12:52 -0700
+Date: Thu, 8 Oct 2026 15:12:49 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Imre Deak <imre.deak@intel.com>
+Subject: Re: [CI] drm/{i915, xe}: move intel_opregion_suspend() to
+ intel_display_driver_pm_suspend_late()
+Message-ID: <aseIwWEv58T-wioc@intel.com>
+References: <20261008114735.2662427-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261008114735.2662427-1-jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,124 +76,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 08 Oct 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Thu, 08 Oct 2026, "jp_2422-git@yahoo.com" <jp_2422-git@yahoo.com> wrote:
->> The issue discussed at https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/12246 affects a number of laptops and Bios combinations, and appears to be the result of buggy Bios'es where the Intel VBT table is listing non-existent Display Ports on Alder Lake laptops.
->>
->> The following patch skips the creation of the non-existent port early
->> on in intel_ddi_init(), so preventing the logs from being flooded with
->> the warnings. It uses a new i915 display parameter to allow the user
->> to select the type c port to skip with a boot option, and fixes the
->> problem. Please can you advise whether you would accept this patch.
->
-> Thanks for the patch, but sorry, module parameters aren't the solution
-> to work around issues.
+On Thu, Oct 08, 2026 at 02:47:35PM +0300, Jani Nikula wrote:
+> Try to unify the suspend paths and behaviour by moving the
+> intel_opregion_suspend() calls to
+> intel_display_driver_pm_suspend_late().
+> 
+> This is a change in the suspend sequences. The idea behind adding this
+> to intel_display_driver_pm_suspend_late() is primarily based on not
+> having to pass the s2idle parameter to more functions than that.
+> 
+> This also changes behaviour for i915 hibernation, going for PCI_D3cold
+> instead of PCI_D1 on hibernate.
 
-Imre, can you have a look at the issue, please?
+Pretty sure I pointed out before that this isn't true. PCI_D3cold is
+what the current code also does.
 
-BR,
-Jani.
+I suppose it *might* be the case if one does something like 
+'echo reboot > /sys/power/disk', but I've not actually checked
+what that sort of thing does to acpi_target_system_state()...
 
->
-> BR,
-> Jani.
->
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
->> index a46ab5d3d..5b9ebdecd 100644
->> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
->> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
->> @@ -50,6 +50,7 @@
->> #include "intel_ddi_buf_trans.h"
->> #include "intel_de.h"
->> #include "intel_dip.h"
->> +#include "intel_display_params.h"
->> #include "intel_display_power.h"
->> #include "intel_display_regs.h"
->> #include "intel_display_types.h"
->> @@ -5239,6 +5240,24 @@ static const char *intel_ddi_encoder_name(struct intel_display *display,
->> return seq_buf_str(s);
->> }
->>
->> +static enum port get_skip_tc_port_param(struct intel_display *display)
->> +{
->> + const char *param;
->> + enum port port;
->> +
->> + param=display->params.skip_tc_port;
->> +
->> + if(param==NULL)
->> + return PORT_NONE;
->> +
->> + for_each_port(port) {
->> + if (port_name(port)==*param)
->> + return port;
->> + }
->> +
->> + return PORT_NONE;
->> +}
->> +
->> void intel_ddi_init(struct intel_display *display,
->> const struct intel_bios_encoder_data *devdata)
->> {
->> @@ -5249,11 +5268,20 @@ void intel_ddi_init(struct intel_display *display,
->> enum port port;
->> enum phy phy;
->> u32 ddi_buf_ctl;
->> + enum port skip_tc_port_param;
->>
->> port = intel_bios_encoder_port(devdata);
->> if (port == PORT_NONE)
->> return;
->>
->> + skip_tc_port_param=get_skip_tc_port_param(display);
->> +
->> + if(port == skip_tc_port_param) {
->> + drm_dbg_kms(display->drm,
->> + "Skipping creation of Port %c due to the skip_tc_port parameter\n", port_name(port));
->> + return;
->> + }
->> +
->> if (!port_strap_detected(display, port)) {
->> drm_dbg_kms(display->drm,
->> "Port %c strap not detected\n", port_name(port));
->> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
->> index ca0ef466b..2f516ca4e 100644
->> --- a/drivers/gpu/drm/i915/display/intel_display_params.c
->> +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
->> @@ -143,6 +143,10 @@ intel_display_param_named_unsafe(enable_dmc_wl, int, 0400,
->> "(-1=use per-chip default, 0=disabled, 1=enabled, 2=match any register, 3=always locked) "
->> "Default: -1");
->>
->> +intel_display_param_named_unsafe(skip_tc_port, charp, 0400,
->> + "Skip the use of the specified Type-C port "
->> + " (single letter in the range [A - I])");
->> +
->> __maybe_unused
->> static void _param_print_bool(struct drm_printer *p, const char *driver_name,
->> const char *name, bool val)
->> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
->> index 5c5a1a135..6356438f6 100644
->> --- a/drivers/gpu/drm/i915/display/intel_display_params.h
->> +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
->> @@ -51,6 +51,7 @@ struct drm_printer;
->> param(bool, psr_safest_params, false, 0400) \
->> param(bool, enable_psr2_sel_fetch, true, 0400) \
->> param(int, enable_dmc_wl, -1, 0400) \
->> + param(char *, skip_tc_port, NULL, 0400) \
->> /*
->> * Debugfs-only knob (per-device): no matching module_param is registered
->> * in intel_display_params.c on purpose. Runtime-toggle via debugfs.
->>
->>
->>
->>
->>
->>
->>
->>
->>
->>
+> It's probably the correct thing to do
+> anyway, I don't think it should matter all that much, but fingers
+> crossed.
+> 
+> Reviewed-by: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display_driver.c | 2 ++
+>  drivers/gpu/drm/i915/i915_driver.c                  | 4 ----
+>  drivers/gpu/drm/xe/display/xe_display.c             | 3 ---
+>  3 files changed, 2 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> index 77009dca7d0d..abab457bce3a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> @@ -783,6 +783,8 @@ void intel_display_driver_pm_suspend_late(struct intel_display *display, bool s2
+>  	if (!HAS_DISPLAY(display))
+>  		return;
+>  
+> +	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
+> +
+>  	intel_display_power_suspend_late(display, s2idle);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+> index 9e047c27a153..293099fe6639 100644
+> --- a/drivers/gpu/drm/i915/i915_driver.c
+> +++ b/drivers/gpu/drm/i915/i915_driver.c
+> @@ -1075,7 +1075,6 @@ static int i915_drm_suspend(struct drm_device *dev)
+>  {
+>  	struct drm_i915_private *dev_priv = to_i915(dev);
+>  	struct intel_display *display = dev_priv->display;
+> -	pci_power_t opregion_target_state;
+>  
+>  	disable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+>  
+> @@ -1089,9 +1088,6 @@ static int i915_drm_suspend(struct drm_device *dev)
+>  
+>  	i9xx_display_sr_save(display);
+>  
+> -	opregion_target_state = suspend_to_idle(dev_priv) ? PCI_D1 : PCI_D3cold;
+> -	intel_opregion_suspend(display, opregion_target_state);
+> -
+>  	dev_priv->suspend_count++;
+>  
+>  	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
+> index aab416485e3e..7d19f3c42e0e 100644
+> --- a/drivers/gpu/drm/xe/display/xe_display.c
+> +++ b/drivers/gpu/drm/xe/display/xe_display.c
+> @@ -238,14 +238,11 @@ static bool suspend_to_idle(void)
+>  void xe_display_pm_suspend(struct xe_device *xe)
+>  {
+>  	struct intel_display *display = xe->display;
+> -	bool s2idle = suspend_to_idle();
+>  
+>  	if (!xe->info.probe_display)
+>  		return;
+>  
+>  	intel_display_driver_pm_suspend(display);
+> -
+> -	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
+>  }
+>  
+>  void xe_display_pm_suspend_late(struct xe_device *xe)
+> -- 
+> 2.47.3
 
 -- 
-Jani Nikula, Intel
+Ville Syrjälä
+Intel
