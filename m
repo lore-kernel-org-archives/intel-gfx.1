@@ -4,88 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A96FCCA9EBB
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 21:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22805CA9EBE
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 22:20:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5CB01122B4;
-	Fri,  9 Oct 2026 21:29:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="a99PBy7e";
-	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA681122B4
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 21:29:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1791581397;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bAvzGIU7FEezK0icpYGYUEuQaRBPrUf0xbgMecnC+cI=;
- b=a99PBy7ehzpppLN0DmdT8FcpLuGCJ8dZP2VAEUUznSjwpHOb+UMKrg9QXvR30W8oRpXtap
- UVSsDSNC8plEuSISBUO8pyIoct9JYulTogSSn8/d4gJA9Ow8ptspxzA4VRxQeGWB9tBTIL
- inzrNPrxaMIBz75Bk8fB/0jWsZnNm3g=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-546-hwS2XYrgMt6efeEUr6bJiA-1; Fri, 9 Oct 2026 21:29:56 +0000
-X-MC-Unique: hwS2XYrgMt6efeEUr6bJiA-1
-X-Mimecast-MFC-AGG-ID: hwS2XYrgMt6efeEUr6bJiA_1791581395
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-934963b2bc0so27427285a.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 09 Oct 2026 14:29:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791581395; x=1792186195;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=90v506ynVqpQuSb78Sb7L2PEOo/OX2zZTfrHiXi251Q=;
- b=CtJtMyAeqU0Kb/HmrHA84lF4ERGQePH+CAkkjyyvuqHrIexNqQfeNhddX/eobo5/fp
- Cofx677exUog+W7LgOKo5wsnnJM6NKUld8iafC2N3+gztoc2XeDiJxX0CW010S0ZT+4L
- pxP8qy7JUsV66wy3IJ2F2KMoGDD6FFwzfnwdZCw23kS5zbGvFBSUY7nd5hfi+OXDTuKR
- f0hi/3SPPAGCilxe+o1PoaPaJQHqA66urEGHb9rb+3SgTVnecroIIKN5WCp7NTgAMIaj
- oA3z/kYafHiTETLiVZjk/0JtYPuhPa6Il0UcRltfWvIWNGyGlCYCjM5ss3liJ9H/uQF7
- 7Clw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzd5uBsNwOaoVq7+l80y44Zi1XICRDbYU2QMoCQf3qhbKu2Ml8m/QGbsoiV/2wSYtihSPs4LU7nnyE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLEwuEjWzKsJx6DpiI7R8vy6lRFwJsU3P9bsTQttmHsOCGi5clM
- J2SGv3o3i/rroH505zpTF8WMSN4vRkX20Hzg3h2Duuw1s5flC7x+/Ui7oK8jRsGmirU8omLz3l9
- ckOpjgrRRXqNqp6Otk9otg3RXkSGlL6zCM83xkoJ7QUdkaBsw1GZRN5zPr8WMshcUGejU7w==
-X-Gm-Gg: AYBFou0J0Vq9Dv1O6DFKM/1YPVVB/kTbu33YtsMRyro6XOXRyu26GoHi3QnKs1U7Om1
- PuI9dAqg/NIXk6czDmJhJYvwqxhDvRsyYR6P2AlE/75VgirUw7XtnC6cntTLrXh7Oh2L2shBUms
- Xt0rrqxOo8Tdh7LhlCgf27XccDINWET3PVLrhdcSxE4Ig6NLoH4RNb+jnExzOIb8t1KWJ+xxCST
- Pa8JRSG2vFCbsniW3HWp9RPMjfewzrtc9RhFioxT0zA/KjjO/SgvWn26xysq22QZuvsVRL+92Fu
- CesNGmapIzk0U3tlmu6bit+JDoX82UzY2+KfSFkViyeK7M/TMXX6rIPZlQ9kao7H6zVzeyQ=
-X-Received: by 2002:a05:620a:8389:b0:93b:d79a:c463 with SMTP id
- af79cd13be357-93ebd26b5e0mr483817385a.59.1791581395429; 
- Fri, 09 Oct 2026 14:29:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:8389:b0:93b:d79a:c463 with SMTP id
- af79cd13be357-93ebd26b5e0mr483813285a.59.1791581394787; 
- Fri, 09 Oct 2026 14:29:54 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93eb9903845sm281181985a.45.2026.10.09.14.29.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Oct 2026 14:29:54 -0700 (PDT)
-Message-ID: <beed5319dd3d29ddc983e236e4edf0f2e2cb4007.camel@redhat.com>
-Subject: Re: [PATCH] drm/i915/dp: limit UHBR link rates to the cable's
- capability
-From: lyude@redhat.com
-To: Xiao Lu <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com, 
- imre.deak@intel.com, jani.nikula@linux.intel.com
-Date: Fri, 09 Oct 2026 17:29:51 -0400
-In-Reply-To: <20261009130611.3268451-1-xiaolu.xie@intel.com>
-References: <20261009130611.3268451-1-xiaolu.xie@intel.com>
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9555110EB74;
+	Fri,  9 Oct 2026 22:20:18 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C3D510EB74;
+ Fri,  9 Oct 2026 22:20:17 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6814914791702497268=="
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ElatT2X8Ta_q4ErDZeRBHZVGJhIUdWaEusqurvEPVSM_1791581395
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/cx0=5Fphy=3A_Fix?=
+ =?utf-8?q?_ARL-S_host_bridge_detection_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Bhadane, Dnyaneshwar" <dnyaneshwar.bhadane@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 09 Oct 2026 22:20:17 -0000
+Message-ID: <179158441743.5398.18080882306016999341@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20260921090226.946472-1-dnyaneshwar.bhadane@intel.com>
+In-Reply-To: <20260921090226.946472-1-dnyaneshwar.bhadane@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,204 +37,154 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+--===============6814914791702497268==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-10-09 at 21:06 +0800, Xiao Lu wrote:
-> DisplayPort 2.1 defines the CABLE_ATTRIBUTES_UPDATED_BY_DPRX register
-> (DPCD 0x2217), in which a UHBRx-capable DPRX reports the UHBR link
-> rates
-> the attached cable can carry. The DPRX determines this via the
-> CONFIG2
-> voltage handshake (for a DP receptacle) or by parsing the cable
-> eMarker
-> (for a USB-C receptacle), and updates the register before asserting
-> HPD.
->=20
-> Add the register definitions and a helper,
-> drm_dp_128b132b_cable_uhbr_rates(), that reads the register and
-> returns
-> the set of UHBR rates (DP_UHBR10, DP_UHBR13_5, DP_UHBR20) the cable
-> permits, and intersect the sink's 128b/132b rates with it. This
-> avoids
-> attempting link training at a UHBR rate the cable cannot carry and
-> then
-> falling back, e.g. a UHBR20-capable sink connected through a cable
-> that
-> only supports UHBR10/UHBR13.5.
->=20
-> A register value of 0 ("not UHBR-capable or capability unknown", or a
-> sink that does not implement the register) yields all UHBR rates, so
-> no
-> restriction is imposed and the normal rate fallback applies.
->=20
-> See DP Standard v2.1b, Table 2-260 (DPCD 0x2217).
->=20
-> Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
-> ---
-> =C2=A0drivers/gpu/drm/display/drm_dp_helper.c | 49
-> +++++++++++++++++++++++++
-> =C2=A0drivers/gpu/drm/i915/display/intel_dp.c |=C2=A0 7 ++++
-> =C2=A0include/drm/display/drm_dp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++++
-> =C2=A0include/drm/display/drm_dp_helper.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 1 +
-> =C2=A04 files changed, 69 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c
-> b/drivers/gpu/drm/display/drm_dp_helper.c
-> index e623ccb4c..5898d21cc 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -382,6 +382,55 @@ int drm_dp_128b132b_read_aux_rd_interval(struct
-> drm_dp_aux *aux)
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL(drm_dp_128b132b_read_aux_rd_interval);
-> =C2=A0
-> +/**
-> + * drm_dp_128b132b_cable_uhbr_rates() - read the UHBR rates a cable
-> can carry
-> + * @aux: DisplayPort AUX channel
-> + *
-> + * Read the CABLE_ATTRIBUTES_UPDATED_BY_DPRX register (DPCD 0x2217)
-> and return
-> + * the set of 128b/132b (UHBR) link rates the attached cable is
-> capable of
-> + * carrying, as a mask of %DP_UHBR10, %DP_UHBR13_5 and %DP_UHBR20.
-> + *
-> + * A UHBRx-capable DPRX updates this register with the cable's
-> capability (via
-> + * the CONFIG2 voltage handshake for a DP receptacle, or by parsing
-> the eMarker
-> + * for a USB-C receptacle). A source can intersect the returned mask
-> with the
-> + * sink's (and its own) supported UHBR rates to avoid attempting
-> link training
-> + * at a rate the cable cannot carry, saving the time otherwise spent
-> failing
-> + * and falling back.
-> + *
-> + * A register value of 0 means the cable capability is unknown, or
-> the sink does
-> + * not implement the register. No restriction can be derived in that
-> case, so
-> + * all UHBR rates are returned and the caller's normal rate fallback
-> applies.
-> + *
-> + * Returns a mask of DP_UHBR* rates the cable permits.
-> + */
-> +u8 drm_dp_128b132b_cable_uhbr_rates(struct drm_dp_aux *aux)
-> +{
-> +=09u8 cable, rates =3D DP_UHBR10 | DP_UHBR13_5 | DP_UHBR20;
-> +
-> +=09if (drm_dp_dpcd_read_byte(aux,
-> DP_CABLE_ATTRIBUTES_UPDATED_BY_DPRX, &cable) < 0)
-> +=09=09return rates;
-> +
-> +=09/* Unknown / not implemented: impose no restriction. */
-> +=09if (!cable)
-> +=09=09return rates;
-> +
-> +=09rates =3D 0;
-> +=09switch (cable & DP_CABLE_UHBR10_20_CAPABILITY_MASK) {
-> +=09case DP_CABLE_UHBR10_20_CAPABLE:
-> +=09=09rates |=3D DP_UHBR20;
-> +=09=09fallthrough;
-> +=09case DP_CABLE_UHBR10_CAPABLE:
-> +=09=09rates |=3D DP_UHBR10;
-> +=09=09break;
-> +=09}
-> +
-> +=09if (cable & DP_CABLE_UHBR13_5_CAPABILITY)
-> +=09=09rates |=3D DP_UHBR13_5;
-> +
-> +=09return rates;
-> +}
-> +EXPORT_SYMBOL(drm_dp_128b132b_cable_uhbr_rates);
-> +
-> =C2=A0void drm_dp_link_train_clock_recovery_delay(const struct drm_dp_aux
-> *aux,
-> =C2=A0=09=09=09=09=09=C2=A0=C2=A0=C2=A0 const u8
-> dpcd[DP_RECEIVER_CAP_SIZE])
-> =C2=A0{
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
-> b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 113d767e6..de8f38754 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -278,6 +278,13 @@ static void intel_dp_set_dpcd_sink_rates(struct
-> intel_dp *intel_dp)
-> =C2=A0=09=09=09}
-> =C2=A0=09=09}
-> =C2=A0
-> +=09=09/*
-> +=09=09 * Intersect with the UHBR rates the cable can
-> actually carry
-> +=09=09 * (DPCD 0x2217), to avoid training at a rate the
-> cable can't
-> +=09=09 * support. Unknown/unimplemented leaves the rates
-> untouched.
-> +=09=09 */
-> +=09=09uhbr_rates &=3D
-> drm_dp_128b132b_cable_uhbr_rates(&intel_dp->aux);
-> +
-> =C2=A0=09=09if (uhbr_rates & DP_UHBR10)
-> =C2=A0=09=09=09intel_dp->sink_rates[i++] =3D 1000000;
-> =C2=A0=09=09if (uhbr_rates & DP_UHBR13_5)
-> diff --git a/include/drm/display/drm_dp.h
-> b/include/drm/display/drm_dp.h
-> index e63c7f075..70463572e 100644
-> --- a/include/drm/display/drm_dp.h
-> +++ b/include/drm/display/drm_dp.h
-> @@ -1240,6 +1240,18 @@
-> =C2=A0# define DP_128B132B_TRAINING_AUX_RD_INTERVAL_32_MS=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x05
-> =C2=A0# define DP_128B132B_TRAINING_AUX_RD_INTERVAL_64_MS=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x06
-> =C2=A0
-> +#define
-> DP_CABLE_ATTRIBUTES_UPDATED_BY_DPRX=09=09=090x2217 /* 2.1 */
-> +# define DP_CABLE_UHBR10_20_CAPABILITY_MASK=09=09=09(3
-> << 0)
-> +# define DP_CABLE_NOT_UHBR_CAPABLE=09=09=09=09(0
-> << 0)
-> +# define DP_CABLE_UHBR10_CAPABLE=09=09=09=09(1
-> << 0)
-> +# define DP_CABLE_UHBR10_20_CAPABLE=09=09=09=09(2
-> << 0)
-> +# define DP_CABLE_UHBR13_5_CAPABILITY=09=09=09=09(1
-> << 2)
-> +# define DP_CABLE_TYPE_MASK=09=09=09=09=09(7
-> << 3)
-> +# define DP_CABLE_TYPE_UNKNOWN=09=09=09=09=09(0
-> << 3)
-> +# define DP_CABLE_TYPE_PASSIVE=09=09=09=09=09(1
-> << 3)
-> +# define DP_CABLE_TYPE_LRD=09=09=09=09=09(2
-> << 3)
-> +# define DP_CABLE_TYPE_LTTPR_RETIMER_ACTIVE=09=09=09(3
-> << 3)
-> +
-> =C2=A0#define DP_TEST_264BIT_CUSTOM_PATTERN_7_0=09=090x2230
-> =C2=A0#define DP_TEST_264BIT_CUSTOM_PATTERN_263_256=090x2250
-> =C2=A0
-> diff --git a/include/drm/display/drm_dp_helper.h
-> b/include/drm/display/drm_dp_helper.h
-> index 5b05a7fbe..a70530696 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -59,6 +59,7 @@ void drm_dp_lttpr_link_train_channel_eq_delay(const
-> struct drm_dp_aux *aux,
-> =C2=A0=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const u8
-> caps[DP_LTTPR_PHY_CAP_SIZE]);
-> =C2=A0
-> =C2=A0int drm_dp_128b132b_read_aux_rd_interval(struct drm_dp_aux *aux);
-> +u8 drm_dp_128b132b_cable_uhbr_rates(struct drm_dp_aux *aux);
-> =C2=A0bool drm_dp_128b132b_lane_channel_eq_done(const u8
-> link_status[DP_LINK_STATUS_SIZE],
-> =C2=A0=09=09=09=09=09=C2=A0 int lane_count);
-> =C2=A0bool drm_dp_128b132b_lane_symbol_locked(const u8
-> link_status[DP_LINK_STATUS_SIZE],
+== Series Details ==
 
+Series: drm/i915/cx0_phy: Fix ARL-S host bridge detection (rev3)
+URL   : https://patchwork.freedesktop.org/series/174301/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19310 -> Patchwork_174301v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_174301v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@sanitycheck:
+    - fi-kbl-7567u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +46 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19310/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_busy@basic@flip:
+    - fi-kbl-7567u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#180])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19310/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - fi-kbl-7567u:       [PASS][5] -> [DMESG-WARN][6] ([i915#13735] / [i915#15673] / [i915#180]) +52 other tests dmesg-warn
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19310/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19310 -> Patchwork_174301v3
+
+  CI-20190529: 20190529
+  CI_DRM_19310: 0b7988619e6111b160163c127e151a8d299eab80 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9138: 9138
+  Patchwork_174301v3: 0b7988619e6111b160163c127e151a8d299eab80 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/index.html
+
+--===============6814914791702497268==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/cx0_phy: Fix ARL-S host bridge detection (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/174301/">https://patchwork.freedesktop.org/series/174301/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19310 -&gt; Patchwork_174301v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_174301v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19310/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +46 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_busy@basic@flip:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19310/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19310/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_174301v3/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +52 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19310 -&gt; Patchwork_174301v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19310: 0b7988619e6111b160163c127e151a8d299eab80 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9138: 9138<br />
+  Patchwork_174301v3: 0b7988619e6111b160163c127e151a8d299eab80 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6814914791702497268==--
