@@ -4,78 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3638CA601D
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 15:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1004FCA6019
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 15:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 644FA10E44E;
-	Fri,  9 Oct 2026 15:32:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="pd2yIqvp";
-	dkim-atps=neutral
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
- [209.85.219.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40F1610FE53
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 03:47:19 +0000 (UTC)
-Received: by mail-qv1-f53.google.com with SMTP id
- 6a1803df08f44-91957ec418cso46999206d6.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 08 Oct 2026 20:47:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791517638;
- x=1792122438; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=w8+DFfkUUomz+a1TzB5f0ADCXUizRfgZPO9NzdXJlRI=;
- b=pd2yIqvprHVC3YRztd3UvuB8i/EUsLxUNpYYYFo6Zr5sljubPkO3Efxk2DHjkIKCOm
- rz4HcRyScxaMXMP7M5V0S23Wpz+uaDkdnTZFWVmTaYJLtntDgVpsmVHabWbpEOx0ZnRt
- V7yx/4p1IeO5oNJWZ4appxM+MOAcpl/QJqzxfoiDpm5JKyY7xayoM0otUW1Z0l3FcscP
- ZO+SHTocRlytYZR/w7vPQtLpFeKWOvHspD3FiPSnwD/EthMYlLbLVJYHt9/nShZib7LN
- 7yd443GnFCNJaVruzTd2Ajr1G0AsZr4iq+iUvOILoO62B9ObklgkA0Htp/0xgVR9zsOm
- xMoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791517638; x=1792122438;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=w8+DFfkUUomz+a1TzB5f0ADCXUizRfgZPO9NzdXJlRI=;
- b=nAvOxqYRCt/xmZh63TmyHKV88nH5AOka2bOYnACvy2RdmtsYbNjrlA3nzCbBHlBPMe
- ujXR15VqUvFpoAspOO1WTf/CG1iVv7hicR5Ohy23SLkQHYZLFxkJQ8sL9cVmABOH9Peo
- 7lfrwMrmjHCFjwKr7r3uNJrGsWbBuG9zsrmFrhKSeLpEwNYgN8fXpYk38IWzeF70MBCI
- lyc22dx1HJ65VbXGYfKyne9GX5+xpOn7XofliOjd1SGfmaniLP7e0mxHk6Lwr/8qRmra
- tjbM3zewBfwrC+1mEAJUq+o74Hm7BdD1hrcTJE7V23RTNW9ejkMeuVCYN9WJ17S1resa
- Uy1g==
-X-Gm-Message-State: AFq9FYI6eb6ECoxkdGiPKsyA1UMubZolNTEhkdRgRyv2QA98JOtH86se
- GsFWOy3JD0b9r8hwF+hmH0l4bOkYCOOXeyUHSPEwjK1QMdsJ0zAmM8LEDRht5Il9G+E=
-X-Gm-Gg: AYBFou1bitQgjwoUFVc9jxNqa8Moi1vA7VHN16xlp2KOGaRVoi7m81zzwaLqXy6zfyZ
- +Wy0A99QOoyvV7YJRMe+l1LawDF3HqpDmV6CgxT16o3roCPdpc2hcK8M4muEPEjv2wP5rIBdDlf
- qXetAKvRaxmEFtneQ3q48J6M1XGt3sLhtWe1gEFYjln4TxVWjoKwBYNoyVyX7wu/1WO/Pj//8xk
- H9tCVfCGOwEaZgoqjYE1goaph460oZHonnSwmgrFUZjmX5fljoCLPJp62xJs3nK+IczjpKt4FfW
- 7tQUsrbbC2LGPgrJS9OuK8dQX3vOdEl6aCUEefyrdf8UclewjNWpCyWRnShuvqUKCRDtgpA3aC3
- tZDe2SU+hVDDTogpICishfAYHUL0GqzBRDbfHTRmxlpxoUblLoleKmpIMQCkw5IIJ3nfLdbHBSX
- dXsqf2Zo9x0cwIr8UEL7F8CHzu6KxkaKTE5f6TvSOZWuBdu7BxKFXkOKZftbP7KuQtMZtWL00Nx
- FxkFS9zwDPCem1/dvwpB2i6/aD2dHVKVIGA392JDdTI5uHdRJluiF4y6Pny5nq5rJ/8GZeBBHJ1
- mGQwgEEhQ3Svsy+YjdCFR4Q/LCZiLDpHT7AR2XCXqrHvjcT2Y3tB872n0p/NDFb0/eTlCA==
-X-Received: by 2002:ad4:5c69:0:b0:917:9905:cd03 with SMTP id
- 6a1803df08f44-91b554f036fmr11991716d6.20.1791517638110; 
- Thu, 08 Oct 2026 20:47:18 -0700 (PDT)
-Received: from jake-laptop ([74.244.125.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91b54e80344sm7934976d6.7.2026.10.08.20.47.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Oct 2026 20:47:17 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: jouni.hogander@intel.com
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/psr: ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR not
- valid for eDP
-Date: Thu,  8 Oct 2026 23:47:15 -0400
-Message-ID: <20261009034715.10894-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261007083443.647649-1-jouni.hogander@intel.com>
-References: <20261007083443.647649-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0F31121DC;
+	Fri,  9 Oct 2026 15:51:42 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB98610E9DC;
+ Fri,  9 Oct 2026 15:51:40 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1228694499736048062=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 09 Oct 2026 15:32:11 +0000
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pmu=3A_convert_i?=
+ =?utf-8?q?915=5Fpmu-=3Elock_to_raw=5Fspinlock=5Ft_from_spinlock=5Ft_=28rev3?=
+ =?utf-8?q?=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Anubhav Shelat" <ashelat@redhat.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 09 Oct 2026 15:51:40 -0000
+Message-ID: <179156110095.4094.6502881970861735005@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261005195658.732657-2-ashelat@redhat.com>
+In-Reply-To: <20261005195658.732657-2-ashelat@redhat.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,31 +38,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jouni,
+--===============1228694499736048062==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Tested on the XPS 16 DA16260 (PTL, xe, 7.3-rc5, DA16260 PR quirk
-removed, no other changes): Panel Replay SU is smooth with this patch.
+== Series Details ==
 
-Tested-by: Jake Steinman <j@metarealtyinc.ca>
+Series: drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t from spinlock_t (rev3)
+URL   : https://patchwork.freedesktop.org/series/175438/
+State : success
 
-Two things it leaves:
+== Summary ==
 
-- The panel still judders for a few seconds after panel power-on
-  (DPMS on). Holding PR inactive after power-on fixes that here; 8 s
-  is clean, 3 s is not quite enough.
+CI Bug Log - changes from CI_DRM_19309 -> Patchwork_175438v3
+====================================================
 
-- No DC5 on a static screen while PR is active: 0 entries against 550
-  on a static VT with the AS SDP suspended.
+Summary
+-------
 
-Since this panel needs a specific change for the first one anyway,
-could the AS SDP also be suspended while vblank is disabled on panels
-that handle it, as in the RFC? That keeps DC5/DC6 on a static screen.
-https://lore.kernel.org/r/20261006220500.3417572-1-j@metarealtyinc.ca
+  **SUCCESS**
 
-If you respin, a Reported-by would be appreciated.
+  No regressions found.
 
-Thanks,
-Jake
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v3/index.html
+
+Participating hosts (39 -> 37)
+------------------------------
+
+  Missing    (2): bat-dg2-13 bat-adls-6 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19309 -> Patchwork_175438v3
+
+  CI-20190529: 20190529
+  CI_DRM_19309: a9079e63263acdef3db9b768ef47cfaf779a97aa @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9138: 9138
+  Patchwork_175438v3: a9079e63263acdef3db9b768ef47cfaf779a97aa @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v3/index.html
+
+--===============1228694499736048062==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pmu: convert i915_pmu-&gt;lock to raw_spinlock_t from spinlock_t (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175438/">https://patchwork.freedesktop.org/series/175438/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19309 -&gt; Patchwork_175438v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175438v3/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19309 -&gt; Patchwork_175438v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19309: a9079e63263acdef3db9b768ef47cfaf779a97aa @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9138: 9138<br />
+  Patchwork_175438v3: a9079e63263acdef3db9b768ef47cfaf779a97aa @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1228694499736048062==--
