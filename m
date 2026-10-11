@@ -4,74 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9CF9CA9ED1
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 14:37:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6256CA9EDD
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 14:38:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F9310F14F;
-	Mon, 12 Oct 2026 14:37:53 +0000 (UTC)
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
- [209.85.219.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BD2210EAAC
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 17:52:55 +0000 (UTC)
-Received: by mail-qv1-f41.google.com with SMTP id
- 6a1803df08f44-917a707f37eso1171146d6.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 09 Oct 2026 10:52:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77FA210F163;
+	Mon, 12 Oct 2026 14:37:55 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D127810E041
+ for <intel-gfx@lists.freedesktop.org>; Sun, 11 Oct 2026 12:26:06 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2db710396ffso18310055ad.1
+ for <intel-gfx@lists.freedesktop.org>; Sun, 11 Oct 2026 05:26:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791721566; cv=none;
+ d=google.com; s=arc-20260327;
+ b=hVUc7I30Tu3fBlXoUph7NP2NvwUfQQAy9Ng+2G0h99LIdrPV7ufDPufx4Z4OjiMuoX
+ i5rgmuxuodmcF2W2q+/E5Q4iYrIVD4iOy5JBEfX/RUm8MJ7wlx0zDdrsrOuhbLuqD4Dv
+ T7SGgtu9W3yVCIHPqXIu/XbnXmfBmwpqijQV4VqPr3PASbwTtw0Kf2lnYsqbbYCqaLZ9
+ anBGgNTSCC217s7G7fPK/RelPL6DveQVxx/jjfquipiOlZR6UMaDN4cpHXkI4aUwSkIW
+ mNyFx8RVdRKS3gk0VJAspB+2VMDuF9rtM+5HXvxXT/cA//p2o73hjl9GatmM+6WBmd1G
+ lDSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=TMQJrEs50uHxmH5jNYUVoTh6YrurDltIENM9WcFXON4=;
+ fh=o4PlEWnEtkLbcrb8fHQmq4ch+InPGDeTjUAwT09BH3M=;
+ b=BJF8j0fBPTeo63g5zYeWQG7Nua8CKQ5AB5JXo43mdBRpoOMcWmS40fW7TdU1peuDvX
+ xUkfQxHLIH+XNXe/HdfuJs/K00e/l9m+urjWPl2G4HF9XXt3wamryF0fpC5/VD8VvZrx
+ wRRjOUrDPMJoE1niL9UBGyaKmOuXH7w83+UFAPuHHKdGj8QrQGRTpP6oxYQcUOs/SYuR
+ wvdv+DkPLWD2BOsCStw7QQ3YI5DF3hHSOD8SiWEWjeZlOhwDztbuN85M6xhS/5mTBlzF
+ yqMSD/NswtzIglHPpo/gz9rW4Z4gddcwt7Jrr3nh+992jmjJNQSe9YqEAWTHnHljijVd
+ liLg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791568374;
- x=1792173174; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=+4+0kNK2EftqWP44Afx2yrCAuhyfq98njB7n1Ib+EPk=;
- b=XnGexcee4CZqLETn9b5DMn6tbV09qm+SabySK8buJk9sMjAnwrTk25yIGsaagDQbcj
- J4Tg119s5SetrsbdY1ldQVeurGli3laQy3B+qjVE7aTw4SbfnNFU027M8aRAhZ0OVShB
- eswNe8zqRYxBBWOuAF4r6Qzafic+JMIkRiVgz97Jf+zN1OjfOcArDQra4L40Vlb4UsSQ
- U4YLXkGWQ1hxbR7SszLtUj9gp6FAoF4Z3MpFKh+8rwj0ks1htNeQoT8l7IsZ5R5P1eAz
- AO2riQOj6hCTNwqBEhPD8RKSUHYqcUWjy+FgoYzXckzy95JVzNiHNqwLIow92xCgiiAB
- E4Ng==
+ d=gmail.com; s=20251104; t=1791721566; x=1792326366; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=TMQJrEs50uHxmH5jNYUVoTh6YrurDltIENM9WcFXON4=;
+ b=aY0QTbpu4BPLgzzRJNWLOZONHhKsJQHUrpEqLrNSMemLKBQ+o4/SChho9vsHwA3dMf
+ hRVVDkIfWBTHlZhe4EH++oxURWTLn8LlOCQUnKvbES2ml1I9vYDxfY7k4+Pm2vC6Wqa4
+ R8hDO5kJZ0+kVIQiyjaVrOCUutOaRRs7huDlH6jSiGQyRsfYiXaTbtrTvaEegOWp0Pkf
+ qWQQ9pzT2vZp5tOnni2aFPZx4Ic6bN/r3CxBvBW6jpwP0MY7xABoloMwo6QB7cW8OCVb
+ QfI4yQkgLUx3uAUXT4xIb7eOHIGikfYZ3dqWhAdIinXzw2La334qs10nhCnj9Y1RO7Wf
+ +11A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791568374; x=1792173174;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=+4+0kNK2EftqWP44Afx2yrCAuhyfq98njB7n1Ib+EPk=;
- b=Kxcd5exBt21iSaOW+tDgkzTdb/vVTgLbMVjtPfq0dfbE1ypZHrGF+IvlyLD1X0ic+k
- bZ8s3jvvxhVxJ6F5uhVgM0qCYltzWYdJdLK5cCs08b/LTYtxzLekJZvmufJofau/sMI2
- 5OH/UZHNQboVHVlBuLhdMZavSqydb+1mkx+fnOdMw2ZSUQzy7n3Zkman5ot/hPE2CDIr
- hcOWnfvFy/E9doYhZuAWb5gFBjMKJDDi+N3ZcvggKfGEMge93RFtoONOgs89za57QSX5
- rCSQfP8NLzttHpuyqM9ZxO923laT0kpOujXc+xAbFGrgXHt9dRQVkcsMJlphR36fyNdc
- 5/IA==
-X-Gm-Message-State: AFuF++kCwIuOITeODQbusmtpIaU9Mq74scG61Nh7VnsgJpHJsS5hAvIn
- XnN8v1EllvYcAEbNzC6Lw8T2qeG49tltcZW+5Tz35Eek1XKMTsuNKIWQZgz7SEiHuCw=
-X-Gm-Gg: AYBFou0F1q949HctknKsOnUA0VJ8XrCiczs3JT+wo7oz+lM43dR4mYDsWKzVKo/DaaN
- XmRgHgCN64PWMS3X5VaxktQ0N39zMeXii8PQgbPaIRrFb5Qwu2QO1kpufJPCQtLgulOI43HncOy
- djNHMeAEFt0lvynCTZazjPEfKixkCbuRQKpQAQKMnbDD6FpBWrBXatAAcF9UI2dV61HFBFqHm3g
- JZve7m3XW0ray1QUx34aXoTaYiUcbjvi6uG3kYfKoKKU2byd7t2H91RqXuVSHdfXEuj8ecfbgg+
- Wsa4BCwpyFVA3bx/F36Tsox4ev7QaEQU2l8mfYBncC4qE+zI/MhPakX1pX68zGgv2KS86W12ul8
- yjpWIFFMDfdWDgOE2L+QSaVq9E0ybXjuPrQtOhK/4fqxWMgoO2J+Y3Na3kZHIXlBV2WWmBwgyKO
- sDsTnQIB5gocrlr8F+IM2rStF0zV0JefJAuWQ9jp29Lu8U9pTpQ6m/3G20boGSEh0m0bq8gFJU/
- i1Ohlze/DJz8RuN/OxYPeZytzWZZUkillEhNDosCJp+PocBmfeecajSIfynuay44PDzMQYrKsDV
- CI8de3fcuMB6ypIjxphfBfS4T+Y4LVssrGZvElEjQvpVF0Fz4dxyWcaxIPBiW5dt89e2
-X-Received: by 2002:a05:620a:44d0:b0:939:f978:c1aa with SMTP id
- af79cd13be357-93ebd0d1425mr411442085a.11.1791568373705; 
- Fri, 09 Oct 2026 10:52:53 -0700 (PDT)
-Received: from jake-laptop ([153.67.39.44]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93eb9846a5fsm241008085a.15.2026.10.09.10.52.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Oct 2026 10:52:53 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: jouni.hogander@intel.com
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/psr: ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR not
- valid for eDP
-Date: Fri,  9 Oct 2026 13:52:51 -0400
-Message-ID: <20261009175251.2097777-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <d592bde4b15a1c283f04e9412f46069f8a4926d5.camel@intel.com>
-References: <d592bde4b15a1c283f04e9412f46069f8a4926d5.camel@intel.com>
+ d=1e100.net; s=20260707; t=1791721566; x=1792326366;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=TMQJrEs50uHxmH5jNYUVoTh6YrurDltIENM9WcFXON4=;
+ b=VXj+sru6/AHa9bOIoB7ee5qR84sYrkvJNMx9v9gh177CvE7U5OtZSaftqq16HI8yAD
+ 14qjN1FkcJbXxiyzez/uR1KH9cfK6OnVvM1+mpAW61ICedp3M9PIWn9hvAAKadkX/bNx
+ w/eBuBCgjRBcOh6dYBdskOjQqR13/D7MEUlPKOTL/i3+uFzutjbkGpM/EjAM1KTylXpA
+ Jf359s3n7epluWhD4HxuzAw8VvDASMIQK7rXXPiA8cxiVRctDHGmGiSVJKVC7bI+JJpO
+ OQijE5WmZBUlcjGLWTo3/muVtpB/WWsmOunoo6xo8U5OZvzW/KaKmVgMNGtdUL6qBvAO
+ JPXA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxwBU0Wd7hbqTrU9Gpj43uCbX/4SeFzCZW99iWfcYXEbrGrRQSteL43/bN5+aDejIPOKgso4PTsVqw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL1guaeRNtHQZ/Bx3Y6RYRvnEW6T1U2E8mXXy3B5ZpYxtqIvICv
+ PUb2k4TW3JX5QlESKLT2UnOr53aSLLog892WsA+bhG/GFSTkb9dW9uh3/QvsOH3laXmONTsftey
+ wh2sAW7OF3faKjx948Y/zdUj49lO1qcc=
+X-Gm-Gg: AYBFou162woA9J0oA/z99FrD84OP6gNwWzQe1IPb29aFk3S/Y1y6vnVND5qZuzjnLGl
+ 4H7MYX79mLl6XJTnvLtqcLSWnWFpFYNPM6DNefsxodb0tMIikT+IScYObufHRQSEkCbCZXSSsH8
+ QT8HEcS/nzOTeRbzoXdA5Lkix2LViZXQAxViLwZSp4wIh5/1kl/iXaPznjhCS3fVJBtoR/oDPRT
+ wNAol8IV78Kphq7kbOmGt7ooOI3nU42LN1VKOIWuz3X+vlXFcDF++J288pRQvesBwiLBO6DWyfP
+ 03g08U7EUYO9UolgIJyZ63iwWkYVirSRyZRlnfh7Oppw53VI81nVLw==
+X-Received: by 2002:a17:90b:2b48:b0:3aa:412f:b0a7 with SMTP id
+ 98e67ed59e1d1-3ab3a3687c7mr3848020a91.5.1791721566176; Sun, 11 Oct 2026
+ 05:26:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260917185235.23792-1-andersen.theo@gmail.com>
+In-Reply-To: <20260917185235.23792-1-andersen.theo@gmail.com>
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+Date: Sun, 11 Oct 2026 14:25:54 +0200
+X-Gm-Features: AclHuK-8yQsEoQZb7XBZEYKYmzxZwaG7_AHzyz8sYrBgwykehmJlXlezwbpfNXM
+Message-ID: <CANFnrsrMZoRatJJ_iJ=c9zW4uiZZUhM8KnVq_NF3XNW2_yQ0SA@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple
+ MacBookPro11, 5
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com, 
+ simona@ffwll.ch, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 12 Oct 2026 14:37:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,34 +104,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jouni,
+Hi Jani,
 
-> I wasn't sure if this patch is closing any gitlab ticket.
+Gentle ping on v3. Patchwork says CI won't trigger automatically because
+my address isn't on the allowlist:
 
-It is the stutter in
-https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9119
-but Panel Replay is still quirked off for the DA16260, so a Link: is
-probably more accurate than Closes: until the quirk goes.
+  https://patchwork.freedesktop.org/series/174000/
 
-> I don't really see why we should bind it to vblank.
+Could someone with access click retest on rev4? For reference, BAT on the
+earlier identical posting (rev3) passed. The shard failures from that run
+were on MTL and DG1, which never reach this code since the quirk is gated
+on a DMI match for MacBookPro11,5.
 
-With the AS SDP off for all of PR Active this panel is fine for a few
-minutes, then drifts and starts to judder. It also judders after the
-screen has been off or the machine has slept. So it needs the AS SDP
-back now and then to resync.
-
-I see two ways to do that: resync on a timer (say once a minute), or
-tie it to a signal the driver already has. A timer leaves the panel
-out of sync until the next tick, which is most visible right after
-wake. Keeping the AS SDP on while vblank is enabled avoids that, and
-PR already holds DC_OFF there so it costs no DC5. If there is a
-better signal for "resync now", I am happy to use that instead.
-
-> DPCD 00107h[6] shall remain set
-
-Thanks, that settles my 0x107 patch: please drop it. It also means my
-testing of the RFC was with bit 6 clear. I will rerun it with bit 6
-set and report.
+The bug with the logs and the VBT dump is still at
+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
 
 Thanks,
-Jake
+Theo
+
+Den tors. 17. sep. 2026 kl. 20.52 skrev Theo Andersen Carton
+<andersen.theo@gmail.com>:
+>
+> On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
+> GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
+> As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
+> back a source maximum of two lanes for port A.
+>
+> intel_dp_max_common_lane_count() then takes min3(source_max = 2,
+> sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
+> bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
+> every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
+> with no usable modes at all -- the panel stays dark whenever i915 is
+> made to drive it, which looks like a hardware limitation but is not.
+>
+> The lanes are physically there. Reading the panel's DPCD from the AMD
+> side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
+> i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
+> at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
+> native resolution, so all four lanes are routed through the gmux to
+> DDI A. Only the register bit is unset.
+>
+> intel_ddi_a_force_4_lanes() already exists for exactly this situation --
+> its neighbouring comment notes that "Some BIOS might fail to set this
+> bit on port A if eDP wasn't lit up at boot" -- but it only covers
+> Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
+> the correct lane count too.
+>
+> The DMI match is deliberately narrow. Other dual-GPU models in the same
+> family are very likely affected identically, but they are untested, so
+> widen the match only as reports come in.
+>
+> Tested on a MacBookPro11,5 (Haswell Crystal Well, Iris Pro 5200 +
+> Radeon R9 M370X): with the quirk, DDI A comes up as 4 lanes, link
+> training passes at link rate 270000 / lane count 4, and i915 drives the
+> internal panel at its native 2880x1800.
+>
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
+> Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+> ---
+> Numbering note: neither earlier posting was labelled, so to match the
+> numbering already used on the list this is v3. v1 [1] was pasted into a
+> mail client by hand, which hard-wrapped the diff and detabbed it, leaving
+> it unapplicable. v2 [2] was the same patch resent with git send-email,
+> unlabelled.
+>
+> v3:
+> - No functional change since v2.
+> - Commit message: the machine is Haswell (Crystal Well), not Broadwell as
+>   v1/v2 claimed. The DMI match was always by model, so no code change.
+> - Added Closes: tag for the bug report, which carries the failing-case
+>   logs, the VBT dump and the EDID.
+>
+> [1] https://lore.kernel.org/r/CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com
+> [2] https://lore.kernel.org/lkml/20260912091805.531666-1-andersen.theo@gmail.com/
+>  drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
+>  drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+>  3 files changed, 42 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index 02a53c9848e1..f746287830b3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
+>         if (display->platform.geminilake || display->platform.broxton)
+>                 return true;
+>
+> +       /*
+> +        * Machines whose firmware leaves eDP dark on the Intel side never set
+> +        * the bit, so trust the quirk rather than the register.
+> +        */
+> +       if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
+> +               return true;
+> +
+>         return false;
+>  }
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+> index 33245f44c0d5..feb28956a013 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+> @@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
+>         drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+>  }
+>
+> +/*
+> + * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
+> + * the firmware never lights up eDP on the Intel side and consequently never
+> + * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
+> + * to DDI A. Without the bit, port A is capped at two lanes, which is not
+> + * enough bandwidth for the panel's native mode, leaving the connector with no
+> + * usable modes at all.
+> + */
+> +static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
+> +{
+> +       intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
+> +       drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
+> +}
+> +
+>  struct intel_quirk {
+>         int device;
+>         int subsystem_vendor;
+> @@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
+>         return 1;
+>  }
+>
+> +static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
+> +{
+> +       DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
+> +
+> +       return 1;
+> +}
+> +
+>  static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>         {
+>                 .dmi_id_list = &(const struct dmi_system_id[]) {
+> @@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>                 },
+>                 .hook = quirk_no_pps_backlight_power_hook,
+>         },
+> +       {
+> +               .dmi_id_list = &(const struct dmi_system_id[]) {
+> +                       {
+> +                               .callback = intel_dmi_ddi_a_force_4_lanes,
+> +                               .ident = "Apple MacBookPro11,5",
+> +                               .matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+> +                                           DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
+> +                               },
+> +                       },
+> +                       { }
+> +               },
+> +               .hook = quirk_ddi_a_force_4_lanes,
+> +       },
+>  };
+>
+>  static struct intel_quirk intel_quirks[] = {
+> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+> index 970a4fe52faf..d2b8e9183c62 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+> @@ -23,6 +23,7 @@ enum intel_quirk_id {
+>         QUIRK_EDP_LIMIT_RATE_HBR2,
+>         QUIRK_DISABLE_EDP_PANEL_REPLAY,
+>         QUIRK_DISABLE_PSR2,
+> +       QUIRK_DDI_A_FORCE_4_LANES,
+>  };
+>
+>  void intel_init_quirks(struct intel_display *display);
+>
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+> --
+> 2.55.0
+>
