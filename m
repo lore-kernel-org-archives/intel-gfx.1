@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33CF2CC6B19
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 17:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E780FCC6B1A
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 17:53:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBC710F927;
-	Tue, 13 Oct 2026 17:48:42 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01AA410F92B
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 17:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE7F10E93D;
+	Tue, 13 Oct 2026 17:53:15 +0000 (UTC)
+X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
+ Tue, 13 Oct 2026 17:53:04 UTC
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A64610E2DE
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 17:53:04 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id C60991A1216
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 17:48:29 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id E9C84C653F7
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 17:48:55 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 9AA9260362
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 17:48:29 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 51AE660362
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 17:48:00 +0000 (UTC)
 Received: by mail.galae.net (Postcow, from userid 0)
- id BB40111D71891; Tue, 13 Oct 2026 19:48:09 +0200 (CEST)
+ id C235211D71861; Tue, 13 Oct 2026 19:47:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1791913709; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=CY/snekrJ2jbr2xcfeIZ0vrbUr9dIQOslPzIssPtkas=;
- b=T3QXOIfPdFO905B0/lgHOdypruCR+pDxA1aFTNJQZ8oLVawW6Mq+O08dNN2dRrVNREHWYR
- p6DfQzsd347ASSHYSncx5GlZFQ6qiYVgv3Wfs29httvGCuZTgR4CbQlHg40HRFPWKUNTnB
- CG3dGrnYo5H51VELxQWBuxud5kaAqNdrepP06d3VnCHeIxKx5v2KAEvo7c8/s8SqmSAo/B
- nLi5jWs840j1R+qtONxlIhua+4Mk2ekWikkwn8GNoTqDF86DXVMUnGA11Kwv8zQj6/sgXB
- 9WrG8uZI+RbYxAdvEtqJ/8+xkcb9BTCBQGGOhkroerqDl+3gDo0VL4FIn2Yf7w==
+ t=1791913679; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=GGIXi1kV+kCR2h5S/gUS/WOZ0+fEirhDT48WZLYxblo=;
+ b=atlqJssSW+yxSQtDu+YHn2u7TDGp/FPJYPwBOtD0xmE07KHS9cIV0REnLqGKM3ndkGNDJ+
+ UFhzOyby/q3AnV+nXNjXxwgUHngiwSLGo78r/n8649SfbaxoNK0VQj9ctcBwAsZ4TPIhPw
+ MNfyzLeZLTD3ipA8RTlgO3G49dWiWsoailWv3Wj9ESP4jb3ixc3KcuWwH15VEDzXvjFBlp
+ 8hB5eEaj+nqb6ru23qmirvJsLlAKEU4L1/mAYU1IEE1QOiCilkALBjYu+VnL0I/N3oN1YU
+ YIf1QDDODgMVra5JOt1PAhmDIwPnJj8zffbyc4YVcBt3kH178iPk6XjX6KedHg==
 Authentication-Results: mail.galae.net;
 	none
 Received: from mail.galae.net ([172.22.1.253]) by 9e7fea892943 with LMTP
- id oCLnFM34zGoogBEAtaWaaQ (envelope-from <kory.maincent@bootlin.com>)
- for <kory.maincent@bootlin.com>; Mon, 12 Oct 2026 17:12:13 +0200
+ id sLJDIqL4zGr4hhEAtaWaaQ (envelope-from <kory.maincent@bootlin.com>)
+ for <kory.maincent@bootlin.com>; Mon, 12 Oct 2026 17:11:30 +0200
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1287311D70211; 
- Mon, 12 Oct 2026 17:12:06 +0200 (CEST)
+ with ESMTPSA id B398E11D7012D; 
+ Mon, 12 Oct 2026 17:11:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1791817931; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=CY/snekrJ2jbr2xcfeIZ0vrbUr9dIQOslPzIssPtkas=;
- b=TGgCMtlj91Z2mqCWy754IMuKuubSH3Ua67cehuDX7NW1UO/8VFgTMslXLtwnN/H0PW1Og5
- Ty9F9hCQAVguEwm2UIHIuYYlXBQ2CR+3QQlGu2lZ56FvfMSNsx5+stEesFPRRoFzaVDM/d
- fem6gGcP69WhmRIhKmubEw3Aq3116Gn2hNcLdnkWvXF9ZoFNaJNWHHF4KpEgTdKHAr1WKI
- +C/TKcm3hKLswDgqXceAN9j4SOgVEJKdu1J7SnW6uSD2Je0t1hstj7LyYDczPBM50YjQ1t
- Sb+I3fqpEca0Agu5QZo+siPiHLiShO4sTpQGIM6k6zkYJA7mi1mkh3ZN2GXycw==
+ t=1791817884; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=GGIXi1kV+kCR2h5S/gUS/WOZ0+fEirhDT48WZLYxblo=;
+ b=aHgUcb7RjoE/3nkLUjCiPBxyqhUMjDqJPhCa+pN1b8fpTJD/gqSpx+YouaDkYQA/mTax/5
+ R0+c3I8S9sYnzcBIxbWGuvToSypTC1NNzkvSMtbkKE1mhJ6V2+n2DwozTaXHcQH7yYzBxV
+ 29jZ6mJhfARl0PQTBVOBsJCpl1IMd4d1vQjlE911WlQchP5bj5ZIH9RcZolFykQoL+PKrJ
+ 5dBcEpD5k3Cu+76dmJkIckEM2wvQQgSali2uYyBX8veRRztGpC+dJEgQQg3GA2kltLTsfz
+ YxUR7a09D11CyahwWY9ML4kF82hL+VG5DqE+T05Cyp/JahZaAAe3nRa7KbPTow==
 From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Mon, 12 Oct 2026 17:11:02 +0200
-Subject: [PATCH RFC v3 7/8] drm/analogix/anx7625: Use dp_connector helpers
- to expose link training state
+Subject: [PATCH RFC v3 0/8] Add support for DisplayPort link training
+ information report
+Date: Mon, 12 Oct 2026 17:10:55 +0200
+Message-Id: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-feat_link_cap-v3-7-7517f4aba0f3@bootlin.com>
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAH/4zGoC/2WNQQrCMBREr1L+2kjyW6JxJQgewK1ISZNfG9Smp
+ CUopXc3ZCPqcmZ4b2YYKTgaYVfMECi60fk+hXJVgOl0fyXmbMqAHCVHlKwlPdV3199qoweG3DS
+ NbEthKw6JGQK17pl9ZzgdD3BJZefGyYdX/ogiT1lXcfWji4JxtuFS0VYoZQj3jfdTmtfGP7Ir4
+ oeX4o/HxOvSkqkMR23VN78syxv9+9NJ8QAAAA==
+X-Change-ID: 20260226-feat_link_cap-20cbb6f31d40
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -85,10 +88,10 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.16.1-dev-17221
 X-Last-TLS-Session-Version: TLSv1.3
 X-Last-TLS-Session-Version: None
-X-Rspamd-Queue-Id: BB40111D71891
-X-Spamd-Result: default: False [2.50 / 30.00]; SUSPICIOUS_RECIPS(1.50)[];
+X-Rspamd-Queue-Id: C235211D71861
+X-Spamd-Result: default: False [2.48 / 30.00]; SUSPICIOUS_RECIPS(1.50)[];
  DATE_IN_PAST(1.00)[26]; RCVD_NO_TLS_LAST(0.10)[];
- MIME_GOOD(-0.10)[text/plain]; BAYES_HAM(-0.00)[25.46%];
+ MIME_GOOD(-0.10)[text/plain]; BAYES_HAM(-0.02)[49.01%];
  BCC(0.00)[]; TAGGED_RCPT(0.00)[];
  DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
  RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -100,7 +103,7 @@ X-Spamd-Result: default: False [2.50 / 30.00]; SUSPICIOUS_RECIPS(1.50)[];
  PREVIOUSLY_DELIVERED(0.00)[kory.maincent@bootlin.com];
  TO_MATCH_ENVRCPT_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
  TO_DN_SOME(0.00)[];
- URIBL_BLOCKED(0.00)[localhost:rdns,localhost:helo,bootlin.com:mid,bootlin.com:email];
+ URIBL_BLOCKED(0.00)[bootlin.com:email,bootlin.com:mid,bootlin.com:url,msgid.link:url,localhost:rdns,localhost:helo];
  MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
  RECEIVED_HELO_LOCALHOST(0.00)[]; NEURAL_HAM(-0.00)[-1.000];
  FROM_EQ_ENVFROM(0.00)[]
@@ -119,159 +122,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adopt the DRM core DisplayPort helpers by setting DRM_BRIDGE_OP_DP and
-populating the bridge dp_link_caps at probe time. Report the sink
-capabilities on hotplug, reset them on disconnect, and report the link
-parameters once link training succeeds.
+DisplayPort link training negotiates the physical-layer parameters needed
+for a reliable connection: lane count, link rate, and optionally Display
+Stream Compression (DSC). Currently, each driver exposes this state in
+its own way, often through driver-specific debugfs entries, with no
+standard interface for userspace diagnostic and monitoring tools.
+
+This series introduces generic helpers, for exposing DP link capabilities
+and state as standard sysfs entries.
+
+The aim of such development is to guide users to select the most suitable
+DisplayPort connector for their needs. For example, if you have a USB-C
+hub with lesser capabilities than your computer’s native DisplayPort
+connector (such as HBR2 versus HBR3 support), the system could recommend
+connecting high-resolution displays directly to the computer’s port
+instead of through the hub to ensure optimal performance.
+
+The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
+source and sink training capabilities to userspace via sysfs attributes
+under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
+report current link information at runtime.
+
+Three drivers are updated as reference implementations: i915 (direct
+connector path), ANX7625 and MediaTek (via the bridge connector framework
+using a new DRM_BRIDGE_OP_DP flag).
+
+Here is a sysfs example:
+
+cur_link_info_dsc            sink_link_caps_nlanes
+cur_link_info_link_rate      source_link_caps_dsc
+cur_link_info_nlanes         source_link_caps_link_rates
+sink_link_caps_dsc           source_link_caps_nlanes
+sink_link_caps_link_rates
+
+1620000 2160000 2700000 3240000 4320000 5400000
+
+1620000 2700000 5400000 10000000 20000000
+
+5400000
+
+This series is rebased on top of drm-misc and may conflict with the
+current state of the drm i915 tree. Which tree should pick this up,
+given that it mixes core development with driver changes?
+
+Patch 1,2: Move helpers out of i915
+Patch 3: Introduce DisplayPort link training capabilities and state helpers
+Patch 4: Read i915 DSC capabilities in any case
+Patch 5  Use dp_connector helpers in i915 to expose link training state
+Patch 6: Introduce DRM_BRIDGE_OP_DP and wire bridge connectors
+Patch 7: Use dp_connector helpers in anx7625 to expose link training state
+Patch 8: Use dp_connector helpers in mediatek to expose link training state
+
+Changes in v3:
+- Rework the core to use new helpers instead of an extension of
+  drmm_connector_init().
+- Add a new mutex to protect sysfs read write access instead of using
+  the global connection_mutex.
+- Move helpers out of i915.
+- Add the support in the anx7625 driver.
+- Link to v2: https://patch.msgid.link/20260619-feat_link_cap-v2-0-a3dec4c02ad9@bootlin.com
+
+Changes in v2:
+- Removed work converting i915 to DRM managed resource
+- Remove voltage swing and pre-emphasis properties
+- Expose link training state via sysfs dp_link/ group instead of
+  connector properties
+- Add comprehensive sysfs attributes for both source and sink capabilities
+- Add new helpers for managing sink capabilities and for current link
+  parameters
+- Link to v1: https://lore.kernel.org/r/20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com
 
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
-Change in v3:
-- New patch
+Kory Maincent (8):
+      drm: Move sink link rates reading helpers out of i915
+      drm: Move DSC capability reading helper out of i915
+      drm: Introduce DisplayPort link training capabilities and state helpers
+      drm/i915/display/dp: Read DPCD DSC capabilities in any case
+      drm/i915/display/dp: Use dp_connector helpers to expose link training state
+      drm/bridge: Expose link training state via new DRM_BRIDGE_OP_DP flag
+      drm/analogix/anx7625: Use dp_connector helpers to expose link training state
+      drm/mediatek: Use dp_connector helpers to expose link training state
+
+ Documentation/ABI/testing/sysfs-class-drm-dp       |  85 +++
+ drivers/gpu/drm/bridge/analogix/anx7625.c          |  68 +++
+ drivers/gpu/drm/bridge/analogix/anx7625.h          |   1 +
+ drivers/gpu/drm/display/Kconfig                    |   1 +
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  29 ++
+ drivers/gpu/drm/display/drm_dp_helper.c            | 571 +++++++++++++++++++++
+ drivers/gpu/drm/drm_connector.c                    |  11 +
+ drivers/gpu/drm/drm_sysfs.c                        | 155 ++++++
+ drivers/gpu/drm/i915/display/intel_display_types.h |   2 +
+ drivers/gpu/drm/i915/display/intel_dp.c            | 249 ++++-----
+ .../gpu/drm/i915/display/intel_dp_link_training.c  |  14 +
+ drivers/gpu/drm/mediatek/mtk_dp.c                  |  79 ++-
+ include/drm/display/drm_dp.h                       |   1 +
+ include/drm/display/drm_dp_helper.h                |  25 +
+ include/drm/drm_bridge.h                           |  13 +
+ include/drm/drm_connector.h                        |  53 ++
+ include/drm/drm_sysfs.h                            |   1 +
+ 17 files changed, 1202 insertions(+), 156 deletions(-)
 ---
- drivers/gpu/drm/bridge/analogix/anx7625.c | 68 +++++++++++++++++++++++++++++++
- drivers/gpu/drm/bridge/analogix/anx7625.h |  1 +
- 2 files changed, 69 insertions(+)
+base-commit: 34e9ab0182494d7599dc9759bc216550d814b396
+change-id: 20260226-feat_link_cap-20cbb6f31d40
 
-diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
-index c3af88e14f8b2..2b1235efc9fa4 100644
---- a/drivers/gpu/drm/bridge/analogix/anx7625.c
-+++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
-@@ -2558,6 +2558,31 @@ static int anx7625_bridge_atomic_check(struct drm_bridge *bridge,
- 	return 0;
- }
- 
-+static void anx7625_report_link_train(struct anx7625_data *ctx,
-+				      struct drm_connector *connector)
-+{
-+	int bw_code, rate, nlanes;
-+
-+	/*
-+	 * The DP link training is handled by the internal OCM firmware, read
-+	 * back the negotiated link rate and lane count.
-+	 */
-+	bw_code = anx7625_reg_read(ctx, ctx->i2c.tx_p0_client,
-+				   SP_TX_LINK_BW_SET_REG);
-+	if (bw_code < 0)
-+		return;
-+
-+	rate = drm_dp_bw_code_to_link_rate(bw_code & SP_TX_LINK_BW_SET_MASK);
-+
-+	nlanes = anx7625_reg_read(ctx, ctx->i2c.tx_p0_client,
-+				  SP_TX_LANE_COUNT_SET_REG);
-+	if (nlanes < 0)
-+		return;
-+	nlanes &= DP_MAX_LANE_COUNT_MASK;
-+
-+	drm_dp_set_cur_link_params(connector, rate, nlanes, false);
-+}
-+
- static void anx7625_bridge_atomic_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_commit *state)
- {
-@@ -2565,6 +2590,7 @@ static void anx7625_bridge_atomic_enable(struct drm_bridge *bridge,
- 	struct device *dev = ctx->dev;
- 	struct drm_connector *connector;
- 	struct drm_connector_state *conn_state;
-+	int ret;
- 
- 	dev_dbg(dev, "drm atomic enable\n");
- 
-@@ -2580,6 +2606,17 @@ static void anx7625_bridge_atomic_enable(struct drm_bridge *bridge,
- 
- 	anx7625_dp_start(ctx);
- 
-+	/* On DisplayPort case, the caps are set in the detect callback. */
-+	if (bridge->type == DRM_MODE_CONNECTOR_eDP) {
-+		ret = drm_dp_sink_sync_caps(connector, &ctx->aux, NULL);
-+		if (ret)
-+			DRM_DEV_DEBUG_DRIVER(dev,
-+					     "error sink caps synchronisation (%d)\n",
-+					     ret);
-+	}
-+
-+	anx7625_report_link_train(ctx, connector);
-+
- 	conn_state = drm_atomic_get_new_connector_state(state, connector);
- 
- 	if (WARN_ON(!conn_state))
-@@ -2616,6 +2653,12 @@ static void anx7625_bridge_atomic_disable(struct drm_bridge *bridge,
- 		dev_dbg(dev, "update CP to DESIRE\n");
- 	}
- 
-+	/* On DisplayPort unplug, the caps are already reset in the detect
-+	 * callback.
-+	 */
-+	if (bridge->type == DRM_MODE_CONNECTOR_eDP)
-+		drm_dp_sink_reset_caps(ctx->connector);
-+
- 	ctx->connector = NULL;
- 	anx7625_dp_stop(ctx);
- 
-@@ -2634,11 +2677,25 @@ anx7625_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector
- 	struct anx7625_data *ctx = bridge_to_anx7625(bridge);
- 	struct device *dev = ctx->dev;
- 	enum drm_connector_status status;
-+	int ret;
- 
- 	DRM_DEV_DEBUG_DRIVER(dev, "drm bridge detect\n");
- 
- 	status = anx7625_sink_detect(ctx);
- 	anx7625_audio_update_connector_status(ctx, status);
-+
-+	if (status == connector_status_connected) {
-+		ret = drm_dp_sink_sync_caps(connector, &ctx->aux, NULL);
-+		if (ret)
-+			DRM_DEV_DEBUG_DRIVER(dev,
-+					     "error sink caps synchronisation (%d)\n",
-+					     ret);
-+
-+		anx7625_report_link_train(ctx, connector);
-+	} else {
-+		drm_dp_sink_reset_caps(connector);
-+	}
-+
- 	return status;
- }
- 
-@@ -2765,6 +2822,14 @@ static const struct dev_pm_ops anx7625_pm_ops = {
- 			   anx7625_runtime_pm_resume, NULL)
- };
- 
-+static int anx7625_dp_rates[] = {162000, 270000, 540000, 675000};
-+
-+static struct drm_connector_dp_link_caps anx7625_dp_link_caps = {
-+	.nlanes = 2,
-+	.nlink_rates = ARRAY_SIZE(anx7625_dp_rates),
-+	.link_rates = anx7625_dp_rates,
-+};
-+
- static int anx7625_link_bridge(struct drm_dp_aux *aux)
- {
- 	struct anx7625_data *platform = container_of(aux, struct anx7625_data, aux);
-@@ -2787,6 +2852,9 @@ static int anx7625_link_bridge(struct drm_dp_aux *aux)
- 				    DRM_MODE_CONNECTOR_DisplayPort;
- 	platform->bridge.support_hdcp = true;
- 
-+	platform->bridge.dp_link_caps = &anx7625_dp_link_caps;
-+	platform->bridge.ops |= DRM_BRIDGE_OP_DP;
-+
- 	drm_bridge_add(&platform->bridge);
- 
- 	if (!platform->pdata.is_dpi) {
-diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.h b/drivers/gpu/drm/bridge/analogix/anx7625.h
-index 957d234ec07c8..b9a0f62f6398c 100644
---- a/drivers/gpu/drm/bridge/analogix/anx7625.h
-+++ b/drivers/gpu/drm/bridge/analogix/anx7625.h
-@@ -90,6 +90,7 @@
- #define HDCP2TX_FW_EN			BIT(4)
- 
- #define SP_TX_LINK_BW_SET_REG		0xA0
-+#define SP_TX_LINK_BW_SET_MASK		0x1F
- #define SP_TX_LANE_COUNT_SET_REG	0xA1
- 
- #define M_VID_0 0xC0
-
--- 
-2.43.0
+Best regards,
+--  
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
