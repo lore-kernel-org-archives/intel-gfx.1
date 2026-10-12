@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7739CCA9EC5
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 12:42:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43E5ACA9ED1
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 12:42:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0876810F095;
-	Mon, 12 Oct 2026 12:42:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA15410F082;
+	Mon, 12 Oct 2026 12:42:02 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB9B510EA7D;
- Mon, 12 Oct 2026 12:41:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F7A410EF66;
+ Mon, 12 Oct 2026 12:41:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791808912; x=1823344912;
+ t=1791808915; x=1823344915;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rd+Sum6a3YbWBhUwHltvOPB/oPjq0wRb8FdPHgldudU=;
- b=iiiBAMWBhXh+YtrG0ZV4Qi3mul0HJXN7u0vmSfH2N4tbnW6g3n7DuUhK
- +/8xUdqMzXBmAsjvZ22aYx/X6BH1h6Z4Hgk8RUkz9vrmZbe3pfrkWGlvP
- tUcMxEnJuFGII5GTt771ipTHn4hYJdmLQMcWuTfUMYWdmWbGpNZnKDvU6
- FN1b1Vb5qbR06DdeIU/zaZ4T7eGvo2UyHWxcyBZiX94OWZwK+SAaSHyIQ
- 6xmmN1CmvPKI/KRDmLlRSe/K9SXKd9473sqfjjcqihV6R+V9/Au+/czeS
- rar1RrTzsmNM6a/eyQ+OjJwgT7usmE+b7CwDYlZ/jOejrGk4ZN4aKQcbm A==;
-X-CSE-ConnectionGUID: a0fvSRkAQiy8SnBgzjycjQ==
-X-CSE-MsgGUID: YMO/7jxFRsCqeghC+P0iqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="506206"
+ bh=RbtS6AAJCYcjvP2f590ko9pTpWQusuGlOcYnv/kgtXw=;
+ b=focO9nLf7mLAfJoSFS8X4VaRkGtaAMmKVPMI4Kw+wWNwz0a8/QjOpSeD
+ TgCn8sRHKoO/FeIzfo1IfmhlsqvLNgFT6r16P/xsUACSHzR0hVppcU0lV
+ 66v7nTwLGbYN3CFwL0AiE/AcSBpHTxxNKoHjBhC5AZbPNG7trhLxiRMoD
+ EPRAJORVpta0fxV6xGg0rXgOPKt/BY4gd8kE0SAL4RCfud/8pcPs9Ugh1
+ hudXlXv+DPOOQfmYsktvbBZcTjRU5uHTjPctzuxGAa69Qumukiy4jJI99
+ KAmRpVgeBFk/WSvGWvUJI/FvipKwE13OFbihFH7AJ2pN2R8oq275B9Czn A==;
+X-CSE-ConnectionGUID: REDzK0JxTwupKl0yP40l+Q==
+X-CSE-MsgGUID: Sc5WdfcpQSSf51hP3ZA1iw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="506209"
 X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="506206"
+   d="scan'208";a="506209"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2026 05:41:51 -0700
-X-CSE-ConnectionGUID: /mc7nMwnR+OPiyJveIuqzg==
-X-CSE-MsgGUID: jLjqGlDSRIaKg6R29yXMcw==
+ 12 Oct 2026 05:41:53 -0700
+X-CSE-ConnectionGUID: 3rEQkE4aSuidRgVzvmqknw==
+X-CSE-MsgGUID: uVUDryBuSqewoq/+8I6dLw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="808154"
+   d="scan'208";a="808166"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa007.jf.intel.com with ESMTP; 12 Oct 2026 05:41:51 -0700
+ by orviesa007.jf.intel.com with ESMTP; 12 Oct 2026 05:41:52 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jouni.hogander@intel.com,
 	Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v2 2/6] drm/i915/psr: Exclude the joiner secondary from
- active_non_psr_pipes
-Date: Mon, 12 Oct 2026 12:41:41 +0000
-Message-ID: <20261012124145.1960050-3-mika.kahola@intel.com>
+Subject: [PATCH v2 3/6] drm/i915/psr: Take the selective fetch area from
+ pipe_mode
+Date: Mon, 12 Oct 2026 12:41:42 +0000
+Message-ID: <20261012124145.1960050-4-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261012124145.1960050-1-mika.kahola@intel.com>
 References: <20261012124145.1960050-1-mika.kahola@intel.com>
@@ -68,31 +68,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-active_non_psr_pipes holds the pipes that are active but not driving
-PSR. Masking out only the primary leaves the joiner secondary counted
-as a non-PSR pipe, even though it belongs to the same PSR instance,
-which blocks DC5/DC6 and keeps Wa_16025596647 applied.
+The adjusted mode spans all the joined pipes, so it is the wrong
+reference for a per-pipe area. pipe_mode is the per-pipe timing.
 
-No functional change, joiner is still rejected in compute_config().
+No functional change, the two are the same without a joiner.
+
+v2: Use pipe_mode instead of pipe_src (Jouni)
 
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 0d4f71f14396..76260ceb49cb 100644
+index 76260ceb49cb..6ec13737e248 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1858,7 +1858,7 @@ void intel_psr_set_non_psr_pipes(struct intel_dp *intel_dp,
- 	active_pipes = intel_calc_active_pipes(state, active_pipes);
- 
- 	crtc_state->active_non_psr_pipes = active_pipes &
--		~BIT(to_intel_crtc(crtc_state->uapi.crtc)->pipe);
-+		~intel_crtc_joined_pipe_mask(crtc_state);
- }
- 
- void intel_psr_compute_config(struct intel_dp *intel_dp,
+@@ -2912,8 +2912,8 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 	struct drm_rect display_area = {
+ 		.x1 = 0,
+ 		.y1 = 0,
+-		.x2 = crtc_state->hw.adjusted_mode.crtc_hdisplay,
+-		.y2 = crtc_state->hw.adjusted_mode.crtc_vdisplay,
++		.x2 = crtc_state->hw.pipe_mode.crtc_hdisplay,
++		.y2 = crtc_state->hw.pipe_mode.crtc_vdisplay,
+ 	};
+ 	bool full_update = false, su_area_changed;
+ 	int i, ret;
 -- 
 2.43.0
 
