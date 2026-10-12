@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF835CA9EC5
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F4EFCA9EC5
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 04:16:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34CA410EC47;
-	Mon, 12 Oct 2026 04:16:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4273C10EBAA;
+	Mon, 12 Oct 2026 04:16:06 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D483710E5D3;
- Mon, 12 Oct 2026 04:15:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4350D10EAD5;
+ Mon, 12 Oct 2026 04:15:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778552; x=1823314552;
+ t=1791778557; x=1823314557;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Yd7CPOABnHglbQnbVlxtpcV4tBk2nBV/I/x76ge3IWc=;
- b=ReF98xpjQNFnSu5/6oy2JqAW/siqFaTxuDzg3tX4RwX/HIYrz0puDa/l
- MRIhgj5nR+7HvmyVWdsUuFzmjpc3J6JWk+TAPDggHoe9+9WsjqU/8DPEZ
- L62PI8AtldTLChyTsr6m/d7A7Bz60C/dRF76DsBH0Zx+CI4ergZWB8CZN
- 2ACSieqT8T9vhyfWodCWwdcWCXXO7O34Q/CsYWJma6beEYWq7S0iLxbLG
- NTToyJRNCrt0uZsNS1RxQ72XNx/YXNv3uLmNeRXnm67FYVwEFbWyYr+xW
- 7CxF0H94bE9L+3Uex2WuxRwL/QGcrmnXwxQsMgC3d9U51F6W2uaOPmyrN w==;
-X-CSE-ConnectionGUID: URLHfMX3QWmlwIVJs4ZuRg==
-X-CSE-MsgGUID: 0K0ZPKrARta8UBqUtdTFtg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380941"
+ bh=w/J3tBU++oM6gIEK+73WH+4QFGX2n1NaQyl5Sgk1Ni4=;
+ b=JSIOJEZ/jrYO8+i30sDfjPwu1KVsL6BKHRLgJZIG+8m3BzQuri7ZHCrn
+ l7W+UIztFgWdnDLbeD9V7g9yKwjqi9RmyDOONjamo3Q9thRjMvRg8Hxym
+ 4Dm9pGqdIw+ol5OFvpfF4hlxOMZGs3DgNy4gSMaiQVVJDg2EL2no1YvBK
+ 4I0LpCNBX8I8x0uHIFaQqjTiv7Hl+c5DfDfP/eCA/4Mo3+Z7kIKaKHmgI
+ GqeL0IlR9AVNn0V4FEDvoCa02aC0iVl6CRwczm3krDzxs/ROJ9KZGu4+K
+ RUkGk2xM29SyK2z2tPY7ZA+/eemrEf/atwMV2kLZnSgpUPrYOpW4dDRD2 A==;
+X-CSE-ConnectionGUID: zsqEYpYhRwSs5yGMhyslgA==
+X-CSE-MsgGUID: eODG6lbeTfWGr6ZiMqr6Ww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380945"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="380941"
+   d="scan'208";a="380945"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:15:51 -0700
-X-CSE-ConnectionGUID: xhCnNyOuQUmBoM92VtbvgQ==
-X-CSE-MsgGUID: EE6t5Cq0SU6GmiO3MvHcJQ==
+ 11 Oct 2026 21:15:57 -0700
+X-CSE-ConnectionGUID: vJ3c+l2yTla6MdXONVg/dA==
+X-CSE-MsgGUID: WShSNcHRSTmyeswIMS4pGg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256681"
+   d="scan'208";a="1256706"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:15:50 -0700
+ 11 Oct 2026 21:15:55 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 43/56] drm/i915/hdmi: Compute FRL Link M/N
-Date: Mon, 12 Oct 2026 09:27:52 +0530
-Message-ID: <20261012035806.3361439-44-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 45/56] drm/i915/hdmi: Use the real pixel clock as
+ crtc_clock for FRL
+Date: Mon, 12 Oct 2026 09:27:54 +0530
+Message-ID: <20261012035806.3361439-46-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
@@ -69,101 +70,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+For FRL, port_clock is the link rate, decoupled from the pixel clock, so
+hsw_crtc_compute_clock() must not overwrite crtc_clock via
+intel_crtc_dotclock().
+The FRL pixel clock isn't recoverable from hardware (the FRL M/N is the DFM
+tri-byte ratio), so take the sw value in verify_crtc_state()
+for the derived clock fields.
 
-For HDMI FRL, the transcoder Link M/N carries the ratio of the average
-tribyte rate (ftb_avg) to the FRL div18 clock, unlike the pixel/link
-clock ratio used for DP.
-
-Compute link_m/link_n from ftb_avg and the required FRL rate, reduced by
-their gcd. As PIPE_LINK_M1/N1 are 32-bit wide, scale both down preserving
-the ratio until they fit, and store them in crtc_state.
-
-v2: Use full 32 bits for LINK_M/N for HDMI2.1.
-
-Bspec: 68848
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_regs.h |  1 +
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 38 +++++++++++++++++++
- 2 files changed, 39 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dpll.c      |  2 +-
+ .../drm/i915/display/intel_modeset_verify.c    | 18 ++++++++++++++++++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 1abd221f966b..7e1c12560a00 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -863,6 +863,7 @@
- #define  TU_SIZE(x)		REG_FIELD_PREP(TU_SIZE_MASK, (x) - 1) /* default size 64 */
- #define  DATA_LINK_M_N_MASK	REG_GENMASK(23, 0)
- #define  DATA_LINK_N_MAX	(0x800000)
-+#define  HDMI_FRL_LINK_M_N_MAX	REG_GENMASK(31, 0)
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
+index 20fd091cb9db..851a4abf2448 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll.c
+@@ -1171,7 +1171,7 @@ static int hsw_crtc_compute_clock(struct intel_atomic_state *state,
+ 		return 0;
  
- #define _PIPEA_DATA_N_G4X	0x70054
- #define _PIPEB_DATA_N_G4X	0x71054
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index c5f25d2d6331..ce6ad9e28bee 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -27,6 +27,7 @@
-  */
+ 	/* CRT dotclock is determined via other means */
+-	if (!crtc_state->has_pch_encoder)
++	if (!crtc_state->has_pch_encoder && !crtc_state->frl.enable)
+ 		crtc_state->hw.adjusted_mode.crtc_clock = intel_crtc_dotclock(crtc_state);
  
- #include <linux/delay.h>
-+#include <linux/gcd.h>
- #include <linux/hdmi.h>
- #include <linux/i2c.h>
- #include <linux/iopoll.h>
-@@ -2308,6 +2309,38 @@ static int intel_hdmi_compute_tmds_clock(struct intel_encoder *encoder,
  	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_verify.c b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
+index f0761d8a7437..54ec1f439b90 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_verify.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
+@@ -218,6 +218,24 @@ verify_crtc_state(struct intel_atomic_state *state,
+ 	if (!sw_crtc_state->hw.active)
+ 		goto destroy_state;
  
-+static void
-+compute_frl_mn(struct intel_crtc_state *crtc_state, u32 ftb_avg_k)
-+{
-+	u64 ftb_avg, div_18_clk, gcd_val;
-+	u64 link_m, link_n;
-+
-+	ftb_avg = (u64)ftb_avg_k * 1000;
-+	div_18_clk = mult_frac(1000000000, crtc_state->frl.required_rate, 18);
-+	gcd_val = gcd(ftb_avg, div_18_clk);
-+
-+	link_m = DIV_ROUND_UP_ULL(ftb_avg, gcd_val);
-+	link_n = DIV_ROUND_UP_ULL(div_18_clk, gcd_val);
-+
 +	/*
-+	 * PIPE_LINK_M1/N1 are 32-bit for HDMI2.1. Scale both
-+	 * down preserving the ratio until they fit the register width.
-+	 *
-+	 * #TODO check if intel_reduce_m_n_ratio() can be exported.
++	 * The HDMI FRL pixel clock is decoupled from port_clock and cannot be
++	 * recovered from hardware readout. The FRL M/N is the DFM tri-byte ratio, not
++	 * a pixel:link ratio so we cannot derive the pixel clock accurately.
++	 * To avoid mismatches and to avoid handling PIPE_CONF_CHECK for FRL,
++	 * copy the software value to the hardware state.
 +	 */
-+	while (link_m > HDMI_FRL_LINK_M_N_MAX ||
-+	       link_n > HDMI_FRL_LINK_M_N_MAX) {
-+		link_m >>= 1;
-+		link_n >>= 1;
++	if (sw_crtc_state->frl.enable) {
++		hw_crtc_state->hw.adjusted_mode.crtc_clock =
++			sw_crtc_state->hw.adjusted_mode.crtc_clock;
++		hw_crtc_state->hw.pipe_mode.crtc_clock =
++			sw_crtc_state->hw.pipe_mode.crtc_clock;
++		hw_crtc_state->pixel_rate =
++			sw_crtc_state->pixel_rate;
++		hw_crtc_state->pixel_rate_cdclk =
++			sw_crtc_state->pixel_rate_cdclk;
 +	}
 +
-+	crtc_state->frl.link_m = (u32)link_m;
-+	crtc_state->frl.link_n = (u32)link_n;
-+
-+	/* Frl div 18 stored in Khz */
-+	crtc_state->frl.div18 = DIV_ROUND_UP_ULL(div_18_clk, 1000);
-+}
-+
- static int
- intel_hdmi_compute_frl_config(struct intel_encoder *encoder,
- 			      struct intel_crtc_state *crtc_state)
-@@ -2378,6 +2411,11 @@ intel_hdmi_compute_frl_config(struct intel_encoder *encoder,
- 	else
- 		crtc_state->frl.tb_threshold_min = 492;
+ 	intel_pipe_config_sanity_check(hw_crtc_state);
  
-+	compute_frl_mn(crtc_state, frl_dfm.params.ftb_avg_k);
-+	drm_dbg_kms(display->drm, "FRL Clock: link_m = %dHz, link_n = %dHz, div18 = %dKHz\n",
-+		    crtc_state->frl.link_m, crtc_state->frl.link_n,
-+		    crtc_state->frl.div18);
-+
- 	/*
- 	 * TODO
- 	 * 1. Calculate condition for Reseource based scheduling enable.
+ 	if (!intel_pipe_config_compare(sw_crtc_state,
 -- 
 2.50.1
 
