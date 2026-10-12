@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A892CA9ED6
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 04:14:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14514CA9ED1
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 04:14:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B77B110E46B;
-	Mon, 12 Oct 2026 04:14:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5041310E46D;
+	Mon, 12 Oct 2026 04:14:50 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE97710E3E6;
- Mon, 12 Oct 2026 04:14:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7517B10E44B;
+ Mon, 12 Oct 2026 04:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791778481; x=1823314481;
+ t=1791778479; x=1823314479;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wka3vaZHcI1PMp3m9S7F/gBt0PM8/4AXZYKMJatdhXI=;
- b=R2pqoL63AsgV3JAIrjKbiSJBABlpgkZXGKn8nebLPV49XnuF0r1X7ghI
- 7ZVBNM6rYq/sEsybKyLn71QKAMtqCVuG3nRk3L8WsuEe7lXvhBCuREzA/
- RZUiuSELOsAqyog3oC4zHb4P02DTnVrC1JbaP1C3GUK/cyFIJG9sRhOPK
- tgUyWwOClNkJaJgDLviSbC4jCmIiU+tLdFmn8W/lxVAYzjvKMIP19+v2T
- Bs1qzdkboNqQeXmf1S+A8jqCyQ/0Vp0OpoPSUzpPYBrl4J+zm7bflG/Or
- BO2vEdb8S4zGRhhvcQyzi/e2IeJtvVySRDlHs6EsmnWD6WYIS1XcmkYnN g==;
-X-CSE-ConnectionGUID: NSz5dgNqSSGHCGfXzHTp+Q==
-X-CSE-MsgGUID: zHej+UV+Q7Oq4JREBGHzlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380843"
+ bh=CBpsoDa0flqWzeTpHiOAaeU7bUlpTrhMY6x1K5uN7wU=;
+ b=mX7MOPzfrs9aVzk25d+nDK57j+MKdve4V3ffVE/AS1b1bJoelZX0KZo7
+ /YZa7UkcClH1ZULVdjdWHYeL7uI/07x82rUjizbJZTExqijylShBvN9FL
+ 5MVepSbN1u9rxnMejJnuCQz0076e76DjxLiiXUp2jUCJ+w30NaUJu6oHJ
+ BAC6VinoOtSPOJZRG0jvE1PKFuuGHIIoavn1Yv0HRpvYBMOTlyHsG3k5l
+ 0KtolxFbgMOUClQThSScTJsIfinikUro5V1JJIC+//LS0Vo35Khlr3o87
+ +KkJMVq/pcS7L2sDJyt9FW3gyuewqrVBRj+O+q/b6AcFr1FQZoBJDSI5G A==;
+X-CSE-ConnectionGUID: uLNsZV/9QUWPePL62IRM/Q==
+X-CSE-MsgGUID: EkHLroIWQIq6C1qwnHxUUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="380841"
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="380843"
+   d="scan'208";a="380841"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:14:41 -0700
-X-CSE-ConnectionGUID: ABhazhCdSEKooAs5NJ4fkQ==
-X-CSE-MsgGUID: B9Uf1jOGRzCkBOOgWN0Uyw==
+ 11 Oct 2026 21:14:39 -0700
+X-CSE-ConnectionGUID: 2u54ildhSh2PEgDsSaNGPQ==
+X-CSE-MsgGUID: hEvL3Z4kSVWuvQXE1C1wmw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1256379"
+   d="scan'208";a="1256376"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2026 21:14:40 -0700
+ 11 Oct 2026 21:14:38 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH v2 12/56] drm/i915/ddi: Update HDMI modeset sequence for MTL+
-Date: Mon, 12 Oct 2026 09:27:21 +0530
-Message-ID: <20261012035806.3361439-13-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 11/56] drm/i915/ddi: Factor out common transcoder/vblank
+ enable sequence
+Date: Mon, 12 Oct 2026 09:27:20 +0530
+Message-ID: <20261012035806.3361439-12-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
 References: <20261012035806.3361439-1-ankit.k.nautiyal@intel.com>
@@ -69,47 +70,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Per BSpec, the HDMI enable sequence differs starting MTL+: the port
-must be fully configured and enabled (DDI_CTL_DE) before enabling the
-transcoder (TRANS_CONF), whereas pre-MTL platforms enable the
-transcoder before the port (DDI_BUF_CTL).
+intel_ddi_enable_dp() and intel_ddi_enable_hdmi() both contain an
+identical sequence to enable the transcoder, wait for FEC status,
+and turn on vblank for each pipe. Move this into a new helper,
+intel_ddi_enable_transcoder_and_vblank(), to avoid the duplication.
 
-Today the HDMI path still uses the pre-MTL ordering: when the MTL+ DDI
-sequences were implemented, HDMI was left enabling the transcoder before
-the port. This does not cause any visible issue with current TMDS usage,
-but it needs to be corrected before FRL can be wired up.
+No functional change.
 
-Bspec: 49191, 54145 (pre-MTL)
-Bspec: 65750, 68848 (MTL+)
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 43 ++++++++++++------------
+ 1 file changed, 21 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index a5a5a4f37262..1e08ffe19447 100644
+index c4ca98510747..a5a5a4f37262 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3497,7 +3497,8 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
+@@ -3391,6 +3391,25 @@ static void trans_port_sync_stop_link_train(struct intel_atomic_state *state,
+ 				 crtc_state);
+ }
+ 
++static void intel_ddi_enable_transcoder_and_vblank(struct intel_atomic_state *state,
++						   struct intel_encoder *encoder,
++						   const struct intel_crtc_state *crtc_state)
++{
++	struct intel_display *display = to_intel_display(encoder);
++	struct intel_crtc *pipe_crtc;
++
++	intel_enable_transcoder(crtc_state);
++
++	intel_ddi_wait_for_fec_status(encoder, crtc_state, true);
++
++	for_each_pipe_crtc_modeset_enable(display, pipe_crtc, crtc_state) {
++		const struct intel_crtc_state *pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
++
++		intel_crtc_vblank_on(pipe_crtc_state);
++	}
++}
++
+ static void intel_ddi_enable_dp(struct intel_atomic_state *state,
+ 				struct intel_encoder *encoder,
+ 				const struct intel_crtc_state *crtc_state,
+@@ -3399,7 +3418,6 @@ static void intel_ddi_enable_dp(struct intel_atomic_state *state,
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+-	struct intel_crtc *pipe_crtc;
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	enum port port = encoder->port;
+ 
+@@ -3429,16 +3447,7 @@ static void intel_ddi_enable_dp(struct intel_atomic_state *state,
+ 		drm_dp_dpcd_poll_act_handled(&intel_dp->aux, 0);
+ 	}
+ 
+-	intel_enable_transcoder(crtc_state);
+-
+-	intel_ddi_wait_for_fec_status(encoder, crtc_state, true);
+-
+-	for_each_pipe_crtc_modeset_enable(display, pipe_crtc, crtc_state) {
+-		const struct intel_crtc_state *pipe_crtc_state =
+-			intel_atomic_get_new_crtc_state(state, pipe_crtc);
+-
+-		intel_crtc_vblank_on(pipe_crtc_state);
+-	}
++	intel_ddi_enable_transcoder_and_vblank(state, encoder, crtc_state);
+ 
+ 	if (port == PORT_A && DISPLAY_VER(display) < 9)
+ 		intel_dp_stop_link_train(intel_dp, crtc_state);
+@@ -3481,7 +3490,6 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	struct drm_connector *connector = conn_state->connector;
+-	struct intel_crtc *pipe_crtc;
+ 	enum port port = encoder->port;
+ 	u32 buf_ctl = 0;
+ 
+@@ -3489,16 +3497,7 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
  
  	intel_vrr_transcoder_enable(crtc_state);
  
--	intel_ddi_enable_transcoder_and_vblank(state, encoder, crtc_state);
-+	if (DISPLAY_VER(display) < 14)
-+		intel_ddi_enable_transcoder_and_vblank(state, encoder, crtc_state);
+-	intel_enable_transcoder(crtc_state);
+-
+-	intel_ddi_wait_for_fec_status(encoder, crtc_state, true);
+-
+-	for_each_pipe_crtc_modeset_enable(display, pipe_crtc, crtc_state) {
+-		const struct intel_crtc_state *pipe_crtc_state =
+-			intel_atomic_get_new_crtc_state(state, pipe_crtc);
+-
+-		intel_crtc_vblank_on(pipe_crtc_state);
+-	}
++	intel_ddi_enable_transcoder_and_vblank(state, encoder, crtc_state);
  
  	if (!intel_hdmi_handle_sink_scrambling(encoder, connector,
  					       crtc_state->hdmi_high_tmds_clock_ratio,
-@@ -3600,6 +3601,9 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
- 
- 	intel_ddi_buf_enable(encoder, buf_ctl);
- 
-+	if (DISPLAY_VER(display) >= 14)
-+		intel_ddi_enable_transcoder_and_vblank(state, encoder, crtc_state);
-+
- 	intel_hdmi_poll_for_scrambling_enable(crtc_state, connector);
- }
- 
 -- 
 2.50.1
 
