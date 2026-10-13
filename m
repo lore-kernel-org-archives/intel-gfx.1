@@ -4,49 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD997CC6B1D
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 13:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D771BCC6B2C
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 13:44:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 639A910E54C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A68210F4DF;
 	Wed, 14 Oct 2026 13:44:29 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74EB910F7CE
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 12:08:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1791892941;
- bh=sMgJshZ5hw4sD5fYhOQLtNjG0zanLqPAEfZRG+FnFYQ=;
- h=From:To:Cc:Subject:Date:From;
- b=yK29tfkYLyEgf2odEJ7NSdt+DlcEF5Xs9eE9cjumvfGRHKDxeEqROVEPPVHPx1760
- dJTusL+jCcsdrEkdnXhNOVFjKhjJKl7n/V/OY4m9DBB+PYAJFbvNCl7RWgpjZqdptA
- PVB2EtvM066L9Mt1MnkKsd96tbd6zs6rAwcTSb9/h0ObrY30Ha5eo60M0qTPQHz4DZ
- fB+5SaORffiW0yOgYJVL48f3p58dmJopGEwfCxoOu6dcN29CJ3FNtrJdZNc6m6UV1W
- TM1dIoW8yrEcGzWreyk9y7V+WxZileGuRA5CsAiH8vA8jN2wGvReAL4h9DDUfCQpMI
- /irvJi/br4tNA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tHZ5Tzwz4xgV;
- Tue, 13 Oct 2026 23:02:18 +1100 (AEDT)
-From: Matt Evans <matt@ozlabs.org>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BE3C10E6B6
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 00:13:20 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-16079d54c17so2867980c88.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 17:13:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791850399; x=1792455199; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ssLrVFVKbOQOIJ6H07sgHPkguKF6w1CUt9WHQ/AI/u0=;
+ b=OpuPUXIv6bzDz7J46BFdlPa8nLSP3EXdC49eRhdK8WG5i96l4NEqbfSDRFREgtnsbo
+ hWongCs61AkyPwcWK2RHEC77QicgAKaMZuaDITtaMTI1ZGrp0EJ+yBwhmVMRV3iB8iUY
+ pflURV0Do+RNxbIt36yfjyWn+7RVComwA15Uwo9RcU/GR5ifXS5fPKeKgKfU0kk7Gc6G
+ ZP7s/M78bxs2nUMfzymTlN51es3VK5wY8M65fqRSZcBq8Jgs/COvgl3dCEHXreGOlHpJ
+ u7HoL7QMiZ/MhhTsgPwz5RAXVV3loRykINFbOhjUP8kc4Ggri2rRO4+eJzWdpVzP9+u+
+ YsCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791850399; x=1792455199;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ssLrVFVKbOQOIJ6H07sgHPkguKF6w1CUt9WHQ/AI/u0=;
+ b=tkpwA1+YucsiNRThgHZjkcczVsR8teTG+/3iJNJ8Lwj7N68HD6J8N9FsbW3U57zZ9c
+ vAmxbr2UCTTC4uVNVKSy42Af6PIjRKSdV64i51/5BoQ3XlByAT5BDNZy1gqG7uE31iBU
+ hd/RSCtZUyfo2Hiah/bXg0fGlp/PWVHZ2K1+t0UR43TcUGhpP/+c4XJ+BrvyKRNZ81mX
+ aQ5uRxmby/Y5hexobj65SfRoxOOfgfuUVyoHXMi/fQYHYsAZLJUfC7jOUdWDJjcDYrzn
+ HlfhRsBi/B3bkZRyp1VjOMi6cS5T8LviIM4aGJfrcGir59YcRqbLXi+zjXbp/804GjwY
+ 4EhQ==
+X-Gm-Message-State: AFq9FYLAUhcB7y0LSNC6miIzDs+W52RjCFOfoOEYkRhVLa/7JFCINQZp
+ wXESCnz2pGJc6mqi88wCDaBpJfoGqJx8qoSqfwDdYe+oZMo1cWTSz7dH4ymjNHGjs1s=
+X-Gm-Gg: AYBFou2nqP4f8lxDMNsBhxycEL/wXE0WQ1BxkLCcSyALb5U/x7dDGO4lz/bTohWqM3x
+ 7GBJPCkyjQ0IkBcHlO9xXbibo53gYQS0ueJu544bdlIsWAGfaGEGCbnDIDyd8Op8bkORiRab7eI
+ w5fCYc24Xl7ydlisM2vBNFD4aGi2upOBFDksV9dGTbvRGb5fN34exwPZkiA5+/mdH8R4ye+pW25
+ ZJT1yLaDcJ2kOEf97KB/1wG5YHn/WiJnYhMOrZVdYxxI7N/8mjH9uh8oMBtC1LK+P0V381Kr/wq
+ JC0kaMMlOezNG1Rc0bQNWxVm8sT4HU6mVp0KWsMn4WcAx3kok+AXMVxNR5Y0x2ztBYawpP2BFTX
+ tuYXxZLNSIhpRCwd3thaqMddSHvAcEUhiEMeaxpeN1/u0BxIxhe2DXq2EDRYwGH3Qxhmv11+U32
+ m6rXo0Q3TVH9Y0awRrBHIjU8bmqubapHunNqq6RlZg2Tmfmq2QKp4Ghtq3sWfYM/lxAaVCC2DOd
+ 1EIOKQTiKs81+YIbLrVPhcy4QU4L3HKdnegdU5KJAFbVxMg+OGJlqxcgA==
+X-Received: by 2002:a05:7022:1507:b0:144:c127:dd19 with SMTP id
+ a92af1059eb24-16a60346a0amr21328278c88.37.1791850399074; 
+ Mon, 12 Oct 2026 17:13:19 -0700 (PDT)
+Received: from localhost.localdomain ([190.13.90.101])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-169a1becb11sm31175790c88.4.2026.10.12.17.13.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 17:13:18 -0700 (PDT)
+From: Lucas Moreno <lucasgabmoreno@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
- Alex Williamson <alex@shazbot.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>
-Subject: [PATCH v3 0/3] dma-buf: dmabuf->file release-time cleanup
-Date: Tue, 13 Oct 2026 13:02:03 +0100
-Message-ID: <20261013120211.135807-1-matt@ozlabs.org>
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Lucas Moreno <lucasgabmoreno@gmail.com>
+Subject: [PATCH] drm/i915/bios: Fix reset sequence order on GLK VBTs with
+ DEASSERT_RESET in INIT_OTP
+Date: Mon, 12 Oct 2026 21:12:45 -0300
+Message-ID: <20261013001245.12347-1-lucasgabmoreno@gmail.com>
 X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -66,83 +88,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+Some Gemini Lake VBTs, such as the one on the Lenovo IdeaPad
+D330-10IGL, have an empty MIPI_SEQ_DEASSERT_RESET and perform the whole
+panel reset pulse (GPIO set/clear/set with delays) from
+MIPI_SEQ_INIT_OTP. The driver runs INIT_OTP after the DSI host has been
+brought up, so the panel gets reset with the link already active. On
+the affected machine this leaves the panel black with the backlight on
+after S3 resume (the driver reports success at every step), and
+randomly on boot and on output off/on cycles.
 
-A fix for DMABUF's file-release path, to set dmabuf->file = NULL when
-the struct file itself is being freed and avoid a stale pointer
-lingering.  Previously it could be assumed that dmabuf->file was
-always valid until .release was called, but commit 4ab59c3c638c6
-("dma-buf: Move dma_buf_release() from fops to dentry_ops") separated
-dentry release (calls .release) from file release (can happen before
-.release).  Setting the pointer to NULL clearly delimits the period in
-which it points to a valid struct file.
+vlv_fixup_mipi_sequences() already handles the same kind of VBT bug on
+VLV, but only for version 1 sequence blocks. The D330 uses a version 3
+block, so add an equivalent fixup for GLK: if DEASSERT_RESET is
+missing or empty, ASSERT_RESET exists, the panel is in video mode and
+INIT_OTP only contains GPIO and delay elements, run INIT_OTP as
+DEASSERT_RESET and leave INIT_OTP empty (or swap them if an empty
+DEASSERT_RESET was present).
 
-Raw dmabuf->file access is bad news unless the file is known to have a
-reference held (for example, during export).  A single-threaded
-problem scenario is a dentry held open (e.g. using O_PATH) but the
-file closed; .release is not called, so the exporter was unaware that
-dmabuf->file became stale.  Exporter activities using dmabuf->file
-then led to a UAF.  Or, threads racing concurrent access with a file
-closing.
+Tested on a Lenovo IdeaPad D330-10IGL (BIOS G0CN14WW, Celeron N4020)
+with an otherwise unmodified v6.12.107 i915: 10/10 S3 resumes, 10/10
+rotations and output off/on cycles, and 10/10 reboots with a working
+display, where it failed every time before.
 
-VFIO uses get_file_active(&dmabuf->file), which is a UAF when the
-pointer goes stale.  Alex Mastro has created a VFIO-centric reproducer
-[1], which shows up with KASAN.
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13225
+Signed-off-by: Lucas Moreno <lucasgabmoreno@gmail.com>
+---
+Tested on v6.12.107 on a Lenovo IdeaPad D330-10IGL. This version is
+ported to current mainline, where only the platform check differs
+(display->platform.geminilake instead of IS_GEMINILAKE()). I could
+not build or test it on mainline on this machine. See the discussion
+in the issue linked above, where Ville pointed at the empty
+MIPI_SEQ_DEASSERT_RESET in this VBT.
 
-To fix, dmabuf->file is either valid or NULL.  get_file_active() is
-then safe and a recommended way to access dmabuf->file without an
-existing reference.  The only possible outcomes are for it to get a
-reference to the file, to observe a valid pointer but the file in the
-DEAD state (being closed, fail), or NULL (fail).
+Question: should this apply to all GLK with this VBT shape, or be
+limited with a DMI quirk? I only have one unit.
 
-Patch [3/3] sets the pointer NULL when the file closes, which
-get_file_active() handles correctly.
+ drivers/gpu/drm/i915/display/intel_bios.c | 80 +++++++++++++++++++++++
+ 1 file changed, 80 insertions(+)
 
-vmwgfx was identified as doing a problematic dmabuf->file dereference.
-Although already a UAF, making dmabuf->file = NULL turns it into an
-oops.  So, patch [1/3] correspondingly converts vmwgfx to use
-get_file_active() too.
-
-i915 GVT unsafely dereferences dmabuf->file for a trivial debug
-printout after the file reference moves to the dmabuf's fd, so patch
-[2/3] dereferences in the safe window.
-
-Added comments to highlight that dmabuf->file could go away before
-.release, and to use get_file_active() if a reference isn't otherwise
-already held.
-
-
-Thanks,
-
-Matt
-
-[1]: https://github.com/opsound/vfio-dmabuf-lab/blob/main/tests/vfio_dmabuf_opath_uaf_test.c
-
-Changes:
-
-v3:
- - Better comment for struct dma_buf's file (refer to synchronisation
-   against ->release).
- - Added trivial i915 patch to remove unsafe debug dmabuf->file accesss.
-
-v2: https://lore.kernel.org/all/20261009123601.94079-1-matt@ozlabs.org/
-
-"v1" was the single "dma-buf: Annul dmabuf->file on file release"
-patch:
-
- https://lore.kernel.org/all/f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org/
-
-Matt Evans (3):
-  drm/vmwgfx: Use get_file_active() for dmabuf->file
-  drm/i915/gvt: Read dmabuf->file only while valid
-  dma-buf: Annul dmabuf->file on file release
-
- drivers/dma-buf/dma-buf.c           | 21 ++++++++++++++++++---
- drivers/gpu/drm/i915/gvt/dmabuf.c   |  5 +++--
- drivers/gpu/drm/vmwgfx/ttm_object.c |  2 +-
- include/linux/dma-buf.h             |  5 ++++-
- 4 files changed, 26 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 97cbae2..d1c48d9 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2056,6 +2056,84 @@ static void icl_fixup_mipi_sequences(struct intel_display *display,
+ 	}
+ }
+ 
++/*
++ * Count the elements of a v3 MIPI sequence, and report whether all of
++ * them are GPIO or delay elements (i.e. nothing that needs the DSI host
++ * to be up, like sending a packet).
++ */
++static int mipi_seq_v3_count_elems(const u8 *seq, bool *gpio_delay_only)
++{
++	const u8 *p = seq + 5;	/* skip the sequence byte and the size */
++	const u8 *end = seq + 5 + *((const u32 *)(seq + 1));
++	int count = 0;
++
++	*gpio_delay_only = true;
++
++	while (p < end) {
++		u8 op = *p++;
++
++		if (op == MIPI_SEQ_ELEM_END)
++			break;
++		if (p >= end) {
++			*gpio_delay_only = false;
++			break;
++		}
++		if (op != MIPI_SEQ_ELEM_GPIO && op != MIPI_SEQ_ELEM_DELAY)
++			*gpio_delay_only = false;
++
++		p += 1 + *p;	/* length byte + payload */
++		count++;
++	}
++
++	return count;
++}
++
++/*
++ * Some GLK VBTs (e.g. Lenovo IdeaPad D330-10IGL) have an empty
++ * MIPI_SEQ_DEASSERT_RESET and do the whole panel reset pulse from
++ * MIPI_SEQ_INIT_OTP instead. INIT_OTP runs after the DSI host has been
++ * brought up, but the panel reset must happen before that. When
++ * INIT_OTP only contains GPIO and delay elements, run it as
++ * DEASSERT_RESET instead.
++ */
++static void glk_fixup_mipi_sequences(struct intel_display *display,
++				     struct intel_panel *panel)
++{
++	u8 *deassert = (u8 *)panel->vbt.dsi.sequence[MIPI_SEQ_DEASSERT_RESET];
++	u8 *init_otp = (u8 *)panel->vbt.dsi.sequence[MIPI_SEQ_INIT_OTP];
++	bool gpio_delay_only;
++
++	if (panel->vbt.dsi.seq_version != 3 ||
++	    panel->vbt.dsi.config->is_cmd_mode)
++		return;
++
++	if (!init_otp || !panel->vbt.dsi.sequence[MIPI_SEQ_ASSERT_RESET])
++		return;
++
++	/* Only if DEASSERT_RESET is missing or empty */
++	if (deassert && mipi_seq_v3_count_elems(deassert, &gpio_delay_only))
++		return;
++
++	/* And INIT_OTP only toggles GPIOs and waits */
++	if (!mipi_seq_v3_count_elems(init_otp, &gpio_delay_only) ||
++	    !gpio_delay_only)
++		return;
++
++	drm_dbg_kms(display->drm,
++		    "Running INIT_OTP (GPIO/delay only) as DEASSERT_RESET\n");
++
++	/* The sequence executor checks the id byte of each sequence */
++	init_otp[0] = MIPI_SEQ_DEASSERT_RESET;
++	panel->vbt.dsi.sequence[MIPI_SEQ_DEASSERT_RESET] = init_otp;
++
++	if (deassert) {
++		deassert[0] = MIPI_SEQ_INIT_OTP;
++		panel->vbt.dsi.sequence[MIPI_SEQ_INIT_OTP] = deassert;
++	} else {
++		panel->vbt.dsi.sequence[MIPI_SEQ_INIT_OTP] = NULL;
++	}
++}
++
+ static void fixup_mipi_sequences(struct intel_display *display,
+ 				 struct intel_panel *panel)
+ {
+@@ -2063,6 +2141,8 @@ static void fixup_mipi_sequences(struct intel_display *display,
+ 		icl_fixup_mipi_sequences(display, panel);
+ 	else if (display->platform.valleyview)
+ 		vlv_fixup_mipi_sequences(display, panel);
++	else if (display->platform.geminilake)
++		glk_fixup_mipi_sequences(display, panel);
+ }
+ 
+ static void
 -- 
-2.47.3
+2.43.0
 
