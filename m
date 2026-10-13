@@ -4,40 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F675CC6B15
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 20:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E93FCC6B12
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 21:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1414910E58C;
-	Tue, 13 Oct 2026 20:59:24 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59B9C10E58C;
- Tue, 13 Oct 2026 20:59:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AD876601DB;
- Tue, 13 Oct 2026 20:59:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AB01F000FF;
- Tue, 13 Oct 2026 20:59:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791925157;
- bh=2z8Z1czjbzB+Q6ROmS/4mSzbvCH5w3mBH88ANrCvAz0=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=b9iHsjgUKSwb2rDPmifbIVcHEZ1CrFafcoj0Hxno0QuJLNP/c5iubMEQvK0z11+SI
- N81kcwhDCRb8UnVt5QD5s+y7jF+MvYmvMU5RfkC9FmvVmRFgz8HQ77HKwPcE7YiMvW
- z+ZQ36ZmFHYxNc12/+KEO9KQUyLOH9tLn/nNQmLGmXIjBzTWs/jDgbgK6BXbRpnINN
- HB63qzyPTFbXEYiDNUugEWvOoC4ihgj5k1oobbMpYinOazCCSIxELAxhEMNdzbGEkY
- TaR3mFYr+nCz4aJAueIFzw7c5boKOrlnrS1jpSDAv1NxFqVeo0y4WH2YlAzorq2pvg
- fNMftWnzXNDkw==
-Message-ID: <sashiko-outbox-170497@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/5] drm/i915/3dlut: disable 3D LUT for pre-GLK
-To: =?utf-8?b?TWljaGHFgiBHcnplbGFr?= <michal.grzelak@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20261013204705.1574475-3-michal.grzelak@linux.intel.com>
-References: <20261013204705.1574475-1-michal.grzelak@linux.intel.com>
- <20261013204705.1574475-3-michal.grzelak@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 20:59:16 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF72E10F9CD;
+	Tue, 13 Oct 2026 21:25:26 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E10010F9CD;
+ Tue, 13 Oct 2026 21:25:25 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4508714982718701606=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/gmbus=3A_Add_bit?=
+ =?utf-8?q?-banging_debugfs_control?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Naladala Ramanaidu" <ramanaidu.naladala@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 13 Oct 2026 21:25:25 -0000
+Message-ID: <179192672544.20764.5053263964064653338@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261013190712.2092093-1-ramanaidu.naladala@intel.com>
+In-Reply-To: <20261013190712.2092093-1-ramanaidu.naladala@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,61 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915: 3D LUT remains disabled for GLK/ICL due to unmodified =
-version check
---
+--===============4508714982718701606==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 31c6b1070ace7be34ebe695316e80a7d65a5d1a7
-Author: Micha=C5=82 Grzelak <michal.grzelak@linux.intel.com>
-Subject: drm/i915/3dlut: disable 3D LUT for pre-GLK
+== Series Details ==
 
-This commit adds a has_3dlut field to the display runtime info to indicate
-whether 3D LUT is enabled. It initializes the field to 1 for GLK and newer
-platforms, and adds a HAS_3DLUT macro to check for support.
+Series: drm/i915/gmbus: Add bit-banging debugfs control
+URL   : https://patchwork.freedesktop.org/series/176073/
+State : success
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm=
-/i915/display/intel_color.c
-> index f1df0f9ba7624..95de75e1de984 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color.c
-> @@ -4304,6 +4304,9 @@ intel_color_load_plane_luts(struct intel_dsb *dsb,
->  bool
->  intel_color_crtc_has_3dlut(struct intel_display *display, enum pipe pipe)
->  {
-> +	if (!HAS_3DLUT(display))
-> +		return false;
-> +
->  	if (DISPLAY_VER(display) >=3D 12)
->  		return pipe =3D=3D PIPE_A || pipe =3D=3D PIPE_B;
->  	else
->  		return false;
->  }
+== Summary ==
 
-[Severity: Medium]
-Will this still return false for GLK and ICL platforms even though they have
-the HAS_3DLUT flag set?
+CI Bug Log - changes from CI_DRM_19332 -> Patchwork_176073v1
+====================================================
 
-The commit message indicates 3D LUT is supported on GLK+ hardware, and the
-patch sets has_3dlut =3D 1 for GLK (DISPLAY_VER =3D 10) and ICL (DISPLAY_VE=
-R =3D 11).
-However, in intel_color_crtc_has_3dlut(), after the new HAS_3DLUT() check
-passes for these platforms, the function still evaluates:
+Summary
+-------
 
-    if (DISPLAY_VER(display) >=3D 12)
-        ...
-    else
-        return false;
+  **SUCCESS**
 
-Doesn't this existing version check unconditionally return false for GLK and
-ICL, defeating the newly added flag and keeping 3D LUT disabled for these
-platforms?
+  No regressions found.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013204705.1574=
-475-1-michal.grzelak@linux.intel.com?part=3D2
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176073v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19332 -> Patchwork_176073v1
+
+  CI-20190529: 20190529
+  CI_DRM_19332: 4aa2d36cd469ef301afa2cd8d66b3ab52b92c9e2 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9143: 992e2bc5d5fcaef292ea89e3db5cb7a50b6edfc2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_176073v1: 4aa2d36cd469ef301afa2cd8d66b3ab52b92c9e2 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176073v1/index.html
+
+--===============4508714982718701606==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gmbus: Add bit-banging debugfs control</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176073/">https://patchwork.freedesktop.org/series/176073/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176073v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176073v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19332 -&gt; Patchwork_176073v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176073v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19332 -&gt; Patchwork_176073v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19332: 4aa2d36cd469ef301afa2cd8d66b3ab52b92c9e2 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9143: 992e2bc5d5fcaef292ea89e3db5cb7a50b6edfc2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_176073v1: 4aa2d36cd469ef301afa2cd8d66b3ab52b92c9e2 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4508714982718701606==--
