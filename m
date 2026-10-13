@@ -4,63 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF734CC6B2A
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 13:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6703CC6B1A
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 13:44:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63E6810F558;
-	Wed, 14 Oct 2026 13:44:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 015BE10E0C6;
- Tue, 13 Oct 2026 15:16:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DCF69411B1;
- Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BD253C2BCF4;
- Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1791904572;
- bh=mK+BqIvO4TiLfSQXIr9kIsyfliszEQqMsnDO8JqFKpE=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=ZmYLtZWtZWQro1+dcF7R4dsSMw0tWWGHSCycSn/fQoOLWgXsZ/VUVf8y01baNVmOG
- eWaKxVonddQ1c7wg5pUy4lIcDziq3vjXlFlMiGQluUBQTkZgwm3K5NA2YPMBsod2Ke
- F2soUz5wdYMY5YIVWf8SGQ1l11jdpbqAH/F9ro91ODhF56Cjsj4/FsWqIUtgM0zZRA
- 1dGQiVCjS1m5jeD0butVT0jDJsrZiJBBEOsG52/fbZpFM+wqgVQKcGEwN7RPiNYiRE
- 8gWfh7HhtN2viLkzPQ1BdlougJo+q3kwzMxz1Xv9oHC1HHN+2KuDi2H8DHmQTrZrLs
- WganD5OVdW/DA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 90C98CC6B12;
- Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
-From: Vladyslav Yamkovyi via B4 Relay <devnull+hex.aleph0.ai@kernel.org>
-Date: Tue, 13 Oct 2026 17:16:07 +0200
-Subject: [PATCH] drm/i915/psr: Send a frame change notification for async flips
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6438C10FE1F;
+	Wed, 14 Oct 2026 13:44:33 +0000 (UTC)
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 686B610F7CA
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 12:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1791892953;
+ bh=je66SPt1cPbB5eg6M1/B06Le5HrmnanotjmdERbZzFM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=BEq+GqvZLUp5yqf4hWeZOOvukIwenXliv0ntHFLWbiVmchWSfj8x1yt4e5Sttz8XV
+ WWPPnNOrrLYZuYABVdokwfRUGMKPxUE5VuQFVqFwT4MYAWn1Qqzr2QXcnY33/4rjfa
+ rAV/S03hLROFzizKdky7FQi7BxZMb5hmiuJPec7Th9U6fO+hUR7eJ+/MPCHTCZdgiR
+ vqwyYP3/XdFiXqTjtn3u43/at5HQuuhNv9+MvNToK1O5muHAo6N5qlDmby/yCtFuxk
+ Ymsjz+uPz3cXqSSCYBcPoIOS9qd34zjXJE0my5KxyW64DUakQpMFkNEXnZKhXbVWPg
+ r8pOg6sb0aN9g==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tHr3JFtz4xh0;
+ Tue, 13 Oct 2026 23:02:32 +1100 (AEDT)
+From: Matt Evans <matt@ozlabs.org>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
+Date: Tue, 13 Oct 2026 13:02:06 +0100
+Message-ID: <20261013120211.135807-4-matt@ozlabs.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261013120211.135807-1-matt@ozlabs.org>
+References: <20261013120211.135807-1-matt@ozlabs.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2MwQrCMBBEf6Xs2cUk0hb8FfGQpFsTwRh206KU/
- ruJehreMPM2EOJIAuduA6Y1SnymCvrQgQ823QjjVBmMMoNW+oRzfGEWRivv5LGwTYJ5kYButkP
- fKzMqP0K9Z6a6/aov1x/L4u7kS/O1hbNC6KrBh1ZN/MAS8/GfsO8fv7BJdJ4AAAA=
-X-Change-ID: 20261013-fix-psr-async-trans-push-bfa6550270c7
-To: Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>, 
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Vladyslav Yamkovyi <hex@aleph0.ai>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904567; l=3338;
- i=hex@aleph0.ai; s=20261013; h=from:subject:message-id;
- bh=6OzSRSOPWRw5dMbojgR3kH8JziugVnnnlVANwZ+FMbg=;
- b=7JBBQ1l0eVLUQse6LiBcfstEJhvVF2lQK3NJy6s5xem1JCwHHrEd+peS8XqwjpYw5M9wbfkFM
- 7VyRBgJ/a7iBgLXdBJP/CTV1qHiP4Ok2925QSZ6IpSAU6X35x3fOhuz
-X-Developer-Key: i=hex@aleph0.ai; a=ed25519;
- pk=faUPQ+UBdMQ6ZcbVM9ytjGUZvrhV8mzf+ctgaoVsZy0=
-X-Endpoint-Received: by B4 Relay for hex@aleph0.ai/20261013 with auth_id=1170
-X-Original-From: Vladyslav Yamkovyi <hex@aleph0.ai>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 14 Oct 2026 13:44:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,82 +66,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: hex@aleph0.ai
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vladyslav Yamkovyi <hex@aleph0.ai>
+The dmabuf release path is split between file and dentry release:
+dma_buf_file_release() is called shortly before the file is freed, and
+dma_buf_release() calls an exporter's dmabuf->ops->release when the
+dentry is freed.  However, the dentry can outlive the file (for
+example, if opened with O_PATH), meaning .release might be called some
+time after the file is freed.
 
-On platforms using TRANS_PUSH for PSR frame-change notifications,
-intel_pipe_update_end() exits early for asynchronous flips, before sending
-the push. The register-based notification is disabled on these platforms,
-and an ORIGIN_FLIP frontbuffer flush does not force PSR to exit.
+This presents a window, when closing a DMABUF file, in which
+dmabuf->file points to freed memory yet .release op has not yet been
+called.
 
-This can leave an accepted async flip without a completion event after
-PSR2 enters DEEP_SLEEP. On Panther Lake, scanout freezes and the kernel
-reports "[CRTC:152:pipe A] flip_done timed out". Intel IGT kms_async_flips
-reproduces the failure with the compositor inactive when a 200 ms idle
-interval is inserted before an asynchronous atomic flip.
+For VFIO, if a buffer's .release has not been called it's considered
+still active and subject to move/cleanup.  If so, it attempts to
+get_file_active() on dmabuf->file: a file close with dentry held open
+will call this function with a stale pointer, a UAF.
 
-Send the PSR frame-change notification after plane programming and before
-releasing the existing PSR lock. Restrict the push to CRTC states that use
-TRANS_PUSH for PSR, leaving other async flips and the synchronous and DSB
-paths unchanged.
+To make this pattern safe, set dmabuf->file to NULL in
+dma_buf_file_release() to reflect that the associated file is now dead
+even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+sequence concurrent with a file close then only executes as one of:
 
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9582
-Fixes: 129a4da11707 ("drm/i915/psr: Use TRANS_PUSH to trigger frame change event")
+ - Gets the file before file_ref_put() (dmabuf->file valid)
+ - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+ - Observes dmabuf->file = NULL (no file)
+
+Originally, drivers could assume dmabuf->file was valid until .release
+was called from fops->release.  This assumption was no longer valid
+after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+dentry_ops"), which moved the callback to the dentry release (by which
+point the file might have been freed).  With this commit, drivers must
+still consider that dmabuf->file could be NULL before .release.
+
 Cc: stable@vger.kernel.org
-Assisted-by: LLM sparse smatch
-Signed-off-by: Vladyslav Yamkovyi <hex@aleph0.ai>
+Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
+Signed-off-by: Matt Evans <matt@ozlabs.org>
 ---
-Based on drm-tip (2026-10-13); also applies to v7.3-rc7.
+ drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
+ include/linux/dma-buf.h   |  5 ++++-
+ 2 files changed, 22 insertions(+), 4 deletions(-)
 
-Runtime-tested on Panther Lake (xe, eDP-1, 2880x1800) with Ubuntu-based
-7.3.0-rc6 kernels, before and after this fix. IGT kms_async_flips,
-async-flip-with-page-flip-events-tiled-atomic, dynamic subtest
-pipe-A-eDP-1-4-rc-ccs, fails with Flip Timeout before the fix and passes
-afterwards. An LD_PRELOAD interposer inserts one 200 ms idle interval
-before the eighth async atomic commit without changing its request or
-flags. Both runs enter PSR2 Early Transport DEEP_SLEEP with selective
-fetch enabled before that commit.
-
-Clang 23.1.2, W=1 builds and Sparse/Smatch checks of the CRTC, PSR and VRR
-translation units for i915 and Xe produced no new diagnostics.
-
-OpenAI Codex (GPT-6-Astra) assisted diagnosis, reproducer and fix
-development, validation and patch preparation, following requests to
-reproduce the freeze independently, trace its driver cause and prepare a
-tested upstream fix. I take direct responsibility for this contribution,
-have carefully reviewed the change and ensured rigorous local testing.
----
- drivers/gpu/drm/i915/display/intel_crtc.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 10ed9bdfee76..8ef24cddbaa6 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -736,8 +736,16 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 4c9add51f9ef..61485fc28b8b 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
  
- 	drm_WARN_ON(display->drm, new_crtc_state->use_dsb);
+ static int dma_buf_file_release(struct inode *inode, struct file *file)
+ {
+-	if (!is_dma_buf_file(file))
+-		return -EINVAL;
++	struct dma_buf *dmabuf = file->private_data;
++
++	if (!dmabuf)
++		return 0;
  
--	if (new_crtc_state->do_async_flip)
-+	if (new_crtc_state->do_async_flip) {
-+		/*
-+		 * LNL+ uses TRANS_PUSH for PSR frame-change notifications.
-+		 * Async flips skip the vblank path below, but still need to
-+		 * notify PSR after programming the new surface address.
-+		 */
-+		if (intel_psr_use_trans_push(new_crtc_state))
-+			intel_vrr_send_push(NULL, new_crtc_state);
- 		goto out;
-+	}
+-	__dma_buf_list_del(file->private_data);
++	__dma_buf_list_del(dmabuf);
  
- 	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
++	/*
++	 * As the file is being closed, dmabuf->file is no longer
++	 * valid and NULL replaces an otherwise stale pointer.  If a
++	 * reference to the file isn't already held, the file can be
++	 * closed at any time, including before dmabuf->ops->release()
++	 * happens: dmabuf->file _must not_ be accessed directly.  An
++	 * exporter should use get_file_active(&dmabuf->file) which
++	 * atomically tests and acquires a reference to the file (or
++	 * returns NULL if the file has closed).  The barrier ensures
++	 * get_file_active() observes the store before file_free()
++	 * frees the memory.
++	 */
++	smp_store_mb(dmabuf->file, NULL);
+ 	return 0;
+ }
  
-
----
-base-commit: eb1bf4700d3b25a1a1e670ef31cc06969fa08019
-change-id: 20261013-fix-psr-async-trans-push-bfa6550270c7
-
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index d15b2b31d3c9..a31eb0ab9ecf 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -303,7 +303,10 @@ struct dma_buf {
+ 	 * @file:
+ 	 *
+ 	 * File pointer used for sharing buffers across, and for refcounting.
+-	 * See dma_buf_get() and dma_buf_put().
++	 * See dma_buf_get() and dma_buf_put().  When an exporter holds a
++	 * common lock with the ->release() callback, it can use
++	 * get_file_active(&dma_buf->file) to safely acquire a reference;
++	 * the file could otherwise be closed at any time.
+ 	 */
+ 	struct file *file;
+ 
+-- 
+2.47.3
 
