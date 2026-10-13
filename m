@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 248CDCC6B1F
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 20:48:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8438ACC6B1A
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 20:48:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A654E10F9C6;
-	Tue, 13 Oct 2026 20:47:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B84010F9B8;
+	Tue, 13 Oct 2026 20:48:01 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 135E610F9A3;
- Tue, 13 Oct 2026 20:47:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F79F10F9B8;
+ Tue, 13 Oct 2026 20:47:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791924472; x=1823460472;
+ t=1791924474; x=1823460474;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+cihov+RWzaPt5FjuSOQvdaOhI4zDeOZ7N0PHSlj2dk=;
- b=ahZeNzeWq+1QAx1+TvNZY+/iATkx64KAJehmffEG+kqC4rfhpajLzoxx
- DlvHQ2e6qSfe2kuoZfJwBLBRYWhLxgifSkrbgHumVoo6hbULJMTuYknuu
- 0vsmZA3xH/nf5TRziGDr7mSo9JiEIZz6UAY1AiDXYTNkr+XQvzEZl03sV
- 6GsU9pynaYc4eb0V+X3EJwnmOuuYlDKEwdo3Qo4HCgq8fwKSSLVJPjJzh
- OX8o0cdBix842QQaGnyBiHXuhfCbLJ8sQdu3wQERQhalJcQNAQC7d97Ms
- hwQJJRdfNER6iRoVGSAJ5z6sQ/B25HkPCBCMgCSF21wIh2YAn1dNVe5Rv Q==;
-X-CSE-ConnectionGUID: PnZ5dnBPRMGrE9Q9ehc0Hw==
-X-CSE-MsgGUID: nPgoSxFCT8WD6GFFGuD7vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="539309"
+ bh=RvmYp1+xZyBRLkGvFeluF1eDTKX1Z9sfSgIU7Dvyaco=;
+ b=En6KEPts9EpIJPeSwL6pU9xY7trSBWd2dZfGGRQ3HvaA93BmSZP5EdnK
+ kFb8dAHWQfNV0tNbhTAUWPys1sTY+lsFX593c9dlAeF8V7P941c94s5ma
+ ZwEUsaeL9SnGP24dNNj0Sdz6cCBgf9Jbp4DnWdfwPkIhyAwmCZgMtxTit
+ V8WVVIBDuYh0pwi8nLlNKZunqxcqRha0iFsF1+ZR/ASD/QEc1SY7X9UmG
+ WVJ1zcOiRtsJRKyEzwNpA3IuHnR/okXCY7Ozqc0e3+QebpOkFJE1dMbpC
+ JpJADLo4u3NsgUzL0qdK7ff0ejCHQ3T6MhoSGLFptGaoLJJaEf2z/2Rq8 g==;
+X-CSE-ConnectionGUID: k5ffo8ttSSSMkAAAFPzBlA==
+X-CSE-MsgGUID: 3o7K0pA7Ta+nG2a7MdnT2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="539321"
 X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="539309"
+   d="scan'208";a="539321"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2026 13:47:51 -0700
-X-CSE-ConnectionGUID: u4x/SopGQwiAEk5uuCZd1A==
-X-CSE-MsgGUID: Gzm4ZbeyRdq/CJ14UyRpqw==
+ 13 Oct 2026 13:47:52 -0700
+X-CSE-ConnectionGUID: sNV8oPCARLOVf7cVV76nZA==
+X-CSE-MsgGUID: EPhLndF8SyuldGvrieIfPA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1189056"
+   d="scan'208";a="1189058"
 Received: from dev-417.igk.intel.com ([10.91.214.181])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2026 13:47:50 -0700
+ 13 Oct 2026 13:47:52 -0700
 From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@linux.intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- stable@vger.kernel.org
-Subject: [PATCH v4 4/5] drm/i915/3dlut: disable 3D LUT if unsupported
-Date: Tue, 13 Oct 2026 22:47:03 +0200
-Message-ID: <20261013204705.1574475-5-michal.grzelak@linux.intel.com>
+Cc: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@linux.intel.com>
+Subject: [PATCH v4 5/5] drm/i915/display: log eDP TC support and DBuf overlap
+ detection state
+Date: Tue, 13 Oct 2026 22:47:04 +0200
+Message-ID: <20261013204705.1574475-6-michal.grzelak@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20261013204705.1574475-1-michal.grzelak@linux.intel.com>
 References: <20261013204705.1574475-1-michal.grzelak@linux.intel.com>
@@ -72,48 +71,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-XE2LPD_DE_CAP_3DLUT_MASK is defined but never used.
+edp_tc_support and dbuf_overlap_detection are only fields of display's
+runtime info which state is not logged. Show it along other fields.
 
-Check DE_CAP with the mask whether 3D LUT is disabled for LNL+. Reset
-has_3dlut if that is the case.
+While at it, move dbuf_overlap_detection to have display runtime info's
+fields in alphabetical order.
 
-Bspec: 71161
-Fixes: 65db7a1f9cf7 ("drm/i915/color: Add 3D LUT to color pipeline")
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Cc: <stable@vger.kernel.org> # v6.19+
 Signed-off-by: Michał Grzelak <michal.grzelak@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_device.c | 4 ++++
- drivers/gpu/drm/i915/display/intel_display_regs.h   | 1 +
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display_device.c | 3 +++
+ drivers/gpu/drm/i915/display/intel_display_device.h | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index a2bea5ac59cf..d4e52e627b34 100644
+index d4e52e627b34..c806e2135620 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_device.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -1940,6 +1940,10 @@ static void __intel_display_device_info_runtime_init(struct intel_display *displ
- 	if (DISPLAY_VER(display) >= 20) {
- 		u32 cap = intel_de_read(display, XE2LPD_DE_CAP);
+@@ -2005,6 +2005,9 @@ void intel_display_device_info_print(const struct intel_display_device_info *inf
+ 	DEV_INFO_DISPLAY_FOR_EACH_FLAG(PRINT_FLAG);
+ #undef PRINT_FLAG
  
-+		if (REG_FIELD_GET(XE2LPD_DE_CAP_3DLUT_MASK, cap) ==
-+		    XE2LPD_DE_CAP_3DLUT_REMOVED)
-+			display_runtime->has_3dlut = 0;
++	drm_printf(p, "edp_typec_support: %s\n", str_yes_no(runtime->edp_typec_support));
++	drm_printf(p, "has_dbuf_overlap_detection: %s\n", str_yes_no(runtime->has_dbuf_overlap_detection));
 +
- 		if (REG_FIELD_GET(XE2LPD_DE_CAP_DSC_MASK, cap) ==
- 		    XE2LPD_DE_CAP_DSC_REMOVED)
- 			display_runtime->has_dsc = 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 0b3991bc3aef..d3546609e3ae 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -1773,6 +1773,7 @@
+ 	drm_printf(p, "has_3dlut: %s\n", str_yes_no(runtime->has_3dlut));
+ 	drm_printf(p, "has_hdcp: %s\n", str_yes_no(runtime->has_hdcp));
+ 	drm_printf(p, "has_dmc: %s\n", str_yes_no(runtime->has_dmc));
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
+index 5300c6ab99e7..230eec31f654 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.h
++++ b/drivers/gpu/drm/i915/display/intel_display_device.h
+@@ -307,10 +307,10 @@ struct intel_display_runtime_info {
  
- #define XE2LPD_DE_CAP			_MMIO(0x41100)
- #define   XE2LPD_DE_CAP_3DLUT_MASK	REG_GENMASK(31, 30)
-+#define   XE2LPD_DE_CAP_3DLUT_REMOVED	1
- #define   XE2LPD_DE_CAP_DSC_MASK	REG_GENMASK(29, 28)
- #define   XE2LPD_DE_CAP_DSC_REMOVED	1
- #define   XE2LPD_DE_CAP_SCALER_MASK	REG_GENMASK(27, 26)
+ 	bool has_3dlut;
+ 	bool has_hdcp;
++	bool has_dbuf_overlap_detection;
+ 	bool has_dmc;
+ 	bool has_dsc;
+ 	bool edp_typec_support;
+-	bool has_dbuf_overlap_detection;
+ };
+ 
+ struct intel_display_device_info {
 -- 
 2.45.2
 
