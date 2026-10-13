@@ -4,41 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB968CC6B12
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 16:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03492CC6B19
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 17:12:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8081110E4EE;
-	Tue, 13 Oct 2026 16:25:00 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E692F10F8EE;
- Tue, 13 Oct 2026 16:24:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 95F8941884;
- Tue, 13 Oct 2026 16:24:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B5D1F000FF;
- Tue, 13 Oct 2026 16:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791908693;
- bh=PAxNMYovLvqDay1SlH3NiF0PFvUs4sgVKVI75QwFQ14=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=XjH0h1ss31XEPxu2pYmL7BcH3ygXVACj56TGQUUQ9SKtr5JlTuODhcugb0/N9rwXN
- TRYNEKOXAP3fuG0Exjef+aWqSv8rHToXzSYaML7X+tq70Y3Gop7lksTmCEcEOnYtxE
- myhHI9MxqcIEvRMwtuiT8/dC/WMYGhU/JZo+Cf8vcO7TG07HR/vdxvPNisY7yi5WlC
- UIXzQd8asMBukfCGzy/KWrpE19jzZycoYi9ObFLmu2G+6BDxqNyeCUOmLOMEa2yn1D
- 72eHYot5l1/pRdrTbHF/r9L/WqjSOQ9lSwoWIJaQxXvSp+epiUQ5273Wbh6CDocwat
- tE/AjVsz0zWUA==
-Message-ID: <sashiko-outbox-170108@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/i915/dmc_wl: Avoid blocking on delayed wakelock
- release
-To: "Dibin Moolakadan Subrahmanian" <dibin.moolakadan.subrahmanian@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20261013161131.2572279-6-dibin.moolakadan.subrahmanian@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A3C210E8E7;
+	Tue, 13 Oct 2026 17:12:32 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6188810E8E7;
+ Tue, 13 Oct 2026 17:12:31 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5971162323020209087=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Reduce_overhe?=
+ =?utf-8?q?ad_in_DC3CO_transitions?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dibin Moolakadan Subrahmanian" <dibin.moolakadan.subrahmanian@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 13 Oct 2026 17:12:31 -0000
+Message-ID: <179191155139.19407.17266566668804375188@221881a7231d>
+X-Patchwork-Hint: ignore
 References: <20261013161131.2572279-4-dibin.moolakadan.subrahmanian@intel.com>
- <20261013161131.2572279-6-dibin.moolakadan.subrahmanian@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 16:24:52 +0000
+In-Reply-To: <20261013161131.2572279-4-dibin.moolakadan.subrahmanian@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,71 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915/dmc_wl: race allows delayed work execution after disable
---
+--===============5971162323020209087==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit c0608498f162e6c645a132e26ca4016580c97dce
-Author: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.=
-com>
+== Series Details ==
 
-drm/i915/dmc_wl: Avoid blocking on delayed wakelock release
+Series: drm/i915: Reduce overhead in DC3CO transitions
+URL   : https://patchwork.freedesktop.org/series/176063/
+State : success
 
-This commit modifies intel_dmc_wl_disable() to cancel the pending wakelock
-release work rather than flushing it. This prevents the DC-exit path from
-being unnecessarily delayed by workqueue scheduling and ACK polling. It dro=
-ps
-the work when disabling the wakelock instead of forcing it to run.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dmc_wl.c b/drivers/gpu/dr=
-m/i915/display/intel_dmc_wl.c
-> index ab4e0e9573dfb..3eae119009782 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dmc_wl.c
-> @@ -400,7 +400,7 @@ void intel_dmc_wl_disable(struct intel_display *displ=
-ay)
->  	if (!__intel_dmc_wl_supported(display))
->  		return;
-> =20
-> -	intel_dmc_wl_flush_release_work(display);
-> +	cancel_delayed_work_sync(&wl->work);
+CI Bug Log - changes from CI_DRM_19331 -> Patchwork_176063v1
+====================================================
 
-[Severity: Medium]
-Could this leave a stray delayed work queued after the wakelock is disabled?
+Summary
+-------
 
-Since cancel_delayed_work_sync() is called outside of wl->lock and before
-wl->enabled is cleared, could a concurrent intel_dmc_wl_put() race here?
+  **SUCCESS**
 
-If CPU1 is in intel_dmc_wl_disable() just after cancel_delayed_work_sync(),
-and CPU2 calls intel_dmc_wl_put():
+  No regressions found.
 
-CPU2 takes the lock in intel_dmc_wl_put(), sees wl->enabled is still true,
-and queues the work again:
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176063v1/index.html
 
-    if (refcount_dec_and_test(&wl->refcount)) {
-        if (!wl->enabled)
-            goto out_unlock;
-       =20
-        __intel_dmc_wl_release(display);
-        ...
+Participating hosts (39 -> 38)
+------------------------------
 
-Then CPU1 would acquire the lock, disable the wakelock, and set=20
-wl->enabled =3D false, but the work has already been re-queued.
+  Missing    (1): bat-dg2-13 
 
-When the queued intel_dmc_wl_work() executes later, it checks if refcount is
-non-zero but doesn't check wl->enabled. It would then poll for
-DMC_WAKELOCK_CTL_ACK and trigger the "DMC wakelock release timed out"
-WARN_RATELIMIT since the wakelock was already disabled.
+Known issues
+------------
 
-> =20
->  	spin_lock_irqsave(&wl->lock, flags);
->
+  Here are the changes found in Patchwork_176063v1 that come from known issues:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013161131.2572=
-279-4-dibin.moolakadan.subrahmanian@intel.com?part=3D2
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - bat-dg2-14:         [ABORT][1] ([i915#17063]) -> [PASS][2] +1 other test pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19331/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176063v1/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html
+
+  
+  [i915#17063]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17063
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19331 -> Patchwork_176063v1
+
+  CI-20190529: 20190529
+  CI_DRM_19331: 3bb5625e4dccd61506ad2815da07ac082e1df614 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9142: 3d96cd832d6f1dd9625bce109944a31c98fe88f8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_176063v1: 3bb5625e4dccd61506ad2815da07ac082e1df614 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176063v1/index.html
+
+--===============5971162323020209087==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Reduce overhead in DC3CO transitions</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176063/">https://patchwork.freedesktop.org/series/176063/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176063v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176063v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19331 -&gt; Patchwork_176063v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176063v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_176063v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@late_gt_pm:<ul>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19331/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17063">i915#17063</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176063v1/bat-dg2-14/igt@i915_selftest@live@late_gt_pm.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19331 -&gt; Patchwork_176063v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19331: 3bb5625e4dccd61506ad2815da07ac082e1df614 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9142: 3d96cd832d6f1dd9625bce109944a31c98fe88f8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_176063v1: 3bb5625e4dccd61506ad2815da07ac082e1df614 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============5971162323020209087==--
