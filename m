@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B48CC6B03
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:08:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B993CA9ED2
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:17:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7F1310E78B;
-	Tue, 13 Oct 2026 11:08:02 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE46010E77E;
- Tue, 13 Oct 2026 11:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2D810E76D;
+	Tue, 13 Oct 2026 11:17:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83B3F10E4E1;
+ Tue, 13 Oct 2026 11:17:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791889676; x=1823425676;
+ t=1791890220; x=1823426220;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FNKdPqL6StT4F1diVh/hL/JuyDgt4YlimNv55V8hs1U=;
- b=UsOoQ0umCEyHLU11BDX1k95BtxzNNRAxC8+q2f3bpItk+wU0LRrU9UQ2
- 7RVxKsaN0KYJAL2tpMoreegISF3lr2DexziO1wci8B0z5mPy6tBMIrpmd
- LHpOFjgwxOBaY0eWz7udKyNsd5k8cKxoTk2GqmzjmznaKZAnkx8LLuyzm
- aOtsDp5GovQfgrNnxPTRYh4B/XZZSon3mfw/mUuIBWFBEmBIKOhMc1srY
- z2syF3dipBw2VMCGXUJshAsT/41my8HnL5aJrZ5iCcMUQ7xBu+gg/cPZM
- M8X73rC9RE9KsERgMVMCttU6ew96/6aMflmVBPCHMV0ROVEsi054Bl5GH A==;
-X-CSE-ConnectionGUID: 8SZ8CWLYTxS0rsnAHmR66Q==
-X-CSE-MsgGUID: JTa8GC2NTy23CLA6EwOWTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="614606"
+ bh=f9zOY8ILZaqcZKVR0NRV43lCVQxf06UqgWo2zlplThE=;
+ b=UpZ+PuRGypdhcbM6Y5b+C7WrYxVL0e9ojYJCekvP4x52KP8YbXZ7NoKn
+ WGQRf4ZYXtIXLJXkfRb476pZo8qNIjRo+1miRoBTnv4eHaCDOmtbEZv9t
+ cPOjtRd2hN6T4lLG/V+XhiPrYnS+n1865NZryE1uYndy13f+5qW9rCIOc
+ jebxKHmmoYYb7XrpC+VKwl0dLVNcMeuFRaXyNWXjgEsqo9oBIzBSSjKFP
+ Ok4GCBXu3neFIZiTrLz8IdCcunNVO0LjBzXswdXdUk1xeIKnmGRv7rt/T
+ cgmsh+JGaGox4IEoLTpANxInyrxEAfGDkbRrYLsTgNzaTlYDEv8lOlXAH Q==;
+X-CSE-ConnectionGUID: mg6vfXzCS6eNyoHbeCJNwA==
+X-CSE-MsgGUID: nX6sHJ4bSn2bSotNiiRjng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="514386"
 X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="614606"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2026 04:07:55 -0700
-X-CSE-ConnectionGUID: MBL6OGo+TGu0l6fx6/CZ7w==
-X-CSE-MsgGUID: GuZOdlUdSXeQn8sOO//Duw==
+   d="scan'208";a="514386"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2026 04:17:00 -0700
+X-CSE-ConnectionGUID: eZZE5/dAQFuZlLoBjhTW7g==
+X-CSE-MsgGUID: v6aztxdWSkWGG1PKZybYlQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1211586"
+   d="scan'208";a="1229080"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa003.fm.intel.com with ESMTP; 13 Oct 2026 04:07:54 -0700
+ by fmviesa005.fm.intel.com with ESMTP; 13 Oct 2026 04:16:59 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Mika Kahola <mika.kahola@intel.com>
 Subject: [PATCH v3 4/6] drm/i915/psr: Merge the selective fetch area across
  joined pipes
-Date: Tue, 13 Oct 2026 11:07:50 +0000
-Message-ID: <20261013110750.2455991-1-mika.kahola@intel.com>
+Date: Tue, 13 Oct 2026 11:16:57 +0000
+Message-ID: <20261013111657.2493578-1-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012124145.1960050-5-mika.kahola@intel.com>
-References: <20261012124145.1960050-5-mika.kahola@intel.com>
+In-Reply-To: <20261013110750.2455991-1-mika.kahola@intel.com>
+References: <20261013110750.2455991-1-mika.kahola@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -101,13 +101,11 @@ v3: Remove the now unused cursor_in_su_area (Sashiko)
 
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c  | 289 +++++++++++++++-------
- drivers/gpu/drm/i915/display/intel_vdsc.c |   2 +-
- drivers/gpu/drm/i915/display/intel_vdsc.h |   2 +-
- 3 files changed, 200 insertions(+), 93 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 287 ++++++++++++++++-------
+ 1 file changed, 197 insertions(+), 90 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 0483dad5bdd8..6e1a5c67e71f 100644
+index 0483dad5bdd8..c3f5eed417b5 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
 @@ -2661,9 +2661,11 @@ void intel_psr2_program_trans_man_trk_ctl(struct intel_dsb *dsb,
@@ -125,15 +123,6 @@ index 0483dad5bdd8..6e1a5c67e71f 100644
  
  	if (!crtc_state->enable_psr2_su_region_et)
  		return;
-@@ -2674,7 +2676,7 @@ void intel_psr2_program_trans_man_trk_ctl(struct intel_dsb *dsb,
- 	if (!crtc_state->dsc.compression_enable)
- 		return;
- 
--	intel_dsc_su_et_parameters_configure(dsb, encoder, crtc_state,
-+	intel_dsc_su_et_parameters_configure(dsb, crtc_state,
- 					     drm_rect_height(&crtc_state->psr2_su_area));
- }
- 
 @@ -2746,12 +2748,11 @@ static void clip_area_update(struct drm_rect *overlap_damage_area,
  		overlap_damage_area->y2 = damage_area->y2;
  }
@@ -509,32 +498,6 @@ index 0483dad5bdd8..6e1a5c67e71f 100644
  	return 0;
  }
  
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 8f06c3a4d56d..29eec44ca3b0 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -820,7 +820,7 @@ void intel_dsc_dp_pps_write(struct intel_encoder *encoder,
- 				  sizeof(dp_dsc_pps_sdp));
- }
- 
--void intel_dsc_su_et_parameters_configure(struct intel_dsb *dsb, struct intel_encoder *encoder,
-+void intel_dsc_su_et_parameters_configure(struct intel_dsb *dsb,
- 					  const struct intel_crtc_state *crtc_state, int su_lines)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.h b/drivers/gpu/drm/i915/display/intel_vdsc.h
-index 3372f8694054..08a3ffedb8ec 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.h
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.h
-@@ -38,7 +38,7 @@ void intel_dsc_dsi_pps_write(struct intel_encoder *encoder,
- 			     const struct intel_crtc_state *crtc_state);
- void intel_dsc_dp_pps_write(struct intel_encoder *encoder,
- 			    const struct intel_crtc_state *crtc_state);
--void intel_dsc_su_et_parameters_configure(struct intel_dsb *dsb, struct intel_encoder *encoder,
-+void intel_dsc_su_et_parameters_configure(struct intel_dsb *dsb,
- 					  const struct intel_crtc_state *crtc_state, int su_lines);
- void intel_vdsc_state_dump(struct drm_printer *p, int indent,
- 			   const struct intel_crtc_state *crtc_state);
 -- 
 2.43.0
 
