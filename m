@@ -4,27 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B8ACC6B12
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 18:12:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E113CC6B12
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 19:07:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2CD310E939;
-	Tue, 13 Oct 2026 18:12:50 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EBB610E16E;
- Tue, 13 Oct 2026 18:12:49 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC85210E8B6;
+	Tue, 13 Oct 2026 19:07:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DB6610E401;
+ Tue, 13 Oct 2026 19:07:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791918440; x=1823454440;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=n828se0AUFwLwWIXLBr/mgtNibeii4A7u3IucMUPWHs=;
+ b=PjlMrirGo/gS0Tt+UH8VgW2sACOUXBfSaOBQINOkdq8KaPkavXiiugKn
+ 5clWEv3ieKQvzgTYanngF/inPvv9MtitoelNu6QvsaBedTeswK6wj/3cZ
+ tqZm85M4q91Nz1nbVhLktaBec+nwX6NW9n339D7ahbouQfbPv1h5mAqHw
+ YoFhs8+33gtVeRVOcUhJfhBx7VkNLKOhpsEVI6y1+4mRtxK1UJURnpV/o
+ zcFGfFwxzQnN6/M3zTRdD9/3Y6LRLR2hnU7SxH5RLQYXOZvstsc4opVx9
+ et9C/wGJeKQmhxvfptBP/HsehEFdsZ6eKQgMtqdEEKGOorTGZI1rtiESB A==;
+X-CSE-ConnectionGUID: hbqGQleJQVWwgfO6OjKMzw==
+X-CSE-MsgGUID: 3I53cc2DR4O9hGOTFOmC1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="687210"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="687210"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2026 12:07:20 -0700
+X-CSE-ConnectionGUID: +3kIDSrvTQqAfT3CNckosw==
+X-CSE-MsgGUID: ywWVq0l9SO+isgiUl6L72A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="3004440"
+Received: from rgsanthosh-system-product-name.iind.intel.com ([10.190.238.65])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2026 12:07:18 -0700
+From: Naladala Ramanaidu <ramanaidu.naladala@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com, jani.nikula@intel.com,
+ Naladala Ramanaidu <ramanaidu.naladala@intel.com>
+Subject: [PATCH v4 0/1] drm/i915/gmbus: Add bit-banging debugfs control
+Date: Wed, 14 Oct 2026 00:37:11 +0530
+Message-ID: <20261013190712.2092093-1-ramanaidu.naladala@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_Add_support_for_DisplayPo?=
- =?utf-8?q?rt_link_training_information_report?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kory Maincent" <kory.maincent@bootlin.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Oct 2026 18:12:49 -0000
-Message-ID: <179191516957.19759.11490310427680618950@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,28 +63,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Add a connector debugfs file that forces EDID reads to use
+GPIO bit-banging.
 
-Series: Add support for DisplayPort link training information report
-URL   : https://patchwork.freedesktop.org/series/175967/
-State : failure
+Naladala Ramanaidu (1):
+  drm/i915/gmbus: Add bit-banging debugfs control
 
-== Summary ==
+ .../drm/i915/display/intel_display_debugfs.c  |  2 +
+ .../drm/i915/display/intel_display_types.h    |  1 -
+ drivers/gpu/drm/i915/display/intel_gmbus.c    | 86 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_gmbus.h    |  2 +
+ 4 files changed, 90 insertions(+), 1 deletion(-)
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/175967/revisions/1/mbox/ not applied
-Applying: drm: Move sink link rates reading helpers out of i915
-Applying: drm: Move DSC capability reading helper out of i915
-error: sha1 information is lacking or useless (drivers/gpu/drm/display/drm_dp_helper.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0002 drm: Move DSC capability reading helper out of i915
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
-
+-- 
+2.43.0
 
