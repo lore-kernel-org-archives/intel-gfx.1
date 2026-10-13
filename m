@@ -4,150 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F40BDCA9ED2
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 12:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9112CCC6B03
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 13:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C80210E7F3;
-	Tue, 13 Oct 2026 12:41:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B59BC10E805;
- Tue, 13 Oct 2026 12:41:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB5110F7E6;
+	Tue, 13 Oct 2026 13:10:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7897310F724;
+ Tue, 13 Oct 2026 13:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791895277; x=1823431277;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- in-reply-to:mime-version;
- bh=e9UDLjNnRdl2+PGGOVUeDItUU68FiQ7wCC5iHJ0SGfc=;
- b=lwSfmjKw9j0Az0HQZLCvF/IRpiRNT8R3q6tpnJ/jhj6pjsiwUB1uoE2S
- 21HH/KpjGsF/UDxeL370LH1sCdBoMBmcXTlcXxqkEdVw1pcDtMBN08rMG
- MJF+yvo5ItNc2ibvRYACKqsGnsEsD1VeTIG3Qd1C0ytFLj4dPWPnCkFmr
- Y1KxBVa4PtqK8WDfvZWpBIaYFRErOxoz0mGzP9mtmdu4wyJCE/nq7fJsQ
- 7wvSk8Wq7iwuUjQ4WTglz3OCp2XiDB2QxbYEROj/Nk6WoBeKeerorgHIG
- uAdSnJWifWDJHFRppCyCytI9I/m00Jbz9+8ix/bm18xqO5EhebVM9/Tr7 w==;
-X-CSE-ConnectionGUID: IyDbw56KRwCjiLOGe0v8FQ==
-X-CSE-MsgGUID: dRaDvasLRECIj6hwl+Rxug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="515214"
+ t=1791897042; x=1823433042;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Cs5jW56J1YkYHZWz8meTkpKfUi99fHIjVaZV/OzPCeA=;
+ b=Pem89IP8wJQNyndBmnu1opTjvvwENC5ooVrNU5RIfxm3nQqK/9tTQlgm
+ oQMiOwdw1KGVxdK3XLhhfP9/yVQKBLPHcJpy9HG6MnHDaUKZwknKoBICQ
+ aMhOdfhCE4EgZTmIE6Et1WVlhu+kKfL356ZeniPaliiBqGEteFbpHzZ0x
+ SKtW2UTGg+fGhhQViw7tbeWY/jiF9r5UOJPqpuRD5JZm8scs10dy/+OaP
+ SHh8xlA+lEaKOEXnVm1z6yvZhG6wX15HECjRnWnZzPp3omSw7zTTEoMfF
+ 5x78JBX/YjoqmsYjU0Z8eO4Pe7TK4YiGaqcn+jMxgsolY/358H2oEYsef Q==;
+X-CSE-ConnectionGUID: 0//uLNSZTuO1z6rMLjLOoA==
+X-CSE-MsgGUID: f/HFTH2cSMq19fIcaHDIwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="630328"
 X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="515214"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2026 05:41:17 -0700
-X-CSE-ConnectionGUID: B+/tB79RSGWAo8dkHaJ0/Q==
-X-CSE-MsgGUID: Zf5iloNRTwy/6lG9YuIPCg==
+   d="scan'208";a="630328"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2026 06:10:41 -0700
+X-CSE-ConnectionGUID: pL5AquSmR9qhmKR9AVg0PQ==
+X-CSE-MsgGUID: oyq8mleGQR2zRE/bjkut4A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1228481"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2026 05:41:16 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 05:41:15 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 13 Oct 2026 05:41:15 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.51) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 05:41:15 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VCya1+jqqqlaA9DHKI5ECx+P13oYP8l6u5KeDsZ9Pg8iOfn6rLgvBAw9m8LcsZp3fLBPwFnmt4khh2LM/iu7rKici8Tk85wAC7Yk4c4x1gBrxACCJYy/mp19dX02IJT+08bSgrEPPxYBBYnSxdr6blKlBPTNCt31odhzCR+YHbPw2ClCrgl8yhRxT1xrywP+ttJ47BHmito9gv1+ZUjoKRW62zDYhU1XPpB6H+FzJGgSPVXwXAihNfa23b0FdAKUjxGHm+G+5vfSdOc2lLFTKum2L5WUjHV+XANsOfBqmCQOke7IXykH81NvEN3MHr3zVCBK94QTrYieS4RrLt1/2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=27lI5yvYjhGZmsuJMOkcrFg1/XI7d9Jg+E/6r6QAOgI=;
- b=MVdADf3YbPqOGDlHhttZ9JIrpldlezJtIw/71cANDyg0a0VFS0VyB/rnoGeWNn9NIrdYmzgViYISrp3yEKfnhvXG72WR+6g/rjVnjNhJCLP8I7Sf4x7ss4Otx1YNBO2aUYGl9L9LviebcbSJFTvkeMhJk1X8WJxCVXf2xWJjgBMPuwMKqeAIgRsZU4YrBvxrpfKE6LSkBJ5kvsmPSi/VdpXK07s5IYC4vb2tWmLkXZB5dAAMtoPqIW9HjJUG2vAKGsdwQaSJXC8bq09OiMHyrZtheJxmYiLbo1NYabGD7Ii6GiQ+Yzipc8nJheKf8GgPrcYRolzp7YO/9oHOU//+5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
- by SA1PR11MB6662.namprd11.prod.outlook.com (2603:10b6:806:256::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 12:41:02 +0000
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 12:41:02 +0000
-Date: Tue, 13 Oct 2026 15:40:56 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: "Kahola, Mika" <mika.kahola@intel.com>
-CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH 2/5] drm/i915/dpll: apply the PLL power save W/A to port
- A only
-Message-ID: <as4m2CWYG-lUzfta@ideak-desk.lan>
-References: <20261009103552.1864818-1-mika.kahola@intel.com>
- <20261009103552.1864818-3-mika.kahola@intel.com>
- <as0Tgm77ARcfcHQI@ideak-desk.lan>
- <DS4PPF69154114FE5A707C5339FD36A7CF2EF9E2@DS4PPF69154114F.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <DS4PPF69154114FE5A707C5339FD36A7CF2EF9E2@DS4PPF69154114F.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-X-ClientProxiedBy: GV3P280CA0062.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:a::18) To IA3PR11MB9273.namprd11.prod.outlook.com
- (2603:10b6:208:573::17)
+   d="scan'208";a="1084983"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.106])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2026 06:10:25 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+ Nikolas Joshua Britton <nbritton@exabit.io>,
+ Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
+ Alexey Fomenko <alexey.fomenko@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Rob Herring <robh@kernel.org>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ David Airlie <airlied@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-m68k@lists.linux-m68k.org,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: Bradley Morgan <brads@mainlining.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v3 3/8] PCI: Honor alignment overrides
+Date: Tue, 13 Oct 2026 16:09:37 +0300
+Message-ID: <20261013130948.6231-4-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com>
+References: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|SA1PR11MB6662:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34ea2d73-85a4-4145-91b1-08df29273d84
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|376014|260925021311599003|260925022911599003|260925021911599003|10067099003|261009223027099003|11063799006|5023799004|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: x/eGDq8Td0T0IKgcvU5f+YdwVxkfIx6VK0OablDh7g3rxvWFvFbZ0hFu0l1/WNfV7L4fXRA4oCaFQN/1TEJUa7qeTZt0kL2ws/YdbaQXI7eL7H/m69jVN/VNs3mBvP5YD431kQZ+AVCAfq/z35AQvEsWoRmv6WsKMpEBHOmnhRQ2o4mzQZpmba2bVCGPfQOz+UxZwfwFAqlJGhK0rKDDBONj7xsh0VwTr9OuMFst/hsYgy9FQAPb2VPcbwS8KOL8vWWUNWjKe0POaJcvJ9cd2fiuv0xabFFYW7J2gKuqlZYYtx0UR+k6JOjwKjB+2wuNw3HY1Q+fNFCX3vCFiv9mHlxCTinZdIvr2Ry3BFi8zkVVl63THb9VSXi2y59+WzRj0bHGqI4Y+kUPppN3R/wDjiDhNNgWTOit9jS0vzTjIpy2WcA63D7Ve1IndSlOYQ6GFR8oRBfX11kW9oI4Ual8r0EVrNpx7okH+w2BcaXS+wnYWlun/Hko8ZITj13Jz35MTUJZ1xaE4Ak9uosu6/Thz9X5sf0X/SMrJ0blQxLyoJ/7d7lRJmmNsOJLC+2IqN69r9KEgv42q+5Pe94aakjpInrSX69+UxbcAmdJr2tkoSsm9+xa1+bV+5s+ip8CapbGgDXP75DHi7OG6jyDYYICHrLLGJ282lBETU7TQuh0qp8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA3PR11MB9273.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(260925021311599003)(260925022911599003)(260925021911599003)(10067099003)(261009223027099003)(11063799006)(5023799004)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BFIHsf9ACCuQq6AkPnh/vw2x0u9t9Ry2wndaLRXZVTO4YZNVjxwPw/iTSPK0?=
- =?us-ascii?Q?5j36YM/2OkGGJC0UsYt9vD8sRIOAeNIAAEywH/tyKYK26DJ1/VpQ4GMj/ZLe?=
- =?us-ascii?Q?jAdGfAHIB2hRm5D22/iwT4rWcjS4ZviGKnw2HSH+ejN0hVuY2dzVAhRqBK0u?=
- =?us-ascii?Q?LXrEIEc26oeBrDvK3Wnn+XkGUVyDSSeh6ePd7abSvKJZ2/1xS/gAC2NOadKB?=
- =?us-ascii?Q?pEOvI67MUAVUZ7bpr4VDjQKi1VHGqcVZ/gaRZJeusaAxxEoxhY4C2jahFoFN?=
- =?us-ascii?Q?T63hxk82GtFZeVBTGDQjY/gbNn2jdZmGAw2Nn3xg1j4wR79yltpgFEWT+hIO?=
- =?us-ascii?Q?oygNt01+fYnQzWLekzX2CVqU6SakHJZX71BChODbu0MF/EX+oacNCWrJJX6f?=
- =?us-ascii?Q?IM7PQK94Okh3U+OF1cS8KKPORqcjqYizYv7t3Y7nerwKmAap8hEB7EuUgZYB?=
- =?us-ascii?Q?wyvf5ZCnk+QxCTjjqWZCKk749O5jAl/JxNsl8enNdi7RRivHOmT8m8ErcKOd?=
- =?us-ascii?Q?OBjhkhTiBZLE18Xs75Ha8IEdj+R+OconhX6sd1dKd3JIfbFKoDLntWJFn4N1?=
- =?us-ascii?Q?zjNGqKhc3FqezKaGgB3qvTqIVgjz3k4g9r1eyQzYdNNJcExpztSmvH8JNxxx?=
- =?us-ascii?Q?whT4zs5DAa3tNZgLMuewUMqXmJGdrCiB4zlEnSvokzyEFm0DNoInNPtp3EVH?=
- =?us-ascii?Q?9juU9l9H3Ni/wcblyaFT1g2MR04TCVR9xPYpjg+xq7UwFFNkfo2dOzwNa+pw?=
- =?us-ascii?Q?UgdQ0ZCSd0SFzLOC9IbLrN0DNf4NdQwBdNST+6e+geZU07wdWU67yhTLoOP6?=
- =?us-ascii?Q?Gy01O+2cxIg45A2YkyEt7xqGRbl97niRz/OmHjjAdYGu1ItDM5CpJJ4ywIR4?=
- =?us-ascii?Q?ninBnMiUXL7I3gpT6EIRkI9EJ0DrAnzkZ1MQrVIlkQqVagYc8mZ9V0cMhIJJ?=
- =?us-ascii?Q?SgT+ovqt6MPXBLC+yx5bmmiDjOsoHoTh+mmkpA2iCrKfctJoEhzMa/UYXi7M?=
- =?us-ascii?Q?QeKsl2tyjBLL8UvjppJCJAHYDne9xXA7KwuXhi1OijHYbZPwaD3vLXrovK6q?=
- =?us-ascii?Q?iu7pPlHJ3QMfUS+K4mQumMKVMSCBDfs91yJvxagRWAvZCGPi1pCi7NlaUO77?=
- =?us-ascii?Q?ftJQrKI61wu+DdSInSIF1zawcBqAfLsT3dK4uFK11we/slhYjo9ZnowOTS94?=
- =?us-ascii?Q?5+FXPdwFof98Q369jCSU8I7LMHc7f+TqQhIkwRqoaKaP4089JQ8fzLhbGVVI?=
- =?us-ascii?Q?wjwi3w5ezuOEX+T/ASoG7f78q+xqDIsUdlEqtZch00k+ltGMwh+YaWEk8OZv?=
- =?us-ascii?Q?L+qkzNHFx3eq7CI/D69GGmnY9SwCRi7NIh/ju2ltnG/yyBwWTEqpiI9xQbKM?=
- =?us-ascii?Q?OEr9wNJGSHuV9JFscjxx2lOuVbsAYt047lnknOdyJ5vqihOAofysFB10U9T6?=
- =?us-ascii?Q?DmVBKltGzwPqGYvXZ/PTfeJqx6nphrgdStXjgSiVU4CSD2OZO6uQ2uPPQiQs?=
- =?us-ascii?Q?aR1S58hBqWwb+bL2M6z4HDOqBNsEeZNWrb4Yy1ZRKShg56iyjjcuILV5Ea63?=
- =?us-ascii?Q?2t4291uzl2Bna1Fh1TwxkbfT8fr6CNL5RJI57K2k/HI7EbcdqvfzPIcAdVR+?=
- =?us-ascii?Q?OFSnkbUrSqPgu9COTuPkHWjFAEO93pWjt8tp5TLBxFpeHhp/V454RmesXeKG?=
- =?us-ascii?Q?Vvm4g7s2EX3i2566G8DjY4Ca3Y3lyoFEI6w/urFxq5rXnWpdPvtc4z2d+26/?=
- =?us-ascii?Q?j+VfB6lH1w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: kll1kgt3Iec3luDazCYnmKsJec9oWyV5YW9oaFVyNTeXUaQqi8zAeRgfXhHdwMggUEeYbFZ3KkDKQE/h90s0VQRBCCkpUXFeqzoGpTb6EO7Q1Iw7WdKFBeM4w647osSdG/RSFgbjOtHv1mK+cX9TNHGiCTA3q/zJVSbA67HEbqVxXKseUPV45kMf6a/LmRW6SwIfJ0M2ZdQvy8ZQi/6RxIQU5zaVoYEC0347yI2VrRJObqPUo2428KKnOa2Oy5MCJLZhnPos5yGKPf0iV4QFrDwcLSfL4BLSG8tDWF7+/waEcvrZ8D1B6RkOmSgskd91m8UM+ohbAOpxm1SuloAZ4Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34ea2d73-85a4-4145-91b1-08df29273d84
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 12:41:02.4862 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5H6WCMn8SYLSNIWLpigqtiY97KehPM0K1rn9l1411+iR03dwvjOWTvp3TSI0ZAG7A7lHw7GmBJpte83AxvfNSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB6662
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,82 +99,464 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026 at 03:31:01PM +0300, Kahola, Mika wrote:
-> > -----Original Message-----
-> > From: Deak, Imre <imre.deak@intel.com>
-> > Sent: Monday, 12 October 2026 20.06
-> > To: Kahola, Mika <mika.kahola@intel.com>
-> > Cc: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
-> > Subject: Re: [PATCH 2/5] drm/i915/dpll: apply the PLL power save W/A to port A only
-> > 
-> > On Fri, Oct 09, 2026 at 10:35:48AM +0000, Mika Kahola wrote:
-> > > W/A 14022081154 applies to port A,
-> > 
-> > Where is the above described? I only found that the WA is C10 PHY
-> > specific and can't see how the port/PHY A/B being used would matter. It
-> > seems more logical that the WA is needed whenever a C10 PHY is used, in
-> > which case it's being correctly applied in the WCL's C10 port/PHY B case
-> > atm.
-> 
-> The BSpec: 74151 
-> 
-> The title of the workaround only talks about phy on port A that needs
-> this additional programming.
+pci=resource_alignment argument can override the default alignment for
+the resource. The remainder code introduced in the commit 9036bd0efcb6
+("PCI: Align head space better") can move remainder space (non-aligning
+part of the size) before the aligning left edge which results in
+violating the requested alignment.
 
-I think that LNL workaround wording only means that the workaround is to
-be applied on the C10 PHY, which on LNL can be only on port A. There is
-no PHY connected to port B or any other port on LNL.
+Introduce struct pci_resreq_data to hold device and user-given alignment
+to be able to honor it in pci_align_resource(). When user-given alignment
+is found, any remainder movement is skipped.
 
-> Hence, I think even with the WCL case we should limit this to port A.
+Fixes: 9036bd0efcb6 ("PCI: Align head space better")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/linux-pci/20260923133202.07DF61F000FF@smtp.kernel.org/
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
 
-I think the workaround should be applied on C10 PHYs always even if the
-PHY is connected to port B (or any other port if that would be
-possible).
+IMO, PPC rigging the user alignment override to enforce arch specific
+min alignment is mixing things wrongly. It would be more appropriate
+to do arch alignment overrides by overriding pci_resource_alignment().
 
-> Thanks!
-> Mika 
-> 
-> > 
-> > > but intel_encoder_is_c10phy() also matches PHY B on WCL, so the W/A
-> > > ran on port B there. Filter on PHY_A.
-> > >
-> > > On PTL nothing changes, intel_encoder_is_c10phy() already matched port
-> > > A only. MTL and LNL are not affected either, the W/A is for PTL+.
-> > >
-> > > Assisted-by: Copilot:claude-opus-5
-> > > Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 6 ++++--
-> > >  1 file changed, 4 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> > > index e899b2eb0871..164fe7104545 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> > > @@ -5226,8 +5226,7 @@ static void sanitize_dpll_state(struct intel_display *display,
-> > >   * The dedicated display PHYs reset to a power state that blocks S0ix, increasing idle
-> > >   * system power. After a system reset (cold boot, S3/4/5, warm reset) if a dedicated
-> > >   * PHY is not being brought up shortly, use these steps to move the PHY to the lowest
-> > > - * power state to save power. For PTL the workaround is needed only for port A. Port B
-> > > - * is not connected.
-> > > + * power state to save power. The workaround is needed only for port A.
-> > >   *
-> > >   * 1. Follow the PLL Enable Sequence, using any valid frequency such as DP 1.62 GHz.
-> > >   *    This brings lanes out of reset and enables the PLL to allow powerdown to be moved
-> > > @@ -5245,6 +5244,9 @@ void intel_dpll_power_save_wa(struct intel_display *display)
-> > >  		if (!intel_encoder_is_dig_port(encoder))
-> > >  			continue;
-> > >
-> > > +		if (intel_encoder_to_phy(encoder) != PHY_A)
-> > > +			continue;
-> > > +
-> > >  		intel_cx0_pll_power_save_wa(encoder);
-> > >  	}
-> > >  }
-> > > --
-> > > 2.43.0
-> > >
+Jani Nikula <jani.nikula@intel.com> did ack this with a condition that
+there is a proper review done by somebody else so I've not yet included
+his tag.
+
+---
+ arch/alpha/kernel/pci.c          |  3 ++-
+ arch/arm/kernel/bios32.c         |  5 +++--
+ arch/m68k/kernel/pcibios.c       |  4 ++--
+ arch/mips/pci/pci-generic.c      |  5 +++--
+ arch/mips/pci/pci-legacy.c       |  5 +++--
+ arch/parisc/kernel/pci.c         |  5 +++--
+ arch/powerpc/kernel/pci-common.c |  5 +++--
+ arch/sh/drivers/pci/pci.c        |  5 +++--
+ arch/x86/pci/i386.c              |  5 +++--
+ arch/xtensa/kernel/pci.c         |  5 +++--
+ drivers/char/agp/intel-gtt.c     |  5 ++++-
+ drivers/gpu/drm/i915/i915_gmch.c |  5 +++--
+ drivers/pci/pci.c                |  5 +++--
+ drivers/pci/setup-res.c          | 19 +++++++++++++------
+ include/linux/pci.h              | 32 ++++++++++++++++++++++++++++++--
+ 15 files changed, 81 insertions(+), 32 deletions(-)
+
+diff --git a/arch/alpha/kernel/pci.c b/arch/alpha/kernel/pci.c
+index 11df411b1d18..c5d725a9781f 100644
+--- a/arch/alpha/kernel/pci.c
++++ b/arch/alpha/kernel/pci.c
+@@ -128,7 +128,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_controller *hose = dev->sysdata;
+ 	unsigned long alignto;
+ 	resource_size_t start = res->start;
+diff --git a/arch/arm/kernel/bios32.c b/arch/arm/kernel/bios32.c
+index ac0e890510da..3e61826f07fb 100644
+--- a/arch/arm/kernel/bios32.c
++++ b/arch/arm/kernel/bios32.c
+@@ -564,7 +564,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 	struct pci_host_bridge *host_bridge;
+ 
+@@ -578,7 +579,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				start, size, align);
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/m68k/kernel/pcibios.c b/arch/m68k/kernel/pcibios.c
+index 7a9e60df79c5..3024408412bc 100644
+--- a/arch/m68k/kernel/pcibios.c
++++ b/arch/m68k/kernel/pcibios.c
+@@ -31,14 +31,14 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
+ 	resource_size_t start = res->start;
+ 
+ 	if ((res->flags & IORESOURCE_IO) && (start & 0x300))
+ 		start = (start + 0x3ff) & ~0x3ff;
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/mips/pci/pci-generic.c b/arch/mips/pci/pci-generic.c
+index c2e23d0c1d77..7f3ecb91b85b 100644
+--- a/arch/mips/pci/pci-generic.c
++++ b/arch/mips/pci/pci-generic.c
+@@ -25,7 +25,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       const struct resource *empty_res,
+ 				       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 	struct pci_host_bridge *host_bridge;
+ 
+@@ -39,7 +40,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				start, size, align);
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/mips/pci/pci-legacy.c b/arch/mips/pci/pci-legacy.c
+index dae6dafdd6e0..82d4b01db64e 100644
+--- a/arch/mips/pci/pci-legacy.c
++++ b/arch/mips/pci/pci-legacy.c
+@@ -55,7 +55,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_controller *hose = dev->sysdata;
+ 	resource_size_t start = res->start;
+ 
+@@ -70,7 +71,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 		/* Make sure we start at our min on all hoses */
+ 		if (start < PCIBIOS_MIN_MEM + hose->mem_resource->start)
+diff --git a/arch/parisc/kernel/pci.c b/arch/parisc/kernel/pci.c
+index 96950fe9c2b7..36a3a439f609 100644
+--- a/arch/parisc/kernel/pci.c
++++ b/arch/parisc/kernel/pci.c
+@@ -193,7 +193,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t alignment)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t align, start = res->start;
+ 
+ 	pci_dbg(dev, "%pR: pcibios_align_resource(%lx, 0x%llx, 0x%llx)\n",
+@@ -205,7 +206,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 	if (align > alignment)
+ 		start = ALIGN(start, align);
+ 	else
+-		start = pci_align_resource(dev, res, empty_res, size, alignment);
++		start = pci_align_resource(rr, res, empty_res, size, alignment);
+ 
+ 	return start;
+ }
+diff --git a/arch/powerpc/kernel/pci-common.c b/arch/powerpc/kernel/pci-common.c
+index 4fc52c21fe5d..23594759cfe2 100644
+--- a/arch/powerpc/kernel/pci-common.c
++++ b/arch/powerpc/kernel/pci-common.c
+@@ -1131,7 +1131,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -1140,7 +1141,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/arch/sh/drivers/pci/pci.c b/arch/sh/drivers/pci/pci.c
+index 878a27a1acfb..279f2770ff4b 100644
+--- a/arch/sh/drivers/pci/pci.c
++++ b/arch/sh/drivers/pci/pci.c
+@@ -172,7 +172,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_channel *hose = dev->sysdata;
+ 	resource_size_t start = res->start;
+ 
+@@ -186,7 +187,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/arch/x86/pci/i386.c b/arch/x86/pci/i386.c
+index e2de26b82940..4178ae4380c2 100644
+--- a/arch/x86/pci/i386.c
++++ b/arch/x86/pci/i386.c
+@@ -156,7 +156,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -165,7 +166,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 		/* The low 1MB range is reserved for ISA cards */
+ 		if (start < BIOS_END)
+diff --git a/arch/xtensa/kernel/pci.c b/arch/xtensa/kernel/pci.c
+index 305031551136..4e8ad4a3c9fe 100644
+--- a/arch/xtensa/kernel/pci.c
++++ b/arch/xtensa/kernel/pci.c
+@@ -42,7 +42,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -55,7 +56,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/drivers/char/agp/intel-gtt.c b/drivers/char/agp/intel-gtt.c
+index bcc26785175d..2214347906a6 100644
+--- a/drivers/char/agp/intel-gtt.c
++++ b/drivers/char/agp/intel-gtt.c
+@@ -1038,10 +1038,13 @@ static struct agp_memory *intel_fake_agp_alloc_by_type(size_t pg_count,
+ 
+ static int intel_alloc_chipset_flush_resource(void)
+ {
++	struct pci_resreq_data rr;
+ 	int ret;
++
++	pci_init_pci_resreq_data(&rr, intel_private.bridge_dev);
+ 	ret = pci_bus_alloc_resource(intel_private.bridge_dev->bus, &intel_private.ifp_resource, PAGE_SIZE,
+ 				     PAGE_SIZE, PCIBIOS_MIN_MEM, 0,
+-				     pcibios_align_resource, intel_private.bridge_dev);
++				     pcibios_align_resource, &rr);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_gmch.c b/drivers/gpu/drm/i915/i915_gmch.c
+index b0ef6ef577a3..d35097bebc0f 100644
+--- a/drivers/gpu/drm/i915/i915_gmch.c
++++ b/drivers/gpu/drm/i915/i915_gmch.c
+@@ -38,6 +38,7 @@ static int mchbar_reg(struct drm_i915_private *i915)
+ static int
+ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
+ {
++	struct pci_resreq_data rr;
+ 	u32 temp_lo, temp_hi = 0;
+ 	u64 mchbar_addr;
+ 	int ret;
+@@ -55,12 +56,12 @@ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
+ 	/* Get some space for it */
+ 	i915->gmch.mch_res.name = "i915 MCHBAR";
+ 	i915->gmch.mch_res.flags = IORESOURCE_MEM;
++	pci_init_pci_resreq_data(&rr, i915->gmch.pdev);
+ 	ret = pci_bus_alloc_resource(i915->gmch.pdev->bus,
+ 				     &i915->gmch.mch_res,
+ 				     MCHBAR_SIZE, MCHBAR_SIZE,
+ 				     PCIBIOS_MIN_MEM,
+-				     0, pcibios_align_resource,
+-				     i915->gmch.pdev);
++				     0, pcibios_align_resource, &rr);
+ 	if (ret) {
+ 		drm_dbg(&i915->drm, "failed bus alloc: %d\n", ret);
+ 		i915->gmch.mch_res.start = 0;
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..1b7a4469c6ca 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -6444,8 +6444,8 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
+  * RETURNS: Resource alignment if it is specified.
+  *          Zero if it is not specified.
+  */
+-static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+-							bool *resize)
++resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
++						 bool *resize)
+ {
+ 	int align_order, count;
+ 	resource_size_t align = pcibios_default_alignment();
+@@ -6497,6 +6497,7 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+ 	spin_unlock(&resource_alignment_lock);
+ 	return align;
+ }
++EXPORT_SYMBOL_GPL(pci_specified_resource_alignment);
+ 
+ static void pci_request_resource_alignment(struct pci_dev *dev, int bar,
+ 					   resource_size_t align, bool resize)
+diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+index 376f09630a4a..441a62807719 100644
+--- a/drivers/pci/setup-res.c
++++ b/drivers/pci/setup-res.c
+@@ -265,17 +265,21 @@ resource_size_t pci_resource_alignment(const struct pci_dev *dev,
+  * before res->start if there's enough free space there. This enables
+  * tighter packing for resources.
+  */
+-resource_size_t pci_align_resource(struct pci_dev *dev,
++resource_size_t pci_align_resource(struct pci_resreq_data *rr,
+ 				   const struct resource *res,
+ 				   const struct resource *empty_res,
+ 				   resource_size_t size,
+ 				   resource_size_t align)
+ {
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t remainder, start_addr;
+ 
+ 	if (!(res->flags & IORESOURCE_MEM))
+ 		return res->start;
+ 
++	if (rr->user_align)
++		return res->start;
++
+ 	if (IS_ALIGNED(size, align))
+ 		return res->start;
+ 
+@@ -306,18 +310,21 @@ resource_size_t __weak pcibios_align_resource(void *data,
+ 					      resource_size_t size,
+ 					      resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
+ 
+-	return pci_align_resource(dev, res, empty_res, size, align);
++	return pci_align_resource(rr, res, empty_res, size, align);
+ }
+ 
+ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 		int resno, resource_size_t size, resource_size_t align)
+ {
+ 	struct resource *res = pci_resource_n(dev, resno);
++	struct pci_resreq_data rr;
+ 	resource_size_t min;
+ 	int ret;
+ 
++	pci_init_pci_resreq_data(&rr, dev);
++
+ 	min = (res->flags & IORESOURCE_IO) ? PCIBIOS_MIN_IO : PCIBIOS_MIN_MEM;
+ 
+ 	/*
+@@ -329,7 +336,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	 */
+ 	ret = pci_bus_alloc_resource(bus, res, size, align, min,
+ 				     IORESOURCE_PREFETCH | IORESOURCE_MEM_64,
+-				     pcibios_align_resource, dev);
++				     pcibios_align_resource, &rr);
+ 	if (ret == 0)
+ 		return 0;
+ 
+@@ -341,7 +348,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	     (IORESOURCE_PREFETCH | IORESOURCE_MEM_64)) {
+ 		ret = pci_bus_alloc_resource(bus, res, size, align, min,
+ 					     IORESOURCE_PREFETCH,
+-					     pcibios_align_resource, dev);
++					     pcibios_align_resource, &rr);
+ 		if (ret == 0)
+ 			return 0;
+ 	}
+@@ -354,7 +361,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	 */
+ 	if (res->flags & (IORESOURCE_PREFETCH | IORESOURCE_MEM_64))
+ 		ret = pci_bus_alloc_resource(bus, res, size, align, min, 0,
+-					     pcibios_align_resource, dev);
++					     pcibios_align_resource, &rr);
+ 
+ 	return ret;
+ }
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index d31a8d107b1e..ea7d75871269 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1217,12 +1217,40 @@ int __must_check pcibios_enable_device(struct pci_dev *, int mask);
+ /* Architecture-specific versions may override this (weak) */
+ char *pcibios_setup(char *str);
+ 
+-/* Used only when drivers/pci/setup.c is used */
++/* Resource assignment request handling */
++/**
++ * struct pci_resreq_data - Data passed to pcibios_align_resource()
++ * @dev: PCI device
++ * @user_align: User provided alignment override (pci=resource_alignment param)
++ */
++struct pci_resreq_data {
++	struct pci_dev *dev;
++	resource_size_t user_align;
++};
++
++resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
++						 bool *resize);
++/*
++ * TODO: Improve PCI resource assignment interface so that callers outside PCI
++ * core do not need to know about this detail.
++ */
++static inline void pci_init_pci_resreq_data(struct pci_resreq_data *rr,
++					    struct pci_dev *dev)
++{
++	bool user_aligned;
++
++	memset(rr, 0, sizeof(*rr));
++	rr->dev = dev;
++	rr->user_align = pci_specified_resource_alignment(dev, &user_aligned);
++	if (!user_aligned)
++		rr->user_align = 0;
++}
++
+ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       const struct resource *empty_res,
+ 				       resource_size_t size,
+ 				       resource_size_t align);
+-resource_size_t pci_align_resource(struct pci_dev *dev,
++resource_size_t pci_align_resource(struct pci_resreq_data *rr,
+ 				   const struct resource *res,
+ 				   const struct resource *empty_res,
+ 				   resource_size_t size,
+-- 
+2.47.3
+
