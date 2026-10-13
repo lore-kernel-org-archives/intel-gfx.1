@@ -4,57 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89288CC6B2D
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 13:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF734CC6B2A
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 13:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B349510E631;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63E6810F558;
 	Wed, 14 Oct 2026 13:44:29 +0000 (UTC)
-X-Greylist: delayed 360 seconds by postgrey-1.36 at gabe;
- Tue, 13 Oct 2026 12:08:24 UTC
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63A5910F7C6
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 12:08:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1791892949;
- bh=U/+44aFm82lOehtBhiUwBP7f3FJAaVghj1VqiT/9BO0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WcnltKix5mSq7CHBsfUeErV+lQhE0kzuk3XsCi3Wh/UGpm2t4xkc1UirarIP2amTO
- hbPkz8uVEmmvYrxJlw5PkFxiALmd4yqCUQL2o1um9VkwStFmk99dHs79D2rG3ewAcq
- pwB2EoAkcYAfUzSiwLUkZIY5IgF8btMzV01Gj/gMGr7JK3yDiC/4mNeUe/cRwWgNk4
- 54do3kZG+/Ou+mJ/5+2ATN6ft+mCkOH8NbldgT9E59cxI9dEenrlcneWBXzo32Clok
- uH3KvaJ/rx9HStgGCuQMVGFWK1Av+jGIWcgKEC7p9Bc9RDV8GpKLhsdcEaQpg5P5j2
- 2TwjP+nLyhMSQ==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tHm4SW6z4xgv;
- Tue, 13 Oct 2026 23:02:28 +1100 (AEDT)
-From: Matt Evans <matt@ozlabs.org>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
- Alex Williamson <alex@shazbot.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH v3 2/3] drm/i915/gvt: Read dmabuf->file only while valid
-Date: Tue, 13 Oct 2026 13:02:05 +0100
-Message-ID: <20261013120211.135807-3-matt@ozlabs.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013120211.135807-1-matt@ozlabs.org>
-References: <20261013120211.135807-1-matt@ozlabs.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 015BE10E0C6;
+ Tue, 13 Oct 2026 15:16:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id DCF69411B1;
+ Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BD253C2BCF4;
+ Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1791904572;
+ bh=mK+BqIvO4TiLfSQXIr9kIsyfliszEQqMsnDO8JqFKpE=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=ZmYLtZWtZWQro1+dcF7R4dsSMw0tWWGHSCycSn/fQoOLWgXsZ/VUVf8y01baNVmOG
+ eWaKxVonddQ1c7wg5pUy4lIcDziq3vjXlFlMiGQluUBQTkZgwm3K5NA2YPMBsod2Ke
+ F2soUz5wdYMY5YIVWf8SGQ1l11jdpbqAH/F9ro91ODhF56Cjsj4/FsWqIUtgM0zZRA
+ 1dGQiVCjS1m5jeD0butVT0jDJsrZiJBBEOsG52/fbZpFM+wqgVQKcGEwN7RPiNYiRE
+ 8gWfh7HhtN2viLkzPQ1BdlougJo+q3kwzMxz1Xv9oHC1HHN+2KuDi2H8DHmQTrZrLs
+ WganD5OVdW/DA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 90C98CC6B12;
+ Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
+From: Vladyslav Yamkovyi via B4 Relay <devnull+hex.aleph0.ai@kernel.org>
+Date: Tue, 13 Oct 2026 17:16:07 +0200
+Subject: [PATCH] drm/i915/psr: Send a frame change notification for async flips
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2MwQrCMBBEf6Xs2cUk0hb8FfGQpFsTwRh206KU/
+ ruJehreMPM2EOJIAuduA6Y1SnymCvrQgQ823QjjVBmMMoNW+oRzfGEWRivv5LGwTYJ5kYButkP
+ fKzMqP0K9Z6a6/aov1x/L4u7kS/O1hbNC6KrBh1ZN/MAS8/GfsO8fv7BJdJ4AAAA=
+X-Change-ID: 20261013-fix-psr-async-trans-push-bfa6550270c7
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>, 
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Vladyslav Yamkovyi <hex@aleph0.ai>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904567; l=3338;
+ i=hex@aleph0.ai; s=20261013; h=from:subject:message-id;
+ bh=6OzSRSOPWRw5dMbojgR3kH8JziugVnnnlVANwZ+FMbg=;
+ b=7JBBQ1l0eVLUQse6LiBcfstEJhvVF2lQK3NJy6s5xem1JCwHHrEd+peS8XqwjpYw5M9wbfkFM
+ 7VyRBgJ/a7iBgLXdBJP/CTV1qHiP4Ok2925QSZ6IpSAU6X35x3fOhuz
+X-Developer-Key: i=hex@aleph0.ai; a=ed25519;
+ pk=faUPQ+UBdMQ6ZcbVM9ytjGUZvrhV8mzf+ctgaoVsZy0=
+X-Endpoint-Received: by B4 Relay for hex@aleph0.ai/20261013 with auth_id=1170
+X-Original-From: Vladyslav Yamkovyi <hex@aleph0.ai>
 X-Mailman-Approved-At: Wed, 14 Oct 2026 13:44:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,58 +74,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: hex@aleph0.ai
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-dentry_ops"), dmabuf->file can close prior to the .release callback
-being invoked.
+From: Vladyslav Yamkovyi <hex@aleph0.ai>
 
-intel_vgpu_get_dmabuf() exports the dmabuf, then dma_buf_fd()
-effectively transfers its file's reference to the fd.  A debug print
-dereferences dmabuf->file after the dma_buf_fd(); however, the fd
-could be closed by another thread, making dmabuf->file stale.
+On platforms using TRANS_PUSH for PSR frame-change notifications,
+intel_pipe_update_end() exits early for asynchronous flips, before sending
+the push. The register-based notification is disabled on these platforms,
+and an ORIGIN_FLIP frontbuffer flush does not force PSR to exit.
 
-Read file_count() while the reference to dmabuf->file is still held,
-for later debug printing.
+This can leave an accepted async flip without a completion event after
+PSR2 enters DEEP_SLEEP. On Panther Lake, scanout freezes and the kernel
+reports "[CRTC:152:pipe A] flip_done timed out". Intel IGT kms_async_flips
+reproduces the failure with the compositor inactive when a 200 ms idle
+interval is inserted before an asynchronous atomic flip.
 
+Send the PSR frame-change notification after plane programming and before
+releasing the existing PSR lock. Restrict the push to CRTC states that use
+TRANS_PUSH for PSR, leaving other async flips and the synchronous and DSB
+paths unchanged.
+
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9582
+Fixes: 129a4da11707 ("drm/i915/psr: Use TRANS_PUSH to trigger frame change event")
 Cc: stable@vger.kernel.org
-Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-Signed-off-by: Matt Evans <matt@ozlabs.org>
+Assisted-by: LLM sparse smatch
+Signed-off-by: Vladyslav Yamkovyi <hex@aleph0.ai>
 ---
- drivers/gpu/drm/i915/gvt/dmabuf.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Based on drm-tip (2026-10-13); also applies to v7.3-rc7.
 
-diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
-index 8a1d6c5636c2..b6f50f2b912d 100644
---- a/drivers/gpu/drm/i915/gvt/dmabuf.c
-+++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
-@@ -503,6 +503,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
- 	struct drm_device *dev = &vgpu->gvt->gt->i915->drm;
- 	struct intel_vgpu_dmabuf_obj *dmabuf_obj;
- 	struct drm_i915_gem_object *obj;
-+	unsigned long db_fcount;
- 	struct dma_buf *dmabuf;
- 	int dmabuf_fd;
- 	int ret = 0;
-@@ -531,6 +532,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
- 		ret = PTR_ERR(dmabuf);
- 		goto out_free_gem;
- 	}
-+	db_fcount = file_count(dmabuf->file);
+Runtime-tested on Panther Lake (xe, eDP-1, 2880x1800) with Ubuntu-based
+7.3.0-rc6 kernels, before and after this fix. IGT kms_async_flips,
+async-flip-with-page-flip-events-tiled-atomic, dynamic subtest
+pipe-A-eDP-1-4-rc-ccs, fails with Flip Timeout before the fix and passes
+afterwards. An LD_PRELOAD interposer inserts one 200 ms idle interval
+before the eighth async atomic commit without changing its request or
+flags. Both runs enter PSR2 Early Transport DEEP_SLEEP with selective
+fetch enabled before that commit.
+
+Clang 23.1.2, W=1 builds and Sparse/Smatch checks of the CRTC, PSR and VRR
+translation units for i915 and Xe produced no new diagnostics.
+
+OpenAI Codex (GPT-6-Astra) assisted diagnosis, reproducer and fix
+development, validation and patch preparation, following requests to
+reproduce the freeze independently, trace its driver cause and prepare a
+tested upstream fix. I take direct responsibility for this contribution,
+have carefully reviewed the change and ensured rigorous local testing.
+---
+ drivers/gpu/drm/i915/display/intel_crtc.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 10ed9bdfee76..8ef24cddbaa6 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -736,8 +736,16 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
  
- 	ret = dma_buf_fd(dmabuf, DRM_CLOEXEC | DRM_RDWR);
- 	if (ret < 0) {
-@@ -552,8 +554,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
- 		    "        file count: %ld, GEM ref: %d\n",
- 		    vgpu->id, dmabuf_obj->dmabuf_id,
- 		    kref_read(&dmabuf_obj->kref),
--		    dmabuf_fd,
--		    file_count(dmabuf->file),
-+		    dmabuf_fd, db_fcount,
- 		    kref_read(&obj->base.refcount));
+ 	drm_WARN_ON(display->drm, new_crtc_state->use_dsb);
  
- 	i915_gem_object_put(obj);
--- 
-2.47.3
+-	if (new_crtc_state->do_async_flip)
++	if (new_crtc_state->do_async_flip) {
++		/*
++		 * LNL+ uses TRANS_PUSH for PSR frame-change notifications.
++		 * Async flips skip the vblank path below, but still need to
++		 * notify PSR after programming the new surface address.
++		 */
++		if (intel_psr_use_trans_push(new_crtc_state))
++			intel_vrr_send_push(NULL, new_crtc_state);
+ 		goto out;
++	}
+ 
+ 	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
+ 
+
+---
+base-commit: eb1bf4700d3b25a1a1e670ef31cc06969fa08019
+change-id: 20261013-fix-psr-async-trans-push-bfa6550270c7
+
 
