@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF3D0CC6B27
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 08:00:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 349B2CC6B27
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 08:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4910F10FBCE;
-	Wed, 14 Oct 2026 08:00:09 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FDF410FBC2;
- Wed, 14 Oct 2026 08:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B53A810FBEF;
+	Wed, 14 Oct 2026 08:17:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD25510FBEF;
+ Wed, 14 Oct 2026 08:17:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791964802; x=1823500802;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=cPt41m+Rt5fgEeKAEmT+n2EtLjuhFgdJ3Di5ONmyxcw=;
- b=nqTXmc6jLZsSjxTASGhUWlRogS8zyC7KcfUcNbmnA8chRt4HbVIKoHLt
- kDyuKso7y2+BbJRLvhWgMIg0ANzRTGEISK+PtZ4CttP7YwZiJoIDiNlAl
- LVAGnY7p3pnKUudQH1A0QBy+P32bW9N+utPtGHeG7aA+mqrr/bpTLTXlb
- 5Q4hxP7hyMJL8MPjQ6sCL6B9sXyAoa7/fjm9JOFjDbGBfdTTJ8GCXUCiL
- gFZjx6y8634pkzGWLi9+6AmGo2/VjDxDALhAuah8F4584xxa9VglOebsL
- bIKuiPHAu7FQYFYuaP/sGUrCGE4KJHa+ApKV4dQtWaclTNsnZT01QkUDb w==;
-X-CSE-ConnectionGUID: Y1t6KdjcT4WjykzaFZ9Mbg==
-X-CSE-MsgGUID: Bnf03di4QryrYbM50zREQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="706523"
+ t=1791965827; x=1823501827;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=IhJ/XA9BS8b/F4VkAfBryr0zzYa4M6J+aQ0MEbY5cJw=;
+ b=jkUdauFXfWUs2AuSvP8zRFHrXAabbjqsza65r2qTrQb8IF4pludOzPMo
+ nzebX88hssUG7ejCnvmbpJL/xOT6utGup3NwA2zcnDPayj6rrB7z/ZJe8
+ rdrZEibu+ubO9wLylYnuKZTGTO3kQo2cHCtuGjeow1154nLPEFMjoIfJf
+ BbLBY725yHKn5/wfMIDJEZ9AJ5BiRex/Q62nNOQFRCJq4vi0e++w/Nsy4
+ fhgMgdYy/6OLUHz+utISNcimt6PojspYsYodTHsHyCgqluikRm73aeQdN
+ Wg5Fjbc4cBSCyFl5kVG+PJK1NxrdFyNsHdbHO9L1NkprA1INx6ZoVj1U0 A==;
+X-CSE-ConnectionGUID: 61y6sjGBRU2rL3UXiS2klA==
+X-CSE-MsgGUID: YDDyCtrERRaMpoFt3fKPCg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="584069"
 X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="706523"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2026 01:00:02 -0700
-X-CSE-ConnectionGUID: hyIjvgE6QWyErtjTbmJycA==
-X-CSE-MsgGUID: H0aFAjRiTL6cqH0FeNMtCA==
+   d="scan'208";a="584069"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2026 01:17:07 -0700
+X-CSE-ConnectionGUID: ysAE8+GIQh+TngSABg4hXA==
+X-CSE-MsgGUID: PMnoT73FTRSO4lovkGDGNw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1716910"
-Received: from rgsanthosh-system-product-name.iind.intel.com ([10.190.238.65])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2026 01:00:00 -0700
-From: Naladala Ramanaidu <ramanaidu.naladala@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, jani.nikula@intel.com,
- Naladala Ramanaidu <ramanaidu.naladala@intel.com>
-Subject: [PATCH v5 1/1] drm/i915/gmbus: Add bit-banging debugfs control
-Date: Wed, 14 Oct 2026 13:29:55 +0530
-Message-ID: <20261014075956.2104356-2-ramanaidu.naladala@intel.com>
+   d="scan'208";a="1331687"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by orviesa001.jf.intel.com with ESMTP; 14 Oct 2026 01:17:04 -0700
+From: Xiao Lu <xiaolu.xie@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com,
+ imre.deak@intel.com, jani.nikula@linux.intel.com, lyude@redhat.com,
+ Xiao Lu <xiaolu.xie@intel.com>
+Subject: [PATCH] drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS
+ off/on
+Date: Wed, 14 Oct 2026 16:14:48 +0800
+Message-ID: <20261014081448.2320363-1-xiaolu.xie@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014075956.2104356-1-ramanaidu.naladala@intel.com>
-References: <20261014075956.2104356-1-ramanaidu.naladala@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,184 +67,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a connector debugfs interface to enable or disable I2C
-bit-banging for Intel GMBUS adapters.
+When the last MST stream is disabled, i915 sends SET_POWER D3 to the
+MST trunk while MSTM_CTRL (DPCD 0x111) still has MST mode enabled.
+On re-enable, POWER_UP_PHY is sent before MSTM_CTRL is restored, so
+the hub may process the PHY power-up in an inconsistent state and
+fail to retrain its downstream links.
 
-v1: Address below review comments: (Jani Nikula)
-    - Remove HDMI-specific EDID read path changes.
-    - Control bit-banging directly from debugfs via intel_gmbus_force_bit()
+Fix this by clearing MSTM_CTRL before sending D3 on the last stream
+disable, mirroring what drm_dp_mst_topology_mgr_set_mst() does on
+MST disconnect. On re-enable, restore MSTM_CTRL after writing D0 and
+before sending POWER_UP_PHY, so the hub is back in MST mode when it
+processes the PHY power-up and retrains its downstream links.
 
-v2: Address below review comments: (Jani Nikula)
-    - Remove superfluous newline.
-    - Move debugfs bit-banging state from struct intel_connector to struct
-      intel_gmbus as debugfs_force_bit.
-    - Make intel_gmbus_is_adapter() static.
-    - Fold NULL adapter check into intel_gmbus_is_adapter().
-    - Remove unused intel_gmbus_is_adapter() declaration from header.
-
-v3: Protect debugfs_force_bit and force_bit updates with
-    gmbus.mutex. (Ankit, sashiko)
-
-v4: Fix checkpatch issues and address review nitpicks. (Ankit)
-
-Signed-off-by: Naladala Ramanaidu <ramanaidu.naladala@intel.com>
+Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
 ---
- .../drm/i915/display/intel_display_debugfs.c  |  2 +
- drivers/gpu/drm/i915/display/intel_gmbus.c    | 86 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_gmbus.h    |  2 +
- 3 files changed, 90 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c    | 2 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 6 +++++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 3e302f23f247..b8fd65414990 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -40,6 +40,7 @@
- #include "intel_fb.h"
- #include "intel_fbc.h"
- #include "intel_fbdev.h"
-+#include "intel_gmbus.h"
- #include "intel_hdcp.h"
- #include "intel_hdmi.h"
- #include "intel_hotplug.h"
-@@ -1327,6 +1328,7 @@ void intel_connector_debugfs_add(struct intel_connector *connector)
- 	if (!root)
- 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index a46ab5d3d..7e4e18345 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3163,6 +3163,8 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
+ 	 * Power down sink before disabling the port, otherwise we end
+ 	 * up getting interrupts from the sink on detecting link loss.
+ 	 */
++	if (is_mst)
++		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_MSTM_CTRL, 0);
+ 	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
  
-+	intel_gmbus_connector_debugfs_add(connector);
- 	intel_drrs_connector_debugfs_add(connector);
- 	intel_hdcp_connector_debugfs_add(connector);
- 	intel_pps_connector_debugfs_add(connector);
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index b6c63a466233..d43c81d362e6 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -27,6 +27,7 @@
-  *	Chris Wilson <chris@chris-wilson.co.uk>
-  */
+ 	if (DISPLAY_VER(display) >= 12) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 7023619aa..4109bb928 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1270,8 +1270,12 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
+ 	drm_WARN_ON(display->drm, DISPLAY_VER(display) >= 12 && first_mst_stream &&
+ 		    !intel_dp_mst_is_master_trans(pipe_config));
  
-+#include <linux/debugfs.h>
- #include <linux/export.h>
- #include <linux/i2c-algo-bit.h>
- #include <linux/i2c.h>
-@@ -47,6 +48,7 @@ struct intel_gmbus {
- 	struct i2c_adapter adapter;
- #define GMBUS_FORCE_BIT_RETRY (1U << 31)
- 	u32 force_bit;
-+	bool debugfs_force_bit;
- 	u32 reg0;
- 	intel_reg_t gpio_reg;
- 	struct i2c_algo_bit_data bit_algo;
-@@ -889,6 +891,90 @@ static const struct i2c_algorithm gmbus_algorithm = {
- 	.functionality	= gmbus_func
- };
- 
-+static bool intel_gmbus_is_adapter(struct intel_connector *connector)
-+{
-+	struct i2c_adapter *adapter = connector->base.ddc;
-+
-+	return adapter && adapter->algo == &gmbus_algorithm;
-+}
-+
-+static int intel_force_bit_banging_show(struct seq_file *m, void *data)
-+{
-+	struct intel_connector *connector = m->private;
-+	struct intel_gmbus *bus = container_of(connector->base.ddc,
-+					       struct intel_gmbus, adapter);
-+	struct intel_display *display = bus->display;
-+	bool force_bit_banging;
-+
-+	mutex_lock(&display->gmbus.mutex);
-+	force_bit_banging = bus->debugfs_force_bit;
-+	mutex_unlock(&display->gmbus.mutex);
-+
-+	seq_printf(m, "%u\n", force_bit_banging);
-+
-+	return 0;
-+}
-+
-+static ssize_t intel_force_bit_banging_write(struct file *file,
-+					     const char __user *ubuf,
-+					     size_t len, loff_t *offp)
-+{
-+	struct seq_file *m = file->private_data;
-+	struct intel_connector *connector = m->private;
-+	struct intel_gmbus *bus = container_of(connector->base.ddc,
-+					       struct intel_gmbus, adapter);
-+	struct intel_display *display = bus->display;
-+	bool force_bit_banging;
-+	bool changed = false;
-+	u32 force_bit = 0;
-+	int ret;
-+
-+	ret = kstrtobool_from_user(ubuf, len, &force_bit_banging);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&display->gmbus.mutex);
-+	if (force_bit_banging != bus->debugfs_force_bit) {
-+		bus->force_bit += force_bit_banging ? 1 : -1;
-+		force_bit = bus->force_bit;
-+		bus->debugfs_force_bit = force_bit_banging;
-+		changed = true;
+-	if (first_mst_stream)
++	if (first_mst_stream) {
+ 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
++		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_MSTM_CTRL,
++				       DP_MST_EN | DP_UP_REQ_EN |
++				       DP_UPSTREAM_IS_SRC);
 +	}
-+	mutex_unlock(&display->gmbus.mutex);
-+
-+	if (changed)
-+		drm_dbg_kms(display->drm,
-+			    "%sabling bit-banging on %s. force bit now %d\n",
-+			    force_bit_banging ? "en" : "dis",
-+			    connector->base.ddc->name, force_bit);
-+
-+	*offp += len;
-+
-+	return len;
-+}
-+
-+static int intel_force_bit_banging_open(struct inode *inode, struct file *file)
-+{
-+	return single_open(file, intel_force_bit_banging_show, inode->i_private);
-+}
-+
-+static const struct file_operations intel_force_bit_banging_fops = {
-+	.owner = THIS_MODULE,
-+	.open = intel_force_bit_banging_open,
-+	.read = seq_read,
-+	.llseek = seq_lseek,
-+	.release = single_release,
-+	.write = intel_force_bit_banging_write,
-+};
-+
-+void intel_gmbus_connector_debugfs_add(struct intel_connector *connector)
-+{
-+	if (intel_gmbus_is_adapter(connector))
-+		debugfs_create_file("intel_force_bit_banging", 0644,
-+				    connector->base.debugfs_entry, connector,
-+				    &intel_force_bit_banging_fops);
-+}
-+
- static void gmbus_lock_bus(struct i2c_adapter *adapter,
- 			   unsigned int flags)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.h b/drivers/gpu/drm/i915/display/intel_gmbus.h
-index 5fdeab1aa794..5c03100ce46b 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.h
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.h
-@@ -9,6 +9,7 @@
- #include <linux/types.h>
  
- struct i2c_adapter;
-+struct intel_connector;
- struct intel_display;
+ 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, true);
  
- #define GMBUS_PIN_DISABLED	0
-@@ -41,6 +42,7 @@ int intel_gmbus_output_aksv(struct i2c_adapter *adapter);
- 
- struct i2c_adapter *
- intel_gmbus_get_adapter(struct intel_display *display, unsigned int pin);
-+void intel_gmbus_connector_debugfs_add(struct intel_connector *connector);
- void intel_gmbus_force_bit(struct i2c_adapter *adapter, bool force_bit);
- bool intel_gmbus_is_forced_bit(struct i2c_adapter *adapter);
- void intel_gmbus_reset(struct intel_display *display);
 -- 
 2.43.0
 
