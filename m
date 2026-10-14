@@ -4,55 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6703CC6B1A
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 13:44:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C70ACC6B1D
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 13:44:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6438C10FE1F;
-	Wed, 14 Oct 2026 13:44:33 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 686B610F7CA
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 12:08:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1791892953;
- bh=je66SPt1cPbB5eg6M1/B06Le5HrmnanotjmdERbZzFM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BEq+GqvZLUp5yqf4hWeZOOvukIwenXliv0ntHFLWbiVmchWSfj8x1yt4e5Sttz8XV
- WWPPnNOrrLYZuYABVdokwfRUGMKPxUE5VuQFVqFwT4MYAWn1Qqzr2QXcnY33/4rjfa
- rAV/S03hLROFzizKdky7FQi7BxZMb5hmiuJPec7Th9U6fO+hUR7eJ+/MPCHTCZdgiR
- vqwyYP3/XdFiXqTjtn3u43/at5HQuuhNv9+MvNToK1O5muHAo6N5qlDmby/yCtFuxk
- Ymsjz+uPz3cXqSSCYBcPoIOS9qd34zjXJE0my5KxyW64DUakQpMFkNEXnZKhXbVWPg
- r8pOg6sb0aN9g==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tHr3JFtz4xh0;
- Tue, 13 Oct 2026 23:02:32 +1100 (AEDT)
-From: Matt Evans <matt@ozlabs.org>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
- Alex Williamson <alex@shazbot.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
-Date: Tue, 13 Oct 2026 13:02:06 +0100
-Message-ID: <20261013120211.135807-4-matt@ozlabs.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013120211.135807-1-matt@ozlabs.org>
-References: <20261013120211.135807-1-matt@ozlabs.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B903910FE20;
+	Wed, 14 Oct 2026 13:44:34 +0000 (UTC)
+X-Greylist: delayed 1164 seconds by postgrey-1.36 at gabe;
+ Wed, 14 Oct 2026 10:14:47 UTC
+Received: from spark.kcore.it (spark.kcore.it [49.13.27.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1007110E371;
+ Wed, 14 Oct 2026 10:14:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kcore.it;
+ s=spark; h=References:In-Reply-To:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date;
+ bh=MGpHu0f14Q5TwLfq2LBRjQIPaF1PJLbbc1dVWU+dzmA=; b=iNIefWQf7xFRc0zmJwxJ8+qYN6
+ 6CkXohhpdC+Uy5pikF7FXbT6u4Fhu6gM6rGgCPSTo3FKXh7spNzdGHp3OFGYdhiwhsjQT8P7rDLOl
+ QgwL5wfR//J+6Ij6NTOanC2wiK5Ey6XlB0PN2Elfttar3JZP5PhM1RRC7YSje5G26b0c=;
+Received: from mnencia by spark.kcore.it with local (Exim 4.100.1)
+ (envelope-from <mnencia@kcore.it>) id 1xGvhf-00000000Jhp-0Hdn;
+ Wed, 14 Oct 2026 11:55:19 +0200
+Date: Wed, 14 Oct 2026 11:55:19 +0200
+From: Marco Nenciarini <mnencia@kcore.it>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com,
+ imre.deak@intel.com, jani.nikula@linux.intel.com, lyude@redhat.com,
+ xiaolu.xie@intel.com
+Subject: Re: [PATCH] drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS
+ off/on
+Message-ID: <as9Rh1Yt8Fkj6JpE@spark.kcore.it>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014081448.2320363-1-xiaolu.xie@intel.com>
+References: <20261014081448.2320363-1-xiaolu.xie@intel.com>
 X-Mailman-Approved-At: Wed, 14 Oct 2026 13:44:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,96 +54,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The dmabuf release path is split between file and dentry release:
-dma_buf_file_release() is called shortly before the file is freed, and
-dma_buf_release() calls an exporter's dmabuf->ops->release when the
-dentry is freed.  However, the dentry can outlive the file (for
-example, if opened with O_PATH), meaning .release might be called some
-time after the file is freed.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-This presents a window, when closing a DMABUF file, in which
-dmabuf->file points to freed memory yet .release op has not yet been
-called.
+Tested-by: Marco Nenciarini <mnencia@kcore.it>
 
-For VFIO, if a buffer's .release has not been called it's considered
-still active and subject to move/cleanup.  If so, it attempts to
-get_file_active() on dmabuf->file: a file close with dentry held open
-will call this function with a stale pointer, a UAF.
+Tested on a Dell Pro Max 16 (Arrow Lake-P) with Debian 7.2.6 and a Dell
+WD19DC dock (Synaptics VMM5331 MST hub, fw 05.07.08) with two monitors
+behind it, i915 driving the dock over TBT-alt.
 
-To make this pattern safe, set dmabuf->file to NULL in
-dma_buf_file_release() to reflect that the associated file is now dead
-even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-sequence concurrent with a file close then only executes as one of:
+Without the patch, a DPMS off of more than about 6 s leaves both
+monitors black on wake: the link status of the sink behind the hub goes
+from 0x77 to 0x00 and the hub does not retrain it. With the patch,
+30 s, 60 s and 120 s DPMS off all kept the link and both monitors came
+back. The log shows MSTM_CTRL cleared before D3 and restored after D0,
+before POWER_UP_PHY, as intended. Details are in
+drm/i915/kernel#16901.
+-----BEGIN PGP SIGNATURE-----
 
- - Gets the file before file_ref_put() (dmabuf->file valid)
- - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
- - Observes dmabuf->file = NULL (no file)
-
-Originally, drivers could assume dmabuf->file was valid until .release
-was called from fops->release.  This assumption was no longer valid
-after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-dentry_ops"), which moved the callback to the dentry release (by which
-point the file might have been freed).  With this commit, drivers must
-still consider that dmabuf->file could be NULL before .release.
-
-Cc: stable@vger.kernel.org
-Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-Signed-off-by: Matt Evans <matt@ozlabs.org>
----
- drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
- include/linux/dma-buf.h   |  5 ++++-
- 2 files changed, 22 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 4c9add51f9ef..61485fc28b8b 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
- 
- static int dma_buf_file_release(struct inode *inode, struct file *file)
- {
--	if (!is_dma_buf_file(file))
--		return -EINVAL;
-+	struct dma_buf *dmabuf = file->private_data;
-+
-+	if (!dmabuf)
-+		return 0;
- 
--	__dma_buf_list_del(file->private_data);
-+	__dma_buf_list_del(dmabuf);
- 
-+	/*
-+	 * As the file is being closed, dmabuf->file is no longer
-+	 * valid and NULL replaces an otherwise stale pointer.  If a
-+	 * reference to the file isn't already held, the file can be
-+	 * closed at any time, including before dmabuf->ops->release()
-+	 * happens: dmabuf->file _must not_ be accessed directly.  An
-+	 * exporter should use get_file_active(&dmabuf->file) which
-+	 * atomically tests and acquires a reference to the file (or
-+	 * returns NULL if the file has closed).  The barrier ensures
-+	 * get_file_active() observes the store before file_free()
-+	 * frees the memory.
-+	 */
-+	smp_store_mb(dmabuf->file, NULL);
- 	return 0;
- }
- 
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d15b2b31d3c9..a31eb0ab9ecf 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -303,7 +303,10 @@ struct dma_buf {
- 	 * @file:
- 	 *
- 	 * File pointer used for sharing buffers across, and for refcounting.
--	 * See dma_buf_get() and dma_buf_put().
-+	 * See dma_buf_get() and dma_buf_put().  When an exporter holds a
-+	 * common lock with the ->release() callback, it can use
-+	 * get_file_active(&dma_buf->file) to safely acquire a reference;
-+	 * the file could otherwise be closed at any time.
- 	 */
- 	struct file *file;
- 
--- 
-2.47.3
-
+iQIzBAEBCAAdFiEEfCO4BD5l0pgKIbbiWJ8D8BulUDgFAmrPUYUACgkQWJ8D8Bul
+UDimag/+L0A6aKYws/asUDWsKnx4DjKXbQtXjYCVXx8Sqv7wG7PgYvXOONOJzvD1
+dxUOxuWLDBx6sRBA6zLmtIdkkifPUHbWhADQLIOnmNqIGutzjg/Rg/TIqmtufy+w
+J4lxsmO6khoLa16dZZMp9p4CYgQMOd36NuWG/uSBNcNF96uxzZYjCoO5uXorCkg/
+7SCa2neKrIoXXwSEuamQC3FB83I0PXoaxP/FgzZmYDzN1IEUya4EkS78jIPCGmWC
+54gz9+hNz0yRT7IgfoluNzHVnP8GftLS7t2DPH1ClZVxw6bE+UnBwpJRQ9mpCkXd
+DX3RCZq9E176ESqIDKI/4d+nO8AKQp06aiOExDylNU38NlSNOpPH8iN4XqwYZ2hv
+WlpR33hPneA1zosdZ6oFOAPNDLvF1FFuUFtA+wVLJLNNoNTRAVseHGZsR/xdL7kh
+X0gIyu1h2SP4wfKySiuvUmgQVm0uFphr4x+FgKn1XoZ+P0CDyjxqoFVDvE8iplb4
+1IixcQAPvFasF7wq3pd2eAUh7n2zMcroi99cllGY2uPbxiOPhiWzcVV1NmQ7nHhq
+uFcyTlM8nV+TdZYYGCRLFkH7MHskzEGbKO+CQkYrayRPcZxZwnytnHY+CyqGr4sY
+732Djo9oELBZF/fYhSBiVi7cij0NFDdadvhV1gfThIT7BH+5qhs=
+=2SVO
+-----END PGP SIGNATURE-----
