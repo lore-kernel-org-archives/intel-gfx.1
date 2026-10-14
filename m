@@ -4,98 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B2D0CC6B30
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 23:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAA93CC6B30
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 23:19:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1D910EB4A;
-	Wed, 14 Oct 2026 23:04:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84FBA10E6A1;
- Wed, 14 Oct 2026 23:04:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38E9F10EB42;
+	Wed, 14 Oct 2026 23:19:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 374FE10E51F;
+ Wed, 14 Oct 2026 23:19:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792019061; x=1823555061;
- h=message-id:date:mime-version:from:to:subject:
- content-transfer-encoding;
- bh=YCg3kFhe905LiaEYB3oRTGaGroXRfemqiUp704QRKHg=;
- b=HX94KNoM2qs0Fszj/X3NbcQH2kZ71SOn3s1bU+zrb9PiI8azXDKKpc/X
- x8oC2cQIpIzDLrhL7O1NhupUdmJ5gU0dcE+azfEJEmnnq/ZW1Y6q1gNf0
- EU9dQ8s71Emm4MQ6sG/vrYaLDRHtXxWUcz7ud3Q+HymFDWE7MRDY3tA6W
- AVjZdm5kTtKgCJ6quoqxA64FRFnewCxUSIVS00bJ7YLtSiAB59mgIDXTk
- kFh7d5QIaTf1c3tYXThwzxrHlmQXjwNFNn01nyctGAwQyMEavNQ+iCe/a
- v01W36jPribYBRAY9v/2YpF6zIoaWavDkeNACZyNj/zBnW9mhXnlUJiQh A==;
-X-CSE-ConnectionGUID: tSd3bOeUSWid0FkFXA6cGQ==
-X-CSE-MsgGUID: VlFevjBIQTedhq9mu/E9kA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="776358"
+ t=1792019961; x=1823555961;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=14fwm+qs2LfHP2AYw5UxTvOWe2KpM80lcREWlHdOwfY=;
+ b=PtRVZ/xrSRsMuNZGq4k9v15/VNyCCg75eQnkkOY4dyofVtrzqgtu1WAM
+ TaLx2yaXgArvrZ2qaoe2tKYlziZtwulztDiPWGuyfplobmXLoJeFtlhmn
+ GvS/5fh6ouMl1KsC4LtpNrbapSDN7TBf6/j9ypRoHzanatxka5xOY/BtY
+ OpdbKGWw1E4Zr+sDnJANBJ0bTZ1m5XsGMaO2bSXrU/BnV5qcbyCotDnqv
+ YQnPKzot6KvRrsVr9Ik4oFSwG3os/pMD5Vlnh6reZ0ChMKE9sRk0B9sMn
+ A7lPqCGlq29UBjaTDAtEfBJfm6LAU6s3S4/3yRDPu//jrkJRxWOgJA0Hj w==;
+X-CSE-ConnectionGUID: WdbBGNiDRwuDqdssdl8qyg==
+X-CSE-MsgGUID: wo09KMSoSgioopZlbdI5tA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="789640"
 X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="776358"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2026 16:04:20 -0700
-X-CSE-ConnectionGUID: 048pNFlrSOO0W/kVzteLdw==
-X-CSE-MsgGUID: xW7PxDI1RF2JCidsHA5XJw==
+   d="scan'208";a="789640"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2026 16:19:20 -0700
+X-CSE-ConnectionGUID: HU1hmgqARpOcXQ3RXNimbg==
+X-CSE-MsgGUID: 9iLD3PxMRIG0eQvuGenaXw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1559759"
-Received: from gmitchel-mobl2.amr.corp.intel.com (HELO [10.125.110.65])
- ([10.125.110.65])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2026 16:04:20 -0700
-Message-ID: <5e79d3c0-5b2c-4e6c-ba38-3b723daf7109@intel.com>
-Date: Wed, 14 Oct 2026 16:04:18 -0700
+   d="scan'208";a="1982607"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by orviesa010.jf.intel.com with ESMTP; 14 Oct 2026 16:19:18 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xH8Ff-00000000FLL-39jM;
+ Wed, 14 Oct 2026 23:19:15 +0000
+Date: Thu, 15 Oct 2026 07:19:03 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ jani.nikula@linux.intel.com, uma.shankar@intel.com,
+ ville.syrjala@linux.intel.com, suraj.kandpal@intel.com
+Subject: Re: [PATCH v2 29/56] drm/i915/hdmi_frl_dfm: Add non dsc frl capacity
+ computation helpers
+Message-ID: <202610150708.Q1o3snO8-lkp@intel.com>
+References: <20261012035806.3361439-30-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, intel-xe@lists.freedesktop.org
-Subject: Nasty console and xe driver interactions
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012035806.3361439-30-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,39 +72,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I've got a custom kernel that has CONFIG_DRM_XE=y. I moved a disk from
-an old NUC to a new Panther Lake one, and from it being SATA-attached to
-USB-attached.
+Hi Ankit,
 
-The new system was hanging after GRUB:
+kernel test robot noticed the following build errors:
 
-	Loading Linux ...
-	Loading initial ramdisk ...
-	<nothing>
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on drm-tip/drm-tip next-20261012]
+[cannot apply to drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-xe/drm-xe-next linus/master v7.3-rc7]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Turns out, the root cause of the boot hang was my USB adapter needing a
-rootdelay=15. But it took me a couple of hours, and a USB debug cable to
-figure it out. Why?
+url:    https://github.com/intel-lab-lkp/linux/commits/Ankit-Nautiyal/drm-i915-hdmi-Parse-FRL-max-link-rate-from-VBT/20261012-092710
+base:   https://gitlab.freedesktop.org/drm/kernel.git drm-next
+patch link:    https://lore.kernel.org/r/20261012035806.3361439-30-ankit.k.nautiyal%40intel.com
+patch subject: [PATCH v2 29/56] drm/i915/hdmi_frl_dfm: Add non dsc frl capacity computation helpers
+config: i386-buildonly-randconfig-1003-20261014 (https://download.01.org/0day-ci/archive/20261015/202610150708.Q1o3snO8-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150708.Q1o3snO8-lkp@intel.com/reproduce)
 
-Because the xe driver was falling over itself and presumably sabotaging
-the firmware framebuffer in the process:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610150708.Q1o3snO8-lkp@intel.com/
 
-> [    1.505387] xe 0000:00:02.0: vgaarb: deactivate vga console
-> [    1.507298] xe 0000:00:02.0: [drm] Running in SR-IOV PF mode
-> [    1.512831] xe 0000:00:02.0: [drm] Tile0: GT0: GuC firmware xe/ptl_guc_70.bin not found
-> [    1.512873] xe 0000:00:02.0: [drm] Tile0: GT0: GuC firmware(s) can be downloaded from https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-> [    1.512881] xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: Failed to initialize uC (-ENOENT)
-> [    1.512894] xe 0000:00:02.0: probe with driver xe failed with error -2
+All errors (new ones prefixed by >>):
 
-So instead of getting a nice message about my root disk problems, I just
-got a hang after GRUB. Basically, missing XE firmware results in a
-system which is undebuggable for normal humans*.
+   ld: drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.o: in function `get_tactive_min':
+>> drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c:181:(.text+0x78): undefined reference to `__udivdi3'
+   ld: drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.o: in function `compute_link_characteristics':
+   drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c:218:(.text+0xf8): undefined reference to `__udivdi3'
 
-There seem to have been similar issues in the past:
 
-> https://lore.kernel.org/lkml/20251229215906.3688205-1-zack.rusin@broadcom.com/
+vim +181 drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c
 
-Any chance that could be looked at again? This was a pretty insidious
-failure mode.
+   161	
+   162	/*
+   163	 * Determine the minimum time necessary to transmit the active tribytes
+   164	 * considering frl bandwidth limitation.
+   165	 * Given the available bandwidth (i.e after overhead is considered),
+   166	 * tactive_min represents the amount of time needed to transmit all the
+   167	 * active data
+   168	 */
+   169	static u32
+   170	get_tactive_min(u32 num_lanes, u32 tribyte_active,
+   171			u32 overhead_max_k, u32 frl_char_min_rate_k)
+   172	{
+   173		u32 active_bytes, rate_kbps, efficiency_k, effective_rate_kbps;
+   174	
+   175		active_bytes = (3 * tribyte_active) / 2;
+   176		rate_kbps = num_lanes * frl_char_min_rate_k;
+   177		efficiency_k = EFFICIENCY_MULTIPLIER - overhead_max_k;
+   178		effective_rate_kbps = mult_frac(rate_kbps, efficiency_k, EFFICIENCY_MULTIPLIER);
+   179	
+   180		return div_u64(mul_u32_u32(FRL_TIMING_NS_MULTIPLIER, active_bytes),
+ > 181			       effective_rate_kbps) / 1000;
+   182	}
+   183	
 
- * Normal humans don't have USB debug cables lying around
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
