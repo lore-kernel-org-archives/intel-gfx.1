@@ -4,27 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA580CC6B1D
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 15:20:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C751CC6B1D
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 15:48:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7055B10FDF6;
-	Wed, 14 Oct 2026 15:20:47 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2AC10FDF5;
- Wed, 14 Oct 2026 15:20:46 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6416320630690901668=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBA9E10E111;
+	Wed, 14 Oct 2026 15:48:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4044D10E111;
+ Wed, 14 Oct 2026 15:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791992902; x=1823528902;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=DSVdF60TxO0Usam3OnDb+0WDnP7hZYnmY70danGRc2I=;
+ b=jbhWLJtQ1KXOVsmQQkWOBcIOjMySMmbJLm6theAh3E271rXCNK1tmfcN
+ wHsJSNDs5PvKxPyYK9EO32XO4ZCleJijZ1ZsQDaWkg5I35lYnTvgNINDN
+ lSWGhp4G4wIPSK20LlJYvyHxThQeA1lPbTGNoWdmv6H0HO5aWJ6WZKuEX
+ lUYgVAxcjlJTCwamaahooULM9mCziV8DMCrDqs18dNiOO6B9zxITUPGT8
+ mm/PvChos83/8fVBaPmVVkp7Ah1R1SdLMoZSeD71f4g5OOj+YQAqxnla1
+ wswZIL3+0gmuHH9iDYUgkIzgqS7SecuXX6NceyP1W/VOj52oU5r3LPzON g==;
+X-CSE-ConnectionGUID: vunXz6xCTliwbqxCgqoczQ==
+X-CSE-MsgGUID: gjAy6z6+SiKnZfa/uoWPRQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="751089"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="751089"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2026 08:48:22 -0700
+X-CSE-ConnectionGUID: rcxiHdFPQQq6Ywqum84EcA==
+X-CSE-MsgGUID: J+T5bhqiRVKTJyKETQh6RA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1424146"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.53])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2026 08:48:20 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/psr=3A_Send_a_fr?=
- =?utf-8?q?ame_change_notification_for_async_flips?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Vladyslav Yamkovyi via B4 Relay" <devnull+hex.aleph0.ai@kernel.org>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Oct 2026 15:20:46 -0000
-Message-ID: <179199124657.24343.17027333833125108417@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
-In-Reply-To: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261007222314.5714-5-ville.syrjala@linux.intel.com>
+References: <20261007222314.5714-1-ville.syrjala@linux.intel.com>
+ <20261007222314.5714-5-ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH 4/5] drm/i915/gmbus: Fix i2c bit banging for PTL+
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Date: Wed, 14 Oct 2026 18:48:17 +0300
+Message-ID: <179199289730.125250.2949692993509316966@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,136 +66,209 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6416320630690901668==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi,
 
-== Series Details ==
+This didn't cherry pick cleanly into drm-intel-fixes.
 
-Series: drm/i915/psr: Send a frame change notification for async flips
-URL   : https://patchwork.freedesktop.org/series/176137/
-State : failure
+Do we still want to send this into v7.3 given how fresh and
+relatively non-trivial it is and we're past -rc7 already?
 
-== Summary ==
+If so, we'd need a version that applies on drm-intel-fixes and I can
+then send an extra PR to see if it will get pulled in time still.
 
-CI Bug Log - changes from CI_DRM_19338 -> Patchwork_176137v1
-====================================================
+Regards, Joonas
 
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_176137v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_176137v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176137v1/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_176137v1:
-
-### CI changes ###
-
-#### Possible regressions ####
-
-  * boot:
-    - fi-bsw-n3050:       [PASS][1] -> [FAIL][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19338/fi-bsw-n3050/boot.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176137v1/fi-bsw-n3050/boot.html
-
-  
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19338 -> Patchwork_176137v1
-
-  CI-20190529: 20190529
-  CI_DRM_19338: e6ef773b81a0b833e4ee3cf4ccc4bc472397db7e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9146: 9e6040664f13f0767bb4d1028b422b7ee00425dc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_176137v1: e6ef773b81a0b833e4ee3cf4ccc4bc472397db7e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176137v1/index.html
-
---===============6416320630690901668==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/psr: Send a frame change notification for async flips</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176137/">https://patchwork.freedesktop.org/series/176137/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176137v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176137v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19338 -&gt; Patchwork_176137v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_176137v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_176137v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176137v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_176137v1:</p>
-<h3>CI changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>boot:<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19338/fi-bsw-n3050/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176137v1/fi-bsw-n3050/boot.html">FAIL</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19338 -&gt; Patchwork_176137v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19338: e6ef773b81a0b833e4ee3cf4ccc4bc472397db7e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9146: 9e6040664f13f0767bb4d1028b422b7ee00425dc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_176137v1: e6ef773b81a0b833e4ee3cf4ccc4bc472397db7e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6416320630690901668==--
+Quoting Ville Syrjala (2026-10-08 01:23:13)
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>=20
+> The current implementation of w/a 16025573575 does not actually work.
+> The GPIO register mask bits are write only, and thus he read-modify-write
+> cycles we do will not preserve them. Furthermore the implementation makes
+> no effort to preserve the actual direction/output value bits, which is
+> a must if all the mask bits were actually set all the time.
+>=20
+> Rewrite the whole thing so that we always set all the mask bits,
+> and correctly preserve the previous state of the direction/output value
+> bits. And do that on all platforms so that we only have a single codepath
+> to worry about. As a bonus this approach will also make the code
+> work on upcoming platforms where the mask bits no longer even exist.
+>=20
+> Smoke tested on alm,cl,tgl,lnl,ptl.
+>=20
+> Fixes: 7565fd5dcb0b ("drm/i915/gmbus: Add Wa_16025573575 for PTL/WCL for =
+bit-bashing")
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_gmbus.c | 98 ++++++++++++++--------
+>  1 file changed, 61 insertions(+), 37 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm=
+/i915/display/intel_gmbus.c
+> index 854f439ac5ba..b6c63a466233 100644
+> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
+> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+> @@ -246,25 +246,45 @@ static void bxt_gmbus_clock_gating(struct intel_dis=
+play *display,
+>                      !enable ? BXT_GMBUS_GATING_DIS : 0);
+>  }
+> =20
+> -static u32 get_reserved(struct intel_gmbus *bus)
+> +static u32 gpio_mask_bits(struct intel_display *display)
+>  {
+> -       struct intel_display *display =3D bus->display;
+> -       u32 preserve_bits =3D 0;
+> +       return GPIO_CLOCK_DIR_MASK | GPIO_CLOCK_VAL_MASK |
+> +               GPIO_DATA_DIR_MASK | GPIO_DATA_VAL_MASK;
+> +}
+> +
+> +static u32 gpio_preserved_bits(struct intel_display *display)
+> +{
+> +       u32 val =3D GPIO_CLOCK_DIR_OUT | GPIO_CLOCK_VAL_OUT |
+> +               GPIO_DATA_DIR_OUT | GPIO_DATA_VAL_OUT;
+> =20
+>         /*
+>          * On gen2/3 these are either internal pullup disables, or
+>          * documented as reserved bits that need to be preserved.
+>          */
+>         if (DISPLAY_VER(display) < 4)
+> -               preserve_bits |=3D GPIO_DATA_PULLUP_DISABLE |
+> +               val |=3D GPIO_DATA_PULLUP_DISABLE |
+>                         GPIO_CLOCK_PULLUP_DISABLE;
+> =20
+> -       /* Wa_16025573575: the masks bits need to be preserved through ou=
+t */
+> -       if (intel_display_wa(display, INTEL_DISPLAY_WA_16025573575))
+> -               preserve_bits |=3D GPIO_CLOCK_DIR_MASK | GPIO_CLOCK_VAL_M=
+ASK |
+> -                                GPIO_DATA_DIR_MASK | GPIO_DATA_VAL_MASK;
+> +       return val;
+> +}
+> =20
+> -       return intel_de_read_fw(display, bus->gpio_reg) & preserve_bits;
+> +static u32 gpio_read_reg(struct intel_gmbus *bus)
+> +{
+> +       struct intel_display *display =3D bus->display;
+> +       u32 val;
+> +
+> +       val =3D intel_de_read_fw(display, bus->gpio_reg);
+> +
+> +       val &=3D gpio_preserved_bits(display);
+> +
+> +       /*
+> +        * Wa_16025573575:
+> +        * The (write only!) masks bits need to be kept set through out
+> +        * on PTL. Do it always to keep the code uniform for all platform=
+s.
+> +        */
+> +       val |=3D gpio_mask_bits(display);
+> +
+> +       return val;
+>  }
+> =20
+>  static int get_clock(void *data)
+> @@ -287,16 +307,16 @@ static void set_clock(void *data, int state_high)
+>  {
+>         struct intel_gmbus *bus =3D data;
+>         struct intel_display *display =3D bus->display;
+> -       u32 reserved =3D get_reserved(bus);
+> -       u32 clock_bits;
+> +       u32 val;
+> =20
+> -       if (state_high)
+> -               clock_bits =3D GPIO_CLOCK_DIR_IN | GPIO_CLOCK_DIR_MASK;
+> -       else
+> -               clock_bits =3D GPIO_CLOCK_DIR_OUT | GPIO_CLOCK_DIR_MASK |
+> -                            GPIO_CLOCK_VAL_MASK;
+> +       val =3D gpio_read_reg(bus);
+> =20
+> -       intel_de_write_fw(display, bus->gpio_reg, reserved | clock_bits);
+> +       val &=3D ~(GPIO_CLOCK_DIR_OUT | GPIO_CLOCK_VAL_OUT);
+> +
+> +       if (!state_high)
+> +               val |=3D GPIO_CLOCK_DIR_OUT;
+> +
+> +       intel_de_write_fw(display, bus->gpio_reg, val);
+>         intel_de_posting_read_fw(display, bus->gpio_reg);
+>  }
+> =20
+> @@ -304,32 +324,36 @@ static void set_data(void *data, int state_high)
+>  {
+>         struct intel_gmbus *bus =3D data;
+>         struct intel_display *display =3D bus->display;
+> -       u32 reserved =3D get_reserved(bus);
+> -       u32 data_bits;
+> +       u32 val;
+> =20
+> -       if (state_high)
+> -               data_bits =3D GPIO_DATA_DIR_IN | GPIO_DATA_DIR_MASK;
+> -       else
+> -               data_bits =3D GPIO_DATA_DIR_OUT | GPIO_DATA_DIR_MASK |
+> -                       GPIO_DATA_VAL_MASK;
+> +       val =3D gpio_read_reg(bus);
+> =20
+> -       intel_de_write_fw(display, bus->gpio_reg, reserved | data_bits);
+> +       val &=3D ~(GPIO_DATA_DIR_OUT | GPIO_DATA_VAL_OUT);
+> +
+> +       if (!state_high)
+> +               val |=3D GPIO_DATA_DIR_OUT;
+> +
+> +       intel_de_write_fw(display, bus->gpio_reg, val);
+>         intel_de_posting_read_fw(display, bus->gpio_reg);
+>  }
+> =20
+>  static void
+> -ptl_handle_mask_bits(struct intel_gmbus *bus, bool set)
+> +gpio_set_mask(struct intel_gmbus *bus, bool enable)
+>  {
+>         struct intel_display *display =3D bus->display;
+> -       u32 reg_val =3D intel_de_read_fw(display, bus->gpio_reg);
+> -       u32 mask_bits =3D GPIO_CLOCK_DIR_MASK | GPIO_CLOCK_VAL_MASK |
+> -                       GPIO_DATA_DIR_MASK | GPIO_DATA_VAL_MASK;
+> -       if (set)
+> -               reg_val |=3D mask_bits;
+> +       u32 val;
+> +
+> +       val =3D gpio_read_reg(bus);
+> +
+> +       val &=3D ~(GPIO_DATA_DIR_OUT | GPIO_CLOCK_DIR_OUT |
+> +                GPIO_DATA_VAL_OUT | GPIO_CLOCK_VAL_OUT);
+> +
+> +       if (enable)
+> +               val |=3D gpio_mask_bits(display);
+>         else
+> -               reg_val &=3D ~mask_bits;
+> +               val &=3D ~gpio_mask_bits(display);
+> =20
+> -       intel_de_write_fw(display, bus->gpio_reg, reg_val);
+> +       intel_de_write_fw(display, bus->gpio_reg, val);
+>         intel_de_posting_read_fw(display, bus->gpio_reg);
+>  }
+> =20
+> @@ -344,8 +368,8 @@ intel_gpio_pre_xfer(struct i2c_adapter *adapter)
+> =20
+>         intel_gmbus_reset(display);
+> =20
+> -       if (intel_display_wa(display, INTEL_DISPLAY_WA_16025573575))
+> -               ptl_handle_mask_bits(bus, true);
+> +       if (gpio_mask_bits(display))
+> +               gpio_set_mask(bus, true);
+> =20
+>         set_data(bus, 1);
+>         set_clock(bus, 1);
+> @@ -362,8 +386,8 @@ intel_gpio_post_xfer(struct i2c_adapter *adapter)
+>         set_data(bus, 1);
+>         set_clock(bus, 1);
+> =20
+> -       if (intel_display_wa(display, INTEL_DISPLAY_WA_16025573575))
+> -               ptl_handle_mask_bits(bus, false);
+> +       if (gpio_mask_bits(display))
+> +               gpio_set_mask(bus, false);
+> =20
+>         if (display->platform.pineview)
+>                 pnv_gmbus_clock_gating(display, true);
+> --=20
+> 2.55.0
+>
