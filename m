@@ -4,134 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29696CC6B3C
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 12:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98589CC6B34
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 12:16:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E018F10E24C;
-	Thu, 15 Oct 2026 12:15:59 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D79D10E192;
- Wed, 14 Oct 2026 17:27:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 804F260098;
- Wed, 14 Oct 2026 17:27:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2EA1F000C4;
- Wed, 14 Oct 2026 17:27:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791998832;
- bh=T1+E2k2Owgt5D89M0RIPqwAKDNzTjAgVytD2FAygs90=;
- h=From:Subject:Date:To:Cc;
- b=DuZUaj/V/FfaUCL5qLj1FkcP5Nu8k/DEmJrFKpGEtqvc/RihMfUV3rYvXChynwZl3
- QGXRlVFN263fc9HP5EZJD80I+gHD8BXd+WAdU7Qt+XL2ceQOKxyAU75nhQJYUpDDDb
- BiKj+ch6lUZ5UgdRTWexBWSGtadx9UqKABOI3KCKucbA2mGtm4g2EZbzfit/ffNwhf
- 11ND6IcHuGMowRW0fJ/o1aaedkVoQ3qUpvaSnqu2tI+CZ5ZNSNUB5GYK/u7oJahmTk
- 2CC98zzf/nB0B1sj3UYglRbldPiOMRuHggw4bYFu96MVotkkxR0f/9SP2Fn7UopQfJ
- 5deaPekM0KuoQ==
-From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH 00/75] drm/connector: Convert all drivers to
- atomic_create_state and remove reset
-Date: Wed, 14 Oct 2026 19:26:23 +0200
-Message-Id: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5C2710E948;
+	Thu, 15 Oct 2026 12:16:00 +0000 (UTC)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1D0E10EA8F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 16:58:31 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-5bb7c6980f1so3456231e87.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 09:58:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791997110; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VOUHLKWGs5ATlzgW0TV8HFHQVXDAprnDCYC0iRc+GjRj8sLRIfx21zNPDsEHXcfSnk
+ 8lLlcos83VNLW9IekRFoVMvA1rHc7s8fQS/XTSPGZ4gx4htq7NpvKYX80wLzfOMygzAB
+ i17rMm+Lai9zeQ+gR094HzmVoUHgJRBXtagWxcgMfxtlhdvS3P8ewr3g2y1s12NS743p
+ loCv8fp568MhA3LoOSIwVZvZD1rP87qBH5J9bydaunRb1NegP3FN3cW+zd/1d93Ho1ab
+ woT3hTcjXMCHNlFr7zO7NkgkR6yaYsmQH26PZxJyug2xIcE3t6otLJ7mYB2Ewl0qtjUn
+ jmDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=PeoY0yWKZRmwA+3BQa6rH8gq2X5w0eejzi+aqnvivA0=;
+ fh=UM8lPez/CzexX/4mZczNPERCI/aFnBLd2KrJOHfeU54=;
+ b=GiptmbjS3o7ohE+fmA89YDaTJJbCP47jH43fPVEvWFcLhrtVUdfb1x2pCbRmxbbonm
+ TDlJcudqGNRgLnRFLUByeX6FGoRE08GoA6mkF8+3s+JCKi+C0DfpiExrxrLR+NWtBzic
+ BDDicTieFuye2k1sQ8nQhkN1MeXLiFMWUSVe+mamBI78ywBdST7rlZyTDiiC10HRtj6i
+ kqlNqDniAwm7Einzu51FDig7yiNsStijfHOWYFIVlnPIQCWqvVOaQMYRhmtOrI98Bd8z
+ kOu9Cq9uvrUFUlZj8alaC8mGPuundg03LFW3Gn/saPPH+BM+cupZoG2loYaJ9X6vSwXj
+ ot2g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=aleph0.ai; s=google; t=1791997110; x=1792601910; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PeoY0yWKZRmwA+3BQa6rH8gq2X5w0eejzi+aqnvivA0=;
+ b=xo7Tz5d9bYCgLIP6QDQAWIz6bV/SqAXjftgJd1RcHnGlbaD04CfR2rD/42DP/N4D1I
+ eQv/Pgk+oDOI46RQekvblHZdbNYZedNlmfULBPOsk3AKJsU2k+87gbutvzTphTXb6L2T
+ 7P3dFb6CpkE9VY6GyappjPOm68/OkmYoAcUVwhZWk6NkQUFeQ9KjhDdGg0lUDTQcVqQ4
+ holMtgAnXG8NDi2G3YVecE6a1qK/grEGE4kxo3T13mT2vqb506g/CbMnFZwwMmOM4JyN
+ xq2wTjbCWjuMdtTv8MCV/R+3JKEsvX4tDzbqDqD5+qtIJzQ0WyIHJNUgtbxGdnCWIlVW
+ hD1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791997110; x=1792601910;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=PeoY0yWKZRmwA+3BQa6rH8gq2X5w0eejzi+aqnvivA0=;
+ b=bnCGjjSPNjDdh9YrtPzbtw1r9PSEy5Bu9LurZqYAOAkD8EE00yNjNSdZwjPFa4syjH
+ tEZTL2rXkLZ5Hc+IdYg0H3SO3uvdR3ys3azOTykMXqBmdO5mrsZZihPncsBaM2cHoGI8
+ /0wlDvdy0TaaEsmdLlkTsT7ezaiQZ/daNPLXByuGasifxMK/U5OaQ4JdiHr4l+97MLIp
+ 5fLyXwgCJckKBkCsHBVatsaKU21YlnZpAxTOl1PZxfDQOh/EQW/SYIFGQQgldTqPZsV+
+ T7x9n9S1pWh1yRriyfjc6vcyiOEtoQLC1+K9YXr8XLA1/x/SsuVS4b6AlBmIzAXrh1yH
+ xF3w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxWMAz/RPI9LFxUV2l26FZfCRbkJhP0uZhuoHVBNm3NRxSlkF7AwhtjoeedAI0uPlyjjad2k4tis3M=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK+ib7d4gqos17gUlJtewTLRoWqNFaG9BZyHcPSx0t33WAEXrxU
+ 44Ezy1GDVV7fTOJArXScv56+JpM5aizaX5z6CaaBVh2ucXbbXoDXTcVUXV/tzDuc/NAbsJ13oXj
+ o08or4s3jl6jbPtXMGRL0WrF7IAyvRyMW48ewIWg9lg==
+X-Gm-Gg: AYBFou2m4l2eZtFJiPn2Y6bsvP+KGHAjFlkGZzIh3U3J2XwzWcrSjwW+8ImffJv04Sq
+ wYPasBacJZgLPgOosf4JdAIR2zID2rowdltFF5IbyYSAgT9l0Bz0qH4k22VqeDU6jQHZEyEWDTz
+ C4yvBe4kp3OeOYiuENiFZOkC8j0RmfzfkdnqkpdlsY8Sq0utw3dbSkcL+L1bwniOZ14vu5pnNU0
+ 67l9P2tDKpBsc8vnFHj8pGsXfHy6MN2KiV+hu4olWP6dpt3mQU9HB2cmwXLyvRE9EmgY1SgnUZ8
+ 9lJPTKhYWcCQF6wIyFipgDvjZTJ0KJhEHWD8UWma0QKp9qRfahCPDN516FI4tTnSKngQb80hXz4
+ NLL3MXVlEmSAyHe4WssuxMRiBOw==
+X-Received: by 2002:a05:6512:3187:b0:5b8:bc5e:d0fe with SMTP id
+ 2adb3069b0e04-5bcde6d0062mr5550632e87.40.1791997109796; Wed, 14 Oct 2026
+ 09:58:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ6CMBCE4Vche3YTaApYXsVwgDJoD211W4wJ4
- d2tcvzm8M9OCeKQaKh2ErxdcjEUNJeK7GMKd7BbiknVqqv72vAinkNkHwVsYwiwOQoLEjLrFmj
- 00ttOWSqFp2B1n3/9Np4WvLZyks+R5in9Mt67PFSmWVsFY65KzzQexxeznFx5nQAAAA==
-X-Change-ID: 20260709-drm-no-more-connector-reset-45ee14d7c62c
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Aun-Ali Zaidi <admin@kodeit.net>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>, 
- Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>, 
- Francesco Dolcini <francesco@dolcini.it>, 
- Ian Ray <ian.ray@gehealthcare.com>, 
- Martyn Welch <martyn.welch@collabora.co.uk>, 
- Peter Senna Tschudin <peter.senna@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Inki Dae <inki.dae@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org, 
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>, 
- Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>, 
- Long Li <longli@microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org, 
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev, 
- Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
- Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Xi Ruoyao <xry111@xry111.site>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- linux-renesas-soc@vger.kernel.org, 
- Marcus Folkesson <marcus.folkesson@gmail.com>, 
- Iker Pedrosa <ikerpedrosam@gmail.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org, 
- Alexey Brodkin <abrodkin@synopsys.com>, Hans de Goede <hansg@kernel.org>, 
- LiangCheng Wang <zaq14760@gmail.com>, Alex Lanzano <lanzano.alex@gmail.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Chia-I Wu <olvaffe@gmail.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Melissa Wen <melissa.srw@gmail.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Ruben Wauters <rubenru09@aol.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-amlogic@lists.infradead.org, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>, 
- Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, Aditya Garg <aditya.garg@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13365; i=mripard@kernel.org;
- h=from:subject:message-id; bh=/DhCCdduSvGU+jRohyrE71CT7KCgRbZ7hxwTqS0qh7s=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnnd7vN6q5e3Reh/y9VQcHs49ar3P5OTUv6rHPkWKsPy
- xc5bGHpmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABOp72Rs2MhjsXneVibbsIJI
- vVJzxg9/fd5UGQsk6k8N7tBevcP76h6f09Y80lf/fvny99XjmVdfM9ZwZDbc6dwvpbX20N8jwaw
- TpgT4nAn2MHWbwivGZb/nrf6ZDWueCCRfjO/w6F0c32G1lAcA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+References: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
+ <as9lLU0VnFW6JLKf@intel.com>
+In-Reply-To: <as9lLU0VnFW6JLKf@intel.com>
+From: Vladyslav Yamkovyi <hex@aleph0.ai>
+Date: Wed, 14 Oct 2026 18:58:13 +0200
+X-Gm-Features: AclHuK9DejIsKpYNlJitvulcu8uweG4HpEyel77BVIQowt9vPUrR_69jHdifP7A
+Message-ID: <CAGkn_9h6TMgEk6e0JEROYx_O08Dtpn=_Jyd=T+HuiJZmyGynCA@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915/psr: Send a frame change notification for async
+ flips
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?UTF-8?Q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>, 
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 15 Oct 2026 12:15:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -148,222 +114,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a follow-up to the plane and CRTC reset removal series, and
-part of a larger effort to remove the reset hook from all KMS objects.
+There was indeed an error in my testing. I ran a synthetic reproducer
+separately from my compositor work where I originally encountered
+the issue, but failed to enable VRR in that test. I do observe the
+errors now.
 
-The connector reset hook is overloaded: it is called both at probe
-time to create the initial software state and during suspend/resume to
-reset hardware and software state. These two roles have different
-requirements, and the reset hook is not fallible, making error
-handling difficult for the initial state allocation path.
+I withdraw this patch. I will review the logic more thoroughly,
+particularly mentioned vblank evasion code, and try to investigate
+sending TRANS_PUSH consistently and if this is worth pursuing.
+If it will not inspire confidence, I will seek to reliably disable PSR
+trans push usage.
 
-While reset has the semantics to reset both the software and hardware
-state, the vast majority of implementations and all the helpers only
-reset the software state, making them equivalent to
-atomic_create_state in practice. The atomic_create_state hook makes
-this explicit: it only allocates and initializes a pristine state
-without any side effect, and returns the state pointer or an ERR_PTR
-on failure.
+--
+Vladyslav Yamkoyi
 
-This series converts all connector drivers tree-wide from the reset hook
-to atomic_create_state, then removes the reset hook from struct
-drm_connector_funcs entirely. The conversions were done using a
-combination of Coccinelle semantic patches, mechanical one-line
-replacements and manual adjustments.
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-Maxime Ripard (75):
-      drm/panel: Add atomic_create_state support
-      drm/adp: Switch to drm_atomic_helper_connector_create_state
-      drm/amdgpu: vkms: Switch to drm_atomic_helper_connector_create_state
-      drm/amdgpu: dm: Switch to drm_atomic_helper_connector_create_state
-      drm/arm: komeda: Switch to drm_atomic_helper_connector_create_state
-      drm/aspeed: Switch to drm_atomic_helper_connector_create_state
-      drm/ast: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: analogix-anx6345: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: analogix-anx78xx: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: chrontel-ch7033: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: lontium-lt8912b: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: megachips: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: nxp-ptn3460: Switch to drm_atomic_helper_connector_create_state
-      drm/panel: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: sii902x: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: simple-bridge: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: synopsys: dw-hdmi: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: tc358767: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: tda998x: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: ti-tfp410: Switch to drm_atomic_helper_connector_create_state
-      drm/exynos: Switch to drm_atomic_helper_connector_create_state
-      drm/fsl-dcu: Switch to drm_atomic_helper_connector_create_state
-      drm/hisilicon: hibmc: Switch to drm_atomic_helper_connector_create_state
-      drm/hyperv: Switch to drm_atomic_helper_connector_create_state
-      drm/imx: ipuv3: Switch to drm_atomic_helper_connector_create_state
-      drm/logicvc: Switch to drm_atomic_helper_connector_create_state
-      drm/loongson: Switch to drm_atomic_helper_connector_create_state
-      drm/mgag200: Switch to drm_atomic_helper_connector_create_state
-      drm/mipi-dbi: Switch to drm_atomic_helper_connector_create_state
-      drm/msm: dpu1: Switch to drm_atomic_helper_connector_create_state
-      drm/qxl: Switch to drm_atomic_helper_connector_create_state
-      drm/renesas: shmobile: Switch to drm_atomic_helper_connector_create_state
-      drm/sitronix: st7571: Switch to drm_atomic_helper_connector_create_state
-      drm/sitronix: st7920: Switch to drm_atomic_helper_connector_create_state
-      drm/solomon: ssd130x: Switch to drm_atomic_helper_connector_create_state
-      drm/sti: Switch to drm_atomic_helper_connector_create_state
-      drm/stm: Switch to drm_atomic_helper_connector_create_state
-      drm/sun4i: Switch to drm_atomic_helper_connector_create_state
-      drm/sysfb: Switch to drm_atomic_helper_connector_create_state
-      drm/tegra: Switch to drm_atomic_helper_connector_create_state
-      drm/tests: Switch to drm_atomic_helper_connector_create_state
-      drm/tiny: arcpgu: Switch to drm_atomic_helper_connector_create_state
-      drm/tiny: bochs: Switch to drm_atomic_helper_connector_create_state
-      drm/tiny: cirrus: Switch to drm_atomic_helper_connector_create_state
-      drm/tiny: gm12u320: Switch to drm_atomic_helper_connector_create_state
-      drm/tiny: pixpaper: Switch to drm_atomic_helper_connector_create_state
-      drm/tiny: repaper: Switch to drm_atomic_helper_connector_create_state
-      drm/tiny: sharp: Switch to drm_atomic_helper_connector_create_state
-      drm/udl: Switch to drm_atomic_helper_connector_create_state
-      drm/vboxvideo: Switch to drm_atomic_helper_connector_create_state
-      drm/vc4: Switch to drm_atomic_helper_connector_create_state
-      drm/virtio: Switch to drm_atomic_helper_connector_create_state
-      drm/vkms: Switch to drm_atomic_helper_connector_create_state
-      drm/xen: Switch to drm_atomic_helper_connector_create_state
-      drm/atomic-state-helper: Rename connector_tv_margins_reset to state_init
-      drm/atomic-state-helper: Rename connector_tv_reset to state_init
-      drm/bridge: synopsys: dw-hdmi: Convert to atomic_create_state
-      drm/meson: Convert to atomic_create_state
-      drm/gud: Convert to atomic_create_state
-      drm/sun4i: hdmi: Convert to atomic_create_state
-      drm/sun4i: tv: Convert to atomic_create_state
-      drm/tests: hdmi: Convert to atomic_create_state
-      drm/vc4: hdmi: Convert to atomic_create_state
-      drm/vc4: vec: Convert to atomic_create_state
-      drm/connector: Remove drm_atomic_helper_connector_reset()
-      drm/amdgpu: dm: Convert to atomic_create_state
-      drm/malidp: Convert to atomic_create_state
-      drm/ast: Convert to atomic_create_state
-      drm/i915: Convert to atomic_create_state
-      drm/nouveau: Convert to atomic_create_state
-      drm/rcar-du: Convert to atomic_create_state
-      drm/tegra: Convert to atomic_create_state
-      drm/vmwgfx: Convert to atomic_create_state
-      drm/connector: Remove __drm_atomic_helper_connector_reset()
-      drm/connector: Remove reset
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  2 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 32 ++++----
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |  3 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  4 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 14 +++-
- .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |  2 +-
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |  2 +-
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 90 ++++++++++++++--------
- .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |  7 +-
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |  2 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |  2 +-
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |  4 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |  2 +-
- .../drm/arm/display/komeda/komeda_wb_connector.c   |  2 +-
- drivers/gpu/drm/arm/malidp_mw.c                    | 18 ++---
- drivers/gpu/drm/aspeed/aspeed_gfx_out.c            |  2 +-
- drivers/gpu/drm/ast/ast_dp.c                       | 19 ++---
- drivers/gpu/drm/ast/ast_dp501.c                    |  2 +-
- drivers/gpu/drm/ast/ast_sil164.c                   |  2 +-
- drivers/gpu/drm/ast/ast_vga.c                      |  2 +-
- drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  2 +-
- drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c |  2 +-
- drivers/gpu/drm/bridge/chrontel-ch7033.c           |  2 +-
- drivers/gpu/drm/bridge/lontium-lt8912b.c           |  2 +-
- .../drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c   |  2 +-
- drivers/gpu/drm/bridge/nxp-ptn3460.c               |  2 +-
- drivers/gpu/drm/bridge/sii902x.c                   |  2 +-
- drivers/gpu/drm/bridge/simple-bridge.c             |  2 +-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          | 12 ++-
- drivers/gpu/drm/bridge/tc358767.c                  |  2 +-
- drivers/gpu/drm/bridge/tda998x_drv.c               |  2 +-
- drivers/gpu/drm/bridge/ti-tfp410.c                 |  2 +-
- drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  3 +-
- drivers/gpu/drm/drm_atomic_state_helper.c          | 68 ++++------------
- drivers/gpu/drm/drm_connector.c                    |  8 --
- drivers/gpu/drm/drm_mode_config.c                  |  4 +-
- drivers/gpu/drm/drm_panel.c                        | 14 +++-
- drivers/gpu/drm/exynos/exynos_drm_dpi.c            |  2 +-
- drivers/gpu/drm/exynos/exynos_drm_vidi.c           |  2 +-
- drivers/gpu/drm/exynos/exynos_hdmi.c               |  2 +-
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          |  2 +-
- drivers/gpu/drm/gud/gud_connector.c                | 20 +++--
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c     |  2 +-
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c   |  2 +-
- drivers/gpu/drm/hyperv/hyperv_drm_modeset.c        |  2 +-
- drivers/gpu/drm/i915/display/intel_connector.c     |  6 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c          |  6 +-
- drivers/gpu/drm/imx/ipuv3/imx-tve.c                |  2 +-
- drivers/gpu/drm/logicvc/logicvc_interface.c        |  2 +-
- drivers/gpu/drm/loongson/lsdc_output_7a1000.c      |  2 +-
- drivers/gpu/drm/loongson/lsdc_output_7a2000.c      |  4 +-
- drivers/gpu/drm/meson/meson_encoder_hdmi.c         | 12 ++-
- drivers/gpu/drm/mgag200/mgag200_vga.c              |  2 +-
- drivers/gpu/drm/mgag200/mgag200_vga_bmc.c          |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      |  2 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c            |  9 ++-
- drivers/gpu/drm/nouveau/nouveau_connector.c        | 25 +++---
- drivers/gpu/drm/nouveau/nouveau_connector.h        |  3 +-
- drivers/gpu/drm/qxl/qxl_display.c                  |  2 +-
- .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 15 ++--
- drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c  |  2 +-
- drivers/gpu/drm/sitronix/st7571.c                  |  2 +-
- drivers/gpu/drm/sitronix/st7920.c                  |  2 +-
- drivers/gpu/drm/solomon/ssd130x.c                  |  2 +-
- drivers/gpu/drm/sti/sti_dvo.c                      |  2 +-
- drivers/gpu/drm/sti/sti_hda.c                      |  2 +-
- drivers/gpu/drm/sti/sti_hdmi.c                     |  2 +-
- drivers/gpu/drm/stm/lvds.c                         |  2 +-
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             | 17 +++-
- drivers/gpu/drm/sun4i/sun4i_lvds.c                 |  2 +-
- drivers/gpu/drm/sun4i/sun4i_rgb.c                  |  2 +-
- drivers/gpu/drm/sun4i/sun4i_tv.c                   | 16 +++-
- drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |  2 +-
- drivers/gpu/drm/sysfb/drm_sysfb_helper.h           |  2 +-
- drivers/gpu/drm/tegra/dsi.c                        | 17 ++--
- drivers/gpu/drm/tegra/hdmi.c                       |  2 +-
- drivers/gpu/drm/tegra/sor.c                        | 13 ++--
- drivers/gpu/drm/tests/drm_atomic_commit_test.c     |  2 +-
- drivers/gpu/drm/tests/drm_atomic_test.c            |  2 +-
- drivers/gpu/drm/tests/drm_connector_test.c         |  4 +-
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 17 +++-
- drivers/gpu/drm/tests/drm_probe_helper_test.c      |  2 +-
- drivers/gpu/drm/tiny/appletbdrm.c                  |  2 +-
- drivers/gpu/drm/tiny/arcpgu.c                      |  2 +-
- drivers/gpu/drm/tiny/bochs.c                       |  2 +-
- drivers/gpu/drm/tiny/cirrus-qemu.c                 |  2 +-
- drivers/gpu/drm/tiny/gm12u320.c                    |  2 +-
- drivers/gpu/drm/tiny/pixpaper.c                    |  2 +-
- drivers/gpu/drm/tiny/repaper.c                     |  2 +-
- drivers/gpu/drm/tiny/sharp-memory.c                |  2 +-
- drivers/gpu/drm/udl/udl_modeset.c                  |  2 +-
- drivers/gpu/drm/vboxvideo/vbox_mode.c              |  2 +-
- drivers/gpu/drm/vc4/tests/vc4_mock_output.c        |  2 +-
- drivers/gpu/drm/vc4/vc4_hdmi.c                     | 32 ++++++--
- drivers/gpu/drm/vc4/vc4_txp.c                      |  2 +-
- drivers/gpu/drm/vc4/vc4_vec.c                      | 16 +++-
- drivers/gpu/drm/virtio/virtgpu_display.c           |  2 +-
- drivers/gpu/drm/vkms/vkms_connector.c              |  2 +-
- drivers/gpu/drm/vkms/vkms_writeback.c              |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                | 23 ++----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |  3 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |  2 +-
- drivers/gpu/drm/xen/xen_drm_front_conn.c           |  2 +-
- include/drm/drm_atomic_state_helper.h              |  9 +--
- include/drm/drm_connector.h                        | 12 ---
- include/drm/drm_mipi_dbi.h                         |  2 +-
- 108 files changed, 392 insertions(+), 331 deletions(-)
----
-base-commit: 91f52e99824b0beebb48cad51bbda81437af8664
-change-id: 20260709-drm-no-more-connector-reset-45ee14d7c62c
-
-Best regards,
--- 
-Maxime Ripard <mripard@kernel.org>
-
+On Wed, 14 Oct 2026 at 13:19, Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
+>
+> On Tue, Oct 13, 2026 at 05:16:07PM +0200, Vladyslav Yamkovyi via B4 Relay=
+ wrote:
+> > From: Vladyslav Yamkovyi <hex@aleph0.ai>
+> >
+> > On platforms using TRANS_PUSH for PSR frame-change notifications,
+> > intel_pipe_update_end() exits early for asynchronous flips, before send=
+ing
+> > the push. The register-based notification is disabled on these platform=
+s,
+> > and an ORIGIN_FLIP frontbuffer flush does not force PSR to exit.
+> >
+> > This can leave an accepted async flip without a completion event after
+> > PSR2 enters DEEP_SLEEP. On Panther Lake, scanout freezes and the kernel
+> > reports "[CRTC:152:pipe A] flip_done timed out". Intel IGT kms_async_fl=
+ips
+> > reproduces the failure with the compositor inactive when a 200 ms idle
+> > interval is inserted before an asynchronous atomic flip.
+> >
+> > Send the PSR frame-change notification after plane programming and befo=
+re
+> > releasing the existing PSR lock. Restrict the push to CRTC states that =
+use
+> > TRANS_PUSH for PSR, leaving other async flips and the synchronous and D=
+SB
+> > paths unchanged.
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9582
+> > Fixes: 129a4da11707 ("drm/i915/psr: Use TRANS_PUSH to trigger frame cha=
+nge event")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM sparse smatch
+> > Signed-off-by: Vladyslav Yamkovyi <hex@aleph0.ai>
+> > ---
+> > Based on drm-tip (2026-10-13); also applies to v7.3-rc7.
+> >
+> > Runtime-tested on Panther Lake (xe, eDP-1, 2880x1800) with Ubuntu-based
+> > 7.3.0-rc6 kernels, before and after this fix. IGT kms_async_flips,
+> > async-flip-with-page-flip-events-tiled-atomic, dynamic subtest
+> > pipe-A-eDP-1-4-rc-ccs, fails with Flip Timeout before the fix and passe=
+s
+> > afterwards. An LD_PRELOAD interposer inserts one 200 ms idle interval
+> > before the eighth async atomic commit without changing its request or
+> > flags. Both runs enter PSR2 Early Transport DEEP_SLEEP with selective
+> > fetch enabled before that commit.
+> >
+> > Clang 23.1.2, W=3D1 builds and Sparse/Smatch checks of the CRTC, PSR an=
+d VRR
+> > translation units for i915 and Xe produced no new diagnostics.
+> >
+> > OpenAI Codex (GPT-6-Astra) assisted diagnosis, reproducer and fix
+> > development, validation and patch preparation, following requests to
+> > reproduce the freeze independently, trace its driver cause and prepare =
+a
+> > tested upstream fix. I take direct responsibility for this contribution=
+,
+> > have carefully reviewed the change and ensured rigorous local testing.
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_crtc.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/dr=
+m/i915/display/intel_crtc.c
+> > index 10ed9bdfee76..8ef24cddbaa6 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_crtc.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+> > @@ -736,8 +736,16 @@ void intel_pipe_update_end(struct intel_atomic_sta=
+te *state,
+> >
+> >       drm_WARN_ON(display->drm, new_crtc_state->use_dsb);
+> >
+> > -     if (new_crtc_state->do_async_flip)
+> > +     if (new_crtc_state->do_async_flip) {
+> > +             /*
+> > +              * LNL+ uses TRANS_PUSH for PSR frame-change notification=
+s.
+> > +              * Async flips skip the vblank path below, but still need=
+ to
+> > +              * notify PSR after programming the new surface address.
+> > +              */
+> > +             if (intel_psr_use_trans_push(new_crtc_state))
+> > +                     intel_vrr_send_push(NULL, new_crtc_state);
+>
+> This will make the behaviour of async flips + VRR inconsistent
+> between platforms where trans push is used for PSR vs. platforms
+> where it's not used. We don't want that.
+>
+> So either we want to start doing trans pushes for all async
+> flips+VRR cases, or we want to disable the PSR trans push usage
+> when async flips are happening. The latter would be the safer
+> option since the mailboxy trans push usage this would cause
+> hasn't been done before. The vblank evasion code does try to
+> handle it, but it's not actually tested.
+>
+> >               goto out;
+> > +     }
+> >
+> >       trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
+> >
+> >
+> > ---
+> > base-commit: eb1bf4700d3b25a1a1e670ef31cc06969fa08019
+> > change-id: 20261013-fix-psr-async-trans-push-bfa6550270c7
+> >
+>
+> --
+> Ville Syrj=C3=A4l=C3=A4
+> Intel
