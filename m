@@ -4,27 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC64FCC6B1D
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 11:48:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98997CC6B1A
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:05:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2344B10FD2F;
-	Wed, 14 Oct 2026 11:48:30 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3004110FD10;
- Wed, 14 Oct 2026 11:48:29 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4357289838797051260=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2878B10E9BF;
+	Wed, 14 Oct 2026 12:05:53 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F09E910E9BF;
+ Wed, 14 Oct 2026 12:05:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791979547; x=1823515547;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=x17OpzMlrJ6oPLDdW8euNk+6xMbipC5El2pPe+RivFk=;
+ b=JJQDdEO2zQLZC0bwY6P1SyYTuF+jFE0EuGESYO5MeTP25WPkS0T2QJPH
+ hYyV6RWFHo3VkQq38+pvwVN7wJ3wMkfT638FzG9XiyBhtGl5oeIlGeCmm
+ 91ZCYb8y3CwZMyWUDg6aL3gW59ArLyu431bw15csgS/DQUSaZj1c6or+w
+ XJcT0e6bNhWUWhBAmBE3U+aRaB4OcRoD6SUQQ24i6aqfyYU2n6EHiDF6r
+ mApkcVxw19UhveerJ8QHsGk+j6NbLpLSOhwea7PG4IAApgKnL0rlGJD/w
+ qQhZNRIg/JSQijpPIIW3+ZVGAuTvoWtnV6WWczLfIqyNTnw+cOir3Idb1 Q==;
+X-CSE-ConnectionGUID: 7wpe0+OrRZq2oswfoScpdw==
+X-CSE-MsgGUID: ec6tVQFNQLCWCg2NnO/zKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="739790"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="739790"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2026 05:05:47 -0700
+X-CSE-ConnectionGUID: 2l4cVOM0QMyQySLHbQ7Qfw==
+X-CSE-MsgGUID: sLF1ofTwS4aO3ra3QVaCGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1736774"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.13])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2026 05:05:45 -0700
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH 0/6] drm/i915/de: Uncore reduction
+Date: Wed, 14 Oct 2026 15:05:36 +0300
+Message-ID: <20261014120542.29675-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Move_the_PLL_power_save_W?=
- =?utf-8?q?/A_to_the_display_W/A_framework_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Mika Kahola" <mika.kahola@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Oct 2026 11:48:29 -0000
-Message-ID: <179197850918.23092.7318592023421003659@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261014105306.2761683-1-mika.kahola@intel.com>
-In-Reply-To: <20261014105306.2761683-1-mika.kahola@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +65,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4357289838797051260==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-== Series Details ==
+Tweak a bunch of stuff in intel_de.h to reduce the uncore
+footprint.
 
-Series: Move the PLL power save W/A to the display W/A framework (rev2)
-URL   : https://patchwork.freedesktop.org/series/175835/
-State : success
+Ville Syrjälä (6):
+  drm/i915: s/PIPEFRAME/PIPEFRAMEHIGH/
+  drm/i915: Modernize PIPEFRAMEHIGH/PIPEFRAMEPIXEL bits
+  drm/i915/de: Convert intel_de_read64_2x32_volatile() to
+    intel_de_read64_2x32_volatile_fw()
+  drm/i915/de: Implement intel_de_rmw() by hand
+  drm/i915/de: Implement intel_de_posting_read() via intel_de_read()
+  drm/xe: Remove unused uncore wrappers
 
-== Summary ==
+ drivers/gpu/drm/i915/display/intel_de.h       | 53 ++++++++-----------
+ .../gpu/drm/i915/display/intel_display_regs.h | 14 ++---
+ drivers/gpu/drm/i915/display/intel_vblank.c   | 13 +++--
+ .../drm/xe/compat-i915-headers/intel_uncore.h | 35 ------------
+ 4 files changed, 38 insertions(+), 77 deletions(-)
 
-CI Bug Log - changes from CI_DRM_19336 -> Patchwork_175835v2
-====================================================
+-- 
+2.55.0
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v2/index.html
-
-Participating hosts (39 -> 37)
-------------------------------
-
-  Missing    (2): bat-dg2-14 bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19336 -> Patchwork_175835v2
-
-  CI-20190529: 20190529
-  CI_DRM_19336: c06d7623a198463e9aa2d09a3c33d96fe66ea662 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9145: 05c13a14f7f8bcda7bff83b8aa033c3c47a4b1fb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_175835v2: c06d7623a198463e9aa2d09a3c33d96fe66ea662 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v2/index.html
-
---===============4357289838797051260==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Move the PLL power save W/A to the display W/A framework (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175835/">https://patchwork.freedesktop.org/series/175835/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19336 -&gt; Patchwork_175835v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v2/index.html</p>
-<h2>Participating hosts (39 -&gt; 37)</h2>
-<p>Missing    (2): bat-dg2-14 bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19336 -&gt; Patchwork_175835v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19336: c06d7623a198463e9aa2d09a3c33d96fe66ea662 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9145: 05c13a14f7f8bcda7bff83b8aa033c3c47a4b1fb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_175835v2: c06d7623a198463e9aa2d09a3c33d96fe66ea662 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4357289838797051260==--
