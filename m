@@ -4,33 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B780CC6B3C
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 10:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F52CC6B34
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 12:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3BD61122B1;
-	Thu, 15 Oct 2026 10:37:18 +0000 (UTC)
-Received: from coelho.fi (coelho.fi [88.99.146.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14D1410E5A5;
- Thu, 15 Oct 2026 10:37:18 +0000 (UTC)
-Received: from 178-55-143-231.bb.dnainternet.fi ([178.55.143.231]
- helo=[192.168.101.127])
- by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
- id 1xHIpZ-00000004Os3-1be6; Thu, 15 Oct 2026 13:37:14 +0300
-Message-ID: <a8f42bbd323a95b7a6857ab036cd4d66136e4330.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>, 
- intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Date: Thu, 15 Oct 2026 13:37:14 +0300
-In-Reply-To: <20261014120542.29675-2-ville.syrjala@linux.intel.com>
-References: <20261014120542.29675-1-ville.syrjala@linux.intel.com>
- <20261014120542.29675-2-ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-10+b1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4C5D10E94F;
+	Thu, 15 Oct 2026 12:15:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8597F10EB3C;
+ Wed, 14 Oct 2026 22:26:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8F66A6022E;
+ Wed, 14 Oct 2026 22:26:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3F6CAC2BCFC;
+ Wed, 14 Oct 2026 22:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1792016813;
+ bh=9suYk0gIMTBRHn33AiU8+AjPNi4bTVzOV+3QLs/axXA=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=NmsuYL04tiJbgl8c2QjkzRrZ6r7JRDA15iNT3eOLHc6sU19Fa4qdlEZ7PJUhVhV8H
+ 9LhQv/bTtBuECR3Qn+KfyOrh8/4g8V6jcqRu1AVWbRwWqXape2hAqnEhBSiRjBt79z
+ Tjl8XLbsLk7aw23HTe1+LJmccrhQ340KVuKOUqwhxElxW+XfTRqx+dIYPqDhEnmSZ4
+ UPUhm61oApVrLIexCoNLjXqsHTtgdkNX90MUOn9q2Vvneh5JIzOTFURrjxOHKJ7ItC
+ qUGRcWF4Bwbjbmz5qVtAfa2LrWsj9nsheMinrXX24+EvrkPQBlKU9KgGWPNR7UWx1H
+ XN9pHTp5QYoEg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 207DACC6B2A;
+ Wed, 14 Oct 2026 22:26:53 +0000 (UTC)
+From: =?utf-8?q?Burak_G=C3=B6nc=C3=BC_via_B4_Relay?=
+ <devnull+burakgon12.gmail.com@kernel.org>
+Date: Thu, 15 Oct 2026 01:26:40 +0300
+Subject: [PATCH v2 1/2] drm/i915/tc: serialize the TCSS power request mailbox
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/6] drm/i915: s/PIPEFRAME/PIPEFRAMEHIGH/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261015-ptl-port-b-tcss-v2-1-e00ce882402d@gmail.com>
+References: <20261015-ptl-port-b-tcss-v2-0-e00ce882402d@gmail.com>
+In-Reply-To: <20261015-ptl-port-b-tcss-v2-0-e00ce882402d@gmail.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Imre Deak <imre.deak@intel.com>, 
+ Mika Kahola <mika.kahola@intel.com>, 
+ =?utf-8?q?Burak_G=C3=B6nc=C3=BC?= <burakgon12@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792016806; l=3572;
+ i=burakgon12@gmail.com; s=20261006; h=from:subject:message-id;
+ bh=HDrQGwPbeM4EaZDDv9YBRrwkXDsf8pSwnEvQsuP639Q=;
+ b=hZkiOKriVZuQFgr7cGZb+Id9ihqM1SdGS/228Hl3sc7uxEyT9ijWDg2MkscroU/ZTHSlgUFfh
+ g8IQ2rQ+8qxBRKBsmnRrHGEhUODmp9j7Hv9/84t6mGvQcMZfiWXrwHG
+X-Developer-Key: i=burakgon12@gmail.com; a=ed25519;
+ pk=qcexQajnoYGkNqFOy3eFqTzvqTOR/P++ksapi6qUbvw=
+X-Endpoint-Received: by B4 Relay for burakgon12@gmail.com/20261006 with
+ auth_id=1126
+X-Original-From: =?utf-8?q?Burak_G=C3=B6nc=C3=BC?= <burakgon12@gmail.com>
+X-Mailman-Approved-At: Thu, 15 Oct 2026 12:15:59 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,56 +70,98 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: burakgon12@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2026-10-14 at 15:05 +0300, Ville Syrjala wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->=20
-> Rename PIPEFRAME to PIPEFRAMEHIGH to match the spec, and
-> better convey what the register contains.
->=20
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display_regs.h | 2 +-
->  drivers/gpu/drm/i915/display/intel_vblank.c       | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/=
-gpu/drm/i915/display/intel_display_regs.h
-> index 8251ec15190b..c868a71a5c9b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-> @@ -1089,7 +1089,7 @@
->   *  frame =3D (high1 << 8) | low1;
->   */
->  #define _PIPEAFRAMEHIGH          0x70040
-> -#define PIPEFRAME(dev_priv, pipe)		_MMIO_PIPE2(dev_priv, pipe, _PIPEAFRA=
-MEHIGH)
-> +#define PIPEFRAMEHIGH(dev_priv, pipe)	_MMIO_PIPE2(dev_priv, pipe, _PIPEA=
-FRAMEHIGH)
->  #define   PIPE_FRAME_HIGH_MASK    0x0000ffff
->  #define   PIPE_FRAME_HIGH_SHIFT   0
-> =20
-> diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/dr=
-m/i915/display/intel_vblank.c
-> index 28d81199792e..f16988cd5321 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vblank.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-> @@ -110,7 +110,7 @@ u32 i915_get_vblank_counter(struct drm_crtc *crtc)
->  	 * register.
->  	 */
->  	frame =3D intel_de_read64_2x32_volatile(display, PIPEFRAMEPIXEL(display=
-, pipe),
-> -					      PIPEFRAME(display, pipe));
-> +					      PIPEFRAMEHIGH(display, pipe));
-> =20
->  	pixel =3D frame & PIPE_PIXEL_MASK;
->  	frame =3D (frame >> PIPE_FRAME_LOW_SHIFT) & 0xffffff;
+From: Burak Göncü <burakgon12@gmail.com>
+
+xelpdp_tc_power_request_wa() (Wa_14020908590) drives the TCSS mailbox,
+which is shared by all ports: it waits for the mailbox to be idle,
+writes TCSS_DISP_MAILBOX_IN_DATA and TCSS_DISP_MAILBOX_IN_CMD, and waits
+for the command to finish. Its callers hold only their own TC port's
+lock, so two TC ports enabling or disabling TCSS power at the same time
+can interleave these steps and run one port's command with the other
+port's data.
+
+Serialize the sequence with a display-wide mutex. The next patch adds a
+caller outside of the TC port code.
+
+Assisted-by: LLM
+Signed-off-by: Burak Göncü <burakgon12@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_core.h   |  5 +++++
+ drivers/gpu/drm/i915/display/intel_display_driver.c |  1 +
+ drivers/gpu/drm/i915/display/intel_tc.c             | 12 ++++++++----
+ 3 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+index c80b4a2f7..dc1df97d8 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_core.h
++++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+@@ -623,6 +623,11 @@ struct intel_display {
+ 		u32 bxt_phy_grc;
+ 	} state;
+ 
++	struct {
++		/* serializes the TCSS mailbox of Wa_14020908590 */
++		struct mutex mailbox_lock;
++	} tc;
++
+ 	struct {
+ 		unsigned int hpll_freq;
+ 		unsigned int czclk_freq;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index 70d112fd4..e1b445305 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -187,6 +187,7 @@ void intel_display_driver_early_probe(struct intel_display *display)
+ 	mutex_init(&display->wm.wm_mutex);
+ 	mutex_init(&display->pps.mutex);
+ 	mutex_init(&display->hdcp.hdcp_mutex);
++	mutex_init(&display->tc.mailbox_lock);
+ 
+ 	intel_display_irq_init(display);
+ 	intel_dkl_phy_init(display);
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index f2d86b29c..9285e70ef 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -1068,12 +1068,15 @@ xelpdp_tc_phy_wait_for_tcss_power(struct intel_tc_port *tc, bool enabled)
+  */
+ static void xelpdp_tc_power_request_wa(struct intel_display *display, bool enable)
+ {
++	/* the mailbox is shared by all ports, keep their commands apart */
++	mutex_lock(&display->tc.mailbox_lock);
++
+ 	/* check if mailbox is running busy */
+ 	if (intel_de_wait_for_clear_ms(display, TCSS_DISP_MAILBOX_IN_CMD,
+ 				       TCSS_DISP_MAILBOX_IN_CMD_RUN_BUSY, 10)) {
+ 		drm_dbg_kms(display->drm,
+ 			    "Timeout waiting for TCSS mailbox run/busy bit to clear\n");
+-		return;
++		goto out_unlock;
+ 	}
+ 
+ 	intel_de_write(display, TCSS_DISP_MAILBOX_IN_DATA, enable ? 1 : 0);
+@@ -1083,11 +1086,12 @@ static void xelpdp_tc_power_request_wa(struct intel_display *display, bool enabl
+ 
+ 	/* wait to clear mailbox running busy bit before continuing */
+ 	if (intel_de_wait_for_clear_ms(display, TCSS_DISP_MAILBOX_IN_CMD,
+-				       TCSS_DISP_MAILBOX_IN_CMD_RUN_BUSY, 10)) {
++				       TCSS_DISP_MAILBOX_IN_CMD_RUN_BUSY, 10))
+ 		drm_dbg_kms(display->drm,
+ 			    "Timeout after writing data to mailbox. Mailbox run/busy bit did not clear\n");
+-		return;
+-	}
++
++out_unlock:
++	mutex_unlock(&display->tc.mailbox_lock);
+ }
+ 
+ static void __xelpdp_tc_phy_enable_tcss_power(struct intel_tc_port *tc, bool enable)
+
+-- 
+2.56.0
 
 
-Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
-
---
-Cheers,
-Luca.
