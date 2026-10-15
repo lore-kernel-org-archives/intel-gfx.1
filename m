@@ -4,94 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC414CCA464
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 16:41:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2B3DCC6B39
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 16:43:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7183411240C;
-	Thu, 15 Oct 2026 16:41:35 +0000 (UTC)
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com
- [209.85.215.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52F1B112418
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 16:41:29 +0000 (UTC)
-Received: by mail-pg1-f226.google.com with SMTP id
- 41be03b00d2f7-cd5e6f0a22bso1236086a12.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:41:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C88210EC21;
+	Thu, 15 Oct 2026 16:43:14 +0000 (UTC)
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com
+ [209.85.216.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0751C10EA19
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 16:43:08 +0000 (UTC)
+Received: by mail-pj1-f100.google.com with SMTP id
+ 98e67ed59e1d1-38e42560ebcso1012573a91.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:43:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792082489; x=1792687289;
+ d=1e100.net; s=20260707; t=1792082587; x=1792687387;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=0SeRwSvT7eN3P5Mm4bMvOqza1Q8A4LQbFKRx3on1DM4=;
- b=B9N0TtJ6taXJgAMDxaXWx+4tgMtatvWSkZ4oggXpcRfet84AxGGggrgtZiuSi2HdCS
- fy6oU2/hr3XFH88rjWP1kNYILxK9flZ7g9MxZrHq+e4NjLPhCH4SKlGDYcmIqG/xJw8Y
- YaCFQcLGi0po3UGVQEzfKxIjjOc60BsvcwLIKMJYbaKwbaIVixgaBwRT1u/RCWIkvsUb
- QA1eZyjqn3XK0KLAWw8Ai/OtcHEBYfLr4kh7z8YLLVKRh/3izPqPCwuZ84p5gNfrwmRX
- Yjuj9mag1v3llOWBoBGSig01ro9UwPsRXwLm7yIKk7It1Uxs00BqtCTmO8XSvivkDoG1
+ bh=ARRms8MQ28+gKady/XVmerq/QGUaVAnXL193RHghmyM=;
+ b=pZFPTE9fvO88057qg9frz1TrIRJcE8Cr9jsJ+DJYhOLRvB5rFcsLtmvcQ8+fGNmiKF
+ wE+Vpb9ZoM8DoLYIWS7BpMRWESnttQFEU+kK9qpWnAItnsmpt34/e0aoRL2cGEna0V2b
+ /HGFbcpz2x1FrWZzKj2BacLzznoaa+ex/oBXGoLTLCgW4wcHeCWZlh3uZz0gVTZBIWz1
+ +3lS/5PmqBUvssjVmljz/SHkq6kPrEDbI4GJNu4/woURB+VmAUGhV/ouL+fNpHTLNGk/
+ R2NZYPCoWZwEigMJJK7t0kE/Zfv030u3WZQVZJWg8uWmUZvAZ0MkzxlrWJx5NcBH6sZK
  KDOw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwXb7//bDTTH7a5V/I07q6lCAC+5mVz7XJVJNpalSXdwtaL964GuSWLJ029A9Lkgxe428d5jLFJIbI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIa+GcbTqHA5zX6568gy5GiiliNDp/wAF2rlf/X1SSb8/Yh5d7n
- 4WYlf/l3TsY+PpUnj3ESzfZ99O5baqjUNvjc/g7dgVMHphGyVD2doc1+lT70xyuFjLiHWZkCV9L
- 2Zqo5DbAaGshfNnlVG3NtQ4o260nzXApyzHDLIPwd+V2175FeOfY2FFZcLudrvr6dYVTGUxkESR
- uxiYTpCLPulM1dNu14ftvgR9hTotWHCScO2Rx6Q+GpzweGNTFZxbJcSb05KujQ1Le4RF2zlbnKR
- 6t7ShHTdvBculfAuzn2
-X-Gm-Gg: AYBFou2p52cGPInlnqVuJSc+qr1nMQ+0Ug4jSLyU7+e/ZGBlwnt/EHshfCSrHC81q9t
- 7rRKsF57RUAHe1cnSdRnevy9kubyJ/TZfVpUjtsc0PmnV56ycAjDk06BYQ8mH44KUJJeI209VmK
- ox5tHArKiGGYKQ0J66G7pd0r2eUYJaN+eNAAEIMZnBvbcqfYG3Rh0TLJMzAS3VJphgp4LpT8VYB
- MnMVfov+fbgRhbNmfibRXOK/JNEE4wPua9BnI8UajLtKEyOmHcV4J0p0uLyTgsjQokJK/vnbZH8
- bF3HCETeeS2StUsE1gFqI9kl1SAGArxgBww7QNwC3nwSeV0LoX/GTTRl4iU3WKW5ySL8R4iOez6
- wdlb7Qz6fJoxQYQ1xqaIo0tTHXH4hS5XJSr70xmiERNYCs/NbrZQ70g/Zbt+RDwuVPnTrvOGeKv
- 7M7sh7BlBRNFHrn0ky3f46EApIQ3FhfVTF3Fg=
-X-Received: by 2002:a17:90b:568f:b0:39e:6795:f7da with SMTP id
- 98e67ed59e1d1-3ab3a7474d4mr20088070a91.19.1792082488536; 
- Thu, 15 Oct 2026 09:41:28 -0700 (PDT)
+ AKwUvBwzB7aSRsMjBeDmtaFWkeEmC6EZv+z9ZIj7gWvcbyTWVwCEi2T6r25LtRv8V1L1aMbreoRq17nFUBY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK2N2jokGEgZtCh785NAllX4HDPy984FOoFms6+QicaRZAfpBGr
+ bCFB+uOuK14KLEyrSBsvANGDwfjTXEk79kcwd5HCuKE9Df+F83TGEefGu+1DnlKME2X2eEdv7a/
+ flrtyacuSnhcFvZQh95SfetDmIwu7iYIdctLoOUNPc5k3ar8Gx49pbRVFVrtbwlaA2Yr8SJpgMZ
+ 3kLRTN8YuwjcTWm7blslqktFnwK16FhkmMf4GYWfbkkvMu5dIFTO5tvfbBij+PUDUWwlF4v9AlW
+ S7IGOppIFzHQ6gGAd3Y
+X-Gm-Gg: AYBFou0JmuCv6LY7GIiGBBZmF9YvzsNFRIm7EchmOvYyXW7Y38ef1iH3+nSJN1QvzqZ
+ OjX8vyE786kCYcwvCvzPD/B1Sktc+2E9pJw66vqjgtdId40Y96aE2sAOoa3G6d2KqEBCtSNrK9x
+ PRTo0z4iMOpTiVVjorf8k6l9NvTqarBYWZdywP7Ke4j0anaeaiqBfHUetE0XjDKEqYmHZujjzCk
+ 0T1Yb3uAikRQrS769LmJLr54pAiGznHJXUp+AHjLhWiDN7xLPDAxf+Kini/2XXTt/2S5Cro1v8h
+ TEgVxuR85ZaR4GvfIZCJk22reWj/vTREkI/6tpe9A8g0LYnqH14V4TZcW8HApAGcoSIBvxEh88Q
+ OMYRRZppb529BYcYdckp2P5IlTgkDelnRtmEt4KGHaFivfXuUtyl86GzOQsYDVz3sE2XZBiiMIR
+ J2242hzHMtevLWRikc0w6jbxEHRgLihEnX
+X-Received: by 2002:a17:90b:390f:b0:3ac:9e76:aa98 with SMTP id
+ 98e67ed59e1d1-3ac9e76ae12mr2446899a91.64.1792082587210; 
+ Thu, 15 Oct 2026 09:43:07 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-100.dlp.protect.broadcom.com. [144.49.247.100])
+ (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
  by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3ac937bc0bfsm823166a91.4.2026.10.15.09.41.28
+ 98e67ed59e1d1-3acbee7af5asm174540a91.8.2026.10.15.09.43.06
  for <intel-gfx@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Oct 2026 09:41:28 -0700 (PDT)
+ Thu, 15 Oct 2026 09:43:07 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dl1-f70.google.com with SMTP id
- a92af1059eb24-1383723dfddso4291467c88.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:41:27 -0700 (PDT)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-359b81ad4e8so3309169eec.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:43:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1792082487; x=1792687287;
+ d=broadcom.com; s=google; t=1792082585; x=1792687385;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=0SeRwSvT7eN3P5Mm4bMvOqza1Q8A4LQbFKRx3on1DM4=;
- b=FPh8LAr/9ed/grRBcb9gnIxlE/dGzOJFlhZ8/IpDHKzm1iMYwK+ygXGitCaK9tahgL
- TAIScFDjEj4N1mTBWcxoOfToEvnWX/muwJOtHnTYambAGWE0gp7K8VPzuFPy7RtEk/vi
- 7MfflshMp8JH4nIpryIwJakL09VzoRKsqES8M=
+ :content-type; bh=ARRms8MQ28+gKady/XVmerq/QGUaVAnXL193RHghmyM=;
+ b=O5pHj3MKiL70ZVBqV6EAT1kuS5U419S+Rplvk96FgujIrN7zbvsTombwgtPH5yZHGS
+ IUrEzumQagg2aMJ94dEoV8GoWcW03kkEhBb17hABzpeDNi8Tgeol7gocM/UKPfZrBYex
+ A4x3pNxKdSSD90R2KSFMVxZXMCxF+1oaRdCGw=
 X-Forwarded-Encrypted: i=1;
- AKwUvBwoeNxXlkMaqjnYxa5xO/rsCD6Vx1HT55i07G8Gkn9uk6PA3p7duxssx3Rma79XZBypkbIm1LA6adw=@lists.freedesktop.org
-X-Received: by 2002:a05:7022:1608:b0:150:1cea:31a8 with SMTP id
- a92af1059eb24-16a60bf2778mr22288468c88.19.1792082486647; 
- Thu, 15 Oct 2026 09:41:26 -0700 (PDT)
-X-Received: by 2002:a05:7022:1608:b0:150:1cea:31a8 with SMTP id
- a92af1059eb24-16a60bf2778mr22288350c88.19.1792082484264; Thu, 15 Oct 2026
- 09:41:24 -0700 (PDT)
+ AKwUvBwzhhY1bjU4p6H2LMiJASYdDe+/s6t+UH8ANWM+NR0w/t5DTlfFWQG93eNAyakmbDCvpQPjuKx9nnM=@lists.freedesktop.org
+X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id
+ 5a478bee46e88-35623dd574fmr22162826eec.4.1792082585037; 
+ Thu, 15 Oct 2026 09:43:05 -0700 (PDT)
+X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id
+ 5a478bee46e88-35623dd574fmr22162783eec.4.1792082584198; Thu, 15 Oct 2026
+ 09:43:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <5e79d3c0-5b2c-4e6c-ba38-3b723daf7109@intel.com>
- <atDXDlI-EhrA791a@intel.com> <d4d5302f-9768-4122-bbab-4384ef7aa9fe@intel.com>
- <atD66da36wMZ0gie@intel.com>
-In-Reply-To: <atD66da36wMZ0gie@intel.com>
+References: <20261013120211.135807-1-matt@ozlabs.org>
+ <20261013120211.135807-2-matt@ozlabs.org>
+In-Reply-To: <20261013120211.135807-2-matt@ozlabs.org>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 15 Oct 2026 09:41:04 -0700
-X-Gm-Features: AclHuK8Hn20-he1ntr5sEuS1MoAtoRltrcvzX1TBPTTlkmmSdpX3cj9PWf6QZmQ
-Message-ID: <CABQX2QP08+cOO7EZSWfLJpeAdad9EnzsAUneSvts5Z3ANbvtog@mail.gmail.com>
-Subject: Re: Nasty console and xe driver interactions
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dave Hansen <dave.hansen@intel.com>, dri-devel@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, 
- intel-xe@lists.freedesktop.org
+Date: Thu, 15 Oct 2026 09:42:44 -0700
+X-Gm-Features: AclHuK8uvZ2yCOXgWUEd0EcP0DV4PFr55gQDJjWOVezQ6ac0lSksAZFJroIxQa0
+Message-ID: <CABQX2QP16Aid7tUk2kyPU9mUzB4XHcJKYtO3xsbDOQ3rgGYX6A@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] drm/vmwgfx: Use get_file_active() for dmabuf->file
+To: Matt Evans <matt@ozlabs.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Zhenyu Wang <zhenyuw.linux@gmail.com>, 
+ Zhi Wang <zhi.wang.linux@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ stable@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000103f9f065de3b847"
+ micalg=sha-256; boundary="000000000000ef6a23065de3bd2c"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,72 +115,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000103f9f065de3b847
+--000000000000ef6a23065de3bd2c
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 9:10=E2=80=AFAM Rodrigo Vivi <rodrigo.vivi@intel.co=
-m> wrote:
+On Tue, Oct 13, 2026 at 5:02=E2=80=AFAM Matt Evans <matt@ozlabs.org> wrote:
 >
-> On Thu, Oct 15, 2026 at 08:30:42AM -0700, Dave Hansen wrote:
-> > On 10/15/26 06:37, Rodrigo Vivi wrote:
-> > > So, perhaps what could be done in this specific case while we don't h=
-ave
-> > > the proper one is something like trying to pre-fetch the mandatory fw=
-.
-> > > Before we steal the fb. Something like:
-> > >
-> > > (Untested warning)
-> > >
-> > > https://github.com/rodrigovivi/linux/commit/5589d2883a604d52e89f44620=
-e16d16c7fd278e8
-> >
-> > I threw caution to the wind and tried this.
+> 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+> dentry_ops") moved the dmabuf .release, and broke the vmwgfx driver's
+> assumption that dmabuf->file would remain valid until release.
+> Currently, dmabuf->file can be stale after the file closes even if
+> .release has not yet been called, and a future commit makes
+> dmabuf->file become NULL instead of stale.
 >
-> Thanks for being brave! :)
+> In preparation for that future commit, convert
+> get_dma_buf_unless_doomed() to use get_file_active(&dmabuf->file)
+> which is the safe method to access and get a reference, even when
+> dmabuf->file could be NULL.
 >
-> > Id didn't seem to help. I
-> > don't seem the messages about unregistering the old console, but I stil=
-l
-> > never get any output. The only "xe" gunk in dmesg is:
-> >
-> > > [    0.739464] xe 0000:00:02.0: GuC firmware xe/ptl_guc_70.bin not fo=
-und, can be downloaded from https://git.kernel.org/pub/scm/linux/kernel/git=
-/firmware/linux-firmware.git
-> > > [    0.739501] xe 0000:00:02.0: probe with driver xe failed with erro=
-r -2
-> >
-> > BTW, "xe.force_probe=3D!*" on the command-line also gets the output bac=
-k
-> > to normal.
+> Cc: stable@vger.kernel.org
+> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentr=
+y_ops")
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> ---
+>  drivers/gpu/drm/vmwgfx/ttm_object.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> the force probe proves that we can still probe safely, but apparently
-> on my first attempt I missed the fact that pcim_enable_device will
-> touch the device and register a pci_disable_device that might
-> clear stuff and mess with the VGA fb...
+> diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx=
+/ttm_object.c
+> index f9042bafdc93..9137a31eaa1a 100644
+> --- a/drivers/gpu/drm/vmwgfx/ttm_object.c
+> +++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
+> @@ -471,7 +471,7 @@ void ttm_object_device_release(struct ttm_object_devi=
+ce **p_tdev)
+>   */
+>  static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabu=
+f)
+>  {
+> -       return file_ref_get(&dmabuf->file->f_ref);
+> +       return get_file_active(&dmabuf->file) !=3D NULL;
+>  }
 >
-> Perhaps if we move just one step over:
->
-> https://github.com/rodrigovivi/linux/commit/616cd8c1b4d4414cd1f7ad56fa5d8=
-abd36d7968d
+>  /**
+> --
+> 2.47.3
 
-The general issue with my series from the above was always that it
-required two parts:
-1) a generic framework to reload platform fb on module failure (which
-i think that series does ok job at)
-2) auditing and trying various drivers to make sure they leave the
-system in a predictable state in which the reload from #1 can succeed.
-
-Every driver (other than the vmw ones that I maintain) would still
-need to go through the second step. The general consesus at the time
-was that #2 was impossible for most drivers/gpus and having a generic
-infra just to make vmwgfx/vmwvg init failures properly reload fb is
-not something that'd be wanted. We don't have spare systems with intel
-gpu's for me to play with it so I can't help with #2.
+Looks good. Thanks! Feel free to use either Suggested-by or
+Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
 
 z
 
---000000000000103f9f065de3b847
+--000000000000ef6a23065de3bd2c
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -264,13 +257,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIHXi
-nxyhS6Pi9UzgztVEjeeibJ2qIHrZMdCGJ5+BO5uZMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDEyN1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIGNz
+VXkGGumopBKIn/qVTd6ehDVfWD1CXUSQEC9JhfzNMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDMwNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAJOInPIqxJqdvDyJxRwr/8VglT/2E6WexaOKBqyn
-oWFMLZwC58+5S3O+HtOwgcElh8/F6RDCZh0s/RwshbxpZVIRLu1QotsWNW9Aq3GwWCF2miy77SJS
-DnQlbtdtjzpYRk2ydxb13Khe2ni3ddKpylMMQCKOBL2VHEw8e03U5Hzm/B/McczdNFEGoF7wSIXn
-JAE+VGd+Koee9TsHZk+EB4tCQIiNOkoXKctatzZON2xjUHQltKvJYaLwzSTf452HDRynMqrp4Ofg
-qA19RXGP1hYoDIb7+mwV5gEqjbaMQQui+KndfHh7nOWWwptZ7PIhrFkQdgUrqm+mwx2uRkx+A6k=
---000000000000103f9f065de3b847--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBACWwSo1VrUwePCkDwJ6WZMBpRtNDlQM2QN9vcZIO
+9VxSmU7FqtizmjvJg3sOF4Nw/bhAWBqoleBylD7Bjacx7w/zGUYcherjG5Sm1oY4A2H0V8zI9cOF
+NLrJ7TiPr5R2r6nNfxl7mKgpkhYEXJlr1q/GiXVaWA5tgw/oq4VUkovjez2D3JBrYEq7h3xcgt7O
+CtrVX+y8j1nRAsPDf9WFtK+JqjwmA038MpO8mNvCJ6RhjsbEp1/4DjJdEYvG1gAtwbkIA+GAfYYG
+mOcaxxZS6Mhu2xTVd+FhWNhRSBoPQtwSTBhPPQrJQ8Dr2mwzZTo1Ml76Rovn/XXAG2Mo1KTg7v4=
+--000000000000ef6a23065de3bd2c--
