@@ -4,85 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2B3DCC6B39
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 16:43:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DA78CC6B39
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 16:46:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C88210EC21;
-	Thu, 15 Oct 2026 16:43:14 +0000 (UTC)
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com
- [209.85.216.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0751C10EA19
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 16:43:08 +0000 (UTC)
-Received: by mail-pj1-f100.google.com with SMTP id
- 98e67ed59e1d1-38e42560ebcso1012573a91.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:43:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E909210EA19;
+	Thu, 15 Oct 2026 16:46:07 +0000 (UTC)
+Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com
+ [209.85.215.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57FE410EA19
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 16:46:01 +0000 (UTC)
+Received: by mail-pg1-f225.google.com with SMTP id
+ 41be03b00d2f7-cc4be0e5351so1072651a12.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:46:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792082587; x=1792687387;
+ d=1e100.net; s=20260707; t=1792082761; x=1792687561;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=ARRms8MQ28+gKady/XVmerq/QGUaVAnXL193RHghmyM=;
- b=pZFPTE9fvO88057qg9frz1TrIRJcE8Cr9jsJ+DJYhOLRvB5rFcsLtmvcQ8+fGNmiKF
- wE+Vpb9ZoM8DoLYIWS7BpMRWESnttQFEU+kK9qpWnAItnsmpt34/e0aoRL2cGEna0V2b
- /HGFbcpz2x1FrWZzKj2BacLzznoaa+ex/oBXGoLTLCgW4wcHeCWZlh3uZz0gVTZBIWz1
- +3lS/5PmqBUvssjVmljz/SHkq6kPrEDbI4GJNu4/woURB+VmAUGhV/ouL+fNpHTLNGk/
- R2NZYPCoWZwEigMJJK7t0kE/Zfv030u3WZQVZJWg8uWmUZvAZ0MkzxlrWJx5NcBH6sZK
- KDOw==
+ bh=DuWQoQD6iB45JN9sKniltVpZ7Z3xGFAXDHrAQIM+y9c=;
+ b=q6j5x3lwpQO9Am2hI3VHH0mHnRxeStr9Lq84KN85TLq0tpl95eGsuXlvOhu1by49u0
+ q3GQUaQCAVycDJBYxdICSsFRUUHwGcPLznbE/85JykI90sXiiTsD82F+QzwjAGYYrh+d
+ pEg6HZqKFtFjlrvOF0oNUw4dSlontUCeBnpf2VUCreqWwIIwUAQ+m5tpoUD2Ra1EB7dx
+ lOnAS3h3+GVr06Jc8vO051bihzWNZif/nlGITt17g0cyzlOfwwAEQCOKABydYX3EkrQd
+ 8IFyaeJJyLHbgk1vET4dpXBVRe7uvqmPNwqcwg+uIqb1kndJbx07j4Ou53KmtksRwQWz
+ ebtg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwzB7aSRsMjBeDmtaFWkeEmC6EZv+z9ZIj7gWvcbyTWVwCEi2T6r25LtRv8V1L1aMbreoRq17nFUBY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK2N2jokGEgZtCh785NAllX4HDPy984FOoFms6+QicaRZAfpBGr
- bCFB+uOuK14KLEyrSBsvANGDwfjTXEk79kcwd5HCuKE9Df+F83TGEefGu+1DnlKME2X2eEdv7a/
- flrtyacuSnhcFvZQh95SfetDmIwu7iYIdctLoOUNPc5k3ar8Gx49pbRVFVrtbwlaA2Yr8SJpgMZ
- 3kLRTN8YuwjcTWm7blslqktFnwK16FhkmMf4GYWfbkkvMu5dIFTO5tvfbBij+PUDUWwlF4v9AlW
- S7IGOppIFzHQ6gGAd3Y
-X-Gm-Gg: AYBFou0JmuCv6LY7GIiGBBZmF9YvzsNFRIm7EchmOvYyXW7Y38ef1iH3+nSJN1QvzqZ
- OjX8vyE786kCYcwvCvzPD/B1Sktc+2E9pJw66vqjgtdId40Y96aE2sAOoa3G6d2KqEBCtSNrK9x
- PRTo0z4iMOpTiVVjorf8k6l9NvTqarBYWZdywP7Ke4j0anaeaiqBfHUetE0XjDKEqYmHZujjzCk
- 0T1Yb3uAikRQrS769LmJLr54pAiGznHJXUp+AHjLhWiDN7xLPDAxf+Kini/2XXTt/2S5Cro1v8h
- TEgVxuR85ZaR4GvfIZCJk22reWj/vTREkI/6tpe9A8g0LYnqH14V4TZcW8HApAGcoSIBvxEh88Q
- OMYRRZppb529BYcYdckp2P5IlTgkDelnRtmEt4KGHaFivfXuUtyl86GzOQsYDVz3sE2XZBiiMIR
- J2242hzHMtevLWRikc0w6jbxEHRgLihEnX
-X-Received: by 2002:a17:90b:390f:b0:3ac:9e76:aa98 with SMTP id
- 98e67ed59e1d1-3ac9e76ae12mr2446899a91.64.1792082587210; 
- Thu, 15 Oct 2026 09:43:07 -0700 (PDT)
+ AKwUvBx/9KdET5rEMCOHE2+E/pscRNgy1seoRDPkqK1wJd4ylM+hjDb7qIIjdt5kXDjudZECVD9Co++xEUE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ9sdznlcUFvcldNZ9WS7crtMY3xcFuV/6RFnJ6HWzRAqfQU9/2
+ atynxnHBXyE3ICTLKLJLEBn4eMS+NH5/6dc+sfolN4OsXCY3CmnQJQl+A/ywRe3iRquorrahqW7
+ azjw/rpQvSbaavc+ywZa0Sb91o6jQtYhHgL3gXTPJjUpxw1IxZpjhDrx+8x1l38oKTMhsQAMYVC
+ 4mB0d1LMgfl7V2eE/Fzp3auMGZE0n9/SOdleAzetyNQVdodUToK4mWwZqwzNJVTKxaQpnA2wKdo
+ mFz62tZkSMUsGVgtEXHOf8=
+X-Gm-Gg: AYBFou3BdMPi+F2H035yeUXF9m6PQ85ooObSSoTAkp4Nb8sij2SxtXT4dvUqMVB1H4j
+ jOTEXUmthCHOYhzf+SgncOsS5tPcGII1KZkDcR/HXc1aHinkvN6+QLyRvMNYVWF0TtDzPr2sVvS
+ T6dbH6oTY6uzcSbVlJzQvQNXZFCkyJPmUOYc4jIxVDxyw1zuIyKSKVVMB7x0qau78eDkYAjL7dy
+ 0pBbs0oQbAZnpciPwI12qS8+N3dAeYe73InJhcoyezyS6bLTcMdB0BCwMBC1aFYbWNDufl1d1oq
+ tZBaUNs0oBkK97k5ztZpDsCLk6wlsWWz1GKWgPOguulVL7+H+jwcygzMBhgs3RDZzL76H1LHWt6
+ HEalMuZDwJKTEf5Vbcs3jw++c36K57qsOTgiKbX1GqaddAddKYQR0WyFwemihxlsYUzf7igpt0H
+ Hfd2NBy6WKUN9dOcVBeuYpqRaq5BiSkY9GBtA=
+X-Received: by 2002:a17:90b:164c:b0:3ac:9176:e837 with SMTP id
+ 98e67ed59e1d1-3ac9176f1e6mr3585051a91.50.1792082760477; 
+ Thu, 15 Oct 2026 09:46:00 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
+ (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
  by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3acbee7af5asm174540a91.8.2026.10.15.09.43.06
+ 98e67ed59e1d1-3ac947ba697sm1941885a91.7.2026.10.15.09.46.00
  for <intel-gfx@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Oct 2026 09:43:07 -0700 (PDT)
+ Thu, 15 Oct 2026 09:46:00 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
 Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-359b81ad4e8so3309169eec.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:43:06 -0700 (PDT)
+ 5a478bee46e88-35cbea41088so3342711eec.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:45:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1792082585; x=1792687385;
+ d=broadcom.com; s=google; t=1792082759; x=1792687559;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ARRms8MQ28+gKady/XVmerq/QGUaVAnXL193RHghmyM=;
- b=O5pHj3MKiL70ZVBqV6EAT1kuS5U419S+Rplvk96FgujIrN7zbvsTombwgtPH5yZHGS
- IUrEzumQagg2aMJ94dEoV8GoWcW03kkEhBb17hABzpeDNi8Tgeol7gocM/UKPfZrBYex
- A4x3pNxKdSSD90R2KSFMVxZXMCxF+1oaRdCGw=
+ :content-type; bh=DuWQoQD6iB45JN9sKniltVpZ7Z3xGFAXDHrAQIM+y9c=;
+ b=EMdMRDJz1JGB+IAgj6QJRWBA07xw+C0Hv1nt7T4cIAKoEaDQNDTQfXEvoC/FXpL8Bh
+ jOodbUN8fXBKFkj4nu9PaBj//3ygiNPiLUSgJg7gfR1wAh5xxoHPmydPTbNdhinjaTm2
+ GU5ZClvux38O7JnrZuFRoLAosbP3e4t75Scf4=
 X-Forwarded-Encrypted: i=1;
- AKwUvBwzhhY1bjU4p6H2LMiJASYdDe+/s6t+UH8ANWM+NR0w/t5DTlfFWQG93eNAyakmbDCvpQPjuKx9nnM=@lists.freedesktop.org
-X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id
- 5a478bee46e88-35623dd574fmr22162826eec.4.1792082585037; 
- Thu, 15 Oct 2026 09:43:05 -0700 (PDT)
-X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id
- 5a478bee46e88-35623dd574fmr22162783eec.4.1792082584198; Thu, 15 Oct 2026
- 09:43:04 -0700 (PDT)
+ AKwUvBxJquNLz5T1x+EfS/5g5+qjMR+32PtKF1kIHDFeZ7BU7c3/LAeFx81ZcPUKXC5tpAi9TxgIUfyB07E=@lists.freedesktop.org
+X-Received: by 2002:a05:7301:78cd:b0:353:5908:36fc with SMTP id
+ 5a478bee46e88-3537dfa8c6cmr25184450eec.17.1792082758653; 
+ Thu, 15 Oct 2026 09:45:58 -0700 (PDT)
+X-Received: by 2002:a05:7301:78cd:b0:353:5908:36fc with SMTP id
+ 5a478bee46e88-3537dfa8c6cmr25184392eec.17.1792082757800; Thu, 15 Oct 2026
+ 09:45:57 -0700 (PDT)
 MIME-Version: 1.0
 References: <20261013120211.135807-1-matt@ozlabs.org>
- <20261013120211.135807-2-matt@ozlabs.org>
-In-Reply-To: <20261013120211.135807-2-matt@ozlabs.org>
+ <20261013120211.135807-4-matt@ozlabs.org>
+In-Reply-To: <20261013120211.135807-4-matt@ozlabs.org>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 15 Oct 2026 09:42:44 -0700
-X-Gm-Features: AclHuK8uvZ2yCOXgWUEd0EcP0DV4PFr55gQDJjWOVezQ6ac0lSksAZFJroIxQa0
-Message-ID: <CABQX2QP16Aid7tUk2kyPU9mUzB4XHcJKYtO3xsbDOQ3rgGYX6A@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] drm/vmwgfx: Use get_file_active() for dmabuf->file
+Date: Thu, 15 Oct 2026 09:45:41 -0700
+X-Gm-Features: AclHuK8gEHzRL7o1P7PbsprYTPQIJqIPg_1G1oX-C1t78VeDlarF5hWwxG694Uw
+Message-ID: <CABQX2QOis8GJK4Mm8FEuH8UtrXF1NbeMoN8vQD5j4Hwcdk8JoA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
 To: Matt Evans <matt@ozlabs.org>
 Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  Sumit Semwal <sumit.semwal@linaro.org>, Zhenyu Wang <zhenyuw.linux@gmail.com>, 
@@ -99,7 +99,7 @@ Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  stable@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000ef6a23065de3bd2c"
+ micalg=sha-256; boundary="00000000000047165a065de3c8e2"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,57 +115,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000ef6a23065de3bd2c
+--00000000000047165a065de3c8e2
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Tue, Oct 13, 2026 at 5:02=E2=80=AFAM Matt Evans <matt@ozlabs.org> wrote:
 >
-> 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops") moved the dmabuf .release, and broke the vmwgfx driver's
-> assumption that dmabuf->file would remain valid until release.
-> Currently, dmabuf->file can be stale after the file closes even if
-> .release has not yet been called, and a future commit makes
-> dmabuf->file become NULL instead of stale.
+> The dmabuf release path is split between file and dentry release:
+> dma_buf_file_release() is called shortly before the file is freed, and
+> dma_buf_release() calls an exporter's dmabuf->ops->release when the
+> dentry is freed.  However, the dentry can outlive the file (for
+> example, if opened with O_PATH), meaning .release might be called some
+> time after the file is freed.
 >
-> In preparation for that future commit, convert
-> get_dma_buf_unless_doomed() to use get_file_active(&dmabuf->file)
-> which is the safe method to access and get a reference, even when
-> dmabuf->file could be NULL.
+> This presents a window, when closing a DMABUF file, in which
+> dmabuf->file points to freed memory yet .release op has not yet been
+> called.
+>
+> For VFIO, if a buffer's .release has not been called it's considered
+> still active and subject to move/cleanup.  If so, it attempts to
+> get_file_active() on dmabuf->file: a file close with dentry held open
+> will call this function with a stale pointer, a UAF.
+>
+> To make this pattern safe, set dmabuf->file to NULL in
+> dma_buf_file_release() to reflect that the associated file is now dead
+> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+> sequence concurrent with a file close then only executes as one of:
+>
+>  - Gets the file before file_ref_put() (dmabuf->file valid)
+>  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+>  - Observes dmabuf->file =3D NULL (no file)
+>
+> Originally, drivers could assume dmabuf->file was valid until .release
+> was called from fops->release.  This assumption was no longer valid
+> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+> dentry_ops"), which moved the callback to the dentry release (by which
+> point the file might have been freed).  With this commit, drivers must
+> still consider that dmabuf->file could be NULL before .release.
 >
 > Cc: stable@vger.kernel.org
 > Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentr=
 y_ops")
 > Signed-off-by: Matt Evans <matt@ozlabs.org>
 > ---
->  drivers/gpu/drm/vmwgfx/ttm_object.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
+>  include/linux/dma-buf.h   |  5 ++++-
+>  2 files changed, 22 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx=
-/ttm_object.c
-> index f9042bafdc93..9137a31eaa1a 100644
-> --- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-> +++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-> @@ -471,7 +471,7 @@ void ttm_object_device_release(struct ttm_object_devi=
-ce **p_tdev)
->   */
->  static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabu=
-f)
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 4c9add51f9ef..61485fc28b8b 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
+>
+>  static int dma_buf_file_release(struct inode *inode, struct file *file)
 >  {
-> -       return file_ref_get(&dmabuf->file->f_ref);
-> +       return get_file_active(&dmabuf->file) !=3D NULL;
+> -       if (!is_dma_buf_file(file))
+> -               return -EINVAL;
+> +       struct dma_buf *dmabuf =3D file->private_data;
+> +
+> +       if (!dmabuf)
+> +               return 0;
+>
+> -       __dma_buf_list_del(file->private_data);
+> +       __dma_buf_list_del(dmabuf);
+>
+> +       /*
+> +        * As the file is being closed, dmabuf->file is no longer
+> +        * valid and NULL replaces an otherwise stale pointer.  If a
+> +        * reference to the file isn't already held, the file can be
+> +        * closed at any time, including before dmabuf->ops->release()
+> +        * happens: dmabuf->file _must not_ be accessed directly.  An
+> +        * exporter should use get_file_active(&dmabuf->file) which
+> +        * atomically tests and acquires a reference to the file (or
+> +        * returns NULL if the file has closed).  The barrier ensures
+> +        * get_file_active() observes the store before file_free()
+> +        * frees the memory.
+> +        */
+> +       smp_store_mb(dmabuf->file, NULL);
+>         return 0;
 >  }
 >
->  /**
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index d15b2b31d3c9..a31eb0ab9ecf 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -303,7 +303,10 @@ struct dma_buf {
+>          * @file:
+>          *
+>          * File pointer used for sharing buffers across, and for refcount=
+ing.
+> -        * See dma_buf_get() and dma_buf_put().
+> +        * See dma_buf_get() and dma_buf_put().  When an exporter holds a
+> +        * common lock with the ->release() callback, it can use
+> +        * get_file_active(&dma_buf->file) to safely acquire a reference;
+> +        * the file could otherwise be closed at any time.
+>          */
+>         struct file *file;
+>
 > --
 > 2.47.3
+>
 
-Looks good. Thanks! Feel free to use either Suggested-by or
 Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
 
 z
 
---000000000000ef6a23065de3bd2c
+--00000000000047165a065de3c8e2
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -257,13 +313,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIGNz
-VXkGGumopBKIn/qVTd6ehDVfWD1CXUSQEC9JhfzNMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDMwNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIBCL
+84tfrxmEydRsa1w33yx6kN2PzfUL8NyJllPrxqdvMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDU1OVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBACWwSo1VrUwePCkDwJ6WZMBpRtNDlQM2QN9vcZIO
-9VxSmU7FqtizmjvJg3sOF4Nw/bhAWBqoleBylD7Bjacx7w/zGUYcherjG5Sm1oY4A2H0V8zI9cOF
-NLrJ7TiPr5R2r6nNfxl7mKgpkhYEXJlr1q/GiXVaWA5tgw/oq4VUkovjez2D3JBrYEq7h3xcgt7O
-CtrVX+y8j1nRAsPDf9WFtK+JqjwmA038MpO8mNvCJ6RhjsbEp1/4DjJdEYvG1gAtwbkIA+GAfYYG
-mOcaxxZS6Mhu2xTVd+FhWNhRSBoPQtwSTBhPPQrJQ8Dr2mwzZTo1Ml76Rovn/XXAG2Mo1KTg7v4=
---000000000000ef6a23065de3bd2c--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAGzG9yKhRrbn4VGJFWDcPw20WJoiE/6KD+Cg1KqC
+h6BS1xXVufGiY5gvfwlaKaa0uX1BMOOXBkCA2l+qN82gilIQSEhXBk0XzvoiE1up8Ps0m3ncoAKn
+F8e87A551Eyx/OFtw+fVvLeaVYj2kkn3b+8AY/mVE7puKUU67aQ4nz3A80sIR2S5KfvnuxkXndSA
++inJYcHuzXJG2OlbN1wvw38nsQCiVR+XbeSCih3eal0TAIO/c2oIUGF9TH5rjMn0ieVUtp1Mcn4J
+3/gCN7TwPt6dfmultyHXyj6LJ/ImFSvZarTc+BRxJziqjHIqJmdez6sAKsbQU4XBT0G8XV42JZE=
+--00000000000047165a065de3c8e2--
