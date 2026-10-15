@@ -4,152 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF6D7CCA465
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 20:38:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6997DCCA462
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 21:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 447D310E284;
-	Thu, 15 Oct 2026 20:38:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F18FE1124C5;
+	Thu, 15 Oct 2026 21:29:08 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19D8410E284;
- Thu, 15 Oct 2026 20:37:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7335D1124BE;
+ Thu, 15 Oct 2026 21:29:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792096679; x=1823632679;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=Iq/qY/4+2nALHHxi71Tj9MC89wuQR6AcxCEAnaRUbk0=;
- b=YIdKNZwrMA3qta4DNLiQ9TueRjvR33OcnbncTEkZv7ar1Y4QOo2idaFO
- exyG+DdatEP3B2UKIhXO3QU3bpVwpYAn2UFODEsq0o6eBnbImZRHgIXTS
- Kk5KfLobD9LXf89GQCw5/A+1T83LArC0lkrOTwxRbrbGXVP8LSY81GKt/
- /IiMEhFDBoIVUsjv/AfXfgRzbWKXb/g8A9IM/c+2Ai4ZJABx3+EeezMg9
- I3/WdJZZnw8Lw88FmJp1GgpayVmy1hyQrPkPkskUl3GzBW6tQZFdDNprO
- 5Wim3CJ7rguzZcltvT+VQwR4PcaANXWcmsX3c2Llgb7miEzBG9//2qdWa w==;
-X-CSE-ConnectionGUID: 70FscE07TtWivWkRHLp6dw==
-X-CSE-MsgGUID: B2Kql+pGRb+kCLIpRYozUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="912235"
+ t=1792099743; x=1823635743;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=R3ihhgSKB9q5YuNaJhRfBEWLtjQBiuLwO/7nsQFhtHE=;
+ b=UtT3uLzHNBC9sVYGIkV26S+5+IxXi+DSJyBNIgfm9ZzC7F8XaqK1Lhot
+ Q1nlTQWUVCceJTLSdZGkhVE6BJtkuT5SvdKQC+hsoJujCVldtuVWU2T0N
+ nJYNGgM0THhabZGG+4VDwj4txsjxH8sdNr3vHNMisn5OYyOqJEa2+eDpV
+ prMTOOIzdqO3Lasy2irF4j6qzjcy7UfjR/J77QRqOLDnXw/QXUtv1WmPR
+ He/uWmpt5eqtAOZMgQi2fx5Th6lxjXwEMpw57w2L/auv6dKhKkQgpzvfa
+ 3x63wFTxr5UTOcDxLH1Gsf85i2njEpKA/TcnFGlbPQiUdPqFe2upb5ffW g==;
+X-CSE-ConnectionGUID: BlVPz14vT7KyvtKHHj9e9A==
+X-CSE-MsgGUID: OwHsSB4kQq+cUiKPaY1iew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="915591"
 X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="912235"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+   d="scan'208";a="915591"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2026 13:37:58 -0700
-X-CSE-ConnectionGUID: DfbaiiCzT3Co+xZd6jd0xw==
-X-CSE-MsgGUID: MrDTGvbbTICrhUkkVEdHFQ==
+ 15 Oct 2026 14:29:02 -0700
+X-CSE-ConnectionGUID: DE/opiE6SVmSGDUluUzYhw==
+X-CSE-MsgGUID: H04mwPeGQsy7YW6NAy9B+g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1847778"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2026 13:37:58 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+   d="scan'208";a="1884641"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2026 14:29:01 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 13:37:58 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ 15.2.2562.49; Thu, 15 Oct 2026 14:29:00 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 13:37:58 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.67) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 14:29:00 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.37) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 13:37:57 -0700
+ 15.2.2562.49; Thu, 15 Oct 2026 14:28:59 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ynjqX773eHDaI99baq/m7OOpWIutE9kwOTosDK9zk7fIm8zZoZCWvN5RDlIXs3CbJLPeJgXzfYJtRUcjmPyfe8jTZ1JMOP3sYVBVhuiwDRytzeTQpH4A02e+PdDucmGOWrMOHHkzmSXk8OzKU6PjyKm33kP5U5IxCtNsRH0hohSwtGf1IcINyjt1IjoYnejkmrT1tkomovtGQjgNu784R2xSHxhpviKjcYOQtAqml4lTD673AKmyinAtmHBooldoKrmP7WilYWGQ7l8nkUhKG1C661n7FZlJGqAnCkFd9o+p7DZCqCU8xHsmnabjaoLsJ6eFkTeSJH387EPEsXxjAA==
+ b=h7I8G+EWUtuft0uGzit5+/Fz/UfzUK9EGMqSWM+V+m9VfUQHlp7i8OG8wYvk1uRknuwpPfe8kD92sY0JZZhMoplrcEDlIMBvTcR5PU0nMbP2S96xjoKDYWPK7ExaXYqvmaHKZe4+05Wd/L13rnoC9cLQNGSUqD7rHgsMhswn8FU7DV+I34jeXJZm71PhALOgQ1UA2SzmU15CTlb1FWLccBw4BwSulK8mqiT2NrpI5K/7FUW+HOShmaGM6xJQgOazgWBb2HdhSaAsqXcJqF0232M+eADQNIAxy54f8NIqCcCP5STkouSyX8IjRzuWwYikc7Ycdr/X58wm9eCBMa5dyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cXDiRPdBANWlhdr5z7AuxjKx30QRPsAE1f4/j7l4fko=;
- b=hlChbDGw3jCIBRlzscAtEZ4wQ46DjeI+IKUTjbf/n8Bu+33ehrP1E6DrUeIBSWO1znp3HOVcJYeWuXS+s0k37ZUkdHcE1WSB9NcLyLpJnZ01sn++fzNsvdGJy6fiRmrGZPk6gejCOQLSzriaEIsttyMr4RYvVgfpdkmVulFuuQAlz8I4mv/q9PGXAWii1qNCZkk7whEEuu8Pu2+pmWNFyWnYOWQqHt1T5WRSLb11hrgwz2/LZGQfX/+/0oDT3NCXEsyINVoWDT65ygI4IOLXOcB7V5oGQTWlbMOU1BytxsJ4JGKRfq3+i2tdKegCI7h4Acjbsfj46xWMDU5loKKvKw==
+ bh=H/+/ih4wcRxM1NkxwFKRlZH4Y3rpSoLiiEPj7Ajt/Z4=;
+ b=QPmI2wyaeSca6+n0nKp8AWaQQDeIGxu+HWwf+EVCpdmd+99fmF8nNA5lmygfw9wShzgZuGLSNuW8d94GDzLHd6irvUp+wnNWOM9NTRUJpWwLqrIvWTGapnq9twMW7gj/yhep3U3Axt7wtasTHUCV3pX1cC7ozQstH0SlZX5H64drOU/nNs+YhONZMs81yO1zSYbYWDZ5jWesJOcuDGpyZBCQkNESohXdqioTS+tlErIy5jZRLiYojNDOCNZpW2ortx/Fqg63k1HO9lJ2WISYkLI3bQ2lf2Ec8Vt/VwJfZsgqN4r3QWsr48fo7Qk6CFJrjW8Ynj4QwBImUZUcF+9G/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
-Received: from BYAPR11MB3783.namprd11.prod.outlook.com (2603:10b6:a03:f5::12)
- by DS6PR11MB704522.namprd11.prod.outlook.com (2603:10b6:8:412::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 20:37:55 +0000
-Received: from BYAPR11MB3783.namprd11.prod.outlook.com
- ([fe80::fc32:42c6:f275:4f13]) by BYAPR11MB3783.namprd11.prod.outlook.com
- ([fe80::fc32:42c6:f275:4f13%6]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 20:37:55 +0000
-From: "Golani, Mitulkumar Ajitkumar" <mitulkumar.ajitkumar.golani@intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>, "Murthy, Arun R"
- <arun.r.murthy@intel.com>, "Kandpal, Suraj" <suraj.kandpal@intel.com>
-Subject: RE: [PATCH v4 07/10] drm/i915/display: Add bits for Wa_14021768792
- for linkm/n ratio > 10
-Thread-Topic: [PATCH v4 07/10] drm/i915/display: Add bits for Wa_14021768792
- for linkm/n ratio > 10
-Thread-Index: AQHdRmKMmuk4v6NzAEO9dUvZMfqdCLb/O5GA
-Date: Thu, 15 Oct 2026 20:37:55 +0000
-Message-ID: <BYAPR11MB378384A05D976F750B979347B29C2@BYAPR11MB3783.namprd11.prod.outlook.com>
-References: <20260917050649.871960-1-suraj.kandpal@intel.com>
- <20260917050649.871960-8-suraj.kandpal@intel.com>
-In-Reply-To: <20260917050649.871960-8-suraj.kandpal@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BYAPR11MB3783:EE_|DS6PR11MB704522:EE_
-x-ms-office365-filtering-correlation-id: c62e594b-6f79-424e-2a4c-08df2afc314b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|10070799003|23010399003|366016|38070700021|56012099006|5023799004|11063799006|4143699003|261009223027099003|260925022911599003|260925021311599003|10067099003|22082099003|18002099003|260925021911599003|6133799003|3023799007;
-x-microsoft-antispam-message-info: duuhKgEMO+jK29gzh82O/mOqcBTXG1luq3IF1ykIVm8ejRQDHO0lPnpTBzDnTai7Q2A0PdLbX5hJb3KU8ULC/FP9CMMM/Wa+IoYZnGnj44BFX1debkeBcLcmlmVAxw+pQWFctwYsNghpzYvqUhpoa2FwFYIj7g3BN9HVgqkqv71TVLZ0QEh7n4T5QiK64CRo3OgdIodn7sInT+j6devrOaBWrNMRhJDj+Y+tv1WZRFR/xdadac1AX+xxHQ7uNOn/BWZRBN0BOqEediMe38fNSGK+m02wnpbfLeBV9z8LXClAc6C2nUMf9pc8slZMLFVV7fV20N+4JLzbek16ihYakxtCz2Jjwx31bohaGCmeq6eAhWJamGVFvQatlmxlwelq0H5MEtGLpigReYT0KLWzfQBUksmjqXdHqprhDfC2kb6ZMTbB6iyZWcPyjSZR7PcvdQBuiKH3YyPl8mL6+kAFVLXdLe4cA9BbAsCznRCvw2jizuTKc6TwWl38DO4Cw6hwI9slEJLYXxk+IYyXIWrlSiXtTZyVRoMPffkiz/y0rYMry5rH/OAlF9XF0VIcACIoPUCJBQguYvCD2DafjRFMLz6+MKcd2f4fWIHP6lnyYsR138OLuB+cwgbEL76tOAO5ieE7KVZfLaOd1CGFAooTTCqhficcxc995fvLPbDPJ5+T7e475sML3jTcwU3nv1RGN/Xj99LOLXUqArYmTIFsVka1uJnbo46yOb8F6xOCzEw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR11MB3783.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(10070799003)(23010399003)(366016)(38070700021)(56012099006)(5023799004)(11063799006)(4143699003)(261009223027099003)(260925022911599003)(260925021311599003)(10067099003)(22082099003)(18002099003)(260925021911599003)(6133799003)(3023799007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nzehGkHiDxTS27iFVon65Oiy0fpAg3Q3tdQ5nd0nFkbdyYl7PlnrtlofJNOX?=
- =?us-ascii?Q?4DFlmcwtvPd4lBvRoSqgjVS0j+beaRxVuk53CjkNd1O6DzmlCltpFWLmfOwj?=
- =?us-ascii?Q?aZcRL87dKzR7hTH776AmC7+cIf0plLF3UP33t0je0tjrLgkUmc9lPg83J+hT?=
- =?us-ascii?Q?+XrcnG9DRmLfFHQZR1oR3hMKrcy0j0DKxSoV3DxsPViSC0SCm3KeWW1y/6al?=
- =?us-ascii?Q?Bs3lLKdW7ptyDGo7cQZSTL4Vsv07NY0v+099rPkA9grCxQwefSeV2dtcs87m?=
- =?us-ascii?Q?r0rVd5ekcnR8jkY1HmPa1mVA9PZWNSS6wjUGhMBxKXfjAAVPFQvVKm0QuNh+?=
- =?us-ascii?Q?EGFzUZeJtMhI3xWyTbe74XseUxoGD6UXkrdXnJiD6Z5eLgeGpQMjT6afuyWA?=
- =?us-ascii?Q?NHNZfPfIpiKIMCmk6sVK/Lq3hdTu2NXQtFh4M95tdQ5ZjXF0ZrE2b8nOOzMD?=
- =?us-ascii?Q?/QAvEApR+0oK8m99euRHnG9sydO8RLoqgVH+AYGPxRt4IawdT4n4tt3Osn3S?=
- =?us-ascii?Q?acZnUHP2RVz7fO3yuMJ8XWi0kbKcUJhP9n4V8h6qB2KkrbboDdW1D5G+cXHg?=
- =?us-ascii?Q?+LGuNCouYWkFB6xaNNQ9wdbQM6fQBXOoCsPH6PCZ3AgQNDVdtpmwD8KBLobH?=
- =?us-ascii?Q?Dh1G5BPiLiKpGMzsozp/QC3I3FIctnmLtBwun79kntos5qGNVQfKr1Yhndu9?=
- =?us-ascii?Q?cHrJc8rGt3xjiaK7WU24r/bCqhY5PsT5HiQxFbEjn4Rw1HPa99SJskw06jj/?=
- =?us-ascii?Q?0XUldTURNyhcTbepezp7ty1zpsSYnbPcxEEdRvkOACr8U3WHRJzROzdJagLU?=
- =?us-ascii?Q?PHyHytI7ozsNQP5ne9pQuFmeF36QJgePLav8yQDe1ngeTmU3wIxbpWHvtzJB?=
- =?us-ascii?Q?9Y/3CgMdnxV5k1ne08n0CtD2cQNiKwHwfgb2M/fVZQ9Ms8ItP/gLHowp5J11?=
- =?us-ascii?Q?5VeRMpXLNBln3uo0EvQ7NuyG0iuMfsY5Vuuj/+RW29AgyE7IpbujlLrAPHc7?=
- =?us-ascii?Q?gY6gLKqGgvGb4Aksrk3zdddoPv92oMvqGJ7Vs5jZYvy6XFHxMziJgr+YNLnc?=
- =?us-ascii?Q?+Z4wko9HbWEYiytomzwtEPKaGnc5+GBLQYJOLkarSnVg7axLAQ4FKdKdOU1L?=
- =?us-ascii?Q?XEqciuwbvRfe3I4j2xLKF/SErc+64OT1pz8ti85Ij1Qe6ss5UEoHD9cHmQB2?=
- =?us-ascii?Q?Q9Me2ewypfjI5LzMBGFIGEnTwa9VighkTh/qG6h0DF64WygZQUHQ2UY5y2Ny?=
- =?us-ascii?Q?dmAWS48unlJtaFMC4ZGmuHwcRDoy+QpxlkXApnC5kkdtk0vpS5lFyvzmF04O?=
- =?us-ascii?Q?hUaD+qdTME/7Y7wu/+/NxXBaFcgDl0beIBYN60XoGgUSeIqGTRjJ/lRgaswJ?=
- =?us-ascii?Q?yghxkoNk54G4psV0tMGvV2oEw1vcLQny3WNf5BSQ9sBFXtOUv7teiFOthGHb?=
- =?us-ascii?Q?Y7ncAvlecvxuqNl2Aolwz+dNqXE+8ra4DWOjTVAz6VeQB6TLqJJMz1o8kQdK?=
- =?us-ascii?Q?BRKw+MZ6kG4BVc1HUwkavhXai2ZiwfRR7voXBGuU+d9Mr62D9okceYLHiEAl?=
- =?us-ascii?Q?MUiQ63nAy3pjyOLS57mwNNjlKqneykOQTq4qPvBZGWSBlSEM9wXM7rfMlz8r?=
- =?us-ascii?Q?nHOyOTka79oTWX4OD0pv1zcflMWV4Ns6K38fWxKY3tkMvKmigpevG/kPgoYd?=
- =?us-ascii?Q?kNdWVCqJHmaNI4fFlPuL9Sg6zEaFD1zwdHAtJrWVHrgAiiAbu5J8YzAM6bqh?=
- =?us-ascii?Q?Oguv1ULfyOege5mfBJlZFXVrvuKnwG0Ie0WIWTt1AwImhyxEbHsivRvkahig?=
-x-ms-exchange-antispam-messagedata-1: fhHOSYClEaJ29x0i5MelMnjz/5ANZ89CTZo=
+Received: from CH3PR11MB8185.namprd11.prod.outlook.com (2603:10b6:610:159::12)
+ by IA3PR11MB8937.namprd11.prod.outlook.com (2603:10b6:208:57c::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 21:28:57 +0000
+Received: from CH3PR11MB8185.namprd11.prod.outlook.com
+ ([fe80::443e:8ff8:c5ac:1ac4]) by CH3PR11MB8185.namprd11.prod.outlook.com
+ ([fe80::443e:8ff8:c5ac:1ac4%4]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 21:28:57 +0000
+Date: Thu, 15 Oct 2026 14:28:54 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Jia Yao <jia.yao@intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Shuicheng Lin <shuicheng.lin@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Maciej Plewka <maciej.plewka@intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>
+Subject: Re: [PATCH v12] drm/i915/dg2: Add per-client control for
+ Wa_22013059131
+Message-ID: <20261015212854.GD578251@mdroper-desk1>
+References: <20260630223946.2107382-1-jia.yao@intel.com>
+ <20260930171334.3636-1-jia.yao@intel.com>
 Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20260930171334.3636-1-jia.yao@intel.com>
+X-ClientProxiedBy: SJ0PR03CA0225.namprd03.prod.outlook.com
+ (2603:10b6:a03:39f::20) To CH3PR11MB8185.namprd11.prod.outlook.com
+ (2603:10b6:610:159::12)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: TKtRxiaC5S9+Olx4h2UMk6mUJIW7fR2ElsGBNeEIwKiUq7iK7twSyBAnjbl3ttnY2ulAn5p+xqxiYcju5nidZQGZFwRpRM+ehYsfoWz3DpogQq4YpewXpZ/ATURbxcBdlOzlqQMDOtw8NlDXFq90JhAU2mwvHAVF1jl3U0ne07+BJZkzLry7M2xHlwNrpgH5HyfGQRaZxFrrTTIwlZrFdTj8RbhfbLiTl7sUAmTIbMdUVlEDwUvuojcS1AdAPf2YIVpoAF/mJFRyXu6MHI7dJ2LdSxTtjspvpXVaVPqWFwipkaibY7Q/5NnZDBGwnWBziYZby3QNbIi5sWI5PMoFtA==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB8185:EE_|IA3PR11MB8937:EE_
+X-MS-Office365-Filtering-Correlation-Id: ecabbc2a-3da2-4fe8-00c3-08df2b0351e0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|6133799003|22082099003|18002099003|10067099003|3023799007|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: TnungVPrM0OGMVEwewmRtgAMRmz4zmq2Ypm2aimaEusyFytEmS+D7Xuf9ngoqKEdaCs1lELALuYBRmicLAfWUwCHKb8iBqVN7pk/umaq3fGKXAHg2bgLHYOn/wdAcdeKd8FXR8WjdL7ZfsDEsyENZeiHjubdkIL85wTpel4kfgpch7HHmQ0OdLxipCf9lDedGIkX1qsUYtsCzpjk+kHXJGsJwABvQJx2qTrHUHiXZx4/dqWpz1oU6yich5CXuPkEBmSlgrcxme2THLMStdmtBhcAlcES0SRW/Kyxl+wi7c0kZcbblrWdrQwU1TTXeGb//xCquu1xA9mLulY0w4Ai1UVT4gUDyuSp/A1WC3UjpsQMMI0bYXiTWtZV4iadW/So/ceD4MlLgqpxJaFPgvDjnv5QUZwFHrKaEm5OcSj5mJZ+PmjiHnCIqGybt7aQ9+jPCvkUTOP87Xoe1ktkr4jFrr7rIzZUYfSGI/1/nh9K3zrhrid62xKxYHFWsB3r/PxZt7j/iXda7aXQn1Rt5+gR6yjfdTVnNB3kykNp2bsuhzj2x7AanF+Fa/QUGZbV/U6lZ5ihPmFiWLT47XO2i1XFd5+T8Y9QPiGx9MMsAWOv/YzHAuQZHJVlM35nMySNAaiXQSFgaqaisN3gWO1vBEV867rz+I0P2CshCiVDrzR/vew=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR11MB8185.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(11063799006)(4143699003)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?EcoKA5UiJg+Eo11BxoxJN9uL2YIhVYQGqhx2n89T1iI3BlbF7vZb3PtQAeoN?=
+ =?us-ascii?Q?WPMOMyJ/uAVzvpzHaTfOawEFrem0aog8TS+en03kas4Lqn74yLfor1P3QwA5?=
+ =?us-ascii?Q?ELn2zNrIsgTn/vMGDJoEKW9Tsi8Cxvx3LAYY+xBRJPJjWZQzDgWOYaWU4B7z?=
+ =?us-ascii?Q?FHLBz/eoCoEBFJ1PSxhz+y8g/cmKYq6TBHbSVQezAZCKaH1dBjbrTN928x0E?=
+ =?us-ascii?Q?4no/8yiAqQivv2AywQ/GnuXHskFvkut5H5c+vUatZIeU2TfnWFbYP+xt88L+?=
+ =?us-ascii?Q?g2c69r1RSj/Ix0HWjAj14mLmHJvxWv30J9zS8iM4GzfPdIBUsO5nOtbQMZQj?=
+ =?us-ascii?Q?l1wFMdKW5ulcF4Toeto0kzTjLC9x3fajycddQo6ZJwa6mryYanjH2xrur9d9?=
+ =?us-ascii?Q?6rBOythBqO/VqrNUTVkecUOsH3CulWaS/EIdrQ6LV21AlpFAcMSWs3tzBmN5?=
+ =?us-ascii?Q?WIMfynPjDi5BYiEUg5gcJG35gWuATqD31PhFIp0P11Il0fXwgWznJthnVEoQ?=
+ =?us-ascii?Q?1LaxapLxl7gFECXgsaCo+t1kexYp+seGOIQBKOj8FZcgAtXEaczMsb6nclMb?=
+ =?us-ascii?Q?ro429b0zz3NdmR06iKPbTM4Rs6hbpNKUFsZJw2dHTZ8ZyhiG4HmU4zwF80qB?=
+ =?us-ascii?Q?9wVP/7TcI8oA7eLSwu/BIjpVWUnoqIxptZ5EAqKZsJlXgAHxV2Kj3zCfL4M2?=
+ =?us-ascii?Q?MOAsgfWV5sHZyRtybXQWJ5PGExG5PQ373CWxZ/j02vdxJ7EWKK9ZuftC0uy0?=
+ =?us-ascii?Q?goIw8sPUQvgjmFFLzeNv1VoHDb3HBAXcBTFZtu01iPsSIxhm86WJ1Q0A/HoA?=
+ =?us-ascii?Q?/mwjmkxBbglPY+DI8ZPjX9NaM0RjZyryM11IAdSBVykxKySW4dVtu7Y/rqwt?=
+ =?us-ascii?Q?WMaP68lMgOHichLjIaSIsWTHh4yqBpUMbPqCJcjUdoT0xptPLCqxPNtes/Es?=
+ =?us-ascii?Q?gEyYSoQKntiuZkiQ+cfb1LYk4RCvyWx/F1ajgLMSOywuycmwFGxieUkOHwb/?=
+ =?us-ascii?Q?Mc/3hNT9KrJVJXwuzsHcOq1volLgUkQ4Q9Bl4YFFkdNaGlhCi/q0ylP9L/wr?=
+ =?us-ascii?Q?iBAeYxrjXFQnzWRKQ1ufX22LrTWj2cJGF0F6aPK8oXrm6W2RqGIQEd2Dbk7L?=
+ =?us-ascii?Q?IGpfBMnYnKpwU5a3VPEMB0NNadrswNvHXmnYwFwM+Y2oxWgXOnDFW69AjQDO?=
+ =?us-ascii?Q?VrbGTjGxkAhU4rDgJ5HjwXWdXqpwlzS2I/N5rl4mETGER7JJqKhzQvZQI2Y2?=
+ =?us-ascii?Q?rJp2Fx2XA9xervK95JgHLOt85F7yfYiEKW16ufjLvqYzwqkBD/M3LDkRZ2u1?=
+ =?us-ascii?Q?s4nyXn3v3O2Urm4WyMj+CdEMdcH1F7+o4bt4xnevFHr4GSMps0OzdwTmdrsG?=
+ =?us-ascii?Q?epkF5aKNf/xczwd6edjy6zQZ5fTqHergj5LbJNVpY3Tc4X6rwI1Gsy75IAnh?=
+ =?us-ascii?Q?e4w1lc14eUW4tAYjRUh7SkVRdUurFO8dfslv4pGtfj/z6qdSxmQlGeCTs2/q?=
+ =?us-ascii?Q?uHaQy/S7ojJ6eFX7yfp/F56nIRVL7Tluvuv0tixc+kJuqw3ixEpgWxgNrjFo?=
+ =?us-ascii?Q?GiMAhmVPZWI0q/QndEXEgYfwgFzf6l+oyj7R5MHQkW3z6Mooaa2QXfx4iJnJ?=
+ =?us-ascii?Q?BVvt21T6SCbDurSlp+66QoZi0DCWgcXLTU4OU0hp+MCbuyhGjJqGjZc53O4T?=
+ =?us-ascii?Q?Gy2q5xePCd73S6dYDcUXEKGgBOX9m+ojjoxQgexGf/Su6bn+H++GOBkg4GHp?=
+ =?us-ascii?Q?N1j2JNSTG39EVOXOx1mSi3TMsaWF7G8=3D?=
+X-Exchange-RoutingPolicyChecked: JCpLSjcHav6D27muuMbxRrIgY/UmHuL7/xNqVjamDHL6xbWsYtQcd32WTwc7Ww51+cusLkKgpwj70k8qS1f9jj7Zxd2A7NrM5wThtaiijVFjue0T9IX1a6Gy1dX0Jm+SixeeAXQ42yDeRTsjfcqpKXRnf4RZXL2inqE2qlBwv/cyulwyvf+q4bcIh/sD15oxuyEOtl5/Yqch0ZZfsEql59v/9v4f6eaKNCtfBjcLKiHIwIRN77ZhGwwWIr7sen8Jnq5bCugK7oJrMVfSxrAWwujgKSuWyTCUVI/Zm1LfUFN7wDcCOFJ63+8L1N3umZJHsT4Sf0DNPufVdkfyd3kY+A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecabbc2a-3da2-4fe8-00c3-08df2b0351e0
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB8185.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB3783.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c62e594b-6f79-424e-2a4c-08df2afc314b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2026 20:37:55.6501 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +YljWc0t7wHOmtlhKbSTawkAWy8vFaft3l4M2TcbahJivRQ1geDe36yzZXWKZDdgfhjZw2sMTd7bg5yEm9fUK5lpnMVKkRSlEZ0X0VWZ2RMO0U6H7Aorg1ZDeHVY9cN1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB704522
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:28:57.0799 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gLfJ/Gmc9XSnh1c0X8JfFkIWpNgvmnKK3dleknXDLLex7kAEUcDfjpYSpkPosvSktenMlRkxWUPmAMCGx3MBczSD+2LjBqil5T+N6YGkXFQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB8937
 X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -166,351 +162,499 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-> -----Original Message-----
-> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Su=
-raj
-> Kandpal
-> Sent: 17 September 2026 10:37
-> To: intel-xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org
-> Cc: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>; Murthy, Arun R
-> <arun.r.murthy@intel.com>; Kandpal, Suraj <suraj.kandpal@intel.com>
-> Subject: [PATCH v4 07/10] drm/i915/display: Add bits for Wa_14021768792
-> for linkm/n ratio > 10
->=20
-> From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->=20
-> To support a Link M/N ratio between 10.0 and 15.0, for some BMG ultrajoin=
-er
-> cases we need Wa_14021768792.
->=20
-> To bypass the hardware limitation within the Timing Generator DDA (TGDDA)=
-,
-> we need to program the LINKM and LINKN registers as defined in the WA.
-> Along with this we also need the relevant bits in HDMI_EMP_DATA and
-> CHICKEN_TRANS.
->=20
-> Add the bits for the WA and a new member 'bypass_m_n_ratio_limit' to trac=
-k
-> if we need to bypass the Link M/N ratio limit in the intel_link_m_n struc=
-ture.
->=20
-> Per Bspec the extended LINK_N field is two nibbles: bits 27:24 hold INT(L=
-ink
-> M / Link N) and bits 31:28 hold CEIL(Link M / Link N).
->=20
-> CHICKEN_TRANS and HDMI_EMP_DATA are programmed before LINK_N,
-> since writing LINK_N arms the double buffered update of the M/N registers=
-,
-> and all of the programming has to be done before the transcoder is enable=
-d.
-> Both are also explicitly cleared when the mechanism is not in use, so tha=
-t
-> state cannot leak from a previous modeset.
->=20
-> Only bypass_m_n_ratio_limit is compared by the state checker, not the rat=
-io
-> integer and fraction themselves. That is deliberate: both are derived fro=
-m Link
-> M and Link N, which are compared already, so the thing worth verifying is
-> whether the workaround ended up being applied or not.
->=20
-> Unlike the rest of the M/N registers, CHICKEN_TRANS and HDMI_EMP_DATA
-> are not double buffered, so the flag has to be compared outside the fasts=
-et
-> exemption that PIPE_CONF_CHECK_M_N() has for update_m_n.
-> Otherwise a seamless M/N update could switch the DDA out of the
-> workaround on a live transcoder, with the Link M/N values only following =
-at
-> the next MSA.
->=20
-> v2:
-> -Drop the drm_WARN_ON() on the extended LINK_N field in intel_get_m_n():
-> it is derived from Link M and Link N, so the state checker comparison of =
-those
-> and of bypass_m_n_ratio_limit already covers it. (Sashiko) -Compare
-> bypass_m_n_ratio_limit unconditionally, so that a change to it forces a f=
-ull
-> modeset instead of being applied during a seamless M/N fastset. (Sashiko)
->=20
-> Bspec: 49266
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+On Wed, Sep 30, 2026 at 05:13:34PM +0000, Jia Yao wrote:
+> Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
+> at engine init, but this is known to cause GPU hangs in certain workloads.
+> Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
+> workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
+> kernel know bit 15 programming is not needed. The register is not
+> context-saved by hardware, so the value is programmed on context switch
+> via the indirect context batchbuffer, and the old unconditional write in
+> intel_workarounds.c is removed.
+> 
+> LSC_CHICKEN_BIT_0 is shared by the RCS and CCS engines, not per-context
+> state, and GuC only runs RCS and CCS concurrently when they share an
+> address space, i.e. belong to the same DRM client. Tracking the opt-out
+> per client is therefore both necessary and sufficient to avoid the race.
+> The value is latched once, by whichever comes first between an explicit
+> GEM_CONTEXT_SETPARAM and the first context of the client being
+> submitted, and a later request for the opposite value gets -EINVAL; this
+> covers the default context (id 0) and needs no new ioctl. The client is
+> the unit of consistency, not the register's true isolation boundary:
+> unrelated clients can still override each other on RCS and CCS, which is
+> unchanged from current behaviour.
+> 
+> v12:
+> - Don't dereference ce->gem_context / ctx->client from lrc_update_regs(),
+>   which also runs from reset paths (guc_reset_state(), lrc_reset()) where
+>   the ctx lifetime is not guaranteed by the caller. Latch the decision
+>   once into CONTEXT_WA_22013059131_APPLY from
+>   intel_context_alloc_state(), where the pinner holds a ctx reference,
+>   and only sample that bit afterwards (Sashiko)
+> 
+> v11:
+> - Add the missing I915_CONTEXT_PARAM_WA_22013059131 cases to
+>   ctx_setparam() and i915_gem_context_getparam_ioctl(), so the
+>   parameter can also be set on an already-finalized context (e.g. the
+>   default context, id 0) and queried back, not just set at proto-context
+>   creation time (Sashiko)
+> 
+> v10:
+> - Move the opt-out from intel_context to i915_drm_client, latched once
+>   per client (by explicit setparam or first LRC init) instead of tracked
+>   per intel_context, so all contexts of a client - including the
+>   default context - always agree and conflicting requests get -EINVAL
+>   (Joonas, Sashiko, Matt)
+> - Note that GuC's requirement for RCS/CCS contexts to share an address
+>   space before running concurrently is what makes client-wide latching
+>   sufficient to prevent the race (Matt)
+> - Document that this requirement applies to the whole fd, so userspace
+>   sharing an fd across an interop boundary must coordinate ordering
+>   itself
+> 
+> v9:
+> - Restrict Wa_22013059131 to compute engine only in
+>   gen12_emit_indirect_ctx_xcs() (Sashiko)
+> 
+> v8:
+> - Clarify in the uAPI comment that setting this parameter only opts out
+>   of LSC_CHICKEN_BIT_0 bit 15 (FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
+>   LSC_CHICKEN_BIT_0_UDW MAXREQS_PER_BANK remains unconditionally
+>   programmed by the kernel as the other part of Wa_22013059131
+> 
+> v7:
+> - Reject ioctl with -ENODEV on non-DG2-G11 platforms
+> 
+> v6:
+> - Remove excessive blank lines
+> 
+> v5:
+> - Remove fix and stable
+> 
+> v4:
+> - Add a link of the userspace using this API
+> 
+> v3:
+> - Kernel-internal context will not change workaround settings
+> 
+> Bspec: 54833
+> Link: https://github.com/intel/compute-runtime/pull/919
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: Shuicheng Lin <shuicheng.lin@intel.com>
+> Cc: Matt Roper <matthew.d.roper@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Maciej Plewka <maciej.plewka@intel.com>
+> Cc: Andi Shyti <andi.shyti@linux.intel.com>
+> Signed-off-by: Jia Yao <jia.yao@intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_display.c  | 93 ++++++++++++++++++-
-> drivers/gpu/drm/i915/display/intel_display.h  |  2 +
-> .../gpu/drm/i915/display/intel_display_regs.h | 10 ++
->  .../drm/i915/display/intel_display_types.h    |  2 +
->  4 files changed, 102 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c
-> b/drivers/gpu/drm/i915/display/intel_display.c
-> index 6d2025e10995..1e9d8943626a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -2706,6 +2706,15 @@ void intel_zero_m_n(struct intel_link_m_n *m_n)
->  	m_n->tu =3D 1;
+>  drivers/gpu/drm/i915/gem/i915_gem_context.c   | 51 ++++++++++++++++
+>  drivers/gpu/drm/i915/gt/intel_context.c       |  2 +
+>  drivers/gpu/drm/i915/gt/intel_context_types.h |  1 +
+>  drivers/gpu/drm/i915/gt/intel_lrc.c           | 59 ++++++++++++++++++-
+>  drivers/gpu/drm/i915/gt/intel_lrc.h           |  3 +
+>  drivers/gpu/drm/i915/gt/intel_workarounds.c   | 10 ++--
+>  drivers/gpu/drm/i915/i915_drm_client.h        | 57 ++++++++++++++++++
+>  include/uapi/drm/i915_drm.h                   | 24 ++++++++
+>  8 files changed, 201 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> index 6ac0f23570f3..ed6bccf13f16 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> @@ -874,6 +874,29 @@ static int set_proto_ctx_sseu(struct drm_i915_file_private *fpriv,
+>  	return 0;
 >  }
->=20
-> +static u8 bmg_get_link_n_ext(const struct intel_link_m_n *m_n) {
-> +	if (!m_n->link_n)
-> +		return 0;
-> +
-> +	return PIPE_LINK_N1_EXT_INT(m_n->link_m / m_n->link_n) |
-> +		PIPE_LINK_N1_EXT_CEIL(DIV_ROUND_UP(m_n->link_m,
-> m_n->link_n)); }
-> +
->  void intel_set_m_n(struct intel_display *display,
->  		   const struct intel_link_m_n *m_n,
->  		   intel_reg_t data_m_reg, intel_reg_t data_n_reg, @@ -
-> 2717,7 +2726,9 @@ void intel_set_m_n(struct intel_display *display,
->  	intel_de_write(display, data_n_reg, m_n->data_n);
->  	intel_de_write(display, link_m_reg, m_n->link_m);
->=20
-> -	if (DISPLAY_VER(display) >=3D 14)
-> +	if (DISPLAY_VER(display) >=3D 14 && m_n->bypass_m_n_ratio_limit)
-> +		link_n |=3D
-> PIPE_LINK_N1_EXTENDED(bmg_get_link_n_ext(m_n));
-> +	else if (DISPLAY_VER(display) >=3D 14)
->  		link_n &=3D ~PIPE_LINK_N1_EXTENDED_MASK;
->  	else
->  		link_n &=3D DATA_LINK_M_N_MASK;
-> @@ -2738,6 +2749,26 @@ bool intel_cpu_transcoder_has_m2_n2(struct
-> intel_display *display,
->  	return IS_DISPLAY_VER(display, 5, 7) || display->platform.cherryview;
-> }
->=20
-> +static void bmg_enhanced_tgdda_write(struct intel_crtc *crtc,
-> +				     enum transcoder transcoder,
-> +				     const struct intel_link_m_n *m_n) {
-> +	struct intel_display *display =3D to_intel_display(crtc);
-> +	bool enable =3D m_n->bypass_m_n_ratio_limit && m_n->link_n;
-> +	u32 link_m_frac =3D enable ? m_n->link_m % m_n->link_n : 0;
-> +
-> +	if (!intel_display_wa(display, INTEL_DISPLAY_WA_14021768792))
-> +		return;
-> +
-> +	intel_de_rmw(display, HDMI_EMP_DATA(display, transcoder),
-> +		     HDMI_EMP_DATA_LINK_M_FRAC_MASK,
-> +		     REG_FIELD_PREP(HDMI_EMP_DATA_LINK_M_FRAC_MASK,
-> link_m_frac));
-> +
-> +	intel_de_rmw(display, CHICKEN_TRANS(display, transcoder),
-> +		     DP_ENHANCED_TGDDA_ENABLE,
-> +		     enable ? DP_ENHANCED_TGDDA_ENABLE : 0); }
-> +
->  void intel_cpu_transcoder_set_m1_n1(struct intel_crtc *crtc,
->  				    enum transcoder transcoder,
->  				    const struct intel_link_m_n *m_n) @@ -
-> 2745,6 +2776,8 @@ void intel_cpu_transcoder_set_m1_n1(struct intel_crtc
-> *crtc,
->  	struct intel_display *display =3D to_intel_display(crtc);
->  	enum pipe pipe =3D crtc->pipe;
->=20
-> +	bmg_enhanced_tgdda_write(crtc, transcoder, m_n);
-> +
->  	if (DISPLAY_VER(display) >=3D 5)
->  		intel_set_m_n(display, m_n,
->  			      PIPE_DATA_M1(display, transcoder), @@ -3495,6
-> +3528,49 @@ void intel_get_m_n(struct intel_display *display,
->  	m_n->tu =3D REG_FIELD_GET(TU_SIZE_MASK, intel_de_read(display,
-> data_m_reg)) + 1;  }
->=20
-> +bool intel_display_can_bypass_m_n_limit(struct intel_display *display,
-> +					int m_n_ratio,
-> +					enum pipe pipe)
+>  
+> +/*
+> + * Wa_22013059131:dg2 - Latch who owns LSC_CHICKEN_BIT_0 bit 15 for every
+> + * context of @fpriv.  The register is shared by the RCS and CCS engines, so
+> + * the first context to express a preference decides for the whole client
+> + * and any later context asking for the opposite is rejected, rather than
+> + * letting the two race over the register at context-switch time.
+> + *
+> + * The owner is also latched, to the kernel, the first time a context of
+> + * the client is pinned (see lrc_latch_wa_22013059131()), so opting out is
+> + * only possible while none of the client's RCS/CCS contexts has run yet.
+> + */
+> +static int set_client_wa_22013059131(struct drm_i915_file_private *fpriv,
+> +				     u64 value)
 > +{
-> +	if (!intel_display_wa(display, INTEL_DISPLAY_WA_14021768792))
-> +		return false;
-> +
-> +	if (m_n_ratio > 15)
-> +		return false;
-> +
-> +	if (pipe !=3D PIPE_A)
-> +		return false;
+> +	int want = value ? I915_WA_22013059131_USERSPACE :
+> +			   I915_WA_22013059131_KERNEL;
 
-Could we check whether this should use the transcoder (TRANSCODER_A) instea=
-d of crtc->pipe ?
-For ultrajoiner, could the secondary pipes report bypass=3Dfalse even thoug=
-h their computed state,
-copied from the primary, has bypass=3Dtrue ?
+The uapi says "Default 0 ... Set to 1 to ..."  As the officially
+advertised uapi, that means we should reject any attempt to set a value
+that isn't 0/1.  In the [unlikely] case that we need to come back and
+extend this workaround with more options in the future, that allows us
+to give explicit meaning to other values for the parameter rather
+potentially breaking compatibility if some unknown lazy userspace
+developed an assumption that anything non-zero would be treated as
+I915_WA_22013059131_USERSPACE.
 
 > +
-> +	return true;
+> +	if (i915_drm_client_latch_wa_22013059131(fpriv->client, want) != want)
+> +		return -EINVAL;
+> +
+> +	return 0;
 > +}
 > +
-> +static void bmg_enhanced_tgdda_read(struct intel_crtc *crtc,
-> +				    enum transcoder transcoder,
-> +				    struct intel_link_m_n *m_n)
-> +{
-> +	struct intel_display *display =3D to_intel_display(crtc);
-> +	u32 link_m_frac;
-> +	int m_n_ratio;
+>  static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
+>  			       struct i915_gem_proto_context *pc,
+>  			       struct drm_i915_gem_context_param *args)
+> @@ -911,6 +934,15 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
+>  			ret = -EINVAL;
+>  		break;
+>  
+> +	case I915_CONTEXT_PARAM_WA_22013059131:
+> +		if (args->size)
+> +			ret = -EINVAL;
+> +		else if (!IS_DG2_G11(i915))
+> +			ret = -ENODEV;
+> +		else
+> +			ret = set_client_wa_22013059131(fpriv, args->value);
+> +		break;
 > +
-> +	if (!m_n->link_n)
-> +		return;
+>  	case I915_CONTEXT_PARAM_RECOVERABLE:
+>  		if (args->size)
+>  			ret = -EINVAL;
+> @@ -2243,6 +2275,15 @@ static int ctx_setparam(struct drm_i915_file_private *fpriv,
+>  		ret = set_context_image(ctx, args);
+>  		break;
+>  
+> +	case I915_CONTEXT_PARAM_WA_22013059131:
+> +		if (args->size)
+> +			ret = -EINVAL;
+> +		else if (!IS_DG2_G11(ctx->i915))
+> +			ret = -ENODEV;
+> +		else
+> +			ret = set_client_wa_22013059131(fpriv, args->value);
+> +		break;
+
+Do we even need to support setting this parameter via the "after the
+fact" setparam ioctl?  The compute runtime's PR shows them only setting
+this at context creation time via CONTEXT_CREATE_EXT_SETPARAM and never
+using this ioctl to try to adjust the value for an already extant
+context ID.  So I think it would be fine to just return -EINVAL
+unconditionally in this function so that this parameter can only be set
+during context create.  Trying to change the value after creation
+doesn't appear to be needed.
+
 > +
-> +	m_n_ratio =3D DIV_ROUND_UP(m_n->link_m, m_n->link_n);
+>  	case I915_CONTEXT_PARAM_PROTECTED_CONTENT:it 
+>  	case I915_CONTEXT_PARAM_NO_ZEROMAP:
+>  	case I915_CONTEXT_PARAM_BAN_PERIOD:
+> @@ -2583,6 +2624,16 @@ int i915_gem_context_getparam_ioctl(struct drm_device *dev, void *data,
+>  		ret = get_protected(ctx, args);
+>  		break;
+>  
+> +	case I915_CONTEXT_PARAM_WA_22013059131:
+> +		if (!IS_DG2_G11(ctx->i915)) {
+> +			ret = -ENODEV;
+> +		} else {
+> +			args->size = 0;
+> +			args->value = atomic_read(&file_priv->client->wa_22013059131_owner) ==
+> +				      I915_WA_22013059131_USERSPACE;
+> +		}
+> +		break;
 > +
-> +	if (!intel_display_can_bypass_m_n_limit(display, m_n_ratio, crtc-
-> >pipe))
-> +		return;
-> +
-> +	if (!(intel_de_read(display, CHICKEN_TRANS(display, transcoder)) &
-> +	      DP_ENHANCED_TGDDA_ENABLE))
-> +		return;
-> +
-> +	link_m_frac =3D
-> REG_FIELD_GET(HDMI_EMP_DATA_LINK_M_FRAC_MASK,
-> +				    intel_de_read(display,
-> HDMI_EMP_DATA(display, transcoder)));
-> +
-> +	if (link_m_frac =3D=3D m_n->link_m % m_n->link_n)
-> +		m_n->bypass_m_n_ratio_limit =3D true;
-> +}
-> +
->  void intel_cpu_transcoder_get_m1_n1(struct intel_crtc *crtc,
->  				    enum transcoder transcoder,
->  				    struct intel_link_m_n *m_n)
-> @@ -3512,6 +3588,8 @@ void intel_cpu_transcoder_get_m1_n1(struct
-> intel_crtc *crtc,
->  		intel_get_m_n(display, m_n,
->  			      PIPE_DATA_M_G4X(pipe),
-> PIPE_DATA_N_G4X(pipe),
->  			      PIPE_LINK_M_G4X(pipe),
-> PIPE_LINK_N_G4X(pipe));
-> +
-> +	bmg_enhanced_tgdda_read(crtc, transcoder, m_n);
->  }
->=20
->  void intel_cpu_transcoder_get_m2_n2(struct intel_crtc *crtc, @@ -5002,7
-> +5080,8 @@ intel_compare_link_m_n(const struct intel_link_m_n *m_n,
->  		m_n->data_m =3D=3D m2_n2->data_m &&
->  		m_n->data_n =3D=3D m2_n2->data_n &&
->  		m_n->link_m =3D=3D m2_n2->link_m &&
-> -		m_n->link_n =3D=3D m2_n2->link_n;
-> +		m_n->link_n =3D=3D m2_n2->link_n &&
-> +		m_n->bypass_m_n_ratio_limit =3D=3D m2_n2-
-> >bypass_m_n_ratio_limit;
->  }
->=20
->  static bool
-> @@ -5277,18 +5356,20 @@ intel_pipe_config_compare(const struct
-> intel_crtc_state *current_config,
->  	if (!intel_compare_link_m_n(&current_config->name, \
->  				    &pipe_config->name)) { \
->  		pipe_config_mismatch(&p, fastset, crtc, __stringify(name), \
-> -				     "(expected tu %i data %i/%i link %i/%i, " \
-> -				     "found tu %i, data %i/%i link %i/%i)", \
-> +				     "(expected tu %i data %i/%i link %i/%i
-> m_n_bypass %s, " \
-> +				     "found tu %i, data %i/%i link %i/%i
-> m_n_bypass %s)", \
->  				     current_config->name.tu, \
->  				     current_config->name.data_m, \
->  				     current_config->name.data_n, \
->  				     current_config->name.link_m, \
->  				     current_config->name.link_n, \
-> +				     str_yes_no(current_config-
-> >name.bypass_m_n_ratio_limit), \
->  				     pipe_config->name.tu, \
->  				     pipe_config->name.data_m, \
->  				     pipe_config->name.data_n, \
->  				     pipe_config->name.link_m, \
-> -				     pipe_config->name.link_n); \
-> +				     pipe_config->name.link_n, \
-> +				     str_yes_no(pipe_config-
-> >name.bypass_m_n_ratio_limit)); \
->  		ret =3D false; \
->  	} \
->  } while (0)
-> @@ -5436,6 +5517,8 @@ intel_pipe_config_compare(const struct
-> intel_crtc_state *current_config,
->  		PIPE_CONF_CHECK_M_N(dp_m2_n2);
+>  	case I915_CONTEXT_PARAM_NO_ZEROMAP:
+>  	case I915_CONTEXT_PARAM_BAN_PERIOD:
+>  	case I915_CONTEXT_PARAM_ENGINES:
+> diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
+> index b1b8695ba7c9..dc1b69631046 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_context.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_context.c
+> @@ -13,6 +13,7 @@
+>  #include "intel_context.h"
+>  #include "intel_engine.h"
+>  #include "intel_engine_pm.h"
+> +#include "intel_lrc.h"
+>  #include "intel_ring.h"
+>  
+>  static struct kmem_cache *slab_ce;
+> @@ -80,6 +81,7 @@ int intel_context_alloc_state(struct intel_context *ce)
+>  			if (ctx->client)
+>  				i915_drm_client_add_context_objects(ctx->client,
+>  								    ce);
+> +			lrc_latch_wa_22013059131(ce, ctx);
+>  			i915_gem_context_put(ctx);
+>  		}
 >  	}
->=20
-> +	PIPE_CONF_CHECK_BOOL(dp_m_n.bypass_m_n_ratio_limit);
-
-The flag is compared twice. The unconditional BOOL check is enough.
-
-Please also print it in intel_crtc_state_dump().
-
+> diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+> index 10070ee4d74c..928eab48f38d 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_context_types.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+> @@ -133,6 +133,7 @@ struct intel_context {
+>  #define CONTEXT_EXITING			13
+>  #define CONTEXT_LOW_LATENCY		14
+>  #define CONTEXT_OWN_STATE		15
+> +#define CONTEXT_WA_22013059131_APPLY	16 /* see lrc_latch_wa_22013059131() */
+>  
+>  	struct {
+>  		u64 timeout_us;
+> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+> index 147d22907960..abfce839570d 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+> @@ -5,9 +5,11 @@
+>  
+>  #include <drm/drm_print.h>
+>  
+> +#include "gem/i915_gem_context.h"
+>  #include "gem/i915_gem_lmem.h"
+>  
+>  #include "gen8_engine_cs.h"
+> +#include "i915_drm_client.h"
+>  #include "i915_drv.h"
+>  #include "i915_perf.h"
+>  #include "i915_reg.h"
+> @@ -1348,6 +1350,50 @@ gen12_invalidate_state_cache(u32 *cs)
+>  	return cs;
+>  }
+>  
+> +/* Latched on first pin while the pinner holds a ctx ref; see intel_context_alloc_state(). */
+> +void lrc_latch_wa_22013059131(struct intel_context *ce,
+> +			      struct i915_gem_context *ctx)
+> +{
+> +	int owner;
 > +
->  	PIPE_CONF_CHECK_X(output_types);
->=20
->  	PIPE_CONF_CHECK_I(framestart_delay);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.h
-> b/drivers/gpu/drm/i915/display/intel_display.h
-> index 404168f4213b..55e676655120 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display.h
-> @@ -525,5 +525,7 @@ bool intel_scanout_needs_vtd_wa(struct
-> intel_display *display);  int intel_crtc_num_joined_pipes(const struct
-> intel_crtc_state *crtc_state);  void intel_display_compute_link_m_n(u32
-> *link_m, u32 *link_n,
->  				    int pixel_clock, int link_symbol_clock);
-> +bool intel_display_can_bypass_m_n_limit(struct intel_display *display,
-> +					int m_n_ratio, enum pipe pipe);
->=20
->  #endif
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h
-> b/drivers/gpu/drm/i915/display/intel_display_regs.h
-> index 57f388c958b4..81f9661357b6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-> @@ -550,6 +550,11 @@
->  #define _TRANS_MULT_B		0x6102c
->  #define TRANS_MULT(dev_priv, trans)	_MMIO_TRANS2(dev_priv, (trans),
-> _TRANS_MULT_A)
->=20
-> +#define _HDMI_EMP_DATA_A	0x600d8
-> +#define _HDMI_EMP_DATA_B	0x610d8
-> +#define  HDMI_EMP_DATA_LINK_M_FRAC_MASK	REG_GENMASK(23, 0)
-> +#define HDMI_EMP_DATA(display, trans)	_MMIO_TRANS2((display),
-> (trans), _HDMI_EMP_DATA_A)
+> +	if (!IS_DG2_G11(ce->engine->i915))
+> +		return;
 > +
->  /* Hotplug control (945+ only) */
->  #define PORT_HOTPLUG_EN(dev_priv)
-> 	_MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61110)
->  #define   PORTB_HOTPLUG_INT_EN			(1 << 29)
-> @@ -1192,6 +1197,10 @@
->  #define _PIPEB_LINK_N1		0x61044
->  #define  PIPE_LINK_N1_EXTENDED_MASK	REG_GENMASK(31, 24)
->  #define  PIPE_LINK_N1_EXTENDED(val)
-> 	REG_FIELD_PREP(PIPE_LINK_N1_EXTENDED_MASK, (val))
-> +#define  PIPE_LINK_N1_EXT_CEIL_MASK	REG_GENMASK(7, 4)
-> +#define  PIPE_LINK_N1_EXT_CEIL(val)
-> 	REG_FIELD_PREP(PIPE_LINK_N1_EXT_CEIL_MASK, (val))
-> +#define  PIPE_LINK_N1_EXT_INT_MASK	REG_GENMASK(3, 0)
-> +#define  PIPE_LINK_N1_EXT_INT(val)
-> 	REG_FIELD_PREP(PIPE_LINK_N1_EXT_INT_MASK, (val))
->  #define PIPE_LINK_N1(dev_priv, tran) _MMIO_TRANS2(dev_priv, tran,
-> _PIPEA_LINK_N1)
->=20
->  #define _PIPEA_LINK_M2		0x60048
-> @@ -1710,6 +1719,7 @@
->  #define   PSR2_ADD_VERTICAL_LINE_COUNT	REG_BIT(15)
->  #define   DP_FEC_BS_JITTER_WA		REG_BIT(15)
->  #define   PSR2_VSC_ENABLE_PROG_HEADER	REG_BIT(12)
-> +#define   DP_ENHANCED_TGDDA_ENABLE	REG_BIT(11)
->  #define   DP_DSC_INSERT_SF_AT_EOL_WA	REG_BIT(4)
->  #define   HDCP_LINE_REKEY_DISABLE	REG_BIT(0)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h
-> b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index a5f18ac8a7d0..7a5286db977e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -985,6 +985,8 @@ struct intel_link_m_n {
->  	u32 data_n;
->  	u32 link_m;
->  	u32 link_n;
-> +	/* Wa_14021768792 for linkm/n ratio > 10 */
-> +	bool bypass_m_n_ratio_limit;
+> +	/* Only RCS and CCS ever emit this workaround; don't latch for others. */
+> +	if (ce->engine->class != RENDER_CLASS && ce->engine->class != COMPUTE_CLASS)
+> +		return;
+> +
+> +	owner = I915_WA_22013059131_KERNEL;
+> +	if (ctx->client)
+> +		owner = i915_drm_client_latch_wa_22013059131(ctx->client, owner);
+> +
+> +	if (owner != I915_WA_22013059131_USERSPACE)
+> +		set_bit(CONTEXT_WA_22013059131_APPLY, &ce->flags);
+> +}
+> +
+> +static u32 *
+> +dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
+> +{
+> +	/*
+> +	 * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
+> +	 * other bits of the register will also get overwritten.  The
+> +	 * hardware default for all other bits is 0, but any workarounds
+> +	 * that adjust the other bits in the lower dword of the register
+> +	 * also need to be re-applied here.  At the moment that's just
+> +	 * Wa_22014226127, which is always set for DG2-G11 platforms.
+> +	 */
+> +	u32 val = DISABLE_D8_D16_COASLESCE;
+> +
+> +	if (test_bit(CONTEXT_WA_22013059131_APPLY, &ce->flags))
+> +		val |= FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
+> +
+> +	*cs++ = MI_LOAD_REGISTER_IMM(1);
+> +	*cs++ = i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
+> +	*cs++ = val;
+> +
+> +	return cs;
+> +}
+> +
+>  static u32 *
+>  gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
+>  {
+> @@ -1371,6 +1417,10 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
+>  	    IS_DG2(ce->engine->i915))
+>  		cs = dg2_emit_draw_watermark_setting(cs);
+>  
+> +	/* Wa_22013059131:dg2 */
+> +	if (IS_DG2_G11(ce->engine->i915))
+> +		cs = dg2_g11_emit_wa_22013059131(ce, cs);
+> +
+>  	return cs;
+>  }
+>  
+> @@ -1387,7 +1437,14 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
+>  						    PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE,
+>  						    0);
+>  
+> -	return gen12_emit_aux_table_inv(ce->engine, cs);
+> +	cs = gen12_emit_aux_table_inv(ce->engine, cs);
+> +
+> +	/* Wa_22013059131:dg2 */
+> +	if (IS_DG2_G11(ce->engine->i915))
+> +		if (ce->engine->class == COMPUTE_CLASS)
+> +			cs = dg2_g11_emit_wa_22013059131(ce, cs);
+> +
+> +	return cs;
+>  }
+>  
+>  static u32 *xehp_emit_fastcolor_blt_wabb(const struct intel_context *ce, u32 *cs)
+> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
+> index 7111bae759f3..cc204ac2d7bf 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_lrc.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
+> @@ -14,6 +14,7 @@
+>  #include "intel_context.h"
+>  
+>  struct drm_i915_gem_object;
+> +struct i915_gem_context;
+>  struct i915_gem_ww_ctx;
+>  struct intel_engine_cs;
+>  struct intel_ring;
+> @@ -35,6 +36,8 @@ void lrc_fini_wa_ctx(struct intel_engine_cs *engine);
+>  
+>  int lrc_alloc(struct intel_context *ce,
+>  	      struct intel_engine_cs *engine);
+> +void lrc_latch_wa_22013059131(struct intel_context *ce,
+> +			      struct i915_gem_context *ctx);
+>  void lrc_reset(struct intel_context *ce);
+>  void lrc_fini(struct intel_context *ce);
+>  void lrc_destroy(struct kref *kref);
+> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> index 24ea5d8d529c..ef6eea3ab597 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> @@ -2840,7 +2840,11 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+>  	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
+>  	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0) ||
+>  	    IS_DG2(i915)) {
+> -		/* Wa_22014226127 */
+> +		/*
+> +		 * Wa_22014226127: Note that this workaround also needs to be
+> +		 * re-applied in intel_lrc.c when LSC_CHICKEN_BIT_0 is
+> +		 * re-written for Wa_22013059131.
+> +		 */
+>  		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
+>  	}
+>  
+> @@ -2867,10 +2871,6 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+>  				     MAXREQS_PER_BANK,
+>  				     REG_FIELD_PREP(MAXREQS_PER_BANK, 2));
+>  
+> -		/* Wa_22013059131:dg2 */
+> -		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0,
+> -				FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
+> -
+>  		/*
+>  		 * Wa_22012654132
+>  		 *
+> diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+> index 2e7a50d16a88..8f10ee244d32 100644
+> --- a/drivers/gpu/drm/i915/i915_drm_client.h
+> +++ b/drivers/gpu/drm/i915/i915_drm_client.h
+> @@ -45,8 +45,65 @@ struct i915_drm_client {
+>  	 * @past_runtime: Accumulation of pphwsp runtimes from closed contexts.
+>  	 */
+>  	atomic64_t past_runtime[I915_LAST_UABI_ENGINE_CLASS + 1];
+> +
+> +	/**
+> +	 * @wa_22013059131_owner: Who programs Wa_22013059131 for this client.
+> +	 *
+> +	 * One of the I915_WA_22013059131_* values below.  Latched once, on
+> +	 * the first of either I915_CONTEXT_PARAM_WA_22013059131 being set or
+> +	 * a context of this client being pinned for the first time
+> +	 * (intel_context_alloc_state(), which holds ce->pin_mutex and a
+> +	 * reference on the context), and read-only afterwards.  See
+> +	 * i915_drm_client_latch_wa_22013059131().
+> +	 */
+> +	atomic_t wa_22013059131_owner;
 >  };
->=20
->  struct intel_csc_matrix {
-> --
-> 2.34.1
+>  
+> +/*
+> + * Wa_22013059131:dg2 - who programs LSC_CHICKEN_BIT_0's
+> + * FORCE_1_SUB_MESSAGE_PER_FRAGMENT bit for the contexts of a client.
+> + *
+> + * LSC_CHICKEN_BIT_0 is shared by the RCS and CCS engines rather than being
+> + * part of the saved context image, so it cannot be tracked per context.
+> + * GuC only lets RCS and CCS run concurrently when their contexts share an
+> + * address space, so tracking this per DRM client (which forces every
+> + * address space of that client to agree) is sufficient to avoid contexts
+> + * that could actually run at the same time racing over the register.
+> + *
+> + * I915_WA_22013059131_UNSET must be 0 as the client is zero-initialised.
+> + */
+> +#define I915_WA_22013059131_UNSET	0
+> +#define I915_WA_22013059131_KERNEL	1
+> +#define I915_WA_22013059131_USERSPACE	2
 
+Minor nitpick:  It might be nice to include the word "CLIENT" in the
+names here, just so that it's easier to distinguish these from the
+context flag and such.
+
+
+Matt
+
+> +
+> +/**
+> + * i915_drm_client_latch_wa_22013059131 - Latch Wa_22013059131 ownership
+> + * @client: the DRM client
+> + * @want: I915_WA_22013059131_KERNEL or I915_WA_22013059131_USERSPACE
+> + *
+> + * Claim @want as the owner of Wa_22013059131 for @client, unless an owner
+> + * has already been latched.  Callers that must not change the owner pass
+> + * the value they rely on and compare it against the return value.
+> + *
+> + * The value is latched with a single cmpxchg so that no extra locking is
+> + * needed.  This matters because the callers run with different locks held:
+> + * GEM_CONTEXT_CREATE_EXT_SETPARAM does not hold &proto_context_lock, while
+> + * GEM_CONTEXT_SETPARAM does, and intel_context_alloc_state() holds
+> + * ce->pin_mutex instead.
+> + *
+> + * Returns: the owner in effect for @client, never I915_WA_22013059131_UNSET.
+> + */
+> +static inline int
+> +i915_drm_client_latch_wa_22013059131(struct i915_drm_client *client, int want)
+> +{
+> +	int owner;
+> +
+> +	owner = atomic_cmpxchg(&client->wa_22013059131_owner,
+> +			       I915_WA_22013059131_UNSET, want);
+> +
+> +	return owner == I915_WA_22013059131_UNSET ? want : owner;
+> +}
+> +
+>  static inline struct i915_drm_client *
+>  i915_drm_client_get(struct i915_drm_client *client)
+>  {
+> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+> index 535cb68fdb5c..a9821e2cc3a2 100644
+> --- a/include/uapi/drm/i915_drm.h
+> +++ b/include/uapi/drm/i915_drm.h
+> @@ -2172,6 +2172,30 @@ struct drm_i915_gem_context_param {
+>   * Note that this is a debug API not available on production kernel builds.
+>   */
+>  #define I915_CONTEXT_PARAM_CONTEXT_IMAGE	0xf
+> +
+> +/*
+> + * I915_CONTEXT_PARAM_WA_22013059131:
+> + *
+> + * Default value 0 means the kernel sets LSC_CHICKEN_BIT_0 bit 15
+> + * (FORCE_1_SUB_MESSAGE_PER_FRAGMENT) as part of Wa_22013059131.  Set to 1
+> + * to inform the kernel that userspace is handling the SLM contention
+> + * workaround itself (e.g. by limiting SLM size), so bit 15 programming is
+> + * not needed.
+> + *
+> + * LSC_CHICKEN_BIT_0 is shared by the RCS and CCS engines, so this setting
+> + * takes effect for every context of the calling DRM client (the whole file
+> + * descriptor), not just the context the ioctl is issued on.  It is latched
+> + * once, by whichever comes first: an explicit call to this parameter, or
+> + * any context of the client being submitted for the first time.  A later
+> + * request for the opposite value fails with -EINVAL.  Userspace that wants
+> + * to opt out must therefore do so before submitting any work on this fd,
+> + * including via the default context (id 0) created on open().
+> + *
+> + * Note: LSC_CHICKEN_BIT_0_UDW MAXREQS_PER_BANK (bits 39:37) is the
+> + * other part of Wa_22013059131 and remains unconditionally programmed
+> + * by the kernel regardless of this setting.  DG2-G11 only.
+> + */
+> +#define I915_CONTEXT_PARAM_WA_22013059131	0x10
+>  /* Must be kept compact -- no holes and well documented */
+>  
+>  	/** @value: Context parameter value to be set or queried */
+> -- 
+> 2.43.0
+> 
+
+-- 
+Matt Roper
+Graphics Software Engineer
+Linux GPU Platform Enablement
+Intel Corporation
