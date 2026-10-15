@@ -4,62 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE29CC6B2F
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 06:08:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDE67CC6B2F
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 08:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C8AF10E9E6;
-	Thu, 15 Oct 2026 06:07:55 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 122A210E9E6;
- Thu, 15 Oct 2026 06:07:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FD510E9EF;
+	Thu, 15 Oct 2026 08:12:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B09010E9EF;
+ Thu, 15 Oct 2026 08:12:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792044469; x=1823580469;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=lIp8Ez5vdPviw3SB6liedxOk3QRt6NrPwQKfX3GxXKI=;
- b=Q4SCcPCnN/9k2Y6W9306Bk72t3//8bC2ot9UzUoxq203RGHlEHxzTNrp
- 8avNnXZ/XeN3XpAOJ8Py5XMHLeX4bmOnZZOvU/KllAKpGKEj3Z9BY4/hL
- JUzcr4XauZT3lOiDeyb6p2TDRPQ1Xm0myzqZa9vrq8/slZSojDQiS0pnJ
- CROdF4qcu+VGi0uZtxd4nAXZlA8yeGUH2I9qM537h70WmX0pdCfplMbAP
- b3ytpgrFau4mVvEkDvcz6etbdRXuggx3166oa4/URpCoXhgs9qkuHoU8a
- /nLOevp9nwGUhVnobu99YB5xVjZ+NBy+Z0DdE5PN4KQaRyTCumglRPKkY g==;
-X-CSE-ConnectionGUID: VL5iFqgYTyyznRUe7WeuvA==
-X-CSE-MsgGUID: Y7jiffb5RSKnxhbxHg/A1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="794096"
+ t=1792051939; x=1823587939;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=EUwSWHVoqi7SpNUSsFx8wmyipmYlk9bShSAnWyQM2iA=;
+ b=ASZa6hk2Jrz9Il6/L+cCGi8U6Ck5yho8PPTW7VKUNBWL+RzKkQougWwr
+ f70ai78nYTnX5B+8E/BWv86pfHSdSzNyOwaMAmdyA+1egk2nqhFe5t7Zz
+ fULkuJt8Hf3z64PdIhasXVKy20NxXgcwvlZrQ67ubVwaW8z9CapioVCm+
+ dTMOZjwG+RWHSoZsVICTNnAhxZ3jCp8hTk0LCJ2ge8pJdkp0itmje+WwD
+ vfhfqqdDMwxlD9s2kNOExL4FJi4Y8RT6GaQRgFQBRsCd2FNJL9FPyNRSy
+ zjf3k8+W7S2H3UE8QQnZdVMaFvOhCQ7eJ/Kre1nKY9GjrBdX26pVtBhjR g==;
+X-CSE-ConnectionGUID: EnHuslDwQ5eZkpZU7yh1Pw==
+X-CSE-MsgGUID: iGWqi03SSYCOLW52+IKNkg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="917100"
 X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="794096"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2026 23:07:49 -0700
-X-CSE-ConnectionGUID: HkAU05ZFTQSWzY1ADhyHFA==
-X-CSE-MsgGUID: tnYNM8jtTkSc5hcu9Ad+Gg==
+   d="scan'208";a="917100"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2026 01:12:18 -0700
+X-CSE-ConnectionGUID: iZ4w6FFDT+mLNk9dzTsEJg==
+X-CSE-MsgGUID: ZKe06ZHSQI65q5soKhkrHw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1694045"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.93])
+   d="scan'208";a="3466829"
+Received: from dev-417.igk.intel.com (HELO dev-417) ([10.91.214.181])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2026 23:07:44 -0700
-Date: Thu, 15 Oct 2026 09:07:42 +0300
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-fixes
-Message-ID: <atBtrhSxjkB7bVwm@jlahtine-mobl>
+ 15 Oct 2026 01:12:16 -0700
+Date: Thu, 15 Oct 2026 10:12:10 +0200
+From: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@linux.intel.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Subject: Re: [PATCH v4 2/5] drm/i915/3dlut: disable 3D LUT for pre-GLK
+Message-ID: <urarshuqsxwfwjbsdcnzuvj7i5xpcmtjmn2ny5kjvbafqj354k@ka7oucqstwfo>
+References: <20261013204705.1574475-1-michal.grzelak@linux.intel.com>
+ <20261013204705.1574475-3-michal.grzelak@linux.intel.com>
+ <sashiko-outbox-170497@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-170497@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,49 +70,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave & Sima,
+On Tue, Oct 13, 2026 at 08:59:16PM GMT, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] drm/i915: 3D LUT remains disabled for GLK/ICL due to unmodified version check
+> --
+> 
+> commit 31c6b1070ace7be34ebe695316e80a7d65a5d1a7
+> Author: Michał Grzelak <michal.grzelak@linux.intel.com>
+> Subject: drm/i915/3dlut: disable 3D LUT for pre-GLK
+> 
+> This commit adds a has_3dlut field to the display runtime info to indicate
+> whether 3D LUT is enabled. It initializes the field to 1 for GLK and newer
+> platforms, and adds a HAS_3DLUT macro to check for support.
+> 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+> > index f1df0f9ba7624..95de75e1de984 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_color.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_color.c
+> > @@ -4304,6 +4304,9 @@ intel_color_load_plane_luts(struct intel_dsb *dsb,
+> >  bool
+> >  intel_color_crtc_has_3dlut(struct intel_display *display, enum pipe pipe)
+> >  {
+> > +	if (!HAS_3DLUT(display))
+> > +		return false;
+> > +
+> >  	if (DISPLAY_VER(display) >= 12)
+> >  		return pipe == PIPE_A || pipe == PIPE_B;
+> >  	else
+> >  		return false;
+> >  }
+> 
+> [Severity: Medium]
+> Will this still return false for GLK and ICL platforms even though they have
+> the HAS_3DLUT flag set?
+> 
+> The commit message indicates 3D LUT is supported on GLK+ hardware, and the
+> patch sets has_3dlut = 1 for GLK (DISPLAY_VER = 10) and ICL (DISPLAY_VER = 11).
+> However, in intel_color_crtc_has_3dlut(), after the new HAS_3DLUT() check
+> passes for these platforms, the function still evaluates:
+> 
+>     if (DISPLAY_VER(display) >= 12)
+>         ...
+>     else
+>         return false;
+> 
+> Doesn't this existing version check unconditionally return false for GLK and
+> ICL, defeating the newly added flag and keeping 3D LUT disabled for these
+> platforms?
 
-Here goes this week drm-intel-fixes PR towards v7.3(-rc8).
+Those platforms are currently not supporting 3D LUT. Purpose of
+has_3dlut is to fuse off 3D LUT support when the flag is reset, which is
+introduced in later patches. It does not force to use 3D LUT when it is
+set.
 
-Fix for ARL-S host bridge detection and a couple DMC firmware loading
-sanity check additions.
+BR,
+Michał
 
-Regards, Joonas
-
-PS. No drm-intel-next-fixes PR this week.
-
-***
-
-drm-intel-fixes-2026-10-15:
-
-- Fix ARL-S host bridge detection
-- Add sanity checks for malformed DMC firmware
-
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
-
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-10-15
-
-for you to fetch changes up to 6a8bf59de3ef47ff51face6ea826395a1098baa0:
-
-  drm/i915/cx0_phy: Fix ARL-S host bridge detection (2026-10-14 17:54:59 +0300)
-
-----------------------------------------------------------------
-- Fix ARL-S host bridge detection
-- Add sanity checks for malformed DMC firmware
-
-----------------------------------------------------------------
-Dibin Moolakadan Subrahmanian (2):
-      drm/i915/dmc: Harden DMC firmware payload parsing
-      drm/i915/dmc: Add sanity check for DMC load address
-
-Dnyaneshwar Bhadane (1):
-      drm/i915/cx0_phy: Fix ARL-S host bridge detection
-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 12 +++--
- drivers/gpu/drm/i915/display/intel_dmc.c      | 76 +++++++++++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_dmc_regs.h | 12 +++++
- 3 files changed, 90 insertions(+), 10 deletions(-)
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261013204705.1574475-1-michal.grzelak@linux.intel.com?part=2
