@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA907CC6B33
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 14:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17683CC6B3A
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 15:13:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A12B11238F;
-	Thu, 15 Oct 2026 14:46:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8610D10E265;
+	Thu, 15 Oct 2026 15:13:00 +0000 (UTC)
 Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4D5D11238F;
- Thu, 15 Oct 2026 14:46:26 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2492120717773927244=="
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FBB110E265;
+ Thu, 15 Oct 2026 15:12:59 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/cx0=3A_TCSS_powe?=
- =?utf-8?q?r_for_the_non-TC_C20_PHY_on_PTL_port_B?=
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/displa?=
+ =?utf-8?q?y=3A_guard_intel=5Falpm=5Fget=5Ferror=28=29_against_non-ALPM_sink?=
+ =?utf-8?q?s_=28rev3=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Burak_G=C3=B6nc=C3=BC_via_B4_Relay?=
- <devnull+burakgon12.gmail.com@kernel.org>
+To: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Oct 2026 14:46:26 -0000
-Message-ID: <179207558693.30622.8355017220947836085@221881a7231d>
+Date: Thu, 15 Oct 2026 15:12:59 -0000
+Message-ID: <179207717938.30671.10010669619466451888@221881a7231d>
 X-Patchwork-Hint: ignore
-References: <20261015-ptl-port-b-tcss-v2-0-e00ce882402d@gmail.com>
-In-Reply-To: <20261015-ptl-port-b-tcss-v2-0-e00ce882402d@gmail.com>
+References: <20261014152526.2523534-1-fuhrysteve@gmail.com>
+In-Reply-To: <20261014152526.2523534-1-fuhrysteve@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,105 +42,17 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2492120717773927244==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
 == Series Details ==
 
-Series: drm/i915/cx0: TCSS power for the non-TC C20 PHY on PTL port B
-URL   : https://patchwork.freedesktop.org/series/176209/
-State : success
+Series: drm/i915/display: guard intel_alpm_get_error() against non-ALPM sinks (rev3)
+URL   : https://patchwork.freedesktop.org/series/168435/
+State : failure
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_19343 -> Patchwork_176209v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176209v1/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
+Series author address 'fuhrysteve@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
+If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
+Exception occurred during validation, bailing out!
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/190291/ (on built-in)
 
 
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19343 -> Patchwork_176209v1
-
-  CI-20190529: 20190529
-  CI_DRM_19343: 0f25834e4362e81f4653dd82e38024981806ce60 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9149: 157f243d73fb8c010db8c884db81ca2e558b4ab2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_176209v1: 0f25834e4362e81f4653dd82e38024981806ce60 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176209v1/index.html
-
---===============2492120717773927244==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/cx0: TCSS power for the non-TC C20 PHY on PTL port B</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176209/">https://patchwork.freedesktop.org/series/176209/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176209v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176209v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19343 -&gt; Patchwork_176209v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176209v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19343 -&gt; Patchwork_176209v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19343: 0f25834e4362e81f4653dd82e38024981806ce60 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9149: 157f243d73fb8c010db8c884db81ca2e558b4ab2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_176209v1: 0f25834e4362e81f4653dd82e38024981806ce60 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2492120717773927244==--
