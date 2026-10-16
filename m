@@ -4,81 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0373BCCF2D6
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 11:41:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42A6DCCF2E4
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 11:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 648AE10EAFE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA3F10EC03;
 	Mon, 19 Oct 2026 11:41:51 +0000 (UTC)
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 926FC1129BE
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 20:05:30 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-8ac9d666d4eso2958777b3.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 13:05:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792181129; cv=none;
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 002C110E359
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 19:05:00 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-3a60cb94b80so2215861fa.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 12:05:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792177499; cv=none;
  d=google.com; s=arc-20260327;
- b=PbX4yLCVno2k5H9BTXNThL3fka0CYGo+uRujwch//rZyYcO2kmbrlVGgWm65MMVOCm
- haUWWxi34pgas2Tdsilpz5j51wx4JU7z8inHtIky+lfkCQmY3k8Elj0v2kNa2nch/vSp
- nDLzlGrF3d19I9BRABOzAlf03/jI8AV8fMqY2ozGdszKz2tmSCksz8Tg1Bo6StxrZNar
- 2QZBlrty8u65qupzpEjoTfAMZaSnhm6bALFYGHj9tYq/qn0W7lwl92YSyxjLeXlO2hno
- cr4XgYEHfSvFZ6snWy1+LfKq6sneLqyGU2SfrulJ3GoBClDAHQLOGDlTmQXidSh19zwi
- B1gg==
+ b=RSobAPyUiDSmLMreJpHThJlem809mA2vGMMhfQPfV5FOZpnYJVVHh+xnqcqva+3S6y
+ 2mrVii4ftY2TVuwmC+6htNE8fnY3CYqB0pjjGUUYkNYmFys8JGqjowMnK5Jbg8TUbffj
+ fntJeTFRk9SW4C6cfgtHEGKMCcowNeHo/cgKEMjbFKq3w6Up1D0O4kyt+8SOb4raC0qo
+ C93xc9M+Z1y7dqPVD3S0su3ysi3bBThiVDHsFekY9Z9F3hwjQozGK07QWs7pkHos8OKz
+ xIdOPuI/ZhKg8pPtyqJ5FZav/iEV24P0nIOieU4+0T1EgedHulWaDvxj1/4nQahmueTb
+ SXlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=dmzXdbZR886lKjLoddxX/OH4Op6/cRfq1jDEQiO2KdY=;
- fh=IHsoSAvt4OkvoaCCRefIg6gh3iQHwZhm9GAh93c9k6Y=;
- b=IB4Jz4ESpKVr6WMvV1joE3Isa5KzGSol4C29X6UadaPJrJQZPMyFo2WGyNgziD154c
- ofjuam3uKIj5SntQygMvsnzAatYnjbOz/G6jPseDUrZrdeanmtByu62+MhEeKuq2rP/5
- 4foIzDi2BagFt2ZsLibEBqb/tAv6pL1UaRfRuXm18lAWX1TTSlB71OWdcS96nffzcKxT
- 1gq2HXD71wRKYOpFLEedWOCGPDWVuL3O5nKkQq+bsv18iW2kxkAHUhcdO69TQQlRIB9r
- 0Hus1W8L+F2TgZe40zuLyhSTqT1QEAaofA9l5Sd9foncUv8BGO0RI8IccCPlHVDl53ue
- u7vQ==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:references:in-reply-to
+ :mime-version:dkim-signature;
+ bh=hCVnPtqFe9PPLGclN/Sfiz1pW+NWRfIeY6a06sFRlb0=;
+ fh=fwAntDds/aD5i+kCMcyJMgsHqM5hQjOQZ0ECm71K5fA=;
+ b=l6wzDITttGivJROQIcGLXKO/hE3NXffjICjYvHQiVWizN4n76G9CpFmgpehZ8dbF/X
+ HxwsTGq2FFTaddFbEGp3Dm/QSfW1Mxy4judeWWy52tw2Ksa0lz9NImzMH4mAMlxeyRK1
+ KR6w6+zxeHrMp1zERF6UJ3m5uEkGTyfxDllMG3Qm3XnI9Y2tXJNzFNTMi+gSnJyYGFA8
+ LuEgwEjq0hNXRzZyvrz9DDJjmIHpriwBXMH5omNfP2W9bQvbQw0xe0jtfugnlKD2i4Tr
+ 4RVsFUGCmKHQS48SI+vLsKPeBzuCgIUokLZQ8mwRubK4FNVJd8I/a1k2MZ5W4u3H8NsO
+ X0Bw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792181129; x=1792785929; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=dmzXdbZR886lKjLoddxX/OH4Op6/cRfq1jDEQiO2KdY=;
- b=re6M/7bysWlPQv7LB3wkZefn3gwyo1C8slkkXyrpRoM8UIoYvSRFO8YD3ElmVr7LvI
- 6msWVNgGkpzVwHEwAz/0rmCyEuWOrgcJA9v12U3i0EU2ECWAJSj4OKmOEM/V0HcNEvrn
- DHtFlzRQ+ao9+tPR3J+EPa0v2q/8onqCZx+nn2T7aaQP8CruDdL871kCZI0sBESIUrwy
- eoydptzVY/Udh0PpHgMBj+XOwD1/bWgNPauQVQOunOYO9w9WrXch6daHNSBo3T5N3s0m
- NqerimRPNtank3rr8CErTCCN1Ohv/TowAkA0d8cdj5s2rPxQh8wtjeoroEHlEOevW21m
- E4Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792181129; x=1792785929;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=gmail.com; s=20251104; t=1792177499; x=1792782299; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
  :reply-to:content-type;
- bh=dmzXdbZR886lKjLoddxX/OH4Op6/cRfq1jDEQiO2KdY=;
- b=KJ8mLSfP4VR0xn+AQWI+jtP/qHV7oHz1CRon/XjZ2H5gDvKHGb4SWYW2SH2wr4n70a
- 84N6T3kMrSsCmOZstZOui0atS55e4tQtstC/+xYAYUscun8ccgKqKPha6W7S3cFvUt+/
- jAKf3Dm+MvVZ/5fVnIPRHC95Ugj81zowlajcOPUXkmPNf8SCmWfuozKoueXX80M9pPGX
- cZ6pp48cuiUTUch75j9cZwOnbKtOzuoQ1dBzLAhYs80ovZ4eYQgs80xoxMobfZxiw881
- jdq8peVjbYRR/nwXfkQFoCIQJmM3ea3hPI5xqzHqr87HNyeT3Kh5gGDaQhAkwr2Jdjaa
- 0Vtg==
-X-Gm-Message-State: AFq9FYLgNvc3crM6i/VV3SIkMr8gyZy2FgVC5CHLFErGICbEoSQrVJ0o
- I9tj2t9AEWoy+eZYZYZfOkR5s6OWoJOlkol9jZLKQh0N1COVabAkYpabZyFRhGYARe8wROMJDaq
- khe3fjy7q9ndvy3oVWW5Vc9uRDpqTBIoK2r13
-X-Gm-Gg: AYBFou1haWmYv9SSUNEnKnifZ9+yHE2Jg13M3rChyb7jjjMSaKQ+8LfP+weqy23FYZ3
- 6aQDVEWzQeZqpqIDQmdDEyEf+A+JdP1pJ2dRwPlEAg1eStognmsV1Q74nSMkKvjTujr5r4MoGNn
- SsC/r1MP2QI7CdORSRMbhQGcGCRjUiof0Kq5PXj20MBYJ2bx5dK5hSYNuHIFJKCvnSRem6IS8Hb
- Y84WuVN7hq6bo8SBKXniumBbmWLKzGEyjunDuaW068yxtTayz/k1+y3bfXTtN7byE22xWk9SGf6
- YpM3xe+Ymv+ztzBBDl1LOKhghfupqYFfI++KZLyGmkbOd6YvfYdHA3g4jfn+d6UPQbN5Pl+Uy5F
- xvvURkHohjayM6CSO7gIpxfBfiUg1cQxTZXZUZEtEIQTF
-X-Received: by 2002:a05:690c:ec8:b0:873:5bb2:6c33 with SMTP id
- 00721157ae682-8b0f21aeb9dmr3532647b3.58.1792181129253; Fri, 16 Oct 2026
- 13:05:29 -0700 (PDT)
+ bh=hCVnPtqFe9PPLGclN/Sfiz1pW+NWRfIeY6a06sFRlb0=;
+ b=hoQ4t8bQflssOd7Rr+pcVtFtjgdlheXlPB2W88bqvx2Nf64/JsSDYCUFHj22zFNZIG
+ XG7zr5fmmXSdc0Ii3qqDjlJUJg34fsiafBIAdbEUZXqeaAAHXBAEc9S3nc2E+Ai+6APZ
+ nQQyCW2YgP8zuQ0IiiEa/u0DYyBdNRe5STjzMdM3dXGrpL7v//zFDZGBMiE8gOWSszJX
+ H+aueac/0M8GCdPLcdTAop3buIffJsRrushoFQbMq9Mqp1/KbsrGucRB4uwZ1utrl6zi
+ nt6H11z0gvV7gmi5RXRu5wMMCgVRngmv5Ker1KZxbCRUIxTrYbwJs8A/XtTaOXybTS6x
+ LLQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792177499; x=1792782299;
+ h=content-type:cc:to:subject:message-id:date:from:references
+ :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=hCVnPtqFe9PPLGclN/Sfiz1pW+NWRfIeY6a06sFRlb0=;
+ b=rWIfxWlDRazMtZV/DKcZqVbDscS8nTgoFKsG/foUiQJLVJNOR1VRDqld35BD8Zi4rx
+ lOwFAUoIkqqRdhBAwDMg5oW/u+mJdua/knG9XLUcpMfror0GJhcoqx/gAIUTaQWnm3Yz
+ rDmKoBRlhh52TixYDHEO6EMNydHf65oQ6acYZRCkd9YyrxVrsaZPKcaK5xsn7Hr0p3pc
+ y7cidmq6dfw053Bo1GjfeT51q+MtolH/kJfCLtBkjpqEAjQfkIjfcN+hOaX9ho64KDNZ
+ gObQzvkvjXPV3UY2sbPX71SGW6ML5CZY92xs1rppKgJeKARXOAv0/CW3gAUTrjUvsaN8
+ Sxkw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByPb2nc4zKo5AZTFl6RCL+T8DlF6vTX09VCqA6cbQNbkMJfC/tjDQKDfbEkt94N8jPkYudCqu6+odI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKboAyIITJttRUvd3U/NzgbkCAZkQRwtHLoyyBXL1zfS/tOTBnk
+ DRk9H65DGhdQ8lf9eM017crDhE8pjJpfUExZRwQGae/4WIflp59jEQTUgLmKCpupg0j/NiBRO26
+ Boqt1ChdqyX0T3uOW9H8KVOHYYVat6eI=
+X-Gm-Gg: AYBFou23IBhX2/Abup5bB1u++islvGIEcY943HkOpVbNQseY1fVjqC9/Hvp4us0gjGB
+ iz9UMQzF6M/6nx+JHRcNoBDvpzJvgtUU8bM5qfirjpXDHIJ2sN6fCwwe19srdfhafd2yfGaU+Ln
+ eGG/ojU1z8cwi+/ZOzEScaV8mh7trcqMaUypRBJwZgxkS3L/vT+O1dVjlQ8upob+DRGqeW9Aa7k
+ 71ySYDRWsdJTSSURG97TJgx3n7Xcb987+Ky0M9EE24AW3QxTt9gUj9jzxfSa0gig2e8wUQz4789
+ qR07gZsVD/RKCEJJrwq6BF/Bkimb/zSAGCfJxYczvihcuHIPDljeeNTXR+sOw5sZzA==
+X-Received: by 2002:a05:6512:33c7:b0:5ba:cdbb:41af with SMTP id
+ 2adb3069b0e04-5be5099764cmr189189e87.0.1792177498937; Fri, 16 Oct 2026
+ 12:04:58 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Fri, 16 Oct 2026 22:04:57 +0300
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Fri, 16 Oct 2026 22:04:57 +0300
 MIME-Version: 1.0
-From: Adrien ASESIO <aasesio@gmail.com>
-Date: Fri, 16 Oct 2026 16:05:16 -0400
-X-Gm-Features: AclHuK8s-jthCSiy0as-Az0HoaccHrEpisuSlOg21FVtJxc7LkRwkSCUd313iQI
-Message-ID: <CAK1iddKB9hhhBGPnu6nNg-nn-Tg-GC-31nvEEHKB9qvkMesxLA@mail.gmail.com>
-Subject: [RFC] drm/i915: HDMI 3D frame packing on LSPCON (DP-to-HDMI) ports
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <abc82e7191da4638c75ab87605fbe24e2667391d@intel.com>
+References: <CAN52AYstOLqaX_=_HBLEGKvcEmY+VGwKSbRRRyQbG4ytr6FD_A@mail.gmail.com>
+ <abc82e7191da4638c75ab87605fbe24e2667391d@intel.com>
+From: Jame Jao <jaojame6@gmail.com>
+Date: Fri, 16 Oct 2026 22:04:57 +0300
+X-Gm-Features: AclHuK9Q9k_W0_l4F3dNiy0XIQ0Kg9TzCTZ1PdBZ584Iuo1XtWhcgL1kK4uJmt4
+Message-ID: <CAN52AYvQvbPAjpsq9GJDP0QNKKM=H02AVjp9r9TcKSxfnz5VSw@mail.gmail.com>
+Subject: Re: [RESEND PATCH 0/5] platform/x86: bitland-mifs-wmi: MIFS v2
+ firmware support, Xiaomi Book Pro 14 2026 - filed as drm/xe #9602
+To: jani.nikula@linux.intel.com
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ rodrigo.vivi@intel.com
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 19 Oct 2026 11:41:45 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -96,91 +108,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Jani,
 
-I would like to ask whether stereo 3D output on i915 ports that drive
-an HDMI sink
-through an LSPCON (DP branch device in PCON mode, MegaChips MCDP28x0
-or Parade PS175)
-is something that could be supported, and what you would want a patch
-to look like.
+The bug is filed:
 
-Background: the HDMI 2.0 port of many Intel boards from Skylake to
-Coffee Lake (Intel
-NUC7/NUC8 among them) is an LSPCON, so i915 registers it as a
-DisplayPort connector.
-stereo_allowed is only set in intel_hdmi_init_connector(), never for DP, so
-drm_helper_probe_single_connector_modes() prunes every 3D mode the
-EDID advertises,
-and lspcon_set_infoframes() only writes the AVI infoframe (and the
-DRM/HDR packet),
-so there is no path for the HDMI Vendor-Specific InfoFrame that
-carries 3D_Structure.
-Intel's support article 000030190 documented S3D as unsupported on
-LSPCON designs.
+  https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/9602
 
-Observation: on a NUC8i7BEH (i7-8559U, Coffee Lake; i915_display_info
-reports the
-branch device as "Type: HDMI, ID: MC2800, HW 2.2, SW 1.73") with
-kernel 6.1.74, whose
-code paths are unchanged in this respect on current master, I programmed the
-frame-packing raster of CTA VIC 32 as a plain progressive mode from userspace:
+Attachments on the issue:
 
-    1920x2205 @ 24 Hz, clock 148500, htotal 2750, vtotal 2250, +hsync +vsync
+  vbt.bin.gz            1460 bytes, 7680 bytes after gunzip, first bytes
+                        "$VBT PANTHERLAKE", read from
+                        /sys/kernel/debug/dri/0/i915_vbt on 2026-10-17,
+                        sha256 (vbt.bin) 1a0a08b81c48977efbf3f4ea0cc547d6
+                        bdf44569f95d88662c5593f24a5e2e4d
+  kernel-boot-log.txt.gz  full kernel journal of that boot, from boot to
+                        the moment it was captured, with storage UUIDs, MAC
+                        addresses and serial numbers removed and nothing else
+                        edited
 
-The sink (Panasonic TX-P..VT65 plasma, HDMI 1.4a, behind an Onkyo AVR)
-switched into
-frame-packed 3D by itself and displayed both eyes correctly; page
-flips were delivered
-at 41.667 ms (sd 0.01 ms) for minutes. So the LSPCON passes the
-doubled raster, and at
-least this TV detects frame packing from the timing without the VSIF
-(or the LSPCON
-generates one; I cannot tell without an HDMI analyser). Kodi now does
-exactly this on
-that machine (patch under review on the maintainer's 3D branch, [1]),
-decoding 3D
-Blu-ray MVC with FFmpeg's pending H.264 MVC series [2].
+Worth knowing when you triage it: the kernel in that log is a downstream
+Arch linux-zen build carrying one local change that touches only
+bitland-mifs-wmi suspend/resume error handling. Graphics and input code are
+unmodified, but it is not an upstream kernel, and the journal was collected
+without drm.debug=0xe log_buf_len=4M ignore_loglevel. I have not reproduced
+this on mainline or drm-tip yet. I will add a mainline/drm-tip run with the
+requested debug options to the issue and reply here once it exists.
 
-Questions:
-
-1. Would a patch that sets connector->stereo_allowed for DP connectors
-with an HDMI
-   branch device (intel_dp->has_hdmi_sink / lspcon.active) be
-acceptable, knowing that
-   the VSIF cannot be sent? The modes would only appear for sinks
-whose EDID advertises
-   3D, and only to clients that set DRM_CLIENT_CAP_STEREO_3D. The risk
-I see is clients
-   that set the cap but do not understand
-DRM_MODE_FLAG_3D_FRAME_PACKING picking a
-   2205-line mode by accident.
-
-2. Is there any documentation of an infoframe interface on the
-MegaChips or Parade
-   LSPCONs beyond the AVI registers i915 knows
-(LSPCON_MCA_AVI_IF_WRITE_OFFSET 0x5C0,
-   LSPCON_PARADE_AVI_IF_WRITE_OFFSET 0x516)? MegaChips' product page claims
-   "stereoscopic 3D forwarding" for the MCDP2800.
-
-3. If neither is wanted in the kernel, is "userspace programs the
-doubled raster as a
-   2D mode" an approach you consider legitimate, so that compositors
-and players can
-   do what I did above?
-
-The amdgpu side is getting HDMI 1.4 3D output through Adrian
-Betschart's series on
-amd-gfx (2026-09), which restricts stereo_allowed to native HDMI
-connectors for the
-same reason.
-
-Test tool (libdrm; lists stereo modes with the client cap, sets a
-frame-packing or
-forced raster, measures flip pacing): https://github.com/SilverGhostBS/fp3d-test
-
-[1] https://github.com/popcornmix/xbmc/pull/35
-[2] https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24303
+One limitation on my side: the account is new, so I could not apply labels
+to the issue ("BUG", "platform: PTL"). If you want them set, they need to
+come from someone with the right permissions on drm/xe/kernel.
 
 Thanks,
-Adrien Asesio
+Eason
+
+
+On Wed, 07 Oct 2026 15:19:13 +0300, Jani Nikula
+<jani.nikula@linux.intel.com> wrote:
+> On Wed, 07 Oct 2026, Jame Jao <jaojame6@gmail.com> wrote:
+> > I would like to report a WARNING that appears on every boot on a Panther
+> > Lake laptop, and that is also visible on screen (before the desktop comes
+> > up) when resuming from hibernation.
+>
+> Please file a bug as described at [1]. Please include the VBT.
+>
+> Thanks,
+> Jani.
+>
+> [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+>
+> --
+> Jani Nikula, Intel
