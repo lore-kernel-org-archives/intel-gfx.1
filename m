@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D2ACCA48B
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 09:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A21ABCC6B38
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 10:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B34141126EF;
-	Fri, 16 Oct 2026 09:24:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1B21126D7;
- Fri, 16 Oct 2026 09:24:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792142647; x=1823678647;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=eaHX/w+MUTjV7PXNB7CrKQe1nM5ja10HGSzuFdFI+sY=;
- b=B4Ro4LDCQPF04K38Gm/vS+XPMiDtqXgpRZuNWIYMEx/Hvp08LvXZtIXU
- J/zgK9vQltbuTsR5YuQCSQWbe5bH+XhgAtItedVIjyghzl+Sur/JciUdO
- X6VZxlH2zTpsEUqk6KvfQagq4ZUlqAwIbZn8Vqq1qwA40Wr5V2oykI+p5
- VoJuzrgNR1QI8wExvrbU6lOFFoQDIvBu1oYY6fnIMQakjOVSFcrAn8SuG
- 5hN2Vkh9ZH0oKMmd0ZuZcTjumTL8jE3MENlFhZ6qPGHoECsBfX14EJyrU
- HU+leOdvXK5/+cAGvEegyGyITw99+spJOWnjrJ2E5/SYdF01N6lvBT0/v A==;
-X-CSE-ConnectionGUID: pOFjar4nRqqnQBHwbJzXdA==
-X-CSE-MsgGUID: QDbJEDooSG6M1rA6v/aZxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="822038"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="822038"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2026 02:24:07 -0700
-X-CSE-ConnectionGUID: EXr/VyUNSxevA6zk44+7/A==
-X-CSE-MsgGUID: Ti4OF5dFTDW7UILOBU7Ibw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="3695144"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa013.fm.intel.com with ESMTP; 16 Oct 2026 02:24:06 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: imre.deak@intel.com, suraj.kandpal@intel.com,
- Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v3 1/1] drm/i915/cx0: convert the PLL power save W/A to the
- display W/A framework
-Date: Fri, 16 Oct 2026 09:24:00 +0000
-Message-ID: <20261016092400.3112502-2-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016092400.3112502-1-mika.kahola@intel.com>
-References: <20261016092400.3112502-1-mika.kahola@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30C5C10E07A;
+	Fri, 16 Oct 2026 10:30:37 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE3910E07A;
+ Fri, 16 Oct 2026 10:30:36 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8354543695836812428=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Move_the_PLL_power_save_W?=
+ =?utf-8?q?/A_to_the_display_W/A_framework_=28rev5=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 16 Oct 2026 10:30:36 -0000
+Message-ID: <179214663618.34833.1622199335710551258@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261016092400.3112502-1-mika.kahola@intel.com>
+In-Reply-To: <20261016092400.3112502-1-mika.kahola@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,81 +37,188 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the open-coded DISPLAY_VER() check for W/A 14022081154 in
-intel_cx0_pll_power_save_wa() with INTEL_DISPLAY_WA_14022081154.
+--===============8354543695836812428==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Drop the port A note from the comment while at it. It only holds for
-PTL, on WCL port B is a C10 PHY too.
+== Series Details ==
 
-No functional change.
+Series: Move the PLL power save W/A to the display W/A framework (rev5)
+URL   : https://patchwork.freedesktop.org/series/175835/
+State : failure
 
-BSpec: 74151
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c    | 6 +++---
- drivers/gpu/drm/i915/display/intel_display_wa.c | 2 ++
- drivers/gpu/drm/i915/display/intel_display_wa.h | 1 +
- 3 files changed, 6 insertions(+), 3 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index b83f0afaa9b5..1b5a5dcb041b 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -19,6 +19,7 @@
- #include "intel_de.h"
- #include "intel_display_types.h"
- #include "intel_display_utils.h"
-+#include "intel_display_wa.h"
- #include "intel_dp.h"
- #include "intel_dpll.h"
- #include "intel_hdmi.h"
-@@ -3703,8 +3704,7 @@ int intel_cx0pll_calc_port_clock(struct intel_encoder *encoder,
-  * The dedicated display PHYs reset to a power state that blocks S0ix, increasing idle
-  * system power. After a system reset (cold boot, S3/4/5, warm reset) if a dedicated
-  * PHY is not being brought up shortly, use these steps to move the PHY to the lowest
-- * power state to save power. For PTL the workaround is needed only for port A. Port B
-- * is not connected.
-+ * power state to save power.
-  *
-  * 1. Follow the PLL Enable Sequence, using any valid frequency such as DP 1.62 GHz.
-  *    This brings lanes out of reset and enables the PLL to allow powerdown to be moved
-@@ -3715,7 +3715,7 @@ void intel_cx0_pll_power_save_wa(struct intel_display *display)
- {
- 	struct intel_encoder *encoder;
- 
--	if (DISPLAY_VER(display) != 30)
-+	if (!intel_display_wa(display, INTEL_DISPLAY_WA_14022081154))
- 		return;
- 
- 	for_each_intel_encoder(display->drm, encoder) {
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
-index 888676693f5e..c8f65b55530f 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
-@@ -111,6 +111,8 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
- 		return DISPLAY_VERx100(display) == 3000 ||
- 			DISPLAY_VERx100(display) == 2000 ||
- 			DISPLAY_VERx100(display) == 1401;
-+	case INTEL_DISPLAY_WA_14022081154:
-+		return DISPLAY_VER(display) == 30;
- 	case INTEL_DISPLAY_WA_14025769978:
- 		return DISPLAY_VER(display) == 35;
- 	case INTEL_DISPLAY_WA_14026643300:
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
-index 425a300840aa..acb45fa59aef 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
-@@ -33,6 +33,7 @@ enum intel_display_wa {
- 	INTEL_DISPLAY_WA_14014143976,
- 	INTEL_DISPLAY_WA_14016740474,
- 	INTEL_DISPLAY_WA_14020863754,
-+	INTEL_DISPLAY_WA_14022081154,
- 	INTEL_DISPLAY_WA_14025769978,
- 	INTEL_DISPLAY_WA_14026643300,
- 	INTEL_DISPLAY_WA_15013987218,
--- 
-2.43.0
+CI Bug Log - changes from CI_DRM_19349 -> Patchwork_175835v5
+====================================================
 
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_175835v5 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_175835v5, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_175835v5:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-bsw-nick:        [PASS][1] -> [ABORT][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19349/fi-bsw-nick/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/fi-bsw-nick/igt@i915_selftest@live@hangcheck.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_175835v5 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - fi-bsw-nick:        [PASS][3] -> [ABORT][4] ([i915#17095])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19349/fi-bsw-nick/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/fi-bsw-nick/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@sanitycheck:
+    - bat-apl-1:          [PASS][5] -> [DMESG-WARN][6] ([i915#13735]) +39 other tests dmesg-warn
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19349/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - bat-apl-1:          [PASS][7] -> [DMESG-WARN][8] ([i915#13735] / [i915#180]) +45 other tests dmesg-warn
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19349/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#17095]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17095
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19349 -> Patchwork_175835v5
+
+  CI-20190529: 20190529
+  CI_DRM_19349: f4eae48baa6445f1707dae491cf4e90257da772c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9150: 18811c476bfde62ffbb4c0af55cd6f57e36e0dca @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_175835v5: f4eae48baa6445f1707dae491cf4e90257da772c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/index.html
+
+--===============8354543695836812428==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Move the PLL power save W/A to the display W/A framework (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/175835/">https://patchwork.freedesktop.org/series/175835/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19349 -&gt; Patchwork_175835v5</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_175835v5 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_175835v5, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_175835v5:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19349/fi-bsw-nick/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/fi-bsw-nick/igt@i915_selftest@live@hangcheck.html">ABORT</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_175835v5 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19349/fi-bsw-nick/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/fi-bsw-nick/igt@i915_selftest@live.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17095">i915#17095</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19349/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +39 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19349/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_175835v5/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +45 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19349 -&gt; Patchwork_175835v5</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19349: f4eae48baa6445f1707dae491cf4e90257da772c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9150: 18811c476bfde62ffbb4c0af55cd6f57e36e0dca @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_175835v5: f4eae48baa6445f1707dae491cf4e90257da772c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8354543695836812428==--
