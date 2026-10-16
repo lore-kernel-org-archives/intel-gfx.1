@@ -4,33 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ED4BCCA46D
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 07:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E741CCA462
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 09:24:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B57A1112627;
-	Fri, 16 Oct 2026 07:22:20 +0000 (UTC)
-Received: from coelho.fi (coelho.fi [88.99.146.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97C74112626;
- Fri, 16 Oct 2026 07:22:19 +0000 (UTC)
-Received: from 91-152-156-14.elisa-laajakaista.fi ([91.152.156.14]
- helo=[192.168.100.138])
- by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
- id 1xHcGV-00000004Qf3-3SJh; Fri, 16 Oct 2026 10:22:16 +0300
-Message-ID: <9eff5ff68bfbc955a5bb7be90296939428cd5ecf.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: uma.shankar@intel.com, imre.deak@intel.com
-Date: Fri, 16 Oct 2026 10:22:21 +0300
-In-Reply-To: <20261013161131.2572279-5-dibin.moolakadan.subrahmanian@intel.com>
-References: <20261013161131.2572279-4-dibin.moolakadan.subrahmanian@intel.com>
- <20261013161131.2572279-5-dibin.moolakadan.subrahmanian@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-10+b1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA6981126EE;
+	Fri, 16 Oct 2026 09:24:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20A821126C2;
+ Fri, 16 Oct 2026 09:24:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792142646; x=1823678646;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RxZiB5URAxM/OczVSBILAqG5zEurd4Ju4TfxIRvkEQ8=;
+ b=Hcf1T8jP/jvU8ngCfbBOQMLxSoX2oPwFq1PXNOnK+E2mtb7i/zrai0pH
+ 21HNhbz6wYO7haBTSm0vTi6HWzu1UHyF9IzlkrviEVu8ef3fhN2KvHASQ
+ sHqSn9oVQDw5bqiRUyF2byjHzqEAratJkH+s/kVw5CFchbxLTY4RygK0o
+ IKOGArklt5CBpSMBIN9Ozej+1yCMFSeiMnUwglv47njceoRf3xg/jcXSB
+ 8f9/SPn6W/rH7Lc0FSdC7UJI5JKgi3Lm5H7NSEQq+Nf0NwhousttCaxax
+ yB5ILmfspFiVGcSxu1fnCp0H9cEY1+9jm3NpVRkkAuMGa0VCpbHuHTH0m Q==;
+X-CSE-ConnectionGUID: sJetv8PVSgKI0oApmvKmcA==
+X-CSE-MsgGUID: tk2nd7UITBy3XegXODC9Ug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="822037"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="822037"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2026 02:24:06 -0700
+X-CSE-ConnectionGUID: TS9pec6BQWCFFHmsNg+59w==
+X-CSE-MsgGUID: /pM8NrwgRbW9Sr3xRnig5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="3695137"
+Received: from display-adls.igk.intel.com ([10.211.131.198])
+ by fmviesa013.fm.intel.com with ESMTP; 16 Oct 2026 02:24:05 -0700
+From: Mika Kahola <mika.kahola@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: imre.deak@intel.com, suraj.kandpal@intel.com,
+ Mika Kahola <mika.kahola@intel.com>
+Subject: [PATCH v3 0/1] Move the PLL power save W/A to the display W/A
+ framework
+Date: Fri, 16 Oct 2026 09:23:59 +0000
+Message-ID: <20261016092400.3112502-1-mika.kahola@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/2] drm/i915/display: avoid logging DC3CO transitions
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,98 +66,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-10-13 at 21:41 +0530, Dibin Moolakadan Subrahmanian wrote:
-> DC3CO transitions can happen every frame.
-> Logging them floods the log and adds overhead to the flip path.
->=20
-> Skip logs for transitions to or from DC3CO, while retaining logs for
-> other DC state changes. Log DC3CO trigger changes through
-> intel_display_power_dc3co_update().
->=20
-> Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmani=
-an@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display_power.c |  6 ++++++
->  .../drm/i915/display/intel_display_power_well.c    | 14 ++++++++++++--
->  2 files changed, 18 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers=
-/gpu/drm/i915/display/intel_display_power.c
-> index 1b60ce2dd00c..53afd791381e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -4,6 +4,7 @@
->   */
-> =20
->  #include <linux/iopoll.h>
-> +#include <linux/string_choices.h>
->  #include <linux/string_helpers.h>
-> =20
->  #include <drm/drm_print.h>
-> @@ -419,6 +420,11 @@ void intel_display_power_dc3co_update(struct intel_d=
-isplay *display, u32 trigger
->  		return;
-> =20
->  	mutex_lock(&dc3co->lock);
-> +
-> +	if (dc3co->trigger !=3D trigger)
-> +		drm_dbg_kms(display->drm, "DC3co allowed:%s trigger %#x -> %#x\n",
+This is v3 of [1], with the following changes
+- drop the power saving wa for NVL (Suraj)
+- keep the changes bare minimum by simply adding support
+  for WA framework
 
-s/DC3co/DC3O/ for consistency.
+[1] https://lore.kernel.org/intel-xe/20261014105306.2761683-1-mika.kahola@intel.com/
 
+Mika Kahola (1):
+  drm/i915/cx0: convert the PLL power save W/A to the display W/A
+    framework
 
-> +			    str_yes_no(trigger), dc3co->trigger, trigger);
-> +
->  	dc3co->trigger =3D trigger;
->  	dc3co->allowed =3D !!trigger;
->  	mutex_unlock(&dc3co->lock);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/dr=
-ivers/gpu/drm/i915/display/intel_display_power_well.c
-> index 233465a8306e..6d07643fc14f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-> @@ -862,8 +862,18 @@ void gen9_set_dc_state(struct intel_display *display=
-, u32 state)
-> =20
->  	val =3D intel_de_read(display, DC_STATE_EN);
->  	mask =3D gen9_dc_mask(display);
-> -	drm_dbg_kms(display->drm, "Setting DC state from %02x to %02x\n",
-> -		    val & mask, state);
-> +
-> +	/*
-> +	 * DC3co is entered and exited once per frame while PSR2 or panel
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c    | 6 +++---
+ drivers/gpu/drm/i915/display/intel_display_wa.c | 2 ++
+ drivers/gpu/drm/i915/display/intel_display_wa.h | 1 +
+ 3 files changed, 6 insertions(+), 3 deletions(-)
 
-s/DC3co/DC3CO/
+-- 
+2.43.0
 
-
-> +	 * replay is active, so logging both transitions floods the log. The
-> +	 * exit additionally happens from intel_display_power_get(DC_OFF) in
-> +	 * the atomic commit path, before the flip has been armed, where the
-> +	 * printk is a measurable part of the time budget. Skip both.
-> +	 */
-> +	if ((val & mask) !=3D DC_STATE_EN_UPTO_DC3CO &&
-> +	    state !=3D DC_STATE_EN_UPTO_DC3CO)
-> +		drm_dbg_kms(display->drm, "Setting DC state from %02x to %02x\n",
-> +			    val & mask, state);
-> =20
->  	/* Check if DMC is ignoring our DC state requests */
->  	if ((val & mask) !=3D power_domains->dc_state)
-
-
-What about this log:
-
-void intel_power_well_enable(struct intel_display *display, struct i915_pow=
-er_well *power_well)
-{
-	drm_dbg_kms(display->drm, "enabling %s\n", intel_power_well_name(power_wel=
-l));
-
-
-...and the "disabling %s" one? Claude tells me that they are in the
-same path you're trying to silence.
-
---
-Cheers,
-Luca.
-                                                                           =
-           =20
