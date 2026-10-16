@@ -4,54 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE66DCCF2E3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 11:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3497CCF2E3
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 11:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA2810EC67;
-	Mon, 19 Oct 2026 11:34:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EBCE10EC37;
- Mon, 19 Oct 2026 11:34:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792409649; x=1823945649;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ihfiDfoieI6RGkGQq9OLZlprHMM8mG9TsCU0BGiOO2g=;
- b=gImAsGa6HZLMEAt2z6b5lvFyNxoSo/Lr1FMO29gI2zVxlaKBn6rd4ML7
- fUipkUcCDSuKQhDnYf+2bHYeNeLuLXiidNB3b3x3I9cGPKxIpPaZYMxbh
- EqC4fUyhukySQU8rLl6NN08mavFcjwILnR8G7vY1DV7RKubQ3Ki06xb1O
- RFG7I7a7DnMlrEhVux2pYOy++i+RbCykny4ib9Cum3Dz5NE99gxl2aL4u
- j5bi9IfOPszWcCxLHKBeyOdRninBBq4QWC5+ksZDC2h+u0CALpphrKRc5
- SFSL/SvOSdF3xWuoAcLDuzko+Stq+/kvQJ/ZJ/oIYTgJD2kPhwfN7PhdK A==;
-X-CSE-ConnectionGUID: z1TL/5j7RSyLQMYfbaDa6g==
-X-CSE-MsgGUID: zvk6SiZlQ/uYuRyGDHisCg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1109789"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1109789"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 04:34:09 -0700
-X-CSE-ConnectionGUID: 6gtdcHEYQTag4WgzELjoUg==
-X-CSE-MsgGUID: oIrclKQpRk+D+1Xr14KPGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2930791"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by orviesa010.jf.intel.com with ESMTP; 19 Oct 2026 04:34:07 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
- imre.deak@intel.com, jouni.hogander@intel.com,
- Xiao Lu <xiaolu.xie@intel.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/dp: Fail the DSC slice config if the minimum slice
- count is 0
-Date: Mon, 19 Oct 2026 19:31:51 +0800
-Message-ID: <20261019113151.2258239-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5286610E9B8;
+	Mon, 19 Oct 2026 11:41:46 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 197A310E359
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 18:45:51 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-5be3db57938so276503e87.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 11:45:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792176349; cv=none;
+ d=google.com; s=arc-20260327;
+ b=fXF8hkksSXpANs3hxBBOF0O125sBpxkkCmCjnOlOA74BSELyn1Gi7M+b4MchxGoxoE
+ KtNo7hDdcV+CanLoHbRgqI0mpb/Ctaubvpw0za7V0fsZEkKP5Bcn82bML2+GC9JkJurL
+ 8MIbq0g8CYbQHbicbcEgYkNDgAx6Lkcx2snFVojbLPTEBFllGUGC/k1a1XJtb7LAr9fI
+ 9O17OAtOfAAkOutzX2dYHIjqwp49uLvQoGlRNLxdHngNMCxpmKqNcmbkKXet0T4upzJo
+ U8Q7KaXrxw4dxtACy6evEu9fkGtOoWam7yB541ufJt9SMTOy1OjkEemad98mcjA32fxZ
+ Obig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:references:in-reply-to
+ :mime-version:dkim-signature;
+ bh=k5fWdKR4KH1xJNhfX2EOMzlFvYwX5hK5uF++6d/eYyg=;
+ fh=x5ZFTcuAFVZ2Lf4aGqwb+H1gQXTPX2SP2t4u7xDhZUU=;
+ b=qHi5E6I0Jklf5HJllTi+CqfrJQHHhH+ezCCtjgIkJ8y4s8Q1YnFWU/p1NXN5zsY0YT
+ lmEkZW3H+iNrv8VQLMUVp3utRp9e1H1jPL0ki2KAKz3RI+xssqGhy9cc6GJ+8LeG4F5J
+ H4Vt7hiqCK70Jd/KFr+ZcTNVsjNKs8ZjS6HXZzZTrGcXQdN3kIn6ok29Dk4DZNrA9DV+
+ v19eVtkUcCYLDKPPVBYRjorJjYvYoGGBdQfZB6ze8MaLBeSdlc7DCAKx4/mwfNSV75R8
+ +EPXHjEdYxs1Rm3XlW8OWWzRmbuJeQbzuOTAWhJMlQmogsVC5N1m/rUtCqR7j9ABlw8a
+ pbFw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792176349; x=1792781149; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=k5fWdKR4KH1xJNhfX2EOMzlFvYwX5hK5uF++6d/eYyg=;
+ b=Qdlg+0poJecree0ibpGXs05txzVcHbPQHLWd2jVoKqCthPZj63Aqu1vX1rRcxH3tjW
+ S55ZEPUrc/LIzA4tk7vV/z6T0vI4bPXACsldigGM7yRush5lNUS+i6nfjZMC9k72G/AP
+ qAncxIoMre8O/QArOK7AmQf8frEwhf+Ux/vBk/9mX3RCPdd53By/vbEQR8CwZb/IWVb6
+ ju3gcCpXrOQqRvseKsEWYUyC8zpLgG5Ia+OiBgFAuVxndsF97FEZ8L5X9zGWvGZxH9L3
+ gHVzgtdd17A5Y6Ck4xskK3tWS7MI8p/rr+An5JCVwc6plc/ZRcYpQg1Hk/mokABlKRaK
+ gvVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792176349; x=1792781149;
+ h=content-type:cc:to:subject:message-id:date:from:references
+ :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=k5fWdKR4KH1xJNhfX2EOMzlFvYwX5hK5uF++6d/eYyg=;
+ b=DTgy01TykNPyO6uOaAjeDX5fe/dmr12T/EKrE9DOKB31EvaVPSq0tjkhVY8/VjgvMe
+ AurV9S7r0O2YiVZ/Jj319q0Lp13sSqIWwxlU+UQXYR7mL47bfNHFBfQDtN9wQBXweCs5
+ JzoS/TaGV3ujEoOHnVPxef/U3hsQKhEQr/1rZQlNpoKKfCxYWXQv+GtefEjz8/V3iXYJ
+ Gmp1OsaxWp9dWxO6ZYGWfO5jh+ofsvJ5XAjKqa0ItEbgXTvaSRH79uCynXkMyjwF25Bv
+ krI8TazVbx6OMYupvunforHkKQwCpQD9uHWcsknu0wTrAHvvTFgJdGMYrS5Zu017XoFJ
+ BEFQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzNsLmKMg6Sr09WGTSe+QptC/foxuO+DVR6xFF8giP6EZSc58ocmoPaIxIILk1B+NOT8Rh/EH9GKDw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIL+ibWgcEPsOXVArNxyZb+Jfb4U1bNqitgtH2y5Fj9Uf8tcPfS
+ wT9mqhnhva1eutQiMP4veNN/RezTYNW/UiMLJIH9mvZYsRWOzOVX3gMHkYZsbblqaYRPbAt2kTR
+ 6TVbiClcBTVLwc52MQ96IA5gO+0PHNfk=
+X-Gm-Gg: AYBFou1oSrKSl2QYh6iHUEe1dknH63+uYamMjSnC58Y2EiIYn2S2JXobcUTRi4d7rPt
+ DhRnhcQJtXMCCI6Ja4KhvSnEF7JIUSlrcSDAm2VcrP0bw7us6vcFxvZsdklZ+mSvkoppNZ8bDo7
+ KkYJicI99eEhzZKUxkMxtCsvUByJ7h7DQdFpOFDQIPquzYG8Xs81jOxILg7NvlOjgAT1UO8L+sX
+ W2/uTiVwhDljfU9IW28/ivePK/WdQ0vqjy+u9Af0Bq9GRU3UWKxtC+hrCixvjtundLfFVcgGPLr
+ IqwKvvX2pDoJMJXcLRkfdqYdTI6894+S6ThJELs+rwxQNgfQv7TY1dLvjpuCF2c9Gw==
+X-Received: by 2002:a05:6512:3186:b0:5ba:3c60:b875 with SMTP id
+ 2adb3069b0e04-5be50a6a815mr115374e87.43.1792176348595; Fri, 16 Oct 2026
+ 11:45:48 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Fri, 16 Oct 2026 14:45:47 -0400
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Fri, 16 Oct 2026 14:45:47 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <abc82e7191da4638c75ab87605fbe24e2667391d@intel.com>
+References: <CAN52AYstOLqaX_=_HBLEGKvcEmY+VGwKSbRRRyQbG4ytr6FD_A@mail.gmail.com>
+ <abc82e7191da4638c75ab87605fbe24e2667391d@intel.com>
+From: Jame Jao <jaojame6@gmail.com>
+Date: Fri, 16 Oct 2026 14:45:47 -0400
+X-Gm-Features: AclHuK-OtA8zd8ZD6yhVY0T3x9G8mkTyhTueDHPQ63C0vT3FG7zdrTKBiWs99JE
+Message-ID: <CAN52AYsR-SbHWKjnMP-ssTR6UfGHxqtP620MSH=SSw_=SWYW6w@mail.gmail.com>
+Subject: Re: [RESEND PATCH 0/5] platform/x86: bitland-mifs-wmi: MIFS v2
+ firmware support, Xiaomi Book Pro 14 2026
+To: jani.nikula@linux.intel.com
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ rodrigo.vivi@intel.com
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Mon, 19 Oct 2026 11:41:45 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,54 +108,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_dp_dsc_min_slice_count() returns 0 if DSC can't be used for the
-given mode: if the mode's pixel clock or hdisplay exceeds the maximum
-overall throughput or line width reported by a DSC branch device, or if
-the sink's maximum slice width is invalid.
+Hi Jani,
 
-Before commit 15f908bce5d9 ("drm/i915/dp: Factor out
-intel_dp_dsc_min_slice_count()"), these checks returned 0 from
-intel_dp_dsc_get_slice_count(), which its callers treat as DSC not being
-possible. After the refactor, intel_dp_dsc_get_slice_config() uses the
-returned value as a lower bound and since 0 is less than any slice
-count, it selects the smallest slice config supported by the source and
-the sink instead of failing.
+The VBT is attached, as you asked. I have not been able to file the bug
+yet: gitlab.freedesktop.org needs an account that is manually approved and
+I do not have one at the moment, so I cannot open the issue. As soon as the
+account is usable I will file it against drm/xe with the attachments and
+post the link in this thread.
 
-This was seen with a Synaptics SST branch device (OUI 90-cc-24, dev-ID
-SYNAR) in a USB4 dock, which reports the same 340 MP/s per-slice DSC
-throughput as the monitor behind it. For 3840x2160@240Hz (2315950 kHz
-pixel clock) the minimum slice count computation bailed out due to the
-branch device's overall throughput limit, so the mode was not pruned and
-was enabled with 4 slices on two joined pipes, ie. ~579 MP/s per slice,
-resulting in a garbled image. With the monitor connected directly, the
-same mode is enabled with 8 slices.
+What the attached dump is:
 
-Fail the slice config computation if the minimum slice count is 0, so
-that such modes are rejected as before the above refactor.
+  Source      /sys/kernel/debug/dri/0/i915_vbt (raw dump, read today)
+  Size        7680 bytes
+  First bytes "$VBT PANTHERLAKE"
+  sha256      1a0a08b81c48977efbf3f4ea0cc547d6bdf44569f95d88662c5593f24a5e2e4d
 
-Fixes: 15f908bce5d9 ("drm/i915/dp: Factor out intel_dp_dsc_min_slice_count()")
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: <stable@vger.kernel.org> # v7.1+
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Status of the report itself, so the issue can be assessed:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d8c0d9381..404839a2a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -910,6 +910,10 @@ intel_dp_dsc_get_slice_config(const struct intel_connector *connector,
- 		drm_dp_dsc_sink_slice_count_mask(connector->dp.dsc_dpcd, is_edp);
- 	int slices_per_pipe;
- 
-+	/* A 0 minimum slice count means DSC isn't supported for the mode. */
-+	if (!min_slice_count)
-+		return false;
-+
- 	/*
- 	 * Find the closest match to the valid slice count values
- 	 *
--- 
-2.43.0
+  - The warning is present in the boot journal collected today:
 
+      xe 0000:00:02.0: [drm] Port A asks to use VBT vswing/preemph tables
+      WARNING: drivers/gpu/drm/i915/display/intel_bios.c:2813 at
+      intel_bios_init+0x17fd/0x1f60 [xe]
+
+  - Machine: XIAOMI REDMI Book Pro 14 2026, board TM2426, BIOS
+    RMAPT4B0P0909 (2026-05-21), Panther Lake / Arc B370,
+    PCI 8086:b081 rev 04.
+
+  - Kernel: 7.2.9-zen1-1.1-zen, Arch linux-zen package. It carries one
+    local downstream change that touches only bitland-mifs-wmi
+    suspend/resume error handling; graphics and input code are unmodified.
+    Please treat it as a downstream kernel. I have not reproduced on
+    mainline or drm-tip yet.
+
+  - Boot options in use: xe.enable_psr=0 xe.enable_panel_replay=0
+    i8042.dumbkbd=1.
+
+  - I have not collected the DRM debug journal (drm.debug=0xe
+    log_buf_len=4M ignore_loglevel) yet. I will collect it together with
+    the mainline test and add both to the issue.
+
+Thanks,
+Eason
+
+
+On Wed, 07 Oct 2026 15:19:13 +0300, Jani Nikula
+<jani.nikula@linux.intel.com> wrote:
+> On Wed, 07 Oct 2026, Jame Jao <jaojame6@gmail.com> wrote:
+> > I would like to report a WARNING that appears on every boot on a Panther
+> > Lake laptop, and that is also visible on screen (before the desktop comes
+> > up) when resuming from hibernation.
+>
+> Please file a bug as described at [1]. Please include the VBT.
+>
+> Thanks,
+> Jani.
+>
+> [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+>
+> --
+> Jani Nikula, Intel
