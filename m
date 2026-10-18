@@ -4,62 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB59CCF2E7
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 11:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 922B2CCF2E5
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 11:41:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D29410EC37;
-	Mon, 19 Oct 2026 11:41:54 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E20BF10EBAE;
- Fri, 16 Oct 2026 01:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
- s=pkvm2402; t=1792115247;
- bh=jAfnrnGiIjbwy6DUMFArHMpW2hsVj4XQG6NZXs5qtZQ=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=lkszyLHvxMCXYHVzgCBg7RpuEu65Hnao7tHWl9/P0SroDAIDRFwyPLS7Fl404OC4E
- Oh9sw9LbPvxi5XTGZfp44vUX/gW11vVfCwViHBcxTMNT4D+PpT7E440ZsSjmQY+PUU
- frrOWJ2DpRI8yR1QJPs51XjBKm4MnOZ1nPussGMw=
-X-QQ-mid: zesmtpgz8t1792115242t70bbf3a9
-X-QQ-Originating-IP: VNYSVdkFMAS8wxsNIB3aw0lfIdCRrIScZSFSQfiXSSI=
-Received: from exmail.qq.com ( [14.153.252.100])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 16 Oct 2026 09:47:09 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 11542745315812216630
-EX-QQ-RecipientCnt: 7
-From: Hanson Wang <hanson.wang@ugreen.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- dri-devel@lists.freedesktop.org, Hanson Wang <hanson.wang@ugreen.com>
-Subject: [PATCH i915] drm/i915/bw: Ignore inactive CRTCs in bandwidth
- calculation
-Date: Fri, 16 Oct 2026 09:47:04 +0800
-Message-Id: <20261016014704.3876294-1-hanson.wang@ugreen.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5E410EC01;
+	Mon, 19 Oct 2026 11:41:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB3210E401;
+ Sun, 18 Oct 2026 20:12:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3EA3460D9D;
+ Sun, 18 Oct 2026 20:12:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DE9D0C2BCF7;
+ Sun, 18 Oct 2026 20:12:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1792354368;
+ bh=Q4CkcTGHfwqlTq/v3Lz/CGzpf17o9gtfSV7GuFzUiVo=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=sQqdhi3M8f5GPF2nUAuQ2zY2NdImI0p3kH3y02aJFLQdJbiLHVgVu7WVTivxlEPBD
+ 4Ct9I1+91hyrzyCHN6hNOLK6GIidvxnQXGrxIngNExYl7UYTiXFIFOvRbo0TqKOLl1
+ BnV+8w8kvE+3CXaIb3GJs3GCmZNUspFX2LIgZJbr3Hh4iVD9U9uwO0rlOwtXVzr/1V
+ yhPKY7Cf7NzVqhpkdqdzJNMcxPV0iICZViX+Jzd51Mftlc6wiCkNerCFTTkTKSKXMM
+ dc3YsdnynGmSW5CjJZYHTSh+wW3cmjHtAHem0lMUX4C6IWUgZjWC2/OcjDf1UOvtML
+ 2w2n1Xbj1is1g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id AB85CCCF2C4;
+ Sun, 18 Oct 2026 20:12:48 +0000 (UTC)
+From: Mike Anderson via B4 Relay <devnull+mwwa919.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 16:12:40 -0400
+Subject: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI
+ sequences
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Nw9C1WBu09hP9NEw3zRZU+e3Asm0RwZeHNT32bYZVkhp+eBrtq1l1Nc4
- HGa1sgwRMsDQMhY5NixtGr7r7sd9I6ly4RvOnSHWY2oIZtgV54rKleHDd6xvrOnQsd7HBmN
- W4Bf+7akKhZkRwY3oGJs2sfXZoyRjps7Um65Lb9OjuOTMg4WPScm7JhsXZCjmNMrAHMYTmj
- lPideGcYhjnmbhwQygLpxMAtzMnpXdPqrSHdUnxa9gceJqIw0x3QDA1/jftV4NlvNMynW5l
- eiDMQVE4+tkk5YlDsAZdkQIxm4otgEcWlVrMN5QmoQ8MmOb9fwUUnTpEfKb4evMjml2EC4l
- vY6IemgsA6B7ZnMm+LqkialFtNy2uKrTcdISlHHGoU0LwJTtsghslwxIwGX/ZLKZ7yDkB3e
- n5kEVckmr+BG5KFNU+1WWXNLpaF3iMI7WM1sqN1qRZH0GoYyfi5iB+QxqtHGbAw1H+Vpftt
- 8DbAW5g2/gqA9QlKmsy0AGnAPZdwGBLOa1N5l8t2faNcVlMzOpKAM+/kDRGeCalSw1rY76U
- SWrqstniT/jvwTwk5QCFpR1x+o2H92ryfVQhEHdE9R73Pyzl3TgZi2xpIS//DjQNCilyOD+
- 8sHuTrq7JxpTv0XxFE5TAr9Jqye3DNdM8FQoVQ3yipO8PYsVqZ7a5AYCSGkw89IgurDrRix
- MZBa7USw+DySDAmiNvRJKrL7uU34OjkKEJo9it/EyrU+1ApKpSVVojFEkUhBlLZ8fQpTjeA
- GBZTSyV0FSOECbHMSmodGj/TedmFQBtCmMkucaVYXKgNBTwE/Ew2AMuUNwoIQc5ErbiMPCd
- w7WZ+UkemAIoiBhfq+IcAtt2EsPWyp6mSc/j+4fGfRQtQ/II+rtzSMJr//x0DtUuqc7a7eB
- BeMs0AlFhPlt31dgDucky/9vm9POHUd8lMsUCPeYv7ce1+pAcuFiWCUBJnelqpMoGrBaSTl
- zwaFUgl72I2U6txf5679gGmjvSedz+6PfZmRhnjQvDd8rfNQno2nnQ0jTr3sBPKzFo4YrDq
- WXg9j5Jyi6tB14gpN7
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
+X-B4-Tracking: v=1; b=H4sIADco1WoC/yXMQQqDMBBA0avIrDvgpNBIr1JcaDLVkZJIpkZBv
+ HtTXb7F/zsoJ2GFZ7VD4iwqMRTQrQI3dmFgFF8MpjYPqqnB/MnoVTCugT0Os0RF58nYvqO7ZQu
+ lnBO/ZTuvr/ayLv3E7vtfwXH8ANQqkXx3AAAA
+X-Change-ID: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Hans de Goede <hansg@kernel.org>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Mike Anderson <mwwa919@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792354368; l=5805;
+ i=mwwa919@gmail.com; s=20261018; h=from:subject:message-id;
+ bh=fqIda2quYt/iS4PsHXKJtfdrABxMHpRCeHK2kOAm+9k=;
+ b=YPHI4gGMlKh/kb6yUfYInfnPvCZcDfrreT+IUEzcqj8yDTmMeypyE/LvfsSY7CklhtFaRTt2Q
+ HYf2EATZ1JuCKiR8aNZuOhkZcMZnQCuOATJ0osAE1n4myfVScnPlcDL
+X-Developer-Key: i=mwwa919@gmail.com; a=ed25519;
+ pk=r8JyAI3thBa7smjCwoiNX+4TLbge6jj5Swldychd7nE=
+X-Endpoint-Received: by B4 Relay for mwwa919@gmail.com/20261018 with
+ auth_id=1231
+X-Original-From: Mike Anderson <mwwa919@gmail.com>
 X-Mailman-Approved-At: Mon, 19 Oct 2026 11:41:45 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,49 +76,145 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: mwwa919@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The per-CRTC bandwidth helpers use cached active_planes and data_rate
-values without checking whether the CRTC is active. During hardware
-state readout an inactive CRTC may retain stale plane state, causing
-intel_bw_state to account phantom bandwidth.
+From: Mike Anderson <mwwa919@gmail.com>
 
-This can leave bandwidth and an active plane accounted after an HDMI
-disconnect and make the QGV check reject otherwise valid atomic commits.
+On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
+backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
+itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
+GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
+sequences also request their pin through gpiolib, so when a sequence
+toggles one of these two pins the request fails and the toggle is
+dropped:
 
-Return zero from both helpers for inactive CRTCs so hardware readout
-and atomic checks cannot propagate stale bandwidth.
+  i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY)
 
-Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
+Before that commit the pad registers were written directly, so the
+sequences could still drive the pins i915 owned.
+
+The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
+panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
+MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
+failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
+during takeover and stays black, even though the backlight PWM and both
+enable GPIOs read back as on. The tablet only has a usable display
+with nomodeset.
+
+When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
+corresponding descriptor, set it through that descriptor instead of
+requesting the pin a second time.
+
+Fixes: 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV GPIOs behind the driver's back")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM sparse
+Signed-off-by: Mike Anderson <mwwa919@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_bw.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+This patch was developed with an AI coding assistant (Claude Code,
+Claude Opus 5.5): it ran the debugging session on the tablet (drm.debug
+log, gpio/pwm debugfs), traced the -EBUSY to 8241b55f1ded, and wrote the
+change and the changelog; I reviewed it and tested it on the hardware.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index ac6da20d9..62d9ae416 100644
---- a/drivers/gpu/drm/i915/display/intel_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -838,6 +838,9 @@ void intel_bw_init_hw(struct intel_display *display)
+Testing, Toshiba Encore 2 WT8-B (Atom Z3735F, BIOS 2.10, VBT MIPI
+sequence block v2, PPS_BLC_SOC):
+- Arch Linux v7.2.11-arch1 with this patch backported (applies as is):
+  the panel lights up at i915 takeover and the Xorg login screen shows;
+  no "GPIO index ... request failed" errors; gpio-10/11 stay owned as
+  "backlight"/"panel". Unpatched v7.2.11 and v6.18.57 give a black
+  panel with five -EBUSY errors during boot.
+- drm-intel-next: built intel_dsi_vbt.o for i915 (=m and =y) and for
+  xe (=m) with W=1 and sparse (C=2, sparse v0.6.5-rc1): no new
+  warnings.
+
+Not tested: other VLV machines with PPS_BLC_SOC. Their behaviour only
+changes when their VBT sequences touch pin 10 or 11, which currently
+fails with -EBUSY anyway.
+---
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 32 +++++++++++++++++++++++-----
+ 1 file changed, 27 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+index fe12041e9..85d1cdc6e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+@@ -54,6 +54,10 @@
+ #define MIPI_VIRTUAL_CHANNEL_SHIFT	1
+ #define MIPI_PORT_SHIFT			3
  
- static unsigned int intel_bw_crtc_num_active_planes(const struct intel_crtc_state *crtc_state)
++/* VLV NC pins of the backlight and panel enable GPIOs, see soc_panel_gpio_table */
++#define VLV_GPIO_NC_BACKLIGHT		10
++#define VLV_GPIO_NC_PANEL		11
++
+ struct i2c_adapter_lookup {
+ 	u16 target_addr;
+ 	struct intel_dsi *intel_dsi;
+@@ -247,10 +251,12 @@ static void soc_opaque_gpio_set_value(struct intel_connector *connector,
+ 	kfree(lookup);
+ }
+ 
+-static void vlv_gpio_set_value(struct intel_connector *connector,
++static void vlv_gpio_set_value(struct intel_dsi *intel_dsi,
+ 			       u8 gpio_source, u8 gpio_index, bool value)
  {
-+	if (!crtc_state->hw.active)
-+		return 0;
-+
- 	/*
- 	 * We assume cursors are small enough
- 	 * to not not cause bandwidth problems.
-@@ -852,6 +855,9 @@ static unsigned int intel_bw_crtc_data_rate(const struct intel_crtc_state *crtc_
- 	unsigned int data_rate = 0;
- 	enum plane_id plane_id;
+-	struct intel_display *display = to_intel_display(connector);
++	struct intel_display *display = to_intel_display(&intel_dsi->base);
++	struct intel_connector *connector = intel_dsi->attached_connector;
++	struct gpio_desc *gpio_desc = NULL;
  
-+	if (!crtc_state->hw.active)
-+		return 0;
+ 	/* XXX: this assumes vlv_gpio_table only has NC GPIOs. */
+ 	if (connector->panel.vbt.dsi.seq_version < 3) {
+@@ -265,6 +271,22 @@ static void vlv_gpio_set_value(struct intel_connector *connector,
+ 		}
+ 	}
+ 
++	/*
++	 * With PPS_BLC_SOC, intel_dsi_vbt_gpio_init() already owns these pins,
++	 * so requesting them again fails with -EBUSY. Some VBTs still toggle
++	 * them in their MIPI sequences, e.g. as the panel reset line, so drive
++	 * them through the descriptors we hold.
++	 */
++	if (gpio_index == VLV_GPIO_NC_BACKLIGHT)
++		gpio_desc = intel_dsi->gpio_backlight;
++	else if (gpio_index == VLV_GPIO_NC_PANEL)
++		gpio_desc = intel_dsi->gpio_panel;
 +
- 	for_each_plane_id_on_crtc(crtc, plane_id) {
- 		/*
- 		 * We assume cursors are small enough
--- 
-2.34.1
++	if (gpio_desc && connector->panel.vbt.dsi.config->pwm_blc == PPS_BLC_SOC) {
++		gpiod_set_value_cansleep(gpio_desc, value);
++		return;
++	}
++
+ 	soc_opaque_gpio_set_value(connector, gpio_index,
+ 				  "INT33FC:01", "Panel N", gpio_index, value);
+ }
+@@ -430,7 +452,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
+ 	else if (DISPLAY_VER(display) >= 9)
+ 		bxt_gpio_set_value(connector, gpio_index, value);
+ 	else if (display->platform.valleyview)
+-		vlv_gpio_set_value(connector, gpio_source, gpio_number, value);
++		vlv_gpio_set_value(intel_dsi, gpio_source, gpio_number, value);
+ 	else if (display->platform.cherryview)
+ 		chv_gpio_set_value(connector, gpio_source, gpio_number, value);
+ 
+@@ -886,8 +908,8 @@ static struct gpiod_lookup_table pmic_panel_gpio_table = {
+ static struct gpiod_lookup_table soc_panel_gpio_table = {
+ 	.dev_id = "0000:00:02.0",
+ 	.table = {
+-		GPIO_LOOKUP("INT33FC:01", 10, "backlight", GPIO_ACTIVE_HIGH),
+-		GPIO_LOOKUP("INT33FC:01", 11, "panel", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_BACKLIGHT, "backlight", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_PANEL, "panel", GPIO_ACTIVE_HIGH),
+ 		{ }
+ 	},
+ };
+
+---
+base-commit: 0507cc5a476af0b6d037b19248bdd20dbe27487d
+change-id: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
+
+Best regards,
+--  
+Mike Anderson <mwwa919@gmail.com>
+
 
