@@ -2,62 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8796080AB4
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 15:05:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F66B607D376
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 15:03:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ti4nkkuW
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q+hCUNUl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C413510EE4C;
-	Mon, 19 Oct 2026 15:05:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1992E10EE09;
+	Mon, 19 Oct 2026 15:03:09 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1205A10EE4C;
- Mon, 19 Oct 2026 15:05:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA4F010EE09;
+ Mon, 19 Oct 2026 15:03:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792422336; x=1823958336;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=qu/70rYg+vG2HLxPI4Uiia6m/VyuInts7xnBWyiDo/c=;
- b=Ti4nkkuWLdNzeCg+7dD9QgHcGeRjuSFHAuLKZuJ3xFGqwacqq+txQZzD
- QfpqBM25RopcIFiJpoBTsckaM04nLEEWh5KMXnonsYBm4Cs59CB63u4jY
- 8X7kVVvi0AijQZbVwVihUNO8KIPvIGG6W2ltFYCu0/PMhV3nL2zxUOf/V
- zCBtt/drm8GC9VBDFKYlcU77GbelTBdiUSdX3hNwK1UvOM+kw1+IDRHPx
- 7VGcoMahx4H31hgCnMijlNb1IPYSqpFRY03GCtis+hPydCRbag3NAFaZf
- B7nZzvEG1ebgWyKgBMXPcWmdmhFtOaL/Pg3Rtk7K7iYOtDfwLlBKcvDAg A==;
-X-CSE-ConnectionGUID: tKU2wjBLQTKoTKj0/HC2Ag==
-X-CSE-MsgGUID: XOGymNgrQL+2t5o1Wuay6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="991257"
+ t=1792422181; x=1823958181;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vAB7yjViqyXDKNwkSlfaIHIHMUM6ozbdWe+AJtM43yo=;
+ b=Q+hCUNUl9vfWGxM2vOjC/YP7vt6U7a2u6L+7bwTsHBGU0G/sMUCwnqVA
+ VeU6MBfUcEReGCgewbviMk4PHIU/mfbgEOUbemd5h6tmQb5xI3/QjbonP
+ M+uFwt1IlaWnTrSSTy4H8el/euimdqwJdqC7qbEOIhyiwR71yCIkYT0Hr
+ ESmfiwI7ddOc8Xm34Q+Dk0NClYJFqGZGVuVIUyXqO1CVVtlL55E8dmqOr
+ HLciCKTtoNLHRDsRp9Ya8OSG7bL0+Wk+sCEKQfxOITjhZZv4M9wun/JQW
+ bRhpUP32BwSqJ9Mz2ZMl2nhJf5KnGlzBDa7VmyFOPPZ39YE8egRUW/lAN Q==;
+X-CSE-ConnectionGUID: cl0gDX9BSXSarN2Bh7HLJQ==
+X-CSE-MsgGUID: qT5/bic6RVSdRgJnmAbizw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="991012"
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="991257"
+   d="scan'208";a="991012"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 08:05:36 -0700
-X-CSE-ConnectionGUID: MqMhmSnGQr2zmmj5aYuJqw==
-X-CSE-MsgGUID: BVwTOvCORJ+b7kKdZMSUPQ==
+ 19 Oct 2026 08:03:00 -0700
+X-CSE-ConnectionGUID: L20DgNjEQK+LUC6aZzIv1A==
+X-CSE-MsgGUID: tJgBfp5vQXaYGB58dOXBXQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2634438"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.21])
+   d="scan'208";a="2633868"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO hazy.intel.com)
+ ([10.245.245.250])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 08:05:33 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ashwin Gundarapu <linuxuser509@zohomail.in>, intel-gfx
- <intel-gfx@lists.freedesktop.org>
-Cc: rodrigovivi <rodrigo.vivi@intel.com>, joonaslahtinen
- <joonas.lahtinen@linux.intel.com>, tursulin <tursulin@ursulin.net>,
- dri-devel <dri-devel@lists.freedesktop.org>, linux-kernel
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915/sdvo: Remove disabled HDMI buffer dump code
-In-Reply-To: <1a12556af17.597a885f7429.8559089497420287597@zohomail.in>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <1a12556af17.597a885f7429.8559089497420287597@zohomail.in>
-Date: Mon, 19 Oct 2026 18:05:31 +0300
-Message-ID: <7e2193324bc2d42d420d3afe227699c9dd09bff5@intel.com>
+ 19 Oct 2026 08:02:57 -0700
+From: Luca Coelho <luciano.coelho@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org,
+	jani.nikula@linux.intel.com
+Subject: [PATCH v2 3/3] drm/i915/dp: only complain about a busy AUX engine
+ when it's unexpected
+Date: Mon, 19 Oct 2026 17:53:01 +0300
+Message-ID: <20261019150226.734375-4-luciano.coelho@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019150226.734375-1-luciano.coelho@intel.com>
+References: <20261019150226.734375-1-luciano.coelho@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,74 +66,123 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, 10 Oct 2026, Ashwin Gundarapu <linuxuser509@zohomail.in> wrote:
-> From cbebdc3b5dce2d4c0ce8c9b69c62b539fc77dce5 Mon Sep 17 00:00:00 2001
-> From: Ashwin Gundarapu <linuxuser509@zohomail.in>
-> Date: Sat, 10 Oct 2026 15:42:48 +0530
-> Subject: [PATCH] drm/i915/sdvo: Remove disabled HDMI buffer dump code
->
-> Signed-off-by: Ashwin Gundarapu <linuxuser509@zohomail.in>
+When intel_dp_aux_xfer() gives up on a transaction because the AUX
+engine is still busy, the DRM helpers retry almost immediately.  If
+the engine still hasn't recovered by then, the pre-transaction busy
+check reports "not started" as an error, even though this is the
+expected outcome of our own earlier decision to leave the engine
+alone.
 
-Please read submitting-patches.rst.
+Remember when we left the engine busy and only log a debug message in
+that case.  Keep the error for the unexpected cases, namely when
+someone else is using the channel or the engine is hung without us
+having given up on it first.
 
-BR,
-Jani.
+Once we leave the engine busy, later transfers fail the busy check
+before a new transaction is started, so the 100ms timeout error is not
+reported again even if the engine never recovers.  To still catch a
+permanently hung engine, only treat the busy state as expected for up
+to 1s after we left it busy, which covers the longest LTTPR stall
+we've seen, and report the "not started" error again after that.
 
+For that to work, aux_busy_last_status has to be reset as well, since
+a hung engine tends to come back with the same CH_CTL value and would
+otherwise be deduplicated away.  Clear it whenever a transfer finds
+the engine idle.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_sdvo.c | 30 +----------------------
->  1 file changed, 1 insertion(+), 29 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-> index 3075ef04df56..d9c6a620377e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-> +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-> @@ -974,35 +974,7 @@ static bool intel_sdvo_get_hbuf_size(struct intel_sdvo *intel_sdvo,
->  	return true;
->  }
->  
-> -#if 0
-> -static void intel_sdvo_dump_hdmi_buf(struct intel_sdvo *intel_sdvo)
-> -{
-> -	int i, j;
-> -	u8 set_buf_index[2];
-> -	u8 av_split;
-> -	u8 buf_size;
-> -	u8 buf[48];
-> -	u8 *pos;
-> -
-> -	intel_sdvo_get_value(encoder, SDVO_CMD_GET_HBUF_AV_SPLIT, &av_split, 1);
-> -
-> -	for (i = 0; i <= av_split; i++) {
-> -		set_buf_index[0] = i; set_buf_index[1] = 0;
-> -		intel_sdvo_write_cmd(encoder, SDVO_CMD_SET_HBUF_INDEX,
-> -				     set_buf_index, 2);
-> -		intel_sdvo_write_cmd(encoder, SDVO_CMD_GET_HBUF_INFO, NULL, 0);
-> -		intel_sdvo_read_response(encoder, &buf_size, 1);
-> -
-> -		pos = buf;
-> -		for (j = 0; j <= buf_size; j += 8) {
-> -			intel_sdvo_write_cmd(encoder, SDVO_CMD_GET_HBUF_DATA,
-> -					     NULL, 0);
-> -			intel_sdvo_read_response(encoder, pos, 8);
-> -			pos += 8;
-> -		}
-> -	}
-> -}
-> -#endif
-> +
->  
->  static bool intel_sdvo_write_infoframe(struct intel_sdvo *intel_sdvo,
->  				       unsigned int if_index, u8 tx_rate,
+Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+---
+ .../drm/i915/display/intel_display_types.h    |  8 +++++
+ drivers/gpu/drm/i915/display/intel_dp_aux.c   | 35 +++++++++++++++----
+ 2 files changed, 37 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 0e3083e852d5..ad831c3cd770 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1891,6 +1891,14 @@ struct intel_dp {
+ 	struct drm_dp_desc desc;
+ 	struct drm_dp_aux aux;
+ 	u32 aux_busy_last_status;
++
++	struct {
++		/* TODO: move the rest of the aux specific fields here */
++		/* we left the AUX engine busy and are waiting for it to recover */
++		bool left_busy;
++		u64 left_busy_since;
++	} dp_aux;
++
+ 	u8 train_set[4];
+ 
+ 	struct intel_pps pps;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+index a6871a5492d7..66d2b952da5c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+@@ -348,18 +348,39 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
+ 
+ 	if (try == 3) {
+ 		const u32 status = intel_de_read(display, ch_ctl);
+-
+-		if (status != intel_dp->aux_busy_last_status) {
+-			drm_err(display->drm,
+-				"%s: not started (status 0x%08x)\n",
+-				intel_dp->aux.name, status);
+-			intel_dp->aux_busy_last_status = status;
++		/*
++		 * If we recently left the engine busy ourselves, treat it as
++		 * still recovering for up to a second, the longest LTTPR
++		 * stall we've seen.  Otherwise someone else is using the
++		 * channel, or it's hung.
++		 */
++		const unsigned int left_busy_timeout_ms = 1000;
++
++		if (intel_dp->dp_aux.left_busy &&
++		    time_is_after_jiffies64(intel_dp->dp_aux.left_busy_since +
++					    msecs_to_jiffies(left_busy_timeout_ms))) {
++			drm_dbg_kms(display->drm,
++				    "%s: not started, still waiting for the AUX engine to recover (status 0x%08x)\n",
++				    intel_dp->aux.name, status);
++		} else {
++			intel_dp->dp_aux.left_busy = false;
++
++			if (status != intel_dp->aux_busy_last_status) {
++				drm_err(display->drm,
++					"%s: not started (status 0x%08x)\n",
++					intel_dp->aux.name, status);
++				intel_dp->aux_busy_last_status = status;
++			}
+ 		}
+ 
+ 		ret = -EBUSY;
+ 		goto out;
+ 	}
+ 
++	/* the engine recovered, report a new busy period again */
++	intel_dp->dp_aux.left_busy = false;
++	intel_dp->aux_busy_last_status = 0;
++
+ 	/* Only 5 data registers! */
+ 	if (drm_WARN_ON(display->drm, send_bytes > 20 || recv_size > 20)) {
+ 		ret = -E2BIG;
+@@ -392,6 +413,8 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
+ 			 * alone, the caller will retry the transaction later.
+ 			 */
+ 			if (status & DP_AUX_CH_CTL_SEND_BUSY) {
++				intel_dp->dp_aux.left_busy = true;
++				intel_dp->dp_aux.left_busy_since = get_jiffies_64();
+ 				ret = -EBUSY;
+ 				goto out;
+ 			}
 -- 
-Jani Nikula, Intel
+2.53.0
+
