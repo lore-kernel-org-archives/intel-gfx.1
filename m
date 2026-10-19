@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F87BCCF2DE
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB29CCF2E3
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01E4010ED32;
-	Mon, 19 Oct 2026 13:16:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A08A10ED2C;
+	Mon, 19 Oct 2026 13:16:13 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D59110ED2D
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:16:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F281B10ED30
+ for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792415764; x=1823951764;
+ t=1792415767; x=1823951767;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=JdS6Gzm2YesG6hPkL0dV2/cT6SA0h9s68hPdBgUKJW0=;
- b=XSYCnoV1D75LcxOgF5n2lMD8aAUk5P0SS74msjO7AzwAbIpG0fI0NX8S
- aBd9esyedR/vfRhg+kCq7gJ7fL6KRlzcyKb8pX54qPdy4rvvagUg/zOJa
- QnW3OXgh7BOheQ2HxM4IEbFAM2B5GrOqFvG3qAHGaYv1Sa7/FzSY7X8zC
- d+VTp3VaVqlJcMBtEr5zoh4XiboOJY3B3o7/iA2/xFiFmqEy1lpV0Jt4p
- 3boRg5OWZA2GdbSirLrnHZX+9d2tdMTboM9qbpR3pJbJHqP1ijhKaRIN6
- s64b+0iW7Qr1faGKj9Cm9cfRB8cLsr9pye5yUEBoS7ozfdNTqA1zpX8hc g==;
-X-CSE-ConnectionGUID: xtpQUD09Tt2U46TingyMmg==
-X-CSE-MsgGUID: m0Kh3OBASSiLJOaMzEd0JQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1106804"
+ bh=QYF0zANvOpFW4yaNJbZE1QFriVN5qACY4bc7Y2NypzI=;
+ b=VP3xPWzir90KtlQMMpIiUXf3esZQ5k6J3cfUehEnm/r8ulRTsMACAK/F
+ ZgCBycBNvk/vy0hW9rAIwY6YCf9xaQtDdbS7x35QWUmf0sMye13fCFSJK
+ bUkbt/Uxe4ZwrzZ8/MNrHznM41CPIEOKXA1y2LOS+CTvUdoiwmlOLrEp4
+ k6uNgr0IKTwEC6pxfCVS/6XU9CojEE+E6peUsXtdKy1G3N8MaUEevPRSV
+ lmJMzxaVyLbmhLp/+VNYeQFFmxIV6dbasWXxwhX+I8GXe6QP2nX+owjNf
+ iQJ81LSa23mQuHtFgtD7r6JxRcYTDfE4ydv3nNVBCtp7EyYTWd480Jssq g==;
+X-CSE-ConnectionGUID: CvNW5ZjwSdGt0ByS/AqscQ==
+X-CSE-MsgGUID: 3lcKS5UNSTGBKLELpNNboA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1106805"
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1106804"
+   d="scan'208";a="1106805"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 06:16:03 -0700
-X-CSE-ConnectionGUID: TPCCmyLnSwuUhB497xz2sw==
-X-CSE-MsgGUID: xT2nVziHSou/Fwvfloh4hw==
+ 19 Oct 2026 06:16:07 -0700
+X-CSE-ConnectionGUID: ovxMoDPgTkicMHsqNvzplA==
+X-CSE-MsgGUID: HHPKGYQLST6iAD1l1c3EDw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2918149"
+   d="scan'208";a="2918160"
 Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.244.34])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 06:16:02 -0700
+ 19 Oct 2026 06:16:06 -0700
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 5/7] drm/i915/rps: Move SLPC power profile checks into SLPC
- code
-Date: Mon, 19 Oct 2026 16:15:40 +0300
-Message-ID: <20261019131542.28822-6-ville.syrjala@linux.intel.com>
+Subject: [PATCH 6/7] drm/i915/rps: Extract rps_dec_waiters()/rps_boost()
+Date: Mon, 19 Oct 2026 16:15:41 +0300
+Message-ID: <20261019131542.28822-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261019131542.28822-1-ville.syrjala@linux.intel.com>
 References: <20261019131542.28822-1-ville.syrjala@linux.intel.com>
@@ -72,68 +71,70 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Move the SLPC power profile checks from the high level RPS
-code into the SLPC specific functions. The high level code
-doesn't need to know about this stuff.
+Extract the non-SLPC sides of intel_dec_waiters() and
+intel_rps_boost() into small helpers. Now the SLPC vs. non-SLPC
+sides are symmetric, making the high level code less confusing.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c         | 8 --------
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 8 ++++++++
- 2 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rps.c | 29 +++++++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 4d8d90872dd5..5f8f51198f5a 100644
+index 5f8f51198f5a..a5c455b67bd7 100644
 --- a/drivers/gpu/drm/i915/gt/intel_rps.c
 +++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1008,10 +1008,6 @@ void intel_rps_dec_waiters(struct intel_rps *rps)
- 	if (rps_uses_slpc(rps)) {
- 		slpc = rps_to_slpc(rps);
+@@ -1001,6 +1001,25 @@ int intel_rps_set_boost_frequency(struct intel_rps *rps, u32 freq)
+ 	}
+ }
  
--		/* Don't decrement num_waiters for req where increment was skipped */
--		if (slpc->power_profile == SLPC_POWER_PROFILES_POWER_SAVING)
--			return;
--
++static void rps_dec_waiters(struct intel_rps *rps)
++{
++	atomic_dec(&rps->num_waiters);
++}
++
++static bool rps_boost(struct intel_rps *rps)
++{
++	if (atomic_fetch_inc(&rps->num_waiters))
++		return false;
++
++	if (!intel_rps_is_active(rps))
++		return false;
++
++	if (READ_ONCE(rps->cur_freq) < rps->boost_freq)
++		queue_work(rps_to_gt(rps)->i915->unordered_wq, &rps->work);
++
++	return true;
++}
++
+ void intel_rps_dec_waiters(struct intel_rps *rps)
+ {
+ 	struct intel_guc_slpc *slpc;
+@@ -1010,7 +1029,7 @@ void intel_rps_dec_waiters(struct intel_rps *rps)
+ 
  		intel_guc_slpc_dec_waiters(slpc);
  	} else {
- 		atomic_dec(&rps->num_waiters);
-@@ -1039,10 +1035,6 @@ void intel_rps_boost(struct i915_request *rq)
- 	if (rps_uses_slpc(rps)) {
- 		slpc = rps_to_slpc(rps);
+-		atomic_dec(&rps->num_waiters);
++		rps_dec_waiters(rps);
+ 	}
+ }
  
--		/* Waitboost should not be done with power saving profile */
--		if (slpc->power_profile == SLPC_POWER_PROFILES_POWER_SAVING)
--			return;
--
+@@ -1038,14 +1057,8 @@ void intel_rps_boost(struct i915_request *rq)
  		if (!intel_guc_slpc_boost(slpc))
  			return;
  	} else {
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index 3a1bd7b1d9d6..f941fc3294b1 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -835,6 +835,10 @@ int intel_guc_slpc_set_boost_freq(struct intel_guc_slpc *slpc, u32 val)
+-		if (atomic_fetch_inc(&rps->num_waiters))
++		if (!rps_boost(rps))
+ 			return;
+-
+-		if (!intel_rps_is_active(rps))
+-			return;
+-
+-		if (READ_ONCE(rps->cur_freq) < rps->boost_freq)
+-			queue_work(rps_to_gt(rps)->i915->unordered_wq, &rps->work);
+ 	}
  
- void intel_guc_slpc_dec_waiters(struct intel_guc_slpc *slpc)
- {
-+	/* Don't decrement num_waiters for req where increment was skipped */
-+	if (slpc->power_profile == SLPC_POWER_PROFILES_POWER_SAVING)
-+		return;
-+
- 	/*
- 	 * Return min back to the softlimit.
- 	 * This is called during request retire,
-@@ -849,6 +853,10 @@ void intel_guc_slpc_dec_waiters(struct intel_guc_slpc *slpc)
- 
- bool intel_guc_slpc_boost(struct intel_guc_slpc *slpc)
- {
-+	/* Waitboost should not be done with power saving profile */
-+	if (slpc->power_profile == SLPC_POWER_PROFILES_POWER_SAVING)
-+		return false;
-+
- 	/* Return if old value is non zero */
- 	if (atomic_fetch_inc(&slpc->num_waiters))
- 		return false;
+ 	GT_TRACE(rps_to_gt(rps), "boost fence:%llx:%llx\n",
 -- 
 2.55.0
 
