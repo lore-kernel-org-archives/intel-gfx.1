@@ -2,61 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB32606A31D
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 16:15:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45197606A322
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 16:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OI5dy9nD
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWt0QnFZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C812C10EFB4;
-	Mon, 19 Oct 2026 16:15:14 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF3510EF9F;
- Mon, 19 Oct 2026 16:15:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792426508; x=1823962508;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=OvIPlNQuBfZg+gMhZMi+116RKRgW6HZIGndOST41y7M=;
- b=OI5dy9nDdg+6Y5dGF03KYWtqlkNOiMOrJgjvbq6b+7QUMSQ642IsyiPk
- GhLbv9kP/4neEzzkTfszw/qKxrR2kAi5rKmuxD+ayR0Vhg+N9SOpYCJyL
- iblxtYb558h1qBCUrDryrQ6HZFKc6AmpNj7XETm0GjlnjyQXGzMZ11csP
- OSuWPpJYzVZqQe8r1kipOxmqlp/qc5qrQ6HUV3LexSq+oZgY1fOWHLTrE
- CT9v1VnvvEMpfcGADxEZQGxL9cA6L3FkeQ+N6v1f7oH4N1S2feEZZ9avP
- 7nDJbHhWseBeYzd7QVWI1EnJP5eoqmIF1I01YqJ4MLjlsukWVdadHXyF6 A==;
-X-CSE-ConnectionGUID: P1o1h9Y6Q4yVJU9/dUNtTg==
-X-CSE-MsgGUID: 6OejdcE5RBqcgUmA8Ebn1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1019484"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1019484"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 09:15:08 -0700
-X-CSE-ConnectionGUID: TSvwJMVITpa/goIWPpmhqA==
-X-CSE-MsgGUID: 6cwZ7rZKQRqXXrvgpSc4PA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2517971"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.21])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 09:15:07 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 08/15] drm/i915/pfit: Unconfuse panel_fitter_scaling()
-In-Reply-To: <20261019135309.23578-9-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261019135309.23578-1-ville.syrjala@linux.intel.com>
- <20261019135309.23578-9-ville.syrjala@linux.intel.com>
-Date: Mon, 19 Oct 2026 19:15:04 +0300
-Message-ID: <cdb763182c382c80aebbb65110aa5e8840eb75c9@intel.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A98FB10F091;
+	Mon, 19 Oct 2026 16:19:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D853E10F091;
+ Mon, 19 Oct 2026 16:19:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1EC9A602BE;
+ Mon, 19 Oct 2026 16:19:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDBD1F000C4;
+ Mon, 19 Oct 2026 16:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792426751;
+ bh=shs0Qmr6z6AGWxamqP5HMy0NMX1ySVsqh6zsSxOLyLY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FWt0QnFZNI3EIMza9ej8C2XFXq0Bh+XrlgnxAk+iTSlyQDk4Ecog4QtlmCZQ7PZlW
+ e/NOAlfmbJNhykwDYH3NKSwAbws9HhRirr+ByZFXLD1sWvtRaSNlDGlxCOl8RFnyzY
+ 4Rszg8nxJzHRmhZrq72h3ISetFpZZtkKkdK1W484tIRh9nQ02Eg6LG6qEQqkBgiVB0
+ N5Pri0Jsx37ybixtg3R3V4BFgCMmIgAx80ifX7ZXfpeXaWSMr8qQq+z0VhWoMxJhXl
+ HOANibuXJNJQPjgZgwQXvcndbTYsC0hPVR+LMxEuuB4onPQlr1QmfVZn/Dnmnhpz++
+ fgumzsZN9NMgw==
+Message-ID: <sashiko-outbox-177862@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] drm/pixel: Link panic helpers into drm_pixel_helper.ko
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, imx@lists.linux.dev,
+ virtualization@lists.linux.dev, Frank.Li@kernel.org,
+ wsa+renesas@sang-engineering.com, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261019154612.777074-4-tzimmermann@suse.de>
+References: <20261019154612.777074-1-tzimmermann@suse.de>
+ <20261019154612.777074-4-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 16:19:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,62 +52,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Mon, 19 Oct 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> panel_fitter_scaling() apparently tries to implemnt
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] drm: missing DRM_PIXEL_HELPER select in DRM_KMS_HELPER for drm_crtc=
+_init()
+- [Low] drm/tests: link failure in drm_panic_helper_test when CONFIG_DRM_PA=
+NIC=3Dn
+- [Low] drm/xe: missing DRM_PIXEL_HELPER dependency when DRM_PANIC=3Dy
+--
 
-*implement
+commit d010f0f67d242682650aa0651dfd5a1e57612943
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-> DIV_ROUND_CLOSEST() by hand, but in a somewhat weird way
-> where the division and rounding are done as separate steps.
-> Just use the real DIV_ROUND_CLOSEST() instead.
->
-> This does in fact match how the i965+ hardware calculates
-> the automagic scaling factors, which will be important
-> for upcoming readout support.
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+drm/pixel: Link panic helpers into drm_pixel_helper.ko
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+This commit moves the DRM panic helpers from drm_kms_helper into
+drm_pixel_helper.ko, drops the DRM_PANIC_HELPER Kconfig option, and
+selects DRM_PIXEL_HELPER in drivers using the panic helpers.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_pfit.c | 10 +---------
->  1 file changed, 1 insertion(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_pfit.c b/drivers/gpu/drm/=
-i915/display/intel_pfit.c
-> index 82804159d0a1..5d519f45adbe 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pfit.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pfit.c
-> @@ -350,15 +350,7 @@ centre_vertically(struct drm_display_mode *adjusted_=
-mode,
->=20=20
->  static u32 panel_fitter_scaling(u32 source, u32 target)
->  {
-> -	/*
-> -	 * Floating point operation is not supported. So the FACTOR
-> -	 * is defined, which can avoid the floating point computation
-> -	 * when calculating the panel ratio.
-> -	 */
-> -#define ACCURACY 12
-> -#define FACTOR (1 << ACCURACY)
-> -	u32 ratio =3D source * FACTOR / target;
-> -	return (FACTOR * ratio + FACTOR/2) / FACTOR;
-> +	return DIV_ROUND_CLOSEST(source << 12, target);
->  }
->=20=20
->  static void i965_scale_aspect(struct intel_crtc_state *crtc_state,
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 8e4a588e9111d..bf7c599443403 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -46,13 +46,14 @@ config DRM_MIPI_DSI
+>  config DRM_KMS_HELPER
+>  	tristate
+>  	depends on DRM
+> -	select DRM_PANIC_HELPER if DRM_PANIC
+>  	help
+>  	  CRTC helpers for KMS drivers.
+
+[Severity: Low]
+Does DRM_KMS_HELPER also need to select DRM_PIXEL_HELPER if DRM_PANIC?
+
+drivers/gpu/drm/drm_modeset_helper.c is unconditionally compiled into
+drm_kms_helper, and its primary_plane_funcs structure (used by
+drm_crtc_init()) includes DRM_PANIC_PLANE_FUNCS:
+
+drivers/gpu/drm/drm_modeset_helper.c:
+    static const struct drm_plane_funcs primary_plane_funcs =3D {
+            DRM_PLANE_NON_ATOMIC_FUNCS,
+            DRM_PANIC_PLANE_FUNCS,
+    };
+
+When CONFIG_DRM_PANIC is enabled, DRM_PANIC_PLANE_FUNCS expands in
+include/drm/drm_panic_helper.h to reference
+drm_plane_helper_display_panic_screen, which is now built into
+drm_pixel_helper. If CONFIG_DRM_PANIC=3Dy and DRM_KMS_HELPER is enabled
+without a matching built-in or modular DRM_PIXEL_HELPER, linking fails
+with an undefined reference to drm_plane_helper_display_panic_screen.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
+> index 1afb9cad850f6..4573cad368a28 100644
+> --- a/drivers/gpu/drm/Kconfig.debug
+> +++ b/drivers/gpu/drm/Kconfig.debug
+> @@ -69,7 +69,6 @@ config DRM_KUNIT_TEST
+>  	select DRM_EXPORT_FOR_TESTS if m
+>  	select DRM_GEM_SHMEM_HELPER
+>  	select DRM_KUNIT_TEST_HELPERS
+> -	select DRM_PANIC_HELPER
+>  	select DRM_PIXEL_HELPER
+>  	select DRM_SYSFB_HELPER
+>  	select PRIME_NUMBERS
+
+[Severity: Low]
+Can removing select DRM_PANIC_HELPER from DRM_KUNIT_TEST cause a link
+failure when CONFIG_DRM_PANIC is disabled?
+
+With this change, drm_panic_helper.o is only built into drm_pixel_helper
+when CONFIG_DRM_PANIC is enabled:
+
+drivers/gpu/drm/Makefile:
+    drm_pixel_helper-$(CONFIG_DRM_PANIC) +=3D drm_panic_helper.o
+
+However, drivers/gpu/drm/tests/Makefile still builds
+drm_panic_helper_test.o unconditionally under obj-$(CONFIG_DRM_KUNIT_TEST),
+and functions such as drm_panic_helper_draw_screen_user_default() in
+drivers/gpu/drm/tests/drm_panic_helper_test.c call
+drm_panic_helper_draw_screen_user(), drm_panic_helper_draw_screen_kmsg(),
+drm_panic_helper_set_description(), and
+drm_panic_helper_clear_description(). When CONFIG_DRM_KUNIT_TEST is enabled
+and CONFIG_DRM_PANIC=3Dn, linking fails with undefined references to those
+symbols.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> index 71426b9c91f00..f698d3c8daa9e 100644
+> --- a/drivers/gpu/drm/i915/Kconfig
+> +++ b/drivers/gpu/drm/i915/Kconfig
+> @@ -19,6 +19,7 @@ config DRM_I915
+>  	select DRM_KMS_HELPER
+>  	select DRM_PANEL
+>  	select DRM_MIPI_DSI
+> +	select DRM_PIXEL_HELPER if DRM_PANIC
+>  	select FB_IOMEM_HELPERS if DRM_FBDEV_EMULATION
+>  	select RELAY
+>  	select I2C
+
+[Severity: Low]
+Should DRM_XE or DRM_XE_DISPLAY in drivers/gpu/drm/xe/Kconfig also select
+DRM_PIXEL_HELPER if DRM_PANIC?
+
+When CONFIG_DRM_XE_DISPLAY=3Dy, drivers/gpu/drm/xe/Makefile compiles
+drivers/gpu/drm/i915/display/skl_universal_plane.c into xe.ko, where
+skl_plane_funcs, icl_plane_funcs, and tgl_plane_funcs use
+DRM_PANIC_PLANE_FUNCS:
+
+drivers/gpu/drm/i915/display/skl_universal_plane.c:
+    static const struct drm_plane_funcs skl_plane_funcs =3D {
+            ...
+            DRM_PANIC_PLANE_FUNCS,
+    };
+
+If CONFIG_DRM_XE=3Dm, CONFIG_DRM_XE_DISPLAY=3Dy, and CONFIG_DRM_PANIC=3Dy a=
+re
+enabled while CONFIG_DRM_PIXEL_HELPER=3Dn, modpost fails with an undefined
+reference to drm_plane_helper_display_panic_screen in xe.ko.
+
+[ ... ]
 
 --=20
-Jani Nikula, Intel
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019154612.7770=
+74-1-tzimmermann@suse.de?part=3D3
