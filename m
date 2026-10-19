@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E194ECCF2DE
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:54:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66592CCF2DE
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 14:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85E8F10ED30;
-	Mon, 19 Oct 2026 13:54:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEDD810ED6C;
- Mon, 19 Oct 2026 13:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792418048; x=1823954048;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=SP8enB34+h8b8Rz/7M3GiBORBw4a9nDj4Ga48+WOaOY=;
- b=IE3thBRODBk3CdcrZPAI0mHailmANifnIaopQC4xT0Nxb7a4frM4X4bf
- tiVHQYExf7M9X/fbjSiTVKZvRu3v4rEMvdBU0nYugORTR7j3CsUz9gnAz
- af3EjVF5M6GhatTgtSLX0/rLLGdrIQ0KSkZyZkyUjeETcwmDwk6naLx1J
- XUYx7+KO0w5yo0hidhEeRiHpAb/VICz+dvSn4gKCiIDwDXQ23MDw/sZQz
- c5AEV0sOmw+Sv8kXdyJ3Npb7m6nWdAy3hUSTQvyBC+2KN6ZC/oWxyOTgO
- GdFgRpQ/UCz/enQqaZ9dDWm4HMD7sWmgpwbL7JgZxr72wVT71X5cypnGW A==;
-X-CSE-ConnectionGUID: 5iVukeD5ThecXd8YxtHA7g==
-X-CSE-MsgGUID: mRYJlIOARBWQCHHqto77uA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1085194"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1085194"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 06:54:08 -0700
-X-CSE-ConnectionGUID: M5+rucD7RpCopmOlGUWtCw==
-X-CSE-MsgGUID: RBx0Z1r/TFuRcIKdS8IfIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2844512"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.244.34])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 06:54:06 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 15/15] drm/i915/pfit: Allow downscaling on i966+
-Date: Mon, 19 Oct 2026 16:53:09 +0300
-Message-ID: <20261019135309.23578-16-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019135309.23578-1-ville.syrjala@linux.intel.com>
-References: <20261019135309.23578-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD0C610EC18;
+	Mon, 19 Oct 2026 14:09:52 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDB4110EC18;
+ Mon, 19 Oct 2026 14:09:50 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2264414535624251695=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dsi=3A_Use_owned?=
+ =?utf-8?q?_panel/backlight_GPIOs_in_VLV_MIPI_sequences?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mike Anderson via B4 Relay" <devnull+mwwa919.gmail.com@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 19 Oct 2026 14:09:50 -0000
+Message-ID: <179241899089.41163.3065258687345711217@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
+In-Reply-To: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,34 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============2264414535624251695==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The i965+ panel fitter supports downscaling. Allow it.
+== Series Details ==
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_pfit.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Series: drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI sequences
+URL   : https://patchwork.freedesktop.org/series/176379/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_pfit.c b/drivers/gpu/drm/i915/display/intel_pfit.c
-index 6eb457047bf4..2b6706c7af53 100644
---- a/drivers/gpu/drm/i915/display/intel_pfit.c
-+++ b/drivers/gpu/drm/i915/display/intel_pfit.c
-@@ -563,7 +563,10 @@ static int i9xx_pfit_check_scaling(const struct intel_crtc_state *crtc_state)
- 	int hscale, vscale, max_scale;
- 	struct drm_rect src;
- 
--	max_scale = 0x10000;
-+	if (DISPLAY_VER(display) >= 4)
-+		max_scale = 0x20000;
-+	else
-+		max_scale = 0x10000;
- 
- 	drm_rect_init(&src, 0, 0, pipe_src_w << 16, pipe_src_h << 16);
- 
--- 
-2.55.0
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_19361 -> Patchwork_176379v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176379v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19361 -> Patchwork_176379v1
+
+  CI-20190529: 20190529
+  CI_DRM_19361: b0311e0de50840c3f35aafa2e95c14bf38f4a767 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9150: 18811c476bfde62ffbb4c0af55cd6f57e36e0dca @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_176379v1: b0311e0de50840c3f35aafa2e95c14bf38f4a767 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176379v1/index.html
+
+--===============2264414535624251695==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI sequences</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176379/">https://patchwork.freedesktop.org/series/176379/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176379v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176379v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19361 -&gt; Patchwork_176379v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176379v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19361 -&gt; Patchwork_176379v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19361: b0311e0de50840c3f35aafa2e95c14bf38f4a767 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9150: 18811c476bfde62ffbb4c0af55cd6f57e36e0dca @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_176379v1: b0311e0de50840c3f35aafa2e95c14bf38f4a767 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2264414535624251695==--
