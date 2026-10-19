@@ -2,75 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B0E60A2615
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 12:53:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC2B606A31E
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 12:53:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sVWccDA6
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=Ri1LuR5a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87F0710F2EF;
-	Tue, 20 Oct 2026 12:53:49 +0000 (UTC)
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
- [74.125.82.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2B9610EB53
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 01:22:10 +0000 (UTC)
-Received: by mail-dy1-f173.google.com with SMTP id
- 5a478bee46e88-33bf40b0c8bso1674327eec.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 18:22:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792459330; x=1793064130; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BRQxfRnCJX8kMYRddoKffawFo2/rbvLQllYbV+J0qgU=;
- b=sVWccDA66ViOBv6GwO6R5MYvZSYI1LuKiR8MvT/pXoE266IGIYD6S6l10dudSF5aM8
- 69XizvcbSzK4Q12bCrZQEEnPDZuJDKNY4yURzPar9Yziss6I+peVXz7g/m85abS4+CZY
- DC2yBL2YP5e1m66/yu1YgklshMRiIIAhIHVdT7jGWgIsEHqozYuhuxO+O8c56dl5b5Jv
- CEqBsIPtaHLHIC80jl9m+yc3asQFZKNTQ7mMeEjEndGiztpeSxsnvTIZr2VodQVEELHn
- +uV0s01epb9cwzfDEmMWr1g0XwFdbnxVz9sGjX5vPqg7Rq8HgKVkaZN7VouX9kZtaOjl
- rKzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792459330; x=1793064130;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=BRQxfRnCJX8kMYRddoKffawFo2/rbvLQllYbV+J0qgU=;
- b=qGO+oXs0iJr9J4M6m1VDsLtanoxxOLSgR7EzFAmphVyxj+yYogO4qzKJ+rMknkqLh7
- MzcnYvsZiXuktPgO6VnP/ske5s2ukPjBzAcdZvK+ja5HPEikou36WVhfgYTLaS2+l8Nc
- ryx+q5qSfjMNiXpifpwYfpqY+zdHKomBlyDKRo9IDxmwqU9dH2Ac2Aeg/UeyV+CHatt1
- pOpmgL5uTv0w+1loQ2ZLJb6riwubVPTSBFY1Awspl4VML70815czVLRmmQypKTxGPMjG
- pvDKrOZudG5F8afUDzI2QYXIe9lUPw8jJ/DTJcs1mUmh/fYxjll5YR8ta8xcMTYR68nf
- SOtw==
-X-Gm-Message-State: AFq9FYK7s0TgpZas2yG3E1onIIHPL3X1njlnja7mY0JyuhMgFgXfA1Q/
- Npz5E8WWFoHP0VmPngEasSiFGzd9PPoYyOwrXvy9TqM0kbHPZ+lFmcdHd+QZ/wXV
-X-Gm-Gg: AYBFou1skH/lt/C8ADVFI3OXmFL8lBVeQpuuY3U2KxRTjFzRJzIXtz5ebGW4Yn0w1bw
- osVyzsDo4ou8l2wKj4v4QdwWqO3mmVc87fLhVQhYgpa8DEZx/HW6lQANagqNuIkW8wOUwnXxT9u
- s6c66IabyerO/+vfVZ1M/VP98Tb9wtL7XRJBRqzhwJqCjVT9ObNT3oKMZwUqzT4MoecHZ7CYXaU
- fYDoTNKF52564LmvzilZSz5uGoqb1QAXV2b0RXMC5kIu9VP3tj8WmjzJcI95z54R9xr6KCCRKJ0
- dQA7+c8/N1bz0Fzx8ay8b0wQlk3gcrIamhEaqFPU6Z05gdw5JlPlsaVE8sglyQ710DBmqUTFpAV
- waZUNGavx1f4D6lfg7f0/bQII/DhlyTfP48UCQRl2WxjheX/NjBSCwX6r2uLHTpTOyD2E2aEOU8
- nQd4ZQWF5u0gVxPgyk0ciFlwttbqa/t2esQOhgqtV6Tmb7MyM4RB1RjWmdlgmUn+VHzO/d8HjjB
- +pdiNAo1WCvi8pFZSozMCcsaOgMuZJTXqBfzGBRPNkSkl+iORAxMmWuNA==
-X-Received: by 2002:a05:7300:f0c5:b0:34c:aa3e:316b with SMTP id
- 5a478bee46e88-361a1270b90mr13302844eec.11.1792459329975; 
- Mon, 19 Oct 2026 18:22:09 -0700 (PDT)
-Received: from localhost.localdomain ([190.13.90.101])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-360813b792bsm37025973eec.5.2026.10.19.18.22.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 18:22:09 -0700 (PDT)
-From: Lucas Moreno <lucasgabmoreno@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, i915-ci-infra@lists.freedesktop.org,
- jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com
-Subject: Re: [PATCH] drm/i915/bios: Fix reset sequence order on GLK VBTs with
- DEASSERT_RESET in INIT_OTP
-Date: Mon, 19 Oct 2026 22:21:43 -0300
-Message-ID: <20261020012144.9300-1-lucasgabmoreno@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013001245.12347-1-lucasgabmoreno@gmail.com>
-References: <20261013001245.12347-1-lucasgabmoreno@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2C310F54E;
+	Tue, 20 Oct 2026 12:53:50 +0000 (UTC)
+X-Greylist: delayed 2168 seconds by postgrey-1.36 at gabe;
+ Mon, 19 Oct 2026 19:46:17 UTC
+Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7262210EAFC
+ for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 19:46:17 +0000 (UTC)
+X-Envelope-To: intel-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=R1ooMpzJfDXEJhw31jjPShmqE1PQVzInQ4NZAiNJuwQ=; 
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792439174; v=1; x=1793043974;
+ b=Ri1LuR5aaxK2vj22rl68Sxq0q2iPUfe7JUSGom3hSZXEaHTFCmPfy94WxmGsD3kjYqiaaFFE
+ Xfh2tOT5BA2Rrc6+SLnaAmJCiw5I7hhxggMeRDGCL4ZTtbxgwRZcI5HYuFq05rjdH1JwSLY5hKX
+ l5xwua6MCNWhBIsm02GOuurott6UvFIWs/WVWCgaCkmObHiAJ1Rd+jo506lEKzktr2itMUJ686z
+ E5zq3840OLYvo7sPZUIZ9Kwwj65BJtOVGythymixf1eCjmOv3pDocMW8ozjpYBCT/uiUmSosjxj
+ YsnwTFkm8lv/4SZtiN1obtmrslqxblYdQ5aFH7E3T2WUA==
+X-Envelope-To: intel-gfx@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id d5b732558af1ad71;
+ Mon, 19 Oct 2026 19:10:06 +0000
+X-Mizu-Trace-ID: d5b732558af1ad71
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Mark Brown <broonie@kernel.org>
+Cc: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ luyuantao <luyuantao@kylinos.cn>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: linux-next: manual merge of the drm tree with the drm-misc-fixes
+ tree
+Date: Mon, 19 Oct 2026 12:09:59 -0700
+Message-ID: <20261019190959.799653-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <atZBBqj4ON6kYWSK@sirena.co.uk>
+References: <atZBBqj4ON6kYWSK@sirena.co.uk>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Oct 2026 12:53:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -84,23 +61,68 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+Hi Mark,
 
-Intel GFX CI did not run on this series because my address is not on
-the allowlist. Could someone with access please trigger a retest from
-Patchwork? Alternatively, I can ask i915-ci-infra to allowlist
-lucasgabmoreno@gmail.com.
+On Mon, Oct 19, 2026 at 05:10:46PM +0100, Mark Brown wrote:
+> This obviously isn't the right merge, it drops the fixes.
 
-The patch only changes behavior on Gemini Lake DSI panels whose VBT has
-the shape described in the commit message; other platforms are not
-affected.
+Two of those fixes are mine, so I had a go at it. The code that draws
+the panic screen was moved into drm_panic_helper.c in drm-next, so two of
+the three need to move with it. The third one, for the panic screen
+setting, made it through your merge fine. Today's drm-tip has the same
+gap.
 
-Thanks,
-Lucas
+This puts the two back, on top of your merge:
+
+diff --git a/drivers/gpu/drm/drm_panic_helper.c b/drivers/gpu/drm/drm_panic_helper.c
+index 8913c3d22e8d..385a07ed314b 100644
+--- a/drivers/gpu/drm/drm_panic_helper.c
++++ b/drivers/gpu/drm/drm_panic_helper.c
+@@ -513,7 +513,8 @@ VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer
+ 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
+ 	struct drm_rect r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
+ 	struct kmsg_dump_iter iter;
+-	char kmsg_buf[512];
++	/* the size printk formats one record into, too big for the stack */
++	static char kmsg_buf[2048];
+ 	size_t kmsg_len;
+ 	struct drm_panic_line line;
+ 	int yoffset;
+@@ -530,10 +531,15 @@ VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer
+ 	drm_panic_helper_fill(sb, &r_screen, bg_color);
+ 
+ 	kmsg_dump_rewind(&iter);
+-	while (kmsg_dump_get_buffer(&iter, false, kmsg_buf, sizeof(kmsg_buf), &kmsg_len)) {
++	while (yoffset >= 0 && kmsg_dump_get_buffer(&iter, false, kmsg_buf,
++	       sizeof(kmsg_buf), &kmsg_len)) {
+ 		char *start;
+ 		char *end;
+ 
++		/* a record that does not fit comes back empty, every time */
++		if (!kmsg_len)
++			break;
++
+ 		/* ignore terminating NUL and newline */
+ 		start = kmsg_buf + kmsg_len - 2;
+ 		end = kmsg_buf + kmsg_len - 1;
+
+I tried it in QEMU on drm-next, ten runs of each:
+
+    after the panic                     your merge   with this
+    sysrq c                             reboots      reboots
+    one 600 character line              hangs        reboots
+    600 characters, then 400 lines      hangs        reboots
+    one record over 2048 bytes          hangs        reboots
+    oops, 1008 character modules line   hangs        reboots
+
+The drm_panic KUnit tests pass with and without it.
+
+Thanks for catching it,
+Devin
