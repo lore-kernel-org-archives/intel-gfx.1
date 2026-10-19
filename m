@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB29CCF2E3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1585ACCF2DE
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A08A10ED2C;
-	Mon, 19 Oct 2026 13:16:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F281B10ED30
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A11510ED24;
+	Mon, 19 Oct 2026 13:16:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81EF110ED38
+ for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:16:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792415767; x=1823951767;
+ t=1792415771; x=1823951771;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=QYF0zANvOpFW4yaNJbZE1QFriVN5qACY4bc7Y2NypzI=;
- b=VP3xPWzir90KtlQMMpIiUXf3esZQ5k6J3cfUehEnm/r8ulRTsMACAK/F
- ZgCBycBNvk/vy0hW9rAIwY6YCf9xaQtDdbS7x35QWUmf0sMye13fCFSJK
- bUkbt/Uxe4ZwrzZ8/MNrHznM41CPIEOKXA1y2LOS+CTvUdoiwmlOLrEp4
- k6uNgr0IKTwEC6pxfCVS/6XU9CojEE+E6peUsXtdKy1G3N8MaUEevPRSV
- lmJMzxaVyLbmhLp/+VNYeQFFmxIV6dbasWXxwhX+I8GXe6QP2nX+owjNf
- iQJ81LSa23mQuHtFgtD7r6JxRcYTDfE4ydv3nNVBCtp7EyYTWd480Jssq g==;
-X-CSE-ConnectionGUID: CvNW5ZjwSdGt0ByS/AqscQ==
-X-CSE-MsgGUID: 3lcKS5UNSTGBKLELpNNboA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1106805"
+ bh=xP2qcMQPrpBq41g8FhGVT43GnpjJDlCGxI7It4quBdw=;
+ b=SWKgMW82fO16Pz6uo7D8e1fzf5aA0N6fIiVppZQvpbIgS3CLeti1kCoI
+ aqvB7pHVy2kW2xKwLYU5q16Uee/2urWpdeNGiM7iloOSyUM77hDJaMeia
+ yKXQLpUit+XOQ/DF4qsaBUuHWiCzGbM35SPjCwDGcgFOHkCkDeRZoln8q
+ E9VQ4HQUoKdbZ0eMVuuJntFw6H1COAgG2FtBStm+bx9bzxCggZ2G3JGvr
+ vuAkYebIUZFJG/ZZgWlzwI4FbfR28XgA83sebK7EBspsQJtU7EQBmzDcA
+ fw5kxaPmM6ZnSoV/GGfyLPrUCJ618/DToSyG/hMsy23iNiFrirugMLZkU A==;
+X-CSE-ConnectionGUID: 471jYGsnTKSa+7Qwl5H9qw==
+X-CSE-MsgGUID: Q1Kzt0ppQkOBmxBYA3sQxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1106083"
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1106805"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 06:16:07 -0700
-X-CSE-ConnectionGUID: ovxMoDPgTkicMHsqNvzplA==
-X-CSE-MsgGUID: HHPKGYQLST6iAD1l1c3EDw==
+   d="scan'208";a="1106083"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2026 06:16:10 -0700
+X-CSE-ConnectionGUID: w38HXYeeSs67nV7auLP+pA==
+X-CSE-MsgGUID: rEH8ZcX/RUWXKJS9wOCM7g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2918160"
+   d="scan'208";a="2870399"
 Received: from alekseim-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.244.34])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 06:16:06 -0700
+ 19 Oct 2026 06:16:09 -0700
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 6/7] drm/i915/rps: Extract rps_dec_waiters()/rps_boost()
-Date: Mon, 19 Oct 2026 16:15:41 +0300
-Message-ID: <20261019131542.28822-7-ville.syrjala@linux.intel.com>
+Subject: [PATCH 7/7] drm/i915/rps: Move 'slpc' variables into tighter scope
+Date: Mon, 19 Oct 2026 16:15:42 +0300
+Message-ID: <20261019131542.28822-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261019131542.28822-1-ville.syrjala@linux.intel.com>
 References: <20261019131542.28822-1-ville.syrjala@linux.intel.com>
@@ -71,70 +71,208 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Extract the non-SLPC sides of intel_dec_waiters() and
-intel_rps_boost() into small helpers. Now the SLPC vs. non-SLPC
-sides are symmetric, making the high level code less confusing.
+The slpc variables have no meaning outside the rps_uses_slpc()
+paths. Move the variable declarations into the scope where they
+get used.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rps.c | 70 +++++++++++++++--------------
+ 1 file changed, 36 insertions(+), 34 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 5f8f51198f5a..a5c455b67bd7 100644
+index a5c455b67bd7..65bdc61b8a7c 100644
 --- a/drivers/gpu/drm/i915/gt/intel_rps.c
 +++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1001,6 +1001,25 @@ int intel_rps_set_boost_frequency(struct intel_rps *rps, u32 freq)
- 	}
- }
+@@ -956,10 +956,8 @@ void intel_rps_park(struct intel_rps *rps)
  
-+static void rps_dec_waiters(struct intel_rps *rps)
-+{
-+	atomic_dec(&rps->num_waiters);
-+}
-+
-+static bool rps_boost(struct intel_rps *rps)
-+{
-+	if (atomic_fetch_inc(&rps->num_waiters))
-+		return false;
-+
-+	if (!intel_rps_is_active(rps))
-+		return false;
-+
-+	if (READ_ONCE(rps->cur_freq) < rps->boost_freq)
-+		queue_work(rps_to_gt(rps)->i915->unordered_wq, &rps->work);
-+
-+	return true;
-+}
-+
+ u32 intel_rps_get_boost_frequency(struct intel_rps *rps)
+ {
+-	struct intel_guc_slpc *slpc;
+-
+ 	if (rps_uses_slpc(rps)) {
+-		slpc = rps_to_slpc(rps);
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+ 		return slpc->boost_freq;
+ 	} else {
+@@ -990,10 +988,8 @@ static int rps_set_boost_freq(struct intel_rps *rps, u32 val)
+ 
+ int intel_rps_set_boost_frequency(struct intel_rps *rps, u32 freq)
+ {
+-	struct intel_guc_slpc *slpc;
+-
+ 	if (rps_uses_slpc(rps)) {
+-		slpc = rps_to_slpc(rps);
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+ 		return intel_guc_slpc_set_boost_freq(slpc, freq);
+ 	} else {
+@@ -1022,10 +1018,8 @@ static bool rps_boost(struct intel_rps *rps)
+ 
  void intel_rps_dec_waiters(struct intel_rps *rps)
  {
- 	struct intel_guc_slpc *slpc;
-@@ -1010,7 +1029,7 @@ void intel_rps_dec_waiters(struct intel_rps *rps)
+-	struct intel_guc_slpc *slpc;
+-
+ 	if (rps_uses_slpc(rps)) {
+-		slpc = rps_to_slpc(rps);
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
  
  		intel_guc_slpc_dec_waiters(slpc);
  	} else {
--		atomic_dec(&rps->num_waiters);
-+		rps_dec_waiters(rps);
- 	}
- }
+@@ -1035,7 +1029,6 @@ void intel_rps_dec_waiters(struct intel_rps *rps)
  
-@@ -1038,14 +1057,8 @@ void intel_rps_boost(struct i915_request *rq)
+ void intel_rps_boost(struct i915_request *rq)
+ {
+-	struct intel_guc_slpc *slpc;
+ 	struct intel_rps *rps;
+ 
+ 	if (i915_request_signaled(rq) || i915_request_has_waitboost(rq))
+@@ -1052,7 +1045,7 @@ void intel_rps_boost(struct i915_request *rq)
+ 	rps = &READ_ONCE(rq->engine)->gt->rps;
+ 
+ 	if (rps_uses_slpc(rps)) {
+-		slpc = rps_to_slpc(rps);
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
  		if (!intel_guc_slpc_boost(slpc))
  			return;
- 	} else {
--		if (atomic_fetch_inc(&rps->num_waiters))
-+		if (!rps_boost(rps))
- 			return;
--
--		if (!intel_rps_is_active(rps))
--			return;
--
--		if (READ_ONCE(rps->cur_freq) < rps->boost_freq)
--			queue_work(rps_to_gt(rps)->i915->unordered_wq, &rps->work);
- 	}
+@@ -2194,12 +2187,13 @@ u32 intel_rps_get_requested_frequency(struct intel_rps *rps)
  
- 	GT_TRACE(rps_to_gt(rps), "boost fence:%llx:%llx\n",
+ u32 intel_rps_get_max_frequency(struct intel_rps *rps)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+-	if (rps_uses_slpc(rps))
+ 		return slpc->max_freq_softlimit;
+-	else
++	} else {
+ 		return intel_gpu_freq(rps, rps->max_freq_softlimit);
++	}
+ }
+ 
+ /**
+@@ -2211,10 +2205,11 @@ u32 intel_rps_get_max_frequency(struct intel_rps *rps)
+  */
+ u32 intel_rps_get_max_raw_freq(struct intel_rps *rps)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 	u32 freq;
+ 
+ 	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++
+ 		return DIV_ROUND_CLOSEST(slpc->rp0_freq,
+ 					 GT_FREQUENCY_MULTIPLIER);
+ 	} else {
+@@ -2229,32 +2224,35 @@ u32 intel_rps_get_max_raw_freq(struct intel_rps *rps)
+ 
+ u32 intel_rps_get_rp0_frequency(struct intel_rps *rps)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+-	if (rps_uses_slpc(rps))
+ 		return slpc->rp0_freq;
+-	else
++	} else {
+ 		return intel_gpu_freq(rps, rps->rp0_freq);
++	}
+ }
+ 
+ u32 intel_rps_get_rp1_frequency(struct intel_rps *rps)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+-	if (rps_uses_slpc(rps))
+ 		return slpc->rp1_freq;
+-	else
++	} else {
+ 		return intel_gpu_freq(rps, rps->rp1_freq);
++	}
+ }
+ 
+ u32 intel_rps_get_rpn_frequency(struct intel_rps *rps)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+-	if (rps_uses_slpc(rps))
+ 		return slpc->min_freq;
+-	else
++	} else {
+ 		return intel_gpu_freq(rps, rps->min_freq);
++	}
+ }
+ 
+ static void rps_frequency_dump(struct intel_rps *rps, struct drm_printer *p)
+@@ -2504,22 +2502,24 @@ static int set_max_freq(struct intel_rps *rps, u32 val)
+ 
+ int intel_rps_set_max_frequency(struct intel_rps *rps, u32 val)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+-	if (rps_uses_slpc(rps))
+ 		return intel_guc_slpc_set_max_freq(slpc, val);
+-	else
++	} else {
+ 		return set_max_freq(rps, val);
++	}
+ }
+ 
+ u32 intel_rps_get_min_frequency(struct intel_rps *rps)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+-	if (rps_uses_slpc(rps))
+ 		return slpc->min_freq_softlimit;
+-	else
++	} else {
+ 		return intel_gpu_freq(rps, rps->min_freq_softlimit);
++	}
+ }
+ 
+ /**
+@@ -2531,10 +2531,11 @@ u32 intel_rps_get_min_frequency(struct intel_rps *rps)
+  */
+ u32 intel_rps_get_min_raw_freq(struct intel_rps *rps)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 	u32 freq;
+ 
+ 	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++
+ 		return DIV_ROUND_CLOSEST(slpc->min_freq,
+ 					 GT_FREQUENCY_MULTIPLIER);
+ 	} else {
+@@ -2582,12 +2583,13 @@ static int set_min_freq(struct intel_rps *rps, u32 val)
+ 
+ int intel_rps_set_min_frequency(struct intel_rps *rps, u32 val)
+ {
+-	struct intel_guc_slpc *slpc = rps_to_slpc(rps);
++	if (rps_uses_slpc(rps)) {
++		struct intel_guc_slpc *slpc = rps_to_slpc(rps);
+ 
+-	if (rps_uses_slpc(rps))
+ 		return intel_guc_slpc_set_min_freq(slpc, val);
+-	else
++	} else {
+ 		return set_min_freq(rps, val);
++	}
+ }
+ 
+ u8 intel_rps_get_up_threshold(struct intel_rps *rps)
 -- 
 2.55.0
 
