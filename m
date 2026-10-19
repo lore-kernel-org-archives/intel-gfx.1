@@ -4,94 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E09CCF2E4
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 11:41:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD70ECCF2E3
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 11:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E12910E64D;
-	Mon, 19 Oct 2026 11:41:46 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21FB710E354
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 18:48:51 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-5ba3b1199f6so238123e87.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 11:48:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792176529; cv=none;
- d=google.com; s=arc-20260327;
- b=afkNobBxGtSye8hHlAZl+0KLFzXgpJGxKl2cLp8Ml9ZB1nCyL6ffUpz75DUf6lx4SQ
- 8mJnTGTJlWcfq24VjNvWeU6G/JKcA9npMbrjfjD9KR9K5PR03vndgJdgsmZFhl4ygJgU
- 2yZf1jt7rYSNfprxR+htbHD3OHgr5cXFtvlAzAnAjDk9cbPYJdXjrdo3IP8PXHFeJTqH
- sdcaciNaOrbbUWnj38h9DH80HVvGBoQg8kxbQfTpnZNlWiUk2hgcU8CvKgqhjAOGSOGt
- rHyw8azJSIeoJz099gJYJ9PcibiNsWP+bcxeAMlH1t2z9RX8L8oM2AVJRs1e1R7z9WGv
- WlKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:references:in-reply-to
- :mime-version:dkim-signature;
- bh=F4RWuNr5W5PsG0VuigujYRtp419u9Kx7CCWlu/1r5Rg=;
- fh=V7EO0sA8QS5vScgTZHpZdP69SfJkWKK6jO80Zhh0XZY=;
- b=Z6BG27f4Kw3XVn3YAElOJ21Qninl9pvEGLrQf3eC6Y6E/LhlK4oQrl4Ri2XEIqOmiD
- /GKxOnZcflUEA4JGcSbmhDCMtzBVpx/vgPfEYU9iTy7envpRmjBdMnag04PmYd/JYUFf
- cGcf/peHdmiP9J9e7Q4YondIhsiGBGGgBPf4zXE7OY1BpcH7rU8CbMEc6L7l7xHSiXLZ
- KO9TR0QYcmdcJzOxxHOWx/3kv/wePG80wfZj1UiluA3aWHnlGO0qb88sc2lUdLccWoRo
- I8FQSetZpq8xcdd4VfSTvK8LBdPElt5FvZ9snvcKPrCITpi+iXuWX0eLsrMmatwNQ5KM
- hkFQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA1310EAE2;
+	Mon, 19 Oct 2026 11:41:51 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC6910E4A3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 06:36:59 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-6a0794669a6so2267957a12.2
+ for <intel-gfx@lists.freedesktop.org>; Sun, 18 Oct 2026 23:36:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792176529; x=1792781329; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=F4RWuNr5W5PsG0VuigujYRtp419u9Kx7CCWlu/1r5Rg=;
- b=mdx4jw/zDg06DTSm9e+x7dP70VTOWwHteozTLR2rt1xqUFwhgT/QQIetXncB9T2DNn
- hxbtBCHHsTG52b5/UU5XeuS1l8uj9brzB08S/uZVQdLbPS0XeAob1r/ejDe5g9bhEtlT
- 0nMkR8y0le1+zw8z1OiqlfiIHicb3qoWZkl3fj97TpwSnUJyxStD0rZGcWVg17cg+Ehf
- 4NMwzDSdbP3A7lv3yM6Nhy/Xw0/2NqnSe+Sv7dcyAMMXinoqDDtWy4r4JXCE1LeU5/B0
- WP0gkmuLbFCu+l8u/JIXoPXOThCe1X/AAyGDrODy5hiRbZBMoHOYNDHofV4xBBxvr05y
- fq9w==
+ d=gmail.com; s=20251104; t=1792391818; x=1792996618; darn=lists.freedesktop.org;
+ h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
+ :content-type:mime-version:message-id:date:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=g2KeYWsG+wFaGgc+7I3C8q1Tb9M91ngHA9b+lWINLtQ=;
+ b=dE1rGGe5cI6oNHzUJusUIInawbeD5WrD3zjI+xsCcZc6UZ3fwi5ATns3IwfSk0yGQV
+ 7thI3P+srZ9vf/UIaLT96GvGoeCEJUwcKUPa0rM0L27OwK3dcq3IqvhJOi68QCwKMQXO
+ h8aVAe61YuOLHeRzoi3bbLAx/4e1nRIe/Q7JWUNDLklMlaSgWdnPVAkX9IuMCgSO9ZWZ
+ McFQaDBUXLrgHaoX+799Vle15ARcgI3CIiK9oxLr2kXlrZ12UetH8av8FAOK1Hfx1InO
+ b+Lt2MeRWZL76NQAJTdqlUW9jT5DPtYQLRM9NFS5kIr5x6WzY9oDagFPQvgE22z7lU0Y
+ 9ROA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792176529; x=1792781329;
- h=content-type:cc:to:subject:message-id:date:from:references
- :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=F4RWuNr5W5PsG0VuigujYRtp419u9Kx7CCWlu/1r5Rg=;
- b=leQ0N46qE9ogPpBQ+A/QR4ifrGnZn25x3JaenKjkNRineMw7MPwigKYD4y/lW5hKbZ
- Gt7ifQA+oiD0jOqOfI+Wq+Is3pLEhQhTVDg9gG1v1aDxqMtID/b5CgUpgs8eHtf+qFkg
- sTtz2EfbgEZtASMylK9LtyhWottttrn4De/6at3m4/Ygubk0+/f/YBEbmglekq9kqWDR
- U9iqQvxDUlhvcP0VL1iEwL2q4cjN8d7lBBf1aCRgVDY8End7YYbVs69jrSAkJFUPqeI2
- IHGTljurSKjzk67WM3TND42oXcF0FV17CWy7TPu1NlKvC6/Oa6cvQM8u9a0yzcD2eZmt
- 6SGA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzYqCKEQxqr/IhQknWEj/f9BvHCiBTxjXVKxgfgHFUROVyA98LsHxEHOkmSTjN5FoWLShKKzfEBwwI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIE5/MjzPMYppghYy5UAOQZ3Ad0NA53pkJZ9f3iy6EkAXb7ky2J
- ZFRhrBFVJ6aW9WKTRLoN8AK+vl5N/m4wXiZBGiO4oGsX6+q6KxIJsw059sRA/4MM7WVfcJejGMp
- T0AW4zGS8+WTvfEquY50/bKsm6pI7X/8=
-X-Gm-Gg: AYBFou0DWj+qXRKxlYlc7AgS9cvsuXXrN3GSogbQ3ECz85mCf39V8UK17fDvI9C5MrF
- WCYzfGh4xX8CarKAR9CeKNadiF21XQIqTxxYKQYIdF7/I/d2tGWVu6T4PTU7WJAxQAlJVqdg3Ad
- 5HY+1S/tzZhYim8NYhy9wy+ByHZkf3o+I5IrrTtMKfaYWPIQDNytJFqMxNDvatml9hlKnKW1Tzr
- WuSqQwsT0QOESbIV41ZLsYFZEiD5nDLMPj7lKMnNgmA+DQXxMIXm4kf2mcyLJLl5fpqBxfpopK3
- u3CM+0L9W+bJMqP/AgR09JbfoA6Ay0TPIjNT/xbb2Hw+w86Pob24Yag4zAkdmyC7+g==
-X-Received: by 2002:ac2:5692:0:b0:5b8:ed66:2f64 with SMTP id
- 2adb3069b0e04-5be509ef7e5mr155409e87.3.1792176529086; Fri, 16 Oct 2026
- 11:48:49 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Fri, 16 Oct 2026 11:48:47 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Fri, 16 Oct 2026 11:48:47 -0700
+ d=1e100.net; s=20260707; t=1792391818; x=1792996618;
+ h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
+ :content-type:mime-version:message-id:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=g2KeYWsG+wFaGgc+7I3C8q1Tb9M91ngHA9b+lWINLtQ=;
+ b=Tl7rdV+JBYZUsyBtsacRbqns6BCFl4RNcvJYwhGhEAvuTxFjhlRWYQliwTx3aTCsjr
+ 4vxmrJW/crw2qPTTYQmoOKUBvgvzZLI9RRjFCcQ5H1RAd2M29eZLVB6resqhFM58+fIE
+ 0iQBeIxP5Qr2uBceGPjtB3e18uFIA1AUXPZyaJwSFEYCESMbsIcRuWqxkPqgO8K41T4y
+ UibPd1zD08+G3zMekG3MWM+c//RhGdN19fW21JRrbDe51Ew+N0rrmLFDuNViZn40+doN
+ wza6pOA46WsjosUcXp3t/Rp+ah9pev+yVmJJDuCpM3h9YtG2kfGi9M9lz5QnfnHJv7kf
+ hibA==
+X-Gm-Message-State: AFq9FYKWao4RjqpqKXpB+9Q1wU+uM+o582S1xzU0G/Wqkd/iSI78lEGM
+ E7FZ/YxJq9/inqOg59o5XLxnhVJnOH7fPHmEZOX6DJK0M86/5p7n32SW
+X-Gm-Gg: AYBFou3UvCGtM5OGO/b/rAw3F2txRNf1or8qRGcUxSeEacxqPEgFMYsrOHsZ84MatjF
+ Yzc+RCoOGMSU6vZKdLqNqpe2fdp95hayEDA/Ihq/U1uPSaUye6ewPCJ5SXewf2WBkP38vGeKRKD
+ 6xqaQBFWB/2c96qnDE/+qboR8zxbER50wovr285mkfeJ0+/JwM++iaad6Gjhy9hFk3ohSuX3YWS
+ ngYKUQMpboYQZ0Pdp4iGAUwJHMVy0kSzLOuNG1WNMny73NkvkcdTsblqsnP03eGTiRtzwqzIOf/
+ NjTVVgXk6XM3gi5C78Nit5hziQ7A/auJL+x+8IzTgWKx0GjJ+KUXxwn/IpLfB0uphgokzk6+DKm
+ Kj3lLj/+X7IzUvAGlDYv8tZfXFLtTxXMijInBgBDcjclGWXshuHn/Wa+jcSB5tZCwXn+PdzOtj5
+ QG/w5mf+4jOztX1ZygoyvQ6vldGsI6RYr38+JrTz4DeKM4ZvGrh6PSUhQT9i8Eks1TIjYj
+X-Received: by 2002:a05:6402:e87:b0:6b1:abe7:825c with SMTP id
+ 4fb4d7f45d1cf-6b3a8175611mr3870204a12.8.1792391817776; 
+ Sun, 18 Oct 2026 23:36:57 -0700 (PDT)
+Received: from localhost ([2a05:d016:6cf:a600:dca7:6eb5:c61c:2b8a])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b38a1b1347sm3628086a12.12.2026.10.18.23.36.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Oct 2026 23:36:57 -0700 (PDT)
+Date: Mon, 19 Oct 2026 09:36:55 +0300
+Message-ID: <1792391815.ae0036ac0925@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <abc82e7191da4638c75ab87605fbe24e2667391d@intel.com>
-References: <CAN52AYstOLqaX_=_HBLEGKvcEmY+VGwKSbRRRyQbG4ytr6FD_A@mail.gmail.com>
- <abc82e7191da4638c75ab87605fbe24e2667391d@intel.com>
-From: Jame Jao <jaojame6@gmail.com>
-Date: Fri, 16 Oct 2026 11:48:47 -0700
-X-Gm-Features: AclHuK_fBFcxzRDjFwxpgJbPh6ddKnaWA-C-HdLMMpWx9wPgrwaz-Yg2a-k26RI
-Message-ID: <CAN52AYtRd+W65SqWysLtwEtX23GJyGx5bKj5sZMGczKqL8bOsA@mail.gmail.com>
-Subject: Re: [RESEND PATCH 0/5] platform/x86: bitland-mifs-wmi: MIFS v2
- firmware support, Xiaomi Book Pro 14 2026 - VBT (corrected, now complete)
-To: jani.nikula@linux.intel.com
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- rodrigo.vivi@intel.com
-Content-Type: multipart/mixed; boundary="000000000000643d45065df99d93"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+From: Ioann Komarov <kivan1337@gmail.com>
+To: Arun R Murthy <arun.r.murthy@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Imre Deak <imre.deak@intel.com>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH] drm/i915/mst: let the branch-sink check uncompressed with
+ 18bpp
+In-Reply-To: <20260804094450.125307-1-arun.r.murthy@intel.com>
+References: <20260804094450.125307-1-arun.r.murthy@intel.com>
 X-Mailman-Approved-At: Mon, 19 Oct 2026 11:41:45 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,94 +88,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000643d45065df99d93
-Content-Type: text/plain; charset="UTF-8"
+On Tue, Aug 04, 2026 at 03:14:50PM +0530, Arun R Murthy wrote:
+> mst_connector_mode_valid_ctx() uses a single 18bpp floor for both
 
-Hi Jani,
+Tested on ADL-P (ThinkPad T14 Gen 3, 8086:46a6) with a Lenovo 40AY
+USB-C dock (Synaptics MST branch, fw 5.6) and a 2560x1440@180 monitor
+without DSC, so the dock decompresses. The link is 2 lanes of HBR3.
 
-Correction to my previous message: the raw VBT attachment went out truncated.
-I checked the copy in my sent folder and it decodes to 7134 bytes, not the
-7680 bytes of the real dump. Please ignore that file.
+Without the patch the 180Hz mode is pruned with CLOCK_HIGH. With it
+(backported to 7.2.8, which still has intel_dp_max_link_rate()) the
+mode is listed and runs with DSC at compressed-bpp 16, port_clock
+810000, lane_count 2. Logs are in
+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17207
 
-Here it is again, gzip-compressed to keep it small enough to survive the
-mail path.
+The same dock and failure on MTL are reported in issue 17207, and on
+RPL-P in issue 16640.
 
-  vbt.bin.gz             1460 bytes
-  sha256 (vbt.bin.gz)
-f5c8c1da0b30fe05d117a5264dc6ece64d29d404ba509c44a672ec86beee1bb5
+Tested-by: Ioann Komarov <ioannkomarov@proton.me>
 
-After decompression it must be:
-
-  7680 bytes, first bytes "$VBT PANTHERLAKE"
-  sha256 (vbt.bin)
-1a0a08b81c48977efbf3f4ea0cc547d6bdf44569f95d88662c5593f24a5e2e4d
-
-  $ gunzip vbt.bin.gz
-  $ sha256sum vbt.bin
-
-Source of the dump: /sys/kernel/debug/dri/0/i915_vbt, read 2026-10-17 on the
-machine below.
-
-  XIAOMI REDMI Book Pro 14 2026, board TM2426,
-  BIOS RMAPT4B0P0909 (2026-05-21),
-  Panther Lake / Arc B370, PCI 8086:b081 rev 04,
-  kernel 7.2.9-zen1-1.1-zen with one local bitland-mifs-wmi suspend/resume
-  change only.
-
-Everything else in my previous message stands. I will file the drm/xe issue
-with the full journal once I have a usable freedesktop.org account.
-
-Thanks,
-Eason
-
-
-On Wed, 07 Oct 2026 15:19:13 +0300, Jani Nikula
-<jani.nikula@linux.intel.com> wrote:
-> On Wed, 07 Oct 2026, Jame Jao <jaojame6@gmail.com> wrote:
-> > I would like to report a WARNING that appears on every boot on a Panther
-> > Lake laptop, and that is also visible on screen (before the desktop comes
-> > up) when resuming from hibernation.
->
-> Please file a bug as described at [1]. Please include the VBT.
->
-> Thanks,
-> Jani.
->
-> [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
->
-> --
-> Jani Nikula, Intel
-
---000000000000643d45065df99d93
-Content-Type: application/gzip; name="vbt.bin.gz"
-Content-Disposition: attachment; filename="vbt.bin.gz"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: c762cfa4b50e8931_0.1
-
-H4sICCBw0moCA3ZidC5iaW4A7VlfTFtVGP/O/dfSteNuRelYh0dYsOCA27J1jDTZbQu4bvxpgZEu
-MdKxdo7YDWTMoDGhGh54MblPypYlVhMTg4nhxUcjTwbjSzMT44PGvrksvpjsbX/wu3+8bWmkJYbN
-Lf01X8/p+b7zO9/5zmm/c26PToYmaDQ4MnFmYGwoeG6AIpIgwe9uCd/LEYqMjk/1ByeCU6Gh0fA5
-aiMvwtfux/cAkoQcskuS3xu5tpBKe8ba6fDs9Ew61d2fuv7WwuwcjYYjNHjpUiqdmr+4kErS8cnX
-glTlc9hCN2bSSTpy4+p0ar6PeiVJQmvqPd7Vc5xS38luqafbJ3lPoKbP6+87ccph6x8Ijw5HI0PB
-icjoCB0do/2R8eD4+MBwaOgCjY6NnomEIhMD/Q5biffh2bl352fevLJAPeF26sNxOjVezWUanp2f
-66LBdJqOqTbX6Vjqemr+nVSyy2FTiTbAyhEAYoN6GYhHY3wUAhGsWOFQZBSKIqIwUD2YbwmD/Y9Z
-QXAVt+OYLBZ5JKZmI4XHapHZxmHRiw0cvMyWg++vgCjC1mFRa3bovBuQIJSoDazWrNnKcCeh2h52
-67aiPrUNnLduCwVbavCeNGwPAPCabaacVzRsxw1bJ4Cg2Srltlrs0HbWsMU4EM1WLvehSuyVrYaH
-74HuoVYQFQAvELnM8BG7Wdb2EW+DT1A+Q/kK5RuU71B+QPkJ5TeUP1D+QnmAwgu4/1AOobSi1CVx
-UEaN2Z69byFsP4L5XdraetZrdiecxX3NWgPLbq3xPLZ/2rAGglsAeZ/VAoHyZV78pxLYYS88Md3h
-N9icxQY5y32y4vx/1kxfxUrfoMLq1FDDXoCrwqawC9UU6mkBhu0pUawZKHTpuMxnmDzJHNivZTDr
-vB33fpyxa+V9ImLJ17+CBD/XZRSaPyJaEy16z2b/EtGThp2ycaYyQ7aegjfupp5Mg8nA6LnSrv5k
-VWZIHgI5CG2Sa8WvM7j8S6yeeNEEOJUhsCOD1AGrMZBkac5p+sDrsbUv8k1VMSzSWJMoi0UMROF3
-wfBl92I+1tQmx1eLGQQ9DsJ6FQxnTsvS9LpPljcKDIJ+grJP8sBWjuTllyfXYtAsDSoNhUgqVu0A
-oAjVzOL9LiWbaGqWJeo3feCUOs2HjKWaWXgCmezceisydBTWQtGStD3LL1cxi1vt2VxsuUWK3mw0
-GVjYZ0SyGgapQ95MLCclV4wrYrDrO4qrJpJle1JjcBh7klbBcK8JslHaKNmlcIFB2W9EsperzMD0
-ZVxv93bK8c5iH+p1H/BQXnkt2mVIZMCZEMUDRQxa2rMPDUanohevpdIjF6+mnoMPT+LXuvw88KqX
-CGc3QYiv7d371jYwDHOQKYLqlCpLRrlbEQxhi+q7Ees2VIrisRX4cxDLCB7dz0MUknCMfAx3WdCn
-92ALQC8PbsN/OZCpPae3AaBLIrBi4tmoGvN5WmVPXSGox/24ZxQR9J/Wsoif1qLeaPTOWQpHnvql
-l0434PIP7nS9CIDVN9M26CfQOnPNh1fUKU8AfGouI/qttjZybeS9HPk+0V8rzt3X/m1MQUPvHf0s
-8Vzh1IecwNaudDXUUMPTQt/njBtex6NdhlHwkpSAPDkCxvMI9e8CkG8DUFb9oyQDcbQlxjMYVXf3
-kZo9ZOICPGaxbXgi1u7v2r8a+S8wJfCrRII5tJGwH2v2U3WLPCUi6po4sUSn/Krq8iQOq6hrK9Hl
-FhmQBYmR8dM65yvRPRwmMMmvkUFQ0Jdm00/Vl19yBBQhCxJQ5Gw2/dTGu8BAxqLr1rlWnLnN1HFZ
-Alk+R6JwE5bZFuS0lMxBFjbBBTHUJc1nUzvFRdUddahxyWKCxhHZRvV6beoa+lVfXDj3TujlOkv6
-3foA18SawNsoZnfBCcZTJ0230/o9D7oaKuBv+r1qUAAeAAA=
---000000000000643d45065df99d93--
+Adding Imre and Ankit, since the patch went out without reviewers on
+Cc. Could one of you take a look?
