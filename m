@@ -2,46 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45197606A322
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 16:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWt0QnFZ
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F1DA606A333
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 16:23:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A98FB10F091;
-	Mon, 19 Oct 2026 16:19:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D853E10F091;
- Mon, 19 Oct 2026 16:19:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1EC9A602BE;
- Mon, 19 Oct 2026 16:19:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDBD1F000C4;
- Mon, 19 Oct 2026 16:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792426751;
- bh=shs0Qmr6z6AGWxamqP5HMy0NMX1ySVsqh6zsSxOLyLY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FWt0QnFZNI3EIMza9ej8C2XFXq0Bh+XrlgnxAk+iTSlyQDk4Ecog4QtlmCZQ7PZlW
- e/NOAlfmbJNhykwDYH3NKSwAbws9HhRirr+ByZFXLD1sWvtRaSNlDGlxCOl8RFnyzY
- 4Rszg8nxJzHRmhZrq72h3ISetFpZZtkKkdK1W484tIRh9nQ02Eg6LG6qEQqkBgiVB0
- N5Pri0Jsx37ybixtg3R3V4BFgCMmIgAx80ifX7ZXfpeXaWSMr8qQq+z0VhWoMxJhXl
- HOANibuXJNJQPjgZgwQXvcndbTYsC0hPVR+LMxEuuB4onPQlr1QmfVZn/Dnmnhpz++
- fgumzsZN9NMgw==
-Message-ID: <sashiko-outbox-177862@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/pixel: Link panic helpers into drm_pixel_helper.ko
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, imx@lists.linux.dev,
- virtualization@lists.linux.dev, Frank.Li@kernel.org,
- wsa+renesas@sang-engineering.com, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261019154612.777074-4-tzimmermann@suse.de>
-References: <20261019154612.777074-1-tzimmermann@suse.de>
- <20261019154612.777074-4-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 16:19:10 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A8010E9E1;
+	Mon, 19 Oct 2026 16:23:06 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1825D10E9E1;
+ Mon, 19 Oct 2026 16:23:05 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6767584343783214052=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Display_VT-d_?=
+ =?utf-8?q?cleanup?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 19 Oct 2026 16:23:05 -0000
+Message-ID: <179242698509.42370.13716407393072137909@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261019130014.8851-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261019130014.8851-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,140 +34,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,RCVD_IN_DNSWL_BLOCKED,
 	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_ZEN_BLOCKED_OPENDNS,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] drm: missing DRM_PIXEL_HELPER select in DRM_KMS_HELPER for drm_crtc=
-_init()
-- [Low] drm/tests: link failure in drm_panic_helper_test when CONFIG_DRM_PA=
-NIC=3Dn
-- [Low] drm/xe: missing DRM_PIXEL_HELPER dependency when DRM_PANIC=3Dy
---
+--===============6767584343783214052==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit d010f0f67d242682650aa0651dfd5a1e57612943
-Author: Thomas Zimmermann <tzimmermann@suse.de>
+== Series Details ==
 
-drm/pixel: Link panic helpers into drm_pixel_helper.ko
+Series: drm/i915: Display VT-d cleanup
+URL   : https://patchwork.freedesktop.org/series/176388/
+State : success
 
-This commit moves the DRM panic helpers from drm_kms_helper into
-drm_pixel_helper.ko, drops the DRM_PANIC_HELPER Kconfig option, and
-selects DRM_PIXEL_HELPER in drivers using the panic helpers.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 8e4a588e9111d..bf7c599443403 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -46,13 +46,14 @@ config DRM_MIPI_DSI
->  config DRM_KMS_HELPER
->  	tristate
->  	depends on DRM
-> -	select DRM_PANIC_HELPER if DRM_PANIC
->  	help
->  	  CRTC helpers for KMS drivers.
+CI Bug Log - changes from CI_DRM_19362 -> Patchwork_176388v1
+====================================================
 
-[Severity: Low]
-Does DRM_KMS_HELPER also need to select DRM_PIXEL_HELPER if DRM_PANIC?
+Summary
+-------
 
-drivers/gpu/drm/drm_modeset_helper.c is unconditionally compiled into
-drm_kms_helper, and its primary_plane_funcs structure (used by
-drm_crtc_init()) includes DRM_PANIC_PLANE_FUNCS:
+  **SUCCESS**
 
-drivers/gpu/drm/drm_modeset_helper.c:
-    static const struct drm_plane_funcs primary_plane_funcs =3D {
-            DRM_PLANE_NON_ATOMIC_FUNCS,
-            DRM_PANIC_PLANE_FUNCS,
-    };
+  No regressions found.
 
-When CONFIG_DRM_PANIC is enabled, DRM_PANIC_PLANE_FUNCS expands in
-include/drm/drm_panic_helper.h to reference
-drm_plane_helper_display_panic_screen, which is now built into
-drm_pixel_helper. If CONFIG_DRM_PANIC=3Dy and DRM_KMS_HELPER is enabled
-without a matching built-in or modular DRM_PIXEL_HELPER, linking fails
-with an undefined reference to drm_plane_helper_display_panic_screen.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176388v1/index.html
 
-[ ... ]
+Participating hosts (40 -> 39)
+------------------------------
 
-> diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
-> index 1afb9cad850f6..4573cad368a28 100644
-> --- a/drivers/gpu/drm/Kconfig.debug
-> +++ b/drivers/gpu/drm/Kconfig.debug
-> @@ -69,7 +69,6 @@ config DRM_KUNIT_TEST
->  	select DRM_EXPORT_FOR_TESTS if m
->  	select DRM_GEM_SHMEM_HELPER
->  	select DRM_KUNIT_TEST_HELPERS
-> -	select DRM_PANIC_HELPER
->  	select DRM_PIXEL_HELPER
->  	select DRM_SYSFB_HELPER
->  	select PRIME_NUMBERS
+  Missing    (1): bat-dg2-13 
 
-[Severity: Low]
-Can removing select DRM_PANIC_HELPER from DRM_KUNIT_TEST cause a link
-failure when CONFIG_DRM_PANIC is disabled?
 
-With this change, drm_panic_helper.o is only built into drm_pixel_helper
-when CONFIG_DRM_PANIC is enabled:
+Changes
+-------
 
-drivers/gpu/drm/Makefile:
-    drm_pixel_helper-$(CONFIG_DRM_PANIC) +=3D drm_panic_helper.o
+  No changes found
 
-However, drivers/gpu/drm/tests/Makefile still builds
-drm_panic_helper_test.o unconditionally under obj-$(CONFIG_DRM_KUNIT_TEST),
-and functions such as drm_panic_helper_draw_screen_user_default() in
-drivers/gpu/drm/tests/drm_panic_helper_test.c call
-drm_panic_helper_draw_screen_user(), drm_panic_helper_draw_screen_kmsg(),
-drm_panic_helper_set_description(), and
-drm_panic_helper_clear_description(). When CONFIG_DRM_KUNIT_TEST is enabled
-and CONFIG_DRM_PANIC=3Dn, linking fails with undefined references to those
-symbols.
 
-[ ... ]
+Build changes
+-------------
 
-> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-> index 71426b9c91f00..f698d3c8daa9e 100644
-> --- a/drivers/gpu/drm/i915/Kconfig
-> +++ b/drivers/gpu/drm/i915/Kconfig
-> @@ -19,6 +19,7 @@ config DRM_I915
->  	select DRM_KMS_HELPER
->  	select DRM_PANEL
->  	select DRM_MIPI_DSI
-> +	select DRM_PIXEL_HELPER if DRM_PANIC
->  	select FB_IOMEM_HELPERS if DRM_FBDEV_EMULATION
->  	select RELAY
->  	select I2C
+  * Linux: CI_DRM_19362 -> Patchwork_176388v1
 
-[Severity: Low]
-Should DRM_XE or DRM_XE_DISPLAY in drivers/gpu/drm/xe/Kconfig also select
-DRM_PIXEL_HELPER if DRM_PANIC?
+  CI-20190529: 20190529
+  CI_DRM_19362: a16b0e27155a8187d222dc914932a2d244d254b2 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9150: 18811c476bfde62ffbb4c0af55cd6f57e36e0dca @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_176388v1: a16b0e27155a8187d222dc914932a2d244d254b2 @ git://anongit.freedesktop.org/gfx-ci/linux
 
-When CONFIG_DRM_XE_DISPLAY=3Dy, drivers/gpu/drm/xe/Makefile compiles
-drivers/gpu/drm/i915/display/skl_universal_plane.c into xe.ko, where
-skl_plane_funcs, icl_plane_funcs, and tgl_plane_funcs use
-DRM_PANIC_PLANE_FUNCS:
+== Logs ==
 
-drivers/gpu/drm/i915/display/skl_universal_plane.c:
-    static const struct drm_plane_funcs skl_plane_funcs =3D {
-            ...
-            DRM_PANIC_PLANE_FUNCS,
-    };
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176388v1/index.html
 
-If CONFIG_DRM_XE=3Dm, CONFIG_DRM_XE_DISPLAY=3Dy, and CONFIG_DRM_PANIC=3Dy a=
-re
-enabled while CONFIG_DRM_PIXEL_HELPER=3Dn, modpost fails with an undefined
-reference to drm_plane_helper_display_panic_screen in xe.ko.
+--===============6767584343783214052==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-[ ... ]
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019154612.7770=
-74-1-tzimmermann@suse.de?part=3D3
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Display VT-d cleanup</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176388/">https://patchwork.freedesktop.org/series/176388/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176388v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176388v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19362 -&gt; Patchwork_176388v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176388v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19362 -&gt; Patchwork_176388v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19362: a16b0e27155a8187d222dc914932a2d244d254b2 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9150: 18811c476bfde62ffbb4c0af55cd6f57e36e0dca @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_176388v1: a16b0e27155a8187d222dc914932a2d244d254b2 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6767584343783214052==--
