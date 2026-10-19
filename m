@@ -2,78 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62701606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8158F60A2609
 	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 12:53:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=PvCcriax
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CnpQzRLX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E58FC10E228;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E594610E238;
 	Tue, 20 Oct 2026 12:53:43 +0000 (UTC)
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B220B10E3E5
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 12:26:12 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-53664b4860bso22175721cf.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 05:26:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1792499172;
- x=1793103972; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=YVgIUoqL9XbQ9jhWO6BKDxkXvvi2AxiprGJLNOZ4iOE=;
- b=PvCcriaxOSRydvR09CxP6VMLj7C4RR25kgfjmPntCt7Z8+jepA6pWa2xrOklBET2BV
- +6d1PP/T3VjuEjSLVjghpKUsggUh+EwIHTCDr15e4wo1JkmpToe9x1OZViOIN7nrW8aX
- yNIAYZ2uEdV2NeZbEKmrKZUaGI1YSfdxPd69ohHjX/HcgKbAcT3bPWoqKPLqTS4NsIKB
- iZf34AUhlzus6Og2MPbOjTB40n0s8K5+EYj8qdlu443cGLpvMHOlrQO1taE/eZGUVOwK
- bSzweYS2WRwRTU4BxXla3KDFGdG2hPk6ja/vGVWkJn9rbcURbiFMZqO66LqY6xSuaSGw
- Sl+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792499172; x=1793103972;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=YVgIUoqL9XbQ9jhWO6BKDxkXvvi2AxiprGJLNOZ4iOE=;
- b=y+YT/Q8SB68yhN+fAcdI4hri58VLFYIRrnepLY8YKCdM0sX+PqmjUEo/5rXvnblUD3
- wJDaxjQmaSRl1EdzAJQA7QAUqLoUwiUb34vBealDHDR4Rex831GnL2TYD/GPFGBtGrva
- QRewOF/vgCltaoGtoAt3EpvndO8b8fWdWymXn6Xq/WzFVJdz/7ZCgZJTO7hyQD9KZhNl
- aFzpOUutiG1iY7LDOv0pCrmUPCKBGGiLhZPv0Sa7TMom6mQ3V9h88p0sGIjit062m1TM
- FDBqDW4DlNfA/vndBOwDH6trajuQEUsYoS9rIGumUIWMqkL6WFsE3nldVFoQx+Mu14bW
- GzkQ==
-X-Gm-Message-State: AFq9FYLb0HJkD+pKDmqlOyvwUW/WYXIvCSQWwcP41s3rXUCzesUFe1xu
- knABoQtImeyKzbhwA4hgs1Kccjp6kp84xGBxlJdLZPWQIrzrMAH4iJF34PoQeewgejs=
-X-Gm-Gg: AYBFou3+ygADl7VGHZjy5RjldO+sgPvRH2lEO/oQZ//3b7XC0QBlukEQkOkPGk+KEoi
- hEBLUoudOd6zvH7CYjGx6urPRTk4Nml21Zx/2fLe+1J+8P5hWL7TYCxE8nHG3iE1tX2XSBmxKtQ
- vQemgNxRUwVfm7kkcQStaokmqYZapROsusB0WYyUJ8mz1hfdfO8lfH7UXM2hRd14Z9RoEFiSX/6
- DB1rvXJnqiihpHpExuFaa7KCAT42NsVi8Hs30fpDkje2udAnWgoZekBk0/F0A97xKQY6OTNHNR5
- ljk1Bqvik5HKLYvRM4Iav2q5f+nzaCDMHLEYV/ypZ6RKP97gpl2OvqHdOphAo7RWG6YbVldVqXB
- FMx/dOYTIffktjD686397r4QDt4+TUQTgQ/etE3bmR3BxUrZ/IbAzKNkjSwTa8q6lhhtkuvlv3e
- oOUCehhegMe9cEZuChoSZsztOGvofVXANuJfCQL99u08nBnfARzz1w4gOMtFpjmm6wvZ/ItIwNO
- b6d4jcU4kmgP8NZTB7R/2r7LaQekg9afR65O3WS5UBIqPGCL+8so9qikxmenj5AYZIRqeM8kwPo
- Ar9tY/V8GAKgaKWWaCvzEAjw9sX0ZWcNxpu0+aalhSw5LE2ZhhRliyGZjINzxnjZ6DyHESSelgP
- ABao/d4IFuisOkDCO8fXS5NjpQNKyRQKj
-X-Received: by 2002:a05:622a:50f:b0:530:fbd1:6094 with SMTP id
- d75a77b69052e-53646097a4amr164462231cf.53.1792499171659; 
- Tue, 20 Oct 2026 05:26:11 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::662b])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-5362a98e071sm123258551cf.16.2026.10.20.05.26.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2026 05:26:10 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/psr: ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR not
- valid for eDP
-Date: Tue, 20 Oct 2026 08:26:07 -0400
-Message-ID: <20261020122607.925427-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261007083443.647649-1-jouni.hogander@intel.com>
-References: <20261007083443.647649-1-jouni.hogander@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 551BF10EE7F;
+ Mon, 19 Oct 2026 15:15:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A3451602A8;
+ Mon, 19 Oct 2026 15:15:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269E71F000C4;
+ Mon, 19 Oct 2026 15:15:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792422956;
+ bh=rY7NXz2qfQQtnIEL3eObvxvEOIQ+EeZp99ff3bsp5sk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=CnpQzRLX3TYf8k0qu6IYpaMq62MrzgVnzWtCBEbdnX0IUPXFCp6FFVhb6e/W37EY7
+ oQdkTxuZitFSXzUqh8YM+LI6hW4HWoVv72MiRtWfb/iuVaWOGKHt2j8Piy3XsHY4bv
+ HfJH5x277Hg+W3vBh+BKJcUHigFzcPtKnByrkz6Qw0vZi1heWwAKuKjDH8y9RjWbAw
+ ZWzbQHvwqs0XljbKJDetYNNwEqmAYS1SizYC8c9PQJ/+yV3C9kQ+UX6IhimWK6Szh4
+ MliM2s0jWJxjgBc2N8LAVJSnUAeqxo/k14Kw0U606JcTDsTXyg4NEZpgxA/P9PGn8a
+ a/NOnXhhwsAXA==
+From: Maxime Ripard <mripard@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Aun-Ali Zaidi <admin@kodeit.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Martyn Welch <martyn.welch@collabora.co.uk>,
+ Peter Senna Tschudin <peter.senna@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-renesas-soc@vger.kernel.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Iker Pedrosa <ikerpedrosam@gmail.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Alexey Brodkin <abrodkin@synopsys.com>, Hans de Goede <hansg@kernel.org>,
+ LiangCheng Wang <zaq14760@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Ruben Wauters <rubenru09@aol.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>, Aditya Garg <aditya.garg@linux.dev>
+Subject: Re: (subset) [PATCH 00/75] drm/connector: Convert all drivers to
+ atomic_create_state and remove reset
+Date: Mon, 19 Oct 2026 17:15:50 +0200
+Message-ID: <179242294379.2822300.2839114266297465713.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
+References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Oct 2026 12:53:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -87,24 +139,29 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-9.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Jouni,
+On Wed, 14 Oct 2026 19:26:23 +0200, Maxime Ripard wrote:
+> This is a follow-up to the plane and CRTC reset removal series, and
+> part of a larger effort to remove the reset hook from all KMS objects.
+> 
+> The connector reset hook is overloaded: it is called both at probe
+> time to create the initial software state and during suspend/resume to
+> reset hardware and software state. These two roles have different
+> requirements, and the reset hook is not fallible, making error
+> handling difficult for the initial state allocation path.
+> 
+> [...]
 
-Sorry, my last mails made that unclear. Your patch alone does fix it:
-with the AS SDP kept on in PR Active, Panel Replay is smooth here,
-including after screen off/on. My Tested-by stands.
+Applied to misc/kernel.git (drm-misc-next)
 
-The RFC was only about power: with the AS SDP always on in PR Active
-I see no DC5 entries on a static screen. Fair enough that it is not
-understood, so please drop it. If I can show a real battery cost I
-will come back with numbers.
+[73/75] drm/vmwgfx: Convert to atomic_create_state
+        commit: e6bb593b800813788dc16179d1305747ff974d00
 
-Could your patch go in as is?
-
-Jake
+Thanks!
+Maxime
