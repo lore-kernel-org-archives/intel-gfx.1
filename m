@@ -2,164 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1727F606A319
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 11:19:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0C1606A31D
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 11:26:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XkmsvvFj
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBiXY6q/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B33EE10E9FD;
-	Tue, 20 Oct 2026 11:19:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8D3610E8BD;
- Tue, 20 Oct 2026 11:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792495170; x=1824031170;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=zGl+9hRTdFrVEu4fUHEevYa8NUR1q3WnfljorLNPr+Y=;
- b=XkmsvvFjWKsRI8PfA8X9X6Peyw5mKFbtqeN2QElx92nPFGC26wzfBoKW
- cqHpXR7FJxNnk02SA/hzdyxH9LCx7mDRqhdzCBM+JE4eJzulJJnjI9O7F
- T6P/i2Py1jU4QbDrRX0dF01XHCmge5VZOcSmOrCHBOssG0F+N4UdtH3d5
- 9gMDczGHa6IhwuiCwB3vrMop9VNpA1kfeYZ9r4Ww1feHcpO2eaRTWCeGW
- bj6BjYItDGH0PERl/KFE7R3gjGwchmfSjJBfP5BWmTQIgNhgFzmxEyFnl
- QXP9HXMEQPTZzUydOanTwHBYAyh8cAXjBSKgJx2mrQaLCN2EqRjoo1QjH g==;
-X-CSE-ConnectionGUID: AVEk3TT1RmeOX9e6A5avow==
-X-CSE-MsgGUID: J2Our98oRVKC6U6xuSfZ+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1206046"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1206046"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 04:19:30 -0700
-X-CSE-ConnectionGUID: lvopwQYNSymv3DaMQbsBgg==
-X-CSE-MsgGUID: Zv/xV8C1TP2b6OV+tTdZwA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3191882"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 04:19:30 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 04:19:29 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 20 Oct 2026 04:19:29 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.62) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 04:19:29 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Udn/8Wllr55pvbBeq/62z90gVVwJ7DThzm5A+M9S2jjFzF3gFikpIRbfD0R+ovl13J0CaaCGbJjwNWEy3OhQSuz6+E0g3yTWtWAbcUqaa/ocSzVRgh35oBAwa+ZjMQXdvqFJ+et541rM5aMARqRoajvuldJIWRotNW5w4M8OSnUu2CFiW6d+XnoJZiCE/npwwNW0uc2fvqic1J/Ra95/X+oPmQTHljuUAPp0dTo4DqmdUIh1iwvS7kVskbA1qlp/9kgR516D7zN4y1kbX6iiemmQ5xsum3ioUDgjRM8P4Dt9nh6xns2BX8g7HDDFwaNMZJrFUe+Zxpxqy97XbSFIqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zGl+9hRTdFrVEu4fUHEevYa8NUR1q3WnfljorLNPr+Y=;
- b=HYF+rufWop6KJHPp7HoTE0T41r7uSk0D4sCcZXDmRw1+DmiCVj/8G79d1P95Lw2vOqVUJ39YMTHR05l25DO2eKWrEYezcymQDk7hbegXpuxXog+BK6Xo0pOs0/vxaaANWahYBGf8YYOxlT+5AjX1Woa8jqPTfaJIwpdkRHaAEMz6TdvfuoiQvA2StTX0ho+4UJCKk/fEH+z2T2d7irRdUeVjxOgDShXl/34Ntvk+gvr7w+DtQY+bc/IyQhSyCsApXR/BOzPfARJzfG9QBXiBNlLto2zxONVbMM9HD9MBwswryq2Enq3QR4+g4NrhHXY1+u38WYEsDKezem0PUrcdfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPF69154114F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::28) by DSWPR11MB9955.namprd11.prod.outlook.com
- (2603:10b6:8:369::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 11:19:28 +0000
-Received: from DS4PPF69154114F.namprd11.prod.outlook.com
- ([fe80::79ab:f4ae:b1c2:61d9]) by DS4PPF69154114F.namprd11.prod.outlook.com
- ([fe80::79ab:f4ae:b1c2:61d9%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 11:19:27 +0000
-From: "Kahola, Mika" <mika.kahola@intel.com>
-To: "Hogander, Jouni" <jouni.hogander@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "Hogander, Jouni" <jouni.hogander@intel.com>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>
-Subject: RE: [PATCH 1/8] drm/i915/psr: Clear selective fetch area when
- duplicating plane state
-Thread-Topic: [PATCH 1/8] drm/i915/psr: Clear selective fetch area when
- duplicating plane state
-Thread-Index: AQHdT/dBwHXTPA0xpEa3B64CaluLKrcGabPw
-Date: Tue, 20 Oct 2026 11:19:27 +0000
-Message-ID: <DS4PPF69154114F2B403DB0BBE04C503D6EEF672@DS4PPF69154114F.namprd11.prod.outlook.com>
-References: <20260929094434.77129-1-jouni.hogander@intel.com>
- <20260929094434.77129-2-jouni.hogander@intel.com>
-In-Reply-To: <20260929094434.77129-2-jouni.hogander@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPF69154114F:EE_|DSWPR11MB9955:EE_
-x-ms-office365-filtering-correlation-id: 44ddb9ee-bd25-4097-0a4b-08df2e9c0120
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|38070700021|56012099006|11063799006|4143699003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info: 4fzS7NRYoE3h9LQh3wnOWjIgr2aYGet+dNTiwidIq382uJHePpf1TX4CTuoWDv/H7Lx2RTVanegfbsX1QdHfsWVHXZvntvv+7IebKlMEMSdhSZEpzd1HHyPOjsaJUtyDKvudsLgcF/oBF0owO9DQISeJPFg92ehgmJju4SgjSK71E4QAa8RiznvNgXQRRw4hL92dx+L5wFCGb/eDK+2BsI427/PevrOlTFcJNRe61YgcUjy6wVkQtbkPqXaJNhKKIm/pOahA9YabBLURU7MNcRfVaO73zNXrewGCMO90TKSQK7GGOqK+Qcsx/UBTxWTXpHvLou/AtxBa3xDfFOwJoqbQNruXAmF6rogxc7odGJoYB/NqoEYsnwFxUmdck2Rd4zIQ0VHSkTLbgwCPB1KSIPQXaxBTFWpAz82AzYSkkEa+Mi++G4/W6pD0C9JtIGfaH4v0aJbzmVbdoOy5MWBkZ8P6dy75GZ2vxHoFgNSIA1p32WLsDTOy5YB7h/UAUaYTbrWijjNH8CpM+OjzkpKXkufoDf3DLAo2IEpqlaZEeSveSYR+pe89Gx3gyebQ8CY2cc6NOd2jymVEEdsYeaVqE8QaQoQl9eBhNTbxSwni6UqISaAM1QG6VDj0vQe2yNGqDMyWt4e8iv6QkJThgwrrYHx0R7XeDXcpNH44oG5mi+u9Luwv2mBFUEhAZOY8jxtZRBSikAomhKPCWx6okMMxGSSGxXXlx7pA1erF4bVxG0c=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PPF69154114F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(38070700021)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?em5MZDRYMjdkbEx1blpUeFE1Rk9uY3h2V01SeElPZG1hMkZqUzRhMmN1Ly9w?=
- =?utf-8?B?eEtPaEJXa3FyZUNxU3J2Z3NHSngxTjhTL0hPTlJjNlpJWVROckZwMzBjYU5n?=
- =?utf-8?B?TGIwd3lXeXhXTWZjU3VHT09jdUxOSnM4bWJETkpIcjlYd0xzejVmR0xsNFVH?=
- =?utf-8?B?ZE11T0Jsd1UwYi9xd2hicjZDYkVkWmZoZ3I5U0RtZGdrZ3VCUHA2c3V0eU05?=
- =?utf-8?B?dGo1OThUOUowNVlCUWFOdmVLRnNmQXJabEdsN2orYW0xRDFvbXVzSjY3OHp6?=
- =?utf-8?B?azFsWkJMajM1WG85bzhVcUVyNkhpb2c5UytGRTc5dFRFWkhodzE3ZEk2VjZU?=
- =?utf-8?B?MjVGeHZ5UVRSUW94anoxS2NHWjNjanB4bmFManV5YncwZi9odDdQSDR0TExQ?=
- =?utf-8?B?ZG9pRm1nd216ZjlScGpRVEQrRHV6YlVCSTNEUGZaZFJPMHBvV0FzSUNGdWNK?=
- =?utf-8?B?MXJFTjZoZC82QkR5UVZtQlhWYTVocWhtR0RQTXdWZHA0YjhkbXh1SDdWSVgr?=
- =?utf-8?B?QVQwNm5NNUpaZkR2V1RZTXdSUzhwdGFwbWg5dzFmWWVCbWc2NDBaYnFqZ3My?=
- =?utf-8?B?RzJXOWdCSU1NQ3hFR09uZ0Iwek5QL2hIOU1kc0J3WHNyemk1Q0dtcmR1U0Rx?=
- =?utf-8?B?cVFDajJYcVBVWEtxdEFxSlZtT3prV3NWV2RabkdUMnBMR0U1cmlPQjdOU21N?=
- =?utf-8?B?cDlqUkQ3SXVpNlNiKzFGdmVKL1NEbEVRSnZQbFh2bkFPVVR5SzcyeXJhK3Ux?=
- =?utf-8?B?Q3VGb2ZBSUlQN2JBaU9FMldlL3BWTzhJdjgwODNLRDhpd05rTDVtY0Y2TXVo?=
- =?utf-8?B?Vkh0UnpyeVM4RlNEUFo3NmQ3MTNDL3ExNTRhei9tUnFlWnJOZUNWWWVmYlBa?=
- =?utf-8?B?d0p4aVBUeWdnY0xVNk5wU0lOamNsWVo2aFdoUWJVRXBqcTRGekhjWFNvODVR?=
- =?utf-8?B?bEUrd0lPYlNYWUNDaE9Eak96Z3JSRDBqZXBETU5tTGxXY2ZraDFET3p5clgr?=
- =?utf-8?B?T2FKYWZxcXEzRzRBam9BNVlLb2pMNzlZM281REh5M2RNenFWSGk3YUhtMTJo?=
- =?utf-8?B?OUhjNkNURVkrb2g4ZEhuUTVXZHloWkszNXhqQS95QkJpTWszTE04dTErdGJr?=
- =?utf-8?B?RDdMd0ZoZUp6elB4UmNqSHRUdkRIejNFS3lYbVBtVk9tY21wQ21zTjlwMklo?=
- =?utf-8?B?YVdpVzhJbm12U1pDWWJDaFpxb0VKVXQ1V0QzbWsrYjFqaFhCcnRuZzY2c1VY?=
- =?utf-8?B?SzJVcWw1SnRpblFjdjFScDBpOHRaNTQ4SWZZNTlwQTRlZ2RjemlIVGhFRjdB?=
- =?utf-8?B?TnZXMjJDTVlJYnA3WHlUSnVTbGJiSjNVWFFLUzhkK2hpQ1JjWlk1WlZjempt?=
- =?utf-8?B?T1drSGNXYzh1ZVRJTElJQXQydHVkemdFZ1lZdDg3T2xMcE40STN6OFhnZXZE?=
- =?utf-8?B?b2Y5ZVJBUXpieHlHbFFLTURDM2Y4QVBPMThHcmlITEtidFY5RzQrbExqekY3?=
- =?utf-8?B?MGZESVNPcEVaa1hsQUtFVkYySGxvaXkvWUltckxHRVpiVnJjbXh2Um02Mk1m?=
- =?utf-8?B?N0JNQWVVQW8zZFI0TUFZRW1UZjBZSklnbFArZWU0aW9qbkovQ3d6d2IvdUdL?=
- =?utf-8?B?K2dtMjFOS2hqeHRTZS93ZmV1bUdlVFdVMk4zMi9QTUo1NXhsQXg0VVFxRXkv?=
- =?utf-8?B?djRvbi9BdzQ0UFBRUGtybjBiUGpkcFp6Q09WRFdsRXdiRzRKNUg3NUhGQ0tV?=
- =?utf-8?B?cXZ5Q3N5bmtyWGZLL3NMR1JncC9wdlhmMEFKb2JQeE1CYU5SaE1ZeFR0c3lm?=
- =?utf-8?B?SDc2Y0ROdTRpckVTME9IdGYyNDRsWFFsa2pzOERid3p2Q0tCdUc3Q1QzOXZj?=
- =?utf-8?B?R1pQcUQxSkdMU2NFTEZhQjliWFZlWTNFME1CWkNxc1FzeFVuSWNEREZsM3dI?=
- =?utf-8?B?RGgzT3cxdHFTcG5rZDhadlpHczY3TElRWkZMMkZPMk5MbHhWNlhDMFpyZjB5?=
- =?utf-8?B?RXJZRkdyMS9PR3pYanR4bXdKbVNoTEsraU9Od1AxeXk2V1kwbkZxd243d2pY?=
- =?utf-8?B?QjJRUU9HeXBScjE4ZnZHSjA0NDJHUXpTb0E3UVFvazFZYWJ1OW50dFZpempI?=
- =?utf-8?B?elFaa0YyaTJKODYyRWlnK2Z2YVp4T3NWUitxeERrdGxGaTFBajlaZzBsT01H?=
- =?utf-8?B?YjFSMWRybk9OdThtekkvMWh1L0ZnS1NOU21HWjFLdjR3Z1laSEszV1ZVZHVj?=
- =?utf-8?B?Rm1nUzVMVjJPQ0F4MlpqMkQvTzhOdlRvZEwvRSs1VTU5d25ibWZaQW9aam8z?=
- =?utf-8?B?N05odnBPemxOQXlUQ2cvUHZFRWdVcTVkZjhhcms5MVUybmhmZmR4QT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: F62EbAEU9jn4L2hDXyzaBF/Ew0H4arRQ8aKDuEKkXQXi43tMPasFDDOBrQhPg/PLUynLb8bbUSNcwT2Hgue6/IgCIPldIlLnk2mT7tPpzG4GjTRk9ycoEUis0ZivgsRBbOFGeC702xB9eNxcbtq78Ug4YH0MKVNq+JsqfvrSJK9obyuOgFykwgbIk1Amgi0DbyhdKkkWZWBvHmuLs7IOtZWXrB74t4ylvN69HbbLGvLKimkdjgYXXGXTkSnuFR/G0WaE4bGR9l7rpPUC1VpG1UC52UDq3SOYMDAt5vOFPcUYNAfBwtRNPN7FizHnbsbp6yJttyisx76xiEoqHYHnzw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF69154114F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44ddb9ee-bd25-4097-0a4b-08df2e9c0120
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 11:19:27.7951 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Bmkeu263nM2y4hJyRDYcJY6jxB6dW8dco86uuPvWbTwlTryBmliTaPgFR2dtxw+77fF298F1CIzvxmy2/CsLjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9955
-X-OriginatorOrg: intel.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 287D910ED38;
+	Tue, 20 Oct 2026 11:26:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 719AF10ED2D;
+ Tue, 20 Oct 2026 11:26:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1842140247;
+ Tue, 20 Oct 2026 11:26:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28581F000C5;
+ Tue, 20 Oct 2026 11:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792495604;
+ bh=pknGrJ+5O/kK6eTDXc/Tvyy7hpUUaNAmdo2s5fK0kY0=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=VBiXY6q/pY3oqh+/ffWLQneR74IB01dbwGeLSq2VDSZ71AGu+Og2CHRo3pboploTj
+ +loL66Qk7hF5PW3O/eTrBJ5PhiyqoYuyqOlIjJFF/B5gqpZD3n4nlEV4tFFREuNFUt
+ CZDOWeKSqBmDOzglnm7CziqlaaF0+hEkxAbM2PYQz8uRzZ4EVNpvOeipTUq1tbGr4G
+ ZHIvqhq74UValWvSQsCi9aFo7OodBzuKwhQO8G8io3qwGqykJbos8tQi8sGdZSz+0+
+ qpwXl3n4qYqsjTacxbBa5S85lKy/w+6UIaQGAZ00jrMdWz4EkuGf/yThFxHWT2chtl
+ nBN9YsuMnwOmA==
+Message-ID: <sashiko-outbox-178894@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/i915/dp: clear and restore MSTM_CTRL around MST
+ DPMS off/on
+To: "Xiao Lu" <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261020110418.1272170-1-xiaolu.xie@intel.com>
+References: <20261020021714.62573-1-xiaolu.xie@intel.com>
+ <20261020110418.1272170-1-xiaolu.xie@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 11:26:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,101 +49,386 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBJbnRlbC1nZnggPGludGVsLWdm
-eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEpvdW5pIEjDtmdh
-bmRlcg0KPiBTZW50OiBUdWVzZGF5LCAyOSBTZXB0ZW1iZXIgMjAyNiAxMi40NA0KPiBUbzogaW50
-ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgaW50ZWwteGVAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnDQo+IENjOiBIb2dhbmRlciwgSm91bmkgPGpvdW5pLmhvZ2FuZGVyQGludGVsLmNvbT47IHN0
-YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU3ViamVjdDogW1BBVENIIDEvOF0gZHJtL2k5MTUvcHNy
-OiBDbGVhciBzZWxlY3RpdmUgZmV0Y2ggYXJlYSB3aGVuIGR1cGxpY2F0aW5nIHBsYW5lIHN0YXRl
-DQo+IA0KPiBXZSBhcmUgY3VycmVudGx5IG5vdCBjbGVhcmluZyBzZWxlY3RpdmUgZmV0Y2ggYXJl
-YSB3aGVuIGR1cGxpY2F0aW5nIHBsYW5lDQo+IHN0YXRlLiBUaGlzIGlzIGNhdXNpbmcgcHJvYmxl
-bSB3aGVuIHBsYW5lIGlzIHJlLXVzZWQgZm9yIGFub3RoZXINCj4gcHVycG9zZS4gRml4IHRoaXMg
-YnkgY2xlYXJpbmcgc2VsZWN0aXZlIGZldGNoIGFyZWEgd2hlbiBkdXBsaWNhdGluZyBwbGFuZQ0K
-PiBzdGF0ZS4NCj4gDQo+IE5vdyBhcyB0aGUgc3RhdGUgaXMgY2xlYXJlZCB3ZSBuZWVkIHRvIGVu
-c3VyZSB3ZSBoYXZlIGNvbnNpc3RlbnQgc2VsZWN0aXZlDQo+IGZldGNoIGFyZWEgaW4gcGxhbmUg
-c3RhdGUgb24gZnVsbCB1cGRhdGUuIEVhcmxpZXIgdGhpcyB3YXMgcmVseWluZyBvbg0KPiBzZWxl
-Y3RpdmUgZmV0Y2ggYXJlYSBiZWluZyBjb3BpZWQgZnJvbSBvbGQgc3RhdGUgb24gc3RhdGUgZHVw
-bGljYXRlLiBOb3cNCj4gdGhpcyBpc24ndCB0cnVlIGFueW1vcmUgYXMgd2UgYXJlIGNsZWFyaW5n
-IGl0LiBUYWNrbGUgdGhpcyBieSBzZXR0aW5nIGZ1bGwNCj4gcGxhbmUgYXJlYSBhcyBzZWxlY3Rp
-dmUgZmV0Y2ggYXJlYSBmb3IgZWFjaCBwbGFuZSBvbiBmdWxsIHVwZGF0ZS4gUmVuYW1lDQo+IHRo
-ZSBsYWJlbCBhcyBza2lwX3N1X2FyZWFfY2FsYyBhcyB0aGUgbG9vcCBzZXR0aW5nIHRoZSBwbGFu
-ZSBzZWxlY3RpdmUNCj4gZmV0Y2ggYXJlYSBpcyBub3Qgc2tpcHBlZCBhbnltb3JlLg0KPiANCj4g
-TW92ZSBhbHNvIHBzcjJfc2VsX2ZldGNoX3BpcGVfc3RhdGVfc3VwcG9ydGVkIGNoZWNrIGFmdGVy
-IHBzcjJfc3VfYXJlYQ0KPiBpbml0aWFsaXphdGlvbi4gVGhlIGxvb3AgaXMgcnVuIG9uIGZ1bGwg
-dXBkYXRlIGFzIHdlbGwgbm93IGFuZCBpdCBuZWVkcw0KPiBpbml0aWFsaXplZCBwc3IyX3N1X2Fy
-ZWEuIENsaXBfYXJlYV91cGRhdGUgaXMgb25seSB0b3VjaGluZyByZWN0IGhlaWdodCBhbmQNCj4g
-eDEveDIgYXJlIGxlZnQgdW50b3VjaGVkLg0KPiANCj4gRG9uJ3Qgc2V0IHRoZSBhcmVhIGF0IGFs
-bCBmb3IgcGxhbmVzIG5vdCBpbnRlcnNlY3Rpbmcgd2l0aCB0aGUgc2VsZWN0aXZlDQo+IHVwZGF0
-ZSBhcmVhLiBJdCBpcyBhbHJlYWR5IHplcm8gc2l6ZWQgYWZ0ZXIgcGxhbmUgc3RhdGUgZHVwbGlj
-YXRlLg0KPiANCj4gRml4ZXM6IGVmYWI0NzY1OGE2YyAoImRybS9pOTE1L2Rpc3BsYXkvcHNyOiBD
-YWxjdWxhdGUgc2VsZWN0aXZlIGZldGNoIHBsYW5lIHJlZ2lzdGVycyIpDQo+IENjOiA8c3RhYmxl
-QHZnZXIua2VybmVsLm9yZz4gIyB2NS4xMisNCj4gQXNzaXN0ZWQtYnk6IEdpdEh1Yi1Db3BpbG90
-OmNsYXVkZS1vcHVzLTUNCj4gU2lnbmVkLW9mZi1ieTogSm91bmkgSMO2Z2FuZGVyIDxqb3VuaS5o
-b2dhbmRlckBpbnRlbC5jb20+DQoNClJldmlld2VkLWJ5OiBNaWthIEthaG9sYSA8bWlrYS5rYWhv
-bGFAaW50ZWwuY29tPg0KDQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9wbGFuZS5jIHwgIDEgKw0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
-bF9wc3IuYyAgIHwgMjQgKysrKysrKysrKy0tLS0tLS0tLS0tLQ0KPiAgMiBmaWxlcyBjaGFuZ2Vk
-LCAxMiBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3BsYW5lLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vaTkxNS9kaXNwbGF5L2ludGVsX3BsYW5lLmMNCj4gaW5kZXggMjVjYTA0OTAwOWVmYi4uZjkw
-OGVhYmU2MDRiYiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9wbGFuZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-cGxhbmUuYw0KPiBAQCAtMTQwLDYgKzE0MCw3IEBAIGludGVsX3BsYW5lX2R1cGxpY2F0ZV9zdGF0
-ZShzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSkNCj4gIAlpbnRlbF9zdGF0ZS0+ZHB0X3ZtYSA9IE5V
-TEw7DQo+ICAJaW50ZWxfc3RhdGUtPmZlbmNlX2lkID0gLTE7DQo+ICAJaW50ZWxfc3RhdGUtPmRh
-bWFnZSA9IERSTV9SRUNUX0lOSVQoMCwgMCwgMCwgMCk7DQo+ICsJaW50ZWxfc3RhdGUtPnBzcjJf
-c2VsX2ZldGNoX2FyZWEgPSBEUk1fUkVDVF9JTklUKDAsIDAsIDAsIDApOw0KPiANCj4gIAkvKiBh
-ZGQgcmVmZXJlbmNlIHRvIGZiICovDQo+ICAJaWYgKGludGVsX3N0YXRlLT5ody5mYikNCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jDQo+IGluZGV4IGYxZDQ4YjY5YTE4
-ZmEuLmY2MjBjNDRlZTQwMDggMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
-c3BsYXkvaW50ZWxfcHNyLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
-bnRlbF9wc3IuYw0KPiBAQCAtMjkyMCwxNiArMjkyMCwxNiBAQCBpbnQgaW50ZWxfcHNyMl9zZWxf
-ZmV0Y2hfdXBkYXRlKHN0cnVjdCBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiAgCWlmICgh
-Y3J0Y19zdGF0ZS0+ZW5hYmxlX3BzcjJfc2VsX2ZldGNoKQ0KPiAgCQlyZXR1cm4gMDsNCj4gDQo+
-IC0JaWYgKCFwc3IyX3NlbF9mZXRjaF9waXBlX3N0YXRlX3N1cHBvcnRlZChjcnRjX3N0YXRlKSkg
-ew0KPiAtCQlmdWxsX3VwZGF0ZSA9IHRydWU7DQo+IC0JCWdvdG8gc2tpcF9zZWxfZmV0Y2hfc2V0
-X2xvb3A7DQo+IC0JfQ0KPiAtDQo+ICAJY3J0Y19zdGF0ZS0+cHNyMl9zdV9hcmVhLngxID0gMDsN
-Cj4gIAljcnRjX3N0YXRlLT5wc3IyX3N1X2FyZWEueTEgPSAtMTsNCj4gIAljcnRjX3N0YXRlLT5w
-c3IyX3N1X2FyZWEueDIgPSBkcm1fcmVjdF93aWR0aCgmZGlzcGxheV9hcmVhKTsNCj4gIAljcnRj
-X3N0YXRlLT5wc3IyX3N1X2FyZWEueTIgPSAtMTsNCj4gDQo+ICsJaWYgKCFwc3IyX3NlbF9mZXRj
-aF9waXBlX3N0YXRlX3N1cHBvcnRlZChjcnRjX3N0YXRlKSkgew0KPiArCQlmdWxsX3VwZGF0ZSA9
-IHRydWU7DQo+ICsJCWdvdG8gc2tpcF9zdV9hcmVhX2NhbGM7DQo+ICsJfQ0KPiArDQo+ICAJLyoN
-Cj4gIAkgKiBDYWxjdWxhdGUgbWluaW1hbCBzZWxlY3RpdmUgZmV0Y2ggYXJlYSBvZiBlYWNoIHBs
-YW5lIGFuZCBjYWxjdWxhdGUNCj4gIAkgKiB0aGUgcGlwZSBkYW1hZ2VkIGFyZWEuDQo+IEBAIC0z
-MDEzLDcgKzMwMTMsNyBAQCBpbnQgaW50ZWxfcHNyMl9zZWxfZmV0Y2hfdXBkYXRlKHN0cnVjdCBp
-bnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiAgCX0NCj4gDQo+ICAJaWYgKGZ1bGxfdXBkYXRl
-KQ0KPiAtCQlnb3RvIHNraXBfc2VsX2ZldGNoX3NldF9sb29wOw0KPiArCQlnb3RvIHNraXBfc3Vf
-YXJlYV9jYWxjOw0KPiANCj4gIAlpbnRlbF9wc3JfYXBwbHlfc3VfYXJlYV93b3JrYXJvdW5kcyhj
-cnRjX3N0YXRlKTsNCj4gDQo+IEBAIC0zMDQ5LDYgKzMwNDksMTEgQEAgaW50IGludGVsX3BzcjJf
-c2VsX2ZldGNoX3VwZGF0ZShzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gIAkJ
-CWJyZWFrOw0KPiAgCX0gd2hpbGUgKHN1X2FyZWFfY2hhbmdlZCk7DQo+IA0KPiArc2tpcF9zdV9h
-cmVhX2NhbGM6DQo+ICsJaWYgKGZ1bGxfdXBkYXRlKQ0KPiArCQljbGlwX2FyZWFfdXBkYXRlKCZj
-cnRjX3N0YXRlLT5wc3IyX3N1X2FyZWEsICZkaXNwbGF5X2FyZWEsDQo+ICsJCQkJICZkaXNwbGF5
-X2FyZWEpOw0KPiArDQo+ICAJLyoNCj4gIAkgKiBOb3cgdGhhdCB3ZSBoYXZlIHRoZSBwaXBlIGRh
-bWFnZWQgYXJlYSBjaGVjayBpZiBpdCBpbnRlcnNlY3Qgd2l0aA0KPiAgCSAqIGV2ZXJ5IHBsYW5l
-LCBpZiBpdCBkb2VzIHNldCB0aGUgcGxhbmUgc2VsZWN0aXZlIGZldGNoIGFyZWEuDQo+IEBAIC0z
-MDY1LDggKzMwNzAsNiBAQCBpbnQgaW50ZWxfcHNyMl9zZWxfZmV0Y2hfdXBkYXRlKHN0cnVjdCBp
-bnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiAgCQlpbnRlciA9IGNydGNfc3RhdGUtPnBzcjJf
-c3VfYXJlYTsNCj4gIAkJc2VsX2ZldGNoX2FyZWEgPSAmbmV3X3BsYW5lX3N0YXRlLT5wc3IyX3Nl
-bF9mZXRjaF9hcmVhOw0KPiAgCQlpZiAoIWRybV9yZWN0X2ludGVyc2VjdCgmaW50ZXIsICZuZXdf
-cGxhbmVfc3RhdGUtPnVhcGkuZHN0KSkgew0KPiAtCQkJc2VsX2ZldGNoX2FyZWEtPnkxID0gLTE7
-DQo+IC0JCQlzZWxfZmV0Y2hfYXJlYS0+eTIgPSAtMTsNCj4gIAkJCS8qDQo+ICAJCQkgKiBpZiBw
-bGFuZSBzZWwgZmV0Y2ggd2FzIHByZXZpb3VzbHkgZW5hYmxlZCAtPg0KPiAgCQkJICogZGlzYWJs
-ZSBpdA0KPiBAQCAtMzEwNiwxMSArMzEwOSw2IEBAIGludCBpbnRlbF9wc3IyX3NlbF9mZXRjaF91
-cGRhdGUoc3RydWN0IGludGVsX2F0b21pY19zdGF0ZSAqc3RhdGUsDQo+ICAJCX0NCj4gIAl9DQo+
-IA0KPiAtc2tpcF9zZWxfZmV0Y2hfc2V0X2xvb3A6DQo+IC0JaWYgKGZ1bGxfdXBkYXRlKQ0KPiAt
-CQljbGlwX2FyZWFfdXBkYXRlKCZjcnRjX3N0YXRlLT5wc3IyX3N1X2FyZWEsICZkaXNwbGF5X2Fy
-ZWEsDQo+IC0JCQkJICZkaXNwbGF5X2FyZWEpOw0KPiAtDQo+ICAJcHNyMl9tYW5fdHJrX2N0bF9j
-YWxjKGNydGNfc3RhdGUsIGZ1bGxfdXBkYXRlKTsNCj4gIAljcnRjX3N0YXRlLT5waXBlX3NyY3N6
-X2Vhcmx5X3RwdCA9DQo+ICAJCXBzcjJfcGlwZV9zcmNzel9lYXJseV90cHRfY2FsYyhjcnRjX3N0
-YXRlLCBmdWxsX3VwZGF0ZSk7DQo+IC0tDQo+IDIuNDMuMA0KDQo=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/i915/dp: drm_dp_mst_topology_mgr_pause() breaks hotplug with 0=
+ streams
+- [High] drm/dp_mst: drm_dp_mst_topology_mgr_pause() breaks probe work and =
+edid reads
+- [Medium] drm/dp_mst: suspend and resume conflict with paused state in DP_=
+MSTM_CTRL
+--
+
+commit b145319fb5344bbbdb4ae3ece1a54e6f33404fe1
+Author: Xiao Lu <xiaolu.xie@intel.com>
+
+drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS off/on
+
+This commit adds helpers to the DP MST topology manager to pause and
+unpause MST mode in DP_MSTM_CTRL around powering the branch device down
+to D3 on last stream disable and back up to D0 on first stream enable,
+while tracking the paused state to avoid tearing down the topology during
+connector detection and reprobing after unpausing.
+
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
+drm/display/drm_dp_mst_topology.c
+> index b7fce0bf8acc5..371cf88a2d1cf 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+
+[ ... ]
+
+> @@ -3759,6 +3762,104 @@ void drm_dp_mst_topology_queue_probe(struct drm_d=
+p_mst_topology_mgr *mgr)
+>  }
+>  EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
+> =20
+> +/**
+> + * drm_dp_mst_topology_mgr_pause() - disable the MST mode of the branch =
+device
+> + * @mgr: manager to pause
+> + *
+> + * Disable the MST mode of the branch device, while keeping the MST topo=
+logy
+> + * in the SW state. This is meant to be called when all the MST streams =
+are
+> + * disabled and the branch device is about to be powered down.
+> + *
+> + * The branch device may not send UP messages while it is powered down, =
+so
+> + * after the MST mode is enabled again by drm_dp_mst_topology_mgr_unpaus=
+e(),
+> + * the topology must be re-probed.
+> + */
+> +void drm_dp_mst_topology_mgr_pause(struct drm_dp_mst_topology_mgr *mgr)
+> +{
+> +	mutex_lock(&mgr->lock);
+> +
+> +	if (!mgr->mst_state || !mgr->mst_primary || mgr->paused)
+> +		goto out_unlock;
+> +
+> +	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
+> +				   DP_UPSTREAM_IS_SRC) =3D=3D 0)
+> +		mgr->paused =3D true;
+> +
+> +out_unlock:
+> +	mutex_unlock(&mgr->lock);
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_pause);
+
+[Severity: High]
+Can clearing DP_MST_EN in drm_dp_mst_topology_mgr_pause() cause sideband
+timeouts and wipe connector modes when mgr->work or EDID reads run while
+paused?
+
+Unlike drm_dp_mst_topology_mgr_suspend(), drm_dp_mst_topology_mgr_pause()
+does not flush mgr->work (drm_dp_mst_link_probe_work()) or
+mgr->up_req_work, and drm_dp_mst_link_probe_work() only checks
+mgr->mst_primary without checking mgr->paused:
+
+drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_mst_link_probe_work() {
+	mutex_lock(&mgr->lock);
+	clear_payload_id_table =3D !mgr->payload_id_table_cleared;
+	mgr->payload_id_table_cleared =3D true;
+
+	mstb =3D mgr->mst_primary;
+	if (mstb) {
+		ret =3D drm_dp_mst_topology_try_get_mstb(mstb);
+		if (!ret)
+			mstb =3D NULL;
+	}
+	mutex_unlock(&mgr->lock);
+}
+
+Because mst_stream_pre_enable() queues mgr->work asynchronously via
+intel_mst_reprobe_topology() -> drm_dp_mst_topology_queue_probe(), if the
+stream is disabled before mgr->work finishes, DP_MST_EN is cleared
+underneath drm_dp_mst_link_probe_work(). In-flight sideband messages then
+time out in drm_dp_mst_wait_tx_reply(), which can leave
+mstb->link_address_sent or port PBN state incomplete or unlink ports in
+drm_dp_mst_handle_link_address_port().
+
+Similarly, while mgr->paused is true during DPMS off, if userspace or
+hotplug handling probes a connected physical MST port (port_num < 8, where
+port->cached_edid is NULL):
+
+  drm_helper_probe_single_connector_modes()
+    -> mst_connector_get_modes()
+      -> mst_connector_get_ddc_modes()
+        -> drm_dp_mst_edid_read()
+          -> drm_edid_read_ddc(connector, &port->aux.ddc)
+            -> drm_dp_mst_i2c_xfer()
+
+this sends DP_REMOTE_I2C_READ sideband requests while DP_MST_EN is 0 and
+the branch device is in D3. Each attempt stalls for 4000 ms in
+drm_dp_mst_wait_tx_reply() while holding mode_config.mutex and returns
+NULL, causing mst_connector_get_ddc_modes() to pass NULL to
+intel_connector_update_modes() and wipe the connector's EDID and native
+modes.
+
+> +
+> +/**
+> + * drm_dp_mst_topology_mgr_unpause() - re-enable the MST mode of the bra=
+nch device
+> + * @mgr: manager to unpause
+> + *
+> + * Re-enable the MST mode of the branch device disabled by
+> + * drm_dp_mst_topology_mgr_pause(). Does nothing if the manager isn't pa=
+used.
+> + *
+> + * Returns %true if the manager was paused. In this case the MST topology
+> + * should be re-probed with drm_dp_mst_topology_queue_probe(), once the =
+link
+> + * parameters to the branch device are set up.
+> + */
+> +bool drm_dp_mst_topology_mgr_unpause(struct drm_dp_mst_topology_mgr *mgr)
+> +{
+> +	bool was_paused =3D false;
+> +
+> +	mutex_lock(&mgr->lock);
+> +
+> +	if (!mgr->paused)
+> +		goto out_unlock;
+> +
+> +	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
+> +				   DP_MST_EN | DP_UP_REQ_EN |
+> +				   DP_UPSTREAM_IS_SRC) =3D=3D 0) {
+> +		mgr->paused =3D false;
+> +		was_paused =3D true;
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&mgr->lock);
+> +
+> +	return was_paused;
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_unpause);
+> +
+> +/**
+> + * drm_dp_mst_topology_mgr_verify_ctrl() - verify the MST mode of the br=
+anch device
+> + * @mgr: manager to verify
+> + *
+> + * Verify that the MST mode enabled in the branch device matches the man=
+ager's
+> + * state. A long HPD pulse could've reset the branch device's MST mode, =
+which
+> + * requires tearing down and recreating the MST topology.
+> + *
+> + * Returns %true if the branch device's MST mode matches the manager's s=
+tate,
+> + * %false otherwise.
+> + */
+> +bool drm_dp_mst_topology_mgr_verify_ctrl(struct drm_dp_mst_topology_mgr =
+*mgr)
+> +{
+> +	u8 expected, val =3D 0;
+> +	int ret;
+> +
+> +	mutex_lock(&mgr->lock);
+> +
+> +	expected =3D mgr->paused ? DP_UPSTREAM_IS_SRC :
+> +		   DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC;
+> +
+> +	ret =3D drm_dp_dpcd_read_byte(mgr->aux, DP_MSTM_CTRL, &val);
+> +
+> +	mutex_unlock(&mgr->lock);
+> +
+> +	if (ret < 0 || val !=3D expected) {
+> +		drm_dbg_kms(mgr->dev,
+> +			    "%s: MSTM_CTRL mismatch (ret=3D%d, ctrl=3D0x%02x, expected=3D0x%0=
+2x)\n",
+> +			    mgr->aux->name, ret, val, expected);
+> +		return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_verify_ctrl);
+> +
+>  /**
+>   * drm_dp_mst_topology_mgr_suspend() - suspend the MST manager
+>   * @mgr: manager to suspend
+> @@ -3828,6 +3929,8 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_ms=
+t_topology_mgr *mgr,
+>  		goto out_fail;
+>  	}
+> =20
+> +	mgr->paused =3D false;
+> +
+>  	/* Some hubs forget their guids after they resume */
+>  	ret =3D drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
+>  	if (ret < 0) {
+
+[Severity: Medium]
+How do drm_dp_mst_topology_mgr_suspend() and
+drm_dp_mst_topology_mgr_resume() interact with mgr->paused and the D3/D0
+power state transitions during system suspend and resume?
+
+During system suspend in __intel_display_driver_pm_suspend():
+
+  drm_atomic_helper_suspend()
+    -> intel_ddi_post_disable_dp()
+      -> drm_dp_mst_topology_mgr_pause()
+      -> intel_dp_set_power(intel_dp, DP_SET_POWER_D3)
+  intel_dp_mst_suspend()
+    -> drm_dp_mst_topology_mgr_suspend()
+
+drm_dp_mst_topology_mgr_suspend() unconditionally writes
+DP_MST_EN | DP_UPSTREAM_IS_SRC to DP_MSTM_CTRL after
+intel_ddi_post_disable_dp() has already paused the manager and put the
+branch device into D3, re-enabling DP_MST_EN in D3 and leaving
+DP_MSTM_CTRL out of sync with mgr->paused =3D=3D true.
+
+Then during system resume in intel_display_driver_pm_resume(),
+intel_dp_mst_resume() -> drm_dp_mst_topology_mgr_resume() runs before
+__intel_display_driver_resume() commits the restored modeset state.
+drm_dp_mst_topology_mgr_resume() writes
+DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC to DP_MSTM_CTRL, sets
+mgr->paused =3D false, and runs mgr->work while the sink is still in D3
+prior to intel_dp_set_power(intel_dp, DP_SET_POWER_D0) and link training.
+
+When __intel_display_driver_resume() subsequently calls
+mst_stream_pre_enable(), drm_dp_mst_topology_mgr_unpause() sees
+mgr->paused =3D=3D false and returns was_paused =3D false, skipping both the
+post-D0 DP_MSTM_CTRL write and the forced post-link-training reprobe in
+intel_mst_reprobe_topology(). And if all MST streams were in DPMS off
+before suspend, __intel_display_driver_resume() enables no streams,
+leaving the branch device in D3 with DP_MST_EN set and
+mgr->paused =3D=3D false.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> index a46ab5d3d70fc..9d918f968617a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -3163,6 +3163,8 @@ static void intel_ddi_post_disable_dp(struct intel_=
+atomic_state *state,
+>  	 * Power down sink before disabling the port, otherwise we end
+>  	 * up getting interrupts from the sink on detecting link loss.
+>  	 */
+> +	if (is_mst)
+> +		drm_dp_mst_topology_mgr_pause(&intel_dp->mst.mgr);
+>  	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
+> =20
+>  	if (DISPLAY_VER(display) >=3D 12) {
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_mst.c
+> index 7023619aaaba9..2e3a2424d0e5a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -1232,9 +1232,11 @@ static void intel_mst_set_probed_link_params(struc=
+t intel_dp *intel_dp,
+>  }
+> =20
+>  static void intel_mst_reprobe_topology(struct intel_dp *intel_dp,
+> -				       const struct intel_crtc_state *crtc_state)
+> +				       const struct intel_crtc_state *crtc_state,
+> +				       bool force)
+>  {
+> -	if (intel_mst_probed_link_params_valid(intel_dp,
+> +	if (!force &&
+> +	    intel_mst_probed_link_params_valid(intel_dp,
+>  					       crtc_state->port_clock, crtc_state->lane_count))
+>  		return;
+> =20
+> @@ -1259,6 +1261,7 @@ static void mst_stream_pre_enable(struct intel_atom=
+ic_state *state,
+>  		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst.mgr=
+);
+>  	int ret;
+>  	bool first_mst_stream;
+> +	bool was_paused =3D false;
+> =20
+>  	/* MST encoders are bound to a crtc, not to a connector,
+>  	 * force the mapping here for get_hw_state.
+> @@ -1270,8 +1273,10 @@ static void mst_stream_pre_enable(struct intel_ato=
+mic_state *state,
+>  	drm_WARN_ON(display->drm, DISPLAY_VER(display) >=3D 12 && first_mst_str=
+eam &&
+>  		    !intel_dp_mst_is_master_trans(pipe_config));
+> =20
+> -	if (first_mst_stream)
+> +	if (first_mst_stream) {
+>  		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+> +		was_paused =3D drm_dp_mst_topology_mgr_unpause(&intel_dp->mst.mgr);
+> +	}
+> =20
+>  	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, t=
+rue);
+> =20
+> @@ -1281,7 +1286,11 @@ static void mst_stream_pre_enable(struct intel_ato=
+mic_state *state,
+>  		primary_encoder->pre_enable(state, primary_encoder,
+>  					    pipe_config, NULL);
+> =20
+> -		intel_mst_reprobe_topology(intel_dp, pipe_config);
+> +		/*
+> +		 * The branch device may not have sent UP messages while it
+> +		 * was powered down, re-probe the topology to sync it.
+> +		 */
+> +		intel_mst_reprobe_topology(intel_dp, pipe_config, was_paused);
+>  	}
+
+[Severity: High]
+Does pausing the MST topology manager on last stream disable break
+downstream monitor hotplug detection whenever zero MST streams are active?
+
+When the last active MST stream is disabled (for example, when the user
+unplugs the last monitor from an MST hub or dock, or disables all outputs
+in userspace), mst_stream_post_disable() calls
+primary_encoder->post_disable() -> intel_ddi_post_disable_dp(), which
+calls drm_dp_mst_topology_mgr_pause(&intel_dp->mst.mgr) (clearing
+DP_MST_EN and DP_UP_REQ_EN in DP_MSTM_CTRL) and puts the sink into D3.
+
+If a monitor is later plugged into the MST hub while zero streams are
+active:
+
+1. Because DP_MST_EN and DP_UP_REQ_EN are cleared and the branch device is
+   in D3, the branch device cannot send DP_CONNECTION_STATUS_NOTIFY UP
+   requests.
+
+2. If a short HPD pulse occurs, intel_dp_check_mst_status() ->
+   drm_dp_mst_hpd_irq_handle_event() sees no DP_UP_REQ_MSG_RDY in ESI.
+
+3. If a long HPD pulse or manual connector probe runs intel_dp_detect(),
+   intel_dp_mst_verify_dpcd_state() ->
+   drm_dp_mst_topology_mgr_verify_ctrl() sees
+   DP_MSTM_CTRL =3D=3D DP_UPSTREAM_IS_SRC matching mgr->paused =3D=3D true =
+and
+   returns true, and intel_dp_mst_configure() ->
+   drm_dp_mst_topology_mgr_set_mst(mgr, true) returns early because
+   mgr->mst_state is already true.
+
+4. On MST connector detection via mst_connector_detect_ctx() ->
+   drm_dp_mst_detect_port(), port->ddps remains 0 for any port that was
+   disconnected.
+
+Because mst_stream_pre_enable() is the only caller of
+drm_dp_mst_topology_mgr_unpause() and intel_mst_reprobe_topology(), and
+userspace cannot commit a modeset when all MST connectors are disconnected
+(or on any newly plugged port whose port->ddps is still 0), how can the
+topology manager ever be unpaused and reprobed to detect the plugged-in
+monitor without physically unplugging and replugging the MST hub itself?
+
+> =20
+>  	ret =3D drm_dp_add_payload_part1(&intel_dp->mst.mgr, mst_state,
+
+[ ... ]
+
+>
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020110418.1272=
+170-1-xiaolu.xie@intel.com?part=3D1
