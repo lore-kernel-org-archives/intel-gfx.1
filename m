@@ -2,60 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A982606A31A
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 09:07:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6ACA606A319
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 09:19:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S1G1w8CP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meVbhBq1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4FF610F409;
-	Tue, 20 Oct 2026 09:07:49 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8705D10F3F9;
- Tue, 20 Oct 2026 09:07:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792487262; x=1824023262;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=xtG1ASkWqUQNzCruPQ3VZ0rtgDP0Cckk3A40DsVfWcE=;
- b=S1G1w8CPhcKh1VZL3OFT3diWVqphPGw5ltRLNoxnRCrOBss2oYZmwea6
- 34VJGLOYDJS6VJ1E1Z6dEsG8WDJk2asWKLZR6CSvqaR281s+R0XGQIrWf
- kvb+FuqR5ylnqIj4OJq/CnB/RSNNvEraIm6OSvByeH3CrMDfyc60TtHB+
- SnLV3RtvwtTNS9D2MgAUoaqOrWdBAMUrXvGvb4DWxjfzxRzSmppJtp2oU
- pJoT/Va4KapKKbl8+iiVtk70VskrGKwlyhV1zafZ6ykExVMD23TGSwWEs
- 8SUOM0d7IQ/9ElaMdzhptUWAfePcTV4Bw+N8aPILMTxAmJOBLpD4A0EWy w==;
-X-CSE-ConnectionGUID: coXTgCi1TdKJw6T/q92ISw==
-X-CSE-MsgGUID: hOP7b3r+TW+e6VL7whC8vg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1196523"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1196523"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 02:07:42 -0700
-X-CSE-ConnectionGUID: /bPFbVCzTAu8igvttznQQQ==
-X-CSE-MsgGUID: WoMIAo5oTHWOCauS2taZcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2729108"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO hazy.intel.com)
- ([10.245.244.121])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 02:07:39 -0700
-From: Luca Coelho <luciano.coelho@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	jani.nikula@linux.intel.com
-Subject: [PATCH v5 2/2] drm/i915/display: separate display and core clock
- gating
-Date: Tue, 20 Oct 2026 12:05:50 +0300
-Message-ID: <20261020090723.803321-3-luciano.coelho@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020090723.803321-1-luciano.coelho@intel.com>
-References: <20261020090723.803321-1-luciano.coelho@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2F210E845;
+	Tue, 20 Oct 2026 09:19:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7E6710E845;
+ Tue, 20 Oct 2026 09:19:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C479A60136;
+ Tue, 20 Oct 2026 09:19:13 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1792487953;
+ b=ZV4Xo23btX9bAAtBJRuPsdaJ4ExQgGTMJXjmKxvglE8MasGu8VqXC4amf3ZgUNybclKp
+ eq/UXZHbIOWNYHgqD5xNJvvMv67xQh/d+6xMDNbs2TDnCiQ6H92so9vF1rJJWrBohwlFo
+ 7UMRFTnb0wc1/3zsb2JrBQPshlYFvmpDtpYnF4dGFne6x6N122o5v2e+Lt3oO4sYCGpdJ
+ v6pTZ1AwlUWz5TJjq+zuoYCQBDd2o8Nu6kl3HVtpdwMsZxzN0wtNs/UmDyaC6fJ/MvUvD
+ gC8WIfEt5AED1x5hN9Sr0lxtWLf4rq4AAreqz4XuiuMq0GT67uNmBwNsWtf0UB9/FuQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1792487953;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:X-B4-Tracking:X-Change-ID:In-Reply-To:References:To:Cc:
+ X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=4qJbhDueB81+tPuWcRR2Jg6rPFktFnxMsGcG4bGELWg=;
+ b=uqJnv1Myxm22TbUyTARmq1QwJbbpm6zB/eJ5twkntK3rlEEy5VKcGnLq+KUHeib44L8q
+ MF8Hr030A1k0+Yh3eaF4G9sfUiKEgth7IgJls75zuuuH1anN+AdyZeSwM/R1KqjT1Hynw
+ YtRHABgbAYQDiUvg5AKWvqGkkQ7l9CmhVVGubCfAje2HSD9e2fq4VlSSuEiudjxTkGxht
+ siy4AccVb0HweH1ylazkaJonQgBkxyJbu9DpKe9dkHWtSdOANJwy5f6dE/Y9DW0nPRyK/
+ ObLVQlc2eRCn5A8nJqybkTXKOc+o6fc+Ociw+CSDnpXfuzolnd0xn4ahjNDEaKP2KGw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id D40551F000C4;
+ Tue, 20 Oct 2026 09:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792487953;
+ bh=4qJbhDueB81+tPuWcRR2Jg6rPFktFnxMsGcG4bGELWg=;
+ h=From:Date:Subject:In-Reply-To:References:To:Cc:Reply-To;
+ b=meVbhBq1NhmLKWUg7RTShEac2BdOnx6H3Y/k4el4AKT4cgn7GwiYLfEJBRN5+M36y
+ bzTibISxvMh4JfMO4CRisz0JEifQUjT5WsxuskCMPiKHjl5chGhrqiGIcf2VY8Ftzz
+ wEPa+kI2GIbgtDwEKD4yTU27e29HWmPAYomfHl0HclFxXC9RV7J09ZxhVz3ikxJQpR
+ 9JlCkH2Tob9WTEQhIV4lRJHMOTtDEeAJXoKzjTw7OzUmk6gV0Jp76pFbXC+Hqm4i3Y
+ RsJLLrqHJH8A11tu4LmOtXO/mWqD3E7rw7VY7JTEBNiudY6VEeJkTfhazEPCo3XsqU
+ EbA6PI7KOXWkA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 30940406D4;
+ Tue, 20 Oct 2026 09:19:12 +0000 (UTC)
+From: Vladyslav Yamkovyi via B4 Relay <devnull+hex.aleph0.ai@kernel.org>
+Date: Tue, 20 Oct 2026 11:19:12 +0200
+Subject: [PATCH v2] drm/i915/psr: Use register notifications during async flips
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-fix-psr-async-trans-push-v2-1-5282017ba8ea@aleph0.ai>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6drSFUKIr72FYtGVqaxSaDhAJ4
+ e626AFcTf7k/Ze/MsLokdilWFnE2ZMf+hTKQ8GMU/0dwXcps5KXUnBRgfVvCBRB0dIbGKPqCcJ
+ EDrRVsq552XDTsFQPERO7q2/tN9OkH2jG7MuEVoSgk8G4/OriC0YfTr+bCedpHOKyr5tFNv0xZ
+ BYgALE5a1sJLaW9qicGx4/Ks3bbtg9bn1139AAAAA==
+X-Change-ID: 20261013-fix-psr-async-trans-push-bfa6550270c7
+In-Reply-To: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
+References: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, 
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org, 
+ intel-xe@lists.freedesktop.org, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792487951; l=6884;
+ i=hex@aleph0.ai; s=20261013; h=from:subject:message-id;
+ bh=qpQHd14VRb2xAvTSBwHDgWqfyncSp1FaXBXGgUUAOR4=;
+ b=N9q0FCAIL40xYH6e3ysER68/zdF08bff0J3B0g++9pHWpnzPOrl5b9jE4iWCxVClDB2Pq9jc3
+ ZEuPm9BsqKhBCMzuw/O1FlrV06JnEaw7uuQQKY+0v2aC0tRJI8ZOjJy
+X-Developer-Key: i=hex@aleph0.ai; a=ed25519;
+ pk=faUPQ+UBdMQ6ZcbVM9ytjGUZvrhV8mzf+ctgaoVsZy0=
+X-Endpoint-Received: by B4 Relay for hex@aleph0.ai/20261013 with auth_id=1170
+X-Original-From: Vladyslav Yamkovyi <hex@aleph0.ai>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,6 +101,7 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: hex@aleph0.ai
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
@@ -75,512 +111,154 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-We still call intel_clock_gating_init() from display when leaving
-PC8+ and after a GPU reset.  The core clock gating code then calls
-back into display, so we have dependencies in both directions.
+From: Vladyslav Yamkovyi <hex@aleph0.ai>
 
-Move display and PCH clock gating into the display code and restore
-the HSW/BDW GT and uncore workarounds from the device-level resume
-paths instead.  Core clock gating is also handled separately when a
-GPU reset affects display.
+Async flips skip the TRANS_PUSH sent by intel_pipe_update_end().
+On platforms using TRANS_PUSH for PSR frame-change notifications,
+an async flip from self refresh can therefore lose its completion
+event and freeze scanout.
 
-Display doesn't need the core interface anymore, so build its clock
-gating implementation for Xe and remove the compatibility header.
+Select register-based frame-change notifications for an async request
+and while any plane remains in async mode. Restore TRANS_PUSH when
+the CRTC returns to synchronous operation. Update the selector under
+the PSR lock before programming the planes, preserving the current
+VRR enable state.
 
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+Fixes: 129a4da11707 ("drm/i915/psr: Use TRANS_PUSH to trigger frame change event")
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9582
+Link: https://lore.kernel.org/dri-devel/20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai/
+Cc: stable@vger.kernel.org
+Signed-off-by: Vladyslav Yamkovyi <hex@aleph0.ai>
 ---
- .../i915/display/intel_display_clock_gating.c | 13 ++++
- .../drm/i915/display/intel_display_driver.c   | 12 ++++
- .../drm/i915/display/intel_display_power.c    |  4 +-
- .../drm/i915/display/intel_display_reset.c    |  4 +-
- drivers/gpu/drm/i915/gt/intel_reset.c         |  4 ++
- drivers/gpu/drm/i915/i915_driver.c            |  6 ++
- drivers/gpu/drm/i915/i915_gem.c               |  9 ++-
- drivers/gpu/drm/i915/intel_clock_gating.c     | 70 +++++++------------
- drivers/gpu/drm/i915/intel_clock_gating.h     |  1 +
- drivers/gpu/drm/xe/Makefile                   |  1 +
- .../compat-i915-headers/intel_clock_gating.h  | 14 ----
- 11 files changed, 71 insertions(+), 67 deletions(-)
- delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_clock_gating.h
+v2: Don't send a push for async flips; instead stop using TRANS_PUSH as
+the PSR frame change event while async flips are in use (Ville). No push
+is sent for async flips, so intel_vrr_check_push_sent() is unaffected
+(Jouni).
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_clock_gating.c b/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-index 7961c0f10bb5..b0162d78d1c9 100644
---- a/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-@@ -11,6 +11,7 @@
- #include "intel_display_clock_gating.h"
- #include "intel_display_core.h"
- #include "intel_display_regs.h"
-+#include "intel_pch.h"
- 
- static void intel_display_gen9_init_clock_gating(struct intel_display *display)
+Tested on Panther Lake (eDP, PSR2, Panel Replay with and without VRR).
+
+I could not determine whether LNL_TRANS_PUSH_PSR_PR_EN may be changed
+while the PSR/PR source is enabled (Bspec 69984 is not public).
+The patch changes it in pre-plane update, after the previous commit's
+hardware programming has completed and before the planes are programmed.
+Exiting PSR around the switch added about one refresh interval at fixed
+refresh and about 40 ms with Panel Replay+VRR in local tests.
+Is changing the selector without exiting PSR supported?
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 11 +++++++++++
+ drivers/gpu/drm/i915/display/intel_psr.c     | 10 +++++++++-
+ drivers/gpu/drm/i915/display/intel_vrr.c     | 17 ++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_vrr.h     |  2 ++
+ 4 files changed, 38 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index d5d4453f283b..92e2b6100ec8 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7412,6 +7412,8 @@ static void intel_atomic_dsb_prepare(struct intel_atomic_state *state,
+ 				     struct intel_crtc *crtc)
  {
-@@ -69,6 +70,8 @@ static void intel_display_kbl_init_clock_gating(struct intel_display *display)
+ 	struct intel_display *display = to_intel_display(state);
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
+ 	struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
  
- static void intel_display_cfl_init_clock_gating(struct intel_display *display)
- {
-+	intel_pch_init_clock_gating(display);
-+
- 	/*
- 	 * WaCompressedResourceDisplayNewHashMode:skl,kbl (and cfl, cml)
- 	 * Display WA #0390: skl,kbl (and cfl, cml)
-@@ -166,6 +169,8 @@ static void intel_display_bdw_init_clock_gating(struct intel_display *display)
- 	intel_display_bdw_clock_gating_disable_fbcq(display);
- 	intel_display_bdw_clock_gating_vblank_in_srd(display);
- 	intel_display_bdw_clock_gating_kvm_notif(display);
-+
-+	intel_pch_init_clock_gating(display);
- }
- 
- static void intel_display_hsw_init_clock_gating(struct intel_display *display)
-@@ -183,6 +188,8 @@ static void intel_display_hsw_init_clock_gating(struct intel_display *display)
- 		intel_de_rmw(display, CHICKEN_PIPESL_1(pipe), 0,
- 			     HSW_UNMASK_VBL_TO_REGS_IN_SRD);
- 	}
-+
-+	intel_pch_init_clock_gating(display);
- }
- 
- static void intel_display_disable_trickle_feed(struct intel_display *display)
-@@ -228,6 +235,8 @@ static void intel_display_ilk_init_clock_gating(struct intel_display *display)
- 	intel_de_rmw(display, ILK_DISPLAY_CHICKEN2, 0, ILK_ELPIN_409_SELECT);
- 
- 	intel_display_disable_trickle_feed(display);
-+
-+	intel_pch_init_clock_gating(display);
- }
- 
- static void intel_display_gen6_init_clock_gating(struct intel_display *display)
-@@ -260,6 +269,8 @@ static void intel_display_gen6_init_clock_gating(struct intel_display *display)
- 		       ILK_DPFDUNIT_CLOCK_GATE_ENABLE);
- 
- 	intel_display_disable_trickle_feed(display);
-+
-+	intel_pch_init_clock_gating(display);
- }
- 
- static void intel_display_ivb_init_clock_gating(struct intel_display *display)
-@@ -268,6 +279,8 @@ static void intel_display_ivb_init_clock_gating(struct intel_display *display)
- 	intel_de_rmw(display, ILK_DISPLAY_CHICKEN1, 0, ILK_FBCQ_DIS);
- 
- 	intel_display_disable_trickle_feed(display);
-+
-+	intel_pch_init_clock_gating(display);
- }
- 
- static void intel_display_g4x_init_clock_gating(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 77009dca7d0d..87571b1f03a0 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -29,6 +29,7 @@
- #include "intel_crtc.h"
- #include "intel_cursor.h"
- #include "intel_dbuf_bw.h"
-+#include "intel_display_clock_gating.h"
- #include "intel_display_core.h"
- #include "intel_display_debugfs.h"
- #include "intel_display_driver.h"
-@@ -462,6 +463,15 @@ int intel_display_driver_probe_nogem(struct intel_display *display)
- {
- 	int ret;
+@@ -7438,6 +7440,15 @@ static void intel_atomic_dsb_prepare(struct intel_atomic_state *state,
+ 		!intel_crtc_needs_modeset(new_crtc_state) &&
+ 		!intel_crtc_needs_fastset(new_crtc_state);
  
 +	/*
-+	 * Apply the display and PCH clock gating workarounds before gem/GT
-+	 * init starts pushing memory traffic through the GT, matching the
-+	 * timing the old core intel_clock_gating_init() hooks used to
-+	 * provide.  Do this before the HAS_DISPLAY() check below, since the
-+	 * core hooks used to call it unconditionally.
++	 * DSB frame-change notification uses the old CRTC state, whereas
++	 * DSB wait handling uses the new policy. Change the notification
++	 * mechanism on the CPU path before programming the planes.
 +	 */
-+	intel_display_init_clock_gating(display);
++	if (intel_psr_use_trans_push(old_crtc_state) !=
++	    intel_psr_use_trans_push(new_crtc_state))
++		new_crtc_state->use_dsb = false;
 +
- 	if (!HAS_DISPLAY(display))
- 		return 0;
- 
-@@ -839,6 +849,8 @@ void intel_display_driver_pm_resume(struct intel_display *display)
- 	struct drm_modeset_acquire_ctx ctx;
- 	int ret;
- 
-+	intel_display_init_clock_gating(display);
-+
- 	if (!HAS_DISPLAY(display))
- 		return;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 1b60ce2dd00c..1ec0890f2afb 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -13,11 +13,11 @@
- #include "intel_alpm.h"
- #include "intel_backlight_regs.h"
- #include "intel_cdclk.h"
--#include "intel_clock_gating.h"
- #include "intel_combo_phy.h"
- #include "intel_crtc.h"
- #include "intel_de.h"
- #include "intel_display.h"
-+#include "intel_display_clock_gating.h"
- #include "intel_display_power.h"
- #include "intel_display_power_map.h"
- #include "intel_display_power_well.h"
-@@ -1597,7 +1597,7 @@ static void hsw_disable_pc8(struct intel_display *display)
- 	intel_init_pch_refclk(display);
- 
- 	/* Many display registers don't survive PC8+ */
--	intel_clock_gating_init(display->drm);
-+	intel_display_init_clock_gating(display);
+ 	intel_color_prepare_commit(state, crtc);
  }
  
- static void intel_pch_reset_handshake(struct intel_display *display,
-diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.c b/drivers/gpu/drm/i915/display/intel_display_reset.c
-index 504ec7043cd9..a39ab2cc638b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_reset.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_reset.c
-@@ -8,8 +8,8 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_print.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 00d0146b2600..4c862fa8d795 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3187,6 +3187,12 @@ void intel_psr_pre_plane_update(struct intel_atomic_state *state,
+ 				wm_optimization_wa(intel_dp, new_crtc_state);
+ 		}
  
--#include "intel_clock_gating.h"
- #include "intel_cx0_phy.h"
-+#include "intel_display_clock_gating.h"
- #include "intel_display_core.h"
- #include "intel_display_driver.h"
- #include "intel_display_reset.h"
-@@ -99,7 +99,7 @@ void intel_display_reset_finish(struct intel_display *display, bool test_only)
- 		 */
- 		intel_pps_unlock_regs_wa(display);
- 		intel_display_driver_init_hw(display);
--		intel_clock_gating_init(display->drm);
-+		intel_display_init_clock_gating(display);
- 		intel_cx0_pll_power_save_wa(display);
- 		intel_hpd_init(display);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index bd1f26336ac4..e3d5d36a1f41 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -24,6 +24,7 @@
- #include "i915_reg.h"
- #include "i915_wait_util.h"
- #include "intel_breadcrumbs.h"
-+#include "intel_clock_gating.h"
- #include "intel_engine_pm.h"
- #include "intel_engine_regs.h"
- #include "intel_gt.h"
-@@ -1439,6 +1440,9 @@ static void intel_gt_reset_global(struct intel_gt *gt,
- 
- 		intel_gt_reset(gt, engine_mask, reason);
- 
-+		if (need_display_reset)
-+			intel_clock_gating_init(&i915->drm);
++		if (psr->enabled &&
++		    intel_psr_use_trans_push(old_crtc_state) !=
++		    intel_psr_use_trans_push(new_crtc_state))
++			intel_vrr_psr_frame_change_update(old_crtc_state,
++							  new_crtc_state);
 +
- 		if (reset_display)
- 			intel_display_reset_finish(display, !need_display_reset);
+ 		mutex_unlock(&psr->lock);
  	}
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 9e047c27a153..40df577cacb4 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1285,6 +1285,8 @@ static int i915_drm_resume_early(struct drm_device *dev)
- 
- 	intel_display_driver_pm_resume_early(display);
- 
-+	intel_clock_gating_resume(&dev_priv->drm);
-+
- 	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
- 
- 	return ret;
-@@ -1528,6 +1530,8 @@ static int i915_pm_runtime_suspend(struct device *kdev)
- 
- 		intel_irq_resume(dev_priv);
- 
-+		intel_clock_gating_resume(&dev_priv->drm);
-+
- 		for_each_gt(gt, dev_priv, i)
- 			intel_gt_runtime_resume(gt);
- 
-@@ -1595,6 +1599,8 @@ static int i915_pm_runtime_resume(struct device *kdev)
- 
- 	intel_irq_resume(dev_priv);
- 
-+	intel_clock_gating_resume(&dev_priv->drm);
-+
- 	/*
- 	 * No point of rolling back things in case of an error, as the best
- 	 * we can do is to hope that things will still work (and disable RPM).
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 1209d5f1fc8d..b746ca66f49c 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1176,11 +1176,10 @@ int i915_gem_init(struct drm_i915_private *dev_priv)
- 	}
- 
- 	/*
--	 * Despite its name intel_clock_gating_init applies both display
--	 * clock gating workarounds; GT mmio workarounds and the occasional
--	 * GT power context workaround. Worse, sometimes it includes a context
--	 * register workaround which we need to apply before we record the
--	 * default HW state for all contexts.
-+	 * Despite its name intel_clock_gating_init applies GT MMIO workarounds
-+	 * and the occasional GT power context workaround. Worse, sometimes it
-+	 * includes a context register workaround which we need to apply before
-+	 * we record the default HW state for all contexts.
- 	 *
- 	 * FIXME: break up the workarounds and apply them at the right time!
- 	 */
-diff --git a/drivers/gpu/drm/i915/intel_clock_gating.c b/drivers/gpu/drm/i915/intel_clock_gating.c
-index 6faf29c8d887..bd3cca81f602 100644
---- a/drivers/gpu/drm/i915/intel_clock_gating.c
-+++ b/drivers/gpu/drm/i915/intel_clock_gating.c
-@@ -30,8 +30,6 @@
- #include <drm/intel/intel_gmd_misc_regs.h>
- #include <drm/intel/mchbar_regs.h>
- 
--#include "display/intel_display_clock_gating.h"
--#include "display/intel_pch.h"
- #include "gt/intel_engine_regs.h"
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_mcr.h"
-@@ -56,13 +54,6 @@ static void bxt_init_clock_gating(struct drm_i915_private *i915)
- 	 * GEN8_HDCUNIT_CLOCK_GATE_DISABLE_HDCREQ applies on 3x6 GT SKUs only.
- 	 */
- 	intel_uncore_rmw(&i915->uncore, GEN8_UCGCTL6, 0, GEN8_HDCUNIT_CLOCK_GATE_DISABLE_HDCREQ);
--
--	intel_display_init_clock_gating(i915->display);
--}
--
--static void glk_init_clock_gating(struct drm_i915_private *i915)
--{
--	intel_display_init_clock_gating(i915->display);
  }
- 
- static void ilk_init_clock_gating(struct drm_i915_private *i915)
-@@ -72,9 +63,6 @@ static void ilk_init_clock_gating(struct drm_i915_private *i915)
- 			   SVSMUNIT_CLOCK_GATE_DISABLE);
- 	intel_uncore_write(&i915->uncore, PCH_3DCGDIS1,
- 			   VFMUNIT_CLOCK_GATE_DISABLE);
--
--	intel_display_init_clock_gating(i915->display);
--	intel_pch_init_clock_gating(i915->display);
- }
- 
- static void gen6_check_mch_setup(struct drm_i915_private *i915)
-@@ -90,8 +78,6 @@ static void gen6_check_mch_setup(struct drm_i915_private *i915)
- 
- static void gen6_init_clock_gating(struct drm_i915_private *i915)
+@@ -4660,7 +4666,9 @@ bool intel_psr_use_trans_push(const struct intel_crtc_state *crtc_state)
  {
--	intel_display_init_clock_gating(i915->display);
--
- 	intel_uncore_write(&i915->uncore, GEN6_UCGCTL1,
- 			   intel_uncore_read(&i915->uncore, GEN6_UCGCTL1) |
- 			   GEN6_BLBUNIT_CLOCK_GATE_DISABLE |
-@@ -114,8 +100,6 @@ static void gen6_init_clock_gating(struct drm_i915_private *i915)
- 			   GEN6_RCPBUNIT_CLOCK_GATE_DISABLE |
- 			   GEN6_RCCUNIT_CLOCK_GATE_DISABLE);
+ 	struct intel_display *display = to_intel_display(crtc_state);
  
--	intel_pch_init_clock_gating(i915->display);
--
- 	gen6_check_mch_setup(i915);
+-	return HAS_PSR_TRANS_PUSH_FRAME_CHANGE(display) && crtc_state->has_psr;
++	/* Keep register notifications while any plane remains in async mode. */
++	return HAS_PSR_TRANS_PUSH_FRAME_CHANGE(display) && crtc_state->has_psr &&
++		!crtc_state->uapi.async_flip && !crtc_state->async_flip_planes;
  }
  
-@@ -154,12 +138,8 @@ static void dg2_init_clock_gating(struct drm_i915_private *i915)
+ bool intel_psr_pr_async_video_timing_supported(struct intel_dp *intel_dp)
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index d43a06907d18..4f691ca50ea3 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -758,7 +758,7 @@ static u32 trans_vrr_push(const struct intel_crtc_state *crtc_state,
+ 	if (send_push)
+ 		trans_vrr_push |= TRANS_PUSH_SEND;
  
- static void cfl_init_clock_gating(struct drm_i915_private *i915)
- {
--	intel_pch_init_clock_gating(i915->display);
--
- 	/* WAC6entrylatency:cfl */
- 	intel_uncore_rmw(&i915->uncore, FBC_LLC_READ_CTRL, 0, FBC_LLC_FULLY_OPEN);
--
--	intel_display_init_clock_gating(i915->display);
+-	if (HAS_PSR_TRANS_PUSH_FRAME_CHANGE(display))
++	if (intel_psr_use_trans_push(crtc_state))
+ 		trans_vrr_push |= LNL_TRANS_PUSH_PSR_PR_EN;
+ 
+ 	return trans_vrr_push;
+@@ -1059,6 +1059,21 @@ void intel_vrr_psr_frame_change_enable(const struct intel_crtc_state *crtc_state
+ 		       trans_vrr_push(crtc_state, false));
  }
  
- static void kbl_init_clock_gating(struct drm_i915_private *i915)
-@@ -176,8 +156,6 @@ static void kbl_init_clock_gating(struct drm_i915_private *i915)
- 	if (IS_KABYLAKE(i915) && IS_GRAPHICS_STEP(i915, 0, STEP_C0))
- 		intel_uncore_rmw(&i915->uncore, GEN6_UCGCTL1,
- 				 0, GEN6_GAMUNIT_CLOCK_GATE_DISABLE);
--
--	intel_display_init_clock_gating(i915->display);
- }
- 
- static void skl_init_clock_gating(struct drm_i915_private *i915)
-@@ -188,14 +166,10 @@ static void skl_init_clock_gating(struct drm_i915_private *i915)
- 
- 	/* WAC6entrylatency:skl */
- 	intel_uncore_rmw(&i915->uncore, FBC_LLC_READ_CTRL, 0, FBC_LLC_FULLY_OPEN);
--
--	intel_display_init_clock_gating(i915->display);
- }
- 
- static void bdw_init_clock_gating(struct drm_i915_private *i915)
- {
--	intel_display_init_clock_gating(i915->display);
--
- 	/* WaSwitchSolVfFArbitrationPriority:bdw */
- 	intel_uncore_rmw(&i915->uncore, GAM_ECOCHK, 0, HSW_ECOCHK_ARB_PRIO_SOL);
- 
-@@ -213,8 +187,6 @@ static void bdw_init_clock_gating(struct drm_i915_private *i915)
- 	/* WaProgramL3SqcReg1Default:bdw */
- 	gen8_set_l3sqc_credits(i915, 30, 2);
- 
--	intel_pch_init_clock_gating(i915->display);
--
- 	/* WaDisableDopClockGating:bdw
- 	 *
- 	 * Also see the CHICKEN2 write in bdw_init_workarounds() to disable DOP
-@@ -225,24 +197,16 @@ static void bdw_init_clock_gating(struct drm_i915_private *i915)
- 
- static void hsw_init_clock_gating(struct drm_i915_private *i915)
- {
--	intel_display_init_clock_gating(i915->display);
--
- 	/* This is required by WaCatErrorRejectionIssue:hsw */
- 	intel_uncore_rmw(&i915->uncore, GEN7_SQ_CHICKEN_MBCUNIT_CONFIG,
- 			 0, GEN7_SQ_CHICKEN_MBCUNIT_SQINTMOB);
- 
- 	/* WaSwitchSolVfFArbitrationPriority:hsw */
- 	intel_uncore_rmw(&i915->uncore, GAM_ECOCHK, 0, HSW_ECOCHK_ARB_PRIO_SOL);
--
--	intel_pch_init_clock_gating(i915->display);
- }
- 
- static void ivb_init_clock_gating(struct drm_i915_private *i915)
- {
--	struct intel_display *display = i915->display;
--
--	intel_display_init_clock_gating(display);
--
- 	/* WaDisableBackToBackFlipFix:ivb */
- 	intel_uncore_write(&i915->uncore, IVB_CHICKEN3,
- 			   CHICKEN3_DGMG_REQ_OUT_FIX_DISABLE |
-@@ -273,8 +237,6 @@ static void ivb_init_clock_gating(struct drm_i915_private *i915)
- 	intel_uncore_rmw(&i915->uncore, GEN6_MBCUNIT_SNPCR, GEN6_MBC_SNPCR_MASK,
- 			 GEN6_MBC_SNPCR_MED);
- 
--	intel_pch_init_clock_gating(display);
--
- 	gen6_check_mch_setup(i915);
- }
- 
-@@ -345,7 +307,6 @@ static void g4x_init_clock_gating(struct drm_i915_private *i915)
- 			   GS_UNIT_CLOCK_GATE_DISABLE |
- 			   CL_UNIT_CLOCK_GATE_DISABLE);
- 	intel_uncore_write(&i915->uncore, RAMCLK_GATE_D, 0);
--	intel_display_init_clock_gating(i915->display);
- }
- 
- static void i965gm_init_clock_gating(struct drm_i915_private *i915)
-@@ -354,7 +315,6 @@ static void i965gm_init_clock_gating(struct drm_i915_private *i915)
- 
- 	intel_uncore_write(uncore, RENCLK_GATE_D1, I965_RCC_CLOCK_GATE_DISABLE);
- 	intel_uncore_write(uncore, RENCLK_GATE_D2, 0);
--	intel_display_init_clock_gating(i915->display);
- 	intel_uncore_write(uncore, RAMCLK_GATE_D, 0);
- 	intel_uncore_write16(uncore, DEUC, 0);
- 	intel_uncore_write(uncore,
-@@ -437,6 +397,31 @@ void intel_clock_gating_init(struct drm_device *drm)
- 	i915->clock_gating_funcs->init_clock_gating(i915);
- }
- 
-+/**
-+ * intel_clock_gating_resume - restore GT/uncore clock gating after PC8+
-+ * @drm: the &struct drm_device
-+ *
-+ * Some HSW/BDW GT and uncore clock gating workarounds, including BDW's
-+ * gen8_set_l3sqc_credits(), don't survive PC8+ and need to be reapplied
-+ * once we're out of it.  This duplicates the display->platform.haswell ||
-+ * display->platform.broadwell check that gates the hsw_disable_pc8() call
-+ * on the display side, since core code can't reuse that check directly.
-+ *
-+ * The caller must call this after display has left PC8+ and restored
-+ * LCPLL, but before GT execution resumes, since gen8_set_l3sqc_credits()
-+ * needs the core clock running to access GEN8_L3SQCREG1 via the MCR.
-+ * i915_driver.c is the only place that can see both sides of this, so
-+ * it's the one enforcing the order, from i915_drm_resume_early(),
-+ * i915_pm_runtime_suspend() and i915_pm_runtime_resume().
-+ */
-+void intel_clock_gating_resume(struct drm_device *drm)
++void intel_vrr_psr_frame_change_update(const struct intel_crtc_state *old_crtc_state,
++				       const struct intel_crtc_state *new_crtc_state)
 +{
-+	struct drm_i915_private *i915 = to_i915(drm);
++	struct intel_display *display = to_intel_display(old_crtc_state);
++	enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
++	u32 push = trans_vrr_push(old_crtc_state, false);
 +
-+	if (IS_HASWELL(i915) || IS_BROADWELL(i915))
-+		intel_clock_gating_init(drm);
++	/* VRR enable/disable has not run yet; preserve the old timing state. */
++	push &= ~LNL_TRANS_PUSH_PSR_PR_EN;
++	if (intel_psr_use_trans_push(new_crtc_state))
++		push |= LNL_TRANS_PUSH_PSR_PR_EN;
++
++	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder), push);
 +}
 +
- static void nop_init_clock_gating(struct drm_i915_private *i915)
+ bool intel_vrr_is_fixed_rr(const struct intel_crtc_state *crtc_state)
  {
- 	drm_dbg_kms(&i915->drm,
-@@ -453,7 +438,6 @@ CG_FUNCS(cfl);
- CG_FUNCS(skl);
- CG_FUNCS(kbl);
- CG_FUNCS(bxt);
--CG_FUNCS(glk);
- CG_FUNCS(bdw);
- CG_FUNCS(chv);
- CG_FUNCS(hsw);
-@@ -475,7 +459,7 @@ CG_FUNCS(nop);
-  * @drm: drm device
-  *
-  * Setup the hooks that configure which clocks of a given platform can be
-- * gated and also apply various GT and display specific workarounds for these
-+ * gated and also apply various GT and uncore workarounds for these
-  * platforms. Note that some GT specific workarounds are applied separately
-  * when GPU contexts or batchbuffers start their execution.
-  */
-@@ -493,8 +477,6 @@ void intel_clock_gating_hooks_init(struct drm_device *drm)
- 		i915->clock_gating_funcs = &kbl_clock_gating_funcs;
- 	else if (IS_BROXTON(i915))
- 		i915->clock_gating_funcs = &bxt_clock_gating_funcs;
--	else if (IS_GEMINILAKE(i915))
--		i915->clock_gating_funcs = &glk_clock_gating_funcs;
- 	else if (IS_BROADWELL(i915))
- 		i915->clock_gating_funcs = &bdw_clock_gating_funcs;
- 	else if (IS_CHERRYVIEW(i915))
-diff --git a/drivers/gpu/drm/i915/intel_clock_gating.h b/drivers/gpu/drm/i915/intel_clock_gating.h
-index 3a4b443d9b8b..cf059bac88d4 100644
---- a/drivers/gpu/drm/i915/intel_clock_gating.h
-+++ b/drivers/gpu/drm/i915/intel_clock_gating.h
-@@ -9,6 +9,7 @@
- struct drm_device;
- 
- void intel_clock_gating_init(struct drm_device *drm);
-+void intel_clock_gating_resume(struct drm_device *drm);
- void intel_clock_gating_hooks_init(struct drm_device *drm);
- 
- #endif /* __INTEL_CLOCK_GATING_H__ */
-diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-index 10930c924070..12d99ec41e47 100644
---- a/drivers/gpu/drm/xe/Makefile
-+++ b/drivers/gpu/drm/xe/Makefile
-@@ -263,6 +263,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
- 	i915-display/intel_de.o \
- 	i915-display/intel_dip.o \
- 	i915-display/intel_display.o \
-+	i915-display/intel_display_clock_gating.o \
- 	i915-display/intel_display_conversion.o \
- 	i915-display/intel_display_device.o \
- 	i915-display/intel_display_driver.o \
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_clock_gating.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_clock_gating.h
-deleted file mode 100644
-index 552975a30ba2..000000000000
---- a/drivers/gpu/drm/xe/compat-i915-headers/intel_clock_gating.h
-+++ /dev/null
-@@ -1,14 +0,0 @@
--/* SPDX-License-Identifier: MIT */
--/*
-- * Copyright © 2023 Intel Corporation
-- */
--
--#ifndef __INTEL_CLOCK_GATING_H__
--#define __INTEL_CLOCK_GATING_H__
--
--struct drm_device;
--
--static inline void intel_clock_gating_init(struct drm_device *drm) {}
--static inline void intel_clock_gating_hooks_init(struct drm_device *drm) {}
--
--#endif /* __INTEL_CLOCK_GATING_H__ */
--- 
-2.53.0
+ 	return crtc_state->vrr.flipline &&
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+index 19c7990be1b2..c2ca4db5acfe 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+@@ -35,6 +35,8 @@ void intel_vrr_dcb_increment_flip_count(struct intel_crtc_state *crtc_state,
+ bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state);
+ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
+ void intel_vrr_psr_frame_change_enable(const struct intel_crtc_state *crtc_state);
++void intel_vrr_psr_frame_change_update(const struct intel_crtc_state *old_crtc_state,
++				       const struct intel_crtc_state *new_crtc_state);
+ void intel_vrr_get_config(struct intel_crtc_state *crtc_state);
+ int intel_vrr_vmax_vtotal(const struct intel_crtc_state *crtc_state);
+ int intel_vrr_vmin_vtotal(const struct intel_crtc_state *crtc_state);
+
+---
+base-commit: 24d867f5e671c78760ab39087a57c25ad98e1f42
+change-id: 20261013-fix-psr-async-trans-push-bfa6550270c7
+
 
