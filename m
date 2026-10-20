@@ -2,102 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2969C606A31B
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 18:22:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B8C606A31A
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 18:31:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Cjr6e+Nj
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cHnOyWrW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B43BF10E42F;
-	Tue, 20 Oct 2026 18:22:15 +0000 (UTC)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F1CE10E42F
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 18:22:08 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5bcf21cfbdaso3108311e87.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 11:22:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google; t=1792520527; x=1793125327;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=AI3sBbenOq3VZh+TQ8EVyC3GkeDOeDtX825lHVuYChI=;
- b=Cjr6e+NjhjI1+i0JjJ1gHMUxntm67d0k+3E77Byoq7u7CnCJQkkqjASpaJXWJeTyig
- r39jt68pe6fOpiKHIxZUuvyspV+8kx2AqCzsVqY9pNkNMRHR1s7uzRUkvADYkT8ZMkvb
- LZyv9jIIUJyTfwrX7mojbwmdxUiR4fRpjRbAs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792520527; x=1793125327;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=AI3sBbenOq3VZh+TQ8EVyC3GkeDOeDtX825lHVuYChI=;
- b=BkhIicWbcobrmV7Lwo4stiLlE0heDHm76GhTT2SJgWBjLWQTd5CB3XQB+YKZ1MVEXh
- 5y/6vsvfoYgaS/V9m002SyzDWgI3ctI9Jph84/ct3OV5q7i/Ty2x3XQx/ZWpBE7XR+Sr
- bPP1sU2TqpJp7XVgII2WOvcvXa92RQBWq+rl3yZsOzPy420Eub5/1d/GuEj90zU+d0mp
- bfVXUbLGscD1aCNWSZ146N6hzZp8nrePFxv9d3wuDGTDIrfQr9R1F18v7RTfyWgKFIVw
- hgl6omvuw1Sc2upObvXUg8+kkmSEYk8U8WbqgZ9kNYyW3ykxmP8cT9+UpdhnS7p2yzRK
- JR3g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx8kIV6I4pcHmrGegZ/MvXtR1RelBn0WwB41SwL88oOw5fZ7ruwYkCmq4xJkjxBo0NPM/Btts1zGtE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIM5UZ+l/IU64sd6R0oWG7dQoQWwXcGguNe1wyX/gf2SLAM4tno
- vgRF/q88l7HGbIFol4E0+zajcxaMCYLHjOR9ofeSzXTKWbObmm/khs/EwAxhZMtBS59aUC2k72V
- 702qPCHwt5w==
-X-Gm-Gg: AYBFou0ydORJImCCiIxvmRmun/NFuANIFl/LDEp4HOsuQB6umtJsEDr+Ce8o16PjxdX
- dgMgfSDFVWKaKhuePTENabz5XmETfujn2XqFwT8EEqJceAldwAc7/iv9XRjiU468aDNcG+ozopT
- O7uTKau+8AFd3lyk0cnRAFuwAlykJ+lPVEp44pwCprXS1ONCgrI/azzm0KS2oayol7AGjwfCvUh
- pRh2FksRMK3WZftcjssa1Ku58rcLqMZqAU6whRPtl1ZFqmCO2D3wZ5M/jJOoHcxEEQ69bPKc+P2
- 8G0aC6ETlgQ5qr3f6/zSu8iCG5GtzkDbg1YMwwqyG0VySZBh/4LVsSPJq+5EnWbeufsHcFgMcLk
- J8Bcno2flUQ8TYVsZvVk7fXLjeoCOeqAkjLDSH2DskB6zy2UsN9e4MHAoRkMXRKq5dOWoJBU/+0
- FYvbG9YA8dHzIydA4ffDv+z/DoD97hdcuFIHkRYgIt7cnwejlMZz2fJ7QHkXuLecV0ZZzpGB17J
- CpCIsiTtZIZXNLkiP4e1W2Rm+T7yPp4coUJJPL63QG3arE=
-X-Received: by 2002:a05:6512:3a94:b0:5b8:f955:ae36 with SMTP id
- 2adb3069b0e04-5be50a67b86mr3862496e87.18.1792520526783; 
- Tue, 20 Oct 2026 11:22:06 -0700 (PDT)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com.
- [209.85.167.46]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfa1205eacsm29872e87.42.2026.10.20.11.22.06
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Oct 2026 11:22:06 -0700 (PDT)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5bcf21cfbdaso3108298e87.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 11:22:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvByfUpZznTypKxZ8vbcJAHo5kec1LIMVpmTsiVv9Ht2fTQwGNjhtP6n6N6gCxr7aO6ZcPKvSz70bpy4=@lists.freedesktop.org
-X-Received: by 2002:a17:907:9711:b0:c2e:350b:7220 with SMTP id
- a640c23a62f3a-c467960c21dmr1978466b.9.1792520069782; Tue, 20 Oct 2026
- 11:14:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5612D10EC1D;
+	Tue, 20 Oct 2026 18:31:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E48B310EC1D;
+ Tue, 20 Oct 2026 18:31:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792521082; x=1824057082;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=RwKALq7QX9OKo83egn3Wq1A/qkiKaRSFFMEEk09V4so=;
+ b=cHnOyWrWWG70Bf+mhBeUCrNo2tc781Lr1kdlM+i+VGh6mVNcfPkV1xca
+ F7uStby14lQCoPJ/Re5UswC/IopUEDgIbXj3tNiIM4nW3gAFeMXxGeMVk
+ hYniUUAWOxsmsBFAjQV+KoAnlEzdVE5K/dph0CKf6er4UTsLVgFn7gNoX
+ EqJHOIQzQacCb4IEr35bfodlfGO7KZqPpggIogV4+EchfOLLLZlSYv7++
+ EJDfY39ELiVxz0vM711n9VnPeqmy81L0CSDTKPjB0re6kFJb53MH2C/fg
+ HCCyLNDJDYcpQU5Wy/Fd1LuWWe8/hzqi9B5hGMTpEBOjFuOnt+FV1DboK w==;
+X-CSE-ConnectionGUID: Yg9flvhLRnGxWZfrOQnLZA==
+X-CSE-MsgGUID: Mh7SgWuVT326M5ajyMRfyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1249286"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1249286"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2026 11:31:21 -0700
+X-CSE-ConnectionGUID: g+dAZ/deShiRwHKtUxW9+Q==
+X-CSE-MsgGUID: 32fYlhqJRsu0ZyY6qL81yA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="4627866"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.238])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2026 11:31:19 -0700
+Date: Tue, 20 Oct 2026 21:31:16 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 15/15] drm/i915/pfit: Allow downscaling on i966+
+Message-ID: <atezdPm7w8x4KNlT@intel.com>
+References: <20261019135309.23578-1-ville.syrjala@linux.intel.com>
+ <20261019135309.23578-16-ville.syrjala@linux.intel.com>
+ <sashiko-outbox-177503@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com>
- <20261018152358-mutt-send-email-mst@kernel.org>
- <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
- <20261018174250-mutt-send-email-mst@kernel.org>
- <376ef9d0-b03f-4f85-aee5-46cf20eb00ae@gmail.com>
- <20261020021924-mutt-send-email-mst@kernel.org>
- <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
- <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
- <atdqUYdIOqmiqqTt@gmail.com>
-In-Reply-To: <atdqUYdIOqmiqqTt@gmail.com>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Tue, 20 Oct 2026 08:14:13 -1000
-X-Gmail-Original-Message-ID: <CAHk-=whrUi2M+whqwS8yfqZ=W9ts6NPOzxzGfBOwOfCC3ooeMA@mail.gmail.com>
-X-Gm-Features: AclHuK-HJYHxkUsyBkGy3Njf6A4fOgxIA6b9mjsApIllpv7mDCRHR9A0DndLsLU
-Message-ID: <CAHk-=whrUi2M+whqwS8yfqZ=W9ts6NPOzxzGfBOwOfCC3ooeMA@mail.gmail.com>
-Subject: Re: Removing __get_user / __put_user for good
-To: Ingo Molnar <mingo@kernel.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Borislav Petkov <bp@alien8.de>,
- Tom Lendacky <thomas.lendacky@amd.com>, 
- Joerg Roedel <joerg.roedel@amd.com>, "Nikunj A. Dadhania" <nikunj@amd.com>, 
- intel-gfx <intel-gfx@lists.freedesktop.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>,
- "the arch/x86 maintainers" <x86@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-177503@kernel.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,40 +70,95 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-9.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 20 Oct 2026 at 03:19, Ingo Molnar <mingo@kernel.org> wrote:
->
-> ( BTW., there's a new dependency introduced by this series,
->   if an architecture gets rid of __get_user(), then it must
->   define arch_get_kernel_nofault(), otherwise it will gain
->   new uses of __get_user()/__put_user() via the generic implementations
->   of __get_kernel_nofault() and __put_kernel_nofault(). No big deal
->   I suppose. )
+On Mon, Oct 19, 2026 at 02:47:56PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] drm/i915/pfit: off-by-one max_scale in i9xx_pfit_check_scaling()
+> --
+> 
+> commit c5496f644982a254aa09057b7c02f1bea3cb5b18
+> Author: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> drm/i915/pfit: Allow downscaling on i966+
+> 
+> This commit updates i9xx_pfit_check_scaling() to raise max_scale to 0x20000 on
+> DISPLAY_VER(display) >= 4 platforms to permit panel fitter downscaling.
+> 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_pfit.c b/drivers/gpu/drm/i915/display/intel_pfit.c
+> > index 6eb457047bf4c..2b6706c7af534 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_pfit.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_pfit.c
+> > @@ -563,7 +563,10 @@ static int i9xx_pfit_check_scaling(const struct intel_crtc_state *crtc_state)
+> >  	int hscale, vscale, max_scale;
+> >  	struct drm_rect src;
+> >  
+> > -	max_scale = 0x10000;
+> > +	if (DISPLAY_VER(display) >= 4)
+> > +		max_scale = 0x20000;
+> > +	else
+> > +		max_scale = 0x10000;
+> >  
+> >  	drm_rect_init(&src, 0, 0, pipe_src_w << 16, pipe_src_h << 16);
+> >  
+> 
+> [Severity: Medium]
+> Should max_scale be 0x20000 - 1 (or 0x1fff0) rather than 0x20000 here?
 
-Yeah. It didn't actually look too bad to just remove __get_user and
-__put_user in general, but I ran out of motivation.
+I guess I'll just go with 0x20000-1 for now. I suppose that isn't
+100% correct because it doesn't match the hardware precision, but
+then again neither does the rounding done by drm_rect_{h,v}scale().
+The same issue actually exist in the ILK+ pfit and SKL+ scaler
+code as well, though in that case the hw precision is .15. I think
+what we should do is perform the check using the hardware precision
+and rounding, but that check will have to be done after clipping
+and all this stuff right now runs before clipping. Currently we
+don't have clipping for pfit but I have a branch somewhere that
+tries to add that to properly handle the pfit+joiner combo.
+For SKL+ plane scaling clipping is already there of course.
 
-On arm64, it's a non-issue: __get/put_user is the same thing as
-get/put_user, and they both do the full checks.
+> 
+> In i9xx_pfit_check_scaling(), max_scale is passed to drm_rect_calc_hscale()
+> and drm_rect_calc_vscale(), which treat max_hscale and max_vscale as inclusive
+> upper bounds and only reject with -ERANGE when scale > max_scale. Setting
+> max_scale = 0x20000 allows an exact 2.0x downscale factor (for example, when
+> scaling a 1600x1200 pipe_src to an 800x600 dst).
+> 
+> However, in drivers/gpu/drm/i915/display/intel_pfit_regs.h, the i965+ scaling
+> ratio fields in PFIT_PGM_RATIOS are 13-bit 1.12 fixed-point values:
+> 
+> #define   PFIT_VERT_SCALE_MASK_965	REG_GENMASK(28, 16) /* 965+ */
+> #define   PFIT_VERT_SCALE_965(x)	REG_FIELD_PREP(PFIT_VERT_SCALE_MASK_965, (x))
+> #define   PFIT_HORIZ_SCALE_MASK_965	REG_GENMASK(12, 0) /* 965+ */
+> #define   PFIT_HORIZ_SCALE_965(x)	REG_FIELD_PREP(PFIT_HORIZ_SCALE_MASK_965, (x))
+> 
+> These 13-bit fields have a maximum representable value of 0x1fff (< 2.0). For
+> an exact 2.0x downscale, panel_fitter_scaling() computes 0x2000 (BIT(13)),
+> which overflows the 13-bit register field and causes a hardware state readout
+> mismatch in i965_pfit_get_config() -> i9xx_compute_pfit_dst() on
+> crtc_state->pfit.dst and pixel_rate:
+> 
+> drivers/gpu/drm/i915/display/intel_pfit.c:i965_pfit_get_config() {
+> 	...
+> 	case PFIT_SCALING_AUTO:
+> 	case PFIT_SCALING_PROGRAMMED:
+> 		hscale = REG_FIELD_GET(PFIT_HORIZ_SCALE_MASK_965, ratios);
+> 		vscale = REG_FIELD_GET(PFIT_VERT_SCALE_MASK_965, ratios);
+> 		break;
+> 	}
+> 
+> 	i9xx_compute_pfit_dst(crtc_state, hscale, vscale);
+> 	...
+> }
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261019135309.23578-1-ville.syrjala@linux.intel.com?part=15
 
-And the bulk of the remaining cases were on architectures that I
-didn't feel were a big issue: alpha/mips/sparc.
-
-I *think* they are all trivial - the bulk of them are just the
-historical signal stack stuff and should be a direct conversion to
-unsafe_get/put_user() wrapped with scoped_user_read/write_access().
-
-So I think 90% of the remaining noise is truly trivial - not like some
-of the cases that actually had *semantic* reasons to use
-__get/put_user (often very _bad_ semantic reasons, but still).
-
-Not a huge deal, I might get around to it while waiting for test
-builds. Or I might not.
-
-                 Linus
+-- 
+Ville Syrjälä
+Intel
