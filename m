@@ -2,55 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A492E606A319
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 09:52:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9624606A322
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 10:01:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imw78RQV
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pq9hQLOW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3546410F460;
-	Tue, 20 Oct 2026 09:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 300D310EB62;
+	Tue, 20 Oct 2026 10:01:41 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3953B10F467;
- Tue, 20 Oct 2026 09:52:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2502A8825B;
+ Tue, 20 Oct 2026 10:01:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 51FB660136;
- Tue, 20 Oct 2026 09:52:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBD991F000C6;
- Tue, 20 Oct 2026 09:52:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 352FE60098;
+ Tue, 20 Oct 2026 10:01:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6561F000C4;
+ Tue, 20 Oct 2026 10:01:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792489964;
- bh=zYRM9MtNeNslk7QcIWF7t4sAkiaD9Q9bb18oY5zf+m8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=imw78RQVyqxXyXIfVMuonDQMs/i7Eb+6b7LC3lr+cWorJbzGr1bDbd73vaSghnnQ2
- FKM0pBrRWWAOucPFcZKWr6F3/GmwgTFkKoEaH4uCHjJrUx1hzQTnnWk6JQgF7FXsp/
- fSPOlqDeYM+2EnX7JBjLcrxuzsgg5K0TblULfj80ku/rtH1NxTfux4364HakOKuglt
- /sMQEWaJx289+o6e+bZAq4UQgjz5nT8QC/34D1NbzZQ0dde4u1EW9hJDDucAa8eHJy
- TAxWKafkTwtosxh5nc5w/Wepu6I5eqOXnN2M/CmASSuoN3e1eLuEGdjjQc5WWtmn4h
- dRN+hczysa6kQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id A2BF11AC57D0; Tue, 20 Oct 2026 10:52:41 +0100 (BST)
-Date: Tue, 20 Oct 2026 10:52:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Devin Wittmayer <lucid_duck@justthetip.ca>
-Cc: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- luyuantao <luyuantao@kylinos.cn>, Simona Vetter <simona.vetter@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: linux-next: manual merge of the drm tree with the drm-misc-fixes
- tree
-Message-ID: <atc56cq8Vhz_2M_o@sirena.co.uk>
-References: <atZBBqj4ON6kYWSK@sirena.co.uk>
- <20261019190959.799653-1-lucid_duck@justthetip.ca>
+ s=k20260515; t=1792490492;
+ bh=iDwPNZXHP2ft0AeFTj8+hn8P00lcqADwZLzRkEGkySs=;
+ h=From:To:Cc:Subject:Date;
+ b=Pq9hQLOWZ259lge3iauPDMSDeTMUwfmTj012JrRHR/uKmX0HzQJbT5cHELD3vF8C2
+ bDpywxg6qBnd7zsylzNHxwijDDhDgKM9hj49qPUDsNh2n70XIWDj1arRzHKZ9V2ste
+ d3a9DKNmVyZ/+F/0CmPe8Yc8KBxynCwE/7T5eX3nkilqp1fmt8bdWBAi5vj3ozpyT8
+ ZnSLcsffFw229HLD0zqSrPPjAIGxMOOXt0Z+dLoFim68govthxWFgDEC58AmVQdBR5
+ 3KIbmRjghVfH+MGkvLfjj7QbbXF+PEMpKIpFNcJJLbIhLkUh/oikaa4oIrFSofR/7w
+ zjnamrMGoG3Ew==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ Philipp Stanner <phasta@kernel.org>
+Subject: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
+Date: Tue, 20 Oct 2026 12:00:31 +0200
+Message-ID: <20261020100034.759183-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gZRriHLnrYvZPd15"
-Content-Disposition: inline
-In-Reply-To: <20261019190959.799653-1-lucid_duck@justthetip.ca>
-X-Cookie: You buttered your bread, now lie in it.
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,41 +72,79 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+In our Rust code bases, I'm currently experiencing what we also
+experience in C at many places: that the dma_fence contract's RCU
+requirements make the API more fragile and put an unnecessary burden on
+the API user. Most notably, in C the API behaving correctly now depends
+on the API *user* waiting before free()s, waiting before unloads – all
+because dma_fence is not properly synchronized.
 
---gZRriHLnrYvZPd15
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The patches commit messages give more details about where I want to go
+with this particular RFC.
 
-On Mon, Oct 19, 2026 at 12:09:59PM -0700, Devin Wittmayer wrote:
-> On Mon, Oct 19, 2026 at 05:10:46PM +0100, Mark Brown wrote:
-> > This obviously isn't the right merge, it drops the fixes.
+My rough "vision" for dma_fence, where I think it should develop to, can
+be described like this:
 
-> Two of those fixes are mine, so I had a go at it. The code that draws
-> the panic screen was moved into drm_panic_helper.c in drm-next, so two of
-> the three need to move with it. The third one, for the panic screen
-> setting, made it through your merge fine. Today's drm-tip has the same
-> gap.
+1. All users should use inline-lock.
+2. The fence-signaled state should be our decoupling point.
+3. The fence state must be consistently locked.
+4. This means all callbacks are only invoked for unsignaled fences, and
+   the fence cannot signal while a callback runs.
+5. All fence API functions should be "atomically correct": they can
+   always be called without any manual RCU guards in their proximity.
+6. The fence lock should, in the long-term, become inaccessible for
+   users.
 
-Yes, quite - the move causes issues with tracking conflict resolutions
-unfortunately since it doesn't show up at all to git's idea of a
-conflict.
+Point №6 means that this:
 
---gZRriHLnrYvZPd15
-Content-Type: application/pgp-signature; name="signature.asc"
+dma_fence_lock_irqsave(…);
+dma_fence_set_error(f, err);
+dma_fence_signal_locked(f);
+dma_fence_unlock_irqrestore(…);
+synchronize_rcu();
+kfree(driver_foo);
 
------BEGIN PGP SIGNATURE-----
+should simply become this:
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatc56QAKCRAv73Ows9A4
-iRULAQCs9sAS3y+L+3JqxLeJygjCnoKRmyMdvhZ/rwLzPaBMeQEAy5JzFJn9OBZj
-dK3aiCovcvVy7LSBbSTfBsMZ++Kw3w0=
-=64z8
------END PGP SIGNATURE-----
+dma_fence_signal(f, err);
+kfree(driver_foo);
 
---gZRriHLnrYvZPd15--
+So we would end up with a simpler, more robust and more maintainable
+API.
+
+I gave this basic testing on a Nouveau desktop and it runs fine.
+dma-buf-tests also run fine. I can do more tests on Xe and amdgpu, maybe
+on Mali, too.
+
+Since the series is mostly about locking the callbacks, all of which
+except for set_deadline() are *already* locked, I am confident that this
+can be done.
+
+Feedback welcome
+
+P.
+
+Philipp Stanner (3):
+  dma-fence: Remove RCU protection for fence->ops
+  dma-fence: use lock to protect against module-unload
+  dma-fence: Support unload for ops->get_XXX_name()
+
+ drivers/dma-buf/dma-fence.c                 | 144 +++++++-------------
+ drivers/dma-buf/sync_file.c                 |  29 ++--
+ drivers/gpu/drm/i915/gt/intel_gt_requests.c |  16 +--
+ drivers/gpu/drm/i915/i915_request.c         |   9 +-
+ drivers/gpu/drm/i915/i915_sw_fence.c        |  15 +-
+ include/linux/dma-fence.h                   |  63 ++++-----
+ include/trace/events/dma_fence.h            |  12 +-
+ 7 files changed, 113 insertions(+), 175 deletions(-)
+
+-- 
+2.56.0
+
