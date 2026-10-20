@@ -2,60 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E782606A319
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 18:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Id5xzuES
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1732606A319
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 19:43:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B921710EA19;
-	Tue, 20 Oct 2026 18:41:23 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B72F910E182;
- Tue, 20 Oct 2026 18:41:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792521677; x=1824057677;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=RE2Ek+WuDXDYJ7P4ek9qF7GLjkdSAbgbtyAae0Jv+rs=;
- b=Id5xzuESOedroqv0POI813zMN3FzNBp/wwrQ1ndaYiGVxgYY0p7TEgM2
- 96Hq3fgdB58icWdrrMg3VjGOwNNzHHFVNI70/7b7bYHUAz07dEJqEKDbP
- zbTZ9PKfR6RZIHIKfiI6UVMoLelWWZFCW6A0+//ayKe2OkAmOy9WnSTfz
- AMvKm719S6rrhDy7aYF789WwwmcUkQ4CugAAYNMCDDUgpyViRQVX4h7jY
- 3tSbF/5S7kotDbOc0Tcbvu/3HuD0/1lZR5RD+dRLMzoo8GfTJTcBz96G2
- 03li0kiieCcVCxWNIlIkcsyK8kAuDy2D55a+U2lJQ9T5JI4+Blz+z8qCQ Q==;
-X-CSE-ConnectionGUID: u5TYNtorSviYTuiA9Uq6Dg==
-X-CSE-MsgGUID: 9MLM1OJ1R6iW4MI9gSPQBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1110780"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1110780"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 11:41:16 -0700
-X-CSE-ConnectionGUID: m8jh8KvnSa2Sd8Qa1IC1/A==
-X-CSE-MsgGUID: /4eM6QYDTvmrsy3JWLeR7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2791879"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.238])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 11:41:16 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 15/15] drm/i915/pfit: Allow downscaling on i966+
-Date: Tue, 20 Oct 2026 21:41:11 +0300
-Message-ID: <20261020184111.5513-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019135309.23578-16-ville.syrjala@linux.intel.com>
-References: <20261019135309.23578-16-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 810D110E36C;
+	Tue, 20 Oct 2026 19:43:01 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 706E810E36C;
+ Tue, 20 Oct 2026 19:43:00 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8685208683676382158=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pfit=3A_Make_GMC?=
+ =?utf-8?q?H_panel_fitter_nicer_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 20 Oct 2026 19:43:00 -0000
+Message-ID: <179252538045.47897.18113149131121813003@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261019135309.23578-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261019135309.23578-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +34,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============8685208683676382158==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The i965+ panel fitter supports downscaling. Allow it.
+== Series Details ==
 
-v2: Limit to <2.0 instead of <=2.0 (sashiko)
+Series: drm/i915/pfit: Make GMCH panel fitter nicer (rev4)
+URL   : https://patchwork.freedesktop.org/series/176400/
+State : success
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_pfit.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_pfit.c b/drivers/gpu/drm/i915/display/intel_pfit.c
-index 42d087b406e0..293ec2aae095 100644
---- a/drivers/gpu/drm/i915/display/intel_pfit.c
-+++ b/drivers/gpu/drm/i915/display/intel_pfit.c
-@@ -563,7 +563,10 @@ static int i9xx_pfit_check_scaling(const struct intel_crtc_state *crtc_state)
- 	int hscale, vscale, max_scale;
- 	struct drm_rect src;
- 
--	max_scale = 0x10000;
-+	if (DISPLAY_VER(display) >= 4)
-+		max_scale = 0x20000 - 1;
-+	else
-+		max_scale = 0x10000;
- 
- 	drm_rect_init(&src, 0, 0, pipe_src_w << 16, pipe_src_h << 16);
- 
--- 
-2.55.0
+CI Bug Log - changes from CI_DRM_19369 -> Patchwork_176400v4
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176400v4/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_176400v4 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [PASS][1] -> [SKIP][2] ([i915#13030])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19369/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176400v4/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#13030]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13030
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19369 -> Patchwork_176400v4
+
+  CI-20190529: 20190529
+  CI_DRM_19369: 0610db36f4635ed214d9f1de57f9141f36c78a31 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9156: 9156
+  Patchwork_176400v4: 0610db36f4635ed214d9f1de57f9141f36c78a31 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176400v4/index.html
+
+--===============8685208683676382158==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pfit: Make GMCH panel fitter nicer (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176400/">https://patchwork.freedesktop.org/series/176400/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176400v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176400v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19369 -&gt; Patchwork_176400v4</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176400v4/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_176400v4 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@kms_hdmi_inject@inject-audio:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19369/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176400v4/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13030">i915#13030</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19369 -&gt; Patchwork_176400v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19369: 0610db36f4635ed214d9f1de57f9141f36c78a31 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9156: 9156<br />
+  Patchwork_176400v4: 0610db36f4635ed214d9f1de57f9141f36c78a31 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8685208683676382158==--
