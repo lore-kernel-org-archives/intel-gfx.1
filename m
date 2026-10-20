@@ -2,79 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59BD60A260D
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 12:53:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870B660A2611
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 12:53:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=kr+5vIa9
+	dkim=pass (1024-bit key, unprotected) header.d=kcore.it header.i=@kcore.it header.a=rsa-sha256 header.s=spark header.b=K4a/NyMU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3486310EBA9;
-	Tue, 20 Oct 2026 12:53:44 +0000 (UTC)
-Received: from mail-qk2-f3.google.com (mail-qk2-f3.google.com [74.125.230.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0C4710E9B5
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 16:06:54 +0000 (UTC)
-Received: by mail-qk2-f3.google.com with SMTP id
- af79cd13be357-93f25d896bbso6659985a.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 09:06:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1792426014;
- x=1793030814; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=r7SqUP92dR9LlFw5I9AVb2JK82RW6iK4WkK2hKZlbeI=;
- b=kr+5vIa9P4MAXiFYXRivzXhJnme3snmJQ+H5HrKpJixXGETMPAcMg3E/+X1zR+zMTV
- v0MJvAcNmIEbnD4waRV9MaA/dMETpuizfxF7sQY9slhc5W8p96DJM4MRA206eXYdT0Ss
- kXcYzocuBckyx5NZvDSX9SdNubcKeJVpyWLBd6rgYc1ot0Dy4QFFTtyBLPMg+4Joh/I9
- V3fE/hjkNkhpIRCT0pnNrJTIDnTukhZMBAoo+vjyZJPJ+zuS5qjHUQ2Kvhk7oCfFyP/c
- NEghnAnrGTwSFo2OVtgyfzMrukZle7aHJxK42MOyE2AKDIFmTs9WyXhD7DZlSCflaVrC
- wiCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792426014; x=1793030814;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=r7SqUP92dR9LlFw5I9AVb2JK82RW6iK4WkK2hKZlbeI=;
- b=xBZgbbcoZeSV8n2GB7Gpkz/AxVxb3V6u7xGAWAeOYzIMw9ZxVJNexHsJNj6gW63Q0O
- 9SQ+P9yj/71U23oc2pbZunJvVYZt/AM8V2sQHlqDA6IVYbGhzOK5zZYbmWwapeaY5yQx
- uK+wQaRqvoJ1QAM8aV7qU3EbwGBSMnhhGQSFcAJtUjoZZe0YBmBzyxDez9kAFuoGtv1D
- /dPLiihfg8prIUenEY8idNkL1SJyd3RSa1vW3J57z0TLjG86mlisS1zqYOjgDk/OGC0/
- uq1pr/cy3gb2aK0IN6SxosVd8gJ6zmovLV9IuuNauoNwaz4Xy3VvIyiQ1dFIvlvBpm/r
- 96xg==
-X-Gm-Message-State: AFq9FYLtU/WT5+eyUMkhlhwGtcuQeBJFsq+I7C+oPZzjVhctEEVDDvdT
- r8GCI9ZxfBFii5Ii6MZhoBQKvv3rpe0IF9/s9k/EeaeVexaYYkbH7dtaIxcrSBlirqA=
-X-Gm-Gg: AYBFou0aCJkMfGOENfU9um+euZt8irs+Swb/wRNlvnBJm81rdWJ0fbMpHDWYMAGpuXZ
- d37g1l8naMekkQ15dl7yO3Lj8sPh977gbxfxr8FwxR1D4EIlHc3xV5kyqVXSB/DmAVTJtRmxumf
- ejhor98yPEahwFzG1tgGAzWMV1ZkfNMeY6XOUZiWk9rXAM0PVuqRJccBOCK/x+KsWkFQ3WafSWh
- sy9KxmKsjdRc79PpfQhGLuMKcNgcEZtPLH6T79xIQdRR2kNK+WcUIay8mwh1/pWr200rRh4Rk/m
- cnQqSxaNzPumkFIvsICtZoo4Voap3CreLHf+W7wwcYUtjeOfc3PQU5UJi8jj6jgm8VfhltiPAss
- 6mCl7aeN0XebzJCVGpBbf0lxXZ3zafmJPHk/gMTSQSZOHaxJrU3uofuja7/u1cqRqZTsi4g3ze4
- Y9OWXd8hSumZtP2oUovgy+zpmY+WSseUjfJEglfnwAk4RBXH3d8RQDpOIZjQonFbk3e1RZHz7jD
- 5TsrSSVxx92mg1Fu6tqxkcgnHKmZ5zAP+QL9ayMLUZhIsf0NinF15+3nGMat+9izn6M066N7zAk
- grY2JnD7Bm+CuHu6a84oYlPuixC7hGGlenTwczJMOLFgM6pnQ9ybV0ydTfbwb1TwCVI/Cbw4uJB
- yXLuLMDymmDik6QoqosVS3N8ek2v6CpLo
-X-Received: by 2002:a05:620a:2a16:b0:93f:eed:ea4f with SMTP id
- af79cd13be357-93f29dc672cmr1243203985a.41.1792426013612; 
- Mon, 19 Oct 2026 09:06:53 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::662b])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93f1a0cf9a0sm990303385a.2.2026.10.19.09.06.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 09:06:53 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/psr: ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR not
- valid for eDP
-Date: Mon, 19 Oct 2026 12:06:51 -0400
-Message-ID: <20261019160651.584009-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261007083443.647649-1-jouni.hogander@intel.com>
-References: <20261007083443.647649-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3C410F225;
+	Tue, 20 Oct 2026 12:53:49 +0000 (UTC)
+Received: from spark.kcore.it (spark.kcore.it [49.13.27.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEB5710E9EE;
+ Tue, 20 Oct 2026 07:18:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kcore.it;
+ s=spark; h=References:In-Reply-To:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date;
+ bh=bMeL+bbnqNrhN+aBbvERNEM1rNn+fhz5UTanwzBbzPI=; b=K4a/NyMUegSQzvOUz2flMpNTdV
+ 0laN2DmMWcVW0PNiz6jDv8H7RPqVv018R+JUDp/DLtr1bO1Nnr7tizY6svZlni1AipnSA+Rd89d8V
+ 2PNWZUySu2oU+d6DEh7Kn7guMvENpCvdA5c1ir8HCHHNOWRn+nFsDM4RLFegSHno9cbM=;
+Received: from mnencia by spark.kcore.it with local (Exim 4.100.1)
+ (envelope-from <mnencia@kcore.it>) id 1xJ46r-00000000Zjo-2Kwl;
+ Tue, 20 Oct 2026 09:18:09 +0200
+Date: Tue, 20 Oct 2026 09:18:09 +0200
+From: Marco Nenciarini <mnencia@kcore.it>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
+ imre.deak@intel.com, xiaolu.xie@intel.com
+Subject: Re: [PATCH v2] drm/i915/dp: clear and restore MSTM_CTRL around MST
+ DPMS off/on
+Message-ID: <atcVsd7nkeyk-xoo@spark.kcore.it>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 20 Oct 2026 12:53:42 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020021714.62573-1-xiaolu.xie@intel.com>
+References: <20261020021714.62573-1-xiaolu.xie@intel.com>
+X-Mailman-Approved-At: Tue, 20 Oct 2026 12:53:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,21 +48,43 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Jouni,
+Tested-by: Marco Nenciarini <mnencia@kcore.it>
 
-Gentle ping on my last mail. With 0x107 bit 6 set, this panel still needs
-the AS SDP in PR Active while frames update, and the vblank-gated RFC is
-the only change it needs:
-https://lore.kernel.org/r/20261006220500.3417572-1-j@metarealtyinc.ca
+Tested v2 on a Dell Pro Max 16 (Arrow Lake-P) with a Dell WD19DC dock
+(Synaptics VMM5331 MST hub) and two monitors behind it, i915 driving
+the dock over TBT-alt, drm.debug=0x10e. Kernel is Debian 7.2.9 with v2
+applied on top.
 
-Still running it here on 7.3-rc5 with no issues. Should I send it as a
-patch on top of yours?
+On 7.2.9 drm_dp_dpcd_readb() returns 1 on success, so I used "ret >= 0"
+instead of "ret == 0" in the new check in
+intel_dp_mst_verify_dpcd_state(). Trees that use
+drm_dp_dpcd_read_byte() are not affected.
 
-Jake
+Results for the three points you asked about, 120 s DPMS off with a
+connector probe forced 30 s into the off period (writing "detect" to
+the trunk connector status, which runs intel_dp_detect()):
+
+1. DPMS off wrote MSTM_CTRL as 0x04 (0x00111 AUX <- 04), then D3.
+2. The probe read 0x111 back as 04. There was no "MST mode got reset"
+   message, no connector was unregistered and the topology was kept.
+3. On wake, D0 was sent and MSTM_CTRL was written as 0x07 before
+   POWER_UP_PHY. Link training passed at 810000 x4 on the sink and
+   both LTTPRs, payloads were allocated and both monitors came back.
+
+A 60 s run with the probe forced at 20 s gave the same result. A 120 s
+run without a probe was also clean.
+
+Without the patch, a DPMS off of more than about 6 s leaves both
+monitors black on wake (drm/i915/kernel#16901). With v1, a runtime
+resume probe during a 120 s DPMS off removed the whole MST topology,
+as I reported earlier. With v2 it does not. The hub keeps
+UPSTREAM_IS_SRC while MST_EN is 0, as you hoped.
+
+The logs are available if you want them.
