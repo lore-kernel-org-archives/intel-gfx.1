@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDE2606A32D
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 07:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67B9606A31A
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 07:40:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHo1wJH3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKTZqGkw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0BF810FC56;
-	Wed, 21 Oct 2026 07:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B61110FC7F;
+	Wed, 21 Oct 2026 07:40:51 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D0D10FC5A;
- Wed, 21 Oct 2026 07:33:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2557A10FC74;
+ Wed, 21 Oct 2026 07:40:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 891CA601F1;
- Wed, 21 Oct 2026 07:33:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22C151F000C9;
- Wed, 21 Oct 2026 07:33:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 40CDC60A5E;
+ Wed, 21 Oct 2026 07:40:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD001F000C9;
+ Wed, 21 Oct 2026 07:40:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792567998;
- bh=A7Xm4WkDLjxWRfQsU8A6g3x/biwAfzz5Cnvi2hS5Whc=;
+ s=k20260515; t=1792568444;
+ bh=TZuv9+GIMOibhxoIu1W1YEs0tTiAuyBnweL+5pj7v5M=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=XHo1wJH3+lME10nu38ygysUsYqaJC2GwK6bA5Q1bF1eQrQFQZg3sw2LZwEmUiEXe2
- eXcMXBhSSfA+ZjPGzQ3q3AQs67O0/3wJceQhO+dfztsVG8iJ9aBjnUy+rM/tC7yQJo
- P5ScMaFhYZllhdojR8mKMxhw/y2RuuPBeuxVChEsxRbHnATCDt9Gn5VfcjRPK/FrLS
- hCABVDIHC2IFpxn53X14xP82idonJzy1anWVlpQqlNE++5ThfCOHBup69moa2vpW2I
- YY2hocZ3ZwcQ4pPkb1CAWct4sigU9Pfu4/BgpJPa2eHcfU2gDkfqLHJ5LXOwJjNIRz
- j8U8PwUphKpfw==
-Message-ID: <sashiko-outbox-179915@kernel.org>
+ b=TKTZqGkwwIkYWzVS6buuPGlbIKfrwkM430xmLAgpZPqkvKFCjFeDGzkbYMonZIoyP
+ dXbfKyzZatSVQTdXOJNaeHlry9uEWB+AX9kRxkPCyQeYB1oZobs7WSE/OGJMANGgbC
+ XLWmeDyaPHwz4tzjjLRX9MQ9y0Bp4Co8Nw2URnYiG5Uhyzyhz7Iaae+eKGE94T/k33
+ Jk0IdGP5z7Fj30si+A6ko0vUeTyKSr4So3Mp4OLh4pocFYrPUPxr8/cprMF02fFX6L
+ Y8o2G0GxaeSNqx5J4erZEBRo1jW+9fKB+7SQ0v4mV9PvdYYNdwFXykkYyj/vCLWPq0
+ PKBxkYwWEENHw==
+Message-ID: <sashiko-outbox-179922@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 04/11] drm/i915/dp_mst: Limit M/N ratio for MST
+Subject: Re: [PATCH v6 02/11] drm/i915/dp: Limit M/N ratio for DP
 To: "Suraj Kandpal" <suraj.kandpal@intel.com>, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-In-Reply-To: <20261021071401.1161586-5-suraj.kandpal@intel.com>
-References: <20260917050649.871960-1-suraj.kandpal@intel.com>
- <20261021071401.1161586-1-suraj.kandpal@intel.com>
- <20261021071401.1161586-5-suraj.kandpal@intel.com>
+In-Reply-To: <20261021072438.1164249-3-suraj.kandpal@intel.com>
+References: <20261021072438.1164249-1-suraj.kandpal@intel.com>
+ <20261021072438.1164249-3-suraj.kandpal@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 07:33:17 +0000
+Date: Wed, 21 Oct 2026 07:40:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,69 +60,104 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/i915/dp_mst: M/N mode_valid and compute_config_limits filter=
- mismatch
+- [Medium] drm/i915/dp: misordered M/N ratio filter in intel_dp_compute_con=
+fig_limits()
 --
 
-commit 5b89059b3b94b9fbcca8f03ce951374211a9cdbc
-Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+commit 46d07c1bdb22b62954414e63e1d33e15eab315fb
+Author: Suraj Kandpal <suraj.kandpal@intel.com>
 
-drm/i915/dp_mst: Limit M/N ratio for MST
+drm/i915/dp: Limit M/N ratio for DP
 
-This commit adds a Link M/N ratio check to mst_connector_mode_valid_ctx()
-using intel_dp_mode_valid_m_n() to prune modes whose pixel clock exceeds
-the hardware Link M/N ratio limit across all link configurations.
+This commit restricts DisplayPort link configurations to those whose ceiling
+Link M/Link N ratio fits within the transcoder timing generator limit during
+link config limit computation, and prunes modes in mode_valid when no link
+configuration can satisfy the ratio.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index 7023619aaaba9..f00edfb66a10a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -1565,6 +1565,11 @@ mst_connector_mode_valid_ctx(struct drm_connector =
-*_connector,
->  					   min_link_bpp_x16,
->  					   bw_overhead_flags);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index d8c0d9381471d..7ceb7c02b597b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+
+[ ... ]
+
+> @@ -2656,6 +2725,48 @@ intel_dp_dsc_compute_pipe_bpp_limits(struct intel_=
+connector *connector,
+>  	return true;
+>  }
 > =20
-> +	if (!intel_dp_mode_valid_m_n(intel_dp, mode->clock)) {
-> +		*status =3D MODE_CLOCK_HIGH;
-> +		return 0;
+> +static bool
+> +intel_dp_compute_m_n_ratio_limits(struct intel_dp *intel_dp,
+> +				  struct drm_connector_state *conn_state,
+> +				  const struct intel_crtc_state *crtc_state,
+> +				  struct link_config_limits *limits)
+> +{
+> +	struct intel_display *display =3D to_intel_display(intel_dp);
+> +	struct intel_connector *connector =3D to_intel_connector(conn_state->co=
+nnector);
+> +	struct intel_dp_link_caps *link_caps =3D intel_dp->link.caps;
+> +	struct intel_dp_link_caps_order order =3D
+> +		intel_dp_link_caps_connector_compute_order(connector);
+> +	struct intel_dp_link_caps_filter new_filter =3D INTEL_DP_LINK_CAPS_FILT=
+ER_NONE;
+> +	int pixel_clock =3D intel_dp_mso_pixel_clock(intel_dp,
+> +						  intel_dp_mode_clock(crtc_state, conn_state));
+> +	struct intel_dp_link_config link_config;
+> +	struct intel_dp_link_caps_iter iter;
+> +	bool found =3D false;
+> +
+> +	intel_dp_link_caps_iter_start(&iter, link_caps, order, limits->link_con=
+fig_filter);
+> +	for_each_dp_link_config(&iter, &link_config) {
+> +		if (!intel_dp_can_support_m_n(display, pixel_clock, link_config.rate))
+> +			continue;
+> +
+> +		intel_dp_link_caps_filter_add(link_caps, &new_filter, &link_config);
+> +		found =3D true;
+> +	}
+> +	intel_dp_link_caps_iter_end(&iter);
+> +
+> +	if (!found) {
+> +		drm_dbg_kms(display->drm,
+> +			    "[CONNECTOR:%d:%s] No link config with a Link M/N ratio <=3D %d\n=
+",
+> +			    connector->base.base.id, connector->base.name,
+> +			    intel_dp_get_max_m_n_ratio(display));
+> +
+> +		return false;
 > +	}
 > +
->  	/*
->  	 * TODO:
->  	 * - Also check if compression would allow for the mode
+> +	limits->link_config_filter =3D new_filter;
+> +
+> +	return true;
+> +}
+> +
+>  bool
+>  intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+>  			       struct drm_connector_state *conn_state,
+> @@ -2772,6 +2883,9 @@ intel_dp_compute_config_limits(struct intel_dp *int=
+el_dp,
+>  		limits->link_config_filter =3D new_filter;
+>  	}
+> =20
+> +	if (!intel_dp_compute_m_n_ratio_limits(intel_dp, conn_state, crtc_state=
+, limits))
+> +		return false;
+> +
+>  	if (!intel_dp_test_compute_config(connector, crtc_state, limits))
+>  		return false;
+> =20
 
 [Severity: Medium]
-Could there be a mismatch here between how mst_connector_mode_valid_ctx()
-validates the M/N ratio and how intel_dp_compute_config_limits() filters
-link configurations for MST?
+Should intel_dp_compute_m_n_ratio_limits() be called earlier in
+intel_dp_compute_config_limits() in drivers/gpu/drm/i915/display/intel_dp.c,
+and should intel_dp_test_compute_config() also run before or intersect with
+that filter?
 
-In drivers/gpu/drm/i915/display/intel_dp_mst.c,
-mst_connector_mode_valid_ctx() checks link bandwidth solely against
-max_bw_config, whereas intel_dp_mode_valid_m_n() iterates over all link
-configurations in INTEL_DP_LINK_CAPS_FILTER_ALL:
-
-drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_mode_valid_m_n() {
-	...
-	intel_dp_link_caps_iter_start(&iter, intel_dp->link.caps, order,
-				      INTEL_DP_LINK_CAPS_FILTER_ALL);
-	for_each_dp_link_config(&iter, &link_config) {
-		if (intel_dp_can_support_m_n(display, m_n_pixel_clock,
-					     link_config.rate)) {
-			found =3D true;
-
-			break;
-		}
-	}
-	...
-}
-
-However, during modeset via mst_stream_compute_config() ->
-mst_stream_compute_link_for_joined_pipes() ->
-mst_stream_compute_config_limits() -> intel_dp_compute_config_limits() in
-drivers/gpu/drm/i915/display/intel_dp.c, the MST path narrows
-limits->link_config_filter to the single unfiltered max_config before
-calling intel_dp_compute_m_n_ratio_limits():
+Right before the new intel_dp_compute_m_n_ratio_limits() call,
+intel_dp_compute_config_limits() narrows limits->link_config_filter to a
+single max_config when is_mst or intel_dp->use_max_params is set:
 
 drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_compute_config_limits() {
 	...
@@ -145,24 +179,53 @@ g))
 	if (!intel_dp_compute_m_n_ratio_limits(intel_dp, conn_state, crtc_state, l=
 imits))
 		return false;
+
+	if (!intel_dp_test_compute_config(connector, crtc_state, limits))
+		return false;
 	...
 }
 
-On a DP 2.x MST topology supporting both 128b/132b UHBR rates (where symbol
-clock is rate * 10 / 32, e.g. 312.5 MHz for UHBR10 or 421.875 MHz for
-UHBR13.5) and 8b/10b rates (where symbol clock is rate / 10, e.g. 810 MHz
-for HBR3), a high-pixel-clock mode can exceed the M/N ratio limit at
-max_bw_config (such as 4xUHBR10) while still passing
-intel_dp_can_support_m_n() at HBR3.
+Because the link symbol clock is not monotonic with link rate or bandwidth
+(e.g., 128b/132b rates divide by 32 while 8b/10b rates divide by 10),
+intel_dp_get_connector_max_link_config() can pick a high-rate configuration
+with a lower symbol clock that violates intel_dp_can_support_m_n(), even
+when a lower link rate in link_caps has a higher symbol clock that satisfies
+the ratio.
 
-Wouldn't that allow mst_connector_mode_valid_ctx() to return MODE_OK for a
-mode that then fails atomic check in intel_dp_compute_config_limits() with
--EINVAL because only max_config was retained in limits->link_config_filter?
-Should mst_connector_mode_valid_ctx() either check
-intel_dp_can_support_m_n() against max_link_clock, or should
-intel_dp_compute_m_n_ratio_limits() run before selecting max_config in
-intel_dp_compute_config_limits()?
+Since limits->link_config_filter has already been restricted to that single
+max_config before intel_dp_compute_m_n_ratio_limits() runs, won't
+intel_dp_compute_m_n_ratio_limits() fail the modeset instead of allowing
+intel_dp_get_connector_max_link_config() to select the highest configuration
+among those that satisfy the ratio?
+
+Conversely, intel_dp_test_compute_config() runs immediately after
+intel_dp_compute_m_n_ratio_limits(). When a compliance link training request
+is active, intel_dp_test_compute_config() -> set_filter_for_link_params() ->
+set_filter_for_link_config() in drivers/gpu/drm/i915/display/intel_dp_test.c
+replaces limits->link_config_filter with a fresh filter built from link_cap=
+s:
+
+drivers/gpu/drm/i915/display/intel_dp_test.c:set_filter_for_link_config() {
+	struct intel_dp_link_caps_filter new_filter =3D INTEL_DP_LINK_CAPS_FILTER_=
+NONE;
+
+	if (!intel_dp_link_caps_filter_add(link_caps, &new_filter, link_params))
+		return false;
+
+	limits->link_config_filter =3D new_filter;
+
+	return true;
+}
+
+Won't that overwrite and discard the filter computed by
+intel_dp_compute_m_n_ratio_limits()?
+
+[ ... ]
+
+>
+>
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021071401.1161=
-586-1-suraj.kandpal@intel.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021072438.1164=
+249-1-suraj.kandpal@intel.com?part=3D2
