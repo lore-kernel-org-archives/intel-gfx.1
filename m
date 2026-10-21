@@ -2,155 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B448F606A320
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:15:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B06606A319
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OymfQL4Z
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Mxtk439V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5470410F92E;
-	Wed, 21 Oct 2026 06:15:16 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67FC910F8FE;
- Wed, 21 Oct 2026 06:15:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792563310; x=1824099310;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=AfRsVWK7nuX2Dsmi3Ylx9HoTIXjxIUsJbrgyl6CcYb4=;
- b=OymfQL4ZsADBv/OfuHaiQax6ynIoh0nV3zn8cJo1/6kmuVs0SbfEdwsp
- 3iELhYwnz6iS7Kbascw82u2Ksb9y02O6a/45NA9kOJ5u9DDOThKEIZoUd
- oiP3x4i1pwX/xrOtyu2nNfXdA7oiagEstmgy44sT5HnyhKiH1CpelDSyj
- nQLjCXqdMBWu/X4nMUp8l5KfGtAQ+DlkPsE7gsFjAxefGlSBrgycc2h/C
- gGdxtgJZjA1hPlfiRfL2MANpz0CSyureU4xt6OMElwVOs19HJroLNDNfo
- umY/ONiS2UGqJt5V//YCneHQKnI5hHsdBu4ZJ0Ta32MtQT37at4Hm90p9 A==;
-X-CSE-ConnectionGUID: bh7BG8cGRIG6eXWHnFr62Q==
-X-CSE-MsgGUID: uHjzJY9gSdSBg8thCvLAFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1271671"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1271671"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 23:15:09 -0700
-X-CSE-ConnectionGUID: 9MwnZr92Rs25VTwrmWUbug==
-X-CSE-MsgGUID: MmFuxSOUQ/mZoB6S9LWI+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3016652"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 23:15:09 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 23:15:08 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 20 Oct 2026 23:15:08 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.34) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 23:15:08 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB7210E0CC;
+	Wed, 21 Oct 2026 06:47:07 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012001.outbound.protection.outlook.com [52.101.43.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7B710E0CC;
+ Wed, 21 Oct 2026 06:47:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WjJW52X/Di9WlYsl+AaEW2wS5LhHdRA2dKazTMvUjmQeqzsoIjx47SeHi6irDsJKsRpSRKruDyd2D4w8C7VoMaPL4NzFfckHa1q9bu3StlXphe3Tf/Tn6rNZrOfrdqYlUrQPodGRiYygA2WSKveD5TmXBkzyjXV7Y60Mkw4h/pi2o91DA6eTq3swtU2IgXrBSjKDZ67HshLC03N+5FcXd7SJ6Jh6Me9gX+zfyFaJFOwvCotEe6SYlK/d+G8iYLO2Ke2UGF51nKuteM9ttew8joPDcycFzqkDhfGu0SvcaIAfPxHqdet5PMzQzR5SrtGIRSZqpgGz9sbtOilVWz6zRQ==
+ b=jNi6FBU9704il65VsuOGcsRHT7z874/g+C/fRzQa0/JzJ87qpVLTg/KYB4DDQFh5I1Mw5QQbl8NimIavc3PTYPjLaA2TRAAbThpTLxtFIuWrBmOmzGr4vayar+Vas9Q/78rSxNtcYWkyPTfmYGk4AEsWIJKPdxYFoj63zHMc4CN8cbz8mMBDPTVcWzajPEk2Dop131qkxUWM96rzAIT3BjYWoGVdK3a0SnVwFlTXjepudRJkPFb+Pn77EgoV+Np5e+MrDMUJhVDhs4xU29o+/EWLpDF1ExjYyMmknoBSIg+O6ZqDqDasT9edd9/ieB9EIBhCD19+yWRJqpCsP64ecw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4tHDRWolfpHBalJRGZPBq1hT0sF8U5fibkarO585/PI=;
- b=GbhL2CiKQaa7TU58abjaniGjAv0mtdRxUM92RZ85sYZzIBpGLVHvOPJmpldB+i8HYZg9W95IJ5XQaYUPcfhXE8AZB/Tn0UDQTjvxr23oOqEKn2NJduDkXJaaStLEv1fypW4vavws9SoJeIpFTN8ZXSfWSQNNv47Q3+NWL8KVFuJe8BjgPa9FXb0pF77SBFEcMU7fyfnuGeriZt9zY/ZgMEogaQMpUzhFedzfpzTLLpx0F1DoDCspZzTK5ExSHrKX2eckaRNT+0MfCbB5MctqfGjYGVIKvjR79GCsoN74/a6B1wbDgFDDg5W88dquFcULau/U45VTAz5JVYbS7KJd3g==
+ bh=FJcKHEcNcnoDoxmtp0cQdBiB9Im2emgCuy8VL+5ww50=;
+ b=Wa+xyCYnd8s04SbvYaTbe195s4KFOQ0Ek98adlNmXUvQRAqqu0vjIqJeViBdCnxLa1akporElNhTmRTMhaeOhb9XIpbOCdAm/ZbACGFV8Lvpgx/OniKqXtjqH76jLMiaF1h+M/wL5iK2j1CT4bE21xqv+iMcp2nf30IpuhQglq0NO/vGchM7GoD43sBAdPZv+nj9l+io5vdubFj5UkV+uui2mxcNR6iN4d6YU/7n1s8Zh7A9rZ3sxgEELDVnSd6ZV6eXN3LPfKJp6jcxi7EcO2xZd3rQ9laD+AbB+tZniluBa9hwmQSufL/ZLWKLNkwrHWIY3HI/BmrOLAzZdFCh8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::5b) by SA3PR11MB894536.namprd11.prod.outlook.com
- (2603:10b6:806:532::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 06:15:07 +0000
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::19f5:13eb:df52:68ff]) by DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::19f5:13eb:df52:68ff%8]) with mapi id 15.21.0522.012; Wed, 21 Oct 2026
- 06:15:07 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: "Kahola, Mika" <mika.kahola@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>
-CC: "Deak, Imre" <imre.deak@intel.com>
-Subject: RE: [PATCH v3 1/1] drm/i915/cx0: convert the PLL power save W/A to
- the display W/A framework
-Thread-Topic: [PATCH v3 1/1] drm/i915/cx0: convert the PLL power save W/A to
- the display W/A framework
-Thread-Index: AQHdXVAejWDFVpwQ9ECG/tx8jtNL5LcHjEmg
-Date: Wed, 21 Oct 2026 06:15:07 +0000
-Message-ID: <DS4PPFE901A304F33F4F641FA38D7FC1035E3662@DS4PPFE901A304F.namprd11.prod.outlook.com>
-References: <20261016092400.3112502-1-mika.kahola@intel.com>
- <20261016092400.3112502-2-mika.kahola@intel.com>
-In-Reply-To: <20261016092400.3112502-2-mika.kahola@intel.com>
-Accept-Language: en-US
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FJcKHEcNcnoDoxmtp0cQdBiB9Im2emgCuy8VL+5ww50=;
+ b=Mxtk439VhtpjkmMllkIk8UIJ/Xf/SMgLeXiQamaUMsUx58PcdtuOiImHM7E7E6/AcJyg1/XosFbvRUHscAlG5Z/hvfKugPt2SLz7E0zs4st6BvFH4fsBnAyi3OldGy3rO/5By11791VthGAEs3zMUSU1LFDjzACwAGuSb+VMRA0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by DS6PR12MB934327.namprd12.prod.outlook.com (2603:10b6:8:4c5::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 06:46:58 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 06:46:58 +0000
+Message-ID: <eb837a59-b682-423f-93a7-f83de4e38d4c@amd.com>
+Date: Wed, 21 Oct 2026 12:16:51 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] gpu/buddy: restore two-pass clear/dirty guard for
+ range-biased allocation
+To: Matthew Auld <matthew.auld@intel.com>, sashiko-reviews@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+References: <20261020055537.1640552-1-arunpravin.paneerselvam@amd.com>
+ <sashiko-outbox-178464@kernel.org>
+ <30e81db2-a56a-464b-93ea-c74aa161fdde@intel.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|SA3PR11MB894536:EE_
-x-ms-office365-filtering-correlation-id: 1cd0e816-972c-4b68-7438-08df2f3aa745
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|10070799003|23010399003|261009223027099003|260925021911599003|260925021311599003|260925022911599003|10067099003|56012099006|38070700021|22082099003|18002099003|11063799006|4143699003;
-x-microsoft-antispam-message-info: N7dcabXHnawiqiWRIDfGi1B9wR/9+sIlzMQ3+QDXiewrc+7nZjYsVHifsn950r2x9atDtnEFi+XKySXjM2CfzXoE4ULz7lJetpGFz3Wvx88Us4VEHjLzb8wavH4ULOcS2cWtrAOiNTbP1A1kvUA539k1bIeLTQl8f6LrtG7ASNJCJr/EvhUzsu17Y/LL5ofKpPtwio771TaP5qVOTq//dBhN9tUnrH5YPFNOHO4n0AJI6nP5ZFwgy+GfzeozbazileWf2a5q2wUbAFOUtRvgAmjRZZdwWoeEcFdMHhoiuG/Di1/jNhrnMjZHIEnIhJoLdoxGw4LO4HnGZLQlMZRtbDOCGZsQUYwa0pGSBNgxM5y5gdVVud2XRSLP8kh20qbOzBY06eT9C2y+rVSy2ftQL7N0B5kB3s1wTnjBXXxhJ7J2Jb9lIn66xNWYQd18llnbfMGIeuRvFB94JcSb/ubjPQQKleBTjHKQVIXDXLWEuQ4ixy6bF/LeXqBM8+AdzS3jd/R8/s6fBbigRA2saQsDru4aMtNIFxdT2Pu/ZlKg5FXvO7o3azVBSXR1qs+k8/yd4buM9aAS4+ScWw1myWSkXqFM5zjZOkKKxnOyfevkPOStA2rfuCZPvWlcME17MRDwg3J3ppcc2pXBgigR2A3sIxTMtycBh/s6Cra272x0DmuxYkru+O5WH82IT70ZhYoVhSpXpaQV7vMHKu+QmQ4xDc+Cwnho/UTcGP0JScL9gYc=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(10070799003)(23010399003)(261009223027099003)(260925021911599003)(260925021311599003)(260925022911599003)(10067099003)(56012099006)(38070700021)(22082099003)(18002099003)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Mwanf6PrZRMEHEwp+2M5uZxNHrXfR9AN0R8xAtnbe4BOFsrdOonGhwqjRBej?=
- =?us-ascii?Q?fwoh1hwRj3YHisZNZynYsYR8juat5tSrS4vVQZItw9rGqcmp2ySEpxQwVOVz?=
- =?us-ascii?Q?gQIeG/dnrRYDw1JQ1MaIZ5pJhTYqY+U8Aov6HiS0t4MLq89UHSG4udrXYrKh?=
- =?us-ascii?Q?KR5XyrBhOq8PGUX+CYU7hl7fztOOK2PjVd2znIIMRxg6JYXrHweb6d7xOfro?=
- =?us-ascii?Q?M2HWVs3T1Hyqi7CuSd6rCf+ED1OudnXjrWkn2BZ/HcDh1gyVu87ZnkcJJ9A9?=
- =?us-ascii?Q?5VdBcPAMBRO8pqT6zhhPkZk+RTxeIW/fJzfURgK7Lp1y+hWL/dWD+RS24yZi?=
- =?us-ascii?Q?nxEjdN8djfTbZVfYln9IFmtzl5HOOUjN3DD7NP8sCcx/ZcwqZLv3SJrvEXJg?=
- =?us-ascii?Q?ErmEIynGGSy+llUeMX7YZ+onvVBnl+eWvIuMAnK9HTTcEf8R6HfRP8V7AP6k?=
- =?us-ascii?Q?jkUyOqA+QsUPqwN1hVT2u85C/rKHao5g2he5ve2QAt6WL+mJ5xA81pumPuJF?=
- =?us-ascii?Q?doaost3fn9MRZAdzaRxzPj0fDoUYWX3DsNakTH2U+y5OTqHyIGoUP5sVy8ev?=
- =?us-ascii?Q?elZx5xxOMPbv9smR8g1qFJf2F19fSLVHImfDDEnQp6Q9VWytxDgKBEkH8Pbf?=
- =?us-ascii?Q?hEy0whZ+2CGYII6QFspg5VLk67AkLsAjFjiXfTp78AC2cN6cybAKWsnAV4JP?=
- =?us-ascii?Q?OhS8A9cfTzn+mt1SPNG+8s5lNrSEbd/OVLhcRGgxoAUYuUMtl5EIR7Cnrh1h?=
- =?us-ascii?Q?pngfbDh7KzeGjQmvT/0/WK6c0sbdtrrAojoDHxdH4z4WUr9O4fTc1KN5L8uj?=
- =?us-ascii?Q?jaC7naVPe+c8Ie5zV1+pTJluWdHJAmTurz1Wx14fsHqgPy9yjkrCml1GcKKi?=
- =?us-ascii?Q?BewRUY3SK5awS49nIK7HycH4iTj8axnUOOVVdK3Z7E+FZgbtMT6700+rB3qk?=
- =?us-ascii?Q?LhuyTSofiz+cEZZAcgxCwAByHMBBVnVSHFKzblt45o1PPUO1BxrQdkFkfvlm?=
- =?us-ascii?Q?iG11h8ulLh9FDliSlP2QAZsfQUSgjOqgzFzA4rdnCLcaQWTxem3p1kEwtx5Y?=
- =?us-ascii?Q?XRl6bV3+pgnN9chG0RK+U9L85/S+UxWhSuszTJNeHPm9hy2qZgLLMnkZ0sGg?=
- =?us-ascii?Q?6n6Qp7gzEMwBP7EZTNo7jnOwEZoHRY3DUCb7RWlMFMIs8BCVCRFboVsJv7nM?=
- =?us-ascii?Q?VGk25BoDYNy3IV2wS5Xi9ivI+ZIBVP7EmvRxJ+Z0tMiK02h1omBAYWKSFzmV?=
- =?us-ascii?Q?oNB9rk+SEvP3XYbklCLTZftmNLj2KCxLJAvy4GmT+cf45BX7dZT11RGMLLL/?=
- =?us-ascii?Q?6qyxZO9UNoS4pF8wNbw/N1yoTB9bgxcJkcHYZWVWtkVOvM3GpbY8bU+bqIC4?=
- =?us-ascii?Q?fiNverXN/dF5ltGu0cSqJrhTY6rXrqMaQZic/9GqTRf7MzSMDgRoh8CuzTHg?=
- =?us-ascii?Q?COdvaNIWacj9waSWe6LmLcGN0L8AO5XIUG5PIeb4jF0NN6dkrG2k08IurpLp?=
- =?us-ascii?Q?ZDs999qp44Aidkr53HP8VWwbHBakvbxzpcjIamdMlBCTCSyaRqlMxrRU+iWu?=
- =?us-ascii?Q?GHf1YrpPveRkWG2tTY49uFGdLxWYuVwYaEze5TyDWH7eMY45boIG6uKS6fOv?=
- =?us-ascii?Q?G7l4Ihe+CaDCwOcQ6CknpfG+uvoQ259FZjTbum39Gnac25ibyiJg7sb0xf1Q?=
- =?us-ascii?Q?7gv8jYtciBPADC1fSr6f2A7h+pfWw9EF6Cp/9WArVZNhOgzGBpfKe86FVp90?=
- =?us-ascii?Q?GJxGFR2VqwzNB3qwKap97OQzBOgXFqIYZjfG3819wUHRAyo+JfQTGjFlRpxO?=
-x-ms-exchange-antispam-messagedata-1: gn+P9XRyi2dXZw==
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <30e81db2-a56a-464b-93ea-c74aa161fdde@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0154.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ac::15) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: ocnP54DpLrJ0m4xzvO5zN7TDmInDqQz3rsKv4VlF+pmqs1GKoRM4nZ3fqAnF9jc6lTt8SU8LyVcFkoZiW+ljIQKwxLT2VY9Vd/h3vbE5dID2J2TRtyXgwdTsjGKhdHLJK22QflLI+HbDATEtQItCZ1uoZR0ZxuaV5DLoVAykw1Q3TMhFA73mnrG3SgazuEJzku8939QOVqZ4czzB3s7m6IPZ6BNDtECiKxOnAsAFTdhGIgcZ3HslDfhgXfe2r8nEA0nZugtHSBCj+eU5Ywhh7gFHSqXB2dK70UAQ9BN6dz9BGw6SalHFtnXuD5NWKO2GTZZFi+mDquJ68cFs7wT+pA==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|DS6PR12MB934327:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98e7f3a3-cfc0-4da0-fefa-08df2f3f1a82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|6133799003|22082099003|18002099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: YLvsKPFuxa8sJeKv/9QUhitePXcjgb/GclgZdZJeLi+zkCkATLA/rbkr1GOZcT8TcCR+d4nf3Fmfj4o/PUneH3ZYXknKQpL1VaqyDl6xB+zWdk/PTKKZPmdz1mXqajhjSgZP5y80jMsB3CCobzJDKQgQ/IEH5gq8DuKGIqM7Q2SO4JqCSCX7C79hJvV6LvtJpfzdWAU5kql/2gkkXfq6I2YDMwODGP21HYijuphkMF6EGW6Vho5/IWMlHGVFLi6v7/0i2tFVa7DINUwRd6DgOK04hyBInCUBuJBptLnMA+R2veGt6Qdz7gOEe8d3gco0mnPjwdtZzE8h7Pgadl54rfG7GYtbqrSRB4nErcR55S3W+ESspRbb7H40wlC79kl8oTUFlO8993JDBZR3Z49Iov3fM2ePT7a0OPZGQ8lQjeyHYF0GBa1HbRlLjxOHRhhf8VxW/8Wsi65pDVNvByVBLA5ChChAr8RFKSwQKnuL165c6ZWwlkOTF6l2Do1obtgE29cdLDwX3R8tyleFO7MzffqNrY4PSnL5pAVrLzwVpnufT7kRsflVjz7o8l4CGk2+4UBNDmZYIVVKp0fYYF747jHDdykJ90aGK5+Q9vBTFPbH3oLYQ8Xho2jHlDciScc9x8uOUofA+GymHWBv/aILpiXatvBEV4gQsdbDhsFUTX8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFhQKzBoUEhlZzI3SUdnUWFyQkdZVlpOb21RcE9kK3FVaGFwV014MlVJbkFB?=
+ =?utf-8?B?STlBdi9WN0ZWRTBNUkVCWjJmbEpRLysvMFphMVhIQ2puZ0RYR1kvVHA1dWdS?=
+ =?utf-8?B?QTZXQ2tiRk0raUdGbElZK2lCbWFvUmNKSGxNOTJSR3Y2OWVXMitodDl1MzE1?=
+ =?utf-8?B?Vko0Ty9WU1NTR2JkU3BDS25FRzVHQ3FleEk2MU1RVUFLZmpJUjM2eWdkZmZt?=
+ =?utf-8?B?M3VoVlFwVTZHSVFycFJGK01JeTFOQjRQeUNBSkh3TlB0ZTBWaFkwQkF3Skp3?=
+ =?utf-8?B?MVZkVWdOTGV3ai91RVVVZXV1V1ZSKy9JL003RlMrQk11c0twOFJXYWc5ZjNs?=
+ =?utf-8?B?Mi95UmZrTmdKdDU3cWNiMmhabVRtTDg0cFo3YTZxdmNDSkk3aDRUc0NYZEZz?=
+ =?utf-8?B?Sm14aTNRQ3BTaDE2eDRic05SQk5KL0RvdVdFVTNiQ3VDOExmaXIxY0M2eGZU?=
+ =?utf-8?B?UVdEV081ajNQa1lzTDFvSHgrZHlHQWEwdFVkY3UrL05HMFZWRGttc0JMOW5s?=
+ =?utf-8?B?elRPa29oNmtFVlUzbFhZVHhkY3ZzOUdMb3AyOHNkdGFSS0NOU0s5Z1FkK0Ix?=
+ =?utf-8?B?UHNXWmc2VWFvTlptTFM3NVVUQVJ1aVpPbWhqZnJrVSs0Qkd5QkUxOWdpNGZY?=
+ =?utf-8?B?R2I2OFpUeXZheVdWdjd0SHhPcVR6U21WZ0gybnFLSHprRTdtU3dPUURqVW5B?=
+ =?utf-8?B?N3lUZEpjYktwdVMyK0JtTFhwWkhWNVM3NGp5dUdIdXRlMG9CU3lINUtvZTNm?=
+ =?utf-8?B?UFhUVmVyRGhkSFdrckl2TDV2QXZ5dlI3dVl1OVpvNWZTM2svaVphTVplTU81?=
+ =?utf-8?B?M1NTWVFNTWlCOFNuZlk0ZEJVZzdjVkdBdWIxTkMwR1FWZUFST0MreHQ1Y0J0?=
+ =?utf-8?B?UzVpMWwyRGNvVGI5MDZ2NWRpVitQdjVKUmpEeVFUN3EvUmJqZEhYa2VLSFhs?=
+ =?utf-8?B?R2RyVVJQaGdvNDU2b2xzKzlDbE9DV2M2VFNDYmY2Si9VbUhOdEltQXVHU0Y5?=
+ =?utf-8?B?TEVOT3JnY3hFUXhoMkNFSythcnpxVDUwekt2TVVOUHZUTlJGeHduZ3BHQTlm?=
+ =?utf-8?B?TlI0VU1Uek84QWdsRlo5ZEl2Zm4wam9IMWVZTGRWRDBNVDdRMnpwTUtMTFJ0?=
+ =?utf-8?B?dS9KRnhDZWdLajd1YWJRLys2V0RKQUVHLzNqTFBwQXVpbjJ4eWVCd1VmQk16?=
+ =?utf-8?B?eXlGQ0VOcjVQNDV2aHFCNDdOK0xkalIrZUpHQ1dJMlBHa1gydndCbmcrT1ZE?=
+ =?utf-8?B?ME5IdGl6MDBEVFlPMzdIV1JGbVkzdk41bjYzZ3Z1WXl2b3hTaUhhMFhZaFZY?=
+ =?utf-8?B?S1FyZG5Ba0FBSXR1UkxnT0J2N3ZhVmRDSHpESUxWTEZMdDVYM3NsTUJWZmdv?=
+ =?utf-8?B?dVJETmtOTk5tcStRdFd1WGttNHdmY1lWM2djVGp0Y3pvWGZ2b3F3WHdtZUJt?=
+ =?utf-8?B?Uk01QmZla0hYMFcySkNZUzlMZE9JbHFhTlM5M2FHUkV1bnhBaSswS29vdUZQ?=
+ =?utf-8?B?WVd5VGJWUGJRdzNUOEg2eExnYmRsOVU2R3NrTkhNeGg4K2RSTEZtMlFYdnh5?=
+ =?utf-8?B?S3NQYzJWRE1lZkJuVUpyNTVBT1BlczQ4YTNJRllNQjgrY1I3cDRJSU10K0FN?=
+ =?utf-8?B?OHBLTXdzbFY4aS94T2xhMTBZWGdzWDVZRjBvd3ZEQTM2RG5BSWNpYlJweTFO?=
+ =?utf-8?B?R2JBb1o4eEJXR296Yjk4TnRDbmlpWTQrRGtUQXlJWTFQMDBFdWN6Ym1FL3pa?=
+ =?utf-8?B?d1hpLzRPSnhqNEI5U2lEU0Z5eFFqaThnNXBSclI3TTBQejlxazJhNW1WVGRn?=
+ =?utf-8?B?ejJNVlIzUGJ2QlVMemdqeHZiRG85UThFVmdUR3BQS1hiVDJoRkFVd3kvVzNt?=
+ =?utf-8?B?RXZvb0VHMGlHSkpXQUpzMHBMWmFJOWx0S1hpNEFJN2E2TVNWRmF3TDdkWWFZ?=
+ =?utf-8?B?RXZBTTJERmxvZ0FWc3gzLzkzNTFaMEF1UlQ2L0dFSHk3Y1A1Y0VVWStNYnVD?=
+ =?utf-8?B?Tm41S0FIa1ZXY3NOTXZtVFdYK1lUbXNUNE1yRFJyT3lWZ2NrMnZ6c05odjlU?=
+ =?utf-8?B?bG5tOFlKc212eVpyMjhpQ3h4NkhlS1BFZUdRVkdSSlRGYWRJbWFYbUxYZ0Zx?=
+ =?utf-8?B?YWJham9JbVVsakMvbkVCSkhMWkduTWZhSDc4MTJqUDVYb2t4aHlob21PMlJD?=
+ =?utf-8?B?by9QWHRkakJ0ejVRZC9uZVJJNEJmRWdwSHJ6dkJoR3pnZFhCZkxGYjJ5M0V1?=
+ =?utf-8?B?TGhNckdRQm5UU0c1cUN4WnprRXdsME5JWFRTQ2IvVXpEUjI0OWpqZk41cXRV?=
+ =?utf-8?B?a2VvL3NkQjZhYVZtNVoyME5DREJyNWw3NXM4T2xWMitaazJZakRwQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98e7f3a3-cfc0-4da0-fefa-08df2f3f1a82
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cd0e816-972c-4b68-7438-08df2f3aa745
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 06:15:07.0507 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ks7vLSk8cQeYiBR03jqrsAymBUvxOnoQQq+7KnyoTLA2Rx1oi/u14WMRIvCl9pDBF+KzBnVEOmWXv67UcXsLgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB894536
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:46:58.5331 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SWKcdlF971V3l55ELGKqnaKoRPN6/yQH9UM83dQuOP9TNA8wfcr1eW8e0XSGIqolBoavapIjCWFbjw3cweMiHw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB934327
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,118 +132,214 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
 
-> -----Original Message-----
-> From: Kahola, Mika <mika.kahola@intel.com>
-> Sent: 16 October 2026 14:54
-> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
-> Cc: Deak, Imre <imre.deak@intel.com>; Kandpal, Suraj
-> <suraj.kandpal@intel.com>; Kahola, Mika <mika.kahola@intel.com>
-> Subject: [PATCH v3 1/1] drm/i915/cx0: convert the PLL power save W/A to t=
-he
-> display W/A framework
->=20
-> Replace the open-coded DISPLAY_VER() check for W/A 14022081154 in
-> intel_cx0_pll_power_save_wa() with INTEL_DISPLAY_WA_14022081154.
->=20
-> Drop the port A note from the comment while at it. It only holds for PTL,=
- on
-> WCL port B is a C10 PHY too.
->=20
-> No functional change.
->=20
-> BSpec: 74151
-> Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+On 10/20/2026 3:22 PM, Matthew Auld wrote:
+> On 20/10/2026 09:00, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 1 potential 
+>> issue(s) to consider:
+>> - [High] gpu/buddy: block_incompatible() mishandles split and mixed 
+>> blocks in __alloc_range_bias()
+>> -- 
+>>
+>> commit 6dff7f0e6dce9c68ecb98f2d911199843d2b4401
+>> Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>>
+>> gpu/buddy: restore two-pass clear/dirty guard for range-biased 
+>> allocation
+>>
+>> This commit introduces a two-pass search in 
+>> __gpu_buddy_alloc_range_bias()
+>> using block_incompatible() in the strict pass to prevent 
+>> range-restricted
+>> allocations from splitting opposite-class (clear vs. dirty) blocks 
+>> unless
+>> no matching blocks exist in the range.
+>>
+>>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>>> index 503f7d5934e4b..91935c71c5255 100644
+>>> --- a/drivers/gpu/buddy.c
+>>> +++ b/drivers/gpu/buddy.c
+>>> @@ -1240,11 +1240,19 @@ static void __gpu_buddy_undo_splits(struct 
+>>> gpu_buddy *mm,
+>>>       }
+>>>   }
+>>>   +static bool block_incompatible(struct gpu_buddy_block *block, 
+>>> unsigned int flags)
+>>> +{
+>>> +    bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
+>>> +
+>>> +    return needs_clear != gpu_buddy_block_is_clear(block);
+>>> +}
+>>> +
+>>>   static struct gpu_buddy_block *
+>>>   __alloc_range_bias(struct gpu_buddy *mm,
+>>>              u64 start, u64 end,
+>>>              unsigned int order,
+>>> -           unsigned long flags)
+>>> +           unsigned long flags,
+>>> +           bool fallback)
+>>>   {
+>>
+>> [ ... ]
+>>
+>>> @@ -1298,6 +1304,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>                   continue;
+>>>           }
+>>>   +        if (!fallback && block_incompatible(block, flags))
+>>> +            continue;
+>>> +
+>>>           if (contains(start, end, block_start, block_end) &&
+>>>               order == gpu_buddy_block_order(block)) {
+>>>               /*
+>>> @@ -1315,38 +1324,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>                   goto err_undo;
+>>>           }
+>>>   -        /*
+>>> -         * Top-down is a strict address-placement policy, so when 
+>>> it is
+>>> -         * requested we ignore clear steering and simply descend the
+>>> -         * right (higher-address) child first. Only a non-top-down 
+>>> clear
+>>> -         * request biases the descent towards clear/has_clear 
+>>> subtrees.
+>>> -         */
+>>> -        if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+>>> -            !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
+>>> -            struct gpu_buddy_block *prefer;
+>>> -
+>>> -            if (gpu_buddy_block_is_clear(block->right))
+>>> -                prefer = block->right;
+>>> -            else if (gpu_buddy_block_is_clear(block->left))
+>>> -                prefer = block->left;
+>>> -            else if (block->right->has_clear)
+>>> -                prefer = block->right;
+>>> -            else if (block->left->has_clear)
+>>> -                prefer = block->left;
+>>> -            else
+>>> -                prefer = block->right;
+>>> -
+>>> -            if (prefer == block->right) {
+>>> -                list_add(&block->left->tmp_link, &dfs);
+>>> -                list_add(&block->right->tmp_link, &dfs);
+>>> -            } else {
+>>> -                list_add(&block->right->tmp_link, &dfs);
+>>> -                list_add(&block->left->tmp_link, &dfs);
+>>> -            }
+>>> -        } else {
+>>> -            list_add(&block->left->tmp_link, &dfs);
+>>> -            list_add(&block->right->tmp_link, &dfs);
+>>> -        }
+>>> +        list_add(&block->left->tmp_link, &dfs);
+>>> +        list_add(&block->right->tmp_link, &dfs);
+>>>       } while (1);
+>>
+>> [Severity: High]
+>> Does calling block_incompatible() on every visited node in
+>> __alloc_range_bias() before checking whether the block is split or mixed
+>> mishandle internal GPU_BUDDY_SPLIT nodes and coalesced 
+>> GPU_BLOCK_MIXED free
+>> blocks?
+>>
+>> First, when mark_split() transitions a block to GPU_BUDDY_SPLIT, it 
+>> leaves
+>> the previous GPU_BUDDY_HEADER_CLEAR bit intact on the internal node:
+>>
+>> drivers/gpu/buddy.c:mark_split() {
+>>     block->header &= ~GPU_BUDDY_HEADER_STATE;
+>>     block->header |= GPU_BUDDY_SPLIT;
+>>     ...
+>> }
+>>
+>> Because gpu_buddy_init() initializes roots as dirty, any root or 
+>> ancestor
+>> split while dirty keeps gpu_buddy_block_is_clear(block) == false 
+>> while any
+>> descendant remains allocated. Conversely, a clear block that is split 
+>> and
+>> later has a descendant freed as dirty keeps 
+>> gpu_buddy_block_is_clear(block)
+>> == true on the split ancestor.
+>>
+>> When __gpu_buddy_alloc_range_bias() runs the first pass (fallback = 
+>> false),
+>> __alloc_range_bias() evaluates block_incompatible(block, flags) on those
+>> GPU_BUDDY_SPLIT ancestors and skips the entire subtree without 
+>> descending
+>> into its children. If no other root satisfies the request, the first 
+>> pass
+>> returns -ENOSPC and __gpu_buddy_alloc_range_bias() falls back to the 
+>> second
+>> pass (fallback = true), where block_incompatible() is disabled and the
+>> clear/has_clear child-ordering preference has been removed, causing the
+>> search to split the highest-address extent regardless of class.
+>>
+>> Second, __gpu_buddy_free() coalesces adjacent clear and dirty free 
+>> buddies
+>> into a single GPU_BUDDY_FREE block with state GPU_BLOCK_MIXED, which has
+>> gpu_buddy_block_is_clear(block) == false and block->has_clear == true:
+>>
+>> 1. For clear range allocations (flags & GPU_BUDDY_CLEAR_ALLOCATION), 
+>> Pass 1
+>>     sees gpu_buddy_block_is_clear(block) == false on a 
+>> GPU_BLOCK_MIXED block
+>>     and skips it via block_incompatible() without splitting it to 
+>> reach the
+>>     clear sub-blocks inside. Pass 2 then splits the mixed block 
+>> without clear
+>>     child-steering and unconditionally visits block->right first, 
+>> returning a
+>>     dirty block whenever the clear half is in block->left.
+>>
+>> 2. For dirty range allocations (!(flags & GPU_BUDDY_CLEAR_ALLOCATION)),
+>>     block_incompatible() returns false on a higher-order GPU_BLOCK_MIXED
+>>     block because gpu_buddy_block_is_clear(block) is false. Pass 1 
+>> then calls
+>>     split_block(mm, block), which reclassifies block->left and 
+>> block->right
+>>     via mark_free(). If the child overlapping [start, end) is clear 
+>> while the
+>>     dirty child lies outside [start, end), Pass 1 rejects the clear 
+>> child via
+>>     block_incompatible() and skips the other child without calling
+>>     __gpu_buddy_undo_splits().
+>>
+>> Wouldn't leaving that split GPU_BLOCK_MIXED block unmerged keep both
+>> children in GPU_BUDDY_FREE state, preventing ancestor coalescing on 
+>> teardown
+>> and triggering 
+>> gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i])) while
+>> leaking the split child gpu_buddy_block structures in gpu_buddy_fini()?
+>
+> Analysis looks correct to me. We assume if you get as far as doing an 
+> actual split, then that must mean there is something in there which is 
+> compatible, either you find it with some number of splits or one of 
+> the split calls hits an error, which takes care to undo the splits. 
+> But now with that compat check, this breaks, since we don't know ahead 
+> of time if it will find something which is also compat. Arun, thoughts?
+Agreed, Matthew, and thanks for the pointer. The split-then-reject case 
+does leak because the compatibility check breaks the assumption that a 
+split will always find a suitable block.
+I followed your approach: after split_block(), the parent is pushed back 
+onto the DFS stack, and unsplit_block() merges it back when both 
+children are still free. I also narrowed block_incompatible() to check 
+only free blocks.
+I extended gpu_test_buddy_alloc_range_clear_guard to cover this case. 
+The test fails without the fix and passes with it. I will send the v6.
 
-LGTM,
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-
-> ---
->  drivers/gpu/drm/i915/display/intel_cx0_phy.c    | 6 +++---
->  drivers/gpu/drm/i915/display/intel_display_wa.c | 2 ++
-> drivers/gpu/drm/i915/display/intel_display_wa.h | 1 +
->  3 files changed, 6 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-> b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-> index b83f0afaa9b5..1b5a5dcb041b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-> @@ -19,6 +19,7 @@
->  #include "intel_de.h"
->  #include "intel_display_types.h"
->  #include "intel_display_utils.h"
-> +#include "intel_display_wa.h"
->  #include "intel_dp.h"
->  #include "intel_dpll.h"
->  #include "intel_hdmi.h"
-> @@ -3703,8 +3704,7 @@ int intel_cx0pll_calc_port_clock(struct
-> intel_encoder *encoder,
->   * The dedicated display PHYs reset to a power state that blocks S0ix,
-> increasing idle
->   * system power. After a system reset (cold boot, S3/4/5, warm reset) if=
- a
-> dedicated
->   * PHY is not being brought up shortly, use these steps to move the PHY =
-to
-> the lowest
-> - * power state to save power. For PTL the workaround is needed only for
-> port A. Port B
-> - * is not connected.
-> + * power state to save power.
->   *
->   * 1. Follow the PLL Enable Sequence, using any valid frequency such as =
-DP
-> 1.62 GHz.
->   *    This brings lanes out of reset and enables the PLL to allow powerd=
-own
-> to be moved
-> @@ -3715,7 +3715,7 @@ void intel_cx0_pll_power_save_wa(struct
-> intel_display *display)  {
->  	struct intel_encoder *encoder;
->=20
-> -	if (DISPLAY_VER(display) !=3D 30)
-> +	if (!intel_display_wa(display, INTEL_DISPLAY_WA_14022081154))
->  		return;
->=20
->  	for_each_intel_encoder(display->drm, encoder) { diff --git
-> a/drivers/gpu/drm/i915/display/intel_display_wa.c
-> b/drivers/gpu/drm/i915/display/intel_display_wa.c
-> index 888676693f5e..c8f65b55530f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_wa.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
-> @@ -111,6 +111,8 @@ bool __intel_display_wa(struct intel_display *display=
-,
-> enum intel_display_wa wa,
->  		return DISPLAY_VERx100(display) =3D=3D 3000 ||
->  			DISPLAY_VERx100(display) =3D=3D 2000 ||
->  			DISPLAY_VERx100(display) =3D=3D 1401;
-> +	case INTEL_DISPLAY_WA_14022081154:
-> +		return DISPLAY_VER(display) =3D=3D 30;
->  	case INTEL_DISPLAY_WA_14025769978:
->  		return DISPLAY_VER(display) =3D=3D 35;
->  	case INTEL_DISPLAY_WA_14026643300:
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h
-> b/drivers/gpu/drm/i915/display/intel_display_wa.h
-> index 425a300840aa..acb45fa59aef 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_wa.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
-> @@ -33,6 +33,7 @@ enum intel_display_wa {
->  	INTEL_DISPLAY_WA_14014143976,
->  	INTEL_DISPLAY_WA_14016740474,
->  	INTEL_DISPLAY_WA_14020863754,
-> +	INTEL_DISPLAY_WA_14022081154,
->  	INTEL_DISPLAY_WA_14025769978,
->  	INTEL_DISPLAY_WA_14026643300,
->  	INTEL_DISPLAY_WA_15013987218,
-> --
-> 2.43.0
+Thanks,
+Arun.
+>
+>>
+>> [ ... ]
+>>
+>
 
