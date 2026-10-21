@@ -2,49 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3C5606A319
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 22:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZdZyj23M
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6314C606A319
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 22:28:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59E9910E0DD;
-	Wed, 21 Oct 2026 22:24:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 964DD10E0DD;
- Wed, 21 Oct 2026 22:24:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8CA9F60052;
- Wed, 21 Oct 2026 22:24:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CCD51F000C1;
- Wed, 21 Oct 2026 22:24:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792621462;
- bh=REdUktNxGCJihQQBGRX8qc8uWVVEZHhwYkOf8/hakqI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ZdZyj23Mdfgzs5j1strCtJ/YGmVEDFxDg1M3OA/FFBbZjW9O8IguNr0La8HHoggBn
- Hvkl1z3dx65bdJecuH/d7VQF5uyObcwLmOf7xPLlLdO0CbaQ2KjMX5OkgEOr4+TmKb
- BSbd+gMAAnNV4n0QpXyypDHGnQFPX+7R/vGJrY/X/fvMc7bhYfVlG/b/oB2ITHXCsB
- 3NHi9u8p5995Vi5y+hcX2HQ+/ETErrsaRtTvpfPWvwMEPFSNPjcSSTKKGYdS5V1pfI
- JdEnPJT/KX4G4W65iHTEmXifs8BBiOvLz1Ip99tpgFAqitaldd/5qVfdjQPJZID7W/
- vCxKqTTZLXEmg==
-Date: Thu, 22 Oct 2026 00:24:19 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Andi Shyti <andi.shyti@linux.intel.com>,
- =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v7 1/6] drm/i915/shmem: Validate max_segment
-Message-ID: <atk7ePepinRXb7HO@zenone.zhora.eu>
-References: <20261006095845.451212-1-krzysztof.karas@intel.com>
- <20261006095845.451212-2-krzysztof.karas@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD720882AF;
+	Wed, 21 Oct 2026 22:28:18 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14E27882AF;
+ Wed, 21 Oct 2026 22:28:18 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8739695992691672242=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006095845.451212-2-krzysztof.karas@intel.com>
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/cmtg=3A_Disable_?=
+ =?utf-8?q?CMTG_after_encoder_disable_in_hsw=5Fcrtc=5Fdisable=28=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Animesh Manna" <animesh.manna@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 21 Oct 2026 22:28:18 -0000
+Message-ID: <179262169807.54039.6130686114196694269@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261021190631.527183-1-animesh.manna@intel.com>
+In-Reply-To: <20261021190631.527183-1-animesh.manna@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,29 +34,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Krzysztof,
+--===============8739695992691672242==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 06, 2026 at 09:58:40AM +0000, Krzysztof Karas wrote:
-> There is nothing preventing user of shmem_sg_alloc_table() from
-> passing max_segment smaller than PAGE_SIZE, which would result
-> in nr_pages = max_segment / PAGE_SIZE == 0 and cause a
-> non-terminating loop.
-> Also, ensure that this value io page-aligned.
-> 
-> Suggested-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> Suggested-by: Andi Shyti <andi.shyti@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+== Series Details ==
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Series: drm/i915/cmtg: Disable CMTG after encoder disable in hsw_crtc_disable()
+URL   : https://patchwork.freedesktop.org/series/176584/
+State : success
 
-Thanks,
-Andi
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19380 -> Patchwork_176584v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_176584v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_addfb_basic@too-high:
+    - bat-apl-1:          [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +38 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19380/bat-apl-1/igt@kms_addfb_basic@too-high.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/bat-apl-1/igt@kms_addfb_basic@too-high.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1:
+    - bat-apl-1:          [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#180]) +44 other tests dmesg-warn
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19380/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19380 -> Patchwork_176584v1
+
+  CI-20190529: 20190529
+  CI_DRM_19380: c6e562bf40e09550958664912c45eff53eca562a @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9156: 9156
+  Patchwork_176584v1: c6e562bf40e09550958664912c45eff53eca562a @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/index.html
+
+--===============8739695992691672242==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/cmtg: Disable CMTG after encoder disable in hsw_crtc_disable()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176584/">https://patchwork.freedesktop.org/series/176584/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19380 -&gt; Patchwork_176584v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_176584v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@kms_addfb_basic@too-high:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19380/bat-apl-1/igt@kms_addfb_basic@too-high.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/bat-apl-1/igt@kms_addfb_basic@too-high.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +38 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19380/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176584v1/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +44 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19380 -&gt; Patchwork_176584v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19380: c6e562bf40e09550958664912c45eff53eca562a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9156: 9156<br />
+  Patchwork_176584v1: c6e562bf40e09550958664912c45eff53eca562a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8739695992691672242==--
