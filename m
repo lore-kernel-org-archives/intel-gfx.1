@@ -2,43 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572C6606A31B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N9A/ecFG
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08FB606A319
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:26:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E81EE10E21C;
-	Wed, 21 Oct 2026 13:22:43 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A655F10E21C;
- Wed, 21 Oct 2026 13:22:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0DE5843BCF;
- Wed, 21 Oct 2026 13:22:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0D51F000C7;
- Wed, 21 Oct 2026 13:22:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792588957;
- bh=X5qEZefSXY1XOL8KRx7YiuNk4T6wkrqw2ZTyxAQewIg=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=N9A/ecFGZX5SgidsE2G3QuDRFkJ2n45x0NVNPUGomuZjz/ud6hxZFpzzAoy4hSFCX
- RzJvZ4aJ02EVW1AzXKv/E0t6WY3Sg/fSsAEiUYnL9ciZV5BAB2iZZlPZnzVqNcFEjD
- zy+Ac8fnGAAh5m4MevHace5BnvuC5jMftt/1micoQqvyeDARSN2FrBzHX2sEPEJAMu
- 1uwMYexc+z+fxsZSlDpUfdDB/hRzyK3iwUoS1N5oLssDl9/brQblssdrdCu/uIl+WF
- AZNxzpS0UyOhIchItkyppveExddi1fNTQTr7XATv/MVGXv3jeLQjyTAtmnJAG0utLG
- QCQb2NucLnoBw==
-Message-ID: <sashiko-outbox-180299@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/7] PCI: Honor alignment overrides
-To: =?utf-8?b?SWxwbyBKw6RydmluZW4=?= <ilpo.jarvinen@linux.intel.com>,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261021124956.4250-4-ilpo.jarvinen@linux.intel.com>
-References: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
- <20261021124956.4250-4-ilpo.jarvinen@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 13:22:37 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD0D10F9B5;
+	Wed, 21 Oct 2026 13:26:39 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5269B10E294;
+ Wed, 21 Oct 2026 13:26:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6823651010266633030=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_series_starting_with_=5Bv?=
+ =?utf-8?q?6=2C1/2=5D_gpu/buddy=3A_restore_two-pass_clear/dirty_guard_for_ra?=
+ =?utf-8?q?nge-biased_allocation?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Arunpravin Paneer Selvam" <arunpravin.paneerselvam@amd.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 21 Oct 2026 13:26:38 -0000
+Message-ID: <179258919833.52651.7761789063632416186@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261021121813.1820345-1-arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20261021121813.1820345-1-arunpravin.paneerselvam@amd.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,175 +35,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] PCI: pci_align_resource() still misaligns resources when size < al=
-ign
---
+--===============6823651010266633030==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit b332469defd2a6e720c73527f0af741c6fe04a04
-Author: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+== Series Details ==
 
-PCI: Honor alignment overrides
+Series: series starting with [v6,1/2] gpu/buddy: restore two-pass clear/dirty guard for range-biased allocation
+URL   : https://patchwork.freedesktop.org/series/176558/
+State : failure
 
-This commit introduces struct pci_resreq_data to pass the PCI device and
-user-specified resource alignment into pci_align_resource() so that
-remainder movement is skipped when a user alignment override is active.
+== Summary ==
 
-Link: https://lore.kernel.org/linux-pci/20260923133202.07DF61F000FF@smtp.ke=
-rnel.org/
+CI Bug Log - changes from CI_DRM_19374 -> Patchwork_176558v1
+====================================================
 
-[ ... ]
+Summary
+-------
 
-> diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
-> index 376f09630a4ab..441a62807719d 100644
-> --- a/drivers/pci/setup-res.c
-> +++ b/drivers/pci/setup-res.c
-> @@ -265,17 +265,21 @@ resource_size_t pci_resource_alignment(const struct=
- pci_dev *dev,
->   * before res->start if there's enough free space there. This enables
->   * tighter packing for resources.
->   */
-> -resource_size_t pci_align_resource(struct pci_dev *dev,
-> +resource_size_t pci_align_resource(struct pci_resreq_data *rr,
->  				   const struct resource *res,
->  				   const struct resource *empty_res,
->  				   resource_size_t size,
->  				   resource_size_t align)
->  {
-> +	struct pci_dev *dev =3D rr->dev;
->  	resource_size_t remainder, start_addr;
-> =20
->  	if (!(res->flags & IORESOURCE_MEM))
->  		return res->start;
-> =20
-> +	if (rr->user_align)
-> +		return res->start;
-> +
->  	if (IS_ALIGNED(size, align))
->  		return res->start;
-> =20
+  **FAILURE**
 
-[ ... ]
+  Serious unknown changes coming with Patchwork_176558v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_176558v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index d31a8d107b1ef..ea7d758712691 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -1217,12 +1217,40 @@ int __must_check pcibios_enable_device(struct pci=
-_dev *, int mask);
->  /* Architecture-specific versions may override this (weak) */
->  char *pcibios_setup(char *str);
-> =20
-> -/* Used only when drivers/pci/setup.c is used */
-> +/* Resource assignment request handling */
-> +/**
-> + * struct pci_resreq_data - Data passed to pcibios_align_resource()
-> + * @dev: PCI device
-> + * @user_align: User provided alignment override (pci=3Dresource_alignme=
-nt param)
-> + */
-> +struct pci_resreq_data {
-> +	struct pci_dev *dev;
-> +	resource_size_t user_align;
-> +};
-> +
-> +resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
-> +						 bool *resize);
-> +/*
-> + * TODO: Improve PCI resource assignment interface so that callers outsi=
-de PCI
-> + * core do not need to know about this detail.
-> + */
-> +static inline void pci_init_pci_resreq_data(struct pci_resreq_data *rr,
-> +					    struct pci_dev *dev)
-> +{
-> +	bool user_aligned;
-> +
-> +	memset(rr, 0, sizeof(*rr));
-> +	rr->dev =3D dev;
-> +	rr->user_align =3D pci_specified_resource_alignment(dev, &user_aligned);
-> +	if (!user_aligned)
-> +		rr->user_align =3D 0;
-> +}
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176558v1/index.html
 
-[Severity: High]
-Can pci_align_resource() still misalign resources when size < align?
+Participating hosts (40 -> 39)
+------------------------------
 
-Looking at pci_reassigndev_resource_alignment() ->
-pci_request_resource_alignment() in drivers/pci/pci.c:
+  Missing    (1): bat-dg2-13 
 
-	if (resize) {
-		r->start =3D 0;
-		r->end =3D align - 1;
-	} else {
-		r->flags &=3D ~IORESOURCE_SIZEALIGN;
-		r->flags |=3D IORESOURCE_STARTALIGN;
-		resource_set_range(r, align, size);
-	}
+Possible new issues
+-------------------
 
-When a device matches pci=3Dresource_alignment=3D so resize (user_aligned) =
-is
-true, BARs in 0..PCI_ROM_RESOURCE with size < align are resized so that
-size =3D=3D align. For those BARs, IS_ALIGNED(size, align) in
-pci_align_resource() is already true, so rr->user_align is not needed to
-skip remainder calculation for them.
+  Here are the unknown changes that may have been introduced in Patchwork_176558v1:
 
-Conversely, when resize (user_aligned) is false because align comes from
-pcibios_default_alignment() (such as pnv_pci_default_alignment() returning
-PAGE_SIZE on PowerNV), pci_request_resource_alignment() takes the else
-branch and sets IORESOURCE_STARTALIGN while keeping size < align. However,
-pci_init_pci_resreq_data() clears rr->user_align =3D 0 when !user_aligned.
+### IGT changes ###
 
-Whenever pci_align_resource() in drivers/pci/setup-res.c is called with
-size < align and rr->user_align =3D=3D 0 (whether for IORESOURCE_STARTALIGN
-BARs via pcibios_default_alignment(), even if moved to
-pci_resource_alignment(), or for a bridge window whose alignment was raised
-above its size):
+#### Possible regressions ####
 
-	if (IS_ALIGNED(size, align))
-		return res->start;
+  * igt@i915_selftest@live:
+    - fi-bsw-n3050:       [PASS][1] -> [ABORT][2] +1 other test abort
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19374/fi-bsw-n3050/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176558v1/fi-bsw-n3050/igt@i915_selftest@live.html
 
-	remainder =3D size - ALIGN_DOWN(size, align);
+  
 
-ALIGN_DOWN(size, align) evaluates to 0 and remainder equals size. Because
-there is no aligning body, subtracting remainder shifts the entire resource
-to res->start - size (and in the later commits "PCI: Fix nesting windows
-with remainder at the left edge" and "PCI: Place resources to either edge
-of the window", lowers constraint->align to 1U and selects candidate[1] or
-candidate[3] at aligned_edge - size), placing the entire resource below the
-aligned boundary at an address that is only size-aligned rather than
-align-aligned.
 
-Additionally, when a PCI-to-PCI bridge is specified in
-pci=3Dresource_alignment=3D to allow expanding its bridge windows,
-pci_reassigndev_resource_alignment() only unsets
-PCI_BRIDGE_RESOURCES..PCI_NUM_RESOURCES - 1 without requesting user_align
-on those windows. Because pci_init_pci_resreq_data() sets rr->user_align on
-the bridge pci_dev for all of its resources, wouldn't this disable
-remainder handling on the bridge windows (and in the later commit "PCI:
-Place resources to either edge of the window", reject bridge window
-candidates not aligned to rr->user_align)?
+Build changes
+-------------
 
-Would checking size <=3D align in pci_align_resource() (or restricting
-remainder relocation to composite bridge window resources where size >
-align) avoid shifting resources with size < align below their alignment
-boundary?
+  * Linux: CI_DRM_19374 -> Patchwork_176558v1
 
-[ ... ]
+  CI-20190529: 20190529
+  CI_DRM_19374: 59808d4b3a8e9cb4db43b9162aa08f35956bb447 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9156: 9156
+  Patchwork_176558v1: 59808d4b3a8e9cb4db43b9162aa08f35956bb447 @ git://anongit.freedesktop.org/gfx-ci/linux
 
->
+== Logs ==
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021124956.4250=
--1-ilpo.jarvinen@linux.intel.com?part=3D3
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176558v1/index.html
+
+--===============6823651010266633030==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [v6,1/2] gpu/buddy: restore two-pass clear/dirty guard for range-biased allocation</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176558/">https://patchwork.freedesktop.org/series/176558/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176558v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176558v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19374 -&gt; Patchwork_176558v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_176558v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_176558v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176558v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_176558v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19374/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176558v1/fi-bsw-n3050/igt@i915_selftest@live.html">ABORT</a> +1 other test abort</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19374 -&gt; Patchwork_176558v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19374: 59808d4b3a8e9cb4db43b9162aa08f35956bb447 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9156: 9156<br />
+  Patchwork_176558v1: 59808d4b3a8e9cb4db43b9162aa08f35956bb447 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6823651010266633030==--
