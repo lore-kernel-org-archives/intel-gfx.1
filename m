@@ -2,92 +2,165 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E434606A320
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 12:51:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68107606A31A
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:13:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MQ5Ob1n2
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QShUyeMM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A84010FDE0;
-	Wed, 21 Oct 2026 12:51:04 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39FC210E2F2;
- Wed, 21 Oct 2026 12:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08A8210E318;
+	Wed, 21 Oct 2026 13:13:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A75FC10E2F5;
+ Wed, 21 Oct 2026 13:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792587057; x=1824123057;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=WWQtMBqwY1wXwgGt/8O0q5XVEUz4N1YMluFAvd7LfV8=;
- b=MQ5Ob1n2euSFhZwMpi1EY1/8JLh6tzSksuUKBk19HYxBIPuoNdM/7tzW
- aDUlEABtSXF2EWni+E9NnLLbDaVXRuqvkHy82MyspdgRJUoMRl5giFZZP
- wfJ+qKdJT/cW49bJXYZMzsGhVS4ptc6iFuadSzttRtTXpF8PyAh7SaWiD
- qs6+sxG7xqQphSXBtq3fD6YenZSPFfIdZGV1PkttWOSHYVhM4n7BlHIgE
- rG0o7+W/k1FRrG5xJKHFF64BNscw5S/PAVbz91NJ6PB3/2BSbbQMi0G1q
- CmDWTudw+qWfyKxwoVC5ZuKaB3UqgrzFXpTZSiZlAqBvrBGwaHC1v4yXS Q==;
-X-CSE-ConnectionGUID: X8146e5OR1eUvvoiaw27hA==
-X-CSE-MsgGUID: IBmesnzHTL6Xb5UGEDeLfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1326151"
+ t=1792588379; x=1824124379;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=eAYTLT1x4zH7Ol7tWA9Zp/A6XIDe+x91QR7V5rizqC8=;
+ b=QShUyeMM9zKrGwmoWGK7N1sHQRS58DGaU18ddz/Ij1sThGjUaUQ/73Iv
+ tHYG/2a+R2rEyqlTXMYisG1/F3jsi3H4oLtulbzlCwBRSyUp939NWTWlG
+ oamYUc5Y84o3srATkCzwDzIbjLllypcEbGIvEwvS6FlErwINfCT0wZoQa
+ woH3y5oEZ7iCOcu22/WG/wVLT/7IZxWe/+HDrwu5wGQx3Fi5zhNZXZYfc
+ T8NpOoHQ+2d67CV9m+/fTxmwzN7F/Qa4OjHgA1z7QPatuPS/eNukU5toG
+ SSt7thkMSZBcRpB7V64uni1kh6GglSLWGilenuK6+CQU2mLwOSp2wsxWi A==;
+X-CSE-ConnectionGUID: trRmQl06RGqkVWQUBbr8fQ==
+X-CSE-MsgGUID: yEzFvqqWQ3KIx55Aqw/Z7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1211821"
 X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1326151"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 05:50:56 -0700
-X-CSE-ConnectionGUID: o5MvohiTQiC0bky5KI6pbw==
-X-CSE-MsgGUID: 9Qqiu8yVRrqEuKQdreYR1Q==
+   d="scan'208";a="1211821"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2026 06:12:58 -0700
+X-CSE-ConnectionGUID: Lwiw1c+oTEO9hLVqrgbttg==
+X-CSE-MsgGUID: ExfqAPzVQsWNYarlx/36Pg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3184418"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.75])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 05:50:40 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
- Nikolas Joshua Britton <nbritton@exabit.io>,
- Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
- Alexey Fomenko <alexey.fomenko@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Rob Herring <robh@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
- David Airlie <airlied@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Cc: Bradley Morgan <brads@mainlining.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v4 3/7] PCI: Honor alignment overrides
-Date: Wed, 21 Oct 2026 15:49:48 +0300
-Message-ID: <20261021124956.4250-4-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
-References: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
+   d="scan'208";a="4922679"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2026 06:12:58 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 06:12:57 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 21 Oct 2026 06:12:57 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.62) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 06:12:56 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sOoPlFyKgXNt4nNMhyIMEkLCCQ6qqS2KzutQFa8N8Z+8BpzQfdWn3+dmwgECvclkx1eYWIgvbo7eLFXqeXUSOQ0CL6+UHYfn29j4CCtWYyDR1yt24X6N545EdpHsKlH2lCX3GnJ6kPxzEsYxF9oHyTc7bZXFliLXLFwguwQ0DjQlUtxZijBDbVhVApvog6i5avHgfv2Wn2ECA5PovUMwCqPapNfAbP80B2SszK2G+J0kc//I/Nv6r3E1m72LmwJEOmU+nVKVuO7hMKwnW5d5chgvnAD/zvnv/FjvnjJNE6Czcmmk1uVcR+JrhMPJoNRMplBMw1ZWRZQdweIUuWxLVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eAYTLT1x4zH7Ol7tWA9Zp/A6XIDe+x91QR7V5rizqC8=;
+ b=pQd2l99QcBUyMHDw355m7Gznqe+H5HUvDpH7ws+H02Q2L7YkeKQXRhFmz6BHhB+2xoe6F3QzK3K8gXBvmr5EA4qUy9h0alHyxlLMZ/P1MEpq1Gc44dK1vFnYUl3HK1chi5xL4jS8g8zYSbtAlsVzbB+nITq9BKLpzR+pPoYtN3f84QWKe46VmZpjA1a70CnG9kfrwR+OiX9aQZkfwze62edOrJmFZxAO07hNtpgPAO9sYruoEgI56FZOCx0CIrtzD7Bj/uNy8ucZH5SZn7J+pd9P5pH8W3LI8TgoaOFlSCCZbHzbvuhltvguDEm21oegpBeLC+79BLshTYY/EO/lUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS4PPF69154114F.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::28) by LV2PR11MB719417.namprd11.prod.outlook.com
+ (2603:10b6:408:413::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 13:12:54 +0000
+Received: from DS4PPF69154114F.namprd11.prod.outlook.com
+ ([fe80::79ab:f4ae:b1c2:61d9]) by DS4PPF69154114F.namprd11.prod.outlook.com
+ ([fe80::79ab:f4ae:b1c2:61d9%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 13:12:54 +0000
+From: "Kahola, Mika" <mika.kahola@intel.com>
+To: "Hogander, Jouni" <jouni.hogander@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+CC: "Hogander, Jouni" <jouni.hogander@intel.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: RE: [PATCH 8/8] drm/i915/psr: Don't clip plane state destination
+ rectangle
+Thread-Topic: [PATCH 8/8] drm/i915/psr: Don't clip plane state destination
+ rectangle
+Thread-Index: AQHdT/gjQktPEo81QUi91kL5e1EXJLcIG7mQ
+Date: Wed, 21 Oct 2026 13:12:53 +0000
+Message-ID: <DS4PPF69154114F80BF31B75710934CC43FEF662@DS4PPF69154114F.namprd11.prod.outlook.com>
+References: <20260929094434.77129-1-jouni.hogander@intel.com>
+ <20260929094434.77129-9-jouni.hogander@intel.com>
+In-Reply-To: <20260929094434.77129-9-jouni.hogander@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PPF69154114F:EE_|LV2PR11MB719417:EE_
+x-ms-office365-filtering-correlation-id: ddbf4e39-8c2a-43de-1c82-08df2f75045a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|10070799003|366016|38070700021|56012099006|4143699003|11063799006|261009223027099003|18002099003|10067099003|22082099003;
+x-microsoft-antispam-message-info: mHX7uQFDo8q6vcOqeNq7qYSvVv41FZgfllFApKOEHsn/YyUJbIJmxV8wIohQxQffAI1ZEYIBHIKDxSMBtV3D/nc+4MNMyRu5ahNLpekvnAE/oSTr/UyAiDzQDeKClTghDJM6gcYX7epsynyuf0FDO0EmMyiqEHCOEJzeZIQX/YPWHziQqXXdqqC8M+3ozKp0B/Gv6g0dypZO1FYq6VPukYWM42tU6Errv+qJUB2+ADXXYz7FSAVd3pjK0KXl017f0c7n+os4CxI75haWdwxzZBh64ye/ib/R4yTEMDD7U+qHGFY6+J/qe3A4tjvic0S0QpTLR19SVWtZmLrwyi4Vkubxha8yXpClYz7ciGH75Vo+FSPXV5sGvw6F9MqmWtwYKbeFNR9UkhRmAdHVDEtOLq1YLUMp5sQMgCbSo2Wj89zK5JV3QYUaOrmLsOnLTVz3PvUdOCuC7jDcAbonGZup4FZLzDh59mboBuKQr6VWtyHwkE1OyKPVB2WZ3U6QPgy/qOGHRuRLBGE60WAHBI8UIGm1nB/JWjQotb+DhgHgNqsmHxG3I+4GhX5sbax6r3OafEinmaMO/r8AaL9nhO+2H8Z5EPUiJK/DSfKLaUv1psIOFlhL5CokrFJWgu2yo4yAnz0nd44uwNLw4dxMBFYSZqVJDxbipAUDNxPwh+ow7JGWasopSHma669TdhRlJoFwHbKyz0cySzRtKekfddmkgBAOkxL2d9UjOCC25D/ysSI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PPF69154114F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(10070799003)(366016)(38070700021)(56012099006)(4143699003)(11063799006)(261009223027099003)(18002099003)(10067099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Y1I4RlRZc3c0QVMvaUpBTUZsMGJWaHJGRjB1OUJjN04wQWlRUmNwWUJucVlt?=
+ =?utf-8?B?azFOTnBFQWorMWJwYnl1NklCSm14aUdKY25VSE1SQXBHRGh6cUpXSHRtdjly?=
+ =?utf-8?B?Q3RESGIvQjBEU3JGOExLWENFc2RlN05XWGZraFFWbkZFUUhhaXo4QStPWG94?=
+ =?utf-8?B?Tjl6eVRjblRvN0NUeE1LcFgzOElOM29rUTNmdXFFVDk4RzhuNlo0bWU2MkNS?=
+ =?utf-8?B?VHhLZFBicG94bnFObFBBTVlITm1aZGlEWVRHRENldmdESU8wVWRVdlFHdEVB?=
+ =?utf-8?B?RVZxbE9kWXV2UjlpWUJMM3RWN1ppRHJXNjI1bHUzdmRMWUM4WVRZTVJrUnZ0?=
+ =?utf-8?B?V0I0dnRha2RkTCtZbTJ3SFl1Q3pITmw5d2VLdGhJUmtLeWk5bERhWjFrenpS?=
+ =?utf-8?B?bnVjMVFKb1BvSmxxM1JoSWFGVFluenlmTVV6SlI1ZUlOQlNpQldEWmY3dUVF?=
+ =?utf-8?B?V2hzZTVKV1BvaTBDL1hOR3dxYXZuSjluWTNqZlVCM0xoZkthS0ZTVHpYZHll?=
+ =?utf-8?B?bmh1UWxzVkpRNVBvNU11V29tbnBoSkZnbjFlckNISGpiZXR1SHBvbi9zM2tx?=
+ =?utf-8?B?QmY3bWE3K003Z0VyZjhWcG5VRVl0RjhsRlJZUll1ODRNTm1WaFBGL0Q0dmhx?=
+ =?utf-8?B?ckFEeW5mS2dFNGdlY1JEM1IrU0tGU0MydzZGakNZcUZHb1R5TzJacHNvNW5N?=
+ =?utf-8?B?bG51Z05NejVtRGFURXQzSEVHMnpHZWYxUDNZWFJvN0ZuVUhzK1BrcmhtUXBT?=
+ =?utf-8?B?VDRqQUloTWZIYk5ZRFU3WHZWbmtGTmhNRlNhMDNINUJRUHNQTTBFeTBqZTBz?=
+ =?utf-8?B?OC80RHhtUERUQ1FZZGVmM0dCWUJrajJ4MEtwQ3c4eTNQcFZHMS9WRDY5K3lH?=
+ =?utf-8?B?ZWtndDJVaDBablVVdjZSalpDNmxXTTVNbG5XUGk4REgzUFoyRWdEb1FNUWpO?=
+ =?utf-8?B?aEYwdDdwemZ1YThDOVVkYzlLV0ZkYWJsT2NZdEUwdzNOQXVIUjNYdFhsY2d3?=
+ =?utf-8?B?YURNRnMzSFFKL0xnNzU1RndpREJ0TjBPb3ZoNWFDallUaVpGT1JIQ1JmclVj?=
+ =?utf-8?B?V1lhWndzRFFIYk12aVh4TFFLK3UrWjFwWmFyVGhIUGVSMzgzN0NRaTduaTJp?=
+ =?utf-8?B?M0I2MVNaR2c5YVpvcUVzY05nT0oyc1FOUHhKL3RDTU9zM2M1RElXQlNrQm94?=
+ =?utf-8?B?RVNqZDhGSzRIZXNqZmhPd1Fpa0RmejVTbWMvYVdvVDFKeTdTNExlTEdtdnN6?=
+ =?utf-8?B?TTl0bHRmdDJ2RXkwbUJ2Q2lBWU5TOG5BSi9jU3NHOUZ6QTR3SDZXN0YrNkNC?=
+ =?utf-8?B?UEkrSE5FL2owbHRQOW5obmtsQWFpYlp2My9QcWJCQkcySXVFdEtFTXJsOHpk?=
+ =?utf-8?B?d0NCaXdtc2lMYW0xZzZPM1lBVDh6SzFiSzh6Q3o4VERDMXFaa1V2T1R2U0hP?=
+ =?utf-8?B?UzJPQWVUMWxUcGxOdjZvY3p2SkdVeU8xMy8xYVk3eEo4MEd0RFNoSk1GT0hL?=
+ =?utf-8?B?aG5SeFVPU3k1Z0xjS3ptd1NSc2JXM09kQzRQZDZzeExqcEowUkVHdHVFMFEy?=
+ =?utf-8?B?UktUSXdPcVpSeis4NFYybVZySmgvZzRtNisyb1VqMHBEN3YyNDBHYWxndmVP?=
+ =?utf-8?B?WVg1akVHRkgvY2pvV1p6VmJSbHVlN3FJN0w2enJCTkswb3I3LzB2bFREL2ZV?=
+ =?utf-8?B?dkI3SS9sV2JJQVMraEpFa2Vna1RVZHh5K1Q2WVZ2eFB2akE5ZklabE0vdUo2?=
+ =?utf-8?B?cmtmM2ZtdDlVem5XTjZ0TWM0ZG51MjdMV05XNVcxcUpHTlN0Y2FRdzd1RTBF?=
+ =?utf-8?B?ZFdXTE9EbXZHRW1aV3BmbzI2Z3FRMlBjVFdhdmpDclFKdmF0MGdFVlAwTGlh?=
+ =?utf-8?B?N3kweXhEYzl0T3hxVE1YYXJZZ3FWZmFWcVBWTWFKVVV1UEZubHdVWWVYVjZO?=
+ =?utf-8?B?alk4UUU0MUI2WGJWR256ZU1CQWp3SGJwSnlqQ0M1TFlTWE5wZ0lJeVlwNnBD?=
+ =?utf-8?B?Y2lralhFM3Ezd2ZuUmpoSUo1U3ZScXlHb1hBUzRIanIwT0dxdkJmR2RuK3ly?=
+ =?utf-8?B?M2phcFVJM2pvOXdGeDNnNmF2Y2VTeTBVa1ludGYrckRJZFduZG14d1lXNndL?=
+ =?utf-8?B?TERlN2k0UW4vNzJDRkhGamZ1Rmo5clVXVmdoNWtURUIwRHZjMXpIa1hnejYw?=
+ =?utf-8?B?Wmt5YndMMStxaUdEUGFBcFlYOFNCaWRHL2JLSG54ZHFoeWQwUDZ4SFRWSHdY?=
+ =?utf-8?B?OGlibnRQUURkdWw0UVJVNExtcjc1aDVJcExEWE5jNzYwVUVHTlRUeHdzVHUv?=
+ =?utf-8?B?cDNBU1VBMUJVRGxjTHVwa2MwL1BrbUJvd1pscHlBZW5FMkIxdGF0WnhVYmt0?=
+ =?utf-8?Q?cTWDylzOmDj3oFfjy6+2Vx8yjOfEIS+nd+PAW?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: kdVPbuSdmULIUP+twMbEHQaUrk0eDbArmO5AypjljBzB17vWH/atd/TDZPyqfskfZvKYU55YAAFBBAyj0rmXex+GxFUrqch+/ySvMy/39EhF8aciHpzZXMNRNDw8y0kliYjMoEyLfzfSMjesaB/wh+5R8bBcxlk0Zc8drqSwUJn3Dxk8u6jgQtD9tvdEKTU/WByXftSj7Z8dl3ygI5kNmFPCRwQ6yMWp/+Jizrx/cAzX4ArgFnv4O3Ng0nBB8FmrGpHxySBO6yjNVaIW+t+j9cfMvvhiYmxMEtOFARQ+h7zmuoYPEydv1OIpjDKRU+PZv4qR4NmGGiRsv4/81pioqA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF69154114F.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddbf4e39-8c2a-43de-1c82-08df2f75045a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 13:12:53.6232 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UO+q447TE/7wtsUSPeaU2yBagZhk83D++c9Yz7l0ShdqIAXVQojAQHHwRXYwc01PTc4OmU6v1cgcvBxZwYtK9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB719417
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,481 +172,58 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-pci=resource_alignment argument can override the default alignment for
-the resource. The remainder code introduced in the commit 9036bd0efcb6
-("PCI: Align head space better") can move remainder space (non-aligning
-part of the size) before the aligning left edge which results in
-violating the requested alignment.
-
-Introduce struct pci_resreq_data to hold device and user-given alignment
-to be able to honor it in pci_align_resource(). When user-given alignment
-is found, any remainder movement is skipped.
-
-This also makes pci_specified_resource_alignment() always return a
-valid 'resize' value so that callers can simply rely on its value.
-
-Fixes: 9036bd0efcb6 ("PCI: Align head space better")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/linux-pci/20260923133202.07DF61F000FF@smtp.kernel.org/
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
-
-IMO, PPC rigging the user alignment override to enforce arch specific
-min alignment is mixing things wrongly. It would be more appropriate
-to do arch alignment overrides by overriding pci_resource_alignment().
-
-Jani Nikula <jani.nikula@intel.com> did ack this with a condition that
-there is a proper review done by somebody else so I've not yet included
-his tag.
-
----
- arch/alpha/kernel/pci.c          |  3 ++-
- arch/arm/kernel/bios32.c         |  5 +++--
- arch/m68k/kernel/pcibios.c       |  4 ++--
- arch/mips/pci/pci-generic.c      |  5 +++--
- arch/mips/pci/pci-legacy.c       |  5 +++--
- arch/parisc/kernel/pci.c         |  5 +++--
- arch/powerpc/kernel/pci-common.c |  5 +++--
- arch/sh/drivers/pci/pci.c        |  5 +++--
- arch/x86/pci/i386.c              |  5 +++--
- arch/xtensa/kernel/pci.c         |  5 +++--
- drivers/char/agp/intel-gtt.c     |  5 ++++-
- drivers/gpu/drm/i915/i915_gmch.c |  5 +++--
- drivers/pci/pci.c                |  7 +++++--
- drivers/pci/setup-res.c          | 19 +++++++++++++------
- include/linux/pci.h              | 32 ++++++++++++++++++++++++++++++--
- 15 files changed, 83 insertions(+), 32 deletions(-)
-
-diff --git a/arch/alpha/kernel/pci.c b/arch/alpha/kernel/pci.c
-index 11df411b1d18..c5d725a9781f 100644
---- a/arch/alpha/kernel/pci.c
-+++ b/arch/alpha/kernel/pci.c
-@@ -128,7 +128,8 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		       const struct resource *empty_res,
- 		       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	struct pci_controller *hose = dev->sysdata;
- 	unsigned long alignto;
- 	resource_size_t start = res->start;
-diff --git a/arch/arm/kernel/bios32.c b/arch/arm/kernel/bios32.c
-index ac0e890510da..3e61826f07fb 100644
---- a/arch/arm/kernel/bios32.c
-+++ b/arch/arm/kernel/bios32.c
-@@ -564,7 +564,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 	struct pci_host_bridge *host_bridge;
- 
-@@ -578,7 +579,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				start, size, align);
- 
- 	if (res->flags & IORESOURCE_MEM)
--		return pci_align_resource(dev, res, empty_res, size, align);
-+		return pci_align_resource(rr, res, empty_res, size, align);
- 
- 	return start;
- }
-diff --git a/arch/m68k/kernel/pcibios.c b/arch/m68k/kernel/pcibios.c
-index 7a9e60df79c5..3024408412bc 100644
---- a/arch/m68k/kernel/pcibios.c
-+++ b/arch/m68k/kernel/pcibios.c
-@@ -31,14 +31,14 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
- 	resource_size_t start = res->start;
- 
- 	if ((res->flags & IORESOURCE_IO) && (start & 0x300))
- 		start = (start + 0x3ff) & ~0x3ff;
- 
- 	if (res->flags & IORESOURCE_MEM)
--		return pci_align_resource(dev, res, empty_res, size, align);
-+		return pci_align_resource(rr, res, empty_res, size, align);
- 
- 	return start;
- }
-diff --git a/arch/mips/pci/pci-generic.c b/arch/mips/pci/pci-generic.c
-index c2e23d0c1d77..7f3ecb91b85b 100644
---- a/arch/mips/pci/pci-generic.c
-+++ b/arch/mips/pci/pci-generic.c
-@@ -25,7 +25,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       const struct resource *empty_res,
- 				       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 	struct pci_host_bridge *host_bridge;
- 
-@@ -39,7 +40,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				start, size, align);
- 
- 	if (res->flags & IORESOURCE_MEM)
--		return pci_align_resource(dev, res, empty_res, size, align);
-+		return pci_align_resource(rr, res, empty_res, size, align);
- 
- 	return start;
- }
-diff --git a/arch/mips/pci/pci-legacy.c b/arch/mips/pci/pci-legacy.c
-index dae6dafdd6e0..82d4b01db64e 100644
---- a/arch/mips/pci/pci-legacy.c
-+++ b/arch/mips/pci/pci-legacy.c
-@@ -55,7 +55,8 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		       const struct resource *empty_res,
- 		       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	struct pci_controller *hose = dev->sysdata;
- 	resource_size_t start = res->start;
- 
-@@ -70,7 +71,7 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 
- 		/* Make sure we start at our min on all hoses */
- 		if (start < PCIBIOS_MIN_MEM + hose->mem_resource->start)
-diff --git a/arch/parisc/kernel/pci.c b/arch/parisc/kernel/pci.c
-index 96950fe9c2b7..36a3a439f609 100644
---- a/arch/parisc/kernel/pci.c
-+++ b/arch/parisc/kernel/pci.c
-@@ -193,7 +193,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t alignment)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t align, start = res->start;
- 
- 	pci_dbg(dev, "%pR: pcibios_align_resource(%lx, 0x%llx, 0x%llx)\n",
-@@ -205,7 +206,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 	if (align > alignment)
- 		start = ALIGN(start, align);
- 	else
--		start = pci_align_resource(dev, res, empty_res, size, alignment);
-+		start = pci_align_resource(rr, res, empty_res, size, alignment);
- 
- 	return start;
- }
-diff --git a/arch/powerpc/kernel/pci-common.c b/arch/powerpc/kernel/pci-common.c
-index 4fc52c21fe5d..23594759cfe2 100644
---- a/arch/powerpc/kernel/pci-common.c
-+++ b/arch/powerpc/kernel/pci-common.c
-@@ -1131,7 +1131,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 
- 	if (res->flags & IORESOURCE_IO) {
-@@ -1140,7 +1141,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 	}
- 
- 	return start;
-diff --git a/arch/sh/drivers/pci/pci.c b/arch/sh/drivers/pci/pci.c
-index 878a27a1acfb..279f2770ff4b 100644
---- a/arch/sh/drivers/pci/pci.c
-+++ b/arch/sh/drivers/pci/pci.c
-@@ -172,7 +172,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	struct pci_channel *hose = dev->sysdata;
- 	resource_size_t start = res->start;
- 
-@@ -186,7 +187,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 	}
- 
- 	return start;
-diff --git a/arch/x86/pci/i386.c b/arch/x86/pci/i386.c
-index e2de26b82940..4178ae4380c2 100644
---- a/arch/x86/pci/i386.c
-+++ b/arch/x86/pci/i386.c
-@@ -156,7 +156,8 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		       const struct resource *empty_res,
- 		       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 
- 	if (res->flags & IORESOURCE_IO) {
-@@ -165,7 +166,7 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 
- 		/* The low 1MB range is reserved for ISA cards */
- 		if (start < BIOS_END)
-diff --git a/arch/xtensa/kernel/pci.c b/arch/xtensa/kernel/pci.c
-index 305031551136..4e8ad4a3c9fe 100644
---- a/arch/xtensa/kernel/pci.c
-+++ b/arch/xtensa/kernel/pci.c
-@@ -42,7 +42,8 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		       const struct resource *empty_res,
- 		       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 
- 	if (res->flags & IORESOURCE_IO) {
-@@ -55,7 +56,7 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 	}
- 
- 	return start;
-diff --git a/drivers/char/agp/intel-gtt.c b/drivers/char/agp/intel-gtt.c
-index bcc26785175d..2214347906a6 100644
---- a/drivers/char/agp/intel-gtt.c
-+++ b/drivers/char/agp/intel-gtt.c
-@@ -1038,10 +1038,13 @@ static struct agp_memory *intel_fake_agp_alloc_by_type(size_t pg_count,
- 
- static int intel_alloc_chipset_flush_resource(void)
- {
-+	struct pci_resreq_data rr;
- 	int ret;
-+
-+	pci_init_pci_resreq_data(&rr, intel_private.bridge_dev);
- 	ret = pci_bus_alloc_resource(intel_private.bridge_dev->bus, &intel_private.ifp_resource, PAGE_SIZE,
- 				     PAGE_SIZE, PCIBIOS_MIN_MEM, 0,
--				     pcibios_align_resource, intel_private.bridge_dev);
-+				     pcibios_align_resource, &rr);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/i915/i915_gmch.c b/drivers/gpu/drm/i915/i915_gmch.c
-index b0ef6ef577a3..d35097bebc0f 100644
---- a/drivers/gpu/drm/i915/i915_gmch.c
-+++ b/drivers/gpu/drm/i915/i915_gmch.c
-@@ -38,6 +38,7 @@ static int mchbar_reg(struct drm_i915_private *i915)
- static int
- intel_alloc_mchbar_resource(struct drm_i915_private *i915)
- {
-+	struct pci_resreq_data rr;
- 	u32 temp_lo, temp_hi = 0;
- 	u64 mchbar_addr;
- 	int ret;
-@@ -55,12 +56,12 @@ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
- 	/* Get some space for it */
- 	i915->gmch.mch_res.name = "i915 MCHBAR";
- 	i915->gmch.mch_res.flags = IORESOURCE_MEM;
-+	pci_init_pci_resreq_data(&rr, i915->gmch.pdev);
- 	ret = pci_bus_alloc_resource(i915->gmch.pdev->bus,
- 				     &i915->gmch.mch_res,
- 				     MCHBAR_SIZE, MCHBAR_SIZE,
- 				     PCIBIOS_MIN_MEM,
--				     0, pcibios_align_resource,
--				     i915->gmch.pdev);
-+				     0, pcibios_align_resource, &rr);
- 	if (ret) {
- 		drm_dbg(&i915->drm, "failed bus alloc: %d\n", ret);
- 		i915->gmch.mch_res.start = 0;
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index b2879a6be5f8..499ccb13c2c4 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -6444,14 +6444,16 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
-  * RETURNS: Resource alignment if it is specified.
-  *          Zero if it is not specified.
-  */
--static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
--							bool *resize)
-+resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
-+						 bool *resize)
- {
- 	int align_order, count;
- 	resource_size_t align = pcibios_default_alignment();
- 	const char *p;
- 	int ret;
- 
-+	*resize = false;
-+
- 	spin_lock(&resource_alignment_lock);
- 	p = resource_alignment_param;
- 	if (!p || !*p)
-@@ -6497,6 +6499,7 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
- 	spin_unlock(&resource_alignment_lock);
- 	return align;
- }
-+EXPORT_SYMBOL_GPL(pci_specified_resource_alignment);
- 
- static void pci_request_resource_alignment(struct pci_dev *dev, int bar,
- 					   resource_size_t align, bool resize)
-diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
-index 376f09630a4a..441a62807719 100644
---- a/drivers/pci/setup-res.c
-+++ b/drivers/pci/setup-res.c
-@@ -265,17 +265,21 @@ resource_size_t pci_resource_alignment(const struct pci_dev *dev,
-  * before res->start if there's enough free space there. This enables
-  * tighter packing for resources.
-  */
--resource_size_t pci_align_resource(struct pci_dev *dev,
-+resource_size_t pci_align_resource(struct pci_resreq_data *rr,
- 				   const struct resource *res,
- 				   const struct resource *empty_res,
- 				   resource_size_t size,
- 				   resource_size_t align)
- {
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t remainder, start_addr;
- 
- 	if (!(res->flags & IORESOURCE_MEM))
- 		return res->start;
- 
-+	if (rr->user_align)
-+		return res->start;
-+
- 	if (IS_ALIGNED(size, align))
- 		return res->start;
- 
-@@ -306,18 +310,21 @@ resource_size_t __weak pcibios_align_resource(void *data,
- 					      resource_size_t size,
- 					      resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
- 
--	return pci_align_resource(dev, res, empty_res, size, align);
-+	return pci_align_resource(rr, res, empty_res, size, align);
- }
- 
- static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
- 		int resno, resource_size_t size, resource_size_t align)
- {
- 	struct resource *res = pci_resource_n(dev, resno);
-+	struct pci_resreq_data rr;
- 	resource_size_t min;
- 	int ret;
- 
-+	pci_init_pci_resreq_data(&rr, dev);
-+
- 	min = (res->flags & IORESOURCE_IO) ? PCIBIOS_MIN_IO : PCIBIOS_MIN_MEM;
- 
- 	/*
-@@ -329,7 +336,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
- 	 */
- 	ret = pci_bus_alloc_resource(bus, res, size, align, min,
- 				     IORESOURCE_PREFETCH | IORESOURCE_MEM_64,
--				     pcibios_align_resource, dev);
-+				     pcibios_align_resource, &rr);
- 	if (ret == 0)
- 		return 0;
- 
-@@ -341,7 +348,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
- 	     (IORESOURCE_PREFETCH | IORESOURCE_MEM_64)) {
- 		ret = pci_bus_alloc_resource(bus, res, size, align, min,
- 					     IORESOURCE_PREFETCH,
--					     pcibios_align_resource, dev);
-+					     pcibios_align_resource, &rr);
- 		if (ret == 0)
- 			return 0;
- 	}
-@@ -354,7 +361,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
- 	 */
- 	if (res->flags & (IORESOURCE_PREFETCH | IORESOURCE_MEM_64))
- 		ret = pci_bus_alloc_resource(bus, res, size, align, min, 0,
--					     pcibios_align_resource, dev);
-+					     pcibios_align_resource, &rr);
- 
- 	return ret;
- }
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d31a8d107b1e..ea7d75871269 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1217,12 +1217,40 @@ int __must_check pcibios_enable_device(struct pci_dev *, int mask);
- /* Architecture-specific versions may override this (weak) */
- char *pcibios_setup(char *str);
- 
--/* Used only when drivers/pci/setup.c is used */
-+/* Resource assignment request handling */
-+/**
-+ * struct pci_resreq_data - Data passed to pcibios_align_resource()
-+ * @dev: PCI device
-+ * @user_align: User provided alignment override (pci=resource_alignment param)
-+ */
-+struct pci_resreq_data {
-+	struct pci_dev *dev;
-+	resource_size_t user_align;
-+};
-+
-+resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
-+						 bool *resize);
-+/*
-+ * TODO: Improve PCI resource assignment interface so that callers outside PCI
-+ * core do not need to know about this detail.
-+ */
-+static inline void pci_init_pci_resreq_data(struct pci_resreq_data *rr,
-+					    struct pci_dev *dev)
-+{
-+	bool user_aligned;
-+
-+	memset(rr, 0, sizeof(*rr));
-+	rr->dev = dev;
-+	rr->user_align = pci_specified_resource_alignment(dev, &user_aligned);
-+	if (!user_aligned)
-+		rr->user_align = 0;
-+}
-+
- resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       const struct resource *empty_res,
- 				       resource_size_t size,
- 				       resource_size_t align);
--resource_size_t pci_align_resource(struct pci_dev *dev,
-+resource_size_t pci_align_resource(struct pci_resreq_data *rr,
- 				   const struct resource *res,
- 				   const struct resource *empty_res,
- 				   resource_size_t size,
--- 
-2.47.3
-
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBJbnRlbC1nZnggPGludGVsLWdm
+eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEpvdW5pIEjDtmdh
+bmRlcg0KPiBTZW50OiBUdWVzZGF5LCAyOSBTZXB0ZW1iZXIgMjAyNiAxMi40NQ0KPiBUbzogaW50
+ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgaW50ZWwteGVAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnDQo+IENjOiBIb2dhbmRlciwgSm91bmkgPGpvdW5pLmhvZ2FuZGVyQGludGVsLmNvbT47IHN0
+YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU3ViamVjdDogW1BBVENIIDgvOF0gZHJtL2k5MTUvcHNy
+OiBEb24ndCBjbGlwIHBsYW5lIHN0YXRlIGRlc3RpbmF0aW9uIHJlY3RhbmdsZQ0KPiANCj4gY2xp
+cF9hcmVhX3VwZGF0ZSgpIHVzZXMgZHJtX3JlY3RfaW50ZXJzZWN0IHdoaWNoIG1vZGlmaWVzIHBh
+c3NlZCByMQ0KPiByZWN0YW5nbGUuIEVhcmx5IHRyYW5zcG9ydCBhbGlnbm1lbnQgcGFzc2VzIHRo
+ZSBjdXJzb3IgdWFwaS5kc3QgcmVjdGFuZ2xlDQo+IHRvIGNsaXBfYXJlYV91cGRhdGUsIHNvIHRo
+ZSBjdXJzb3IgdWFwaS5kc3QgaXMgdW5pbnRlbnRpb25hbGx5IG1vZGlmaWVkIGJ5DQo+IGRybV9y
+ZWN0X2ludGVyc2VjdC4NCj4gDQo+IEZpeCB0aGlzIGJ5IHVzaW5nIGxvY2FsIGNvcHkgaW4gY2xp
+cF9hcmVhX3VwZGF0ZSgpLiBBbHNvIG1ha2UgdGhlIGRhbWFnZQ0KPiBhbmQgdGhlIGRpc3BsYXkg
+YXJlYSBjb25zdC4NCj4gDQo+IEZpeGVzOiAxYmZmOTNiOGJjMjcgKCJkcm0vaTkxNS9wc3I6IEV4
+dGVuZCBTVSBhcmVhIHRvIGNvdmVyIGN1cnNvciBmdWxseSBpZiBuZWVkZWQiKQ0KPiBDYzogPHN0
+YWJsZUB2Z2VyLmtlcm5lbC5vcmc+ICMgdjYuOSsNCj4gQXNzaXN0ZWQtYnk6IEdpdEh1Yi1Db3Bp
+bG90OmNsYXVkZS1vcHVzLTUNCj4gU2lnbmVkLW9mZi1ieTogSm91bmkgSMO2Z2FuZGVyIDxqb3Vu
+aS5ob2dhbmRlckBpbnRlbC5jb20+DQoNClJldmlld2VkLWJ5OiBNaWthIEthaG9sYSA8bWlrYS5r
+YWhvbGFAaW50ZWwuY29tPg0KDQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9wc3IuYyB8IDIwICsrKysrKysrKysrLS0tLS0tLS0tDQo+ICAxIGZpbGUgY2hhbmdl
+ZCwgMTEgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiBpbmRleCBkOGZlZmIxM2MyNzkwLi45OTYwM2E0
+ODZjMjc4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X3Bzci5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMN
+Cj4gQEAgLTI3MDksMjMgKzI3MDksMjUgQEAgc3RhdGljIHUzMiBwc3IyX3BpcGVfc3Jjc3pfZWFy
+bHlfdHB0X2NhbGMoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsDQo+ICB9DQo+
+IA0KPiAgc3RhdGljIHZvaWQgY2xpcF9hcmVhX3VwZGF0ZShzdHJ1Y3QgZHJtX3JlY3QgKm92ZXJs
+YXBfZGFtYWdlX2FyZWEsDQo+IC0JCQkgICAgIHN0cnVjdCBkcm1fcmVjdCAqZGFtYWdlX2FyZWEs
+DQo+IC0JCQkgICAgIHN0cnVjdCBkcm1fcmVjdCAqZGlzcGxheV9hcmVhKQ0KPiArCQkJICAgICBj
+b25zdCBzdHJ1Y3QgZHJtX3JlY3QgKmRhbWFnZV9hcmVhLA0KPiArCQkJICAgICBjb25zdCBzdHJ1
+Y3QgZHJtX3JlY3QgKmRpc3BsYXlfYXJlYSkNCj4gIHsNCj4gLQlpZiAoIWRybV9yZWN0X2ludGVy
+c2VjdChkYW1hZ2VfYXJlYSwgZGlzcGxheV9hcmVhKSkNCj4gKwlzdHJ1Y3QgZHJtX3JlY3QgaW50
+ZXIgPSAqZGFtYWdlX2FyZWE7DQo+ICsNCj4gKwlpZiAoIWRybV9yZWN0X2ludGVyc2VjdCgmaW50
+ZXIsIGRpc3BsYXlfYXJlYSkpDQo+ICAJCXJldHVybjsNCj4gDQo+ICAJaWYgKG92ZXJsYXBfZGFt
+YWdlX2FyZWEtPnkxID09IC0xKSB7DQo+IC0JCW92ZXJsYXBfZGFtYWdlX2FyZWEtPnkxID0gZGFt
+YWdlX2FyZWEtPnkxOw0KPiAtCQlvdmVybGFwX2RhbWFnZV9hcmVhLT55MiA9IGRhbWFnZV9hcmVh
+LT55MjsNCj4gKwkJb3ZlcmxhcF9kYW1hZ2VfYXJlYS0+eTEgPSBpbnRlci55MTsNCj4gKwkJb3Zl
+cmxhcF9kYW1hZ2VfYXJlYS0+eTIgPSBpbnRlci55MjsNCj4gIAkJcmV0dXJuOw0KPiAgCX0NCj4g
+DQo+IC0JaWYgKGRhbWFnZV9hcmVhLT55MSA8IG92ZXJsYXBfZGFtYWdlX2FyZWEtPnkxKQ0KPiAt
+CQlvdmVybGFwX2RhbWFnZV9hcmVhLT55MSA9IGRhbWFnZV9hcmVhLT55MTsNCj4gKwlpZiAoaW50
+ZXIueTEgPCBvdmVybGFwX2RhbWFnZV9hcmVhLT55MSkNCj4gKwkJb3ZlcmxhcF9kYW1hZ2VfYXJl
+YS0+eTEgPSBpbnRlci55MTsNCj4gDQo+IC0JaWYgKGRhbWFnZV9hcmVhLT55MiA+IG92ZXJsYXBf
+ZGFtYWdlX2FyZWEtPnkyKQ0KPiAtCQlvdmVybGFwX2RhbWFnZV9hcmVhLT55MiA9IGRhbWFnZV9h
+cmVhLT55MjsNCj4gKwlpZiAoaW50ZXIueTIgPiBvdmVybGFwX2RhbWFnZV9hcmVhLT55MikNCj4g
+KwkJb3ZlcmxhcF9kYW1hZ2VfYXJlYS0+eTIgPSBpbnRlci55MjsNCj4gIH0NCj4gDQo+ICBzdGF0
+aWMgYm9vbCBpbnRlbF9wc3IyX3NlbF9mZXRjaF9waXBlX2FsaWdubWVudChzdHJ1Y3QgaW50ZWxf
+Y3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSkNCj4gLS0NCj4gMi40My4wDQoNCg==
