@@ -2,53 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7258606A31A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 07:14:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0C2606A319
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 07:14:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m9Xa3FhA
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZOlC5vpN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B83A10FA84;
-	Wed, 21 Oct 2026 07:14:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6E9610FA89;
+	Wed, 21 Oct 2026 07:14:20 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD5CA10FA7D;
- Wed, 21 Oct 2026 07:14:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E209410FA82;
+ Wed, 21 Oct 2026 07:14:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792566850; x=1824102850;
+ t=1792566855; x=1824102855;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EqjDVIEo6MkEZItT0mljrbv833x8mNAhL+hrizlsXP0=;
- b=m9Xa3FhA9bBgzc+3j/HxALGNb9OIjUaytYS4A919T9jn0pWJtiu3THeV
- ioyLakyI94/oK1J5t2SO8juPqywUbtu2md9aOGXfJK6ipfNM6cN8Ch31z
- IVGydikCiy1ERyXyBMXpt90HyFo5mP2QR9dahmeBTY+DWhjj9xpHQq4KH
- BBRUqwDAOBynWBs4VGn1PTgkL4+Aw6oTRZgn5fg6XIgxE4Qb5kKCBiC0x
- iVFNcIAEEAKaJ5TcCBfo7p/F1sr2EZnGe38zysy4N3Cbx8oJE1jwj89yx
- Bo9z9nB0l/oxiYfoghhC7xSiAH69b6HfImNE9e2QcfneT0hiU8MIi3bZI w==;
-X-CSE-ConnectionGUID: ZZlAt8SBSCSYYVSlmZlcJQ==
-X-CSE-MsgGUID: aICda1cZSQu1gfotftiKgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1383977"
+ bh=Nlp5tERVYpzrky90NGvR+RkCFdEVhOOnOP7OK+DYZ80=;
+ b=ZOlC5vpNypnrm3oFHsJFhiuTocnaMPDmtHcdiw7g4U1h1mG7MKXWKjV+
+ oW8Pmq9JA9Q5zXGKVUwEuGiu40ePSJDZOcHhBOhJ1iJE4Xz3km7xoz6Sv
+ 0+fzGhU9/HkC6+EnPVlLF2XvibVl9W++dVdi0aDLvFfrcExqKwqjeMBPg
+ gpQs89YN5TxBSEh37JbNbqPU9o6EgLUsysWgUQAhIVkoxACe9sjhm5cZw
+ t6kdHuvDjhuA+hPwjDQeq5FG0aTlNKIvrUVTrerFVNUF8fdytYJTp74kG
+ tb5l5iOcIlX4GWsEwjH8/OGdoKvN35dihin/E150iuVZC83zsnz7iCmEa g==;
+X-CSE-ConnectionGUID: I9a64ESlSsKjQD//lugEmw==
+X-CSE-MsgGUID: u6Sd1bOiTNW1PfZK4j4AoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1383989"
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1383977"
+   d="scan'208";a="1383989"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 00:14:10 -0700
-X-CSE-ConnectionGUID: xLXoGFYHTbOim1tklXLweQ==
-X-CSE-MsgGUID: aPDsQNMDTfWTXb0d8DFaNw==
+ 21 Oct 2026 00:14:15 -0700
+X-CSE-ConnectionGUID: CMZMWQZ3SIG1pCF+/nvpzw==
+X-CSE-MsgGUID: lSh9DQelRCWdFitiLgA77Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3356984"
+   d="scan'208";a="3357019"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa008.fm.intel.com with ESMTP; 21 Oct 2026 00:14:07 -0700
+ by fmviesa008.fm.intel.com with ESMTP; 21 Oct 2026 00:14:13 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: mitulkumar.ajitkumar.golani@intel.com,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v6 01/11] drm/i915/display: Add helper to compute link M/N
- ratio for reuse
-Date: Wed, 21 Oct 2026 12:43:51 +0530
-Message-Id: <20261021071401.1161586-2-suraj.kandpal@intel.com>
+Subject: [PATCH v6 04/11] drm/i915/dp_mst: Limit M/N ratio for MST
+Date: Wed, 21 Oct 2026 12:43:54 +0530
+Message-Id: <20261021071401.1161586-5-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261021071401.1161586-1-suraj.kandpal@intel.com>
 References: <20260917050649.871960-1-suraj.kandpal@intel.com>
@@ -70,74 +69,60 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-Introduce intel_display_compute_link_m_n() to compute the link M/N ratio
-from the pixel clock and the link symbol clock. This logic was
-previously embedded within intel_link_compute_m_n().
-The new helper allows reuse of link M/N computation in other contexts
-without requiring the full data M/N calculation and will be used in
-later commits.
+The hardware does not support DisplayPort configurations where the
+ceiling of the Link M/Link N ratio exceeds the limit. Enforce this
+constraint for MST as well.
 
-No functional changes intended.
+The compute config path needs no change: MST goes through
+intel_dp_compute_config_limits() too, so the link config filter set up
+there already excludes the configurations violating the ratio limit, and
+MST fails there if none is left.
+
+What is still missing is pruning such modes, so add the check to
+mst_connector_mode_valid_ctx(), reusing the helper the SST mode_valid
+uses. It walks the link configurations and only rejects the mode if none
+of them can satisfy the ratio, rather than evaluating it at a single
+link rate.
 
 v2:
-- Rename function (Jani)
-- The link symbol clock is passed in rather than derived here, so that the
-DP specific conversion from the link rate stays with the caller. (Jani)
+-Drop the checks in the MST link config helpers, redundant now that the
+constraint is applied while computing the link config limits. (Imre)
+-Share the mode_valid helper with SST instead of evaluating the ratio at
+one link rate, since the link symbol clock is not monotonic in the link
+rate and there is no single best case configuration.
+v3:
+-Now that intel_dp_mode_valid_m_n checks for all configs just call
+that (Sashiko)
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Co-developed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 7602f633f49d..580c36a52921 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2650,13 +2650,20 @@ static void compute_m_n(u32 *ret_m, u32 *ret_n,
- 	intel_reduce_m_n_ratio(ret_m, ret_n);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 7023619aaaba..f00edfb66a10 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1565,6 +1565,11 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
+ 					   min_link_bpp_x16,
+ 					   bw_overhead_flags);
  
-+static void intel_display_compute_link_m_n(u32 *link_m, u32 *link_n,
-+					   int pixel_clock, int link_symbol_clock)
-+{
-+	compute_m_n(link_m, link_n,
-+		    pixel_clock, link_symbol_clock,
-+		    0x80000);
-+}
++	if (!intel_dp_mode_valid_m_n(intel_dp, mode->clock)) {
++		*status = MODE_CLOCK_HIGH;
++		return 0;
++	}
 +
- void
- intel_link_compute_m_n(u16 bits_per_pixel_x16, int nlanes,
- 		       int pixel_clock, int link_clock,
- 		       int bw_overhead,
- 		       struct intel_link_m_n *m_n)
- {
--	u32 link_symbol_clock = intel_dp_link_symbol_clock(link_clock);
- 	u32 data_m = intel_dp_effective_data_rate(pixel_clock, bits_per_pixel_x16,
- 						  bw_overhead);
- 	u32 data_n = drm_dp_max_dprx_data_rate(link_clock, nlanes);
-@@ -2673,9 +2680,9 @@ intel_link_compute_m_n(u16 bits_per_pixel_x16, int nlanes,
- 		    data_m, data_n,
- 		    0x8000000);
- 
--	compute_m_n(&m_n->link_m, &m_n->link_n,
--		    pixel_clock, link_symbol_clock,
--		    0x80000);
-+	intel_display_compute_link_m_n(&m_n->link_m, &m_n->link_n,
-+				       pixel_clock,
-+				       intel_dp_link_symbol_clock(link_clock));
- }
- 
- void intel_panel_sanitize_ssc(struct intel_display *display)
+ 	/*
+ 	 * TODO:
+ 	 * - Also check if compression would allow for the mode
 -- 
 2.34.1
 
