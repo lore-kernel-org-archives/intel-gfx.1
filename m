@@ -2,76 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893AE606A325
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 20:11:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CAD606A319
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 22:03:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=k2XrJv+J
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M80IoC7d
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 026A989B33;
-	Wed, 21 Oct 2026 20:11:37 +0000 (UTC)
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 641D410E03C;
- Wed, 21 Oct 2026 20:11:30 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4971340E029C; 
- Wed, 21 Oct 2026 20:11:28 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id tE1uR1tM0KkD; Wed, 21 Oct 2026 20:11:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1792613485; bh=vQk51gmPv+LBlBEbVBQXQRvGpjkGw4cKMh26T2Gdvvo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=k2XrJv+JTvqMvl2DTYYFZL4ga1deL0puF8VQie06yUPSeXb+Mxp9On9Fy8v4WlVb5
- UkKUtJxm6Md8A7mNC63GLXQcEGTlqiMMWMxRV7cICbRSXerxgtzCJwwtLuPdj3HkFW
- OVcXCEnVNdT8mOhCRkmyHEsvlMrcjoK0L6Q4tnUBoUvDhDDrp/3rqFDKzqkhCKUkm4
- UO1HyrEbqkUfqGZdcnEPSqDMu991Df3uN5d1MADQpH3Uy7aCK0PGQwnFD740dpAWdc
- hbkPdHiTgwxCF1/aFnsy2ko5SBZsU8ZOgV843zzkFxi8Ovp8WqmofiWI1bhfjeXOKm
- aYsGDPF/p3pf3BLRGiPJegHz3EJ5Zudl70gl9akq1+uCyDbznt+LCgCAcKOgjH2CNZ
- 1jaQYg71Ffij6FfSarO+CYzFU96HJt3JyBvY+3794bvy09tG0Y2Be8j0bGKl8BipYG
- RGKnpjLPOJIyAKDOz/u/Hy0Prfx/rt9AixtNtb27ZgYa76UbPC4ZW3359vSA9LzGjc
- ccNYWdlJtKo84fPy3g4U2ZMjFzlh044CK/QeUyjDc83DXwkL89vVYzCS2kpcSw5Lx8
- 6/i9iVtTgQ4xegP42VAEp2X8eItLyZQh0jL2hze69Xpt473Ft50E+mCuW1r9lIAIsn
- SXtwAHNQaKzpCZ+W/RrJN15c=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8594640E00DC;
- Wed, 21 Oct 2026 20:11:09 +0000 (UTC)
-Date: Wed, 21 Oct 2026 13:11:06 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Ingo Molnar <mingo@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C65810E166;
+	Wed, 21 Oct 2026 22:03:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2619510E02E;
+ Wed, 21 Oct 2026 22:03:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5054360098;
+ Wed, 21 Oct 2026 22:03:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1531F000C2;
+ Wed, 21 Oct 2026 22:03:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792620209;
+ bh=SGraS/VayzGCTJrYsXxZMmeSokrzDoq1NtWr2zpZuUY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=M80IoC7d/KRmwXF8cXUVlCuRyTN27cJjQ40rfQq1lx4j4qdaLhkwuezE2EOc0FZde
+ tTL3yVg7Zd5JbpypeTXRWybenMJXc3V6FGv1HbluFNb3pVYdH4tC1PNQJHwOAdv41U
+ BEVzUhaO5FQrrD42KXJKtO3Skx3L0hDojI4I4syjYRxd+9iseAeIHHZcyPX9gpcVp7
+ f2CuN7bt2ebs6Bp40pXX9Hq8TyqP231JcpMUmFK6JWuVP/rV3y/1/Ie2cKStgdrLXN
+ 8Kw+T/qCaivi0xkbeHIcbR3C2QyC3O+xirK4slY1NfzbDUwLU4wNAC0CmWuqtSOwmV
+ AGvQYeVsJkzCg==
+Date: Thu, 22 Oct 2026 00:03:26 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tom Lendacky <thomas.lendacky@amd.com>,
- Joerg Roedel <joerg.roedel@amd.com>, "Nikunj A. Dadhania" <nikunj@amd.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- the arch/x86 maintainers <x86@kernel.org>
-Subject: Re: Removing __get_user / __put_user for good
-Message-ID: <20261021201106.GCatkcWhRWnARw6bfH@fat_crate.local>
-References: <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
- <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
- <atdqUYdIOqmiqqTt@gmail.com>
- <CAHk-=whrUi2M+whqwS8yfqZ=W9ts6NPOzxzGfBOwOfCC3ooeMA@mail.gmail.com>
- <CAHk-=wjFBSH9M2GYKRnd-jrMGaa-gPBoGhuscJAu4n1hGsuX7g@mail.gmail.com>
- <CAHk-=wj51-syPoqMBLnxMeLnsbCMDMXfKzKZCtOHhwWEk5DeRw@mail.gmail.com>
- <20261021025403.GAatgpS1rcSTOTs8sS@fat_crate.local>
- <CAHk-=wgDm1nHurWJLESiLeYr0_0yv_F7W8YbvrmMEfbhxM1e_g@mail.gmail.com>
- <20261021184317.GBatkHxUL2xqH9EUkY@fat_crate.local>
- <CAHk-=wjs-DWseqMLciovdLmhcs5xhksPGOZRCoXK_sr8tmEiKw@mail.gmail.com>
+ Andi Shyti <andi.shyti@linux.intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v5 1/6] drm/i915/selftests: Use gt_*/drm_* prints in core
+ selftests
+Message-ID: <atkzD99digX-p3KI@zenone.zhora.eu>
+References: <20261001074100.2694888-1-krzysztof.karas@intel.com>
+ <20261001074100.2694888-2-krzysztof.karas@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=wjs-DWseqMLciovdLmhcs5xhksPGOZRCoXK_sr8tmEiKw@mail.gmail.com>
+In-Reply-To: <20261001074100.2694888-2-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,31 +57,82 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Oct 21, 2026 at 08:55:39AM -1000, Linus Torvalds wrote:
-> I think I need to upgrade my laptop eventually. It's a perfectly fine
-> laptop, but it's from 2019. I'm sure there are more powerful ones out
-> there that are still lightweight.
+Hi Krzysztof,
 
-Yeah, I love a laptop because it is nice and silent but no matter how big it
-is, allmodconfig is still faaat and takes foreva. So I've scripted all my
-builds to go to test machines and the laptop is simply collecting results or
-booting those kernel binaries in VMs and so on.
+On Thu, Oct 01, 2026 at 07:40:55AM +0000, Krzysztof Karas wrote:
+> Move away from generic pr prints to GT aware gt_* versions,
+> which tag each message with device and the tile it came from.
+> 
+> i915_perf.c now uses drm_* prints, as it reports on a device
+> wide perf stream with no GT to attribute the message to.
+> 
+> Ensure that 80 character line limit is respected wherever
+> possible.
+> 
+> Assisted-by: GitHub-Copilot:claude-opus-5
 
-That's how I follow the merge order of when we send you tip branches and I go
-and merge and build each one to check for build errors one last time and see
-what merge conflicts will appear.
+Assisted-by: LLM
 
-And I can't do that on a laptop. It just takes too long.
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+> v5:
+>  * No changes since v4;
+>  * Rebased;
+> 
+>  .../gpu/drm/i915/selftests/i915_gem_evict.c   |  52 +++--
+>  drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 164 +++++++++-----
+>  drivers/gpu/drm/i915/selftests/i915_perf.c    |  30 ++-
+>  drivers/gpu/drm/i915/selftests/i915_request.c | 206 ++++++++++++------
+>  drivers/gpu/drm/i915/selftests/i915_vma.c     | 187 ++++++++++------
+>  drivers/gpu/drm/i915/selftests/intel_uncore.c |  24 +-
+>  6 files changed, 433 insertions(+), 230 deletions(-)
 
--- 
-Regards/Gruss,
-    Boris.
+This patch is too long, for now it's OK as I've managed to go
+through it already. But please, next time (not next version),
+make it shorter.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+...
+
+> @@ -1849,7 +1893,8 @@ static int live_breadcrumbs_smoketest(void *arg)
+>  		num_fences += atomic_long_read(&smoke[idx].num_fences);
+>  		idx++;
+>  	}
+> -	pr_info("Completed %lu waits for %lu fences across %d engines and %d cpus\n",
+> +	gt_info(engine->gt,
+> +		"Completed %lu waits for %lu fences across %d engines and %d cpus\n",
+>  		num_waits, num_fences, idx, ncpus);
+
+you end up here in a NULL pointer dereference because this is
+printed after a for_each_uabi_engine() which exits when engine is
+NULL.
+
+You can use drm_info() here.
+
+>  
+>  	ret = igt_live_test_end(&live) ?: ret;
+
+...
+
+> @@ -2929,7 +2989,8 @@ static int perf_series_engines(void *arg)
+>  				decimal = 0;
+>  			}
+>  
+> -			pr_info("%s %5s: { seqno:%d, busy:%d.%02d%%, runtime:%lldms, walltime:%lldms }\n",
+> +			gt_info(engine->gt,
+> +				"%s %5s: { seqno:%d, busy:%d.%02d%%, runtime:%lldms, walltime:%lldms }\n",
+>  				name, p->engine->name, ce->timeline->seqno,
+>  				integer, decimal,
+>  				div_u64(p->runtime, 1000 * 1000),
+
+For the same reason this should be:
+
+gt_info(p->engine->gt, ...);
+
+Andi
