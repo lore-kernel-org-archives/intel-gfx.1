@@ -2,165 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68107606A31A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572C6606A31B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:22:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QShUyeMM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N9A/ecFG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08A8210E318;
-	Wed, 21 Oct 2026 13:13:05 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A75FC10E2F5;
- Wed, 21 Oct 2026 13:12:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792588379; x=1824124379;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=eAYTLT1x4zH7Ol7tWA9Zp/A6XIDe+x91QR7V5rizqC8=;
- b=QShUyeMM9zKrGwmoWGK7N1sHQRS58DGaU18ddz/Ij1sThGjUaUQ/73Iv
- tHYG/2a+R2rEyqlTXMYisG1/F3jsi3H4oLtulbzlCwBRSyUp939NWTWlG
- oamYUc5Y84o3srATkCzwDzIbjLllypcEbGIvEwvS6FlErwINfCT0wZoQa
- woH3y5oEZ7iCOcu22/WG/wVLT/7IZxWe/+HDrwu5wGQx3Fi5zhNZXZYfc
- T8NpOoHQ+2d67CV9m+/fTxmwzN7F/Qa4OjHgA1z7QPatuPS/eNukU5toG
- SSt7thkMSZBcRpB7V64uni1kh6GglSLWGilenuK6+CQU2mLwOSp2wsxWi A==;
-X-CSE-ConnectionGUID: trRmQl06RGqkVWQUBbr8fQ==
-X-CSE-MsgGUID: yEzFvqqWQ3KIx55Aqw/Z7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1211821"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1211821"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 06:12:58 -0700
-X-CSE-ConnectionGUID: Lwiw1c+oTEO9hLVqrgbttg==
-X-CSE-MsgGUID: ExfqAPzVQsWNYarlx/36Pg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="4922679"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 06:12:58 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 21 Oct 2026 06:12:57 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 21 Oct 2026 06:12:57 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.62) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 21 Oct 2026 06:12:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sOoPlFyKgXNt4nNMhyIMEkLCCQ6qqS2KzutQFa8N8Z+8BpzQfdWn3+dmwgECvclkx1eYWIgvbo7eLFXqeXUSOQ0CL6+UHYfn29j4CCtWYyDR1yt24X6N545EdpHsKlH2lCX3GnJ6kPxzEsYxF9oHyTc7bZXFliLXLFwguwQ0DjQlUtxZijBDbVhVApvog6i5avHgfv2Wn2ECA5PovUMwCqPapNfAbP80B2SszK2G+J0kc//I/Nv6r3E1m72LmwJEOmU+nVKVuO7hMKwnW5d5chgvnAD/zvnv/FjvnjJNE6Czcmmk1uVcR+JrhMPJoNRMplBMw1ZWRZQdweIUuWxLVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eAYTLT1x4zH7Ol7tWA9Zp/A6XIDe+x91QR7V5rizqC8=;
- b=pQd2l99QcBUyMHDw355m7Gznqe+H5HUvDpH7ws+H02Q2L7YkeKQXRhFmz6BHhB+2xoe6F3QzK3K8gXBvmr5EA4qUy9h0alHyxlLMZ/P1MEpq1Gc44dK1vFnYUl3HK1chi5xL4jS8g8zYSbtAlsVzbB+nITq9BKLpzR+pPoYtN3f84QWKe46VmZpjA1a70CnG9kfrwR+OiX9aQZkfwze62edOrJmFZxAO07hNtpgPAO9sYruoEgI56FZOCx0CIrtzD7Bj/uNy8ucZH5SZn7J+pd9P5pH8W3LI8TgoaOFlSCCZbHzbvuhltvguDEm21oegpBeLC+79BLshTYY/EO/lUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPF69154114F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::28) by LV2PR11MB719417.namprd11.prod.outlook.com
- (2603:10b6:408:413::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 13:12:54 +0000
-Received: from DS4PPF69154114F.namprd11.prod.outlook.com
- ([fe80::79ab:f4ae:b1c2:61d9]) by DS4PPF69154114F.namprd11.prod.outlook.com
- ([fe80::79ab:f4ae:b1c2:61d9%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 13:12:54 +0000
-From: "Kahola, Mika" <mika.kahola@intel.com>
-To: "Hogander, Jouni" <jouni.hogander@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "Hogander, Jouni" <jouni.hogander@intel.com>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>
-Subject: RE: [PATCH 8/8] drm/i915/psr: Don't clip plane state destination
- rectangle
-Thread-Topic: [PATCH 8/8] drm/i915/psr: Don't clip plane state destination
- rectangle
-Thread-Index: AQHdT/gjQktPEo81QUi91kL5e1EXJLcIG7mQ
-Date: Wed, 21 Oct 2026 13:12:53 +0000
-Message-ID: <DS4PPF69154114F80BF31B75710934CC43FEF662@DS4PPF69154114F.namprd11.prod.outlook.com>
-References: <20260929094434.77129-1-jouni.hogander@intel.com>
- <20260929094434.77129-9-jouni.hogander@intel.com>
-In-Reply-To: <20260929094434.77129-9-jouni.hogander@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPF69154114F:EE_|LV2PR11MB719417:EE_
-x-ms-office365-filtering-correlation-id: ddbf4e39-8c2a-43de-1c82-08df2f75045a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|10070799003|366016|38070700021|56012099006|4143699003|11063799006|261009223027099003|18002099003|10067099003|22082099003;
-x-microsoft-antispam-message-info: mHX7uQFDo8q6vcOqeNq7qYSvVv41FZgfllFApKOEHsn/YyUJbIJmxV8wIohQxQffAI1ZEYIBHIKDxSMBtV3D/nc+4MNMyRu5ahNLpekvnAE/oSTr/UyAiDzQDeKClTghDJM6gcYX7epsynyuf0FDO0EmMyiqEHCOEJzeZIQX/YPWHziQqXXdqqC8M+3ozKp0B/Gv6g0dypZO1FYq6VPukYWM42tU6Errv+qJUB2+ADXXYz7FSAVd3pjK0KXl017f0c7n+os4CxI75haWdwxzZBh64ye/ib/R4yTEMDD7U+qHGFY6+J/qe3A4tjvic0S0QpTLR19SVWtZmLrwyi4Vkubxha8yXpClYz7ciGH75Vo+FSPXV5sGvw6F9MqmWtwYKbeFNR9UkhRmAdHVDEtOLq1YLUMp5sQMgCbSo2Wj89zK5JV3QYUaOrmLsOnLTVz3PvUdOCuC7jDcAbonGZup4FZLzDh59mboBuKQr6VWtyHwkE1OyKPVB2WZ3U6QPgy/qOGHRuRLBGE60WAHBI8UIGm1nB/JWjQotb+DhgHgNqsmHxG3I+4GhX5sbax6r3OafEinmaMO/r8AaL9nhO+2H8Z5EPUiJK/DSfKLaUv1psIOFlhL5CokrFJWgu2yo4yAnz0nd44uwNLw4dxMBFYSZqVJDxbipAUDNxPwh+ow7JGWasopSHma669TdhRlJoFwHbKyz0cySzRtKekfddmkgBAOkxL2d9UjOCC25D/ysSI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PPF69154114F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(10070799003)(366016)(38070700021)(56012099006)(4143699003)(11063799006)(261009223027099003)(18002099003)(10067099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Y1I4RlRZc3c0QVMvaUpBTUZsMGJWaHJGRjB1OUJjN04wQWlRUmNwWUJucVlt?=
- =?utf-8?B?azFOTnBFQWorMWJwYnl1NklCSm14aUdKY25VSE1SQXBHRGh6cUpXSHRtdjly?=
- =?utf-8?B?Q3RESGIvQjBEU3JGOExLWENFc2RlN05XWGZraFFWbkZFUUhhaXo4QStPWG94?=
- =?utf-8?B?Tjl6eVRjblRvN0NUeE1LcFgzOElOM29rUTNmdXFFVDk4RzhuNlo0bWU2MkNS?=
- =?utf-8?B?VHhLZFBicG94bnFObFBBTVlITm1aZGlEWVRHRENldmdESU8wVWRVdlFHdEVB?=
- =?utf-8?B?RVZxbE9kWXV2UjlpWUJMM3RWN1ppRHJXNjI1bHUzdmRMWUM4WVRZTVJrUnZ0?=
- =?utf-8?B?V0I0dnRha2RkTCtZbTJ3SFl1Q3pITmw5d2VLdGhJUmtLeWk5bERhWjFrenpS?=
- =?utf-8?B?bnVjMVFKb1BvSmxxM1JoSWFGVFluenlmTVV6SlI1ZUlOQlNpQldEWmY3dUVF?=
- =?utf-8?B?V2hzZTVKV1BvaTBDL1hOR3dxYXZuSjluWTNqZlVCM0xoZkthS0ZTVHpYZHll?=
- =?utf-8?B?bmh1UWxzVkpRNVBvNU11V29tbnBoSkZnbjFlckNISGpiZXR1SHBvbi9zM2tx?=
- =?utf-8?B?QmY3bWE3K003Z0VyZjhWcG5VRVl0RjhsRlJZUll1ODRNTm1WaFBGL0Q0dmhx?=
- =?utf-8?B?ckFEeW5mS2dFNGdlY1JEM1IrU0tGU0MydzZGakNZcUZHb1R5TzJacHNvNW5N?=
- =?utf-8?B?bG51Z05NejVtRGFURXQzSEVHMnpHZWYxUDNZWFJvN0ZuVUhzK1BrcmhtUXBT?=
- =?utf-8?B?VDRqQUloTWZIYk5ZRFU3WHZWbmtGTmhNRlNhMDNINUJRUHNQTTBFeTBqZTBz?=
- =?utf-8?B?OC80RHhtUERUQ1FZZGVmM0dCWUJrajJ4MEtwQ3c4eTNQcFZHMS9WRDY5K3lH?=
- =?utf-8?B?ZWtndDJVaDBablVVdjZSalpDNmxXTTVNbG5XUGk4REgzUFoyRWdEb1FNUWpO?=
- =?utf-8?B?aEYwdDdwemZ1YThDOVVkYzlLV0ZkYWJsT2NZdEUwdzNOQXVIUjNYdFhsY2d3?=
- =?utf-8?B?YURNRnMzSFFKL0xnNzU1RndpREJ0TjBPb3ZoNWFDallUaVpGT1JIQ1JmclVj?=
- =?utf-8?B?V1lhWndzRFFIYk12aVh4TFFLK3UrWjFwWmFyVGhIUGVSMzgzN0NRaTduaTJp?=
- =?utf-8?B?M0I2MVNaR2c5YVpvcUVzY05nT0oyc1FOUHhKL3RDTU9zM2M1RElXQlNrQm94?=
- =?utf-8?B?RVNqZDhGSzRIZXNqZmhPd1Fpa0RmejVTbWMvYVdvVDFKeTdTNExlTEdtdnN6?=
- =?utf-8?B?TTl0bHRmdDJ2RXkwbUJ2Q2lBWU5TOG5BSi9jU3NHOUZ6QTR3SDZXN0YrNkNC?=
- =?utf-8?B?UEkrSE5FL2owbHRQOW5obmtsQWFpYlp2My9QcWJCQkcySXVFdEtFTXJsOHpk?=
- =?utf-8?B?d0NCaXdtc2lMYW0xZzZPM1lBVDh6SzFiSzh6Q3o4VERDMXFaa1V2T1R2U0hP?=
- =?utf-8?B?UzJPQWVUMWxUcGxOdjZvY3p2SkdVeU8xMy8xYVk3eEo4MEd0RFNoSk1GT0hL?=
- =?utf-8?B?aG5SeFVPU3k1Z0xjS3ptd1NSc2JXM09kQzRQZDZzeExqcEowUkVHdHVFMFEy?=
- =?utf-8?B?UktUSXdPcVpSeis4NFYybVZySmgvZzRtNisyb1VqMHBEN3YyNDBHYWxndmVP?=
- =?utf-8?B?WVg1akVHRkgvY2pvV1p6VmJSbHVlN3FJN0w2enJCTkswb3I3LzB2bFREL2ZV?=
- =?utf-8?B?dkI3SS9sV2JJQVMraEpFa2Vna1RVZHh5K1Q2WVZ2eFB2akE5ZklabE0vdUo2?=
- =?utf-8?B?cmtmM2ZtdDlVem5XTjZ0TWM0ZG51MjdMV05XNVcxcUpHTlN0Y2FRdzd1RTBF?=
- =?utf-8?B?ZFdXTE9EbXZHRW1aV3BmbzI2Z3FRMlBjVFdhdmpDclFKdmF0MGdFVlAwTGlh?=
- =?utf-8?B?N3kweXhEYzl0T3hxVE1YYXJZZ3FWZmFWcVBWTWFKVVV1UEZubHdVWWVYVjZO?=
- =?utf-8?B?alk4UUU0MUI2WGJWR256ZU1CQWp3SGJwSnlqQ0M1TFlTWE5wZ0lJeVlwNnBD?=
- =?utf-8?B?Y2lralhFM3Ezd2ZuUmpoSUo1U3ZScXlHb1hBUzRIanIwT0dxdkJmR2RuK3ly?=
- =?utf-8?B?M2phcFVJM2pvOXdGeDNnNmF2Y2VTeTBVa1ludGYrckRJZFduZG14d1lXNndL?=
- =?utf-8?B?TERlN2k0UW4vNzJDRkhGamZ1Rmo5clVXVmdoNWtURUIwRHZjMXpIa1hnejYw?=
- =?utf-8?B?Wmt5YndMMStxaUdEUGFBcFlYOFNCaWRHL2JLSG54ZHFoeWQwUDZ4SFRWSHdY?=
- =?utf-8?B?OGlibnRQUURkdWw0UVJVNExtcjc1aDVJcExEWE5jNzYwVUVHTlRUeHdzVHUv?=
- =?utf-8?B?cDNBU1VBMUJVRGxjTHVwa2MwL1BrbUJvd1pscHlBZW5FMkIxdGF0WnhVYmt0?=
- =?utf-8?Q?cTWDylzOmDj3oFfjy6+2Vx8yjOfEIS+nd+PAW?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: kdVPbuSdmULIUP+twMbEHQaUrk0eDbArmO5AypjljBzB17vWH/atd/TDZPyqfskfZvKYU55YAAFBBAyj0rmXex+GxFUrqch+/ySvMy/39EhF8aciHpzZXMNRNDw8y0kliYjMoEyLfzfSMjesaB/wh+5R8bBcxlk0Zc8drqSwUJn3Dxk8u6jgQtD9tvdEKTU/WByXftSj7Z8dl3ygI5kNmFPCRwQ6yMWp/+Jizrx/cAzX4ArgFnv4O3Ng0nBB8FmrGpHxySBO6yjNVaIW+t+j9cfMvvhiYmxMEtOFARQ+h7zmuoYPEydv1OIpjDKRU+PZv4qR4NmGGiRsv4/81pioqA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF69154114F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddbf4e39-8c2a-43de-1c82-08df2f75045a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 13:12:53.6232 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UO+q447TE/7wtsUSPeaU2yBagZhk83D++c9Yz7l0ShdqIAXVQojAQHHwRXYwc01PTc4OmU6v1cgcvBxZwYtK9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB719417
-X-OriginatorOrg: intel.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id E81EE10E21C;
+	Wed, 21 Oct 2026 13:22:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A655F10E21C;
+ Wed, 21 Oct 2026 13:22:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0DE5843BCF;
+ Wed, 21 Oct 2026 13:22:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0D51F000C7;
+ Wed, 21 Oct 2026 13:22:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792588957;
+ bh=X5qEZefSXY1XOL8KRx7YiuNk4T6wkrqw2ZTyxAQewIg=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=N9A/ecFGZX5SgidsE2G3QuDRFkJ2n45x0NVNPUGomuZjz/ud6hxZFpzzAoy4hSFCX
+ RzJvZ4aJ02EVW1AzXKv/E0t6WY3Sg/fSsAEiUYnL9ciZV5BAB2iZZlPZnzVqNcFEjD
+ zy+Ac8fnGAAh5m4MevHace5BnvuC5jMftt/1micoQqvyeDARSN2FrBzHX2sEPEJAMu
+ 1uwMYexc+z+fxsZSlDpUfdDB/hRzyK3iwUoS1N5oLssDl9/brQblssdrdCu/uIl+WF
+ AZNxzpS0UyOhIchItkyppveExddi1fNTQTr7XATv/MVGXv3jeLQjyTAtmnJAG0utLG
+ QCQb2NucLnoBw==
+Message-ID: <sashiko-outbox-180299@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/7] PCI: Honor alignment overrides
+To: =?utf-8?b?SWxwbyBKw6RydmluZW4=?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20261021124956.4250-4-ilpo.jarvinen@linux.intel.com>
+References: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
+ <20261021124956.4250-4-ilpo.jarvinen@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 13:22:37 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,59 +49,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBJbnRlbC1nZnggPGludGVsLWdm
-eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEpvdW5pIEjDtmdh
-bmRlcg0KPiBTZW50OiBUdWVzZGF5LCAyOSBTZXB0ZW1iZXIgMjAyNiAxMi40NQ0KPiBUbzogaW50
-ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgaW50ZWwteGVAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnDQo+IENjOiBIb2dhbmRlciwgSm91bmkgPGpvdW5pLmhvZ2FuZGVyQGludGVsLmNvbT47IHN0
-YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU3ViamVjdDogW1BBVENIIDgvOF0gZHJtL2k5MTUvcHNy
-OiBEb24ndCBjbGlwIHBsYW5lIHN0YXRlIGRlc3RpbmF0aW9uIHJlY3RhbmdsZQ0KPiANCj4gY2xp
-cF9hcmVhX3VwZGF0ZSgpIHVzZXMgZHJtX3JlY3RfaW50ZXJzZWN0IHdoaWNoIG1vZGlmaWVzIHBh
-c3NlZCByMQ0KPiByZWN0YW5nbGUuIEVhcmx5IHRyYW5zcG9ydCBhbGlnbm1lbnQgcGFzc2VzIHRo
-ZSBjdXJzb3IgdWFwaS5kc3QgcmVjdGFuZ2xlDQo+IHRvIGNsaXBfYXJlYV91cGRhdGUsIHNvIHRo
-ZSBjdXJzb3IgdWFwaS5kc3QgaXMgdW5pbnRlbnRpb25hbGx5IG1vZGlmaWVkIGJ5DQo+IGRybV9y
-ZWN0X2ludGVyc2VjdC4NCj4gDQo+IEZpeCB0aGlzIGJ5IHVzaW5nIGxvY2FsIGNvcHkgaW4gY2xp
-cF9hcmVhX3VwZGF0ZSgpLiBBbHNvIG1ha2UgdGhlIGRhbWFnZQ0KPiBhbmQgdGhlIGRpc3BsYXkg
-YXJlYSBjb25zdC4NCj4gDQo+IEZpeGVzOiAxYmZmOTNiOGJjMjcgKCJkcm0vaTkxNS9wc3I6IEV4
-dGVuZCBTVSBhcmVhIHRvIGNvdmVyIGN1cnNvciBmdWxseSBpZiBuZWVkZWQiKQ0KPiBDYzogPHN0
-YWJsZUB2Z2VyLmtlcm5lbC5vcmc+ICMgdjYuOSsNCj4gQXNzaXN0ZWQtYnk6IEdpdEh1Yi1Db3Bp
-bG90OmNsYXVkZS1vcHVzLTUNCj4gU2lnbmVkLW9mZi1ieTogSm91bmkgSMO2Z2FuZGVyIDxqb3Vu
-aS5ob2dhbmRlckBpbnRlbC5jb20+DQoNClJldmlld2VkLWJ5OiBNaWthIEthaG9sYSA8bWlrYS5r
-YWhvbGFAaW50ZWwuY29tPg0KDQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
-eS9pbnRlbF9wc3IuYyB8IDIwICsrKysrKysrKysrLS0tLS0tLS0tDQo+ICAxIGZpbGUgY2hhbmdl
-ZCwgMTEgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jIGIvZHJpdmVycy9ncHUvZHJt
-L2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiBpbmRleCBkOGZlZmIxM2MyNzkwLi45OTYwM2E0
-ODZjMjc4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X3Bzci5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMN
-Cj4gQEAgLTI3MDksMjMgKzI3MDksMjUgQEAgc3RhdGljIHUzMiBwc3IyX3BpcGVfc3Jjc3pfZWFy
-bHlfdHB0X2NhbGMoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsDQo+ICB9DQo+
-IA0KPiAgc3RhdGljIHZvaWQgY2xpcF9hcmVhX3VwZGF0ZShzdHJ1Y3QgZHJtX3JlY3QgKm92ZXJs
-YXBfZGFtYWdlX2FyZWEsDQo+IC0JCQkgICAgIHN0cnVjdCBkcm1fcmVjdCAqZGFtYWdlX2FyZWEs
-DQo+IC0JCQkgICAgIHN0cnVjdCBkcm1fcmVjdCAqZGlzcGxheV9hcmVhKQ0KPiArCQkJICAgICBj
-b25zdCBzdHJ1Y3QgZHJtX3JlY3QgKmRhbWFnZV9hcmVhLA0KPiArCQkJICAgICBjb25zdCBzdHJ1
-Y3QgZHJtX3JlY3QgKmRpc3BsYXlfYXJlYSkNCj4gIHsNCj4gLQlpZiAoIWRybV9yZWN0X2ludGVy
-c2VjdChkYW1hZ2VfYXJlYSwgZGlzcGxheV9hcmVhKSkNCj4gKwlzdHJ1Y3QgZHJtX3JlY3QgaW50
-ZXIgPSAqZGFtYWdlX2FyZWE7DQo+ICsNCj4gKwlpZiAoIWRybV9yZWN0X2ludGVyc2VjdCgmaW50
-ZXIsIGRpc3BsYXlfYXJlYSkpDQo+ICAJCXJldHVybjsNCj4gDQo+ICAJaWYgKG92ZXJsYXBfZGFt
-YWdlX2FyZWEtPnkxID09IC0xKSB7DQo+IC0JCW92ZXJsYXBfZGFtYWdlX2FyZWEtPnkxID0gZGFt
-YWdlX2FyZWEtPnkxOw0KPiAtCQlvdmVybGFwX2RhbWFnZV9hcmVhLT55MiA9IGRhbWFnZV9hcmVh
-LT55MjsNCj4gKwkJb3ZlcmxhcF9kYW1hZ2VfYXJlYS0+eTEgPSBpbnRlci55MTsNCj4gKwkJb3Zl
-cmxhcF9kYW1hZ2VfYXJlYS0+eTIgPSBpbnRlci55MjsNCj4gIAkJcmV0dXJuOw0KPiAgCX0NCj4g
-DQo+IC0JaWYgKGRhbWFnZV9hcmVhLT55MSA8IG92ZXJsYXBfZGFtYWdlX2FyZWEtPnkxKQ0KPiAt
-CQlvdmVybGFwX2RhbWFnZV9hcmVhLT55MSA9IGRhbWFnZV9hcmVhLT55MTsNCj4gKwlpZiAoaW50
-ZXIueTEgPCBvdmVybGFwX2RhbWFnZV9hcmVhLT55MSkNCj4gKwkJb3ZlcmxhcF9kYW1hZ2VfYXJl
-YS0+eTEgPSBpbnRlci55MTsNCj4gDQo+IC0JaWYgKGRhbWFnZV9hcmVhLT55MiA+IG92ZXJsYXBf
-ZGFtYWdlX2FyZWEtPnkyKQ0KPiAtCQlvdmVybGFwX2RhbWFnZV9hcmVhLT55MiA9IGRhbWFnZV9h
-cmVhLT55MjsNCj4gKwlpZiAoaW50ZXIueTIgPiBvdmVybGFwX2RhbWFnZV9hcmVhLT55MikNCj4g
-KwkJb3ZlcmxhcF9kYW1hZ2VfYXJlYS0+eTIgPSBpbnRlci55MjsNCj4gIH0NCj4gDQo+ICBzdGF0
-aWMgYm9vbCBpbnRlbF9wc3IyX3NlbF9mZXRjaF9waXBlX2FsaWdubWVudChzdHJ1Y3QgaW50ZWxf
-Y3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSkNCj4gLS0NCj4gMi40My4wDQoNCg==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] PCI: pci_align_resource() still misaligns resources when size < al=
+ign
+--
+
+commit b332469defd2a6e720c73527f0af741c6fe04a04
+Author: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+
+PCI: Honor alignment overrides
+
+This commit introduces struct pci_resreq_data to pass the PCI device and
+user-specified resource alignment into pci_align_resource() so that
+remainder movement is skipped when a user alignment override is active.
+
+Link: https://lore.kernel.org/linux-pci/20260923133202.07DF61F000FF@smtp.ke=
+rnel.org/
+
+[ ... ]
+
+> diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+> index 376f09630a4ab..441a62807719d 100644
+> --- a/drivers/pci/setup-res.c
+> +++ b/drivers/pci/setup-res.c
+> @@ -265,17 +265,21 @@ resource_size_t pci_resource_alignment(const struct=
+ pci_dev *dev,
+>   * before res->start if there's enough free space there. This enables
+>   * tighter packing for resources.
+>   */
+> -resource_size_t pci_align_resource(struct pci_dev *dev,
+> +resource_size_t pci_align_resource(struct pci_resreq_data *rr,
+>  				   const struct resource *res,
+>  				   const struct resource *empty_res,
+>  				   resource_size_t size,
+>  				   resource_size_t align)
+>  {
+> +	struct pci_dev *dev =3D rr->dev;
+>  	resource_size_t remainder, start_addr;
+> =20
+>  	if (!(res->flags & IORESOURCE_MEM))
+>  		return res->start;
+> =20
+> +	if (rr->user_align)
+> +		return res->start;
+> +
+>  	if (IS_ALIGNED(size, align))
+>  		return res->start;
+> =20
+
+[ ... ]
+
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107b1ef..ea7d758712691 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -1217,12 +1217,40 @@ int __must_check pcibios_enable_device(struct pci=
+_dev *, int mask);
+>  /* Architecture-specific versions may override this (weak) */
+>  char *pcibios_setup(char *str);
+> =20
+> -/* Used only when drivers/pci/setup.c is used */
+> +/* Resource assignment request handling */
+> +/**
+> + * struct pci_resreq_data - Data passed to pcibios_align_resource()
+> + * @dev: PCI device
+> + * @user_align: User provided alignment override (pci=3Dresource_alignme=
+nt param)
+> + */
+> +struct pci_resreq_data {
+> +	struct pci_dev *dev;
+> +	resource_size_t user_align;
+> +};
+> +
+> +resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+> +						 bool *resize);
+> +/*
+> + * TODO: Improve PCI resource assignment interface so that callers outsi=
+de PCI
+> + * core do not need to know about this detail.
+> + */
+> +static inline void pci_init_pci_resreq_data(struct pci_resreq_data *rr,
+> +					    struct pci_dev *dev)
+> +{
+> +	bool user_aligned;
+> +
+> +	memset(rr, 0, sizeof(*rr));
+> +	rr->dev =3D dev;
+> +	rr->user_align =3D pci_specified_resource_alignment(dev, &user_aligned);
+> +	if (!user_aligned)
+> +		rr->user_align =3D 0;
+> +}
+
+[Severity: High]
+Can pci_align_resource() still misalign resources when size < align?
+
+Looking at pci_reassigndev_resource_alignment() ->
+pci_request_resource_alignment() in drivers/pci/pci.c:
+
+	if (resize) {
+		r->start =3D 0;
+		r->end =3D align - 1;
+	} else {
+		r->flags &=3D ~IORESOURCE_SIZEALIGN;
+		r->flags |=3D IORESOURCE_STARTALIGN;
+		resource_set_range(r, align, size);
+	}
+
+When a device matches pci=3Dresource_alignment=3D so resize (user_aligned) =
+is
+true, BARs in 0..PCI_ROM_RESOURCE with size < align are resized so that
+size =3D=3D align. For those BARs, IS_ALIGNED(size, align) in
+pci_align_resource() is already true, so rr->user_align is not needed to
+skip remainder calculation for them.
+
+Conversely, when resize (user_aligned) is false because align comes from
+pcibios_default_alignment() (such as pnv_pci_default_alignment() returning
+PAGE_SIZE on PowerNV), pci_request_resource_alignment() takes the else
+branch and sets IORESOURCE_STARTALIGN while keeping size < align. However,
+pci_init_pci_resreq_data() clears rr->user_align =3D 0 when !user_aligned.
+
+Whenever pci_align_resource() in drivers/pci/setup-res.c is called with
+size < align and rr->user_align =3D=3D 0 (whether for IORESOURCE_STARTALIGN
+BARs via pcibios_default_alignment(), even if moved to
+pci_resource_alignment(), or for a bridge window whose alignment was raised
+above its size):
+
+	if (IS_ALIGNED(size, align))
+		return res->start;
+
+	remainder =3D size - ALIGN_DOWN(size, align);
+
+ALIGN_DOWN(size, align) evaluates to 0 and remainder equals size. Because
+there is no aligning body, subtracting remainder shifts the entire resource
+to res->start - size (and in the later commits "PCI: Fix nesting windows
+with remainder at the left edge" and "PCI: Place resources to either edge
+of the window", lowers constraint->align to 1U and selects candidate[1] or
+candidate[3] at aligned_edge - size), placing the entire resource below the
+aligned boundary at an address that is only size-aligned rather than
+align-aligned.
+
+Additionally, when a PCI-to-PCI bridge is specified in
+pci=3Dresource_alignment=3D to allow expanding its bridge windows,
+pci_reassigndev_resource_alignment() only unsets
+PCI_BRIDGE_RESOURCES..PCI_NUM_RESOURCES - 1 without requesting user_align
+on those windows. Because pci_init_pci_resreq_data() sets rr->user_align on
+the bridge pci_dev for all of its resources, wouldn't this disable
+remainder handling on the bridge windows (and in the later commit "PCI:
+Place resources to either edge of the window", reject bridge window
+candidates not aligned to rr->user_align)?
+
+Would checking size <=3D align in pci_align_resource() (or restricting
+remainder relocation to composite bridge window resources where size >
+align) avoid shifting resources with size < align below their alignment
+boundary?
+
+[ ... ]
+
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021124956.4250=
+-1-ilpo.jarvinen@linux.intel.com?part=3D3
