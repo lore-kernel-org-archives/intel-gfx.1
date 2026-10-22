@@ -2,56 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5578C606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 06:17:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QlpFlzpe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704F6606A31A
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 07:01:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5C0010E3BF;
-	Thu, 22 Oct 2026 06:17:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A145F10E3BF;
- Thu, 22 Oct 2026 06:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792649860; x=1824185860;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=b+BV+wl0sc54j5CAB5kidszjRnSKKaZwHPGmp9nwN0w=;
- b=QlpFlzpeW10Q9i85pFG1azfI2U2We2gprXdH9yZYQuxTTeh3usLPyIzi
- 4Hbp6GEebyKewrrbslln3n2kotYWu3C7mFmGm4j53IorwEvP0k5l5zvlL
- E/O33Cp1m24T672cQClAKnENQEBDCgf4kxLOupvphoOORu9iIHwQEkuzR
- XVQr4+glbY8Ndfk8EuwtaUqTq2HoFtCc2HzqYm+FvxijTn3TPhs0W5fpO
- Hdgw5xcYy1zPMcE3m644Mm8sWOA6AlGthDuuPBHtHkW9eR0kBJlAL96cZ
- /ayUfG7oszEnT6RcExU8Juu9of/04sivpH4idmhTZINneE+XlHDV9EMua w==;
-X-CSE-ConnectionGUID: 95f81zTXRmaWgmWVycJBSg==
-X-CSE-MsgGUID: Oc4LcPSaRoWrK/vVXbbtMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1264492"
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1264492"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 23:17:39 -0700
-X-CSE-ConnectionGUID: vAQy0Zj1TPOs/K0bUY/05Q==
-X-CSE-MsgGUID: AC0By3/3S3+iUeY34fAuIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3686736"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa006.fm.intel.com with ESMTP; 21 Oct 2026 23:17:38 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/dp_mst: Drop dead ret check in
- mst_stream_compute_link_for_joined_pipes()
-Date: Thu, 22 Oct 2026 11:47:36 +0530
-Message-Id: <20261022061736.1721600-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 061F311236F;
+	Thu, 22 Oct 2026 07:01:23 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E38A11236F;
+ Thu, 22 Oct 2026 07:01:21 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2581887728145973918=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=5Fmst=3A_Drop?=
+ =?utf-8?q?_dead_ret_check_in_mst=5Fstream=5Fcompute=5Flink=5Ffor=5Fjoined?=
+ =?utf-8?q?=5Fpipes=28=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 22 Oct 2026 07:01:21 -0000
+Message-ID: <179265248144.55233.11017234831592349192@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261022061736.1721600-1-suraj.kandpal@intel.com>
+In-Reply-To: <20261022061736.1721600-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,39 +35,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When the DSC path is taken, both helpers that set ret return early on
-error, and the non-DSC path only falls through with ret == 0, so ret is
-always 0 after the DSC block.
-Drop the dead return.
+--===============2581887728145973918==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ---
- 1 file changed, 3 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 7023619aaaba..0424557eb151 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -726,9 +726,6 @@ static int mst_stream_compute_link_for_joined_pipes(struct intel_encoder *encode
- 			return -EINVAL;
- 	}
- 
--	if (ret)
--		return ret;
--
- 	ret = intel_dp_compute_min_hblank(pipe_config, conn_state);
- 	if (ret)
- 		return ret;
--- 
-2.34.1
+Series: drm/i915/dp_mst: Drop dead ret check in mst_stream_compute_link_for_joined_pipes()
+URL   : https://patchwork.freedesktop.org/series/176611/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19382 -> Patchwork_176611v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_176611v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@sanitycheck:
+    - bat-apl-1:          [DMESG-WARN][1] ([i915#13735]) -> [PASS][2] +77 other tests pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - bat-apl-1:          [DMESG-WARN][3] ([i915#13735] / [i915#180]) -> [PASS][4] +49 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19382 -> Patchwork_176611v1
+
+  CI-20190529: 20190529
+  CI_DRM_19382: dccfdbc40b10720efe537dfc63de84eed983fc8f @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9156: 9156
+  Patchwork_176611v1: dccfdbc40b10720efe537dfc63de84eed983fc8f @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/index.html
+
+--===============2581887728145973918==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp_mst: Drop dead ret check in mst_stream_compute_link_for_joined_pipes()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176611/">https://patchwork.freedesktop.org/series/176611/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19382 -&gt; Patchwork_176611v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_176611v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">PASS</a> +77 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176611v1/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19382 -&gt; Patchwork_176611v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19382: dccfdbc40b10720efe537dfc63de84eed983fc8f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9156: 9156<br />
+  Patchwork_176611v1: dccfdbc40b10720efe537dfc63de84eed983fc8f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2581887728145973918==--
