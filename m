@@ -2,55 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA310606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 04:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nDCn+YzR
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F239F606A319
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 04:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4313110E212;
-	Thu, 22 Oct 2026 04:06:03 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4DC810E212;
- Thu, 22 Oct 2026 04:05:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792641958; x=1824177958;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=kyLi2W2Qa1zn/A1W/GB2a6VRdM2KktpkNGecrz/qtbI=;
- b=nDCn+YzRXRQ3buW3hq9QhNDZ7qJrOg79cWXseu4o7pz8effFGBYhzUeX
- YS3HlHYfwggzp2dTna9f5tHGNrGoUkjZKLWR3bUI45K1YpzvSa5nUCmOQ
- /74vORdUQta5M2rOsQFvjjl716WY+W870TpGd7NS2BXLQLk4GFPIbe7QA
- G0mPR5MhR+0Ud3cpl49XsdXUkv4D5SYWXKgEEF0TxaLzhFBErVsVn+jgZ
- hVNW/+6Y8hM7oyc55P+l1Ev57SPo3Zo1g2X3+N0UbE6Vd+bzRBR0wzPnQ
- QRTd78ofyrGtJJ7Lyhkx0S6UWgWkOh/nn/YiGTvYW/5BXfqI0TB4AW3bV g==;
-X-CSE-ConnectionGUID: JKhBBnUDSKOWjpyV7HBKEw==
-X-CSE-MsgGUID: 9x+uyOOyQimjS7/XVhEm6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1415568"
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1415568"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 21:05:57 -0700
-X-CSE-ConnectionGUID: htiQ2XM+SnCQ437tzIzwnQ==
-X-CSE-MsgGUID: egdf+++hR9uyWPUkIPBb0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3661216"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa006.fm.intel.com with ESMTP; 21 Oct 2026 21:05:56 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/display: Limit NVL TRANS_VTOTAL.Vtotal skip to A-step
-Date: Thu, 22 Oct 2026 09:35:29 +0530
-Message-Id: <20261022040528.1403569-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F60A10E3A1;
+	Thu, 22 Oct 2026 04:21:44 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39B7610E2AB;
+ Thu, 22 Oct 2026 04:21:43 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6017082678930648854=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Implement_Wa=5F1402176879?=
+ =?utf-8?q?2_to_bypass_m=5Fn_ratio_limit_=28rev11=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 22 Oct 2026 04:21:43 -0000
+Message-ID: <179264290322.54694.15306684941016302067@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261022032247.1378809-1-suraj.kandpal@intel.com>
+In-Reply-To: <20261022032247.1378809-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,62 +34,176 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The hardware issue which required us to keep vtotal as 0 has since been
-fixed on B0 well, so applying the workaround there is no longer correct
-and causes issues on B-stepping.
-Restrict the workaround to A-step only, in both transcoder timing paths
-and in the crtc_vtotal readout fixup in intel_vrr_get_config().
+--===============6017082678930648854==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Fixes: a78d11e7859b ("drm/i915/display: Skip TRANS_VTOTAL.Vtotal write on NVL pre-C0")
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 4 ++--
- drivers/gpu/drm/i915/display/intel_vrr.c     | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 7602f633f49d..de7168fbb220 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2844,7 +2844,7 @@ void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state,
- 		       HSYNC_END(adjusted_mode->crtc_hsync_end - 1));
- 
- 	if (display->platform.novalake &&
--	    IS_DISPLAY_STEP(display, STEP_A0, STEP_C0))
-+	    IS_DISPLAY_STEP(display, STEP_A0, STEP_B0))
- 		crtc_vtotal = 1;
- 
- 	intel_de_write(display, TRANS_VTOTAL(display, transcoder),
-@@ -2941,7 +2941,7 @@ void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
- 	 * is the transcoder's undelayed vblank.
- 	 */
- 	if (display->platform.novalake &&
--	    IS_DISPLAY_STEP(display, STEP_A0, STEP_C0))
-+	    IS_DISPLAY_STEP(display, STEP_A0, STEP_B0))
- 		crtc_vtotal = 1;
- 
- 	intel_de_write(display, TRANS_VTOTAL(display, transcoder),
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index d43a06907d18..b14750692ae0 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -1147,7 +1147,7 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 		}
- 
- 		if (display->platform.novalake &&
--		    IS_DISPLAY_STEP(display, STEP_A0, STEP_C0))
-+		    IS_DISPLAY_STEP(display, STEP_A0, STEP_B0))
- 			crtc_state->hw.adjusted_mode.crtc_vtotal =
- 				intel_vrr_vmin_vtotal(crtc_state);
- 
--- 
-2.34.1
+Series: Implement Wa_14021768792 to bypass m_n ratio limit (rev11)
+URL   : https://patchwork.freedesktop.org/series/138257/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19382 -> Patchwork_138257v11
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_138257v11 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][1] -> [INCOMPLETE][2] ([i915#16229]) +1 other test incomplete
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-mtlp-8/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/bat-mtlp-8/igt@i915_selftest@live.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [PASS][3] -> [SKIP][4] ([i915#13030])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@sanitycheck:
+    - bat-apl-1:          [DMESG-WARN][5] ([i915#13735]) -> [PASS][6] +77 other tests pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - bat-apl-1:          [DMESG-WARN][7] ([i915#13735] / [i915#180]) -> [PASS][8] +49 other tests pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#13030]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13030
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#16229]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19382 -> Patchwork_138257v11
+
+  CI-20190529: 20190529
+  CI_DRM_19382: dccfdbc40b10720efe537dfc63de84eed983fc8f @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9156: 9156
+  Patchwork_138257v11: dccfdbc40b10720efe537dfc63de84eed983fc8f @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/index.html
+
+--===============6017082678930648854==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Implement Wa_14021768792 to bypass m_n ratio limit (rev11)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/138257/">https://patchwork.freedesktop.org/series/138257/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19382 -&gt; Patchwork_138257v11</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_138257v11 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/bat-mtlp-8/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229">i915#16229</a>) +1 other test incomplete</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13030">i915#13030</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">PASS</a> +77 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19382/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_138257v11/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19382 -&gt; Patchwork_138257v11</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19382: dccfdbc40b10720efe537dfc63de84eed983fc8f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9156: 9156<br />
+  Patchwork_138257v11: dccfdbc40b10720efe537dfc63de84eed983fc8f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6017082678930648854==--
