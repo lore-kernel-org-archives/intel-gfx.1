@@ -2,42 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50002606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 03:43:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA310606A31A
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 04:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nk1+XXFh
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nDCn+YzR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF6E610E350;
-	Thu, 22 Oct 2026 03:43:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9CFD10E19F;
- Thu, 22 Oct 2026 03:43:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DD04460AAB;
- Thu, 22 Oct 2026 03:43:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3A11F000C1;
- Thu, 22 Oct 2026 03:43:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792640613;
- bh=+RMiY9uw6eCN0BpTPDSoavmomVaVOJjoADFEWKO7cYw=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=nk1+XXFh3mnnLnQOCgcnzoyo96g1VFkh37yG1OADu5rGMqEO8eXIVbR4tROOsX2Gs
- /T7maoSS3YNLt2jzqaTOEcpg5QiLbO91l3TCQESSywqV3U7QKdILfiU3Pz9tPThYIS
- 32hM7MmHB5+iHwEY1IUfrRTmMpu5FROeuMH5nu1POUKgAU71HDI966pSkJlbBlUcdV
- I3DVmOa8Jfs89la/iFIhgtcT/uVDzAHqhhLw1OqDa3vcZJC0VOaUgDpVAmRcxK2AKO
- 1+pSXYgsFrgRcqhQ3GLhU5pJr2ewdZxQ1uwB42viTZT2PEsc2sCERJmQJEGkcpICn4
- fmAHPUwKp71TQ==
-Message-ID: <sashiko-outbox-180972@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 04/13] drm/i915/dp_mst: Limit M/N ratio for MST
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261022032247.1378809-5-suraj.kandpal@intel.com>
-References: <20261022032247.1378809-1-suraj.kandpal@intel.com>
- <20261022032247.1378809-5-suraj.kandpal@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 03:43:32 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4313110E212;
+	Thu, 22 Oct 2026 04:06:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4DC810E212;
+ Thu, 22 Oct 2026 04:05:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792641958; x=1824177958;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kyLi2W2Qa1zn/A1W/GB2a6VRdM2KktpkNGecrz/qtbI=;
+ b=nDCn+YzRXRQ3buW3hq9QhNDZ7qJrOg79cWXseu4o7pz8effFGBYhzUeX
+ YS3HlHYfwggzp2dTna9f5tHGNrGoUkjZKLWR3bUI45K1YpzvSa5nUCmOQ
+ /74vORdUQta5M2rOsQFvjjl716WY+W870TpGd7NS2BXLQLk4GFPIbe7QA
+ G0mPR5MhR+0Ud3cpl49XsdXUkv4D5SYWXKgEEF0TxaLzhFBErVsVn+jgZ
+ hVNW/+6Y8hM7oyc55P+l1Ev57SPo3Zo1g2X3+N0UbE6Vd+bzRBR0wzPnQ
+ QRTd78ofyrGtJJ7Lyhkx0S6UWgWkOh/nn/YiGTvYW/5BXfqI0TB4AW3bV g==;
+X-CSE-ConnectionGUID: JKhBBnUDSKOWjpyV7HBKEw==
+X-CSE-MsgGUID: 9x+uyOOyQimjS7/XVhEm6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1415568"
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="1415568"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2026 21:05:57 -0700
+X-CSE-ConnectionGUID: htiQ2XM+SnCQ437tzIzwnQ==
+X-CSE-MsgGUID: egdf+++hR9uyWPUkIPBb0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="3661216"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by fmviesa006.fm.intel.com with ESMTP; 21 Oct 2026 21:05:56 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com,
+	Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH] drm/i915/display: Limit NVL TRANS_VTOTAL.Vtotal skip to A-step
+Date: Thu, 22 Oct 2026 09:35:29 +0530
+Message-Id: <20261022040528.1403569-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,123 +61,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915/dp_mst: M/N mode_valid check mismatches MST compute_con=
-fig limits
---
+The hardware issue which required us to keep vtotal as 0 has since been
+fixed on B0 well, so applying the workaround there is no longer correct
+and causes issues on B-stepping.
+Restrict the workaround to A-step only, in both transcoder timing paths
+and in the crtc_vtotal readout fixup in intel_vrr_get_config().
 
-commit 67d8f2b2b1195befcc18a05f5eb7b442e2188782
-Author: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Fixes: a78d11e7859b ("drm/i915/display: Skip TRANS_VTOTAL.Vtotal write on NVL pre-C0")
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 4 ++--
+ drivers/gpu/drm/i915/display/intel_vrr.c     | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-drm/i915/dp_mst: Limit M/N ratio for MST
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 7602f633f49d..de7168fbb220 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2844,7 +2844,7 @@ void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state,
+ 		       HSYNC_END(adjusted_mode->crtc_hsync_end - 1));
+ 
+ 	if (display->platform.novalake &&
+-	    IS_DISPLAY_STEP(display, STEP_A0, STEP_C0))
++	    IS_DISPLAY_STEP(display, STEP_A0, STEP_B0))
+ 		crtc_vtotal = 1;
+ 
+ 	intel_de_write(display, TRANS_VTOTAL(display, transcoder),
+@@ -2941,7 +2941,7 @@ void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
+ 	 * is the transcoder's undelayed vblank.
+ 	 */
+ 	if (display->platform.novalake &&
+-	    IS_DISPLAY_STEP(display, STEP_A0, STEP_C0))
++	    IS_DISPLAY_STEP(display, STEP_A0, STEP_B0))
+ 		crtc_vtotal = 1;
+ 
+ 	intel_de_write(display, TRANS_VTOTAL(display, transcoder),
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index d43a06907d18..b14750692ae0 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -1147,7 +1147,7 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
+ 		}
+ 
+ 		if (display->platform.novalake &&
+-		    IS_DISPLAY_STEP(display, STEP_A0, STEP_C0))
++		    IS_DISPLAY_STEP(display, STEP_A0, STEP_B0))
+ 			crtc_state->hw.adjusted_mode.crtc_vtotal =
+ 				intel_vrr_vmin_vtotal(crtc_state);
+ 
+-- 
+2.34.1
 
-This commit adds a Link M/Link N ratio check to mst_connector_mode_valid_ct=
-x()
-using intel_dp_mode_valid_m_n() to prune display modes that exceed the
-hardware M/N ratio limit on MST connectors.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index 7023619aaaba9..f00edfb66a10a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -1565,6 +1565,11 @@ mst_connector_mode_valid_ctx(struct drm_connector =
-*_connector,
->  					   min_link_bpp_x16,
->  					   bw_overhead_flags);
-> =20
-> +	if (!intel_dp_mode_valid_m_n(intel_dp, mode->clock)) {
-> +		*status =3D MODE_CLOCK_HIGH;
-> +		return 0;
-> +	}
-> +
->  	/*
->  	 * TODO:
->  	 * - Also check if compression would allow for the mode
-
-[Severity: Medium]
-Does calling intel_dp_mode_valid_m_n() here match the link configuration
-constraints enforced during MST modeset in intel_dp_compute_config_limits()?
-
-In drivers/gpu/drm/i915/display/intel_dp_mst.c, mst_connector_mode_valid_ct=
-x()
-evaluates bandwidth and DSC against max_bw_config, whereas
-intel_dp_mode_valid_m_n() in drivers/gpu/drm/i915/display/intel_dp.c iterat=
-es
-over all configurations in INTEL_DP_LINK_CAPS_FILTER_ALL:
-
-drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_mode_valid_m_n() {
-	intel_dp_link_caps_iter_start(&iter, intel_dp->link.caps, order,
-				      INTEL_DP_LINK_CAPS_FILTER_ALL);
-	for_each_dp_link_config(&iter, &link_config) {
-		if (intel_dp_can_support_m_n(display, m_n_pixel_clock,
-					     link_config.rate)) {
-			found =3D true;
-
-			break;
-		}
-	}
-}
-
-On a UHBR-capable MST topology (for example UHBR10 with a 312.5 MHz symbol
-clock, or UHBR13.5 with a 421.875 MHz symbol clock), intel_dp->link.caps al=
-so
-includes 8b/10b rates such as HBR3 (810 MHz symbol clock). Because HBR3 has=
- a
-higher link symbol clock than UHBR10 or UHBR13.5, intel_dp_mode_valid_m_n()
-will see that HBR3 satisfies intel_dp_can_support_m_n() and return true even
-when max_bw_config violates the M/N ratio limit.
-
-However, during modeset via
-mst_stream_compute_config() -> mst_stream_compute_link_for_joined_pipes() ->
-mst_stream_compute_config_limits() -> intel_dp_compute_config_limits(),
-the MST path narrows limits->link_config_filter to the single highest-BW
-max_config before intel_dp_compute_m_n_ratio_limits() is called:
-
-drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_compute_config_limits() {
-	if (is_mst || intel_dp->use_max_params) {
-		struct intel_dp_link_caps_filter new_filter =3D INTEL_DP_LINK_CAPS_FILTER=
-_NONE;
-		struct intel_dp_link_config max_config;
-		...
-		if (!intel_dp_get_connector_max_link_config(connector, limits, &max_confi=
-g))
-			return false;
-
-		if (!intel_dp_link_caps_filter_add(link_caps, &new_filter, &max_config))
-			return false;
-
-		limits->link_config_filter =3D new_filter;
-	}
-
-	if (!intel_dp_compute_m_n_ratio_limits(intel_dp, conn_state, crtc_state, l=
-imits))
-		return false;
-}
-
-As a result, intel_dp_compute_m_n_ratio_limits() only checks max_config for
-MST and rejects the modeset if max_config violates the M/N ratio limit.
-
-Should mst_connector_mode_valid_ctx() check intel_dp_can_support_m_n() agai=
-nst
-max_link_clock (matching the rest of mst_connector_mode_valid_ctx() and the
-current MST max_config selection), or should intel_dp_compute_m_n_ratio_lim=
-its()
-filter limits->link_config_filter before intel_dp_get_connector_max_link_co=
-nfig()
-picks max_config?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022032247.1378=
-809-1-suraj.kandpal@intel.com?part=3D4
