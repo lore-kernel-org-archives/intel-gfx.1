@@ -2,53 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20295606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A734F606A319
 	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 03:23:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yqbv+xgq
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jn4hrdhn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A294110E36B;
-	Thu, 22 Oct 2026 03:23:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39EE51122ED;
+	Thu, 22 Oct 2026 03:23:13 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB89910E3C0;
- Thu, 22 Oct 2026 03:23:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5326A10E36B;
+ Thu, 22 Oct 2026 03:23:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792639386; x=1824175386;
+ t=1792639387; x=1824175387;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BHqSpiFao4OWGjv2RiMkyZQNnm2rZXy4UXOptcaNQbg=;
- b=Yqbv+xgq+WaYWeno8TWVGfKmB9IlNazIWIdSRjgR/hoP49ygD7ERAVq2
- xvUXxD6IQ1TFphxtnN1HXjTtVe5jqbCzX2ix6CAvdovaLCRrgwb4CEfhI
- t6ygnx+CZ9JeIm8JSv0gdTHoL/GHCf6qlv+5E2iKf9UvW63bydYHs1oYY
- 6Ut4oBjE4k8iURYPTGxNXNBDCTOvPantk2aayfa1ZLiecD0fXZBe+k8ZA
- 5yJGTR2k6OT06MCy8dZv3i4zqvgsJNK71S99HJ5oJmWEY59MKiaYHa0RV
- yh9rrvebksbgpwGFsDdK6nsh8TW96Q+SGkQaVQpl6jxINsFJQVt6PEvrY A==;
-X-CSE-ConnectionGUID: AHaTTSk4TQ6PgTqba/GSFA==
-X-CSE-MsgGUID: fbNaEX5TRje70bhMxl7ZnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1383493"
+ bh=r5JIPYOl+rV8uYt49MMkrLk4d04H3nTp6g8sijq96fw=;
+ b=jn4hrdhnv58PDnC6iKG//OPJwHUzVHhKuQmjcTD1II+61ShZFdO5eCUj
+ mkKD+MEDjJ40ruXSTvbUU6TVQIycshVo8z9UP3PV+dXhFJE8115YB426i
+ KyKsIYCUwweDajjPQUt1wNmD+14kl0O+fg+KpyTrU4y8Olc/DT+UdNYv0
+ ppM/KvW6YYxwUsxLRLgzdN0z85OJNzBlstOrSgTF+M84+K0YuL61bWfSP
+ 690DILuIcgz4C7pAXUcJt8yu9tizdp+v61aCuv1QSVxmMbJqbB5j67JEJ
+ XGyxAMu+VUvAOWawZfvjCZnBGuktKZt8rggRSN2zf3QpNQqfRr35iO/gr g==;
+X-CSE-ConnectionGUID: g4sJuNBvSm+zoJp09uB0wA==
+X-CSE-MsgGUID: R9Ik2gnFTpOzA92vV43zvQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1383496"
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1383493"
+   d="scan'208";a="1383496"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 20:23:05 -0700
-X-CSE-ConnectionGUID: vOdt93iAQbm6TFooec+g8A==
-X-CSE-MsgGUID: YJds44EKSd+/COFVnr9gBg==
+ 21 Oct 2026 20:23:07 -0700
+X-CSE-ConnectionGUID: sHHYtxgvRNmEZEg2uvZKXA==
+X-CSE-MsgGUID: FgGusCwtSiisAYqQct9oRA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3197305"
+   d="scan'208";a="3197311"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa001.jf.intel.com with ESMTP; 21 Oct 2026 20:23:03 -0700
+ by orviesa001.jf.intel.com with ESMTP; 21 Oct 2026 20:23:05 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: mitulkumar.ajitkumar.golani@intel.com,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v7 06/13] drm/i915/display: Add bits for link_n_extended for
- DISPLAY >= 14
-Date: Thu, 22 Oct 2026 08:52:40 +0530
-Message-Id: <20261022032247.1378809-7-suraj.kandpal@intel.com>
+Subject: [PATCH v7 07/13] drm/i915/display_wa: Add support for Wa_14021768792
+Date: Thu, 22 Oct 2026 08:52:41 +0530
+Message-Id: <20261022032247.1378809-8-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261022032247.1378809-1-suraj.kandpal@intel.com>
 References: <20261022032247.1378809-1-suraj.kandpal@intel.com>
@@ -75,91 +74,67 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-LINK_N register has bits 31:24 for extended link N value used for
-HDMI2.1 and for an alternate mode of operation of DP TG DDA.
+Some BMG ultrajoiner configurations require support for Link M/N ratios
+between 10.0 and 15.0. This range is not natively supported and requires
+a workaround.
 
-Add support for these extra bits.
+Wa_14021768792 enables this support by utilizing HDMI_EMP_DATA,
+CHICKEN_TRANS and the extended bits in the LINK_N register.
 
-For displays with version 14 or higher, PIPE_LINK_N1_EXTENDED_MASK
-(bits 31:24) is used to handle the extended link N bits. For older
-platforms, DATA_LINK_M_N_MASK (bits 23:0) is used to handle the
-standard link N bits. This distinction ensures clarity and maintains
-the semantics for platforms that support the extended bits. In
-subsequent changes the logic is updated to conditionally apply the
-extended link N bits.
+Add the necessary logic to enable the workaround on applicable platforms.
+The underlying mechanism comes from the display C0,
+so it is gated on display stepping C0 and later.
 
-v2: Drop extra link_n_ext member. (Jani)
-v3: Avoid link_n_ext in set_m_n helper. (Jani)
-v4: Rebase, and update commit message.
-v5: Drop a stale changelog entry, the DISPLAY_VER split here is
-    intentional. (Sashiko)
+v2:
+-Don't include i915_drv.h and don't use struct drm_i915_private under
+display/. Use display->platform.battlemage, which names the affected
+platform directly, instead of IS_DGFX() combined with a display version
+check. (Jani)
+-Rebase on the reworked display WA framework, where the condition goes
+directly into the __intel_display_wa() switch.
 
-Bspec: 50488
+Bspec: 49266
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Co-developed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c   | 18 ++++++++++++++++--
- .../gpu/drm/i915/display/intel_display_regs.h  |  2 ++
- 2 files changed, 18 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_wa.c | 9 +++++++++
+ drivers/gpu/drm/i915/display/intel_display_wa.h | 1 +
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f74e7ddf0e41..461b81bf8341 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2720,14 +2720,22 @@ void intel_set_m_n(struct intel_display *display,
- 		   intel_reg_t data_m_reg, intel_reg_t data_n_reg,
- 		   intel_reg_t link_m_reg, intel_reg_t link_n_reg)
- {
-+	u32 link_n = m_n->link_n;
-+
- 	intel_de_write(display, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
- 	intel_de_write(display, data_n_reg, m_n->data_n);
- 	intel_de_write(display, link_m_reg, m_n->link_m);
-+
-+	if (DISPLAY_VER(display) >= 14)
-+		link_n &= ~PIPE_LINK_N1_EXTENDED_MASK;
-+	else
-+		link_n &= DATA_LINK_M_N_MASK;
-+
- 	/*
- 	 * On BDW+ writing LINK_N arms the double buffered update
- 	 * of all the M/N registers, so it must be written last.
- 	 */
--	intel_de_write(display, link_n_reg, m_n->link_n);
-+	intel_de_write(display, link_n_reg, link_n);
- }
- 
- bool intel_cpu_transcoder_has_m2_n2(struct intel_display *display,
-@@ -3484,7 +3492,13 @@ void intel_get_m_n(struct intel_display *display,
- 		   intel_reg_t link_m_reg, intel_reg_t link_n_reg)
- {
- 	m_n->link_m = intel_de_read(display, link_m_reg) & DATA_LINK_M_N_MASK;
--	m_n->link_n = intel_de_read(display, link_n_reg) & DATA_LINK_M_N_MASK;
-+	m_n->link_n = intel_de_read(display, link_n_reg);
-+
-+	if (DISPLAY_VER(display) >= 14)
-+		m_n->link_n &= ~PIPE_LINK_N1_EXTENDED_MASK;
-+	else
-+		m_n->link_n &= DATA_LINK_M_N_MASK;
-+
- 	m_n->data_m = intel_de_read(display, data_m_reg) & DATA_LINK_M_N_MASK;
- 	m_n->data_n = intel_de_read(display, data_n_reg) & DATA_LINK_M_N_MASK;
- 	m_n->tu = REG_FIELD_GET(TU_SIZE_MASK, intel_de_read(display, data_m_reg)) + 1;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 2f509bd06557..983a0d9dcb9c 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -1190,6 +1190,8 @@
- 
- #define _PIPEA_LINK_N1		0x60044
- #define _PIPEB_LINK_N1		0x61044
-+#define  PIPE_LINK_N1_EXTENDED_MASK	REG_GENMASK(31, 24)
-+#define  PIPE_LINK_N1_EXTENDED(val)	REG_FIELD_PREP(PIPE_LINK_N1_EXTENDED_MASK, (val))
- #define PIPE_LINK_N1(dev_priv, tran) _MMIO_TRANS2(dev_priv, tran, _PIPEA_LINK_N1)
- 
- #define _PIPEA_LINK_M2		0x60048
+diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
+index 91395076e903..e6f84dffdeb7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_wa.c
++++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
+@@ -102,6 +102,15 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
+ 		return DISPLAY_VERx100(display) == 3000 ||
+ 			DISPLAY_VERx100(display) == 2000 ||
+ 			DISPLAY_VERx100(display) == 1401;
++	/*
++	 * Wa_14021768792:
++	 * Fixes: Limitation of Link M/N ratio > 10 for specific Xe2HPD platforms.
++	 * Workaround: Use HDMI_EMP_DATA, CHICKEN_BITs and extended bits in LINK_N
++	 * registers to support LINK M/N ratios from > 10 but < 15.
++	 */
++	case INTEL_DISPLAY_WA_14021768792:
++		return display->platform.battlemage &&
++			IS_DISPLAY_STEP(display, STEP_C0, STEP_FOREVER);
+ 	case INTEL_DISPLAY_WA_14025769978:
+ 		return DISPLAY_VER(display) == 35;
+ 	case INTEL_DISPLAY_WA_14026643300:
+diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
+index f41e58d1d6e7..0b43c2144dcc 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_wa.h
++++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
+@@ -34,6 +34,7 @@ enum intel_display_wa {
+ 	INTEL_DISPLAY_WA_14014191401,
+ 	INTEL_DISPLAY_WA_14016740474,
+ 	INTEL_DISPLAY_WA_14020863754,
++	INTEL_DISPLAY_WA_14021768792,
+ 	INTEL_DISPLAY_WA_14025769978,
+ 	INTEL_DISPLAY_WA_14026643300,
+ 	INTEL_DISPLAY_WA_15013987218,
 -- 
 2.34.1
 
