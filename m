@@ -2,28 +2,183 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A805606A31B
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 13:25:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1352A60A4AC8
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 13:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aXLFJO3a;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AHdZg9Tr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D8E1125D4;
-	Thu, 22 Oct 2026 13:25:17 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 394251125D4;
- Thu, 22 Oct 2026 13:25:16 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3880405249033759288=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8458112623;
+	Thu, 22 Oct 2026 13:28:24 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98F87112629
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 13:28:13 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69MA0Y1S3923257
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 13:28:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=NjKssOS5UH1EpHAkVpfFza
+ 2/uTDAmbwdRnncm193YRo=; b=aXLFJO3agnQGUNjgecN3woAVJc1RiIfW/Mx+aL
+ zCh+zJi7xBBM81JUTKmtNB1nDm3O6QccgFY7MF+Dvzqu+lJHGJC1jAG8lmS2A9JW
+ bj95n7+g3uRPAYkI9H9nikq4mVBh7mjA9t3Exqy9sezREmKfrW3t1QPm44f6/qLm
+ pJua+piHirI+cFUe8ahOmcBKHoP3UMYydLVDoPCzhcXbfe1X+MNGjQWbjwae8F8v
+ ZH7tqChgjw3ppyInw1xRMPQ6vhsw/apU0InG28+PjYZS8Yk8LcjCKh9/qa4nuMnR
+ ymtLMTxO0ElBvDe4k0y+sTcAy7GukQSUqHKcYQgbZnH+j9rQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bkqmd-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 13:28:12 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93f32050e72so6369285a.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 06:28:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792675692; x=1793280492;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=NjKssOS5UH1EpHAkVpfFza2/uTDAmbwdRnncm193YRo=;
+ b=AHdZg9TrHhoyQGWkVJ+Zm8iN8BRanzwoQhide91LpeoUipVrDlUlmzWcaMlKXZntN+
+ 8phYHtNzsw0Zbcncr0eVIx5oyrOi4IkQEZhcfIb1FqL/ZBopicEu4ubKaHbEcEtePkYq
+ TZjQclQb07/miqc6eecjQ8l29BrURq0CZQMIWuSneC+LXBispQuTw5xxo6FN3gUncbuA
+ VowkrT32s08T1e5ZHbCwyxvAYMuE2/vHDXZ6XMXRc1KT6f1oPH3+aqHIN52T7ccwKMHN
+ foW3S+zJRTFSaOAcrgg2oUeIVyM7ebpaeUZ+1gpXixdDuQBFGFSdLp2hvNJX24IubMmw
+ /7GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792675692; x=1793280492;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=NjKssOS5UH1EpHAkVpfFza2/uTDAmbwdRnncm193YRo=;
+ b=jre8GKVUfIGRq5lA41sbu261NB/EL5G5KT42JohDhhyRXTBJoaEKyqw6RCazMipRMC
+ 4BTOKjCUlZZoGYBFj5QUaQjyVFaYn4wDy+4aJXB4JSShDToahrgGyLpBit8dEqPxGo2c
+ S+jkPh2pnpuZT9L/Er+FkfznbwfZOhg6LVtQ06YlUcmLXHs8d9hfmZNO75oAAVBVSSGZ
+ WjqPqNCXDw88rZrJi88udl9XmPRl379R6vrbJxcYUS0S/3an8x12V6X2HYFZ/KIwdBfz
+ ZhaTCL4SoneC3h6wsqm1f2aiBO7HvSWUCJUUNHfMH77c3sA7ynSYndpl1iEUnWN/T3fZ
+ W9zg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwNQuJ97TGSkXGoulrvuDhgIfawqlpIZLfGNt2xCwnpwr6PAdouj06DmvG0XiAQ6qh+w8vFXfDdCIY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI+UdtpY6Sd5b7ghtGQYzTR8roZCh+y5wkYwfJgyZOFY5U0rMhl
+ S178GHRTUxXvxrVyzp0zakAxOtjH2ToX/hkNLzaw7YkSEvxxy2Mm+7xB2YLcEqjjkJ3qE8KfGHu
+ H2ilGPCO2OrN3O/E5DVro+nvReWa8Pb+iwtq/vCIYSmslCERTtokSm1Br8unWYiKMJj3O4yI=
+X-Gm-Gg: AYBFou3qax2eU4CHuhBbSodbQG7P+iLGf+Vh/nF2W9f16fcIyxxMue4gFIOYKU2I7EF
+ 3s2HzNUxm/TpAq+Xrc0iNaJV2H97Q4cxph6b/IZrF7bsWpyrr0i9O6fRamVpI8szVNxIKf1P+o2
+ 8MlVnbNiLTVjLKHRWUg/iXQmCo7w6Wdb+doXUMaN/BErj6e9CpYK87cKiZ9gfqR9/rHdQnanUGC
+ U+4ul3sbW9r1PiCvJDBBbmWgsJ7MvNrvIdBWXw19Wa4bQzontnBqUB4f7r6Opk+pkKyZtZ4FjTC
+ hZzrRx0htw/EuklBNGTwcvEcRSDIggs2uG3TjZAP8lmbNJF7T6Id1RETc6GO7i5XOZbjBVK6PJq
+ a1VDd7CxGItgooQCiydTaCbW/aC5O77B0mIQJFb3ku02heHk2cYl9w75xqu2WxnnV7RYxvF0QkO
+ VEkdHBgd3FDyhv
+X-Received: by 2002:a05:620a:838e:b0:93f:35a7:cd4 with SMTP id
+ af79cd13be357-93f57f8dd09mr1043822785a.67.1792675691516; 
+ Thu, 22 Oct 2026 06:28:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:838e:b0:93f:35a7:cd4 with SMTP id
+ af79cd13be357-93f57f8dd09mr1043816785a.67.1792675690859; 
+ Thu, 22 Oct 2026 06:28:10 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ac4f6683edsm8762201fa.22.2026.10.22.06.28.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Oct 2026 06:28:09 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v6 0/9] drm: handle IRQ_HPD events correctly
+Date: Thu, 22 Oct 2026 16:27:55 +0300
+Message-Id: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Optimize_regi?=
- =?utf-8?q?sters_accesses_in_irq_handlers?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 22 Oct 2026 13:25:16 -0000
-Message-ID: <179267551622.56424.1641504059047333281@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261022115548.32678-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261022115548.32678-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFsP2moC/3XPwW7DIAwG4FepOI/KGALNTnuPaYdAzMK0Ji2kq
+ FWVdx/pNLVamoulX7I/21eWKAZK7HVzZZFySGHoS9AvG+a6pv8kHtqSGQJqUELx7tDyEI+cMvV
+ j4mTQOjC6qbxgZegQyYfzDXz/+M3pZL/IjbMyd3QhjUO83DZmMff94fo/ngUHLhorvHDeosW3I
+ aXt8dR8u2G/35bC5h0ZHxSEhYJFUYDeExqqqV5R5KMiFoqcFdWi9Qpa79ZuUXdFw26hqKJIsBq
+ tlJXamRWluiv1k4+qongvWgKowZlnt0zT9AOVL/0P3QEAAA==
+X-Change-ID: 20260414-hpd-irq-events-e72bc076a5f1
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6101;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=wd7X3ygmQ//zp6nuLlLwGvPWEOvYg8cJNzxOVLDEF14=;
+ b=kA0DAAoBizyKPgIpKNUByyZiAGraD17IXihmLxbEsLPpyrTIzdcTunXkv6HcA9yHJFD0eOSPy
+ YkBMwQAAQoAHRYhBExwhJVcsmNW8LiVf4s8ij4CKSjVBQJq2g9eAAoJEIs8ij4CKSjVMQAH/ifo
+ LhD6DCv1Yxl/5bv7RrJi2g1XgUsc3Xrlp8zT7eKMKnrok48qY+fY06zbCSHWf+E3AS9R1B/F8b+
+ JdYv6svg1/vl1NC0ZWPIESK4CUAzqg5yDD7+1ZysXcMhP55HAQHwTZCChjcgP5UQnX0RJUybKK5
+ Uul4U1htEvtQlK7IJU9otxtUJzUARmaFwcKivGuTjnO/Olk0SmRKRhA9pcZpH8EJy36lsnIVQMS
+ 9apCfu+zi2wh1sBMKFO1HmxrZYg0KKQTmS7MAI+CJGaCo7KCK0zY9TdBlHuAf/MuJZBxpyRXTr1
+ eEEAxAdkTq5oKd2NvBaLkiNRtm3uvdH7KlRDUHQ=
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1MyBTYWx0ZWRfX/RnmZ2eqI1ss
+ AonNUqF/0HUdvuBRnoR6RTyiidYm54HlhkEo3FZwHyrJjJTq4VDwfmMHpTWWs8/2aBB330NL5BC
+ pxgDfglf1OcKiRaFZ5O9FeyIXQtRjo/vhTQ3lYTwZ0qQ7SrFdkSKFW+OlQQ7RkKbH0ykrrolnEK
+ aAYAOwLcSKeEG0s98GeeLvXC8wBLvDi2ZngSU5I2pncnhOPe6woyqnGlFu8sFRIoXOY+w9EHQoi
+ KDGdUqCeZ1pondzZPyyphI13o7NbFaD/w0c3zIMlIcKORM8sNjewfKh6Zs1IS9AY72YUPhfugSu
+ w+wwiw1gVcPEKeZ5cG46Ag+j6RQpnX2QJt4gRW35QE3XmZo8AUXEc3LS+c+aemsJ19BPf1FXjo8
+ 0mo+3zEvyFja4NN/hg0SBAnpCMTQiQ==
+X-Proofpoint-GUID: PHvGbsNY3ILPKW1pLcTUBpeLBc4OP0SC
+X-Proofpoint-ORIG-GUID: PHvGbsNY3ILPKW1pLcTUBpeLBc4OP0SC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1MyBTYWx0ZWRfX3kUac2LDpEw4
+ B24Gmb1g5x7ZLQrhHkgoBpB7gWEmO4IxPhnx+JNonlsTk4iiSnv7K9718xsMEx1Kt9A2iLY+mEF
+ d3IPOXWvh9w7EyzeC26uGsohisqVFx4=
+X-Authority-Analysis: v=2.4 cv=CMy/zhrD c=1 sm=1 tr=0 ts=6ada0f6c cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=ag1SF4gXAAAA:8 a=KKAkSRfTAAAA:8 a=P1BnusSwAAAA:8 a=P-IC7800AAAA:8
+ a=GFqr32JmAAAA:8 a=IpJZQVW2AAAA:8 a=mK_AVkanAAAA:8 a=tVI0ZWmoAAAA:8
+ a=s8YR1HE3AAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8 a=eKQTCwoLd85be8zhlTQA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=FO4_E8m0qiDe52t0p3_H:22
+ a=Yupwre4RP9_Eg_Bd0iYG:22 a=cvBusfyB2V15izCimMoJ:22 a=D0XLA9XvdZm18NrgonBM:22
+ a=d3PnA9EDa4IxuAV0gXij:22 a=f02Ha7HRcztGgdyUxOxW:22 a=IawgGOuG5U0WyFbmm1f5:22
+ a=3gWm3jAn84ENXaBijsEo:22 a=-BPWgnxRz2uhmvdm1NTO:22 a=jGH_LyMDp9YhSvY-UuyI:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 bulkscore=0 phishscore=0
+ spamscore=0 suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610220053
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +189,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============3880405249033759288==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Both DisplayPort and HDMI standards define a way for the Sink / display
+to notify the Source / host about some kinds of events. In case of HDMI
+it's as simple as singnalling changes to the EDID. In case of
+DisplayPort it's more complicated and requires actual checking of the
+DPCD registers.
 
-== Series Details ==
+Currently USB-C drivers don't have a way to deliver the IRQ_HPD
+notifications, leading to missing MST notifications. Provide necessary
+plumbing to let IRQ_HPD events be passed to the DisplayPort drivers.
 
-Series: drm/i915: Optimize registers accesses in irq handlers
-URL   : https://patchwork.freedesktop.org/series/176634/
-State : success
+Note: the Yoga C630 UCSI driver and Acer Aspire1 EC driver are not yet
+enabled to send the IRQ_HPD events. Both of them would need some more
+reverse engineering to find out how the event is being reported by the
+EC.
 
-== Summary ==
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Changes in v6:
+- Corrected indentation of args after the function rename (Chaoyi Chen)
+- Reordered / rehashed patches to be more logical (Chaoyi Chen)
+- Fixed build error in the OMAPDSS HDMI driver (Sashiko)
+- Fixed IRQ_HPD vs PLUG interaction in drm/msm/dp (Sashiko)
+- Link to v5: https://patch.msgid.link/20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com
 
-CI Bug Log - changes from CI_DRM_19384 -> Patchwork_176634v1
-====================================================
+Changes in v5:
+- Renamed drm_connector_status_extra to drm_connector_dp_event (Maxime)
+- Link to v4: https://patch.msgid.link/20260608-hpd-irq-events-v4-0-30b62b335487@oss.qualcomm.com
 
-Summary
--------
+Changes in v4:
+- Renamed drm_connector_oob_hotplug_event() to
+  drm_connector_dp_oob_status() (Maxime)
+- Reworked commit messages, explaining what it is about (Bjorn)
+- Rearranged commits, making them a bit more logical.
+- Link to v3: https://patch.msgid.link/20260421-hpd-irq-events-v3-0-44d2bf40dfc2@oss.qualcomm.com
 
-  **SUCCESS**
+Changes in v3:
+- Fixed build error if aux bridges are disabled (Intel GFX CI)
+- Link to v2: https://patch.msgid.link/20260420-hpd-irq-events-v2-0-402ffe27e9e9@oss.qualcomm.com
 
-  No regressions found.
+Changes in v2:
+- Change irq_hpd arg to be an enum, possibly desribing other uses (Toni)
+- Account for that, chaning the API accordingly (with_irq -> extra,
+  etc.)
+- Wire up AUX bridge notifications
+- Link to v1: https://patch.msgid.link/20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176634v1/index.html
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Tvrtko Ursulin <tursulin@ursulin.net>
+To: Francesco Dolcini <francesco@dolcini.it>
+To: Kevin Hilman <khilman@baylibre.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 
-Participating hosts (40 -> 38)
-------------------------------
+---
+Dmitry Baryshkov (9):
+      drm/connector: report out-of-band IRQ_HPD events
+      drm/connector: pass down IRQ_HPD to the drivers
+      drm/bridge: pass down IRQ_HPD to the drivers
+      drm/bridge: pass extra events to the HPD callback
+      drm/bridge: aux-hpd: let drivers pass IRQ_HPD events
+      drm/msm/dp: don't take extra references on multiple plug events
+      drm/msm: dp: handle the IRQ_HPD events reported by USB-C
+      soc: qcom: pmic-glink-altmode: pass down HPD_IRQ events
+      usb: typec: ucsi: huawei-gaokun: pass down HPD_IRQ events
 
-  Missing    (2): bat-dg2-13 bat-adls-6 
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c        | 11 +++++----
+ drivers/gpu/drm/bridge/chrontel-ch7033.c       |  3 ++-
+ drivers/gpu/drm/bridge/lontium-lt8912b.c       |  3 ++-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 ++-
+ drivers/gpu/drm/bridge/ti-tfp410.c             |  3 ++-
+ drivers/gpu/drm/display/drm_bridge_connector.c | 22 ++++++++++--------
+ drivers/gpu/drm/drm_bridge.c                   | 20 ++++++++++-------
+ drivers/gpu/drm/drm_connector.c                | 22 ++++++++++--------
+ drivers/gpu/drm/i915/display/intel_dp.c        |  3 ++-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c            | 12 +++++++---
+ drivers/gpu/drm/msm/dp/dp_drm.h                |  3 ++-
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 ++-
+ drivers/gpu/drm/omapdrm/dss/hdmi5.c            |  3 ++-
+ drivers/soc/qcom/pmic_glink_altmode.c          |  6 ++++-
+ drivers/usb/typec/altmodes/displayport.c       | 25 +++++++++++++--------
+ drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c    | 11 +++++----
+ include/drm/bridge/aux-bridge.h                | 13 +++++++++--
+ include/drm/drm_bridge.h                       | 31 +++++++++++++++++++++-----
+ include/drm/drm_connector.h                    | 24 +++++++++++++++++---
+ 20 files changed, 158 insertions(+), 66 deletions(-)
+---
+base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
+change-id: 20260414-hpd-irq-events-e72bc076a5f1
 
+Best regards,
+--  
+With best wishes
+Dmitry
 
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19384 -> Patchwork_176634v1
-
-  CI-20190529: 20190529
-  CI_DRM_19384: b2af5f9ef576a3026836cca5ec8757cc045a1856 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9158: c06ac65c584387323e8322c258d74cea1ce07b18 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_176634v1: b2af5f9ef576a3026836cca5ec8757cc045a1856 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176634v1/index.html
-
---===============3880405249033759288==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Optimize registers accesses in irq handlers</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176634/">https://patchwork.freedesktop.org/series/176634/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176634v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176634v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19384 -&gt; Patchwork_176634v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176634v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19384 -&gt; Patchwork_176634v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19384: b2af5f9ef576a3026836cca5ec8757cc045a1856 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9158: c06ac65c584387323e8322c258d74cea1ce07b18 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_176634v1: b2af5f9ef576a3026836cca5ec8757cc045a1856 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============3880405249033759288==--
