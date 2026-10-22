@@ -2,51 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C02606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 03:23:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD4C606A319
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 03:23:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fv07ZhAz
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QIonJECY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8561122E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7FE51122E9;
 	Thu, 22 Oct 2026 03:23:07 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCB5C10E36B;
- Thu, 22 Oct 2026 03:23:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1697A10E28F;
+ Thu, 22 Oct 2026 03:22:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792639380; x=1824175380;
+ t=1792639377; x=1824175377;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=E3Pb0MGMc0RucggG9lUBXPOj++qT6wBtIOfPAOg45nc=;
- b=fv07ZhAzE42YKxP1Yv67Yvv0SV+ChM1heu4T2NQnaXeN4aO9WRaPsiS9
- aMlnhPXFdz7O3U8XutjB2CRV8bE/JZ6zK78r8v/g+Hes0EzLHlqUXAjII
- 3HWifk2zWxPevhSkeEGZHefZjCHc3U/IKJLMLTaUEHnKOjtmYGzDZ3WoY
- HPD6uGCMv+uY+evNkouryQ4acg3/E0W/pv/x2ETTiIm6oyekmLfwN7YrO
- h+cRMZH414bc7vHISX5cydVbMSDXun6MpsFeEboK/wSNIlzKp9VzqqAet
- W1EaGZNMoE8+k4GLrEQJLTG/0/xmxgYY9WfA08BgknCtLRPTknlYNajLT w==;
-X-CSE-ConnectionGUID: QrQQNKFFSA6k2QLAp70yZQ==
-X-CSE-MsgGUID: M/upxnvVTAWuzvhVSX00vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1383487"
+ bh=EqjDVIEo6MkEZItT0mljrbv833x8mNAhL+hrizlsXP0=;
+ b=QIonJECY+UmPkamIqqF7rEIeQt2QIyXTR8Wo88SU2uwzhssVcGoMfS2e
+ M1qacK5LcmqK+R0VYdJahawItAFbE7goCMFzeXT4ef6MpiTk5+w4qv07e
+ UiL7wHx3j8u8ZgG+okQHrRVxnoPrpFoMyWZxEchCn2U+Y7skTtXkCxG8N
+ 7j9jMfv0dNKfvOzT+1aacX1j+ZMOterwl3X03BBTyQ+AqhW7MEo+svt8M
+ Lt/eOfFbjLU7CkT+nEq82uGjIp2NSYapeBDDyweUQeXDBA9F/JQtnRrxf
+ QyX4rD3ti1wBDTXbBIHNhECTR/BKPaTMkSxQPySf7wOpYnEa6+Wl5oCjF w==;
+X-CSE-ConnectionGUID: b5I7FwYGRzKk7Jsyf5yCYA==
+X-CSE-MsgGUID: QA9KXsRlQMGEQEMIejtjDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1383485"
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1383487"
+   d="scan'208";a="1383485"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 20:23:00 -0700
-X-CSE-ConnectionGUID: JcKNCPGNRb+ETV508KCKrQ==
-X-CSE-MsgGUID: q4ioGRdKSZe/XKYKs4Bjkw==
+ 21 Oct 2026 20:22:56 -0700
+X-CSE-ConnectionGUID: s0Pb6qcMQdyrak4dElzGWg==
+X-CSE-MsgGUID: cxi8YNcrSz6kwEHWvAnyJA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3197278"
+   d="scan'208";a="3197264"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa001.jf.intel.com with ESMTP; 21 Oct 2026 20:22:59 -0700
+ by orviesa001.jf.intel.com with ESMTP; 21 Oct 2026 20:22:55 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: mitulkumar.ajitkumar.golani@intel.com,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v7 03/13] drm/i915/display_wa: Add support for Wa_14014191401
-Date: Thu, 22 Oct 2026 08:52:37 +0530
-Message-Id: <20261022032247.1378809-4-suraj.kandpal@intel.com>
+Subject: [PATCH v7 01/13] drm/i915/display: Add helper to compute link M/N
+ ratio for reuse
+Date: Thu, 22 Oct 2026 08:52:35 +0530
+Message-Id: <20261022032247.1378809-2-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261022032247.1378809-1-suraj.kandpal@intel.com>
 References: <20261022032247.1378809-1-suraj.kandpal@intel.com>
@@ -72,65 +74,69 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DG2 transcoder timing generator DDA only supports a Link M/N ratio
-of up to 4. The Link M/N ratio limit uses a bare platform check for it.
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-Add Wa_14014191401 for DG2 and use it for the limit instead.
+Introduce intel_display_compute_link_m_n() to compute the link M/N ratio
+from the pixel clock and the link symbol clock. This logic was
+previously embedded within intel_link_compute_m_n().
+The new helper allows reuse of link M/N computation in other contexts
+without requiring the full data M/N calculation and will be used in
+later commits.
 
+No functional changes intended.
+
+v2:
+- Rename function (Jani)
+- The link symbol clock is passed in rather than derived here, so that the
+DP specific conversion from the link rate stays with the caller. (Jani)
+
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Co-developed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_wa.c | 2 ++
- drivers/gpu/drm/i915/display/intel_display_wa.h | 1 +
- drivers/gpu/drm/i915/display/intel_dp.c         | 3 ++-
- 3 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
-index 2e3ff4861ef4..91395076e903 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
-@@ -94,6 +94,8 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
- 			IS_DISPLAY_STEP(display, STEP_A0, STEP_A2);
- 	case INTEL_DISPLAY_WA_14014143976:
- 		return IS_DISPLAY_STEP(display, STEP_E0, STEP_FOREVER);
-+	case INTEL_DISPLAY_WA_14014191401:
-+		return display->platform.dg2;
- 	case INTEL_DISPLAY_WA_14016740474:
- 		return IS_DISPLAY_VERx100_STEP(display, 1400, STEP_A0, STEP_C0);
- 	case INTEL_DISPLAY_WA_14020863754:
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
-index b707147a7587..f41e58d1d6e7 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
-@@ -31,6 +31,7 @@ enum intel_display_wa {
- 	INTEL_DISPLAY_WA_14011508470,
- 	INTEL_DISPLAY_WA_14011765242,
- 	INTEL_DISPLAY_WA_14014143976,
-+	INTEL_DISPLAY_WA_14014191401,
- 	INTEL_DISPLAY_WA_14016740474,
- 	INTEL_DISPLAY_WA_14020863754,
- 	INTEL_DISPLAY_WA_14025769978,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 7ceb7c02b597..f3a79ae49b18 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -70,6 +70,7 @@
- #include "intel_display_regs.h"
- #include "intel_display_rpm.h"
- #include "intel_display_types.h"
-+#include "intel_display_wa.h"
- #include "intel_dp.h"
- #include "intel_dp_aux.h"
- #include "intel_dp_hdcp.h"
-@@ -1271,7 +1272,7 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
- static int
- intel_dp_get_max_m_n_ratio(struct intel_display *display)
- {
--	if (display->platform.dg2)
-+	if (intel_display_wa(display, INTEL_DISPLAY_WA_14014191401))
- 		return 4;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 7602f633f49d..580c36a52921 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2650,13 +2650,20 @@ static void compute_m_n(u32 *ret_m, u32 *ret_n,
+ 	intel_reduce_m_n_ratio(ret_m, ret_n);
+ }
  
- 	return 10;
++static void intel_display_compute_link_m_n(u32 *link_m, u32 *link_n,
++					   int pixel_clock, int link_symbol_clock)
++{
++	compute_m_n(link_m, link_n,
++		    pixel_clock, link_symbol_clock,
++		    0x80000);
++}
++
+ void
+ intel_link_compute_m_n(u16 bits_per_pixel_x16, int nlanes,
+ 		       int pixel_clock, int link_clock,
+ 		       int bw_overhead,
+ 		       struct intel_link_m_n *m_n)
+ {
+-	u32 link_symbol_clock = intel_dp_link_symbol_clock(link_clock);
+ 	u32 data_m = intel_dp_effective_data_rate(pixel_clock, bits_per_pixel_x16,
+ 						  bw_overhead);
+ 	u32 data_n = drm_dp_max_dprx_data_rate(link_clock, nlanes);
+@@ -2673,9 +2680,9 @@ intel_link_compute_m_n(u16 bits_per_pixel_x16, int nlanes,
+ 		    data_m, data_n,
+ 		    0x8000000);
+ 
+-	compute_m_n(&m_n->link_m, &m_n->link_n,
+-		    pixel_clock, link_symbol_clock,
+-		    0x80000);
++	intel_display_compute_link_m_n(&m_n->link_m, &m_n->link_n,
++				       pixel_clock,
++				       intel_dp_link_symbol_clock(link_clock));
+ }
+ 
+ void intel_panel_sanitize_ssc(struct intel_display *display)
 -- 
 2.34.1
 
