@@ -2,52 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77503606A31B
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 16:58:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4D4606A31A
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 16:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kb9a0v2/
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lfO/+Ovn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C066E112C4B;
-	Fri, 23 Oct 2026 16:58:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3539D112C3E;
- Fri, 23 Oct 2026 16:58:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5257112C39;
+	Fri, 23 Oct 2026 16:59:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8FEA112C39;
+ Fri, 23 Oct 2026 16:58:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792774707; x=1824310707;
+ t=1792774721; x=1824310721;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KazxgaCMsmLxInUkO50TRpRCI8bFgHX9Gd2akRMrlEU=;
- b=Kb9a0v2/QEDZF0+oyV4NJLhjqOVWb/DnY8xYCNyKhI/JZa5iezNRWQ8A
- nvDjldYbhN+0D25KhmC4ylUWOxBRDbJN+ccFKWWFvrawgdDN8tXSMkkve
- MDtG0fM1swJhZOfv3DRXPlbgQZ4v/m964MVi0bRIaMknIky45OowLhZSq
- H+Oe5GjoZ2NTNTZUI/ekOuMbWt789qbgLxfFiPnaXpkuQqpnQtd70zR+n
- ipE4pzU/GQQhkq5UvlL4zuILYmwaNA6hqSwY0tzyFrh/NdOurUuDX8li/
- QxIYC8A7GVA7VDOWrhJ4DwBi42AcTIvM/7NEk0TUS6axR36e1kUmuLITT A==;
-X-CSE-ConnectionGUID: Vz2m5ikkTBCTVQXxCRBLiQ==
-X-CSE-MsgGUID: 4oU+TwNbT+elXffElkJbrQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1435240"
+ bh=9/Wy0LSY8brap8J1qY82GVEapjoJNQvIQuq4iZ414FA=;
+ b=lfO/+OvnjxQ0d5r+EGE0Xg6NtNJKRGk6vrU8969Cw8kd+AVTAaci9K9k
+ f3bPs2WotfGv5o/OhItCS0wpNo+2ekqqq37zQMi762TLaZED9Yk7riW9Y
+ 3XzP/+GcNqGgawrnTPYYUvnLSB98bk+/A9bmltdgCFa6fH7dMafFF87eY
+ S2BO3xvGYeZ4x2Jb3yxwjwAh0tAu9Hfp+wp5ktvNX2I45KKsbw8blAhKq
+ w48ywb44bwFwnvjgQbfHIZvkTIWtMth/yymNyNi19ZDHGtJVeeC529Ney
+ FIjy4gLVdwtMW4R1Xvu2/BP8vLIxSEq5R242SBkZTD/NUGPP+azUC5z/h w==;
+X-CSE-ConnectionGUID: JbyJJ+mNTwq0As0VZX7cgw==
+X-CSE-MsgGUID: /Er8bAYYS8exnyxYXNJvng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1428572"
 X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1435240"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2026 09:58:26 -0700
-X-CSE-ConnectionGUID: 8bXMpHcjTBqEbATawyjKLw==
-X-CSE-MsgGUID: Ai5+DgCkRqOy84DNqNsGqA==
+   d="scan'208";a="1428572"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2026 09:58:41 -0700
+X-CSE-ConnectionGUID: AdVmZIWUQGOzB+Ig28P8pQ==
+X-CSE-MsgGUID: wEwK0lfxROCHmHeQPkPTdw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3570316"
+   d="scan'208";a="4033961"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.166])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2026 09:58:24 -0700
+ 23 Oct 2026 09:58:39 -0700
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 05/13] drm/i915/vrr: Add a local 'adjusted_mode' variable to
- intel_vrr_get_config()
-Date: Fri, 23 Oct 2026 19:57:55 +0300
-Message-ID: <20261023165803.31016-6-ville.syrjala@linux.intel.com>
+Subject: [PATCH 09/13] drm/i915/vrr: Extract vrr_safe_window_end()
+Date: Fri, 23 Oct 2026 19:57:59 +0300
+Message-ID: <20261023165803.31016-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261023165803.31016-1-ville.syrjala@linux.intel.com>
 References: <20261023165803.31016-1-ville.syrjala@linux.intel.com>
@@ -71,54 +70,47 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Add a local 'adjusted_mode' variable to intel_vrr_get_config()
-to reduce the noise a bit. This also makes the vblank_start adjustment
-visually similar to its compute counterpart in
-intel_vrr_compute_guardband() (which already has the local variable).
+Extract the safe window calculation into a new helper
+(vrr_safe_window_end()). This is analogous to vrr_vblank_start().
+Other uses for this will appear soon.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index b1721b0bedff..9ab62423a1a6 100644
+index 528f72f43022..e0b0b9ceb335 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -1099,6 +1099,7 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 	u32 trans_vrr_ctl, trans_vrr_vsync;
- 	bool vrr_enable;
- 
-@@ -1148,7 +1149,7 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 
- 		if (display->platform.novalake &&
- 		    IS_DISPLAY_STEP(display, STEP_A0, STEP_B0))
--			crtc_state->hw.adjusted_mode.crtc_vtotal =
-+			adjusted_mode->crtc_vtotal =
- 				intel_vrr_vmin_vtotal(crtc_state);
- 
- 		if (HAS_AS_SDP(display)) {
-@@ -1183,8 +1184,8 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 	 * paths as needed.
- 	 */
- 	if (intel_vrr_always_use_vrr_tg(display))
--		crtc_state->hw.adjusted_mode.crtc_vblank_start =
--			vrr_vblank_start(crtc_state, crtc_state->hw.adjusted_mode.crtc_vtotal);
-+		adjusted_mode->crtc_vblank_start =
-+			vrr_vblank_start(crtc_state, adjusted_mode->crtc_vtotal);
+@@ -1261,13 +1261,19 @@ int intel_vrr_safe_window_start(const struct intel_crtc_state *crtc_state)
+ 		return crtc_state->hw.adjusted_mode.crtc_vdisplay;
  }
  
- int intel_vrr_safe_window_start(const struct intel_crtc_state *crtc_state)
++static int vrr_safe_window_end(const struct intel_crtc_state *crtc_state,
++			       int vblank_start)
++{
++	return vblank_start - crtc_state->set_context_latency;
++}
++
+ int intel_vrr_vmin_safe_window_end_live(const struct intel_crtc_state *crtc_state)
+ {
+ 	int vmin_vblank_start = crtc_state->vrr.dc_balance.enable ?
+ 			intel_vrr_dcb_vmin_vblank_start_live(crtc_state) :
+ 			intel_vrr_vmin_vblank_start(crtc_state);
+ 
+-	return vmin_vblank_start - crtc_state->set_context_latency;
++	return vrr_safe_window_end(crtc_state, vmin_vblank_start);
+ }
+ 
+ static
 -- 
 2.55.0
 
