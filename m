@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F42606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D17606A31A
 	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 16:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DvPbMPxs
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q7i9CFGF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5264112C5E;
-	Fri, 23 Oct 2026 16:59:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 259D9112C56;
+	Fri, 23 Oct 2026 16:59:46 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5050D10E6D4;
- Fri, 23 Oct 2026 16:58:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D18310E083;
+ Fri, 23 Oct 2026 16:58:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792774702; x=1824310702;
+ t=1792774695; x=1824310695;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TrxBgaM/YQqmapIEJi10okWj32i2um5LiV0VFiRXGUE=;
- b=DvPbMPxsdlFzc+h3UWlzaX9Lgnt39vKX3nmwhgq3KCWZglhebpSMNlj8
- MTqY/vy7MIPhS/8+CzKoPUj9IauckfTIJ9PKGwDBwKXZQKwSBFveIKDgX
- LzGmidGus5SmetUhDyoS2ZuRffl6tJfX0+Voje+yXdY9FktcK1gH9gqV9
- f4XUsLLvvxn3T0m6AjbzjySK4h31qoja1noqn1HFeqFiIye4sfz/fDaa9
- 7g/iUs2JnkXpOhjpXCxP8G3Ia2w1cx29DHU85BQh2B2XpQ1eCvDN8jYir
- E52/oUlxVEfvJBWG6JOQcf59DbasKdY6XGQVYtx6L30rE8ZrpeyZ16Q/x A==;
-X-CSE-ConnectionGUID: XJFV/pkwQqSHYt593nB5uQ==
-X-CSE-MsgGUID: XXbYpyLsT72A1mzYIN80KQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1433843"
+ bh=r4ciQhXKKa8uVxeFXFXD0WmOoPYv7iIaL+1XVjmFzg4=;
+ b=Q7i9CFGFqnjFItMTprmlEdp36ET74X/ulFY+Tlen3Rz4pPKDFE9KT9E3
+ tekbyT4DlxjEs4R18EYcUyN5LX6Crly4yBnmXQUQjIBM1Uoe9UX0Q7B5H
+ 6CQL6pQVKs/l5ueXmm8kVipd9zOy3sGZS6ZNill0Wi3GalW6Zok75TWc2
+ aKzYV2bjNXh+JbPoFKoD0SVvSCMSYxsvhzBvwKIer9+WvvJdNXwp3BX01
+ CuOXDcl2G3XOuT0wJ1C35h/UR7hTpTgxoo+ciIELp8qwY0yjcXjZhvzCM
+ lXM26x2bWiP/ZJwOuI0F5H4krpYOMdsPmlf5se95RVu99+axojRqUDl7e Q==;
+X-CSE-ConnectionGUID: /0IhQjupQKKVfr+mJJ30hA==
+X-CSE-MsgGUID: eJ6Z6tdiRuOFuURpTmadeg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1433828"
 X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1433843"
+   d="scan'208";a="1433828"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2026 09:58:22 -0700
-X-CSE-ConnectionGUID: bbiYAQXgQVucF7pxTzhenw==
-X-CSE-MsgGUID: 5PcmGfZeSte8+ddWYUncYg==
+ 23 Oct 2026 09:58:15 -0700
+X-CSE-ConnectionGUID: u/pY1fFzRyGEDnT6/u+JEw==
+X-CSE-MsgGUID: 0ReT5G4bTR6/fwqdx34A6g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3571437"
+   d="scan'208";a="3571405"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.166])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2026 09:58:21 -0700
+ 23 Oct 2026 09:58:13 -0700
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 04/13] drm/i915/vrr: Reuse vrr_vblank_start() in more places
-Date: Fri, 23 Oct 2026 19:57:54 +0300
-Message-ID: <20261023165803.31016-5-ville.syrjala@linux.intel.com>
+Subject: [PATCH 02/13] drm/i915/vrr: Drop bogus intel_vrr_hw_value() call
+Date: Fri, 23 Oct 2026 19:57:52 +0300
+Message-ID: <20261023165803.31016-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261023165803.31016-1-ville.syrjala@linux.intel.com>
 References: <20261023165803.31016-1-ville.syrjala@linux.intel.com>
@@ -77,75 +77,42 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Currently we do the vtotal->vblank_start conversion by hand
-in several places. Replace all of the with vrr_vblank_start().
+intel_vrr_vblank_start() is used for the hw->sw direction
+by the DC balance code, however intel_vrr_hw_value() is
+meant to be used for the sw->hw direction. Drop the bogus
+intel_vrr_hw_value() call.
+
+This isn't actually causing any problems since on ADL+
+the hw<->sw conversion is a nop, and the DC balance code
+only applies to PTL+. The DC balance code doesn't
+use intel_vrr_hw_value() for the actual sw->hw
+direction either, so the ADL+ hw behavior assumption
+is already baked into the code.
+
+And rename the somewhat confusing 'vmin_vmax' parameter
+to just 'vtotal' while at it.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index b62148f29503..b1721b0bedff 100644
+index e59345bd1d33..8dfebcbaf8b5 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -182,14 +182,20 @@ int intel_vrr_vmax_vtotal(const struct intel_crtc_state *crtc_state)
- 	return crtc_state->vrr.vmax;
+@@ -312,9 +312,9 @@ static int intel_vrr_hw_value(const struct intel_crtc_state *crtc_state,
  }
  
-+static int vrr_vblank_start(const struct intel_crtc_state *crtc_state,
-+			    int vtotal)
-+{
+ static int intel_vrr_vblank_start(const struct intel_crtc_state *crtc_state,
+-				  int vmin_vmax)
++				  int vtotal)
+ {
+-	return intel_vrr_hw_value(crtc_state, vmin_vmax) - crtc_state->vrr.guardband;
 +	return vtotal - crtc_state->vrr.guardband;
-+}
-+
- int intel_vrr_vmin_vblank_start(const struct intel_crtc_state *crtc_state)
- {
--	return intel_vrr_vmin_vtotal(crtc_state) - crtc_state->vrr.guardband;
-+	return vrr_vblank_start(crtc_state, intel_vrr_vmin_vtotal(crtc_state));
  }
  
- int intel_vrr_vmax_vblank_start(const struct intel_crtc_state *crtc_state)
- {
--	return intel_vrr_vmax_vtotal(crtc_state) - crtc_state->vrr.guardband;
-+	return vrr_vblank_start(crtc_state, intel_vrr_vmax_vtotal(crtc_state));
- }
- 
- static bool intel_vrr_cmrr_possible(const struct intel_crtc_state *crtc_state)
-@@ -311,12 +317,6 @@ static int intel_vrr_hw_value(const struct intel_crtc_state *crtc_state,
- 		return value - crtc_state->set_context_latency;
- }
- 
--static int vrr_vblank_start(const struct intel_crtc_state *crtc_state,
--			    int vtotal)
--{
--	return vtotal - crtc_state->vrr.guardband;
--}
--
  /*
-  * For fixed refresh rate mode Vmin, Vmax and Flipline all are set to
-  * Vtotal value.
-@@ -634,8 +634,8 @@ void intel_vrr_compute_guardband(struct intel_crtc_state *crtc_state)
- 	crtc_state->vrr.guardband = min(guardband, intel_vrr_max_guardband(crtc_state));
- 
- 	if (intel_vrr_always_use_vrr_tg(display)) {
--		adjusted_mode->crtc_vblank_start  =
--			adjusted_mode->crtc_vtotal - crtc_state->vrr.guardband;
-+		adjusted_mode->crtc_vblank_start =
-+			vrr_vblank_start(crtc_state, adjusted_mode->crtc_vtotal);
- 		/*
- 		 * pipe_mode has already been derived from the
- 		 * original adjusted_mode, keep the two in sync.
-@@ -1184,8 +1184,7 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 	 */
- 	if (intel_vrr_always_use_vrr_tg(display))
- 		crtc_state->hw.adjusted_mode.crtc_vblank_start =
--			crtc_state->hw.adjusted_mode.crtc_vtotal -
--			crtc_state->vrr.guardband;
-+			vrr_vblank_start(crtc_state, crtc_state->hw.adjusted_mode.crtc_vtotal);
- }
- 
- int intel_vrr_safe_window_start(const struct intel_crtc_state *crtc_state)
 -- 
 2.55.0
 
