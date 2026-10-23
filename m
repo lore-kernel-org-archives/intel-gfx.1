@@ -2,45 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1087D606A31A
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 14:06:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X03GOyY9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15F1606A31A
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 14:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98D91112B75;
-	Fri, 23 Oct 2026 14:06:26 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49F50112B73;
- Fri, 23 Oct 2026 14:05:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 01AB0421EF;
- Fri, 23 Oct 2026 14:05:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867291F01829;
- Fri, 23 Oct 2026 14:05:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792764349;
- bh=bN4K8C2gcJoq6iVuHKcSfWsvC4b7uQWBypjpJ05w2EM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X03GOyY9GFgm7DNoST/RH7kZYWrgOstVN6nOQFjox6sr9vNJbi4EmBCUCvcHsNJL4
- ZfR3Vw49qUPPwZmq8HE8oWD/pMOSIctkgQBml98RvNAE8hi5mnXo/q+OrfCa148o3W
- 632IiHtQzmzBlDwJc//IRddS5R6qKoFDdm3AmOzH2GbsnxAKbMuMG68PnqhGGJQ4gy
- /n6hWMUtf0NwoY2KM640k/Fn64e6h9foVCk3DZnmDJ6BEoOQDHGnL7oJKEYVpUUIT5
- /N7psXaH3xh2ZpEiOk8O3B27t8E81nqjraDvUP7sBxNPw82fhHXTPBTtFjAbSTNMcm
- yoCWngz9taYlA==
-Message-ID: <sashiko-outbox-182863@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 7/9] drm/msm/dp: handle the IRQ_HPD events reported
- by USB-C
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6335D10E63E;
+	Fri, 23 Oct 2026 14:27:03 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55EB610E63E;
+ Fri, 23 Oct 2026 14:26:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6022974925532121077=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm=3A_handle_IRQ=5FHPD_e?=
+ =?utf-8?q?vents_correctly_=28rev8=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20261023-hpd-irq-events-v7-7-57a3aea3f09e@oss.qualcomm.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 23 Oct 2026 14:26:38 -0000
+Message-ID: <179276559834.61275.10750594752681285143@221881a7231d>
+X-Patchwork-Hint: ignore
 References: <20261023-hpd-irq-events-v7-0-57a3aea3f09e@oss.qualcomm.com>
- <20261023-hpd-irq-events-v7-7-57a3aea3f09e@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 14:05:49 +0000
+In-Reply-To: <20261023-hpd-irq-events-v7-0-57a3aea3f09e@oss.qualcomm.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,156 +34,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/msm/dp: msm_dp_bridge_hpd_notify() runs irq_hpd on unpowered l=
-ink
---
+--===============6022974925532121077==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 378c862ef1c761eb90130da10b12f8747c15b1a2
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+== Series Details ==
 
-drm/msm/dp: handle the IRQ_HPD events reported by USB-C
+Series: drm: handle IRQ_HPD events correctly (rev8)
+URL   : https://patchwork.freedesktop.org/series/164957/
+State : success
 
-This commit updates msm_dp_bridge_hpd_notify() to handle out-of-band
-DRM_CONNECTOR_DP_IRQ_HPD events reported via USB-C AltMode notifications
-and restructures the connected branch so that msm_dp_hpd_plug_handle() runs
-prior to msm_dp_irq_hpd_handle().
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index ce919a26fba28..771c8b0744aee 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1566,11 +1566,13 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *=
-bridge,
->  		if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
->  			msm_dp_hpd_unplug_handle(dp);
->  			msm_dp_hpd_plug_handle(dp);
-> -		} else if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT) {
-> -			msm_dp_irq_hpd_handle(dp);
->  		} else {
->  			msm_dp_hpd_plug_handle(dp);
->  		}
-> +
-> +		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
-> +		    event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD)
-> +			msm_dp_irq_hpd_handle(dp);
+CI Bug Log - changes from CI_DRM_19390 -> Patchwork_164957v8
+====================================================
 
-[Severity: High]
-Can calling msm_dp_irq_hpd_handle(dp) unconditionally after
-msm_dp_hpd_plug_handle(dp) trigger link maintenance while the mainlink and
-link clocks are still off?
+Summary
+-------
 
-Previously, msm_dp_hpd_plug_handle(dp) and msm_dp_irq_hpd_handle(dp) were in
-mutually exclusive branches in msm_dp_bridge_hpd_notify(). With this change,
-when status is connector_status_connected and either event is
-DRM_CONNECTOR_DP_IRQ_HPD or hpd_link_status is ISR_IRQ_HPD_PULSE_COUNT,
-msm_dp_hpd_plug_handle(dp) runs first and is immediately followed by
-msm_dp_irq_hpd_handle(dp).
+  **SUCCESS**
 
-When dp->plugged is false on entry (such as when a USB-C AltMode driver
-reports both HPD_STATE and IRQ_HPD together on initial plug, or when a
-monitor is plugged into a connected USB-C branch device whose prior
-sink_count =3D=3D 0 caused msm_dp_hpd_unplug_handle() to clear dp->plugged)=
-, or
-after msm_dp_hpd_unplug_handle(dp) in the ISR_HPD_REPLUG_COUNT path,
-msm_dp_hpd_plug_handle(dp) runs:
+  No regressions found.
 
-msm_dp_hpd_plug_handle()
-  -> msm_dp_display_process_hpd_high()
-       -> msm_dp_link_process_request()
-            -> msm_dp_link_process_ds_port_status_change()
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v8/index.html
 
-At this point, msm_dp_hpd_plug_handle(dp) only enables AUX transfers and
-initializes the PHY; dp->msm_dp_display.power_on and ctrl->link_clks_on
-remain false until msm_dp_display_atomic_enable() is called. However,
-msm_dp_link_process_ds_port_status_change() has already updated
-link->prev_sink_count to match link->msm_dp_link.sink_count.
+Participating hosts (40 -> 39)
+------------------------------
 
-When msm_dp_irq_hpd_handle(dp) then runs immediately afterward (or when an
-IRQ_HPD arrives while dp->plugged is true before atomic_enable() has enabled
-the mainlink):
+  Missing    (1): bat-dg2-13 
 
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_irq_hpd_handle() {
-	rc =3D msm_dp_link_process_request(dp->link);
-	if (!rc) {
-		sink_request =3D dp->link->sink_request;
-		drm_dbg_dp(dp->drm_dev, "sink_request=3D%d\n", sink_request);
-		if (sink_request & DS_PORT_STATUS_CHANGED)
-			rc =3D msm_dp_display_process_hpd_high(dp);
-		else
-			rc =3D msm_dp_display_handle_irq_hpd(dp);
-	}
-}
 
-If DP_DOWNSTREAM_PORT_STATUS_CHANGED is still set in
-DP_LANE_ALIGN_STATUS_UPDATED, msm_dp_display_process_hpd_high(dp) is called
-a second time, redundantly re-initializing LTTPRs and re-reading DPCD and
-EDID.
+Changes
+-------
 
-Otherwise, because link->prev_sink_count already equals sink_count,
-msm_dp_link_process_ds_port_status_change() returns -EINVAL and
-msm_dp_link_process_request() falls through to
-msm_dp_link_process_link_status_update():
+  No changes found
 
-drivers/gpu/drm/msm/dp/dp_link.c:msm_dp_link_process_request() {
-	...
-	} else {
-		ret =3D msm_dp_link_process_link_status_update(link);
-		if (!ret) {
-			msm_dp_link->sink_request |=3D DP_LINK_STATUS_UPDATED;
-}
 
-Because the link has not been trained yet (dp->msm_dp_display.power_on is
-false and DP_INTERLANE_ALIGN_DONE is 0), drm_dp_channel_eq_ok() is false, so
-msm_dp_link_process_link_status_update() returns 0 and flags
-DP_LINK_STATUS_UPDATED.
+Build changes
+-------------
 
-msm_dp_irq_hpd_handle(dp) then takes the else branch into
-msm_dp_display_handle_irq_hpd(dp) -> msm_dp_ctrl_handle_sink_request() ->
-msm_dp_ctrl_link_maintenance():
+  * Linux: CI_DRM_19390 -> Patchwork_164957v8
 
-drivers/gpu/drm/msm/dp/dp_ctrl.c:msm_dp_ctrl_link_maintenance() {
-	int ret =3D 0;
-	int training_step =3D DP_TRAINING_NONE;
+  CI-20190529: 20190529
+  CI_DRM_19390: a4c732aca52a51c32227b9a9a1364e1e533d275c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9161: 9161
+  Patchwork_164957v8: a4c732aca52a51c32227b9a9a1364e1e533d275c @ git://anongit.freedesktop.org/gfx-ci/linux
 
-	msm_dp_ctrl_push_idle(&ctrl->msm_dp_ctrl);
+== Logs ==
 
-	ctrl->link->phy_params.p_level =3D 0;
-	ctrl->link->phy_params.v_level =3D 0;
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v8/index.html
 
-	ret =3D msm_dp_ctrl_setup_main_link(ctrl, panel, &training_step);
-	if (ret)
-		goto end;
+--===============6022974925532121077==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-	msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
 
-	msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, DP_STATE_CTRL_SEND_VIDEO);
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
 
-	ret =3D msm_dp_ctrl_wait4video_ready(ctrl);
-}
 
-This drives msm_dp_ctrl_push_idle() and writes to link_base registers while
-!dp->msm_dp_display.power_on and !ctrl->link_clks_on, which causes unclocked
-register accesses, PUSH_IDLE timeouts, or a TrustZone force-stop and SoC
-reset (as noted in msm_dp_display_atomic_disable() where
-msm_dp_ctrl_push_idle() is guarded by dp->power_on).
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm: handle IRQ_HPD events correctly (rev8)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164957/">https://patchwork.freedesktop.org/series/164957/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
 
-Should msm_dp_irq_hpd_handle(dp) be skipped when msm_dp_hpd_plug_handle(dp)
-just handled a fresh plug, and should link maintenance in the IRQ_HPD path
-check that the mainlink is powered on before attempting to retrain the link?
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v8/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v8/index.html</a></td></tr>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-hpd-irq-ev=
-ents-v7-0-57a3aea3f09e@oss.qualcomm.com?part=3D7
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19390 -&gt; Patchwork_164957v8</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v8/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19390 -&gt; Patchwork_164957v8</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19390: a4c732aca52a51c32227b9a9a1364e1e533d275c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9161: 9161<br />
+  Patchwork_164957v8: a4c732aca52a51c32227b9a9a1364e1e533d275c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6022974925532121077==--
