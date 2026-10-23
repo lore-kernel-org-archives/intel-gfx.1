@@ -2,51 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366F1606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77503606A31B
 	for <intel-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 16:58:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AQIqBi0r
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kb9a0v2/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABFFD10E6D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C066E112C4B;
 	Fri, 23 Oct 2026 16:58:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 740C0112C3E;
- Fri, 23 Oct 2026 16:58:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3539D112C3E;
+ Fri, 23 Oct 2026 16:58:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792774714; x=1824310714;
+ t=1792774707; x=1824310707;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ni2xQK2AQD67SfgER1lDYYHHKCdO6nveOGGmdnTL5LM=;
- b=AQIqBi0rnFZoDY6DR/3ZvZ4NFFztbFG8L+NEsgpgnDAZ7FzYo0eDyfeb
- JAnR+FGiYDdIcCbO2/GzCGkPsx86I2ftfOTK6qclfns29zWt3zGDSIW0K
- T6V+AGL28ExJd9lacanqsxtj4+wwriN3q/rUQxTsmenVetFVLftgvInB9
- tG2BCBkPMUz9fRWfk2DJspI9M4TvHcks4LMnKrR0OHIKqVe32GXYtvTqq
- pcKCWd/MsJ5TRW5LB3nFpsGhapRQBNhJPPyqGhfQ6P+FZJWFYgDP0zzgz
- 3vpldjckMxC6NfBGsjLY6qaoVHUSnxrc0LV7vOnsXP2kukIFO9OO6kzsd A==;
-X-CSE-ConnectionGUID: xR2GiOueTHyEOvLnGhpn6Q==
-X-CSE-MsgGUID: S68hnj3JTI+F+viO2MO8sA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1428536"
+ bh=KazxgaCMsmLxInUkO50TRpRCI8bFgHX9Gd2akRMrlEU=;
+ b=Kb9a0v2/QEDZF0+oyV4NJLhjqOVWb/DnY8xYCNyKhI/JZa5iezNRWQ8A
+ nvDjldYbhN+0D25KhmC4ylUWOxBRDbJN+ccFKWWFvrawgdDN8tXSMkkve
+ MDtG0fM1swJhZOfv3DRXPlbgQZ4v/m964MVi0bRIaMknIky45OowLhZSq
+ H+Oe5GjoZ2NTNTZUI/ekOuMbWt789qbgLxfFiPnaXpkuQqpnQtd70zR+n
+ ipE4pzU/GQQhkq5UvlL4zuILYmwaNA6hqSwY0tzyFrh/NdOurUuDX8li/
+ QxIYC8A7GVA7VDOWrhJ4DwBi42AcTIvM/7NEk0TUS6axR36e1kUmuLITT A==;
+X-CSE-ConnectionGUID: Vz2m5ikkTBCTVQXxCRBLiQ==
+X-CSE-MsgGUID: 4oU+TwNbT+elXffElkJbrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1435240"
 X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1428536"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2026 09:58:34 -0700
-X-CSE-ConnectionGUID: Nptb8qu/RyG71NSl05W2uA==
-X-CSE-MsgGUID: l7i/AkYsQba/rYfMG8ZKAg==
+   d="scan'208";a="1435240"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2026 09:58:26 -0700
+X-CSE-ConnectionGUID: 8bXMpHcjTBqEbATawyjKLw==
+X-CSE-MsgGUID: Ai5+DgCkRqOy84DNqNsGqA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3798536"
+   d="scan'208";a="3570316"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.166])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2026 09:58:32 -0700
+ 23 Oct 2026 09:58:24 -0700
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 07/13] drm/i915/vrr: Annotate live functions
-Date: Fri, 23 Oct 2026 19:57:57 +0300
-Message-ID: <20261023165803.31016-8-ville.syrjala@linux.intel.com>
+Subject: [PATCH 05/13] drm/i915/vrr: Add a local 'adjusted_mode' variable to
+ intel_vrr_get_config()
+Date: Fri, 23 Oct 2026 19:57:55 +0300
+Message-ID: <20261023165803.31016-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261023165803.31016-1-ville.syrjala@linux.intel.com>
 References: <20261023165803.31016-1-ville.syrjala@linux.intel.com>
@@ -76,179 +77,48 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Due to DC balancing various VRR functions are now accessing
-the hardware, which might surprise the casual reader.
-Annotate all such functions with _live which hopefully
-provides enough of a hint that special things are happening
-under the hood.
+Add a local 'adjusted_mode' variable to intel_vrr_get_config()
+to reduce the noise a bit. This also makes the vblank_start adjustment
+visually similar to its compute counterpart in
+intel_vrr_compute_guardband() (which already has the local variable).
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsb.c    | 10 +++++-----
- drivers/gpu/drm/i915/display/intel_vblank.c |  8 ++++----
- drivers/gpu/drm/i915/display/intel_vrr.c    | 18 +++++++++---------
- drivers/gpu/drm/i915/display/intel_vrr.h    | 10 +++++-----
- 4 files changed, 23 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index 299d778520a2..e055e4ef9311 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -776,7 +776,7 @@ void intel_dsb_vblank_evade(struct intel_atomic_state *state,
- 		int vblank_delay = crtc_state->set_context_latency;
- 		int vmin_vblank_start, vmax_vblank_start;
- 
--		vmin_vblank_start = intel_vrr_dcb_vmin_vblank_start_next(crtc_state);
-+		vmin_vblank_start = intel_vrr_dcb_vmin_vblank_start_next_live(crtc_state);
- 
- 		if (vmin_vblank_start >= 0) {
- 			end = vmin_vblank_start;
-@@ -784,7 +784,7 @@ void intel_dsb_vblank_evade(struct intel_atomic_state *state,
- 			intel_dsb_wait_scanline_out(state, dsb, start, end);
- 		}
- 
--		vmax_vblank_start = intel_vrr_dcb_vmax_vblank_start_next(crtc_state);
-+		vmax_vblank_start = intel_vrr_dcb_vmax_vblank_start_next_live(crtc_state);
- 
- 		if (vmax_vblank_start >= 0) {
- 			end = vmax_vblank_start;
-@@ -792,12 +792,12 @@ void intel_dsb_vblank_evade(struct intel_atomic_state *state,
- 			intel_dsb_wait_scanline_out(state, dsb, start, end);
- 		}
- 
--		vmin_vblank_start = intel_vrr_dcb_vmin_vblank_start_final(crtc_state);
-+		vmin_vblank_start = intel_vrr_dcb_vmin_vblank_start_final_live(crtc_state);
- 		end = vmin_vblank_start;
- 		start = end - vblank_delay - latency;
- 		intel_dsb_wait_scanline_out(state, dsb, start, end);
- 
--		vmax_vblank_start = intel_vrr_dcb_vmax_vblank_start_final(crtc_state);
-+		vmax_vblank_start = intel_vrr_dcb_vmax_vblank_start_final_live(crtc_state);
- 		end = vmax_vblank_start;
- 		start = end - vblank_delay - latency;
- 		intel_dsb_wait_scanline_out(state, dsb, start, end);
-@@ -932,7 +932,7 @@ void intel_dsb_wait_for_delayed_vblank(struct intel_atomic_state *state,
- 		 */
- 		intel_dsb_wait_scanline_out(state, dsb,
- 					    intel_vrr_safe_window_start(crtc_state) - 1,
--					    intel_vrr_vmin_safe_window_end(crtc_state));
-+					    intel_vrr_vmin_safe_window_end_live(crtc_state));
- 		/*
- 		 * When the push is sent during vblank it will trigger
- 		 * on the next scanline, hence we have up to one extra
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 99cb648cab73..aa108ed27de7 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -667,17 +667,17 @@ static int vrr_vblank_start(const struct intel_crtc_state *crtc_state)
- 	}
- 
- 	if (is_push_sent)
--		vblank_start = intel_vrr_dcb_vmin_vblank_start_next(crtc_state);
-+		vblank_start = intel_vrr_dcb_vmin_vblank_start_next_live(crtc_state);
- 	else
--		vblank_start = intel_vrr_dcb_vmax_vblank_start_next(crtc_state);
-+		vblank_start = intel_vrr_dcb_vmax_vblank_start_next_live(crtc_state);
- 
- 	if (vblank_start >= 0)
- 		return vblank_start;
- 
- 	if (is_push_sent)
--		vblank_start = intel_vrr_dcb_vmin_vblank_start_final(crtc_state);
-+		vblank_start = intel_vrr_dcb_vmin_vblank_start_final_live(crtc_state);
- 	else
--		vblank_start = intel_vrr_dcb_vmax_vblank_start_final(crtc_state);
-+		vblank_start = intel_vrr_dcb_vmax_vblank_start_final_live(crtc_state);
- 
- 	return vblank_start;
- }
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 6aa99bcec448..1042d00d1732 100644
+index b1721b0bedff..9ab62423a1a6 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -1200,27 +1200,27 @@ int intel_vrr_safe_window_start(const struct intel_crtc_state *crtc_state)
- }
- 
- static int
--intel_vrr_dcb_vmin_vblank_start(const struct intel_crtc_state *crtc_state)
-+intel_vrr_dcb_vmin_vblank_start_live(const struct intel_crtc_state *crtc_state)
- {
- 	int vblank_start;
- 
--	vblank_start = intel_vrr_dcb_vmin_vblank_start_next(crtc_state);
-+	vblank_start = intel_vrr_dcb_vmin_vblank_start_next_live(crtc_state);
- 	if (vblank_start < 0)
--		vblank_start = intel_vrr_dcb_vmin_vblank_start_final(crtc_state);
-+		vblank_start = intel_vrr_dcb_vmin_vblank_start_final_live(crtc_state);
- 
- 	return vblank_start;
- }
- 
--int intel_vrr_vmin_safe_window_end(const struct intel_crtc_state *crtc_state)
-+int intel_vrr_vmin_safe_window_end_live(const struct intel_crtc_state *crtc_state)
- {
- 	int vmin_vblank_start = crtc_state->vrr.dc_balance.enable ?
--			intel_vrr_dcb_vmin_vblank_start(crtc_state) :
-+			intel_vrr_dcb_vmin_vblank_start_live(crtc_state) :
- 			intel_vrr_vmin_vblank_start(crtc_state);
- 
- 	return vmin_vblank_start - crtc_state->set_context_latency;
- }
- 
--int intel_vrr_dcb_vmin_vblank_start_next(const struct intel_crtc_state *crtc_state)
-+int intel_vrr_dcb_vmin_vblank_start_next_live(const struct intel_crtc_state *crtc_state)
+@@ -1099,6 +1099,7 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
  {
  	struct intel_display *display = to_intel_display(crtc_state);
  	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-@@ -1234,7 +1234,7 @@ int intel_vrr_dcb_vmin_vblank_start_next(const struct intel_crtc_state *crtc_sta
- 	return vrr_vblank_start(crtc_state, VRR_DCB_ADJ_FLIPLINE(tmp) + 1);
++	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 	u32 trans_vrr_ctl, trans_vrr_vsync;
+ 	bool vrr_enable;
+ 
+@@ -1148,7 +1149,7 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
+ 
+ 		if (display->platform.novalake &&
+ 		    IS_DISPLAY_STEP(display, STEP_A0, STEP_B0))
+-			crtc_state->hw.adjusted_mode.crtc_vtotal =
++			adjusted_mode->crtc_vtotal =
+ 				intel_vrr_vmin_vtotal(crtc_state);
+ 
+ 		if (HAS_AS_SDP(display)) {
+@@ -1183,8 +1184,8 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
+ 	 * paths as needed.
+ 	 */
+ 	if (intel_vrr_always_use_vrr_tg(display))
+-		crtc_state->hw.adjusted_mode.crtc_vblank_start =
+-			vrr_vblank_start(crtc_state, crtc_state->hw.adjusted_mode.crtc_vtotal);
++		adjusted_mode->crtc_vblank_start =
++			vrr_vblank_start(crtc_state, adjusted_mode->crtc_vtotal);
  }
  
--int intel_vrr_dcb_vmax_vblank_start_next(const struct intel_crtc_state *crtc_state)
-+int intel_vrr_dcb_vmax_vblank_start_next_live(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-@@ -1248,7 +1248,7 @@ int intel_vrr_dcb_vmax_vblank_start_next(const struct intel_crtc_state *crtc_sta
- 	return vrr_vblank_start(crtc_state, VRR_DCB_ADJ_VMAX(tmp) + 1);
- }
- 
--int intel_vrr_dcb_vmin_vblank_start_final(const struct intel_crtc_state *crtc_state)
-+int intel_vrr_dcb_vmin_vblank_start_final_live(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-@@ -1259,7 +1259,7 @@ int intel_vrr_dcb_vmin_vblank_start_final(const struct intel_crtc_state *crtc_st
- 	return vrr_vblank_start(crtc_state, VRR_DCB_FLIPLINE(tmp) + 1);
- }
- 
--int intel_vrr_dcb_vmax_vblank_start_final(const struct intel_crtc_state *crtc_state)
-+int intel_vrr_dcb_vmax_vblank_start_final_live(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
-index 19c7990be1b2..3928554c0424 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-@@ -49,12 +49,12 @@ void intel_vrr_dcb_reset(const struct intel_crtc_state *old_crtc_state,
- 			 struct intel_crtc *crtc);
- bool intel_vrr_always_use_vrr_tg(struct intel_display *display);
- int intel_vrr_safe_window_start(const struct intel_crtc_state *crtc_state);
--int intel_vrr_vmin_safe_window_end(const struct intel_crtc_state *crtc_state);
-+int intel_vrr_vmin_safe_window_end_live(const struct intel_crtc_state *crtc_state);
- 
--int intel_vrr_dcb_vmin_vblank_start_next(const struct intel_crtc_state *crtc_state);
--int intel_vrr_dcb_vmax_vblank_start_next(const struct intel_crtc_state *crtc_state);
--int intel_vrr_dcb_vmin_vblank_start_final(const struct intel_crtc_state *crtc_state);
--int intel_vrr_dcb_vmax_vblank_start_final(const struct intel_crtc_state *crtc_state);
-+int intel_vrr_dcb_vmin_vblank_start_next_live(const struct intel_crtc_state *crtc_state);
-+int intel_vrr_dcb_vmax_vblank_start_next_live(const struct intel_crtc_state *crtc_state);
-+int intel_vrr_dcb_vmin_vblank_start_final_live(const struct intel_crtc_state *crtc_state);
-+int intel_vrr_dcb_vmax_vblank_start_final_live(const struct intel_crtc_state *crtc_state);
- 
- void intel_vrr_crtc_debugfs_add(struct intel_crtc *crtc);
- 
+ int intel_vrr_safe_window_start(const struct intel_crtc_state *crtc_state)
 -- 
 2.55.0
 
