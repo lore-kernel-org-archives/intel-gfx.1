@@ -2,43 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DA6606A31D
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Oct 2026 12:47:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F336606A31A
+	for <intel-gfx@archiver.kernel.org>; Sun, 25 Oct 2026 11:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDhmsvR5
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6sH20VH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95DD510E534;
-	Sat, 24 Oct 2026 12:47:42 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EC6310E534;
- Sat, 24 Oct 2026 12:47:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFB0010E115;
+	Sun, 25 Oct 2026 11:39:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84ACD10E115;
+ Sun, 25 Oct 2026 11:39:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 62B99601DE;
- Sat, 24 Oct 2026 12:47:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7A91F01825;
- Sat, 24 Oct 2026 12:47:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 406A4434D3;
+ Sun, 25 Oct 2026 11:39:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36D41F01825;
+ Sun, 25 Oct 2026 11:39:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792846054;
- bh=tmF62NjlscGkeWZQjI3YN977k0WOLrEhQNAYoYbUTKI=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=LDhmsvR5OPS90ZFWZo9Q/gCK0Ix37mbFsOYnIGvL3922jcAe/ksp4OUSUAdsxvo7t
- jqwNHfKMcUu75JP9pPcCnaPN7LMz3obVHDAuOuqPQTSLTYUeDg9OYmq3Msff58i+AL
- W2kvbpfASpVa4UzS33QsXuPJJt9Ja/DrKbmk0UUrIuAVBUPB4w2ZSYFgab7bW7+htM
- EXzS2yb8TVQkTRCtAGDAdIGdI5eZHSiDVLtQTOAyAseYKX/JfXv91PV7PvK9iUz56o
- pkmZ1PrMa8GqjSXQ6KZ94bMfjfWRFQPPqxUfgC1jAemygLaS9x5F8tbNBws/iBWHql
- 0K54UFdBTdX6g==
-Message-ID: <sashiko-outbox-183732@kernel.org>
+ s=k20260515; t=1792928391;
+ bh=cMWyryFwg6Mdq0UuaTwmq0qDSTsWM53sZ6Yt96arTV8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K6sH20VHfLQQqnp2kdYqaxi57M/OhY1VuOmNeK1fkn7zNh/axiFlp/2aQMZsJf8sC
+ bqcZNPF8XYXL7iJRfKzJKzHEjAEoU7ba/BXMQTWlvYyGDppWNThgKhzIGPWQyVKsy3
+ Gv9zLZeNrhxM74/0oE/B9GmUD26Javdajs+Mn/YuNfOAuWJ8f1wSXtnj1Xg4rPCG4o
+ ZCf2iXqtqWjPIk7CMh2hwod1EyodaH/yPZ3DOXtL3ri7LyRkEqXIGBKMAUAX1ciZL2
+ //EWNEPOqBXtEaBZnWurW3oKHgaU4P1tuATKz/bcSbnJycyfZl4H/bu8gJ2dC0AUeJ
+ yHkgk1QQqDjOQ==
+Message-ID: <sashiko-outbox-184196@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/i915/hdmi: preserve cached EDID on DDC failure
- when connector is forced
-To: "Aman Sharma" <amansharma6122002@gmail.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <179284522321.1666644.7085985666852699043@gmail.com>
-References: <179284356403.1659508.10439113185286055496@gmail.com>
- <179284522321.1666644.7085985666852699043@gmail.com>
+Subject: Re: [PATCH] drm/i915/dp: Remove redundant link capabilities reset
+To: "George Karagounis" <taterraster@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261025113200.25097-1-mail@taterr.org>
+References: <20261025113200.25097-1-mail@taterr.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 12:47:33 +0000
+Date: Sun, 25 Oct 2026 11:39:50 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,140 +57,130 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] drm/i915/hdmi: DRM_FORCE_OFF treated as forced-on in intel_hdmi_=
-set_edid()
-- [Medium] drm/i915/hdmi: CEC invalidation and hotplug churn in intel_hdmi_=
-detect()
+- [High] drm/i915/dp: missing link capabilities reset in intel_dp_reset_lin=
+k_params()
+- [Low] drm/i915/dp: unused function intel_dp_link_caps_reset() left behind
+- [Low] drm/i915/dp: space indentation used in intel_dp_reset_link_params()
 --
 
-commit fa3007d46f607179adb22d75054bb3efa254e38b
-Author: Aman Sharma <amansharma6122002@gmail.com>
+commit a8d5bf6dc42f9bcd49f6371d597ac7f839e9b04f
+Author: George Karagounis <taterraster@gmail.com>
 
-drm/i915/hdmi: preserve cached EDID on DDC failure when connector is forced
+drm/i915/dp: Remove redundant link capabilities reset
 
-This commit preserves the cached detect_edid on forced HDMI connectors when
-DDC reads fail during monitor standby, moving intel_hdmi_unset_edid() into
-intel_hdmi_set_edid() and skipping EDID teardown on Gen11+ disconnect when
-the connector is forced.
+This commit removes the intel_dp_link_caps_reset() call from
+intel_dp_reset_link_params(), assuming that intel_dp_link_caps_update() with
+reset=3Dtrue has already been invoked beforehand.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
-i915/display/intel_hdmi.c
-> index b6fa1a1558b82..89ab9a790a419 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -2568,6 +2568,19 @@ intel_hdmi_set_edid(struct drm_connector *_connect=
-or)
->  		intel_gmbus_force_bit(ddc, false);
->  	}
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index d8c0d9381471d..0e753824bc281 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3674,17 +3674,10 @@ void intel_dp_set_link_params(struct intel_dp *in=
+tel_dp,
 > =20
-> +	/*
-> +	 * If the connector is forced on (e.g. video=3DHDMI-A-1:e) and the sink=
-'s
-> +	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
-> +	 * cached EDID rather than wiping it and falling back to 1024x768.
-> +	 */
-> +	if (!drm_edid && connector->base.force &&
-> +	    connector->detect_edid && connector->base.edid_blob_ptr) {
-> +		intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
-> +		return true;
-> +	}
+>  void intel_dp_reset_link_params(struct intel_dp *intel_dp)
+>  {
+> -	/*
+> -	 * TODO: Remove the following reset of link capabilities, as
+> -	 * this isn't needed after intel_dp_link_caps_update(reset=3Dtrue)
+> -	 * was called.
+> -	 */
+> -	intel_dp_link_caps_reset(intel_dp->link.caps);
 
-[Severity: Medium]
-What happens here when a connector with a cached EDID is forced off via
-DRM_FORCE_OFF?
+[Severity: High]
+Are all callers of intel_dp_reset_link_params() guaranteed to have called
+intel_dp_link_caps_update(reset=3Dtrue) beforehand?
 
-Because enum drm_connector_force defines DRM_FORCE_OFF as a non-zero value,
-connector->base.force evaluates to true when the connector is forced off
-(for example via connector_write() in drivers/gpu/drm/drm_debugfs.c, which
-sets connector->force =3D DRM_FORCE_OFF without calling fill_modes() or
-intel_hdmi_force()).
+Several paths call intel_dp_reset_link_params() without invoking
+intel_dp_link_caps_update():
 
-When a subsequent probe runs intel_hdmi_detect() -> intel_hdmi_set_edid(),
-drm_edid_read_ddc() explicitly returns NULL for DRM_FORCE_OFF:
+1. In drivers/gpu/drm/i915/display/intel_dp_link_caps.c, the debugfs handle=
+rs
+i915_dp_force_link_rate_write() and i915_dp_force_lane_count_write() call
+intel_dp_reset_link_params() directly before setting forced_params:
 
-drivers/gpu/drm/drm_edid.c:drm_edid_read_ddc() {
-	if (connector->force =3D=3D DRM_FORCE_OFF)
-		return NULL;
-    ...
+	intel_dp_flush_connector_commits(connector);
+
+	intel_dp_reset_link_params(intel_dp);
+	link_caps->forced_params.rate =3D rate;
+
+2. In drivers/gpu/drm/i915/display/intel_dp.c, when intel_dp_detect() runs =
+on
+an eDP connector after intel_dp->reset_link_params is set (such as on
+suspend/resume, a long HPD pulse in intel_dp_hpd_pulse(), or RX_CAP_CHANGED=
+ in
+intel_dp_handle_link_service_irq()), it takes the edp_detect() branch rather
+than intel_dp_detect_dpcd():
+
+	if (intel_dp_is_edp(intel_dp))
+		status =3D edp_detect(intel_dp);
+	else if (intel_digital_port_connected(encoder))
+		status =3D intel_dp_detect_dpcd(intel_dp);
+	...
+	if (intel_dp->reset_link_params) {
+		intel_dp_reset_link_params(intel_dp);
+		intel_dp->reset_link_params =3D false;
+	}
+
+Because intel_dp_get_dpcd() also skips intel_dp_update_sink_caps() for eDP,
+intel_dp_link_caps_update() is never called on this path.
+
+3. In drivers/gpu/drm/i915/display/intel_dp.c, intel_dp_sync_state() skips
+intel_dp_get_dpcd() during system resume when intel_dp->dpcd[DP_DPCD_REV] !=
+=3D 0
+(and on eDP) and calls intel_dp_reset_link_params() directly:
+
+	if (crtc_state && intel_dp->dpcd[DP_DPCD_REV] =3D=3D 0) {
+		intel_dp_get_dpcd(intel_dp);
+		dpcd_updated =3D true;
+	}
+
+	intel_dp_tunnel_resume(intel_dp, crtc_state, dpcd_updated);
+
+	if (crtc_state) {
+		intel_dp_reset_link_params(intel_dp);
+		intel_dp_set_link_params(intel_dp, crtc_state->port_clock, crtc_state->la=
+ne_count);
+		intel_dp->link.active =3D true;
+	}
+
+Without intel_dp_link_caps_reset() here, won't reduced link_caps->max_limits
+and disabled configurations in link_caps->enabled_configs from earlier link
+training fallbacks remain stuck on these paths?
+
+[Severity: Low]
+Also, since this was the only caller of intel_dp_link_caps_reset(), removing
+this call leaves the function definition in
+drivers/gpu/drm/i915/display/intel_dp_link_caps.c and its declaration in
+drivers/gpu/drm/i915/display/intel_dp_link_caps.h unused:
+
+void intel_dp_link_caps_reset(struct intel_dp_link_caps *link_caps)
+{
+	reset_max_link_limits_reenable_all(link_caps);
 }
 
-In that case, intel_hdmi_set_edid() will match !drm_edid &&
-connector->base.force, skip intel_hdmi_unset_edid() and
-drm_edid_connector_update(), retain the stale detect_edid and dp_dual_mode
-state, and return true as if the forced-off connector were connected. The
-same boolean check in intel_hdmi_detect() also skips
-intel_hdmi_unset_edid() on Gen11+ disconnect when force is DRM_FORCE_OFF.
+If intel_dp_link_caps_reset() were no longer needed here, should its
+definition and declaration be removed as well?
 
-Should these checks explicitly test for >=3D DRM_FORCE_ON (or !=3D DRM_FORC=
-E_OFF
-&& !=3D DRM_FORCE_UNSPECIFIED) instead of a boolean check on
-connector->base.force?
-
-> +
-> +	intel_hdmi_unset_edid(&connector->base);
-> +
->  	/* Below we depend on display info having been updated */
->  	drm_edid_connector_update(&connector->base, drm_edid);
-> =20
-> @@ -2609,10 +2622,11 @@ intel_hdmi_detect(struct drm_connector *_connecto=
-r, bool force)
->  	wakeref =3D intel_display_power_get(display, POWER_DOMAIN_GMBUS);
-> =20
->  	if (DISPLAY_VER(display) >=3D 11 &&
-> -	    !intel_digital_port_connected(encoder))
-> +	    !intel_digital_port_connected(encoder)) {
-> +		if (!connector->base.force)
-> +			intel_hdmi_unset_edid(&connector->base);
->  		goto out;
+> -	intel_dp_tunnel_uhbr_lanes_wa_apply(intel_dp);
 > -
-> -	intel_hdmi_unset_edid(&connector->base);
-> +	}
+> -	intel_dp->link.mst_probed_lane_count =3D 0;
+> -	intel_dp->link.mst_probed_rate =3D 0;
+> -	intel_dp_link_training_reset(intel_dp->link.training);
+> +       intel_dp_tunnel_uhbr_lanes_wa_apply(intel_dp);
+> +       intel_dp->link.mst_probed_lane_count =3D 0;
+> +       intel_dp->link.mst_probed_rate =3D 0;
+> +       intel_dp_link_training_reset(intel_dp->link.training);
 
-[Severity: Medium]
-On DISPLAY_VER(display) >=3D 11, if the sink drops HPD during standby so
-!intel_digital_port_connected(encoder) is true on a forced-on connector,
-could jumping to out with status =3D connector_status_disconnected cause CEC
-invalidation and hotplug churn?
-
-In intel_hdmi_detect(), jumping to out leaves status set to
-connector_status_disconnected:
-
-drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_detect() {
-    ...
-out:
-	intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
-
-	if (status !=3D connector_status_connected)
-		cec_notifier_phys_addr_invalidate(intel_hdmi->cec_notifier);
-
-	return status;
-}
-
-First, this invalidates cec_notifier even though connector->detect_edid and
-display_info are kept, and subsequent calls to intel_hdmi_force() ->
-intel_hdmi_set_edid() while DDC is powered down return early before reaching
-cec_notifier_set_phys_addr().
-
-Second, returning connector_status_disconnected while connector->base.status
-remains forced to connector_status_connected causes
-drm_helper_probe_detect_ctx() to see ret !=3D connector->status and increme=
-nt
-connector->epoch_counter on every probe:
-
-drivers/gpu/drm/drm_probe_helper.c:drm_helper_probe_detect_ctx() {
-    ...
-	if (ret !=3D connector->status)
-		connector->epoch_counter +=3D 1;
-    ...
-}
-
-In intel_hotplug_detect_connector(), connector->base.status is not updated
-when connector->base.force is set, so old_epoch_counter !=3D
-connector->base.epoch_counter triggers INTEL_HOTPLUG_CHANGED and sends
-hotplug uevents on every HPD or poll while the sink is in standby.
+[Severity: Low]
+This isn't a bug, but the replacement lines in intel_dp_reset_link_params()
+replace the leading tab indentation with spaces. Could these lines keep
+standard tab indentation?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179284522321.166664=
-4.7085985666852699043@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025113200.2509=
+7-1-mail@taterr.org?part=3D1
