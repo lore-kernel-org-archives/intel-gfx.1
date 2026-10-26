@@ -2,59 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC4C606A31A
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fmH8N96b
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C967606A31A
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:51:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5628410EC44;
-	Mon, 26 Oct 2026 08:29:25 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADFE210EC36;
- Mon, 26 Oct 2026 08:29:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793003353; x=1824539353;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=yjuTioj8c35eU02CdZOyIDS8CLMwO4r04IMFYlCBE+Y=;
- b=fmH8N96bHTTYs1MdMkoYDF7eIdgovCE15HVEtIZu+1ssobrw1Iv46nJl
- J8NSDACC1xeRd+a650/zDIQ6gE6SkDZvqjD0uw8Shjv5qcgshNKw9NQjd
- dOOu1he2SjebFn6LdGqWeLaFvJ2fdTtbHnYPjKpdEK8uvf6KDOHTYyax/
- f4aPcHngqU2Pz4MEfvLWqv2H5Au6YX92/Qw1SerPMgpshV36LULpaybJv
- XgV7eAS6mD6J49u1YdwNMmI1imYvfWMOFQhnwlwTJ/FAX0VdwIe2fDjfX
- sYb2Asfz4DndEiBxwF7Ge+wD/4cTmHI5pkikqDK1VqDtOcEnSqbjrFGvq w==;
-X-CSE-ConnectionGUID: Qp7e6qNsT5ykgTauvlCvvQ==
-X-CSE-MsgGUID: ZA7eokMmSKylBH8K/39hsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1547731"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1547731"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2026 01:29:13 -0700
-X-CSE-ConnectionGUID: RL7b1lgxSzmfNcxVTN8WXA==
-X-CSE-MsgGUID: MyqmGknyQaOQ97yAGHUZIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="6033394"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
- by fmviesa013.fm.intel.com with ESMTP; 26 Oct 2026 01:29:12 -0700
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com, uma.shankar@intel.com,
- dibin.moolakadan.subrahmanian@intel.com,
- Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v3 1/1] drm/i915/cmtg: Disable CMTG after encoder disable in
- hsw_crtc_disable()
-Date: Mon, 26 Oct 2026 13:58:46 +0530
-Message-ID: <20261026082906.802048-2-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026082906.802048-1-animesh.manna@intel.com>
-References: <20261026082906.802048-1-animesh.manna@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 329AA10ECDC;
+	Mon, 26 Oct 2026 08:51:10 +0000 (UTC)
+Received: from coelho.fi (coelho.fi [88.99.146.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00B7610ECDC;
+ Mon, 26 Oct 2026 08:51:08 +0000 (UTC)
+Received: from 91-152-156-14.elisa-laajakaista.fi ([91.152.156.14]
+ helo=[192.168.100.138])
+ by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
+ id 1xLGPs-00000004j5r-25X1; Mon, 26 Oct 2026 10:51:05 +0200
+Message-ID: <fb94743fc57965085dbc34d98cb035ef2decefb7.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: uma.shankar@intel.com, imre.deak@intel.com
+Date: Mon, 26 Oct 2026 10:51:05 +0200
+In-Reply-To: <54047513-fe84-46f0-b372-f92182ba9eb6@intel.com>
+References: <20261013161131.2572279-4-dibin.moolakadan.subrahmanian@intel.com>
+ <20261013161131.2572279-5-dibin.moolakadan.subrahmanian@intel.com>
+ <9eff5ff68bfbc955a5bb7be90296939428cd5ecf.camel@coelho.fi>
+ <590ce042-4bee-4671-9f22-de2178c32cf3@intel.com>
+ <982ce9e453f4b3055a0c76721985f5720923737c.camel@coelho.fi>
+ <54047513-fe84-46f0-b372-f92182ba9eb6@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10+b1 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
+	aws-us-west-2-korg-listserv-alma10-1
+X-Spam-Level: 
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
+Subject: Re: [PATCH 1/2] drm/i915/display: avoid logging DC3CO transitions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,77 +52,141 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
-	aws-us-west-2-korg-listserv-alma10-1
 
-hsw_crtc_disable() disables CMTG at the very start of the CRTC disable
-sequence, before intel_encoders_disable(). With this ordering, the wait
-for CMTG_STATE to clear after CMTG_ENABLE is cleared intermittently
-times out:
+On Mon, 2026-10-26 at 09:37 +0530, Dibin Moolakadan Subrahmanian wrote:
+> On 10/23/2026 3:29 PM, Luca Coelho wrote:
+> > On Fri, 2026-10-16 at 18:30 +0530, Dibin Moolakadan Subrahmanian wrote:
+> > > On 10/16/2026 12:52 PM, Luca Coelho wrote:
+> > > > On Tue, 2026-10-13 at 21:41 +0530, Dibin Moolakadan Subrahmanian wr=
+ote:
+> > > > > DC3CO transitions can happen every frame.
+> > > > > Logging them floods the log and adds overhead to the flip path.
+> > > > >=20
+> > > > > Skip logs for transitions to or from DC3CO, while retaining logs =
+for
+> > > > > other DC state changes. Log DC3CO trigger changes through
+> > > > > intel_display_power_dc3co_update().
+> > > > >=20
+> > > > > Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.su=
+brahmanian@intel.com>
+> > > > > ---
+> > > > >    drivers/gpu/drm/i915/display/intel_display_power.c |  6 ++++++
+> > > > >    .../drm/i915/display/intel_display_power_well.c    | 14 ++++++=
+++++++--
+> > > > >    2 files changed, 18 insertions(+), 2 deletions(-)
+> > > > >=20
+> > > > > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b=
+/drivers/gpu/drm/i915/display/intel_display_power.c
+> > > > > index 1b60ce2dd00c..53afd791381e 100644
+> > > > > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> > > > > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> > > > > @@ -4,6 +4,7 @@
+> > > > >     */
+> > > > >   =20
+> > > > >    #include <linux/iopoll.h>
+> > > > > +#include <linux/string_choices.h>
+> > > > >    #include <linux/string_helpers.h>
+> > > > >   =20
+> > > > >    #include <drm/drm_print.h>
+> > > > > @@ -419,6 +420,11 @@ void intel_display_power_dc3co_update(struct=
+ intel_display *display, u32 trigger
+> > > > >    		return;
+> > > > >   =20
+> > > > >    	mutex_lock(&dc3co->lock);
+> > > > > +
+> > > > > +	if (dc3co->trigger !=3D trigger)
+> > > > > +		drm_dbg_kms(display->drm, "DC3co allowed:%s trigger %#x -> %#x=
+\n",
+> > > > s/DC3co/DC3O/ for consistency.
+> > > >=20
+> > > >=20
+> > > > > +			    str_yes_no(trigger), dc3co->trigger, trigger);
+> > > > > +
+> > > > >    	dc3co->trigger =3D trigger;
+> > > > >    	dc3co->allowed =3D !!trigger;
+> > > > >    	mutex_unlock(&dc3co->lock);
+> > > > > diff --git a/drivers/gpu/drm/i915/display/intel_display_power_wel=
+l.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+> > > > > index 233465a8306e..6d07643fc14f 100644
+> > > > > --- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
+> > > > > +++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+> > > > > @@ -862,8 +862,18 @@ void gen9_set_dc_state(struct intel_display =
+*display, u32 state)
+> > > > >   =20
+> > > > >    	val =3D intel_de_read(display, DC_STATE_EN);
+> > > > >    	mask =3D gen9_dc_mask(display);
+> > > > > -	drm_dbg_kms(display->drm, "Setting DC state from %02x to %02x\n=
+",
+> > > > > -		    val & mask, state);
+> > > > > +
+> > > > > +	/*
+> > > > > +	 * DC3co is entered and exited once per frame while PSR2 or pan=
+el
+> > > > s/DC3co/DC3CO/
+> > > >=20
+> > > >=20
+> > > > > +	 * replay is active, so logging both transitions floods the log=
+. The
+> > > > > +	 * exit additionally happens from intel_display_power_get(DC_OF=
+F) in
+> > > > > +	 * the atomic commit path, before the flip has been armed, wher=
+e the
+> > > > > +	 * printk is a measurable part of the time budget. Skip both.
+> > > > > +	 */
+> > > > > +	if ((val & mask) !=3D DC_STATE_EN_UPTO_DC3CO &&
+> > > > > +	    state !=3D DC_STATE_EN_UPTO_DC3CO)
+> > > > > +		drm_dbg_kms(display->drm, "Setting DC state from %02x to %02x\=
+n",
+> > > > > +			    val & mask, state);
+> > > > >   =20
+> > > > >    	/* Check if DMC is ignoring our DC state requests */
+> > > > >    	if ((val & mask) !=3D power_domains->dc_state)
+> > > > What about this log:
+> > > >=20
+> > > > void intel_power_well_enable(struct intel_display *display, struct =
+i915_power_well *power_well)
+> > > > {
+> > > > 	drm_dbg_kms(display->drm, "enabling %s\n", intel_power_well_name(p=
+ower_well));
+> > > >=20
+> > > >=20
+> > > > ...and the "disabling %s" one? Claude tells me that they are in the
+> > > > same path you're trying to silence.
+> > > You're right, the power-well messages will still be present.
+> > >=20
+> > > I kept them intentionally, as removing these generic messages would r=
+educe visibility
+> > > into power-well transitions and affect debug ability beyond DC3CO.
+> > >=20
+> > > DC3CO-specific trigger changes are still logged through
+> > > `intel_display_power_dc3co_update()`.
+> > But does it really help to remove 1 out of 3 lines of log spamming? In
+> > this case it will only take 1 third less of the spamming space...
+>=20
+> The overhead is not just about the number of log lines, but also the dela=
+y
+> they add to the flip path.
+>=20
+> The "Setting DC state 03->00" message is printed before the flip is armed=
+,
+> and a drm_dbg_kms() there costs on the order of 100 us or more on this se=
+tup,
+> delaying the arm and reducing the time available before the latch point.
+>=20
+> The other two messages are on the DC_OFF exit path, after the flip is arm=
+ed,
+> so they don't affect the flip timing.We will also retain visibility into =
+the other power-well
+> transitions.
+>=20
+> Would it help if I updated the commit message to explain this instead of =
+focusing on log flooding?
 
-  xe 0000:00:02.0: [drm] CMTG: A disable timeout
-  WARNING: drivers/gpu/drm/i915/display/intel_cmtg.c:205 intel_cmtg_disable+0x331/0x3d0 [xe]
+Yes, I think that would make it clearer indeed.  With some extra
+explanation in the commit message:
 
-This is seen with igt@kms_hdr@bpc-switch-suspend, which repeatedly
-disables and re-enables the eDP across modesets and suspend/resume.
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 
-Move the CMTG disable after intel_encoders_disable(), so the eDP-side
-teardown (panel unprepare, ALPM disable, backlight off) has completed,
-but keep it before intel_encoders_post_disable() and
-intel_dpll_disable(). The transcoder timing generator, DDI buffer and
-port PLL are therefore still running while CMTG_STATE is polled, and
-the requirement to disable CMTG before the transcoder and the port PLL
-feeding it are turned off is preserved.
-
-v2:
-- Modify commit description regarding PSR exit. [Dibin]
-- Add fixes tag. [Jani, Dibin]
-v3:
-- Add a cover letter with links to v1 and v2 for the review
-  history. [Dibin]
-
-Fixes: c588a324183b ("drm/i915/cmtg: Add trigger to enable/disable cmtg")
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index afe70e9ce347..5e40487e9ab0 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1854,15 +1854,22 @@ static void hsw_crtc_disable(struct intel_atomic_state *state,
- 		intel_atomic_get_old_crtc_state(state, crtc);
- 	struct intel_crtc *pipe_crtc;
- 
--	if (crtc->cmtg.enabled && intel_cmtg_is_allowed(old_crtc_state)) {
--		intel_cmtg_set_clk_select(old_crtc_state);
--		intel_cmtg_disable(old_crtc_state);
--	}
- 	/*
- 	 * FIXME collapse everything to one hook.
- 	 * Need care with mst->ddi interactions.
- 	 */
- 	intel_encoders_disable(state, crtc);
-+
-+	/*
-+	 * Disable CMTG after the encoders are disabled, but before the
-+	 * transcoder and port PLL are torn down in
-+	 * intel_encoders_post_disable()/intel_dpll_disable().
-+	 */
-+	if (crtc->cmtg.enabled && intel_cmtg_is_allowed(old_crtc_state)) {
-+		intel_cmtg_set_clk_select(old_crtc_state);
-+		intel_cmtg_disable(old_crtc_state);
-+	}
-+
- 	intel_encoders_post_disable(state, crtc);
- 
- 	intel_dpll_disable(old_crtc_state);
--- 
-2.43.0
-
+--
+Cheers,
+Luca.
