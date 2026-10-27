@@ -2,28 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59398606A31A
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 03:43:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269C6606A31A
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 04:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DlDu6ubw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E25B810E0F2;
-	Tue, 27 Oct 2026 03:43:25 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7732310E0F2;
- Tue, 27 Oct 2026 03:43:24 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1773994222569599954=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB0E310E1B4;
+	Tue, 27 Oct 2026 04:38:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D66CD10E1B4;
+ Tue, 27 Oct 2026 04:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793075933; x=1824611933;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0eKY7ef5t5p6uzEYZt6fIYR+9rOzfSXzphA0VBrucho=;
+ b=DlDu6ubwaLLR43SN4Xt4YhLqY8mJrf9zcqVU/odhVF2GbIIDpQDd6TVY
+ npxY/r3eVg9DniqUbPTbiYC8PdHh+M+5M51f+u/tFx1YChzkCRVjwDcWO
+ jP+sTbJDFDYHNoNGMB4jjFkiZLnnOuDZE7M1TBiKqpsalbUFHxh0+nbGj
+ qazgWgPcewJr88qGpF1fuqMpU8S6rDMOmLTuM5A0m3hwDubXK0by7XFsj
+ BrHAgo8O9eL6iaCbzn6+dMbCPUsxLt5uDzJfGhDEE7WFAPY/6omiEwVo7
+ bun9bc8togW/jiPkC/Ez4qK1CCEMypnZkIxF/BHlUpFWzHVK7F/ZUOXU8 A==;
+X-CSE-ConnectionGUID: rbBCx/B4Tcet33d3vvCfaA==
+X-CSE-MsgGUID: x2LGMo4MRdW5eE/TziDSDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1676394"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1676394"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2026 21:38:53 -0700
+X-CSE-ConnectionGUID: H64OD67ETzCSI5ZaFRj61A==
+X-CSE-MsgGUID: 9AgTeVGmRpW6KkFsjnIqEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4402355"
+Received: from vsrini4-xps-8920.iind.intel.com ([10.223.167.75])
+ by orviesa003.jf.intel.com with ESMTP; 26 Oct 2026 21:38:51 -0700
+From: Vidya Srinivas <vidya.srinivas@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
+ Vidya Srinivas <vidya.srinivas@intel.com>,
+ Charlton Lin <charlton.lin@intel.com>
+Subject: [PATCH v2] drm/i915/display: Limit scaler count and disable pipe
+ joiner on WCL
+Date: Tue, 27 Oct 2026 09:58:56 +0530
+Message-ID: <20261027042856.1906320-1-vidya.srinivas@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20261007072334.1801956-1-vidya.srinivas@intel.com>
+References: <20261007072334.1801956-1-vidya.srinivas@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Add_quirk_?=
- =?utf-8?q?to_allow_eDP_joiner_on_ASUS_ROG_Strix_SCAR_18?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 27 Oct 2026 03:43:24 -0000
-Message-ID: <179307260448.74044.13544808376152787691@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +64,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============1773994222569599954==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Pipe joining is not supported in the WCL display configuration.
+Modes that would require joining are rejected, matching the
+4k 60Hz maximum resolution documented for the platform.
 
-== Series Details ==
+Also, WCL support single pipe scaler instead of two.
 
-Series: drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18
-URL   : https://patchwork.freedesktop.org/series/176901/
-State : success
+Bspec: 74286
 
-== Summary ==
+v2: Rebase onto latest upstream
 
-CI Bug Log - changes from CI_DRM_19398 -> Patchwork_176901v1
-====================================================
+Suggested-by: Charlton Lin <charlton.lin@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_device.c | 5 ++++-
+ drivers/gpu/drm/i915/display/intel_dp.c             | 4 ++--
+ drivers/gpu/drm/i915/display/skl_scaler.c           | 7 ++++++-
+ 3 files changed, 12 insertions(+), 4 deletions(-)
 
-Summary
--------
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
+index f17fc2c68472..c74256359c25 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.c
++++ b/drivers/gpu/drm/i915/display/intel_display_device.c
+@@ -1813,7 +1813,10 @@ static void __intel_display_device_info_runtime_init(struct intel_display *displ
+ 	if (intel_display_wa(display, INTEL_DISPLAY_WA_14011765242))
+ 		for_each_pipe(display, pipe)
+ 			display_runtime->num_scalers[pipe] = 0;
+-	else if (DISPLAY_VER(display) >= 11) {
++	else if (DISPLAY_VERx100(display) == 3002) {
++		for_each_pipe(display, pipe)
++			display_runtime->num_scalers[pipe] = 1;
++	} else if (DISPLAY_VER(display) >= 11) {
+ 		for_each_pipe(display, pipe)
+ 			display_runtime->num_scalers[pipe] = 2;
+ 	} else if (DISPLAY_VER(display) >= 9) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 00e02e019d25..ef164a797618 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -485,9 +485,9 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
+ 			return false;
+ 	}
+ 
+-	return DISPLAY_VER(display) >= 12 ||
++	return ((DISPLAY_VER(display) >= 12 && DISPLAY_VERx100(display) != 3002) ||
+ 		(DISPLAY_VER(display) == 11 &&
+-		 encoder->port != PORT_A);
++		 encoder->port != PORT_A));
+ }
+ 
+ static int dg2_max_source_rate(struct intel_dp *intel_dp)
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
+index 7994b983d509..3c1037ddf47d 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.c
++++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+@@ -377,12 +377,17 @@ calculate_max_scale(struct intel_crtc *crtc,
+ 		 * scaler supports a vertical scaling factor
+ 		 * of more than 1.0, while a horizontal
+ 		 * scaling factor of 3.0 is supported.
++		 * On versions > 30, no downscaling
++		 * on second scaler
+ 		 */
+ 		*max_hscale = 0x30000 - 1;
+ 
+ 		if (scaler_id == 0)
+ 			*max_vscale = 0x30000 - 1;
+-		else
++		else if (DISPLAY_VER(display) >= 30) {
++			*max_hscale = 0x10000;
++			*max_vscale = 0x10000;
++		} else
+ 			*max_vscale = 0x10000;
+ 	} else if (DISPLAY_VER(display) >= 10 || !is_yuv_semiplanar) {
+ 		*max_hscale = 0x30000 - 1;
+-- 
+2.45.2
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19398 -> Patchwork_176901v1
-
-  CI-20190529: 20190529
-  CI_DRM_19398: d645db52a6b60d0f0d921077f0233085b41b3a1e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9166: 9166
-  Patchwork_176901v1: d645db52a6b60d0f0d921077f0233085b41b3a1e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html
-
---===============1773994222569599954==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176901/">https://patchwork.freedesktop.org/series/176901/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19398 -&gt; Patchwork_176901v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19398 -&gt; Patchwork_176901v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19398: d645db52a6b60d0f0d921077f0233085b41b3a1e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9166: 9166<br />
-  Patchwork_176901v1: d645db52a6b60d0f0d921077f0233085b41b3a1e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1773994222569599954==--
