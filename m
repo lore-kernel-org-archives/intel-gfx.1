@@ -2,63 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840F9606A31E
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 15:14:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBB3606A31B
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 15:34:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=diKe9+1f
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ErUJsxrS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0AD10E42B;
-	Tue, 27 Oct 2026 15:14:08 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF2EA10E42B;
- Tue, 27 Oct 2026 15:14:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E323C10F67B;
+	Tue, 27 Oct 2026 15:34:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E938510E43B;
+ Tue, 27 Oct 2026 15:33:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793114042; x=1824650042;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ieShEb+J4XGYdbClo0lXwq5vJL94he1pNX64j7exwmU=;
- b=diKe9+1fnTT9KjtxyUbsSsK4/ThLUrs2WgPJNcZlr5/XdUzjW2kpeXYi
- WYlw7JQ/KV24ooIqGO0IBw/AEwi3VgzusHkmHNMrQvEm7Tm9OVEUyv5t4
- TD7VLI/qkew66C+PxJPTzhCJ8dmdGlzPNdPdPSVte0hSHDOv7qlPkQhJ7
- sNwvdQcdmPDYvuPgyP1E+Sf+AodcyB3Gm5CJJkv4+uJnsTi259C7LUUEP
- cK9RZcelE45Q5KtMr7RrMhmgzXVyy4zZhgJBjCQyUFRdGsIQXqh8qLwzT
- N/huPaxWyONF9hxkhj+LNk2AEAsGX7X/IfQz3m/serp+LmfID+Tvqv0xn w==;
-X-CSE-ConnectionGUID: J5TiinoMTYCxvNxbPHxKZw==
-X-CSE-MsgGUID: Z1Y+hUZxSDGRnIH7xmMVOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1705866"
+ t=1793115237; x=1824651237;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=LbqxRN6z9nOk9o6pUwV9DRw24hqSBOdMEOaSuQUUDAo=;
+ b=ErUJsxrSV6cpt7w/yUgiZu62ogolEATLJIY+B0DswesitTutjLDB8rpl
+ vaMXc8hQmNNf1GErN26CfGfO9tcH5IuBc8m4zyxT6jYPn1txdT0O6odQ9
+ Ec7015j7vtFg4kG7UOfYI6LT9ErK5lzeEFsVom1ntcCFEK0imKjk2cFLR
+ cyglg14fSXvbWXYqT/kycf/Zt1a9fyY6+6V2nRLiYNEkIcQSkp8BfqHhh
+ XAahBhb2ykvz6k4mN0Kx432+Nmtq3Qe2043ETZevjDmI6nJa++iINfNo9
+ S5yabNbA9DLsNkEqX3M0wdDQZKbqlJkUEcgOAibzZNePWpBsREA9Y3bhL Q==;
+X-CSE-ConnectionGUID: i/y8To1KSay53RUQUtTUfg==
+X-CSE-MsgGUID: 73iz+32XTeOgZHQkMAIoMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1693073"
 X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1705866"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2026 08:14:02 -0700
-X-CSE-ConnectionGUID: WktzqyouTdeUnG8baj6O/Q==
-X-CSE-MsgGUID: N6eorhIUQQGxzBPR9tN3Gw==
+   d="scan'208";a="1693073"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2026 08:33:57 -0700
+X-CSE-ConnectionGUID: sloGfLXQQg+gjbnvpeOoZA==
+X-CSE-MsgGUID: pNg+vCLHTpykGhXZm1eSjQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="6443080"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.33])
+   d="scan'208";a="4963204"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.247])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2026 08:13:59 -0700
-Date: Tue, 27 Oct 2026 17:13:56 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Vinod Govindapillai <vinod.govindapillai@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- ville.syrjala@intel.com, juha-pekka.heikkila@intel.com
-Subject: Re: [PATCH v3 2/3] drm/i915/fbc: Apply Wa_14028723391
-Message-ID: <auC_tAQTwUlC67Wv@intel.com>
-References: <20261027150544.81548-1-vinod.govindapillai@intel.com>
- <20261027150544.81548-2-vinod.govindapillai@intel.com>
+ 27 Oct 2026 08:33:55 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Animesh Manna <animesh.manna@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: jouni.hogander@intel.com, suraj.kandpal@intel.com, Animesh Manna
+ <animesh.manna@intel.com>
+Subject: Re: [PATCH v7 01/20] drm/i915/alpm: Program zero-based LFPS half
+ cycle duration
+In-Reply-To: <20261026054001.799894-2-animesh.manna@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261026054001.799894-1-animesh.manna@intel.com>
+ <20261026054001.799894-2-animesh.manna@intel.com>
+Date: Tue, 27 Oct 2026 17:33:51 +0200
+Message-ID: <899b4a9b4406fe7bf1287ea8e6adba7ef60d31af@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261027150544.81548-2-vinod.govindapillai@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,100 +71,98 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 05:05:43PM +0200, Vinod Govindapillai wrote:
-> Disable FBC in XE3P_LPD for FP16 formats with Alpha.
-> 
-> v2: Group the wa conditions as a separate function
->     Wa condition to check pixel blend mode
-> 
-> v3: use fomrat_is_float()
-> 
-> Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+On Mon, 26 Oct 2026, Animesh Manna <animesh.manna@intel.com> wrote:
+> The LFPS Half Cycle Duration field, as well as the First and Last LFPS
+> Half Cycle Duration fields, in PORT_ALPM_LFPS_CTL are zero-based: per
+> Bspec the value programmed must be N_Symbol - 1. The number of symbols
+> was programmed directly, making each half cycle one symbol clock too
+> long.
+>
+> Subtract one in the PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION,
+> PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION and
+> PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION field macros so the
+> programmed value matches the zero-based field encoding.
+>
+> Since the fields now encode 1 to 32 symbols, update the bounds check
+> in _lnl_compute_aux_less_alpm_params() to accept a half cycle of 32
+> symbols and reject 0, which cannot be encoded.
+>
+> v2: Adjust half cycle bounds check for zero-based encoding. [sashiko]
+>
+> Bspec: 71632
+> Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+> Reviewed-by: Jouni H=C3=B6gander <jouni.hogander@intel.com>
 > ---
->  .../gpu/drm/i915/display/intel_display_wa.c   |  2 ++
->  .../gpu/drm/i915/display/intel_display_wa.h   |  1 +
->  drivers/gpu/drm/i915/display/intel_fbc.c      | 22 +++++++++++++++++++
->  3 files changed, 25 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
-> index cc0b28d524f6..3df25104fb12 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_wa.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
-> @@ -159,6 +159,8 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
->  		return IS_DISPLAY_VERx100(display, 1100, 1400);
->  	case INTEL_DISPLAY_WA_22021048059:
->  		return IS_DISPLAY_VER(display, 14, 35);
-> +	case INTEL_DISPLAY_WA_14028723391:
-> +		return DISPLAY_VER(display) == 35;
->  	default:
->  		drm_WARN(display->drm, 1, "Missing Wa: %s\n", name);
->  		break;
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
-> index 2086c7da710d..5514771f513b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_wa.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
-> @@ -56,6 +56,7 @@ enum intel_display_wa {
->  	INTEL_DISPLAY_WA_22012358565,
->  	INTEL_DISPLAY_WA_22014263786,
->  	INTEL_DISPLAY_WA_22021048059,
-> +	INTEL_DISPLAY_WA_14028723391,
->  };
->  
->  bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa, const char *name);
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-> index b84fa350c433..f70f3e34d655 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-> @@ -1215,6 +1215,23 @@ static bool xe3p_lpd_fbc_pixel_format_is_valid(const struct intel_plane_state *p
->  	}
->  }
->  
-> +static bool
-> +intel_fbc_wa_14028723391_applies(const struct intel_plane_state *plane_state)
-> +{
-> +	struct intel_display *display = to_intel_display(plane_state);
-> +	const struct drm_framebuffer *fb = plane_state->hw.fb;
-> +
-> +	/*
-> +	 * Wa_14028723391:
-> +	 * Fixes: Screen corruption with FBC enabled on a plane with the FP16
-> +	 * Workaround: Disable FBC for FP16+Alpha in xe3p_lpd
-> +	 */
-> +	return intel_display_wa(display, INTEL_DISPLAY_WA_14028723391) &&
-> +	       format_is_float(plane_state) &&
-> +	       fb->format->has_alpha &&
-> +	       plane_state->hw.pixel_blend_mode != DRM_MODE_BLEND_PIXEL_NONE;
+>  drivers/gpu/drm/i915/display/intel_alpm.c     |  3 ++-
+>  drivers/gpu/drm/i915/display/intel_psr_regs.h | 12 +++++++++---
+>  2 files changed, 11 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
+i915/display/intel_alpm.c
+> index f54b29e193ee..8542bd9c9666 100644
+> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
+> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+> @@ -134,7 +134,8 @@ _lnl_compute_aux_less_alpm_params(struct intel_dp *in=
+tel_dp,
+>=20=20
+>  	if (aux_less_wake_lines > ALPM_CTL_AUX_LESS_WAKE_TIME_MASK ||
+>  	    silence_period > PORT_ALPM_CTL_SILENCE_PERIOD_MASK ||
+> -	    lfps_half_cycle > PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_=
+MASK)
+> +	    lfps_half_cycle < 1 ||
+> +	    lfps_half_cycle > PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_=
+MASK + 1)
+>  		return false;
+>=20=20
+>  	if (display->params.psr_safest_params)
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/=
+drm/i915/display/intel_psr_regs.h
+> index a57bc111290d..78a05387eab5 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
+> +++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+> @@ -335,11 +335,17 @@
+>  #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK		REG_GENMASK(27, 24)
+>  #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN		7
+>  #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(val)		REG_FIELD_PREP(PORT_A=
+LPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK, (val) - PORT_ALPM_LFPS_CTL_LFPS_CYCLE_C=
+OUNT_MIN)
+> +/*
+> + * The LFPS half cycle duration fields (including the first and last half
+> + * cycle) are zero-based, i.e. the value programmed is N_Symbol - 1.
+> + *
+> + * Bspec: 71632
+> + */
 
-Seems overly complicated. Could just drop the alpha formats from
-the list and be done with it.
+Please let's not normalize adding bspec references to code comments.
 
-> +}
-> +
->  bool intel_fbc_need_pixel_normalizer(const struct intel_plane_state *plane_state)
->  {
->  	struct intel_display *display = to_intel_display(plane_state);
-> @@ -1679,6 +1696,11 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
->  		return 0;
->  	}
->  
-> +	if (intel_fbc_wa_14028723391_applies(plane_state)) {
-> +		plane_state->no_fbc_reason = "Wa_14028723391";
-> +		return 0;
-> +	}
-> +
->  	if (!tiling_is_valid(plane_state)) {
->  		plane_state->no_fbc_reason = "tiling not supported";
->  		return 0;
-> -- 
-> 2.43.0
+>  #define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(20=
+, 16)
+> -#define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP=
+(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, val)
+> +#define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP=
+(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, (val) - 1)
+>  #define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENM=
+ASK(12, 8)
+> -#define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIEL=
+D_PREP(PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION_MASK, val)
+> +#define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIEL=
+D_PREP(PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION_MASK, (val) - 1)
+>  #define  PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMA=
+SK(4, 0)
+> -#define  PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD=
+_PREP(PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_MASK, val)
+> +#define  PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD=
+_PREP(PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION_MASK, (val) - 1)
+>=20=20
+>  #endif /* __INTEL_PSR_REGS_H__ */
 
--- 
-Ville Syrjälä
-Intel
+--=20
+Jani Nikula, Intel
