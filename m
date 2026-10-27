@@ -2,52 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269C6606A31A
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 04:39:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46119606A31A
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 04:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DlDu6ubw
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D4KPdyek
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB0E310E1B4;
-	Tue, 27 Oct 2026 04:38:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D66CD10E1B4;
- Tue, 27 Oct 2026 04:38:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF3210E0C0;
+	Tue, 27 Oct 2026 04:43:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 329CC10E0C0;
+ Tue, 27 Oct 2026 04:43:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793075933; x=1824611933;
+ t=1793076210; x=1824612210;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0eKY7ef5t5p6uzEYZt6fIYR+9rOzfSXzphA0VBrucho=;
- b=DlDu6ubwaLLR43SN4Xt4YhLqY8mJrf9zcqVU/odhVF2GbIIDpQDd6TVY
- npxY/r3eVg9DniqUbPTbiYC8PdHh+M+5M51f+u/tFx1YChzkCRVjwDcWO
- jP+sTbJDFDYHNoNGMB4jjFkiZLnnOuDZE7M1TBiKqpsalbUFHxh0+nbGj
- qazgWgPcewJr88qGpF1fuqMpU8S6rDMOmLTuM5A0m3hwDubXK0by7XFsj
- BrHAgo8O9eL6iaCbzn6+dMbCPUsxLt5uDzJfGhDEE7WFAPY/6omiEwVo7
- bun9bc8togW/jiPkC/Ez4qK1CCEMypnZkIxF/BHlUpFWzHVK7F/ZUOXU8 A==;
-X-CSE-ConnectionGUID: rbBCx/B4Tcet33d3vvCfaA==
-X-CSE-MsgGUID: x2LGMo4MRdW5eE/TziDSDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1676394"
+ bh=fk2ccdZD6YbHgncxuBLaENQKnapeax29i8EEchpT4yM=;
+ b=D4KPdyekZ8xnSd0i9RtTr29VvHyLjegnyG8Mh2gw9Jw17VARUHlbImqh
+ 3t9cfljS6UwqKo9NzeNJFFTcvJ/ouhnbX93TgI6JxecBPBveuMAiwwepk
+ XFUiAxoaH8oibgf+QaJXCY+a/P0nMTmxbRtLAs3wZ7lhmJtxOJntsapl9
+ VVpQeOFf/1K0rOBUk2dwdSaorGhniEZr0U/Bqd+c3LN2b2HvddMK5DXKT
+ bVfRww/J9L+kNmw3+KBVupju3uh0n9aMu0s8kwnRAQCWA4H/HY0x6bck3
+ FuFZuCF8ONxqUAgms2I8h+Tha4CwNsMvCD4hU1LeeicqAPTKJ9erL+sJ5 A==;
+X-CSE-ConnectionGUID: 4j6vO2EdSGmkKjUNAkw+Cg==
+X-CSE-MsgGUID: GUY9/C3MSMuvdP0PV8qr/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1775291"
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1676394"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2026 21:38:53 -0700
-X-CSE-ConnectionGUID: H64OD67ETzCSI5ZaFRj61A==
-X-CSE-MsgGUID: 9AgTeVGmRpW6KkFsjnIqEQ==
+   d="scan'208";a="1775291"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2026 21:43:30 -0700
+X-CSE-ConnectionGUID: OSneqP3FSNe5RHVO+hpyUg==
+X-CSE-MsgGUID: Ff2ircUzSTKKpZEJP8duxA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4402355"
+   d="scan'208";a="4531948"
 Received: from vsrini4-xps-8920.iind.intel.com ([10.223.167.75])
- by orviesa003.jf.intel.com with ESMTP; 26 Oct 2026 21:38:51 -0700
+ by orviesa006.jf.intel.com with ESMTP; 26 Oct 2026 21:43:29 -0700
 From: Vidya Srinivas <vidya.srinivas@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
  Vidya Srinivas <vidya.srinivas@intel.com>,
  Charlton Lin <charlton.lin@intel.com>
-Subject: [PATCH v2] drm/i915/display: Limit scaler count and disable pipe
+Subject: [PATCH v3] drm/i915/display: Limit scaler count and disable pipe
  joiner on WCL
-Date: Tue, 27 Oct 2026 09:58:56 +0530
-Message-ID: <20261027042856.1906320-1-vidya.srinivas@intel.com>
+Date: Tue, 27 Oct 2026 10:03:35 +0530
+Message-ID: <20261027043335.1906466-1-vidya.srinivas@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20261007072334.1801956-1-vidya.srinivas@intel.com>
 References: <20261007072334.1801956-1-vidya.srinivas@intel.com>
@@ -88,8 +88,7 @@ Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
 ---
  drivers/gpu/drm/i915/display/intel_display_device.c | 5 ++++-
  drivers/gpu/drm/i915/display/intel_dp.c             | 4 ++--
- drivers/gpu/drm/i915/display/skl_scaler.c           | 7 ++++++-
- 3 files changed, 12 insertions(+), 4 deletions(-)
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
 index f17fc2c68472..c74256359c25 100644
@@ -123,29 +122,6 @@ index 00e02e019d25..ef164a797618 100644
  }
  
  static int dg2_max_source_rate(struct intel_dp *intel_dp)
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 7994b983d509..3c1037ddf47d 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -377,12 +377,17 @@ calculate_max_scale(struct intel_crtc *crtc,
- 		 * scaler supports a vertical scaling factor
- 		 * of more than 1.0, while a horizontal
- 		 * scaling factor of 3.0 is supported.
-+		 * On versions > 30, no downscaling
-+		 * on second scaler
- 		 */
- 		*max_hscale = 0x30000 - 1;
- 
- 		if (scaler_id == 0)
- 			*max_vscale = 0x30000 - 1;
--		else
-+		else if (DISPLAY_VER(display) >= 30) {
-+			*max_hscale = 0x10000;
-+			*max_vscale = 0x10000;
-+		} else
- 			*max_vscale = 0x10000;
- 	} else if (DISPLAY_VER(display) >= 10 || !is_yuv_semiplanar) {
- 		*max_hscale = 0x30000 - 1;
 -- 
 2.45.2
 
