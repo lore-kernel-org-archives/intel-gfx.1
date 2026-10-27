@@ -2,57 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DAF606A328
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 02:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A/jDJZcS
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59398606A31A
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 03:43:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0892510E164;
-	Tue, 27 Oct 2026 02:59:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E83B10E0F2;
- Tue, 27 Oct 2026 02:59:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793069977; x=1824605977;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Wc/sJiss4XXnfSr8lhZWbdzeiQIHLn0r4nsyG5FYmPU=;
- b=A/jDJZcSqPTvbaJZvvUM5XCQ/9MZb/gE8aTVQjM9HxtzKy2qh+TBXvHK
- lK4ox0ea47eb3GoYT9qeaaHzAqDYXP79gEyPmPhN1V4cFzRNIvTWwZX0S
- J6RxICJooVPpcJATp7ouRj3oEyHfCLtaJ5d9CYpiLqh4gGVgtdrFEvSUq
- 8kUW50Te5/7e6eUB2d1VQthaFC8Cs40gAaf9LHZuRoK9AdNtabDrRVCLh
- SB1sDVYgw++mFd9D7jtRe5rqbxH7zgqXxl+kPMOK92l9NK4SYGX0ezDQ5
- G58fDdDhbkQMyImwQhH0htjpCea8CbPJl5Bf0Jidu46ITvUJbMKOReWH1 g==;
-X-CSE-ConnectionGUID: A5bOAtGbSTKNE/Gyca4PtA==
-X-CSE-MsgGUID: 3LK1xbY3QH2YJVVPwEwitg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1761312"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1761312"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2026 19:59:35 -0700
-X-CSE-ConnectionGUID: ANN6JCqKRVahYn8RXDaO/A==
-X-CSE-MsgGUID: 3HlD0sPcT8eoRuQHWmeUng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4823163"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2026 19:59:33 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, suraj.kandpal@intel.com,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix
- SCAR 18
-Date: Tue, 27 Oct 2026 08:13:34 +0530
-Message-ID: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25B810E0F2;
+	Tue, 27 Oct 2026 03:43:25 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7732310E0F2;
+ Tue, 27 Oct 2026 03:43:24 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1773994222569599954=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Add_quirk_?=
+ =?utf-8?q?to_allow_eDP_joiner_on_ASUS_ROG_Strix_SCAR_18?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 27 Oct 2026 03:43:24 -0000
+Message-ID: <179307260448.74044.13544808376152787691@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,99 +34,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Arrow Lake, VBT defaults the eDP pipe joiner enable bit to
-disabled, and commit 650471948e49 ("drm/i915/dp: Avoid joiner for
-eDP if not enabled in VBT") made the driver honor that default.
+--===============1773994222569599954==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On the ASUS ROG Strix SCAR 18 (G835LXG), the bit in VBT is left to
-the platform default instead of enabling it, even though the
-3840x2400@240Hz panel requires the joiner to reach its native
-mode. As a result the mode is pruned and the panel is limited to
-120Hz.
+== Series Details ==
 
-Since the VBT bit cannot be relied upon globally for ARL (it is
-needed to block the joiner on at least one other machine), add a
-machine-specific quirk, to bypass the VBT restriction and allow the
-joiner on this machine.
+Series: drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18
+URL   : https://patchwork.freedesktop.org/series/176901/
+State : success
 
-Fixes: 650471948e49 ("drm/i915/dp: Avoid joiner for eDP if not enabled in VBT")
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v7.1+
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16854
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c     |  3 ++-
- drivers/gpu/drm/i915/display/intel_quirks.c | 13 +++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 16 insertions(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 00e02e019d25..7b83cc83eede 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -476,7 +476,8 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
- 		return false;
- 
- 	if (intel_dp_is_edp(intel_dp)) {
--		bool pipe_joiner_enable = connector->panel.vbt.edp.pipe_joiner_enable;
-+		bool pipe_joiner_enable = connector->panel.vbt.edp.pipe_joiner_enable ||
-+					  intel_has_quirk(display, QUIRK_ALLOW_EDP_JOINER);
- 
- 		if (connector->force_joined_pipes > 1)
- 			pipe_joiner_enable = true;
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 7d7db774d8c7..ba7bce7f2827 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,16 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+/*
-+ * VBT on some machines defaults the eDP pipe joiner to disabled even though
-+ * the panel requires it to achieve its native mode, so allow it regardless.
-+ */
-+static void quirk_allow_edp_joiner(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_ALLOW_EDP_JOINER);
-+	drm_info(display->drm, "Applying allow eDP joiner quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -262,6 +272,9 @@ static struct intel_quirk intel_quirks[] = {
- 
- 	/* Xiaomi Book Pro 14 2026 */
- 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
-+
-+	/* ASUS ROG Strix SCAR 18 G835LXG */
-+	{ 0x7d67, 0x1043, 0x3b29, quirk_allow_edp_joiner },
- };
- 
- static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52faf..84f31809011c 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_ALLOW_EDP_JOINER,
- };
- 
- void intel_init_quirks(struct intel_display *display);
--- 
-2.50.1
+CI Bug Log - changes from CI_DRM_19398 -> Patchwork_176901v1
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19398 -> Patchwork_176901v1
+
+  CI-20190529: 20190529
+  CI_DRM_19398: d645db52a6b60d0f0d921077f0233085b41b3a1e @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9166: 9166
+  Patchwork_176901v1: d645db52a6b60d0f0d921077f0233085b41b3a1e @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html
+
+--===============1773994222569599954==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176901/">https://patchwork.freedesktop.org/series/176901/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19398 -&gt; Patchwork_176901v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19398 -&gt; Patchwork_176901v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19398: d645db52a6b60d0f0d921077f0233085b41b3a1e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9166: 9166<br />
+  Patchwork_176901v1: d645db52a6b60d0f0d921077f0233085b41b3a1e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1773994222569599954==--
