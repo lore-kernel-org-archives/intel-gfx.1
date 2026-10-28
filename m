@@ -2,92 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FEC606A31A
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 09:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51C5606A31F
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 09:49:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TwLlIdaq
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Maw9n+Tc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A881510FAED;
-	Wed, 28 Oct 2026 09:49:01 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBDBC10E59D
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 09:48:54 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-c450ab1483cso108225266b.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 02:48:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793180933; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53D8010FAD7;
+	Wed, 28 Oct 2026 09:49:49 +0000 (UTC)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB3AF10FAD7
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 09:49:42 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-6afa651700eso1206420a12.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 02:49:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793180981; cv=none;
  d=google.com; s=arc-20260327;
- b=DskJrvGUv2LUWDtySWemYyu5WvsxU5/Hhv+X98+vz4Ag6RJXJ/QRa/WM41Gx/cdGff
- DKRxb22FNL/YpA2V8CkL8U34LxR8T+HIO3bm8fXJD+yTAmf0+oPqrst1dL0McP4vG2qn
- znq6fBPK0pd0sREJi8aOe/r82Nn7aQR2skNSoFT+d4+S7wRt30Y1FDnmdHUyuNBje2d7
- CCU2MvngxIXpLuW8+2A+cKxJ4E9roYeMNTgTmIfupPtgojdH53Z8SWk2nHtbTYcomS/5
- 5ld6+1POFKmPLTIi5bXHmoQYVZVAzq74fIx7kUg82ftwvaOYA6nGDZFWJKAywM7ORuaO
- ErDA==
+ b=nTKA+cI3+HjxWyzvYiMSWIXZ0ktgsP683fj9SnO28JiEr2ZwoAwfNcEowINAGXGD/u
+ +EOu7+mH5BZr5yEBYa70AHljVgz9w40uXKNVxeM01j5yDkUQNbbZahV06KpROEDX7HR1
+ rbIJDqgElXd4CwCioC9hsSyuiZBVCwYMxp0R0/g9VhyEw9KR+eAInbecnbpAYWWu+dQT
+ JMRPK6aIXo47QqptFBRjdhj8eYcaTnLJ1PI1CDPq1OYRZnkheDXN+Yw6ZiJKecLnTbXU
+ gDOq3H6swFS6Y+Ab2QEcf1jH0affRLGW+J09GWxjGns3eiNV3hl8VzZyc7mCAAgMfVGg
+ 70qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=dcY0Gi4dcvyxZkHDA78yGLoz9GDb1HPFjbtFx6GpqEs=;
- fh=0oSnXJLVrKQzXAcpsrO4SAMnXom2hGvY4GlxiQpdy8w=;
- b=Z/mXv8AI+dMbWA2Dc7pD5WsrwvnoV6azdlLP42a9lIvQFLZepw7PpmE+F9hrDy6BR1
- 8IcuVCK4b8YyDOJpKc4CVaEJIjNd4EMp+1U87C23/ofNPKwhSniFW5XVcdDLRbpQDaJn
- Rld3UaR/0kDQcA/3jjGWkdqh5UYndISgWTv+/ocMNW2h1SP5NMldha8MJUm+91qNzgok
- rfhUXEu0j+k1J7LchZxcDkVwM+xDMId96pOPePrQu9ImOT2eQ8kdzjldZn7pyzzBXUmr
- EZaUu1a2j2hGSwVgu5a60u22RlOn2KTAuqV0fdoXVuqLPi8q6tpc+vays873/aiHYOmN
- +4+w==; darn=lists.freedesktop.org
+ bh=OncitmhmKPxQRhu8FlY/GIP5U4Gt08ht3PeyL8T2LDg=;
+ fh=Y74sgKQN952X/lLpY0n3aeOKgusc6J8LJtR91KTU8Iw=;
+ b=V/90rsaT0oIKol/I/IBjtmdP/bNf4EvJSv3c3hj4fMoWC0WFRa18nBpO5x82borXFJ
+ GKvqThz8HWCgVFst5uwCQjtTkuNclIRqD1Pag+2B3AUYHiXSq7hKsyiM50dSVuMSVOL6
+ UNXbfsFlaVUfz1DgLg+i1wyJCWWWZiUVM2/C/DwTn06k4kFEU0i1jOYOZdRoYPoFyN04
+ 8XGUMpqKEJfeKI+lRUHqJOzvxj/A/F3C5mKnkXizc40VquRkp3xSD4Y26WRvJh3K9i/7
+ rwJBdZyRJ1/Jln8qTwj8OzG9qKLENHonxNldHvrEqdMDR96YVLNAQwFtcNHVyjXnfPaA
+ NQkw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793180933; x=1793785733; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793180981; x=1793785781; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=dcY0Gi4dcvyxZkHDA78yGLoz9GDb1HPFjbtFx6GpqEs=;
- b=TwLlIdaqR2De+/frgxJauvxcud7Nw7bMfWzjPWwN7zpYItK6byIN3C6v0N7kkY/3Ox
- iQSKLaSbUhxy5UvLmw2lwMJBCSE+708ktUpJAg1+ctefJtujtLKnvUGYNdGhxoZxO62B
- irFNhk9yVBjq8rdqUOSiDIkOH6L+ZCX9phI0H4Xoa0ifr1jUwZ+QaCYqTGZ9V4v/8BNy
- MEo3BKm21keztiOilWg6UlQELwMIk21KD5xqPWqIAxe1sROoXE4I937Yze2aysVrAxqJ
- MtifkNbQFSIX/cH03pYvqhZrrl/5VN5C+quumaDa+lPeyP+Xk+dO3Sizf26reCc1QIsp
- O8mg==
+ bh=OncitmhmKPxQRhu8FlY/GIP5U4Gt08ht3PeyL8T2LDg=;
+ b=Maw9n+TcH4EeZ+50zm4sza3sDbL9oGQlrvaSKk/UYKKaYdF+sdqqOo5Ba+SSTfh5+H
+ yNsGSwQbLT9ze28aZp+DHmxrgvpcl5/6jG2/Kon28EiHgK+KK5YJV1FjRWgxlNdw4THc
+ jXn2kh5Wqt2i4LmUXSsV/qV9F2GWFE8ivCeZZrkVK+8VOfPOSc+ZsYbDAVb5hPSgXzWk
+ tTlGejzVX/A8SGO57xOR3nX7nUB1R+2Kt1568PjhjJ2VBa8uaunZs7M+7VwiMZuQz2mN
+ akLfn29QZjysCK3NHRdE/mDKq4dlH53hquuZKQO2Dq8h29NWodRciIfT70BylAdMqX3P
+ buIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793180933; x=1793785733;
+ d=1e100.net; s=20260707; t=1793180981; x=1793785781;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dcY0Gi4dcvyxZkHDA78yGLoz9GDb1HPFjbtFx6GpqEs=;
- b=rizmowR21kagguU2f4TFuTlHtpVRbwcHD8qkZ/8amFhvPCASTE8K6+/SRkSVVsgc+a
- VnMta7qJ7uVQPtxwbwpfXOwk8LD9Qb2QKuWXSI+BUenHTVLZHK7ZSbnXlZtoTWwbKof7
- vVKV7UOab+jjs8cE+WIMyj9SXmSUT0wjJ80/jm8fRti7BKwChYEfzUNZXg2JRDM2xYP5
- RNKi4KTbruoRseK5hNJH2NuW11gnlQSDZOUAN0IN9N+JcPfh+9u3C/vckTV95v4mFiRz
- cGd1+oOUm3kdjJ9C/v4JA9PPDFs8kS/qOkL9Ewvp2+WcFN0KqYz0MuxVE2OHhGzUnDXa
- 7JIQ==
+ bh=OncitmhmKPxQRhu8FlY/GIP5U4Gt08ht3PeyL8T2LDg=;
+ b=ktZjh1mUtnfelM6phJXeGa8f04hVxOJKFVhGvs+vMe2/VZD0kbsYZ4DuilUE/n8WzE
+ nBL8h6vGIZ/DghjMeJquv49OI5bvfC1UijlwSh2vkTjPBbuLZEoJrw74Za8PypD4KFCK
+ NtJYfG7seio4HvJfyKcC23dArt++pUmkWytyzWwueQsVc3DHre6L+0J2NgUAFc39eV6H
+ l5JH70iiFD1+HrZ/tcZgEN4AbxuM28w1RHkzv0CiBF2XxLz+U70aYKirXk18NAfuSzRT
+ 2efY3HXVj0TdR1hfUCMmRSXw13DUKHAcswH2iNv4mHWW3WNBHOTUkU/3b2qz8aEdLoMU
+ CgGQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxMnztibG1R1/LYK7Ekg5fhxQYP+g3C+xPlZwI+mR1jjhLqCpln3Kynm/cJJNgxCQ5HtFB+VNPLMVY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJIej1zK3EqsXPxtivi+sYSnFSohqnRqQj80eF5+VWsEOsjRfkj
- Ci6FNzrfun5U87DnumR902UEwLJuk9S5JhLNXDHHJ5LU57c0upAIJWkk2/CgMI+yeEZWVpn15MF
- yFrI9mbohk8QjggOB7MFoXYYvtYkmjW8=
-X-Gm-Gg: AYBFou2D1Xk9fLYbc0doceEHP8FPfFuddvPfFY51alDa8CtSoEwFnxmKab2V+WuZARA
- mjePn8zOKsMkB3fH+oJAXMZRPy2Um3a5qZDy0ogpc4DkvlXTu/jAQ2XfF7uEOY0a6BZ5i50A3Au
- aZSexYFwfCMowXllbxk45LORwhMC5divwDn6zulOm2Yb7nojtvrbTOU4QELVIzwvNr32+ozEWXd
- EakJ3YU+W8y4eBBA9c+JeHzTjdkXrSkspCOZYCdErW91QDoWTgixQtfH9qONFmWQFsBfMnG/UG4
- PYy3fWPW6EvsbkFcTiu7jt5Wwuc+Ur1d9R8xNvzPlUQYklrme2fWHHhL1YkACC8X/wSCz+XF5y2
- 4Amr3xowJnOnvB27Y9IjzQ5A9tuDLl3g+c4dwx7HAn/mzHSGOtWJvbUjfXQjsbYjWfG8U2Aw6Q9
- fuc+xsWtIz+3IH2B31rJ7kkSq1FZ//2+eOqkUGMAozR9HD+3BWEgMMKxRdMudTA8mvrXDWp2PgR
- Wpcg/kCMJMpreh3v4opadkMDA==
-X-Received: by 2002:a17:907:a893:b0:c46:8b51:c17c with SMTP id
- a640c23a62f3a-c49bdf394e6mr156034066b.17.1793180933042; Wed, 28 Oct 2026
- 02:48:53 -0700 (PDT)
+ AKwUvBzGQYfr2rhBk8baNaO1w6X7JfVX08jsTjl9MtNE/iT3jIw7X50fYsRRRgG0Jm5iwrDBBiJXeE64V3w=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI7gXpjCjpcZAHXDw0266jZ0jsjxeGO+xGH7TNnikTxtBP4cfuJ
+ 8o8KVnCygabcBRUzaSV3B064JfTTcKFTCWroXReCqihsqOlbfwOAZszXXOiviBX3ZInheuGMFDd
+ KheKoCkhkFsTyLn1qDIWgi5j463J9ykk=
+X-Gm-Gg: AYBFou2rYxc0SOB/TqQW/AX38nlL60BKxq4VvuqubGTxPvSfGQhkbH9kMgHJ0Yad9mX
+ 6QxNleId9Ke17FcNoUcmBTjQTzd45AREN2wp/MQfmvM6+pp6EOYOS+cgmdsuYZEjF6VIjKi4Gb/
+ p7kwXBPKcFbg0n394xLW4hSdR34OSLqDRqTs1dnnB05b6ql0RzptrH3fDEeI1qENlJGB2QzCDKY
+ 8FepnfmJMKupFBmsES7XsjtF/mefgH8I+OBulvj8kxMnzP+3JJ7v7cCCF8qQM6cbLyyTVkixsLC
+ SM1KzjfWg71SCPiLplU7NcoNMvDO9hj/d2Ornntwy6+Fm/PYr+SVYVvuSIvWeHzB0/mrDaM/rZA
+ D1AC5bvij6iCf1yKw5EncLdaK8+jZZQLWuneYglGMg3NiClcCA7BpgZdtsCD8r3cI5dseeAQcSv
+ JpphOJPe7ncAFveT/ZXvdptPuPAO320xu3QdmLLFN7gzXopop7Y/GEBnUFOA6/z3pk7ejlqdz9Y
+ YRYH9XV19BW45ZAnygqc2Vywpg=
+X-Received: by 2002:a17:907:d48d:b0:c42:82ac:b6a9 with SMTP id
+ a640c23a62f3a-c49bdf7de97mr167322666b.29.1793180980909; Wed, 28 Oct 2026
+ 02:49:40 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <cover.1793027261.git.d@ilvokhin.com>
- <f0d7b2f0dce916f4cde3dd466a5b51a4b88fbdd8.1793027261.git.d@ilvokhin.com>
-In-Reply-To: <f0d7b2f0dce916f4cde3dd466a5b51a4b88fbdd8.1793027261.git.d@ilvokhin.com>
+ <ed2b0b67c306bb458ba389f16dc92904203a104b.1793027261.git.d@ilvokhin.com>
+In-Reply-To: <ed2b0b67c306bb458ba389f16dc92904203a104b.1793027261.git.d@ilvokhin.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 28 Oct 2026 11:48:16 +0200
-X-Gm-Features: AclHuK9bqVSr5ebQZT2ja4gGk1wmv0GUJ0T7y7aJfJNVsg1OI_1bv2lVUKDS3Hk
-Message-ID: <CAHp75VfJ-L5ELAttN+Fz_Co2E1KHumwLZAEMXFMhRubzgVLqug@mail.gmail.com>
-Subject: Re: [PATCH 02/10] string: Switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 11:49:04 +0200
+X-Gm-Features: AclHuK-kwXGKz5n7QFXQ4iO49tQbUX582-rj9xJLuSYR3NDY9XFvg2hsu7UGHjc
+Message-ID: <CAHp75Ve71BfcWr++PfQPiOc=OURNn1-cdJey=M1xBVCb0HhHQw@mail.gmail.com>
+Subject: Re: [PATCH 08/10] leds: pwm: Switch to __nonnull_args() macro
 To: Dmitry Ilvokhin <d@ilvokhin.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -140,10 +140,9 @@ rote:
 > nonnull") added the macro __nonnull_args() to wrap raw compiler
 > attribute.
 >
-> Replace __attribute__((nonnull)) with __nonnull_args() to
-> standardize nonnull attribute usage across the tree and keep the
-> attribute's quirks in one place rather than open-coded at every call
-> site.
+> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+> nonnull attribute usage across the tree and keep the attribute's quirks
+> in one place rather than open-coded at every call site.
 
 Reviewed-by: Andy Shevchenko <andy@kernel.org>
 
