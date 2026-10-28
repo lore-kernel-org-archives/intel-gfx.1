@@ -2,27 +2,27 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC84606A31A
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:08:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5DC606A31A
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:08:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=zSnSDJrh
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=fRqV9usC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7400610FC50;
-	Wed, 28 Oct 2026 13:08:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7194F10FC58;
+	Wed, 28 Oct 2026 13:08:30 +0000 (UTC)
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0126510FA45;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA9F110FA15;
  Wed, 28 Oct 2026 08:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
- s=mail; t=1793175638;
- bh=gVqyFTfbEx0Cy541rHtX1s3lHEBCWasBv5wrEWGFtiI=;
+ s=mail; t=1793175634;
+ bh=AdVY/3WZr/KgFPIGBWq+6cOVqwnT9WYPit6o2kFUWLI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=zSnSDJrh8lBPc+WJwkieuUvYZceHyW7Vo/Rgps/0sKKYfp+K8gQiq+VtATPCk1zcM
- 2R2y4VPojBg1miUzjCPiX1c/WXoMhA0i7UdNieYWkQzNjxxQaVUfA0XDy7P6CuqIG8
- 6OdZZd54748+SoGV6+XeC+xLbbD4RuBe2dmrjidY=
+ b=fRqV9usCJkdMBWrlhWbddwDwn+QiWrVuXXhlmM06WA8hyjUwJjBOQD3oUvn7U51hA
+ cz9ypprvSW6rwhpGQQm90dgUka6nWyEZzu4lfjwdDuK2/cx66TCGAU3CwyclW84k6b
+ EOioxvCx2Rj0sgA/zgEBxG2IHQAcr5/J9BnKuTEI=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
  (Authenticated sender: d@ilvokhin.com)
- by mail.ilvokhin.com (Postfix) with ESMTPSA id 232FBFBD1C;
- Wed, 28 Oct 2026 08:20:38 +0000 (UTC)
+ by mail.ilvokhin.com (Postfix) with ESMTPSA id 65391FBCED;
+ Wed, 28 Oct 2026 08:20:34 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -50,9 +50,9 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 10/10] checkpatch: suggest nonnull attribute conversion
-Date: Wed, 28 Oct 2026 08:19:49 +0000
-Message-ID: <bc2cd702455e58feb777cdb230e3ba4f7e1db60f.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 03/10] lib/list_sort: Switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:42 +0000
+Message-ID: <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
 References: <cover.1793027261.git.d@ilvokhin.com>
@@ -79,47 +79,72 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The kernel provides the __nonnull_args() macro as the preferred form for
-marking pointer arguments as non-NULL. Add a check suggesting the macro
-over the raw __attribute__((nonnull)) spelling, consistent with the
-existing attribute conversion suggestions.
+Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+nonnull") added the macro __nonnull_args() to wrap raw compiler
+attribute.
 
-Examples:
+Replace __attribute__((nonnull)) with __nonnull_args() to
+standardize nonnull attribute usage across the tree and keep the
+attribute's quirks in one place rather than open-coded at every call
+site.
 
-  WARNING: Prefer __nonnull_args(1, 2) over __attribute__((nonnull(1, 2)))
-  #11: FILE: drivers/soc/aspeed/aspeed-lpc-snoop.c:230:
-  +__attribute__((nonnull(1, 2)))
+Add spaces after the commas in the __nonnull_args() argument list to
+follow the usual coding style (according to checkpatch).
 
-  WARNING: Prefer __nonnull_args() over __attribute__((nonnull))
-  #11: FILE: drivers/soc/aspeed/aspeed-lpc-snoop.c:283:
-  +__attribute__((nonnull))
-
+Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 ---
- scripts/checkpatch.pl | 3 +++
- 1 file changed, 3 insertions(+)
+ include/linux/list_sort.h | 4 ++--
+ lib/list_sort.c           | 6 +++---
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index c9840f5219c2..e696fcd02337 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -6856,6 +6856,7 @@ sub process {
- 				"no_caller_saved_registers"	=> "__no_caller_saved_registers",
- 				"noclone"			=> "__noclone",
- 				"noinline"			=> "noinline",
-+				"nonnull"			=> "__nonnull_args",
- 				"nonstring"			=> "__nonstring",
- 				"noreturn"			=> "__noreturn",
- 				"packed"			=> "__packed",
-@@ -6876,6 +6877,8 @@ sub process {
- 					if ($curr_attr eq "format" && $params) {
- 						$params =~ /^\s*\(\s*(\w+)\s*,\s*(.*)/;
- 						$new = "__$1\($2";
-+					} elsif ($curr_attr eq "nonnull" && $params eq "") {
-+						$new = "$new()";
- 					} else {
- 						$new = "$new$params";
- 					}
+diff --git a/include/linux/list_sort.h b/include/linux/list_sort.h
+index 453105f74e05..48a91ef0d751 100644
+--- a/include/linux/list_sort.h
++++ b/include/linux/list_sort.h
+@@ -6,9 +6,9 @@
+ 
+ struct list_head;
+ 
+-typedef int __attribute__((nonnull(2,3))) (*list_cmp_func_t)(void *,
++typedef int __nonnull_args(2, 3) (*list_cmp_func_t)(void *,
+ 		const struct list_head *, const struct list_head *);
+ 
+-__attribute__((nonnull(2,3)))
++__nonnull_args(2, 3)
+ void list_sort(void *priv, struct list_head *head, list_cmp_func_t cmp);
+ #endif
+diff --git a/lib/list_sort.c b/lib/list_sort.c
+index ff99203f208f..da34c46cf5d8 100644
+--- a/lib/list_sort.c
++++ b/lib/list_sort.c
+@@ -9,7 +9,7 @@
+  * to chaining of merge() calls: null-terminated, no reserved or
+  * sentinel head node, "prev" links not maintained.
+  */
+-__attribute__((nonnull(2,3,4)))
++__nonnull_args(2, 3, 4)
+ static struct list_head *merge(void *priv, list_cmp_func_t cmp,
+ 				struct list_head *a, struct list_head *b)
+ {
+@@ -45,7 +45,7 @@ static struct list_head *merge(void *priv, list_cmp_func_t cmp,
+  * prev-link restoration pass, or maintaining the prev links
+  * throughout.
+  */
+-__attribute__((nonnull(2,3,4,5)))
++__nonnull_args(2, 3, 4, 5)
+ static void merge_final(void *priv, list_cmp_func_t cmp, struct list_head *head,
+ 			struct list_head *a, struct list_head *b)
+ {
+@@ -175,7 +175,7 @@ static void merge_final(void *priv, list_cmp_func_t cmp, struct list_head *head,
+  * of size 2^k varies from 2^(k-1) (cases 3 and 5 when x == 0) to
+  * 2^(k+1) - 1 (second merge of case 5 when x == 2^(k-1) - 1).
+  */
+-__attribute__((nonnull(2,3)))
++__nonnull_args(2, 3)
+ void list_sort(void *priv, struct list_head *head, list_cmp_func_t cmp)
+ {
+ 	struct list_head *list = head->next, *pending = NULL;
 -- 
 2.53.0-Meta
 
