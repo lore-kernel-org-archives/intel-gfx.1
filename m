@@ -2,57 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503C6606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 21:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L4vO78vv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EC6606A31A
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 22:17:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A4E10E401;
-	Wed, 28 Oct 2026 21:08:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C9D010E401;
- Wed, 28 Oct 2026 21:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793221711; x=1824757711;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=JSqLMD0yJ9BsT8A5GHlX4cdSlzeO148Z4xyTPyvPHbg=;
- b=L4vO78vvgc9NhfJSIIXgVnX4kHCG8kRDGyAUosO9cUWAonztHfGdZ7Li
- bYI0TNCSSVWsO4DOW5mubUNarLiMP38+W8MLtqgzURdzeifYdW3rlAFSA
- j0Nxy/fH+yiGi2ZznEwbZ7lB1qFYwncbKkTZmZ54Vjd1WCg5IZTIoxWVQ
- RJfqrXOvFnonV2LQmR/wyF9s2X2gBb2fhPMmRedxgmcXqRUlUGB6bTjED
- zCdSPci+dXWn15ZhyuSqqi/mfC0o6ZqZkTW2GEuPuLLoCqvdIC/ZUOXYU
- uGSClCMeg1yHyt8vLNZ+sDIED9GIxGvW5voq/oS+molM8T2KRtF1ZJ4nd Q==;
-X-CSE-ConnectionGUID: Y1p9/FqaQCqi5XATJqIGtw==
-X-CSE-MsgGUID: RoLR0IR6ShiKtduztLr23Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1848661"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1848661"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 14:08:30 -0700
-X-CSE-ConnectionGUID: +eg4jCc8TpWyGBl8bRlklg==
-X-CSE-MsgGUID: FCTXz6KBSCeuIiMdf93UvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="4811349"
-Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
- by orviesa008.jf.intel.com with ESMTP; 28 Oct 2026 14:08:30 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- stable@vger.kernel.org
-Subject: [PATCH 1/1] drm/i915: Fix OOB access of reset_engine_count for
- compute class
-Date: Wed, 28 Oct 2026 14:08:25 -0700
-Message-ID: <20261028210828.433225-2-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 547B010E1ED;
+	Wed, 28 Oct 2026 22:17:03 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5BA10E1ED;
+ Wed, 28 Oct 2026 22:17:02 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2971011042229608070=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5B1?=
+ =?utf-8?q?/1=5D_drm/i915=3A_Fix_OOB_access_of_reset=5Fengine=5Fcount_for_co?=
+ =?utf-8?q?mpute_class?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Alan Previn" <alan.previn.teres.alexis@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 28 Oct 2026 22:17:02 -0000
+Message-ID: <179322582203.84378.3923190556359993744@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261028210828.433225-2-alan.previn.teres.alexis@intel.com>
+In-Reply-To: <20261028210828.433225-2-alan.previn.teres.alexis@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,48 +35,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-MAX_ENGINE_CLASS is the highest valid engine class value (COMPUTE_CLASS
-== 5), not the number of classes. reset_engine_count[] was sized with
-MAX_ENGINE_CLASS entries, so resetting a CCS engine incremented (and
-i915_reset_engine_count() read) one element past the end of the array,
-aliasing the adjacent field in drm_i915_private (suspend_count).
+--===============2971011042229608070==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Size the array as MAX_ENGINE_CLASS + 1, consistent with other per-class
-arrays such as intel_gt.engine_class[].
+== Series Details ==
 
-Fixes: cf9cb028ac56 ("drm/i915: Use internal class when counting engine resets")
-Cc: <stable@vger.kernel.org>
+Series: series starting with [1/1] drm/i915: Fix OOB access of reset_engine_count for compute class
+URL   : https://patchwork.freedesktop.org/series/177055/
+State : success
 
-Assisted-by: LLM
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
----
- drivers/gpu/drm/i915/i915_gpu_error.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
-index 26970c5e291e..e53139cb77ea 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.h
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.h
-@@ -225,7 +225,7 @@ struct i915_gpu_error {
- 	atomic_t reset_count;
- 
- 	/** Number of times an engine has been reset */
--	atomic_t reset_engine_count[MAX_ENGINE_CLASS];
-+	atomic_t reset_engine_count[MAX_ENGINE_CLASS + 1];
- };
- 
- struct drm_i915_error_state_buf {
+CI Bug Log - changes from CI_DRM_19408 -> Patchwork_177055v1
+====================================================
 
-base-commit: fbed42265ffde9b162e21ed7ff0cfce070e19aaa
--- 
-2.43.0
+Summary
+-------
 
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177055v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19408 -> Patchwork_177055v1
+
+  CI-20190529: 20190529
+  CI_DRM_19408: 81fce6ce260af07e3f7a1211b6fe813941cbd17b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9170: 9170
+  Patchwork_177055v1: 81fce6ce260af07e3f7a1211b6fe813941cbd17b @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177055v1/index.html
+
+--===============2971011042229608070==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/1] drm/i915: Fix OOB access of reset_engine_count for compute class</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177055/">https://patchwork.freedesktop.org/series/177055/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177055v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177055v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19408 -&gt; Patchwork_177055v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177055v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19408 -&gt; Patchwork_177055v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19408: 81fce6ce260af07e3f7a1211b6fe813941cbd17b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9170: 9170<br />
+  Patchwork_177055v1: 81fce6ce260af07e3f7a1211b6fe813941cbd17b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2971011042229608070==--
