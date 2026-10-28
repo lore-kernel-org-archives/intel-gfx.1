@@ -2,27 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5DC606A31A
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:08:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A446D606A31A
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=fRqV9usC
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=scmphY3W
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7194F10FC58;
-	Wed, 28 Oct 2026 13:08:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD1810E60D;
+	Wed, 28 Oct 2026 13:08:34 +0000 (UTC)
+X-Greylist: delayed 567 seconds by postgrey-1.36 at gabe;
+ Wed, 28 Oct 2026 08:30:02 UTC
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA9F110FA15;
- Wed, 28 Oct 2026 08:30:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA6610FA15;
+ Wed, 28 Oct 2026 08:30:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
- s=mail; t=1793175634;
- bh=AdVY/3WZr/KgFPIGBWq+6cOVqwnT9WYPit6o2kFUWLI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=fRqV9usCJkdMBWrlhWbddwDwn+QiWrVuXXhlmM06WA8hyjUwJjBOQD3oUvn7U51hA
- cz9ypprvSW6rwhpGQQm90dgUka6nWyEZzu4lfjwdDuK2/cx66TCGAU3CwyclW84k6b
- EOioxvCx2Rj0sgA/zgEBxG2IHQAcr5/J9BnKuTEI=
+ s=mail; t=1793175633;
+ bh=K5LKyQgYKwl4SQBjA15TdSBAX9bbXAc3tVQHLRXEih8=;
+ h=From:To:Cc:Subject:Date;
+ b=scmphY3Wunrsmp+34WEVPizPYNuER4OuyqQN+7wcAk8b243s6Ql6ZgZzt2Q3H2Zn3
+ fwtCXvfv3lUFbjuEGdD5xIfcK8QirvUz/AoB8DzMfhdVnF9ZGl/3QyMwT3LvSHQOfV
+ tYEhcDcVdgbtrWL1qNZRxMyUJGS6xrDDGVIAFe9A=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
  (Authenticated sender: d@ilvokhin.com)
- by mail.ilvokhin.com (Postfix) with ESMTPSA id 65391FBCED;
- Wed, 28 Oct 2026 08:20:34 +0000 (UTC)
+ by mail.ilvokhin.com (Postfix) with ESMTPSA id E3225FBCE3;
+ Wed, 28 Oct 2026 08:20:32 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -50,12 +52,10 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 03/10] lib/list_sort: Switch to __nonnull_args() macro
-Date: Wed, 28 Oct 2026 08:19:42 +0000
-Message-ID: <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 00/10] treewide: switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:39 +0000
+Message-ID: <cover.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
-References: <cover.1793027261.git.d@ilvokhin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,80 +71,70 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-nonnull") added the macro __nonnull_args() to wrap raw compiler
-attribute.
+nonnull") added the __nonnull_args() macro to wrap the raw compiler
+attribute, keeping the attribute's quirks in one place rather than
+open-coded at every call site.
 
-Replace __attribute__((nonnull)) with __nonnull_args() to
-standardize nonnull attribute usage across the tree and keep the
-attribute's quirks in one place rather than open-coded at every call
-site.
+This series replaces the remaining open-coded __attribute__((nonnull))
+users with __nonnull_args() to standardize nonnull attribute usage
+across the tree.
 
-Add spaces after the commas in the __nonnull_args() argument list to
-follow the usual coding style (according to checkpatch).
+Each patch can be applied separately by the respective maintainers. The
+only dependency is kernel-doc: the string and lib/list_sort patches need
+patch 1 ("docs: xforms_lists: support __nonnull_args()") in the same
+release, otherwise strends() and list_sort() drop out of the generated
+documentation.
 
-Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
----
- include/linux/list_sort.h | 4 ++--
- lib/list_sort.c           | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
+Latest Sparse release could not properly parse __nonnull_args() without
+arguments. Fix was proposed [1] and merged, but until updated version of
+Sparse will reach wide masses it might trip on __nonnull_args() without
+arguments.
 
-diff --git a/include/linux/list_sort.h b/include/linux/list_sort.h
-index 453105f74e05..48a91ef0d751 100644
---- a/include/linux/list_sort.h
-+++ b/include/linux/list_sort.h
-@@ -6,9 +6,9 @@
- 
- struct list_head;
- 
--typedef int __attribute__((nonnull(2,3))) (*list_cmp_func_t)(void *,
-+typedef int __nonnull_args(2, 3) (*list_cmp_func_t)(void *,
- 		const struct list_head *, const struct list_head *);
- 
--__attribute__((nonnull(2,3)))
-+__nonnull_args(2, 3)
- void list_sort(void *priv, struct list_head *head, list_cmp_func_t cmp);
- #endif
-diff --git a/lib/list_sort.c b/lib/list_sort.c
-index ff99203f208f..da34c46cf5d8 100644
---- a/lib/list_sort.c
-+++ b/lib/list_sort.c
-@@ -9,7 +9,7 @@
-  * to chaining of merge() calls: null-terminated, no reserved or
-  * sentinel head node, "prev" links not maintained.
-  */
--__attribute__((nonnull(2,3,4)))
-+__nonnull_args(2, 3, 4)
- static struct list_head *merge(void *priv, list_cmp_func_t cmp,
- 				struct list_head *a, struct list_head *b)
- {
-@@ -45,7 +45,7 @@ static struct list_head *merge(void *priv, list_cmp_func_t cmp,
-  * prev-link restoration pass, or maintaining the prev links
-  * throughout.
-  */
--__attribute__((nonnull(2,3,4,5)))
-+__nonnull_args(2, 3, 4, 5)
- static void merge_final(void *priv, list_cmp_func_t cmp, struct list_head *head,
- 			struct list_head *a, struct list_head *b)
- {
-@@ -175,7 +175,7 @@ static void merge_final(void *priv, list_cmp_func_t cmp, struct list_head *head,
-  * of size 2^k varies from 2^(k-1) (cases 3 and 5 when x == 0) to
-  * 2^(k+1) - 1 (second merge of case 5 when x == 2^(k-1) - 1).
-  */
--__attribute__((nonnull(2,3)))
-+__nonnull_args(2, 3)
- void list_sort(void *priv, struct list_head *head, list_cmp_func_t cmp)
- {
- 	struct list_head *list = head->next, *pending = NULL;
+There are few more instances of __attribute__((nonnull)) usages left in
+the tools subdirectory, they are perf related copied files and can
+(should?) be updated separately after this patchset lands.
+
+Build-tested allmodconfig with GCC 11.5.0 and clang 22.1.8.
+
+[1]: https://lore.kernel.org/all/20261019175633.415493-19-bvanassche@acm.org/
+
+Dmitry Ilvokhin (10):
+  docs: xforms_lists: support __nonnull_args()
+  string: Switch to __nonnull_args() macro
+  lib/list_sort: Switch to __nonnull_args() macro
+  xarray: switch to __nonnull_args() macro
+  drm/i915: switch to __nonnull_args() macro
+  drm/amdgpu: switch to __nonnull_args() macro
+  drm/gem: Switch to __nonnull_args() macro
+  leds: pwm: Switch to __nonnull_args() macro
+  soc: aspeed: lpc-snoop: Switch to __nonnull_args() macro
+  checkpatch: suggest nonnull attribute conversion
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
+ drivers/gpu/drm/i915/i915_request.h        | 4 ++--
+ drivers/leds/leds-pwm.c                    | 2 +-
+ drivers/soc/aspeed/aspeed-lpc-snoop.c      | 4 ++--
+ include/drm/drm_gem.h                      | 2 +-
+ include/linux/list_sort.h                  | 4 ++--
+ include/linux/string.h                     | 2 +-
+ include/linux/xarray.h                     | 4 ++--
+ lib/list_sort.c                            | 6 +++---
+ scripts/checkpatch.pl                      | 3 +++
+ tools/include/linux/compiler.h             | 4 ++++
+ tools/lib/python/kdoc/xforms_lists.py      | 1 +
+ 13 files changed, 25 insertions(+), 17 deletions(-)
+
+
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
 -- 
 2.53.0-Meta
 
