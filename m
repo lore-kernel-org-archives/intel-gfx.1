@@ -2,27 +2,27 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A3A606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25582606A31C
 	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=Jg8BLE8I
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=gY3XUXUz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 835BE10FC63;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C82F10FC62;
 	Wed, 28 Oct 2026 13:08:39 +0000 (UTC)
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 932C110FA3F;
- Wed, 28 Oct 2026 08:30:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46C2310FA50;
+ Wed, 28 Oct 2026 08:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
- s=mail; t=1793175635;
- bh=ceexsp2t6/v12ItyH2pSPyV+syh2rxnTHvgHk3Ni1dE=;
+ s=mail; t=1793175637;
+ bh=f3wDiNCwMmjyXbWSfqLqTJmF38wOioqFlsZp1JBWY8g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Jg8BLE8IZCB+yObRAAqiVmVgU9sigg/nFDUGFqQXhWnSUadRZwDKyR4LY8EpthVle
- pA/bIha5skUWK4mVY8+AIkx6NRdoOUTSd/zD45eghCBSekWpPyZ52q6p9FUlikkAVg
- i5iCn86ahK5MOiZH/P0BO+c07/rkr7dgAwZrsWjg=
+ b=gY3XUXUzE59WwCVC4Qxuo4c1OjSPVasCM7D1wASmJouVr1JmoDvCR1fpvkN/NRule
+ x920S0FQBtza5BGKQpbvfVCzTkgENiiK4WcKdNZUluCqTy6kzWj7Aq537yU0sAAPsA
+ q2wy/d0fqfUd08AA2eVS24Chvy9WL59hmC+ynavA=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
  (Authenticated sender: d@ilvokhin.com)
- by mail.ilvokhin.com (Postfix) with ESMTPSA id E1323FBCF2;
- Wed, 28 Oct 2026 08:20:34 +0000 (UTC)
+ by mail.ilvokhin.com (Postfix) with ESMTPSA id 0D880FBD0B;
+ Wed, 28 Oct 2026 08:20:37 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -50,9 +50,9 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 04/10] xarray: switch to __nonnull_args() macro
-Date: Wed, 28 Oct 2026 08:19:43 +0000
-Message-ID: <e2660c4c9f5e6f97be2ef7bd3752d259bce77d81.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 08/10] leds: pwm: Switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:47 +0000
+Message-ID: <ed2b0b67c306bb458ba389f16dc92904203a104b.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
 References: <cover.1793027261.git.d@ilvokhin.com>
@@ -87,50 +87,25 @@ Replace __attribute__((nonnull)) with __nonnull_args() to standardize
 nonnull attribute usage across the tree and keep the attribute's quirks
 in one place rather than open-coded at every call site.
 
-tools/testing/shared/linux/xarray.h directly includes the kernel's
-include/linux/xarray.h, which now uses __nonnull_args(). The macro is
-not defined under tools/, breaking test builds.
-
-Define __nonnull_args() in tools/include/linux/compiler.h.
-
 Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 ---
- include/linux/xarray.h         | 4 ++--
- tools/include/linux/compiler.h | 4 ++++
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ drivers/leds/leds-pwm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/xarray.h b/include/linux/xarray.h
-index be850174e802..cf7f8802da5b 100644
---- a/include/linux/xarray.h
-+++ b/include/linux/xarray.h
-@@ -361,9 +361,9 @@ bool xa_get_mark(struct xarray *, unsigned long index, xa_mark_t);
- void xa_set_mark(struct xarray *, unsigned long index, xa_mark_t);
- void xa_clear_mark(struct xarray *, unsigned long index, xa_mark_t);
- void *xa_find(struct xarray *xa, unsigned long *index,
--		unsigned long max, xa_mark_t) __attribute__((nonnull(2)));
-+		unsigned long max, xa_mark_t) __nonnull_args(2);
- void *xa_find_after(struct xarray *xa, unsigned long *index,
--		unsigned long max, xa_mark_t) __attribute__((nonnull(2)));
-+		unsigned long max, xa_mark_t) __nonnull_args(2);
- unsigned int xa_extract(struct xarray *, void **dst, unsigned long start,
- 		unsigned long max, unsigned int n, xa_mark_t);
- void xa_destroy(struct xarray *);
-diff --git a/tools/include/linux/compiler.h b/tools/include/linux/compiler.h
-index 03ecf9086643..fad2c6131a80 100644
---- a/tools/include/linux/compiler.h
-+++ b/tools/include/linux/compiler.h
-@@ -68,6 +68,10 @@
- #define __naked __attribute__((__naked__))
- #endif
+diff --git a/drivers/leds/leds-pwm.c b/drivers/leds/leds-pwm.c
+index 6c1f2f50ff85..0363d370828b 100644
+--- a/drivers/leds/leds-pwm.c
++++ b/drivers/leds/leds-pwm.c
+@@ -80,7 +80,7 @@ static int led_pwm_default_brightness_get(struct fwnode_handle *fwnode,
+ 	return default_brightness;
+ }
  
-+#ifndef __nonnull_args
-+#define __nonnull_args(x...) __attribute__((__nonnull__(x)))
-+#endif
-+
- /* Are two types/vars the same type (ignoring qualifiers)? */
- #ifndef __same_type
- # define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+-__attribute__((nonnull))
++__nonnull_args()
+ static int led_pwm_add(struct device *dev, struct led_pwm_priv *priv,
+ 		       struct led_pwm *led, struct fwnode_handle *fwnode)
+ {
 -- 
 2.53.0-Meta
 
