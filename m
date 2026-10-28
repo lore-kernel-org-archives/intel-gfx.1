@@ -2,62 +2,166 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84EA606A31A
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 08:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CDB606A31E
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 09:28:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=T+qSeaZh
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gji7aG5y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5387E10FA99;
-	Wed, 28 Oct 2026 08:58:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 915DD10FA8F;
- Wed, 28 Oct 2026 08:58:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C4C10E077;
+	Wed, 28 Oct 2026 09:28:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5090910E06A;
+ Wed, 28 Oct 2026 09:28:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793177924; x=1824713924;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=bpaT18k8jnhsRcTU7NTYd0UP6YTApFBfYg0QQqb2NYs=;
- b=T+qSeaZhdzyZkD0zSTL6x+IVewgdvdR75o9xqkZTj5k52Aep8d37aXeF
- deMUe7UNcEYoJvrOnO6dSpiBFTWZJHMV+KJ2WT/feOhdfTLo/7LSj0TFM
- wcCKcNTlb2nf9+gIwOXeB6Iz0JqGcTokyXa6a8kxfzitgCLPCwUQML59U
- POaKr7joQ2ZoEuL9pcYlIuYcoDQLbzTyZ7LsiczKWzdh6+fECCUSVpjhY
- azes9n2JFFkRt/4/T806f3qhwuHvXtE03MtE2J860sQAcoqBd6NoWK2UJ
- vfLqFTqna2blvbrr/WuCfA6gAGqOpdb3gtbTRWnE6lTNVyWKLYVw0//CY A==;
-X-CSE-ConnectionGUID: +/WudeuoQSqUwkfrEiwKPg==
-X-CSE-MsgGUID: NG01HvkpSJSXkjadNtZKTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1880386"
+ t=1793179696; x=1824715696;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=uvXnaB0+750JF6B5/HlPm+Evu55UKmeE9YvFYQXZ3bI=;
+ b=gji7aG5ySCecg77xfHsE34ytb4m4khP9MB3FAReIAp9w78CR1eFS3YyU
+ 3AsZcG11USbJ+7RNhm70EGRX3rqGtmH1nnskmu0OG/BGOl1d05ctV/KAg
+ a28F14GWM3BUtRyd1erll6Xa09BNwaDL80DCGUsfErSxltNQ7eMqYeNH8
+ 9QqD+VzjgeLgiHrCi9bUfZOXdyPW1sX+SMdnplmEW+G+BjZYiZ89Qu3bS
+ QKQc49kdn4nFSt3HekJ7UL9m5Z+872sXIU8Vmu6uhnCjKif454guOFNiN
+ kaGSThE44bMXZrvVd2jLogXUIv84K5V1mdvp5hkjv8lS0wlLnxtJbHkwc g==;
+X-CSE-ConnectionGUID: FgBYsGusQq+AqwwWXUj90g==
+X-CSE-MsgGUID: NHIJK8y6QUaacpnZhjeqSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1787834"
 X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1880386"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 01:58:31 -0700
-X-CSE-ConnectionGUID: 4vFV+i18QveVjLYSj25qQA==
-X-CSE-MsgGUID: NQzGgk8hSFy0wfqAV/NGHQ==
+   d="scan'208";a="1787834"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 02:28:15 -0700
+X-CSE-ConnectionGUID: DxEhxnCWQUi4UozZAjj2uA==
+X-CSE-MsgGUID: ibIO3g7+Sh2SmQuUhPF54g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4768922"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.244.146])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 01:58:29 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Arun R Murthy <arun.r.murthy@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: chaitanya.kumar.borah@intel.com, uma.shankar@intel.com,
- suraj.kandpal@intel.com, Arun R Murthy <arun.r.murthy@intel.com>
-Subject: Re: [PATCH v2 5/6] drm/i915/display: Program and enable the DP
- symbol based timing generator
-In-Reply-To: <20261028-vlk-64036-dp-symbol-tg-v2-5-43849c325d32@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261028-vlk-64036-dp-symbol-tg-v2-0-43849c325d32@intel.com>
- <20261028-vlk-64036-dp-symbol-tg-v2-5-43849c325d32@intel.com>
-Date: Wed, 28 Oct 2026 10:58:26 +0200
-Message-ID: <351c0256b6ac29c7b1c5d2fb5f1167525e171143@intel.com>
+   d="scan'208";a="5316080"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 02:28:14 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 02:28:13 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 02:28:13 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.43) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 28 Oct 2026 02:28:13 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JeoWk+BClWNF0O5hYaG1F/Qj+UfLaTPi67uss1/VspkZtGvb5Eezs5sqDAXEJ/QmVmNNMnUHrA0u3n39yWOPyPBEOQg4pmqDZ14GZIL+tfYRj8+jytr8lrpQUdGmcVRbP5fNvj8wQM3/YrVZfHQVI9e8NF9oW6M7ins698+DoBzu8eDSDGa5M4X4GAfKfwYPq34GghY0UscsgtgRl0pZR6jVBH2IVf9yvTy3We8MVmJqDDvOIpTlVhnLgAIdKiSVSXdj+tPRpiMqpkW6GAUP49P7CP8HLMvZXAKH/JQemhxDGpZUZC1m2kjPyz+J1UCwL+Nhg/8ynjEQ/2/PHkcNWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=153gGV4yOr55Pe3ROGb+LmOqfpu0J0WJdJFVBjToX3g=;
+ b=ZmLuYenFJAnLl30pzPl0gGW+pFP4RJ1aFmOIQ/psblpm1gYwDNsYxFoSJVdPYJQmiddt9ilzhccB/K3b5BPK6sVPSH863LuOPukLXzhU/irnvHEZPfI3EuaFKkLQo2zdGggrmghAXfxBYpGLifCVHlBjqhGVjgtCd9VIFJI73O91K0ed0LNI/1pL8u0nE1AZ1Cu6ypLYHj3X8TmMW+sRUYw11R6sMl1v1Hw3xdJg7knR3AJJZqjKUEZWHnau6j9KvzkDklRZ0aRm5E8cKxu5j8gfx7M//3L7AvsQppR8pDAU9Z2JorDQX5FReGEfs3cbSaD0ixU+QNX4Ek1NqM9kOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA2PR11MB5035.namprd11.prod.outlook.com (2603:10b6:806:116::21)
+ by PHXPR11MB9661.namprd11.prod.outlook.com (2603:10b6:510:3cd::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 09:28:12 +0000
+Received: from SA2PR11MB5035.namprd11.prod.outlook.com
+ ([fe80::9418:cd60:8ece:69c3]) by SA2PR11MB5035.namprd11.prod.outlook.com
+ ([fe80::9418:cd60:8ece:69c3%5]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 09:28:11 +0000
+Message-ID: <48da0157-6fb3-4e93-a43c-0443c5bcbbb2@intel.com>
+Date: Wed, 28 Oct 2026 14:58:03 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] drm/i915/display: Disable pipe joiner on WCL
+To: "Srinivas, Vidya" <vidya.srinivas@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>, "Shankar, Uma"
+ <uma.shankar@intel.com>, "jani.nikula@linux.intel.com"
+ <jani.nikula@linux.intel.com>, "Lin, Charlton" <charlton.lin@intel.com>
+References: <20261007072334.1801956-1-vidya.srinivas@intel.com>
+ <20261028070404.1913843-1-vidya.srinivas@intel.com>
+ <20261028070404.1913843-3-vidya.srinivas@intel.com>
+ <94c3c16c-50ce-444c-985f-0fc0fb009242@intel.com>
+ <PH7PR11MB82526C4A1D72F22D44331A7B896F2@PH7PR11MB8252.namprd11.prod.outlook.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <PH7PR11MB82526C4A1D72F22D44331A7B896F2@PH7PR11MB8252.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0181.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a9::13) To SA2PR11MB5035.namprd11.prod.outlook.com
+ (2603:10b6:806:116::21)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PR11MB5035:EE_|PHXPR11MB9661:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9103a44f-f1ad-4e5f-6610-08df34d5c8e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|11063799006|4143699003|56012099006|261009223027099003|261022075727099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: r9JuyL3VrtR2BidQdvohtftzAOVbErBLVxY7txn0NCo88cDzCV1EODDFhMPFcK0sCJX3d3juG9coF4lQYHvtslz9m69FXTUPrPL1wHW8Ebyc5RnZR/tIXDrBOB3y1T/rVTJSzWX9XRjLCpIx4brIplEK0PquXvl7ZdERwx7ukOMcvLfomEMKEUtTXlu7o/pMKL9cPU5+3cTGgI9i9ae5ZxYks7LvOfv/lF2PpH78lH9yKXbWliiIEP92o0rkX7kVYzGwMJ17CFTSaR7iypvi2KK1rQZXWAiTePqW67Z9psSK4YBJ6OKJxdR2vrF1ma2gIqcOCgqkPzw7WukuW/YsXmrB3KeejQwZOzsOw/WMeltX3Inwb0TpXdaTH4EqxqN7R9E0WHVslC/50K/r0PctKeOhy5xxNYjm+7Vz3HvUHxupOJntwKk1oANRVNmwXo5EFQwW1PaB4k/GoCUgL+SrPBmiODfCE4B9JYAbnw3bkm991x0f0AAozsEaFtBYCHfinFvqinxmpHeloKaCEE5XS88MF3ajQLseUKYNUlFwwQuD3mYA+3U33Sn0H1htyBrDKkxU620Pej0YTS3lJn5JkOqiJ8LosxfK47c/nS+N0CtDZ6Pbk15PlOekDs0scuFfJS1D5LUXObpuRyMVXrzTDYdbj2LYOjd0LXjgiQfGWMA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA2PR11MB5035.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(4143699003)(56012099006)(261009223027099003)(261022075727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0pZTGt1MFBZc09RTFBxSzUzcEVWR1dCSy9rL21rdHdhcVRuUVNSOHNlUGRY?=
+ =?utf-8?B?TitaeHhLdzhKQWJpY1lCTGFHOWJEU2FvWFVOd3BHamRuWFUxRW8rWjBZOUFL?=
+ =?utf-8?B?RUhUYndYZnIxdVQvTHMxS3VFY1BKOXRuNXFiMStqUSs4WUtJV3Z0T3E5aVVI?=
+ =?utf-8?B?OVgyTjVtWE15OWk0NHNBb2MvZkwwbnM2QUlQcFRMa1pGT1FBODU1N21aRk5y?=
+ =?utf-8?B?NmtRL2tFb3E4cTFJS0xyL0U1SGVTelozeFU1MWlmTXZZbkxpdHIyMkpzM2ww?=
+ =?utf-8?B?T2lJMDdsY0hTUXZ6L0NIKytnK1VXeG42bFZndVQ5ZjBna2RZSlR1Z3poYzZI?=
+ =?utf-8?B?RS80ZURzQjhuT1pwVkZabXZZQjcwUWIzUzIvempyZzZieTN1ZE1yV3BCMU0y?=
+ =?utf-8?B?WWVtWnZ5TGl2b3FGbGpZWXFVTkpzUjFtN0UwdUZ4Q1Zid0lVdnZjNS9NNnFN?=
+ =?utf-8?B?OTgxTDVtMVlQbXlLazhLZTBVamF1UE5lUEswVUk3UkxjbXh4amNmTkJGYnNt?=
+ =?utf-8?B?NkVNZDFaZjd3UWVkU2txTnJtUElMRkJTd1lTOUtlbVFUUjRuU3gxKzFZS0FL?=
+ =?utf-8?B?YmwybS9iZEE2c2NxaWpqNWdvUlhkMjNDcTIzcGdNWDBOeDZRSDFLcUFwRGV3?=
+ =?utf-8?B?UjhZc24rb3N0MEI3VnVvbkNLUUl2RG9Hb0NaWEEyb2x6Zzh1bVAzODUwSHlF?=
+ =?utf-8?B?Y0tmVmtqbEVPVnpNRlJ5L1JZS1NUekNWUXkySEdIcXUvdHd2OVI2cGM2NEwr?=
+ =?utf-8?B?RGlhSTJzVGs4VFF2WW5XZUlRQ2ZUeS9qZDdiUjFDZ3BjcElLUG90R2trYkhH?=
+ =?utf-8?B?RkVBTFFCVmVOb2ZMSE0yU3pjT250TmRYcjVUd2t5WExkVXlPT1BvcU80WnFx?=
+ =?utf-8?B?UFkyZWJRS2VIUUdmWVM2S2ZWZzFQWnYxbEZtMTZaQkVjekROMEVGZmQrbENN?=
+ =?utf-8?B?SUVIYUlJME5XNnNrMkErTVdSME8xUTMxeW5zOEErZGlLdmZRKzVNN2lwUUp3?=
+ =?utf-8?B?OTdpYnNabG9KaW52WEdXMzJjYXd2R3BPTkdaZE96eDBvNjdwcFpCVENHTUdP?=
+ =?utf-8?B?cFV4Nis5bi9ZRjNxUUkzL2t5ZGxZWnJoeXZldmFyZlJLOXdSQytzNisrSjlM?=
+ =?utf-8?B?bUt2ZGFtaFl3S2pTNVdJdUthMHFhNFhXZmpHbU9LTjJCcGZZNVRLQ3dkS1M1?=
+ =?utf-8?B?cDV3Wk55YUt2RFUzbnF5Vkw5SzdvbnFDWTRlVEZtY1JaendaTTdtNVBhY3VM?=
+ =?utf-8?B?WHJncE11WFpzS1h2ZGlzaFpvR0pYaHVRSnlXQjhhMDh4MnpvTDEyMWsvQWNo?=
+ =?utf-8?B?TVJDZGF1NXNuZExoWm5keVVBbXZVakVNL1V0ei9RN2QzTmlYVlovblVwdTdC?=
+ =?utf-8?B?SnA1eGNtMFd4VXhvbXVDVlZsVW9IVGtpcWgzd1hjVlNxaG5YRFJ3MzJiNUVW?=
+ =?utf-8?B?OUFCL01sTmhVSjZsd2dWYzl2bStRV3UrRTB0TCtNT3JLdHM3c0tpWDFLTEwx?=
+ =?utf-8?B?VnNpWUFCWFdra0dwbEFuQldEbXgvZkRGM0lObTRIdm4rdWIvN0hwUitRUDFh?=
+ =?utf-8?B?aEs5RS8wcWhJTlN0NDNzbXdRQTJUL3M0RFZRMTVxSEYwSS8zZTZlMS96VkFG?=
+ =?utf-8?B?R0V2UlRIVVRPbWF4N0s4LzBFalFSUUo5aDA1OTdtdDlwTVlMenZVSjZFMk8v?=
+ =?utf-8?B?OVN2SXppVWtYUDg1SGhIUVR5eGFxaVd3OW5XN01OaDNHZUhqRlZ6cjkyalZS?=
+ =?utf-8?B?bzZMY3F6TFlQcGo4blEyRTVJMVBSYUM5Z053d2cwSlRiblZ0aWtaVWRnUkJD?=
+ =?utf-8?B?TGhNeG0wSS9QZGJJVVJJZ0RDSGJoTC95dzc3ekhOVlMzTkRPbWpXMm81VmRG?=
+ =?utf-8?B?dUd0WDZnOXRyeUZyU2pVUFFGVURESnE1djFNMGpBd253WFRJS1EybXNWZUdV?=
+ =?utf-8?B?cFN2clhFL2pMcUR0Q0h3R0V2dVlvTkRXUFlPUnVhSkNCUTFxZzFuK2pxUVps?=
+ =?utf-8?B?WmZaUUtOZFpnUG84TVVUYzZmelZudHlZdUQyWnpmU2ovRWcwU3RpUE5hMVpE?=
+ =?utf-8?B?TUpsVmsyUXN3TGEvSSs4Smt5K1pzSzV3Vis4bFN6N1UwWThWbHl5MURodkI4?=
+ =?utf-8?B?cUNLNzJmT1BmQlUwSHRQRnFZRUZQbnF0a21xaGpTcmJsRVNXSWdObWxySysy?=
+ =?utf-8?B?VDl5Q0tqR2tod0d0cDliM0FjU0tLZWhPV0dkWDl3bHMyLzlwRVRpaUVuT1J4?=
+ =?utf-8?B?UUdETjZ1alF0YWR2dWIyV0lZcHIwVGFHRWpMSjF4ME1JdzVCUTEyekZ3UXlq?=
+ =?utf-8?B?RmZGVzNuSlRLckpqa2JlSHBOeEN6M3UyOWZmdmRxelpjWktaM2Jrd0QrTFZh?=
+ =?utf-8?Q?sGKmy1YXVe5m2gP4=3D?=
+X-Exchange-RoutingPolicyChecked: y405Qg/jJh57QtjfjN/TuPwv5xMO/E+IYLJ0JczfQr1wyUF4YRP3tNGmP/wCstu764dZl8NfbDvZLX16fqdzYj1iRFks2ouh3nOI/Yrmgc3uBUGDqasznB4KHH6HewqWRmKafkaKK4BceRBHfzjbmpyJxZnGjdzKFsPW5K9jr9C5+Cu6Wwt6TM4N1osGsnCMKl5EV3fkFiUSrw562MTNmhdQk+a8xqyg4EfPc6D8puxp8IGIR1ViTxF2Q/FsUgKPVrIn045BnqPa+RrK7DHrc7CbwlDRfabvH/WXVZ86q1noL8yel6QOfKmR7gJxNHnbNNSTiYj691JEWeZYLpS7NQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9103a44f-f1ad-4e5f-6610-08df34d5c8e7
+X-MS-Exchange-CrossTenant-AuthSource: SA2PR11MB5035.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 09:28:11.6821 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 38tfI9pPZY2t7KGZc70hbkqUSM8LylrMI+f8nwVjm9pHXhD1L98AxSWntArXaQkhQpRNvrcHZd1QszyTBdiCwMzR/uTS1JLLywoX1SUsTaE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR11MB9661
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,197 +173,86 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 28 Oct 2026, Arun R Murthy <arun.r.murthy@intel.com> wrote:
-> Program the 128 bit LL symbol Data M/N before the LINK_N write which
-> arms the double buffered update, the LL symbol HACT/HTOTAL/CHUNK_SIZE
-> along with the other transcoder timings, and enable the timing
-> generator via TRANSCONF.DP_Symbol_TG_Enable before the transcoder is
-> enabled.
->
-> Bspec: 68849, 68922, 69961
-> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 100 ++++++++++++++++++++++++++-
->  1 file changed, 97 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index afe70e9ce34739b67e4d87754f9c361ff77f37a6..0698fb2b7b66ef4216d0ae237227713bce3cb7e5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -521,9 +521,14 @@ void intel_enable_transcoder(const struct intel_crtc_state *new_crtc_state)
->  		return;
->  	}
->  
-> -	/* Wa_1409098942:adlp+ */
-> -	if (DISPLAY_VER(display) >= 13 &&
-> -	    new_crtc_state->dsc.compression_enable) {
-> +	/* The early pixel count is in symbols with the DP symbol TG, no scaling */
-> +	if (HAS_DP_SYMBOL_TG(display) && new_crtc_state->dp_symbol_tg.enable) {
 
-The HAS_DP_SYMBOL_TG() check is redundant everywhere you also check for
-your dp_symbol_tg.enable, assuming you only ever set set
-dp_symbol_tg.enable if HAS_DP_SYMBOL_TG().
 
-> +		val &= ~TRANSCONF_PIXEL_COUNT_SCALING_MASK;
-> +		val |= REG_FIELD_PREP(TRANSCONF_PIXEL_COUNT_SCALING_MASK,
-> +				      TRANSCONF_PIXEL_COUNT_SCALING_X1);
-> +	} else if (DISPLAY_VER(display) >= 13 &&
-> +		   new_crtc_state->dsc.compression_enable) {
-> +		/* Wa_1409098942:adlp+ */
->  		val &= ~TRANSCONF_PIXEL_COUNT_SCALING_MASK;
->  		val |= REG_FIELD_PREP(TRANSCONF_PIXEL_COUNT_SCALING_MASK,
->  				      TRANSCONF_PIXEL_COUNT_SCALING_X4);
-> @@ -588,6 +593,14 @@ void intel_disable_transcoder(const struct intel_crtc_state *old_crtc_state)
->  
->  	if ((val & TRANSCONF_ENABLE) == 0)
->  		intel_wait_for_pipe_off(old_crtc_state);
-> +
-> +	/* Disable the DP symbol based timing generator */
-> +	if (HAS_DP_SYMBOL_TG(display) && old_crtc_state->dp_symbol_tg.enable) {
-> +		intel_de_rmw(display, TRANSCONF(display, cpu_transcoder),
-> +			     TRANSCONF_DP_SYMBOL_TG_ENABLE, 0);
-> +		intel_de_write(display, TRANS_LLSYM_HACT(cpu_transcoder), 0);
-> +		intel_de_write(display, TRANS_LLSYM_HTOTAL(cpu_transcoder), 0);
-> +	}
->  }
->  
->  u32 intel_plane_fb_max_stride(struct intel_display *display,
-> @@ -1683,6 +1696,43 @@ static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
->  		     HSW_FRAME_START_DELAY(crtc_state->framestart_delay - 1));
->  }
->  
-> +static void intel_dp_symbol_tg_set_m_n(const struct intel_crtc_state *crtc_state)
-> +{
-> +	struct intel_display *display = to_intel_display(crtc_state);
-> +	enum transcoder transcoder = crtc_state->cpu_transcoder;
-> +	const struct intel_dp_symbol_tg *tg = &crtc_state->dp_symbol_tg;
-> +
-> +	if (!tg->enable)
-> +		return;
-> +
-> +	/*
-> +	 * These are double buffered, updated by the LINK_N write in
-> +	 * intel_set_m_n(), so must be written before that.
-> +	 */
-> +	intel_de_write(display, DP_LLSYM_DATAM(transcoder, 0), lower_32_bits(tg->data_m[0]));
-> +	intel_de_write(display, DP_LLSYM_DATAM(transcoder, 1), upper_32_bits(tg->data_m[0]));
-> +	intel_de_write(display, DP_LLSYM_DATAM_EXT(transcoder, 0), lower_32_bits(tg->data_m[1]));
-> +	intel_de_write(display, DP_LLSYM_DATAM_EXT(transcoder, 1), upper_32_bits(tg->data_m[1]));
-> +	intel_de_write(display, DP_LLSYM_DATAN(transcoder, 0), lower_32_bits(tg->data_n[0]));
-> +	intel_de_write(display, DP_LLSYM_DATAN(transcoder, 1), upper_32_bits(tg->data_n[0]));
-> +	intel_de_write(display, DP_LLSYM_DATAN_EXT(transcoder, 0), lower_32_bits(tg->data_n[1]));
-> +	intel_de_write(display, DP_LLSYM_DATAN_EXT(transcoder, 1), upper_32_bits(tg->data_n[1]));
-> +}
-> +
-> +static void intel_dp_symbol_tg_get_m_n(struct intel_display *display,
-> +				       enum transcoder transcoder,
-> +				       struct intel_dp_symbol_tg *tg)
-> +{
-> +	tg->data_m[0] = intel_de_read(display, DP_LLSYM_DATAM(transcoder, 0)) |
-> +		(u64)intel_de_read(display, DP_LLSYM_DATAM(transcoder, 1)) << 32;
-> +	tg->data_m[1] = intel_de_read(display, DP_LLSYM_DATAM_EXT(transcoder, 0)) |
-> +		(u64)intel_de_read(display, DP_LLSYM_DATAM_EXT(transcoder, 1)) << 32;
-> +	tg->data_n[0] = intel_de_read(display, DP_LLSYM_DATAN(transcoder, 0)) |
-> +		(u64)intel_de_read(display, DP_LLSYM_DATAN(transcoder, 1)) << 32;
-> +	tg->data_n[1] = intel_de_read(display, DP_LLSYM_DATAN_EXT(transcoder, 0)) |
-> +		(u64)intel_de_read(display, DP_LLSYM_DATAN_EXT(transcoder, 1)) << 32;
+On 10/28/2026 2:27 PM, Srinivas, Vidya wrote:
+> 
+> 
+>> -----Original Message-----
+>> From: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
+>> Sent: 28 October 2026 14:08
+>> To: Srinivas, Vidya <vidya.srinivas@intel.com>; intel-gfx@lists.freedesktop.org
+>> Cc: intel-xe@lists.freedesktop.org; stable@vger.kernel.org; Shankar, Uma
+>> <uma.shankar@intel.com>; jani.nikula@linux.intel.com; Lin, Charlton
+>> <charlton.lin@intel.com>
+>> Subject: Re: [PATCH v4 2/2] drm/i915/display: Disable pipe joiner on WCL
+>>
+>>
+>>
+>> On 10/28/2026 12:34 PM, Vidya Srinivas wrote:
+>>> Pipe joining is not supported in the WCL display configuration.
+>>> Report no joiner support on WCL so that modes which would require
+>>> joining are rejected, matching the 4k 60Hz maximum resolution
+>>> documented for the platform.
+>>>
+>>> v2: Rebase onto latest upstream
+>>> v3: Fix up the commit message
+>>> v4: Split the scaler and joiner changes into separate patches (Jani)
+>>>
+>>> Bspec: 74286
+>>> Cc: stable@vger.kernel.org
+>>
+>> Won't we need a Fixes tag to tell where this change need to go to?
+> 
+> Hello Chaitanya,
+> 
+> Thank you. Yes, I did check checkpatch gave the same warning but I couldn’t find the exact patch to call out the fixes
+> There are patches like Extend the max dotclock limit to WCL, Restrict max source rate for WCL to HBR3,
+> drm/i915/wcl: Add display device info, Add power well mapping for WCL etc.
+> git log shows under merge tag the "Add support for Wildcat Lake (WCL) display, version 30.02"
+> So, could not find the patch for which I could mention fixes.
 
-intel_de_read64_2x32() maybe?
+Fixes: 632633d095b6 ("drm/i915/wcl: Add display device info")
 
-> +}
-> +
->  static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_display *display = to_intel_display(crtc_state);
-> @@ -1693,6 +1743,7 @@ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
->  		intel_cpu_transcoder_set_m1_n1(crtc, cpu_transcoder,
->  					       &crtc_state->fdi_m_n);
->  	} else if (intel_crtc_has_dp_encoder(crtc_state)) {
-> +		intel_dp_symbol_tg_set_m_n(crtc_state);
->  		intel_cpu_transcoder_set_m1_n1(crtc, cpu_transcoder,
->  					       &crtc_state->dp_m_n);
->  		intel_cpu_transcoder_set_m2_n2(crtc, cpu_transcoder,
-> @@ -2929,6 +2980,17 @@ void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state,
->  		intel_de_write(display, DP_MIN_HBLANK_CTL(transcoder),
->  			       crtc_state->min_hblank);
->  	}
-> +
-> +	if (HAS_DP_SYMBOL_TG(display) && crtc_state->dp_symbol_tg.enable) {
-> +		const struct intel_dp_symbol_tg *tg = &crtc_state->dp_symbol_tg;
-> +
-> +		intel_de_write(display, TRANS_LLSYM_HACT(transcoder),
-> +			       TRANS_LLSYM_HACT_VAL(tg->hactive - 1));
-> +		intel_de_write(display, TRANS_LLSYM_HTOTAL(transcoder),
-> +			       TRANS_LLSYM_HTOTAL_VAL(tg->htotal - 1));
-> +		intel_de_write(display, TRANS_LLSYM_CHUNK_SIZE(transcoder),
-> +			       TRANS_LLSYM_CHUNK_SIZE_VAL(tg->chunk_size));
-> +	}
->  }
->  
->  void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
-> @@ -3095,6 +3157,23 @@ static void intel_get_transcoder_timings(struct intel_crtc *crtc,
->  	if (DISPLAY_VER(display) >= 30)
->  		pipe_config->min_hblank = intel_de_read(display,
->  							DP_MIN_HBLANK_CTL(cpu_transcoder));
-> +
-> +	if (HAS_DP_SYMBOL_TG(display) &&
-> +	    intel_de_read(display, TRANSCONF(display, cpu_transcoder)) &
-> +	    TRANSCONF_DP_SYMBOL_TG_ENABLE) {
+Should be sufficient.
 
-Please don't combine reads into complex conditions like this.
+> 
+> Regards
+> Vidya
+> 
+>>
+>>> Suggested-by: Charlton Lin <charlton.lin@intel.com>
+>>> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+>>> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
+>>> ---
+>>>    drivers/gpu/drm/i915/display/intel_dp.c | 4 ++--
+>>>    1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+>>> b/drivers/gpu/drm/i915/display/intel_dp.c
+>>> index 00e02e019d25..ef164a797618 100644
+>>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>>> @@ -485,9 +485,9 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
+>>>    			return false;
+>>>    	}
+>>>
+>>> -	return DISPLAY_VER(display) >= 12 ||
+>>> +	return ((DISPLAY_VER(display) >= 12 && DISPLAY_VERx100(display) !=
+>>> +3002) ||
+>>>    		(DISPLAY_VER(display) == 11 &&
+>>> -		 encoder->port != PORT_A);
+>>> +		 encoder->port != PORT_A));
+>>>    }
+>>>
+>>>    static int dg2_max_source_rate(struct intel_dp *intel_dp)
+> 
 
-> +		struct intel_dp_symbol_tg *tg = &pipe_config->dp_symbol_tg;
-> +		u32 hact, htotal, chunk_size;
-> +
-> +		hact = intel_de_read(display, TRANS_LLSYM_HACT(cpu_transcoder));
-> +		htotal = intel_de_read(display, TRANS_LLSYM_HTOTAL(cpu_transcoder));
-> +		chunk_size = intel_de_read(display, TRANS_LLSYM_CHUNK_SIZE(cpu_transcoder));
-> +
-> +		tg->enable = true;
-> +		tg->hactive = REG_FIELD_GET(TRANS_LLSYM_HACT_MASK, hact) + 1;
-> +		tg->htotal = REG_FIELD_GET(TRANS_LLSYM_HTOTAL_MASK, htotal) + 1;
-> +		tg->chunk_size = REG_FIELD_GET(TRANS_LLSYM_CHUNK_SIZE_MASK, chunk_size);
-> +		intel_dp_symbol_tg_get_m_n(display, cpu_transcoder, tg);
-> +	}
->  }
->  
->  static void intel_joiner_adjust_pipe_src(struct intel_crtc_state *crtc_state)
-> @@ -3419,6 +3498,10 @@ static void hsw_set_transconf(const struct intel_crtc_state *crtc_state)
->  	    crtc_state->output_format != INTEL_OUTPUT_FORMAT_RGB)
->  		val |= TRANSCONF_OUTPUT_COLORSPACE_YUV_HSW;
->  
-> +	/* Must be set before the transcoder is enabled, so only on modeset */
-> +	if (HAS_DP_SYMBOL_TG(display) && crtc_state->dp_symbol_tg.enable)
-> +		val |= TRANSCONF_DP_SYMBOL_TG_ENABLE;
-> +
->  	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
->  	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
->  }
-> @@ -5515,6 +5598,17 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
->  
->  	PIPE_CONF_CHECK_I(min_hblank);
->  
-> +	PIPE_CONF_CHECK_BOOL(dp_symbol_tg.enable);
-> +	if (pipe_config->dp_symbol_tg.enable) {
-> +		PIPE_CONF_CHECK_I(dp_symbol_tg.hactive);
-> +		PIPE_CONF_CHECK_I(dp_symbol_tg.htotal);
-> +		PIPE_CONF_CHECK_I(dp_symbol_tg.chunk_size);
-> +		PIPE_CONF_CHECK_LLI(dp_symbol_tg.data_m[0]);
-> +		PIPE_CONF_CHECK_LLI(dp_symbol_tg.data_m[1]);
-> +		PIPE_CONF_CHECK_LLI(dp_symbol_tg.data_n[0]);
-> +		PIPE_CONF_CHECK_LLI(dp_symbol_tg.data_n[1]);
-> +	}
-> +
->  	if (HAS_DOUBLE_BUFFERED_M_N(display)) {
->  		if (!fastset || !pipe_config->update_m_n)
->  			PIPE_CONF_CHECK_M_N(dp_m_n);
-
--- 
-Jani Nikula, Intel
