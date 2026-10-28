@@ -2,64 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C69D606A31D
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 17:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eJOHndh/
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49510606A326
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 18:23:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261C010FDEA;
-	Wed, 28 Oct 2026 17:35:19 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2D5D10FDF5;
- Wed, 28 Oct 2026 17:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793208913; x=1824744913;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=UI2WNfZzOyQTVTSwnKMZu5zfYdi8X/kaS6eJwJcc7fw=;
- b=eJOHndh/rMpST4TEAksRC3b6zKBYz8nEIGRQePxtEIe9CJCHxDOJ3z19
- A9e06WD85NyvYFxniGvunrniZ4M7rFHPIIAsj8BJQ5nRFW68VqJ3GaqTi
- 3t4NcGVoILK0CCsj9zxBhYS//U/BHSId+ToKWNRMkEVyY7dktF+Vz09Ni
- OqpeEMKa7z+GDzUw5QgWHBVtK8GKda91pRVd9EBOI4BCh84JA4JATKUWd
- mPqcJRIqcq78oBpFaeiUl1EBEfP3yEAS3JWpAfkNANpslIudfZpVq1VsH
- hJA6jcwUJaGHPR9tTaNEnD6axWkXOK2NkPeoKYvx1SAJyVWXiuyfW6stQ g==;
-X-CSE-ConnectionGUID: P8OZnJmrRaC2pBuNrDeDxg==
-X-CSE-MsgGUID: ECWGVSQhQ0mHTuHuhEC1Dw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1935743"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1935743"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 10:35:13 -0700
-X-CSE-ConnectionGUID: +PFKSS33RmunfSWZ+DpdEQ==
-X-CSE-MsgGUID: cPsmyOYcTauw6W6X2cmmdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="4961827"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.122])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 10:34:57 -0700
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4B6A10E083;
+	Wed, 28 Oct 2026 18:23:33 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C05C910E083;
+ Wed, 28 Oct 2026 18:23:32 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0902743168724369693=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <auHjA2kEBniSCTj3@zenone.zhora.eu>
-References: <20261016033102.529239-1-jia.yao@intel.com>
- <auHjA2kEBniSCTj3@zenone.zhora.eu>
-Subject: Re: [PATCH v13] drm/i915/dg2: Add per-client control for
- Wa_22013059131
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Shuicheng Lin <shuicheng.lin@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Maciej Plewka <maciej.plewka@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Jia Yao <jia.yao@intel.com>
-Date: Wed, 28 Oct 2026 19:34:54 +0200
-Message-ID: <179320889403.143024.1638848416588104514@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Subject: =?utf-8?b?4pyTIGk5MTUuQ0kuQkFUOiBzdWNjZXNzIGZvciBkcm0vaTkxNTogRG9uJ3QgdXNl?=
+ =?utf-8?b?IGludGVsX2RlX3tyZWFkLCB3cml0ZX1fZncoKSBpbiBiZHdfdXBkYXRlX3twaXBl?=
+ =?utf-8?b?LCBwb3J0fV9pcnEoKQ==?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 28 Oct 2026 18:23:32 -0000
+Message-ID: <179321181278.83855.1358073572760016265@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261028145035.26707-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261028145035.26707-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,48 +35,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Quoting Andi Shyti (2026-10-28 13:57:39)
-> Hi Jia,
->=20
-> On Fri, Oct 16, 2026 at 03:31:02AM +0000, Jia Yao wrote:
-> > Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT=
-_0
-> > at engine init, but this is known to cause GPU hangs in certain workloa=
-ds.
-> > Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
-> > workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
-> > kernel know bit 15 programming is not needed. The register is not
-> > context-saved by hardware, so the value is programmed on context switch
-> > via the indirect context batchbuffer, and the old unconditional write in
-> > intel_workarounds.c is removed.
->=20
-> ...
->=20
-> > Bspec: 54833
-> > Link: https://github.com/intel/compute-runtime/pull/919
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: Shuicheng Lin <shuicheng.lin@intel.com>
-> > Cc: Matt Roper <matthew.d.roper@intel.com>
-> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > Cc: Maciej Plewka <maciej.plewka@intel.com>
-> > Cc: Andi Shyti <andi.shyti@linux.intel.com>
-> > Signed-off-by: Jia Yao <jia.yao@intel.com>
->=20
-> pushed to drm-intel-gt-next.
+--===============0902743168724369693==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-We're still lacking tests. I have reverted it for now.
+== Series Details ==
 
-Regards, Joonas
+Series: drm/i915: Don't use intel_de_{read, write}_fw() in bdw_update_{pipe, port}_irq()
+URL   : https://patchwork.freedesktop.org/series/177042/
+State : success
 
->=20
-> Thanks,
-> Andi
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19406 -> Patchwork_177042v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177042v1/index.html
+
+Participating hosts (40 -> 38)
+------------------------------
+
+  Missing    (2): bat-dg2-13 bat-adls-6 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19406 -> Patchwork_177042v1
+
+  CI-20190529: 20190529
+  CI_DRM_19406: f00a1fa90fcfdf84b1600e0aca74c965fb86fe76 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9169: 9169
+  Patchwork_177042v1: f00a1fa90fcfdf84b1600e0aca74c965fb86fe76 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177042v1/index.html
+
+--===============0902743168724369693==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Don&#x27;t use intel_de_{read, write}_fw() in bdw_update_{pipe, port}_irq()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177042/">https://patchwork.freedesktop.org/series/177042/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177042v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177042v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19406 -&gt; Patchwork_177042v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177042v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19406 -&gt; Patchwork_177042v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19406: f00a1fa90fcfdf84b1600e0aca74c965fb86fe76 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9169: 9169<br />
+  Patchwork_177042v1: f00a1fa90fcfdf84b1600e0aca74c965fb86fe76 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0902743168724369693==--
