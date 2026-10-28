@@ -2,66 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E64606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 20:45:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503C6606A31C
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 21:08:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=uwiMqCzW
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L4vO78vv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67D8A10E6ED;
-	Wed, 28 Oct 2026 20:45:27 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8657810E6C7;
- Wed, 28 Oct 2026 20:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=xhSU0Ll/YflHcbTsaPvMuTReTRNyw9O7ljUv0SFKW4A=; b=uwiMqCzWxlSLOyvJWx1EpAyUkI
- 8btbBfprVdCDyHYW3PydxYRJfRc+kFnuoObOoozn1rwW58Vj2BVWhqh0F+wlp8xlwih90BYwI51Em
- K1iI2tMdxPVFIWoitj5UhzFd4b/5QNlPTbdXz9zJMTATbRVGeZUbYvxryNKsjaEpApTR2/Y1wym5S
- RWkAgUP9MihkaliXEWdKo6u9MyrEOFdwTO3LSL1qUppz7BzJah7zzT1oZKKj6Mf9SU1NRxYMWkfbQ
- WLJ0+6zjDTz5RuWWZ/Qmx/h26GtaT+lmVMT47+gjluaxiNFrhSxl9AUI43A4wXxL3uIkD/jLlvX82
- Gvlz4IVw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xMAW5-00000007wax-2Fqn; Wed, 28 Oct 2026 20:45:01 +0000
-Message-ID: <cce30180-c1c4-4b10-b681-8944057bc698@infradead.org>
-Date: Wed, 28 Oct 2026 13:44:59 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3A4E10E401;
+	Wed, 28 Oct 2026 21:08:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C9D010E401;
+ Wed, 28 Oct 2026 21:08:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793221711; x=1824757711;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=JSqLMD0yJ9BsT8A5GHlX4cdSlzeO148Z4xyTPyvPHbg=;
+ b=L4vO78vvgc9NhfJSIIXgVnX4kHCG8kRDGyAUosO9cUWAonztHfGdZ7Li
+ bYI0TNCSSVWsO4DOW5mubUNarLiMP38+W8MLtqgzURdzeifYdW3rlAFSA
+ j0Nxy/fH+yiGi2ZznEwbZ7lB1qFYwncbKkTZmZ54Vjd1WCg5IZTIoxWVQ
+ RJfqrXOvFnonV2LQmR/wyF9s2X2gBb2fhPMmRedxgmcXqRUlUGB6bTjED
+ zCdSPci+dXWn15ZhyuSqqi/mfC0o6ZqZkTW2GEuPuLLoCqvdIC/ZUOXYU
+ uGSClCMeg1yHyt8vLNZ+sDIED9GIxGvW5voq/oS+molM8T2KRtF1ZJ4nd Q==;
+X-CSE-ConnectionGUID: Y1p9/FqaQCqi5XATJqIGtw==
+X-CSE-MsgGUID: RoLR0IR6ShiKtduztLr23Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1848661"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1848661"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 14:08:30 -0700
+X-CSE-ConnectionGUID: +eg4jCc8TpWyGBl8bRlklg==
+X-CSE-MsgGUID: FCTXz6KBSCeuIiMdf93UvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="4811349"
+Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
+ by orviesa008.jf.intel.com with ESMTP; 28 Oct 2026 14:08:30 -0700
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ stable@vger.kernel.org
+Subject: [PATCH 1/1] drm/i915: Fix OOB access of reset_engine_count for
+ compute class
+Date: Wed, 28 Oct 2026 14:08:25 -0700
+Message-ID: <20261028210828.433225-2-alan.previn.teres.alexis@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/10] treewide: switch to __nonnull_args() macro
-To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
- <billy_tsai@aspeedtech.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Matthew Wilcox <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, Andy Whitcroft
- <apw@canonical.com>, Joe Perches <joe@perches.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-References: <cover.1793027261.git.d@ilvokhin.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,81 +64,47 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+MAX_ENGINE_CLASS is the highest valid engine class value (COMPUTE_CLASS
+== 5), not the number of classes. reset_engine_count[] was sized with
+MAX_ENGINE_CLASS entries, so resetting a CCS engine incremented (and
+i915_reset_engine_count() read) one element past the end of the array,
+aliasing the adjacent field in drm_i915_private (suspend_count).
 
+Size the array as MAX_ENGINE_CLASS + 1, consistent with other per-class
+arrays such as intel_gt.engine_class[].
 
-On 10/28/26 1:19 AM, Dmitry Ilvokhin wrote:
-> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-> nonnull") added the __nonnull_args() macro to wrap the raw compiler
-> attribute, keeping the attribute's quirks in one place rather than
-> open-coded at every call site.
-> 
-> This series replaces the remaining open-coded __attribute__((nonnull))
-> users with __nonnull_args() to standardize nonnull attribute usage
-> across the tree.
-> 
-> Each patch can be applied separately by the respective maintainers. The
-> only dependency is kernel-doc: the string and lib/list_sort patches need
-> patch 1 ("docs: xforms_lists: support __nonnull_args()") in the same
-> release, otherwise strends() and list_sort() drop out of the generated
-> documentation.
-> 
-> Latest Sparse release could not properly parse __nonnull_args() without
-> arguments. Fix was proposed [1] and merged, but until updated version of
-> Sparse will reach wide masses it might trip on __nonnull_args() without
-> arguments.
-> 
-> There are few more instances of __attribute__((nonnull)) usages left in
-> the tools subdirectory, they are perf related copied files and can
-> (should?) be updated separately after this patchset lands.
-> 
-> Build-tested allmodconfig with GCC 11.5.0 and clang 22.1.8.
+Fixes: cf9cb028ac56 ("drm/i915: Use internal class when counting engine resets")
+Cc: <stable@vger.kernel.org>
 
-What ARCH(es)?
+Assisted-by: LLM
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+---
+ drivers/gpu/drm/i915/i915_gpu_error.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Did you mean to use such an "old" version of GCC?
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+index 26970c5e291e..e53139cb77ea 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.h
++++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+@@ -225,7 +225,7 @@ struct i915_gpu_error {
+ 	atomic_t reset_count;
+ 
+ 	/** Number of times an engine has been reset */
+-	atomic_t reset_engine_count[MAX_ENGINE_CLASS];
++	atomic_t reset_engine_count[MAX_ENGINE_CLASS + 1];
+ };
+ 
+ struct drm_i915_error_state_buf {
 
-thanks.
-
-> 
-> [1]: https://lore.kernel.org/all/20261019175633.415493-19-bvanassche@acm.org/
-> 
-> Dmitry Ilvokhin (10):
->   docs: xforms_lists: support __nonnull_args()
->   string: Switch to __nonnull_args() macro
->   lib/list_sort: Switch to __nonnull_args() macro
->   xarray: switch to __nonnull_args() macro
->   drm/i915: switch to __nonnull_args() macro
->   drm/amdgpu: switch to __nonnull_args() macro
->   drm/gem: Switch to __nonnull_args() macro
->   leds: pwm: Switch to __nonnull_args() macro
->   soc: aspeed: lpc-snoop: Switch to __nonnull_args() macro
->   checkpatch: suggest nonnull attribute conversion
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 2 +-
->  drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
->  drivers/gpu/drm/i915/i915_request.h        | 4 ++--
->  drivers/leds/leds-pwm.c                    | 2 +-
->  drivers/soc/aspeed/aspeed-lpc-snoop.c      | 4 ++--
->  include/drm/drm_gem.h                      | 2 +-
->  include/linux/list_sort.h                  | 4 ++--
->  include/linux/string.h                     | 2 +-
->  include/linux/xarray.h                     | 4 ++--
->  lib/list_sort.c                            | 6 +++---
->  scripts/checkpatch.pl                      | 3 +++
->  tools/include/linux/compiler.h             | 4 ++++
->  tools/lib/python/kdoc/xforms_lists.py      | 1 +
->  13 files changed, 25 insertions(+), 17 deletions(-)
-> 
-> 
-> base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
-
+base-commit: fbed42265ffde9b162e21ed7ff0cfce070e19aaa
 -- 
-~Randy
+2.43.0
 
