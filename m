@@ -2,69 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8B5606A325
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:45:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B9F606A31D
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:57:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JW4NmbXM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qx/Q7UJo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D919110FBC0;
-	Wed, 28 Oct 2026 11:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF3CC10E62C;
+	Wed, 28 Oct 2026 11:57:49 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C317710FBBD;
- Wed, 28 Oct 2026 11:44:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC95310E62C;
+ Wed, 28 Oct 2026 11:57:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3E10660120;
- Wed, 28 Oct 2026 11:44:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7167F1F01825;
- Wed, 28 Oct 2026 11:44:51 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D8EA760202;
+ Wed, 28 Oct 2026 11:57:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2991F01829;
+ Wed, 28 Oct 2026 11:57:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793187892;
- bh=AzxsreGIazEGHNZ+Tlba7bzQuuS0/SXodByMLbgqMaI=;
+ s=k20260515; t=1793188662;
+ bh=mN+5qMEhW+DgMKl4989EnlMC/0om5OMtt31qXEFkr5g=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JW4NmbXMV9NgnBU1HlqkVlN+rre+4AqJtfnOYsCrZ1r+jx0JuneNnyHXtAgbJhcCm
- oGoH7Sf0QLhsPHYJ4VS3tj9kTxIwtUgUtfQrlW3PBdn2exn76z9iW9PGXPGM7wzI9x
- At4s0hoSb59+TSET152LixjqCST6NybH81zHXNXle6qHlbYtt+3P9F/grboN9LPDNx
- xzflTm1Ec4mh4z9eI8VLirREUz5LLnYViE+P42WUDgoR0QejsFy2B/B+DLWbjrllQj
- 91G7GnwWDaZoA9reF7WmdaYzo1PUQd8JuF3UHtJOxu/4CYIjVpedfBJtBtUN0pf7S9
- lIU5MaIshhDuA==
-Date: Wed, 28 Oct 2026 12:44:48 +0100
+ b=Qx/Q7UJoT+fKY/TYcWoed6xCKf6zmi0v1YrFVJafDl52sHNFZFV9ofPrK4kaFcMh/
+ DhacaJjNYoMwvgir5Dm0ici3Ii5vt8bhQ5MtniIyvIxr2QQAraQJqj0A2XfhNUpFI3
+ PBs/InLn7gq0VMdTAvT7/CjSvfMui0+9LapzIFfLmfsD7KUOzNmp+UJrn5oK2YeLaA
+ iHtCyg+Tw8Hwg6XsKSg5k4X+ix/OcrzPNCssWyUJChx6De9t+Vgk08aXjDZIYB22G7
+ N8yKwj2YWjRjK+h5v8JikrUnrCD0utrzfEYv0BD5VXHwsC1DR8h5ik37PCSirh1Q6Q
+ jLPvlKxq+EDpg==
+Date: Wed, 28 Oct 2026 12:57:39 +0100
 From: Andi Shyti <andi.shyti@kernel.org>
-To: Dmitry Ilvokhin <d@ilvokhin.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
+To: Jia Yao <jia.yao@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Shuicheng Lin <shuicheng.lin@intel.com>, Matt Roper <matthew.d.roper@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>,
- Andy Shevchenko <andy@kernel.org>, 
- Matthew Wilcox <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>,
- Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, linux-leds@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-mm@kvack.org, linux-doc@vger.kernel.org, 
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Subject: Re: [PATCH 07/10] drm/gem: Switch to __nonnull_args() macro
-Message-ID: <auHgHcU4fYauP_eD@zenone.zhora.eu>
-References: <cover.1793027261.git.d@ilvokhin.com>
- <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
+ Maciej Plewka <maciej.plewka@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+Subject: Re: [PATCH v13] drm/i915/dg2: Add per-client control for
+ Wa_22013059131
+Message-ID: <auHjA2kEBniSCTj3@zenone.zhora.eu>
+References: <20261016033102.529239-1-jia.yao@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
+In-Reply-To: <20261016033102.529239-1-jia.yao@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,28 +56,39 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Dmitry,
+Hi Jia,
 
-On Wed, Oct 28, 2026 at 08:19:46AM +0000, Dmitry Ilvokhin wrote:
-> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-> nonnull") added the macro __nonnull_args() to wrap raw compiler
-> attribute.
-> 
-> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
-> nonnull attribute usage across the tree and keep the attribute's quirks
-> in one place rather than open-coded at every call site.
-> 
-> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
+On Fri, Oct 16, 2026 at 03:31:02AM +0000, Jia Yao wrote:
+> Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
+> at engine init, but this is known to cause GPU hangs in certain workloads.
+> Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
+> workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
+> kernel know bit 15 programming is not needed. The register is not
+> context-saved by hardware, so the value is programmed on context switch
+> via the indirect context batchbuffer, and the old unconditional write in
+> intel_workarounds.c is removed.
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+...
+
+> Bspec: 54833
+> Link: https://github.com/intel/compute-runtime/pull/919
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: Shuicheng Lin <shuicheng.lin@intel.com>
+> Cc: Matt Roper <matthew.d.roper@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Maciej Plewka <maciej.plewka@intel.com>
+> Cc: Andi Shyti <andi.shyti@linux.intel.com>
+> Signed-off-by: Jia Yao <jia.yao@intel.com>
+
+pushed to drm-intel-gt-next.
 
 Thanks,
 Andi
