@@ -2,28 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A64606A31D
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 05:51:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A72606A325
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 07:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H5pi78hR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B085310E527;
-	Wed, 28 Oct 2026 05:51:43 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5F410E527;
- Wed, 28 Oct 2026 05:51:43 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5461296431419396470=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id B21FA10FA0B;
+	Wed, 28 Oct 2026 07:14:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4B210E529;
+ Wed, 28 Oct 2026 07:14:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793171650; x=1824707650;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=SqKllC9jgTnkqxdWg2PSU/JgGUPmz4G2mSjflupGQY8=;
+ b=H5pi78hR2d9IgnZgEYcrl2yugT/IqW3i6nrsexQxZcrq6timvXxtMFgU
+ 81tKre949TAdSlxhQRjkyo2dHydmnHrq0rXuXlDcRsFiJqefClN5iT5mb
+ 19GhyZMg2qz2Eq5sglPkxYBp/ALXMM2FCl4mDAsO0sg4rveaz/rJEfQu1
+ 8gbKzpl40iHLxeStQtqI39yLYFerkwQCMB90hEYLh1hS09weMi2BYkSx2
+ jtMg18xX3lxJI4rOQK1VWV4DseFrUqecY/I9bv5xeN2I9Jp9+TDpjwejA
+ TzxKG3UEDpn0rJ2rMKcyNTyzABDB+kIqfzgWZtJIcxQ97a8eTQl2bQ0KP Q==;
+X-CSE-ConnectionGUID: bNAaSB98SMuPmCErjUFf1A==
+X-CSE-MsgGUID: 2NoXZ91YRtukA42MztjYbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1765952"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1765952"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 00:14:09 -0700
+X-CSE-ConnectionGUID: 3K9x5UX3Rwaj2kFGYhvT5Q==
+X-CSE-MsgGUID: 5r22pNxXRACSwssw/SCSfw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4868263"
+Received: from vsrini4-xps-8920.iind.intel.com ([10.223.167.75])
+ by fmviesa002.fm.intel.com with ESMTP; 28 Oct 2026 00:14:01 -0700
+From: Vidya Srinivas <vidya.srinivas@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, stable@vger.kernel.org,
+ uma.shankar@intel.com, jani.nikula@linux.intel.com,
+ Vidya Srinivas <vidya.srinivas@intel.com>
+Subject: [PATCH v4 0/2] drm/i915/display: Limit scaler count and disable pipe
+ joiner on WCL
+Date: Wed, 28 Oct 2026 12:34:02 +0530
+Message-ID: <20261028070404.1913843-1-vidya.srinivas@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20261007072334.1801956-1-vidya.srinivas@intel.com>
+References: <20261007072334.1801956-1-vidya.srinivas@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Add_suppor?=
- =?utf-8?q?t_for_the_DP_symbol_based_timing_generator?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Arun R Murthy" <arun.r.murthy@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Oct 2026 05:51:43 -0000
-Message-ID: <179316670318.79879.13405726548073057179@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261028-vlk-64036-dp-symbol-tg-v2-0-43849c325d32@intel.com>
-In-Reply-To: <20261028-vlk-64036-dp-symbol-tg-v2-0-43849c325d32@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +64,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============5461296431419396470==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Pipe joining is not supported in the WCL display configuration.
+Modes that would require joining are rejected, matching the
+4k 60Hz maximum resolution documented for the platform.
 
-== Series Details ==
+Also, WCL supports a single pipe scaler instead of two.
 
-Series: drm/i915/dp: Add support for the DP symbol based timing generator
-URL   : https://patchwork.freedesktop.org/series/177002/
-State : success
+Vidya Srinivas (2):
+  drm/i915/display: Single scaler per pipe on WCL
+  drm/i915/display: Disable pipe joiner on WCL
 
-== Summary ==
+ drivers/gpu/drm/i915/display/intel_display_device.c | 5 ++++-
+ drivers/gpu/drm/i915/display/intel_dp.c             | 4 ++--
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
-CI Bug Log - changes from CI_DRM_19402 -> Patchwork_177002v1
-====================================================
+-- 
+2.45.2
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v1/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-glk-j4005 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19402 -> Patchwork_177002v1
-
-  CI-20190529: 20190529
-  CI_DRM_19402: 6a182ac542350dbca9147134654c35e463aa1382 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9168: 9168
-  Patchwork_177002v1: 6a182ac542350dbca9147134654c35e463aa1382 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v1/index.html
-
---===============5461296431419396470==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: Add support for the DP symbol based timing generator</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177002/">https://patchwork.freedesktop.org/series/177002/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19402 -&gt; Patchwork_177002v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-glk-j4005 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19402 -&gt; Patchwork_177002v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19402: 6a182ac542350dbca9147134654c35e463aa1382 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9168: 9168<br />
-  Patchwork_177002v1: 6a182ac542350dbca9147134654c35e463aa1382 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============5461296431419396470==--
