@@ -2,27 +2,27 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25582606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3060F606A31D
 	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=gY3XUXUz
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=wWjFM+hS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C82F10FC62;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 906EF10FC64;
 	Wed, 28 Oct 2026 13:08:39 +0000 (UTC)
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46C2310FA50;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB3010FA55;
  Wed, 28 Oct 2026 08:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
- s=mail; t=1793175637;
- bh=f3wDiNCwMmjyXbWSfqLqTJmF38wOioqFlsZp1JBWY8g=;
+ s=mail; t=1793175636;
+ bh=vb2YQU4qe6RImWUZBE+u9ZEB8G8V69bXRBRkb+fLOpk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=gY3XUXUzE59WwCVC4Qxuo4c1OjSPVasCM7D1wASmJouVr1JmoDvCR1fpvkN/NRule
- x920S0FQBtza5BGKQpbvfVCzTkgENiiK4WcKdNZUluCqTy6kzWj7Aq537yU0sAAPsA
- q2wy/d0fqfUd08AA2eVS24Chvy9WL59hmC+ynavA=
+ b=wWjFM+hSTX3U8gdI2PDKi0wYk083s1rAoIucjog4b51AlSk0W2rJkgCKL+Evcl1K4
+ At9r43JjYcrWS5tKi0AYK2ha19HMAuni4cqUY2nx1yH++BKUGrmpWP+YV3sBEzZllO
+ r22BvFE5Ff0AYARkeLMplF+npotdwEUvo/Wg0P2c=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
  (Authenticated sender: d@ilvokhin.com)
- by mail.ilvokhin.com (Postfix) with ESMTPSA id 0D880FBD0B;
- Wed, 28 Oct 2026 08:20:37 +0000 (UTC)
+ by mail.ilvokhin.com (Postfix) with ESMTPSA id 7B5ECFBD05;
+ Wed, 28 Oct 2026 08:20:36 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -50,9 +50,9 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 08/10] leds: pwm: Switch to __nonnull_args() macro
-Date: Wed, 28 Oct 2026 08:19:47 +0000
-Message-ID: <ed2b0b67c306bb458ba389f16dc92904203a104b.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 07/10] drm/gem: Switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:46 +0000
+Message-ID: <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
 References: <cover.1793027261.git.d@ilvokhin.com>
@@ -90,21 +90,21 @@ in one place rather than open-coded at every call site.
 Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 ---
- drivers/leds/leds-pwm.c | 2 +-
+ include/drm/drm_gem.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/leds/leds-pwm.c b/drivers/leds/leds-pwm.c
-index 6c1f2f50ff85..0363d370828b 100644
---- a/drivers/leds/leds-pwm.c
-+++ b/drivers/leds/leds-pwm.c
-@@ -80,7 +80,7 @@ static int led_pwm_default_brightness_get(struct fwnode_handle *fwnode,
- 	return default_brightness;
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index ed329408acbe..56dd15921c7a 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -566,7 +566,7 @@ static inline void drm_gem_object_get(struct drm_gem_object *obj)
+ 	kref_get(&obj->refcount);
  }
  
 -__attribute__((nonnull))
 +__nonnull_args()
- static int led_pwm_add(struct device *dev, struct led_pwm_priv *priv,
- 		       struct led_pwm *led, struct fwnode_handle *fwnode)
+ static inline void
+ __drm_gem_object_put(struct drm_gem_object *obj)
  {
 -- 
 2.53.0-Meta
