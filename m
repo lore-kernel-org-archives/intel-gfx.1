@@ -2,47 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D75606A31D
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:39:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A48C606A31A
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JaiWIoBm
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jRmzhIrh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91F4110E620;
-	Wed, 28 Oct 2026 11:39:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE5E10FBB2;
- Wed, 28 Oct 2026 11:39:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5197D10FBBC;
+	Wed, 28 Oct 2026 11:44:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06BBF10FBB2;
+ Wed, 28 Oct 2026 11:44:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 367AB40A05;
- Wed, 28 Oct 2026 11:39:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DBC31F031E0;
- Wed, 28 Oct 2026 11:39:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0AA51601F8;
+ Wed, 28 Oct 2026 11:44:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8767F1F01825;
+ Wed, 28 Oct 2026 11:44:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793187558;
- bh=n7EyN63YMbsGSuXorcATqKgLRCoyblrPSFRBEfcKo4s=;
+ s=k20260515; t=1793187862;
+ bh=DfqZSZZirg02/y7+Hu6+biXxEuviwtSJMX1/tfCGZ1E=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JaiWIoBm55p1NwsB+vy+ilIpUD7pwPvzI1ksLV9662wlW7H8On6YGTVC1i0+Xrk84
- k5W/ilarBdyIN/yCEmIWVB2gmMJRNiRZolia5EG34pbKBnltzQHPVApqo9j5WJgTqH
- KWRZOdc+BCiaiNjLFcRDdMVXVC9h206K82s4w/d6UMEYkdahRTAIK8U+M2R6g5ZlgL
- 1rCIVXl9OztEjx91lyOhnsiVD0Aq4/aml4oVdS18wwr9XzcO/DaqLMm4VQm0ljLNWH
- hVnQtTELWGx7ZCnaK+Q8z3vN5iIcaFh0Vxqdw9NIljvI8th3utNplBmYmtvIC/5cDo
- Ps+l6n6ItFjNg==
-Date: Wed, 28 Oct 2026 12:39:14 +0100
+ b=jRmzhIrhvjBYvVLWvF2JxCm33XYPEY+B4MrjzqXXXvADrFnSkcbsTJSj1MGwIIrNw
+ kWnTLeNPwAIyLJtJ9+tdjv+78v1kDot8qmeI/jSFN574FYwb0mRlc5drmbrKuPcITI
+ 6FEhIHn8LraufNE/4d0Z/2AXNjo9H839co+kG/5xv740bKnWioo+cV4BJVLb2j3VTR
+ QyAxwrfZ8T8k1/xE4OmhivZaTmo2IG6MCOaltdGwsIaTczyLlCF7xdElyanabRWrN9
+ fzrY4h44LuGfWoyKWEoK4nCqnl3RBFNXiOdi+7T9W3f9T3De3jThVozlgpURldPRMR
+ pvVdbwZCrX23Q==
+Date: Wed, 28 Oct 2026 12:44:18 +0100
 From: Andi Shyti <andi.shyti@kernel.org>
-To: yaolu@kylinos.cn
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, tursulin@ursulin.net, simona@ffwll.ch,
- chris@chris-wilson.co.uk, 
- lionel.g.landwerlin@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gem: Reset err for each fence entry
-Message-ID: <auHeqGZ-hm2lS7Nk@zenone.zhora.eu>
-References: <20261027072832.726435-1-yaolu@kylinos.cn>
+To: Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, 
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>, 
+ Matthew Wilcox <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, 
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Subject: Re: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
+Message-ID: <auHf-pdvGkPibgTp@zenone.zhora.eu>
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027072832.726435-1-yaolu@kylinos.cn>
+In-Reply-To: <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,19 +83,21 @@ X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Lu,
+Hi Dmitry,
 
-On Tue, Oct 27, 2026 at 03:28:32PM +0800, yaolu@kylinos.cn wrote:
-> From: Lu Yao <yaolu@kylinos.cn>
+On Wed, Oct 28, 2026 at 08:19:44AM +0000, Dmitry Ilvokhin wrote:
+> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+> nonnull") added the macro __nonnull_args() to wrap raw compiler
+> attribute.
 > 
-> If dma_fence_chain_find_seqno() failed once, 'err' will store val in
-> the following loop. May causing returns '-EINVAL' even though that
-> entry never called dma_fence_chain_find_seqno() at all.
+> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+> nonnull attribute usage across the tree and keep the attribute's quirks
+> in one place rather than open-coded at every call site.
 > 
-> Fixes: 13149e8bafc4 ("drm/i915: add syncobj timeline support")
-> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 
-pushed to drm-intel-gt-next.
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
 Thanks,
 Andi
