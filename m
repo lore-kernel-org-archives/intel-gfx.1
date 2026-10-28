@@ -2,58 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D69606A31E
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:26:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9372D606A31C
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N3m07sia
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JGKF85hm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB5C010E612;
-	Wed, 28 Oct 2026 11:26:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E3DA10E620;
- Wed, 28 Oct 2026 11:26:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A26F10FB74;
+	Wed, 28 Oct 2026 11:33:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D63C10FBB1;
+ Wed, 28 Oct 2026 11:33:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793186799; x=1824722799;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=puHCynIOKJsiWajIlufMpSnhOCJJwlV2BqjHZMFdP9k=;
- b=N3m07siaFTtxLI0zMyHBcJHK2Mk27HwIqrRQVu1twcH1/78iVHDPF+vo
- 1JcTfsWGZCX7y/zo6xoXFslDbYE+RoNyAfxlrnSvA70khlpEI9JzwAXTo
- QybAqvzyrBEYJ0LBz9tzqgHkoTRv+lCRSNaWbaLB2NwsEEFgbQdw2FQbJ
- FzTW83GD3FCRX9rWOD1swKvUIkamJAcyCo2D8lv7ADLl/XoqVwthK0XpX
- tFGUh49Y2XoX2NaVwXhPb6jdRJKP8UcVkh3k+Z9Gewehdca4cjva+FvlL
- f0xb3llf2VXo1WoZV4e27S/rE/x19A9x2fErbazCcZyjgh8KFJd1Me97R g==;
-X-CSE-ConnectionGUID: yCDS8llVRVmKfrMQ4DccIg==
-X-CSE-MsgGUID: 7AZL6nw5QXWdyY+xsr8q0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1783735"
+ t=1793187229; x=1824723229;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=z8y8XV24bROqh0zonAMNAjIZyMJbY12xpb+/fK8m0AI=;
+ b=JGKF85hmCVQ9pf9eXbOsC8wgPHWDavTdyCGWPRpxPC23gPTB9HurHR1u
+ WQIzCd0zwuTx3xDYu7R6x7Tug0u3cG2len/6bLyuT1Ba9nt2Ksz9lFv16
+ uWsDoRlbFOlyD/wV5bIxwsw3kIwHlbx+7870/Q08076xKsblgMcUIm7Xw
+ nkUIXIu5vX0mQFDdirfJv+J+GkeTU7aMk2olzE59xTR4u4jE9NpgRt9lo
+ j3gf2C66LaqLw0qU6mJ+rQfIH8X+Zwj6uep7ZyHB2nWJbxPDyFDqeTPXW
+ uH7NK1RnZY34FW9rSVNOCVg9/KCrbR1XNYeByeZKByf52EvDlzja4Tmz3 g==;
+X-CSE-ConnectionGUID: JyclsOj+S9yIfeGKLwuDbQ==
+X-CSE-MsgGUID: pcolIxavSSyp9/nfaS2Zsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1813626"
 X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1783735"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 04:26:39 -0700
-X-CSE-ConnectionGUID: hpUc5HDSRkm0vJqR8zLtRQ==
-X-CSE-MsgGUID: Kfyj5NSGQYKdMON70Awtiw==
+   d="scan'208";a="1813626"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 04:33:48 -0700
+X-CSE-ConnectionGUID: F9mrBK1+QXS8jOjCv8P8bQ==
+X-CSE-MsgGUID: KJ1QgI6jS6ey2L/RLS17LQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4827345"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by orviesa002.jf.intel.com with ESMTP; 28 Oct 2026 04:26:37 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- jouni.hogander@intel.com, ankit.k.nautiyal@intel.com,
- ville.syrjala@linux.intel.com, mitulkumar.ajitkumar.golani@intel.com,
- Xiao Lu <xiaolu.xie@intel.com>
-Subject: [PATCH] drm/i915/display: Write the DIP header last on Xe2+ and reset
- VSC_SELECT
-Date: Wed, 28 Oct 2026 19:24:23 +0800
-Message-ID: <20261028112423.2445450-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
+   d="scan'208";a="6633584"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.146])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 04:33:40 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones
+ <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Joel Stanley
+ <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen
+ <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook
+ <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Matthew Wilcox
+ <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Andy
+ Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
+ Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Dmitry Ilvokhin <d@ilvokhin.com>
+Subject: Re: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
+In-Reply-To: <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+Date: Wed, 28 Oct 2026 13:33:37 +0200
+Message-ID: <3b839373c03f6b8aeafa8e4801a486ece68b0815@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,120 +87,73 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Xe2_LPD and later the video DIP data registers are located in the
-core display clock domain, while the packets that are anchored to a
-transmission line register get double buffered in the transcoder clock
-domain. The hardware clock crosses the whole packet to the transcoder
-clock domain on the write of the packet header (dword 0), hence bspec
-requires programming all the data bytes of such packets first and the
-header last. On PTL the VSC SDP is anchored to the transmission line
-(EMP_AS_SDP_TL) when the AS SDP is enabled, and bspec recommends using
-the same order for all the video DIPs, so that the programming doesn't
-depend on how a given packet is double buffered.
+On Wed, 28 Oct 2026, Dmitry Ilvokhin <d@ilvokhin.com> wrote:
+> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+> nonnull") added the macro __nonnull_args() to wrap raw compiler
+> attribute.
+>
+> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+> nonnull attribute usage across the tree and keep the attribute's quirks
+> in one place rather than open-coded at every call site.
+>
+> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 
-hsw_write_infoframe() writes the header first, so the clock crossing
-triggered by the header write happens before the data of the packet has
-been updated. Write the header last on display version 20+.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-Also, VSC_SELECT in VIDEO_DIP_CTL is a two bit field selecting whether
-the header and the data of the VSC SDP come from the hardware or from
-the software, but hsw_write_infoframe() ORs the wanted value into
-whatever the register already contained, so a stale setting is not
-replaced (e.g. 1 | 2 results in 3). Clear the field before setting it,
-and clear it as well when the SDPs get disabled in
-intel_dp_set_infoframes(), so that a stale setting left behind by an
-earlier user doesn't carry over.
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
+>  drivers/gpu/drm/i915/i915_request.h        | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> index a2f4b6758a65..648d0b4139cf 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> @@ -127,7 +127,7 @@ __deprecated
+>  struct drm_gem_object *
+>  drm_gem_object_lookup(struct drm_file *file, u32 handle);
+>  
+> -__attribute__((nonnull))
+> +__nonnull_args()
+>  static inline struct drm_i915_gem_object *
+>  i915_gem_object_get(struct drm_i915_gem_object *obj)
+>  {
+> @@ -135,7 +135,7 @@ i915_gem_object_get(struct drm_i915_gem_object *obj)
+>  	return obj;
+>  }
+>  
+> -__attribute__((nonnull))
+> +__nonnull_args()
+>  static inline void
+>  i915_gem_object_put(struct drm_i915_gem_object *obj)
+>  {
+> diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+> index b09135301f39..f559203c332d 100644
+> --- a/drivers/gpu/drm/i915/i915_request.h
+> +++ b/drivers/gpu/drm/i915/i915_request.h
+> @@ -437,12 +437,12 @@ void i915_request_cancel(struct i915_request *rq, int error);
+>  long i915_request_wait_timeout(struct i915_request *rq,
+>  			       unsigned int flags,
+>  			       long timeout)
+> -	__attribute__((nonnull(1)));
+> +	__nonnull_args(1);
+>  
+>  long i915_request_wait(struct i915_request *rq,
+>  		       unsigned int flags,
+>  		       long timeout)
+> -	__attribute__((nonnull(1)));
+> +	__nonnull_args(1);
+>  #define I915_WAIT_INTERRUPTIBLE	BIT(0)
+>  #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
+>  #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
 
-This is meant to address the VSC SDP being dropped by an eDP panel on
-PTL after some HDR modesets, where the VSC ECC registers differ from
-the working case.
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9693
-Bspec: 75640
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
----
-Not yet tested on the affected hardware. Sending for review, and for the reporter of xe#9693 to try.
-
- drivers/gpu/drm/i915/display/intel_dp.c   |  4 ++++
- drivers/gpu/drm/i915/display/intel_hdmi.c | 21 ++++++++++++++++-----
- 2 files changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 00e02e019..41e521468 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5606,6 +5606,10 @@ void intel_dp_set_infoframes(struct intel_encoder *encoder,
- 	if (!enable || !crtc_state->has_psr)
- 		val &= ~VIDEO_DIP_ENABLE_VSC_HSW;
- 
-+	/* Reset the VSC select when disabling the SDPs, so it doesn't go stale */
-+	if (!enable)
-+		val &= ~VSC_SELECT_MASK;
-+
- 	intel_de_write(display, reg, val);
- 	intel_de_posting_read(display, reg);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index b6fa1a155..0738f695c 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -524,6 +524,12 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
- 	const u32 *data = frame;
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 	intel_reg_t ctl_reg = HSW_TVIDEO_DIP_CTL(display, cpu_transcoder);
-+	/*
-+	 * On Xe2_LPD+ the packet registers are clock crossed to the transcoder
-+	 * clock domain on the write of the packet header (dword 0), so the
-+	 * header must be written after all the data.
-+	 */
-+	bool hdr_last = DISPLAY_VER(display) >= 20 && len > 0;
- 	int data_size;
- 	int i;
- 	u32 val = intel_de_read(display, ctl_reg);
-@@ -535,25 +541,30 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
- 	val &= ~hsw_infoframe_enable(type);
- 	intel_de_write(display, ctl_reg, val);
- 
--	for (i = 0; i < len; i += 4) {
-+	for (i = hdr_last ? 4 : 0; i < len; i += 4)
- 		intel_de_write(display,
- 			       hsw_dip_data_reg(display, cpu_transcoder, type, i >> 2),
--			       *data);
--		data++;
--	}
-+			       data[i >> 2]);
- 	/* Write every possible data byte to force correct ECC calculation. */
- 	for (; i < data_size; i += 4)
- 		intel_de_write(display,
- 			       hsw_dip_data_reg(display, cpu_transcoder, type, i >> 2),
- 			       0);
-+	if (hdr_last)
-+		intel_de_write(display,
-+			       hsw_dip_data_reg(display, cpu_transcoder, type, 0),
-+			       data[0]);
- 
- 	/* Wa_14013475917 */
- 	if (!(IS_DISPLAY_VER(display, 13, 14) && crtc_state->has_psr &&
- 	      !crtc_state->has_panel_replay && type == DP_SDP_VSC))
- 		val |= hsw_infoframe_enable(type);
- 
--	if (type == DP_SDP_VSC)
-+	if (type == DP_SDP_VSC) {
-+		/* VSC_SELECT is a two bit field, don't OR into a stale value */
-+		val &= ~VSC_SELECT_MASK;
- 		val |= VSC_DIP_HW_DATA_SW_HEA;
-+	}
- 
- 	intel_de_write(display, ctl_reg, val);
- 	intel_de_posting_read(display, ctl_reg);
 -- 
-2.43.0
-
+Jani Nikula, Intel
