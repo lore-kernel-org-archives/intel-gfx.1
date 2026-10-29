@@ -2,207 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72218606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 16:00:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C36606A31D
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 18:11:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iw94y/1+
+	dkim=pass (1024-bit key, unprotected) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=BceE0c4E
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBA911240A;
-	Thu, 29 Oct 2026 16:00:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4DDC11240A;
- Thu, 29 Oct 2026 16:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793289636; x=1824825636;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=1s7rQPzBWfF3kY4Gi4Gs8o36uSP/gZ92/BBROqe3tUA=;
- b=iw94y/1+GSa38QiXYO7iHgdQM1H1u+uV/uRXhLZ/qgBiL8xx52iOfeX2
- irU6D2cIH0UUxN4ma4GWTitjgvCO5trpFP7L+f8wxytj7sRHs2jX6gRKW
- hWdrHLNXfGLPoxAwZSPPevy4XoIvrYzKOULJoKCKuThb0VRI8kBxXC9D3
- QuLZovFBYWlb8vf0T8qlxy8rf3c/pAuAF0Q2rSndx1JI4kTCr5FkzBQ6S
- 4c6aC12tXma9PYuugXqgk1vUuPUouXEexyI3aaytW3A6F93wlNNmHP4ht
- NEpPLs17elRcAOlzZ9lCuU+oSBse57XC/28/4AfK4mPNPjO6w0B2QEkqy w==;
-X-CSE-ConnectionGUID: KAWgxIBLQfKK9BkgWcs0fg==
-X-CSE-MsgGUID: Jb6HX69zTP+mA2vC/7wpew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1924331"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1924331"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 09:00:34 -0700
-X-CSE-ConnectionGUID: yvTkDk+tT+OTJ+A6TBHHyA==
-X-CSE-MsgGUID: uKa5PQb6QsebgeeX3ej9Ng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5275435"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 09:00:32 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 09:00:31 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 09:00:31 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.69) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 09:00:30 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N7dw55R7QH2y/o1H0Krg6QrDe1sXjJtyKa4F5Vrih1n4MfYxcWou3GRsTxhzRyq1iRE+3U1dit0gBpLt+bjF/XnCDvO54GVFGp/vqODW+nfWhVZAPEN5GEPpLXsKlLnuI955r62lE2WhqTKgZncFwenkqrTUa+P9a/nuxpt9Ny7YL1qJOJ2Hy8q8Hm8KRt8TS8NjVADzaji6eRRrZhVV7ZO2GJBQ5nx2oY73Hgp/t6zi825dhD7jK3PnAiI3XgubsA8pS9M7s/fJGYy7h4Wny4kGjK4FLVJInuP3OtGF77AI8S0Dgo/Rd60l0j/sOqtq5hgEQ7VNkPN4vWxE4sZ1rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=++iK9zA7vdSqa2z9khUOayVv3ianUOElr3aNyLxohNs=;
- b=w+WtNPFR1X0tRSrixPIJjnQVocHwPpYr+kD1XQQ9C9MSsG4uj5pNQpGLbuCXtLqD6/XoKFkUB/WZLoE8mpzxtymqFObJQDf2Kvp2EwQadVfzSphjiVSKVm+4MY91fnii4zIidg+2hYSBUxzYv8k6iE/z17e0UhbI0knZBKWzbEO9PRBrECndUs/Sowi0aErm+TuaD5u55rdEP8wriUof1yMR1vK/wqz5E3sxQVIL6w6Qde1yfgAKoHfq9G1ptd8/992NrCO/y2yxyZ5YwSmt2crMuHC13fc9sZQKfFcgFeEqzpLuye7VDR7Nlt2EkROPaKY1vIExt4lnJo2B2/VHXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by DS0PR11MB7999.namprd11.prod.outlook.com (2603:10b6:8:123::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 16:00:20 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
- 16:00:19 +0000
-Date: Thu, 29 Oct 2026 09:00:15 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Philipp Stanner <phasta@kernel.org>
-CC: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>, Oded Gabbay
- <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso
- <tomeu@tomeuvizoso.net>, Karol Wachowski <karol.wachowski@linux.intel.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Alessio Belle
- <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- "Dmitry Baryshkov" <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
- <sean@poorly.run>, "Marijn Suijten" <marijn.suijten@somainline.org>, Lyude
- Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Boris Brezillon
- <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>,
- =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>, Liviu Dudau
- <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann
- <kraxel@redhat.com>, Natalie Vock <nat@pixelcluster.dev>, Arun Pravin
- <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>, =?iso-8859-1?Q?Ma=EDra?= Canal
- <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, "Dmitry
- Osipenko" <dmitry.osipenko@collabora.com>, Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
- <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding
- <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Sunil
- Khatri" <sunil.khatri@amd.com>, Kees Cook <kees@kernel.org>, Jesse Zhang
- <jesse.zhang@amd.com>, Timur =?iso-8859-1?Q?Krist=F3f?=
- <timur.kristof@gmail.com>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Kexin Sun <kexinsun@smail.nju.edu.cn>, "Prike
- Liang" <Prike.Liang@amd.com>, David Rosca <david.rosca@amd.com>, "Krzysztof
- Karas" <krzysztof.karas@intel.com>, Marco Crivellari
- <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
- =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>, "Thadeu Lima de Souza
- Cascardo" <cascardo@igalia.com>, Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
- Al Viro <viro@zeniv.linux.org.uk>, Neill Kapron <nkapron@google.com>,
- "Michael Bommarito" <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
- "Gabriel Prostitis" <prostitisgabriel@gmail.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <etnaviv@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <imagination@lists.freedesktop.org>, <lima@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
- <spice-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-usb@vger.kernel.org>
-Subject: Re: [RFC PATCH 5/6] dma-buf: dma-fence: Close race in
- dma_fence_is_signaled() by default
-Message-ID: <auNtj8zYrqwtnXdK@gsse-cloud1.jf.intel.com>
-References: <20261029095542.1526750-3-phasta@kernel.org>
- <20261029095542.1526750-8-phasta@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261029095542.1526750-8-phasta@kernel.org>
-X-ClientProxiedBy: MW4PR04CA0044.namprd04.prod.outlook.com
- (2603:10b6:303:6a::19) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 228EB10E826;
+	Thu, 29 Oct 2026 18:11:40 +0000 (UTC)
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com
+ [209.85.161.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5703F10E835
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 18:11:33 +0000 (UTC)
+Received: by mail-oo1-f48.google.com with SMTP id
+ 006d021491bc7-6df7f544919so1539433eaf.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 11:11:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ieee.org; s=google; t=1793297492; x=1793902292; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=gLjComLCp2esLTingR9be9ipRIp36YyskRA+PmDaCHo=;
+ b=BceE0c4E467mjLtd4irK2w3nJ67W+76K/z7dEyGv/Et4kDkQ7BwYQrUpf8fvRBN3fT
+ BnMgcjcdMeW5N07W0LPiqYMUvfMDwtYnE0/Xs7szh88pGJW7PfCvE//ZHc0ESw14f6Pv
+ arN78dxTkPoq2w5EtsljNDaW0Le7zeaaD9/UA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793297492; x=1793902292;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gLjComLCp2esLTingR9be9ipRIp36YyskRA+PmDaCHo=;
+ b=ot4AqqVgyS9PJtJUUZaiRmQHlMAKDxyLerkeZvkuOnS1XVphqI1ONif4DCpv9G/XaR
+ 2iH5kSZdOFqJ8yr4pxhHWwsLpmJbP+4lfisgdiYamc/9e/o//viae2eD46rIQU2VUIGx
+ 4e1U2QXFhfgpAGtIgWqt4SZ9Qn5Y566IV2G2k0PTZ9Qq5o10oCZuW4T9a3ysEdGCjh9F
+ 7gRakOBeworAuSU4wxSK7Yf58pKXz2f3XepmVdvrFI5HhD00ShO94ZPZ1fRBu4LZ1w40
+ JdnZerKIz/0XeiZxOHxYC5aFi9uK+ohiy24G84q+T/N90KgnUZkM9QcE0fO5D0v5Swej
+ lgLw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxzXAsiADih7MAaSyA3phzSIetnP0C26y2SOoXMy6VcLBgO1R+ETlkF3/LrJ4HL40mqmUNyA6UhWOk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIA/bAb4psiEK9ovXKf2o3qWOWAwkpq8KWm4kWisWsljy1Ttdpo
+ oz/7sJu/W5yImQSqwnhw/LsNcNrLdj8pNOPjavRBOwvgwB5qN6NY5T5xU4utShGYWw==
+X-Gm-Gg: AYBFou3qFfizeXUWjKa+BFrSXB14cRz51YpCQPp1tLUB+HwFwwrPN/pEjw379cbiXs9
+ sN576LRuulgI7D0Wj3/SIXLveJnL52gV70Xy3n1xldjI43BboFqllCQlBmQDPwb0vUv/yoNNn+x
+ S1LPjRQ3g/l3L7ADWFWfZpG2XKeHE+Cs65+tL/SMYzJsSYTKqxh+sCNI8l7xWiHG9LxovFXqRvl
+ 84XrX70T6gLdoE03BKWwAxyfYZUJEgHQOHOf3y/DO9qoIyYPS6yKNT2QEG3iGVqVsQB7xrFbr2O
+ +O91rlbmwf8SpQIJuP590OPr/OSMfmeuoPxoU2kn1FLY6l9G77oA6F7DJbqBw1Ox9QNn6q55Td6
+ GlfmQXDgolZUUgFanWI+Tm5O3gS2WVDpGYPil8cue1GJnZwKzZ6ZXAmPY58lvOL1bGiXUcWyfxp
+ Al9G5EY9j0ZQtyoZm6McknLv17knvbpO+8TnY8aYzIpMcqKKsVPp/m42f9V1KnSlgeuHgKOvQLV
+ mr0sTLXm1wUV5LvQ3XWg8OK53VXxFLuic9kWKwKyX/rugl23STELdZXennbAJe9pAVYCIww3pll
+ BsQKRGdzhQCbVc1muPit5XE0Vg9TPuW40+sDF1kyIVcwNg==
+X-Received: by 2002:a05:6820:5710:10b0:6de:aeea:5c89 with SMTP id
+ 006d021491bc7-714f288a10fmr36729eaf.23.1793297492247; 
+ Thu, 29 Oct 2026 11:11:32 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+ by smtp.googlemail.com with ESMTPSA id
+ 586e51a60fabf-4a904856f09sm130363fac.3.2026.10.29.11.11.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Oct 2026 11:11:31 -0700 (PDT)
+Message-ID: <4c7a6635-7382-4e57-ae16-6bc2ee694f46@ieee.org>
+Date: Thu, 29 Oct 2026 13:11:29 -0500
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DS0PR11MB7999:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6a3578e-fddd-4b58-297f-08df35d5babd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|23010399003|18002099003|22082099003|56012099006|11063799006|261026140227099003|4143699003|261021123027099003|261021121427099003|10067099003|261026121527099003|261009223027099003|261022075727099003|261022105027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info: GcA/mTp3EeoLjKo9kf4JRRrRKZLtSlDNaMmvaSH66FCOzpPQZSRs/U5CmyaOEfe85COboqUvFC/IS2XNvmWk0YNjCp1HRjR7+YfGdy5ApnRrM/c67DJNNNEETe1xJ4eXeyYxwYAyvGUWo49j9UYEXcCDfM7TNvUKl7+1BKpFhcPUIHZ7WvA6SMFestx7luxt2me4h/k0MXsnbwVSD6ymbV7F2E5m+M653Aqp6BGQ/Pmr95HLeX7h0n8ZEE8HYdhSLbfaGl/CwOTcphOULwPXNSdQPy6Q/WXlAzgTmEuGea3akpjRVedIkpewnHHLYyTpkxIO3+AhjibRAVaRUb886ft7MLrmdF7945T+lnLtzd/IG2y6aaE/e4VU3HxpkZiV2nWqgMqNc8VXwNa1uxVuRCJQJXU4Y0UObzf1xQsN7ybsDvu6JeegZWipNKVjD7jLbjKyELE0sA095YtYQoMnTWlbavtkL2ZKpCSJsDWUD0zWrlktPcoD/hPddvLuWDqtDsbPcoRuxqgLAOr3uXEK2eLLRbt/8PwA/bocggz5KnHWwSyGSdhUlnDNYwOuZxjvY75hmGX+BOX/YoS8JWi6Gh0w+1MmkT3mzO9G/Wvr9SaMJoNXrUqFSvfDl42XLZeLh0EqVr6DwAWHqeRFrz9VHEFrclPMlQO9kT1wIOCPWjw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(261026140227099003)(4143699003)(261021123027099003)(261021121427099003)(10067099003)(261026121527099003)(261009223027099003)(261022075727099003)(261022105027099003)(261028144727099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yhF8AzJ4SOQZjKgwpgmtJEsmjJJJQZSmg7/qT2hQva1P3tFx5+K7Yuv0XDxE?=
- =?us-ascii?Q?YGKyP6qm6UBfD/rfkSnzfmOttXOSXlYIgQEY3s/hDdvwREziNUYoATT3VAXg?=
- =?us-ascii?Q?EyV1ZxkVWVmsB4bf2H1WrARuJ1BWkpzWKvU7vBjZxefHYHIKI9fathPH1BMg?=
- =?us-ascii?Q?Mk8AL15M9nbE6rGhw7oNayZTS7ulj9k4xfkaWFXyzMAu4HCKl30YA7trp8qR?=
- =?us-ascii?Q?jE7HPC18lS8DVACLGgnTvAtkJKYeYldgyP7/2baOmlVZJYZD4zmjEQF6QSqd?=
- =?us-ascii?Q?6AG5+bexZyDihivIA/+1sqYcWy2ZsSKrtf2Sxg7ifGXqaLAO+DVmnpQYAY9u?=
- =?us-ascii?Q?/0X5ieF1oXhQ5T46RrBIgTTGTU2/rS8fiDlgydqTCFa7GwWpITBfLq5XVMPO?=
- =?us-ascii?Q?tuGFnYR5vwENoNvaBfimbbK8VFHzDgqWs9jH7vLZIh8JN4RM/3LbhFm0NlsP?=
- =?us-ascii?Q?Bh/Ji3OtkT/HlQt8VnRQCL7Sa1pkviVpdXMyW63P4TLP4dpOJ/e+rIQps3sc?=
- =?us-ascii?Q?gzIwLCo/A70cwZq4za64EOGuJYykb7JOEQev2O53+8iLbL0malpFKMc305wl?=
- =?us-ascii?Q?M6QbbZX91ZcZYPaqYjIQsVkbLkQmuB0oZzvsnJZAUvt26nnRpc1kydEK/slq?=
- =?us-ascii?Q?Og5hD3gWG0tHqDXZiVDtDYJ+A3NLPdDTX07EOWtGbaxmK8Rha/HeNsdRL7/K?=
- =?us-ascii?Q?j2TNPOQP67Ce92OnO7VF+uUTKGnkedGKW/CUoArTGCjWOu75p5XfKj1gEqPl?=
- =?us-ascii?Q?304SJqpFMsjiQkRPrybV2inV6ZIQxkq8thcDad8z+d7JaQw4/HpaiMFW3BPI?=
- =?us-ascii?Q?Neo+pd7oiPbqwUOrRe/4Wj/uqkDldwF8+C4jPpxRHDcDr7SV2OAXR8DPsuaP?=
- =?us-ascii?Q?FGZvPuF7Jf3IM7mBUWCev38v+otOOF6M6YCD3RepkIXNGX+mvvCuknak1PGI?=
- =?us-ascii?Q?6t/URpwMQsZhbz9V5HTyaXIYqz3l4n5ZeaRmyiYnR1h566xM0KnX/+T4tDhC?=
- =?us-ascii?Q?0+swB0C/53Ez5M8lOitNeERlB7rPLdqLpcENIdKp13fgv3W38Z/ee+MJkVlB?=
- =?us-ascii?Q?JKKV15VqmaV3s0bu1aEufn8upTr8JsHkYTn4RjWI30HHUodW7Xj9Y8x5XCcD?=
- =?us-ascii?Q?bScg1/3thW7vKQe5wngY3yBCkNKSJuhyKUoFNQVjFndmpGGpU79MUU56PlOu?=
- =?us-ascii?Q?tNJCk6cpYJQBOuUan7AtIV8Q53o57SPua3K+laf4u6UsRhT5Egx1tCqG0XJk?=
- =?us-ascii?Q?5cBrlRrfu0MM+TnKPzwRm3tbpqz/5hk0IwcyAXxs45t/lmMepkczpAbvEVJP?=
- =?us-ascii?Q?T7Y7tanSinbMf0apgIhDdgGEygGUlX/u0zoCV03VYQFHM9lfHkaLnXNwMC9G?=
- =?us-ascii?Q?rhBu6/NtP6w8OioKuV00NNXE7dKd2kYgjLklYSMSMlJTQ2HB8jUNBWlgyr0m?=
- =?us-ascii?Q?OZ1/+zOUR0JwAlj2dSs4xV6HHZ2gHo+pTCZMQBIQ6z29M9SoIJMa7kC3HEWp?=
- =?us-ascii?Q?ZxsMSwXPnI12wXgMvByM39w2Vafl2SJo3YdZIpnKGzrD7t/PqCyfPWpI+mEk?=
- =?us-ascii?Q?mrYKJrNxoQPDpTvZPlGgmwyNMUUIsXtYRDjIm5XPzaNV0Q4+YEwCwXidBf2D?=
- =?us-ascii?Q?znPX9w0PaoOE4qN7f8MBUF+ikYcHBjzyB18ztj7xUE9Cy7CzfcBNVaaZgdy9?=
- =?us-ascii?Q?cAqGmr6juZ3Fq2qgbs0f0Nt5F1ZQplZE1fN+64VvSX205qGUiLFixjLme0zX?=
- =?us-ascii?Q?T9a/l0vNZw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: dLchvVtnFtecCNNV+v+ZIIG05MtGLBr70qRjTdh1vTzrBkOTUKxwylRlWDjcLKwFLSJ56kKgUfTh2ISt5C7dnlfSI8QUelygsNRnwrA7w5ztxSoLpV4FeJzVnQ/+LKkP1gXlMiwGPYbVa3hM4F4Kndc+8hpYKSVMm/Z7iXQByCiaNgp2ptitmUZ/Sk5vegJH521FjaX6x4BPVfva0LiV79JFOG0bRAD3q36M+lFvhAvG6ctR5jjk8jmBJTFuUYZXGKbao5N3CIb1jMvbQBeuEgNy0nbDnhecn8RRqVD7zO76vaxATu4keJHpxP6tIWa9Xqa+DUGAEnb4BQDgohgw4g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6a3578e-fddd-4b58-297f-08df35d5babd
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:00:19.1318 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +5xI66ER351bw+NXujpvhxkFpRqgB+f3HwPJlr35TdqYCPpvwQDo7vWQUcbhQEiONluhg4IYvB+WQX47sagy2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7999
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
+ return 1 when !CONFIG_PM
+To: Frank.Li@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Guan-Yu Lin <guanyulin@google.com>,
+ Mathias Nyman <mathias.nyman@linux.intel.com>, linux-pm@vger.kernel.org,
+ linux-usb@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ netdev@vger.kernel.org, imx@lists.linux.dev, Rob Herring <robh@kernel.org>
+References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -214,119 +107,135 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Oct 29, 2026 at 10:55:42AM +0100, Philipp Stanner wrote:
-> dma_fence_is_signaled() contains a lockless check of the signaled-bit,
-> which is set under lock protection. This is a race condition which makes
-> the API fragile and has caused at least two bugs already, addressed in:
+On 10/29/26 11:30 AM, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
-> 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
-> 
-> It has been argued by some that this race cannot be closed for the
-> entire kernel through locking because this would lead to a cache line
-> invalidation for all parties reading that fence. While it remains
-> unclear why these parties don't simply let themselves be notified about
-> the fence being signaled instead of checking this repeatedly manually,
-> there is a way to preserve this behavior in any case:
-> 
-> This patch adds a new flag for dma_fence_init(),
-> DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK. If this flag is not set, the
-> spinlock is taken and dma_fence_is_signaled() becomes perfectly
-> synchronized: it can only return true once signaling of the fence is
-> completed.
-> 
-> Disable the racy check for everyone by default. Should some parties
-> really experience severe performance degredations because of this, they
-> can trivially re-enable the race condition for their driver by setting
-> the flag in dma_fence_init().
-> 
+> When CONFIG_PM is not enabled, all devices runtime PM state should be
+> treated as active.
 
-My 2 cents - anyone arguing about cachelines probably has broken code to
-begin with. I'd say don't give anyone an option to opt into a racey
-check, if this regressing some peoples code the answer is likely
-structurally fix your broken code.
+Should be treated as if runtime PM were enabled for the device,
+and the runtime status is active.
 
-Matt
+It's a subtle distinction but the previous behavior returned
+EINVAL, which means "runtime PM is disabled for the device".
 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Anyway, for the IPA use of this function, this looks correct.
+
+Acked-by: Alex Elder <elder@riscstar.com>
+
+> 
+> __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
+> pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
+> stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
+> should return the same value as the stub pm_runtime_get(), which is 1.
+> 
+> Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
+> 
+> Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
+>    Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
+>    Callers: drivers/accel/ethosu/ethosu_perfmon.c,
+>             drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
+>             drivers/gpu/drm/msm/msm_perfcntr.c,
+>             drivers/gpu/drm/v3d/v3d_mmu.c,
+>             drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
+>             drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
+>             drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
+>             drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
+>             drivers/media/pci/intel/ipu6/ipu6-buttress.c,
+>             sound/hda/core/device.c
+> 
+> Pattern B: if (!ret) after get -- no impact
+>    Both -EINVAL and 1 are non-zero, !ret is false in both cases.
+>    drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
+>      in kernels without CONFIG_PM), drivers/pci/pci.c
+> 
+> Pattern C: ret > 0 / ret <= 0 / ret != 1 checks -- FIXED
+>    drivers/usb/core/offload.c: checks (!= 1), old -EINVAL caused
+>      -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
+>    drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<= 0), old -EINVAL
+>      spuriously triggered WARN. Fixed: 1 > 0, no warn.
+>    drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<= 0), old
+>      -EINVAL triggered error path. Fixed: 1 > 0, correct path.
+>    drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
+>      Fixed: proceeds correctly without CONFIG_PM.
+>    drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
+>      (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
+>      xe_pxp.c) now correctly treat !CONFIG_PM as active.
+>    drivers/net/ipa/ipa_smp2p.c: power_on = (> 0), now correctly true.
+>    drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
+>      executes stall register update.
+>    drivers/staging/media/ipu7/ipu7-buttress.c: active (<= 0) early
+>      return now skipped, correctly proceeds.
+> 
+> Pattern D: explicit -EINVAL check
+>    drivers/hwmon/prom21-xhci.c: checks (> 0) then (== -EINVAL).
+>      Old: took -EINVAL fallback. New: takes (> 0) fast path.
+>      Both succeed when CONFIG_PM is disabled; functionally equivalent.
+>    drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
+>      stub is never reached. No impact.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 > ---
->  drivers/dma-buf/dma-fence.c |  2 ++
->  include/linux/dma-fence.h   | 22 ++++++++++++++++++++++
->  2 files changed, 24 insertions(+)
+> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+> Cc: Karol Wachowski <karol.wachowski@linux.intel.com>
+> Cc: Oded Gabbay <ogabbay@kernel.org>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Alex Elder <elder@kernel.org>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Robin Murphy <robin.murphy@arm.com>
+> Cc: "Joerg Roedel" <joro@8bytes.org>
+> Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Guenter Roeck <linux@roeck-us.net>
+> Cc: Guan-Yu Lin <guanyulin@google.com>
+> Cc: Mathias Nyman <mathias.nyman@linux.intel.com>
+> Cc: linux-pm@vger.kernel.org
+> Cc: linux-usb@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: intel-xe@lists.freedesktop.org
+> Cc: linux-hwmon@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: iommu@lists.linux.dev
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: linux-staging@lists.linux.dev
+> Cc: netdev@vger.kernel.org
+> Cc: imx@lists.linux.dev
+> Cc: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>   include/linux/pm_runtime.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index f7c084926ae6..1ae8c7aade39 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1119,6 +1119,8 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->  	/* Mapp the init_flags to the fence-internal flags. */
->  	if (test_bit(DMA_FENCE_INIT_FLAG_SEQNO64, &init_flags))
->  		set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence_flag_bits);
-> +	if (test_bit(DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK, &init_flags))
-> +		set_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT, &fence_flag_bits);
->  
->  	__dma_fence_init(fence, ops, lock, context, seqno, fence_flag_bits);
->  }
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index 52e7ddfd2d06..ee6e8de3ebc6 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -115,6 +115,7 @@ enum dma_fence_flag_bits {
->  	DMA_FENCE_FLAG_SIGNALED_BIT,
->  	DMA_FENCE_FLAG_TIMESTAMP_BIT,
->  	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
-> +	DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
->  
->  	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
->  };
-> @@ -124,9 +125,12 @@ enum dma_fence_flag_bits {
->   * These flags can be passed in dma_fence_init().
->   *
->   * @DMA_FENCE_INIT_FLAG_SEQNO64: Use 64-bit sequence numbers.
-> + * @DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK:
-> + * Legacy flag. Enables a race condition in dma_fence_is_signaled().
->   */
->  enum dma_fence_init_flags {
->  	DMA_FENCE_INIT_FLAG_SEQNO64,
-> +	DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK,
->  
->  	/* Must always be last member. */
->  	DMA_FENCE_INIT_FLAG_NR_OF_FLAGs,
-> @@ -568,9 +572,27 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
->  static inline bool
->  dma_fence_is_signaled(struct dma_fence *fence)
->  {
-> +	const bool racy_check = test_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
-> +					 &fence->flags);
->  	const struct dma_fence_ops *ops;
-> +	bool signaled = false;
-> +	unsigned long flags;
->  
-> +	/*
-> +	 * For legacy reasons, there is a race window here against parties
-> +	 * signaling the fence. They might still be doing that right now.
-> +	 *
-> +	 * For most users, this window shall be closed, but there are parties
-> +	 * for whom the cache-line invalidation by taking the lock might be so
-> +	 * significant that they prefer to accept the race at their own risk.
-> +	 */
-> +	if (!racy_check)
-> +		dma_fence_lock_irqsave(fence, flags);
->  	if (dma_fence_test_signaled_flag(fence))
-> +		signaled = true;
-> +	if (!racy_check)
-> +		dma_fence_unlock_irqrestore(fence, flags);
-> +	if (signaled)
->  		return true;
->  
->  	rcu_read_lock();
-> -- 
-> 2.56.0
-> 
+> diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
+> index 64921b10ac74f..de9e7518ecef2 100644
+> --- a/include/linux/pm_runtime.h
+> +++ b/include/linux/pm_runtime.h
+> @@ -280,7 +280,7 @@ static inline int pm_runtime_get_if_in_use(struct device *dev)
+>   }
+>   static inline int pm_runtime_get_if_active(struct device *dev)
+>   {
+> -	return -EINVAL;
+> +	return 1;
+>   }
+>   static inline int __pm_runtime_set_status(struct device *dev,
+>   					    unsigned int status) { return 0; }
+
