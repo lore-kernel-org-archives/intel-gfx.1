@@ -2,57 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34641606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 07:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AF0606A31A
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 07:55:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XbcqMVoM
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NyZa6lPt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE18711201B;
-	Thu, 29 Oct 2026 07:55:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 839E211201A;
+	Thu, 29 Oct 2026 07:55:51 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD201112013;
- Thu, 29 Oct 2026 07:55:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2381511201A;
+ Thu, 29 Oct 2026 07:55:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793260541; x=1824796541;
- h=from:subject:date:message-id:mime-version:
- content-transfer-encoding:to:cc;
- bh=a0I2FtGDLq5B0t8S3RWc80sWeypMNbNwVaZFiFP2gmI=;
- b=XbcqMVoM+YjoK+Pj+HRr5xkps4TPyWQphZFg1aaTLUiPcGxc2noCS5Fh
- hUxU7/saNavKg16u7JaOxgE6rdbsHcy5EipAksRS3pGVcaxJwZV3ac252
- jTddHDgmFEWaM50N8LmPdujbRxXdSKOpkkaNBjQTN3oVRUF2cbozaW2aH
- JrJ57jZiTopttkS6hmh+p6e5UFFwiL4txgz2+c4U5r3FfriDzpWHOpV5e
- XCxeVAlwgX8lktQ0AGY7wECI9r0zNjCCLY56ImJLgSgv0kP64mH8f8nJl
- EEVqRoE4xIyJKeS268JqH8tFB5fkGRE1G8hsgpSO9YYGnOLJ2ruiCFq1J A==;
-X-CSE-ConnectionGUID: ZMCsbw8hR/2lVsiuTa4Z2g==
-X-CSE-MsgGUID: J+jAD+SlQb6ensdqvd0MLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1873305"
+ t=1793260546; x=1824796546;
+ h=from:date:subject:mime-version:content-transfer-encoding:
+ message-id:references:in-reply-to:to:cc;
+ bh=6gkcpg/HS9MnFctxtbHaI2fVWL4XSsc8POqEZ3xjO+4=;
+ b=NyZa6lPt2ms/qsYsBhMaJgQmYfjC4exCOu0iYhnsw6lJ62ik3KEFni8q
+ XJXLIefVwvF9bNfwFCIMUST9vNcJNh8YCGiEIPGj7NY2asO02d7Sqvbx4
+ p74lBoLowV269PjTob3uQiUUfFDXqkoAip1nJzRvbxRqqa4hO4cL5fvaI
+ ggQtPDRmTB6Y9s8g6F+OLwGv+pxsZOA4f08ncIpidOsLwo75+IYUfeuY1
+ qBCpWJH+JjpxdJmxPimb26vQ2mPd6v0yz8ttv7YsPO/XlryA/VKyvTmN3
+ INRxIN157KwwPxgODzKOlXt8La845+AUs3OxGXHlTlUqbyuyQCPFvJmHh Q==;
+X-CSE-ConnectionGUID: qDdeoRLBQ9yvgidrdU72eA==
+X-CSE-MsgGUID: DPp4aAt3RhuLGDaVqnIETw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1873317"
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1873305"
+   d="scan'208";a="1873317"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 00:55:41 -0700
-X-CSE-ConnectionGUID: aKGaeubkT3mdzb6im8UBVQ==
-X-CSE-MsgGUID: E/U83WrPTr2cTmpiY8BHBw==
+ 29 Oct 2026 00:55:45 -0700
+X-CSE-ConnectionGUID: boyYy72rTQ6xF+sfkrtXiw==
+X-CSE-MsgGUID: fruAQa92Rz2fbhqEMsrdVw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5079902"
+   d="scan'208";a="5079919"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa004.fm.intel.com with ESMTP; 29 Oct 2026 00:55:38 -0700
+ by fmviesa004.fm.intel.com with ESMTP; 29 Oct 2026 00:55:43 -0700
 From: Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH v3 0/7] drm/i915/dp: Add support for the DP symbol based
- timing generator
-Date: Thu, 29 Oct 2026 13:20:26 +0530
-Message-Id: <20261029-vlk-64036-dp-symbol-tg-v3-0-69022424ef17@intel.com>
+Date: Thu, 29 Oct 2026 13:20:28 +0530
+Subject: [PATCH v3 2/7] drm/i915/display: Add the DP link layer symbol
+ timing generator registers
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAML64moC/4XNQQ6CMBCF4auQrh1TpqWgK+9hXEg7QCNS0pJGQ
- ri7hRUb4/J/yXyzsEDeUmDXbGGeog3WDSnEKWO6ew4tgTWpGXJUOccSYv8CJblQYEYI87t2PUw
- tmBK1RMSqUMTS8eipsZ8dvj9SdzZMzs/7n5hv618y5sBBS9VIqhtVkrnZYaL+rN2bbWTEI1P9Z
- DAxUlTyogUWRuCRWdf1C8ZYe2sDAQAA
-X-Change-ID: 20261027-vlk-64036-dp-symbol-tg-d72c4222856e
+Message-Id: <20261029-vlk-64036-dp-symbol-tg-v3-2-69022424ef17@intel.com>
+References: <20261029-vlk-64036-dp-symbol-tg-v3-0-69022424ef17@intel.com>
+In-Reply-To: <20261029-vlk-64036-dp-symbol-tg-v3-0-69022424ef17@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
  chaitanya.kumar.borah@intel.com, uma.shankar@intel.com, 
@@ -72,83 +69,85 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Xe3p adds a DP link layer (LL) symbol based timing generator, as an
-alternative to the pixel clock based one. It generates the transcoder
-timings in LL symbol cycles instead of pixels, which makes the per-line
-symbol insertion for 8b/10b MST and 128b/132b SST/MST compliant with
-the DP 2.1 hblank symbol cycle count. This reduces the line-to-line
-hblank jitter that some sinks can't handle, and the Min Hblank
-mechanism can't be used together with it.
+Add the definitions of the registers of the DP link layer (LL) symbol
+based timing generator.
 
-This series computes the LL symbol HACT/HTOTAL/CHUNK_SIZE and the 128
-bit Data M/N for the symbol based timing generator, programs and enables
-it, and drops the Link M/N ratio limit, which only applies to the pixel
-based timing generator. If the symbol based timing generator can't be
-used (MSO/eDP splitter, timings out of range, Data M/N above 1.0), the
-pixel based one is kept.
+v3: change MMIO -> MMIO_TRANS2 (Suraj)
 
-Patch overview:
- - Patch 1 factors out the DSC slice count and link bpp lookup, to be
-   shared with the Min Hblank computation.
- - Patch 2 adds the symbol based timing generator registers.
- - Patch 3 adds the symbol based timing generator state to the crtc
-   state, with its state dump and state checker comparison.
- - Patch 4 adds HAS_DP_SYMBOL_TG().
- - Patch 5 computes the timing generator parameters.
- - Patch 6 programs and enables the timing generator, including the
-   state readout.
- - Patch 7 lifts the Link M/N ratio limit when the symbol based timing
-   generator is used.
-
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: chaitanya.kumar.borah@intel.com
-Cc: uma.shankar@intel.com
-Cc: suraj.kandpal@intel.com
-To: intel-gfx@lists.freedesktop.org
-To: intel-xe@lists.freedesktop.org
-
-Bspec: 68922
+Bspec: 68849, 68922, 69961
 Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
-Changes in v3:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v2: https://lore.kernel.org/r/20261028-vlk-64036-dp-symbol-tg-v2-0-43849c325d32@intel.com
+ drivers/gpu/drm/i915/display/intel_display_regs.h | 38 +++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-Changes in v2:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v1: https://lore.kernel.org/r/20261027-vlk-64036-dp-symbol-tg-v1-0-c46f4ebf67ed@intel.com
+diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
+index bbdbc27629d7104c1f80baad44e710872214d42b..1a7badeb327977916c85ce88327ec496623d787b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
+@@ -879,6 +879,7 @@
+ #define   TRANSCONF_DSI_PLL_LOCKED		REG_BIT(29) /* vlv & pipe A only */
+ #define   TRANSCONF_FRAME_START_DELAY_MASK	REG_GENMASK(28, 27) /* pre-hsw */
+ #define   TRANSCONF_FRAME_START_DELAY(x)		REG_FIELD_PREP(TRANSCONF_FRAME_START_DELAY_MASK, (x)) /* pre-hsw: 0-3 */
++#define   TRANSCONF_DP_SYMBOL_TG_ENABLE		REG_BIT(28) /* xe3p+ */
+ #define   TRANSCONF_PIPE_LOCKED			REG_BIT(25)
+ #define   TRANSCONF_FORCE_BORDER			REG_BIT(25)
+ #define   TRANSCONF_GAMMA_MODE_MASK_I9XX		REG_BIT(24) /* gmch */
+@@ -930,6 +931,7 @@
+ #define   TRANSCONF_DITHER_TYPE_TEMP		REG_FIELD_PREP(TRANSCONF_DITHER_TYPE_MASK, 3)
+ #define   TRANSCONF_PIXEL_COUNT_SCALING_MASK	REG_GENMASK(1, 0)
+ #define   TRANSCONF_PIXEL_COUNT_SCALING_X4	1
++#define   TRANSCONF_PIXEL_COUNT_SCALING_X1	3 /* xe3p+ */
+ 
+ #define _PIPEASTAT		0x70024
+ #define PIPESTAT(dev_priv, pipe)		_MMIO_PIPE2(dev_priv, pipe, _PIPEASTAT)
+@@ -2332,6 +2334,42 @@
+ #define _DP_MIN_HBLANK_CTL_B			0x610ac
+ #define DP_MIN_HBLANK_CTL(trans)		_MMIO_TRANS(trans, _DP_MIN_HBLANK_CTL_A, _DP_MIN_HBLANK_CTL_B)
+ 
++/* DP link layer (LL) symbol based timing generator, display version 35+ */
++#define _TRANS_LLSYM_HACT_A			0x600dc
++#define TRANS_LLSYM_HACT(display, trans) \
++	_MMIO_TRANS2(display, trans, _TRANS_LLSYM_HACT_A)
++#define   TRANS_LLSYM_HACT_MASK			REG_GENMASK(14, 0)
++#define   TRANS_LLSYM_HACT_VAL(x)		REG_FIELD_PREP(TRANS_LLSYM_HACT_MASK, (x))
++
++#define _TRANS_LLSYM_HTOTAL_A			0x600e0
++#define TRANS_LLSYM_HTOTAL(display, trans) \
++	_MMIO_TRANS2(display, trans, _TRANS_LLSYM_HTOTAL_A)
++#define   TRANS_LLSYM_HTOTAL_MASK		REG_GENMASK(14, 0)
++#define   TRANS_LLSYM_HTOTAL_VAL(x)		REG_FIELD_PREP(TRANS_LLSYM_HTOTAL_MASK, (x))
++
++#define _TRANS_LLSYM_CHUNK_SIZE_A		0x600e4
++#define TRANS_LLSYM_CHUNK_SIZE(display, trans) \
++	_MMIO_TRANS2(display, trans, _TRANS_LLSYM_CHUNK_SIZE_A)
++#define   TRANS_LLSYM_CHUNK_SIZE_MASK		REG_GENMASK(11, 0)
++#define   TRANS_LLSYM_CHUNK_SIZE_VAL(x)		REG_FIELD_PREP(TRANS_LLSYM_CHUNK_SIZE_MASK, (x))
++
++/* Data M/N value DW0/DW1 at the base offset, DW2/DW3 in the _EXT register */
++#define _DP_LLSYM_DATAM_A			0x60024
++#define DP_LLSYM_DATAM(display, trans, dw) \
++	_MMIO_TRANS2(display, trans, _DP_LLSYM_DATAM_A + (dw) * 4)
++
++#define _DP_LLSYM_DATAN_A			0x60038
++#define DP_LLSYM_DATAN(display, trans, dw) \
++	_MMIO_TRANS2(display, trans, _DP_LLSYM_DATAN_A + (dw) * 4)
++
++#define _DP_LLSYM_DATAM_EXT_A			0x60470
++#define DP_LLSYM_DATAM_EXT(display, trans, dw) \
++	_MMIO_TRANS2(display, trans, _DP_LLSYM_DATAM_EXT_A + (dw) * 4)
++
++#define _DP_LLSYM_DATAN_EXT_A			0x60478
++#define DP_LLSYM_DATAN_EXT(display, trans, dw) \
++	_MMIO_TRANS2(display, trans, _DP_LLSYM_DATAN_EXT_A + (dw) * 4)
++
+ /* SNB eDP training params */
+ /* SNB A-stepping */
+ #define  EDP_LINK_TRAIN_400MV_0DB_SNB_A		(0x38 << 22)
 
----
-Arun R Murthy (7):
-      drm/i915/dp: Factor out the DSC slice count and link bpp lookup
-      drm/i915/display: Add the DP link layer symbol timing generator registers
-      drm/i915/display: Add the DP symbol timing generator crtc state
-      drm/i915/display: Add HAS_DP_SYMBOL_TG()
-      drm/i915/dp: Compute the DP symbol based timing generator parameters
-      drm/i915/display: Program and enable the DP symbol based timing generator
-      drm/i915/dp: Don't limit the Link M/N ratio with the symbol timing generator
-
- .../gpu/drm/i915/display/intel_crtc_state_dump.c   |  11 +
- drivers/gpu/drm/i915/display/intel_display.c       | 108 +++++++-
- .../gpu/drm/i915/display/intel_display_device.h    |   1 +
- drivers/gpu/drm/i915/display/intel_display_regs.h  |  38 +++
- drivers/gpu/drm/i915/display/intel_display_types.h |  13 +
- drivers/gpu/drm/i915/display/intel_dp.c            | 293 +++++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_dp.h            |   5 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |   8 +-
- 8 files changed, 447 insertions(+), 30 deletions(-)
----
-base-commit: d56ff005f0d16ec136ee31fe3238eb447fefdc1a
-change-id: 20261027-vlk-64036-dp-symbol-tg-d72c4222856e
-
-Best regards,
 -- 
-Arun R Murthy <arun.r.murthy@intel.com>
+2.25.1
 
