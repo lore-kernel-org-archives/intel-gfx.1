@@ -2,48 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A27606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 08:36:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00A9606A31D
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 08:44:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE0Dhn1I
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kwj2yoBg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48C2C112079;
-	Thu, 29 Oct 2026 08:36:16 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56B61112079;
- Thu, 29 Oct 2026 08:36:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 26FD543DE4;
- Thu, 29 Oct 2026 08:36:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4094C1F01828;
- Thu, 29 Oct 2026 08:36:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793262970;
- bh=BqE9F7QHM9W2/QNtBufRNQmznh5NnDhMEtUPQb5xb70=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bE0Dhn1IMt6VsMx5LMilyofuecH4nFB14QMQ/6h/vPnj/2C7gAt+npJjDIXKPQvRI
- +/HFdeuId/FdGXWgmB2JMO9a/STDDut3KSQ+gw5wUiW+OULcsf7AZjJG30+cTGA2Oy
- DE+dNlnQAU9BVewFKYi5wWxlVAQGeojtt2zXpkVfPkX95Vmh5bcN+OYUKZwyWrvy4u
- w1a7yQKPndAKCHznQv7wKQ0yVXz21IHsN+Nikaws0HnabpfiCWCKGsGwsDiQ/KZ7bb
- gD4y3nAguwcbGPAwreUnLK98qoqMBta7qn2QZ/HJ18003Rk2NAgHQu0MZ2MRaddzOg
- bdatkhCCkXKUA==
-Date: Thu, 29 Oct 2026 09:36:05 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: yaolu@kylinos.cn, jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, 
- tursulin@ursulin.net, simona@ffwll.ch, chris@chris-wilson.co.uk, 
- lionel.g.landwerlin@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gem: Reset err for each fence entry
-Message-ID: <auMDxbKZ-XmRbaUH@zenone.zhora.eu>
-References: <20261027072832.726435-1-yaolu@kylinos.cn>
- <auHeqGZ-hm2lS7Nk@zenone.zhora.eu>
- <179325911095.16507.8295053984620715316@jlahtine-mobl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB1310E059;
+	Thu, 29 Oct 2026 08:44:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A566110E059;
+ Thu, 29 Oct 2026 08:44:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793263446; x=1824799446;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=WP/QAZ7Uc8hCjUk9W10FsuMb7rLn58PCckd869LjBFA=;
+ b=kwj2yoBgupyp5IAV0wK58klQS9NyrD3FpPZHuPNibHJZvXoMXe1ONcDQ
+ lxjQi6P5W13Cw2q8CmZlim51OjyincDA/L1gVq57Mg1ct9HZHUfyuSdtu
+ lNXLO4bvGoV0uwpCrCOkDMMzEqn5jV6tA5kdDBk3HeOtaHDw5qu3mJCfX
+ paLbRGWPiT1NJhQBbd+vsl0SOVK+mM/iOZAA3CfsmvEAu3W4GdimuKXd6
+ nS6rtFwsyWu6JL6EhDS4F3VSzASNv7B9YNyPmb9kEiV9O487BzX9A/eXa
+ q4SobvY8hehlW5EC6+5SIcflMiOja0cC86OKyCf2M+Jf41jMEhHyIDGxs Q==;
+X-CSE-ConnectionGUID: xL5kNg9dQeCNBF2L1HWPwQ==
+X-CSE-MsgGUID: wBCLWs4MS/mLTpZFWpeycg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2011320"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2011320"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 01:44:06 -0700
+X-CSE-ConnectionGUID: oDqzyd5cQ0OZV3ZmvaMS7A==
+X-CSE-MsgGUID: gVbT5JW4Somf8pxelwKQ+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5411378"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.74])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 01:43:59 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>, Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
+ =?utf-8?Q?ig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>, Pavel
+ Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+ <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, Billy
+ Tsai <billy_tsai@aspeedtech.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>, Andy
+ Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>, Andrew
+ Morton <akpm@linux-foundation.org>, Andy Whitcroft <apw@canonical.com>,
+ Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Subject: Re: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
+In-Reply-To: <auHf-pdvGkPibgTp@zenone.zhora.eu>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+ <auHf-pdvGkPibgTp@zenone.zhora.eu>
+Date: Thu, 29 Oct 2026 10:43:56 +0200
+Message-ID: <b3045bc3ae77ef78a1f479448a5dc780d89bf38d@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179325911095.16507.8295053984620715316@jlahtine-mobl>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,44 +87,35 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Joonas,
+On Wed, 28 Oct 2026, Andi Shyti <andi.shyti@kernel.org> wrote:
+> Hi Dmitry,
+>
+> On Wed, Oct 28, 2026 at 08:19:44AM +0000, Dmitry Ilvokhin wrote:
+>> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+>> nonnull") added the macro __nonnull_args() to wrap raw compiler
+>> attribute.
+>> 
+>> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+>> nonnull attribute usage across the tree and keep the attribute's quirks
+>> in one place rather than open-coded at every call site.
+>> 
+>> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+>> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
+>
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-On Thu, Oct 29, 2026 at 09:31:50AM +0200, Joonas Lahtinen wrote:
-> Quoting Andi Shyti (2026-10-28 13:39:14)
-> > Hi Lu,
-> > 
-> > On Tue, Oct 27, 2026 at 03:28:32PM +0800, yaolu@kylinos.cn wrote:
-> > > From: Lu Yao <yaolu@kylinos.cn>
-> > > 
-> > > If dma_fence_chain_find_seqno() failed once, 'err' will store val in
-> > > the following loop. May causing returns '-EINVAL' even though that
-> > > entry never called dma_fence_chain_find_seqno() at all.
-> > > 
-> > > Fixes: 13149e8bafc4 ("drm/i915: add syncobj timeline support")
-> > > Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-> > 
-> > pushed to drm-intel-gt-next.
-> 
-> This was pushed without any R-b, DIM should have given you a warning
-> when applying the patch.
+Pushed this patch to drm-intel-next, thanks for the patch and review.
 
-I forgot to add it, or rather, I remembered it too late. Since
-it's a simple and straightforward patch (most likely LLM
-generated), I didn't want to make a fuss about it.
+BR,
+Jani.
 
-> I've reverted it for now, please use DIM and check the warnings before
-> merging stuff.
 
-I used dim and apparently dim is not enforcing it.
-
-I'll push it again with my r-b.
-
-Thanks,
-Andi
+-- 
+Jani Nikula, Intel
