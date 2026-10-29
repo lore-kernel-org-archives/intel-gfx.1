@@ -2,153 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E59606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 07:33:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34641606A31A
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 07:55:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oa9j94Oo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eyWwh8pz;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oa9j94Oo;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eyWwh8pz
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XbcqMVoM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C04110FFCE;
-	Thu, 29 Oct 2026 07:33:13 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE3D210FFD3
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 07:33:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 44C9122124;
- Thu, 29 Oct 2026 07:32:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793259163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=U1JEiGypUZqrmUCmocO9jwLOxx5nBN2nK/xOgDHuNzs=;
- b=oa9j94OoY2FodzXZwJXPTumJwaR5GxD1p3BmxUZJ2WDa3tjbj0j6NyJ+kQH3VDOhXdopl7
- nYpG5+qs5269DoHX+wRwChXPKZiYaxEdF4wz9dV1N8SEGMwZJz6bPdghp7tfZEJi7cVwHQ
- 5WpmhbK0tl9xvUTJ4SfGI7jJPTpw1V4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793259163;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=U1JEiGypUZqrmUCmocO9jwLOxx5nBN2nK/xOgDHuNzs=;
- b=eyWwh8pzID12vO1dyJGt/ezwNlDUKwQtxJx4zxJ+5e4h8YO41r46Czm1Z5/6oKOET4y+At
- ar3Yduv0n1uuw1AQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793259163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=U1JEiGypUZqrmUCmocO9jwLOxx5nBN2nK/xOgDHuNzs=;
- b=oa9j94OoY2FodzXZwJXPTumJwaR5GxD1p3BmxUZJ2WDa3tjbj0j6NyJ+kQH3VDOhXdopl7
- nYpG5+qs5269DoHX+wRwChXPKZiYaxEdF4wz9dV1N8SEGMwZJz6bPdghp7tfZEJi7cVwHQ
- 5WpmhbK0tl9xvUTJ4SfGI7jJPTpw1V4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793259163;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=U1JEiGypUZqrmUCmocO9jwLOxx5nBN2nK/xOgDHuNzs=;
- b=eyWwh8pzID12vO1dyJGt/ezwNlDUKwQtxJx4zxJ+5e4h8YO41r46Czm1Z5/6oKOET4y+At
- ar3Yduv0n1uuw1AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3724D13419;
- Thu, 29 Oct 2026 07:32:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id weEVNJn24morCgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 29 Oct 2026 07:32:42 +0000
-Message-ID: <fb3b6a24-74ca-4da8-8593-352afd515313@suse.de>
-Date: Thu, 29 Oct 2026 08:32:41 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE18711201B;
+	Thu, 29 Oct 2026 07:55:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD201112013;
+ Thu, 29 Oct 2026 07:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793260541; x=1824796541;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=a0I2FtGDLq5B0t8S3RWc80sWeypMNbNwVaZFiFP2gmI=;
+ b=XbcqMVoM+YjoK+Pj+HRr5xkps4TPyWQphZFg1aaTLUiPcGxc2noCS5Fh
+ hUxU7/saNavKg16u7JaOxgE6rdbsHcy5EipAksRS3pGVcaxJwZV3ac252
+ jTddHDgmFEWaM50N8LmPdujbRxXdSKOpkkaNBjQTN3oVRUF2cbozaW2aH
+ JrJ57jZiTopttkS6hmh+p6e5UFFwiL4txgz2+c4U5r3FfriDzpWHOpV5e
+ XCxeVAlwgX8lktQ0AGY7wECI9r0zNjCCLY56ImJLgSgv0kP64mH8f8nJl
+ EEVqRoE4xIyJKeS268JqH8tFB5fkGRE1G8hsgpSO9YYGnOLJ2ruiCFq1J A==;
+X-CSE-ConnectionGUID: ZMCsbw8hR/2lVsiuTa4Z2g==
+X-CSE-MsgGUID: J+jAD+SlQb6ensdqvd0MLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1873305"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1873305"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 00:55:41 -0700
+X-CSE-ConnectionGUID: aKGaeubkT3mdzb6im8UBVQ==
+X-CSE-MsgGUID: E/U83WrPTr2cTmpiY8BHBw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5079902"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by fmviesa004.fm.intel.com with ESMTP; 29 Oct 2026 00:55:38 -0700
+From: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCH v3 0/7] drm/i915/dp: Add support for the DP symbol based
+ timing generator
+Date: Thu, 29 Oct 2026 13:20:26 +0530
+Message-Id: <20261029-vlk-64036-dp-symbol-tg-v3-0-69022424ef17@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] drm/gem: Switch to __nonnull_args() macro
-To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
- <billy_tsai@aspeedtech.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Kees Cook <kees@kernel.org>,
- Andy Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, Andy Whitcroft
- <apw@canonical.com>, Joe Perches <joe@perches.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-References: <cover.1793027261.git.d@ilvokhin.com>
- <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[38]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; TAGGED_RCPT(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,lists.infradead.org,lists.ozlabs.org,kvack.org,gmail.com];
- FREEMAIL_TO(0.00)[ilvokhin.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,intel.com,ursulin.net,kernel.org,jms.id.au,codeconstruct.com.au,aspeedtech.com,infradead.org,linux-foundation.org,canonical.com,perches.com,lwn.net,linuxfoundation.org];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:email]
-X-Spam-Score: -11.79
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAML64moC/4XNQQ6CMBCF4auQrh1TpqWgK+9hXEg7QCNS0pJGQ
+ ri7hRUb4/J/yXyzsEDeUmDXbGGeog3WDSnEKWO6ew4tgTWpGXJUOccSYv8CJblQYEYI87t2PUw
+ tmBK1RMSqUMTS8eipsZ8dvj9SdzZMzs/7n5hv618y5sBBS9VIqhtVkrnZYaL+rN2bbWTEI1P9Z
+ DAxUlTyogUWRuCRWdf1C8ZYe2sDAQAA
+X-Change-ID: 20261027-vlk-64036-dp-symbol-tg-d72c4222856e
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ chaitanya.kumar.borah@intel.com, uma.shankar@intel.com, 
+ suraj.kandpal@intel.com, Arun R Murthy <arun.r.murthy@intel.com>
+X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,59 +69,86 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+Xe3p adds a DP link layer (LL) symbol based timing generator, as an
+alternative to the pixel clock based one. It generates the transcoder
+timings in LL symbol cycles instead of pixels, which makes the per-line
+symbol insertion for 8b/10b MST and 128b/132b SST/MST compliant with
+the DP 2.1 hblank symbol cycle count. This reduces the line-to-line
+hblank jitter that some sinks can't handle, and the Min Hblank
+mechanism can't be used together with it.
 
-Am 28.10.26 um 09:19 schrieb Dmitry Ilvokhin:
-> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-> nonnull") added the macro __nonnull_args() to wrap raw compiler
-> attribute.
->
-> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
-> nonnull attribute usage across the tree and keep the attribute's quirks
-> in one place rather than open-coded at every call site.
->
-> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
+This series computes the LL symbol HACT/HTOTAL/CHUNK_SIZE and the 128
+bit Data M/N for the symbol based timing generator, programs and enables
+it, and drops the Link M/N ratio limit, which only applies to the pixel
+based timing generator. If the symbol based timing generator can't be
+used (MSO/eDP splitter, timings out of range, Data M/N above 1.0), the
+pixel based one is kept.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Patch overview:
+ - Patch 1 factors out the DSC slice count and link bpp lookup, to be
+   shared with the Min Hblank computation.
+ - Patch 2 adds the symbol based timing generator registers.
+ - Patch 3 adds the symbol based timing generator state to the crtc
+   state, with its state dump and state checker comparison.
+ - Patch 4 adds HAS_DP_SYMBOL_TG().
+ - Patch 5 computes the timing generator parameters.
+ - Patch 6 programs and enables the timing generator, including the
+   state readout.
+ - Patch 7 lifts the Link M/N ratio limit when the symbol based timing
+   generator is used.
 
-Should gem.h now include <linux/compiler_attributes.h> ?
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: chaitanya.kumar.borah@intel.com
+Cc: uma.shankar@intel.com
+Cc: suraj.kandpal@intel.com
+To: intel-gfx@lists.freedesktop.org
+To: intel-xe@lists.freedesktop.org
 
-Best regards
-Thomas
+Bspec: 68922
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+Changes in v3:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v2: https://lore.kernel.org/r/20261028-vlk-64036-dp-symbol-tg-v2-0-43849c325d32@intel.com
 
-> ---
->   include/drm/drm_gem.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index ed329408acbe..56dd15921c7a 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -566,7 +566,7 @@ static inline void drm_gem_object_get(struct drm_gem_object *obj)
->   	kref_get(&obj->refcount);
->   }
->   
-> -__attribute__((nonnull))
-> +__nonnull_args()
->   static inline void
->   __drm_gem_object_put(struct drm_gem_object *obj)
->   {
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://lore.kernel.org/r/20261027-vlk-64036-dp-symbol-tg-v1-0-c46f4ebf67ed@intel.com
 
+---
+Arun R Murthy (7):
+      drm/i915/dp: Factor out the DSC slice count and link bpp lookup
+      drm/i915/display: Add the DP link layer symbol timing generator registers
+      drm/i915/display: Add the DP symbol timing generator crtc state
+      drm/i915/display: Add HAS_DP_SYMBOL_TG()
+      drm/i915/dp: Compute the DP symbol based timing generator parameters
+      drm/i915/display: Program and enable the DP symbol based timing generator
+      drm/i915/dp: Don't limit the Link M/N ratio with the symbol timing generator
+
+ .../gpu/drm/i915/display/intel_crtc_state_dump.c   |  11 +
+ drivers/gpu/drm/i915/display/intel_display.c       | 108 +++++++-
+ .../gpu/drm/i915/display/intel_display_device.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_display_regs.h  |  38 +++
+ drivers/gpu/drm/i915/display/intel_display_types.h |  13 +
+ drivers/gpu/drm/i915/display/intel_dp.c            | 293 +++++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_dp.h            |   5 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c        |   8 +-
+ 8 files changed, 447 insertions(+), 30 deletions(-)
+---
+base-commit: d56ff005f0d16ec136ee31fe3238eb447fefdc1a
+change-id: 20261027-vlk-64036-dp-symbol-tg-d72c4222856e
+
+Best regards,
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Arun R Murthy <arun.r.murthy@intel.com>
 
