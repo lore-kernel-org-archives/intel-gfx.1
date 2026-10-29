@@ -2,66 +2,207 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F1F606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 14:42:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72218606A31A
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 16:00:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NLuNa/hV
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iw94y/1+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AB7210E5B2;
-	Thu, 29 Oct 2026 14:42:12 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C83F10E110;
- Thu, 29 Oct 2026 14:42:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBA911240A;
+	Thu, 29 Oct 2026 16:00:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4DDC11240A;
+ Thu, 29 Oct 2026 16:00:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793284926; x=1824820926;
- h=message-id:date:mime-version:from:to:cc:subject:
- content-transfer-encoding;
- bh=cPIpGwMsK40ZmgMXS8+Oc2H49uEAbyXDlCo7W73KXkk=;
- b=NLuNa/hVoc7mM3U0KTxCzLUTB962061VFB9bfJ999AOvp0PotWOpWxyv
- KHPZ/h4ko4JyoWacIyK8Zo5WsfC1yChYZ4oyXtyy/apTR4i8gekXiOYfj
- 737VQxY5dSyioPjtpHIdjqaNc3yrDqaUgZpVArr8Iq6hLmTyOz7Y3FX+H
- aTArv/1QrOIL88aP5F7OXrGe1MsH2xhiH4wpzO4Yz2uD43aRc62vQ/i7p
- oLC1KV1oBuqG+HHKmUHj7d2ldSDKfoRcqBA/mcNJnuDHIC7q1WgvWyZV5
- QcY+UEnp+I6VTiCQoEOtcaKdJB+P3e2Z7RXr78LD8+kElgnLN1wy7qWiX A==;
-X-CSE-ConnectionGUID: FPIyNHqqTjaFW0HUkUEU3A==
-X-CSE-MsgGUID: sjcJHf7OTuul/lSzuBITWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2046250"
+ t=1793289636; x=1824825636;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=1s7rQPzBWfF3kY4Gi4Gs8o36uSP/gZ92/BBROqe3tUA=;
+ b=iw94y/1+GSa38QiXYO7iHgdQM1H1u+uV/uRXhLZ/qgBiL8xx52iOfeX2
+ irU6D2cIH0UUxN4ma4GWTitjgvCO5trpFP7L+f8wxytj7sRHs2jX6gRKW
+ hWdrHLNXfGLPoxAwZSPPevy4XoIvrYzKOULJoKCKuThb0VRI8kBxXC9D3
+ QuLZovFBYWlb8vf0T8qlxy8rf3c/pAuAF0Q2rSndx1JI4kTCr5FkzBQ6S
+ 4c6aC12tXma9PYuugXqgk1vUuPUouXEexyI3aaytW3A6F93wlNNmHP4ht
+ NEpPLs17elRcAOlzZ9lCuU+oSBse57XC/28/4AfK4mPNPjO6w0B2QEkqy w==;
+X-CSE-ConnectionGUID: KAWgxIBLQfKK9BkgWcs0fg==
+X-CSE-MsgGUID: Jb6HX69zTP+mA2vC/7wpew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1924331"
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2046250"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 07:42:05 -0700
-X-CSE-ConnectionGUID: io79ij54Ssq5FRNwxd05iw==
-X-CSE-MsgGUID: XrX1BiZ8Rb+Y70Emk1R/jg==
+   d="scan'208";a="1924331"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 09:00:34 -0700
+X-CSE-ConnectionGUID: yvTkDk+tT+OTJ+A6TBHHyA==
+X-CSE-MsgGUID: uKa5PQb6QsebgeeX3ej9Ng==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5052788"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.177])
- ([10.245.245.177])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 07:42:01 -0700
-Message-ID: <ba231556-17a6-4b2b-8ebc-3150f887db48@linux.intel.com>
-Date: Thu, 29 Oct 2026 15:41:54 +0100
+   d="scan'208";a="5275435"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 09:00:32 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 09:00:31 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 09:00:31 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.69) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 09:00:30 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N7dw55R7QH2y/o1H0Krg6QrDe1sXjJtyKa4F5Vrih1n4MfYxcWou3GRsTxhzRyq1iRE+3U1dit0gBpLt+bjF/XnCDvO54GVFGp/vqODW+nfWhVZAPEN5GEPpLXsKlLnuI955r62lE2WhqTKgZncFwenkqrTUa+P9a/nuxpt9Ny7YL1qJOJ2Hy8q8Hm8KRt8TS8NjVADzaji6eRRrZhVV7ZO2GJBQ5nx2oY73Hgp/t6zi825dhD7jK3PnAiI3XgubsA8pS9M7s/fJGYy7h4Wny4kGjK4FLVJInuP3OtGF77AI8S0Dgo/Rd60l0j/sOqtq5hgEQ7VNkPN4vWxE4sZ1rA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=++iK9zA7vdSqa2z9khUOayVv3ianUOElr3aNyLxohNs=;
+ b=w+WtNPFR1X0tRSrixPIJjnQVocHwPpYr+kD1XQQ9C9MSsG4uj5pNQpGLbuCXtLqD6/XoKFkUB/WZLoE8mpzxtymqFObJQDf2Kvp2EwQadVfzSphjiVSKVm+4MY91fnii4zIidg+2hYSBUxzYv8k6iE/z17e0UhbI0knZBKWzbEO9PRBrECndUs/Sowi0aErm+TuaD5u55rdEP8wriUof1yMR1vK/wqz5E3sxQVIL6w6Qde1yfgAKoHfq9G1ptd8/992NrCO/y2yxyZ5YwSmt2crMuHC13fc9sZQKfFcgFeEqzpLuye7VDR7Nlt2EkROPaKY1vIExt4lnJo2B2/VHXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by DS0PR11MB7999.namprd11.prod.outlook.com (2603:10b6:8:123::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 16:00:20 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
+ 16:00:19 +0000
+Date: Thu, 29 Oct 2026 09:00:15 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Philipp Stanner <phasta@kernel.org>
+CC: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>, Oded Gabbay
+ <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso
+ <tomeu@tomeuvizoso.net>, Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
+ <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Alessio Belle
+ <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>,
+ Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ "Dmitry Baryshkov" <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
+ <sean@poorly.run>, "Marijn Suijten" <marijn.suijten@somainline.org>, Lyude
+ Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>,
+ =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>, Liviu Dudau
+ <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann
+ <kraxel@redhat.com>, Natalie Vock <nat@pixelcluster.dev>, Arun Pravin
+ <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Melissa Wen <mwen@igalia.com>, =?iso-8859-1?Q?Ma=EDra?= Canal
+ <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, "Dmitry
+ Osipenko" <dmitry.osipenko@collabora.com>, Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
+ <zack.rusin@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding
+ <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Sunil
+ Khatri" <sunil.khatri@amd.com>, Kees Cook <kees@kernel.org>, Jesse Zhang
+ <jesse.zhang@amd.com>, Timur =?iso-8859-1?Q?Krist=F3f?=
+ <timur.kristof@gmail.com>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Kexin Sun <kexinsun@smail.nju.edu.cn>, "Prike
+ Liang" <Prike.Liang@amd.com>, David Rosca <david.rosca@amd.com>, "Krzysztof
+ Karas" <krzysztof.karas@intel.com>, Marco Crivellari
+ <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
+ =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>, "Thadeu Lima de Souza
+ Cascardo" <cascardo@igalia.com>, Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ Al Viro <viro@zeniv.linux.org.uk>, Neill Kapron <nkapron@google.com>,
+ "Michael Bommarito" <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
+ "Gabriel Prostitis" <prostitisgabriel@gmail.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <etnaviv@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <imagination@lists.freedesktop.org>, <lima@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <nouveau@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+ <spice-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-tegra@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-usb@vger.kernel.org>
+Subject: Re: [RFC PATCH 5/6] dma-buf: dma-fence: Close race in
+ dma_fence_is_signaled() by default
+Message-ID: <auNtj8zYrqwtnXdK@gsse-cloud1.jf.intel.com>
+References: <20261029095542.1526750-3-phasta@kernel.org>
+ <20261029095542.1526750-8-phasta@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261029095542.1526750-8-phasta@kernel.org>
+X-ClientProxiedBy: MW4PR04CA0044.namprd04.prod.outlook.com
+ (2603:10b6:303:6a::19) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
-Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [PULL] drm-misc-next
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DS0PR11MB7999:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6a3578e-fddd-4b58-297f-08df35d5babd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|23010399003|18002099003|22082099003|56012099006|11063799006|261026140227099003|4143699003|261021123027099003|261021121427099003|10067099003|261026121527099003|261009223027099003|261022075727099003|261022105027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info: GcA/mTp3EeoLjKo9kf4JRRrRKZLtSlDNaMmvaSH66FCOzpPQZSRs/U5CmyaOEfe85COboqUvFC/IS2XNvmWk0YNjCp1HRjR7+YfGdy5ApnRrM/c67DJNNNEETe1xJ4eXeyYxwYAyvGUWo49j9UYEXcCDfM7TNvUKl7+1BKpFhcPUIHZ7WvA6SMFestx7luxt2me4h/k0MXsnbwVSD6ymbV7F2E5m+M653Aqp6BGQ/Pmr95HLeX7h0n8ZEE8HYdhSLbfaGl/CwOTcphOULwPXNSdQPy6Q/WXlAzgTmEuGea3akpjRVedIkpewnHHLYyTpkxIO3+AhjibRAVaRUb886ft7MLrmdF7945T+lnLtzd/IG2y6aaE/e4VU3HxpkZiV2nWqgMqNc8VXwNa1uxVuRCJQJXU4Y0UObzf1xQsN7ybsDvu6JeegZWipNKVjD7jLbjKyELE0sA095YtYQoMnTWlbavtkL2ZKpCSJsDWUD0zWrlktPcoD/hPddvLuWDqtDsbPcoRuxqgLAOr3uXEK2eLLRbt/8PwA/bocggz5KnHWwSyGSdhUlnDNYwOuZxjvY75hmGX+BOX/YoS8JWi6Gh0w+1MmkT3mzO9G/Wvr9SaMJoNXrUqFSvfDl42XLZeLh0EqVr6DwAWHqeRFrz9VHEFrclPMlQO9kT1wIOCPWjw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(261026140227099003)(4143699003)(261021123027099003)(261021121427099003)(10067099003)(261026121527099003)(261009223027099003)(261022075727099003)(261022105027099003)(261028144727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yhF8AzJ4SOQZjKgwpgmtJEsmjJJJQZSmg7/qT2hQva1P3tFx5+K7Yuv0XDxE?=
+ =?us-ascii?Q?YGKyP6qm6UBfD/rfkSnzfmOttXOSXlYIgQEY3s/hDdvwREziNUYoATT3VAXg?=
+ =?us-ascii?Q?EyV1ZxkVWVmsB4bf2H1WrARuJ1BWkpzWKvU7vBjZxefHYHIKI9fathPH1BMg?=
+ =?us-ascii?Q?Mk8AL15M9nbE6rGhw7oNayZTS7ulj9k4xfkaWFXyzMAu4HCKl30YA7trp8qR?=
+ =?us-ascii?Q?jE7HPC18lS8DVACLGgnTvAtkJKYeYldgyP7/2baOmlVZJYZD4zmjEQF6QSqd?=
+ =?us-ascii?Q?6AG5+bexZyDihivIA/+1sqYcWy2ZsSKrtf2Sxg7ifGXqaLAO+DVmnpQYAY9u?=
+ =?us-ascii?Q?/0X5ieF1oXhQ5T46RrBIgTTGTU2/rS8fiDlgydqTCFa7GwWpITBfLq5XVMPO?=
+ =?us-ascii?Q?tuGFnYR5vwENoNvaBfimbbK8VFHzDgqWs9jH7vLZIh8JN4RM/3LbhFm0NlsP?=
+ =?us-ascii?Q?Bh/Ji3OtkT/HlQt8VnRQCL7Sa1pkviVpdXMyW63P4TLP4dpOJ/e+rIQps3sc?=
+ =?us-ascii?Q?gzIwLCo/A70cwZq4za64EOGuJYykb7JOEQev2O53+8iLbL0malpFKMc305wl?=
+ =?us-ascii?Q?M6QbbZX91ZcZYPaqYjIQsVkbLkQmuB0oZzvsnJZAUvt26nnRpc1kydEK/slq?=
+ =?us-ascii?Q?Og5hD3gWG0tHqDXZiVDtDYJ+A3NLPdDTX07EOWtGbaxmK8Rha/HeNsdRL7/K?=
+ =?us-ascii?Q?j2TNPOQP67Ce92OnO7VF+uUTKGnkedGKW/CUoArTGCjWOu75p5XfKj1gEqPl?=
+ =?us-ascii?Q?304SJqpFMsjiQkRPrybV2inV6ZIQxkq8thcDad8z+d7JaQw4/HpaiMFW3BPI?=
+ =?us-ascii?Q?Neo+pd7oiPbqwUOrRe/4Wj/uqkDldwF8+C4jPpxRHDcDr7SV2OAXR8DPsuaP?=
+ =?us-ascii?Q?FGZvPuF7Jf3IM7mBUWCev38v+otOOF6M6YCD3RepkIXNGX+mvvCuknak1PGI?=
+ =?us-ascii?Q?6t/URpwMQsZhbz9V5HTyaXIYqz3l4n5ZeaRmyiYnR1h566xM0KnX/+T4tDhC?=
+ =?us-ascii?Q?0+swB0C/53Ez5M8lOitNeERlB7rPLdqLpcENIdKp13fgv3W38Z/ee+MJkVlB?=
+ =?us-ascii?Q?JKKV15VqmaV3s0bu1aEufn8upTr8JsHkYTn4RjWI30HHUodW7Xj9Y8x5XCcD?=
+ =?us-ascii?Q?bScg1/3thW7vKQe5wngY3yBCkNKSJuhyKUoFNQVjFndmpGGpU79MUU56PlOu?=
+ =?us-ascii?Q?tNJCk6cpYJQBOuUan7AtIV8Q53o57SPua3K+laf4u6UsRhT5Egx1tCqG0XJk?=
+ =?us-ascii?Q?5cBrlRrfu0MM+TnKPzwRm3tbpqz/5hk0IwcyAXxs45t/lmMepkczpAbvEVJP?=
+ =?us-ascii?Q?T7Y7tanSinbMf0apgIhDdgGEygGUlX/u0zoCV03VYQFHM9lfHkaLnXNwMC9G?=
+ =?us-ascii?Q?rhBu6/NtP6w8OioKuV00NNXE7dKd2kYgjLklYSMSMlJTQ2HB8jUNBWlgyr0m?=
+ =?us-ascii?Q?OZ1/+zOUR0JwAlj2dSs4xV6HHZ2gHo+pTCZMQBIQ6z29M9SoIJMa7kC3HEWp?=
+ =?us-ascii?Q?ZxsMSwXPnI12wXgMvByM39w2Vafl2SJo3YdZIpnKGzrD7t/PqCyfPWpI+mEk?=
+ =?us-ascii?Q?mrYKJrNxoQPDpTvZPlGgmwyNMUUIsXtYRDjIm5XPzaNV0Q4+YEwCwXidBf2D?=
+ =?us-ascii?Q?znPX9w0PaoOE4qN7f8MBUF+ikYcHBjzyB18ztj7xUE9Cy7CzfcBNVaaZgdy9?=
+ =?us-ascii?Q?cAqGmr6juZ3Fq2qgbs0f0Nt5F1ZQplZE1fN+64VvSX205qGUiLFixjLme0zX?=
+ =?us-ascii?Q?T9a/l0vNZw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: dLchvVtnFtecCNNV+v+ZIIG05MtGLBr70qRjTdh1vTzrBkOTUKxwylRlWDjcLKwFLSJ56kKgUfTh2ISt5C7dnlfSI8QUelygsNRnwrA7w5ztxSoLpV4FeJzVnQ/+LKkP1gXlMiwGPYbVa3hM4F4Kndc+8hpYKSVMm/Z7iXQByCiaNgp2ptitmUZ/Sk5vegJH521FjaX6x4BPVfva0LiV79JFOG0bRAD3q36M+lFvhAvG6ctR5jjk8jmBJTFuUYZXGKbao5N3CIb1jMvbQBeuEgNy0nbDnhecn8RRqVD7zO76vaxATu4keJHpxP6tIWa9Xqa+DUGAEnb4BQDgohgw4g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6a3578e-fddd-4b58-297f-08df35d5babd
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:00:19.1318 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +5xI66ER351bw+NXujpvhxkFpRqgB+f3HwPJlr35TdqYCPpvwQDo7vWQUcbhQEiONluhg4IYvB+WQX47sagy2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7999
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,305 +214,119 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Dave, Sima,
+On Thu, Oct 29, 2026 at 10:55:42AM +0100, Philipp Stanner wrote:
+> dma_fence_is_signaled() contains a lockless check of the signaled-bit,
+> which is set under lock protection. This is a race condition which makes
+> the API fragile and has caused at least two bugs already, addressed in:
+> 
+> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+> 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
+> 
+> It has been argued by some that this race cannot be closed for the
+> entire kernel through locking because this would lead to a cache line
+> invalidation for all parties reading that fence. While it remains
+> unclear why these parties don't simply let themselves be notified about
+> the fence being signaled instead of checking this repeatedly manually,
+> there is a way to preserve this behavior in any case:
+> 
+> This patch adds a new flag for dma_fence_init(),
+> DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK. If this flag is not set, the
+> spinlock is taken and dma_fence_is_signaled() becomes perfectly
+> synchronized: it can only return true once signaling of the fence is
+> completed.
+> 
+> Disable the racy check for everyone by default. Should some parties
+> really experience severe performance degredations because of this, they
+> can trivially re-enable the race condition for their driver by setting
+> the flag in dma_fence_init().
+> 
 
-Quiet drm-misc-next pull, but it seems the one from the 16th hasn't been pulled yet.
+My 2 cents - anyone arguing about cachelines probably has broken code to
+begin with. I'd say don't give anyone an option to opt into a racey
+check, if this regressing some peoples code the answer is likely
+structurally fix your broken code.
 
-So I'm only adding the changelog compared to that one.
+Matt
 
-Kind regards,
-~Maarten Lankhorst
-
-drm-misc-next-2026-10-29:
-drm-misc-next for v7.5:
-
-UAPI Changes:
-- Add TFU constant color suport for v3d.
-
-Core Changes:
-- tidss devicetree bindings updates.
-
-Driver Changes:
-- Assorted fixes and cleanups in panthor, arm/hdlcd, amdxdna, bridge/sii902x,
-  v3d, tidss, imagination, ivpu.
-- Add BOE NV116WH2-M32 V8.0, PNB601LS1-3 HW:1.2 panels.
-The following changes since commit db1de27aca30ebaad04aea74ac21e4c4fb531a37:
-
-  drm/adp: Switch to drm_atomic_helper_connector_create_state (2026-10-16 17:08:45 +0200)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-10-29
-
-for you to fetch changes up to 33ed26235db93162935d1719bc6f538c384a2fd8:
-
-  accel/ivpu: Read preemption buffer size from boot params (2026-10-29 09:24:25 +0100)
-
-----------------------------------------------------------------
-drm-misc-next for v7.5:
-
-UAPI Changes:
-- Add TFU constant color suport for v3d.
-
-Core Changes:
-- tidss devicetree bindings updates.
-
-Driver Changes:
-- Assorted fixes and cleanups in panthor, arm/hdlcd, amdxdna, bridge/sii902x,
-  v3d, tidss, imagination, ivpu.
-- Add BOE NV116WH2-M32 V8.0, PNB601LS1-3 HW:1.2 panels.
-
-----------------------------------------------------------------
-Alessio Belle (4):
-      drm/imagination: Improve logging of unknown freelist IDs
-      drm/imagination: Remove wrong soft reset code from GPU start sequence
-      drm/imagination: Add utility function to write and read back register
-      drm/imagination: Check virtual address space size only once
-
-Alice Ryhl (1):
-      drm/gpuvm: skip setting kernel_alloc_node range on overflow
-
-Andrzej Kacprowski (1):
-      accel/ivpu: Read preemption buffer size from boot params
-
-Aryan Sinha (1):
-      accel: ethosu: Fix kernel-doc for ethosu_gem_cmdstream_create()
-
-Daniel Stone (2):
-      drm/panthor: Add neural-engine presence and power bits for v14+
-      drm/panthor: Delegate neural power domain to CSF when present
-
-David Zhang (19):
-      accel/amdxdna: Rename NPU3 firmware files
-      accel/amdxdna: Remove mmap for doorbell
-      accel/amdxdna: Add CERT firmware version support
-      accel/amdxdna: Support firmware 6.0
-      accel/amdxdna: Add NPU3 classic device support
-      accel/amdxdna: Add AIE version query to aie4_get_info
-      accel/amdxdna: Add get and set power_mode for AIE4
-      accel/amdxdna: Add clock, DPM frequency, and resource info queries for AIE4
-      accel/amdxdna: Add context switch hysteresis with debugfs control
-      accel/amdxdna: Refactor AIE4 hardware initialization sequence
-      accel/amdxdna: Decouple AIE4 doorbell and MSI-X notify transport hooks
-      accel/amdxdna: Implement AIE4 kernel queue lifecycle and memory layout
-      accel/amdxdna: Prepare for AIE4 command submission
-      accel/amdxdna: Move HMM invalidate wait into common GEM code
-      accel/amdxdna: Make populate_range common for AIE2 and AIE4
-      accel/amdxdna: Implement AIE4 command packet building and submission
-      accel/amdxdna: Enable AIE4 firmware logging to DRAM
-      accel/amdxdna: Implement AIE4 suspend and resume
-      accel/amdxdna: Implement runtime suspend and resume support
-
-Karl Mehltretter (1):
-      udmabuf: respect the device's maximum segment size
-
-Lizhi Hou (1):
-      accel/amdxdna: Serialize HMM range faults on one umap
-
-Luke Macken (1):
-      drm/panel-edp: Add BOE NE140WUM-N41 (0x0d9b) panel
-
-Marek Szyprowski (1):
-      drm/arm/hdlcd: Attach the output bridge directly
-
-Matthew Auld (1):
-      gpu/buddy: do not pass caller list to __alloc_contig_try_harder()
-
-Matthew Brost (7):
-      accel/amdxdna: Wait uninterruptibly for jobs in the HMM invalidate callback
-      drm/gpuvm: allow locking external objects in two passes
-      drm/xe: lock the resident BOs of an exec last
-      drm/panthor: lock the resident BOs of a submit last
-      drm/msm: reject a submit_bo table on VM_BIND contexts
-      drm/msm: use DRM_GPUVM_RESV_PROTECTED for VM_BIND VMs
-      drm/msm: lock the resident BOs of a VM_BIND submit last
-
-Max Zhen (1):
-      accel/amdxdna: Use compatible fdinfo engine key
-
-Maxime Ripard (8):
-      drm/vmwgfx: Convert to atomic_create_state
-      drm/amdgpu: dm: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: sii902x: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: simple-bridge: Switch to drm_atomic_helper_connector_create_state
-      drm/msm: dpu1: Switch to drm_atomic_helper_connector_create_state
-      drm/stm: Switch to drm_atomic_helper_connector_create_state
-      drm/rcar-du: Convert to atomic_create_state
-      drm/ci: Add CI pipeline for drm-misc branches
-
-Maíra Canal (4):
-      drm/panthor: Replace panthor_mmu_as_fault_mask() with a macro
-      drm/v3d: Validate the v71 fields of the TFU submit ioctl
-      drm/v3d: Only program TFU coefficients when used on V3D 7.x
-      drm/v3d: Add TFU constant colour support for V3D 7.x
-
-Raag Jadav (1):
-      drm: Log recovery method with wedged event
-
-Rob Herring (Arm) (1):
-      drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
-
-Rosen Penev (1):
-      drm/imagination: simplify pvr_fw_trace_seq_data
-
-Ryan Zhang (1):
-      drm/panthor: dummy read to discard the stale first GPU_TIMESTAMP read
-
-Terry Hsiao (1):
-      drm/panel-edp: Add BOE NV116WH2-M32 V8.0, PNB601LS1-3 HW:1.2
-
-Thomas Zimmermann (7):
-      drm/hyperv: Add missing include statements
-      drm/kms-helper: Remove struct drm_simple_display_pipe and helpers
-      drm/bridge: Do not include <drm/drm_simple_kms_helper.h>
-      drm/hisilicon/hibmc: Do not include <drm/drm_simple_kms_helper.h>
-      drm/tegra: Do not include <drm/drm_simple_kms_helper.h>
-      drm/verisilicon: Do not include <drm/drm_simple_kms_helper.h>
-      drm/vc4: Do not include <drm/drm_simple_kms_helper.h>
-
-Tomi Valkeinen (10):
-      dt-bindings: display: ti: Move ti,am62l-dss binding to a new binding file
-      dt-bindings: display: ti,am65x-dss: Simplify binding
-      dt-bindings: display: ti,am625-oldi: Add optional power-domain for OLDI
-      drm/tidss: Remove extra pm_runtime_mark_last_busy
-      drm/tidss: oldi: Remove define for unused register OLDI_LB_CTRL
-      drm/tidss: Add mechanism to detect DPI output
-      drm/tidss: Add support for DPIENABLE bit
-      drm/tidss: oldi: Fix OLDI signal polarities
-      drm/tidss: Drop WARN_ON() from tidss_runtime_put()
-      drm/tidss: oldi: Fix missing of_node_put()s in error paths
-
- Documentation/accel/amdxdna/amdnpu.rst             |    2 +-
- .../bindings/display/ti/ti,am625-oldi.yaml         |    3 +
- .../bindings/display/ti/ti,am62l-dss.yaml          |  136 +++
- .../bindings/display/ti/ti,am65x-dss.yaml          |  149 +--
- Documentation/gpu/drm-mm.rst                       |    6 +
- Documentation/gpu/todo.rst                         |   17 -
- MAINTAINERS                                        |    1 +
- drivers/accel/amdxdna/aie.c                        |   33 +-
- drivers/accel/amdxdna/aie.h                        |   47 +-
- drivers/accel/amdxdna/aie2_ctx.c                   |   90 +-
- drivers/accel/amdxdna/aie2_message.c               |    4 +-
- drivers/accel/amdxdna/aie2_pci.c                   |   67 +-
- drivers/accel/amdxdna/aie2_pci.h                   |   40 +-
- drivers/accel/amdxdna/aie2_pm.c                    |   10 +-
- drivers/accel/amdxdna/aie4_ctx.c                   | 1139 ++++++++++++++++++--
- drivers/accel/amdxdna/aie4_host_queue.h            |   72 +-
- drivers/accel/amdxdna/aie4_message.c               |  245 +++++
- drivers/accel/amdxdna/aie4_msg_priv.h              |  149 ++-
- drivers/accel/amdxdna/aie4_pci.c                   |  818 +++++++++++++-
- drivers/accel/amdxdna/aie4_pci.h                   |  117 +-
- drivers/accel/amdxdna/aie4_sriov.c                 |   66 +-
- drivers/accel/amdxdna/amdxdna_ctx.c                |   72 +-
- drivers/accel/amdxdna/amdxdna_ctx.h                |   28 +-
- drivers/accel/amdxdna/amdxdna_debugfs.c            |    3 +
- drivers/accel/amdxdna/amdxdna_gem.c                |   89 +-
- drivers/accel/amdxdna/amdxdna_gem.h                |    2 +
- drivers/accel/amdxdna/amdxdna_pci_drv.c            |   50 +-
- drivers/accel/amdxdna/amdxdna_pci_drv.h            |   20 +-
- drivers/accel/amdxdna/amdxdna_pm.c                 |   26 +
- drivers/accel/amdxdna/amdxdna_pm.h                 |    2 +
- drivers/accel/amdxdna/amdxdna_sysfs.c              |    2 +-
- drivers/accel/amdxdna/npu1_regs.c                  |   19 +-
- drivers/accel/amdxdna/npu3_regs.c                  |  105 +-
- drivers/accel/amdxdna/npu4_regs.c                  |   30 +-
- drivers/accel/ethosu/ethosu_gem.c                  |    2 +-
- drivers/accel/ivpu/ivpu_drv.c                      |   11 +-
- drivers/accel/ivpu/ivpu_drv.h                      |    2 +-
- drivers/accel/ivpu/ivpu_fw.c                       |   91 +-
- drivers/accel/ivpu/ivpu_fw.h                       |    1 +
- drivers/accel/ivpu/ivpu_job.c                      |    3 +
- drivers/accel/ivpu/ivpu_pm.c                       |    2 +-
- drivers/accel/ivpu/vpu_boot_api.h                  |   36 +-
- drivers/dma-buf/udmabuf.c                          |   13 +-
- drivers/gpu/buddy.c                                |   20 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |    2 +-
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |    2 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |    7 +-
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |    2 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |    2 +-
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |    4 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |    2 +-
- drivers/gpu/drm/arm/Kconfig                        |    4 +-
- drivers/gpu/drm/arm/hdlcd_drv.c                    |   85 +-
- drivers/gpu/drm/arm/hdlcd_drv.h                    |    1 +
- drivers/gpu/drm/bridge/inno-hdmi.c                 |    1 -
- drivers/gpu/drm/bridge/microchip-lvds.c            |    1 -
- drivers/gpu/drm/bridge/sii902x.c                   |   22 +-
- drivers/gpu/drm/bridge/simple-bridge.c             |    2 +-
- drivers/gpu/drm/bridge/synopsys/dw-dp.c            |    1 -
- drivers/gpu/drm/bridge/tda998x_drv.c               |    1 -
- drivers/gpu/drm/ci/drm-misc-ci.yml                 |  147 +++
- drivers/gpu/drm/drm_drv.c                          |    4 +-
- drivers/gpu/drm/drm_gem_atomic_helper.c            |   92 --
- drivers/gpu/drm/drm_gpuvm.c                        |  518 ++++++++-
- drivers/gpu/drm/drm_simple_kms_helper.c            |  328 ------
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c     |    1 -
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c   |    1 -
- drivers/gpu/drm/hyperv/hyperv_drm.h                |    5 +
- drivers/gpu/drm/hyperv/hyperv_drm_drv.c            |    1 -
- drivers/gpu/drm/hyperv/hyperv_drm_proto.c          |    1 -
- drivers/gpu/drm/imagination/pvr_device.c           |   43 +-
- drivers/gpu/drm/imagination/pvr_device.h           |   28 +
- drivers/gpu/drm/imagination/pvr_free_list.c        |   13 +-
- drivers/gpu/drm/imagination/pvr_fw_meta.c          |    5 +-
- drivers/gpu/drm/imagination/pvr_fw_startstop.c     |   37 +-
- drivers/gpu/drm/imagination/pvr_fw_trace.c         |   25 +-
- drivers/gpu/drm/imagination/pvr_mmu.h              |    2 +-
- drivers/gpu/drm/imagination/pvr_vm.c               |   22 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      |    2 +-
- drivers/gpu/drm/msm/msm_gem_submit.c               |   90 +-
- drivers/gpu/drm/msm/msm_gem_vma.c                  |   16 +-
- drivers/gpu/drm/panel/panel-edp.c                  |    3 +
- drivers/gpu/drm/panthor/panthor_gpu.c              |    4 +
- drivers/gpu/drm/panthor/panthor_gpu_regs.h         |    1 +
- drivers/gpu/drm/panthor/panthor_hw.h               |    6 +
- drivers/gpu/drm/panthor/panthor_mmu.c              |   72 +-
- drivers/gpu/drm/panthor/panthor_mmu_regs.h         |    1 +
- drivers/gpu/drm/panthor/panthor_pwr.c              |   29 +-
- drivers/gpu/drm/panthor/panthor_pwr_regs.h         |    7 +
- .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    |   16 +-
- drivers/gpu/drm/stm/lvds.c                         |    2 +-
- drivers/gpu/drm/tegra/output.c                     |    1 -
- drivers/gpu/drm/tidss/tidss_crtc.c                 |   10 +-
- drivers/gpu/drm/tidss/tidss_crtc.h                 |    4 +-
- drivers/gpu/drm/tidss/tidss_dispc.c                |   28 +-
- drivers/gpu/drm/tidss/tidss_dispc.h                |    5 +-
- drivers/gpu/drm/tidss/tidss_dispc_regs.h           |    1 +
- drivers/gpu/drm/tidss/tidss_drv.c                  |    7 +-
- drivers/gpu/drm/tidss/tidss_kms.c                  |   70 +-
- drivers/gpu/drm/tidss/tidss_oldi.c                 |   46 +-
- drivers/gpu/drm/tidss/tidss_oldi.h                 |    1 -
- drivers/gpu/drm/v3d/v3d_drv.c                      |    3 +
- drivers/gpu/drm/v3d/v3d_regs.h                     |   19 +-
- drivers/gpu/drm/v3d/v3d_sched.c                    |   30 +-
- drivers/gpu/drm/v3d/v3d_submit.c                   |    9 +
- drivers/gpu/drm/vc4/vc4_dpi.c                      |    1 -
- drivers/gpu/drm/vc4/vc4_dsi.c                      |    1 -
- drivers/gpu/drm/vc4/vc4_hdmi.c                     |    1 -
- drivers/gpu/drm/vc4/vc4_vec.c                      |    1 -
- drivers/gpu/drm/verisilicon/vs_bridge.c            |    1 -
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                |   23 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |    3 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |    2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |    2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |    2 +-
- drivers/gpu/drm/xe/xe_exec.c                       |   23 +-
- drivers/gpu/drm/xe/xe_vm.c                         |   43 +-
- drivers/gpu/drm/xe/xe_vm.h                         |    3 +-
- drivers/gpu/tests/gpu_buddy_test.c                 |    9 +
- drivers/staging/fbtft/TODO                         |    4 +-
- include/drm/drm_gem_atomic_helper.h                |   28 -
- include/drm/drm_gpuvm.h                            |  139 ++-
- include/drm/drm_simple_kms_helper.h                |   56 +-
- include/uapi/drm/v3d_drm.h                         |    5 +
- 124 files changed, 4693 insertions(+), 1389 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,am62l-dss.yaml
- create mode 100644 drivers/gpu/drm/ci/drm-misc-ci.yml
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+>  drivers/dma-buf/dma-fence.c |  2 ++
+>  include/linux/dma-fence.h   | 22 ++++++++++++++++++++++
+>  2 files changed, 24 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index f7c084926ae6..1ae8c7aade39 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1119,6 +1119,8 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>  	/* Mapp the init_flags to the fence-internal flags. */
+>  	if (test_bit(DMA_FENCE_INIT_FLAG_SEQNO64, &init_flags))
+>  		set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence_flag_bits);
+> +	if (test_bit(DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK, &init_flags))
+> +		set_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT, &fence_flag_bits);
+>  
+>  	__dma_fence_init(fence, ops, lock, context, seqno, fence_flag_bits);
+>  }
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index 52e7ddfd2d06..ee6e8de3ebc6 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -115,6 +115,7 @@ enum dma_fence_flag_bits {
+>  	DMA_FENCE_FLAG_SIGNALED_BIT,
+>  	DMA_FENCE_FLAG_TIMESTAMP_BIT,
+>  	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+> +	DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
+>  
+>  	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
+>  };
+> @@ -124,9 +125,12 @@ enum dma_fence_flag_bits {
+>   * These flags can be passed in dma_fence_init().
+>   *
+>   * @DMA_FENCE_INIT_FLAG_SEQNO64: Use 64-bit sequence numbers.
+> + * @DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK:
+> + * Legacy flag. Enables a race condition in dma_fence_is_signaled().
+>   */
+>  enum dma_fence_init_flags {
+>  	DMA_FENCE_INIT_FLAG_SEQNO64,
+> +	DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK,
+>  
+>  	/* Must always be last member. */
+>  	DMA_FENCE_INIT_FLAG_NR_OF_FLAGs,
+> @@ -568,9 +572,27 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+>  static inline bool
+>  dma_fence_is_signaled(struct dma_fence *fence)
+>  {
+> +	const bool racy_check = test_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
+> +					 &fence->flags);
+>  	const struct dma_fence_ops *ops;
+> +	bool signaled = false;
+> +	unsigned long flags;
+>  
+> +	/*
+> +	 * For legacy reasons, there is a race window here against parties
+> +	 * signaling the fence. They might still be doing that right now.
+> +	 *
+> +	 * For most users, this window shall be closed, but there are parties
+> +	 * for whom the cache-line invalidation by taking the lock might be so
+> +	 * significant that they prefer to accept the race at their own risk.
+> +	 */
+> +	if (!racy_check)
+> +		dma_fence_lock_irqsave(fence, flags);
+>  	if (dma_fence_test_signaled_flag(fence))
+> +		signaled = true;
+> +	if (!racy_check)
+> +		dma_fence_unlock_irqrestore(fence, flags);
+> +	if (signaled)
+>  		return true;
+>  
+>  	rcu_read_lock();
+> -- 
+> 2.56.0
+> 
