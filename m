@@ -2,43 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BAA606A31A
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 02:09:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYuayyOq
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9903606A31E
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 02:41:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE65510E17F;
-	Thu, 29 Oct 2026 02:09:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43CC610E17F;
- Thu, 29 Oct 2026 02:09:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 27089600D1;
- Thu, 29 Oct 2026 02:09:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1EB1F01825;
- Thu, 29 Oct 2026 02:09:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793239762;
- bh=pnIY/vaY0r0NtR9vXgq6JvHe2lnMIHx6XQ1SP11K9mY=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=UYuayyOqI6VZ0cF9iq5CrccC0h/0YbocO6HHpnIW+hotTUVYHWadAMrtvKb2sWer6
- Y0xd0XxeeN8dDxRdKEzHlBnaK66YtsPvkRgvyU/adXOYRozul7/pDgfugbAUDgjPab
- yx4W6SL7kEfcmAlG/5Loo+kzM/xNZJGG4w85aDpIYIhdR/zIpAS9YZo3Nds6lDPQbH
- CAPXNd7rmnu9SnZTIilSfdoBU0bGEsTLLT6X7yDDtg16Cu/hjF7OqPPmY1P8ALE9Uc
- 1ekgkRZfwTcNnMJiafI1OHCxWjor05sxtWQN2QJPFWDclpd1N9Lr4xlv70UKA0TUQo
- Bt1Zqkag/9rCQ==
-Message-ID: <sashiko-outbox-188631@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC 1/5] drm/i915/selftests: Port GT-dependent selftests to
- work with multi-GT (low-hanging fruits part 1)
-To: "Krzysztof Niemiec" <krzysztof.niemiec@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261029014155.55865-2-krzysztof.niemiec@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 389C010E177;
+	Thu, 29 Oct 2026 02:41:00 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9FC810E177;
+ Thu, 29 Oct 2026 02:40:58 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8522723791630371167=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Selftests_fixes_for_multi?=
+ =?utf-8?q?-gt_platforms_in_i915?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Krzysztof Niemiec" <krzysztof.niemiec@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 29 Oct 2026 02:40:58 -0000
+Message-ID: <179324165875.84791.6670787031295945073@221881a7231d>
+X-Patchwork-Hint: ignore
 References: <20261029014155.55865-1-krzysztof.niemiec@intel.com>
- <20261029014155.55865-2-krzysztof.niemiec@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 02:09:22 +0000
+In-Reply-To: <20261029014155.55865-1-krzysztof.niemiec@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,254 +34,721 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] drm/i915/selftests: hang_init() uses UABI-only GT0 context in mu=
-lti-GT loop
-- [Medium] drm/i915/selftests: GT mismatch in selftest_execlists spinner co=
-ntexts
-- [Medium] drm/i915/selftests: missing gsi_offset in __live_rc6_ctx() on me=
-dia GT
---
+--===============8522723791630371167==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 39fe8a3841172dae27e66c85ef1663181f7d0e43
-Author: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+== Series Details ==
 
-drm/i915/selftests: Port GT-dependent selftests to work with multi-GT (low-=
-hanging fruits part 1)
+Series: Selftests fixes for multi-gt platforms in i915
+URL   : https://patchwork.freedesktop.org/series/177065/
+State : failure
 
-This patch wraps several GT-dependent live and performance selftest suites =
-in
-for_each_gt() loops so that they run against all GTs present on the system
-rather than only the primary GT.
+== Summary ==
 
-[ ... ]
+CI Bug Log - changes from CI_DRM_19410 -> Patchwork_177065v1
+====================================================
 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/d=
-rm/i915/gt/selftest_execlists.c
-> index 21e5ed9f72a30..ddf71b3784bf7 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-> @@ -4495,12 +4495,21 @@ int intel_execlists_live_selftests(struct drm_i91=
-5_private *i915)
->  		SUBTEST(live_virtual_slice),
->  		SUBTEST(live_virtual_reset),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
-> =20
-> -	if (to_gt(i915)->submission_method !=3D INTEL_SUBMISSION_ELSP)
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (gt->submission_method !=3D INTEL_SUBMISSION_ELSP)
-> +			continue;
-> =20
-> -	if (intel_gt_is_wedged(to_gt(i915)))
-> -		return 0;
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
-> =20
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +		err =3D intel_gt_live_subtests(tests, gt);
+Summary
+-------
 
-[Severity: Medium]
-When intel_execlists_live_selftests() runs on a secondary GT where
-gt !=3D to_gt(i915), won't several preemption subtests trigger a GEM_BUG_ON=
-()
-in igt_spinner_create_request()?
+  **FAILURE**
 
-Specifically, live_preempt(), live_late_preempt(), live_preempt_timeout(),
-and preempt_client_init() (used by live_nopreempt(), live_preempt_cancel(),
-live_suppress_self_preempt(), and live_chain_preempt()) create GEM contexts
-with a NULL vm while initializing their spinners on gt:
+  Serious unknown changes coming with Patchwork_177065v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_177065v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-drivers/gpu/drm/i915/gt/selftest_execlists.c:live_preempt() {
-	...
-	ctx_hi =3D kernel_context(gt->i915, NULL);
-	if (!ctx_hi)
-		return -ENOMEM;
-	ctx_hi->sched.priority =3D I915_CONTEXT_MAX_USER_PRIORITY;
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/index.html
 
-	ctx_lo =3D kernel_context(gt->i915, NULL);
-	if (!ctx_lo)
-		goto err_ctx_hi;
-	ctx_lo->sched.priority =3D I915_CONTEXT_MIN_USER_PRIORITY;
+Participating hosts (40 -> 38)
+------------------------------
 
-	if (igt_spinner_init(&spin_hi, gt))
-		goto err_ctx_lo;
-	...
-}
+  Missing    (2): bat-dg2-13 bat-arlh-3 
 
-When kernel_context(gt->i915, NULL) calls i915_gem_create_context() with
-pc->vm =3D=3D NULL, the context VM is created on to_gt(i915) rather than gt:
+Possible new issues
+-------------------
 
-drivers/gpu/drm/i915/gem/i915_gem_context.c:i915_gem_create_context() {
-	...
-	if (pc->vm) {
-		vm =3D i915_vm_get(pc->vm);
-	} else if (HAS_FULL_PPGTT(i915)) {
-		struct i915_ppgtt *ppgtt;
+  Here are the unknown changes that may have been introduced in Patchwork_177065v1:
 
-		ppgtt =3D i915_ppgtt_create(to_gt(i915), 0);
-	...
-}
+### IGT changes ###
 
-When those subtests then call
-spinner_create_request() -> igt_spinner_create_request(spin, ce, arb),
-spin->gt is gt while ce->vm->gt is to_gt(i915), hitting:
+#### Possible regressions ####
 
-drivers/gpu/drm/i915/selftests/igt_spinner.c:igt_spinner_create_request() {
-	...
-	GEM_BUG_ON(spin->gt !=3D ce->vm->gt);
-	...
-}
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][1] -> [ABORT][2] +1 other test abort
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-mtlp-8/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-mtlp-8/igt@i915_selftest@live.html
 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_gt_pm.c b/drivers/gpu/drm/i=
-915/gt/selftest_gt_pm.c
-> index 07eaf71955c44..09c0c4096665a 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_gt_pm.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_gt_pm.c
-> @@ -205,9 +205,18 @@ int intel_gt_pm_late_selftests(struct drm_i915_priva=
-te *i915)
->  		 */
->  		SUBTEST(live_rc6_ctx_wa),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
-> =20
-> -	if (intel_gt_is_wedged(to_gt(i915)))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
-> =20
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +		err =3D intel_gt_live_subtests(tests, gt);
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [PASS][3] -> [INCOMPLETE][4] +1 other test incomplete
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-arls-5/igt@i915_selftest@live@workarounds.html
+    - bat-arlh-2:         [PASS][5] -> [INCOMPLETE][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-arlh-2/igt@i915_selftest@live@workarounds.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-arlh-2/igt@i915_selftest@live@workarounds.html
+    - bat-arls-6:         [PASS][7] -> [ABORT][8] +1 other test abort
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-arls-6/igt@i915_selftest@live@workarounds.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-arls-6/igt@i915_selftest@live@workarounds.html
 
-[Severity: Medium]
-Now that intel_gt_pm_late_selftests() runs live_rc6_ctx_wa() on every GT,
-does __live_rc6_ctx() read the wrong MMIO offset when executing on a
-standalone media GT?
+  
+New tests
+---------
 
-In drivers/gpu/drm/i915/gt/selftest_rc6.c, __live_rc6_ctx() emits an
-MI_STORE_REGISTER_MEM command for GEN8_RC6_CTX_INFO without adding
-ce->engine->gt->uncore->gsi_offset:
+  New tests have been introduced between CI_DRM_19410 and Patchwork_177065v1:
 
-drivers/gpu/drm/i915/gt/selftest_rc6.c:__live_rc6_ctx() {
-	...
-	*cs++ =3D cmd;
-	*cs++ =3D i915_mmio_reg_offset(GEN8_RC6_CTX_INFO);
-	*cs++ =3D ce->timeline->hwsp_offset + 8;
-	*cs++ =3D 0;
-	...
-}
+### New IGT tests (46) ###
 
-On platforms with a standalone media GT (where uncore->gsi_offset is
-0x380000), won't the media engine command streamer read the primary GT's
-GEN8_RC6_CTX_INFO register at 0x8504 instead of the media GT's register at
-0x388504?
+  * igt@i915_selftest@addfb25-4-tiled:
+    - Statuses :
+    - Exec time: [None] s
 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/d=
-rm/i915/gt/selftest_hangcheck.c
-> index 53f3ce5c33a47..d67a6d75c56a4 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> @@ -2016,21 +2016,27 @@ int intel_hangcheck_live_selftests(struct drm_i91=
-5_private *i915)
->  		SUBTEST(igt_reset_evict_fence),
->  		SUBTEST(igt_handle_error),
->  	};
-> -	struct intel_gt *gt =3D to_gt(i915);
->  	intel_wakeref_t wakeref;
-> +	struct intel_gt *gt;
-> +	unsigned int id;
->  	int err;
-> =20
-> -	if (!intel_has_gpu_reset(gt))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (!intel_has_gpu_reset(gt))
-> +			continue;
-> =20
-> -	if (intel_gt_is_wedged(gt))
-> -		return -EIO; /* we're long past hope of a successful reset */
-> +		if (intel_gt_is_wedged(gt))
-> +			return -EIO; /* we're long past hope of a successful reset */
-> =20
-> -	wakeref =3D intel_runtime_pm_get(gt->uncore->rpm);
-> +		wakeref =3D intel_runtime_pm_get(gt->uncore->rpm);
-> =20
-> -	err =3D intel_gt_live_subtests(tests, gt);
-> +		err =3D intel_gt_live_subtests(tests, gt);
+  * igt@i915_selftest@addfb25-bad-modifier:
+    - Statuses :
+    - Exec time: [None] s
 
-[Severity: Medium]
-Can running intel_hangcheck_live_selftests() across all GTs cause subtests
-such as igt_hang_sanitycheck(), igt_reset_active_engine(),
-igt_reset_engines(), and igt_reset_queue() to fail with -EINVAL on secondary
-GTs that have non-UABI engines like GSC0?
+  * igt@i915_selftest@addfb25-modifier-no-flag:
+    - Statuses :
+    - Exec time: [None] s
 
-In drivers/gpu/drm/i915/gt/selftest_hangcheck.c, hang_init() sets up h->ctx
-via kernel_context(gt->i915, NULL):
+  * igt@i915_selftest@addfb25-y-tiled-legacy:
+    - Statuses :
+    - Exec time: [None] s
 
-drivers/gpu/drm/i915/gt/selftest_hangcheck.c:hang_init() {
-	...
-	h->ctx =3D kernel_context(gt->i915, NULL);
-	if (IS_ERR(h->ctx))
-		return PTR_ERR(h->ctx);
-	...
-}
+  * igt@i915_selftest@addfb25-yf-tiled-legacy:
+    - Statuses :
+    - Exec time: [None] s
 
-Because vm is NULL, i915_gem_create_context() allocates h->ctx->vm on
-to_gt(i915) instead of gt, and populates h->ctx->engines via
-default_engines() using only for_each_uabi_engine(). Non-UABI engines such =
-as
-GSC0 on the standalone media GT (which has uabi_class =3D=3D I915_NO_UABI_C=
-LASS)
-are skipped in intel_engines_driver_register(), leaving engine->legacy_idx =
-as
-INVALID_ENGINE (-1).
+  * igt@i915_selftest@bad-flink:
+    - Statuses :
+    - Exec time: [None] s
 
-When the hangcheck subtests iterate over all engines on the GT with
-for_each_engine(engine, gt, id) and call hang_create_request(&h, engine) on
-GSC0:
+  * igt@i915_selftest@bad-pitch-0:
+    - Statuses :
+    - Exec time: [None] s
 
-drivers/gpu/drm/i915/gt/selftest_hangcheck.c:hang_create_request() {
-	...
-	rq =3D igt_request_alloc(h->ctx, engine);
-	if (IS_ERR(rq)) {
-		err =3D PTR_ERR(rq);
-		goto unpin_hws;
-	}
-	...
-}
+  * igt@i915_selftest@bad-pitch-32:
+    - Statuses :
+    - Exec time: [None] s
 
-igt_request_alloc() looks up engine->legacy_idx in h->ctx:
+  * igt@i915_selftest@bad-pitch-63:
+    - Statuses :
+    - Exec time: [None] s
 
-drivers/gpu/drm/i915/gem/selftests/igt_gem_utils.c:igt_request_alloc() {
-	...
-	ce =3D i915_gem_context_get_engine(ctx, engine->legacy_idx);
-	if (IS_ERR(ce))
-		return ERR_CAST(ce);
-	...
-}
+  * igt@i915_selftest@bad-pitch-65536:
+    - Statuses :
+    - Exec time: [None] s
 
-Should hang_init() pass gt->vm to kernel_context(), and should the hangcheck
-subtests either create per-engine contexts on gt or skip engines that are n=
-ot
-populated in h->ctx?
+  * igt@i915_selftest@bad-pitch-999:
+    - Statuses :
+    - Exec time: [None] s
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029014155.5586=
-5-1-krzysztof.niemiec@intel.com?part=3D1
+  * igt@i915_selftest@basic-busy-flip-before-cursor-atomic:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-busy-flip-before-cursor-legacy:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-flip-after-cursor-atomic:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-flip-before-cursor-atomic:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-flip-before-cursor-legacy:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-flip-before-cursor-varying-size:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-flip-vs-dpms:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-pci-d3-state:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-plain-flip:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-with_fd_dup:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-x-tiled-legacy:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@basic-y-tiled-legacy:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@bo-too-small:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@bo-too-small-due-to-tiling:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@compare-crc-sanitycheck-nv12:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@compare-crc-sanitycheck-xr24:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@double-flink:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@engines:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@force-connector-state:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@force-edid:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@force-load-detect:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@framebuffer-vs-set-tiling:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@hang-read-crc:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@invalid-get-prop-any:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@nonblocking-crc:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@prune-stale-modes:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@psr-cursor-plane-move:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@psr-primary-mmap-gtt:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@psr-primary-page-flip:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@psr-sprite-plane-onoff:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@read-crc:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@read-crc-frame-sequence:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@size-max:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@small-bo:
+    - Statuses :
+    - Exec time: [None] s
+
+  * igt@i915_selftest@tile-pitch-mismatch:
+    - Statuses :
+    - Exec time: [None] s
+
+  
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177065v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-arlh-2:         [PASS][9] -> [INCOMPLETE][10] ([i915#16547])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-arlh-2/igt@i915_selftest@live.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-arlh-2/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-mtlp-9:         [PASS][11] -> [INCOMPLETE][12] ([i915#16229]) +1 other test incomplete
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#16229]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229
+  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19410 -> Patchwork_177065v1
+
+  CI-20190529: 20190529
+  CI_DRM_19410: 114156ff58b8db80a36355fd6a28725dc7e20584 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9170: 9170
+  Patchwork_177065v1: 114156ff58b8db80a36355fd6a28725dc7e20584 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/index.html
+
+--===============8522723791630371167==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Selftests fixes for multi-gt platforms in i915</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177065/">https://patchwork.freedesktop.org/series/177065/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19410 -&gt; Patchwork_177065v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_177065v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_177065v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 bat-arlh-3 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_177065v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-mtlp-8/igt@i915_selftest@live.html">ABORT</a> +1 other test abort</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-arls-5/igt@i915_selftest@live@workarounds.html">INCOMPLETE</a> +1 other test incomplete</li>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-arlh-2/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-arlh-2/igt@i915_selftest@live@workarounds.html">INCOMPLETE</a></li>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-arls-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-arls-6/igt@i915_selftest@live@workarounds.html">ABORT</a> +1 other test abort</li>
+</ul>
+</li>
+</ul>
+<h2>New tests</h2>
+<p>New tests have been introduced between CI_DRM_19410 and Patchwork_177065v1:</p>
+<h3>New IGT tests (46)</h3>
+<ul>
+<li>
+<p>igt@i915_selftest@addfb25-4-tiled:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@addfb25-bad-modifier:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@addfb25-modifier-no-flag:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@addfb25-y-tiled-legacy:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@addfb25-yf-tiled-legacy:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@bad-flink:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@bad-pitch-0:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@bad-pitch-32:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@bad-pitch-63:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@bad-pitch-65536:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@bad-pitch-999:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-busy-flip-before-cursor-atomic:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-flip-after-cursor-atomic:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-flip-before-cursor-atomic:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-flip-before-cursor-legacy:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-flip-before-cursor-varying-size:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-flip-vs-dpms:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-pci-d3-state:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-plain-flip:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-with_fd_dup:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-x-tiled-legacy:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@basic-y-tiled-legacy:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@bo-too-small:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@bo-too-small-due-to-tiling:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@compare-crc-sanitycheck-nv12:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@compare-crc-sanitycheck-xr24:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@double-flink:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@engines:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@force-connector-state:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@force-edid:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@force-load-detect:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@framebuffer-vs-set-tiling:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@hang-read-crc:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@invalid-get-prop-any:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@nonblocking-crc:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@prune-stale-modes:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@psr-cursor-plane-move:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@psr-primary-mmap-gtt:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@psr-primary-page-flip:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@psr-sprite-plane-onoff:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@read-crc:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@read-crc-frame-sequence:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@size-max:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@small-bo:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@tile-pitch-mismatch:</p>
+<ul>
+<li>Statuses :</li>
+<li>Exec time: [None] s</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177065v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-arlh-2/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-arlh-2/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19410/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177065v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229">i915#16229</a>) +1 other test incomplete</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19410 -&gt; Patchwork_177065v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19410: 114156ff58b8db80a36355fd6a28725dc7e20584 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9170: 9170<br />
+  Patchwork_177065v1: 114156ff58b8db80a36355fd6a28725dc7e20584 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8522723791630371167==--
