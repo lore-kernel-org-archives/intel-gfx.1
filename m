@@ -2,61 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B44606A31C
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 18:07:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6AF606A31F
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 18:24:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgJoxkqT
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eKHR6GeT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F6B910E8A7;
-	Fri, 30 Oct 2026 18:07:52 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09B6110E8A7;
- Fri, 30 Oct 2026 18:07:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CA9910E040;
+	Fri, 30 Oct 2026 18:24:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0553B10E040;
+ Fri, 30 Oct 2026 18:24:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793383666; x=1824919666;
+ t=1793384641; x=1824920641;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=iMCu81S75zLO2i9FQ6pTzBDIIuWC6KjPwVwRGycoMs0=;
- b=EgJoxkqTKMlKZsu+0Z8/DWKJsY504Z/kNed6rtAmyJxMQTAsYHpTb22J
- lRbx/syp3ht/Z/Lh//6iaiG1cOk81eMa8N+MOwif9f6n8iuunYugJl1DM
- mzqlfTJovOrDNP07Tfkuw4dwA9IijytrnHD2nk5J4eHlQs9tsET7Z37IQ
- uG6spjVeTF9qR7m0+zT8ZB+D8T3eboSMsfHs0kEgVFiuHT631WUoX6HeY
- DSuCp/3igQ6eM/i0LxGYGFiGQ2U2t/xk1bOpIVuTNpWlENsE8g1JQFHBH
- JB/f3x6ncEQv6I2pGjyWYlFaWv/5q02fVSqD+P9WzldjHDL5+bPl+yzJA w==;
-X-CSE-ConnectionGUID: gjzROsGJR026tfsVC4q5Bg==
-X-CSE-MsgGUID: o8FP0nLkT7iqowZsB204ZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2054543"
+ bh=GymjuedmgJLKOHNYZxEWNc+4BHzoSrfxEVXprBRVUXs=;
+ b=eKHR6GeTldJsWQspuRov5sqqZeEHC/m7NNZ2NMcRwWQfHUchlAxELL6w
+ iI96sdHrgabx49L6bXtNW2GWyI7upJYRbPkHqn/MNhIw939bHQD/5Oi/B
+ dJ1moiNhkYvbN4OBKe9GpQCMuhxf+09zrBs4vyya/rkT2SJaiOyMCapik
+ qIR6b6l3DR9Z80J1GWvbeKtbPuQ8B/IPZuXZvgBNCgVy6WlcY0l6JC6WC
+ KbwnUJTGyJcUkLPB8paaOdexwYH9WzL6ksziTa5DCmcj6HGi0wD7XwdM+
+ 5cmfbDOn7JvsPbL1yMNtPbYhVr5DeFH6Jf5CnU+FJoCbDAZ5y3TfReZp5 g==;
+X-CSE-ConnectionGUID: UnkoG3NkSJKfCZYZfaQyLg==
+X-CSE-MsgGUID: 0hh0Ow08Qwq2CjvZvSb1nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2039498"
 X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2054543"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 11:07:46 -0700
-X-CSE-ConnectionGUID: r6JRaza9S06mZ+OCu9l0Kw==
-X-CSE-MsgGUID: p5a+eOGXS5yqtCXJ5cD5IQ==
+   d="scan'208";a="2039498"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 11:24:01 -0700
+X-CSE-ConnectionGUID: EPry4q3/TPmJWnEb/v5x5g==
+X-CSE-MsgGUID: j4GXRvV+SWa8yORUx0svxw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="6041310"
+   d="scan'208";a="5841358"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.58])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 11:07:45 -0700
-Date: Fri, 30 Oct 2026 20:07:41 +0200
+ 30 Oct 2026 11:23:59 -0700
+Date: Fri, 30 Oct 2026 20:23:56 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: sashiko-reviews@lists.linux.dev
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 06/10] drm/i915: Wait for timing generator to start in
- intel_crtc_vblank_on() on HSW+
-Message-ID: <auTc7YkuwukKcLWX@intel.com>
+Subject: Re: [PATCH 10/10] drm/i915: Allow joiner with port sync
+Message-ID: <auTgvDNCV8npWtiq@intel.com>
 References: <20261030171327.29829-1-ville.syrjala@linux.intel.com>
- <20261030171327.29829-7-ville.syrjala@linux.intel.com>
- <sashiko-outbox-191348@kernel.org>
+ <20261030171327.29829-11-ville.syrjala@linux.intel.com>
+ <sashiko-outbox-191352@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-191348@kernel.org>
+In-Reply-To: <sashiko-outbox-191352@kernel.org>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -78,112 +77,106 @@ X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 30, 2026 at 05:32:47PM +0000, sashiko-bot@kernel.org wrote:
+On Fri, Oct 30, 2026 at 05:38:58PM +0000, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] drm/i915: intel_pipe_vblank_on() scanline wait times out on DSI
+> - [High] drm/i915: port sync dropped when joiner secondary CRTC triggers modeset
 > --
 > 
-> commit a024447aed84d4ab8f0e7bb2ee11d21475e5b408
+> commit e8591be1b66ac026c8025978e792560a0337567b
 > Author: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> drm/i915: Wait for timing generator to start in intel_crtc_vblank_on() on HSW+
+> drm/i915: Allow joiner with port sync
 > 
-> This commit waits for the pipe scanline counter to start moving inside
-> intel_pipe_vblank_on() on Haswell and newer platforms before enabling
-> vblank interrupts.
+> This commit removes the check preventing pipes using joiner from entering
+> port sync mode now that modeset enable and disable sequences iterate in
+> pipe/transcoder order.
 > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-> > index a28f4a088e587..209d5a18ee8d9 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_crtc.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-> > @@ -128,8 +128,21 @@ u32 intel_crtc_max_vblank_count(const struct intel_crtc_state *crtc_state)
-> >  
-> >  void intel_pipe_vblank_on(const struct intel_crtc_state *crtc_state)
+> > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> > index 2e7f278a1b6c6..3be5b429ac876 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> > @@ -4675,14 +4675,8 @@ static bool m_n_equal(const struct intel_link_m_n *m_n_1,
+> >  static bool crtcs_port_sync_compatible(const struct intel_crtc_state *crtc_state1,
+> >  				       const struct intel_crtc_state *crtc_state2)
 > >  {
-> > +	struct intel_display *display = to_intel_display(crtc_state);
-> >  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> >  
-> > +	/*
-> > +	 * Make sure the timing generator has really started so
-> > +	 * the sampled frame/scanline counter values don't jump
-> > +	 * erratically.
-> > +	 *
-> > +	 * TODO do this for older platforms as well after
-> > +	 * rearranging the modeset sequence a bit.
-> > +	 */
-> > +	if (DISPLAY_VER(display) >= 9 ||
-> > +	    display->platform.broadwell || display->platform.haswell)
-> > +		intel_wait_for_pipe_scanline_moving(crtc);
+> > -	/*
+> > -	 * FIXME the modeset sequence is currently wrong and
+> > -	 * can't deal with joiner + port sync at the same time.
+> > -	 *
+> > -	 * TODO VRR + port sync needs special handling
+> > -	 */
+> > +	/* TODO VRR + port sync needs special handling */
+> >  	return crtc_state1->hw.active && crtc_state2->hw.active &&
+> > -		!crtc_state1->joiner_pipes && !crtc_state2->joiner_pipes &&
 > 
-> [Severity: Medium]
-> Will calling intel_wait_for_pipe_scanline_moving() unconditionally on
-> DISPLAY_VER(display) >= 9 time out for 100 ms and log a false error on
-> Broxton/Geminilake DSI and Gen11+ DSI command mode?
+> [Severity: High]
+> Can allowing joiner with port sync here cause port sync to be dropped when an
+> atomic commit triggers a modeset via a joiner secondary CRTC?
 > 
-> intel_wait_for_pipe_scanline_moving() calls wait_for_pipe_scanline_moving() ->
-> pipe_scanline_is_moving(), which directly polls PIPEDSL:
+> In drivers/gpu/drm/i915/display/intel_display.c:intel_atomic_check(),
+> drm_atomic_helper_check_modeset() runs connector atomic_check callbacks
+> before intel_atomic_check_config_and_link() pulls in joined CRTCs:
 > 
-> drivers/gpu/drm/i915/display/intel_vblank.c:pipe_scanline_is_moving() {
-> 	intel_reg_t reg = PIPEDSL(display, pipe);
-> 	u32 line1, line2;
-> 
-> 	line1 = intel_de_read(display, reg) & PIPEDSL_LINE_MASK;
-> 	msleep(5);
-> 	line2 = intel_de_read(display, reg) & PIPEDSL_LINE_MASK;
-> 
-> 	return line1 != line2;
-> }
-> 
-> On Broxton (DISPLAY_VER 9) and Geminilake (DISPLAY_VER 10) MIPI DSI, timings
-> are driven from the port rather than the CPU transcoder, and PIPEDSL does not
-> increment. Because of this, intel_dsi_compute_config() and
-> bxt_dsi_get_pipe_config() set I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP, and
-> __intel_get_crtc_scanline() skips reading PIPEDSL:
-> 
-> drivers/gpu/drm/i915/display/intel_vblank.c:__intel_get_crtc_scanline() {
-> 	if (crtc->mode_flags & I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP)
-> 		return __intel_get_crtc_scanline_from_timestamp(crtc);
-> 
-> 	vtotal = intel_mode_vtotal(mode);
-> 
-> 	position = intel_de_read_fw(display, PIPEDSL(display, pipe)) & PIPEDSL_LINE_MASK;
+> 	ret = drm_atomic_helper_check_modeset(dev, &state->base);
+> 	if (ret)
+> 		goto fail;
 > 	...
-> }
+> 	ret = intel_atomic_check_config_and_link(state);
 > 
-> When bxt_dsi_enable() -> intel_crtc_vblank_on() -> intel_pipe_vblank_on() runs
-> (or during intel_modeset_setup_hw_state()), polling PIPEDSL will see a static
-> value and time out.
+> Suppose a joined CRTC pair (primary Pipe A and secondary Pipe B) is active in
+> port sync mode with a peer CRTC (Pipe C). If userspace submits an atomic
+> commit targeting the joiner secondary CRTC (Pipe B, which has uapi.enable ==
+> false and no uapi connectors) that sets uapi.mode_changed = true in
+> intel_atomic_check() (for example by changing scaling_filter,
+> sharpness_strength, or vrr_enabled, or clearing inherited on the first
+> userspace commit), drm_atomic_helper_check_modeset() runs while neither Pipe
+> A nor its connector is in the atomic state.
 > 
-> Similarly, on Gen11+ DSI command mode (where I915_MODE_FLAG_DSI_USE_TE0 or
-> I915_MODE_FLAG_DSI_USE_TE1 is set in crtc_state->mode_flags),
-> gen11_dsi_configure_transcoder() configures the transcoder in CMD_MODE_TE_GATE
-> without periodic updates. When gen11_dsi_enable() calls intel_crtc_vblank_on()
-> during intel_enable_crtc(), no frame update has been requested yet because
-> icl_dsi_frame_update() is only called later in intel_update_crtc() ->
-> intel_pipe_update_end():
+> Later, intel_atomic_check_config_and_link() -> intel_atomic_check_config() ->
+> intel_joiner_add_affected_crtcs() adds Pipe A, sets Pipe A's
+> uapi.mode_changed = true, and adds Pipe A's connector:
 > 
-> drivers/gpu/drm/i915/display/intel_crtc.c:intel_pipe_update_end() {
-> 	...
-> 	if (DISPLAY_VER(display) >= 11 &&
-> 	    intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI))
-> 		icl_dsi_frame_update(new_crtc_state);
-> 	...
-> }
+> 	for_each_intel_crtc_in_pipe_mask(display, crtc, modeset_pipes) {
+> 		int ret;
 > 
-> Should intel_pipe_vblank_on() skip intel_wait_for_pipe_scanline_moving() when
-> crtc_state->mode_flags has I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP or
-> I915_MODE_FLAG_DSI_USE_TE0 / I915_MODE_FLAG_DSI_USE_TE1 set?
+> 		crtc_state = intel_atomic_get_new_crtc_state(state, crtc);
+> 
+> 		crtc_state->uapi.mode_changed = true;
+> 
+> 		ret = drm_atomic_add_affected_connectors(&state->base, &crtc->base);
+> 
+> Because drm_atomic_helper_check_modeset() has already finished,
+> intel_dp_connector_atomic_check() -> intel_modeset_tile_group() and
+> intel_modeset_synced_crtcs() never run for Pipe A's connector, so Pipe C and
+> its connector are never added to the atomic state.
+> 
+> When intel_modeset_pipe_config_late() -> intel_ddi_compute_config_late() ->
+> intel_ddi_port_sync_transcoders() subsequently iterates over connectors in
+> the atomic state:
+> 
+> 	for_each_new_connector_in_state(&state->base, connector, conn_state, i) {
+> 		struct intel_crtc *crtc = to_intel_crtc(conn_state->crtc);
+> 		const struct intel_crtc_state *crtc_state;
+> 
+> it only sees Pipe A's connector, leaving master_transcoder =
+> INVALID_TRANSCODER and sync_mode_slaves_mask = 0 on Pipe A.
+> 
+> In intel_crtc_check_fastset(), intel_pipe_config_compare() then sees the
+> mismatch in master_transcoder or sync_mode_slaves_mask against old_crtc_state
+> and forces a full modeset on Pipe A and Pipe B without Pipe C in the commit.
+> If Pipe A was the port sync master, Pipe C's hardware transcoder remains
+> active and enslaved to TRANSCODER_A while TRANSCODER_A is disabled and
+> re-enabled, and bdw_get_trans_port_sync_config() during
+> intel_modeset_verify_crtc() reads back a non-zero sync_mode_slaves_mask,
+> triggering INTEL_DISPLAY_STATE_WARN in verify_crtc_state().
 
-DSI, sigh. 
+Hmm, I think this could even happen without joiner, if the
+connectors' tile groups have somehow changed so that they
+no longer match.
 
-I suppose for I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP we could
-just wait for the frame timestamp to change. Or perhaps even use
-that approach unconditionally for all platforms that have frame
-timestamps. But I'll probably need to reverse engineer the actual
-behavior of the frame timestamp during timing generator startup...
-
-For now I guess I could just skip this for anything where
-the scanline counter supposedly doesn't work.
+I suppose what we actually need is a port_sync_add_affected_crtcs().
+Need to think if I can do that without causing extra fastsets on
+all the synced crtcs when one of them needs a fastset...
 
 -- 
 Ville Syrjälä
