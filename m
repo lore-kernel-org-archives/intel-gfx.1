@@ -2,76 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A965606A31F
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 08:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=et+unMkD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B77C606A31A
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 08:19:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4419610E846;
-	Fri, 30 Oct 2026 08:15:06 +0000 (UTC)
-X-Greylist: delayed 557 seconds by postgrey-1.36 at gabe;
- Fri, 30 Oct 2026 08:14:59 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD7BE10E846;
- Fri, 30 Oct 2026 08:14:59 +0000 (UTC)
-Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
- by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4jGDDb41Fbz4HMf;
- Fri, 30 Oct 2026 09:05:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1793347535;
- bh=Se3koPSs6DQ6zGD5W/2cWVvCOjVr+vPRxHFjz++onwg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=et+unMkD2ILC3wHKKcw3fKmLwZORczDC2OPhDj7xdvlNyRRuIInGnByqPtaaNOtPz
- 3K4Z+XF2ePKZySS1enbIwbCn/YHEf58/r6KnLzPIVBxMJrKnc/aJEEL/aOoZzBoSE+
- MFbgMCaztNNdlLVKEC0mY2b7JuIoiKC6VrVnbDdFeDThwX7tbvY2zKJa7S14iBrwI8
- 3HWMi7YazrejVEBBrD2woaYkIyMaKPlPkk5xf20+iDlE5pA84xzo07jjBnfs1cTeE1
- 2ZXvDpHJW4QCoOUQyjwZCGqDveewjB9BoM6zQrT6cLucj3B5NEA0G0Pgr8fPN8r57L
- YNZfxwG4FK7Tw==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4jGDDZ4Yqxz4Fxh;
- Fri, 30 Oct 2026 09:05:34 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Score: -2.898
-X-Spam-Level: 
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jGDDV5Q83z8tgB;
- Fri, 30 Oct 2026 09:05:30 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id E5E1A5F9FB;
- Fri, 30 Oct 2026 09:04:47 +0100 (CET)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <3918d7f2-2c8e-4c91-8de3-ae412acc75a0@leemhuis.info>
-Date: Fri, 30 Oct 2026 09:04:47 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18C6210E876;
+	Fri, 30 Oct 2026 08:19:41 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA71112686;
+ Fri, 30 Oct 2026 08:19:40 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0490689509549666046=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/i915/display: Allow port sync on PTL
-To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, stable@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20261012040402.3332398-1-mitulkumar.ajitkumar.golani@intel.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261012040402.3332398-1-mitulkumar.ajitkumar.golani@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179334748825.921469.2962837773718248811@mxe9fb.netcup.net>
-X-NC-CID: CgXu/PzoZISETFZi9IR28TCiGLRx2uzTN+sBY0hwJUg+vuZt4Hw=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Frontbuffer_tracking_fixe?=
+ =?utf-8?q?s?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 30 Oct 2026 08:19:40 -0000
+Message-ID: <179334838003.91954.13241845482841183362@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261030070613.181026-1-jouni.hogander@intel.com>
+In-Reply-To: <20261030070613.181026-1-jouni.hogander@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,43 +34,162 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/12/26 06:04, Mitul Golani wrote:
-> Some dual-SST tiled displays exhibit visual corruption on PTL, with
-> one tile's image vertically shifted or wrapped by a random amount
-> that changes on every hotplug.
-> 
-> PTL supports port sync, so allow it to be used to avoid these
-> display issues.
+--===============0490689509549666046==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Is this fix for a recent regression still in the "to review" list of
-anyone, or did it fell through the cracks? Or was this solved meanwhile
-and I just missed it?
+== Series Details ==
 
-Ciao, Thorsten
+Series: Frontbuffer tracking fixes
+URL   : https://patchwork.freedesktop.org/series/177220/
+State : success
 
-> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8991
-> Fixes: 05cffc074938 ("drm/i915/display: Implement Wa_16024710867")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_ddi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index a46ab5d3d70f..a0aff087fafa 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -4629,7 +4629,7 @@ intel_ddi_port_sync_transcoders(const struct intel_crtc_state *ref_crtc_state,
->  	 * From, xe3lpd onwards we have defeatured this with reference to
->  	 * Wa_16024710867
->  	 */
-> -	if (!IS_DISPLAY_VER(display, 9, 20))
-> +	if (!IS_DISPLAY_VER(display, 9, 30))
->  		return 0;
->  
->  	if (!intel_crtc_has_type(ref_crtc_state, INTEL_OUTPUT_DP))
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_19416 -> Patchwork_177220v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177220v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19416/bat-rpls-4/igt@vgem_basic@unload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@sanitycheck:
+    - bat-apl-1:          [DMESG-WARN][3] ([i915#13735]) -> [PASS][4] +77 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19416/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - bat-apl-1:          [DMESG-WARN][5] ([i915#13735] / [i915#180]) -> [PASS][6] +49 other tests pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19416/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19416 -> Patchwork_177220v1
+
+  CI-20190529: 20190529
+  CI_DRM_19416: d8a353e238652bec29fd452babdaae0044d30b9b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9171: 9171
+  Patchwork_177220v1: d8a353e238652bec29fd452babdaae0044d30b9b @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/index.html
+
+--===============0490689509549666046==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Frontbuffer tracking fixes</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177220/">https://patchwork.freedesktop.org/series/177220/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19416 -&gt; Patchwork_177220v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177220v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19416/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19416/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">PASS</a> +77 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19416/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177220v1/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19416 -&gt; Patchwork_177220v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19416: d8a353e238652bec29fd452babdaae0044d30b9b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9171: 9171<br />
+  Patchwork_177220v1: d8a353e238652bec29fd452babdaae0044d30b9b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0490689509549666046==--
