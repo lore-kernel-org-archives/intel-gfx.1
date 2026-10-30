@@ -2,53 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EF9606A324
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 17:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCF9606A323
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 17:13:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jovov1T5
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rnv38ZCJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D83F10E5A0;
-	Fri, 30 Oct 2026 17:13:38 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12B7B112939;
- Fri, 30 Oct 2026 17:13:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19525112949;
+	Fri, 30 Oct 2026 17:13:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C946810E7F5;
+ Fri, 30 Oct 2026 17:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793380412; x=1824916412;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=xzseLuViJguH/kuXBX8A8rj+ajzTRnzAFTw28dI9s2M=;
- b=Jovov1T5DonxO4WyTV/GgM8l5z2NyNy89GpN6/yEc+dhr6LWko9uz6nI
- Nqa2P5jk+74uGvaqwNZZu2hDTf1K6QimvatKN/7GRpEwPkfdFtUcECev/
- mDbuLlNjNW89FNVqRe+g2dKom828jm80LZgd/d7dSiROyuOj1g7V4e2qd
- ijAeTNhCTG7TiBqfKIw9hMk0bK4KluiBLLR636uxH9dypvsr6vgasnmaR
- es1ipZw0z/f8N3A75aq38Al7Avyw5zaIt+PK20iNSzr3c/1w/TDm+CBjx
- PToE5SALjjI6+eFN8RWz0XhJa9lbw0RrmnXZNZhthrRriHLWm/mmkcgIv Q==;
-X-CSE-ConnectionGUID: 0PWXCjjES7qFUcT2G0z6aA==
-X-CSE-MsgGUID: h9AOUI9TSSKQsmQjO5gFKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2174304"
+ t=1793380420; x=1824916420;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2JjwL7EYklkYRd0hWWXAN4MQYwa+GOXDUB6H41Gjyxg=;
+ b=Rnv38ZCJP3fhZDCQw0TXGg03druCthDOKWdwwLWdxpzZe8AOaVPMFWZ0
+ zGU9tBjSr4qpuXaDNHAkKuTRtCoK429Bg2JnrPjPkTDiaaXYKrYqHRePa
+ yrEUMCRhbKJdoT5fakzMpCVyrNvC2F0SB+IYjHic0XVUI/GGfRZEaKSS5
+ AlKpFdUvASL825bXRc4TPikv+oduCPjqvSrue/BpfrrIMPjtyFaqNjKUw
+ ON9JOuOJeMJuvdLSyUB1PJE3IHwc/S8GQWAytsDfT94zlflB2xaMxzpGV
+ EX34TD77zoNfB7LL500/E4iA7kGRMRLh+C9ZnK6hKNoI/iVKPxaV03z9K A==;
+X-CSE-ConnectionGUID: otqLU8G5QNy7TXyW/g2muw==
+X-CSE-MsgGUID: lw6mfTLyTZGMJA6K+lyYbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2053868"
 X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2174304"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 10:13:32 -0700
-X-CSE-ConnectionGUID: lpoFqzUXSuOMUlcIu0q7bg==
-X-CSE-MsgGUID: qy2SJULqTue0KQgKTN8aRQ==
+   d="scan'208";a="2053868"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 10:13:40 -0700
+X-CSE-ConnectionGUID: ggDsJG0fRcmhNM+KvqUDTA==
+X-CSE-MsgGUID: O44TLAvoSfymQeObMISBfg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="7311362"
+   d="scan'208";a="5625258"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.58])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 10:13:30 -0700
+ 30 Oct 2026 10:13:39 -0700
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 00/10] drm/i915: Enable vblanks after the timing generator has
- started
-Date: Fri, 30 Oct 2026 19:13:16 +0200
-Message-ID: <20261030171327.29829-1-ville.syrjala@linux.intel.com>
+Subject: [PATCH 02/10] drm/i915: Do intel_crtc_vblank_on() later on HSW+
+Date: Fri, 30 Oct 2026 19:13:18 +0200
+Message-ID: <20261030171327.29829-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261030171327.29829-1-ville.syrjala@linux.intel.com>
+References: <20261030171327.29829-1-ville.syrjala@linux.intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -66,61 +67,64 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Currently we may enable the vblank machinery before the
-timing generator has actually started, which means the
-frame/scanline counters read out during the vblank enabling
-may be complete nonsense. When the timing generator finally
-starts running and we get the first vblank interrupt the
-sampled counters may jump erratically, which could cause
-the vblank code to get confused as to how many frames have
-actually elapsed.
+We are doing intel_crtc_vblank_on() too early. The timing generator
+doesn't actually start until:
+HDMI: DDI_BUF_CTL is enabled, TRANSCONF is already enabled earlier
+DP SST: switching DP_TP_CTL to normal mode or enabling TRANSCONF.
+        The order varies between the platorms a bit, but whichever
+        happens last is the important step
 
-The series fixes the problem for HSW+ by making sure the
-timing generator is actually ticking before we enable
-the vblank machinery. I also plan to fix the pre-HSW
-platforms but I'll need to do a bit more reverse
-engineering to figure out the final details.
+All of that is guaranteed to have happened after
+intel_ddi_enable_{dp,hdmi}() have been called, not before.
+Reorder the function calls appropriately. This takes care of the
+typical use cases. Fixing the more exotic port sync case will
+need a bit of extra work.
 
-While doing this I also ended up fixing some related
-FEC issues with port sync, and finally enable joiner+port
-sync because we no longer have any need to keep the two
-apart from each other.
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-Ville Syrjälä (10):
-  drm/i915: Disable port sync if VRR is enabled
-  drm/i915: Do intel_crtc_vblank_on() later on HSW+
-  drm/i915: Handle joined pipes inside intel_crtc_vblank_{on,off}()
-  Revert "drm/i915/display: Avoid stale PIPE_SCANLINE values after
-    crtc_enable"
-  drm/i915: Fix intel_crtc_vblank_on() with port sync
-  drm/i915: Wait for timing generator to start in intel_crtc_vblank_on()
-    on HSW+
-  drm/i915: Reduce the sleep inside pipe_scanline_is_moving()
-  drm/i915: Document timing generator start/stop behaviour on HSW+
-  drm/i915: Fix FEC wait with port sync on pre-LNL
-  drm/i915: Allow joiner with port sync
-
- drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
- drivers/gpu/drm/i915/display/intel_crt.c      |   6 +-
- drivers/gpu/drm/i915/display/intel_crtc.c     |  45 ++++++-
- drivers/gpu/drm/i915/display/intel_crtc.h     |   8 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      | 120 ++++++++++++++----
- drivers/gpu/drm/i915/display/intel_display.c  |  12 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |  17 +--
- .../drm/i915/display/intel_modeset_setup.c    |   2 +-
- drivers/gpu/drm/i915/display/intel_vblank.c   |   2 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c        |   4 +-
- 10 files changed, 166 insertions(+), 54 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index ed7d4cbbfb5a..9fb455d980ce 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3572,6 +3572,11 @@ static void intel_ddi_enable(struct intel_atomic_state *state,
+ 
+ 	intel_ddi_wait_for_fec_status(encoder, crtc_state, true);
+ 
++	if (is_hdmi)
++		intel_ddi_enable_hdmi(state, encoder, crtc_state, conn_state);
++	else
++		intel_ddi_enable_dp(state, encoder, crtc_state, conn_state);
++
+ 	for_each_pipe_crtc_modeset_enable(display, pipe_crtc, crtc_state) {
+ 		const struct intel_crtc_state *pipe_crtc_state =
+ 			intel_atomic_get_new_crtc_state(state, pipe_crtc);
+@@ -3579,13 +3584,7 @@ static void intel_ddi_enable(struct intel_atomic_state *state,
+ 		intel_crtc_vblank_on(pipe_crtc_state);
+ 	}
+ 
+-	if (is_hdmi)
+-		intel_ddi_enable_hdmi(state, encoder, crtc_state, conn_state);
+-	else
+-		intel_ddi_enable_dp(state, encoder, crtc_state, conn_state);
+-
+ 	intel_hdcp_enable(state, encoder, crtc_state, conn_state);
+-
+ }
+ 
+ static void intel_ddi_disable_dp(struct intel_atomic_state *state,
 -- 
 2.55.0
 
