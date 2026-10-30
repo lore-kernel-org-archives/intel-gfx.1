@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE49C606A31E
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 17:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4214606A336
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 17:33:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W2yK/csM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVjnkMaM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D3EA10E790;
-	Fri, 30 Oct 2026 17:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B01210E2BB;
+	Fri, 30 Oct 2026 17:32:59 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7ABE10E790;
- Fri, 30 Oct 2026 17:29:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A90910E28E;
+ Fri, 30 Oct 2026 17:32:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 92278405C2;
- Fri, 30 Oct 2026 17:29:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4521A1F00A02;
- Fri, 30 Oct 2026 17:29:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3B4CB431DA;
+ Fri, 30 Oct 2026 17:32:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7411F000C1;
+ Fri, 30 Oct 2026 17:32:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793381365;
- bh=lVxtQ9qhuh2LwdxblOOYbZQ4DbLAlSGNIHwTV6SCG2k=;
+ s=k20260515; t=1793381568;
+ bh=Q3ieiLiFjs1VuSJrjCfBcIblR8jFuIbAn2W/sTO7WwQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=W2yK/csMldsGtzqS73B2Pyx4EhOY9Gs3FBwcGlVgMDv0WzCMz4qd6AwFfqvI4HwAW
- XJRh0lSy9kJKKERiWknYbJNjtrcsl+yu7f4aToGhjqgSy0RRinNxaP5Zh4WW179gJY
- DOTTnx4vinXdncAuLvFXG7tg8xQ9xGY1ubbyScQ9Qs3DRlDD6qyKoWDVhT1dexOe08
- CwftmkxSwEMoYmGt50+Xv81BIm67NmL+6ceYbMmVvOB/CpypLVmxvPWtXsWTl4p6vH
- 9jsE6Z0xJc5N2iFkkuBfbapN2kyMnCTGjSG45lkn7nGqAvYpuLFACOaFmjrgj4V1MP
- +7vtCzMwEtfVA==
-Message-ID: <sashiko-outbox-191346@kernel.org>
+ b=HVjnkMaMpsX3vO8DANTfXwwOGbN7fwg3YLhhkBq7JZi79A1S2nyS+GpGrIQWlNW6s
+ ufbIwbOl6fUV8RcE2oVR3xmFYCUYUHRET75GrUilRP68ygrATvFVweJJG0KnmgokAj
+ n7kI7fajD6sW17U7Nmz3gxXRS9udKMtHQtkCV/w6tuD7xuzXxnQVOXZwfcjk5T3pPm
+ 0kQxqKTbvmPbnn3uAZs+sqah3z0NouJi5vheRRZq0ivXYWQfpfAa/05a7LgjPXqZzm
+ 0XPqgzaHrSKJA1dhtCDyf8qyTY0eYT9zb/Qx21ZZvfGf50xbDWUfhZk3lMBz6wQzd8
+ PdZ8KkvjLM5Dw==
+Message-ID: <sashiko-outbox-191348@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/10] drm/i915: Fix FEC wait with port sync on pre-LNL
+Subject: Re: [PATCH 06/10] drm/i915: Wait for timing generator to start in
+ intel_crtc_vblank_on() on HSW+
 To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-In-Reply-To: <20261030171327.29829-10-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261030171327.29829-7-ville.syrjala@linux.intel.com>
 References: <20261030171327.29829-1-ville.syrjala@linux.intel.com>
- <20261030171327.29829-10-ville.syrjala@linux.intel.com>
+ <20261030171327.29829-7-ville.syrjala@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 17:29:24 +0000
+Date: Fri, 30 Oct 2026 17:32:47 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,84 +62,112 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/i915/ddi: LNL vs PTL version mismatch in FEC status wait com=
-ment and check
+- [Medium] drm/i915: intel_pipe_vblank_on() scanline wait times out on DSI
 --
 
-commit c0a68d9ab06674ed868f492b35dc93f1dc05b1bf
+commit a024447aed84d4ab8f0e7bb2ee11d21475e5b408
 Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-drm/i915: Fix FEC wait with port sync on pre-LNL
+drm/i915: Wait for timing generator to start in intel_crtc_vblank_on() on H=
+SW+
 
-This commit defers waiting for FEC status in intel_ddi_enable() until after
-the timing generators have started, and adds a helper to wait for FEC status
-across all synced transcoders when port sync is enabled.
+This commit waits for the pipe scanline counter to start moving inside
+intel_pipe_vblank_on() on Haswell and newer platforms before enabling
+vblank interrupts.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
-915/display/intel_ddi.c
-> index 9939fa43e8f73..2e7f278a1b6c6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-
-[ ... ]
-
-> @@ -3623,6 +3654,16 @@ static void intel_ddi_enable(struct intel_atomic_s=
-tate *state,
->  	else
->  		intel_crtc_vblank_on(state, crtc_state);
+> diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/=
+i915/display/intel_crtc.c
+> index a28f4a088e587..209d5a18ee8d9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_crtc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+> @@ -128,8 +128,21 @@ u32 intel_crtc_max_vblank_count(const struct intel_c=
+rtc_state *crtc_state)
+> =20
+>  void intel_pipe_vblank_on(const struct intel_crtc_state *crtc_state)
+>  {
+> +	struct intel_display *display =3D to_intel_display(crtc_state);
+>  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
 > =20
 > +	/*
-> +	 * On pre-LNL FEC_DECODE_EN will only be sent when the timing
-> +	 * generator starts. Also note that FEC_DECODE_EN cannot be
-> +	 * re-sent without restarting the timing generator.
+> +	 * Make sure the timing generator has really started so
+> +	 * the sampled frame/scanline counter values don't jump
+> +	 * erratically.
+> +	 *
+> +	 * TODO do this for older platforms as well after
+> +	 * rearranging the modeset sequence a bit.
 > +	 */
-> +	if (is_trans_port_sync_mode(crtc_state))
-> +		trans_port_sync_wait_for_fec_status(state, encoder, crtc_state, true);
-> +	else
-> +		intel_ddi_wait_for_fec_status(encoder, crtc_state, true);
+> +	if (DISPLAY_VER(display) >=3D 9 ||
+> +	    display->platform.broadwell || display->platform.haswell)
+> +		intel_wait_for_pipe_scanline_moving(crtc);
 
 [Severity: Medium]
-Should the comment here (and the commit message) refer to pre-PTL and PTL+
-rather than pre-LNL and LNL+, or should the version check in
-intel_ddi_enable_fec() be updated?
+Will calling intel_wait_for_pipe_scanline_moving() unconditionally on
+DISPLAY_VER(display) >=3D 9 time out for 100 ms and log a false error on
+Broxton/Geminilake DSI and Gen11+ DSI command mode?
 
-The commit message and the comment in intel_ddi_enable() state that on LNL+
-FEC_DECODE_EN is sent immediately when enabling FEC in DP_TP_CTL, and that
-LNL+ therefore checks FEC status immediately in intel_ddi_enable_fec() and
-then a second time here in intel_ddi_enable().
+intel_wait_for_pipe_scanline_moving() calls wait_for_pipe_scanline_moving()=
+ ->
+pipe_scanline_is_moving(), which directly polls PIPEDSL:
 
-However, intel_ddi_enable_fec() skips the immediate check and retry loop on
-DISPLAY_VER < 30:
+drivers/gpu/drm/i915/display/intel_vblank.c:pipe_scanline_is_moving() {
+	intel_reg_t reg =3D PIPEDSL(display, pipe);
+	u32 line1, line2;
 
-drivers/gpu/drm/i915/display/intel_ddi.c:intel_ddi_enable_fec() {
-	...
-	intel_de_rmw(display, dp_tp_ctl_reg(encoder, crtc_state),
-		     0, DP_TP_CTL_FEC_ENABLE);
+	line1 =3D intel_de_read(display, reg) & PIPEDSL_LINE_MASK;
+	msleep(5);
+	line2 =3D intel_de_read(display, reg) & PIPEDSL_LINE_MASK;
 
-	if (DISPLAY_VER(display) < 30)
-		return;
+	return line1 !=3D line2;
+}
 
-	ret =3D intel_ddi_wait_for_fec_status(encoder, crtc_state, true);
+On Broxton (DISPLAY_VER 9) and Geminilake (DISPLAY_VER 10) MIPI DSI, timings
+are driven from the port rather than the CPU transcoder, and PIPEDSL does n=
+ot
+increment. Because of this, intel_dsi_compute_config() and
+bxt_dsi_get_pipe_config() set I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP, a=
+nd
+__intel_get_crtc_scanline() skips reading PIPEDSL:
+
+drivers/gpu/drm/i915/display/intel_vblank.c:__intel_get_crtc_scanline() {
+	if (crtc->mode_flags & I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP)
+		return __intel_get_crtc_scanline_from_timestamp(crtc);
+
+	vtotal =3D intel_mode_vtotal(mode);
+
+	position =3D intel_de_read_fw(display, PIPEDSL(display, pipe)) & PIPEDSL_L=
+INE_MASK;
 	...
 }
 
-Since LNL is DISPLAY_VER 20 and PTL is DISPLAY_VER 30, LNL returns early in
-intel_ddi_enable_fec() without waiting for FEC status, and port sync is also
-enabled up through DISPLAY_VER 20 in intel_ddi_port_sync_transcoders():
+When bxt_dsi_enable() -> intel_crtc_vblank_on() -> intel_pipe_vblank_on() r=
+uns
+(or during intel_modeset_setup_hw_state()), polling PIPEDSL will see a stat=
+ic
+value and time out.
 
-drivers/gpu/drm/i915/display/intel_ddi.c:intel_ddi_port_sync_transcoders() {
-	/*
-	 * We don't enable port sync on BDW due to missing w/as and
-	 * due to not having adjusted the modeset sequence appropriately.
-	 */
-	if (!IS_DISPLAY_VER(display, 9, 20))
-		return 0;
+Similarly, on Gen11+ DSI command mode (where I915_MODE_FLAG_DSI_USE_TE0 or
+I915_MODE_FLAG_DSI_USE_TE1 is set in crtc_state->mode_flags),
+gen11_dsi_configure_transcoder() configures the transcoder in CMD_MODE_TE_G=
+ATE
+without periodic updates. When gen11_dsi_enable() calls intel_crtc_vblank_o=
+n()
+during intel_enable_crtc(), no frame update has been requested yet because
+icl_dsi_frame_update() is only called later in intel_update_crtc() ->
+intel_pipe_update_end():
+
+drivers/gpu/drm/i915/display/intel_crtc.c:intel_pipe_update_end() {
+	...
+	if (DISPLAY_VER(display) >=3D 11 &&
+	    intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI))
+		icl_dsi_frame_update(new_crtc_state);
 	...
 }
 
-Is intel_ddi_enable_fec() supposed to check DISPLAY_VER(display) < 20 for
-LNL+, or was the description intended to say pre-PTL / PTL+?
+Should intel_pipe_vblank_on() skip intel_wait_for_pipe_scanline_moving() wh=
+en
+crtc_state->mode_flags has I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP or
+I915_MODE_FLAG_DSI_USE_TE0 / I915_MODE_FLAG_DSI_USE_TE1 set?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030171327.2982=
-9-1-ville.syrjala@linux.intel.com?part=3D9
+9-1-ville.syrjala@linux.intel.com?part=3D6
