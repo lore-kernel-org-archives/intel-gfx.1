@@ -2,44 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4214606A336
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 17:33:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3339606A31A
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 17:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVjnkMaM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jylU01br
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B01210E2BB;
-	Fri, 30 Oct 2026 17:32:59 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A90910E28E;
- Fri, 30 Oct 2026 17:32:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 739B310E186;
+	Fri, 30 Oct 2026 17:39:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E033B10E300;
+ Fri, 30 Oct 2026 17:38:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3B4CB431DA;
- Fri, 30 Oct 2026 17:32:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7411F000C1;
- Fri, 30 Oct 2026 17:32:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C666760202;
+ Fri, 30 Oct 2026 17:38:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579BE1F00A16;
+ Fri, 30 Oct 2026 17:38:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793381568;
- bh=Q3ieiLiFjs1VuSJrjCfBcIblR8jFuIbAn2W/sTO7WwQ=;
+ s=k20260515; t=1793381938;
+ bh=813Ymywf9xufPsi6X0p/XUL4nE18WjEcDJPHB6vfHtg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HVjnkMaMpsX3vO8DANTfXwwOGbN7fwg3YLhhkBq7JZi79A1S2nyS+GpGrIQWlNW6s
- ufbIwbOl6fUV8RcE2oVR3xmFYCUYUHRET75GrUilRP68ygrATvFVweJJG0KnmgokAj
- n7kI7fajD6sW17U7Nmz3gxXRS9udKMtHQtkCV/w6tuD7xuzXxnQVOXZwfcjk5T3pPm
- 0kQxqKTbvmPbnn3uAZs+sqah3z0NouJi5vheRRZq0ivXYWQfpfAa/05a7LgjPXqZzm
- 0XPqgzaHrSKJA1dhtCDyf8qyTY0eYT9zb/Qx21ZZvfGf50xbDWUfhZk3lMBz6wQzd8
- PdZ8KkvjLM5Dw==
-Message-ID: <sashiko-outbox-191348@kernel.org>
+ b=jylU01brzN3v1zLYwnjxkMolZgQFrCxtae2geCD0ERdmvpFFGW2AvA//D1K+ZZS8G
+ V7MF0bEHaObruxTgq68WTRknMGfT5/lo51gg6ls/O+EGXx0ThZK65GVj2jJmGyohps
+ qRX/+DcpIX92wN9r8+oHXUSwi34Icms6GbeQ7QVd1r2VnQ77Sd4jcbxXjAqiaF2/9a
+ 26rtdjLeTjvEIRpNplaxdjzzHVwP1YoF0VxNCEqubBE0KGromdA++iFpxw+k9JOLiJ
+ 9m6wR/2UX8NW1CsrIyULLBrZ9gTBudlbh9d4hjDn8F4MdjiTmCvgo7O28bNm/gouL2
+ bPNTqnvi9N8EA==
+Message-ID: <sashiko-outbox-191352@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/10] drm/i915: Wait for timing generator to start in
- intel_crtc_vblank_on() on HSW+
+Subject: Re: [PATCH 10/10] drm/i915: Allow joiner with port sync
 To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-In-Reply-To: <20261030171327.29829-7-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261030171327.29829-11-ville.syrjala@linux.intel.com>
 References: <20261030171327.29829-1-ville.syrjala@linux.intel.com>
- <20261030171327.29829-7-ville.syrjala@linux.intel.com>
+ <20261030171327.29829-11-ville.syrjala@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 17:32:47 +0000
+Date: Fri, 30 Oct 2026 17:38:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,112 +61,106 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/i915: intel_pipe_vblank_on() scanline wait times out on DSI
+- [High] drm/i915: port sync dropped when joiner secondary CRTC triggers mo=
+deset
 --
 
-commit a024447aed84d4ab8f0e7bb2ee11d21475e5b408
+commit e8591be1b66ac026c8025978e792560a0337567b
 Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-drm/i915: Wait for timing generator to start in intel_crtc_vblank_on() on H=
-SW+
+drm/i915: Allow joiner with port sync
 
-This commit waits for the pipe scanline counter to start moving inside
-intel_pipe_vblank_on() on Haswell and newer platforms before enabling
-vblank interrupts.
+This commit removes the check preventing pipes using joiner from entering
+port sync mode now that modeset enable and disable sequences iterate in
+pipe/transcoder order.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/=
-i915/display/intel_crtc.c
-> index a28f4a088e587..209d5a18ee8d9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_crtc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-> @@ -128,8 +128,21 @@ u32 intel_crtc_max_vblank_count(const struct intel_c=
-rtc_state *crtc_state)
-> =20
->  void intel_pipe_vblank_on(const struct intel_crtc_state *crtc_state)
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> index 2e7f278a1b6c6..3be5b429ac876 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -4675,14 +4675,8 @@ static bool m_n_equal(const struct intel_link_m_n =
+*m_n_1,
+>  static bool crtcs_port_sync_compatible(const struct intel_crtc_state *cr=
+tc_state1,
+>  				       const struct intel_crtc_state *crtc_state2)
 >  {
-> +	struct intel_display *display =3D to_intel_display(crtc_state);
->  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> =20
-> +	/*
-> +	 * Make sure the timing generator has really started so
-> +	 * the sampled frame/scanline counter values don't jump
-> +	 * erratically.
-> +	 *
-> +	 * TODO do this for older platforms as well after
-> +	 * rearranging the modeset sequence a bit.
-> +	 */
-> +	if (DISPLAY_VER(display) >=3D 9 ||
-> +	    display->platform.broadwell || display->platform.haswell)
-> +		intel_wait_for_pipe_scanline_moving(crtc);
+> -	/*
+> -	 * FIXME the modeset sequence is currently wrong and
+> -	 * can't deal with joiner + port sync at the same time.
+> -	 *
+> -	 * TODO VRR + port sync needs special handling
+> -	 */
+> +	/* TODO VRR + port sync needs special handling */
+>  	return crtc_state1->hw.active && crtc_state2->hw.active &&
+> -		!crtc_state1->joiner_pipes && !crtc_state2->joiner_pipes &&
 
-[Severity: Medium]
-Will calling intel_wait_for_pipe_scanline_moving() unconditionally on
-DISPLAY_VER(display) >=3D 9 time out for 100 ms and log a false error on
-Broxton/Geminilake DSI and Gen11+ DSI command mode?
+[Severity: High]
+Can allowing joiner with port sync here cause port sync to be dropped when =
+an
+atomic commit triggers a modeset via a joiner secondary CRTC?
 
-intel_wait_for_pipe_scanline_moving() calls wait_for_pipe_scanline_moving()=
- ->
-pipe_scanline_is_moving(), which directly polls PIPEDSL:
+In drivers/gpu/drm/i915/display/intel_display.c:intel_atomic_check(),
+drm_atomic_helper_check_modeset() runs connector atomic_check callbacks
+before intel_atomic_check_config_and_link() pulls in joined CRTCs:
 
-drivers/gpu/drm/i915/display/intel_vblank.c:pipe_scanline_is_moving() {
-	intel_reg_t reg =3D PIPEDSL(display, pipe);
-	u32 line1, line2;
-
-	line1 =3D intel_de_read(display, reg) & PIPEDSL_LINE_MASK;
-	msleep(5);
-	line2 =3D intel_de_read(display, reg) & PIPEDSL_LINE_MASK;
-
-	return line1 !=3D line2;
-}
-
-On Broxton (DISPLAY_VER 9) and Geminilake (DISPLAY_VER 10) MIPI DSI, timings
-are driven from the port rather than the CPU transcoder, and PIPEDSL does n=
-ot
-increment. Because of this, intel_dsi_compute_config() and
-bxt_dsi_get_pipe_config() set I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP, a=
-nd
-__intel_get_crtc_scanline() skips reading PIPEDSL:
-
-drivers/gpu/drm/i915/display/intel_vblank.c:__intel_get_crtc_scanline() {
-	if (crtc->mode_flags & I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP)
-		return __intel_get_crtc_scanline_from_timestamp(crtc);
-
-	vtotal =3D intel_mode_vtotal(mode);
-
-	position =3D intel_de_read_fw(display, PIPEDSL(display, pipe)) & PIPEDSL_L=
-INE_MASK;
+	ret =3D drm_atomic_helper_check_modeset(dev, &state->base);
+	if (ret)
+		goto fail;
 	...
-}
+	ret =3D intel_atomic_check_config_and_link(state);
 
-When bxt_dsi_enable() -> intel_crtc_vblank_on() -> intel_pipe_vblank_on() r=
-uns
-(or during intel_modeset_setup_hw_state()), polling PIPEDSL will see a stat=
-ic
-value and time out.
+Suppose a joined CRTC pair (primary Pipe A and secondary Pipe B) is active =
+in
+port sync mode with a peer CRTC (Pipe C). If userspace submits an atomic
+commit targeting the joiner secondary CRTC (Pipe B, which has uapi.enable =
+=3D=3D
+false and no uapi connectors) that sets uapi.mode_changed =3D true in
+intel_atomic_check() (for example by changing scaling_filter,
+sharpness_strength, or vrr_enabled, or clearing inherited on the first
+userspace commit), drm_atomic_helper_check_modeset() runs while neither Pipe
+A nor its connector is in the atomic state.
 
-Similarly, on Gen11+ DSI command mode (where I915_MODE_FLAG_DSI_USE_TE0 or
-I915_MODE_FLAG_DSI_USE_TE1 is set in crtc_state->mode_flags),
-gen11_dsi_configure_transcoder() configures the transcoder in CMD_MODE_TE_G=
-ATE
-without periodic updates. When gen11_dsi_enable() calls intel_crtc_vblank_o=
-n()
-during intel_enable_crtc(), no frame update has been requested yet because
-icl_dsi_frame_update() is only called later in intel_update_crtc() ->
-intel_pipe_update_end():
+Later, intel_atomic_check_config_and_link() -> intel_atomic_check_config() =
+->
+intel_joiner_add_affected_crtcs() adds Pipe A, sets Pipe A's
+uapi.mode_changed =3D true, and adds Pipe A's connector:
 
-drivers/gpu/drm/i915/display/intel_crtc.c:intel_pipe_update_end() {
-	...
-	if (DISPLAY_VER(display) >=3D 11 &&
-	    intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI))
-		icl_dsi_frame_update(new_crtc_state);
-	...
-}
+	for_each_intel_crtc_in_pipe_mask(display, crtc, modeset_pipes) {
+		int ret;
 
-Should intel_pipe_vblank_on() skip intel_wait_for_pipe_scanline_moving() wh=
-en
-crtc_state->mode_flags has I915_MODE_FLAG_GET_SCANLINE_FROM_TIMESTAMP or
-I915_MODE_FLAG_DSI_USE_TE0 / I915_MODE_FLAG_DSI_USE_TE1 set?
+		crtc_state =3D intel_atomic_get_new_crtc_state(state, crtc);
+
+		crtc_state->uapi.mode_changed =3D true;
+
+		ret =3D drm_atomic_add_affected_connectors(&state->base, &crtc->base);
+
+Because drm_atomic_helper_check_modeset() has already finished,
+intel_dp_connector_atomic_check() -> intel_modeset_tile_group() and
+intel_modeset_synced_crtcs() never run for Pipe A's connector, so Pipe C and
+its connector are never added to the atomic state.
+
+When intel_modeset_pipe_config_late() -> intel_ddi_compute_config_late() ->
+intel_ddi_port_sync_transcoders() subsequently iterates over connectors in
+the atomic state:
+
+	for_each_new_connector_in_state(&state->base, connector, conn_state, i) {
+		struct intel_crtc *crtc =3D to_intel_crtc(conn_state->crtc);
+		const struct intel_crtc_state *crtc_state;
+
+it only sees Pipe A's connector, leaving master_transcoder =3D
+INVALID_TRANSCODER and sync_mode_slaves_mask =3D 0 on Pipe A.
+
+In intel_crtc_check_fastset(), intel_pipe_config_compare() then sees the
+mismatch in master_transcoder or sync_mode_slaves_mask against old_crtc_sta=
+te
+and forces a full modeset on Pipe A and Pipe B without Pipe C in the commit.
+If Pipe A was the port sync master, Pipe C's hardware transcoder remains
+active and enslaved to TRANSCODER_A while TRANSCODER_A is disabled and
+re-enabled, and bdw_get_trans_port_sync_config() during
+intel_modeset_verify_crtc() reads back a non-zero sync_mode_slaves_mask,
+triggering INTEL_DISPLAY_STATE_WARN in verify_crtc_state().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030171327.2982=
-9-1-ville.syrjala@linux.intel.com?part=3D6
+9-1-ville.syrjala@linux.intel.com?part=3D10
