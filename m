@@ -2,102 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CF0606A322
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 12:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbvVbneF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE795606A31A
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 13:10:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5801127B0;
-	Fri, 30 Oct 2026 12:56:09 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEBD71127AF;
- Fri, 30 Oct 2026 12:56:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8ACC06062F;
- Fri, 30 Oct 2026 12:56:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840761F000C1;
- Fri, 30 Oct 2026 12:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793364961;
- bh=QEN1UqSia/bSOQapCp3EkqxCvOcE8KsRJXMohGlQcDQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=DbvVbneFlRcReg135ryJEYVhhtWakAOVNath1hcKIIXE0a0XxAPDDvNN6T7Uf6+oe
- 8w5jtD2yqrswAxXmfPTHEdkD7AvDqLamYaTsnJnneKspcbfXmYHU3OGl89jWEz8/U/
- /ww4ODFnAJ7tLbMPad8NuI/UAu0PK8s28Ey4jTtat4X8zzsm4uIT7x105xj2SQfJbe
- wzxdFTqJOrrKiP1LRPFbbaswMYtV6X09XW80Okkv+fqOYtPGsvIPYCiSGFVMsrui5k
- MrMYZoVyeIy+hz3rgx3Z3HJJdqyKirPMRBric5eDJy0W8pHIi0gyTDHmZJorASfuP1
- +FvfPpgyOt/TA==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Ruben Wauters <rubenru09@aol.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Russell King <linux@armlinux.org.uk>,
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
- Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Yongbang Shi <shiyongbang@huawei.com>,
- Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
- Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- linux-renesas-soc@vger.kernel.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Iker Pedrosa <ikerpedrosam@gmail.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
- Alexey Brodkin <abrodkin@synopsys.com>, Hans de Goede <hansg@kernel.org>,
- LiangCheng Wang <zaq14760@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
- Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org
-Subject: Re: (subset) [PATCH v2 00/59] drm/connector: Convert all drivers to
- atomic_create_state and remove reset
-Date: Fri, 30 Oct 2026 13:55:55 +0100
-Message-ID: <179336494956.280337.14142889938692228617.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
-References: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ECD01127E1;
+	Fri, 30 Oct 2026 13:10:39 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A42F41127E1;
+ Fri, 30 Oct 2026 13:10:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7103506828985796859=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/ptl+=3A_Fix_eDP_?=
+ =?utf-8?q?support_on_TypeC_PHYs_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 30 Oct 2026 13:10:38 -0000
+Message-ID: <179336583866.94098.17545168701615076152@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261029113017.618286-1-imre.deak@intel.com>
+In-Reply-To: <20261029113017.618286-1-imre.deak@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,72 +34,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 22 Oct 2026 14:30:59 +0200, Maxime Ripard wrote:
-> This is a follow-up to the plane and CRTC reset removal series, and
-> part of a larger effort to remove the reset hook from all KMS objects.
-> 
-> The connector reset hook is overloaded: it is called both at probe
-> time to create the initial software state and during suspend/resume to
-> reset hardware and software state. These two roles have different
-> requirements, and the reset hook is not fallible, making error
-> handling difficult for the initial state allocation path.
-> 
-> [...]
+--===============7103506828985796859==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Applied to misc/kernel.git (drm-misc-next)
+== Series Details ==
 
-[01/59] drm/hdmi: Change __drm_atomic_helper_connector_hdmi_state_init parameter order
-        commit: e8698caa41f659739861f3c5b19070ea973f58ab
-[02/59] drm/atomic-state-helper: Rename connector_tv_margins_reset to state_init
-        commit: 39e8c69f41882b12ffd1cbea39b07923dc430de6
-[03/59] drm/atomic-state-helper: Rename connector_tv_reset to state_init
-        commit: 27411554b73b2de2e230df3fefc6821485b3d509
-[04/59] drm/panel: Add atomic_create_state support
-        commit: a8684a05336c1115172bd5fce9a942d830e11d13
-[06/59] drm/aspeed: Switch to drm_atomic_helper_connector_create_state
-        commit: f88d567860da9e5a5ba0f05424ea4c8321af0467
-[07/59] drm/ast: Switch to drm_atomic_helper_connector_create_state
-        commit: 42572c272e61af9c53162f307c81bb48a0977e5d
-[19/59] drm/hisilicon: hibmc: Switch to drm_atomic_helper_connector_create_state
-        commit: 800edc28eb000fbcb2229d6799ffa5c3831def15
-[20/59] drm/logicvc: Switch to drm_atomic_helper_connector_create_state
-        commit: ec2e19c6518ca8959ca009491e62913ea53be450
-[22/59] drm/mgag200: Switch to drm_atomic_helper_connector_create_state
-        commit: f15c3a86f606c7dd8e057dc7a3d762d634b8fa20
-[24/59] drm/qxl: Switch to drm_atomic_helper_connector_create_state
-        commit: e439361203a610cebd725e068dc1694d585d6ecf
-[27/59] drm/sitronix: st7920: Switch to drm_atomic_helper_connector_create_state
-        commit: 382b5915baae6d289cf550b70e325cd162d140c5
-[33/59] drm/tiny: bochs: Switch to drm_atomic_helper_connector_create_state
-        commit: 6b1c795028b1552f25bc4b707673e0d848786dcb
-[34/59] drm/tiny: cirrus: Switch to drm_atomic_helper_connector_create_state
-        commit: 777642458977878a2e81399adf16b1e23ab57b17
-[35/59] drm/tiny: gm12u320: Switch to drm_atomic_helper_connector_create_state
-        commit: 379d9ab55e5d0453ab744892981f122f8e5614fc
-[36/59] drm/tiny: pixpaper: Switch to drm_atomic_helper_connector_create_state
-        commit: 417ff0dc9d68de04248361c3db10c902e33b87c6
-[37/59] drm/tiny: repaper: Switch to drm_atomic_helper_connector_create_state
-        commit: 7fdf84a3913597bb662a1d1aa37f798576dbd2ed
-[39/59] drm/udl: Switch to drm_atomic_helper_connector_create_state
-        commit: 9b9731aea4920327ec8fb757bcc9fa88c7c8fa45
-[40/59] drm/vboxvideo: Switch to drm_atomic_helper_connector_create_state
-        commit: 8c0c25d8724aa3a0850efac1f117444485ce899c
-[46/59] drm/gud: Convert to atomic_create_state
-        commit: 79363b9b53e285a5f98b95d75e32f889ef3431f3
-[50/59] drm/vc4: hdmi: Convert to atomic_create_state
-        commit: 946c74390c2fe7cc9acedf2d333ca1f924b7eba3
-[51/59] drm/vc4: vec: Convert to atomic_create_state
-        commit: 76000c76a4784e8bc4ea957dcebc93449f762bd7
-[54/59] drm/ast: Convert to atomic_create_state
-        commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
+Series: drm/i915/ptl+: Fix eDP support on TypeC PHYs (rev2)
+URL   : https://patchwork.freedesktop.org/series/177148/
+State : success
 
-Thanks!
-Maxime
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19418 -> Patchwork_177148v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177148v2/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19418 -> Patchwork_177148v2
+
+  CI-20190529: 20190529
+  CI_DRM_19418: 29f9258a2788a1066c0910c480e65c80887f4d20 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9171: 9171
+  Patchwork_177148v2: 29f9258a2788a1066c0910c480e65c80887f4d20 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177148v2/index.html
+
+--===============7103506828985796859==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/ptl+: Fix eDP support on TypeC PHYs (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177148/">https://patchwork.freedesktop.org/series/177148/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177148v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177148v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19418 -&gt; Patchwork_177148v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177148v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19418 -&gt; Patchwork_177148v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19418: 29f9258a2788a1066c0910c480e65c80887f4d20 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9171: 9171<br />
+  Patchwork_177148v2: 29f9258a2788a1066c0910c480e65c80887f4d20 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7103506828985796859==--
