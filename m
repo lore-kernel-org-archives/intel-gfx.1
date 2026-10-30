@@ -2,42 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6FF606A31A
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 07:29:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A965606A31F
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 08:15:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PCxh1Rpm
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=et+unMkD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B48E10E224;
-	Fri, 30 Oct 2026 07:29:30 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18A2010E224;
- Fri, 30 Oct 2026 07:29:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A2E0E43631;
- Fri, 30 Oct 2026 07:29:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B3C51F000C1;
- Fri, 30 Oct 2026 07:29:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793345363;
- bh=Ka4P//efFfNsqRsPE3g6tPA0wgR9sW8OtgjMU1d9D/w=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=PCxh1RpmXFM+ARL3G0eC5MkELsb+nStjwZxsI7LorvUPrlXomGClEhXk/tFM48Uxu
- mUgy4KeEcPC5QIZXhD2NsYae34Ep0Ba9WfpCdMQk7aogRpXoYOIWnTPZtp1Mw3xShZ
- 3in4h4ZfDfSZp36rMkxrTM9IbYTuxr1F66DH1lnR/Y8A2vFIsXX0M0S0qfoLAA6rqv
- y44D5ZYw6k/OFA7hTa7VMKgWhghdentWoczIa0mM60Eg7T706nlkDX3Bxx1QjeH9ou
- 7TeehXIHp1erwsYucxtX4tRKAN21961bg/P6dF22v8Rf/8pd1xdsXyGWl+dSdNjT4c
- zXRYPgE+KFmqw==
-Message-ID: <sashiko-outbox-190645@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/i915/psr: Re-arm PSR after flush
-To: =?utf-8?b?Sm91bmkgSMO2Z2FuZGVy?= <jouni.hogander@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20261030070613.181026-2-jouni.hogander@intel.com>
-References: <20261030070613.181026-1-jouni.hogander@intel.com>
- <20261030070613.181026-2-jouni.hogander@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 07:29:22 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4419610E846;
+	Fri, 30 Oct 2026 08:15:06 +0000 (UTC)
+X-Greylist: delayed 557 seconds by postgrey-1.36 at gabe;
+ Fri, 30 Oct 2026 08:14:59 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD7BE10E846;
+ Fri, 30 Oct 2026 08:14:59 +0000 (UTC)
+Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4jGDDb41Fbz4HMf;
+ Fri, 30 Oct 2026 09:05:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1793347535;
+ bh=Se3koPSs6DQ6zGD5W/2cWVvCOjVr+vPRxHFjz++onwg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=et+unMkD2ILC3wHKKcw3fKmLwZORczDC2OPhDj7xdvlNyRRuIInGnByqPtaaNOtPz
+ 3K4Z+XF2ePKZySS1enbIwbCn/YHEf58/r6KnLzPIVBxMJrKnc/aJEEL/aOoZzBoSE+
+ MFbgMCaztNNdlLVKEC0mY2b7JuIoiKC6VrVnbDdFeDThwX7tbvY2zKJa7S14iBrwI8
+ 3HWMi7YazrejVEBBrD2woaYkIyMaKPlPkk5xf20+iDlE5pA84xzo07jjBnfs1cTeE1
+ 2ZXvDpHJW4QCoOUQyjwZCGqDveewjB9BoM6zQrT6cLucj3B5NEA0G0Pgr8fPN8r57L
+ YNZfxwG4FK7Tw==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4jGDDZ4Yqxz4Fxh;
+ Fri, 30 Oct 2026 09:05:34 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Score: -2.898
+X-Spam-Level: 
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jGDDV5Q83z8tgB;
+ Fri, 30 Oct 2026 09:05:30 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id E5E1A5F9FB;
+ Fri, 30 Oct 2026 09:04:47 +0100 (CET)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <3918d7f2-2c8e-4c91-8de3-ae412acc75a0@leemhuis.info>
+Date: Fri, 30 Oct 2026 09:04:47 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm/i915/display: Allow port sync on PTL
+To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, stable@vger.kernel.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20261012040402.3332398-1-mitulkumar.ajitkumar.golani@intel.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20261012040402.3332398-1-mitulkumar.ajitkumar.golani@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179334748825.921469.2962837773718248811@mxe9fb.netcup.net>
+X-NC-CID: CgXu/PzoZISETFZi9IR28TCiGLRx2uzTN+sBY0hwJUg+vuZt4Hw=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,125 +82,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	T_PDS_OTHER_BAD_TLD autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915/psr: intel_psr_flush() skips clearing CFF mode on goto =
-rearm
---
+On 10/12/26 06:04, Mitul Golani wrote:
+> Some dual-SST tiled displays exhibit visual corruption on PTL, with
+> one tile's image vertically shifted or wrapped by a random amount
+> that changes on every hotplug.
+> 
+> PTL supports port sync, so allow it to be used to avoid these
+> display issues.
 
-commit 20b1d38e0909a20d9dfca4fb8669f52c75597fb1
-Author: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+Is this fix for a recent regression still in the "to review" list of
+anyone, or did it fell through the cracks? Or was this solved meanwhile
+and I just missed it?
 
-drm/i915/psr: Re-arm PSR after flush
+Ciao, Thorsten
 
-This commit moves the PSR work queuing check from _psr_flush_handle() to a
-new rearm label in intel_psr_flush() so that an ORIGIN_FLIP flush clearing
-the last busy frontbuffer bits still re-arms PSR when it is inactive.
+> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8991
+> Fixes: 05cffc074938 ("drm/i915/display: Implement Wa_16024710867")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index a46ab5d3d70f..a0aff087fafa 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -4629,7 +4629,7 @@ intel_ddi_port_sync_transcoders(const struct intel_crtc_state *ref_crtc_state,
+>  	 * From, xe3lpd onwards we have defeatured this with reference to
+>  	 * Wa_16024710867
+>  	 */
+> -	if (!IS_DISPLAY_VER(display, 9, 20))
+> +	if (!IS_DISPLAY_VER(display, 9, 30))
+>  		return 0;
+>  
+>  	if (!intel_crtc_has_type(ref_crtc_state, INTEL_OUTPUT_DP))
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i=
-915/display/intel_psr.c
-> index 00d0146b26002..7083be05b6299 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> @@ -3679,9 +3679,6 @@ static void _psr_flush_handle(struct intel_dp *inte=
-l_dp)
->  		 */
->  		intel_psr_force_update(intel_dp);
->  	}
-> -
-> -	if (!intel_dp->psr.active && !intel_dp->psr.busy_frontbuffer_bits)
-> -		queue_work(display->wq.unordered, &intel_dp->psr.work);
->  }
-> =20
->  /**
-> @@ -3728,14 +3725,18 @@ void intel_psr_flush(struct intel_display *displa=
-y,
->  		    (origin =3D=3D ORIGIN_CURSOR_UPDATE &&
->  		     !intel_dp->psr.psr2_sel_fetch_enabled)) {
->  			psr2_dc3co_flush_locked(intel_dp, frontbuffer_bits);
-> -			goto unlock;
-> +			goto rearm;
->  		}
-> =20
->  		if (pipe_frontbuffer_bits =3D=3D 0)
-> -			goto unlock;
-> +			goto rearm;
-> =20
->  		/* By definition flush =3D invalidate + flush */
->  		_psr_flush_handle(intel_dp);
-> +
-> +rearm:
-> +		if (!intel_dp->psr.active && !intel_dp->psr.busy_frontbuffer_bits)
-> +			queue_work(display->wq.unordered, &intel_dp->psr.work);
-
-[Severity: Medium]
-On platforms with DISPLAY_VER(display) < 20 and psr2_sel_fetch_enabled, can
-jumping to rearm on ORIGIN_FLIP leave intel_dp->psr.psr2_sel_fetch_cff_enab=
-led
-stuck at true after busy_frontbuffer_bits reaches zero?
-
-When a frontbuffer is invalidated on those platforms, _psr_invalidate_handl=
-e()
-does not call intel_psr_exit() (so intel_dp->psr.active remains true) and
-instead enables Continuous Full Frame mode:
-
-drivers/gpu/drm/i915/display/intel_psr.c:_psr_invalidate_handle() {
-	if (DISPLAY_VER(display) < 20 && intel_dp->psr.psr2_sel_fetch_enabled) {
-		if (!intel_dp->psr.psr2_sel_fetch_cff_enabled) {
-			intel_dp->psr.psr2_sel_fetch_cff_enabled =3D true;
-			intel_psr_configure_full_frame_update(intel_dp);
-		}
-
-		intel_psr_force_update(intel_dp);
-	} else {
-		intel_psr_exit(intel_dp);
-	}
-}
-
-If an ORIGIN_FLIP flush in intel_psr_flush() then clears the last bit in
-intel_dp->psr.busy_frontbuffer_bits and jumps to rearm, _psr_flush_handle()=
- is
-skipped. Because clearing psr2_sel_fetch_cff_enabled remains inside
-_psr_flush_handle():
-
-drivers/gpu/drm/i915/display/intel_psr.c:_psr_flush_handle() {
-	...
-	} else if (intel_dp->psr.psr2_sel_fetch_enabled) {
-		/* Selective fetch prior LNL */
-		if (intel_dp->psr.psr2_sel_fetch_cff_enabled) {
-			/* can we turn CFF off? */
-			if (intel_dp->psr.busy_frontbuffer_bits =3D=3D 0)
-				intel_dp->psr.psr2_sel_fetch_cff_enabled =3D false;
-		}
-	...
-}
-
-and rearm only queues intel_dp->psr.work when !intel_dp->psr.active,
-psr2_sel_fetch_cff_enabled stays true. While it remains true,
-intel_psr2_program_trans_man_trk_ctl() returns early on subsequent atomic
-commits:
-
-drivers/gpu/drm/i915/display/intel_psr.c:intel_psr2_program_trans_man_trk_c=
-tl() {
-	...
-		if (DISPLAY_VER(display) < 20 && intel_dp->psr.psr2_sel_fetch_cff_enabled)
-			return;
-	...
-}
-
-Should intel_psr_flush() also clear psr2_sel_fetch_cff_enabled (or exit CFF
-mode) when busy_frontbuffer_bits becomes 0 on the ORIGIN_FLIP path?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030070613.1810=
-26-1-jouni.hogander@intel.com?part=3D1
