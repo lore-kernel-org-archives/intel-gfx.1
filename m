@@ -2,28 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D166072290
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:29:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EF5606CEC7
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jf7MtF5P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC7FC10E62F;
-	Mon,  2 Nov 2026 16:29:20 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE34210E62F;
- Mon,  2 Nov 2026 16:29:19 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6967312947207614260=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAF6910E641;
+	Mon,  2 Nov 2026 16:45:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA4CB10E636;
+ Mon,  2 Nov 2026 16:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793637896; x=1825173896;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=1/+MQpV4gGCF7SlxSx86h8gCpBfsOyE1qQaMtC05pv0=;
+ b=Jf7MtF5PPTUnOECmyX8g7sY4nIkRjAE02FWEsKSrKGhyy6EncmjjfOfz
+ yTi6kKXZugzIAA9nd1NULdMtYotD0G7LjECrZEMT15EuWgbeairOp5rpQ
+ fvGBNDVQcS3P2Nb30DjQ9UIaOElh78YyUbFpdOYAGeuyFVWJnWGlF45ND
+ 1NJMskxADcfMcMkQrrzagDpUTs6nBTe0VT2KfiS7Z//OZEUBu9SPaJaAA
+ 3cfcEb5W61l8sOzqAqpjh3JoulHSISlsOhNaIA3JMT3B+IgVskOjnv5c2
+ jSUSg42hH4nMaeOLdIisgr0ard6hmTcGOFS/KuqVqbehz4y2wg72krzuH g==;
+X-CSE-ConnectionGUID: QAqvBR31RGStY2MAeWZcOQ==
+X-CSE-MsgGUID: OsAnehrLREaew1vfHClS4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2238269"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2238269"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 08:44:55 -0800
+X-CSE-ConnectionGUID: wr3sNNS3Sji0oQGyE7xlOA==
+X-CSE-MsgGUID: CNHz869ORbSrCkuVCzN57Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6291394"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.222])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 08:44:53 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/i915/display: fix a few i915_reg_t usages that have
+ crept back
+In-Reply-To: <DS4PPFE901A304FA4A537312A02AEDE54BCE36A2@DS4PPFE901A304F.namprd11.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261030122207.2835113-1-jani.nikula@intel.com>
+ <DS4PPFE901A304FA4A537312A02AEDE54BCE36A2@DS4PPFE901A304F.namprd11.prod.outlook.com>
+Date: Mon, 02 Nov 2026 18:44:51 +0200
+Message-ID: <82f39b16a4789120dd814b844b03e87776264701@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EFull=3A_success_for_drm/i915=3A_Reject_=3C_1?=
- =?utf-8?q?0_MHz_dotclocks_early?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 02 Nov 2026 16:29:19 -0000
-Message-ID: <179363695983.105075.17109447376517862244@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261102130319.2747-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261102130319.2747-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,114 +66,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============6967312947207614260==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Mon, 02 Nov 2026, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
+>> Subject: [PATCH] drm/i915/display: fix a few i915_reg_t usages that have crept
+>> back
+>> 
+>> Display code should use intel_reg_t instead of i915_reg_t. It's currently just a
+>> typedef around i915_reg_t, but this will change in the future.
+>> 
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>
+> LGTM,
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-== Series Details ==
+Thanks, pushed to din.
 
-Series: drm/i915: Reject < 10 MHz dotclocks early
-URL   : https://patchwork.freedesktop.org/series/177452/
-State : success
+BR,
+Jani.
 
-== Summary ==
+>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_de.h       | 2 +-
+>>  drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
+>>  2 files changed, 2 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/display/intel_de.h
+>> b/drivers/gpu/drm/i915/display/intel_de.h
+>> index 5d3aeaf6a70f..d0a239a36980 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_de.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_de.h
+>> @@ -136,7 +136,7 @@ intel_de_rmw_fw(struct intel_display *display,
+>> intel_reg_t reg, u32 clear, u32 s
+>> 
+>>  static inline u64
+>>  intel_de_read64_2x32_volatile_fw(struct intel_display *display,
+>> -				 i915_reg_t lower_reg, i915_reg_t upper_reg)
+>> +				 intel_reg_t lower_reg, intel_reg_t upper_reg)
+>>  {
+>>  	u32 old_upper, upper, lower;
+>>  	int loop = 0;
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+>> b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+>> index bfd6f0a19725..07a66db583dd 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+>> @@ -4798,7 +4798,7 @@ static bool dg2_mpllb_get_hw_state(struct
+>> intel_display *display,  {
+>>  	struct intel_encoder *encoder = dg2_get_intel_encoder(display, pll);
+>>  	enum phy phy;
+>> -	i915_reg_t enable_reg;
+>> +	intel_reg_t enable_reg;
+>>  	struct ref_tracker *wakeref;
+>>  	bool ret = false;
+>>  	u32 val;
+>> --
+>> 2.47.3
+>
 
-CI Bug Log - changes from CI_DRM_19430_full -> Patchwork_177452v1_full
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  
-
-Participating hosts (11 -> 11)
-------------------------------
-
-  No changes in participating hosts
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19430 -> Patchwork_177452v1
-
-  CI-20190529: 20190529
-  CI_DRM_19430: 79cefeb775e63da397152ab01c2f1d4fa1b9b46d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9174: bb222a83882fe443bd3285f34c475813865b301e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_177452v1: 79cefeb775e63da397152ab01c2f1d4fa1b9b46d @ git://anongit.freedesktop.org/gfx-ci/linux
-  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v1/index.html
-
---===============6967312947207614260==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Reject &lt; 10 MHz dotclocks early</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177452/">https://patchwork.freedesktop.org/series/177452/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19430_full -&gt; Patchwork_177452v1_full</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<h2>Participating hosts (11 -&gt; 11)</h2>
-<p>No changes in participating hosts</p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19430 -&gt; Patchwork_177452v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19430: 79cefeb775e63da397152ab01c2f1d4fa1b9b46d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9174: bb222a83882fe443bd3285f34c475813865b301e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_177452v1: 79cefeb775e63da397152ab01c2f1d4fa1b9b46d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit</p>
-
-</body>
-</html>
-
---===============6967312947207614260==--
+-- 
+Jani Nikula, Intel
