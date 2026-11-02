@@ -2,42 +2,172 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E74606A324
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DE1606A327
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:42:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aOtNZD44
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aBHI8Bti;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WaP6N4P6;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aBHI8Bti;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WaP6N4P6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F099910E073;
-	Mon,  2 Nov 2026 08:18:17 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B5110E073;
- Mon,  2 Nov 2026 08:18:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1BEA4402E7;
- Mon,  2 Nov 2026 08:18:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20711F000C1;
- Mon,  2 Nov 2026 08:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793607491;
- bh=Y7hdZTUeorA9PihYPLt3qa6RSGrtTiXIML9FB/T6cBE=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=aOtNZD44kiYpYCUA4C8TW+9Uyl6DY6S3jtgd2QkJ9ulOf3vmV8jXN59IH9l3Xxj5P
- Z/LbmOEAXHBJDudtBXjg3EDMheDnk1rIQy4O/dqgB+ooeiWRs0515VInNmaemUILlQ
- s8QspZdqLKiq/NGnMe5JegzxH9fav8UMZJRhjgksXIwOKbNcGShqxPC122f6/0wT1C
- ENofAUx66TooTxFG/ymFbc3XRkhNli2VkMCrtf/cBSyiy1+mZKVC5hJWwJbQfxBY+q
- 0orvgZAeeYuIzQTARW6/7xBrNlXEB79lUlGHvvgq3adyHdjgls7Q4e9VhUBdUlj3r7
- b6WxnWYaxFNmw==
-Message-ID: <sashiko-outbox-193094@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/display: Run the selective fetch update after
- the crtc checks
-To: "Mika Kahola" <mika.kahola@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261102080705.2027571-1-mika.kahola@intel.com>
-References: <20261102080705.2027571-1-mika.kahola@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 08:18:10 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62A5210EC2B;
+	Mon,  2 Nov 2026 08:42:23 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5480E10EC26;
+ Mon,  2 Nov 2026 08:42:11 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 43FAA21F6F;
+ Mon,  2 Nov 2026 08:41:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793608913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sLYkZIlajO1RP3a6/sXxM1cwXGCi+Yc63O36rVdHkD0=;
+ b=aBHI8Btiv2V3lT1hpQtokRDGhdybXDJ+aalt2MnUuifid0+1yWbNYl3Sk5zpiUWOfb4p6s
+ /BBwCLsmjoi1CFs4iy2HYZ8PWTOqb6YcHB6oZzyYxGWINLaTuxfE7K66nU211Dd2+IhWQ5
+ kggYNi/7lZnxxzCvHFyn7Vsz/AJxp60=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793608913;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sLYkZIlajO1RP3a6/sXxM1cwXGCi+Yc63O36rVdHkD0=;
+ b=WaP6N4P6oJzoz4X6ExjjjCP40XnZNhue3dENmIYeXKi8fhZ9mEtwTr+oyw/yj0dUPU5Bdi
+ +OGUUhPDzruR08CA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793608913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sLYkZIlajO1RP3a6/sXxM1cwXGCi+Yc63O36rVdHkD0=;
+ b=aBHI8Btiv2V3lT1hpQtokRDGhdybXDJ+aalt2MnUuifid0+1yWbNYl3Sk5zpiUWOfb4p6s
+ /BBwCLsmjoi1CFs4iy2HYZ8PWTOqb6YcHB6oZzyYxGWINLaTuxfE7K66nU211Dd2+IhWQ5
+ kggYNi/7lZnxxzCvHFyn7Vsz/AJxp60=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793608913;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sLYkZIlajO1RP3a6/sXxM1cwXGCi+Yc63O36rVdHkD0=;
+ b=WaP6N4P6oJzoz4X6ExjjjCP40XnZNhue3dENmIYeXKi8fhZ9mEtwTr+oyw/yj0dUPU5Bdi
+ +OGUUhPDzruR08CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B050134B8;
+ Mon,  2 Nov 2026 08:41:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id fYQYCs9M6Gq2PwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 08:41:51 +0000
+Message-ID: <aa7ea691-03ec-44b0-85fb-9927f3b4a32b@suse.de>
+Date: Mon, 2 Nov 2026 09:41:50 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/37] drm/connector: Convert all drivers to
+ atomic_create_state and remove reset
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Inki Dae <inki.dae@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Huacai Chen <chenhuacai@kernel.org>, Icenowy Zheng
+ <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Xi Ruoyao <xry111@xry111.site>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, linux-renesas-soc@vger.kernel.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Alexey Brodkin <abrodkin@synopsys.com>, Alex Lanzano
+ <lanzano.alex@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
+ David Airlie <airlied@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ virtualization@lists.linux.dev, Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org
+References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.79 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; TAGGED_RCPT(0.00)[renesas];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,amd.com,armlinux.org.uk,samsung.com,kernel.org,linaro.org,vger.kernel.org,nxp.com,agner.ch,iscas.ac.cn,loongson.cn,aosc.io,xry111.site,glider.be,gmail.com,foss.st.com,sholland.org,lists.linux.dev,nvidia.com,synopsys.com,redhat.com,collabora.com,chromium.org,bootlin.com,epam.com,baylibre.com,googlemail.com,lists.infradead.org,igalia.com,linux.intel.com,intel.com,ursulin.net];
+ R_RATELIMIT(0.00)[to_ip_from(RL6e75e7xiqh135443e1d3zo16)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_GT_50(0.00)[64];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ suse.de:email]
+X-Spam-Score: -11.79
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,101 +178,178 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/i915/display: sel fetch loop misapplied to intel_async_flip_ch=
-eck_uapi()
+Hi Maxime
+
+Am 30.10.26 um 16:13 schrieb Maxime Ripard:
+> This is a follow-up to the plane and CRTC reset removal series, and
+> part of a larger effort to remove the reset hook from all KMS objects.
+>
+> The connector reset hook is overloaded: it is called both at probe
+> time to create the initial software state and during suspend/resume to
+> reset hardware and software state. These two roles have different
+> requirements, and the reset hook is not fallible, making error
+> handling difficult for the initial state allocation path.
+>
+> While reset has the semantics to reset both the software and hardware
+> state, the vast majority of implementations and all the helpers only
+> reset the software state, making them equivalent to
+> atomic_create_state in practice. The atomic_create_state hook makes
+> this explicit: it only allocates and initializes a pristine state
+> without any side effect, and returns the state pointer or an ERR_PTR
+> on failure.
+>
+> This series converts all connector drivers tree-wide from the reset hook
+> to atomic_create_state, then removes the reset hook from struct
+> drm_connector_funcs entirely. The conversions were done using a
+> combination of Coccinelle semantic patches, mechanical one-line
+> replacements and manual adjustments.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+for the entire series.
+
+Best regards
+Thomas
+
+
+> ---
+> Changes in v3:
+> - Fix error path in dw-hdmi
+> - Fix test error path for amdgpu kunit tests
+> - Fix nouveau legacy path
+> - Link to v2: https://lore.kernel.org/r/20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org
+>
+> Changes in v2:
+> - Change the parameter order of __drm_atomic_helper_connector_hdmi_state_init
+> - Fixed state argument casing for drm_atomic_helper_connector_tv_margins_state_init
+>    and drm_atomic_helper_connector_tv_state_init
+> - Put atomic_create_state before atomic_duplicate_state
+> - Fix state allocation for MST and WB connectors
+> - Link to v1:
+>    https://lore.kernel.org/r/20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org
+>
+> ---
+> Maxime Ripard (37):
+>        drm/amdgpu: vkms: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: analogix-anx6345: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: analogix-anx78xx: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: chrontel-ch7033: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: nxp-ptn3460: Switch to drm_atomic_helper_connector_create_state
+>        drm/panel: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: synopsys: dw-hdmi: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: tc358767: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: tda998x: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: ti-tfp410: Switch to drm_atomic_helper_connector_create_state
+>        drm/exynos: Switch to drm_atomic_helper_connector_create_state
+>        drm/fsl-dcu: Switch to drm_atomic_helper_connector_create_state
+>        drm/loongson: Switch to drm_atomic_helper_connector_create_state
+>        drm/mipi-dbi: Switch to drm_atomic_helper_connector_create_state
+>        drm/renesas: shmobile: Switch to drm_atomic_helper_connector_create_state
+>        drm/sitronix: st7571: Switch to drm_atomic_helper_connector_create_state
+>        drm/sti: Switch to drm_atomic_helper_connector_create_state
+>        drm/sun4i: Switch to drm_atomic_helper_connector_create_state
+>        drm/tegra: Switch to drm_atomic_helper_connector_create_state
+>        drm/tests: Switch to drm_atomic_helper_connector_create_state
+>        drm/tiny: arcpgu: Switch to drm_atomic_helper_connector_create_state
+>        drm/tiny: sharp: Switch to drm_atomic_helper_connector_create_state
+>        drm/virtio: Switch to drm_atomic_helper_connector_create_state
+>        drm/vkms: Switch to drm_atomic_helper_connector_create_state
+>        drm/xen: Switch to drm_atomic_helper_connector_create_state
+>        drm/bridge: synopsys: dw-hdmi: Convert to atomic_create_state
+>        drm/meson: Convert to atomic_create_state
+>        drm/sun4i: hdmi: Convert to atomic_create_state
+>        drm/sun4i: tv: Convert to atomic_create_state
+>        drm/tests: hdmi: Convert to atomic_create_state
+>        drm/connector: Remove drm_atomic_helper_connector_reset()
+>        drm/amdgpu: dm: Convert to atomic_create_state
+>        drm/i915: Convert to atomic_create_state
+>        drm/nouveau: Convert to atomic_create_state
+>        drm/tegra: Convert to atomic_create_state
+>        drm/connector: Remove __drm_atomic_helper_connector_reset()
+>        drm/connector: Remove reset
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |   2 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  32 ++---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   3 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  11 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  17 ++-
+>   .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 102 +++++++++++-----
+>   drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |   2 +-
+>   drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c |   2 +-
+>   drivers/gpu/drm/bridge/chrontel-ch7033.c           |   2 +-
+>   drivers/gpu/drm/bridge/nxp-ptn3460.c               |   2 +-
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          |  14 ++-
+>   drivers/gpu/drm/bridge/tc358767.c                  |   2 +-
+>   drivers/gpu/drm/bridge/tda998x_drv.c               |   2 +-
+>   drivers/gpu/drm/bridge/ti-tfp410.c                 |   2 +-
+>   drivers/gpu/drm/display/drm_hdmi_state_helper.c    |   3 +-
+>   drivers/gpu/drm/drm_atomic_state_helper.c          |  43 -------
+>   drivers/gpu/drm/drm_connector.c                    |   8 --
+>   drivers/gpu/drm/drm_mode_config.c                  |   4 +-
+>   drivers/gpu/drm/drm_panel.c                        |   4 +-
+>   drivers/gpu/drm/exynos/exynos_drm_dpi.c            |   2 +-
+>   drivers/gpu/drm/exynos/exynos_drm_vidi.c           |   2 +-
+>   drivers/gpu/drm/exynos/exynos_hdmi.c               |   2 +-
+>   drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          |   2 +-
+>   drivers/gpu/drm/i915/display/intel_connector.c     |   6 +-
+>   drivers/gpu/drm/i915/display/intel_sdvo.c          |   6 +-
+>   drivers/gpu/drm/loongson/lsdc_output_7a1000.c      |   2 +-
+>   drivers/gpu/drm/loongson/lsdc_output_7a2000.c      |   4 +-
+>   drivers/gpu/drm/meson/meson_encoder_hdmi.c         |  12 +-
+>   drivers/gpu/drm/nouveau/dispnv50/disp.c            |  25 ++--
+>   drivers/gpu/drm/nouveau/nouveau_connector.c        | 129 ++++++++++++++++-----
+>   drivers/gpu/drm/nouveau/nouveau_connector.h        |   3 +-
+>   drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c  |   2 +-
+>   drivers/gpu/drm/sitronix/st7571.c                  |   2 +-
+>   drivers/gpu/drm/sti/sti_dvo.c                      |   2 +-
+>   drivers/gpu/drm/sti/sti_hda.c                      |   2 +-
+>   drivers/gpu/drm/sti/sti_hdmi.c                     |   2 +-
+>   drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |  16 ++-
+>   drivers/gpu/drm/sun4i/sun4i_lvds.c                 |   2 +-
+>   drivers/gpu/drm/sun4i/sun4i_rgb.c                  |   2 +-
+>   drivers/gpu/drm/sun4i/sun4i_tv.c                   |  16 ++-
+>   drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |   2 +-
+>   drivers/gpu/drm/tegra/dsi.c                        |  17 ++-
+>   drivers/gpu/drm/tegra/hdmi.c                       |   2 +-
+>   drivers/gpu/drm/tegra/sor.c                        |  13 +--
+>   drivers/gpu/drm/tests/drm_atomic_commit_test.c     |   2 +-
+>   drivers/gpu/drm/tests/drm_atomic_test.c            |   2 +-
+>   drivers/gpu/drm/tests/drm_connector_test.c         |   4 +-
+>   drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c |  16 ++-
+>   drivers/gpu/drm/tests/drm_probe_helper_test.c      |   2 +-
+>   drivers/gpu/drm/tiny/arcpgu.c                      |   2 +-
+>   drivers/gpu/drm/tiny/sharp-memory.c                |   2 +-
+>   drivers/gpu/drm/virtio/virtgpu_display.c           |   2 +-
+>   drivers/gpu/drm/vkms/vkms_connector.c              |   2 +-
+>   drivers/gpu/drm/vkms/vkms_writeback.c              |   2 +-
+>   drivers/gpu/drm/xen/xen_drm_front_conn.c           |   2 +-
+>   include/drm/drm_atomic_state_helper.h              |   3 -
+>   include/drm/drm_connector.h                        |  12 --
+>   include/drm/drm_mipi_dbi.h                         |   2 +-
+>   58 files changed, 351 insertions(+), 236 deletions(-)
+> ---
+> base-commit: 91f52e99824b0beebb48cad51bbda81437af8664
+> change-id: 20260709-drm-no-more-connector-reset-45ee14d7c62c
+>
+> Best regards,
+
+-- 
 --
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-commit 95230b3cd094aeb1ee4f35af24d1f7d8002a6446
-Author: Mika Kahola <mika.kahola@intel.com>
 
-drm/i915/display: Run the selective fetch update after the crtc checks
-
-This commit moves the call to intel_psr2_sel_fetch_update() out of
-intel_crtc_atomic_check() into a separate loop so that selective fetch is
-computed after all joined pipes have had their scaler states updated.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index d5d4453f283bb..e3831260ca4a1 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -4444,10 +4444,6 @@ static int intel_crtc_atomic_check(struct intel_at=
-omic_state *state,
-> =20
->  	}
-> =20
-> -	ret =3D intel_psr2_sel_fetch_update(state, crtc);
-> -	if (ret)
-> -		return ret;
-> -
->  	return 0;
->  }
-> =20
-> @@ -6188,6 +6184,19 @@ static int intel_async_flip_check_uapi(struct inte=
-l_atomic_state *state,
->  		}
->  	}
-> =20
-> +	/* Selective fetch needs the scaler state of all the joined pipes. */
-> +	for_each_new_intel_crtc_in_state(state, crtc, crtc_state) {
-> +		int ret;
-> +
-> +		ret =3D intel_psr2_sel_fetch_update(state, crtc);
-> +		if (ret) {
-> +			drm_dbg_atomic(display->drm,
-> +				       "[CRTC:%d:%s] selective fetch check failed\n",
-> +				       crtc->base.base.id, crtc->base.name);
-> +			return ret;
-> +		}
-> +	}
-
-[Severity: High]
-Was this hunk misapplied to intel_async_flip_check_uapi() instead of
-intel_atomic_check_crtcs()?
-
-In drivers/gpu/drm/i915/display/intel_display.c, intel_async_flip_check_uap=
-i()
-declares new_crtc_state rather than crtc_state, so expanding
-for_each_new_intel_crtc_in_state(state, crtc, crtc_state) fails to compile
-with an undeclared identifier error:
-
-drivers/gpu/drm/i915/display/intel_display.c:intel_async_flip_check_uapi() {
-	struct intel_display *display =3D to_intel_display(state);
-	const struct intel_crtc_state *new_crtc_state =3D
-		intel_atomic_get_new_crtc_state(state, crtc);
-	...
-	if (!new_crtc_state->uapi.async_flip)
-		return 0;
-	...
-	if (new_crtc_state->joiner_pipes) {
-		drm_dbg_kms(display->drm,
-			    "[CRTC:%d:%s] async flip disallowed with joiner\n",
-			    crtc->base.base.id, crtc->base.name);
-		return -EINVAL;
-	}
-}
-
-In addition, intel_async_flip_check_uapi() returns early for synchronous
-commits and rejects joined pipes, and runs in intel_atomic_check() before
-intel_atomic_check_crtcs() configures the scalers. With the call removed
-from intel_crtc_atomic_check(), normal atomic commits never run
-intel_psr2_sel_fetch_update().
-
-Should this loop be placed at the end of intel_atomic_check_crtcs()
-instead, as described in the commit message?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102080705.2027=
-571-1-mika.kahola@intel.com?part=3D1
