@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96505606A326
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 19:02:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0294E606A324
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 19:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DmZttzRc
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9zNs0PI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC0D210F17F;
-	Mon,  2 Nov 2026 19:02:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B06E910F189;
+	Mon,  2 Nov 2026 19:13:42 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9DDF10F17F;
- Mon,  2 Nov 2026 19:02:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F295410F181;
+ Mon,  2 Nov 2026 19:13:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A76C440483;
- Mon,  2 Nov 2026 19:02:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591761F00A1B;
- Mon,  2 Nov 2026 19:02:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9394640483;
+ Mon,  2 Nov 2026 19:13:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F701F00A1A;
+ Mon,  2 Nov 2026 19:13:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793646147;
- bh=Npr8mo0kpFcFHzFdvS8bnH5roxx1REoEZUHU2KKWOvU=;
+ s=k20260515; t=1793646816;
+ bh=mVwW46Ix1pPjk3S+qYIOpucX+dYUOfIBWRE/ULS6t2Y=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DmZttzRc6musLLlTnY4Y++ketEgb91wMNlN+BYtmpitB+vJAOkDuz2BZFl757+Ecj
- clsBWCp/+6FjV71SYZwglAo4RG0IOE0h/whjcNFCQnrB7OEwXMu+bKUsCujZDlazqi
- 6ch7MXUAefsdQfd6ZgRdjhIAiT3jM/zrDvaaBXqssuhTgmPIjzNiHKLJq4DABiTYiN
- NCltJN/Erdc087H/cfANv+qPoGBRQPi2PtHww4nnO9PP/H9vI8TL/Qvg/TDWQ4NwtI
- YUdWZ4dKmPM/vGoQDsuwWfjmxsreaX3L24MyyFhVSkslv/eNN6UT8q8bYse+sDAsuj
- Tl6ZNUzHa5xWw==
-Message-ID: <sashiko-outbox-193969@kernel.org>
+ b=C9zNs0PIdwv99boHjA5RQ+A10sQ/qOeHFqZJLOXy2/Z10CvsKtQSAst8v85h6Su5M
+ OVK/jkq76vk3TyYkC+Saymx1l40s/HwzYZhvelnsT/F+Cq0XLhe+EAorsmwubc4Hf6
+ hb1BqxnBRZBV1J05v9T2DNQYMlqgFlGlzPBHenKUJF1+QUWSfyKLNdn3fPCgt1Dp6i
+ jJx/TJY+ic9Eam5r1cQ6S4gWmeJWWw2oKhuzIacgViWm0NIlusuHQdTjAbw9PLsJ+p
+ BgPdSqviBW/+1ZscSbUkF06gpx7Q5Jpy/Km5y84F4rB9YnctXfYdXezFXSgMUEDq2y
+ zZXA99cTgqeQw==
+Message-ID: <sashiko-outbox-193983@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 11/15] drm/gud: add connector luminance support
+Subject: Re: [PATCH v10 12/15] drm/radeon: add connector luminance support
 To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-In-Reply-To: <20261102-superm1-backlight-property-v10-11-b2a6f24131f5@kernel.org>
+In-Reply-To: <20261102-superm1-backlight-property-v10-12-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
- <20261102-superm1-backlight-property-v10-11-b2a6f24131f5@kernel.org>
+ <20261102-superm1-backlight-property-v10-12-b2a6f24131f5@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 19:02:26 +0000
+Date: Mon, 02 Nov 2026 19:13:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,322 +59,365 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [Critical] drm/gud: use-after-free on disconnect via gud_connector_disabl=
-e_luminance()
-- [High] drm/gud: infinite commit loop in gud_connector_set_luminance()
-- [High] drm/gud: brightness clobbered to 0 in gud_connector_disable_lumina=
-nce()
-- [Medium] drm/gud: late property creation in gud_connector_backlight_regis=
-ter()
-- [Low] drm/gud: undefined reference to backlight_device_unregister()
+- [High] drm/radeon: unreachable atomic LUMINANCE property on non-atomic KM=
+S driver
+- [High] drm/radeon: legacy LVDS backlight ignored and panel turned off in =
+radeon_legacy_lvds_update()
+- [High] drm/radeon: missing luminance callbacks in radeon_dp_connector_hel=
+per_funcs
+- [Medium] drm/radeon: Kconfig unmet dependency and link error with DRM_LUM=
+INANCE
+- [Medium] drm/radeon: ACPI ATIF brightness events ignored when dig->bl_dev=
+ is NULL
+- [Medium] drm/radeon: memory leak of backlight_priv when LCD encoder links=
+ to multiple connectors
 --
 
-commit 58c61672659ddff3d1dca17855a27dcf7212a5b6
+commit d872f715df68798d7e323e8f154d8558d421e434
 Author: Mario Limonciello <mario.limonciello@amd.com>
 
-drm/gud: add connector luminance support
+drm/radeon: add connector luminance support
 
-This commit exposes GUD display brightness through the connector LUMINANCE
-property when CONFIG_DRM_LUMINANCE is enabled, storing brightness state on
-struct gud_connector and reusing the asynchronous backlight workqueue path.
+This commit adds support for exposing Radeon panel brightness through the
+connector LUMINANCE property when CONFIG_DRM_LUMINANCE is enabled, reusing
+the AtomBIOS and legacy hardware programming paths while keeping the
+backlight class interface otherwise.
 
-> diff --git a/drivers/gpu/drm/gud/Kconfig b/drivers/gpu/drm/gud/Kconfig
-> index b4d2136942f0e..6c250d3d5e203 100644
-> --- a/drivers/gpu/drm/gud/Kconfig
-> +++ b/drivers/gpu/drm/gud/Kconfig
-> @@ -7,7 +7,7 @@ config DRM_GUD
->  	select DRM_CLIENT_SELECTION
->  	select DRM_KMS_HELPER
->  	select DRM_GEM_SHMEM_HELPER
+> diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kcon=
+fig
+> index 3cd70aef770e1..2ccad1f2f8cee 100644
+> --- a/drivers/gpu/drm/radeon/Kconfig
+> +++ b/drivers/gpu/drm/radeon/Kconfig
+> @@ -17,7 +17,7 @@ config DRM_RADEON
+>  	select SND_HDA_COMPONENT if SND_HDA_CORE
+>  	select POWER_SUPPLY
+>  	select HWMON
 > -	select BACKLIGHT_CLASS_DEVICE
 > +	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
->  	help
->  	  This is a DRM display driver for GUD USB Displays or display
->  	  adapters.
-> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gu=
-d_connector.c
-> index 8141c3a1e30ad..bd7688676e9e1 100644
-> --- a/drivers/gpu/drm/gud/gud_connector.c
-> +++ b/drivers/gpu/drm/gud/gud_connector.c
-
-[ ... ]
-
-> @@ -84,7 +86,7 @@ static void gud_connector_backlight_update_status_work(=
-struct work_struct *work)
->  	}
-> =20
->  	/* Reuse tv.brightness to avoid having to subclass */
-> -	connector_state->tv.brightness =3D gconn->backlight->props.brightness;
-> +	connector_state->tv.brightness =3D READ_ONCE(gconn->brightness);
-> =20
->  	ret =3D drm_atomic_commit(state);
->  out:
-
-[ ... ]
-
-> @@ -132,6 +136,19 @@ static int gud_connector_backlight_register(struct g=
-ud_connector *gconn)
->  		.brightness =3D gconn->initial_brightness,
->  	};
-> =20
-> +	gconn->brightness =3D props.brightness;
-> +
-> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-> +		int ret;
-> +
-> +		ret =3D drm_connector_attach_luminance_property(connector, 0, props.ma=
-x_brightness,
-> +							      props.brightness);
-> +		if (ret)
-> +			return ret;
-> +
-> +		return 0;
-> +	}
+>  	select INTERVAL_TREE
+>  	select I2C
+>  	select I2C_ALGOBIT
 
 [Severity: Medium]
-Won't attaching the LUMINANCE property in gud_connector_backlight_register()
-trigger a WARN_ON in __drm_mode_object_add() on every probe when
-CONFIG_DRM_LUMINANCE is enabled?
+Can making BACKLIGHT_CLASS_DEVICE conditional on !DRM_LUMINANCE cause an
+unmet Kconfig dependency and linker failures when CONFIG_DRM_LUMINANCE=3Dy,
+CONFIG_ACPI=3Dy, and CONFIG_BACKLIGHT_CLASS_DEVICE is disabled (or modular
+with built-in DRM_RADEON)?
 
-During gud_probe(), drm_dev_register() registers the DRM minor nodes and se=
-ts
-dev->registered =3D true before calling:
+Just below in drivers/gpu/drm/radeon/Kconfig, DRM_RADEON still
+unconditionally selects ACPI_VIDEO:
 
-  drm_modeset_register_all()
-    -> drm_connector_register_all()
-      -> drm_connector_register()
-        -> gud_connector_late_register()
-          -> gud_connector_backlight_register()
-            -> drm_connector_attach_luminance_property()
-              -> drm_property_create_range()
-                -> drm_property_create()
-                  -> drm_mode_object_add()
-                    -> __drm_mode_object_add()
+	# radeon depends on ACPI_VIDEO when ACPI is enabled, for select to work
+	# ACPI_VIDEO's dependencies must also be selected.
+	select INPUT if ACPI
+	select ACPI_VIDEO if ACPI
 
-In drivers/gpu/drm/drm_mode_object.c:__drm_mode_object_add():
+In drivers/acpi/Kconfig, ACPI_VIDEO depends on BACKLIGHT_CLASS_DEVICE:
 
-	WARN_ON(!dev->driver->load && dev->registered && !obj_free_cb);
+config ACPI_VIDEO
+	tristate "Video"
+	depends on BACKLIGHT_CLASS_DEVICE
 
-Because gud_drm_driver.load is NULL, dev->registered is already true, and
-obj_free_cb is NULL for DRM properties, this warning fires unconditionally =
-and
-mutates dev->mode_config.property_list, connector->base.properties, and
-connector->state->luminance after userspace already has access to the DRM
-device. Should drm_connector_attach_luminance_property() be called during
-connector initialization in gud_connector_add_properties() before
-drm_mode_config_reset() and drm_dev_register() instead?
+In addition, radeon_atif_handler() in drivers/gpu/drm/radeon/radeon_acpi.c
+unconditionally calls backlight_force_update(), which has no inline stub in
+include/linux/backlight.h when CONFIG_BACKLIGHT_CLASS_DEVICE is disabled:
+
+	if (rdev->is_atom_bios) {
+		struct radeon_encoder_atom_dig *dig =3D enc->enc_priv;
+		backlight_force_update(dig->bl_dev,
+				       BACKLIGHT_UPDATE_HOTKEY);
+	} else {
+		struct radeon_encoder_lvds *dig =3D enc->enc_priv;
+		backlight_force_update(dig->bl_dev,
+				       BACKLIGHT_UPDATE_HOTKEY);
+	}
+
+> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm=
+/radeon/atombios_encoders.c
+> index 5b9c72bf40994..e6f762625bf1a 100644
+> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
+> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+> @@ -227,6 +227,27 @@ void radeon_atom_backlight_init(struct radeon_encode=
+r *radeon_encoder,
+>  	memset(&props, 0, sizeof(props));
+>  	props.max_brightness =3D RADEON_MAX_BL_LEVEL;
+>  	props.type =3D BACKLIGHT_RAW;
+> +	pdata->encoder =3D radeon_encoder;
+> +	pdata->atom =3D true;
+> +	radeon_encoder->backlight_priv =3D pdata;
+
+[Severity: Medium]
+Can this leak the struct radeon_backlight_privdata allocation in pdata
+when an encoder with ATOM_DEVICE_LCD_SUPPORT is shared across multiple
+connectors?
+
+In radeon_add_atom_encoder() and radeon_add_legacy_encoder(), encoders
+sharing the same encoder_enum combine their device bitmasks via
+radeon_encoder->devices |=3D supported_device. When
+radeon_link_encoder_connector() in drivers/gpu/drm/radeon/radeon_encoders.c
+links encoders and connectors, it checks radeon_encoder->devices rather
+than radeon_connector->devices:
+
+	if (radeon_encoder->devices & radeon_connector->devices) {
+		drm_connector_attach_encoder(connector, encoder);
+		if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT))
+			radeon_encoder_add_backlight(radeon_encoder, connector);
+	}
+
+When radeon_encoder_add_backlight() is invoked a second time for the same
+radeon_encoder (both here in radeon_atom_backlight_init() and in
+radeon_legacy_backlight_init()), radeon_encoder->backlight_priv is
+overwritten with the newly allocated pdata. With CONFIG_DRM_LUMINANCE
+enabled, drm_connector_attach_luminance_property() succeeds on the second
+connector and leaks the first pdata allocation (or if registration fails
+and jumps to error:, radeon_encoder->backlight_priv is cleared to NULL
+without freeing or preserving the first allocation).
 
 > +
->  	name =3D kasprintf(GFP_KERNEL, "card%d-%s-backlight",
->  			 connector->dev->primary->index, connector->name);
->  	if (!name)
-> @@ -314,12 +331,37 @@ static int gud_connector_atomic_check(struct drm_co=
-nnector *connector,
+> +	dig =3D radeon_encoder->enc_priv;
+> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		props.brightness =3D atombios_get_backlight_level(radeon_encoder);
+> +		if (!props.brightness)
+> +			props.brightness =3D RADEON_MAX_BL_LEVEL;
+> +
+> +		if (drm_connector_attach_luminance_property(drm_connector, 0,
+> +							    props.max_brightness,
+> +							     props.brightness))
+> +			goto error;
+> +
+> +		atombios_set_backlight_level(radeon_encoder, props.brightness);
+> +		dig->bl_dev =3D NULL;
+> +		rdev->mode_info.bl_encoder =3D radeon_encoder;
+> +		return;
+> +	}
+
+[Severity: High]
+How can userspace access or update the LUMINANCE property on radeon when
+radeon is a non-atomic KMS driver?
+
+In drivers/gpu/drm/radeon/radeon_drv.c, kms_driver does not advertise
+DRIVER_ATOMIC:
+
+	.driver_features =3D
+	    DRIVER_GEM | DRIVER_RENDER | DRIVER_MODESET,
+
+However, drm_connector_attach_luminance_property() creates the LUMINANCE
+property with DRM_MODE_PROP_ATOMIC:
+
+	property =3D drm_property_create_range(connector->dev, DRM_MODE_PROP_ATOMI=
+C,
+					     "LUMINANCE", min, max);
+
+Because DRIVER_ATOMIC is not set:
+1. drm_setclientcap() rejects DRM_CLIENT_CAP_ATOMIC, so
+   drm_mode_object_get_properties() hides DRM_MODE_PROP_ATOMIC properties
+   from userspace.
+2. Legacy property updates go through drm_mode_obj_set_property_ioctl() ->
+   set_property_legacy() -> radeon_lvds_set_property(), which ignores
+   everything except scaling_mode_property.
+3. radeon_set_luminance() and radeon_disable_luminance() are only invoked
+   by drm_atomic_helper_commit_luminance_enables() and
+   drm_atomic_helper_commit_luminance_disables(), which radeon never calls.
+
+Since radeon_atom_backlight_init() and radeon_legacy_backlight_init()
+return early before backlight_device_register() when CONFIG_DRM_LUMINANCE
+is enabled (and set rdev->mode_info.bl_encoder, which also prevents the
+acpi_video_register_backlight() fallback in radeon_encoder_add_backlight()),
+won't this leave panels with no working brightness control interface?
+
+[Severity: Medium]
+Also, when dig->bl_dev is set to NULL here (and in
+radeon_legacy_backlight_init()), won't ACPI ATIF panel brightness events
+stop working?
+
+In drivers/gpu/drm/radeon/radeon_acpi.c, radeon_acpi_init() locates
+atif->encoder_for_bl by checking dig->bl_dev:
+
+	if (rdev->is_atom_bios) {
+		struct radeon_encoder_atom_dig *dig =3D enc->enc_priv;
+		if (dig->bl_dev) {
+			target =3D enc;
+			break;
+		}
+	} else {
+		struct radeon_encoder_lvds *dig =3D enc->enc_priv;
+		if (dig->bl_dev) {
+			target =3D enc;
+			break;
+		}
+	}
+
+When dig->bl_dev is NULL, atif->encoder_for_bl remains NULL and
+radeon_atif_handler() ignores ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST events.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm=
+/radeon/radeon_connectors.c
+> index 16b048f58c9be..655361407b819 100644
+> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
+> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+
+[ ... ]
+
+> @@ -931,11 +932,44 @@ static int radeon_lvds_set_property(struct drm_conn=
+ector *connector,
 >  	return 0;
 >  }
 > =20
-> +static void gud_connector_set_luminance(const struct drm_connector_state=
- *conn_state);
-> +static void gud_connector_disable_luminance(const struct drm_connector_s=
-tate *conn_state);
-> +
->  static const struct drm_connector_helper_funcs gud_connector_helper_func=
-s =3D {
->  	.detect_ctx =3D gud_connector_detect,
->  	.get_modes =3D gud_connector_get_modes,
->  	.atomic_check =3D gud_connector_atomic_check,
-> +	.set_luminance =3D gud_connector_set_luminance,
-> +	.disable_luminance =3D gud_connector_disable_luminance,
->  };
-> =20
-> +static void gud_connector_set_luminance(const struct drm_connector_state=
- *conn_state)
+> +static void radeon_set_luminance(const struct drm_connector_state *conn_=
+state)
 > +{
-> +	struct drm_connector *connector =3D conn_state->connector;
-> +	struct gud_connector *gconn =3D to_gud_connector(connector);
-> +	unsigned int luminance =3D conn_state->luminance;
+> +	struct drm_encoder *encoder =3D radeon_best_single_encoder(conn_state->=
+connector);
+> +	struct radeon_encoder *radeon_encoder;
+> +	struct radeon_backlight_privdata *pdata;
+> +	u8 level =3D conn_state->luminance;
 > +
-> +	WRITE_ONCE(gconn->brightness, luminance);
+> +	if (!encoder)
+> +		return;
 > +
-> +	/* The workqueue will apply it to the hardware */
-> +	queue_work(system_long_wq, &gconn->backlight_work);
+> +	radeon_encoder =3D to_radeon_encoder(encoder);
+> +	pdata =3D radeon_encoder->backlight_priv;
+> +	if (!pdata)
+> +		return;
+> +
+> +	if (pdata->atom) {
+> +		atombios_set_backlight_level(radeon_encoder, level);
+> +	} else {
+> +		if (pdata->negative)
+> +			level =3D RADEON_MAX_BL_LEVEL - level;
+> +		radeon_legacy_set_backlight_level(radeon_encoder, level);
+> +	}
 > +}
+> +
+> +static void radeon_disable_luminance(const struct drm_connector_state *c=
+onn_state)
+> +{
+> +	struct drm_connector_state state =3D *conn_state;
+> +
+> +	state.luminance =3D 0;
+> +	radeon_set_luminance(&state);
+> +}
+> =20
+>  static const struct drm_connector_helper_funcs radeon_lvds_connector_hel=
+per_funcs =3D {
+>  	.get_modes =3D radeon_lvds_get_modes,
+>  	.mode_valid =3D radeon_lvds_mode_valid,
+>  	.best_encoder =3D radeon_best_single_encoder,
+> +	.set_luminance =3D radeon_set_luminance,
+> +	.disable_luminance =3D radeon_disable_luminance,
+>  };
 
 [Severity: High]
-Does queueing gconn->backlight_work from gud_connector_set_luminance() cause
-an infinite loop of atomic commits on system_long_wq whenever the connector=
- is
-active on a CRTC?
+Are .set_luminance and .disable_luminance also needed in
+radeon_dp_connector_helper_funcs?
 
-When gconn->backlight_work runs gud_connector_backlight_update_status_work(=
-),
-the workqueue core clears WORK_STRUCT_PENDING_BIT before invoking the work
-callback. gud_connector_backlight_update_status_work() then adds the connec=
-tor
-to a new commit state via drm_atomic_get_connector_state(state, connector) =
-and
-calls drm_atomic_commit(state) synchronously:
+In radeon_add_atom_connector(), native DRM_MODE_CONNECTOR_eDP connectors
+and DP-bridge (TRAVIS/NUTMEG) DRM_MODE_CONNECTOR_LVDS/eDP connectors use
+radeon_dp_connector_helper_funcs:
 
-  gud_connector_backlight_update_status_work()
-    -> drm_atomic_commit()
-      -> drm_atomic_helper_commit_tail_rpm()
-        -> drm_atomic_helper_commit_modeset_enables()
-          -> drm_atomic_helper_commit_luminance_enables()
-            -> gud_connector_set_luminance()
+	drm_connector_init_with_ddc(dev, &radeon_connector->base,
+				    &radeon_edp_connector_funcs,
+				    connector_type,
+				    ddc);
+	drm_connector_helper_add(&radeon_connector->base, &radeon_dp_connector_hel=
+per_funcs);
 
-In drivers/gpu/drm/drm_atomic_helper.c:drm_atomic_helper_commit_luminance_e=
-nables():
+Their encoders have ATOM_DEVICE_LCD_SUPPORT set, so
+radeon_link_encoder_connector() -> radeon_encoder_add_backlight() ->
+radeon_atom_backlight_init() attaches the LUMINANCE property to those
+connectors, but radeon_dp_connector_helper_funcs does not wire up
+.set_luminance or .disable_luminance (and on DP-bridge connectors,
+radeon_dvi_encoder() rather than radeon_best_single_encoder() selects the
+encoder with enc_priv).
 
-	for_each_new_connector_in_state(state, connector, new_conn_state, i) {
-		const struct drm_connector_helper_funcs *funcs;
+> diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gp=
+u/drm/radeon/radeon_legacy_encoders.c
+> index 1f82e2b57f5d5..96b0dfd8e3521 100644
+> --- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+> +++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
 
-		if (!connector->luminance_property || !new_conn_state->crtc ||
-		    !new_conn_state->crtc->state->active)
-			continue;
+[ ... ]
 
-		funcs =3D connector->helper_private;
-		if (funcs && funcs->set_luminance)
-			funcs->set_luminance(new_conn_state);
+> @@ -441,6 +434,36 @@ void radeon_legacy_backlight_init(struct radeon_enco=
+der *radeon_encoder,
+>  #endif
+>  	}
+> =20
+> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		props.brightness =3D pdata->negative ?
+> +			RADEON_MAX_BL_LEVEL - backlight_level : backlight_level;
+> +		if (drm_connector_attach_luminance_property(drm_connector, 0,
+> +							    props.max_brightness,
+> +							     props.brightness))
+> +			goto error;
+> +
+> +		if (rdev->is_atom_bios) {
+> +			struct radeon_encoder_atom_dig *lvds =3D radeon_encoder->enc_priv;
+> +
+> +			lvds->bl_dev =3D NULL;
+> +		} else {
+> +			struct radeon_encoder_lvds *lvds =3D radeon_encoder->enc_priv;
+> +
+> +			lvds->bl_dev =3D NULL;
+> +		}
+> +		rdev->mode_info.bl_encoder =3D radeon_encoder;
+> +		return;
+> +	}
+
+[Severity: High]
+When lvds->bl_dev is set to NULL here without initializing
+lvds->backlight_level, won't radeon_legacy_lvds_update() ignore brightness
+updates and radeon_legacy_set_backlight_level() power off the panel?
+
+In radeon_legacy_lvds_update(), lvds->backlight_level is only used if
+lvds->bl_dev is non-NULL:
+
+	if (radeon_encoder->enc_priv) {
+		if (rdev->is_atom_bios) {
+			struct radeon_encoder_atom_dig *lvds =3D radeon_encoder->enc_priv;
+			panel_pwr_delay =3D lvds->panel_pwr_delay;
+			if (lvds->bl_dev)
+				backlight_level =3D lvds->backlight_level;
+		} else {
+			struct radeon_encoder_lvds *lvds =3D radeon_encoder->enc_priv;
+			panel_pwr_delay =3D lvds->panel_pwr_delay;
+			if (lvds->bl_dev)
+				backlight_level =3D lvds->backlight_level;
+		}
 	}
 
-Because the connector is in the commit state, connector->luminance_property=
- is
-non-NULL, and new_conn_state->crtc->state->active is true,
-drm_atomic_helper_commit_luminance_enables() unconditionally invokes
-gud_connector_set_luminance() again during the work item's own
-drm_atomic_commit() call. That re-queues gconn->backlight_work while the wo=
-rk
-function is still executing, so system_long_wq immediately runs
-gud_connector_backlight_update_status_work() again in an unbounded loop.
+Furthermore, radeon_legacy_set_backlight_level() checks the previous value
+of lvds->backlight_level before updating it:
 
-In addition, when old_state->tv.brightness !=3D new_state->tv.brightness,
-gud_connector_atomic_check() sets new_crtc_state->connectors_changed =3D tr=
-ue,
-causing drm_atomic_helper_commit_modeset_disables() to also call
-drm_atomic_helper_commit_luminance_disables() ->
-gud_connector_disable_luminance() before
-drm_atomic_helper_commit_luminance_enables() runs.
+	if (radeon_encoder->enc_priv) {
+		if (rdev->is_atom_bios) {
+			struct radeon_encoder_atom_dig *lvds =3D radeon_encoder->enc_priv;
+			if (lvds->backlight_level > 0)
+				dpms_mode =3D lvds->dpms_mode;
+			else
+				dpms_mode =3D DRM_MODE_DPMS_OFF;
+			lvds->backlight_level =3D level;
+		} else {
+			struct radeon_encoder_lvds *lvds =3D radeon_encoder->enc_priv;
+			if (lvds->backlight_level > 0)
+				dpms_mode =3D lvds->dpms_mode;
+			else
+				dpms_mode =3D DRM_MODE_DPMS_OFF;
+			lvds->backlight_level =3D level;
+		}
+	}
 
-> +
-> +static void gud_connector_disable_luminance(const struct drm_connector_s=
-tate *conn_state)
-> +{
-> +	struct gud_connector *gconn =3D to_gud_connector(conn_state->connector);
-> +
-> +	WRITE_ONCE(gconn->brightness, 0);
-> +	queue_work(system_long_wq, &gconn->backlight_work);
-> +}
+	radeon_legacy_lvds_update(&radeon_encoder->base, dpms_mode);
 
-[Severity: Critical]
-Can gud_connector_disable_luminance() re-queue gconn->backlight_work after
-gud_connector_early_unregister() has already canceled it, leading to a
-use-after-free of struct gud_connector on USB disconnect?
-
-In drivers/gpu/drm/gud/gud_drv.c:gud_disconnect():
-
-	drm_kms_helper_poll_fini(drm);
-	drm_dev_unplug(drm);
-	drm_atomic_helper_shutdown(drm);
-
-First, drm_dev_unplug() runs:
-
-  drm_dev_unplug()
-    -> drm_dev_unregister()
-      -> drm_modeset_unregister_all()
-        -> drm_connector_unregister()
-          -> gud_connector_early_unregister()
-            -> cancel_work_sync(&gconn->backlight_work)
-
-Next, drm_atomic_helper_shutdown() disables all active outputs:
-
-  drm_atomic_helper_shutdown()
-    -> drm_atomic_helper_disable_all()
-      -> drm_atomic_commit()
-        -> drm_atomic_helper_commit_modeset_disables()
-          -> disable_outputs()
-            -> drm_atomic_helper_commit_luminance_disables()
-              -> gud_connector_disable_luminance()
-                -> queue_work(system_long_wq, &gconn->backlight_work)
-
-When gud_disconnect() finishes and devres releases the drm_device,
-drm_mode_config_cleanup() calls gud_connector_destroy(), which cleans up the
-connector (zeroing connector->dev) and calls kfree(gconn) without canceling
-gconn->backlight_work. If gud_connector_backlight_update_status_work() is
-still queued or running on system_long_wq, won't it access freed gconn memo=
-ry
-and dereference a NULL or freed connector->dev in drm_dev_enter()?
-
-[Severity: High]
-Also in gud_connector_disable_luminance(), doesn't setting gconn->brightness
-to 0 and queueing gconn->backlight_work clobber connector_state->tv.brightn=
-ess
-and send an unpaired GUD_REQ_SET_STATE_CHECK over USB when a CRTC enters DP=
-MS
-off?
-
-When a CRTC is set to DPMS off (new_crtc_state->enable =3D=3D true,
-new_crtc_state->active =3D=3D false), drm_atomic_helper_commit_luminance_di=
-sables()
-calls gud_connector_disable_luminance(), whereas
-drm_atomic_helper_commit_luminance_enables() does not run because
-new_crtc_state->active is false.
-
-When gud_connector_backlight_update_status_work() subsequently runs on
-system_long_wq, it sets connector_state->tv.brightness =3D 0 and commits:
-
-1. gud_connector_atomic_check() sees old_state->tv.brightness !=3D
-   new_state->tv.brightness and sets new_crtc_state->connectors_changed =3D=
- true.
-2. Because crtc_state->enable is still true, gud_plane_atomic_check()
-   serializes connector_state->tv.brightness =3D 0 into GUD_REQ_SET_STATE_C=
-HECK
-   and sends it to the USB device.
-3. Because new_crtc_state->active is false,
-   drm_atomic_helper_commit_crtc_enable() skips gud_crtc_atomic_enable(),
-   leaving GUD_REQ_SET_STATE_CHECK unpaired with GUD_REQ_SET_STATE_COMMIT.
-4. When a later commit re-enables the CRTC (active =3D true),
-   gud_plane_atomic_check() and gud_crtc_atomic_enable() run before
-   drm_atomic_helper_commit_luminance_enables(), so the display is first
-   enabled with tv.brightness =3D=3D 0 before gud_connector_set_luminance()=
- queues
-   a second full modeset commit to restore conn_state->luminance.
-
-> +
->  static int gud_connector_late_register(struct drm_connector *connector)
->  {
->  	struct gud_connector *gconn =3D to_gud_connector(connector);
-> @@ -334,7 +376,9 @@ static void gud_connector_early_unregister(struct drm=
-_connector *connector)
->  {
->  	struct gud_connector *gconn =3D to_gud_connector(connector);
-> =20
-> -	backlight_device_unregister(gconn->backlight);
-> +	if (gconn->backlight)
-> +		backlight_device_unregister(gconn->backlight);
-> +
->  	cancel_work_sync(&gconn->backlight_work);
->  }
-
-[Severity: Low]
-Will gud_connector_early_unregister() fail to link when CONFIG_DRM_LUMINANC=
-E=3Dy
-and CONFIG_BACKLIGHT_CLASS_DEVICE is disabled (or when CONFIG_DRM_GUD=3Dy a=
-nd
-CONFIG_BACKLIGHT_CLASS_DEVICE=3Dm)?
-
-The Kconfig change updates DRM_GUD to:
-
-	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
-
-However, include/linux/backlight.h declares backlight_device_unregister() as
-an external function without an inline stub when CONFIG_BACKLIGHT_CLASS_DEV=
-ICE
-is not enabled. Because if (gconn->backlight) is a runtime check on a struct
-member rather than !IS_ENABLED(CONFIG_DRM_LUMINANCE), the compiler cannot
-eliminate the call to backlight_device_unregister() at compile time.
+Because lvds->backlight_level starts at 0 (or becomes 0 when maximum
+brightness is set on a pdata->negative panel where
+level =3D RADEON_MAX_BL_LEVEL - level), radeon_legacy_set_backlight_level()
+will pass DRM_MODE_DPMS_OFF to radeon_legacy_lvds_update().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-superm1-ba=
-cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D11
+cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D12
