@@ -2,56 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62385606A326
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:07:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E74606A324
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:18:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qd/eOMNm
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aOtNZD44
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2CEF10EBDF;
-	Mon,  2 Nov 2026 08:07:14 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE1110EC00;
- Mon,  2 Nov 2026 08:07:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793606829; x=1825142829;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=kcumCLlxbk5QNT/NQdWJxTLArIX0pngGcbi6s1BcsvE=;
- b=Qd/eOMNmJgJNgz/DYVvNbZ5h3Dnj5HTOOt57y5bri4YynMshwaKeNlmN
- WZMTkvjz5xRYM97daHCme1jLuECnukBy+gaD/7LXo0seQX0YJbYtkq+Jr
- z31kG5SwUGFWlBIP5py7hxzlvWtAKbs+CqkJKvdOh1EAkawWcA2KWHE+h
- 8CBbivgb1zIfNWZO/nw9HxIxDxqcmNY4ah0XElPg8tbt6BJr8Q68/HMnH
- YSvUx7szC3J3QxA7Yb7x2SqhxRIERuV/JmZ7tcyr3dq5BaO5geP6iUoF/
- pyNsb9ydCtrAzdxykcHhu3b59XksEAm5CA52fC3guIJcp3/V9BjxqWjPn w==;
-X-CSE-ConnectionGUID: AR6TJinxScm7zMBiODo+LA==
-X-CSE-MsgGUID: 9tfIcv1YQ3CB0O7NwNbtaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2282682"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2282682"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 00:07:09 -0800
-X-CSE-ConnectionGUID: 279Zub1xSNS8x/U/UMEsmQ==
-X-CSE-MsgGUID: ugyTq81SRbCodO3KrDvYHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="5883695"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa007.jf.intel.com with ESMTP; 02 Nov 2026 00:07:07 -0800
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jouni.hogander@intel.com,
-	Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH] drm/i915/display: Run the selective fetch update after the
- crtc checks
-Date: Mon,  2 Nov 2026 08:07:05 +0000
-Message-ID: <20261102080705.2027571-1-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.43.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id F099910E073;
+	Mon,  2 Nov 2026 08:18:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86B5110E073;
+ Mon,  2 Nov 2026 08:18:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1BEA4402E7;
+ Mon,  2 Nov 2026 08:18:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20711F000C1;
+ Mon,  2 Nov 2026 08:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793607491;
+ bh=Y7hdZTUeorA9PihYPLt3qa6RSGrtTiXIML9FB/T6cBE=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=aOtNZD44kiYpYCUA4C8TW+9Uyl6DY6S3jtgd2QkJ9ulOf3vmV8jXN59IH9l3Xxj5P
+ Z/LbmOEAXHBJDudtBXjg3EDMheDnk1rIQy4O/dqgB+ooeiWRs0515VInNmaemUILlQ
+ s8QspZdqLKiq/NGnMe5JegzxH9fav8UMZJRhjgksXIwOKbNcGShqxPC122f6/0wT1C
+ ENofAUx66TooTxFG/ymFbc3XRkhNli2VkMCrtf/cBSyiy1+mZKVC5hJWwJbQfxBY+q
+ 0orvgZAeeYuIzQTARW6/7xBrNlXEB79lUlGHvvgq3adyHdjgls7Q4e9VhUBdUlj3r7
+ b6WxnWYaxFNmw==
+Message-ID: <sashiko-outbox-193094@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/display: Run the selective fetch update after
+ the crtc checks
+To: "Mika Kahola" <mika.kahola@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261102080705.2027571-1-mika.kahola@intel.com>
+References: <20261102080705.2027571-1-mika.kahola@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 08:18:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,67 +48,101 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-intel_psr2_sel_fetch_update() computes the selective fetch area of all
-the joined pipes from the joiner primary, but still runs from
-intel_crtc_atomic_check(). The scaler ids it checks are only assigned
-while the owning pipe is being checked, so the primary, checked first,
-sees the secondary ids of the previous commit. A plane that starts
-being scaled on the secondary then looks unscaled and the full update
-fallback is skipped.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/i915/display: sel fetch loop misapplied to intel_async_flip_ch=
+eck_uapi()
+--
 
-Run it in its own loop at the end of intel_atomic_check_crtcs(), once
-every crtc has been checked. Nothing consumes the selective fetch
-results before the planes are programmed.
+commit 95230b3cd094aeb1ee4f35af24d1f7d8002a6446
+Author: Mika Kahola <mika.kahola@intel.com>
 
-Fixes: dd038a8d440a ("drm/i915/psr: Merge the selective fetch area across joined pipes")
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+drm/i915/display: Run the selective fetch update after the crtc checks
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 5e40487e9ab0..2eafcb1450aa 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4550,10 +4550,6 @@ static int intel_crtc_atomic_check(struct intel_atomic_state *state,
- 
- 	}
- 
--	ret = intel_psr2_sel_fetch_update(state, crtc);
--	if (ret)
--		return ret;
--
- 	return 0;
- }
- 
-@@ -6096,6 +6092,19 @@ static int intel_atomic_check_crtcs(struct intel_atomic_state *state)
- 		}
- 	}
- 
-+	/* Selective fetch needs the scaler state of all the joined pipes. */
-+	for_each_new_intel_crtc_in_state(state, crtc, crtc_state) {
-+		int ret;
-+
-+		ret = intel_psr2_sel_fetch_update(state, crtc);
-+		if (ret) {
-+			drm_dbg_atomic(display->drm,
-+				       "[CRTC:%d:%s] selective fetch check failed\n",
-+				       crtc->base.base.id, crtc->base.name);
-+			return ret;
-+		}
-+	}
-+
- 	return 0;
- }
- 
--- 
-2.43.0
+This commit moves the call to intel_psr2_sel_fetch_update() out of
+intel_crtc_atomic_check() into a separate loop so that selective fetch is
+computed after all joined pipes have had their scaler states updated.
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index d5d4453f283bb..e3831260ca4a1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -4444,10 +4444,6 @@ static int intel_crtc_atomic_check(struct intel_at=
+omic_state *state,
+> =20
+>  	}
+> =20
+> -	ret =3D intel_psr2_sel_fetch_update(state, crtc);
+> -	if (ret)
+> -		return ret;
+> -
+>  	return 0;
+>  }
+> =20
+> @@ -6188,6 +6184,19 @@ static int intel_async_flip_check_uapi(struct inte=
+l_atomic_state *state,
+>  		}
+>  	}
+> =20
+> +	/* Selective fetch needs the scaler state of all the joined pipes. */
+> +	for_each_new_intel_crtc_in_state(state, crtc, crtc_state) {
+> +		int ret;
+> +
+> +		ret =3D intel_psr2_sel_fetch_update(state, crtc);
+> +		if (ret) {
+> +			drm_dbg_atomic(display->drm,
+> +				       "[CRTC:%d:%s] selective fetch check failed\n",
+> +				       crtc->base.base.id, crtc->base.name);
+> +			return ret;
+> +		}
+> +	}
+
+[Severity: High]
+Was this hunk misapplied to intel_async_flip_check_uapi() instead of
+intel_atomic_check_crtcs()?
+
+In drivers/gpu/drm/i915/display/intel_display.c, intel_async_flip_check_uap=
+i()
+declares new_crtc_state rather than crtc_state, so expanding
+for_each_new_intel_crtc_in_state(state, crtc, crtc_state) fails to compile
+with an undeclared identifier error:
+
+drivers/gpu/drm/i915/display/intel_display.c:intel_async_flip_check_uapi() {
+	struct intel_display *display =3D to_intel_display(state);
+	const struct intel_crtc_state *new_crtc_state =3D
+		intel_atomic_get_new_crtc_state(state, crtc);
+	...
+	if (!new_crtc_state->uapi.async_flip)
+		return 0;
+	...
+	if (new_crtc_state->joiner_pipes) {
+		drm_dbg_kms(display->drm,
+			    "[CRTC:%d:%s] async flip disallowed with joiner\n",
+			    crtc->base.base.id, crtc->base.name);
+		return -EINVAL;
+	}
+}
+
+In addition, intel_async_flip_check_uapi() returns early for synchronous
+commits and rejects joined pipes, and runs in intel_atomic_check() before
+intel_atomic_check_crtcs() configures the scalers. With the call removed
+from intel_crtc_atomic_check(), normal atomic commits never run
+intel_psr2_sel_fetch_update().
+
+Should this loop be placed at the end of intel_atomic_check_crtcs()
+instead, as described in the commit message?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102080705.2027=
+571-1-mika.kahola@intel.com?part=3D1
