@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A3E606E012
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:50:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7226B606E013
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuPVt3/E
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=km+WsYY6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79EA510F0F9;
-	Mon,  2 Nov 2026 16:49:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E27D10F0DA;
+	Mon,  2 Nov 2026 16:49:56 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CBEC10F0E3;
- Mon,  2 Nov 2026 16:49:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF5710F0B3;
+ Mon,  2 Nov 2026 16:49:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 24EF143D67;
- Mon,  2 Nov 2026 16:49:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591FE1F01833;
- Mon,  2 Nov 2026 16:49:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5830F43E80;
+ Mon,  2 Nov 2026 16:49:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915CE1F00A22;
+ Mon,  2 Nov 2026 16:49:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793638188;
- bh=so0lGgQRgYqwEUOe7kSUad+RxOSJt9V6H5hwEO4IVXk=;
+ s=k20260515; t=1793638184;
+ bh=yeR6qzcw7/AznNLkNn/kuZYVMEdlMEavCIHhHA0hw9k=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=FuPVt3/Eb8wxZ8ltORT7bfVHmBxOsVmLUIfUTLjr16H7LO4VzDOhXSHvgGS+OJwoP
- o3txnWTtWcaF0xiampm36M47ckf6QJQVDF0nLcSJMYRIJ06sT2OuWnKOMeJZYS6Ct2
- bAeNkt92WYL9w1EAhtIW/bjLsC91jkut8zhMQ90bn+6ZRzQM2uAGXpehaRBwGoOQav
- dDhes+DgFJ0nOuTZGg8b1cLI3A0xuEvd8PyP69GY9fnXNE/qNIs79gA45P9WiR/sHA
- YaOYl19FdPtDzwIPzQTXfVcfg8bArGyT6V3I9xGKQEB4SO4n/MF3BxyC9uiD6kFWTa
- ZinH2mLR1B5/w==
+ b=km+WsYY6J3ixPhJEOjVdn/scW5u4CE4Lp+zGdOy8hxj+fe+XjMbPX7mDabVREJtAh
+ PxpoOmEMiCHAru+8X08KdrZwaRhlHjPWYuFZBs5sSwhb+E+90lYgAJaKbnWytpp2f+
+ 3rbVwz1W7vtYQ4qgdvLAhGSrxsFGu2hnS3HSF1eIKe+RbaRJEezVcy7b4pPBiQwZvj
+ Mbx/LAfHD6gRXSpZuy0Tpk8p3bDxmva20LjwxFHiTCJ9lWytrINH5SPe6qJl7Ml4J2
+ AG7dff79aVM5fmvaflfi4uHCMG5F5CemyheCGtXbYZRd3rbrXaGez6UtbHbOMM4Udq
+ ellSAkLBjCd8Q==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:26 -0600
-Subject: [PATCH v10 10/15] drm/nouveau: add connector luminance support
+Date: Mon, 02 Nov 2026 10:49:24 -0600
+Subject: [PATCH v10 08/15] drm/panel: add connector luminance forwarding
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-10-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-8-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -73,297 +73,222 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose Nouveau panel brightness through the connector LUMINANCE property
-when DRM_LUMINANCE is enabled. Reuse the existing NV40, NV50, and DPCD
-hardware paths while preserving the backlight class interface otherwise.
+Add helpers that expose a panel backlight through the connector
+LUMINANCE property and forward connector updates to the backlight
+backend.
+
+Hook the helpers into panel bridges that create their own connector.
+Panels consumed directly, or by a panel bridge attached with
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, remain unchanged.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/nouveau/Kconfig             |   4 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c     |   2 +-
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 110 ++++++++++++++++++++++------
- drivers/gpu/drm/nouveau/nouveau_connector.c |   2 +
- drivers/gpu/drm/nouveau/nouveau_connector.h |  14 ++++
- 5 files changed, 108 insertions(+), 24 deletions(-)
+v10:
+ * Split panel support out of the combined panel and bridge patch
+ * Limit integration to panel bridges that own their connector
+---
+ drivers/gpu/drm/drm_panel.c | 99 +++++++++++++++++++++++++++++++++++++++++----
+ include/drm/drm_panel.h     | 39 +++---------------
+ 2 files changed, 97 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
-index 3b5757aed9c84..2dcb7c5344f48 100644
---- a/drivers/gpu/drm/nouveau/Kconfig
-+++ b/drivers/gpu/drm/nouveau/Kconfig
-@@ -17,13 +17,13 @@ config DRM_NOUVEAU
- 	select DRM_SCHED
- 	select I2C
- 	select I2C_ALGOBIT
--	select BACKLIGHT_CLASS_DEVICE if DRM_NOUVEAU_BACKLIGHT
-+	select BACKLIGHT_CLASS_DEVICE if DRM_NOUVEAU_BACKLIGHT && !DRM_LUMINANCE
- 	select X86_PLATFORM_DEVICES if ACPI && X86
- 	select ACPI_WMI if ACPI && X86
- 	select MXM_WMI if ACPI && X86
- 	select POWER_SUPPLY
- 	# Similar to i915, we need to select ACPI_VIDEO and it's dependencies
--	select BACKLIGHT_CLASS_DEVICE if ACPI && X86
-+	select BACKLIGHT_CLASS_DEVICE if ACPI && X86 && !DRM_LUMINANCE
- 	select INPUT if ACPI && X86
- 	select THERMAL if ACPI && X86
- 	select ACPI_VIDEO if ACPI && X86
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e91130f93db67..79be7900a0794 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1838,7 +1838,7 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
- 		backlight = nv_connector->backlight;
- 		if (backlight && backlight->uses_dpcd)
- 			drm_edp_backlight_enable(&nv_connector->aux, &backlight->edp_info,
--						 backlight->dev->props.brightness);
-+						 backlight->brightness);
- #endif
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index c00529bfb706b..a5706edad9735 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -38,6 +38,19 @@ static LIST_HEAD(panel_list);
+  * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
+  */
  
- 		break;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index da1ee24a2531d..fefcfa8c2a3a9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -73,12 +73,10 @@ nv40_get_intensity(struct backlight_device *bd)
- }
- 
- static int
--nv40_set_intensity(struct backlight_device *bd)
-+nv40_set_intensity_value(struct nouveau_encoder *nv_encoder, int val)
- {
--	struct nouveau_encoder *nv_encoder = bl_get_data(bd);
- 	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
- 	struct nvif_object *device = &drm->client.device.object;
--	int val = bd->props.brightness;
- 	int reg = nvif_rd32(device, NV40_PMC_BACKLIGHT);
- 
- 	nvif_wr32(device, NV40_PMC_BACKLIGHT,
-@@ -87,6 +85,12 @@ nv40_set_intensity(struct backlight_device *bd)
- 	return 0;
- }
- 
-+static int
-+nv40_set_intensity(struct backlight_device *bd)
++struct panel_bridge {
++	struct drm_bridge bridge;
++	struct drm_connector connector;
++	struct drm_panel *panel;
++	u32 connector_type;
++};
++
++static inline struct panel_bridge *
++drm_connector_to_panel_bridge(const struct drm_connector *connector)
 +{
-+	return nv40_set_intensity_value(bl_get_data(bd), bd->props.brightness);
++	return container_of(connector, struct panel_bridge, connector);
 +}
 +
- static const struct backlight_ops nv40_bl_ops = {
- 	.options = BL_CORE_SUSPENDRESUME,
- 	.get_brightness = nv40_get_intensity,
-@@ -105,6 +109,8 @@ nv40_backlight_init(struct nouveau_encoder *encoder,
- 		return -ENODEV;
- 
- 	props->max_brightness = 31;
-+	props->brightness = (nvif_rd32(device, NV40_PMC_BACKLIGHT) &
-+			     NV40_PMC_BACKLIGHT_MASK) >> 16;
- 	*ops = &nv40_bl_ops;
- 	return 0;
- }
-@@ -234,12 +240,15 @@ nv50_backlight_init(struct nouveau_backlight *bl,
- 		    const struct backlight_ops **ops)
+ static inline struct drm_panel *
+ drm_bridge_to_panel(const struct drm_bridge *bridge)
  {
- 	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
-+	int brightness;
-+
-+	brightness = nvif_outp_bl_get(&nv_encoder->outp);
- 
- 	/*
- 	 * Note when this runs the connectors have not been probed yet,
- 	 * so nv_conn->base.status is not set yet.
- 	 */
--	if (nvif_outp_bl_get(&nv_encoder->outp) < 0 ||
-+	if (brightness < 0 ||
- 	    drm_helper_probe_detect(&nv_conn->base, NULL, false) != connector_status_connected)
- 		return -ENODEV;
- 
-@@ -284,6 +293,7 @@ nv50_backlight_init(struct nouveau_backlight *bl,
- 
- 	*ops = &nv50_bl_ops;
- 	props->max_brightness = 100;
-+	props->brightness = brightness;
- 	return 0;
+@@ -50,13 +63,6 @@ drm_connector_to_panel(const struct drm_connector *connector)
+ 	return container_of(connector, struct drm_panel, connector);
  }
  
-@@ -317,10 +327,13 @@ nouveau_backlight_init(struct drm_connector *connector)
- 	bl = kzalloc_obj(*bl);
- 	if (!bl)
- 		return -ENOMEM;
-+	bl->id = -1;
-+	bl->encoder = nv_encoder;
- 
- 	switch (device->info.family) {
- 	case NV_DEVICE_INFO_V0_CURIE:
- 		ret = nv40_backlight_init(nv_encoder, &props, &ops);
-+		bl->uses_nv40 = true;
- 		break;
- 	case NV_DEVICE_INFO_V0_TESLA:
- 	case NV_DEVICE_INFO_V0_FERMI:
-@@ -349,26 +362,39 @@ nouveau_backlight_init(struct drm_connector *connector)
- 		goto fail_alloc;
- 	}
- 
--	if (!nouveau_get_backlight_name(backlight_name, bl)) {
--		NV_ERROR(drm, "Failed to retrieve a unique name for the backlight interface\n");
--		goto fail_alloc;
--	}
+-struct panel_bridge {
+-	struct drm_bridge bridge;
+-	struct drm_connector connector;
+-	struct drm_panel *panel;
+-	u32 connector_type;
+-};
 -
- 	props.type = BACKLIGHT_RAW;
--	bl->dev = backlight_device_register(backlight_name, connector->kdev,
--					    nv_encoder, ops, &props);
--	if (IS_ERR(bl->dev)) {
--		if (bl->id >= 0)
--			ida_free(&bl_ida, bl->id);
--		ret = PTR_ERR(bl->dev);
--		goto fail_alloc;
-+	bl->brightness = props.brightness;
-+	bl->max_brightness = props.max_brightness;
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+		ret = drm_connector_attach_luminance_property(connector, 0, props.max_brightness,
-+							      props.brightness);
-+		if (ret)
-+			goto fail_alloc;
-+	} else {
-+		if (!nouveau_get_backlight_name(backlight_name, bl)) {
-+			NV_ERROR(drm,
-+				 "Failed to retrieve a unique name for the backlight interface\n");
-+			goto fail_alloc;
-+		}
-+
-+		bl->dev = backlight_device_register(backlight_name, connector->kdev,
-+						    nv_encoder, ops, &props);
-+		if (IS_ERR(bl->dev)) {
-+			if (bl->id >= 0)
-+				ida_free(&bl_ida, bl->id);
-+			ret = PTR_ERR(bl->dev);
-+			goto fail_alloc;
-+		}
- 	}
- 
- 	nouveau_connector(connector)->backlight = bl;
--	if (!bl->dev->props.brightness)
--		bl->dev->props.brightness =
--			bl->dev->ops->get_brightness(bl->dev);
--	backlight_update_status(bl->dev);
-+	if (bl->dev) {
-+		if (!bl->dev->props.brightness)
-+			bl->dev->props.brightness =
-+				bl->dev->ops->get_brightness(bl->dev);
-+		bl->brightness = bl->dev->props.brightness;
-+		backlight_update_status(bl->dev);
-+	}
- 
- 	return 0;
- 
-@@ -396,7 +422,9 @@ nouveau_backlight_fini(struct drm_connector *connector)
- 	if (bl->id >= 0)
- 		ida_free(&bl_ida, bl->id);
- 
--	backlight_device_unregister(bl->dev);
-+	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE))
-+		backlight_device_unregister(bl->dev);
-+
- 	nv_conn->backlight = NULL;
- 	kfree(bl);
- }
-@@ -412,3 +440,43 @@ nouveau_backlight_dtor(void)
+ static int panel_bridge_connector_get_modes(struct drm_connector *connector)
  {
- 	ida_destroy(&bl_ida);
+ 	struct drm_panel *panel = drm_connector_to_panel(connector);
+@@ -64,9 +70,29 @@ static int panel_bridge_connector_get_modes(struct drm_connector *connector)
+ 	return drm_panel_get_modes(panel, connector);
  }
-+
-+void
-+nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state)
+ 
++static void
++panel_bridge_connector_set_luminance(const struct drm_connector_state *conn_state)
 +{
-+	struct nouveau_connector *nv_connector = nouveau_connector(conn_state->connector);
-+	struct nouveau_backlight *bl = nv_connector->backlight;
-+	unsigned int luminance = conn_state->luminance;
++	struct panel_bridge *panel_bridge =
++		drm_connector_to_panel_bridge(conn_state->connector);
 +
-+	if (!bl || !bl->max_brightness)
-+		return;
-+
-+	bl->brightness = luminance;
-+	if (bl->uses_dpcd) {
-+		drm_edp_backlight_set_level(&nv_connector->aux, &bl->edp_info,
-+					    luminance);
-+		return;
-+	}
-+
-+	if (bl->uses_nv40)
-+		nv40_set_intensity_value(bl->encoder, luminance);
-+	else
-+		nvif_outp_bl_set(&bl->encoder->outp, luminance);
++	drm_panel_set_luminance(panel_bridge->panel, conn_state->luminance);
 +}
 +
-+void
-+nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state)
++static void
++panel_bridge_connector_disable_luminance(const struct drm_connector_state *conn_state)
 +{
-+	struct nouveau_connector *nv_connector = nouveau_connector(conn_state->connector);
-+	struct nouveau_backlight *bl = nv_connector->backlight;
++	struct panel_bridge *panel_bridge =
++		drm_connector_to_panel_bridge(conn_state->connector);
 +
-+	if (!bl)
-+		return;
-+
-+	if (bl->uses_dpcd)
-+		drm_edp_backlight_disable(&nv_connector->aux, &bl->edp_info);
-+	else if (bl->uses_nv40)
-+		nv40_set_intensity_value(bl->encoder, 0);
-+	else
-+		nvif_outp_bl_set(&bl->encoder->outp, 0);
++	drm_panel_disable_luminance(panel_bridge->panel);
 +}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index cc3caf8de64b0..56ee579ea7909 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -1225,6 +1225,8 @@ nouveau_connector_helper_funcs = {
- 	.mode_valid = nouveau_connector_mode_valid,
- 	.best_encoder = nouveau_connector_best_encoder,
- 	.atomic_check = nouveau_connector_atomic_check,
-+	.set_luminance = nouveau_backlight_set_luminance,
-+	.disable_luminance = nouveau_backlight_disable_luminance,
++
+ static const struct drm_connector_helper_funcs
+ panel_bridge_connector_helper_funcs = {
+ 	.get_modes = panel_bridge_connector_get_modes,
++	.set_luminance = panel_bridge_connector_set_luminance,
++	.disable_luminance = panel_bridge_connector_disable_luminance,
  };
  
- static const struct drm_connector_funcs
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
-index eb292d2ba4bcd..0cee3e4c1d11c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
-@@ -50,9 +50,13 @@ struct nouveau_backlight {
- 	struct backlight_device *dev;
+ static const struct drm_connector_funcs panel_bridge_connector_funcs = {
+@@ -101,6 +127,10 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
  
- 	struct drm_edp_backlight_info edp_info;
-+	struct nouveau_encoder *encoder;
- 	bool uses_dpcd : 1;
-+	bool uses_nv40 : 1;
+ 	drm_panel_bridge_set_orientation(connector, bridge);
  
- 	int id;
-+	int brightness;
-+	int max_brightness;
- };
- #endif
++	ret = drm_panel_attach_luminance_property(panel, connector);
++	if (ret)
++		return ret;
++
+ 	drm_connector_attach_encoder(connector, encoder);
  
-@@ -239,6 +243,8 @@ extern int nouveau_backlight_init(struct drm_connector *);
- extern void nouveau_backlight_fini(struct drm_connector *);
- extern void nouveau_backlight_ctor(void);
- extern void nouveau_backlight_dtor(void);
-+void nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state);
-+void nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state);
- #else
- static inline int
- nouveau_backlight_init(struct drm_connector *connector)
-@@ -257,6 +263,14 @@ nouveau_backlight_ctor(void) {
- static inline void
- nouveau_backlight_dtor(void) {
+ 	if (bridge->dev->registered) {
+@@ -861,6 +891,61 @@ void drm_panel_disable(struct drm_panel *panel)
  }
+ EXPORT_SYMBOL(drm_panel_disable);
+ 
++/**
++ * drm_panel_attach_luminance_property - expose a panel backlight through DRM
++ * @panel: panel whose backlight is controlled
++ * @connector: connector on which to expose the property
++ *
++ * The backlight class device remains the internal hardware backend. When the
++ * luminance UAPI is enabled, userspace controls that backend through the DRM
++ * connector property instead.
++ *
++ * Return: 0 on success or a negative error code
++ */
++int drm_panel_attach_luminance_property(struct drm_panel *panel,
++					struct drm_connector *connector)
++{
++	struct backlight_device *backlight;
 +
-+static inline void
-+nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state) {
-+}
++	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE) || !panel)
++		return 0;
 +
-+static inline void
-+nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state) {
++	backlight = panel->backlight;
++	if (!backlight)
++		return 0;
++
++	return drm_connector_attach_luminance_property(connector, 0,
++					backlight->props.max_brightness,
++					backlight->props.brightness);
 +}
++EXPORT_SYMBOL(drm_panel_attach_luminance_property);
++
++/**
++ * drm_panel_set_luminance - set a panel backlight's relative luminance
++ * @panel: panel whose backlight is controlled
++ * @luminance: relative luminance level
++ */
++void drm_panel_set_luminance(struct drm_panel *panel, unsigned int luminance)
++{
++	if (!panel || !panel->backlight)
++		return;
++
++	panel->backlight->props.brightness = luminance;
++	backlight_update_status(panel->backlight);
++}
++EXPORT_SYMBOL(drm_panel_set_luminance);
++
++/**
++ * drm_panel_disable_luminance - turn off a panel backlight
++ * @panel: panel whose backlight is controlled
++ */
++void drm_panel_disable_luminance(struct drm_panel *panel)
++{
++	if (panel)
++		backlight_disable(panel->backlight);
++}
++EXPORT_SYMBOL(drm_panel_disable_luminance);
++
+ /**
+  * drm_panel_get_modes - probe the available display modes of a panel
+  * @panel: DRM panel
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index 58113ea7d63a0..76d49d4485ff0 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -342,6 +342,11 @@ void drm_panel_unprepare(struct drm_panel *panel);
+ void drm_panel_enable(struct drm_panel *panel);
+ void drm_panel_disable(struct drm_panel *panel);
+ 
++int drm_panel_attach_luminance_property(struct drm_panel *panel,
++					struct drm_connector *connector);
++void drm_panel_set_luminance(struct drm_panel *panel, unsigned int luminance);
++void drm_panel_disable_luminance(struct drm_panel *panel);
++
+ int drm_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector);
+ 
+ #if defined(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL)
+@@ -418,40 +423,6 @@ struct drm_bridge *devm_drm_panel_bridge_add_typed(struct device *dev,
+ struct drm_bridge *drmm_panel_bridge_add(struct drm_device *drm,
+ 					 struct drm_panel *panel);
+ struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *bridge);
+-#else
+-static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
+-{
+-	return false;
+-}
+-
+-static inline int drm_panel_bridge_set_orientation(struct drm_connector *connector,
+-						   struct drm_bridge *bridge)
+-{
+-	return -EINVAL;
+-}
+-#endif
+-
+-#if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL_BRIDGE)
+-struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct device_node *node,
+-					  u32 port, u32 endpoint);
+-struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct device_node *node,
+-				      u32 port, u32 endpoint);
+-#else
+-static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
+-							struct device_node *node,
+-							u32 port,
+-							u32 endpoint)
+-{
+-	return ERR_PTR(-ENODEV);
+-}
+-
+-static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
+-						    struct device_node *node,
+-						    u32 port,
+-						    u32 endpoint)
+-{
+-	return ERR_PTR(-ENODEV);
+-}
  #endif
  
- #endif /* __NOUVEAU_CONNECTOR_H__ */
+ #endif
 
 -- 
 2.53.0
