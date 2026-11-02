@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7226B606E013
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499F8606E028
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:50:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=km+WsYY6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnmXVOH+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E27D10F0DA;
-	Mon,  2 Nov 2026 16:49:56 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF5710F0B3;
- Mon,  2 Nov 2026 16:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A54610F106;
+	Mon,  2 Nov 2026 16:49:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A83BE10F0EE;
+ Mon,  2 Nov 2026 16:49:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5830F43E80;
- Mon,  2 Nov 2026 16:49:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915CE1F00A22;
- Mon,  2 Nov 2026 16:49:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2B21C60F1F;
+ Mon,  2 Nov 2026 16:49:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345F71F00A17;
+ Mon,  2 Nov 2026 16:49:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793638184;
- bh=yeR6qzcw7/AznNLkNn/kuZYVMEdlMEavCIHhHA0hw9k=;
+ s=k20260515; t=1793638191;
+ bh=CeLtMJy3R9kxJji/8niFyp2uHd5KpQJ0Wu7DMhAOnSE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=km+WsYY6J3ixPhJEOjVdn/scW5u4CE4Lp+zGdOy8hxj+fe+XjMbPX7mDabVREJtAh
- PxpoOmEMiCHAru+8X08KdrZwaRhlHjPWYuFZBs5sSwhb+E+90lYgAJaKbnWytpp2f+
- 3rbVwz1W7vtYQ4qgdvLAhGSrxsFGu2hnS3HSF1eIKe+RbaRJEezVcy7b4pPBiQwZvj
- Mbx/LAfHD6gRXSpZuy0Tpk8p3bDxmva20LjwxFHiTCJ9lWytrINH5SPe6qJl7Ml4J2
- AG7dff79aVM5fmvaflfi4uHCMG5F5CemyheCGtXbYZRd3rbrXaGez6UtbHbOMM4Udq
- ellSAkLBjCd8Q==
+ b=RnmXVOH+rb1Uh8zAevN2KU4Btz7MUa1RKO1lUYYQ0G7KZwsHWAa4H2t3gHGWUIRpW
+ wof6sw7RXawOXyqj0spbljNjs3aktMJoIzp2PVGTr7EnAR6WzVM72nGFcG3EW+dUdQ
+ tN3NfI2gEd7lCD5Za/QknmqhO6iB0j8y9h26gTc8ULWhHk2dBvnYOh9yzQevRORYl2
+ oyPR6BO2eZEerFlSv0jLsRweDs9BBUT2WxfgYjaAB1r0FAfd3DilWKiH05ppBJpdxP
+ ShC9nJQpR2db7TIhmcVBzugy4i17FEAaTk3amPRdoUwvKRNmWpbpmGavYQxg2NPkCi
+ PGiZwUk2dtY2Q==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:24 -0600
-Subject: [PATCH v10 08/15] drm/panel: add connector luminance forwarding
+Date: Mon, 02 Nov 2026 10:49:28 -0600
+Subject: [PATCH v10 12/15] drm/radeon: add connector luminance support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-8-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-12-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -73,222 +73,267 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Add helpers that expose a panel backlight through the connector
-LUMINANCE property and forward connector updates to the backlight
-backend.
-
-Hook the helpers into panel bridges that create their own connector.
-Panels consumed directly, or by a panel bridge attached with
-DRM_BRIDGE_ATTACH_NO_CONNECTOR, remain unchanged.
+Expose Radeon panel brightness through the connector LUMINANCE property
+when DRM_LUMINANCE is enabled. Reuse the AtomBIOS and legacy hardware
+programming paths and preserve the backlight class interface otherwise.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-v10:
- * Split panel support out of the combined panel and bridge patch
- * Limit integration to panel bridges that own their connector
----
- drivers/gpu/drm/drm_panel.c | 99 +++++++++++++++++++++++++++++++++++++++++----
- include/drm/drm_panel.h     | 39 +++---------------
- 2 files changed, 97 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/radeon/Kconfig                  |  2 +-
+ drivers/gpu/drm/radeon/atombios_encoders.c      | 32 ++++++++++++++--
+ drivers/gpu/drm/radeon/radeon_connectors.c      | 34 +++++++++++++++++
+ drivers/gpu/drm/radeon/radeon_legacy_encoders.c | 49 ++++++++++++++++++++-----
+ drivers/gpu/drm/radeon/radeon_mode.h            |  2 +
+ 5 files changed, 106 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index c00529bfb706b..a5706edad9735 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -38,6 +38,19 @@ static LIST_HEAD(panel_list);
-  * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
-  */
- 
-+struct panel_bridge {
-+	struct drm_bridge bridge;
-+	struct drm_connector connector;
-+	struct drm_panel *panel;
-+	u32 connector_type;
-+};
+diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kconfig
+index 3cd70aef770e1..2ccad1f2f8cee 100644
+--- a/drivers/gpu/drm/radeon/Kconfig
++++ b/drivers/gpu/drm/radeon/Kconfig
+@@ -17,7 +17,7 @@ config DRM_RADEON
+ 	select SND_HDA_COMPONENT if SND_HDA_CORE
+ 	select POWER_SUPPLY
+ 	select HWMON
+-	select BACKLIGHT_CLASS_DEVICE
++	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+ 	select INTERVAL_TREE
+ 	select I2C
+ 	select I2C_ALGOBIT
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index 5b9c72bf40994..e6f762625bf1a 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -227,6 +227,27 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	memset(&props, 0, sizeof(props));
+ 	props.max_brightness = RADEON_MAX_BL_LEVEL;
+ 	props.type = BACKLIGHT_RAW;
++	pdata->encoder = radeon_encoder;
++	pdata->atom = true;
++	radeon_encoder->backlight_priv = pdata;
 +
-+static inline struct panel_bridge *
-+drm_connector_to_panel_bridge(const struct drm_connector *connector)
-+{
-+	return container_of(connector, struct panel_bridge, connector);
-+}
++	dig = radeon_encoder->enc_priv;
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		props.brightness = atombios_get_backlight_level(radeon_encoder);
++		if (!props.brightness)
++			props.brightness = RADEON_MAX_BL_LEVEL;
 +
- static inline struct drm_panel *
- drm_bridge_to_panel(const struct drm_bridge *bridge)
- {
-@@ -50,13 +63,6 @@ drm_connector_to_panel(const struct drm_connector *connector)
- 	return container_of(connector, struct drm_panel, connector);
- }
++		if (drm_connector_attach_luminance_property(drm_connector, 0,
++							    props.max_brightness,
++							     props.brightness))
++			goto error;
++
++		atombios_set_backlight_level(radeon_encoder, props.brightness);
++		dig->bl_dev = NULL;
++		rdev->mode_info.bl_encoder = radeon_encoder;
++		return;
++	}
++
+ 	snprintf(bl_name, sizeof(bl_name),
+ 		 "radeon_bl%d", dev->primary->index);
+ 	bd = backlight_device_register(bl_name, drm_connector->kdev,
+@@ -236,9 +257,6 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
+ 		goto error;
+ 	}
  
--struct panel_bridge {
--	struct drm_bridge bridge;
--	struct drm_connector connector;
--	struct drm_panel *panel;
--	u32 connector_type;
--};
+-	pdata->encoder = radeon_encoder;
 -
- static int panel_bridge_connector_get_modes(struct drm_connector *connector)
- {
- 	struct drm_panel *panel = drm_connector_to_panel(connector);
-@@ -64,9 +70,29 @@ static int panel_bridge_connector_get_modes(struct drm_connector *connector)
- 	return drm_panel_get_modes(panel, connector);
+-	dig = radeon_encoder->enc_priv;
+ 	dig->bl_dev = bd;
+ 
+ 	bd->props.brightness = radeon_atom_backlight_get_brightness(bd);
+@@ -258,6 +276,7 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	return;
+ 
+ error:
++	radeon_encoder->backlight_priv = NULL;
+ 	kfree(pdata);
+ 	return;
+ }
+@@ -282,12 +301,19 @@ static void radeon_atom_backlight_exit(struct radeon_encoder *radeon_encoder)
+ 	bd = dig->bl_dev;
+ 	dig->bl_dev = NULL;
+ 
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		kfree(radeon_encoder->backlight_priv);
++		radeon_encoder->backlight_priv = NULL;
++		return;
++	}
++
+ 	if (bd) {
+ 		struct radeon_legacy_backlight_privdata *pdata;
+ 
+ 		pdata = bl_get_data(bd);
+ 		backlight_device_unregister(bd);
+ 		kfree(pdata);
++		radeon_encoder->backlight_priv = NULL;
+ 
+ 		DRM_INFO("radeon atom LVDS backlight unloaded\n");
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 16b048f58c9be..655361407b819 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -31,6 +31,7 @@
+ #include <drm/drm_probe_helper.h>
+ #include <drm/radeon_drm.h>
+ #include "radeon.h"
++#include "radeon_asic.h"
+ #include "radeon_audio.h"
+ #include "atom.h"
+ 
+@@ -931,11 +932,44 @@ static int radeon_lvds_set_property(struct drm_connector *connector,
+ 	return 0;
  }
  
-+static void
-+panel_bridge_connector_set_luminance(const struct drm_connector_state *conn_state)
++static void radeon_set_luminance(const struct drm_connector_state *conn_state)
 +{
-+	struct panel_bridge *panel_bridge =
-+		drm_connector_to_panel_bridge(conn_state->connector);
++	struct drm_encoder *encoder = radeon_best_single_encoder(conn_state->connector);
++	struct radeon_encoder *radeon_encoder;
++	struct radeon_backlight_privdata *pdata;
++	u8 level = conn_state->luminance;
 +
-+	drm_panel_set_luminance(panel_bridge->panel, conn_state->luminance);
-+}
-+
-+static void
-+panel_bridge_connector_disable_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct panel_bridge *panel_bridge =
-+		drm_connector_to_panel_bridge(conn_state->connector);
-+
-+	drm_panel_disable_luminance(panel_bridge->panel);
-+}
-+
- static const struct drm_connector_helper_funcs
- panel_bridge_connector_helper_funcs = {
- 	.get_modes = panel_bridge_connector_get_modes,
-+	.set_luminance = panel_bridge_connector_set_luminance,
-+	.disable_luminance = panel_bridge_connector_disable_luminance,
- };
- 
- static const struct drm_connector_funcs panel_bridge_connector_funcs = {
-@@ -101,6 +127,10 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
- 
- 	drm_panel_bridge_set_orientation(connector, bridge);
- 
-+	ret = drm_panel_attach_luminance_property(panel, connector);
-+	if (ret)
-+		return ret;
-+
- 	drm_connector_attach_encoder(connector, encoder);
- 
- 	if (bridge->dev->registered) {
-@@ -861,6 +891,61 @@ void drm_panel_disable(struct drm_panel *panel)
- }
- EXPORT_SYMBOL(drm_panel_disable);
- 
-+/**
-+ * drm_panel_attach_luminance_property - expose a panel backlight through DRM
-+ * @panel: panel whose backlight is controlled
-+ * @connector: connector on which to expose the property
-+ *
-+ * The backlight class device remains the internal hardware backend. When the
-+ * luminance UAPI is enabled, userspace controls that backend through the DRM
-+ * connector property instead.
-+ *
-+ * Return: 0 on success or a negative error code
-+ */
-+int drm_panel_attach_luminance_property(struct drm_panel *panel,
-+					struct drm_connector *connector)
-+{
-+	struct backlight_device *backlight;
-+
-+	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE) || !panel)
-+		return 0;
-+
-+	backlight = panel->backlight;
-+	if (!backlight)
-+		return 0;
-+
-+	return drm_connector_attach_luminance_property(connector, 0,
-+					backlight->props.max_brightness,
-+					backlight->props.brightness);
-+}
-+EXPORT_SYMBOL(drm_panel_attach_luminance_property);
-+
-+/**
-+ * drm_panel_set_luminance - set a panel backlight's relative luminance
-+ * @panel: panel whose backlight is controlled
-+ * @luminance: relative luminance level
-+ */
-+void drm_panel_set_luminance(struct drm_panel *panel, unsigned int luminance)
-+{
-+	if (!panel || !panel->backlight)
++	if (!encoder)
 +		return;
 +
-+	panel->backlight->props.brightness = luminance;
-+	backlight_update_status(panel->backlight);
-+}
-+EXPORT_SYMBOL(drm_panel_set_luminance);
++	radeon_encoder = to_radeon_encoder(encoder);
++	pdata = radeon_encoder->backlight_priv;
++	if (!pdata)
++		return;
 +
-+/**
-+ * drm_panel_disable_luminance - turn off a panel backlight
-+ * @panel: panel whose backlight is controlled
-+ */
-+void drm_panel_disable_luminance(struct drm_panel *panel)
++	if (pdata->atom) {
++		atombios_set_backlight_level(radeon_encoder, level);
++	} else {
++		if (pdata->negative)
++			level = RADEON_MAX_BL_LEVEL - level;
++		radeon_legacy_set_backlight_level(radeon_encoder, level);
++	}
++}
++
++static void radeon_disable_luminance(const struct drm_connector_state *conn_state)
 +{
-+	if (panel)
-+		backlight_disable(panel->backlight);
++	struct drm_connector_state state = *conn_state;
++
++	state.luminance = 0;
++	radeon_set_luminance(&state);
 +}
-+EXPORT_SYMBOL(drm_panel_disable_luminance);
-+
- /**
-  * drm_panel_get_modes - probe the available display modes of a panel
-  * @panel: DRM panel
-diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 58113ea7d63a0..76d49d4485ff0 100644
---- a/include/drm/drm_panel.h
-+++ b/include/drm/drm_panel.h
-@@ -342,6 +342,11 @@ void drm_panel_unprepare(struct drm_panel *panel);
- void drm_panel_enable(struct drm_panel *panel);
- void drm_panel_disable(struct drm_panel *panel);
  
-+int drm_panel_attach_luminance_property(struct drm_panel *panel,
-+					struct drm_connector *connector);
-+void drm_panel_set_luminance(struct drm_panel *panel, unsigned int luminance);
-+void drm_panel_disable_luminance(struct drm_panel *panel);
-+
- int drm_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector);
+ static const struct drm_connector_helper_funcs radeon_lvds_connector_helper_funcs = {
+ 	.get_modes = radeon_lvds_get_modes,
+ 	.mode_valid = radeon_lvds_mode_valid,
+ 	.best_encoder = radeon_best_single_encoder,
++	.set_luminance = radeon_set_luminance,
++	.disable_luminance = radeon_disable_luminance,
+ };
  
- #if defined(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL)
-@@ -418,40 +423,6 @@ struct drm_bridge *devm_drm_panel_bridge_add_typed(struct device *dev,
- struct drm_bridge *drmm_panel_bridge_add(struct drm_device *drm,
- 					 struct drm_panel *panel);
- struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *bridge);
--#else
--static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
--{
--	return false;
--}
+ static const struct drm_connector_funcs radeon_lvds_connector_funcs = {
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+index 1f82e2b57f5d5..96b0dfd8e3521 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+@@ -403,16 +403,9 @@ void radeon_legacy_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	memset(&props, 0, sizeof(props));
+ 	props.max_brightness = RADEON_MAX_BL_LEVEL;
+ 	props.type = BACKLIGHT_RAW;
+-	snprintf(bl_name, sizeof(bl_name),
+-		 "radeon_bl%d", dev->primary->index);
+-	bd = backlight_device_register(bl_name, drm_connector->kdev,
+-				       pdata, &radeon_backlight_ops, &props);
+-	if (IS_ERR(bd)) {
+-		DRM_ERROR("Backlight registration failed\n");
+-		goto error;
+-	}
 -
--static inline int drm_panel_bridge_set_orientation(struct drm_connector *connector,
--						   struct drm_bridge *bridge)
--{
--	return -EINVAL;
--}
--#endif
--
--#if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL_BRIDGE)
--struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct device_node *node,
--					  u32 port, u32 endpoint);
--struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct device_node *node,
--				      u32 port, u32 endpoint);
--#else
--static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
--							struct device_node *node,
--							u32 port,
--							u32 endpoint)
--{
--	return ERR_PTR(-ENODEV);
--}
--
--static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
--						    struct device_node *node,
--						    u32 port,
--						    u32 endpoint)
--{
--	return ERR_PTR(-ENODEV);
--}
+ 	pdata->encoder = radeon_encoder;
++	pdata->atom = false;
++	radeon_encoder->backlight_priv = pdata;
+ 
+ 	backlight_level = (RREG32(RADEON_LVDS_GEN_CNTL) >>
+ 			   RADEON_LVDS_BL_MOD_LEVEL_SHIFT) & 0xff;
+@@ -441,6 +434,36 @@ void radeon_legacy_backlight_init(struct radeon_encoder *radeon_encoder,
  #endif
+ 	}
  
- #endif
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		props.brightness = pdata->negative ?
++			RADEON_MAX_BL_LEVEL - backlight_level : backlight_level;
++		if (drm_connector_attach_luminance_property(drm_connector, 0,
++							    props.max_brightness,
++							     props.brightness))
++			goto error;
++
++		if (rdev->is_atom_bios) {
++			struct radeon_encoder_atom_dig *lvds = radeon_encoder->enc_priv;
++
++			lvds->bl_dev = NULL;
++		} else {
++			struct radeon_encoder_lvds *lvds = radeon_encoder->enc_priv;
++
++			lvds->bl_dev = NULL;
++		}
++		rdev->mode_info.bl_encoder = radeon_encoder;
++		return;
++	}
++
++	snprintf(bl_name, sizeof(bl_name),
++		 "radeon_bl%d", dev->primary->index);
++	bd = backlight_device_register(bl_name, drm_connector->kdev,
++				       pdata, &radeon_backlight_ops, &props);
++	if (IS_ERR(bd)) {
++		DRM_ERROR("Backlight registration failed\n");
++		goto error;
++	}
++
+ 	if (rdev->is_atom_bios) {
+ 		struct radeon_encoder_atom_dig *lvds = radeon_encoder->enc_priv;
+ 		lvds->bl_dev = bd;
+@@ -459,6 +482,7 @@ void radeon_legacy_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	return;
+ 
+ error:
++	radeon_encoder->backlight_priv = NULL;
+ 	kfree(pdata);
+ 	return;
+ }
+@@ -482,12 +506,19 @@ static void radeon_legacy_backlight_exit(struct radeon_encoder *radeon_encoder)
+ 		lvds->bl_dev = NULL;
+ 	}
+ 
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		kfree(radeon_encoder->backlight_priv);
++		radeon_encoder->backlight_priv = NULL;
++		return;
++	}
++
+ 	if (bd) {
+ 		struct radeon_backlight_privdata *pdata;
+ 
+ 		pdata = bl_get_data(bd);
+ 		backlight_device_unregister(bd);
+ 		kfree(pdata);
++		radeon_encoder->backlight_priv = NULL;
+ 
+ 		DRM_INFO("radeon legacy LVDS backlight unloaded\n");
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 6a16d821915d2..1c5b9ed0b6989 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -284,6 +284,7 @@ struct radeon_mode_info {
+ struct radeon_backlight_privdata {
+ 	struct radeon_encoder *encoder;
+ 	uint8_t negative;
++	bool atom;
+ };
+ 
+ #define MAX_H_CODE_TIMING_LEN 32
+@@ -456,6 +457,7 @@ struct radeon_encoder {
+ 	uint32_t underscan_vborder;
+ 	struct drm_display_mode native_mode;
+ 	void *enc_priv;
++	struct radeon_backlight_privdata *backlight_priv;
+ 	int audio_polling_active;
+ 	bool is_ext_encoder;
+ 	u16 caps;
 
 -- 
 2.53.0
