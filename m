@@ -2,29 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF5760A260E
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 13:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7FD606A339
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 13:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=inxstQ9z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 646D610EDAD;
-	Mon,  2 Nov 2026 13:01:56 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C810410EDA9;
- Mon,  2 Nov 2026 13:01:55 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D15210EDBF;
+	Mon,  2 Nov 2026 13:02:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42CBA10EDAF;
+ Mon,  2 Nov 2026 13:02:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793624521; x=1825160521;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=drxTo++OZkH7kBDSpfcynKa97bsiB9evM2el8QcMEC0=;
+ b=inxstQ9zkCPbKo0XIQD8fAz6Nf5J1OBtT0ABo9NTTra6B6CVOD5iLbQm
+ vJOemDAhe/7+V5yZxwnhlpV+x5i/+ZVF47CQMlZFvb/A4YwFiXStGoUgd
+ CpdTxqSJzjC0fXWikU3oMAjfd9tEan5cAihFQFTTO3gYKZ6UcIsRtkJUx
+ vNLhJIP7HXeWWlJwOsxCY8ywSGEWhH9TkTNnYcHVFef0+y5PdGMVWqNeW
+ GCyajC5aTI4N0ivHYc04ZO8L6/Gub0JLkLKGyFAIohnoZ9B3R4wxIM2J+
+ t3Vl8SP/CVaNmGR2AFra+jTiSzAfHGu3B/30ncqh7gl23fn6sjwpt4/HV g==;
+X-CSE-ConnectionGUID: twn57bJyTvu/xolwUKzZZw==
+X-CSE-MsgGUID: 5GNs1WnJSderR1ujK33vUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2191419"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2191419"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 05:01:49 -0800
+X-CSE-ConnectionGUID: 7v3+O6SmRse+47iagkBWOA==
+X-CSE-MsgGUID: FVk/xTTMQl2oCXXGju5lfw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6449554"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 02 Nov 2026 05:01:46 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+ id 236A699; Mon, 02 Nov 2026 14:01:45 +0100 (CET)
+Date: Mon, 2 Nov 2026 14:01:45 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: diego.sure@gmail.com
+Cc: Imre Deak <imre.deak@intel.com>, dri-devel@lists.freedesktop.org,
+ Uma Shankar <uma.shankar@intel.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mika Westerberg <westeri@kernel.org>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] drm/dp_tunnel: Allow BWA when the DP IN adapter does
+ not advertise it
+Message-ID: <20261102130145.GU158991@black.igk.intel.com>
+References: <20261031-dp-tunnel-bwa-flag-v1-1-f94ed3179349@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_series_starting?=
- =?utf-8?q?_with_=5B1/1=5D_PM=3A_runtime=3A_change_stub_pm=5Fruntime=5Fget?=
- =?utf-8?q?=5Fif=5Factive=28=29_return_1_when_!CONFIG=5FPM?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: frank.li@oss.nxp.com
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 02 Nov 2026 13:01:55 -0000
-Message-ID: <179362451580.102798.18445634149127066042@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261031-dp-tunnel-bwa-flag-v1-1-f94ed3179349@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -35,24 +74,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-== Series Details ==
+Hi,
 
-Series: series starting with [1/1] PM: runtime: change stub pm_runtime_get_if_active() return 1 when !CONFIG_PM
-URL   : https://patchwork.freedesktop.org/series/177450/
-State : failure
+On Sat, Oct 31, 2026 at 01:18:18AM +0100, Diego Noguês via B4 Relay wrote:
+> From: Diego Noguês <diego.sure@gmail.com>
+> 
+> On an Alder Lake host (i7-1265U) with a Thunderbolt 4 dock (Dell WD22TB4,
+> Goshen Ridge) driving two 4K@60 monitors through two DP tunnels, the
+> monitor whose tunnel is created second is limited to 4K@30. Which monitor
+> is affected depends only on the order in which they are powered on.
+> 
+> The thunderbolt driver enables the BW allocation mode (BWA) on both DP IN
+> adapters: it sets the CM BWA support (DP_USB4_DRIVER_BW_CAPABILITY), a
+> group ID and the estimated BW. The DP IN adapter, however, never sets
+> DP_IN_BW_ALLOCATION_MODE_SUPPORT in DP_TUNNELING_CAPABILITIES (0xe000d
+> reads 0x01), so tunnel_regs_are_valid() rejects the tunnel with:
 
-== Summary ==
-
-Series author address 'frank.li@oss.nxp.com' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/191952/ (on built-in)
-
-
+Alder Lake firmware really does not support this and by forcing it to be
+enabled you may end up in untested code paths and interesting behavior :)
+BWA was only officially supported starting from Meteor Lake.
