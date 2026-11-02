@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872A3606A334
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 18:00:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED92F606A326
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 18:17:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PL+cwV2M
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W8kqkWNu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE9510F0A5;
-	Mon,  2 Nov 2026 18:00:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 914E410F125;
+	Mon,  2 Nov 2026 18:17:42 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C973810F0A5;
- Mon,  2 Nov 2026 18:00:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF86510F11A;
+ Mon,  2 Nov 2026 18:17:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8209F411BA;
- Mon,  2 Nov 2026 18:00:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA731F00A16;
- Mon,  2 Nov 2026 18:00:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7671D43CD4;
+ Mon,  2 Nov 2026 18:17:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C981F00A16;
+ Mon,  2 Nov 2026 18:17:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793642430;
- bh=xfQXiR0waxNaVgKjR2iU+kFlkn7FoWk8VuMm344wi/g=;
+ s=k20260515; t=1793643456;
+ bh=oGb9IJZmXS8J+4dewRtB+Tt+Cu4qeQQWLvEE8ttL52E=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PL+cwV2MxNmCokocZk8VeKqEYcDzYO3Rn1udgStGWcnmT8rArEneCRwOW8mfKEswv
- Nr1T+PrHET1byOf3dU+acZt1OUTmwhN+It3kSuUlvoI0vI56CbJEWZN4WwDDRQ5pBV
- KRI4vJzl1zPuhP7+JyoXuKnzhcotn2wzlQXhVavBXWOpdr3NIBFszAXI423jm3auHs
- //GSSwkJnV3/4/vJxDFrP4KoBGO954aP/kq0dlpkiFRyJs/3zaS2UFKD/otdnZa6UK
- GoiccULpRgCxKp0vMTCJqAOyj6RX/3seqUeMlB/Hh7jb1chkXY8usV/RjXX3k8GDBy
- uLAEGZSSy1o6g==
-Message-ID: <sashiko-outbox-193892@kernel.org>
+ b=W8kqkWNumfz32fr93d/DzbBJRlmFuJ/kSpCwkVGTdvwQHZomPtQsp4QIQhyv6EK6z
+ QI/Vve9AHcnIKjTCRdH+EpoYZ2C5VfjLRz2R9sLoOgwBsGMj+V/rdf3bJGAzWqd0nr
+ DSS2EWe6YUoCfsNrwOEZJJImgIX3YaR5yfij7Dz5TNxzQDdsTIZ5GnEL8DQG+CMGTh
+ f5TNJuBZa5+TcyTRPxMydnHl6qRNrp7LRvaborpZptHwZJ98Kwb1p83ziKVTItGtAX
+ mKV3yFMb0yoHP+qunSeiJiY6idMg/22y6lc0m977GRLWvJHE04htoeVrGYbTRv22J1
+ oJLpwNfkyHHpA==
+Message-ID: <sashiko-outbox-193920@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 05/15] drm/amd/display: update KUnit luminance fixtures
+Subject: Re: [PATCH v10 06/15] drm/i915/display: add luminance property support
 To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-In-Reply-To: <20261102-superm1-backlight-property-v10-5-b2a6f24131f5@kernel.org>
+In-Reply-To: <20261102-superm1-backlight-property-v10-6-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
- <20261102-superm1-backlight-property-v10-5-b2a6f24131f5@kernel.org>
+ <20261102-superm1-backlight-property-v10-6-b2a6f24131f5@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 18:00:29 +0000
+Date: Mon, 02 Nov 2026 18:17:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,160 +53,221 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] drm/amd/display: wrong connector_type IDA freed in setup_test_co=
-nnector() user
-- [Medium] drm/amd/display: link failure in backlight KUnit test when DRM_L=
-UMINANCE=3Dy
+- [High] drm/i915/display: missing acpi_video_backlight_use_native() call
+- [Medium] drm/i915/display: stale backlight level programmed on modeset en=
+able
+- [Low] drm/i915/display: build failure in intel_backlight_set_luminance()
+- [Low] drm/i915: unmet BACKLIGHT_CLASS_DEVICE dependency for ACPI_VIDEO
 --
 
-commit 66d823079de9e4318719fbb2464a13997a1ae155
-Author: Mario Limonciello (AMD) <superm1@kernel.org>
+commit e18daa9a197d727d1dc5e00c9bb74f3e09fc2495
+Author: Mario Limonciello <mario.limonciello@amd.com>
 
-drm/amd/display: update KUnit luminance fixtures
+drm/i915/display: add luminance property support
 
-This commit updates the backlight KUnit test fixtures to initialize DRM mode
-configuration, connector state, and the display manager lock so tests work
-when the atomic LUMINANCE property is enabled.
+This commit adds support for the DRM LUMINANCE connector property on eDP,
+LVDS, and DSI panels in i915 and Xe when CONFIG_DRM_LUMINANCE is enabled,
+while retaining the backlight class device when it is disabled.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backli=
-ght_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c
-> index b21850788f36f..8883010e8af9c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
-t.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
-t.c
-> @@ -41,12 +41,21 @@ static void setup_test_connector(struct kunit *test,
->  				 struct dm_backlight_connector_fixture *fixture,
->  				 int bl_idx, enum signal_type signal)
->  {
-> -	fixture->adev =3D kunit_kzalloc(test, sizeof(*fixture->adev), GFP_KERNE=
-L);
-> -	fixture->aconnector =3D kunit_kzalloc(test, sizeof(*fixture->aconnector=
-), GFP_KERNEL);
-> +	int ret;
-> +
-> +	fixture->adev =3D dm_kunit_alloc_adev(test);
-> +	ret =3D drmm_mode_config_init(&fixture->adev->ddev);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +	fixture->aconnector =3D dm_kunit_alloc_connector(test, fixture->adev, N=
-ULL);
->  	fixture->link =3D kunit_kzalloc(test, sizeof(*fixture->link), GFP_KERNE=
-L);
-> -	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->adev);
-> -	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->aconnector);
->  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->link);
-> +	ret =3D drmm_connector_init(&fixture->adev->ddev,
-> +				  &fixture->aconnector->base,
-> +				  &dm_backlight_test_connector_funcs,
-> +				  DRM_MODE_CONNECTOR_eDP, NULL);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +	drm_atomic_helper_connector_reset(&fixture->aconnector->base);
+> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> index 71426b9c91f00..720191673a1e7 100644
+> --- a/drivers/gpu/drm/i915/Kconfig
+> +++ b/drivers/gpu/drm/i915/Kconfig
+> @@ -26,7 +26,7 @@ config DRM_I915
+>  	select IRQ_WORK
+>  	# i915 depends on ACPI_VIDEO when ACPI is enabled
+>  	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
+> -	select BACKLIGHT_CLASS_DEVICE if ACPI
+> +	select BACKLIGHT_CLASS_DEVICE if ACPI && !DRM_LUMINANCE
+>  	select INPUT if ACPI
+>  	select ACPI_WMI if ACPI
+>  	select ACPI_VIDEO if ACPI
 
-[Severity: Medium]
-Does hardcoding DRM_MODE_CONNECTOR_eDP in setup_test_connector() corrupt or
-leak the connector_type_id IDA when dm_test_should_create_sysfs_non_edp() r=
-uns?
+[Severity: Low]
+Does this cause an unmet direct dependency for ACPI_VIDEO when
+CONFIG_DRM_LUMINANCE=3Dy, CONFIG_ACPI=3Dy, and CONFIG_BACKLIGHT_CLASS_DEVIC=
+E=3Dn?
 
-drmm_connector_init() -> drm_connector_init_and_add() ->
-drm_connector_init_only() allocates connector->connector_type_id from
-drm_connector_enum_list[DRM_MODE_CONNECTOR_eDP].ida and registers
-drm_connector_cleanup_action() for managed teardown.
+In drivers/acpi/Kconfig, ACPI_VIDEO depends directly on
+BACKLIGHT_CLASS_DEVICE:
 
-However, dm_test_should_create_sysfs_non_edp() mutates connector_type after
-calling setup_test_connector():
+    config ACPI_VIDEO
+        tristate "Video"
+        depends on BACKLIGHT_CLASS_DEVICE
 
-drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c:dm_t=
-est_should_create_sysfs_non_edp() {
-	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_HDMI_TYPE_A);
-	fixture.aconnector->base.connector_type =3D DRM_MODE_CONNECTOR_HDMIA;
-	...
-}
+Both DRM_I915 here and DRM_XE in drivers/gpu/drm/xe/Kconfig still have:
 
-When the test finishes and drm_connector_cleanup() runs:
+    select ACPI_VIDEO if ACPI
 
-drivers/gpu/drm/drm_connector.c:drm_connector_cleanup() {
-	...
-	ida_free(&drm_connector_enum_list[connector->connector_type].ida,
-		 connector->connector_type_id);
-	...
-}
+When DRM_LUMINANCE is enabled and nothing else selects
+BACKLIGHT_CLASS_DEVICE, Kconfig warns about an unmet direct dependency on
+BACKLIGHT_CLASS_DEVICE and drivers/acpi/acpi_video.c fails to link due to
+undefined references to backlight_device_register() and
+backlight_device_unregister().
 
-it frees connector_type_id back to the DRM_MODE_CONNECTOR_HDMIA IDA instead=
- of
-DRM_MODE_CONNECTOR_eDP, triggering a warning in ida_free() (or freeing an
-active HDMI-A ID) while leaking the eDP connector_type_id.
+[ ... ]
 
-> @@ -483,12 +492,17 @@ static void dm_test_register_backlight_device_succe=
-ss(struct kunit *test)
->  	struct dc_link *link =3D dm_kunit_alloc_link(test);
->  	struct drm_minor *primary;
->  	unsigned int max;
-> +	int ret;
-> +
-> +	ret =3D drmm_mode_config_init(&adev->ddev);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu=
+/drm/i915/display/intel_backlight.c
+> index b128896cb1c2d..6d658c7b5d99f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+
+[ ... ]
+
+> @@ -1712,6 +1723,15 @@ int intel_backlight_setup(struct intel_connector *=
+connector, enum pipe pipe)
+>  	return 0;
+>  }
 > =20
->  	setup_test_link_service(test, link);
->  	link->dc->link_srv->edp_get_backlight_level =3D dm_test_get_backlight_l=
-evel_error;
->  	primary =3D kunit_kzalloc(test, sizeof(*primary), GFP_KERNEL);
->  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, primary);
->  	adev->ddev.primary =3D primary;
-> +	adev->dm.ddev =3D &adev->ddev;
->  	adev->dm.backlight_link[0] =3D link;
+> +void intel_backlight_set_luminance(const struct drm_connector_state *con=
+n_state)
+> +{
+> +	struct intel_connector *connector =3D
+> +		to_intel_connector(conn_state->connector);
+> +
+> +	intel_panel_set_backlight(conn_state, conn_state->luminance,
+> +				  connector->panel.backlight.max);
+> +}
 
-[Severity: Medium]
-Can this test suite link when CONFIG_DRM_LUMINANCE=3Dy and
+[Severity: Low]
+Will drivers/gpu/drm/i915/display/intel_backlight.c fail to build when
 CONFIG_BACKLIGHT_CLASS_DEVICE is disabled?
 
-With commit de26f6665aed ("drm/amd: add luminance property support"),
-DRM_AMDGPU in drivers/gpu/drm/amd/amdgpu/Kconfig only selects
-BACKLIGHT_CLASS_DEVICE when !DRM_LUMINANCE:
+In drivers/gpu/drm/i915/display/intel_backlight.c, scale_user_to_hw() and
+intel_panel_set_backlight() are defined inside an
+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE) block:
 
-	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+    #if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
+    static u32 intel_panel_get_backlight(struct intel_connector *connector)
+    ...
+    static void intel_panel_set_backlight(const struct drm_connector_state =
+*conn_state,
+                                          u32 user_level, u32 user_max)
 
-Neither DRM_AMD_DC_KUNIT_TEST in drivers/gpu/drm/amd/display/Kconfig nor
-drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig enables
-CONFIG_BACKLIGHT_CLASS_DEVICE.
+Because intel_backlight_set_luminance() is compiled unconditionally outside
+that guard, building with CONFIG_BACKLIGHT_CLASS_DEVICE=3Dn (for example wh=
+en
+CONFIG_DRM_LUMINANCE=3Dy) fails with an implicit declaration of
+intel_panel_set_backlight().
 
-However, dm_test_register_backlight_device_success() and
-dm_test_unregister_backlight_device() in amdgpu_dm_backlight_test.c, as well
-as amdgpu_dm_register_backlight_device() in amdgpu_dm_backlight.c, still
-unconditionally call backlight_device_register() and
-backlight_device_unregister():
+[ ... ]
 
-drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c:dm_t=
-est_unregister_backlight_device() {
-	backlight_device_unregister(data);
-}
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index d5d4453f283bb..3c81ed630c365 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -7696,6 +7696,8 @@ static void intel_atomic_commit_tail(struct intel_a=
+tomic_state *state)
+>  	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
+>  	display->modeset.funcs->commit_modeset_enables(state);
+> =20
+> +	drm_atomic_helper_commit_luminance_enables(&state->base);
+> +
+>  	intel_display_power_dc3co_compute(state);
 
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c:amdgpu_dm_regis=
-ter_backlight_device() {
-	...
-	dm->backlight_dev[aconnector->bl_idx] =3D
-		backlight_device_register(bl_name, aconnector->base.kdev, dm,
-					  &amdgpu_dm_backlight_ops, &props);
-	...
-}
+[Severity: Medium]
+When a panel's LUMINANCE property is updated while the CRTC is inactive (or
+in the same atomic commit that enables the CRTC), doesn't calling
+drm_atomic_helper_commit_luminance_enables() after commit_modeset_enables()
+initially turn on the panel at the stale brightness level?
 
-Because include/linux/backlight.h does not provide inline stubs for
-backlight_device_register() or backlight_device_unregister() when
-CONFIG_BACKLIGHT_CLASS_DEVICE is disabled, won't building the KUnit tests (=
-or
-amdgpu) with CONFIG_DRM_LUMINANCE=3Dy and CONFIG_BACKLIGHT_CLASS_DEVICE=3Dn=
- fail
-at link time with undefined references to those symbols?
+While the CRTC is inactive, drm_atomic_helper_commit_luminance_enables()
+skips calling .set_luminance(), so panel->backlight.level keeps the old
+hardware brightness level while conn_state->luminance holds the new value.
+
+During a subsequent modeset enable in intel_atomic_commit_tail():
+
+    display->modeset.funcs->commit_modeset_enables(state)
+      -> intel_edp_backlight_on() / intel_enable_lvds() / gen11_dsi_enable()
+        -> intel_backlight_enable()
+          -> __intel_backlight_enable()
+            -> panel->backlight.funcs->enable(crtc_state, conn_state,
+                                              panel->backlight.level);
+
+This powers on and programs the backlight with the old
+panel->backlight.level and waits for vblank before
+drm_atomic_helper_commit_luminance_enables() calls
+intel_backlight_set_luminance() to update panel->backlight.level and
+reprogram the hardware a second time.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm=
+/i915/display/intel_panel.c
+> index 81e638d0c7b33..501573a75b89c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_panel.c
+> +++ b/drivers/gpu/drm/i915/display/intel_panel.c
+> @@ -610,9 +610,11 @@ int intel_panel_register(struct intel_connector *con=
+nector)
+>  	struct intel_panel *panel =3D &connector->panel;
+>  	int ret;
+> =20
+> -	ret =3D intel_backlight_device_register(connector);
+> -	if (ret)
+> -		return ret;
+> +	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		ret =3D intel_backlight_device_register(connector);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[Severity: High]
+When CONFIG_DRM_LUMINANCE is enabled, how does the driver coordinate with
+ACPI video backlight detection and BIOS OpRegion ASLE backlight requests now
+that intel_backlight_device_register() is skipped?
+
+Previously, intel_backlight_device_register() called
+acpi_video_backlight_use_native(), which notifies drivers/acpi/video_detect=
+.c
+that native GPU backlight control is present (setting native_available =3D =
+true)
+and checks whether native backlight control should be used. It also set
+panel->backlight.device.
+
+With intel_backlight_device_register() skipped and
+intel_backlight_setup() attaching the LUMINANCE property without calling
+acpi_video_backlight_use_native():
+
+1. In drivers/gpu/drm/i915/display/intel_acpi.c, intel_acpi_video_register()
+checks:
+
+    if (panel->backlight.funcs && !panel->backlight.device) {
+        acpi_video_register_backlight();
+        break;
+    }
+
+Because panel->backlight.device is NULL and acpi_video_backlight_use_native=
+()
+was never called, intel_acpi_video_register() will register a conflicting
+acpi_video backlight device if CONFIG_BACKLIGHT_CLASS_DEVICE is enabled.
+
+2. In drivers/gpu/drm/i915/display/intel_opregion.c, asle_set_backlight()
+checks:
+
+    if (acpi_video_get_backlight_type() =3D=3D acpi_backlight_native) {
+        drm_dbg_kms(display->drm,
+                    "opregion backlight request ignored\n");
+        return 0;
+    }
+
+Because acpi_video_backlight_use_native() was never called,
+acpi_video_get_backlight_type() will not return acpi_backlight_native, so
+BIOS OpRegion ASLE requests will call intel_backlight_set_acpi() and modify
+panel->backlight.level behind the atomic LUMINANCE property's back.
+
+3. In intel_backlight_setup(), the LUMINANCE property is attached even on
+systems where acpi_video_backlight_use_native() would return false.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-superm1-ba=
-cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D5
+cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D6
