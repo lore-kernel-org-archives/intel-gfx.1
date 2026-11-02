@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4EB2606E028
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:50:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E92C606E031
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:50:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nN3M0RQu
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MuWq2jam
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2751410F0D8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 785A510F0F6;
 	Mon,  2 Nov 2026 16:50:03 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E8FF10F0B7;
- Mon,  2 Nov 2026 16:49:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC17710F0D6;
+ Mon,  2 Nov 2026 16:49:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B52C760ED9;
- Mon,  2 Nov 2026 16:49:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13011F00A16;
- Mon,  2 Nov 2026 16:49:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C3FD044601;
+ Mon,  2 Nov 2026 16:49:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE081F00A16;
+ Mon,  2 Nov 2026 16:49:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793638180;
- bh=gm4ojsrTq/5JloeBdI2aBnQQnNmA9mtr/wCN2h4c++A=;
+ s=k20260515; t=1793638195;
+ bh=oRJRMMD3ctMEcVviiDxytRdlmLbWxJT80Ce13o2Sbyo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=nN3M0RQu3zDkgG55INL2wRWm1zog1HM/xaYqJSv9uw3KI8OkjPLtjzyplt/QRG7jA
- Py/p+j1ChU7CZ98zvlqY7SHanXc72/NnTMksQTheLC80tvXn6ASmVXt8lGwNzSUZhp
- 4x8CEM2cZn7EzoTrvx9AOdLD9WE6WdyC27GdZNzFsbKD3b4sZ5tRINDE3aELjnZoWV
- /vguOFTyquIBUJK948ZSaTk/yLFzKTAvLUbVtbrBNPF6v5npXgL173TTR0Nx01F9kD
- YE66H28/RBJLNAYsXw/NRxolGtdsn6R64ElVKFdOPA1FDgscF+5P++g4uqo7yC3eaA
- LKh/y+4QkOU/A==
+ b=MuWq2jamAXbNo1Xz1TG/MelTuHxU/QDkjNY8A2r74MLF0kgIrW9J9Lh9vTAH5DlvO
+ wByf+MJ7ePvJsu2l+iowPAmRUqHNcmxH4pz6cwPwKQtKdyUuK+NF5Hl5AypF1dA2Ad
+ IPEqidNpl1XAuUx/eqhXekQwyEZOwOkPoxfu1E3CZdzQO3542cG6xuI9n42GT4Lq5f
+ kRnfbMw05gz4v9r4zlrh31fcSnRsyOP5Muky17VgkzADC5+3P4SsKFF/vkSvGZrgd4
+ 9hIJkQyMZKG4osAc/yFaHFf9YBOaj6RO0YOYTJl9rbFQo/XmZ39tm+Of3t0u6WJZ4V
+ ZgXhqwnCZaI5g==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:22 -0600
-Subject: [PATCH v10 06/15] drm/i915/display: add luminance property support
+Date: Mon, 02 Nov 2026 10:49:30 -0600
+Subject: [PATCH v10 14/15] drm/bridge: add PS8622 connector luminance support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-6-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-14-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -73,199 +73,129 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose the DRM LUMINANCE connector property for eDP, LVDS, and DSI panels
-when CONFIG_DRM_LUMINANCE is enabled. Keep registering the existing
-backlight class device otherwise, preserving its userspace ABI.
-
-Use the existing Intel brightness scaling and programming path from
-connector helper callbacks. Apply atomic luminance after modeset enables
-so updates made while a panel is inactive take effect when it is enabled
-again. The shared display code provides the same behavior to i915 and Xe.
+Expose PS8622 brightness through bridge luminance operations when
+DRM_LUMINANCE is enabled. Keep registering the backlight class device
+otherwise.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/i915/Kconfig                   |  2 +-
- drivers/gpu/drm/i915/display/icl_dsi.c         |  1 +
- drivers/gpu/drm/i915/display/intel_backlight.c | 20 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_backlight.h |  1 +
- drivers/gpu/drm/i915/display/intel_display.c   |  2 ++
- drivers/gpu/drm/i915/display/intel_dp.c        |  1 +
- drivers/gpu/drm/i915/display/intel_lvds.c      |  1 +
- drivers/gpu/drm/i915/display/intel_panel.c     |  8 +++++---
- drivers/gpu/drm/i915/display/vlv_dsi.c         |  1 +
- drivers/gpu/drm/xe/Kconfig                     |  2 +-
- 10 files changed, 34 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/Kconfig         |  2 +-
+ drivers/gpu/drm/bridge/parade-ps8622.c | 45 +++++++++++++++++++++++++---------
+ 2 files changed, 34 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 71426b9c91f00..720191673a1e7 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -26,7 +26,7 @@ config DRM_I915
- 	select IRQ_WORK
- 	# i915 depends on ACPI_VIDEO when ACPI is enabled
- 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
--	select BACKLIGHT_CLASS_DEVICE if ACPI
-+	select BACKLIGHT_CLASS_DEVICE if ACPI && !DRM_LUMINANCE
- 	select INPUT if ACPI
- 	select ACPI_WMI if ACPI
- 	select ACPI_VIDEO if ACPI
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index ea0cdb7822f39..37ff84c03ce05 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1801,6 +1801,7 @@ static const struct drm_connector_helper_funcs gen11_dsi_connector_helper_funcs
- 	.get_modes = intel_dsi_get_modes,
- 	.mode_valid = gen11_dsi_mode_valid,
- 	.atomic_check = intel_digital_connector_atomic_check,
-+	.set_luminance = intel_backlight_set_luminance,
- };
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index c7da6b02d7b6b..d27e9b2485fd6 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -278,7 +278,7 @@ config DRM_PARADE_PS8622
+ 	depends on OF
+ 	select DRM_PANEL_BRIDGE
+ 	select DRM_KMS_HELPER
+-	select BACKLIGHT_CLASS_DEVICE
++	depends on DRM_LUMINANCE || BACKLIGHT_CLASS_DEVICE = y || !BACKLIGHT_CLASS_DEVICE
+ 	help
+ 	  Parade eDP-LVDS bridge chip driver.
  
- static int gen11_dsi_host_attach(struct mipi_dsi_host *host,
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index b128896cb1c2d..6d658c7b5d99f 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -9,6 +9,7 @@
- #include <linux/string_helpers.h>
- #include <acpi/video.h>
+diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
+index 3a2ec482037df..229d9d7218c4e 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8622.c
++++ b/drivers/gpu/drm/bridge/parade-ps8622.c
+@@ -45,6 +45,7 @@ struct ps8622_bridge {
+ 	struct drm_bridge *panel_bridge;
+ 	struct regulator *v12;
+ 	struct backlight_device *bl;
++	u8 brightness;
  
-+#include <drm/drm_connector.h>
- #include <drm/drm_file.h>
- #include <drm/drm_print.h>
- #include <drm/intel/pci_config.h>
-@@ -1670,6 +1671,9 @@ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
- {
- 	struct intel_display *display = to_intel_display(connector);
- 	struct intel_panel *panel = &connector->panel;
-+	struct drm_connector *base = &connector->base;
-+	u32 brightness;
-+	u32 max;
- 	int ret;
+ 	struct gpio_desc *gpio_slp;
+ 	struct gpio_desc *gpio_rst;
+@@ -276,7 +277,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
  
- 	if (!connector->panel.vbt.backlight.present) {
-@@ -1703,6 +1707,13 @@ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
+ 		/* FFh for 100% brightness, 0h for 0% brightness */
+ 		err = ps8622_set(cl, 0x01, 0xa7,
+-				ps8622->bl->props.brightness);
++				ps8622->brightness);
+ 		if (err)
+ 			goto error;
+ 	} else {
+@@ -324,6 +325,8 @@ static int ps8622_backlight_update(struct backlight_device *bl)
+ 	struct ps8622_bridge *ps8622 = dev_get_drvdata(&bl->dev);
+ 	int ret, brightness = backlight_get_brightness(bl);
  
- 	panel->backlight.present = true;
- 
-+	max = panel->backlight.max;
-+	brightness = scale_hw_to_user(connector, panel->backlight.level, max);
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+		ret = drm_connector_attach_luminance_property(base, 0, max, brightness);
-+		drm_WARN_ON(display->drm, ret);
-+	}
++	ps8622->brightness = brightness;
 +
- 	drm_dbg_kms(display->drm,
- 		    "[CONNECTOR:%d:%s] backlight initialized, %s, brightness %u/%u\n",
- 		    connector->base.base.id, connector->base.name,
-@@ -1712,6 +1723,15 @@ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
- 	return 0;
+ 	if (!ps8622->enabled)
+ 		return -EINVAL;
+ 
+@@ -332,6 +335,15 @@ static int ps8622_backlight_update(struct backlight_device *bl)
+ 	return ret;
  }
  
-+void intel_backlight_set_luminance(const struct drm_connector_state *conn_state)
++static void ps8622_set_luminance(struct drm_bridge *bridge,
++				 unsigned int luminance)
 +{
-+	struct intel_connector *connector =
-+		to_intel_connector(conn_state->connector);
++	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
 +
-+	intel_panel_set_backlight(conn_state, conn_state->luminance,
-+				  connector->panel.backlight.max);
++	ps8622->brightness = luminance;
++	ps8622_set(ps8622->client, 0x01, 0xa7, luminance);
 +}
 +
- void intel_backlight_destroy(struct intel_panel *panel)
+ static const struct backlight_ops ps8622_backlight_ops = {
+ 	.update_status	= ps8622_backlight_update,
+ };
+@@ -438,6 +450,7 @@ static const struct drm_bridge_funcs ps8622_bridge_funcs = {
+ 	.atomic_disable = ps8622_disable,
+ 	.atomic_post_disable = ps8622_post_disable,
+ 	.attach = ps8622_attach,
++	.set_luminance = ps8622_set_luminance,
+ };
+ 
+ static const struct of_device_id ps8622_devices[] = {
+@@ -502,18 +515,25 @@ static int ps8622_probe(struct i2c_client *client)
+ 		ps8622->lane_count = ps8622->max_lane_count;
+ 	}
+ 
++	ps8622->brightness = PS8622_MAX_BRIGHTNESS;
+ 	if (!of_property_read_bool(dev->of_node, "use-external-pwm")) {
+-		ps8622->bl = backlight_device_register("ps8622-backlight",
+-				dev, ps8622, &ps8622_backlight_ops,
+-				NULL);
+-		if (IS_ERR(ps8622->bl)) {
+-			DRM_ERROR("failed to register backlight\n");
+-			ret = PTR_ERR(ps8622->bl);
+-			ps8622->bl = NULL;
+-			return ret;
++		if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++			ps8622->bridge.ops |= DRM_BRIDGE_OP_LUMINANCE;
++			ps8622->bridge.luminance_max = PS8622_MAX_BRIGHTNESS;
++			ps8622->bridge.luminance = ps8622->brightness;
++		} else {
++			ps8622->bl = backlight_device_register("ps8622-backlight",
++							       dev, ps8622,
++							 &ps8622_backlight_ops, NULL);
++			if (IS_ERR(ps8622->bl)) {
++				DRM_ERROR("failed to register backlight\n");
++				ret = PTR_ERR(ps8622->bl);
++				ps8622->bl = NULL;
++				return ret;
++			}
++			ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
++			ps8622->bl->props.brightness = ps8622->brightness;
+ 		}
+-		ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
+-		ps8622->bl->props.brightness = PS8622_MAX_BRIGHTNESS;
+ 	}
+ 
+ 	ps8622->bridge.type = DRM_MODE_CONNECTOR_LVDS;
+@@ -529,7 +549,8 @@ static void ps8622_remove(struct i2c_client *client)
  {
- 	/* dispose of the pwm */
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.h b/drivers/gpu/drm/i915/display/intel_backlight.h
-index 339643f638978..1634ce414695a 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.h
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.h
-@@ -32,6 +32,7 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
- 			      u32 level, u32 max);
- void intel_backlight_set_pwm_level(const struct drm_connector_state *conn_state,
- 				   u32 level);
-+void intel_backlight_set_luminance(const struct drm_connector_state *conn_state);
- u32 intel_backlight_invert_pwm_level(struct intel_connector *connector, u32 level);
- u32 intel_backlight_level_to_pwm(struct intel_connector *connector, u32 level);
- u32 intel_backlight_level_from_pwm(struct intel_connector *connector, u32 val);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index d5d4453f283bb..3c81ed630c365 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7696,6 +7696,8 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
- 	display->modeset.funcs->commit_modeset_enables(state);
+ 	struct ps8622_bridge *ps8622 = i2c_get_clientdata(client);
  
-+	drm_atomic_helper_commit_luminance_enables(&state->base);
-+
- 	intel_display_power_dc3co_compute(state);
+-	backlight_device_unregister(ps8622->bl);
++	if (ps8622->bl)
++		backlight_device_unregister(ps8622->bl);
+ 	drm_bridge_remove(&ps8622->bridge);
+ }
  
- 	/* FIXME probably need to sequence this properly */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d8c0d9381471d..0b8ca17cc1152 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6883,6 +6883,7 @@ static const struct drm_connector_helper_funcs intel_dp_connector_helper_funcs =
- 	.get_modes = intel_dp_get_modes,
- 	.mode_valid = intel_dp_mode_valid,
- 	.atomic_check = intel_dp_connector_atomic_check,
-+	.set_luminance = intel_backlight_set_luminance,
- };
- 
- enum irqreturn
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 872753478cf21..fa668b1debb21 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -502,6 +502,7 @@ static const struct drm_connector_helper_funcs intel_lvds_connector_helper_funcs
- 	.get_modes = intel_lvds_get_modes,
- 	.mode_valid = intel_lvds_mode_valid,
- 	.atomic_check = intel_digital_connector_atomic_check,
-+	.set_luminance = intel_backlight_set_luminance,
- };
- 
- static const struct drm_connector_funcs intel_lvds_connector_funcs = {
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 81e638d0c7b33..501573a75b89c 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -610,9 +610,11 @@ int intel_panel_register(struct intel_connector *connector)
- 	struct intel_panel *panel = &connector->panel;
- 	int ret;
- 
--	ret = intel_backlight_device_register(connector);
--	if (ret)
--		return ret;
-+	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+		ret = intel_backlight_device_register(connector);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	if (connector->base.connector_type == DRM_MODE_CONNECTOR_DSI ||
- 	    connector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index 8829f365592ef..7e60407e0af4a 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -1555,6 +1555,7 @@ static const struct drm_connector_helper_funcs intel_dsi_connector_helper_funcs
- 	.get_modes = intel_dsi_get_modes,
- 	.mode_valid = vlv_dsi_mode_valid,
- 	.atomic_check = intel_digital_connector_atomic_check,
-+	.set_luminance = intel_backlight_set_luminance,
- };
- 
- static const struct drm_connector_funcs intel_dsi_connector_funcs = {
-diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
-index 502c7b3c1f16a..6418ccc8e3468 100644
---- a/drivers/gpu/drm/xe/Kconfig
-+++ b/drivers/gpu/drm/xe/Kconfig
-@@ -26,7 +26,7 @@ config DRM_XE
- 	select IRQ_WORK
- 	# xe depends on ACPI_VIDEO when ACPI is enabled
- 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
--	select BACKLIGHT_CLASS_DEVICE if ACPI
-+	select BACKLIGHT_CLASS_DEVICE if ACPI && !DRM_LUMINANCE
- 	select INPUT if ACPI
- 	select ACPI_VIDEO if ACPI
- 	select ACPI_WMI if ACPI
 
 -- 
 2.53.0
