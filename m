@@ -2,28 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2A0606A324
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 23:09:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D4C606A326
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 23:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iLtIXdGv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E4F610E71E;
-	Mon,  2 Nov 2026 23:09:38 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC0410E713;
- Mon,  2 Nov 2026 23:09:36 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7917732411318715188=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0935810E71D;
+	Mon,  2 Nov 2026 23:13:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D15210E71D
+ for <intel-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 23:12:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793661178; x=1825197178;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=tmgZlEQkJKG+ukDEQLPZ6kSe/no6NBjxFrCHtrUOmQA=;
+ b=iLtIXdGvwOXTHzyFwz1eYz00lPoNN8ivwNEvLkRIkzjU9rbw1iuN1e1v
+ ph4fAA8Om9TdtO/2mkSPU4VRKoI2V9cmGP33NEpPMtkaLrAmfoaOcl8zE
+ RUTFYsDYJlXtMfHQE2wO3Du4xuJ7FMfwgEQexUnY1tGwrHgEvEiBIOnfa
+ Y1cCMWqgz6PWRbyuCr77RI5l+sSHSZeZydbuvYW4MXuM70eauFuy1TsqO
+ 9wNnJ8/GB32jHsJ4dUjgAEX9mc7oFqAx/Jj8wPcKgG5Sv4U8puwQYaP2i
+ 5DO53Y67vTavAPLvGJeOLMbHkwqogctb+bCbss/gdC8NVgEBF4fAl3bf9 A==;
+X-CSE-ConnectionGUID: 2PZM/hZgT2SCqN49T280lw==
+X-CSE-MsgGUID: BFrFNrl+Qt6mcDh9NqQS/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2251638"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2251638"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 15:12:57 -0800
+X-CSE-ConnectionGUID: qivCNTNFSS2EvFdaWaRerA==
+X-CSE-MsgGUID: G1xncTiuQ7ub1fSLb1g7Ug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="8086030"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.80])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 15:12:56 -0800
+Date: Tue, 3 Nov 2026 01:12:54 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Simon.Richter@hogyros.de
+Cc: intel-gfx@lists.freedesktop.org
+Subject: Re: Component swizzling during output, and synchronous output
+Message-ID: <aukY9mvihRTO8vX2@intel.com>
+References: <da96dc26-f7f5-47b1-984a-569c1866ce1d@hogyros.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/guc=3A_Test_GuC_?=
- =?utf-8?q?v70=2E83=2E0_for_DG2=2C_MTL?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Julia Filipchuk" <julia.filipchuk@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 02 Nov 2026 23:09:36 -0000
-Message-ID: <179366097645.107444.15752268333785566101@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261102221518.546010-2-julia.filipchuk@intel.com>
-In-Reply-To: <20261102221518.546010-2-julia.filipchuk@intel.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <da96dc26-f7f5-47b1-984a-569c1866ce1d@hogyros.de>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,276 +67,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============7917732411318715188==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, Nov 03, 2026 at 03:53:59AM +0900, Simon.Richter@hogyros.de wrote:
+> Hi,
+> 
+> I have a video mixing desk which can accept a second input as a key 
+> source, translating luminance to opacity.
+> 
+> The obvious way to generate this is to build a compositor that provides 
+> an RGBA render target to applications, and then copies that to two output 
+> framebuffers.
+> 
+> Can I somehow skip that extra step and configure the RAMDACs to read the 
+> RGBA framebuffer directly (sending .rgb to one output, and .aaa to the 
+> other)?
 
-== Series Details ==
+Reading from the same piece of memory on each output is easy.
+Just point the planes on each at the same memory.
 
-Series: drm/i915/guc: Test GuC v70.83.0 for DG2, MTL
-URL   : https://patchwork.freedesktop.org/series/177514/
-State : success
+The swizzle is harder. Apart from blending the display hardware
+just ignores the alpha channel. So you can't get at it so easily.
+The obvious solution would be to treat the same ARGB fb as
+RGBA for the other plane and then get the alpha channel out
+as the red channel. Unfortunately I don't think our hardware
+supports any swizzle with alpha at the bottom, it's always
+at the top.
 
-== Summary ==
+I guess one crazy idea would be to interpret the ARGB8888 data
+as ARGB2101010 on the other plane. That way you could get the
+six lsbs of the 8bit alpha into the red channel msbs. The top two
+alpha bits would be out of reach, so whatever is producing the
+data would have to deal with that. Then you use the pipe CSC to
+replicate the red channel into blue/green. At that point you 
+still have the problem of the four lsbs of each channel now
+containing garbage from the actual 8bit red channel. But those
+could be eradicated using the gamma LUT.
 
-CI Bug Log - changes from CI_DRM_19432 -> Patchwork_177514v1
-====================================================
+> 
+> Also, is there a way to synchronise two outputs that have the same 
+> resolution, so that the delay inside the mixing desk is the same?
 
-Summary
--------
+On some platforms we have a hardware mechanism called port sync
+for that. But it only works on DP outputs. And for now we've
+only implemented it for SST. MST is theoretically possible but
+no one has attempted to reshuffle the modeset code to get it
+working.
 
-  **SUCCESS**
+Port sync is being replaced with something else in the new
+hardware, which I think should work on HDMI as well. But I'm
+not sure anyone has actually taken a look at what it would
+take.
 
-  No regressions found.
+That said, I think getting the outputs almost into sync should
+be possible without the hardware support as well. Would need to
+figure out exactly when the timing generators start (which
+incidentally I've just done) and then try to start them all
+in one rapid burst. So (like the MST port sync case) it should
+be a "small" matter of reshuffling the modeset sequence into
+shape.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 bat-adls-6 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_177514v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@fbdev@eof:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][1] ([i915#17464]) +3 other tests skip
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@fbdev@eof.html
-
-  * igt@fbdev@info:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][2] ([i915#1849])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@fbdev@info.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][3] ([i915#17468])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][4] ([i915#11671]) +3 other tests skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@intel_hwmon@hwmon-write:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][5] ([i915#11680]) +1 other test skip
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@intel_hwmon@hwmon-write.html
-
-  * igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][6] ([i915#17469])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
-
-  * igt@kms_flip@basic-flip-vs-wf_vblank:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][7] ([i915#3637]) +3 other tests skip
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_flip@basic-flip-vs-wf_vblank.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][8] ([i915#17465])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_frontbuffer_tracking@basic:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][9] ([i915#17466])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_frontbuffer_tracking@basic.html
-
-  * igt@kms_pipe_crc_basic@read-crc-frame-sequence:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][10] ([i915#11190]) +16 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][11] ([i915#17462])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-sprite-plane-onoff:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][12] ([i915#9732]) +3 other tests skip
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_psr@psr-sprite-plane-onoff.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][13] ([i915#17463])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-flip:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][14] ([i915#17467])
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@prime_vgem@basic-fence-flip.html
-
-  
-  [i915#11190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11190
-  [i915#11671]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11671
-  [i915#11680]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11680
-  [i915#17462]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17462
-  [i915#17463]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17463
-  [i915#17464]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17464
-  [i915#17465]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17465
-  [i915#17466]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17466
-  [i915#17467]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17467
-  [i915#17468]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17468
-  [i915#17469]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17469
-  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
-  [i915#3637]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3637
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19432 -> Patchwork_177514v1
-
-  CI-20190529: 20190529
-  CI_DRM_19432: 250a6b22eabe84f32114c55e0ad4c271bfe573b3 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9175: 9175
-  Patchwork_177514v1: 250a6b22eabe84f32114c55e0ad4c271bfe573b3 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/index.html
-
---===============7917732411318715188==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/guc: Test GuC v70.83.0 for DG2, MTL</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177514/">https://patchwork.freedesktop.org/series/177514/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19432 -&gt; Patchwork_177514v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_177514v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@fbdev@eof:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@fbdev@eof.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17464">i915#17464</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@fbdev@info:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17468">i915#17468</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11671">i915#11671</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-write:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@intel_hwmon@hwmon-write.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11680">i915#11680</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17469">i915#17469</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@basic-flip-vs-wf_vblank:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_flip@basic-flip-vs-wf_vblank.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3637">i915#3637</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17465">i915#17465</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@basic:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_frontbuffer_tracking@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17466">i915#17466</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@read-crc-frame-sequence:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_pipe_crc_basic@read-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11190">i915#11190</a>) +16 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17462">i915#17462</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-sprite-plane-onoff:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_psr@psr-sprite-plane-onoff.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17463">i915#17463</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-flip:</p>
-<ul>
-<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177514v1/fi-bsw-nick/igt@prime_vgem@basic-fence-flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17467">i915#17467</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19432 -&gt; Patchwork_177514v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19432: 250a6b22eabe84f32114c55e0ad4c271bfe573b3 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9175: 9175<br />
-  Patchwork_177514v1: 250a6b22eabe84f32114c55e0ad4c271bfe573b3 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7917732411318715188==--
+-- 
+Ville Syrjälä
+Intel
