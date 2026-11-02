@@ -2,44 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F18C606A327
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 19:49:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B41D606D835
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 20:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLLG6Jy8
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nt0FkrZO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16A9510F1B3;
-	Mon,  2 Nov 2026 19:49:46 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8395F10E0FE;
- Mon,  2 Nov 2026 19:49:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2FDB943930;
- Mon,  2 Nov 2026 19:49:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D905F1F00A17;
- Mon,  2 Nov 2026 19:49:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793648979;
- bh=m1Frm5PKuaSJfdXknwPx3XPhwyoFaTHg/OQQbyhw1Mk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DLLG6Jy8IW7WEzDfBuaA5gmZQ8mwH0TDykVSjpPkygqRRHznzQcpkEPX9I2Tpu6hW
- p9eg4AjlV0oug5XmdpdMwGC6FYlMdagbVsZVpl4M93jJgy+6A5j6nrby42aPA1vN5x
- xfhxa+oPznMugYYYUad6gHx5srXPjonsp5qdw/Xgd3XzwEVpX7hLscGXP/Of1kZnZT
- tOcj7ZpPNCN/7r3s7EiNrMJ2HL1Cx5SDGzCjm3dOwMmYa1//VWr/EHmu1ogSkfyRTt
- UxUTE8g6/tUHSxjPJhHA5ZidUKF6JbT9oO9F8xqAT2hpdGn+nqB+WGULZu1VbBfE5V
- fhJCkiPucNWqQ==
-Message-ID: <sashiko-outbox-194023@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 15/15] drm/solomon: add SSD130x connector luminance
- support
-To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261102-superm1-backlight-property-v10-15-b2a6f24131f5@kernel.org>
-References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
- <20261102-superm1-backlight-property-v10-15-b2a6f24131f5@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 19:49:38 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B048010F1D3;
+	Mon,  2 Nov 2026 20:06:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C80510F1D3;
+ Mon,  2 Nov 2026 20:06:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793649983; x=1825185983;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=sqwF5koL8AP3LB0wgv/MTTxH79kNm2LxlGwWOnr2EuY=;
+ b=Nt0FkrZOSA+YknhutMWSFr7CQie2npROHg3tYAhNPtc9Pl1jpyF6WVkb
+ VxT4trS6eXWOpwwak+hzf9S+/U8AhNXWncfG9sUhTNXoqvrEBQ4aOYDWw
+ teP8WSWyJ21Js+MX1WbXc/P5li4LHIHJpkuCmmIjwhH7pqpQuo6p4S5/r
+ Sr3DD4zthuDVgUhm8vYQVxLFBuhjP+nxSgRtTuLRYpmDS530TmK778UN/
+ e5Vy1ls0HZa5ETUrc9FrvhLpdNH4eCQbxEVAnsI71ZzuJh3M6fCdG8BhN
+ oUVzE0NCTWDBwzafgHidsikSDxo7x5xsfVvM0Vv93rUN0M2Qx6M77VMbE A==;
+X-CSE-ConnectionGUID: jrYtKiPSQfCCAXpySGSbGA==
+X-CSE-MsgGUID: DTpf+KQvRjOjgxK9LPDnfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2371254"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2371254"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 12:06:23 -0800
+X-CSE-ConnectionGUID: 4ezcMXSYRR+HqedtWMc/Dw==
+X-CSE-MsgGUID: TAy6u4EBTqmn4Q3l5gxW8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6077427"
+Received: from orsosgc001.jf.intel.com ([10.54.56.63])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 12:06:23 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: rodrigo.vivi@intel.com, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: jani.saarinen@intel.com
+Subject: [drm-intel/topic/core-for-CI] Revert "io_uring/sqpoll: don't attach
+ to a thread that is canceling"
+Date: Mon,  2 Nov 2026 12:06:04 -0800
+Message-ID: <20261102200603.2605130-2-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.55.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,275 +62,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] drm/solomon: vmlinux link failure when BACKLIGHT_CLASS_DEVICE=3Dm
-- [High] drm/solomon: contrast state desynchronization in ssd130x_set_lumin=
-ance_value()
-- [High] drm/solomon: unsynchronized command writes in ssd130x_set_luminanc=
-e_value()
-- [Medium] drm/solomon: broken Kconfig dependency for BACKLIGHT_CLASS_DEVIC=
-E and DRM_LUMINANCE
-- [Low] drm/solomon: duplicated contrast dispatch in ssd130xfb_bl_ops
---
+This reverts commit 22d9db9fd64a493525d692b32c556875b7254665.
 
-commit bcc978ec95ba4732042537500fdd7f79b00e0743
-Author: Mario Limonciello <mario.limonciello@amd.com>
+This is resulting in igt@runner@aborted on Xe and i915 runs, so
+reverting the patch. The actual fix is still in flight on the kernel ML:
 
-drm/solomon: add SSD130x connector luminance support
+[PATCH] io_uring/sqpoll: don't set IO_SQ_THREAD_SHOULD_STOP on thread exit
 
-This commit exposes SSD130x display contrast through the DRM connector
-LUMINANCE property when DRM_LUMINANCE is enabled, while guarding the legacy
-backlight class registration with BACKLIGHT_CLASS_DEVICE and updating the
-Kconfig dependencies.
+Until that lands, revert this one.
 
-> diff --git a/drivers/gpu/drm/solomon/Kconfig b/drivers/gpu/drm/solomon/Kc=
-onfig
-> index 400a6cab3a671..76852246eb9c2 100644
-> --- a/drivers/gpu/drm/solomon/Kconfig
-> +++ b/drivers/gpu/drm/solomon/Kconfig
-> @@ -1,7 +1,7 @@
->  config DRM_SSD130X
->  	tristate "DRM support for Solomon SSD13xx OLED displays"
->  	depends on DRM && MMU
-> -	select BACKLIGHT_CLASS_DEVICE
-> +	depends on DRM_LUMINANCE || BACKLIGHT_CLASS_DEVICE =3D y || !BACKLIGHT_=
-CLASS_DEVICE
->  	select DRM_CLIENT_SELECTION
->  	select DRM_GEM_SHMEM_HELPER
->  	select DRM_KMS_HELPER
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+References: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17747
+---
+ io_uring/sqpoll.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
-[Severity: High]
-Can this Kconfig dependency cause a vmlinux link failure when
-CONFIG_DRM_LUMINANCE=3Dy, CONFIG_BACKLIGHT_CLASS_DEVICE=3Dm, and
-CONFIG_DRM_SSD130X=3Dy?
+diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
+index c833e776320d..49c52284ecdd 100644
+--- a/io_uring/sqpoll.c
++++ b/io_uring/sqpoll.c
+@@ -433,12 +433,6 @@ static int io_sq_thread(void *data)
+ 	if (io_sq_tw_pending())
+ 		io_sq_tw(UINT_MAX);
+ 
+-	/*
+-	 * Cancelation drops sqd->lock while it waits, and a ring could attach
+-	 * to a thread that is on its way out. A fatal signal doesn't set the
+-	 * bit, so set it here for io_sq_offload_create() to see.
+-	 */
+-	set_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state);
+ 	io_uring_cancel_generic(true, sqd);
+ 	rcu_assign_pointer(sqd->thread, NULL);
+ 	put_task_struct(current);
+@@ -508,10 +502,7 @@ __cold int io_sq_offload_create(struct io_ring_ctx *ctx,
+ 		list_add(&ctx->sqd_list, &sqd->ctx_list);
+ 		io_sqd_update_thread_idle(sqd);
+ 		/* don't attach to a dying SQPOLL thread, would be racy */
+-		ret = 0;
+-		if (attached && (!sqd->thread ||
+-		    test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)))
+-			ret = -ENXIO;
++		ret = (attached && !sqd->thread) ? -ENXIO : 0;
+ 		io_sq_thread_unpark(sqd);
+ 
+ 		if (ret < 0)
+-- 
+2.55.0
 
-Because DRM_LUMINANCE is a bool symbol and BACKLIGHT_CLASS_DEVICE is a
-tristate symbol, when DRM_LUMINANCE=3Dy and BACKLIGHT_CLASS_DEVICE=3Dm, the
-disjunction evaluates to max(y, n, m) =3D y, which allows DRM_SSD130X to be
-built-in (y).
-
-However, ssd130x_probe() in drivers/gpu/drm/solomon/ssd130x.c guards the ca=
-ll
-to devm_backlight_device_register() with #if
-IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE), which evaluates to 1 when
-CONFIG_BACKLIGHT_CLASS_DEVICE=3Dm. Built-in ssd130x.o will then call
-devm_backlight_device_register() from the loadable module backlight.ko (whi=
-ch
-has no inline stub in include/linux/backlight.h), failing to link vmlinux.
-
-[Severity: Medium]
-Does replacing select BACKLIGHT_CLASS_DEVICE with this dependency also caus=
-e a
-regression when both CONFIG_DRM_LUMINANCE=3Dn and
-CONFIG_BACKLIGHT_CLASS_DEVICE=3Dn?
-
-When both options are disabled, !BACKLIGHT_CLASS_DEVICE evaluates to y,
-allowing DRM_SSD130X to build with neither /sys/class/backlight nor the
-connector LUMINANCE property enabled, leaving the display with no contrast
-control interface at all.
-
-In addition, on SSD132X_FAMILY panels, ssd132x_init() hardcodes
-SSD13XX_CONTRAST to 0x80 and previously relied on backlight_enable() in
-ssd132x_encoder_atomic_enable() to program ssd130x->contrast (127). When bo=
-th
-options are disabled, neither backlight_enable() nor
-drm_atomic_helper_commit_luminance_enables() runs to apply ssd130x->contras=
-t.
-
-> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
-ssd130x.c
-> index ee43cf0da8792..aaf2b194273ba 100644
-> --- a/drivers/gpu/drm/solomon/ssd130x.c
-> +++ b/drivers/gpu/drm/solomon/ssd130x.c
-
-[ ... ]
-
-> @@ -1980,8 +1985,44 @@ static int ssd130x_connector_get_modes(struct drm_=
-connector *connector)
->  	return drm_connector_helper_get_modes_fixed(connector, &ssd130x->mode);
->  }
-> =20
-> +static int ssd130x_set_luminance_value(struct ssd130x_device *ssd130x,
-> +				       unsigned int luminance)
-> +{
-> +	int ret;
-> +
-> +	ssd130x->contrast =3D luminance;
-> +
-> +	switch (ssd130x->device_info->family_id) {
-> +	case SSD133X_FAMILY:
-> +		return ssd133x_set_contrast(ssd130x, luminance);
-> +	case SSD135X_FAMILY:
-> +		return ssd135x_set_contrast(ssd130x, luminance);
-> +	default:
-> +		ret =3D ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
-> +		if (ret < 0)
-> +			return ret;
-> +		return ssd130x_write_cmd(ssd130x, 1, luminance);
-> +	}
-> +}
-> +
-> +static void ssd130x_connector_set_luminance(const struct drm_connector_s=
-tate *conn_state)
-> +{
-> +	struct ssd130x_device *ssd130x =3D drm_to_ssd130x(conn_state->connector=
-->dev);
-> +
-> +	ssd130x_set_luminance_value(ssd130x, conn_state->luminance);
-> +}
-> +
-> +static void ssd130x_connector_disable_luminance(const struct drm_connect=
-or_state *conn_state)
-> +{
-> +	struct ssd130x_device *ssd130x =3D drm_to_ssd130x(conn_state->connector=
-->dev);
-> +
-> +	ssd130x_set_luminance_value(ssd130x, 0);
-> +}
-
-[Severity: High]
-Can concurrent DRM atomic commits and sysfs backlight writes interleave the
-multi-byte command writes in ssd130x_set_luminance_value()?
-
-When both CONFIG_DRM_LUMINANCE and CONFIG_BACKLIGHT_CLASS_DEVICE are enable=
-d,
-sysfs backlight updates invoke ssd130x_update_bl(), ssd133x_update_bl(), or
-ssd135x_update_bl() under bdev->update_lock, whereas DRM atomic commits inv=
-oke
-ssd130x_connector_set_luminance() and ssd130x_connector_disable_luminance()
-from drm_atomic_helper_commit_tail() without holding bdev->update_lock or a=
-ny
-shared driver lock.
-
-In ssd130x_set_luminance_value(), ssd130x->contrast is updated without lock=
-ing,
-and on SSD130X_FAMILY and SSD132X_FAMILY the contrast update is sent as two
-separate ssd130x_write_cmd() calls (and ssd133x_set_contrast() similarly is=
-sues
-multiple separate regmap writes):
-
-	ret =3D ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
-	if (ret < 0)
-		return ret;
-	return ssd130x_write_cmd(ssd130x, 1, luminance);
-
-If a sysfs backlight write and a DRM atomic luminance update race between
-those two regmap_write() calls, the second thread will send SSD13XX_CONTRAST
-(0x81) before the first thread sends its parameter byte. Wouldn't the OLED
-controller consume 0x81 as the contrast parameter for the first command, and
-then interpret both threads' subsequent luminance parameter bytes as arbitr=
-ary
-SSD13XX_COMMAND opcodes (such as 0xae SSD13XX_DISPLAY_OFF, 0xa0/0xa1 segment
-remap, or 0xc0/0xc8 COM scan direction)?
-
-[Severity: High]
-Does exposing both ssd130x->bl_dev and the connector LUMINANCE property at =
-the
-same time desynchronize contrast state across atomic commits and display
-disable/enable cycles?
-
-In ssd130x_probe() and ssd130x_init_modeset(), the driver registers
-ssd130x->bl_dev whenever IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE) is true =
-and
-also attaches the LUMINANCE property whenever IS_ENABLED(CONFIG_DRM_LUMINAN=
-CE)
-is true, unlike drivers that only register a legacy backlight device when
-DRM_LUMINANCE is not used:
-
-1. ssd130x_connector_set_luminance() updates ssd130x->contrast via
-ssd130x_set_luminance_value() without updating
-ssd130x->bl_dev->props.brightness, while ssd130x_update_bl(),
-ssd133x_update_bl(), and ssd135x_update_bl() update ssd130x->contrast from
-bl_dev->props.brightness without updating connector->state->luminance. If
-brightness is changed via /sys/class/backlight, any subsequent atomic commit
-including the active connector runs
-drm_atomic_helper_commit_luminance_enables() and overwrites the hardware
-contrast back to conn_state->luminance.
-
-2. When disabling the display, drm_atomic_helper_commit_luminance_disables()
-calls ssd130x_connector_disable_luminance() ->
-ssd130x_set_luminance_value(ssd130x, 0), which clobbers ssd130x->contrast to
-0, and ssd130x_encoder_atomic_disable() then calls
-backlight_disable(ssd130x->bl_dev), writing contrast 0 a second time.
-
-3. When re-enabling the display, ssd130x_encoder_atomic_enable() (and its
-ssd132x, ssd133x, and ssd135x counterparts) runs before
-drm_atomic_helper_commit_luminance_enables(): ssd130x_init(), ssd133x_init(=
-),
-and ssd135x_init() first initialize the panel with the clobbered
-ssd130x->contrast (0) prior to SSD13XX_DISPLAY_ON; next,
-backlight_enable(ssd130x->bl_dev) programs the stale bl_dev->props.brightne=
-ss
-while the display is on; and finally
-drm_atomic_helper_commit_luminance_enables() calls
-ssd130x_connector_set_luminance() to program conn_state->luminance.
-
-4. If ssd130x_power_on() or ssd130x_init() fails in
-ssd130x_encoder_atomic_enable() (or its ssd132x, ssd133x, or ssd135x varian=
-ts)
-and powers off vcc_reg, drm_atomic_helper_commit_modeset_enables() still ca=
-lls
-drm_atomic_helper_commit_luminance_enables() ->
-ssd130x_connector_set_luminance(), issuing contrast commands over I2C/SPI to
-an unpowered controller.
-
-[ ... ]
-
-> @@ -2015,23 +2056,13 @@ static const struct drm_driver ssd130x_drm_driver=
- =3D {
->  	.fops			=3D &ssd130x_fops,
->  };
-> =20
-> +#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
->  static int ssd130x_update_bl(struct backlight_device *bdev)
->  {
->  	struct ssd130x_device *ssd130x =3D bl_get_data(bdev);
-> -	int brightness =3D backlight_get_brightness(bdev);
-> -	int ret;
-> -
-> -	ssd130x->contrast =3D brightness;
-> -
-> -	ret =3D ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
-> -	if (ret < 0)
-> -		return ret;
-> =20
-> -	ret =3D ssd130x_write_cmd(ssd130x, 1, ssd130x->contrast);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return 0;
-> +	return ssd130x_set_luminance_value(ssd130x,
-> +					  backlight_get_brightness(bdev));
->  }
-> =20
->  static int ssd133x_update_bl(struct backlight_device *bdev)
-> @@ -2066,6 +2097,7 @@ static const struct backlight_ops ssd130xfb_bl_ops[=
-] =3D {
->  		.update_status	=3D ssd135x_update_bl,
->  	},
->  };
-> +#endif
-
-[Severity: Low]
-This isn't a bug, but since ssd130x_update_bl() now delegates to
-ssd130x_set_luminance_value(), which already switches on
-ssd130x->device_info->family_id and dispatches to ssd133x_set_contrast() and
-ssd135x_set_contrast(), could ssd133x_update_bl(), ssd135x_update_bl(), and=
- the
-per-family ssd130xfb_bl_ops[] array be dropped in favor of a single
-backlight_ops struct using ssd130x_update_bl()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-superm1-ba=
-cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D15
