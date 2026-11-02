@@ -2,135 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF9B606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB34606A32C
 	for <intel-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 12:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JoarM11I
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=LdTYYRbv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C6C910E28D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9453710EDA4;
 	Mon,  2 Nov 2026 12:42:46 +0000 (UTC)
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazon11010057.outbound.protection.outlook.com [52.101.84.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9EFE11243E;
- Thu, 29 Oct 2026 16:31:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YFcGcdLuRilahGmHTOlVeUEven84WEpaLKZjo2LNz9SOqE3SStZeBe76YyQMHC5RPkCjkWxpzK1uzPKSySr49HD9kRL/gBgP+7j17DlIIofMQNXvgTh5Abyhbbk06eZ3LA8wEUJ+1jh2R2+gsfAVyk9BLVgR+fquMQXIC0vC3n3FOLaeobxHBxkUXZJGOVh41qtQwP0RaQlj8uKwJ6igjSxNrqiSjA/KpXpaeDqRBMTZylLb5r5BPwpMue0a9dy3yAp4BVuOnuQ2j2mb16RVgqaTzjOiX0FVEEVUsxjVrEi6LVV08c2ZKo4uqv8rBBLu3yfJe1UFZTDGuKUheS4pFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e9PNCwj/XIJLcmHgICx+5abEvtPA2lHup7xvhFuDMGQ=;
- b=SU63X+xS8D/Ie1j8dzN+T5quKU/SVBY8eJS+YLuFWDtnvm5CDwN04wbhIjZlSBpLVrV7dGIk8/p6ISqWJfsIhoaaBflp7v4ykvpi6O7ktllkOlqjtbm8GMkwiZPWTzhcsxYNRhaUJA1OyXYfTh5UysPEfjuGgWEpwtsXb2qON6m6ODc7xRt40Mpaiizywmpy5tUZLi0iObRSfImmFKUqGeZ4sjS80VPIlm+QHdeNDZkPRReb9QsK4mlxLnZAJkopGv8TnUj2p17v6eZ+NWm1nKBgV8PRhaTJyeQ02yFdko7Ou3p+7yoS/cgEeacVy0H6aViYTfzmY0Mmoqop+1Y1Xw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e9PNCwj/XIJLcmHgICx+5abEvtPA2lHup7xvhFuDMGQ=;
- b=JoarM11IFtkri4Sq++PddiCrRY03RhdV/zQMTeqDPLm6SUiuwz24S5Rw0kSj23f9DhAFyAgl6xPiHz4zY61tjRozMO3zCE+b/WPkvpQiZNCwe+ZtKnspfU67ZmtVABc4PemYRh5D5MU7FZZjA/FNhd9LN8D5L/5mbKv2TSk6+rduQSEDgDS+lbRv1NuKEZHTF/pBcS1UhsR5iJtR2MBryLwYH8PuUFEbDVePfkVc05XvRmzjS/VZp8dRGjc/eVKPTjaHwHns9RjteYtCmR+1GrEjuEf9yWrHr6mTyuKlaNAuzMTqH3S+GvfflC4VWm9JiggKxUL0W6AGMJl9VYtTFw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GVXPR04MB10046.eurprd04.prod.outlook.com (2603:10a6:150:112::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
- 2026 16:31:02 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 16:31:02 +0000
-From: Frank.Li@oss.nxp.com
-To: 
-Cc: Frank Li <Frank.Li@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel" <joro@8bytes.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, Guan-Yu Lin <guanyulin@google.com>,
- Mathias Nyman <mathias.nyman@linux.intel.com>, linux-pm@vger.kernel.org,
- linux-usb@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
- netdev@vger.kernel.org, imx@lists.linux.dev, Rob Herring <robh@kernel.org>
-Subject: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
- return 1 when !CONFIG_PM
-Date: Thu, 29 Oct 2026 12:30:37 -0400
-Message-ID: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SN7P222CA0013.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:124::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 952C010E080;
+ Mon,  2 Nov 2026 09:36:05 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ65Z1smrzMlFg;
+ Mon, 02 Nov 2026 10:36:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1793612162; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+/sMZYds1uhOZXW3Ia/g+6VA7auA/l8PP9TjhomiEy4=;
+ b=LdTYYRbve+2a9AsrYz20m520ncMvUqWtNFNrebXBDHnKI8ybVi/PYzzpfE9c2aWuFQazCh
+ Yanfhn1iktpfZnQvu6kAr70M9l9F5WvWdkfMTslOXz1AiDpwxsLPj04BF7RZ5NgJt2Mrio
+ YY5bbjEEPl6bCHSmIjrPAAqY8i0x94+e6LlSve+QrM9iyCGTKdUjw9uOK33jJpYH+ZHH/Q
+ ZXCFvol5foGJGa5kgTewdfkcTM6PPV/7x+yH/OVp/6tN+BAr23IGPKCZD7XpsivZOn9fCH
+ C3bAI15a1dLfcj0+ibFzUcP+JhkDXEA4k6fD+tfyudO2wKsvS/NOOAMT/wbNdg==
+Message-ID: <3a81450158fe5a46d76257c5018eaf5592168f18.camel@mailbox.org>
+Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
+ Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Date: Mon, 02 Nov 2026 10:35:57 +0100
+In-Reply-To: <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
+References: <20261020100034.759183-2-phasta@kernel.org>
+ <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
+ <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
+ <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
+ <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
+ <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
+ <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
+ <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
+ <f9a47d563f896e0789fffa72df5847e2878cbe5e.camel@mailbox.org>
+ <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVXPR04MB10046:EE_
-X-MS-Office365-Filtering-Correlation-Id: c82e6468-2843-47df-01b8-08df35da0568
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|366016|23010399003|376014|1800799024|7416014|6133799003|18002099003|56012099006|11063799006|10067099003|261028144727099003|261021123027099003|261021121427099003|261009221727099003|261009223327099003|261009223027099003|261009221227099003|261009220027099003|261026140227099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: 4U2r5HKVzQxL9XoVisHoci6To+0AW9AAvXPaojbd7wtkEveOtxf4pRaYQIwfn1xXpbJc6gOcisQqX27DDe4CMklkRdDsWZjrdNZprBwHVrFQ33HHkopPOidj4bcDw3sT0ydVHaoGu4/hKHrxwH3RKJkGJyOAt8G6YNsjnL6KHaqieXiXyhoGwFwQGJ0clKfNp/AdTCVa5TopdTTBuxT0/Etm8UYbbHet6w+5OWcfntpNB58eWl7YMhs8zIWyDxoP7eM3xexTyWyhJrE34GP4s6y04oTsRzAW9C2yUAp7KAfEwNMD9STAlsoO6GdmkNHLkEDVLCE84NRjTJjDloQMVqiHTizUEqAnPnCdX7qMeZoul9GoeHs/W2y+WTlxeopdaPomwggu02vL3GA7B0UbXwe9RIlrdcopX84e5QU2m0DDCnpyghXpwht81sRKkC9gWJfopSp0kyrwNbYtJIlrMsJX9GWSvgwWInpC28DOMCNn/OV73S9VHhH768pkUAsQRJ2P/vjheDO7kZgYzH/iVQw58utlS+V2+PXjGMPmvvwCKOxqTjRt4chPSWhBU3TwNfFCnz8/2Usc9k3/x0hB45O7uOUinkM2ZX/uSGgrzc1NLxCSce7R4xVcZ77hsS3/rEjFAt5NiKylycDAToYA+PsVRaHYtML996XFcMvYhMA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(366016)(23010399003)(376014)(1800799024)(7416014)(6133799003)(18002099003)(56012099006)(11063799006)(10067099003)(261028144727099003)(261021123027099003)(261021121427099003)(261009221727099003)(261009223327099003)(261009223027099003)(261009221227099003)(261009220027099003)(261026140227099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PdUJudLuzgndgMBrstFMTSOSKKpy8Nv9mfyTLu/Ct4I2/N7BogkX0SQuHiCe?=
- =?us-ascii?Q?sdK+ls8AzCcW8JSPERpAMGTLhp94FxhqfDCAQ+h0FL8aJKJIReQzuITFuutc?=
- =?us-ascii?Q?/7rVdtx/srYC8EPf+d6GiINcU9tMWX/9BTgsVS8W3OwpkMPDZ1wBfPJuXElJ?=
- =?us-ascii?Q?1inKHOdvwGo1pNYH1m3+Z58oRgPQXV8XmZzOiccVlqDltuk8mGHYjzD/6hf0?=
- =?us-ascii?Q?DpMcfC7FpXLWqqcDRf8RTx6HnawVm0j8iJztdOgr8ONdxHOBQmstayKJPxjN?=
- =?us-ascii?Q?+UNIJk/sLuR2aPmF+TFaCbz9q9oBIGu6uRYTjNrsQkWQVAwXcpkkXzVaZ69o?=
- =?us-ascii?Q?efwg8TCmsLO1aYed++3xiVqZGgCta3aPTZg9q9zz8pbS0m1qmM5eEakhOAP8?=
- =?us-ascii?Q?o5qyhSKL9FIcxYSFg7UqGz02J9RiBdFzSH9BX7yDvLleKKyxCQ5eWh78QeoQ?=
- =?us-ascii?Q?bAdy8ZH041AruPGFhFBF9LxvP+JoWY/Y17LSHuyIewYb2RQ34MNMrBw/wIrV?=
- =?us-ascii?Q?VI+m/loG/XMlgfjuiJBKsP7tffnbBCQSehTEzBTc55MisdSpmnNUANvoBkbW?=
- =?us-ascii?Q?izu/hCPp50Ll0UjEYLEHKh+JlkmB/VV/FBgrQNETkTNZMkNGmXlo3fzp/hJd?=
- =?us-ascii?Q?izAvijIr68Pqk7WaqaCIUxmXsj4p132Y75UUcQXqh2G4xoS7j+36aC5RBgjp?=
- =?us-ascii?Q?Bx1io2OSvS9fHoauIFnjZ31noz3X16WVh2XLvEQyZSB62ms1UsTaxfmRb/a3?=
- =?us-ascii?Q?UFRTm8pZFvzQ/H32VKDV7dNN8eyzx8uDiMPms3zXbDv8vSfGEM1iOdeZtAoK?=
- =?us-ascii?Q?tuzTZ+ApH0xf/tIRxNL4WMT7JNHDk8cELtuiLaMP8NA1YHwHQ+1SWkK859tk?=
- =?us-ascii?Q?pwja07/Frse7aXYlEelpiNLIXKSBF3k0qstUay4XDAHVjxqyFXboIFK0IVI/?=
- =?us-ascii?Q?ysPSD3p9HKKx1wn++5OmKqC6kD4Dt+CCrlHsadHwAnh5G9WH+4Ta2+hNdg0H?=
- =?us-ascii?Q?yY1/I4xuQ1eoXvT2L4jQQBObH69hj0N4Fy07GqvH8hX8CNRmERStA9g5WGJe?=
- =?us-ascii?Q?efc7Qdt7W/eVEM21UTwUHJRO/tU/uGqtPvnrJmr9h6aBf+bxAy/rVaC7jFII?=
- =?us-ascii?Q?60ljuUHzNTbVayW6VtOEjH99ytHMsKp1mRR7z1LcTbXSPLsK8PxkzsnMwctc?=
- =?us-ascii?Q?eOBUNKWQDn1+kjdHjpFaRQ41NGd8IqAKmfFrJIfXrWgYWt0bASvt5xTLjcP1?=
- =?us-ascii?Q?LC6KS2MfwSBk2J3frSJQFiY/Os1oJS5MM8/g8fZVkVWvMX/eFJQkTSXQk9R4?=
- =?us-ascii?Q?Z9yTKW0JalgGrGVS3bvM1lIK4S3iuhz5Uo6gR0Eh+FdVpmNoPr6M6+pWek+9?=
- =?us-ascii?Q?qpwVe9VRnnlGAZ8/NLRA0nvY+NOA8RAorRwBQLbRrd0ON/XlYYmOZKd33mLS?=
- =?us-ascii?Q?tcM/QAy/T6ZYlEXPpAvb98cIN5I3YsRLBwNWFPIAb39p+LWC0UM0wTlNs5+r?=
- =?us-ascii?Q?43WJXGSOhpgKAe8KBaxN5Sh93ZwTz43sjCVO+q4inHsL8MHhQnK9nwOkNnPW?=
- =?us-ascii?Q?GkcYlJMciRMHazX9A7ogE12SHKvnb7e8nxU8vSuv/Lx7XoagLWbFrr3OekDb?=
- =?us-ascii?Q?45orQ8AmnO1FqBCqjz43zTbDKQmK0+ar2a/x8WCvdbB4SUAfZjjDi/3BFWWG?=
- =?us-ascii?Q?bCAldjIcqidzJfcjHbUbgpvQDDmHobX5ob1mTAQwftkR8zRNdpipPzgjJdkw?=
- =?us-ascii?Q?vnwQ1/4N0n3hGXPYeisgy6DrEjdE9IbAU4TKgXTgq9WJI37x7YTq?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c82e6468-2843-47df-01b8-08df35da0568
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:31:02.1238 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oqehOsuVKGRBcXoZfzfOpv1Ig0XTNviKWlwjaqHGvQy2no2bqwL5nrI2LSSJN6k+G8jEN99CU+NyGuQZs0ytCHei8wRMnJbglZg8gCzHwHMYPCoHJYQHm2pkDi+WxWoQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10046
+X-MBO-RS-ID: 9c9e0b972831da15e15
+X-MBO-RS-META: rpf1r7o51nkurn4xtfgfh9p8yhndq3x9
 X-Mailman-Approved-At: Mon, 02 Nov 2026 12:42:45 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,125 +85,226 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Frank Li <Frank.Li@nxp.com>
+On Wed, 2026-10-28 at 14:38 +0100, Christian K=C3=B6nig wrote:
+> On 10/28/26 10:47, Philipp Stanner wrote:
+> > > > 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race=
+")
+> > >=20
+> > > This bug is exactly what I'm trying to prevent here.
+> >=20
+> > What is your proposed strategy for preventing it?
+>=20
+> nouveau_fence_signal() is consistently used by all signaling path to
+> both signal and cleanup a fence.
 
-When CONFIG_PM is not enabled, all devices runtime PM state should be
-treated as active.
+No, you miss the point. Look at the bug. It exists because nouveau
+thinks it can drop a reference now because the fence is signaled.
 
-__pm_runtime_resume() returns 1 (called by pm_runtime_get()).
-pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
-stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
-should return the same value as the stub pm_runtime_get(), which is 1.
+I grant the point, though, that this is actually a refcounting issue.
+The path that is signaling does not have its own extra reference.
 
-Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
+> When we stop calling callbacks with locks held and signaling fences
+> from dma_fence_is_signaled() and dma_fence_enable_signaling() nouveau
+> can call nouveau_fence_signal() consistently from all cleanup paths
+> with the proper handling.
+>=20
+> This makes it completely unecessary to have those cleanup hacks as
+> well as the nouveau_fence_release() callback.
+>=20
+> Background is that you can then put the fence context directly after
+> the fence is signaled=20
+>=20
+> > > This problem only exists because we call the backend operations with
+> > > the lock held!
+> >=20
+> > Nope, this particular bug exists because Nouveau thought that it can
+> > drop its reference when dma_fence_is_signaled() returns true, which is
+> > not the case, because the fence backend has a race condition there.
+>=20
+> No it doesn't, the fence backend works exactly like intended.
 
-Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
-  Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
-  Callers: drivers/accel/ethosu/ethosu_perfmon.c,
-           drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
-           drivers/gpu/drm/msm/msm_perfcntr.c,
-           drivers/gpu/drm/v3d/v3d_mmu.c,
-           drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
-           drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
-           drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
-           drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
-           drivers/media/pci/intel/ipu6/ipu6-buttress.c,
-           sound/hda/core/device.c
+You mean the lockless checking of a bit that is set under lock-
+protection works as intended?
 
-Pattern B: if (!ret) after get -- no impact
-  Both -EINVAL and 1 are non-zero, !ret is false in both cases.
-  drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
-    in kernels without CONFIG_PM), drivers/pci/pci.c
+>=20
+> I agree that we made tons of mistakes here but that is actually one
+> of the few things which we got right on dma_fences from the very
+> beginning.
+> > A race condition that was allowed for performance reasons.
+>=20
+> Well it is at least partially for correctness as well.
+>=20
+> It is mandatory for quite a number of use cases that the signaling
+> status becomes visible before the callbacks finish because otherwise
+> you run into race conditions with the callbacks again.
 
-Pattern C: ret > 0 / ret <= 0 / ret != 1 checks -- FIXED
-  drivers/usb/core/offload.c: checks (!= 1), old -EINVAL caused
-    -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
-  drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<= 0), old -EINVAL
-    spuriously triggered WARN. Fixed: 1 > 0, no warn.
-  drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<= 0), old
-    -EINVAL triggered error path. Fixed: 1 > 0, correct path.
-  drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
-    Fixed: proceeds correctly without CONFIG_PM.
-  drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
-    (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
-    xe_pxp.c) now correctly treat !CONFIG_PM as active.
-  drivers/net/ipa/ipa_smp2p.c: power_on = (> 0), now correctly true.
-  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
-    executes stall register update.
-  drivers/staging/media/ipu7/ipu7-buttress.c: active (<= 0) early
-    return now skipped, correctly proceeds.
+That's not what I mean. There are two things here:
 
-Pattern D: explicit -EINVAL check
-  drivers/hwmon/prom21-xhci.c: checks (> 0) then (== -EINVAL).
-    Old: took -EINVAL fallback. New: takes (> 0) fast path.
-    Both succeed when CONFIG_PM is disabled; functionally equivalent.
-  drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
-    stub is never reached. No impact.
+a) signaled-bit is read without lock-protection
+b) signaled-bit is set before callbacks execute
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Cc: Karol Wachowski <karol.wachowski@linux.intel.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Alex Elder <elder@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>
-Cc: "Joerg Roedel" <joro@8bytes.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: Guan-Yu Lin <guanyulin@google.com>
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>
-Cc: linux-pm@vger.kernel.org
-Cc: linux-usb@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-hwmon@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: iommu@lists.linux.dev
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: linux-staging@lists.linux.dev
-Cc: netdev@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: Rob Herring (Arm) <robh@kernel.org>
----
- include/linux/pm_runtime.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+fixing a) makes b) irrelevant.
 
-diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-index 64921b10ac74f..de9e7518ecef2 100644
---- a/include/linux/pm_runtime.h
-+++ b/include/linux/pm_runtime.h
-@@ -280,7 +280,7 @@ static inline int pm_runtime_get_if_in_use(struct device *dev)
- }
- static inline int pm_runtime_get_if_active(struct device *dev)
- {
--	return -EINVAL;
-+	return 1;
- }
- static inline int __pm_runtime_set_status(struct device *dev,
- 					    unsigned int status) { return 0; }
--- 
-2.43.0
+But that's not even my point in this mail.
 
+
+I'm still interested btw in who is busy-polling on a fence, waiting
+until the signaled-bit gets true (that would be the "performance"
+argument).
+
+If you want to know when a fence changes from unsignaled to signaled,
+use this function:
+
+dma_fence_add_callback()
+
+problem solved.
+
+> > What signaling handler are you referring to?
+>=20
+> Take a look at the hack nouveau_fence_is_signaled() does for example.
+> The cleanup part the other signaling call path do is completely
+> missing here because the function can't take the fctx->lock.
+
+Again, ops->signaled() merely has to read an atomic64_t and return a
+bool. Driver locks are not required here.
+
+>=20
+> Yes, but if we want to get away from the external lock concept in
+> dma_fence we must allow drivers to take their own fctx->lock inside
+> the enable_signaling callback.
+>=20
+> Just take a look at what nouveau_fence_enable_signaling() does, that
+> is only possible because the dma_fence framework has grabbed fctx-
+> >lock before calling this function.
+>=20
+> The alternative is forcing drivers to use lockless approaches for
+> their internal handling, and that is much much worse than that a
+> dma_fence signaling status is visible without taking the lock.
+
+[=E2=80=A6]
+
+> Just take nouveau_fence_enable_signaling() as an example, if we don't
+> use fctx->lock as external dma_fence lock then the whole approach
+> used here doesn't work any more.
+
+My entire point is that the driver does not need any driver-lock
+conflicting with the fence-lock-order at all.
+
+I tried to point this out several times, but you keep iterating back to
+"this is what nouveau does".
+
+That nouveau does it does not proof that it's necessary. It just proofs
+that nouveau does it.
+
+> > >=20
+> > My impression was more that central design criteria for dma_fence (like
+> > module unload of the driver who issued your fence, which is designed to
+> > live arbitrarily long) were ignored, there was no clear guidance for
+> > drivers how they should use what callback, and then driver problems
+> > were solved in dma_fence, for instance with this shared lock. So same
+> > story as with drm_sched.
+>=20
+> Yes, exactly that.
+
+Good!
+
+So we agree that the dma_fence backend should give clear guidance about
+what a driver must, must not and should do in its backend_ops
+implementations.
+
+Right?
+
+Because so far the conversation sounded to me like "the driver must be
+able to do whatever it wants and therefore needs to be able to grab
+whatever locks".
+
+>=20
+>=20
+> And that is strong evidence. Nouveau is actually the perfect example
+> of why this approach causes so much trouble for driver
+> implementations.
+
+Calling Nouveau a "perfect example" is like calling Ronald McDonald a
+role model in dietary choices.
+
+Nova is being written right now, for reasons.
+
+>=20
+> And such guidance should not exist in the first place.
+>=20
+> It is up to the driver if they want to use locks for their internal
+> state protection and the dma_fence framework should absolutely not
+> enforce anything it doesn't need to deal with.
+>=20
+> That the dma_fence lock should protect the state of the dma_fence is
+> something I can perfectly agree on, but that does not include the ops
+> call chain because that isn't dma_fence state in the first place.
+>=20
+> > The only evidence I have ever seen is the fence-list-lock, and it's
+> > just not clear at all why any callback would need access to that.
+>=20
+> Because they need to clean things up after signaling.
+>=20
+> > Let's walk it through together, shall we?
+> >=20
+> > ops->release() and ->wait(): deprecated
+> >=20
+> > ops->get_XXX_name() -> never needs driver locks
+> >=20
+> > ops->signaled(): "Driver, here you read an atomic integer, the sequence
+> > number, and tell the fence backend whether this fence shall be regarded
+> > as completed"
+> > No need for any driver lock.
+>=20
+> Incorrect, you can only work without driver locks here when you delegate =
+the cleanup.
+>=20
+> In other words either to a worker or the ->release callback, both are thi=
+ngs we try to avoid.
+>=20
+> Again see nouveau as a perfect example of the problem.
+>=20
+> > If this particular driver also signals fences through an interrupt
+> > handler, it can take a list lock, then signal the fence. The ops must
+> > not do that.
+> > Why would a driver need both modes, sw *and* hw signaling? And why then
+> > is it supposedly the case that both paths need to keep a list updated?
+>=20
+> Because the signaling through the interrupt is mandatory for correct,
+> the signaling through the is_signaled callback is then on top for
+> performance optimizations.
+
+is_signaled() never conflicts with any lock, see my list above.
+
+I think at this point you and I should really first get in sync
+regarding what the backend_ops are supposed to do, because we seem to
+turn in circles a bit in our discussion.
+
+And the only ops that seems to be controversial and that informs the
+nouveau argument is ops->enable_signaling()
+
+What should enable_signaling() do, in your mind? What should we tell
+the driver to do in there?
+
+And why does nouveau even implement it, when its interrupt handler will
+ultimately signal the fence anyways. Since, as usual, nothing is
+documented, and one enable_signaling function carries literally the
+name "no_signaling", I don't give it the benefit of the doubt and just
+assume that this is broken, bad design.
+
+
+My impression is that ops->enable_signaling() and having an interrupt
+handler signaling fences is mutually exclusive design-wise.
+
+
+P.
+>=20
