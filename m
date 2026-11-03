@@ -2,51 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CFA606A31B
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 15:03:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAEC606A31B
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 15:03:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F7810FCA0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF31310FCAC;
 	Wed,  4 Nov 2026 15:03:09 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E50C10F98C
- for <intel-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 03:01:08 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD1810F40B;
+ Tue,  3 Nov 2026 08:04:27 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-01 (Coremail) with SMTP id qwCowABnVf8vnupqA+U+AA--.27602S2;
- Wed, 04 Nov 2026 10:53:35 +0800 (CST)
+ by APP-03 (Coremail) with SMTP id rQCowADn9ZaJlelqUzY6AA--.1077S2;
+ Tue, 03 Nov 2026 16:04:25 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/i915/selftests: read the noop seqno before dropping the
- request
-Date: Wed,  4 Nov 2026 02:53:44 +0000
-Message-Id: <20261104025344.1527492-1-vulab@iscas.ac.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com
+Cc: tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] drm/i915/selftests: Unpin the context in the LRC garbage test
+Date: Tue,  3 Nov 2026 08:04:34 +0000
+Message-Id: <20261103080434.1127682-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowABnVf8vnupqA+U+AA--.27602S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1xZw1fZFW3AFW3Xw4rGrg_yoW8AFW8pr
- 4rJF4Y9rZxJrWIyayfJry0vF1Yka1SyFWfKrnrKw13urn8Xw48trnavw13WryUAFZ7XrW3
- tFZrKFZxWF9FyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUB0b7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
- cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
- AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
- 6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14
- v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xf
- McIj6xIIjxv20xvE14v26rWY6Fy7McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7x
- kEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjcxG6xCI17CEII8vrVW3JVW8Jr1lc7CjxVAa
- w2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJw
- CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
- 14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
- IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20E
- Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I
- 0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjxUHubkDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgBA2rqZFjiRQABsX
+X-CM-TRANSID: rQCowADn9ZaJlelqUzY6AA--.1077S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KF4xXw45WrW8Zw1DCw43Awb_yoW8Wrykpr
+ s3W3WY9ry5X3W2qa4qya4jvFyak3WSkay3C34DJw1rtrsxZw1kKF1Sva4UtFyUCrZ5WryY
+ yFnrJFyfuF4jvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+ Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+ AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+ rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+ v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+ Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JjU-B
+ _UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEAA2rpWtnbMgAAss
 X-Mailman-Approved-At: Wed, 04 Nov 2026 15:03:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,55 +63,49 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-perf_mi_noop() waits for the request it has just submitted, drops the
-reference taken with i915_request_get() and only then reads
-rq->hwsp_seqno[].
+garbage() explicitly pins the context to corrupt its register state, but
+only releases that pin when request creation fails. On success, its caller
+waits for the request and drops the context reference without unpinning.
+The request's own context pin does not account for this extra pin.
 
-i915_request_wait() returns as soon as the fence is signaled, which
-happens in i915_request_retire() before it puts the request's initial
-reference.  If retirement has already run, the put in this loop is the
-last one and i915_request_put() frees the request, so the seqno is read
-from an object that the SLAB_TYPESAFE_BY_RCU slab cache can already have
-handed out to another user.
+Release the explicit pin immediately after creating the request, on both
+success and failure. A successful request already holds the context pin
+it needs until retirement, as in the other context selftests.
 
-Sample the seqno while the reference is still held.
-
-Fixes: 3c7a44bbbfa7 ("drm/i915/selftests: Perform some basic cycle counting of MI ops")
+Fixes: 24eba7a9981d ("drm/i915/selftests: Check recovery from corrupted LRC")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/i915/gt/selftest_engine_cs.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_lrc.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-index 1846f1c7e77e..f894902f5509 100644
---- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-@@ -357,13 +357,19 @@ static int perf_mi_noop(void *arg)
+diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+index 23f04f6f8fba..314922e778a8 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
+@@ -1782,18 +1782,13 @@ static struct i915_request *garbage(struct intel_context *ce,
+ 			    LRC_STATE_OFFSET);
  
- 			if (i915_request_wait(rq, 0, HZ / 5) < 0)
- 				err = -EIO;
-+
-+			/*
-+			 * The request can be freed as soon as its last
-+			 * reference is dropped, so read the seqno first.
-+			 */
-+			if (!err)
-+				cycles[i] =
-+					(rq->hwsp_seqno[4] - rq->hwsp_seqno[3]) -
-+					(rq->hwsp_seqno[3] - rq->hwsp_seqno[2]);
-+
- 			i915_request_put(rq);
- 			if (err)
- 				break;
+ 	rq = intel_context_create_request(ce);
+-	if (IS_ERR(rq)) {
+-		err = PTR_ERR(rq);
+-		goto err_unpin;
+-	}
++	intel_context_unpin(ce);
++	if (IS_ERR(rq))
++		return rq;
+ 
+ 	i915_request_get(rq);
+ 	i915_request_add(rq);
+ 	return rq;
 -
--			cycles[i] =
--				(rq->hwsp_seqno[4] - rq->hwsp_seqno[3]) -
--				(rq->hwsp_seqno[3] - rq->hwsp_seqno[2]);
- 		}
- 		i915_vma_put(nop);
- 		i915_vma_put(base);
+-err_unpin:
+-	intel_context_unpin(ce);
+-	return ERR_PTR(err);
+ }
+ 
+ static int __lrc_garbage(struct intel_engine_cs *engine, struct rnd_state *prng)
 -- 
 2.34.1
 
