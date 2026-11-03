@@ -2,59 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4D1606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E35D606A326
 	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 15:03:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ozlabs.org header.i=@ozlabs.org header.a=rsa-sha256 header.s=201707 header.b=KxXAAmYX
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k71DnFWs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 674D510FC9F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B147410FCA9;
 	Wed,  4 Nov 2026 15:03:09 +0000 (UTC)
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18FB410EFB3;
- Mon,  2 Nov 2026 15:13:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1793632426;
- bh=G6oVY4CE3e6dkzK5lDm8qodLP62nbKSQOgzSCbSLRbI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=KxXAAmYXGj8561ePKtJyEh1YoOniqny80/nhZgKKxv/uC/hBtUj0XItevaoVP2CO+
- J8SuQAWZHnLZyciYLh0uMHdgTgXb380DvrF/jjr1/a2kYtmD8DhdYn9SwFdbKz2Bwu
- vx1mC2eQ8cZv2VIqv4g5axpk0iyAEBtwkH0uAIaUWlTQJwPjvkvFoP5ReTK3Hd8mg/
- z0+irlVlhQ1SaycZe1h102Sy7sWwC/KUCvor+grh5p23MlTlDV37ppLhtp6XRZf+K7
- jfpx4eTW+6evip+T/F0+wVjniVeqZPcYEvKtjwjYNBGpLwHf8r7TC7shTgVXiZGd19
- dL/Czg6St8FcQ==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4jJFb60P30z4w0H;
- Tue, 03 Nov 2026 02:13:37 +1100 (AEDT)
-Message-ID: <e9464db2-0cfa-4a61-8adc-eee51e30fd05@ozlabs.org>
-Date: Mon, 2 Nov 2026 15:13:26 +0000
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A84FE10F5BB
+ for <intel-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 14:02:57 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-48df54150dfso2130244f8f.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 06:02:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793714576; x=1794319376; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=uu68lQxHEs/mkQVI9vO7Af9VdhM6SKqu6dRO3KGsMrE=;
+ b=k71DnFWs2C4BOlmUnahOM7Tpz1HeLUdFBaa4ZpXLXj0nQk+kUxJBTLgF77VL6TTe5s
+ ldm72W/gpjGb9OjAnhOMZ8W6ehuIBQCQHVJi5mDpqB2RPfH0yXcicC8EB+1o090miR5f
+ yNcZ15dyDs9viE4h85XPNSlE6hAn/eZSS/dTotnz9WzwKpL3RLFd1nUjXZ3viTOFmuV7
+ 8QQnqRJaSzvW1bA+6xBg54s53MLrQfbwha3FOwGJsiz7LhGwly4U+J+9rBM9MX+TsUt/
+ k2Bl0fEZvjsl2I9EHn2N9mFYBkkWonpZqodjbk/oo5QzYNh0VZtRmhB3MkffpZld2FQp
+ O7Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793714576; x=1794319376;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=uu68lQxHEs/mkQVI9vO7Af9VdhM6SKqu6dRO3KGsMrE=;
+ b=LVuUtJOgHfy/2ni/vRbfIrcHbeH59LUHuE9pTRGvNe6VMRYn3lBj1mldKbkMRTPGDy
+ uqgIfWkY0+R6HiOj87WvCfzTHfetq8tKhSVdqkQ7bm4OKLWZZhZIZiCw+lsN6JFid8SR
+ 2yo/8Xk19GWX3vH9cpD8Y6sPZFZnFJgiHqPjOjaI49Q423z4vX4ugBIZSWw3GxK1KY9j
+ F306WBV+7syMwrXFMGmbYqVa6HWrnTrJxp2oUmyop/AevabH69i8N0AjBbxtlAp3/CUl
+ bzbQqEDIqXdp5dCIcuKfQY7ntGi34iLiGew8LKzA6sLuE6jJZe73tbS0eLxG/59AMpdP
+ SRaQ==
+X-Gm-Message-State: APuU4Z89tzttthHh0d01Q0Dcl7MHhikmXjEDBktTRoulN01q3XcFUzMy
+ T2AO15m3KfKUvzJAy7W2v/y5nwhBYD/E8lsAIkJOFZ++finjQpbt7OwW1pcPL8Tws+0=
+X-Gm-Gg: AYBFou0almqm//nLeouTIZkjKhv+wWJRhSqt2i2eORnkQhJpdcI2ckDv1gEQFWHHSEg
+ 6itrCGkVv9VzdnYS7lNH9rUDgwB3AnNeTCohwrtYPqOgwATlFuSoQpBJZejPvbOyt8W/8hDD0xv
+ YbNkOQ8GFzaVfii8+LUPctdXzVRpCrCsIRkOZ4/4xJj6QCiP7KQOItJ14guO84p5qlcroFdn2NV
+ poe/sKo734LB/62hmBQ1YubR/M6bVdDz4emNg3oEyRyIofUXAwxaJ35LWSHNTU4KMJBElL190qf
+ e8/4iLjEVZdAOVyxw9RwAXEEarZFTWTDu/PJkklvLmL89AgSQF8VdLKD3zmnPzT1HDO+Frfdq8z
+ H6oZaJ4sQHM1fE9bQYmAGhu+2TvfUlWZU4RICsiCqo0F6j5PN1f3/iCKInaZRJeRtI+LtDtQwXp
+ ETzTFH8qFW9nBfgSQUktLUbKDFRxJTAqe81TMO7OGBzj5VSV0vrm50sHr5NL1oM6MAgTapjBwyJ
+ kcO+pA/5BS8WNHHuutlw/VEKjjFSZGDsEJG520XluaVJgBtZ6GlsejKKmsTvd+wjl07SGiSwU6X
+ S8wKx8BEaNSG9Tt+3OGd/KeBgbltl7nm4BdqYE4aD/1e49pdad7cYLZiq8lHtmWD2VAYf17s3xc
+ oMGAz4Q==
+X-Received: by 2002:a05:6000:2486:b0:48d:ff81:5201 with SMTP id
+ ffacd0b85a97d-48e6e4f44f2mr30393094f8f.41.1793714574925; 
+ Tue, 03 Nov 2026 06:02:54 -0800 (PST)
+Received: from gandalf.magpie-herring.ts.net ([90.251.75.96])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e71b8c0b6sm24467507f8f.41.2026.11.03.06.02.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 06:02:52 -0800 (PST)
+From: Zak Brighton Knight <zakbrightonknight@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Zak Brighton Knight <zakbrightonknight@gmail.com>
+Subject: [PATCH] drm/i915/backlight: Keep ACPI backlight requests while the
+ panel is off
+Date: Tue,  3 Nov 2026 14:02:35 +0000
+Message-ID: <20261103140235.1032320-1-zakbrightonknight@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Zack Rusin
- <zack.rusin@broadcom.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
- Alex Williamson <alex@shazbot.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, stable@vger.kernel.org
-References: <20261013120211.135807-1-matt@ozlabs.org>
- <20261013120211.135807-4-matt@ozlabs.org>
- <3e3e0974-20f9-4aaa-a6b8-a7fb4727ad8e@amd.com>
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <3e3e0974-20f9-4aaa-a6b8-a7fb4727ad8e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 04 Nov 2026 15:03:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,120 +89,139 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello DMA and DRM folks,
+With the ACPI video backlight (acpi_video0), brightness changes reach
+i915 as OpRegion ASLE requests: the firmware's _BCM method writes the
+level to the mailbox and raises the ASLE interrupt.
+intel_backlight_set_acpi() returns early when the connector has no
+crtc, so a request made while the panel is off is dropped. The ACPI
+video driver still reports the new level, but the panel comes back on
+at the old one.
 
-On 13/10/2026 13:13, Christian König wrote:
-> On 10/13/26 14:02, Matt Evans wrote:
->> The dmabuf release path is split between file and dentry release:
->> dma_buf_file_release() is called shortly before the file is freed, and
->> dma_buf_release() calls an exporter's dmabuf->ops->release when the
->> dentry is freed.  However, the dentry can outlive the file (for
->> example, if opened with O_PATH), meaning .release might be called some
->> time after the file is freed.
->>
->> This presents a window, when closing a DMABUF file, in which
->> dmabuf->file points to freed memory yet .release op has not yet been
->> called.
->>
->> For VFIO, if a buffer's .release has not been called it's considered
->> still active and subject to move/cleanup.  If so, it attempts to
->> get_file_active() on dmabuf->file: a file close with dentry held open
->> will call this function with a stale pointer, a UAF.
->>
->> To make this pattern safe, set dmabuf->file to NULL in
->> dma_buf_file_release() to reflect that the associated file is now dead
->> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
->> sequence concurrent with a file close then only executes as one of:
->>
->>   - Gets the file before file_ref_put() (dmabuf->file valid)
->>   - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->>   - Observes dmabuf->file = NULL (no file)
->>
->> Originally, drivers could assume dmabuf->file was valid until .release
->> was called from fops->release.  This assumption was no longer valid
->> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
->> dentry_ops"), which moved the callback to the dentry release (by which
->> point the file might have been freed).  With this commit, drivers must
->> still consider that dmabuf->file could be NULL before .release.
->>
->> Cc: stable@vger.kernel.org
->> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> 
-> Reviewed-by: Christian König <christian.koenig@amd.com>
+The connector has no crtc whenever userspace turns the screen off by
+disabling the crtc and detaching the connector from it, which is what
+mutter does for its power saving mode. GNOME's login screen makes this
+easy to hit: it dims the screen when idle and turns it off a little
+later, and on the next key press it restores the brightness while the
+screen is still off. The screen comes back dim, and the next brightness
+key press jumps from the level the backlight device reports.
 
-Thank you.  Zack's also added R-Bs for 1/3 and 3/3, and Zhenyu an Ack on 
-2/3.
+On a ThinkPad T520 (Ivy Bridge, LVDS, coreboot), setting acpi_video0
+to 10, turning the screen off through mutter, setting 14 and turning
+the screen back on gives, with drm.debug=0x6:
 
-If this is acceptable, which tree would you recommend could take this fix?
+  brightness 10, screen on:
+    updating opregion backlight 73/255
+    [CONNECTOR:92:LVDS-1] set backlight level = 444
+  screen off:
+    [CONNECTOR:92:LVDS-1] set backlight PWM = 0
+  brightness 14, screen off:
+    updating opregion backlight 170/255
+  screen on:
+    [CONNECTOR:92:LVDS-1] set backlight PWM = 444
 
-Thanks,
+after which acpi_video0 reads brightness 14 and actual_brightness 10.
 
-Matt
+The check goes back to commit 752aa88a1e78 ("drm/i915: make backlight
+functions take a connector"). Commit 260d8f98ef9d ("drm/i915: Remove
+most INVALID_PIPE checks from the backlight code") dropped it from the
+native path, but kept it for BIOS requests, which can arrive during
+driver init before the modeset readout, when there is no crtc yet. The
+native path, intel_panel_set_backlight(), stores the level whatever the
+connector state and leaves it to the next backlight enable.
 
-> 
->> ---
->>   drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
->>   include/linux/dma-buf.h   |  5 ++++-
->>   2 files changed, 22 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->> index 4c9add51f9ef..61485fc28b8b 100644
->> --- a/drivers/dma-buf/dma-buf.c
->> +++ b/drivers/dma-buf/dma-buf.c
->> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
->>   
->>   static int dma_buf_file_release(struct inode *inode, struct file *file)
->>   {
->> -	if (!is_dma_buf_file(file))
->> -		return -EINVAL;
->> +	struct dma_buf *dmabuf = file->private_data;
->> +
->> +	if (!dmabuf)
->> +		return 0;
->>   
->> -	__dma_buf_list_del(file->private_data);
->> +	__dma_buf_list_del(dmabuf);
->>   
->> +	/*
->> +	 * As the file is being closed, dmabuf->file is no longer
->> +	 * valid and NULL replaces an otherwise stale pointer.  If a
->> +	 * reference to the file isn't already held, the file can be
->> +	 * closed at any time, including before dmabuf->ops->release()
->> +	 * happens: dmabuf->file _must not_ be accessed directly.  An
->> +	 * exporter should use get_file_active(&dmabuf->file) which
->> +	 * atomically tests and acquires a reference to the file (or
->> +	 * returns NULL if the file has closed).  The barrier ensures
->> +	 * get_file_active() observes the store before file_free()
->> +	 * frees the memory.
->> +	 */
->> +	smp_store_mb(dmabuf->file, NULL);
->>   	return 0;
->>   }
->>   
->> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
->> index d15b2b31d3c9..a31eb0ab9ecf 100644
->> --- a/include/linux/dma-buf.h
->> +++ b/include/linux/dma-buf.h
->> @@ -303,7 +303,10 @@ struct dma_buf {
->>   	 * @file:
->>   	 *
->>   	 * File pointer used for sharing buffers across, and for refcounting.
->> -	 * See dma_buf_get() and dma_buf_put().
->> +	 * See dma_buf_get() and dma_buf_put().  When an exporter holds a
->> +	 * common lock with the ->release() callback, it can use
->> +	 * get_file_active(&dma_buf->file) to safely acquire a reference;
->> +	 * the file could otherwise be closed at any time.
->>   	 */
->>   	struct file *file;
->>   
-> 
+Do the same for ACPI requests: always store the level, and skip only
+the hardware update when there is no crtc, which still covers the
+driver init case.
+
+The problem was found and root-caused, and this patch was drafted, with
+the help of an AI coding assistant (Claude, by Anthropic).
+
+Fixes: 752aa88a1e78 ("drm/i915: make backlight functions take a connector")
+Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+---
+Tested on the T520 (i7-3840QM, Ivy Bridge, coreboot 24.08 with SeaBIOS)
+with v7.4-rc1 plus this patch, built with PROVE_LOCKING, under GNOME 50
+(mutter 50.6). intel_backlight_set_acpi() is the same in drm-intel-next
+and drm-tip today, and the patch applies to both.
+
+- The sequence above now ends with "set backlight PWM = 1035" when the
+  screen comes back on, and acpi_video0 reads 14 for both brightness
+  and actual_brightness. The same from 13 down to 6.
+- Setting 12 while the screen is off, then suspending to RAM and
+  resuming before turning the screen on: acpi_video re-sends 12 on
+  resume ("Restoring backlight state"), and the screen comes back at 12.
+- Suspend and resume with the screen on keeps the level, the level
+  systemd restores at boot is applied, and there were no lockdep
+  reports or warnings.
+
+One case still comes back wrong, differently from before. On this
+machine _BQC reports the PWM duty cycle, so reading actual_brightness
+while the panel is off makes acpi_video cache its lowest level (2%),
+and it re-sends that on resume. Without this patch, that request is
+dropped and the panel comes back at the level from before the screen
+went off; with it, the panel comes back at 2%. Mutter only reads
+brightness, so I have only hit this from a test script.
+
+Not tested: the driver init case the check was kept for. coreboot only
+sends requests from _BCM, or from the brightness keys before the OS has
+called _BCL, so I couldn't make it send one between the backlight
+setup and the modeset readout. Not tested either on other platforms or
+with other compositors.
+
+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15987 reports
+the same symptom on a MacBookPro11,1: the brightness is wrong after the
+display sleeps, and acpi_backlight=native fixes it. It may be this bug,
+but I can't test that machine.
+
+ drivers/gpu/drm/i915/display/intel_backlight.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index b128896cb..2310a9258 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -310,13 +310,7 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
+ 	struct intel_panel *panel = &connector->panel;
+ 	u32 hw_level;
+ 
+-	/*
+-	 * Lack of crtc may occur during driver init because
+-	 * connection_mutex isn't held across the entire backlight
+-	 * setup + modeset readout, and the BIOS can issue the
+-	 * requests at any time.
+-	 */
+-	if (!panel->backlight.present || !conn_state->crtc)
++	if (!panel->backlight.present)
+ 		return;
+ 
+ 	mutex_lock(&display->backlight.lock);
+@@ -332,7 +326,15 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
+ 					 panel->backlight.level,
+ 					 panel->backlight.device->props.max_brightness);
+ 
+-	if (panel->backlight.enabled)
++	/*
++	 * Lack of crtc may occur during driver init because
++	 * connection_mutex isn't held across the entire backlight
++	 * setup + modeset readout, and the BIOS can issue the
++	 * requests at any time. There's no crtc either while
++	 * userspace has the panel turned off. Keep the level
++	 * anyway, it's applied when the backlight is next enabled.
++	 */
++	if (panel->backlight.enabled && conn_state->crtc)
+ 		intel_panel_actually_set_backlight(conn_state, hw_level);
+ 
+ 	mutex_unlock(&display->backlight.lock);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0
 
