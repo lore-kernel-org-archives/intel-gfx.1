@@ -2,65 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC26606D808
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EQoVBF3o
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2383B606A327
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:28:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C850510F5D9;
-	Tue,  3 Nov 2026 14:10:23 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3941110E80F;
- Tue,  3 Nov 2026 14:10:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793715018; x=1825251018;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=HsUsQZQEIomTg/niZeDZNePLhqDX9fE6bfwU+cWRxpg=;
- b=EQoVBF3oALHjGGeY1mxgPsDtHAFQFoik4rzdboU2KycVijvL2aR/d1AC
- 9p8/vZui2jMfiycnDfxeraoTuSJXVpdLp8bMPoQh3bETDrQdua0+D2X70
- Yrvu5ToO2Jj81+eLkDnLdUVKZT8X+q2o/4HHFYqUvW5MVjsEvEE26LJED
- KJTo5/xNfGn8J4rKiroEScPzvNiXaqVUhNnmHOAHRnmfrQrwNQGXow3iY
- kINY8mmaHKlaJSwC/G7iTXkacru6cer6tT2Bh9FiQFZlkL2e284xlW4NB
- ZC1b/NP3rD5d1jaZ5VQWhIw5KsuMDAEYtKWwjFWrGO9CBX0FtPtJDOWpA A==;
-X-CSE-ConnectionGUID: NmC4OsJwSXu9A0/5ZiKLZg==
-X-CSE-MsgGUID: FgvlURsYSQ2q0UCNiDhE8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2331654"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2331654"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 06:10:01 -0800
-X-CSE-ConnectionGUID: xIul7NrsQtSH+wx7TOTBiQ==
-X-CSE-MsgGUID: I7G8Fbr0QQOm7qPFKjLjEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6315938"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.245.160])
- ([10.245.245.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 06:09:59 -0800
-Message-ID: <428f8c9f-5cf8-46f9-8611-52e6aa71a24b@intel.com>
-Date: Tue, 3 Nov 2026 14:09:57 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id A883C10E7E5;
+	Tue,  3 Nov 2026 14:28:00 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 626D810E64D;
+ Tue,  3 Nov 2026 14:28:00 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6943950057736960493=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] gpu/buddy: restore two-pass clear/dirty guard for
- range-biased allocation
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- Anand.Raghavendra@amd.com
-References: <20261021121813.1820345-1-arunpravin.paneerselvam@amd.com>
- <78a6d58b-4fa2-4325-a4c3-3cd732c15288@intel.com>
- <b32ccb67-0e02-467a-8c29-2ac4c815390d@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <b32ccb67-0e02-467a-8c29-2ac4c815390d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915=3A_Reject_=3C_10?=
+ =?utf-8?q?_MHz_dotclocks_early_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 03 Nov 2026 14:28:00 -0000
+Message-ID: <179371608039.110810.17585331657834781267@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261102130319.2747-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261102130319.2747-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,85 +34,295 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 03/11/2026 13:23, Arunpravin Paneer Selvam wrote:
-> Hi Matthew,
-> 
-> On 10/21/2026 6:19 PM, Matthew Auld wrote:
->> On 21/10/2026 13:18, Arunpravin Paneer Selvam wrote:
->>> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>>
->>> Range-restricted allocations (the visible-VRAM aperture) skip
->>> dirty_steer_window() and reach __alloc_range_bias() with no clear/dirty
->>> eligibility guard, so a dirty allocation freely splits clear extents 
->>> (and
->>> vice versa), interleaving the two classes until no large same-class run
->>> survives and a 4K scanout pin fails with -ENOSPC. Use a two-pass range
->>> search instead: block_incompatible() rejects opposite-class blocks in 
->>> the
->>> strict pass and relaxes only when the strict pass returns -ENOSPC, so a
->>> request still succeeds when only opposite-class space remains. A KUnit
->>> regression test covers the interleaving pattern and fails without the
->>> guard.
->>>
->>> v2: the strict pass can split a block and then reject both children, so
->>>      a split no longer implies a compatible block exists. Sashiko 
->>> reported
->>>      the resulting leaked splits; fix as suggested by Matthew:
->>>   - Push the parent back on the DFS stack after each split and merge it
->>>     back with unsplit_block() if both children are still free.
->>>   - Make block_incompatible() judge free blocks only (split nodes keep a
->>>     stale clear bit) and take the requested order, so mixed blocks that
->>>     can hold a compatible block are descended instead of skipped.
->>>   - Extend the KUnit test with a coalesced mixed block and a check that
->>>     a rejected split is merged back.
->>>
->>> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with 
->>> decoupled dirty tracker")
->>> Assisted-by: LLM
->>> Cc: Matthew Auld <matthew.auld@intel.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Signed-off-by: Arunpravin Paneer Selvam 
->>> <Arunpravin.PaneerSelvam@amd.com>
->>
->> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> This version brought back a DAL CI failure. when the range allocator 
-> wanted a clear (or dirty) block, it would split a mixed block to look 
-> for a pure one, throw away the mixed halves, and then use unsplit_block 
-> to join them again.
-> Doing this on every allocation was costly: even though the merge 
-> cascades back up through all levels, repeating this split-and-unsplit on 
-> every allocation added enough overhead on the display hot path that a 
-> large scanout buffer
-> eventually failed with -ENOSPC (igt@kms_plane@plane-panning-bottom-right 
-> on Radeon RX 9070 XT).
-> 
-> This change relaxes the rule for range allocations only: we just take a 
-> mixed block as it is (the caller clears it if needed), so the first pass 
-> never splits and never has to undo a split. Large same-class blocks stay 
-> whole,
-> so contiguous space is preserved and fragmentation goes down. The 
-> behaviour is still correct, unsplit_block is no longer needed, and a 
-> KUnit test reproduces the problem (it fails without the fix and passes 
-> with it).
-> 
-> Could you please just review v3 of this patch?. It is a bit urgent as we 
-> need it to land the base dirty-tracker patch on our internal branch.
+--===============6943950057736960493==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-I think sashiko is now complaining about the same thing from before?
+== Series Details ==
 
-> 
-> Thanks,
-> Arun.
->>
->> Are you just going to push this one by itself?
-> 
+Series: drm/i915: Reject < 10 MHz dotclocks early (rev2)
+URL   : https://patchwork.freedesktop.org/series/177452/
+State : failure
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19436 -> Patchwork_177452v2
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_177452v2 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_177452v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/index.html
+
+Participating hosts (39 -> 39)
+------------------------------
+
+  Additional (1): bat-adls-6 
+  Missing    (1): bat-dg2-13 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_177452v2:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_module_load@reload:
+    - fi-bsw-n3050:       [PASS][1] -> [DMESG-WARN][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19436/fi-bsw-n3050/igt@i915_module_load@reload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/fi-bsw-n3050/igt@i915_module_load@reload.html
+
+  * igt@i915_selftest@live@dmabuf:
+    - bat-arlh-2:         [PASS][3] -> [INCOMPLETE][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19436/bat-arlh-2/igt@i915_selftest@live@dmabuf.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-arlh-2/igt@i915_selftest@live@dmabuf.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177452v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#4613]) +3 other tests skip
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@gem_tiled_pread_basic@basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][6] ([i915#15656])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
+
+  * igt@i915_selftest@live:
+    - bat-arlh-2:         [PASS][7] -> [INCOMPLETE][8] ([i915#16547])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19436/bat-arlh-2/igt@i915_selftest@live.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-arlh-2/igt@i915_selftest@live.html
+
+  * igt@intel_hwmon@hwmon-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#7707]) +1 other test skip
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#4103]) +1 other test skip
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_dsc@dsc-basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][11] ([i915#16361])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_dsc@dsc-basic.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-adls-6:         NOTRUN -> [SKIP][12] ([i915#17452])
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - bat-adls-6:         NOTRUN -> [SKIP][13] ([i915#5354])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-primary-mmap-gtt:
+    - bat-adls-6:         NOTRUN -> [SKIP][14] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-adls-6:         NOTRUN -> [SKIP][15] ([i915#3555])
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-fence-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][16] ([i915#17448] / [i915#3291]) +2 other tests skip
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
+  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
+  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
+  [i915#17448]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448
+  [i915#17452]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17452
+  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
+  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19436 -> Patchwork_177452v2
+
+  CI-20190529: 20190529
+  CI_DRM_19436: a3c3ff69be4e55d4f8f3d93789381ebb23684b17 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9175: 9175
+  Patchwork_177452v2: a3c3ff69be4e55d4f8f3d93789381ebb23684b17 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/index.html
+
+--===============6943950057736960493==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Reject &lt; 10 MHz dotclocks early (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177452/">https://patchwork.freedesktop.org/series/177452/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19436 -&gt; Patchwork_177452v2</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_177452v2 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_177452v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/index.html</p>
+<h2>Participating hosts (39 -&gt; 39)</h2>
+<p>Additional (1): bat-adls-6 <br />
+  Missing    (1): bat-dg2-13 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_177452v2:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19436/fi-bsw-n3050/igt@i915_module_load@reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/fi-bsw-n3050/igt@i915_module_load@reload.html">DMESG-WARN</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@dmabuf:</p>
+<ul>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19436/bat-arlh-2/igt@i915_selftest@live@dmabuf.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-arlh-2/igt@i915_selftest@live@dmabuf.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177452v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_tiled_pread_basic@basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19436/bat-arlh-2/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-arlh-2/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@intel_hwmon@hwmon-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_dsc@dsc-basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17452">i915#17452</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448">i915#17448</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19436 -&gt; Patchwork_177452v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19436: a3c3ff69be4e55d4f8f3d93789381ebb23684b17 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9175: 9175<br />
+  Patchwork_177452v2: a3c3ff69be4e55d4f8f3d93789381ebb23684b17 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6943950057736960493==--
