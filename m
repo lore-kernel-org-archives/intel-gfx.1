@@ -2,64 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1EB606A324
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 00:15:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA24606A326
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 00:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FI2MWyGR
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVRbbNcK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 856C510F2C4;
-	Tue,  3 Nov 2026 00:15:39 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EDB510E75A;
- Tue,  3 Nov 2026 00:15:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793664933; x=1825200933;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=wz8gk/Y09NaNBHhQz2DFkJdUKJylDi9D5prEZzI2q3M=;
- b=FI2MWyGRdARgeWPwmKlUyWkTIuFYZ4rZaGb3OrU+bSVkxdOB69C3GCNN
- ceYxZIcMoIRNEimWnkxncDOQymY9ld8XkNaG9n40/qExS43g0e11urGtB
- b4r8+hgbECMhAcAezrJXzxY6NLvdcEz6wWWMR+oT0Pe+pdvxn68/dOTxJ
- BuhH6tJd2E4bxKdL7KTGlJa5GNRrFiKd5ebuyMMPHtWEEWh4ErM0ZwAil
- v/2GMm7Oi6g5ky43JvOa+Ai8RETfFdirul6Jd89bOxN9UsTZA5wcbvo77
- 1clSMHPh/Wet5npi2viML48DbQxAFWt0ElHy5A0xxNtn6mZFF8LtDSnf0 w==;
-X-CSE-ConnectionGUID: O2ZLDJ1YSliW8WGfSjrWkg==
-X-CSE-MsgGUID: XIeIZfatTjClK6imL7WEng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2386914"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2386914"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 16:15:30 -0800
-X-CSE-ConnectionGUID: lC7pPe/cQuiIqcv9vY7Npw==
-X-CSE-MsgGUID: WrqaR47aSwCUI7ka+96Vkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6648406"
-Received: from dev-417.igk.intel.com ([10.91.214.181])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 16:15:28 -0800
-From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@linux.intel.com>
-Subject: [PATCH v1 1/1] drm/i915: override LT's default Vswing / Pre-emphasis
- when requested
-Date: Tue,  3 Nov 2026 01:15:18 +0100
-Message-ID: <20261103001518.3478578-2-michal.grzelak@linux.intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20261103001518.3478578-1-michal.grzelak@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B83A10E743;
+	Tue,  3 Nov 2026 00:32:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98E6010E743;
+ Tue,  3 Nov 2026 00:31:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 63C4260008;
+ Tue,  3 Nov 2026 00:31:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCDF61F000C1;
+ Tue,  3 Nov 2026 00:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793665914;
+ bh=hiNJcGteOy5KUPx8aD9uAyUVnMhaUsHcHdXRNFpRUoE=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=QVRbbNcKHbJndieZVPUHkds/IluEfN4biewTZfZWi6EA+ZvhVaTg06kUJFJE0921g
+ /GyhaWDq3uah6Xezhis1act16WtcJaDQfL5zn5J3p9+4jeVSzZSP7aCarlJpVolTJY
+ XryZJhv2X5cAwiUiYAnabE2YC6/3AD7umVSD6HRF2PMKJZq4gcTEp5cHd65QvX9U2V
+ 5spd21mCrJvyB4rciLjvZP+EpxCQ4oUl3Cej6LzyJclq6Ts48lrOHHnIjhNEu2AMj9
+ /H2AFc7gi6YJfaQgfTN6NuQJsp486B99zj7Ius0vpPgUyIMHHyLhEFdaKFZR7h4MNx
+ qCwmZFx2VKUFA==
+Message-ID: <sashiko-outbox-194381@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/1] drm/i915: override LT's default Vswing /
+ Pre-emphasis when requested
+To: =?utf-8?b?TWljaGHFgiBHcnplbGFr?= <michal.grzelak@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20261103001518.3478578-2-michal.grzelak@linux.intel.com>
 References: <20261103001518.3478578-1-michal.grzelak@linux.intel.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+ <20261103001518.3478578-2-michal.grzelak@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 00:31:53 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,143 +49,167 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Add support for Vswing / Pre-emphasis Override for NVL+.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/i915/bios: missing VBT block 57 validation in intel_bios_get_l=
+t_vspeo()
+- [Medium] drm/i915/bios: 16-entry VSPEO table in intel_bios_get_lt_vspeo()=
+ warns on DP1.4
+--
 
-Add an accessor function for LT to read the requested table from VBT#57.
+commit e0e2844e4f9495daf6ba15f7eba3dbda5ee9076e
+Author: Micha=C5=82 Grzelak <michal.grzelak@linux.intel.com>
 
-There are no changes to intel_ddi_dp_level() since entry's row selection
-logic is same as if no override has been requested.
+drm/i915: override LT's default Vswing / Pre-emphasis when requested
 
-Register values do not extend beyond lowest byte although each value is
-stored on 4 bytes-wide entry. Hence cast each register value from u32
-into u8 when parsing requested table and set according field of port's
-buffer with it.
+This commit adds Vswing / Pre-emphasis Override (VSPEO) support for LT PHYs
+on NVL+ platforms by reading the requested override table from VBT block 57
+in intel_bios_get_lt_vspeo() and hooking up xe3plpd_get_lt_buf_trans_overri=
+de().
 
-Change layout of NVL+ VS/PE-O's tables to use 3 tables.
+> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/=
+i915/display/intel_bios.c
+> index 7b6a6f8c3cf19..3c1fc48ca2758 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> @@ -3886,6 +3886,52 @@ validate_vspeo(const struct intel_bios_encoder_dat=
+a *devdata, bool has_dp)
+>  	return true;
+>  }
+> =20
+> +const struct intel_ddi_buf_trans *
+> +intel_bios_get_lt_vspeo(const struct intel_bios_encoder_data *devdata,
+> +			bool has_dp, bool is_uhbr, bool has_edp)
+> +{
+> +	struct intel_display *display =3D devdata->display;
+> +	union intel_ddi_buf_trans_entry *entries =3D devdata->entries;
+> +	struct intel_ddi_buf_trans *vspeo =3D devdata->vspeo;
+> +	const u32 *tables =3D display->vbt.vspeo.tables;
+> +	int num_columns =3D display->vbt.vspeo.num_columns;
+> +	int num_rows =3D display->vbt.vspeo.num_rows;
+> +	size_t offset =3D 0;
+> +	int level, idx;
+> +
+> +	if (!validate_vspeo(devdata, has_dp))
+> +		return NULL;
+> +
+> +	if (has_edp)
+> +		idx =3D 0;
+> +	else if (is_uhbr)
+> +		idx =3D 2;
+> +	else
+> +		idx =3D 1;
+> +
+> +	offset +=3D idx * num_rows * num_columns;
+> +
+> +	for (level =3D 0; level < num_rows; level++) {
+> +		u32 main_cursor =3D tables[offset];
+> +		u32 pre_cursor =3D tables[offset + 1];
+> +		u32 post_cursor =3D tables[offset + 2];
+> +		u32 txswing =3D tables[offset + 3];
+> +		u32 txswing_level =3D tables[offset + 4];
 
-Use 1st table exclusively for eDP.
+[Severity: High]
+Can this dereference an unpopulated or undersized VBT block 57 table in
+intel_bios_get_lt_vspeo()?
 
-Use 3rd table for DP 2.0 or higher. Otherwise use 2nd table for DP 1.4.
+If a child device sets child.use_vbt_vswing in VBT but BDB_VSWING_PREEMPH
+(block 57) is absent, parse_vswing_preemph_override() returns early leaving
+display->vbt.vspeo.tables as NULL and display->vbt.vspeo.num_rows as 0.
+However, allocate_vswing_preemph_override() still allocates devdata->vspeo
+and calls kzalloc_objs(*entries, 0), setting devdata->entries to
+ZERO_SIZE_PTR and devdata->vspeo->num_entries to 0:
 
-Signed-off-by: Michał Grzelak <michal.grzelak@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_bios.c     | 46 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_bios.h     |  3 ++
- .../drm/i915/display/intel_ddi_buf_trans.c    | 16 +++++++
- 3 files changed, 65 insertions(+)
+drivers/gpu/drm/i915/display/intel_bios.c:allocate_vswing_preemph_override(=
+) {
+	int num_rows =3D devdata->display->vbt.vspeo.num_rows;
+	...
+	entries =3D kzalloc_objs(*entries, num_rows);
+	if (!entries) {
+		kfree(vspeo);
+		return;
+	}
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 7b6a6f8c3cf19..3c1fc48ca2758 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -3886,6 +3886,52 @@ validate_vspeo(const struct intel_bios_encoder_data *devdata, bool has_dp)
- 	return true;
- }
- 
-+const struct intel_ddi_buf_trans *
-+intel_bios_get_lt_vspeo(const struct intel_bios_encoder_data *devdata,
-+			bool has_dp, bool is_uhbr, bool has_edp)
-+{
-+	struct intel_display *display = devdata->display;
-+	union intel_ddi_buf_trans_entry *entries = devdata->entries;
-+	struct intel_ddi_buf_trans *vspeo = devdata->vspeo;
-+	const u32 *tables = display->vbt.vspeo.tables;
-+	int num_columns = display->vbt.vspeo.num_columns;
-+	int num_rows = display->vbt.vspeo.num_rows;
-+	size_t offset = 0;
-+	int level, idx;
-+
-+	if (!validate_vspeo(devdata, has_dp))
-+		return NULL;
-+
-+	if (has_edp)
-+		idx = 0;
-+	else if (is_uhbr)
-+		idx = 2;
-+	else
-+		idx = 1;
-+
-+	offset += idx * num_rows * num_columns;
-+
-+	for (level = 0; level < num_rows; level++) {
-+		u32 main_cursor = tables[offset];
-+		u32 pre_cursor = tables[offset + 1];
-+		u32 post_cursor = tables[offset + 2];
-+		u32 txswing = tables[offset + 3];
-+		u32 txswing_level = tables[offset + 4];
-+
-+		entries[level].lt.main_cursor = main_cursor;
-+		entries[level].lt.pre_cursor = pre_cursor;
-+		entries[level].lt.post_cursor = post_cursor;
-+		entries[level].lt.txswing = txswing;
-+		entries[level].lt.txswing_level = txswing_level;
-+
-+		offset += num_columns;
-+	}
-+
-+	vspeo->entries = entries;
-+
-+	return vspeo;
-+}
-+
- const struct intel_ddi_buf_trans *
- intel_bios_get_c20_vspeo(const struct intel_bios_encoder_data *devdata,
- 			 bool has_dp, bool is_uhbr)
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
-index 196b8b3f434f5..261b037d65608 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.h
-+++ b/drivers/gpu/drm/i915/display/intel_bios.h
-@@ -73,6 +73,9 @@ bool intel_bios_get_dsc_params(struct intel_encoder *encoder,
- const struct intel_bios_encoder_data *
- intel_bios_encoder_data_lookup(struct intel_display *display, enum port port);
- 
-+const struct intel_ddi_buf_trans *
-+intel_bios_get_lt_vspeo(const struct intel_bios_encoder_data *devdata,
-+			bool has_dp, bool is_uhbr, bool has_edp);
- const struct intel_ddi_buf_trans *
- intel_bios_get_c20_vspeo(const struct intel_bios_encoder_data *devdata,
- 			 bool has_dp, bool is_uhbr);
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-index cc5912178d9cd..2a3de8df3d29c 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-@@ -1848,12 +1848,28 @@ mtl_get_c20_buf_trans_override(struct intel_encoder *encoder,
- 	return intel_bios_get_c20_vspeo(devdata, has_dp, is_uhbr);
- }
- 
-+static const struct intel_ddi_buf_trans *
-+xe3plpd_get_lt_buf_trans_override(struct intel_encoder *encoder,
-+				  const struct intel_crtc_state *crtc_state,
-+				  int *n_entries)
-+{
-+	const struct intel_bios_encoder_data *devdata = encoder->devdata;
-+	bool has_dp, is_uhbr, has_edp;
-+
-+	has_dp = intel_crtc_has_dp_encoder(crtc_state);
-+	is_uhbr = intel_dp_is_uhbr(crtc_state);
-+	has_edp = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP);
-+
-+	return intel_bios_get_lt_vspeo(devdata, has_dp, is_uhbr, has_edp);
-+}
-+
- void intel_ddi_buf_trans_init(struct intel_encoder *encoder)
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 
- 	if (HAS_LT_PHY(display)) {
- 		encoder->get_buf_trans = xe3plpd_get_lt_buf_trans;
-+		encoder->get_buf_trans_override = xe3plpd_get_lt_buf_trans_override;
- 	} else if (DISPLAY_VER(display) >= 14) {
- 		if (intel_encoder_is_c10phy(encoder)) {
- 			encoder->get_buf_trans = mtl_get_c10_buf_trans;
--- 
-2.45.2
+	devdata->entries =3D entries;
+	devdata->vspeo =3D vspeo;
+	devdata->vspeo->num_entries =3D num_rows;
+}
 
+Because validate_vspeo() only checks devdata->vspeo and has_dp,
+intel_bios_get_lt_vspeo() skips the loop when num_rows is 0 and returns vsp=
+eo
+with entries =3D ZERO_SIZE_PTR and num_entries =3D 0 instead of returning N=
+ULL,
+causing intel_lt_phy_set_signal_levels() to index off ZERO_SIZE_PTR.
+
+Furthermore, when block 57 is present, bdb_blocks[] only enforces a minimum
+size of sizeof(struct bdb_vswing_preemph), and neither
+parse_vswing_preemph_override(), validate_vspeo(), nor
+intel_bios_get_lt_vspeo() checks that idx < display->vbt.vspeo.num_tables,
+num_columns >=3D 5, or that the block payload is large enough before reading
+tables[offset] through tables[offset + 4].
+
+Should parse_vswing_preemph_override() or validate_vspeo() verify that
+display->vbt.vspeo.tables is present and that num_tables, num_columns, and
+the block size cover the requested table entries?
+
+> +
+> +		entries[level].lt.main_cursor =3D main_cursor;
+> +		entries[level].lt.pre_cursor =3D pre_cursor;
+> +		entries[level].lt.post_cursor =3D post_cursor;
+> +		entries[level].lt.txswing =3D txswing;
+> +		entries[level].lt.txswing_level =3D txswing_level;
+> +
+> +		offset +=3D num_columns;
+> +	}
+> +
+> +	vspeo->entries =3D entries;
+> +
+> +	return vspeo;
+> +}
+
+[Severity: Medium]
+Does returning vspeo without updating vspeo->num_entries trigger a
+drm_WARN_ON in intel_ddi_dp_voltage_max() during non-UHBR eDP or DP 1.4 link
+training?
+
+On NVL+ (DISPLAY_VER(display) >=3D 14), vswing_preemph_num_rows() returns 1=
+6,
+and allocate_vswing_preemph_override() initializes
+devdata->vspeo->num_entries to 16. When xe3plpd_get_lt_buf_trans_override()
+calls intel_bios_get_lt_vspeo() for a non-UHBR eDP (idx =3D 0) or DP 1.4
+(idx =3D 1) link, vspeo->num_entries remains 16 (whereas the non-override
+tables xe3plpd_lt_trans_edp and xe3plpd_lt_trans_dp14 have 10 entries).
+
+During 8b/10b link training, intel_dp_get_lane_adjust_vswing_preemph() ->
+intel_dp_phy_voltage_max() -> intel_ddi_dp_voltage_max() retrieves
+n_entries =3D 16 from intel_ddi_buf_trans_get() and compares it against
+ARRAY_SIZE(index_to_dp_signal_levels), which is 10:
+
+drivers/gpu/drm/i915/display/intel_ddi.c:intel_ddi_dp_voltage_max() {
+	...
+	intel_ddi_buf_trans_get(encoder, crtc_state, &n_entries);
+
+	if (drm_WARN_ON(display->drm, n_entries < 1))
+		n_entries =3D 1;
+	if (drm_WARN_ON(display->drm,
+			n_entries > ARRAY_SIZE(index_to_dp_signal_levels)))
+		n_entries =3D ARRAY_SIZE(index_to_dp_signal_levels);
+}
+
+Should intel_bios_get_lt_vspeo() set vspeo->num_entries to 10 when !is_uhbr
+(and 16 when is_uhbr)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103001518.3478=
+578-1-michal.grzelak@linux.intel.com?part=3D1
