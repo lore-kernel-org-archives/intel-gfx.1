@@ -2,59 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60306606A32D
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 10:04:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79AD60A6F57
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 10:23:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IbeW5Xn0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxxIuVgo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E95F410F4C6;
-	Tue,  3 Nov 2026 10:03:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E60D10F4C1;
- Tue,  3 Nov 2026 10:03:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793700234; x=1825236234;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=6mR6C9zLybIrk/H7o8J3aiKEcne4LEF277pIcMtrR0M=;
- b=IbeW5Xn0CAYVbLYhGNW7WziZJUPvz/nxTuL1ljRto31/oiDHo7fZBaRs
- zDr/V2baflcRJvO2A4kHnHXcYJUWfXrxMf3q8d9by2lHr3MoBVaB8zwCt
- TjHW+M/9T7vhoDIcj0CDv2sxWrfWKJjz4A20Jt5rswageP7kA7qqDHuB6
- /Xpd4jZdxjcw/mhwpRr+B73VDCfzgDnCK72XrRxIjCcoOAz+6KXyQxtbG
- WZV2OtOcMATxXFCTtkb4YtJZmsaex5FHa7VqQGLS3nefLdvw9vNho/iA6
- T7HXAYMM3/a30aEqzS5zBGxGOJKzqUqJvZhyk4+4BbEUGzN+dIbxn2iDm w==;
-X-CSE-ConnectionGUID: rfCuGaq5Q6effzsXp48aqQ==
-X-CSE-MsgGUID: 4KqwBwXHR+SjXkAJERTPzw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2296984"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2296984"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 02:03:54 -0800
-X-CSE-ConnectionGUID: yw9slt9/SciChxNGJgOpNw==
-X-CSE-MsgGUID: kCW8CgEESGeGpMPwqgCcTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6718627"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa001.fm.intel.com with ESMTP; 03 Nov 2026 02:03:51 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Tue, 03 Nov 2026 15:28:22 +0530
-Subject: [PATCH v4 7/7] drm/i915/dp: Don't limit the Link M/N ratio with
- the symbol timing generator
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-vlk-64036-dp-symbol-tg-v4-7-6cf8a588b54c@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7294B10E7C5;
+	Tue,  3 Nov 2026 10:23:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AD7C10E4BC;
+ Tue,  3 Nov 2026 10:23:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A3FF9601EF;
+ Tue,  3 Nov 2026 10:23:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC751F000C1;
+ Tue,  3 Nov 2026 10:23:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793701391;
+ bh=QOL9AbqE5wHUM5+w/xDt9ZDW3SVJ6w7gGUgGy25dvpo=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=QxxIuVgoI7eUymnryxeMDsLG9jhrieN6FWuUz+mRHN7nhWxhdlLHExU4/5JXluySk
+ 0OPHDo4BV3Lg/7ufLim6jPfZamRT//lQ0/cuQYwpkRL6QmYtYL8rRuW5521/8eEgfP
+ ouCRuHEzZbuVnQMZOpdEuJOacl2Ptxm/PdHNIrvMEp+BcYRLSuCo5+CKirNrF9JwuM
+ ddwdULQD/mQQCpC+0dz24giyKPjXJ5GYcK0G+nOpKzowIn3KZOFjRGwTafTmRnOIP6
+ XgyoN5Bwmhv8XVgWRfFovwQOFQLyYds+Zu4wCIAvp0xtwMi4nKKAFdO1kjOdDmb2Wz
+ I5fxHPzvrsoFg==
+Message-ID: <sashiko-outbox-195038@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 6/7] drm/i915/display: Program and enable the DP
+ symbol based timing generator
+To: "Arun R Murthy" <arun.r.murthy@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261103-vlk-64036-dp-symbol-tg-v4-6-6cf8a588b54c@intel.com>
 References: <20261103-vlk-64036-dp-symbol-tg-v4-0-6cf8a588b54c@intel.com>
-In-Reply-To: <20261103-vlk-64036-dp-symbol-tg-v4-0-6cf8a588b54c@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- chaitanya.kumar.borah@intel.com, uma.shankar@intel.com, 
- suraj.kandpal@intel.com, Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
+ <20261103-vlk-64036-dp-symbol-tg-v4-6-6cf8a588b54c@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 10:23:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,92 +49,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-The limit on the Link M/N ratio only applies to the pixel based timing
-generator, there is no such restriction when the symbol based timing
-generator is used.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/i915/display: invalid CMTG MMIO write in intel_set_transcode=
+r_timings()
+--
 
-Bspec: 68922
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c     | 17 +++++++++++++----
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  4 +++-
- 2 files changed, 16 insertions(+), 5 deletions(-)
+commit d5e98872efc6064e978436ee34bbcfdf86c29006
+Author: Arun R Murthy <arun.r.murthy@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 788c16df9801131294c73420c2c0d4d3ec848310..a8fa0809079e8b3f6fb574cfb73fb6bb8b019cc3 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1277,8 +1277,12 @@ static bool intel_dp_has_symbol_tg(struct intel_display *display, bool is_mst, b
- }
- 
- static int
--intel_dp_get_max_m_n_ratio(struct intel_display *display)
-+intel_dp_get_max_m_n_ratio(struct intel_display *display, bool is_mst, int link_rate)
- {
-+	/* No Link M/N ratio limit with the symbol based timing generator */
-+	if (intel_dp_has_symbol_tg(display, is_mst, drm_dp_is_uhbr_rate(link_rate)))
-+		return INT_MAX;
-+
- 	if (DISPLAY_VER(display) >= 35)
- 		return 22;
- 
-@@ -1308,7 +1312,9 @@ bool intel_dp_can_support_m_n(struct intel_display *display,
- 			      const struct intel_crtc_state *crtc_state,
- 			      int pixel_clock, int link_rate)
- {
--	int max_m_n_ratio = intel_dp_get_max_m_n_ratio(display);
-+	bool is_mst = crtc_state &&
-+		      intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
-+	int max_m_n_ratio = intel_dp_get_max_m_n_ratio(display, is_mst, link_rate);
- 	enum transcoder cpu_transcoder = TRANSCODER_A;
- 	u32 link_m, link_n;
- 	int m_n_ratio;
-@@ -1331,7 +1337,10 @@ void intel_dp_check_m_n_ratio(const struct intel_crtc_state *crtc_state,
- 			      struct intel_link_m_n *m_n)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
--	int max_m_n_ratio = intel_dp_get_max_m_n_ratio(display);
-+	int max_m_n_ratio =
-+		intel_dp_get_max_m_n_ratio(display,
-+					   intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST),
-+					   crtc_state->port_clock);
- 	int m_n_ratio;
- 
- 	m_n->bypass_m_n_ratio_limit = false;
-@@ -2815,7 +2824,7 @@ intel_dp_compute_m_n_ratio_limits(struct intel_dp *intel_dp,
- 		drm_dbg_kms(display->drm,
- 			    "[CONNECTOR:%d:%s] No link config with a Link M/N ratio <= %d\n",
- 			    connector->base.base.id, connector->base.name,
--			    intel_dp_get_max_m_n_ratio(display));
-+			    intel_dp_get_max_m_n_ratio(display, false, 0));
- 
- 		return false;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 81ac454603603df42db477ddb26cfb2f620dcfea..fe9cdf771f481fc8a8b8f3f29e4a24aa53a53f94 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1570,7 +1570,9 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 					   min_link_bpp_x16,
- 					   bw_overhead_flags);
- 
--	if (!intel_dp_can_support_m_n(display, NULL, mode->clock, max_link_clock)) {
-+	/* MST always uses the symbol based timing generator, which has no Link M/N ratio limit */
-+	if (!HAS_DP_SYMBOL_TG(display) &&
-+	    !intel_dp_can_support_m_n(display, NULL, mode->clock, max_link_clock)) {
- 		*status = MODE_CLOCK_HIGH;
- 		return 0;
- 	}
+drm/i915/display: Program and enable the DP symbol based timing generator
 
--- 
-2.25.1
+This commit programs and enables the DP link layer symbol based timing
+generator, including the 128-bit Data M/N registers, HACT/HTOTAL/CHUNK_SIZE
+timing registers, and TRANSCONF configuration and state readout.
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index 15117b715e1d5..d450b34b8035a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+
+[ ... ]
+
+> @@ -2936,6 +2996,17 @@ void intel_set_transcoder_timings(const struct int=
+el_crtc_state *crtc_state,
+>  		intel_de_write(display, DP_MIN_HBLANK_CTL(transcoder),
+>  			       crtc_state->min_hblank);
+>  	}
+> +
+> +	if (crtc_state->dp_symbol_tg.enable) {
+> +		const struct intel_dp_symbol_tg *tg =3D &crtc_state->dp_symbol_tg;
+> +
+> +		intel_de_write(display, TRANS_LLSYM_HACT(display, transcoder),
+> +			       TRANS_LLSYM_HACT_VAL(tg->hactive - 1));
+> +		intel_de_write(display, TRANS_LLSYM_HTOTAL(display, transcoder),
+> +			       TRANS_LLSYM_HTOTAL_VAL(tg->htotal - 1));
+> +		intel_de_write(display, TRANS_LLSYM_CHUNK_SIZE(display, transcoder),
+> +			       TRANS_LLSYM_CHUNK_SIZE_VAL(tg->chunk_size));
+> +	}
+>  }
+
+[Severity: Medium]
+Can this write to non-existent CMTG MMIO registers when
+intel_set_transcoder_timings() is called for TRANSCODER_CMTG0 or
+TRANSCODER_CMTG1?
+
+During modeset and DC state restore on display version 35,
+hsw_configure_cpu_transcoder() and intel_cmtg_restore() call
+intel_cmtg_set_timings() -> intel_set_transcoder_timings(crtc_state,
+cmtg_transcoder) when cpu_transcoder is TRANSCODER_A or TRANSCODER_B on an
+eDP output:
+
+drivers/gpu/drm/i915/display/intel_cmtg.c:intel_cmtg_set_timings() {
+	enum transcoder cmtg_transcoder =3D to_cmtg_transcoder(crtc_state->cpu_tra=
+nscoder);
+	...
+	if (type =3D=3D LRR)
+		intel_set_transcoder_timings_lrr(crtc_state, cmtg_transcoder);
+	else
+		intel_set_transcoder_timings(crtc_state, cmtg_transcoder);
+}
+
+When an eDP panel operates at a 128b/132b UHBR link rate without MSO
+splitter, intel_dp_compute_symbol_tg() sets crtc_state->dp_symbol_tg.enable
+to true.
+
+Just above this block in intel_set_transcoder_timings(), the
+DP_MIN_HBLANK_CTL write checks that transcoder is not a CMTG transcoder:
+
+	if (DISPLAY_VER(display) >=3D 30 &&
+	    transcoder !=3D TRANSCODER_CMTG0 &&
+	    transcoder !=3D TRANSCODER_CMTG1) {
+		intel_de_write(display, DP_MIN_HBLANK_CTL(transcoder),
+			       crtc_state->min_hblank);
+	}
+
+Without a similar check on transcoder here, _MMIO_TRANS2() translates
+TRANS_LLSYM_HACT, TRANS_LLSYM_HTOTAL, and TRANS_LLSYM_CHUNK_SIZE using the
+CMTG base offset and writes to unclaimed register offsets 0x6f0dc..0x6f0e4
+(or 0x6f1dc..0x6f1e4).
+
+Should this block also check transcoder !=3D TRANSCODER_CMTG0 &&
+transcoder !=3D TRANSCODER_CMTG1 before writing the TRANS_LLSYM_* registers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-vlk-64036-=
+dp-symbol-tg-v4-0-6cf8a588b54c@intel.com?part=3D6
