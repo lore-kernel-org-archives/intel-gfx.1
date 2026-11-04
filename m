@@ -2,59 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8505B606A84C
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 22:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16028606D83A
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 22:32:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZitszokK
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jF5jZwVY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C53CB10FF85;
-	Wed,  4 Nov 2026 22:19:34 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28A0110FF66;
- Wed,  4 Nov 2026 22:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793830769; x=1825366769;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=JsXPzuqeLZrUiiWs3lmfDuuAo9I2CGDmeJ0W/Gy+Hmg=;
- b=ZitszokK7EDrf+R33/PsET5oLVmkHdxoyTWlxwYZHMdiazFNDHklJbs/
- KiKNCxDM+RVqJ1w3QRN2XQgzqz/5Q6Mn8YpXCvvANszpdF5mipZa1VB04
- VqJE8UCOjOwuGVh5D4Ta1n4nofUlowxYoCESkCXI9lMtlFkYkffX59UjO
- DXlY2MNrGOD1y6e38swNTf8QZIzBLpPQFMb90qL1OrSuwnbqVvBtHYpEx
- xokL1DOqwjCL4eWTt+fNWlOKsFMgr8D5zV/+hhEEGJr6FYxV1JegNqLgm
- m+/NGR9BZqhAG8fG0ATMD1EiUO75XW3eC/SFN7tCauRWsVwfHE+V0bBZ7 Q==;
-X-CSE-ConnectionGUID: 2JR9v0U8SgyhwvQcG3/ZGQ==
-X-CSE-MsgGUID: oWWAw04bRg2HQS1vYL8nDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2636977"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2636977"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 14:19:28 -0800
-X-CSE-ConnectionGUID: Y1nqeMWNRsaVSU1ejk35rw==
-X-CSE-MsgGUID: 9tm5xSQuSNK25rNUwDxFhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6947786"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.86])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 14:19:27 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id A637710FF67;
+	Wed,  4 Nov 2026 22:31:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86FA110FF58;
+ Wed,  4 Nov 2026 22:31:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C783C601DE;
+ Wed,  4 Nov 2026 22:31:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52EA01F00A18;
+ Wed,  4 Nov 2026 22:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793831508;
+ bh=Q6GyQeMpBXDDgZSDHsHrtysrouXtCbzau4mABuKEqYE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jF5jZwVYbJm2/qMAbUJF9fdv9wo1dwHwTabG4d/qcObI+jj+i/2F1C3XnQhaZqq0T
+ 5QshvuFrsCjIg75eMNNSQdmphdztrLJZ7iZ+YPx3tCv3p3ivZNLcqXz3YimgHyQji8
+ tof2Vp3ouISPpDCKxKs7V8cldQGKWH18nZhKNh+cO43bMa2Ule2FSom919odwLy1gr
+ iHU/3E6B9ts/T1jnGK5vG6fDhgSmDHsO6z0zs1DVMXg3HB+UnFNgKqPl1ePamBMbyf
+ u3wLkc8A44jVPTv3MbLQ4hKmDZ3jOUr+Kza6Ph3fKu1izfvsAu4Od9YNBILlLT/wUi
+ BXpdDCEHwKm/g==
+Message-ID: <sashiko-outbox-198229@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/9] drm/i915/de: Introduce dislay->mmio and
+ intel_de_init()
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 9/9] drm/xe: Nuke the intel_uncore_{read,write}() wrappers
-Date: Thu,  5 Nov 2026 00:18:42 +0200
-Message-ID: <20261104221842.18799-10-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104221842.18799-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261104221842.18799-2-ville.syrjala@linux.intel.com>
 References: <20261104221842.18799-1-ville.syrjala@linux.intel.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+ <20261104221842.18799-2-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 22:31:47 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,59 +50,125 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/i915/de: NULL display->mmio.uncore when intel_de_init() is ski=
+pped
+--
 
-intel_uncore_{read,write}() are no longer needed by the
-display code. Remove them.
+commit 0c47f694d22974ac99844e39b462f72389dd014b
+Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- .../drm/xe/compat-i915-headers/intel_uncore.h    | 16 ----------------
- 1 file changed, 16 deletions(-)
+drm/i915/de: Introduce dislay->mmio and intel_de_init()
 
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-index 2f198e2e2fec..238addc1e5fc 100644
---- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-+++ b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-@@ -23,14 +23,6 @@ static inline struct xe_mmio *__compat_uncore_to_mmio(struct intel_uncore *uncor
- 	return xe_root_tile_mmio(xe);
- }
- 
--static inline u32 intel_uncore_read(struct intel_uncore *uncore,
--				    i915_reg_t i915_reg)
--{
--	struct xe_reg reg = XE_REG(i915_mmio_reg_offset(i915_reg));
--
--	return xe_mmio_read32(__compat_uncore_to_mmio(uncore), reg);
--}
--
- static inline u8 intel_uncore_read8(struct intel_uncore *uncore,
- 				    i915_reg_t i915_reg)
- {
-@@ -55,14 +47,6 @@ static inline u16 intel_uncore_read16(struct intel_uncore *uncore,
- 	return xe_mmio_read16(__compat_uncore_to_mmio(uncore), reg);
- }
- 
--static inline void intel_uncore_write(struct intel_uncore *uncore,
--				      i915_reg_t i915_reg, u32 val)
--{
--	struct xe_reg reg = XE_REG(i915_mmio_reg_offset(i915_reg));
--
--	xe_mmio_write32(__compat_uncore_to_mmio(uncore), reg, val);
--}
--
- static inline u32 intel_uncore_read_fw(struct intel_uncore *uncore,
- 				       i915_reg_t i915_reg)
- {
--- 
-2.56.0
+This commit adds a display->mmio struct and intel_de_init() to initialize
+display->mmio.uncore, and updates __to_uncore() to return display->mmio.unc=
+ore
+instead of calling to_intel_uncore(display->drm).
 
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i9=
+15/display/intel_de.h
+> index d0a239a369807..f1135ee5071b4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_de.h
+> +++ b/drivers/gpu/drm/i915/display/intel_de.h
+> @@ -14,9 +14,11 @@
+> =20
+>  static inline struct intel_uncore *__to_uncore(struct intel_display *dis=
+play)
+>  {
+> -	return to_intel_uncore(display->drm);
+> +	return display->mmio.uncore;
+>  }
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/driver=
+s/gpu/drm/i915/display/intel_display_device.c
+> index c74256359c253..f1bd1252a9602 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_device.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_device.c
+> @@ -1798,6 +1798,13 @@ static void __intel_display_device_info_runtime_in=
+it(struct intel_display *displ
+>  	struct intel_display_runtime_info *display_runtime =3D DISPLAY_RUNTIME_=
+INFO(display);
+>  	enum pipe pipe;
+> =20
+> +	/*
+> +	 * TODO end of intel_display_device_probe() would be a more
+> +	 * logical place, but at the moment i915 calls that super
+> +	 * early when things aren't fully set up yet.
+> +	 */
+> +	intel_de_init(display);
+
+[Severity: High]
+Can this leave display->mmio.uncore NULL and cause a NULL pointer dereferen=
+ce
+when HAS_DISPLAY(display) is already false before runtime init?
+
+In drivers/gpu/drm/i915/display/intel_display_device.c,
+intel_display_device_info_runtime_init() only calls
+__intel_display_device_info_runtime_init() when HAS_DISPLAY(display) is tru=
+e:
+
+void intel_display_device_info_runtime_init(struct intel_display *display)
+{
+	if (HAS_DISPLAY(display))
+		__intel_display_device_info_runtime_init(display);
+
+On devices where intel_display_device_probe() sets DISPLAY_INFO() to
+no_display=E2=80=94such as Ivybridge Quanta server SKUs (INTEL_IVB_Q_IDS via
+has_no_display()), PCI IDs without an entry in intel_display_ids like Arctic
+Sound-M (INTEL_ATS_M_IDS where find_platform_desc() returns NULL), or GMD_ID
+platforms (INTEL_MTL_IDS / INTEL_ARL_IDS) where probe_gmdid_display() reads=
+ 0
+from GMD_ID_DISPLAY=E2=80=94HAS_DISPLAY(display) is false and
+__intel_display_device_info_runtime_init() is skipped.
+
+Because __to_uncore(display) in drivers/gpu/drm/i915/display/intel_de.h now
+returns display->mmio.uncore instead of computing
+to_intel_uncore(display->drm), any subsequent unconditional intel_de_*() ca=
+ll
+will pass a NULL struct intel_uncore pointer to intel_uncore_read*() or
+intel_uncore_write*():
+
+1. On INTEL_IVB_Q_IDS, ilk_irq_handler() in drivers/gpu/drm/i915/i915_irq.c
+   unconditionally calls ilk_display_irq_master_disable() and
+   ilk_display_irq_master_enable() in
+   drivers/gpu/drm/i915/display/intel_display_irq.c on every interrupt, whi=
+ch
+   call intel_de_read_fw(display, DEIER) and intel_de_write_fw(display, DEI=
+ER,
+   ...).
+
+2. On INTEL_ATS_M_IDS and headless GMD_ID platforms, gen11_irq_handler() and
+   dg1_irq_handler() unconditionally call gen11_gu_misc_irq_ack() in
+   drivers/gpu/drm/i915/display/intel_display_irq.c when GEN11_GU_MISC_IRQ =
+is
+   set, which calls intel_de_read_fw(display, GEN11_GU_MISC_IIR) and
+   intel_de_write_fw(display, GEN11_GU_MISC_IIR, iir).
+
+3. During system resume, i915_drm_resume() in
+   drivers/gpu/drm/i915/i915_driver.c unconditionally calls
+   intel_gmbus_reset(display) in drivers/gpu/drm/i915/display/intel_gmbus.c,
+   which calls intel_de_write_fw(display, GMBUS0(display), 0) and
+   intel_de_write_fw(display, GMBUS4(display), 0).
+
+Should intel_de_init(display) be called unconditionally at the start of
+intel_display_device_info_runtime_init() before the HAS_DISPLAY(display)
+check?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104221842.1879=
+9-1-ville.syrjala@linux.intel.com?part=3D1
