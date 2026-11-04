@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17848606A32C
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 16:33:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F7A606EE82
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 16:58:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1F610E6AD;
-	Wed,  4 Nov 2026 16:33:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21A6010FD6B;
+	Wed,  4 Nov 2026 16:58:27 +0000 (UTC)
 Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F01E10E265;
- Wed,  4 Nov 2026 16:33:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7F2F10FD84;
+ Wed,  4 Nov 2026 16:58:25 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/selfte?=
- =?utf-8?q?sts=3A_read_the_noop_seqno_before_dropping_the_request?=
+ =?utf-8?q?sts=3A_Unpin_the_context_in_the_LRC_garbage_test?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Wentao Liang" <vulab@iscas.ac.cn>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 04 Nov 2026 16:33:08 -0000
-Message-ID: <179380998831.118123.1958157451278537451@221881a7231d>
+Date: Wed, 04 Nov 2026 16:58:25 -0000
+Message-ID: <179381150587.118443.6262352911583966021@221881a7231d>
 X-Patchwork-Hint: ignore
-References: <20261104025344.1527492-1-vulab@iscas.ac.cn>
-In-Reply-To: <20261104025344.1527492-1-vulab@iscas.ac.cn>
+References: <20261103080434.1127682-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103080434.1127682-1-vulab@iscas.ac.cn>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,8 +43,8 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 == Series Details ==
 
-Series: drm/i915/selftests: read the noop seqno before dropping the request
-URL   : https://patchwork.freedesktop.org/series/177742/
+Series: drm/i915/selftests: Unpin the context in the LRC garbage test
+URL   : https://patchwork.freedesktop.org/series/177743/
 State : failure
 
 == Summary ==
@@ -52,6 +52,6 @@ State : failure
 Series author address 'vulab@iscas.ac.cn' is not on the allowlist, which prevents CI from being automatically triggered.
 If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
 Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/192067/ (on built-in)
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/192069/ (on built-in)
 
 
