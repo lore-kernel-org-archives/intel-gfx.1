@@ -2,152 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE40B606A326
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:14:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F1B606D801
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 13:09:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LxDMyPGd
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BJML9Rhd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B4C210FB68;
-	Wed,  4 Nov 2026 11:14:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92DD210FB83;
- Wed,  4 Nov 2026 11:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6136E10FBE8;
+	Wed,  4 Nov 2026 13:09:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BE2E10E130;
+ Wed,  4 Nov 2026 13:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793790878; x=1825326878;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=T8hS6VvHKnB7g8bO2RKXyOgNeMkNloU0RKcymVuxegk=;
- b=LxDMyPGdH69mxn4IkWh8OBbDeckEYmGshAuWaEHDyHxaaD/BUbYwgYu2
- /eqtXibahoBDpj7trn/cewBdCERAsl+sRWXMeKaU16kqpgwpsyXbSdTFU
- F01mLlhVsw4KaX1Z3hQLNxAsMecTnpMwcpTvO8rVThXkmufbMy4OmLnTJ
- Y/fv/g0kxcHMkFQzHPqxeIC6C6KnMFowfoiVkNZgK8XZ5sz3fD4BwS/eO
- umJDR6tWtO/JAABfL6AskUH4zpb6MVP8M+XKFw1SEu0IFuc5eA6mzwOdF
- fbGPknIx2ZrKMbb+iLuIffsO7g4Iy89cgIhU8xPD1DW0Cta6BiXDYC5wZ w==;
-X-CSE-ConnectionGUID: +lOcu16lRTq022UeS7+tDQ==
-X-CSE-MsgGUID: jNFHNQDjTzayT/yWNLaEEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2427047"
+ t=1793797737; x=1825333737;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9xnGV4aPvOBPmwp7C1RxJUjMgP8YMSFL99mkc9PTIUk=;
+ b=BJML9RhdKwejq3kiHcMnrHlERkptMHxolTDwCMHm1GnY168CC3jj2usI
+ OOgm5TKLrgqfMjXtZfo8z7oz+RIi60E+p1IF4rbZseye4y0LyTf5k1fc1
+ cajW/7TR/+hV7pF0P38AIN9jlXn9IuzHOdBCI4c1o//czYZzNiUU8PD90
+ V68ZIQf3gmMKdjdFReoY6m9KLefN8xKNWKqyy5B4/7Anx1heVPfUTJKpH
+ Jcq5N+w8ueu24+CFVGBhXWI/Nd8HEXjBtdgIDDHEWc0n90NQpzicnkI1S
+ QHJVENTn947vpmSnUinMKidKE6ZSevDeRnSsnBBNdla/OS9lcKhZttrSi g==;
+X-CSE-ConnectionGUID: Vp1IZ2KIQ5S3yS6eN0XeAg==
+X-CSE-MsgGUID: MbcHu2g/TJqmljdkRj/7ug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2449880"
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2427047"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 03:14:37 -0800
-X-CSE-ConnectionGUID: CG28j/hvQPKiLdCgoCqyVw==
-X-CSE-MsgGUID: yEm1QTk3QpS+tH/HTDa/tw==
+   d="scan'208";a="2449880"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 05:08:39 -0800
+X-CSE-ConnectionGUID: YimQNA7sRiGHawK2QBNFFw==
+X-CSE-MsgGUID: pXF04wA4Q+mdfZbxXMi7Ng==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6512247"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 03:14:37 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 03:14:36 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 03:14:36 -0800
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.18) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 03:14:36 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WSrSUjWjNe8KKR/YWClw6n9+Sr5vD3ej9bNhpXh2yknqT4WLyJGNR0Ppvc62/9nwKp8jNadrEflByfH3TS/LtLpxGGsfW7CQ7D5PgtpZBxK2D/sYRl+E6BZo0WM78e1UTXqZAIVh/EH9GRNZ73vXGGIuMDqXegg3RN+Nb1AeEEHHnX1YZ9i4F2qCIvTDw4dRRQd50syvNf+opSmg2HH/NGWzCJknUT0mwKD7mohGWdC4f4hCb8OodEdROaRNx4hJlLllfMqeY/oG5Qu6SVhqFnHeAeOdFbSqginIkH//1aJAns4AKm3gsOVDIKZOSMu78JDIp4iAoyKCuU3pDDFLsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O6NrkqsshPOgBzG3Cvd3ybL442covzDqZEiurhTNB2g=;
- b=B/wWR4vzt+QYJseOE4WriWPKihcb3AtcYlYypr0ePLI6JExB657elaFhwE6xxS1LeHmEIFl2NTyOfcWNUD9wI3pGVlBtzDDWfgnVwXiJTieMh0yc6NgQSgELZI0ZGPv1N9I+mMbqK2I46YjhwsFozOoyE4rSsyDo/n8MttVp2xmgo+ftXHwKwKKQCCyy7irQBS576S6NoRJrHJVnECFoMlSxjKqyaUKqHaT/K0U43XPo9KL3Wt9AhBmXmiOh9lpD9dSlMCoy492SGS/UyY+nKa1LEHHNorxKIE/2zXO9LIQPh3YFGG7aHOR8Jmjk3vt3DGrqJraKMFYjlsSs70E+ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10) by SA3PR11MB7625.namprd11.prod.outlook.com
- (2603:10b6:806:305::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 11:11:31 +0000
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769]) by EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 11:11:30 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <intel-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, Jani Nikula
- <jani.nikula@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v6 6/6] drm/i915/selftests: Use drm_* prints in i915_selftest.c
-Date: Wed, 4 Nov 2026 11:11:04 +0000
-Message-ID: <20261104111104.946617-7-krzysztof.karas@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261104111104.946617-1-krzysztof.karas@intel.com>
-References: <20261104111104.946617-1-krzysztof.karas@intel.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: DUZPR01CA0189.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b6::7) To EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10)
+   d="scan'208";a="7105655"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.36])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 05:08:37 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH] TEST ONLY: drm/intel: add mmio to display parent interface
+Date: Wed,  4 Nov 2026 15:08:31 +0200
+Message-ID: <20261104130831.152563-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR11MB115281:EE_|SA3PR11MB7625:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9949495-9d31-4155-645e-08df3a6460e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|261021123027099003|261021121427099003|11063799006|56012099006|261022105027099003|261102123227099003|261009223027099003|261028144727099003|261026121527099003|261026140227099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: /MGnUvs/M1ZuzJm//S1EBLlBKBS1ZNNbzTd0waTQUa0y+C4kzQZJiaywYOWt32ZX4CspEntlhRU+gURoE/mMsKr9S0VZNAUaUPhG3ZwnrGkVUI1wCH4PsZLkWijIpJufpJNA4rvuPgbVPFtRG7CdlZXbb60sJamubhSSgY5BIbbOOB0qaDaeKCGP05gCdFgQhlmT4aGnSTwg8bzB0aEXezPRX+ZZDph0rMXrY5F3TraXRZ0Z5eMSgcRJgDwvsEeS607XOlxrgTuyCXnzf4GmW9HEKI85zOC2I/wcirFTK3U0KKBZWGDZ1kXWTAMj5x3poN4Aao+S+GdeXC7Ko94W0QfX6S1kBXm2UU3ostn2rxYIx6YiIjYDyjnRPeQsA4PR2DkWGN/q11bbLlZ13C1OQN9vDoDdXVkVwIGh1L5Glli64tPelhFxBfHwN3YZ4S2ZYMgpMX62Vcm/zHLAlbHVl/+JOZoAwjXkVunzuUSx/Q04k46FlfSo0DFXtONmcJbLQIZBwF3IcaDDXRcwB9Vm2308+FArYLWfB7N2kvcovSsnMxroQxCvlBKFqaVYcRulcgUYFitozMcwbOZU3X67/ZvoUxiQhKzTg4D5lZiwuestcLVop+jULL7THt38xeDTqQBvLC1JIIjGXHYmylt5bYd7DwU97jnoQVGHlnsVddA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:EAYPR11MB115281.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261021123027099003)(261021121427099003)(11063799006)(56012099006)(261022105027099003)(261102123227099003)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uk7pKN2ZOf8xp5xTW9uhFoamqIwoTVqTvyGA9CXHcWEU3r4gvLJCvNYCnQ9i?=
- =?us-ascii?Q?+FtDZCc83OazkZ9KxLWCGcnFplYS20AjtT8iVQ4Tbtilg40wK0Lh9/0bw0Fy?=
- =?us-ascii?Q?L1KhWsvZSEAvN8sv3ji/eVfYGvMVV0JIVr1G3hMEdIYeAod+3JxnZgksV8pW?=
- =?us-ascii?Q?pvXXLatIB4B3dXQv+ieNc87idTdwn1dlbJqR+zC4PBuqbWley2+iEpOp+BGm?=
- =?us-ascii?Q?e4y5K3SJKVYJSmCUDlZ2oi7Gw0x4l222C60p1x1841dwCY3zuEe30A9ben/G?=
- =?us-ascii?Q?BFgah8gRU0SigHc65kzXiaUP6pt6VDQ+RuL26sYRWeaxQGfr2fgEhE/fwJV2?=
- =?us-ascii?Q?36802MBK/TIorG842tN4wdwxWfnUOfZ547Vh3LfdMIyvR2iwaezd/EFIK2Gx?=
- =?us-ascii?Q?1iV+6OJSDUHs1w3mPYPFzWjdtFC0iUGAM730Fez9w8vT1KBqj6eQfBbHNG0l?=
- =?us-ascii?Q?fVPgUz6CjOLXzdmQbYG89khbTZlqIuZLnjVQ48Ta7r2y03Ibe/wG0xLSRdbU?=
- =?us-ascii?Q?ZFAsjoByCENJEsm2bSU2fOM7xUnMe4tEnAu8RJtJ5eg+8oozNkpSAYQEfh0K?=
- =?us-ascii?Q?5OPtKk+gKlp1V0cX0YBz/cGozSf7JSOHauI2USStLsGJqka96nxHIfqN7ARa?=
- =?us-ascii?Q?837J70p63BY9+6CthDA4w7G0fVZNj6stRbmLWiEQcw4yjA5hTgnWiGYN9W5s?=
- =?us-ascii?Q?gO3e+iEJeqlfL4zJ6bDARGvp4gjEY2iDv2uWtBfs6jJ7KYAPOJ+5D8vdUkAu?=
- =?us-ascii?Q?ecZI9q9JNsvmuZa6Z8f+5tOkXvjo8ddA9oY3q01NTw+53l6u7XDmX9fbC3SA?=
- =?us-ascii?Q?TP7zwymsoWlLn/tBjRPOI/ZW+oWQwEESRGfD0uJgl2Mmmgpdgl8fi1+xZ4Fh?=
- =?us-ascii?Q?gipmYeyyptng16V6jOAY2rz6M8qSG48oF91tkhKaMZneJHJ7z9M0U6P1jBQ6?=
- =?us-ascii?Q?zrxxqquG93tzzhiPSqJvmxF8/m7R9unwKCqfzAiouQKYhuyAq6t4Nnfasygf?=
- =?us-ascii?Q?/utBgt6EcepKVKavIwABU381dHU3QtR9x97X9C3ASr8Uwivalx/EzaProM/k?=
- =?us-ascii?Q?s6mJuyRaHn1ujPmjNxt7gbMdbSuewCKpqsV2aK9p4MLHBPyOXw7vJ0bpeirF?=
- =?us-ascii?Q?8Cy5UM3gXy076LodyUDnhUihuY5bplo3RttDclCYY/Nt7IhfneMHaw9mgDZ+?=
- =?us-ascii?Q?JgCPZwx1fN2oV6ZDEROxQfrOmuMOYnZi32LIbkv7a31T/3HtT5Qni8q8mUnC?=
- =?us-ascii?Q?CSj6RM56YRobxoTDEeZDR8OS5/LJmuu8LAxyMl0Oyg7/li4YPhA9oSkZPI9t?=
- =?us-ascii?Q?4couQDrJdcrsFEpV9u2+sC+w93nfmXywmHHGAaqxk5rg7o6zhmEErlQ0yxfJ?=
- =?us-ascii?Q?oKEudzgBgq4MaZFOETgBshQ2sYTr58dR65hgv/zGSESSfWc1ugtsp1s+zN+0?=
- =?us-ascii?Q?+g4ARau3kGzwNYWr9DtRFBNalTmIOoS5v86Wl1hl0F5/TIsCNl3o3Og4Jc9F?=
- =?us-ascii?Q?Sf7iqJ3Bkb1oDRVEKxC7MN1ugbG8V+t4QrtFTpKMA+3AaV+RHkrBAEWkx5IT?=
- =?us-ascii?Q?O/grFCjubNapcy4TbW7XXKWBL8GWqmo5CEIeGW0xgRWtVQ4IGGzktGPaF4Vk?=
- =?us-ascii?Q?I+sIWYjpv7b+DVIfIs6UXTTu8C5lIFv+1RyIZU44aw7og1pa1lksL0HtRRfk?=
- =?us-ascii?Q?bM5DxLEdWU6A9qnfXOOvS+5++jwjAcbBcWNSG+7zqMJgBwQSoeVc8oh4khRx?=
- =?us-ascii?Q?33WISJ5+CAKFww0tnowrRJtkJ0h9HE8=3D?=
-X-Exchange-RoutingPolicyChecked: 5ZHOCWafhoWLdJyTVpPPBh6WoVh/8tcGH2BFE+ajymaU4aRy7b6HbLo9DjVzDN+bljK3niWqZXUYnzs/5lNQV9YAH8ZIH2REqVWBr3M6jiOV45w/lbuXSEDaCODmkYfZw5/4cE7lBzCJiqqVmdlm0tIDkMUr4Dkbt5ci2ep/baRrs0JoF8/vCkL9416+hfnYgxLeKe1jiJa46FD2MznM5ep8qq7l/Onfghc7hRdRWY32zBuX5KJoaGZpakQ3pAVgCv0ePlZRrcex47ckdEZPKZrpeEXWOTYcDvsisTzdTD3r8yPM9td3t85TfkTG3F5228KQ352Z6r1R3fCIi4sm4w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9949495-9d31-4155-645e-08df3a6460e0
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR11MB115281.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:11:30.7213 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R/cpT4UnxzGOeESdrxy7VYh/Uh/ZUbqDfzNxvT1bzqcsjBfjSXbSh92X4UmHgwaBuTZ4Hsy+ezDCAaKSCl1L8Oz+s3Vq+2RBWOKuJvJf024=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7625
-X-OriginatorOrg: intel.com
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,58 +72,445 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move away from generic pr prints to drm device context aware
-drm_* versions.
+Just testing, no need to review. We probably don't want this.
 
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/selftests/i915_selftest.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/i9xx_wm.c       |  5 +-
+ drivers/gpu/drm/i915/display/intel_de.c      |  6 +-
+ drivers/gpu/drm/i915/display/intel_de.h      | 23 ++----
+ drivers/gpu/drm/i915/display/intel_display.c |  3 +-
+ drivers/gpu/drm/i915/display/intel_vblank.c  |  6 +-
+ drivers/gpu/drm/i915/i915_driver.c           |  1 +
+ drivers/gpu/drm/i915/intel_uncore.c          | 80 ++++++++++++++++++++
+ drivers/gpu/drm/i915/intel_uncore.h          |  2 +
+ drivers/gpu/drm/xe/display/xe_display.c      | 78 +++++++++++++++++++
+ include/drm/intel/display_parent_interface.h | 17 +++++
+ 10 files changed, 192 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_selftest.c b/drivers/gpu/drm/i915/selftests/i915_selftest.c
-index 3adcfdab75ae..10198828e7fb 100644
---- a/drivers/gpu/drm/i915/selftests/i915_selftest.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_selftest.c
-@@ -23,6 +23,8 @@
- 
- #include <linux/random.h>
- 
-+#include <drm/drm_print.h>
-+
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_pm.h"
- #include "gt/intel_gt_regs.h"
-@@ -47,7 +49,7 @@ int i915_mock_sanitycheck(void)
- 
- int i915_live_sanitycheck(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i915/display/i9xx_wm.c
+index 0233f5053d95..785f1a7e38a1 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_wm.c
++++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
+@@ -1863,7 +1863,6 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+ 				   struct intel_crtc *crtc)
  {
--	pr_info("%s: %s() - ok!\n", i915->drm.driver->name, __func__);
-+	drm_info(&i915->drm, "%s() - ok!\n", __func__);
- 	return 0;
+ 	struct intel_display *display = to_intel_display(crtc);
+-	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+ 	const struct intel_crtc_state *crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	const struct vlv_fifo_state *fifo_state =
+@@ -1892,7 +1891,7 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+ 	 * intel_pipe_update_start() has already disabled interrupts
+ 	 * for us, so a plain spin_lock() is sufficient here.
+ 	 */
+-	spin_lock(&uncore->lock);
++	display->parent->mmio->lock(display->drm);
+ 
+ 	switch (crtc->pipe) {
+ 	case PIPE_A:
+@@ -1952,7 +1951,7 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+ 
+ 	intel_de_read_fw(display, DSPARB(display));
+ 
+-	spin_unlock(&uncore->lock);
++	display->parent->mmio->unlock(display->drm);
  }
  
-@@ -154,7 +156,8 @@ __wait_gsc_proxy_completed(struct drm_i915_private *i915)
+ #undef VLV_FIFO
+diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
+index a7417905192d..3f042bbcc80f 100644
+--- a/drivers/gpu/drm/i915/display/intel_de.c
++++ b/drivers/gpu/drm/i915/display/intel_de.c
+@@ -145,14 +145,14 @@ u8 intel_de_read8(struct intel_display *display, intel_reg_t reg)
+ 	/* this is only used on VGA registers (possible on pre-g4x) */
+ 	drm_WARN_ON(display->drm, DISPLAY_VER(display) >= 5 || display->platform.g4x);
  
- 	if (need_to_wait && wait_for(!__gsc_proxy_init_progressing(&i915->media_gt->uc.gsc),
- 				     timeout_ms))
--		pr_warn(DRIVER_NAME "Timed out waiting for gsc_proxy_completion!\n");
-+		drm_warn(&i915->drm,
-+			 "Timed out waiting for gsc_proxy_completion!\n");
+-	return intel_uncore_read8(__to_uncore(display), reg);
++	return display->parent->mmio->read8(display->drm, intel_reg_offset(reg));
  }
  
- static void
-@@ -178,7 +181,8 @@ __wait_gsc_huc_load_completed(struct drm_i915_private *i915)
+ void intel_de_write8(struct intel_display *display, intel_reg_t reg, u8 val)
+ {
+ 	drm_WARN_ON(display->drm, DISPLAY_VER(display) >= 5 || display->platform.g4x);
  
- 	if (need_to_wait &&
- 	    wait_for(i915_sw_fence_done(&huc->delayed_load.fence), timeout_ms))
--		pr_warn(DRIVER_NAME "Timed out waiting for huc load via GSC!\n");
-+		drm_warn(&i915->drm,
-+			 "Timed out waiting for huc load via GSC!\n");
+-	intel_uncore_write8(__to_uncore(display), reg, val);
++	display->parent->mmio->write8(display->drm, intel_reg_offset(reg), val);
  }
  
- static struct mm_struct *get_selftest_mm(int u_pid_nr)
+ u16 intel_de_read16(struct intel_display *display, intel_reg_t reg)
+@@ -160,5 +160,5 @@ u16 intel_de_read16(struct intel_display *display, intel_reg_t reg)
+ 	/* this is only used on MCHBAR registers on pre-SNB */
+ 	drm_WARN_ON(display->drm, DISPLAY_VER(display) >= 6);
+ 
+-	return intel_uncore_read16(__to_uncore(display), reg);
++	return display->parent->mmio->read16(display->drm, intel_reg_offset(reg));
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
+index d0a239a36980..1fddb85d5640 100644
+--- a/drivers/gpu/drm/i915/display/intel_de.h
++++ b/drivers/gpu/drm/i915/display/intel_de.h
+@@ -6,16 +6,11 @@
+ #ifndef __INTEL_DE_H__
+ #define __INTEL_DE_H__
+ 
++#include <drm/intel/display_parent_interface.h>
++
+ #include "intel_display_core.h"
+ #include "intel_dmc_wl.h"
+ #include "intel_dsb.h"
+-#include "intel_uncore.h"
+-#include "intel_uncore_trace.h"
+-
+-static inline struct intel_uncore *__to_uncore(struct intel_display *display)
+-{
+-	return to_intel_uncore(display->drm);
+-}
+ 
+ u8 intel_de_read8(struct intel_display *display, intel_reg_t reg);
+ void intel_de_write8(struct intel_display *display, intel_reg_t reg, u8 val);
+@@ -28,7 +23,7 @@ intel_de_read(struct intel_display *display, intel_reg_t reg)
+ 
+ 	intel_dmc_wl_get(display, reg);
+ 
+-	val = intel_uncore_read(__to_uncore(display), reg);
++	val = display->parent->mmio->read32(display->drm, intel_reg_offset(reg));
+ 
+ 	intel_dmc_wl_put(display, reg);
+ 
+@@ -58,7 +53,7 @@ intel_de_write(struct intel_display *display, intel_reg_t reg, u32 val)
+ {
+ 	intel_dmc_wl_get(display, reg);
+ 
+-	intel_uncore_write(__to_uncore(display), reg, val);
++	display->parent->mmio->write32(display->drm, intel_reg_offset(reg), val);
+ 
+ 	intel_dmc_wl_put(display, reg);
+ }
+@@ -107,19 +102,13 @@ int intel_de_wait_for_clear_ms(struct intel_display *display, intel_reg_t reg,
+ static inline u32
+ intel_de_read_fw(struct intel_display *display, intel_reg_t reg)
+ {
+-	u32 val;
+-
+-	val = intel_uncore_read_fw(__to_uncore(display), reg);
+-	trace_i915_reg_rw(false, reg, val, sizeof(val), true);
+-
+-	return val;
++	return display->parent->mmio->read32_fw(display->drm, intel_reg_offset(reg));
+ }
+ 
+ static inline void
+ intel_de_write_fw(struct intel_display *display, intel_reg_t reg, u32 val)
+ {
+-	trace_i915_reg_rw(true, reg, val, sizeof(val), true);
+-	intel_uncore_write_fw(__to_uncore(display), reg, val);
++	display->parent->mmio->write32_fw(display->drm, intel_reg_offset(reg), val);
+ }
+ 
+ static inline u32
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index c1c2b99cfb53..99864877b74d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7731,7 +7731,6 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
+ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ {
+ 	struct intel_display *display = to_intel_display(state);
+-	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+ 	struct intel_crtc_state *new_crtc_state, *old_crtc_state;
+ 	struct intel_crtc *crtc;
+ 	struct intel_power_domain_mask put_domains[I915_MAX_PIPES] = {};
+@@ -7945,7 +7944,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 		 * so enable debugging for the next modeset - and hope we catch
+ 		 * the culprit.
+ 		 */
+-		intel_uncore_arm_unclaimed_mmio_detection(uncore);
++		display->parent->mmio->arm_unclaimed_mmio_detection(display->drm);
+ 	}
+ 
+ 	power_async_delay = intel_display_power_select_target_dc_state(state);
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index 1d4753605675..5a0af95a7442 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -294,15 +294,13 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
+ static void intel_vblank_section_enter(struct intel_display *display)
+ 	__acquires(uncore->lock)
+ {
+-	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+-	spin_lock(&uncore->lock);
++	display->parent->mmio->lock(display->drm);
+ }
+ 
+ static void intel_vblank_section_exit(struct intel_display *display)
+ 	__releases(uncore->lock)
+ {
+-	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+-	spin_unlock(&uncore->lock);
++	display->parent->mmio->unlock(display->drm);
+ }
+ #else
+ static void intel_vblank_section_enter(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 5787f40ac62e..451a27fed0e7 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -753,6 +753,7 @@ static const struct intel_display_parent_interface parent = {
+ 	.hdcp = &i915_display_hdcp_interface,
+ 	.initial_plane = &i915_display_initial_plane_interface,
+ 	.irq = &i915_display_irq_interface,
++	.mmio = &i915_display_mmio_interface,
+ 	.overlay = &i915_display_overlay_interface,
+ 	.panic = &i915_display_panic_interface,
+ 	.pc8 = &i915_display_pc8_interface,
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index e360e4f9d9a2..b11be8acf5b3 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -26,6 +26,7 @@
+ 
+ #include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
++#include <drm/intel/display_parent_interface.h>
+ 
+ #include "display/intel_display_core.h"
+ #include "gt/intel_engine_regs.h"
+@@ -2923,6 +2924,85 @@ intel_uncore_forcewake_for_reg(struct intel_uncore *uncore,
+ 	return fw_domains;
+ }
+ 
++static u8 i915_uncore_read8(struct drm_device *drm, u32 reg)
++{
++	return intel_uncore_read8(to_intel_uncore(drm), _MMIO(reg));
++}
++
++static void i915_uncore_write8(struct drm_device *drm, u32 reg, u8 val)
++{
++	intel_uncore_write8(to_intel_uncore(drm), _MMIO(reg), val);
++}
++
++static u16 i915_uncore_read16(struct drm_device *drm, u32 reg)
++{
++	return intel_uncore_read16(to_intel_uncore(drm), _MMIO(reg));
++}
++
++static void i915_uncore_write16(struct drm_device *drm, u32 reg, u16 val)
++{
++	intel_uncore_write16(to_intel_uncore(drm), _MMIO(reg), val);
++}
++
++static u32 i915_uncore_read32(struct drm_device *drm, u32 reg)
++{
++	return intel_uncore_read(to_intel_uncore(drm), _MMIO(reg));
++}
++
++static u32 i915_uncore_read32_fw(struct drm_device *drm, u32 reg)
++{
++	u32 val;
++
++	val = intel_uncore_read_fw(to_intel_uncore(drm), _MMIO(reg));
++	trace_i915_reg_rw(false, _MMIO(reg), val, sizeof(val), true);
++
++	return val;
++}
++
++static void i915_uncore_write32(struct drm_device *drm, u32 reg, u32 val)
++{
++	intel_uncore_write(to_intel_uncore(drm), _MMIO(reg), val);
++}
++
++static void i915_uncore_write32_fw(struct drm_device *drm, u32 reg, u32 val)
++{
++	trace_i915_reg_rw(true, _MMIO(reg), val, sizeof(val), true);
++	intel_uncore_write_fw(to_intel_uncore(drm), _MMIO(reg), val);
++}
++
++static void i915_uncore_lock(struct drm_device *drm)
++{
++	struct intel_uncore *uncore = to_intel_uncore(drm);
++
++	spin_lock(&uncore->lock);
++}
++
++static void i915_uncore_unlock(struct drm_device *drm)
++{
++	struct intel_uncore *uncore = to_intel_uncore(drm);
++
++	spin_unlock(&uncore->lock);
++}
++
++static void i915_uncore_arm_unclaimed_mmio_detection(struct drm_device *drm)
++{
++	intel_uncore_arm_unclaimed_mmio_detection(to_intel_uncore(drm));
++}
++
++const struct intel_display_mmio_interface i915_display_mmio_interface = {
++	.read8 = i915_uncore_read8,
++	.write8 = i915_uncore_write8,
++	.read16 = i915_uncore_read16,
++	.write16 = i915_uncore_write16,
++	.read32 = i915_uncore_read32,
++	.read32_fw = i915_uncore_read32_fw,
++	.write32 = i915_uncore_write32,
++	.write32_fw = i915_uncore_write32_fw,
++	.lock = i915_uncore_lock,
++	.unlock = i915_uncore_unlock,
++	.arm_unclaimed_mmio_detection = i915_uncore_arm_unclaimed_mmio_detection,
++};
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftests/mock_uncore.c"
+ #include "selftests/intel_uncore.c"
+diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+index fafc2ca9a237..0f29fd0a6309 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.h
++++ b/drivers/gpu/drm/i915/intel_uncore.h
+@@ -515,4 +515,6 @@ struct intel_uncore *to_intel_uncore(struct drm_device *drm);
+ #define raw_reg_write(base, reg, value) \
+ 	writel(value, base + i915_mmio_reg_offset(reg))
+ 
++extern const struct intel_display_mmio_interface i915_display_mmio_interface;
++
+ #endif /* !__INTEL_UNCORE_H__ */
+diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
+index aab416485e3e..42cc19009bab 100644
+--- a/drivers/gpu/drm/xe/display/xe_display.c
++++ b/drivers/gpu/drm/xe/display/xe_display.c
+@@ -33,6 +33,7 @@
+ #include "xe_frontbuffer.h"
+ #include "xe_hdcp_gsc.h"
+ #include "xe_initial_plane.h"
++#include "xe_mmio.h"
+ #include "xe_module.h"
+ #include "xe_panic.h"
+ #include "xe_stolen.h"
+@@ -444,6 +445,82 @@ static void transient_data_flush(struct drm_device *drm)
+ 	xe_device_td_flush(xe);
+ }
+ 
++static struct xe_mmio *to_xe_mmio(struct drm_device *drm)
++{
++	return xe_root_tile_mmio(to_xe_device(drm));
++}
++
++static u8 xe_uncore_read8(struct drm_device *drm, u32 reg)
++{
++	return xe_mmio_read8(to_xe_mmio(drm), XE_REG(reg));
++}
++
++static void xe_uncore_write8(struct drm_device *drm, u32 reg, u8 val)
++{
++	xe_mmio_write8(to_xe_mmio(drm), XE_REG(reg), val);
++}
++
++static u16 xe_uncore_read16(struct drm_device *drm, u32 reg)
++{
++	return xe_mmio_read16(to_xe_mmio(drm), XE_REG(reg));
++}
++
++static void xe_uncore_write16(struct drm_device *drm, u32 reg, u16 val)
++{
++}
++
++static u32 xe_uncore_read32(struct drm_device *drm, u32 reg)
++{
++	return xe_mmio_read32(to_xe_mmio(drm), XE_REG(reg));
++}
++
++static u32 xe_uncore_read32_fw(struct drm_device *drm, u32 reg)
++{
++	return xe_mmio_read32(to_xe_mmio(drm), XE_REG(reg));
++}
++
++static void xe_uncore_write32(struct drm_device *drm, u32 reg, u32 val)
++{
++	xe_mmio_write32(to_xe_mmio(drm), XE_REG(reg), val);
++}
++
++static void xe_uncore_write32_fw(struct drm_device *drm, u32 reg, u32 val)
++{
++	xe_mmio_write32(to_xe_mmio(drm), XE_REG(reg), val);
++}
++
++static void xe_uncore_lock(struct drm_device *drm)
++{
++	struct xe_device *xe = to_xe_device(drm);
++
++	spin_lock(&xe->uncore.lock);
++}
++
++static void xe_uncore_unlock(struct drm_device *drm)
++{
++	struct xe_device *xe = to_xe_device(drm);
++
++	spin_unlock(&xe->uncore.lock);
++}
++
++static void xe_uncore_arm_unclaimed_mmio_detection(struct drm_device *drm)
++{
++}
++
++const struct intel_display_mmio_interface xe_display_mmio_interface = {
++	.read8 = xe_uncore_read8,
++	.write8 = xe_uncore_write8,
++	.read16 = xe_uncore_read16,
++	.write16 = xe_uncore_write16,
++	.read32 = xe_uncore_read32,
++	.read32_fw = xe_uncore_read32_fw,
++	.write32 = xe_uncore_write32,
++	.write32_fw = xe_uncore_write32_fw,
++	.lock = xe_uncore_lock,
++	.unlock = xe_uncore_unlock,
++	.arm_unclaimed_mmio_detection = xe_uncore_arm_unclaimed_mmio_detection,
++};
++
+ static const struct intel_display_parent_interface parent = {
+ 	.bo = &xe_display_bo_interface,
+ 	.dsb = &xe_display_dsb_interface,
+@@ -452,6 +529,7 @@ static const struct intel_display_parent_interface parent = {
+ 	.hdcp = &xe_display_hdcp_interface,
+ 	.initial_plane = &xe_display_initial_plane_interface,
+ 	.irq = &xe_display_irq_interface,
++	.mmio = &xe_display_mmio_interface,
+ 	.panic = &xe_display_panic_interface,
+ 	.pcode = &xe_display_pcode_interface,
+ 	.rpm = &xe_display_rpm_interface,
+diff --git a/include/drm/intel/display_parent_interface.h b/include/drm/intel/display_parent_interface.h
+index 464fb588cb60..22a90a7411cc 100644
+--- a/include/drm/intel/display_parent_interface.h
++++ b/include/drm/intel/display_parent_interface.h
+@@ -136,6 +136,20 @@ struct intel_display_irq_interface {
+ 	void (*synchronize)(struct drm_device *drm);
+ };
+ 
++struct intel_display_mmio_interface {
++	u8 (*read8)(struct drm_device *drm, u32 reg);
++	void (*write8)(struct drm_device *drm, u32 reg, u8 val);
++	u16 (*read16)(struct drm_device *drm, u32 reg);
++	void (*write16)(struct drm_device *drm, u32 reg, u16 val);
++	u32 (*read32)(struct drm_device *drm, u32 reg);
++	u32 (*read32_fw)(struct drm_device *drm, u32 reg);
++	void (*write32)(struct drm_device *drm, u32 reg, u32 val);
++	void (*write32_fw)(struct drm_device *drm, u32 reg, u32 val);
++	void (*lock)(struct drm_device *drm);
++	void (*unlock)(struct drm_device *drm);
++	void (*arm_unclaimed_mmio_detection)(struct drm_device *drm);
++};
++
+ struct intel_display_overlay_interface {
+ 	bool (*is_active)(struct drm_device *drm);
+ 
+@@ -272,6 +286,9 @@ struct intel_display_parent_interface {
+ 	/** @irq: IRQ interface */
+ 	const struct intel_display_irq_interface *irq;
+ 
++	/** @mmio: MMIO interface */
++	const struct intel_display_mmio_interface *mmio;
++
+ 	/** @panic: Panic interface */
+ 	const struct intel_display_panic_interface *panic;
+ 
 -- 
-2.34.1
+2.47.3
 
