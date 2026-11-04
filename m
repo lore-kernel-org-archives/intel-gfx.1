@@ -2,28 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0B1606A31B
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 22:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61446606D805
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 23:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bHi16SW7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE0A010FF78;
-	Wed,  4 Nov 2026 22:53:03 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D5C610FF78;
- Wed,  4 Nov 2026 22:53:02 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7441178634863981939=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 010C610FF98;
+	Wed,  4 Nov 2026 23:06:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 107C310FF96;
+ Wed,  4 Nov 2026 23:06:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793833569; x=1825369569;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=+ECfdnCFVr+bFj/4l/NtjkT1wfbHg8aoX2RG1wcWvgU=;
+ b=bHi16SW7zVfIOky6YbmeqlwPNrvutyzFigTvQLXX0cobS52cB/U0J1KM
+ fxOQ3INmP6vyKPfbOp5d49v8UJjq/idZISzYsfmNonnyj9JdpzoCvXbHL
+ UUJmcZjDWuFDRjfKS/AcZxUrwtcByHgjZhgJ2I5q5dvW3gTrTTRSFPqfF
+ WbbX9OO6OT8g7w2W2CKpQQ5oVjJax93t37RfV/hhr4RT5GL0+lvdAhgyQ
+ HdZ7W93RP8fLcol8H1GBapRgSGdjmHtkWsy42Rqm9w3Rpu/3yUNUkljEO
+ fwnJ5Dtn1xMZZ+yyd/+vIuyT2gp+hHmLECsu1lLVPIVNmx1llgMe6tWx8 g==;
+X-CSE-ConnectionGUID: yrAPukgjQyiRJTNaA6TZGQ==
+X-CSE-MsgGUID: rI1qYq4OQ4GEedoCdJkO9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2513207"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2513207"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 15:06:08 -0800
+X-CSE-ConnectionGUID: icH2gm+oQvu3Dx28Qmme0w==
+X-CSE-MsgGUID: gs2t4EWnSoqt+/nSi6g7uA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="6864957"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.245.244.108])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 15:06:04 -0800
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: sima@freedesktop.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+	Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+	Andi Shyti <andi.shyti@linux.intel.com>,
+	Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: [PATCH v4 0/2] DRM device registration fixes
+Date: Thu,  5 Nov 2026 00:05:53 +0100
+Message-ID: <20261104230555.71107-1-krzysztof.niemiec@intel.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Reject_=3C_10?=
- =?utf-8?q?_MHz_dotclocks_early_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 04 Nov 2026 22:53:02 -0000
-Message-ID: <179383278244.121355.8278320582198670412@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261102130319.2747-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261102130319.2747-1-ville.syrjala@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,161 +69,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============7441178634863981939==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+This series contains patches pertaining the drm_dev_register() and
+drm_dev_unregister() functions. Turns out drm_dev_register() doesn't
+properly unwind its effects in the error path, causing confusion and
+bugs.
 
-== Series Details ==
+Additionally, a related patch for i915 is bundled, as i915 mistakenly
+calls drm_dev_unregister() in the error path triggered by failing
+drm_dev_register(), which on one hand introduced a WARN_ON() in
+drm_client_sysrq_unregister(), caused by calling it without a previous
+_register() (as it was skipped in drm_dev_register()); but on the other
+hand silenced yet another WARN_ON() later on in the error path in
+drm_mode_config_cleanup(). With the other patch, the driver can just
+handle the error from drm_dev_register() cleanly without calling
+drm_dev_unregister(). This is explained in detail in both the patches.
 
-Series: drm/i915: Reject < 10 MHz dotclocks early (rev3)
-URL   : https://patchwork.freedesktop.org/series/177452/
-State : success
+v3 -> v4:
+ - rebased
+ - patch 1: removed the debugfs change (sashiko, Andi)
+ - patch 1: reordered =false line (Andi)
+ - patch 1: updated commit log
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19445 -> Patchwork_177452v3
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_177452v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-kbl-7567u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +32 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19445/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - bat-arlh-2:         [INCOMPLETE][3] ([i915#16547]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19445/bat-arlh-2/igt@i915_selftest@live.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/bat-arlh-2/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@evict:
-    - bat-arlh-2:         [INCOMPLETE][5] -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19445/bat-arlh-2/igt@i915_selftest@live@evict.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/bat-arlh-2/igt@i915_selftest@live@evict.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
+v2 -> v3:
+ - Reorder the patches (Sebastian, Andi)
 
 
-Build changes
--------------
+Krzysztof Niemiec (2):
+  drm: Set dev->registered back to false in drm_dev_register()'s error
+    path
+  drm/i915: Remove drm_dev_unregister() from the error path during
+    i915_driver_register()
 
-  * Linux: CI_DRM_19445 -> Patchwork_177452v3
+ drivers/gpu/drm/drm_drv.c          | 2 ++
+ drivers/gpu/drm/i915/i915_driver.c | 1 -
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-  CI-20190529: 20190529
-  CI_DRM_19445: 0c04a32b952ce54c8629218c2071051731965ae1 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9177: 9177
-  Patchwork_177452v3: 0c04a32b952ce54c8629218c2071051731965ae1 @ git://anongit.freedesktop.org/gfx-ci/linux
+-- 
+2.55.0
 
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/index.html
-
---===============7441178634863981939==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Reject &lt; 10 MHz dotclocks early (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177452/">https://patchwork.freedesktop.org/series/177452/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19445 -&gt; Patchwork_177452v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_177452v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_heartbeat:<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19445/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +32 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19445/bat-arlh-2/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/bat-arlh-2/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@evict:</p>
-<ul>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19445/bat-arlh-2/igt@i915_selftest@live@evict.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177452v3/bat-arlh-2/igt@i915_selftest@live@evict.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19445 -&gt; Patchwork_177452v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19445: 0c04a32b952ce54c8629218c2071051731965ae1 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9177: 9177<br />
-  Patchwork_177452v3: 0c04a32b952ce54c8629218c2071051731965ae1 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7441178634863981939==--
