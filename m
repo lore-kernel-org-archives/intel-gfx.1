@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9254606A84C
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 22:19:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F0F606AC0E
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 22:19:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HOC0siHG
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eQuop1kT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFAE10FF6B;
-	Wed,  4 Nov 2026 22:19:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E1F710FF5C;
+	Wed,  4 Nov 2026 22:19:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75B3310FF5A;
- Wed,  4 Nov 2026 22:19:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B653910FF59;
+ Wed,  4 Nov 2026 22:19:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793830747; x=1825366747;
+ t=1793830755; x=1825366755;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NS8ek/Ompv3O9W2Du7TsogHY+kD3ttURPNXn8WRryo8=;
- b=HOC0siHGAevqnY8p2tCdKCFSAkSDqBnpaEjJfLHW9OQJdjP62Nm73J5r
- LG4CTf2M/BgbeKxOfLs1u0iVmC8L4qmjY5i6THDIsOweVRawdLGHNKqJ/
- QdhefDG5DP3/NjkxDqzarNqR3vrNV6GFhJUpXU4jZ8u7UJA74p4IDj/SI
- H1V0HxpHEtw4+N8y2FQuS6KoeRok1Uod6YGphX1ukwQqgl1NbuDqKP9Wz
- kXG4ZUoA3e8GcFKBW4w/LFuVtYl01huvcSXhbaONRq1XX0nh5PatlwOyO
- bYM1CNfi7YukEh32ocLFlzjYwbjCADJG+G+S2XArFBuQKe06GC8J5O20D w==;
-X-CSE-ConnectionGUID: mCK4wIh1R5a0x1V6KmLb+g==
-X-CSE-MsgGUID: hQy2/4rmRve3mFysLluTgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2510039"
+ bh=eCZSFmNcHWD7Wyj29MGPP+N2X1iE6fJ6v6aEF44cZG4=;
+ b=eQuop1kTgvJm6plnqJMvZvxKk4oglUtNk6hXaxVgmWq6u5YQwpGC6K7D
+ yyxdjmAbssKWHocnz8FEZkxvykcL2hGtSTE7KzVb6I/Dpa/sY2IO8nrki
+ vpD++DhffZ5F1b8X7lh/JiSSBF+6xOUP5wgA72haAR8UStC7P7MOGOMEi
+ oVr71ZtGmMVvPHRQiK1OkN6c4ht/mPG+TPaOvFuse0ziVe48e+ZPZtkFX
+ jhNl+vraTHUVZxzlDqcCcsl+frTamBRNF0RFIDaI03fT88Ln/JcHd+4UB
+ cBmWW0Y8lXf4t16Al19BteKI6hOU0w0KsQNSDvzt0/XrM1zXiTt2g/vCm w==;
+X-CSE-ConnectionGUID: hWSsuGi8RxWT4l6q0Qg87g==
+X-CSE-MsgGUID: 2EyOH3k0Twmbpu8K7Te86Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2510049"
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2510039"
+   d="scan'208";a="2510049"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 14:19:06 -0800
-X-CSE-ConnectionGUID: ilPqzbnSRMCVIRPEc3iQFg==
-X-CSE-MsgGUID: krxllux0QNqVAwYi2kjO2A==
+ 04 Nov 2026 14:19:15 -0800
+X-CSE-ConnectionGUID: m1e4AEpIR5ygIOGcS6QFAg==
+X-CSE-MsgGUID: aq9xojRtSj+6tRDCYKeMpw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6994076"
+   d="scan'208";a="6994110"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.86])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 14:19:04 -0800
+ 04 Nov 2026 14:19:13 -0800
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 4/9] drm/i915/de: Eliminate runtime overhead from DMC wakelock
- on pre-LNL platforms
-Date: Thu,  5 Nov 2026 00:18:37 +0200
-Message-ID: <20261104221842.18799-5-ville.syrjala@linux.intel.com>
+Subject: [PATCH 6/9] drm/i915/uncore: Don't meddle with mmio debug upon user
+ forcewake
+Date: Thu,  5 Nov 2026 00:18:39 +0200
+Message-ID: <20261104221842.18799-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104221842.18799-1-ville.syrjala@linux.intel.com>
 References: <20261104221842.18799-1-ville.syrjala@linux.intel.com>
@@ -77,143 +77,115 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Now that we have the mmio read/write vfuncs we can get rid of
-any runtime overhead from the DMC wakelock checks for the
-platforms that don't support wakelock (pre-LNL).
+Currently when userspace takes the forcewake via debugfs, the
+kernel will stop looking for unclaimed mmio accesses. That link
+is kinda weird since forcewake is for GT stuff and unclaimed
+mmio detection is for display stuff.
+
+Just kill the mmio debug suspend/resume upon user forcewake.
+One should almost always use IGT_NO_FORCEWAKE=1 when poking
+at display register from userspace anyway so as to not
+perturb the rest of the system.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_de.c | 50 ++++++++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_de.h | 15 +-------
- 2 files changed, 50 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/intel_uncore.c | 46 ++---------------------------
+ drivers/gpu/drm/i915/intel_uncore.h |  2 --
+ 2 files changed, 2 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
-index cde2886fe2ca..66de0d6be569 100644
---- a/drivers/gpu/drm/i915/display/intel_de.c
-+++ b/drivers/gpu/drm/i915/display/intel_de.c
-@@ -163,14 +163,36 @@ u16 intel_de_read16(struct intel_display *display, intel_reg_t reg)
- 	return intel_uncore_read16(__to_uncore(display), reg);
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index e360e4f9d9a2..abd695e880c1 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -65,41 +65,6 @@ intel_uncore_mmio_debug_init_early(struct drm_i915_private *i915)
+ 	i915->uncore.debug = &i915->mmio_debug;
  }
  
-+#define __MMIO_WAKELOCK		BIT(0)
-+
-+static __always_inline void
-+__mmio_wakelock_pre(struct intel_display *display, intel_reg_t reg,
-+		    const unsigned int mmio_flags)
-+{
-+	if (mmio_flags & __MMIO_WAKELOCK)
-+		intel_dmc_wl_get(display, reg);
-+}
-+
-+static __always_inline void
-+__mmio_wakelock_post(struct intel_display *display, intel_reg_t reg,
-+		     const unsigned int mmio_flags)
-+{
-+	if (mmio_flags & __MMIO_WAKELOCK)
-+		intel_dmc_wl_put(display, reg);
-+}
-+
- static __always_inline u32
- __intel_de_read(struct intel_display *display, intel_reg_t reg,
- 		const unsigned int mmio_flags)
+-static void mmio_debug_suspend(struct intel_uncore *uncore)
+-{
+-	if (!uncore->debug)
+-		return;
+-
+-	spin_lock(&uncore->debug->lock);
+-
+-	/* Save and disable mmio debugging for the user bypass */
+-	if (!uncore->debug->suspend_count++) {
+-		uncore->debug->saved_mmio_check = uncore->debug->unclaimed_mmio_check;
+-		uncore->debug->unclaimed_mmio_check = 0;
+-	}
+-
+-	spin_unlock(&uncore->debug->lock);
+-}
+-
+-static bool check_for_unclaimed_mmio(struct intel_uncore *uncore);
+-
+-static void mmio_debug_resume(struct intel_uncore *uncore)
+-{
+-	if (!uncore->debug)
+-		return;
+-
+-	spin_lock(&uncore->debug->lock);
+-
+-	if (!--uncore->debug->suspend_count)
+-		uncore->debug->unclaimed_mmio_check = uncore->debug->saved_mmio_check;
+-
+-	if (check_for_unclaimed_mmio(uncore))
+-		drm_info(&uncore->i915->drm,
+-			 "Invalid mmio detected during user access\n");
+-
+-	spin_unlock(&uncore->debug->lock);
+-}
+-
+ static const char * const forcewake_domain_names[] = {
+ 	"render",
+ 	"gt",
+@@ -598,9 +563,6 @@ check_for_unclaimed_mmio(struct intel_uncore *uncore)
+ 
+ 	lockdep_assert_held(&uncore->debug->lock);
+ 
+-	if (uncore->debug->suspend_count)
+-		return false;
+-
+ 	if (intel_uncore_has_fpga_dbg_unclaimed(uncore))
+ 		ret |= fpga_check_for_unclaimed_mmio(uncore);
+ 
+@@ -733,10 +695,8 @@ void intel_uncore_forcewake_get(struct intel_uncore *uncore,
+ void intel_uncore_forcewake_user_get(struct intel_uncore *uncore)
  {
- 	u32 val;
- 
-+	__mmio_wakelock_pre(display, reg, mmio_flags);
-+
- 	val = intel_uncore_read(__to_uncore(display), reg);
- 
-+	__mmio_wakelock_post(display, reg, mmio_flags);
-+
- 	return val;
+ 	spin_lock_irq(&uncore->lock);
+-	if (!uncore->user_forcewake_count++) {
++	if (!uncore->user_forcewake_count++)
+ 		intel_uncore_forcewake_get__locked(uncore, FORCEWAKE_ALL);
+-		mmio_debug_suspend(uncore);
+-	}
+ 	spin_unlock_irq(&uncore->lock);
  }
  
-@@ -178,7 +200,11 @@ static __always_inline void
- __intel_de_write(struct intel_display *display, intel_reg_t reg, u32 val,
- 		 const unsigned int mmio_flags)
+@@ -750,10 +710,8 @@ void intel_uncore_forcewake_user_get(struct intel_uncore *uncore)
+ void intel_uncore_forcewake_user_put(struct intel_uncore *uncore)
  {
-+	__mmio_wakelock_pre(display, reg, mmio_flags);
-+
- 	intel_uncore_write(__to_uncore(display), reg, val);
-+
-+	__mmio_wakelock_post(display, reg, mmio_flags);
+ 	spin_lock_irq(&uncore->lock);
+-	if (!--uncore->user_forcewake_count) {
+-		mmio_debug_resume(uncore);
++	if (!--uncore->user_forcewake_count)
+ 		intel_uncore_forcewake_put__locked(uncore, FORCEWAKE_ALL);
+-	}
+ 	spin_unlock_irq(&uncore->lock);
  }
  
- #define I9XX_MMIO_FLAGS 0
-@@ -200,9 +226,31 @@ static const struct intel_mmio_funcs i9xx_mmio_funcs = {
- 	.write = i9xx_mmio_write,
+diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+index fafc2ca9a237..4ec7c545d04e 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.h
++++ b/drivers/gpu/drm/i915/intel_uncore.h
+@@ -42,8 +42,6 @@ struct intel_gt;
+ struct intel_uncore_mmio_debug {
+ 	spinlock_t lock; /** lock is also taken in irq contexts. */
+ 	int unclaimed_mmio_check;
+-	int saved_mmio_check;
+-	u32 suspend_count;
  };
  
-+#define LNL_MMIO_FLAGS __MMIO_WAKELOCK
-+
-+static u32 lnl_mmio_read(struct intel_display *display, intel_reg_t reg)
-+{
-+	return __intel_de_read(display, reg, LNL_MMIO_FLAGS);
-+}
-+
-+static void lnl_mmio_write(struct intel_display *display, intel_reg_t reg, u32 val)
-+{
-+	__intel_de_write(display, reg, val, LNL_MMIO_FLAGS);
-+}
-+
-+#undef LNL_MMIO_FLAGS
-+
-+static const struct intel_mmio_funcs lnl_mmio_funcs = {
-+	.read = lnl_mmio_read,
-+	.write = lnl_mmio_write,
-+};
-+
- void intel_de_init(struct intel_display *display)
- {
- 	display->mmio.uncore = to_intel_uncore(display->drm);
- 
--	display->mmio.funcs = &i9xx_mmio_funcs;
-+	if (DISPLAY_VER(display) >= 20)
-+		display->mmio.funcs = &lnl_mmio_funcs;
-+	else
-+		display->mmio.funcs = &i9xx_mmio_funcs;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-index 63aef17e6ed3..760b8bc31f9b 100644
---- a/drivers/gpu/drm/i915/display/intel_de.h
-+++ b/drivers/gpu/drm/i915/display/intel_de.h
-@@ -7,7 +7,6 @@
- #define __INTEL_DE_H__
- 
- #include "intel_display_core.h"
--#include "intel_dmc_wl.h"
- #include "intel_dsb.h"
- #include "intel_uncore.h"
- #include "intel_uncore_trace.h"
-@@ -31,15 +30,7 @@ u16 intel_de_read16(struct intel_display *display, intel_reg_t reg);
- static inline u32
- intel_de_read(struct intel_display *display, intel_reg_t reg)
- {
--	u32 val;
--
--	intel_dmc_wl_get(display, reg);
--
--	val = display->mmio.funcs->read(display, reg);
--
--	intel_dmc_wl_put(display, reg);
--
--	return val;
-+	return display->mmio.funcs->read(display, reg);
- }
- 
- static inline u64
-@@ -63,11 +54,7 @@ intel_de_posting_read(struct intel_display *display, intel_reg_t reg)
- static inline void
- intel_de_write(struct intel_display *display, intel_reg_t reg, u32 val)
- {
--	intel_dmc_wl_get(display, reg);
--
- 	display->mmio.funcs->write(display, reg, val);
--
--	intel_dmc_wl_put(display, reg);
- }
- 
- static inline u32
+ enum forcewake_domain_id {
 -- 
 2.56.0
 
