@@ -2,28 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB76606A31B
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 13:13:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A823B606A32D
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 13:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBQChdht
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE3F310E8AB;
-	Wed,  4 Nov 2026 13:13:20 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 946AC10E1E8;
- Wed,  4 Nov 2026 13:13:20 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1165625422410001589=="
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/selftests=3A_Mod?=
- =?utf-8?q?ernize_printing_in_i915_selftests_=28rev7=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 04 Nov 2026 13:13:20 -0000
-Message-ID: <179379800059.116935.4242400603887607757@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261104111104.946617-1-krzysztof.karas@intel.com>
-In-Reply-To: <20261104111104.946617-1-krzysztof.karas@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3478910E130;
+	Wed,  4 Nov 2026 13:22:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC96910FBF3;
+ Wed,  4 Nov 2026 13:22:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 769B64120B;
+ Wed,  4 Nov 2026 13:22:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 313A71F00A15;
+ Wed,  4 Nov 2026 13:22:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793798540;
+ bh=yMONjB+yqGVxi3mDBQLWOCVu2z2UwpZBo7yc7zHamJ4=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=dBQChdhtM5CuNjXHuSFZUASgSkil9aLJCyhNbP70zLLqgrDvgagvXweNAe2KbXaO+
+ bodmQfuaQtLoivBO2XsmCRZ9QvrhLwG5iDhCYFSpatN7al9tkRVeX+HsarbyHBI0Gq
+ gAev2uZ2WRQe7NmXDjTKJVFHnljt+t3YtfkV+H+w6qcKEStksb4F0y2nFqbER4tpu3
+ 04SOR7v5cg7zT3/JC5LfWVBwWDVVxjJXoJYbKSHbQOPrx/+tEPbfLVgH+9sD+7y8/m
+ 0ouI6cOP10M75mMUd7cVHV3BS5mRYaKW/19WSSUNNKOfrB0yR6CE9ofYR6OW4jzVYb
+ U3C7ES5o749RQ==
+Message-ID: <sashiko-outbox-197334@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] TEST ONLY: drm/intel: add mmio to display parent interface
+To: "Jani Nikula" <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261104130831.152563-1-jani.nikula@intel.com>
+References: <20261104130831.152563-1-jani.nikula@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 13:22:19 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,370 +47,299 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
---===============1165625422410001589==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Medium] drm/i915/display: indirect call overhead in intel_de_read_fw() a=
+nd write_fw()
+- [Low] drm/i915/display: broken context lock annotations in intel_vblank.c
+- [Low] drm/xe/display: missing static qualifier on xe_display_mmio_interfa=
+ce
+- [Low] drm/intel: unused write16 hook and silent no-op in xe_uncore_write1=
+6()
+- [Low] drm/xe: orphaned uncore compat headers and TEST ONLY commit message
+--
 
-== Series Details ==
+commit 0609c4221fda9fb179c2667810e576a6d92944ab
+Author: Jani Nikula <jani.nikula@intel.com>
 
-Series: drm/i915/selftests: Modernize printing in i915 selftests (rev7)
-URL   : https://patchwork.freedesktop.org/series/171991/
-State : failure
+TEST ONLY: drm/intel: add mmio to display parent interface
 
-== Summary ==
+This commit introduces an intel_display_mmio_interface to the display parent
+interface, converting display MMIO register accesses, uncore spinlock calls,
+and unclaimed MMIO detection in i915 and Xe to go through parent interface
+function pointers.
 
-CI Bug Log - changes from CI_DRM_19444 -> Patchwork_171991v7
-====================================================
+>     TEST ONLY: drm/intel: add mmio to display parent interface
+>    =20
+>     Just testing, no need to review. We probably don't want this.
+>    =20
+>     Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Summary
--------
+[ ... ]
 
-  **FAILURE**
+> diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i9=
+15/display/intel_de.h
+> index d0a239a369807..1fddb85d5640a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_de.h
+> +++ b/drivers/gpu/drm/i915/display/intel_de.h
+> @@ -6,16 +6,11 @@
+>  #ifndef __INTEL_DE_H__
+>  #define __INTEL_DE_H__
+> =20
+> +#include <drm/intel/display_parent_interface.h>
+> +
+>  #include "intel_display_core.h"
+>  #include "intel_dmc_wl.h"
+>  #include "intel_dsb.h"
+> -#include "intel_uncore.h"
+> -#include "intel_uncore_trace.h"
+> -
+> -static inline struct intel_uncore *__to_uncore(struct intel_display *dis=
+play)
+> -{
+> -	return to_intel_uncore(display->drm);
+> -}
 
-  Serious unknown changes coming with Patchwork_171991v7 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_171991v7, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
+[Severity: Low]
+This isn't a runtime bug, but removing the intel_uncore.h and
+intel_uncore_trace.h includes from drivers/gpu/drm/i915/display/intel_de.h
+removes the last include sites for
+drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h and
+drivers/gpu/drm/xe/compat-i915-headers/intel_uncore_trace.h.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/index.html
+Should those two unused compatibility headers in Xe be removed as part of
+this change, and should the placeholder commit subject and message be
+updated to describe the change and its rationale?
 
-Participating hosts (38 -> 35)
-------------------------------
+>  u8 intel_de_read8(struct intel_display *display, intel_reg_t reg);
+>  void intel_de_write8(struct intel_display *display, intel_reg_t reg, u8 =
+val);
+> @@ -28,7 +23,7 @@ intel_de_read(struct intel_display *display, intel_reg_=
+t reg)
+> =20
+>  	intel_dmc_wl_get(display, reg);
+> =20
+> -	val =3D intel_uncore_read(__to_uncore(display), reg);
+> +	val =3D display->parent->mmio->read32(display->drm, intel_reg_offset(re=
+g));
+> =20
+>  	intel_dmc_wl_put(display, reg);
+> =20
+> @@ -58,7 +53,7 @@ intel_de_write(struct intel_display *display, intel_reg=
+_t reg, u32 val)
+>  {
+>  	intel_dmc_wl_get(display, reg);
+> =20
+> -	intel_uncore_write(__to_uncore(display), reg, val);
+> +	display->parent->mmio->write32(display->drm, intel_reg_offset(reg), val=
+);
+> =20
+>  	intel_dmc_wl_put(display, reg);
+>  }
+> @@ -107,19 +102,13 @@ int intel_de_wait_for_clear_ms(struct intel_display=
+ *display, intel_reg_t reg,
+>  static inline u32
+>  intel_de_read_fw(struct intel_display *display, intel_reg_t reg)
+>  {
+> -	u32 val;
+> -
+> -	val =3D intel_uncore_read_fw(__to_uncore(display), reg);
+> -	trace_i915_reg_rw(false, reg, val, sizeof(val), true);
+> -
+> -	return val;
+> +	return display->parent->mmio->read32_fw(display->drm, intel_reg_offset(=
+reg));
+>  }
+> =20
+>  static inline void
+>  intel_de_write_fw(struct intel_display *display, intel_reg_t reg, u32 va=
+l)
+>  {
+> -	trace_i915_reg_rw(true, reg, val, sizeof(val), true);
+> -	intel_uncore_write_fw(__to_uncore(display), reg, val);
+> +	display->parent->mmio->write32_fw(display->drm, intel_reg_offset(reg), =
+val);
+>  }
 
-  Additional (2): fi-skl-6600u bat-adls-6 
-  Missing    (5): bat-kbl-2 fi-rkl-11600 bat-adlp-9 bat-rplp-1 bat-dg2-13 
+[Severity: Medium]
+Won't routing intel_de_read_fw() and intel_de_write_fw() (as well as
+intel_de_read() and intel_de_write()) in
+drivers/gpu/drm/i915/display/intel_de.h through indirect function pointers
+in display->parent->mmio introduce a performance regression on hot MMIO
+paths?
 
-Possible new issues
--------------------
+In particular, intel_de_read_fw() and intel_de_write_fw() are used inside
+vblank evasion critical sections with local interrupts disabled to minimize
+MMIO latency. Replacing the inlined register accesses with indirect calls
+through display->parent->mmio->read32_fw() and write32_fw() adds pointer
+chasing, indirect branch overhead, and repeated drm-to-uncore/mmio lookups
+on every register access.
 
-  Here are the unknown changes that may have been introduced in Patchwork_171991v7:
+Also, drivers/gpu/drm/i915/display/intel_de.h, i9xx_wm.c, intel_display.c,
+and intel_vblank.c dereference display->parent->mmio directly instead of
+going through helpers in drivers/gpu/drm/i915/display/intel_parent.c like
+the other parent interfaces. Is that intentional?
 
-### IGT changes ###
+[ ... ]
 
-#### Possible regressions ####
+> diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/dr=
+m/i915/display/intel_vblank.c
+> index 1d4753605675e..5a0af95a7442b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vblank.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+> @@ -294,15 +294,13 @@ static int __intel_get_crtc_scanline(struct intel_c=
+rtc *crtc)
+>  static void intel_vblank_section_enter(struct intel_display *display)
+>  	__acquires(uncore->lock)
+>  {
+> -	struct intel_uncore *uncore =3D to_intel_uncore(display->drm);
+> -	spin_lock(&uncore->lock);
+> +	display->parent->mmio->lock(display->drm);
+>  }
+> =20
+>  static void intel_vblank_section_exit(struct intel_display *display)
+>  	__releases(uncore->lock)
+>  {
+> -	struct intel_uncore *uncore =3D to_intel_uncore(display->drm);
+> -	spin_unlock(&uncore->lock);
+> +	display->parent->mmio->unlock(display->drm);
+>  }
+>  #else
+>  static void intel_vblank_section_enter(struct intel_display *display)
 
-  * igt@i915_selftest@live:
-    - bat-adlp-11:        [PASS][1] -> [DMESG-WARN][2] +1 other test dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/bat-adlp-11/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adlp-11/igt@i915_selftest@live.html
-    - bat-dg1-6:          [PASS][3] -> [DMESG-WARN][4] +1 other test dmesg-warn
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/bat-dg1-6/igt@i915_selftest@live.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-dg1-6/igt@i915_selftest@live.html
-    - fi-bsw-n3050:       [PASS][5] -> [DMESG-WARN][6] +1 other test dmesg-warn
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-bsw-n3050/igt@i915_selftest@live.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-bsw-n3050/igt@i915_selftest@live.html
-    - bat-adlp-6:         [PASS][7] -> [DMESG-WARN][8] +1 other test dmesg-warn
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/bat-adlp-6/igt@i915_selftest@live.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adlp-6/igt@i915_selftest@live.html
+[Severity: Low]
+Does drivers/gpu/drm/i915/display/intel_vblank.c fail to build when compiler
+context analysis (CONFIG_WARN_CONTEXT_ANALYSIS_ALL) is enabled?
 
-  * igt@i915_selftest@live@gt_pm:
-    - fi-tgl-1115g4:      [PASS][9] -> [DMESG-WARN][10] +1 other test dmesg-warn
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html
+Both intel_vblank_section_enter() and intel_vblank_section_exit() remove the
+local uncore variable (and intel_de.h no longer includes intel_uncore.h),
+but they still retain:
 
-  * igt@i915_selftest@live@gt_tlb:
-    - fi-kbl-7567u:       [PASS][11] -> [DMESG-WARN][12] +1 other test dmesg-warn
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-kbl-7567u/igt@i915_selftest@live@gt_tlb.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-kbl-7567u/igt@i915_selftest@live@gt_tlb.html
-    - fi-cfl-8700k:       [PASS][13] -> [DMESG-WARN][14] +1 other test dmesg-warn
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-cfl-8700k/igt@i915_selftest@live@gt_tlb.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-cfl-8700k/igt@i915_selftest@live@gt_tlb.html
-    - fi-bsw-nick:        [PASS][15] -> [DMESG-WARN][16] +1 other test dmesg-warn
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-bsw-nick/igt@i915_selftest@live@gt_tlb.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-bsw-nick/igt@i915_selftest@live@gt_tlb.html
-    - fi-cfl-guc:         [PASS][17] -> [DMESG-WARN][18] +1 other test dmesg-warn
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-cfl-guc/igt@i915_selftest@live@gt_tlb.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-cfl-guc/igt@i915_selftest@live@gt_tlb.html
+    __acquires(uncore->lock)
+    __releases(uncore->lock)
 
-  
-Known issues
-------------
+which reference the undeclared identifier uncore when context analysis
+expands those attributes.
 
-  Here are the changes found in Patchwork_171991v7 that come from known issues:
+In addition, the new lock/unlock callbacks i915_uncore_lock() and
+i915_uncore_unlock() in drivers/gpu/drm/i915/intel_uncore.c, as well as
+xe_uncore_lock() and xe_uncore_unlock() in
+drivers/gpu/drm/xe/display/xe_display.c, acquire and release spinlocks
+across function boundaries without context analysis annotations, and
+intel_vblank_section_enter() / intel_vblank_section_exit() remain guarded by
+#ifdef I915 even though mmio->lock and mmio->unlock are now part of the
+parent interface.
 
-### IGT changes ###
+[ ... ]
 
-#### Issues hit ####
+> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe=
+/display/xe_display.c
+> index aab416485e3ea..42cc19009bab2 100644
+> --- a/drivers/gpu/drm/xe/display/xe_display.c
+> +++ b/drivers/gpu/drm/xe/display/xe_display.c
+> @@ -444,6 +445,82 @@ static void transient_data_flush(struct drm_device *=
+drm)
+>  	xe_device_td_flush(xe);
+>  }
+> =20
+> +static struct xe_mmio *to_xe_mmio(struct drm_device *drm)
+> +{
+> +	return xe_root_tile_mmio(to_xe_device(drm));
+> +}
+> +
+> +static u8 xe_uncore_read8(struct drm_device *drm, u32 reg)
+> +{
+> +	return xe_mmio_read8(to_xe_mmio(drm), XE_REG(reg));
+> +}
+> +
+> +static void xe_uncore_write8(struct drm_device *drm, u32 reg, u8 val)
+> +{
+> +	xe_mmio_write8(to_xe_mmio(drm), XE_REG(reg), val);
+> +}
+> +
+> +static u16 xe_uncore_read16(struct drm_device *drm, u32 reg)
+> +{
+> +	return xe_mmio_read16(to_xe_mmio(drm), XE_REG(reg));
+> +}
+> +
+> +static void xe_uncore_write16(struct drm_device *drm, u32 reg, u16 val)
+> +{
+> +}
 
-  * igt@gem_huc_copy@huc-copy:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][19] ([i915#2190])
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@gem_huc_copy@huc-copy.html
+[Severity: Low]
+Why is write16 added to struct intel_display_mmio_interface in
+include/drm/intel/display_parent_interface.h with an empty no-op
+implementation in xe_uncore_write16()?
 
-  * igt@gem_lmem_swapping@random-engines:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][20] ([i915#4613]) +3 other tests skip
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@gem_lmem_swapping@random-engines.html
+The display driver has no intel_de_write16() helper and never calls
+display->parent->mmio->write16, and having xe_uncore_write16() silently
+discard writes on Xe without a warning could hide bugs if a caller is ever
+added. Also, since xe_uncore_read32_fw() and xe_uncore_write32_fw() are
+identical to xe_uncore_read32() and xe_uncore_write32() on Xe, could they
+share the same function pointers in xe_display_mmio_interface?
 
-  * igt@gem_lmem_swapping@verify-random:
-    - bat-adls-6:         NOTRUN -> [SKIP][21] ([i915#4613]) +3 other tests skip
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@gem_lmem_swapping@verify-random.html
+> +
+> +static u32 xe_uncore_read32(struct drm_device *drm, u32 reg)
+> +{
+> +	return xe_mmio_read32(to_xe_mmio(drm), XE_REG(reg));
+> +}
+> +
+> +static u32 xe_uncore_read32_fw(struct drm_device *drm, u32 reg)
+> +{
+> +	return xe_mmio_read32(to_xe_mmio(drm), XE_REG(reg));
+> +}
+> +
+> +static void xe_uncore_write32(struct drm_device *drm, u32 reg, u32 val)
+> +{
+> +	xe_mmio_write32(to_xe_mmio(drm), XE_REG(reg), val);
+> +}
+> +
+> +static void xe_uncore_write32_fw(struct drm_device *drm, u32 reg, u32 va=
+l)
+> +{
+> +	xe_mmio_write32(to_xe_mmio(drm), XE_REG(reg), val);
+> +}
+> +
+> +static void xe_uncore_lock(struct drm_device *drm)
+> +{
+> +	struct xe_device *xe =3D to_xe_device(drm);
+> +
+> +	spin_lock(&xe->uncore.lock);
+> +}
+> +
+> +static void xe_uncore_unlock(struct drm_device *drm)
+> +{
+> +	struct xe_device *xe =3D to_xe_device(drm);
+> +
+> +	spin_unlock(&xe->uncore.lock);
+> +}
+> +
+> +static void xe_uncore_arm_unclaimed_mmio_detection(struct drm_device *dr=
+m)
+> +{
+> +}
+> +
+> +const struct intel_display_mmio_interface xe_display_mmio_interface =3D {
 
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][22] ([i915#15656])
-   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
+[Severity: Low]
+Should xe_display_mmio_interface in drivers/gpu/drm/xe/display/xe_display.c
+be declared static const?
 
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][23] ([i915#7707]) +1 other test skip
-   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-    - fi-skl-6600u:       NOTRUN -> [SKIP][24] ([i915#11680]) +1 other test skip
-   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@intel_hwmon@hwmon-read.html
+It has no external declaration in any header and is only used within
+xe_display.c to initialize parent.mmio, so omitting static triggers
+-Wmissing-variable-declarations and Sparse -Wdecl warnings (unlike the
+sibling xe_display_irq_interface in the same file, which is marked static).
 
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][25] ([i915#4103]) +1 other test skip
-   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-    - fi-skl-6600u:       NOTRUN -> [SKIP][26] ([i915#17457]) +1 other test skip
-   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][27] ([i915#16361])
-   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_dsc@dsc-basic.html
-    - fi-skl-6600u:       NOTRUN -> [SKIP][28] ([i915#17458])
-   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][29] ([i915#17452])
-   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-    - fi-skl-6600u:       NOTRUN -> [SKIP][30] ([i915#17465])
-   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-c-edp-1:
-    - fi-skl-6600u:       NOTRUN -> [SKIP][31] ([i915#17461]) +3 other tests skip
-   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-c-edp-1.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][32] ([i915#5354])
-   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][33] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][34] ([i915#3555])
-   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-    - fi-skl-6600u:       NOTRUN -> [SKIP][35] ([i915#17463])
-   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][36] ([i915#17448] / [i915#3291]) +2 other tests skip
-   [36]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#11680]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11680
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#17448]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448
-  [i915#17452]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17452
-  [i915#17457]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17457
-  [i915#17458]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17458
-  [i915#17461]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17461
-  [i915#17463]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17463
-  [i915#17465]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17465
-  [i915#2190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19444 -> Patchwork_171991v7
-
-  CI-20190529: 20190529
-  CI_DRM_19444: c0cb7e7c00c9563d72c1e1b08fac139a57fd0ebf @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9177: 9177
-  Patchwork_171991v7: c0cb7e7c00c9563d72c1e1b08fac139a57fd0ebf @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/index.html
-
---===============1165625422410001589==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/selftests: Modernize printing in i915 selftests (rev7)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171991/">https://patchwork.freedesktop.org/series/171991/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19444 -&gt; Patchwork_171991v7</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_171991v7 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_171991v7, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/index.html</p>
-<h2>Participating hosts (38 -&gt; 35)</h2>
-<p>Additional (2): fi-skl-6600u bat-adls-6 <br />
-  Missing    (5): bat-kbl-2 fi-rkl-11600 bat-adlp-9 bat-rplp-1 bat-dg2-13 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_171991v7:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/bat-adlp-11/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adlp-11/igt@i915_selftest@live.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-<li>bat-dg1-6:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/bat-dg1-6/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-dg1-6/igt@i915_selftest@live.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-bsw-n3050/igt@i915_selftest@live.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/bat-adlp-6/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adlp-6/igt@i915_selftest@live.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_pm:</p>
-<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_tlb:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-kbl-7567u/igt@i915_selftest@live@gt_tlb.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-kbl-7567u/igt@i915_selftest@live@gt_tlb.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-<li>fi-cfl-8700k:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-cfl-8700k/igt@i915_selftest@live@gt_tlb.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-cfl-8700k/igt@i915_selftest@live@gt_tlb.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-bsw-nick/igt@i915_selftest@live@gt_tlb.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-bsw-nick/igt@i915_selftest@live@gt_tlb.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-<li>fi-cfl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19444/fi-cfl-guc/igt@i915_selftest@live@gt_tlb.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-cfl-guc/igt@i915_selftest@live@gt_tlb.html">DMESG-WARN</a> +1 other test dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_171991v7 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@random-engines:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@gem_lmem_swapping@random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@verify-random:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@gem_lmem_swapping@verify-random.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11680">i915#11680</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17457">i915#17457</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17458">i915#17458</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17452">i915#17452</a>)</li>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17465">i915#17465</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-c-edp-1:</p>
-<ul>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-c-edp-1.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17461">i915#17461</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/fi-skl-6600u/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17463">i915#17463</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171991v7/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448">i915#17448</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19444 -&gt; Patchwork_171991v7</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19444: c0cb7e7c00c9563d72c1e1b08fac139a57fd0ebf @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9177: 9177<br />
-  Patchwork_171991v7: c0cb7e7c00c9563d72c1e1b08fac139a57fd0ebf @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1165625422410001589==--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104130831.1525=
+63-1-jani.nikula@intel.com?part=3D1
