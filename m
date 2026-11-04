@@ -2,59 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1A8606A326
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 03:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bDVBdj9J
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02086606A31B
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 04:12:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2C110F9AA;
-	Wed,  4 Nov 2026 03:30:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C031A10F99D;
- Wed,  4 Nov 2026 03:30:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793763016; x=1825299016;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=IHDI4eKx8jK4HwDiRDDPtwISyfjvn/Z3sUFpe3BAiXw=;
- b=bDVBdj9JWNplM1Jev1lKxngRlJsfJqODOeac/08zoESmHOzx0uoDu7vv
- g6n1cL0RSWAauD1YWmQR/gbYsxk87TUdms6JZxEYQj0RCoAsXJ8cE3k00
- /jJTuNiroQdHR6kLQhXeocL4XUp95JapqDtoRBWEm6hbUcqTdyZOO3DVB
- eOmAmOsicPzctxhpVqCo8tqnK6V62zGmxsC2O88wqwuj++/aVNbTh/h7M
- EJH9AmpmWQAB2n3svF1JWmaOgXKFtvXs0FTTrxPPepuu44ucJeKUknuF5
- n9mMaer+vDBb29xrzr/9j64eahcgUxChm9ZqCbDZcuZ4pfX8BlErU0ozE w==;
-X-CSE-ConnectionGUID: TXHo2d/CQ7WEePXmEJcvUQ==
-X-CSE-MsgGUID: CG38f+sXSYOoezZ2Zh+OLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2505335"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2505335"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 19:30:16 -0800
-X-CSE-ConnectionGUID: pdMpmejjSCmsvGahOAzSrw==
-X-CSE-MsgGUID: 5AgCTZ2SSWy0FBNDmCxo6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="7155725"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa010.fm.intel.com with ESMTP; 03 Nov 2026 19:30:13 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Wed, 04 Nov 2026 08:54:51 +0530
-Subject: [PATCH v4 7/7] drm/i915/dp: Don't limit the Link M/N ratio with
- the symbol timing generator
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C10D10F9A5;
+	Wed,  4 Nov 2026 04:12:08 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19FD810F9A5;
+ Wed,  4 Nov 2026 04:12:07 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============9029119426150004927=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-vlk-64036-dp-symbol-tg-v4-7-d06fe6c466a9@intel.com>
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/dp=3A_Add_suppor?=
+ =?utf-8?q?t_for_the_DP_symbol_based_timing_generator_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Arun R Murthy" <arun.r.murthy@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 04 Nov 2026 04:12:07 -0000
+Message-ID: <179376552709.114629.9445806275730267381@221881a7231d>
+X-Patchwork-Hint: ignore
 References: <20261104-vlk-64036-dp-symbol-tg-v4-0-d06fe6c466a9@intel.com>
 In-Reply-To: <20261104-vlk-64036-dp-symbol-tg-v4-0-d06fe6c466a9@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- chaitanya.kumar.borah@intel.com, uma.shankar@intel.com, 
- suraj.kandpal@intel.com, Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,94 +34,218 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The limit on the Link M/N ratio only applies to the pixel based timing
-generator, there is no such restriction when the symbol based timing
-generator is used.
+--===============9029119426150004927==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Bspec: 68922
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c     | 18 ++++++++++++++----
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  4 +++-
- 2 files changed, 17 insertions(+), 5 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 788c16df9801131294c73420c2c0d4d3ec848310..b16286c8b0720d8961d3cabc28b86d881c7ed9cb 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1277,8 +1277,12 @@ static bool intel_dp_has_symbol_tg(struct intel_display *display, bool is_mst, b
- }
- 
- static int
--intel_dp_get_max_m_n_ratio(struct intel_display *display)
-+intel_dp_get_max_m_n_ratio(struct intel_display *display, bool is_mst, int link_rate)
- {
-+	/* No Link M/N ratio limit with the symbol based timing generator */
-+	if (intel_dp_has_symbol_tg(display, is_mst, drm_dp_is_uhbr_rate(link_rate)))
-+		return INT_MAX;
-+
- 	if (DISPLAY_VER(display) >= 35)
- 		return 22;
- 
-@@ -1308,7 +1312,9 @@ bool intel_dp_can_support_m_n(struct intel_display *display,
- 			      const struct intel_crtc_state *crtc_state,
- 			      int pixel_clock, int link_rate)
- {
--	int max_m_n_ratio = intel_dp_get_max_m_n_ratio(display);
-+	bool is_mst = crtc_state &&
-+		      intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
-+	int max_m_n_ratio = intel_dp_get_max_m_n_ratio(display, is_mst, link_rate);
- 	enum transcoder cpu_transcoder = TRANSCODER_A;
- 	u32 link_m, link_n;
- 	int m_n_ratio;
-@@ -1331,7 +1337,10 @@ void intel_dp_check_m_n_ratio(const struct intel_crtc_state *crtc_state,
- 			      struct intel_link_m_n *m_n)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
--	int max_m_n_ratio = intel_dp_get_max_m_n_ratio(display);
-+	int max_m_n_ratio =
-+		intel_dp_get_max_m_n_ratio(display,
-+					   intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST),
-+					   crtc_state->port_clock);
- 	int m_n_ratio;
- 
- 	m_n->bypass_m_n_ratio_limit = false;
-@@ -2815,7 +2824,8 @@ intel_dp_compute_m_n_ratio_limits(struct intel_dp *intel_dp,
- 		drm_dbg_kms(display->drm,
- 			    "[CONNECTOR:%d:%s] No link config with a Link M/N ratio <= %d\n",
- 			    connector->base.base.id, connector->base.name,
--			    intel_dp_get_max_m_n_ratio(display));
-+			    intel_dp_get_max_m_n_ratio(display, false,
-+						       crtc_state->port_clock));
- 
- 		return false;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 81ac454603603df42db477ddb26cfb2f620dcfea..fe9cdf771f481fc8a8b8f3f29e4a24aa53a53f94 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1570,7 +1570,9 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 					   min_link_bpp_x16,
- 					   bw_overhead_flags);
- 
--	if (!intel_dp_can_support_m_n(display, NULL, mode->clock, max_link_clock)) {
-+	/* MST always uses the symbol based timing generator, which has no Link M/N ratio limit */
-+	if (!HAS_DP_SYMBOL_TG(display) &&
-+	    !intel_dp_can_support_m_n(display, NULL, mode->clock, max_link_clock)) {
- 		*status = MODE_CLOCK_HIGH;
- 		return 0;
- 	}
+Series: drm/i915/dp: Add support for the DP symbol based timing generator (rev4)
+URL   : https://patchwork.freedesktop.org/series/177002/
+State : failure
 
--- 
-2.25.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_19443 -> Patchwork_177002v4
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_177002v4 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_177002v4, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/index.html
+
+Participating hosts (40 -> 37)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-glk-j4005 bat-mtlp-9 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_177002v4:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - fi-tgl-1115g4:      [PASS][1] -> [FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177002v4 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-adlp-6:         [PASS][3] -> [DMESG-WARN][4] ([i915#15673]) +78 other tests dmesg-warn
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-arlh-3:         [INCOMPLETE][5] ([i915#16547]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/bat-arlh-3/igt@i915_selftest@live.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/bat-arlh-3/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-cfl-8109u:       [DMESG-WARN][7] ([i915#13735]) -> [PASS][8] +80 other tests pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@i915_selftest@live@slpc:
+    - bat-arlh-3:         [INCOMPLETE][9] -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/bat-arlh-3/igt@i915_selftest@live@slpc.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/bat-arlh-3/igt@i915_selftest@live@slpc.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [DMESG-WARN][11] ([i915#13735] / [i915#15673]) -> [PASS][12] +49 other tests pass
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19443 -> Patchwork_177002v4
+
+  CI-20190529: 20190529
+  CI_DRM_19443: d11bbfdac0f3d443b367857ffe683ae6bb80d560 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9176: 9176
+  Patchwork_177002v4: d11bbfdac0f3d443b367857ffe683ae6bb80d560 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/index.html
+
+--===============9029119426150004927==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: Add support for the DP symbol based timing generator (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177002/">https://patchwork.freedesktop.org/series/177002/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19443 -&gt; Patchwork_177002v4</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_177002v4 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_177002v4, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/index.html</p>
+<h2>Participating hosts (40 -&gt; 37)</h2>
+<p>Missing    (3): bat-dg2-13 fi-glk-j4005 bat-mtlp-9 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_177002v4:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_pm_rpm@module-reload:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177002v4 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_pm_rpm@module-reload:<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +78 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/bat-arlh-3/igt@i915_selftest@live.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> +80 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/bat-arlh-3/igt@i915_selftest@live@slpc.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/bat-arlh-3/igt@i915_selftest@live@slpc.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19443/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177002v4/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19443 -&gt; Patchwork_177002v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19443: d11bbfdac0f3d443b367857ffe683ae6bb80d560 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9176: 9176<br />
+  Patchwork_177002v4: d11bbfdac0f3d443b367857ffe683ae6bb80d560 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============9029119426150004927==--
