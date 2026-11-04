@@ -2,76 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2673C606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCAF606A338
 	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:06:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qlXX3DTr
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CUfSLoTR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E849911248A;
-	Thu,  5 Nov 2026 14:06:19 +0000 (UTC)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 327D910EE2E
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 06:04:47 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-3ac6008c914so196593a91.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 22:04:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793858687; x=1794463487; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qq/4vwt5KZIiFWaAeaK5UibLMyaTMg//P8AG8snjRNo=;
- b=qlXX3DTrbRIFQok0wMIJxpFq7+g0PwubwMJLo6iJjj4hBpHE4O4ym36bw30sljo8us
- ByEodnTfVVq1VmvqzuyidmrUxosDI9VrMWpvPOj/ucRKMJukjUi0Nq616sgt6mNfeErG
- aqPeljQ0g017y4WU1unAX1okVewyeKkX5Oex9gfFrOPlhgvNRQhvvpPV9pNGYfz+6ZtP
- kvug4izV6fWWjYYrqY6a9U+7ZqGJVTsQfiNgNlsuCHU0hgGKfmh3bLoI1FG3FSbeXFYt
- TToZahZfqheN3Tx0HugUGltpTD9HwpPW5HBCNqyWynE59qnuy7nxjx+3gDPLUH6wOaZf
- 3JJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793858687; x=1794463487;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=qq/4vwt5KZIiFWaAeaK5UibLMyaTMg//P8AG8snjRNo=;
- b=ahInsrW/MheTgMmaVESPywI2DQ1y/YSYr78CjWUiPP8bq1gKjduItJCfZeTo+hRwmc
- ETIlIiULoOfG86SHBntNt5CI0+yYAj9h4y2e/9v7w+q9UY68+Qio1c2FY8a1bbSIPmBm
- 3ap3uMT2jAPiC031YDY51jAOZw6yTB673uOdlDRG618tw9JH5cDNDC84XISuSzKBv7kS
- cfEABRAK1nqbvlJfx6sZ3XCM1Ds7a+n3puXfxHI921/Nk6NvtF8FoL4Jd+qQA9viZeLy
- 38778zU2N9wNRcP0cSoGtutCfhYkGKYrDLYW4PyVwMnChr586aY6INgcY8nEHRh8lafZ
- dSGA==
-X-Gm-Message-State: APuU4Z9FjG3YbQMwzxAHMED6bYM506WwXdzH2JrNuVeSeLaqYT39U/VD
- KMat/gGMWDFJN2rXty7RqFHtT+fjcaW7ji884QEKdODsQ/TO2cwIz4cp3p3BO9jA
-X-Gm-Gg: AYBFou09ioq0GetHqiNXmcuKEtL0Nrh30/9KztKb1NIuqKLPTChljBTx6Mi6LJAj9Fo
- hO2e7chtz+a6+vG0V2Rsl2bGTBoF3OTRM6KlkwbRghm1+2VrtgzuJteleHTsoLfWHzgniqnzhVB
- 841jFRuP9BByTeTtt+YkgNS0NyFCJwLOquIwCUUoE6CyTlCP+GNpCavqftuVnrHokZc4fZHm9fS
- mGCgQWT82ETVeODqx2faFVklXljuX8V/Qpqp5gOeCf20Bc1rH04Dz3fUVU2F/gzsoLj/AwZtp3I
- nyeC2fzJTbQHbppGeIjOQkZhkeGJmcHJmGhsD5JClGsMF1y0Bd5ahJSGl8itEYq1DJtp+pKFljE
- 6AQD7SJsHgw5gL13IOSL1Z2ndooDJjUL7FVRH7RSqyISKlW3JdxZVudSBRcUFLv4kpp4FshsF6S
- mMB4+21H1gHuEn3lmbtQIeXRdb+rX8j0It8F500gHWPfFXNxlaSZgFYnKnGX8RxdKtOeUEd29OU
- S86ZgWQT9owml4tuBJpM8DKcQ/EQFUrZHVjRh4Xr071ZUwabN2/HPeucXspT/ZyN/299ndbT9Gy
- 4s5dHS0jycDDRtocclClOqbQM3PqKd2H6MjpkYlSVg==
-X-Received: by 2002:a17:90b:2f4f:b0:3a0:c162:51af with SMTP id
- 98e67ed59e1d1-3ae89291df0mr25913696a91.0.1793858686515; 
- Wed, 04 Nov 2026 22:04:46 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b0b313c0dcsm2093100a91.1.2026.11.04.22.04.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2026 22:04:46 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, stable@vger.kernel.org,
- Chengyu Liu <lui2012qwq@gmail.com>
-Subject: [PATCH v2 2/2] i915/perf: remove sysfs entry if idr_alloc() fails in
- add_config
-Date: Thu,  5 Nov 2026 14:04:22 +0800
-Message-Id: <20261105060422.51848-3-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261105060422.51848-1-lui2012qwq@gmail.com>
-References: <20261105060422.51848-1-lui2012qwq@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36BF310E678;
+	Thu,  5 Nov 2026 14:06:20 +0000 (UTC)
+Received: from mta1.migadu.com (out-132.mta1.migadu.com [95.215.58.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB55610FCE3
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 16:14:11 +0000 (UTC)
+X-Envelope-To: intel-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=TEEBqA5mys4k9gU+dMidncfMYOQA4DDB7pbBCcoYQ8w=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793808850; v=1; x=1794413650;
+ b=CUfSLoTRYRXlL4RH19NegBV6kgSUi3Ik9GyZIGBE7xtz63/KgEbat51utbiDXqPhAdRAfsYV
+ esEmaLCcbGQfwtF00SmJ7v0QlJwCplEMxzQrj4l3AenzGm12BY6MTAdYCtyyBZMP6xKblGPeRR5
+ lJrld4X1jFkHfqbsMVledU0c=
+X-Envelope-To: intel-gfx@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id ae6b6b9431f873b0;
+ Wed, 04 Nov 2026 16:08:04 +0000
+X-Mizu-Trace-ID: ae6b6b9431f873b0
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Vineet Gupta <vineet.gupta@linux.dev>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ llvm@lists.linux.dev
+Subject: [PATCH 4/4] drm/i915: Avoid -Wconstant-logical-operand with GCC 17
+Date: Wed,  4 Nov 2026 08:07:21 -0800
+Message-ID: <20261104160722.1637541-5-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104160722.1637541-1-vineet.gupta@linux.dev>
+References: <20261104160722.1637541-1-vineet.gupta@linux.dev>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -87,47 +66,78 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-i915_perf_add_config_ioctl() creates the dynamic sysfs entry for the OA
-config before allocating its id.  If idr_alloc() fails, the error path
-drops the config reference via reg_err: without removing the sysfs
-entry - unlike the normal remove path, which does sysfs_remove_group()
-first.  The leftover attributes point into the freed oa_config; kernfs
-only stores the attribute pointer, and show_dynamic_id() reaches the
-freed object via container_of (including the show() callback itself),
-so reading /sys/class/drm/cardX/metrics/<uuid>/id afterwards is a
-use-after-free.
+GCC 17 adds -Wconstant-logical-operand to -Wall. It warns when an operand
+of && or || folds to a constant other than 0 or 1. Three places break the
+build with CONFIG_WERROR=y:
 
-Remove the sysfs group on the idr_alloc() failure path, mirroring the
-remove ioctl's ordering (under metrics_lock).
+  include/drm/intel/reg_bits.h:27:48: error: use of logical '&&' with constant operand '256' [-Werror=constant-logical-operand]
+  drivers/gpu/drm/i915/i915_config.c:13:43: error: use of logical '&&' with constant operand '10000' [-Werror=constant-logical-operand]
+  drivers/gpu/drm/i915/gem/i915_gem_context.c:999:45: error: use of logical '&&' with constant operand '20000' [-Werror=constant-logical-operand]
 
-Found by static analysis.
+clang has the same warning, but it checks only a constant right operand
+outside a macro. Here each constant is a left operand, and
+IS_POWER_OF_2() is also a macro.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+Commit 1a839e016e49 ("drm/i915: remove IS_ACTIVE") moved
+CONFIG_DRM_I915_FENCE_TIMEOUT to the left of && to avoid the clang
+warning. That does not help with GCC 17.
+
+Compare each constant against 0, as commit aeedd3a82678 ("drm/i915: Avoid
+-Wconstant-logical-operand in nsecs_to_jiffies_timeout()") did.
+
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 2 +-
+ drivers/gpu/drm/i915/i915_config.c          | 2 +-
+ include/drm/intel/reg_bits.h                | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 19b82427aa41..40385f991abb 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4716,6 +4716,7 @@ int i915_perf_add_config_ioctl(struct drm_device *dev, void *data,
- 		drm_dbg(&perf->i915->drm,
- 			"Failed to create sysfs entry for OA config\n");
- 		err = oa_config->id;
-+		sysfs_remove_group(perf->metrics_kobj, &oa_config->sysfs_metric);
- 		goto sysfs_err;
- 	}
- 	id = oa_config->id;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index c58ffa5a8fa6..1639639dd290 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -996,7 +996,7 @@ static int intel_context_set_gem(struct intel_context *ce,
+ 	    intel_engine_has_semaphores(ce->engine))
+ 		__set_bit(CONTEXT_USE_SEMAPHORES, &ce->flags);
+ 
+-	if (CONFIG_DRM_I915_REQUEST_TIMEOUT &&
++	if (CONFIG_DRM_I915_REQUEST_TIMEOUT != 0 &&
+ 	    ctx->i915->params.request_timeout_ms) {
+ 		unsigned int timeout_ms = ctx->i915->params.request_timeout_ms;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_config.c b/drivers/gpu/drm/i915/i915_config.c
+index 9e13b1be407c..9bbebe0a6a70 100644
+--- a/drivers/gpu/drm/i915/i915_config.c
++++ b/drivers/gpu/drm/i915/i915_config.c
+@@ -10,7 +10,7 @@
+ 
+ unsigned long i915_fence_context_timeout(u64 context)
+ {
+-	if (CONFIG_DRM_I915_FENCE_TIMEOUT && context)
++	if (CONFIG_DRM_I915_FENCE_TIMEOUT != 0 && context)
+ 		return msecs_to_jiffies_timeout(CONFIG_DRM_I915_FENCE_TIMEOUT);
+ 
+ 	return 0;
+diff --git a/include/drm/intel/reg_bits.h b/include/drm/intel/reg_bits.h
+index 2a9066e1d808..f913c3e61f39 100644
+--- a/include/drm/intel/reg_bits.h
++++ b/include/drm/intel/reg_bits.h
+@@ -24,7 +24,7 @@
+ /*
+  * Local integer constant expression version of is_power_of_2().
+  */
+-#define IS_POWER_OF_2(__x)		((__x) && (((__x) & ((__x) - 1)) == 0))
++#define IS_POWER_OF_2(__x)		((__x) != 0 && (((__x) & ((__x) - 1)) == 0))
+ 
+ /**
+  * REG_FIELD_PREP8() - Prepare a u8 bitfield value
 -- 
-2.25.1
+2.53.0-Meta
 
