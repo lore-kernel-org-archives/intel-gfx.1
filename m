@@ -2,61 +2,164 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132DB606A32C
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 01:30:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2631D606A326
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 01:31:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hSzOd2n3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fp4pKMzO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7735210E4EF;
-	Wed,  4 Nov 2026 01:30:08 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDC5710E4EF;
- Wed,  4 Nov 2026 01:30:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB2710F8E6;
+	Wed,  4 Nov 2026 01:31:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B9E110F8E6;
+ Wed,  4 Nov 2026 01:30:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793755802; x=1825291802;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=syy6QjJl2jFKpWBfFodPKYB/m/8Hval3+l8xNhB4PjM=;
- b=hSzOd2n3FsB8lMCs6o6wA6txzr4s4hvcRoqi8ytwwDK9zdFOct0Htf0f
- gpNDtG+2Z4edJ79MY0iXIm6ENT2LOMWSzK5xglqcs7I0y7xh5GAgNgxta
- 9VWefhdIsU/naUMXj4KsacO2N+ucyA45cjtp4PBJILDG5wBg8zXviZwAT
- Sv4JAJNQHHXO96D1onnGwyZ/Q3CwSe2GJ4mBlPJqotcKe76wk08opiFyq
- X/cd4Yz8yYdlzHLoMMPaWYP6kAmEcNG5CU2woEyE1hJm6KHdsTTd1Jixb
- h9yautDTYFDc66T84FZNWBKpOVebisN/8Vw8YLydeEioZ8CBb7Ky58yjj A==;
-X-CSE-ConnectionGUID: nh7Vjq5HSw+Q0BcEzesoFA==
-X-CSE-MsgGUID: wEbYx+TeTiOkRpmPAlOxIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2592902"
+ t=1793755823; x=1825291823;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=LBlVr7KAH9hryqnr+yZyfK95520HFD3ZFhRl9PM9x68=;
+ b=Fp4pKMzOxsmjdJHAU8MGGG2LgM1ctg+ac87yzp63s3/n8clS8pMY2mKG
+ HmY5g083eRAOWgLStg5OSzUhxFz6eKCdpytK9LhOuXULSAXySPUpbHMyo
+ 978giEw4tnRG7aGk90WS0nhEm2kuv3hfHOOHmdhV86DjCxZcnk1y0yduG
+ tXh+Kz6ux2p6MXeq7dl/I7YmioVb68bd7m06EcyCg51KbFNymE5VpkMgw
+ 7ZyLr9cIcH/mrjz1mGBmHiLGJH04Xif0IYOXB8/wIHADp7JV3MYaCdOT/
+ 8NJ/QKyP92Mu8MCFs5paP9XJIW429EAG0iGUSz+/ioU+rczAhozcp6RIm g==;
+X-CSE-ConnectionGUID: NdIuTh+lSFmTBmuSUU7lvA==
+X-CSE-MsgGUID: D6U/XyqUQ7KF6Dai13ZT6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2378724"
 X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2592902"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 17:30:02 -0800
-X-CSE-ConnectionGUID: i+t+TH98QdO/q+1wNBAJuQ==
-X-CSE-MsgGUID: ook4j2l8TWmULubw0mdFAA==
+   d="scan'208";a="2378724"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 17:30:22 -0800
+X-CSE-ConnectionGUID: YQclOm4IQ/mZAIWeIX/ofw==
+X-CSE-MsgGUID: 3NsVKsAaQ4ab1KZMj+8r5w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6596283"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation)
- ([10.239.182.64])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2026 17:29:58 -0800
-Date: Wed, 4 Nov 2026 09:29:54 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
- Nikolay Borisov <nik.borisov@suse.com>,
- linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
- kvm@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dm-devel@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- linux-pm@vger.kernel.org, yi1.lai@intel.com
-Subject: [linus:master] [x86/cpu]  3eaa50e1e2:
- WARNING:at_arch/x86/mm/tlb.c:#switch_mm_irqs_off
-Message-ID: <202611040239.b33be21c-lkp@intel.com>
+   d="scan'208";a="6921772"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 17:30:23 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 17:30:22 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 17:30:22 -0800
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.33) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 17:30:22 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RQVEJDH7BvxWkCiANOSZ165hYrUMVs8lq2wMoCr2a8PqkuCLYGrG/wnCA5NyB4tPd6bNmDjd/ud3j0TyCvCB5OFuuEtRaSoqfcHUJ3KraCdAwhLADn4ksUVPfKh9R4JDU+Ga0AT7uRg1Vr4NYu3HsN0BOV9Q+wkA/ZzkTrIWxmAbTmuvLSLvAa16Z+jKU7UBLaeUwhWqvUF25NVgZKHfWdmWH66D9J1w2gfXe5lJLtJYfcqMhTFekYeCgJIWdj62dEAETrk1nHFaIdqxUgZEJouGvXgThrZFjFmaRsZZZ1vdSXwcZGMuQzdQypmypLErtrLAeJ9RHIXpQWGTKwlLAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LBlVr7KAH9hryqnr+yZyfK95520HFD3ZFhRl9PM9x68=;
+ b=uBTEygSYk8WKWJyHWsgR+g08+zNm/lf81wAJEX96fyltZ7d9TleEokZVF3RI4WmI6N719WqNGPNGhr12kgqhup+CtLIwKJGZgdpXe11jVHmFhGwLmF5/G6vBkjQXlO+Tv+oZhIM6AyF2PtTPKOhzo9WZ3HT28+Lj7V5U/Pj+FCX1eAgSVeftucZG4AhIZF7CHywH8yeUbXPRN9zHMyQ9zpZ7TmEUY50ydBW+OaXC9BSWnLOj7hMhS32G8zmlE8/+LYDlD7q1dvSxgvBIPcSoex3vU++3oOxBxt681Xdi+72jVNc63D+x4J72jyhVotDE3tjst6tADxC3U2B2O753yg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::5b) by DM6PR11MB4755.namprd11.prod.outlook.com
+ (2603:10b6:5:2ae::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 01:30:13 +0000
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::19f5:13eb:df52:68ff]) by DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::19f5:13eb:df52:68ff%8]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
+ 01:30:12 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, "Borah, Chaitanya Kumar"
+ <chaitanya.kumar.borah@intel.com>, "Shankar, Uma" <uma.shankar@intel.com>
+Subject: RE: [PATCH v4 7/7] drm/i915/dp: Don't limit the Link M/N ratio with
+ the symbol timing generator
+Thread-Topic: [PATCH v4 7/7] drm/i915/dp: Don't limit the Link M/N ratio with
+ the symbol timing generator
+Thread-Index: AQHda3qmZ7CpmEHQgUOFVQyDokb++bcdILTg
+Date: Wed, 4 Nov 2026 01:30:12 +0000
+Message-ID: <DS4PPFE901A304F36C9292E8FFF415A3BB4E3682@DS4PPFE901A304F.namprd11.prod.outlook.com>
+References: <20261103-vlk-64036-dp-symbol-tg-v4-0-6cf8a588b54c@intel.com>
+ <20261103-vlk-64036-dp-symbol-tg-v4-7-6cf8a588b54c@intel.com>
+In-Reply-To: <20261103-vlk-64036-dp-symbol-tg-v4-7-6cf8a588b54c@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|DM6PR11MB4755:EE_
+x-ms-office365-filtering-correlation-id: 736f5da3-1d74-4406-232f-08df3a132be6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|38070700021|260925022911599003|260925021911599003|260925021311599003|11063799006|4143699003|56012099006|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261021123027099003|10067099003|18002099003|22082099003|3023799007;
+x-microsoft-antispam-message-info: LChn9BhsUrTm3j9eUg42rpl4OkcHsJliThjI9ANX6bexSFFU6fbgfHLGcKPymFBk9b9qkeyKbvdTqjUGIzF8353iAZup8VTUgunLkBghc1IIeMak31A0sbRm7ODlS7VPnHzVVx5niSdzFp5Wxx4CqOqs7p1j0yM41e/T7m+O949lW2x60WlsYTYo4A2V27gGkxdcmtuetH+gzfshX6+Hh/qtDLBIRD0FiUJYpQjfXswVUJ3B7xCm4yj/Ngz2qc5ihhHlSNBKGFa3kFamHdeNYNJBZnS4woEMThh90izJ5smJAVEUnwWisgToO1eRb7mCoIwi3w/8bEqrceeYbul/FrZ+UEqvVcU6upwq9WTnjtovKIUQ5H2DLXbSXORlPO4dcp4IEbsRQT8plZfvpi1fxd6OXgE0YV03zhFnpJQ28783RoNikuRuj0247G38CQ23NExIrhvUcVG3TBP7Ek6R63ntoQJUwqqYX0ayTjtdsQJ/hr8sWMKcqt37bhplbQopvGWRiIIY39Xubr9vYslihhW27mSl/0zXJ/O0U4xSvYrK8vdzeTb5wF6PMocPHzMu7wantqKx3uoOyPZg+bxF+Foz+o0IC5lK7cPLRxjVzk59uPtqprgJ/N1n5lE2RmU1MyZMb/MYaB8NgEsbUlT5ZGDLmOSCIVbDxiKlmoMvbBd/CO9zeBpkZuamh9YJ+tCPaiLNIXYZ3q4FwqueGyMXRjhEetTYLU6tGU3AMb92/DQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(38070700021)(260925022911599003)(260925021911599003)(260925021311599003)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bmFzUmRWeVQxRFFsT3Vrb2Z1c2xSZDJNeHplTWcvbmtHSWtvNTM4R0xrQ2M3?=
+ =?utf-8?B?WldIK0hzdTU0bmMvSUFtOEowQzVoN3YyMC84WEVuUDVETkRtVjFtQjNhZnNm?=
+ =?utf-8?B?bHgrUk5hTHorM2F5WWhPaTFNcEpPOVRYWC9BL0RyNTdUYkNpMWtrM0txWnUv?=
+ =?utf-8?B?bmZEc1UwTWpkOUUrdlRLVTlOV3JFOFY1QUtnejY0TW9aSUlCbzJGS0lPd1dh?=
+ =?utf-8?B?K0ROZ24wWFUxbzJrbW9WQnUwWW5QTDN5U1dhSE5oMFNDanEwRC9pVnhyUjNQ?=
+ =?utf-8?B?bjdITDlGcmpaTEFpZGkwYW44TThMd1J1S2gxZnQ0a0kwMFJDL3ZINS9RRjRj?=
+ =?utf-8?B?WFVhZjQrYWVsR2NjN3NFd2IydlhSeUNYZ1diT3JxVVo4V0hPMFRrUDNSVW14?=
+ =?utf-8?B?aGhQUnoydURqbmxsS0dJRjMzYVJTMEtyS1lnd2p3Tzl1SldOT2FsVGQwZlho?=
+ =?utf-8?B?TFZuVEwrS2xNbVFoeHRzRFhGOExNdkVqekJzeFhFZHFhc1FyUFpzeU1kMU9t?=
+ =?utf-8?B?TTZnREdnK1FlQ2ExSjVZN3dnWGpPeUZpaU5YaEk2MGdMM2ZxSStlSEdOM2p3?=
+ =?utf-8?B?WVEwSjZIYXRjZk4xamcrd2lkSmIrR2lKOXNjRENjcVJxYUdnWHN1K1dUelhy?=
+ =?utf-8?B?M1dPaGdkeGo2YWFET3pJMUJVNkxsZXlRMTd3aFF2WUpmTWY4WDhtNmtpOHM3?=
+ =?utf-8?B?dVhiUWNyaXl0NGhSeDJ6U3BWZDJxcFpCbHhJT05oVVhMQ0oxS1hkWGlFNXlm?=
+ =?utf-8?B?TmdGYkVOSUpvcmNQMjUrN3l3L1NySUxWUWQxVXk3WTJTdHIxcTg4WjR3L3VY?=
+ =?utf-8?B?ZmhwNU1sOWJUM0xJRUlBMEZ6VWNCMGZ4akVzcXdmKzFCRGROWWtPU01OZHNY?=
+ =?utf-8?B?KzRVTnJES0x4ZFpiYmtJN2htbHYxdE8zZnA1aWE2Rm1OSHd4TEZpNlJ2Tjl2?=
+ =?utf-8?B?NkV3eWRLWWtTTHBvZHVTRnkxS0p2M1IxSDcwUWcxakZpcVhXZWsrQVBGS3BW?=
+ =?utf-8?B?eXlldWs0cGhvSFh3eWMrSGNuRUh5OUR5TUZyTWNMT2prZW5uTkNPZ1RacjVn?=
+ =?utf-8?B?RVR0TzdoSlhadnFLZk02ZHJGWmtXZUhRRkI1S1QvYmdSaXlzZ3g5UHhieXJl?=
+ =?utf-8?B?YU4vbXVaVjJ2V1RrWG5hc0hzMFJoaTJKa3Z3RTcxWjVkcUQ5blR2MHhZMXJR?=
+ =?utf-8?B?OUZMamFNd1VmaHJ6WHRHU2loL0RmdmRabVlaNW8zWVlQY0dtblIrUnE3MS8r?=
+ =?utf-8?B?SHlFZ08zM2o3bVFTMngyei9jL3NTbmcxTGN2RXY4ZFgxL3MyS1ZPeFV0a1Fa?=
+ =?utf-8?B?T1NlcEpZQWJWVnVSdVZ3elVQaFZ2WE91eEVoaUZNaC9sM0ZxcGRsZ3VmQ01N?=
+ =?utf-8?B?T1JmNjZZakJBRGNZcmRLR3o2UDBDdFBhV0lCOXh0VXJWTVFrVHlyRG9pVzVm?=
+ =?utf-8?B?TS8wUkgxMVgxclU2MzkwUmZUdFdwbkdOS3N2TnhvUndCWTVyVDVjMVMwdUxs?=
+ =?utf-8?B?OXJsejNHMTBGRzcrdkVoejRObCtBSnJYbmR6NVpJdnJYSHU5RHJEelFFUkR6?=
+ =?utf-8?B?MHNDNU9vbDg2UDF2R2dWZDUvUVhqNXQxOE1VVmN1dkU0a2xDM05JUjlReVc5?=
+ =?utf-8?B?Zi8ydnJ4UHBNeVdFcm1iRE1zVjNQK0FLWnZwa09LRHQwV1p6SmlMMDJQMWVY?=
+ =?utf-8?B?VkU1SERaWnY3eVUzK3U5VERHbXMyR2U3dXJvZm5nUHhMeU5JTm1wOThDY0lr?=
+ =?utf-8?B?MlRCMVAySVRhVWtSdHlsMFNvSk5SSWlKU3hkaUp6ZXdteThManJaT2wxVHlk?=
+ =?utf-8?B?S1I5TmIvTkc0S09tcUR2aTVTbHBmT3YrcjRyZVJoNko5MENRUTZKQ2NTeWtE?=
+ =?utf-8?B?eEVwUS9lQWdLTTVpSHZhd25UWHpsVXFIUnlwU1h1c3p6VFZYSnBhVTE1eGxG?=
+ =?utf-8?B?YUlNSTFqMEJlY202UDIrdW5DMVp6S1VnTzlQUVRvK2J4RmN0emFjaWEwN1BY?=
+ =?utf-8?B?cEpZVHpEaTQ5TTk0ay9uUkFYSXIxL1JEdjdrdTVBR2NYalhjVXgvOFlpNUlG?=
+ =?utf-8?B?bm5QeW1OalVoUG5SRUNvVC9RK0t4cnlkYjljdEVha09GVkpnWllpa3pQMjBY?=
+ =?utf-8?B?Vm5mV1B3aXlweTVCeElic2xkVlFKOFVJdzNVQzhKdW1wcXBWZnpWQTQwYlFp?=
+ =?utf-8?B?YXdzVXVxSHhVSmtCbVVSdDhHUnQ4NDdiYnRmcHF3dEVOZjUrOW94NjVXRThK?=
+ =?utf-8?B?Z0owZUFydHlCNWlrME43bk5kN2wvL2NjU0dsTWdIaEVhUW1lN1o2L1BCcDRw?=
+ =?utf-8?B?ZHVkbWwyWG52dUFqZm5qWGtvU2ZMK29ockRxUlZqMUh6NGtPeHJ2UT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-Exchange-RoutingPolicyChecked: lUWg9NAwESuXAoNoKOZtiIEGit0yM+Hhk4xYyRcNBoLVLKFlAVtKavTauZurMcrPHZlMID5pa3TGS0T5M+tFpSTjy4LZxJtB8JlH/u3JOUKuTd1qlWg6MmbLKVyqDIThfXL0LAiYn3ACkj9DDiUc0rZkpazR0QrtCnlgiUCkakf9mfOcknGXA43o/kkJ5nEUgOwFBPF53O1X0ialHhONanbfgeo3VnoCPZzTsiC3wo1fcFPEjQpA+n8LRfU3mbzCZPqc+BDEDEDCd25OkE8lA9q7WTMFEZrlJE3QPEBSfv7zOOSg5C6P70eaN1BcFSWSeTa/H7BMzUX+E2MwmYtE5Q==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 736f5da3-1d74-4406-232f-08df3a132be6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 01:30:12.4942 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: khkG58PN+GQ6Z/SJBh6pguCxWgrn0FKn6G4fW9emuhBum0SNk0Js1vFwn3rnRkEjR9XxM/hAghUNFkaq+39HFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4755
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,320 +171,78 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-
-Hello,
-
-kernel test robot noticed "WARNING:at_arch/x86/mm/tlb.c:#switch_mm_irqs_off" on:
-
-commit: 3eaa50e1e255ec261c757b9eea811ef3bac10d1e ("x86/cpu: Hide and rename static_cpu_has()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-
-[test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
-
-in testcase: trinity
-version: 
-with following parameters:
-
-	runtime: 300s
-	group: group-03
-	nr_groups: 5
-
-
-config: i386-randconfig-2302-20261020
-compiler: clang-22
-test machine: qemu-system-i386 -enable-kvm -cpu Icelake-Server-noTSX,enforce,lm=off -smp 4 -m 4G
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611040239.b33be21c-lkp@intel.com
-
-
-[    6.581068][    T0] ======================================================
-[    6.581069][    T0] WARNING: possible circular locking dependency detected
-[    6.581070][    T0] 7.2.0-rc2-00001-g3eaa50e1e255 #1 Not tainted
-[    6.581072][    T0] ------------------------------------------------------
-[    6.581073][    T0] swapper/1/0 is trying to acquire lock:
-[    6.581074][    T0] c31a3080 (console_owner){..-.}-{0:0}, at: console_lock_spinning_enable+0x2b/0x80
-[    6.581086][    T0]
-[    6.581086][    T0] but task is already holding lock:
-[    6.581086][    T0]
-[    6.581086][    T0] but task is already holding lock:
-[    6.581086][    T0]
-[    6.581086][    T0] but task is already holding lock:
-[    6.581087][    T0] e85ad118 (&rq->__lock){-.-.}-{2:2}, at: __schedule+0x1b4/0x940
-[    6.581676][    T0]
-[    6.581676][    T0] which lock already depends on the new lock.
-[    6.581676][    T0]
-[    6.581676][    T0] which lock already depends on the new lock.
-[    6.581676][    T0]
-[    6.581676][    T0] which lock already depends on the new lock.
-[    6.581676][    T0]
-[    6.581677][    T0]
-[    6.581677][    T0] the existing dependency chain (in reverse order) is:
-[    6.581677][    T0]
-[    6.581677][    T0] the existing dependency chain (in reverse order) is:
-[    6.581677][    T0]
-[    6.581677][    T0] the existing dependency chain (in reverse order) is:
-[    6.581678][    T0]
-[    6.581678][    T0] -> #4 (&rq->__lock){-.-.}-{2:2}:
-[    6.581678][    T0]
-[    6.581678][    T0] -> #4 (&rq->__lock){-.-.}-{2:2}:
-[    6.581678][    T0]
-[    6.581678][    T0] -> #4 (&rq->__lock){-.-.}-{2:2}:
-[    6.581683][    T0]        _raw_spin_lock_nested+0x20/0x40
-[    6.581686][    T0]        ___task_rq_lock+0x55/0x100
-[    6.581691][    T0]        wake_up_new_task+0xd5/0x2c0
-[    6.581693][    T0]        kernel_clone+0x1f4/0x3c0
-[    6.581696][    T0]        user_mode_thread+0x61/0x80
-[    6.581698][    T0]        rest_init+0x1a/0x1c0
-[    6.581700][    T0]        start_kernel+0x337/0x3c0
-[    6.581706][    T0]        i386_start_kernel+0xc6/0x100
-[    6.581708][    T0]        startup_32_smp+0x151/0x154
-[    6.581710][    T0]
-[    6.581710][    T0] -> #3 (&p->pi_lock){-.-.}-{2:2}:
-[    6.581710][    T0]
-[    6.581710][    T0] -> #3 (&p->pi_lock){-.-.}-{2:2}:
-[    6.581710][    T0]
-[    6.581710][    T0] -> #3 (&p->pi_lock){-.-.}-{2:2}:
-[    6.581713][    T0]        _raw_spin_lock_irqsave+0x33/0x80
-[    6.581715][    T0]        try_to_wake_up+0x3b/0x440
-[    6.581717][    T0]        default_wake_function+0x13/0x40
-[    6.581719][    T0]        autoremove_wake_function+0x10/0x40
-[    6.581723][    T0]        __wake_up_common_lock+0x6e/0xc0
-[    6.581726][    T0]        __wake_up+0x13/0x40
-[    6.581729][    T0]        tty_wakeup+0x50/0x80
-[    6.581732][    T0]        tty_port_default_wakeup+0x52/0x80
-[    6.581734][    T0]        tty_port_tty_wakeup+0x11/0x40
-[    6.581737][    T0]        uart_write_wakeup+0x12/0x40
-[    6.581739][    T0]        serial8250_tx_chars+0x184/0x1c0
-[    6.581741][    T0]        serial8250_handle_irq_locked+0x1bd/0x200
-[    6.581744][    T0]        serial8250_handle_irq+0x57/0x100
-[    6.581746][    T0]        serial8250_default_handle_irq+0x1c/0x40
-[    6.581748][    T0]        serial8250_interrupt+0x41/0xc0
-[    6.581750][    T0]        __handle_irq_event_percpu+0xac/0x3c0
-[    6.581752][    T0]        handle_irq_event+0x26/0x80
-[    6.581754][    T0]        handle_edge_irq+0x77/0x140
-[    6.581757][    T0]        __handle_irq+0x67/0x80
-[    6.581761][    T0]        __common_interrupt+0x74/0xc0
-[    6.581763][    T0]        common_interrupt+0x24/0x40
-[    6.581765][    T0]        asm_common_interrupt+0x137/0x140
-[    6.581768][    T0]        pv_native_safe_halt+0xe/0x40
-[    6.581769][    T0]        default_idle+0x8/0x40
-[    6.581771][    T0]        arch_cpu_idle+0x8/0x40
-[    6.581773][    T0]        default_idle_call+0x6c/0xc0
-[    6.581775][    T0]        do_idle+0xbc/0x240
-[    6.581779][    T0]        cpu_startup_entry+0x25/0x40
-[    6.581781][    T0]        start_secondary+0x9f/0xc0
-[    6.581785][    T0]        startup_32_smp+0x151/0x154
-[    6.581787][    T0]
-[    6.581787][    T0] -> #2 (&tty->write_wait){-...}-{3:3}:
-[    6.581787][    T0]
-[    6.581787][    T0] -> #2 (&tty->write_wait){-...}-{3:3}:
-[    6.581787][    T0]
-[    6.581787][    T0] -> #2 (&tty->write_wait){-...}-{3:3}:
-[    6.581790][    T0]        _raw_spin_lock_irqsave+0x33/0x80
-[    6.581791][    T0]        __wake_up_common_lock+0x15/0xc0
-[    6.581794][    T0]        __wake_up+0x13/0x40
-[    6.581796][    T0]        tty_wakeup+0x50/0x80
-[    6.581798][    T0]        tty_port_default_wakeup+0x52/0x80
-[    6.581801][    T0]        tty_port_tty_wakeup+0x11/0x40
-[    6.581802][    T0]        uart_write_wakeup+0x12/0x40
-[    6.581805][    T0]        serial8250_tx_chars+0x184/0x1c0
-[    6.581807][    T0]        serial8250_handle_irq_locked+0x1bd/0x200
-[    6.581809][    T0]        serial8250_handle_irq+0x57/0x100
-[    6.581811][    T0]        serial8250_default_handle_irq+0x1c/0x40
-[    6.581813][    T0]        serial8250_interrupt+0x41/0xc0
-[    6.581815][    T0]        __handle_irq_event_percpu+0xac/0x3c0
-[    6.581817][    T0]        handle_irq_event+0x26/0x80
-[    6.581818][    T0]        handle_edge_irq+0x77/0x140
-[    6.581820][    T0]        __handle_irq+0x67/0x80
-[    6.581822][    T0]        __common_interrupt+0x74/0xc0
-[    6.581825][    T0]        common_interrupt+0x24/0x40
-[    6.581827][    T0]        asm_common_interrupt+0x137/0x140
-[    6.581829][    T0]        pv_native_safe_halt+0xe/0x40
-[    6.581830][    T0]        default_idle+0x8/0x40
-[    6.581832][    T0]        arch_cpu_idle+0x8/0x40
-[    6.581834][    T0]        default_idle_call+0x6c/0xc0
-[    6.581835][    T0]        do_idle+0xbc/0x240
-[    6.581838][    T0]        cpu_startup_entry+0x25/0x40
-[    6.581840][    T0]        start_secondary+0x9f/0xc0
-[    6.581842][    T0]        startup_32_smp+0x151/0x154
-[    6.581844][    T0]
-[    6.581844][    T0] -> #1 (&port_lock_key){-.-.}-{3:3}:
-[    6.581844][    T0]
-[    6.581844][    T0] -> #1 (&port_lock_key){-.-.}-{3:3}:
-[    6.581844][    T0]
-[    6.581844][    T0] -> #1 (&port_lock_key){-.-.}-{3:3}:
-[    6.581847][    T0]        _raw_spin_lock_irqsave+0x33/0x80
-[    6.581848][    T0]        serial8250_console_write+0x57/0x640
-[    6.581851][    T0]        univ8250_console_write+0x20/0x40
-[    6.581853][    T0]        console_flush_all+0x26f/0x480
-[    6.581856][    T0]        console_unlock+0x65/0x100
-[    6.581858][    T0]        vprintk_emit+0x183/0x2c0
-[    6.581860][    T0]        vprintk_default+0x10/0x40
-[    6.581862][    T0]        vprintk+0xe/0x40
-[    6.581864][    T0]        _printk+0x20/0x40
-[    6.581866][    T0]        register_console+0x340/0x3c0
-[    6.581868][    T0]        univ8250_console_init+0x1b/0x40
-[    6.581871][    T0]        console_init+0x7b/0x280
-[    6.581874][    T0]        start_kernel+0x229/0x3c0
-[    6.581877][    T0]        i386_start_kernel+0xc6/0x100
-[    6.581879][    T0]        startup_32_smp+0x151/0x154
-[    6.581880][    T0]
-[    6.581880][    T0] -> #0 (console_owner){..-.}-{0:0}:
-[    6.581880][    T0]
-[    6.581880][    T0] -> #0 (console_owner){..-.}-{0:0}:
-[    6.581880][    T0]
-[    6.581880][    T0] -> #0 (console_owner){..-.}-{0:0}:
-[    6.581883][    T0]        __lock_acquire+0x16ac/0x2a80
-[    6.581886][    T0]        lock_acquire+0xa0/0x240
-[    6.581888][    T0]        console_lock_spinning_enable+0x44/0x80
-[    6.581890][    T0]        console_flush_all+0x253/0x480
-[    6.581893][    T0]        console_unlock+0x65/0x100
-[    6.581894][    T0]        vprintk_emit+0x183/0x2c0
-[    6.581896][    T0]        vprintk_default+0x10/0x40
-[    6.581898][    T0]        vprintk+0xe/0x40
-[    6.581900][    T0]        _printk+0x20/0x40
-[    6.581902][    T0]        __report_bug+0xa8/0x140
-[    6.581904][    T0]        report_bug+0x61/0x80
-[    6.581906][    T0]        handle_bug+0x92/0x240
-[    6.581908][    T0]        exc_invalid_op+0x24/0x80
-[    6.581911][    T0]        handle_exception_return+0x0/0xcb
-[    6.581913][    T0]        switch_mm_irqs_off+0x3bd/0x440
-[    6.581916][    T0]        __schedule+0x539/0x940
-[    6.581918][    T0]        schedule_idle+0x2a/0x40
-[    6.581920][    T0]        do_idle+0x1cf/0x240
-[    6.581923][    T0]        cpu_startup_entry+0x25/0x40
-[    6.581925][    T0]        start_secondary+0x9f/0xc0
-[    6.581927][    T0]        startup_32_smp+0x151/0x154
-[    6.581929][    T0]
-[    6.581929][    T0] other info that might help us debug this:
-[    6.581929][    T0]
-[    6.581929][    T0] other info that might help us debug this:
-[    6.581929][    T0]
-[    6.581929][    T0] other info that might help us debug this:
-[    6.581929][    T0]
-[    6.581930][    T0] Chain exists of:
-[    6.581930][    T0]   console_owner --> &p->pi_lock --> &rq->__lock
-[    6.581930][    T0]
-[    6.581930][    T0] Chain exists of:
-[    6.581930][    T0]   console_owner --> &p->pi_lock --> &rq->__lock
-[    6.581930][    T0]
-[    6.581930][    T0] Chain exists of:
-[    6.581930][    T0]   console_owner --> &p->pi_lock --> &rq->__lock
-[    6.581930][    T0]
-[    6.581933][    T0]  Possible unsafe locking scenario:
-[    6.581933][    T0]
-[    6.581933][    T0]  Possible unsafe locking scenario:
-[    6.581933][    T0]
-[    6.581933][    T0]  Possible unsafe locking scenario:
-[    6.581933][    T0]
-[    6.581934][    T0]        CPU0                    CPU1
-[    6.581935][    T0]        ----                    ----
-[    6.581935][    T0]   lock(&rq->__lock);
-[    6.581937][    T0]                                lock(&p->pi_lock);
-[    6.581939][    T0]                                lock(&rq->__lock);
-[    6.581940][    T0]   lock(console_owner);
-[    6.581941][    T0]
-[    6.581941][    T0]  *** DEADLOCK ***
-[    6.581941][    T0]
-[    6.581941][    T0]  *** DEADLOCK ***
-[    6.581941][    T0]
-[    6.581941][    T0]  *** DEADLOCK ***
-[    6.581941][    T0]
-[    6.581942][    T0] 3 locks held by swapper/1/0:
-[    6.581944][    T0]  #0: e85ad118 (&rq->__lock){-.-.}-{2:2}, at: __schedule+0x1b4/0x940
-[    6.581949][    T0]  #1: c31a3094 (console_lock){+.+.}-{0:0}, at: vprintk_emit+0x17a/0x2c0
-[    6.581954][    T0]  #2: c2e82dc4 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire+0x0/0x40
-[    6.581959][    T0]
-[    6.581959][    T0] stack backtrace:
-[    6.581959][    T0]
-[    6.581959][    T0] stack backtrace:
-[    6.581959][    T0]
-[    6.581959][    T0] stack backtrace:
-[    6.581962][    T0] CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.2.0-rc2-00001-g3eaa50e1e255 #1 PREEMPT(lazy)
-[    6.581965][    T0] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    6.581967][    T0] Call Trace:
-[    6.581969][    T0]  __dump_stack+0x18/0x40
-[    6.581973][    T0]  dump_stack_lvl+0x65/0xc0
-[    6.581976][    T0]  dump_stack+0xd/0x12
-[    6.581979][    T0]  print_circular_bug+0x2bf/0x300
-[    6.581982][    T0]  check_noncircular+0x106/0x140
-[    6.581986][    T0]  __lock_acquire+0x16ac/0x2a80
-[    6.581994][    T0]  lock_acquire+0xa0/0x240
-[    6.581997][    T0]  ? console_lock_spinning_enable+0x2b/0x80
-[    6.582000][    T0]  ? console_lock_spinning_enable+0x2b/0x80
-[    6.582003][    T0]  console_lock_spinning_enable+0x44/0x80
-[    6.582006][    T0]  ? console_lock_spinning_enable+0x2b/0x80
-[    6.582008][    T0]  console_flush_all+0x253/0x480
-[    6.582012][    T0]  console_unlock+0x65/0x100
-[    6.582016][    T0]  vprintk_emit+0x183/0x2c0
-[    6.582019][    T0]  vprintk_default+0x10/0x40
-[    6.582022][    T0]  vprintk+0xe/0x40
-[    6.582025][    T0]  _printk+0x20/0x40
-[    6.582027][    T0]  __report_bug+0xa8/0x140
-[    6.582030][    T0]  ? switch_mm_irqs_off+0x3bd/0x440
-[    6.582033][    T0]  ? switch_mm_irqs_off+0x3bf/0x440
-[    6.582036][    T0]  report_bug+0x61/0x80
-[    6.582038][    T0]  handle_bug+0x92/0x240
-[    6.582041][    T0]  ? switch_mm_irqs_off+0x3bd/0x440
-[    6.582043][    T0]  ? handle_bug+0x240/0x240
-[    6.582046][    T0]  exc_invalid_op+0x24/0x80
-[    6.582049][    T0]  handle_exception+0x168/0x168
-[    6.582052][    T0] EIP: switch_mm_irqs_off+0x3bd/0x440
-[    6.582054][    T0] Code: 89 55 e4 e8 25 3f 40 01 8b 55 e4 8b 45 f0 f7 45 e8 00 02 00 00 0f 85 31 fe ff ff e9 2d fe ff ff 0f 0b e9 b3 fd ff ff 8b 75 ec <0f> 0b 83 7d f0 08 73 13 8b 45 f0 f0 0f ab 86 00 05 00 00 8b 5d e0
-[    6.582057][    T0] EAX: 00000001 EBX: e85a0000 ECX: c0ecf380 EDX: c0ecf380
-[    6.582059][    T0] ESI: c0ecf380 EDI: 00000000 EBP: c031ff0c ESP: c031fee4
-[    6.582061][    T0] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00210096
-[    6.582064][    T0]  ? handle_bug+0x240/0x240
-[    6.582067][    T0]  ? handle_bug+0x240/0x240
-[    6.582070][    T0]  ? switch_mm_irqs_off+0x3bd/0x440
-[    6.582074][    T0]  __schedule+0x539/0x940
-[    6.582079][    T0]  schedule_idle+0x2a/0x40
-[    6.582081][    T0]  do_idle+0x1cf/0x240
-[    6.582085][    T0]  cpu_startup_entry+0x25/0x40
-[    6.582087][    T0]  start_secondary+0x9f/0xc0
-[    6.582090][    T0]  startup_32_smp+0x151/0x154
-[    6.752586][    T0] WARNING: arch/x86/mm/tlb.c:859 at switch_mm_irqs_off+0x3bd/0x440, CPU#1: swapper/1/0
-[    6.754233][    T0] Modules linked in:
-[    6.754879][    T0] CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.2.0-rc2-00001-g3eaa50e1e255 #1 PREEMPT(lazy)
-[    6.756668][    T0] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    6.758441][    T0] EIP: switch_mm_irqs_off+0x3bd/0x440
-[    6.759346][    T0] Code: 89 55 e4 e8 25 3f 40 01 8b 55 e4 8b 45 f0 f7 45 e8 00 02 00 00 0f 85 31 fe ff ff e9 2d fe ff ff 0f 0b e9 b3 fd ff ff 8b 75 ec <0f> 0b 83 7d f0 08 73 13 8b 45 f0 f0 0f ab 86 00 05 00 00 8b 5d e0
-[    6.762672][    T0] EAX: 00000001 EBX: e85a0000 ECX: c0ecf380 EDX: c0ecf380
-[    6.763861][    T0] ESI: c0ecf380 EDI: 00000000 EBP: c031ff0c ESP: c031fee4
-[    6.765043][    T0] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00210096
-[    6.766344][    T0] CR0: 80050033 CR2: b7d0600c CR3: 0435b000 CR4: 00350ed0
-[    6.767537][    T0] Call Trace:
-[    6.768079][    T0]  __schedule+0x539/0x940
-[    6.768799][    T0]  schedule_idle+0x2a/0x40
-[    6.769557][    T0]  do_idle+0x1cf/0x240
-[    6.770231][    T0]  cpu_startup_entry+0x25/0x40
-[    6.771029][    T0]  start_secondary+0x9f/0xc0
-[    6.771794][    T0]  startup_32_smp+0x151/0x154
-[    6.772571][    T0] irq event stamp: 11750
-[    6.773297][    T0] hardirqs last  enabled at (11749): [<c248ea58>] default_idle_call+0x98/0xc0
-[    6.774773][    T0] hardirqs last disabled at (11750): [<c2492d95>] __schedule+0x155/0x940
-[    6.776182][    T0] softirqs last  enabled at (11726): [<c249c90a>] __do_softirq+0xa/0xc
-[    6.777581][    T0] softirqs last disabled at (11721): [<c249c90a>] __do_softirq+0xa/0xc
-[    6.778962][    T0] ---[ end trace 0000000000000000 ]---
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261104/202611040239.b33be21c-lkp@intel.com
-
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+PiBTdWJqZWN0OiBbUEFUQ0ggdjQgNy83XSBkcm0vaTkxNS9kcDogRG9uJ3QgbGltaXQgdGhlIExp
+bmsgTS9OIHJhdGlvIHdpdGggdGhlDQo+IHN5bWJvbCB0aW1pbmcgZ2VuZXJhdG9yDQo+IA0KPiBU
+aGUgbGltaXQgb24gdGhlIExpbmsgTS9OIHJhdGlvIG9ubHkgYXBwbGllcyB0byB0aGUgcGl4ZWwg
+YmFzZWQgdGltaW5nDQo+IGdlbmVyYXRvciwgdGhlcmUgaXMgbm8gc3VjaCByZXN0cmljdGlvbiB3
+aGVuIHRoZSBzeW1ib2wgYmFzZWQgdGltaW5nDQo+IGdlbmVyYXRvciBpcyB1c2VkLg0KPiANCj4g
+QnNwZWM6IDY4OTIyDQo+IFNpZ25lZC1vZmYtYnk6IEFydW4gUiBNdXJ0aHkgPGFydW4uci5tdXJ0
+aHlAaW50ZWwuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfZHAuYyAgICAgfCAxNyArKysrKysrKysrKysrLS0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2k5
+MTUvZGlzcGxheS9pbnRlbF9kcF9tc3QuYyB8ICA0ICsrKy0NCj4gIDIgZmlsZXMgY2hhbmdlZCwg
+MTYgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2RwLmMNCj4gaW5kZXgNCj4gNzg4YzE2ZGY5ODAxMTMxMjk0Yzcz
+NDIwYzJjMGQ0ZDNlYzg0ODMxMC4uYThmYTA4MDkwNzllOGIzZjZmYjU3NGNmYg0KPiA3M2ZiNmJi
+OGIwMTljYzMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50
+ZWxfZHAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMN
+Cj4gQEAgLTEyNzcsOCArMTI3NywxMiBAQCBzdGF0aWMgYm9vbCBpbnRlbF9kcF9oYXNfc3ltYm9s
+X3RnKHN0cnVjdA0KPiBpbnRlbF9kaXNwbGF5ICpkaXNwbGF5LCBib29sIGlzX21zdCwgYiAgfQ0K
+PiANCj4gIHN0YXRpYyBpbnQNCj4gLWludGVsX2RwX2dldF9tYXhfbV9uX3JhdGlvKHN0cnVjdCBp
+bnRlbF9kaXNwbGF5ICpkaXNwbGF5KQ0KPiAraW50ZWxfZHBfZ2V0X21heF9tX25fcmF0aW8oc3Ry
+dWN0IGludGVsX2Rpc3BsYXkgKmRpc3BsYXksIGJvb2wgaXNfbXN0LA0KPiAraW50IGxpbmtfcmF0
+ZSkNCj4gIHsNCj4gKwkvKiBObyBMaW5rIE0vTiByYXRpbyBsaW1pdCB3aXRoIHRoZSBzeW1ib2wg
+YmFzZWQgdGltaW5nIGdlbmVyYXRvciAqLw0KPiArCWlmIChpbnRlbF9kcF9oYXNfc3ltYm9sX3Rn
+KGRpc3BsYXksIGlzX21zdCwNCj4gZHJtX2RwX2lzX3VoYnJfcmF0ZShsaW5rX3JhdGUpKSkNCj4g
+KwkJcmV0dXJuIElOVF9NQVg7DQo+ICsNCj4gIAlpZiAoRElTUExBWV9WRVIoZGlzcGxheSkgPj0g
+MzUpDQo+ICAJCXJldHVybiAyMjsNCj4gDQo+IEBAIC0xMzA4LDcgKzEzMTIsOSBAQCBib29sIGlu
+dGVsX2RwX2Nhbl9zdXBwb3J0X21fbihzdHJ1Y3QNCj4gaW50ZWxfZGlzcGxheSAqZGlzcGxheSwN
+Cj4gIAkJCSAgICAgIGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlLA0K
+PiAgCQkJICAgICAgaW50IHBpeGVsX2Nsb2NrLCBpbnQgbGlua19yYXRlKSAgew0KPiAtCWludCBt
+YXhfbV9uX3JhdGlvID0gaW50ZWxfZHBfZ2V0X21heF9tX25fcmF0aW8oZGlzcGxheSk7DQo+ICsJ
+Ym9vbCBpc19tc3QgPSBjcnRjX3N0YXRlICYmDQo+ICsJCSAgICAgIGludGVsX2NydGNfaGFzX3R5
+cGUoY3J0Y19zdGF0ZSwgSU5URUxfT1VUUFVUX0RQX01TVCk7DQo+ICsJaW50IG1heF9tX25fcmF0
+aW8gPSBpbnRlbF9kcF9nZXRfbWF4X21fbl9yYXRpbyhkaXNwbGF5LCBpc19tc3QsDQo+ICtsaW5r
+X3JhdGUpOw0KPiAgCWVudW0gdHJhbnNjb2RlciBjcHVfdHJhbnNjb2RlciA9IFRSQU5TQ09ERVJf
+QTsNCj4gIAl1MzIgbGlua19tLCBsaW5rX247DQo+ICAJaW50IG1fbl9yYXRpbzsNCj4gQEAgLTEz
+MzEsNyArMTMzNywxMCBAQCB2b2lkIGludGVsX2RwX2NoZWNrX21fbl9yYXRpbyhjb25zdCBzdHJ1
+Y3QNCj4gaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwNCj4gIAkJCSAgICAgIHN0cnVjdCBp
+bnRlbF9saW5rX21fbiAqbV9uKQ0KPiAgew0KPiAgCXN0cnVjdCBpbnRlbF9kaXNwbGF5ICpkaXNw
+bGF5ID0gdG9faW50ZWxfZGlzcGxheShjcnRjX3N0YXRlKTsNCj4gLQlpbnQgbWF4X21fbl9yYXRp
+byA9IGludGVsX2RwX2dldF9tYXhfbV9uX3JhdGlvKGRpc3BsYXkpOw0KPiArCWludCBtYXhfbV9u
+X3JhdGlvID0NCj4gKwkJaW50ZWxfZHBfZ2V0X21heF9tX25fcmF0aW8oZGlzcGxheSwNCj4gKwkJ
+CQkJICAgaW50ZWxfY3J0Y19oYXNfdHlwZShjcnRjX3N0YXRlLA0KPiBJTlRFTF9PVVRQVVRfRFBf
+TVNUKSwNCj4gKwkJCQkJICAgY3J0Y19zdGF0ZS0+cG9ydF9jbG9jayk7DQo+ICAJaW50IG1fbl9y
+YXRpbzsNCj4gDQo+ICAJbV9uLT5ieXBhc3NfbV9uX3JhdGlvX2xpbWl0ID0gZmFsc2U7DQo+IEBA
+IC0yODE1LDcgKzI4MjQsNyBAQCBpbnRlbF9kcF9jb21wdXRlX21fbl9yYXRpb19saW1pdHMoc3Ry
+dWN0DQo+IGludGVsX2RwICppbnRlbF9kcCwNCj4gIAkJZHJtX2RiZ19rbXMoZGlzcGxheS0+ZHJt
+LA0KPiAgCQkJICAgICJbQ09OTkVDVE9SOiVkOiVzXSBObyBsaW5rIGNvbmZpZyB3aXRoIGEgTGlu
+aw0KPiBNL04gcmF0aW8gPD0gJWRcbiIsDQo+ICAJCQkgICAgY29ubmVjdG9yLT5iYXNlLmJhc2Uu
+aWQsIGNvbm5lY3Rvci0+YmFzZS5uYW1lLA0KPiAtCQkJICAgIGludGVsX2RwX2dldF9tYXhfbV9u
+X3JhdGlvKGRpc3BsYXkpKTsNCj4gKwkJCSAgICBpbnRlbF9kcF9nZXRfbWF4X21fbl9yYXRpbyhk
+aXNwbGF5LCBmYWxzZSwgMCkpOw0KDQpKdXN0IHVzZSBjcnRjX3N0YXRlLT5wb3J0X2Nsb2NrIGlu
+c3RlYWQgb2YgMC4NCg0KV2l0aCB0aGF0IGZpeGVkIExHVE0sDQpSZXZpZXdlZC1ieTogU3VyYWog
+S2FuZHBhbCA8c3VyYWoua2FuZHBhbEBpbnRlbC5jb20+DQoNCj4gDQo+ICAJCXJldHVybiBmYWxz
+ZTsNCj4gIAl9DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2RwX21zdC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9t
+c3QuYw0KPiBpbmRleA0KPiA4MWFjNDU0NjAzNjAzZGY0MmRiNDc3ZGRiMjZjZmIyZjYyMGRjZmVh
+Li5mZTljZGY3NzFmNDgxZmM4YThiOGYzZjI5ZTQNCj4gYTI0YWE1M2E1M2Y5NCAxMDA2NDQNCj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcF9tc3QuYw0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX21zdC5jDQo+IEBAIC0xNTcw
+LDcgKzE1NzAsOSBAQCBtc3RfY29ubmVjdG9yX21vZGVfdmFsaWRfY3R4KHN0cnVjdA0KPiBkcm1f
+Y29ubmVjdG9yICpfY29ubmVjdG9yLA0KPiAgCQkJCQkgICBtaW5fbGlua19icHBfeDE2LA0KPiAg
+CQkJCQkgICBid19vdmVyaGVhZF9mbGFncyk7DQo+IA0KPiAtCWlmICghaW50ZWxfZHBfY2FuX3N1
+cHBvcnRfbV9uKGRpc3BsYXksIE5VTEwsIG1vZGUtPmNsb2NrLA0KPiBtYXhfbGlua19jbG9jaykp
+IHsNCj4gKwkvKiBNU1QgYWx3YXlzIHVzZXMgdGhlIHN5bWJvbCBiYXNlZCB0aW1pbmcgZ2VuZXJh
+dG9yLCB3aGljaCBoYXMgbm8NCj4gTGluayBNL04gcmF0aW8gbGltaXQgKi8NCj4gKwlpZiAoIUhB
+U19EUF9TWU1CT0xfVEcoZGlzcGxheSkgJiYNCj4gKwkgICAgIWludGVsX2RwX2Nhbl9zdXBwb3J0
+X21fbihkaXNwbGF5LCBOVUxMLCBtb2RlLT5jbG9jaywNCj4gK21heF9saW5rX2Nsb2NrKSkgew0K
+PiAgCQkqc3RhdHVzID0gTU9ERV9DTE9DS19ISUdIOw0KPiAgCQlyZXR1cm4gMDsNCj4gIAl9DQo+
+IA0KPiAtLQ0KPiAyLjI1LjENCg0K
