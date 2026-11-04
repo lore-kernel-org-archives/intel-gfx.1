@@ -2,161 +2,161 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532A9606A31B
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 08:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF46D606A31B
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 09:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HKHGAsqQ
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iOzrap7o
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D42A210E7C7;
-	Wed,  4 Nov 2026 08:31:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4894C10FA5A;
- Wed,  4 Nov 2026 08:31:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC8710E87D;
+	Wed,  4 Nov 2026 09:08:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11BC910E857;
+ Wed,  4 Nov 2026 09:07:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793781099; x=1825317099;
+ t=1793783273; x=1825319273;
  h=date:from:to:cc:subject:message-id:references:
  in-reply-to:mime-version;
- bh=5q0Cw26zXSNsmOmuz8ig4xGpV0KuUbcXRm6n7VbEmeo=;
- b=HKHGAsqQl5JwWNrttXsixHesrE13LUdBVFA9JOro4cswEk57Ui8buAzD
- s4YKbxAXXxwk27C4Z+WCfGpOp8mZgeWhM+Lz3Fz1sGp96ODRDhVI3nus6
- wBmtaUfSBp/ZGh1aJ4UePz9WoCBx71OMg5bLkahH1cwddiXOWPuWuQzNY
- 7Zeca/lmmMhP69aW4z2xxPVgj7dq8nav/NWA/90Bt3TMNtw8ysDnWRb5F
- RPIK8GU9zHrv2/QrwzE1wohPly5NRr+n8yrgtl1OGEvAitSlku1ZLjmEw
- g1b19XGhEXbxVnFi1qrVAFW0PDs5iDuoVbpjPDrmH36QFcvCfimBhYsxQ g==;
-X-CSE-ConnectionGUID: frlPQzHfSIuximKAvKkA1Q==
-X-CSE-MsgGUID: Y92VjNe/Sfu0iqzquWj0zA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2562227"
+ bh=ZaheQvtyOjUXECxfZnujAnI8oLzQnhlGTMdBJYgk3Xc=;
+ b=iOzrap7o5+FgT8XCXX5lXrxtwqXXsTa6DV2W8WDhqMvjWoobY8B1t+V2
+ RbxVea66RkJHC/D3aYtTFiwrzHBpeeW0Kq89rkqBejho3kQhk+QeDbOn7
+ REYfTj9RuKnaeE8Pi3TUJuHE3Qa1zGymxHylzW/eypf1XqToGppZEefUm
+ UGOcBsPTxgD539tK7xw3cWMP1IGyQ/cEk/IWmCiLHfMCoZ8OdZGQ5FE7y
+ vRKmv/x9StP85ssASnbLDVANFMSE24+M+deO+e0Jl+Xia+4THZ3yRg7AC
+ Fe4mlXUeglgvgfUgiFAimH987lgp8YjgMaq0C3zhkJ6FKHBljjNvyjE/m g==;
+X-CSE-ConnectionGUID: nTvQY0hSTRK9FRxxW0bkTA==
+X-CSE-MsgGUID: E/WpDwpdQEaJxCLXasNcQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2427886"
 X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2562227"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 00:31:38 -0800
-X-CSE-ConnectionGUID: I26l3NTyTUKwwKxALwJzKw==
-X-CSE-MsgGUID: oTk2a8DSSBCtvqjiXivMUw==
+   d="scan'208";a="2427886"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 01:07:52 -0800
+X-CSE-ConnectionGUID: oGt4G9wQS6OYJTM+kMtEgg==
+X-CSE-MsgGUID: 0X8oovlHR6CzHSHU9b8BdQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6669298"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 00:31:38 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 00:31:37 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+   d="scan'208";a="7028997"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 01:07:51 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
  ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 00:31:37 -0800
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.24) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ 15.2.2562.56; Wed, 4 Nov 2026 01:07:50 -0800
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 00:31:36 -0800
+ 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 01:07:50 -0800
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.22) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 01:07:50 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vSJ0l7BhsHZFy2CWIhC+Ms31Qsvpm75lCLp5AJEI9FS6ac427dLbP5zPmCukS3kWfd4FV4djWz5s2bqS9EmBasPdcyz3EZy8tm/sLE+Px7MrQZpm6LUsWuOOMkF9Uaf2eXOBE6UxDil483HkIW7xTSRTZrLKdSqVFQHSchmy/0stlAS6D2qtsfRBbQHYWLi3gF92pe4k6+yyJfanT5pvXt4YdIQP0X+OEIRVCxsKHkg79qxNEPV8T/wc2ytSW5yPF/+Gn9GpA9DXYd/Zecflq0jtBlRBzSY4mEm5YodZdcYN0pSkccFuNk+iOMZYsZN1vOoDzsmqYiMSQ3jFsGFczg==
+ b=dFZAfHHTVgBt5IfLeQ6vyOZCKylwC4Ybk+s4577Ki42kPwQ8+sSUg2I7hUl6KVLA1pd6UfLLM9zcClQrV6ZXfovodr195p3T4gVY5Mwyxgtq2ivNj0QoTpi/H6PJaNKCMjAaW8idRX0QHmLgL8/cnQGETVxf6+8wraxLmqWDlDeuzr225RX1yYUcJnmhI3+O86mAxFgHVgW+EUgKrd6x/c1hanjN130r/Op8hfDX63iREOKMRay4fiFBnCLF4HwbzoedKi3DENaYpKbLkghl2IOZmZ/K1SGAfQT++T/YxlZoQd59JhCP0jB0Yi6M6Afpk6uvH3VGaZwjABkxJjV7Ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H3d/5X9/aLOSV9tFNtsyx5MPuGRWsjf245KCdcvb73A=;
- b=wxYZ6AuUU5VzYJW6dv/XemKFBe5iwdDkWITKXYBUgdOpdmV+/cKeXfmiE28QapWAvXoIuLEeWyljHM9PvSbCtVryjNIJB4KR8nlFSTaqQFWhFSJbSRMpOQ8QZ+4LbfNQi3UyOf1T2jfWO08UjFFdD8FHQ7nIR6GPTt+Sda18cBdZ+2xNAkusETO3qE6HlIe2yo+6mFV2v12/JASi3GUUkdEgdumikag6IGQzUrNR8TWTH+f66O5t+vj2MxEjT0NP94eHrmY6VkhAOK+PIiUFmtZG5ygRtIzz6wKz62JEJ9ecto7X+vqihDpOsnp6MpAWz7dAGpVBFz/Y3ea7zArFdA==
+ bh=iZ+UABxU4rJjX+FSeBD3UluqkZTCXuqn8G7yB4KLmG4=;
+ b=GITY2EHFg39jlfrYX7RzwjSl6haY5hwoi2Vs7TGXwCSnAFPtOyM0fR9nlUspqDriA10n1Xie7TxTJLTP5tEOTCVSFSSKZ5kDJW/hL9S4wvw4OdWl6NR1yJ7FOznfxHhSd5eUJp6UYMirpQh3rxWAjH7Cgv5HZRTrA04wderku6L4fHcXLW9KYvotfUQh3tJXjGN/5kr9egKHr2LnZMLnzwzB4/YUTCszTwPmvNSH6QKSZAv8sXjbczyuazan/u/a/AD8TVqEuF+lzALbj1RI4Ib/1Zw8yS1DM8VxsEq2GntEhcKX2tq7T3koYMlVq/cNkXmqnJgw7Lv0ptHxuMICIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10) by SN7PR11MB8262.namprd11.prod.outlook.com
- (2603:10b6:806:26e::13) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:2fa::10) by PH8PR11MB7117.namprd11.prod.outlook.com
+ (2603:10b6:510:217::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 08:31:29 +0000
+ 2026 09:07:48 +0000
 Received: from EAYPR11MB115281.namprd11.prod.outlook.com
  ([fe80::5eae:5253:53f8:c769]) by EAYPR11MB115281.namprd11.prod.outlook.com
  ([fe80::5eae:5253:53f8:c769%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 08:31:29 +0000
-Date: Wed, 4 Nov 2026 08:31:18 +0000
+ 09:07:45 +0000
+Date: Wed, 4 Nov 2026 09:07:35 +0000
 From: Krzysztof Karas <krzysztof.karas@intel.com>
 To: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 CC: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
  Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Janusz Krzysztofik
  <janusz.krzysztofik@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>
-Subject: Re: [RFC 1/5] drm/i915/selftests: Port GT-dependent selftests to
- work with multi-GT (low-hanging fruits part 1)
-Message-ID: <dfu5i2azyy33rdspuob75ytvy6glyenaxme6a24yqqeaku3hyd@ixfi5dengytn>
+Subject: Re: [RFC 2/5] drm/i915/selftests: Port GT-dependent selftests to
+ work with multi-GT (low-hanging fruits part 2)
+Message-ID: <nyphozcrkaqrz244iehvgo26uh5ssdfk3maysrl4yvegk2lnun@22xxoq5mpajn>
 "Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
  80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
 References: <20261029014155.55865-1-krzysztof.niemiec@intel.com>
- <20261029014155.55865-2-krzysztof.niemiec@intel.com>
+ <20261029014155.55865-3-krzysztof.niemiec@intel.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20261029014155.55865-2-krzysztof.niemiec@intel.com>
-X-ClientProxiedBy: DU2PR04CA0277.eurprd04.prod.outlook.com
- (2603:10a6:10:28c::12) To EAYPR11MB115281.namprd11.prod.outlook.com
+In-Reply-To: <20261029014155.55865-3-krzysztof.niemiec@intel.com>
+X-ClientProxiedBy: DB9PR06CA0001.eurprd06.prod.outlook.com
+ (2603:10a6:10:1db::6) To EAYPR11MB115281.namprd11.prod.outlook.com
  (2603:10b6:303:2fa::10)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR11MB115281:EE_|SN7PR11MB8262:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64d71797-03e3-4bbe-db2e-08df3a4e062f
+X-MS-TrafficTypeDiagnostic: EAYPR11MB115281:EE_|PH8PR11MB7117:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0d796e2-34ae-46da-83d0-08df3a531747
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|6133799003|22082099003|18002099003|261102123227099003|56012099006|10067099003|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261022075727099003|4143699003|11063799006|261026140227099003|261026121527099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info: 14h+IQdNuCv+PBIsZRjTBmq+SdC7MzRIgoLhnN8jGoe+JGGziYNyYsgr54ZuEFcRHFqrBmpBhKUbQ0oDXh0JYfwsUxHr6NdpjgpPQEG/QeXud2LrFOxjTmFmBEmAsJnGnfM1nuMtBT2eIFbIbboXzKAhuo1Tyn8iQLkRxB6lW57ZgCIfa5cVWyzF5xLN3AVvtDwdlwjUZPzJMI6WvuhRgsJ7zVDTI+48WLWIkLQzLq72mkhB8aLKdfpxJT+XP3rmhAX4s3vB8asnUDr7rJhTJMk9IGggKcQWsOIsYKPIsRdRZdPXTx7MPaA2KMPegfOdsq/5+JIxDSka6PED+TljpXLw0N1gFkK6iNvToP1xTph1Z8cT3b4GbXKQcg0fn16noBpYurleOIRK8Gliq3/H+uUWA6XEUE9qynAT288PsUvxNqgqyNRM+jyabjwUUJ+DcWkEpI7OqeBkSp2WT0d8jzr773s8FQRvSfghxqpC4gcGjtUBApRfPb5ku2RJbL0DZlh3KZjgnnDD30szNKnDf4RBFFL5RsOdHBt/V23B+j9i6l+Xt3RsBKpJcvyhKbI2OUyOdl6N9ZwXANuDDZQlw6tDceseyVvJAHkDeHfAEurPmicY9u7Y6j2bxkp6Ndnhc+0dEwo7xtDlQ4eDwS11ACC0McVxuk/csyya6JXfIvY=
+ ARA:13230040|376014|1800799024|366016|23010399003|6133799003|22082099003|260925021911599003|260925022911599003|260925021311599003|261102123227099003|18002099003|10067099003|261009223027099003|261021135927099003|261022105027099003|261022075727099003|56012099006|261022113327099003|261021123027099003|261021130227099003|261021133027099003|261022115727099003|261021121427099003|11063799006|4143699003|261028144727099003|261026121527099003|261026140227099003|261026135527099003|261026130827099003;
+X-Microsoft-Antispam-Message-Info: s6UCuUZLnjtrRJEe/E9Zad96m6zhOvLr4cI8wzfY7e15sM0iuytTBn0muX6M4P/oSQ4Z09XP4iWPlOZ7uxBza1QjGnRqnfOk+UBeidlI8TVwcdtj+umUV4ayhn17Nr85gfwcirtVvO1bDNQtAcLlfV0xEa1zETfoe+yvkqQYhQUWIlEgdgU8Vr9UZJlMrZapQun2MW5/zlq2wCXQ6UYYB3gdJbL1mTPTg9D9i4GO8U4+IGelCQB9jzdLm+wtA/H0TlpBLuyT5Iis7PR1k4jMd1yq8ypsbwYbCS/X0AXzSzky9wDhGnu4ry/TTO3SzXY3wDFqwzjkCmpOkXGlWjGGTMcMBl7Ye0g2+tJLWbiwEaVKzNqqdMmXcRP/skVIpsGktbJuj+BvjPIwoSvKLR9JPTbHtQPvIPFc92wUrO7gBeSjwkeGBJMwFtA/Mj+KiKkGn2DLQTAX4d7zJijQkCR747RWu4s6zJpTBM1bC0dnJvi7/7HzbcjP9TESjEj7p6U8pGYMsu7ilAwjOWhCV9qzBsHaLHKJu+KSNL1mYWhfdvX0T6ESBJych+ryoj+yttNtrJS/aiddlwbmDyixQlAZOtr3hUALq3IalbIBJu6mGDMim6ROmHZ6GILqKzx76KOlCYKAdlXi0oCegplWPGGLv3wCwzRWaSj7TrOaLtTyPXw=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:EAYPR11MB115281.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(6133799003)(22082099003)(18002099003)(261102123227099003)(56012099006)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(4143699003)(11063799006)(261026140227099003)(261026121527099003)(261028144727099003);
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(22082099003)(260925021911599003)(260925022911599003)(260925021311599003)(261102123227099003)(18002099003)(10067099003)(261009223027099003)(261021135927099003)(261022105027099003)(261022075727099003)(56012099006)(261022113327099003)(261021123027099003)(261021130227099003)(261021133027099003)(261022115727099003)(261021121427099003)(11063799006)(4143699003)(261028144727099003)(261026121527099003)(261026140227099003)(261026135527099003)(261026130827099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?endmRVhCYVpsTlVsbVN0eTZxTlNHMXRNSFdGSVJBNXhoZ2VUY3Y3cWpZVFUr?=
- =?utf-8?B?VU83NldRUzZ6Vjh3RWhmbGZveXdDU1hrS1FFRmpNSmZwdjdOdDlrV3lXV0FF?=
- =?utf-8?B?anhKM1YvZW8rRHlVUml3eHYvc29SaFFTMFlwMG82N0JoRXJoUGY3VXVyc2hy?=
- =?utf-8?B?YTY3R0p2Q1I1ZXVFZ0RYaWJKU01NSEp1V0xERWUzTDVVSFBtM0FTYkIwcVNZ?=
- =?utf-8?B?TmQreWxaQmMzWEIrcXlIaitxM0g1WnFuMWM5alZzNDlwTzIyQ2xQdkthL3hK?=
- =?utf-8?B?Vkx2VnNqL0ZibTBHMit3S043ZWRiNzdZdGYxZENVRDZJaDduV3hvZFpESXZO?=
- =?utf-8?B?Q1lYdDNHalo0Y0E1alNySUZuS21UNFF3MVRxK25pWFhETkRITVYvVVVEU1Fl?=
- =?utf-8?B?UFh4QmhGSGNIMHZrckUxT3lra1VCc3laVCtxTXo4RDQxM3RBVFZ2OUlQT1BT?=
- =?utf-8?B?aHpMTjVET1h0YkJzYUpISlNucjN2ek4xa0VoM0ErZHV1QnRXTDVrVDZvcksv?=
- =?utf-8?B?blN0dWp2dkVUejZHQXEvZkxaRU40K1VGM0wrT3A5UXRURmtFa09DTEFWZXpz?=
- =?utf-8?B?Nk1ZUHIzUHBpRmlmNk9KTnZUblNMUzBSNk9xYU92eW12dkViblFZdXBhZklH?=
- =?utf-8?B?TkZNaGJtbUdscnpQOWZoaHRIVlk1ZVNaNDlMMGlCR2l2cHJGb3RJa0hsNVo2?=
- =?utf-8?B?eWN0L0JyWjBNcXJsTFY4T3lUOTkrbUtTWDhUTTlmVjNKdGYyMFl6cTVuN2lx?=
- =?utf-8?B?azN1amFyRWdmL1c3enJIL0ZMR21UTWpLV0l4VGJrTm1jNWMrL25oZTJvWVpl?=
- =?utf-8?B?RWlvOUtZNjRNZXVrL24zYzBVSEx3dENZOVRaUkJ4QjhWbEdTZ1FqdDEvbVAz?=
- =?utf-8?B?SWpqOVREblZzZkN0a0lxUnJsK1NIRVFzSFEzNzdHUU5RTERCWmp0aElZdlRX?=
- =?utf-8?B?M2Y0ZnVPU3A0ODk5VWdLRlJ5Ym5uRldJZW9WRTg3SnpycVZKUExKa3JmdWl2?=
- =?utf-8?B?Z290L1BGOXJxRGhSRzdZMWowSDIyMTVlbjlqcjhDVVl5VjVIbStUNnMwRDZ4?=
- =?utf-8?B?VUVEcDBjS1N1K3lYZXJvQVdSaDhLTWJHQWdBbThzMlJlRnp3MkhNbmYwUmF1?=
- =?utf-8?B?aXJhQ1ZyNWFoL3BhdlNYdzJ0d3NZd0VhbGw4RHFQSHpsdkhTZTJqN2RzY1RQ?=
- =?utf-8?B?SFlKUEJkdXdSUHR6cThYNE1BazVJWDJpOVJjOGNETDRVUVl3dGRxQzZEazla?=
- =?utf-8?B?MFVlV0V3MmttcHorS2tzaHg3WjU3bUxGd2xicCtIRlZiemN5dmk0ck8vY3dy?=
- =?utf-8?B?UFdCRFJwTVNkaklLUk1wZE1zK0Jpd2I0QlAvYU9na3pVNzBNUE9xRDI1S1Yr?=
- =?utf-8?B?bkpWZU01Lzg0b3JhcXVLY25VUzVDMERZYTFMS1Y5Z0FxZGVqUTNlbkowT21x?=
- =?utf-8?B?M2ZIbVZIcHNyU1BjSjd5VG4waEtId2g3SEVxY1NyQ1hGQVNnZXYybGgwMmhy?=
- =?utf-8?B?ZisrOUJDTzYycll3S1Fsb1J1Z3haZmhZV3VOcCt6TU5qclJ1bm5uTmhBUjZ1?=
- =?utf-8?B?TWlnWHNicDcvZWhHN25udjFiMkVYWiszRUZqeEN4eTA1d1lxZFloVExhQVhw?=
- =?utf-8?B?aUM1RUZQMnFYY0pMM1g3Q1U1ZWh5aHdDSWhJdUlVeC8xRThreWpiY2lrWW1B?=
- =?utf-8?B?dnIxTkdYbDAySkFDUkhRQmZVbUtUUitrbUp4RGU3OWZjZHF0ekgxa2xhWitG?=
- =?utf-8?B?SVFBQzRDZ010eERiRFJQRW54U0UwK21DN09mdVRxdUd1V3JuK2lmWXBLVnEr?=
- =?utf-8?B?eDFYUkk3UDEvdlRJTjk4clArSVdUcUJOM2ViYVFVT21LOW4yODlrMmZ3ZHhx?=
- =?utf-8?B?RTRvUHV2WEZBVWwzNWg0SGhjaXp1TDk0N2VzVjM3QlVnWnNaYTFsb0UzTG5T?=
- =?utf-8?B?bHgwQUVKbGtCZTlkcnJSdGRiQlI4VDBMejVaMStYL0o5dUV6MDRmNDl2Y0s5?=
- =?utf-8?B?d2xselZlU1FjUDZOWUtjMFdkYjEzYWp3Tk9rSWhsTlVDQTNjZ2RtMjJOYk8y?=
- =?utf-8?B?czBsMFdYYUxmMEE4ZlBmNE9FbGNiUFYydGFFeWg1dG8xVi9xSUg2VWN2azUz?=
- =?utf-8?B?NWhIYUszS1F3N1FoR1BZU0JBT3VkRU1mL2REZS91OTJqN1ZZbHhKcythNHRn?=
- =?utf-8?B?Rk5vMmxzalZkVzlIdi8zalRoYSsyb0NpRVBYU2hpK0gzeGZJTm8vRVRRc1VP?=
- =?utf-8?B?ZXpSbzdtZGpXNWlJa01PaGNTVkJiQlR2WFIzU3VZSGg4UkFDWk9DdGVZTUo4?=
- =?utf-8?B?TFB4cDE0NEJIUCtHZ2ZIcWRtNktENmloVUc3ZmdIWlh0QkJrdUp0NTdBSmdo?=
- =?utf-8?Q?C1xHXQcxqMCksWvE=3D?=
-X-Exchange-RoutingPolicyChecked: PKm6mqEDK++MS0Wi5R76HpsNRghdRk0QoX15IDlNIU1YLItBx5pb/q1DBQDk5gC1R84DxlpSQYzcIwOK32hJOxpLsKp4XIYB78V3GiRBsxUN7NK/NuwBllWq/dv+iHRsXY8av0E3m4FOF9tiNdMPKn2RTwNofQJYmV+bUjB3tmHvbVm9nGEPtVNvMNlL+eqQnjzoZiMgvt5i98t0sXEdSHGgx0QBueM3eZq1bvrxFLQzNUILVQaphEyBBEPj2Pwxb7U39az+47mk7hjIk2QsXm6O39sOUX+z7EjdMYo1LWKKWedoYWxy35OhvV+pCQGNKh2GAMF5Aj0BrnXAzFAtJQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64d71797-03e3-4bbe-db2e-08df3a4e062f
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QmFvU2lxd1NBWFhKNUhYS21wYUVycWEwa0JDci9PbldQZ0dWQnVnSERGUjBH?=
+ =?utf-8?B?VVB3c2c0YWxSMzNyZ0h6d0ZtUDhGWldiMGVWd3VaV0NBakhTa01qQUl6K0dV?=
+ =?utf-8?B?cTJYazF6YVFGcTcvbHI3OVVNYllYZkk1OEFpZ1p6cVkxWU5hZEhTUDhJTGVB?=
+ =?utf-8?B?ZmxONHFsL21zdTZucHdoMWR6SHUrUVBNN0VIa2pWbktsTi9UNzU0OEx2OUlk?=
+ =?utf-8?B?elA5RVVWUTRQYWhKa0crb0ZNQUs4SzIyeHhxU053R0pYaXlrRktwWTVxQWRS?=
+ =?utf-8?B?N3ZCUEJQTEdrNi9PV0FlaUUxenh2Q3lnMVkyV1QrcGZYazM2OXlSd2pybTFL?=
+ =?utf-8?B?Q1pXeUl6T2srQTRleEZBWVFxM1JtU0RON1dUUE80OE9Bc01sS2wzQlJhdXUz?=
+ =?utf-8?B?MmJNOGVYejc1RHlMeFM5aDN2bHdPS0ZkYmVBRytrMCtoUmxYVDdBZjJnYzM4?=
+ =?utf-8?B?L3dNc2NtclpDajArRnZORGJMR2ZGSFUwTFBOemloZWc0SCtyejg0K0VKSWQw?=
+ =?utf-8?B?ak5HbkJiN3piRmQ1TGRjQXNXQ3NKdEVLcVluWTRCb3NlU29IN2Z0NVN4ZkZr?=
+ =?utf-8?B?RUZ5OUVDUWtxUmhIOXJmS1NhdTlyWXNqaGxPdnViT0VjWHJlaG5SMG1NZ3NK?=
+ =?utf-8?B?ak8zS0srVDlpK2ZoVDBBekQrYk54a0JiSHAzSDNML0d2NnBVeTEzS1FnOCtG?=
+ =?utf-8?B?VjNtclF4UktFeURnU29wYWE2WjNtZE42TlVtV1krU0doN0dPVU56N3Q0V0VS?=
+ =?utf-8?B?dFFoU3pxM2JYK0tMN1o3dDlKdWFLYTNCWFFwRERHSHRvaGhaSGZSc3hUQlJp?=
+ =?utf-8?B?Q0htNTRjWUJ2TElCSkpQT3FCamd1TXVNUlpBWkhvWUszOFRKZmhYdUV2djA0?=
+ =?utf-8?B?ZXhkbnpRdkM2aDA2akQ2ZzRWQk5kcUEyNDZXRG9QTUxkb1JqQlRIRm1SL0dH?=
+ =?utf-8?B?c040Y2hmdlJGdjQwc3JSdW82QUdHbk8za1JvbDdiWDlzdHdtV1ZGME9zT05C?=
+ =?utf-8?B?NXREZ3ZCQUYzRUp0eGltMzZSOTBmNzZXcm1vajFZWjVtbUZwRngzaTh6Qk9q?=
+ =?utf-8?B?eFppUVJsUGZPMkJwZnNqVVp1d1ZlTE9UaHZWeVVzeGVMcENDeGlKTmpiWDNi?=
+ =?utf-8?B?cXRYMnlJSU43SFVkT1ZBcDhPeGE0aU9nNGlKZEE5R3hrM3dvVkZ0ejFpNVIw?=
+ =?utf-8?B?dGlIaUR3UHNsSkpZWVdLM2lmcitvM1lpUVA1V1BDTFpSNSt5djAxK3d3V3Uy?=
+ =?utf-8?B?UHlEcEgycXBCUGNRNWJjcFBjVE1lL3Zpb2xrTEIzUDlpQ2pDV3ppaXhKYW8z?=
+ =?utf-8?B?M2xjT3loOW1vaEF2UGRWN29yeDl6Mllid2tGdTB5MzhFU0RsZmhEcU9UUS9q?=
+ =?utf-8?B?WlNuUUFRM1c1c2F5VnU2TmY2Q0U3TzlGdHd0UnlaVHZLM2NvOThFQUdFeTNL?=
+ =?utf-8?B?ZkhvcEdLQXFCZW93T3ErUmJMMnF3M254MDVpdHRMVG1iQTkwV2hic1BnV2JN?=
+ =?utf-8?B?WmFxYVpQdHFsUUtFcTMvV1dhTVI4SHJNaXhmV1hMVjNWbFFwdDBOa3RGRTYy?=
+ =?utf-8?B?SytKVk5lT0hZa01WZEdOM2FKek5EU2RkdVFPWlRLUURyYVQ2cUs2LzUzdUJv?=
+ =?utf-8?B?bTl5cllyWCthRVNZWGYzS29ReWQxM2pKWksyYnAxc1N3d2JkU2xGUVRmT0R6?=
+ =?utf-8?B?Q1ptNUNDY24vMTcxaUxsSDAwUVhhcmI2YjdGZ1RnUSt4RmduWVg2c2hFYnV0?=
+ =?utf-8?B?K2hqL3lDbkVTeFVONks0UzdodmE4NjkvNXYzckZzWWVRTTRRZ3dlT1RYSzVK?=
+ =?utf-8?B?ekw5UnJUV0xwSGJLaDdNZ21yK2xiL1kvNlBmV3BuR2YxcVIwL3FvL3JyM20r?=
+ =?utf-8?B?T1dOaXJPOW1sTUQybklMS1ZqdGNQRnlaaXJYejA1TGMzRFJHdDUwdGNIaVlr?=
+ =?utf-8?B?eDRuVkpJWHF3NlhGWWRyUmZOK1I4UXJhTE83Y0hBcFZNcEc2SFJmMnA2OW5z?=
+ =?utf-8?B?dyt6elFtcHdqQW96Tnp3ZmZoNmFOdnB3Wno1THRxa0tTSi9vOTFDUE1Wc05t?=
+ =?utf-8?B?OFpMdFE3ZW1lN3hwUHU4aDlQVGFqbHpObTRqSzZmUFdzbHhQOTZHUGp3dWRp?=
+ =?utf-8?B?SzVXb0hPY0JYNWNZTGhQdmlKMUV0bnBITUNHVEF6d0JHWGRCWHBzTkVDKzUz?=
+ =?utf-8?B?VFhMV2J2WG5mRkRWSlBUeFU3QmZ1RitId0NhWUVMZ2JBd2VsK1JOTUV3Wm5j?=
+ =?utf-8?B?YU9vUEtqN0pqaGw1dVM0bVZKdTQ3WlZyd2c2VmVGeExqS0Jvb3UySksyeE1J?=
+ =?utf-8?B?ZERyMEVVUnN2WVI4MWFMNXdKSUFJU1dUTG5JRE9iM0FCcjVBM1R5RkxYTmJ3?=
+ =?utf-8?Q?KQ+ShE3n1kPihVJA=3D?=
+X-Exchange-RoutingPolicyChecked: NmNrClKyH5PIKYGvYOGx1P8pBvz1Y94rx25cMfk4RPZNYs+QcfF4E/ByM0BqYhx7VHdWES3EGXvl9IqVeg4Y4QgDe00tGOQN85wMfTFxbnqxgEHf6L0Svbx2ZPYFygck3Oc1+pPOM50W84uolWyGuxJWaZE0N0jAlGq6Bx6e0qCPjCBvo7D9UPCAgto/7Y25wdCkp09kwHSFEGLRuJWekmKrMLMIB88Kq/eDTDd4/hyKeehjpeSjgtdmdU6PcOODVzG7I7ov0FiRmuEQo16Ff52ggBJ/spojIvYI5ifoxYjt3inKJvXLUMJtrF1YEX7NxN/MnIOeid8C2J2I3zQ06g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0d796e2-34ae-46da-83d0-08df3a531747
 X-MS-Exchange-CrossTenant-AuthSource: EAYPR11MB115281.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 08:31:29.7684 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 09:07:45.7836 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: neZDj6B8oVQ9A9t10lI6i9L2PQe/YGwmYYTs4bx1YmtTx4ECy97ard+X8OGoYDBRPeCD9Q3y34t5JLlKrjsbClRl0556MhY1mxBVYlrCA/0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB8262
+X-MS-Exchange-CrossTenant-UserPrincipalName: jI98HAokcyAay4sDZtQRCq4bIPVkH+Idj86NQI5ApWAnI7g8ntCIhSBpUCtHl8OD9IB4bP97C34CwZ8WX9/IZja/VJvQgA+9FaOKlI+Orjs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB7117
 X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -172,674 +172,165 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Hi Krzysztof,
 
-On 2026-10-29 at 02:41:51 +0100, Krzysztof Niemiec wrote:
-> Port tests that take GT as argument or otherwise depend on a specific GT
-> to work to correctly check every GT on system.
-> 
-> This patch addresses the test suites that only really needed to have the
-> test calls wrapped inside for_each_gt with little to no other intervention.
-There was no other intervention, was there? You only rearranged
-error returns a bit. I think "little to no other intervention"
-could just be "no other intervention".
-
+On 2026-10-29 at 02:41:52 +0100, Krzysztof Niemiec wrote:
+> Some tests aren't passed a GT directly and don't reference them, but run
+> only under the condition of the GT not being wedged. Update the top-level
+> selftest functions of these tests to abort when some GT is wedged.
 > 
 > Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 > ---
 > 
-> Note that the mock device related tests haven't been touched. This is
-> because the mock device is hard-coded to have a single GT, so to_gt()
-> will always be correct. At this moment the single GT assumption is
-> reasonable to make from the perspective of the test developer, and
-> changing those to handle multi-gt mock devices is IMO out of scope and
-> should be done if/when mock devices are expanded to have multiple GTs.
-> 
-> Maybe it's worth it to annotate the places where the single GT
-> assumption is made for mock devices?
-No, mock devices always have one GT, do not pollute the code
-with redundant information.
+> I made an assumption here, that if ANY of the GTs are wedged, the test
+This potentially increases failure rate. I think it might be
+safer to identify which tests guarded today actually need more
+than one working GT. Otherwise you blindly add more CPU cycles.
 
-The code looks OK, but there have been some failures in the
-BATs, so I'll refrain from giving r-b just yet.
-
+> should abort. It is of course possible to make it so that only if ALL
+> GTs are wedged, the test should abort. Former is probably safer but if
+> there's good arguments for the latter I can change it.
 > 
->  .../drm/i915/gem/selftests/i915_gem_migrate.c | 11 +++++-
->  drivers/gpu/drm/i915/gt/selftest_context.c    | 16 ++++++--
->  drivers/gpu/drm/i915/gt/selftest_engine.c     | 15 +++++---
->  drivers/gpu/drm/i915/gt/selftest_engine_cs.c  | 15 ++++++--
->  .../drm/i915/gt/selftest_engine_heartbeat.c   | 22 +++++++----
->  drivers/gpu/drm/i915/gt/selftest_execlists.c  | 19 +++++++---
->  drivers/gpu/drm/i915/gt/selftest_gt_pm.c      | 15 ++++++--
->  drivers/gpu/drm/i915/gt/selftest_hangcheck.c  | 24 +++++++-----
->  drivers/gpu/drm/i915/gt/selftest_lrc.c        | 11 +++++-
->  drivers/gpu/drm/i915/gt/selftest_migrate.c    | 38 +++++++++++++------
->  drivers/gpu/drm/i915/gt/selftest_mocs.c       | 11 +++++-
->  drivers/gpu/drm/i915/gt/selftest_reset.c      | 20 +++++++---
->  .../drm/i915/gt/selftest_ring_submission.c    | 15 ++++++--
->  drivers/gpu/drm/i915/gt/selftest_timeline.c   | 15 ++++++--
->  .../gpu/drm/i915/gt/selftest_workarounds.c    | 15 ++++++--
->  drivers/gpu/drm/i915/gt/uc/selftest_guc.c     | 20 +++++++---
->  .../drm/i915/gt/uc/selftest_guc_hangcheck.c   | 20 +++++++---
->  .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   | 20 +++++++---
->  .../gpu/drm/i915/selftests/i915_gem_evict.c   | 15 ++++++--
->  drivers/gpu/drm/i915/selftests/intel_uncore.c | 11 +++++-
->  20 files changed, 260 insertions(+), 88 deletions(-)
+>  drivers/gpu/drm/i915/gem/selftests/huge_pages.c  |  8 ++++++--
+>  drivers/gpu/drm/i915/selftests/i915_active.c     |  8 ++++++--
+>  drivers/gpu/drm/i915/selftests/i915_perf.c       |  8 ++++++--
+>  drivers/gpu/drm/i915/selftests/i915_request.c    |  8 ++++++--
+>  .../gpu/drm/i915/selftests/intel_memory_region.c | 16 ++++++++++++----
+>  5 files changed, 36 insertions(+), 12 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-> index d8f4a10d71de..3d4ffca8087c 100644
-> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
-> @@ -520,9 +520,18 @@ int i915_gem_migrate_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(igt_lmem_pages_failsafe_migrate),
->  		SUBTEST(igt_lmem_async_migrate),
+> diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+> index 44718e728291..a8ae65ddb073 100644
+> --- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+> +++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
+> @@ -2012,14 +2012,18 @@ int i915_gem_huge_page_live_selftests(struct drm_i915_private *i915)
+>  		SUBTEST(igt_ppgtt_huge_fill),
+>  		SUBTEST(igt_ppgtt_64K),
 >  	};
 > +	struct intel_gt *gt;
 > +	unsigned int id;
-> +	int err;
 >  
->  	if (!HAS_LMEM(i915))
+>  	if (!HAS_PPGTT(i915)) {
+>  		pr_info("PPGTT not supported, skipping live-selftests\n");
 >  		return 0;
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +	for_each_gt(gt, i915, id) {
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c b/drivers/gpu/drm/i915/gt/selftest_context.c
-> index ab76703f6e8b..ae56b410a320 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_context.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_context.c
-> @@ -446,10 +446,18 @@ int intel_context_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(live_active_context),
->  		SUBTEST(live_remote_context),
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (intel_gt_is_wedged(gt))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
-> +
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
->  
-> -	return intel_gt_live_subtests(tests, gt);
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_engine.c b/drivers/gpu/drm/i915/gt/selftest_engine.c
-> index 57fea9ea1705..bd96db071859 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_engine.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_engine.c
-> @@ -12,15 +12,18 @@ int intel_engine_live_selftests(struct drm_i915_private *i915)
->  		live_engine_pm_selftests,
->  		NULL,
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
-> +	struct intel_gt *gt;
->  	typeof(*tests) *fn;
-> +	unsigned int id;
->  
-> -	for (fn = tests; *fn; fn++) {
-> -		int err;
-> +	for_each_gt(gt, i915, id) {
-> +		for (fn = tests; *fn; fn++) {
-> +			int err;
->  
-> -		err = (*fn)(gt);
-> -		if (err)
-> -			return err;
-> +			err = (*fn)(gt);
-> +			if (err)
-> +				return err;
-> +		}
 >  	}
 >  
->  	return 0;
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-> index 5ffa5e30f419..99348395b92b 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-> @@ -380,11 +380,20 @@ int intel_engine_cs_perf_selftests(struct drm_i915_private *i915)
->  		SUBTEST(perf_mi_bb_start),
->  		SUBTEST(perf_mi_noop),
+> -	if (intel_gt_is_wedged(to_gt(i915)))
+> -		return 0;
+> +	for_each_gt(gt, i915, id) {
+> +		if (intel_gt_is_wedged(gt))
+> +			return 0;
+> +	}
+>  
+>  	return i915_live_subtests(tests, i915);
+>  }
+> diff --git a/drivers/gpu/drm/i915/selftests/i915_active.c b/drivers/gpu/drm/i915/selftests/i915_active.c
+> index 9fea2fabeac4..4e1d3ccdf8c6 100644
+> --- a/drivers/gpu/drm/i915/selftests/i915_active.c
+> +++ b/drivers/gpu/drm/i915/selftests/i915_active.c
+> @@ -256,9 +256,13 @@ int i915_active_live_selftests(struct drm_i915_private *i915)
+>  		SUBTEST(live_active_retire),
+>  		SUBTEST(live_active_barrier),
 >  	};
 > +	struct intel_gt *gt;
 > +	unsigned int id;
-> +	int err;
 >  
 > -	if (intel_gt_is_wedged(to_gt(i915)))
 > -		return 0;
 > +	for_each_gt(gt, i915, id) {
 > +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
+> +			return 0;
 > +	}
-> +
-> +	return 0;
->  }
 >  
->  static int intel_mmio_bases_check(void *arg)
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-> index b893a8fde895..933f30d250c7 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-> @@ -266,18 +266,26 @@ int intel_heartbeat_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(live_heartbeat_off),
+>  	return i915_subtests(tests, i915);
+>  }
+> diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
+> index e9469e27f42a..e64d3b430994 100644
+> --- a/drivers/gpu/drm/i915/selftests/i915_perf.c
+> +++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
+> @@ -425,13 +425,17 @@ int i915_perf_live_selftests(struct drm_i915_private *i915)
+>  		SUBTEST(live_noa_gpr),
 >  	};
->  	int saved_hangcheck;
+>  	struct i915_perf *perf = &i915->perf;
 > +	struct intel_gt *gt;
 > +	unsigned int id;
 >  	int err;
 >  
-> -	if (intel_gt_is_wedged(to_gt(i915)))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	saved_hangcheck = i915->params.enable_hangcheck;
-> -	i915->params.enable_hangcheck = INT_MAX;
-> +		saved_hangcheck = i915->params.enable_hangcheck;
-> +		i915->params.enable_hangcheck = INT_MAX;
->  
-> -	err = intel_gt_live_subtests(tests, to_gt(i915));
-> +		err = intel_gt_live_subtests(tests, gt);
->  
-> -	i915->params.enable_hangcheck = saved_hangcheck;
-> -	return err;
-> +		i915->params.enable_hangcheck = saved_hangcheck;
-> +
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
->  
->  void st_engine_heartbeat_disable(struct intel_engine_cs *engine)
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-> index 21e5ed9f72a3..ddf71b3784bf 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-> @@ -4495,12 +4495,21 @@ int intel_execlists_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(live_virtual_slice),
->  		SUBTEST(live_virtual_reset),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (to_gt(i915)->submission_method != INTEL_SUBMISSION_ELSP)
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (gt->submission_method != INTEL_SUBMISSION_ELSP)
-> +			continue;
->  
-> -	if (intel_gt_is_wedged(to_gt(i915)))
-> -		return 0;
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_gt_pm.c b/drivers/gpu/drm/i915/gt/selftest_gt_pm.c
-> index 07eaf71955c4..09c0c4096665 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_gt_pm.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_gt_pm.c
-> @@ -205,9 +205,18 @@ int intel_gt_pm_late_selftests(struct drm_i915_private *i915)
->  		 */
->  		SUBTEST(live_rc6_ctx_wa),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (intel_gt_is_wedged(to_gt(i915)))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> index 53f3ce5c33a4..d67a6d75c56a 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> @@ -2016,21 +2016,27 @@ int intel_hangcheck_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(igt_reset_evict_fence),
->  		SUBTEST(igt_handle_error),
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
->  	intel_wakeref_t wakeref;
-> +	struct intel_gt *gt;
-> +	unsigned int id;
->  	int err;
->  
-> -	if (!intel_has_gpu_reset(gt))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (!intel_has_gpu_reset(gt))
-> +			continue;
->  
-> -	if (intel_gt_is_wedged(gt))
-> -		return -EIO; /* we're long past hope of a successful reset */
-> +		if (intel_gt_is_wedged(gt))
-> +			return -EIO; /* we're long past hope of a successful reset */
->  
-> -	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
-> +		wakeref = intel_runtime_pm_get(gt->uncore->rpm);
->  
-> -	err = intel_gt_live_subtests(tests, gt);
-> +		err = intel_gt_live_subtests(tests, gt);
->  
-> -	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
-> +		intel_runtime_pm_put(gt->uncore->rpm, wakeref);
->  
-> -	return err;
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-> index 23f04f6f8fba..ac26c91b1e1f 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-> @@ -1986,9 +1986,18 @@ int intel_lrc_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(live_lrc_indirect_ctx_bb),
->  		SUBTEST(live_lrc_per_ctx_bb),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
->  	if (!HAS_LOGICAL_RING_CONTEXTS(i915))
+>  	if (!perf->metrics_kobj || !perf->ops.enable_metric_set)
 >  		return 0;
 >  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +	for_each_gt(gt, i915, id) {
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-> index 5b986a7687d9..997fd1ec155c 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-> @@ -562,7 +562,7 @@ static int live_emit_pte_full_ring(void *arg)
->  	 * nearly full.
->  	 */
->  
-> -	if (igt_spinner_init(&st.spin, to_gt(i915)))
-> +	if (igt_spinner_init(&st.spin, gt))
->  		return -ENOMEM;
->  
->  	obj = i915_gem_object_create_internal(i915, 2 * PAGE_SIZE);
-> @@ -806,12 +806,20 @@ int intel_migrate_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(thread_global_copy),
->  		SUBTEST(thread_global_clear),
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (!gt->migrate.context)
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (!gt->migrate.context)
-> +			continue;
->  
-> -	return intel_gt_live_subtests(tests, gt);
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
->  
->  static struct drm_i915_gem_object *
-> @@ -1027,13 +1035,21 @@ int intel_migrate_perf_selftests(struct drm_i915_private *i915)
->  		SUBTEST(perf_clear_blt),
->  		SUBTEST(perf_copy_blt),
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (intel_gt_is_wedged(gt))
+> -	if (intel_gt_is_wedged(to_gt(i915)))
 > -		return 0;
 > +	for_each_gt(gt, i915, id) {
 > +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	if (!gt->migrate.context)
-> -		return 0;
-> +		if (!gt->migrate.context)
-> +			continue;
->  
-> -	return intel_gt_live_subtests(tests, gt);
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
+> +			return 0;
 > +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
-> index d73e438fb85f..916ceba580da 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
-> @@ -445,9 +445,18 @@ int intel_mocs_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(live_mocs_reset),
+>  
+>  	err = alloc_empty_config(&i915->perf);
+>  	if (err)
+> diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
+> index e1a7c454a0a9..6bf8ba474497 100644
+> --- a/drivers/gpu/drm/i915/selftests/i915_request.c
+> +++ b/drivers/gpu/drm/i915/selftests/i915_request.c
+> @@ -3295,9 +3295,13 @@ int i915_request_perf_selftests(struct drm_i915_private *i915)
+>  		SUBTEST(perf_series_engines),
+>  		SUBTEST(perf_parallel_engines),
 >  	};
->  	struct drm_i915_mocs_table table;
 > +	struct intel_gt *gt;
 > +	unsigned int id;
-> +	int err;
 >  
->  	if (!get_mocs_settings(i915, &table))
+> -	if (intel_gt_is_wedged(to_gt(i915)))
+> -		return 0;
+> +	for_each_gt(gt, i915, id) {
+> +		if (intel_gt_is_wedged(gt))
+> +			return 0;
+> +	}
+>  
+>  	return i915_subtests(tests, i915);
+>  }
+> diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+> index 8307390943a2..20f85db9e3f3 100644
+> --- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+> +++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+> @@ -1380,14 +1380,18 @@ int intel_memory_region_live_selftests(struct drm_i915_private *i915)
+>  		SUBTEST(igt_lmem_write_cpu),
+>  		SUBTEST(igt_lmem_write_gpu),
+>  	};
+> +	struct intel_gt *gt;
+> +	unsigned int id;
+>  
+>  	if (!HAS_LMEM(i915)) {
+>  		pr_info("device lacks LMEM support, skipping\n");
 >  		return 0;
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +	for_each_gt(gt, i915, id) {
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
-> index 2cfc23c58e90..43f90b0687d7 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_reset.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
-> @@ -382,13 +382,21 @@ int intel_reset_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(igt_atomic_reset),
->  		SUBTEST(igt_atomic_engine_reset),
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (!intel_has_gpu_reset(gt))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (!intel_has_gpu_reset(gt))
-> +			continue;
->  
-> -	if (intel_gt_is_wedged(gt))
-> -		return -EIO; /* we're long past hope of a successful reset */
-> +		if (intel_gt_is_wedged(gt))
-> +			return -EIO; /* we're long past hope of a successful reset */
->  
-> -	return intel_gt_live_subtests(tests, gt);
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-> index 600333ae6c8c..6ce7be6e7692 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-> @@ -291,9 +291,18 @@ int intel_ring_submission_live_selftests(struct drm_i915_private *i915)
->  	static const struct i915_subtest tests[] = {
->  		SUBTEST(live_ctx_switch_wa),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (to_gt(i915)->submission_method > INTEL_SUBMISSION_RING)
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (gt->submission_method > INTEL_SUBMISSION_RING)
-> +			continue;
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-> index 29d860a5c9c8..0aad7bd50926 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-> @@ -1421,9 +1421,18 @@ int intel_timeline_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(live_hwsp_rollover_kernel),
->  		SUBTEST(live_hwsp_rollover_user),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
+>  	}
 >  
 > -	if (intel_gt_is_wedged(to_gt(i915)))
 > -		return 0;
 > +	for_each_gt(gt, i915, id) {
 > +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
+> +			return 0;
 > +	}
-> +
-> +	return 0;
+>  
+>  	return i915_live_subtests(tests, i915);
 >  }
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> index 4e4c420ae67f..8f9705b25f70 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> @@ -1374,9 +1374,18 @@ int intel_workarounds_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(live_gpu_reset_workarounds),
->  		SUBTEST(live_engine_reset_workarounds),
+> @@ -1397,9 +1401,13 @@ int intel_memory_region_perf_selftests(struct drm_i915_private *i915)
+>  	static const struct i915_subtest tests[] = {
+>  		SUBTEST(perf_memcpy),
 >  	};
 > +	struct intel_gt *gt;
 > +	unsigned int id;
-> +	int err;
 >  
 > -	if (intel_gt_is_wedged(to_gt(i915)))
 > -		return 0;
 > +	for_each_gt(gt, i915, id) {
 > +		if (intel_gt_is_wedged(gt))
-> +			continue;
-> +
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
+> +			return 0;
 > +	}
 >  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc.c
-> index 63a75272924f..c8ce82692614 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/selftest_guc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc.c
-> @@ -407,13 +407,21 @@ int intel_guc_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(intel_guc_steal_guc_ids),
->  		SUBTEST(intel_guc_fast_request),
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (intel_gt_is_wedged(gt))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	if (!intel_uc_uses_guc_submission(&gt->uc))
-> -		return 0;
-> +		if (!intel_uc_uses_guc_submission(&gt->uc))
-> +			continue;
-> +
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
->  
-> -	return intel_gt_live_subtests(tests, gt);
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-> index 83801c992488..91a129e73665 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-> @@ -150,13 +150,21 @@ int intel_guc_hang_check(struct drm_i915_private *i915)
->  	static const struct i915_subtest tests[] = {
->  		SUBTEST(intel_hang_guc),
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (intel_gt_is_wedged(gt))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	if (!intel_uc_uses_guc_submission(&gt->uc))
-> -		return 0;
-> +		if (!intel_uc_uses_guc_submission(&gt->uc))
-> +			continue;
-> +
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
->  
-> -	return intel_gt_live_subtests(tests, gt);
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-> index 18077801b2e6..e4652b1b303d 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-> @@ -172,13 +172,21 @@ int intel_guc_multi_lrc_live_selftests(struct drm_i915_private *i915)
->  	static const struct i915_subtest tests[] = {
->  		SUBTEST(intel_guc_multi_lrc_basic),
->  	};
-> -	struct intel_gt *gt = to_gt(i915);
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (intel_gt_is_wedged(gt))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
->  
-> -	if (!intel_uc_uses_guc_submission(&gt->uc))
-> -		return 0;
-> +		if (!intel_uc_uses_guc_submission(&gt->uc))
-> +			continue;
->  
-> -	return intel_gt_live_subtests(tests, gt);
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-> index 718cddde7e73..fd58faf31fe5 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-> @@ -563,9 +563,18 @@ int i915_gem_evict_live_selftests(struct drm_i915_private *i915)
->  	static const struct i915_subtest tests[] = {
->  		SUBTEST(igt_evict_contexts),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	if (intel_gt_is_wedged(to_gt(i915)))
-> -		return 0;
-> +	for_each_gt(gt, i915, id) {
-> +		if (intel_gt_is_wedged(gt))
-> +			continue;
-> +
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-> index 514d2200751b..e741dd322537 100644
-> --- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
-> +++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-> @@ -288,6 +288,15 @@ int intel_uncore_live_selftests(struct drm_i915_private *i915)
->  		SUBTEST(live_fw_table),
->  		SUBTEST(live_forcewake_ops),
->  	};
-> +	struct intel_gt *gt;
-> +	unsigned int id;
-> +	int err;
->  
-> -	return intel_gt_live_subtests(tests, to_gt(i915));
-> +	for_each_gt(gt, i915, id) {
-> +		err = intel_gt_live_subtests(tests, gt);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
+>  	return i915_live_subtests(tests, i915);
 >  }
 > -- 
 > 2.55.0
