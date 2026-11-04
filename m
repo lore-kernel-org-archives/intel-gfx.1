@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EA7606A32D
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 15:37:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E42606A31B
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 16:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF9E310E283;
-	Wed,  4 Nov 2026 15:37:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CEC710E536;
+	Wed,  4 Nov 2026 16:06:08 +0000 (UTC)
 Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6109810E244;
- Wed,  4 Nov 2026 15:37:48 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1786210E536;
+ Wed,  4 Nov 2026 16:06:07 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3754672050975571898=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/pxp=3A?=
- =?utf-8?q?_Unwind_component_binding_if_HuC_loading_fails?=
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EFull=3A_failure_for_TEST_ONLY=3A_drm/intel?=
+ =?utf-8?q?=3A_add_mmio_to_display_parent_interface?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Wentao Liang" <vulab@iscas.ac.cn>
+To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 04 Nov 2026 15:37:48 -0000
-Message-ID: <179380666839.117930.16316418719477095864@221881a7231d>
+Date: Wed, 04 Nov 2026 16:06:07 -0000
+Message-ID: <179380836708.118061.9708438640289177689@221881a7231d>
 X-Patchwork-Hint: ignore
-References: <20261103075914.1122975-1-vulab@iscas.ac.cn>
-In-Reply-To: <20261103075914.1122975-1-vulab@iscas.ac.cn>
+References: <20261104130831.152563-1-jani.nikula@intel.com>
+In-Reply-To: <20261104130831.152563-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,22 +36,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+--===============3754672050975571898==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
-Series: drm/i915/pxp: Unwind component binding if HuC loading fails
-URL   : https://patchwork.freedesktop.org/series/177740/
+Series: TEST ONLY: drm/intel: add mmio to display parent interface
+URL   : https://patchwork.freedesktop.org/series/177723/
 State : failure
 
 == Summary ==
 
-Series author address 'vulab@iscas.ac.cn' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/192063/ (on built-in)
+CI Bug Log - changes from CI_DRM_19444_full -> Patchwork_177723v1_full
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_177723v1_full absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_177723v1_full, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  
+
+Participating hosts (1 -> 0)
+------------------------------
+
+  ERROR: It appears as if the changes made in Patchwork_177723v1_full prevented too many machines from booting.
+
+  Missing    (1): pig-kbl-iris 
 
 
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19444 -> Patchwork_177723v1
+
+  CI_DRM_19444: c0cb7e7c00c9563d72c1e1b08fac139a57fd0ebf @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_177723v1: c0cb7e7c00c9563d72c1e1b08fac139a57fd0ebf @ git://anongit.freedesktop.org/gfx-ci/linux
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177723v1/index.html
+
+--===============3754672050975571898==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>TEST ONLY: drm/intel: add mmio to display parent interface</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177723/">https://patchwork.freedesktop.org/series/177723/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177723v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177723v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19444_full -&gt; Patchwork_177723v1_full</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_177723v1_full absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_177723v1_full, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<h2>Participating hosts (1 -&gt; 0)</h2>
+<p>ERROR: It appears as if the changes made in Patchwork_177723v1_full prevented too many machines from booting.</p>
+<p>Missing    (1): pig-kbl-iris </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19444 -&gt; Patchwork_177723v1</li>
+</ul>
+<p>CI_DRM_19444: c0cb7e7c00c9563d72c1e1b08fac139a57fd0ebf @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  Patchwork_177723v1: c0cb7e7c00c9563d72c1e1b08fac139a57fd0ebf @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit</p>
+
+</body>
+</html>
+
+--===============3754672050975571898==--
