@@ -2,65 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F7C606A326
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 15:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE9D606A338
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 15:03:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=oEvwo11g
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ue0Iyl6s
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBB3610FCB1;
-	Wed,  4 Nov 2026 15:03:10 +0000 (UTC)
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61CFA10E2FA;
- Wed,  4 Nov 2026 05:40:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1793770776;
- bh=XK14gn3afGjQO93vtxOK4rX2+8gn13HtO8JN2/VQ3Cw=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=oEvwo11gNhv/l82eQawvMsHRYC9BobHE95QfaRZn3cZ6gRzaZBdD66/M22mRPfY9z
- /OzKUGJkvaGZDrjxgpL8tt2ftayfREkAb7N10oTD2fnOynmGhqS3+T3MkrX+1blRHt
- I9OC369Wq8yLcOrov/W3iIyLrSYtN0VnC8zQQIrs=
-X-QQ-mid: zesmtpsz8t1793770758t3d36a38e
-X-QQ-Originating-IP: i2/274j8W+IzMMKT+4D6S+IUbWiQBGVsl/7IIyWqb4A=
-Received: from localhost.localdomain ( [61.183.83.60])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 04 Nov 2026 13:39:16 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 337138461145264766
-EX-QQ-RecipientCnt: 7
-From: Wentao Guan <guanwentao@uniontech.com>
-To: joonas.lahtinen@linux.intel.com, imre.deak@intel.com,
- jouni.hogander@intel.com
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Wentao Guan <guanwentao@uniontech.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/display: Don't drop the async-put delay on
- self-requeue
-Date: Wed,  4 Nov 2026 13:39:10 +0800
-Message-ID: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.47.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00EE210FCBF;
+	Wed,  4 Nov 2026 15:03:16 +0000 (UTC)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AAB710E881
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 09:00:22 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-8b305e10ac7so4469427b3.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 01:00:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793782821; cv=none;
+ d=google.com; s=arc-20260327;
+ b=UtAQRduuaahhEJ2hMN7WBALwgIQEuCm2zt7NpSgs/YgQ0V4t2BJuZIzyWyC4eENSl3
+ eAOYgt6wwj4JakK0ARPK1BwLwM6+mHdB1+/nDdq/yQcvKn5LIx11Lvvy42a5u3Fg9Bfv
+ Rn8VgiedmJM3vCP2yoCdSbQPqa3jA/cyNVx4BPu0hAL1WgYlIsD1/Apji5vjS3k/VO/E
+ LFAlgEFjfozRBpT1O1syzarzPPXarWSs0fnTPnPHOg3aIwZGHD7zjFKCKCi2/0IbSn8t
+ uxGmaN4ZKcslc6qHQNe4hJOVfWDlYdjnZig3yLAfpwaMNbDpTG0KjtWtvSdTd1jE7Upd
+ n/Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=jTRnpEDN+KWb3ei+FUpJVOT/UTcJwtCB9oaH08vzv9M=;
+ fh=uSmHOU8EoYtMA0K723Wxs49CQ7UAtpObez3oGoBDvyQ=;
+ b=jHw6GU3tEE7OxSat+NB9AZfR02VnVOQ4Kl9fhuiSNNIa5UPhmGtv8ns7ojUBCNrNDK
+ 47KBUCfAlNYDj0vz+CwoEbW2EtGTK+s9pa4Z++4JDcTlfzFBVFWBcO+riQCAVI0zdJLw
+ SWRzKPGrMr5GqbEjA7KqTFQz9FWPFv5a1QQAHiF+x790Q6yW4V0nmj7JffOzz8xEPC1n
+ WWj28G4nAInnVR5lOd4VuY27Cbq67EAqSRiFmaEeNcls9/sRgO/utMElNMlXrunxJJT8
+ +4tReNsgVkegrF/kugC1fmt57c/uBoTNFi7OQ9DdYqeJVYvky5lefNh/I8jcFXaIpLj6
+ yTMA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793782821; x=1794387621; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=jTRnpEDN+KWb3ei+FUpJVOT/UTcJwtCB9oaH08vzv9M=;
+ b=ue0Iyl6sYIrYBoyQZx1C/1fR9H7cbpDdBFXCheHPpwGSk8Bjd8Z6Vd/gFS6bIIqJSx
+ dJauAqQAMpGfdLPRlz799X7Pr7v4XvZliEcjgLuRLAv+qQ61j0Ddx1Dg64xe0n8NW1bw
+ Xm71+T1UEUPT0dkMNXJzNd3vtvOgPT/p2bdawIbGSPQUxg9ToN802XRLXv7au2RKI/UH
+ SzZHnUaFobQ+Ouy/uyW4UMPicVzW/9Kk69H4dlhYFA7zpF9bCvpCpJXpGAyuoGQTCu47
+ mK+6tCpbSOh+V9a+4wkjCeQ1lcZhIamCKWkf3awTUxuSLbyWsCGmgAGKxNYVk7+ueVcQ
+ dT+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793782821; x=1794387621;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=jTRnpEDN+KWb3ei+FUpJVOT/UTcJwtCB9oaH08vzv9M=;
+ b=yxmDzKXxt7HICvhetPKNzOAeJw186CjeqNTEEXlktpOlFFMkHvMP0Y5/PLs8rdYu0O
+ n9ekxmQyplHgoLjBORCliuTbfdDi0FsSRcMKNkh0tNpI5x+WOs04pEhbgH74NY3qg5o9
+ xcqU91siQCArgCv3Qv/5pjRa6X3E7gbTH9Cfusic0s6j6dOOPUP8by4aNWjCn34jElVU
+ t0xHLqCL5EGwb0keamEOHRZNp4OGStYtV1b4K7mFE58HggM0kcHZV4+FgLluWW/+2k/X
+ TNMo/am4GeXyxMRUbnjlXQP4zWtn60uxElfskSR3nZS5pD3WFxyrFEuPsCPRdxhsOW1u
+ MKHg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwtzzD6KxoS0aZ0ORO0o4s3ILzxVl6Zje3733Yz85XPYAX7ziXQHgaTlChKgU+vbCSTBYxXxT7H7uQ=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8mQEWN9DKBtvbq0je8sebo7tqB6oITkkzFkeKu9TgCTkuQIag6
+ WhpCrNVKgmHk5gt1OcJYEYhHyHFnJ+GGIxWQA5Ce2Gb3jfo/lodEATiqtrEn/PsLPhmftzGD6cs
+ B/7MLQ8aZN999kR7+JZI1e4lpFWT7ydA=
+X-Gm-Gg: AYBFou2BY4AAWpfRbk+WhqW5/yt7e0oR+4UXrIDnUbk2wJhdeQsUhho3cYgn8pd6LNs
+ 4hlFUI75YnfCN7k5vyFyNYvvpUF+RwuIWWQpekBg02cocQIw8QqT0ogksaRHzaJYBcyRhqwyx1W
+ Fe72v6E/9pB9BE1AyOXueMOXubv2jnjblAxwkyv5mWx6kf/dWxaldJW7h6/saGEzSlEgNCaON33
+ SmkKwtSd2L1Xg4/YOmnY2rYpVugl8y9tTlBYSvHqMEZdAvuU92auYEX6ZM2YXl5fpSFmA3IqelB
+ BKM/pBQ2WeLPxlBMAke63aP2McrH3kuHnfrvAwzUv2RKGEv9Q2Sw4Awle5SS6TVKVccprjPcma9
+ yNJNmI7kmLEd6+JQ7wEcZq9ReLyu9bElOAB8gs+EYRsG11/bJezp9uiFjoS+gF/Mue3ph
+X-Received: by 2002:a05:690c:f05:b0:8a1:781f:4aa0 with SMTP id
+ 00721157ae682-8b2b67f1889mr109610237b3.56.1793782820885; Wed, 04 Nov 2026
+ 01:00:20 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: No4GWyI4cWt6Kjo7qRlUDJvLUFRLYgvhJadss/tsQS75ID9ohL0hTa9z
- /DXUWU2zg34ePTZA5xKfrdMtA0U75LIW2PC0mwjG2zd4t+ARAKhX86MozyXkPubWHyYifYQ
- FZgh4+bVuK8OUMXik+xh+ISxd+k6NS9yFDrhG5/TzW4v9E95pCBJAEjURkxqsOePpggSNdo
- Elwv0XUQFW6KPdO//S1eIAeyhH6gQnrEqWj6IR3HVdU68lLX7z9N3Y1f14ufLnbhYVa+qNC
- +EeorAKFIoHzetuduPsGp1RDsljjzgJWUPOuJ0Cj9P68Sb99y29f0kOWQkNLhemmYhe3bN4
- 3JpwTjBtvFDeMbD7gaSAJJ0BqEx2HA3OuvN8AYdBM1it3zbu4CxTKnyHb1Dmis6T5+oHsbi
- YQEYjHU3FkaNQ/pxRQ6TwEs7NhGaRY32z5mNhPodiGd7shIyzztzyNdM4j8NY06J39/EF7B
- 8uCbwxILxR110wjU1gOqEStRKOLD2nE7T+Mn8LdePp7MJgRrSQ+QfnpiPainH9Z9yabY+UN
- N8o5b2ZfNyzjJK168PPTjtT+S4HnaGJ2BKOi24R7GwRY4TPfkgC44IhF+9XBbqqwgDg2V8R
- 0XJX13qeATa0JihbbAno/uem+tPdnRV9c4ZbCaXQY0tEHP9dpYszBKjM/elrKwrSMIyV3BP
- kCFzauAKrbEzETgaMpiYtV/1ovjgFKeij+izw1XU2RTIx7QaIO5aQavTYB+9MgZ6991CgN2
- SdStpPa7Evql0wV64J8TBw72qJK+jzcP7FK1cT1mmWwXlv7YOzhxUNKYQOlstQL8tfmt7Hq
- jiCq3k9CNheUb9OxPTwsp7s/MUf91OO/VCWefwmFUarn30DayODAbJdD2KP6AkGFdgQeHo7
- 8STwGqwSR7exNVz+JKWKmMEGZkGLwpRYzKmvwFT7t5+dNLb+NEMyWIBqQhFciVfryGkNm1j
- 73aJ7b/LIZUBTLhEi88l+6v+ybhy1plqIhfAUnS2k8gx/RaU51OfUSMrNZA6p9YqZf32KSE
- 6xKnsJafkbjy3Y6dUejvyQXZSIX6GZ3LQD4nq6+w==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+References: <20261031-dp-tunnel-bwa-flag-v1-1-f94ed3179349@gmail.com>
+ <20261102130145.GU158991@black.igk.intel.com>
+In-Reply-To: <20261102130145.GU158991@black.igk.intel.com>
+From: Diego C N <diego.sure@gmail.com>
+Date: Wed, 4 Nov 2026 10:00:08 +0100
+X-Gm-Features: AclHuK-KTLDrGi9C8ZMZKwzhArkycX_ZxWgS8iSAY08wiND5eYgccYF5_KZeB0A
+Message-ID: <CACPnnOZHhdwOSDhsnG22SyPD1JsrcgM4Y26QYORd=xoUzhXuVw@mail.gmail.com>
+Subject: Re: [PATCH RFC] drm/dp_tunnel: Allow BWA when the DP IN adapter does
+ not advertise it
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Imre Deak <imre.deak@intel.com>, dri-devel@lists.freedesktop.org, 
+ Uma Shankar <uma.shankar@intel.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Mika Westerberg <westeri@kernel.org>, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 04 Nov 2026 15:03:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,56 +112,48 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-cancel_async_put_work() also clears async_put_next_delay, so moving it
-ahead of the requeue in intel_display_power_put_async_work() makes the
-requeue always use a zero delay. That discards the delay accumulated by
-concurrent async puts, including the 17 ms DC-state anti-toggle delay
-requested for POWER_DOMAIN_DC_OFF.
+Hi Mika,
 
-Use cancel_delayed_work() directly to cancel the stale instance without
-clearing the delay, and clear the delay only after the requeue has
-consumed it.
+Oh, I see. Well, thanks anyway for taking time to check this patch and
+for answering it.
+I'll keep it as my personal patch since it's been working very well
+for the past weeks.
 
-Fixes: 30ca6365bb42 ("drm/i915: Fix assert on pending async-put power domain work when it requeues itself")
-Cc: <stable@vger.kernel.org> # v6.11+
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- drivers/gpu/drm/i915/display/intel_display_power.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+On Mon, Nov 2, 2026 at 2:02=E2=80=AFPM Mika Westerberg
+<mika.westerberg@linux.intel.com> wrote:
+>
+> Hi,
+>
+> On Sat, Oct 31, 2026 at 01:18:18AM +0100, Diego Nogu=C3=AAs via B4 Relay =
+wrote:
+> > From: Diego Nogu=C3=AAs <diego.sure@gmail.com>
+> >
+> > On an Alder Lake host (i7-1265U) with a Thunderbolt 4 dock (Dell WD22TB=
+4,
+> > Goshen Ridge) driving two 4K@60 monitors through two DP tunnels, the
+> > monitor whose tunnel is created second is limited to 4K@30. Which monit=
+or
+> > is affected depends only on the order in which they are powered on.
+> >
+> > The thunderbolt driver enables the BW allocation mode (BWA) on both DP =
+IN
+> > adapters: it sets the CM BWA support (DP_USB4_DRIVER_BW_CAPABILITY), a
+> > group ID and the estimated BW. The DP IN adapter, however, never sets
+> > DP_IN_BW_ALLOCATION_MODE_SUPPORT in DP_TUNNELING_CAPABILITIES (0xe000d
+> > reads 0x01), so tunnel_regs_are_valid() rejects the tunnel with:
+>
+> Alder Lake firmware really does not support this and by forcing it to be
+> enabled you may end up in untested code paths and interesting behavior :)
+> BWA was only officially supported starting from Meteor Lake.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index b000ec001ccfc..7da6eda46e9e0 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -873,7 +873,7 @@ intel_display_power_put_async_work(struct work_struct *work)
- 	 * Cancel the work that got queued after this one got dequeued,
- 	 * since here we released the corresponding async-put reference.
- 	 */
--	cancel_async_put_work(power_domains, false);
-+	cancel_delayed_work(&power_domains->async_put_work);
- 
- 	/* Requeue the work if more domains were async put meanwhile. */
- 	if (!bitmap_empty(power_domains->async_put_domains[1].bits, POWER_DOMAIN_NUM)) {
-@@ -885,9 +885,10 @@ intel_display_power_put_async_work(struct work_struct *work)
- 		queue_async_put_domains_work(power_domains,
- 					     fetch_and_zero(&new_work_wakeref),
- 					     power_domains->async_put_next_delay);
--		power_domains->async_put_next_delay = 0;
- 	}
- 
-+	power_domains->async_put_next_delay = 0;
-+
- out_verify:
- 	verify_async_put_domains_state(power_domains);
- 
--- 
-2.47.3
 
+
+--=20
+Diego C. N.
