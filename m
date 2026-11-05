@@ -2,73 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55707606CF8A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 16:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WoMGCBpK
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C354D606A31B
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 16:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CACB210E814;
-	Thu,  5 Nov 2026 16:03:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B8E910E814;
- Thu,  5 Nov 2026 16:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793894600; x=1825430600;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=5A1ID+DV3XCVNTv9Mjjz9nlWW6YzcsEntOZT7aRGMNk=;
- b=WoMGCBpKXMifHxwx/8YZXa9x0tvX5M3TvMvyccC/Ob2EbUNvzC5ogPUI
- t0KDyOC8ffhc8eyoETsOM0F1YJ1JeYTWLCqEXhJ6I4fbHK/kJodUwsip6
- Pwr7jeFxPL82gI9k2snFfVctTMmGP+c6Uo5bL225L2yL5HnuYIZzridMA
- RgfIEMuiQLJNMOd4YvIXG+3XyyRHOv1FD1I7XR5Uf7A7sTAYo9kuKJ2xS
- oG8aZ4lJh7YMivTA+Qy91YDUQfv+S6QtJ4KeVPGwWV4mMQAXVaEgB5S2x
- BST7FqPnXhblfWjXwShjr28+yQnE+7xMiqz4QG01jUVp7yXYTQ1jD0d3i Q==;
-X-CSE-ConnectionGUID: V6oqMtyYQ9+FHwLqMwp8xA==
-X-CSE-MsgGUID: wdE0iLuPRVqzT4Gx1fDuPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2706090"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2706090"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 08:03:19 -0800
-X-CSE-ConnectionGUID: C78hwW1aRtiqLgiCJitF4A==
-X-CSE-MsgGUID: p2bUQgOBTUmb6bFfq3fetQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="8795710"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO
- kvehmane-desk1.ger.corp.intel.com) ([10.245.244.200])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 08:03:13 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?q?Tom=C3=A1=C5=A1=20Hnyk?= <tomashnyk@gmail.com>,
- Wim Taymans <wtaymans@redhat.com>, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: [PATCH 2/2] drm/i915/audio: Populate ELD Port_ID
-Date: Thu,  5 Nov 2026 18:02:40 +0200
-Message-ID: <20261105160240.2850042-3-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
-References: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ADA010E5F8;
+	Thu,  5 Nov 2026 16:12:04 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B425210E070;
+ Thu,  5 Nov 2026 16:12:03 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/dsb=3A?=
+ =?utf-8?q?_Fill_all_padding_before_GOSUB?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Hanson Wang" <hanson.wang@ugreen.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 05 Nov 2026 16:12:03 -0000
+Message-ID: <179389512373.127389.7806244146483161356@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261105134658.3724628-1-hanson.wang@ugreen.com>
+In-Reply-To: <20261105134658.3724628-1-hanson.wang@ugreen.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,48 +34,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-i915 never fills in the ELD Port_ID field, so it is always zero, and
-the ELDs of identical monitors connected to different outputs are
-byte-identical. Userspace then cannot tell which HDMI/DP PCM belongs to
-which DRM connector without toggling the connector audio property.
+== Series Details ==
 
-Use drm_eld_set_port_id() when computing the audio config, so the value
-reaches the audio driver through every path: the audio component
-get_eld() callback, the hardware ELD buffer, SDVO and LPE audio.
+Series: drm/i915/dsb: Fill all padding before GOSUB
+URL   : https://patchwork.freedesktop.org/series/177863/
+State : failure
 
-The value is fixed for the lifetime of the connector, so it does not
-cause extra audio re-enables when the ELD is compared across commits,
-and state readout stays consistent because it is copied from the
-programmed ELD.
+== Summary ==
 
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16693
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_audio.c | 2 ++
- 1 file changed, 2 insertions(+)
+Series author address 'hanson.wang@ugreen.com' is not on the allowlist, which prevents CI from being automatically triggered.
+If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
+Exception occurred during validation, bailing out!
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/192114/ (on built-in)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 32f8c5e55319..3277e67748ee 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -881,6 +881,8 @@ bool intel_audio_compute_config(struct intel_encoder *encoder,
- 	crtc_state->eld[6] = drm_av_sync_delay(connector, adjusted_mode) / 2;
- 	mutex_unlock(&connector->eld_mutex);
- 
-+	drm_eld_set_port_id(crtc_state->eld, connector);
-+
- 	return true;
- }
- 
--- 
-2.43.0
 
