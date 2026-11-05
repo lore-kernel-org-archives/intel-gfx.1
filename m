@@ -2,67 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F27606D80A
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:57:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3598606D80E
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:06:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ix7z9f4i
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zK4rzB9r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 155C611247C;
-	Thu,  5 Nov 2026 13:57:16 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEE7C11247C;
- Thu,  5 Nov 2026 13:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793887030; x=1825423030;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=Od4jEaEJe3RbVAekVt5Hue7vzh9m42lzO4/ChOWUR6k=;
- b=Ix7z9f4iwNEGvSFg/CFw8+08pO+Mk8nHENbVzwjjP9VOHWeU6/n4sMMH
- 6jubORJtstc34GwHmAdBVhdksvTL4HB+gp9w9Q2wq4v2WGaFyTSg9VOI+
- s96Ut9R3xHTx0zAObnckbH700T6I5vwfAy2gTPBsqWkibrfG1CIgz2Akx
- MgrrtX4x3L+q3IU/MWR3Ell6CLCUls+tVgGQnq/o2ElH6Zs4aQnaKRjp5
- rqTQ83tqU9i7tYiGZAn6q4D6AhiSI+wJ6hfwCkl/kLixTt3MATDwuW9Cn
- UVLXqO6lNRWg749+v4+PS/vsdVU/Feh1WA6OG5JmE0T1iQ/cbw5jmMfUr w==;
-X-CSE-ConnectionGUID: 7ckZzfQYRqa32gjpMyVH2w==
-X-CSE-MsgGUID: Nx6WlVDhTmeb0N67gQUVlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2668453"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2668453"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 05:57:09 -0800
-X-CSE-ConnectionGUID: 7GgftNeJRGOPz1GaIFwgjg==
-X-CSE-MsgGUID: 3iXBjFepTPO+th+xLTxqFg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7180192"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.157])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 05:57:05 -0800
-Date: Thu, 5 Nov 2026 15:57:03 +0200
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-fixes
-Message-ID: <auyLLyt1cpOQYL4n@jlahtine-mobl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370AD10E41F;
+	Thu,  5 Nov 2026 14:06:19 +0000 (UTC)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53AC710EE2E
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 06:04:36 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-3b0b8b5d28cso55852a91.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 22:04:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793858676; x=1794463476; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6JrtG29F6YmjX1if1HVP+LUFJxu86N0pKm/C06N0tvM=;
+ b=zK4rzB9rhp3IEjcbtq2kbv2sJVRSB8SEIjdxmxQsq5Br34vzFSCEF9KYzbkHGmFeEk
+ 71jRVKjNt/KMKEpM+DY/0JDFz7L9jiQ+PtWW/q7CFF12o7wWVP3ANpp2djnZoW0m/GKr
+ w0oCcCpsx0Ajx4vutYSeQjOyGMM4vCWLMcVd6/p0AJGVBDG4OQChSR6dzVz/Da5JsOcE
+ eRcRT3nn37Il1UVuZmluOyRe2ygGTcFCMDk3ZX90lPYaG/ix2PmlDr9kF6RUSe714rI8
+ b05PEdDXXnkz5wOw8Di2MEadUtj3fIxkzvBhiVDqVovhBqK+JRkPdtLQXTvK+Xvw0eow
+ Osyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793858676; x=1794463476;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6JrtG29F6YmjX1if1HVP+LUFJxu86N0pKm/C06N0tvM=;
+ b=1fYd/lAL/YmCt3H48FvXG7w4RSPSldWTi3rH2YOAzZ0landiuLE8fpYtKeH1v45soB
+ PihTGEjtH6wXvPo+ntr6fPHgesoood4yMtVkEpNszwL0M5TKmwHNC+pIQGkgkGQ3RPmn
+ mpmr0EBCTOkouOHdhefI5rfRybzjJf/h7wBTPU7S1KxCjcbp0mnz5BHhM0L+wXm916RH
+ T9P7AbI5pXyGh15oSJmmvy+nU7x2iqt0tqmSKT2787MJ3UGw+Z/QVkXtJqrMfdvIs5jk
+ jUJSWo/wZXSKxlPMa2Do2lbLPiNJtjh9oaixe2OieQ5sOIsYAKU+ZVI7MbW9740vJvZL
+ D1Tg==
+X-Gm-Message-State: APuU4Z9sJtikmq2ZhYMZe9s3hBF8D67yBIKH6iteSneYh2w/IvdBQUdb
+ wKe2I8jIw1+01Edid/YthbbWzeXloaNWvpGIPlMaY683zKhTkDAUKER0d6r5jNuY
+X-Gm-Gg: AYBFou1tapkNVwqBsORG47IPUhE4K1tuJ9SjmtutDgim9FaTNNTSQhW3BBcJkw+v72q
+ U2QsDRQrFtaYYSQ7LWSmaMCl34peCbRarNIjQd+dUxJEc8ZQeexQOE4bI81miEpAdD8ZQFWJWmd
+ FJGz8JzZA53MI9ko56u3fzloMSQmbZbwOQehdePCnCaXYU18MgKPL5hIzriQtfLjki38QsIcpxm
+ Hw1qJkHljGur9MU1Q5PSBScmtcC5ykV6+367dMllUYcwUUrfCjqOM5XasXYoJGxvceCDsmuge8x
+ XSxzChaKSyUD7OhDUASrr2ULoJzWa5cnMnWDc0IX8WMiHWhzkOhAPz+SnSVNmKBcCWVVzvbq14u
+ eZOVA4mwyNc+MAUEUowdQjGHzDK9rELYlszDvaPgV8JsueJg6cIFHg8f9vhKKG4vWgZeXliKm7o
+ jVUQOBuddeYc2+uvvinRwN1IbmkZ3W7TSdTP07XxhDWHOFW7R3pu4yfmXLmXmsyQx2PONDJnFeI
+ RjC7HcVr3hUl6mmVt2PNLtJHPnBbyMYJ+rw3Qxt7TWF/PgwBsfVeL1LjlL7jslr8PKpebSpATe/
+ k/OUFbpurvRbk0Bn54Nq37hQAVBnCg0nhNhtO9rQyA==
+X-Received: by 2002:a17:90b:28c7:b0:3a7:fef3:8561 with SMTP id
+ 98e67ed59e1d1-3ae89822b55mr26092371a91.5.1793858675639; 
+ Wed, 04 Nov 2026 22:04:35 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b0b313c0dcsm2093100a91.1.2026.11.04.22.04.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2026 22:04:35 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, stable@vger.kernel.org,
+ Chengyu Liu <lui2012qwq@gmail.com>
+Subject: [PATCH v2 0/2] i915: two teardown fixes (gen6 ppgtt ERR_PTR,
+ OA config sysfs leak)
+Date: Thu,  5 Nov 2026 14:04:20 +0800
+Message-Id: <20261105060422.51848-1-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 05 Nov 2026 14:06:18 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,100 +84,46 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Dave & Sima,
+Two independent small fixes found by static analysis:
 
-Here goes drm-intel-fixes towards v7.4-rc2.
+1/2: gen6_ppgtt_create() stored the result of gen6_alloc_top_pd()
+     directly into ppgtt->base.pd; on failure the ERR_PTR stayed in the
+     field and the async release worker crashed dereferencing it in
+     gen6_ppgtt_free_pd().  v2 follows the local-variable pattern
+     suggested by Ville: assign to the field only after validation, so
+     it can only ever be NULL or a valid pointer, and
+     gen6_ppgtt_free_pd() now bails out on a NULL pd.
 
-Fix for GitLab #8991 regression, backlight fixes for TUXEDO devices,
-display pipe scaler/joiner fixes for WCL, PSR fixes and assorted
-smaller fixes.
+2/2: i915_perf_add_config_ioctl() creates the dynamic sysfs entry
+     before idr_alloc(); if idr_alloc() fails the error path frees the
+     config without removing the sysfs entry, leaving attributes that
+     point into freed memory (UAF read via the embedded show()
+     callback).  Remove the group on that path, mirroring the remove
+     ioctl's ordering.  Unchanged since v1.
 
-Regards, Joonas
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+v2:
+  - 1/2: don't assign the error pointer into ppgtt->base.pd at all
+  - 2/2: unchanged
 
-***
+v1: https://lore.kernel.org/r/20261104073311.1617823-1-lui2012qwq@gmail.com
 
-drm-intel-fixes-2026-11-05:
+Chengyu Liu (2):
+  i915/gt: don't store ERR_PTR into ppgtt->base.pd on allocation failure
+  i915/perf: remove sysfs entry if idr_alloc() fails in add_config
 
-- Fix GitLab #8991 where tiled displays (LG UltraFine 5K) broken on PTL
-- Limit NVL TRANS_VTOTAL.Vtotal skip display workaround to A-step
-- Single scaler per pipe number to 1 and disable pipe joiner on WCL
-- Add quirk to force backlight type on some TUXEDO devices
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 11 ++++++++---
+ drivers/gpu/drm/i915/i915_perf.c     |  1 +
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-- Fix "CMTG: A disable timeout" splat
-- Fix intel_vrr_dcb_vmin_vblank_start
-- Bunch of PSR fixes
-- Static checker fixes
-
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
-
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-11-05
-
-for you to fetch changes up to 01aa63eade529680cb28fce40f2357bf392a249f:
-
-  drm/i915/vrr: Fix intel_vrr_dcb_vmin_vblank_start() (2026-11-03 09:13:41 +0200)
-
-----------------------------------------------------------------
-- Fix GitLab #8991 where tiled displays (LG UltraFine 5K) broken on PTL
-- Limit NVL TRANS_VTOTAL.Vtotal skip display workaround to A-step
-- Single scaler per pipe number to 1 and disable pipe joiner on WCL
-- Add quirk to force backlight type on some TUXEDO devices
-
-- Fix "CMTG: A disable timeout" splat
-- Fix intel_vrr_dcb_vmin_vblank_start
-- Bunch of PSR fixes
-- Static checker fixes
-
-----------------------------------------------------------------
-Animesh Manna (1):
-      drm/i915/cmtg: Disable CMTG after encoder disable in hsw_crtc_disable()
-
-Jouni Högander (5):
-      drm/i915/psr: Clear selective fetch area when duplicating plane state
-      drm/i915/display: Add enabled pipe planes into state for selective fetch
-      drm/i915/psr: Disable linked plane sel fetch as well
-      drm/i915/psr: Fix SFF and CFF CTL register bit definitions
-      drm/i915/psr: Don't clip plane state destination rectangle
-
-Lu Yao (1):
-      drm/i915/gem: Reset err for each fence entry
-
-Mitul Golani (1):
-      drm/i915/display: Allow port sync on PTL
-
-Suraj Kandpal (1):
-      drm/i915/display: Limit NVL TRANS_VTOTAL.Vtotal skip to A-step
-
-Vidya Srinivas (2):
-      drm/i915/display: Single scaler per pipe on WCL
-      drm/i915/display: Disable pipe joiner on WCL
-
-Ville Syrjälä (1):
-      drm/i915/vrr: Fix intel_vrr_dcb_vmin_vblank_start()
-
-Werner Sembach (1):
-      drm/i915/display: Add quirk to force backlight type on some TUXEDO devices
-
- drivers/gpu/drm/i915/display/intel_ddi.c           |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c       | 19 +++--
- .../gpu/drm/i915/display/intel_display_device.c    |  5 +-
- drivers/gpu/drm/i915/display/intel_dp.c            |  4 +-
- .../gpu/drm/i915/display/intel_dp_aux_backlight.c  | 22 ++++-
- drivers/gpu/drm/i915/display/intel_plane.c         | 11 +++
- drivers/gpu/drm/i915/display/intel_psr.c           | 96 ++++++++++------------
- drivers/gpu/drm/i915/display/intel_psr_regs.h      |  4 +-
- drivers/gpu/drm/i915/display/intel_quirks.c        | 24 ++++++
- drivers/gpu/drm/i915/display/intel_quirks.h        |  1 +
- drivers/gpu/drm/i915/display/intel_vrr.c           | 12 ++-
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c     |  2 +-
- 12 files changed, 131 insertions(+), 71 deletions(-)
+-- 
+2.25.1
