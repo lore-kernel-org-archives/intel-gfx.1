@@ -2,45 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F619606A336
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 17:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5naOIGa
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4F1606A32C
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 17:58:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA42110E77A;
-	Thu,  5 Nov 2026 17:32:33 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B75A10E318;
- Thu,  5 Nov 2026 17:32:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6B40A60145;
- Thu,  5 Nov 2026 17:32:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAE191F000C1;
- Thu,  5 Nov 2026 17:32:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793899947;
- bh=lp0NGZovHOZFgM8Bydql0MxHwiduWzL/2fD0i5iRoF0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=S5naOIGaaD2J0fiVVP8ceihDTb/hSIh1mWM1o667RDtp6/+xObpwQBZ19kvzL/RkW
- qJvNF0ER9qNGrIGt7dLJ8x/P/cPn9xBkYktmFMHojSuE9woerIFFDaHcQW0MY91/Zt
- uzfrlmSm6xgmbxCPVVyF8RZniWRputBS3ZZlAjIS3fzwDrg3H1Bd76xqI+1ADuFZ0D
- eZYLdlYiVzSAb9SZLJWFL1IQn60UG2llt4BhU+PNWCj8KdMvnyGTGREglZHswG+uFI
- 3SzLukV9JdXhlkAxIcVYaMvYsREHcqd99Y0a+HKQjx0+uDjQb9hSTqShILpb0d33sD
- Q5pyDXzzvOK9w==
-Message-ID: <sashiko-outbox-199628@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] treewide: Use offsetofp()
-To: "Bence Csokas" <bence.csokas@arm.com>
-Cc: linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
- linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sound@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261105-offsetof-v1-3-4153f5c10edc@arm.com>
-References: <20261105-offsetof-v1-0-4153f5c10edc@arm.com>
- <20261105-offsetof-v1-3-4153f5c10edc@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 17:32:26 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6502310EE74;
+	Thu,  5 Nov 2026 17:58:39 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 832FC10F7F3;
+ Thu,  5 Nov 2026 17:58:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3251077920671334647=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_dma-buf=3A_dma-fence=3A_R?=
+ =?utf-8?q?emove_dma=5Ffence=5Finit64=28=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 05 Nov 2026 17:58:38 -0000
+Message-ID: <179390151852.128038.2024680905962030361@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261105113529.1989375-2-phasta@kernel.org>
+In-Reply-To: <20261105113529.1989375-2-phasta@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,62 +34,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] treewide: offsetofp() duplicates existing struct_offset() helper
---
+--===============3251077920671334647==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit d78220885af6984fafc359340778dba58aea1b73
-Author: Bence Csokas <bence.csokas@arm.com>
+== Series Details ==
 
-treewide: Use offsetofp()
+Series: dma-buf: dma-fence: Remove dma_fence_init64()
+URL   : https://patchwork.freedesktop.org/series/177862/
+State : failure
 
-This commit converts treewide uses of offsetof(typeof(*ptr), member) to the
-newly introduced offsetofp(ptr, member) macro via Coccinelle.
+== Summary ==
 
-> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-> index 2365a6d8ca15f..83c204458d409 100644
-> --- a/drivers/dma-buf/dma-resv.c
-> +++ b/drivers/dma-buf/dma-resv.c
-> @@ -108,7 +108,7 @@ static struct dma_resv_list *dma_resv_list_alloc(unsi=
-gned int max_fences)
->  		return NULL;
-> =20
->  	/* Given the resulting bucket size, recalculated max_fences. */
-> -	list->max_fences =3D (size - offsetof(typeof(*list), table)) /
-> +	list->max_fences =3D (size - offsetofp(list, table)) /
->  		sizeof(*list->table);
+CI Bug Log - changes from CI_DRM_19454 -> Patchwork_177862v1
+====================================================
 
-[Severity: Low]
-This isn't a bug, but include/linux/overflow.h already provides
-struct_offset() with the exact same definition (introduced in commit
-f6ed9c5d3190 ("overflow: Introduce struct_offset() to get offset of
-member")):
+Summary
+-------
 
-    #define struct_offset(p, member) (offsetof(typeof(*(p)), member))
+  **FAILURE**
 
-While include/linux/stddef.h now defines:
+  Serious unknown changes coming with Patchwork_177862v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_177862v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-    #define offsetofp(P, MEMBER) offsetof(typeof(*(P)), MEMBER)
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/index.html
 
-For example, dma_resv_list_alloc() in drivers/dma-buf/dma-resv.c already
-uses struct_size(list, table, max_fences) from include/linux/overflow.h just
-a few lines above.
+Participating hosts (40 -> 39)
+------------------------------
 
-Could these conversions across the 39 modified files reuse struct_offset(),
-or should struct_offset() and offsetofp() be consolidated instead of keeping
-two identical macros?
+  Missing    (1): bat-dg2-13 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-offsetof-v=
-1-0-4153f5c10edc@arm.com?part=3D3
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_177862v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@kms_cursor_legacy@basic-flip-after-cursor-varying-size:
+    - fi-bsw-n3050:       [PASS][1] -> [FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/fi-bsw-n3050/igt@kms_cursor_legacy@basic-flip-after-cursor-varying-size.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/fi-bsw-n3050/igt@kms_cursor_legacy@basic-flip-after-cursor-varying-size.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177862v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@kms_pm_rpm@basic-rte:
+    - bat-rpls-4:         [DMESG-WARN][3] ([i915#13400]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19454 -> Patchwork_177862v1
+
+  CI-20190529: 20190529
+  CI_DRM_19454: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9177: 9177
+  Patchwork_177862v1: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/index.html
+
+--===============3251077920671334647==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>dma-buf: dma-fence: Remove dma_fence_init64()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177862/">https://patchwork.freedesktop.org/series/177862/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19454 -&gt; Patchwork_177862v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_177862v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_177862v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_177862v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@kms_cursor_legacy@basic-flip-after-cursor-varying-size:<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/fi-bsw-n3050/igt@kms_cursor_legacy@basic-flip-after-cursor-varying-size.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/fi-bsw-n3050/igt@kms_cursor_legacy@basic-flip-after-cursor-varying-size.html">FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177862v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@kms_pm_rpm@basic-rte:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177862v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19454 -&gt; Patchwork_177862v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19454: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9177: 9177<br />
+  Patchwork_177862v1: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3251077920671334647==--
