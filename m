@@ -2,90 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58747606A32C
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 09:15:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C8B606A328
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 09:32:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bFAS48f0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S/y9rS/Y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B95ED112297;
-	Thu,  5 Nov 2026 09:15:24 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3212411225E;
- Thu,  5 Nov 2026 09:15:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 30E8860F3E;
- Thu,  5 Nov 2026 09:15:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B561F000C1;
- Thu,  5 Nov 2026 09:15:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793870111;
- bh=yuu8MRbvZ8Q99gVGDEWGPtvGQgcdEiYL3ohtAsA9Mfg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bFAS48f0dLcspAEXkjkArw9f5g1sLZat7q01f+HKggEbmSs8nuly01Er89M9cFC+E
- aJelUDSseJymE+2CsLiDv70w3W0f6o/p8FxgDHcsOPwgv1/JMp5POhaS6WYnvYb7K8
- zUzkNI/hkDRyloSNnZbNr8XotLbG+h1F+jOL0Hkb0Avr9U7fYBRpfR9C0mcxiQBR3s
- vMTD9J5x5SQw0X/qL4Os/hOqj2LHOa1MTSUUKJIb4NDus9wXA/2kpJ9BHnn9SLC4gw
- 1auncQlq+pWnfmu6Sf7Gd8Hf0QutCtTy+KqQdynzeHMD3cDRsYlcu6hbTs5fM0MRzR
- 2QGNBnbRrZdUQ==
-Date: Thu, 5 Nov 2026 10:15:08 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org, Russell King <linux@armlinux.org.uk>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- linux-samsung-soc@vger.kernel.org, Alison Wang <alison.wang@nxp.com>, 
- Stefan Agner <stefan@agner.ch>, Huacai Chen <chenhuacai@kernel.org>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
- Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Xi Ruoyao <xry111@xry111.site>, Geert Uytterhoeven <geert+renesas@glider.be>, 
- linux-renesas-soc@vger.kernel.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>, 
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- linux-tegra@vger.kernel.org, Alexey Brodkin <abrodkin@synopsys.com>, 
- Alex Lanzano <lanzano.alex@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
- David Airlie <airlied@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gerd Hoffmann <kraxel@redhat.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, virtualization@lists.linux.dev, 
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Melissa Wen <melissa.srw@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, 
- Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH v3 00/37] drm/connector: Convert all drivers to
- atomic_create_state and remove reset
-Message-ID: <auxJBtexUg6oHcs9@houat>
-References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 135CF1122AB;
+	Thu,  5 Nov 2026 09:32:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E148B10E2CD;
+ Thu,  5 Nov 2026 09:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793871151; x=1825407151;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=QTMUN2WITFlJPk4hSLu0WdmcyUC4quNKNvDGlMJCS3k=;
+ b=S/y9rS/Yvx+ZfusS5+AoNY1VivyRT4dbFolzrjLJI4Oso1uG6d+NQdFD
+ THodGjFYLQsxtx4oAQ5D4hbB2V56iI3AtSQ1JdnCJ30kuPLcXf+HY4hlC
+ w69G5j1rqeD5mi92IzhAGVROEnjvxHma2Npp9pDPPQZ+Cq1A+Y1xyMzpn
+ 22vHC5ZSngQRq8pKYImEei5+Nj5uy5gJQSLetpZ9PZwoO9f7bGcGSlxbO
+ r6CS/dwh6THu3+nq+iBncOoN+6RDimlNZOi2di4+WDpEBE8Dhgt0yoYDH
+ AuhXvUDFkVRi2ImcReuqRwfd5mxAz7swFhb6qxVDlf9xuQSOnEh1icTfk w==;
+X-CSE-ConnectionGUID: 5dqAS4KuScGvQDf0X1vKNQ==
+X-CSE-MsgGUID: t2bKEpBCTNSOF95hOIoeLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2552294"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2552294"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 01:32:29 -0800
+X-CSE-ConnectionGUID: OFMMOhNERK2l+5Z+dcV0wA==
+X-CSE-MsgGUID: ebvE+moKQd2pdg66IV7Qpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7030906"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.187])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 01:32:29 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 5/9] drm/i915/de: Introduce display->mmio.lock
+In-Reply-To: <20261104221842.18799-6-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261104221842.18799-1-ville.syrjala@linux.intel.com>
+ <20261104221842.18799-6-ville.syrjala@linux.intel.com>
+Date: Thu, 05 Nov 2026 11:32:25 +0200
+Message-ID: <e14bda43b109cc92c66277921b9d2cb31b8befce@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="2zvnwa2sqytkzb4j"
-Content-Disposition: inline
-In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,62 +68,329 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Thu, 05 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> Introduce our own display specific mmio.lock, and wrap
+> the more expensive non-fw register accesses with it. And
+> everything that explicitly takes the uncore.lock currently,
+> switch over to mmio.lock as well.
+>
+> This will preserve the same serialization behavior between
+> display registers as the uncore.lock is currently providing.
+> Once uncore.lock has actually been eliminated from display
+> registers (not the case yet) display vs. non-display
+> register accesses could happen in parallel. But that should
+> be fine since generally the registers for different hardware
+> units don't live on the same cacheline, so even concerns
+> about parallel accesses to the same cacheline potentially
+> hanging the machine (on IVB/HSW) should be assuaged.
+>
+> Currently uncore.lock usage is limited to SNB+ on i915.
+> The xe driver, and older platforms on the i915 driver
+> don't use uncore.lock. Follow the same rule for the mmio.lock
+> initially.
+>
+> With this we now end up with a double lock, or even a
+> triple lock due to i915's mmio debug lock. But we'll eliminate
+> the extra locks shortly. The end goal is either just mmio.lock
+> or no locks whatsoever. Well, ignoring the DMC wakelock stuff
+> that uses an additional lock as well.
+>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/i9xx_wm.c        |  9 ++-
+>  drivers/gpu/drm/i915/display/intel_de.c       | 69 +++++++++++++++++--
+>  .../gpu/drm/i915/display/intel_display_core.h |  9 +++
+>  drivers/gpu/drm/i915/display/intel_vblank.c   | 16 ++---
+>  4 files changed, 83 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i91=
+5/display/i9xx_wm.c
+> index 0233f5053d95..46bfada7c060 100644
+> --- a/drivers/gpu/drm/i915/display/i9xx_wm.c
+> +++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
+> @@ -1863,7 +1863,6 @@ static void vlv_atomic_update_fifo(struct intel_ato=
+mic_state *state,
+>  				   struct intel_crtc *crtc)
+>  {
+>  	struct intel_display *display =3D to_intel_display(crtc);
+> -	struct intel_uncore *uncore =3D to_intel_uncore(display->drm);
+>  	const struct intel_crtc_state *crtc_state =3D
+>  		intel_atomic_get_new_crtc_state(state, crtc);
+>  	const struct vlv_fifo_state *fifo_state =3D
+> @@ -1884,15 +1883,15 @@ static void vlv_atomic_update_fifo(struct intel_a=
+tomic_state *state,
+>  	trace_vlv_fifo_size(crtc, sprite0_start, sprite1_start, fifo_size);
+>=20=20
+>  	/*
+> -	 * uncore.lock serves a double purpose here. It allows us to
+> -	 * use the less expensive I915_{READ,WRITE}_FW() functions, and
+> +	 * display->mmio.lock serves a double purpose here. It allows us to
+> +	 * use the less expensive intel_de_{read,write}_fw() functions, and
+>  	 * it protects the DSPARB registers from getting clobbered by
+>  	 * parallel updates from multiple pipes.
+>  	 *
+>  	 * intel_pipe_update_start() has already disabled interrupts
+>  	 * for us, so a plain spin_lock() is sufficient here.
+>  	 */
+> -	spin_lock(&uncore->lock);
+> +	spin_lock(&display->mmio.lock);
+>=20=20
+>  	switch (crtc->pipe) {
+>  	case PIPE_A:
+> @@ -1952,7 +1951,7 @@ static void vlv_atomic_update_fifo(struct intel_ato=
+mic_state *state,
+>=20=20
+>  	intel_de_read_fw(display, DSPARB(display));
+>=20=20
+> -	spin_unlock(&uncore->lock);
+> +	spin_unlock(&display->mmio.lock);
+>  }
+>=20=20
+>  #undef VLV_FIFO
+> diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i9=
+15/display/intel_de.c
+> index 66de0d6be569..8b7a4e696ff9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_de.c
+> +++ b/drivers/gpu/drm/i915/display/intel_de.c
+> @@ -164,6 +164,7 @@ u16 intel_de_read16(struct intel_display *display, in=
+tel_reg_t reg)
+>  }
+>=20=20
+>  #define __MMIO_WAKELOCK		BIT(0)
+> +#define __MMIO_LOCK		BIT(1)
+>=20=20
+>  static __always_inline void
+>  __mmio_wakelock_pre(struct intel_display *display, intel_reg_t reg,
+> @@ -181,16 +182,35 @@ __mmio_wakelock_post(struct intel_display *display,=
+ intel_reg_t reg,
+>  		intel_dmc_wl_put(display, reg);
+>  }
+>=20=20
+> +static __always_inline void
+> +__mmio_lock_pre(struct intel_display *display, unsigned long *irqflags,
+> +		const unsigned int mmio_flags)
+> +{
+> +	if (mmio_flags & __MMIO_LOCK)
+> +		spin_lock_irqsave(&display->mmio.lock, *irqflags);
+> +}
+> +
+> +static __always_inline void
+> +__mmio_lock_post(struct intel_display *display, unsigned long irqflags,
+> +		 const unsigned int mmio_flags)
+> +{
+> +	if (mmio_flags & __MMIO_LOCK)
+> +		spin_unlock_irqrestore(&display->mmio.lock, irqflags);
+> +}
+> +
+>  static __always_inline u32
+>  __intel_de_read(struct intel_display *display, intel_reg_t reg,
+>  		const unsigned int mmio_flags)
+>  {
+> +	unsigned long irqflags;
+>  	u32 val;
+>=20=20
+>  	__mmio_wakelock_pre(display, reg, mmio_flags);
+> +	__mmio_lock_pre(display, &irqflags, mmio_flags);
+>=20=20
+>  	val =3D intel_uncore_read(__to_uncore(display), reg);
+>=20=20
+> +	__mmio_lock_post(display, irqflags, mmio_flags);
+>  	__mmio_wakelock_post(display, reg, mmio_flags);
+>=20=20
+>  	return val;
+> @@ -200,10 +220,14 @@ static __always_inline void
+>  __intel_de_write(struct intel_display *display, intel_reg_t reg, u32 val,
+>  		 const unsigned int mmio_flags)
+>  {
+> +	unsigned long irqflags;
+> +
+>  	__mmio_wakelock_pre(display, reg, mmio_flags);
+> +	__mmio_lock_pre(display, &irqflags, mmio_flags);
+>=20=20
+>  	intel_uncore_write(__to_uncore(display), reg, val);
+>=20=20
+> +	__mmio_lock_post(display, irqflags, mmio_flags);
+>  	__mmio_wakelock_post(display, reg, mmio_flags);
+>  }
+>=20=20
+> @@ -226,6 +250,25 @@ static const struct intel_mmio_funcs i9xx_mmio_funcs=
+ =3D {
+>  	.write =3D i9xx_mmio_write,
+>  };
+>=20=20
+> +#define SNB_MMIO_FLAGS __MMIO_LOCK
+> +
+> +static u32 snb_mmio_read(struct intel_display *display, intel_reg_t reg)
+> +{
+> +	return __intel_de_read(display, reg, SNB_MMIO_FLAGS);
+> +}
+> +
+> +static void snb_mmio_write(struct intel_display *display, intel_reg_t re=
+g, u32 val)
+> +{
+> +	__intel_de_write(display, reg, val, SNB_MMIO_FLAGS);
+> +}
+> +
+> +#undef SNB_MMIO_FLAGS
+> +
+> +static const struct intel_mmio_funcs snb_mmio_funcs =3D {
+> +	.read =3D snb_mmio_read,
+> +	.write =3D snb_mmio_write,
+> +};
+> +
+>  #define LNL_MMIO_FLAGS __MMIO_WAKELOCK
+>=20=20
+>  static u32 lnl_mmio_read(struct intel_display *display, intel_reg_t reg)
+> @@ -245,12 +288,30 @@ static const struct intel_mmio_funcs lnl_mmio_funcs=
+ =3D {
+>  	.write =3D lnl_mmio_write,
+>  };
+>=20=20
+> +static bool driver_is_i915(void)
+> +{
+> +#ifdef I915
+> +	return true;
+> +#else
+> +	return false;
+> +#endif
+> +}
 
---2zvnwa2sqytkzb4j
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 00/37] drm/connector: Convert all drivers to
- atomic_create_state and remove reset
-MIME-Version: 1.0
+Ugh. Can we just not add this, because it needs to go real soon now
+anyway? Or do you already have patches in your tree removing this after
+some juggle?
 
-On Fri, Oct 30, 2026 at 04:13:30PM +0100, Maxime Ripard wrote:
-> This is a follow-up to the plane and CRTC reset removal series, and
-> part of a larger effort to remove the reset hook from all KMS objects.
->=20
-> The connector reset hook is overloaded: it is called both at probe
-> time to create the initial software state and during suspend/resume to
-> reset hardware and software state. These two roles have different
-> requirements, and the reset hook is not fallible, making error
-> handling difficult for the initial state allocation path.
->=20
-> While reset has the semantics to reset both the software and hardware
-> state, the vast majority of implementations and all the helpers only
-> reset the software state, making them equivalent to
-> atomic_create_state in practice. The atomic_create_state hook makes
-> this explicit: it only allocates and initializes a pristine state
-> without any side effect, and returns the state pointer or an ERR_PTR
-> on failure.
->=20
-> This series converts all connector drivers tree-wide from the reset hook
-> to atomic_create_state, then removes the reset hook from struct
-> drm_connector_funcs entirely. The conversions were done using a
-> combination of Coccinelle semantic patches, mechanical one-line
-> replacements and manual adjustments.
->=20
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> +
+>  void intel_de_init(struct intel_display *display)
+>  {
+>  	display->mmio.uncore =3D to_intel_uncore(display->drm);
+>=20=20
+> -	if (DISPLAY_VER(display) >=3D 20)
+> -		display->mmio.funcs =3D &lnl_mmio_funcs;
+> -	else
+> -		display->mmio.funcs =3D &i9xx_mmio_funcs;
+> +	spin_lock_init(&display->mmio.lock);
+> +
+> +	if (driver_is_i915()) {
+> +		if (DISPLAY_VER(display) >=3D 6)
+> +			display->mmio.funcs =3D &snb_mmio_funcs;
+> +		else
+> +			display->mmio.funcs =3D &i9xx_mmio_funcs;
+> +	} else {
+> +		if (DISPLAY_VER(display) >=3D 20)
+> +			display->mmio.funcs =3D &lnl_mmio_funcs;
+> +		else
+> +			display->mmio.funcs =3D &i9xx_mmio_funcs;
+> +	}
 
-Applied to drm-misc-next
+If we temporarily need driver_is_i915() for the non-functional iterative
+approach, seems like a different arrangement of the if ladder would be
+benefitial for the eventual removal of driver_is_i915(), maybe something
+like:
 
-Maxime
+	if (DISPLAY_VER(display) >=3D 20)
+		display->mmio.funcs =3D &lnl_mmio_funcs;
+	else if (!driver_is_i915())
+		display->mmio.funcs =3D &i9xx_mmio_funcs;
+	else if (display->platform.valleyview || display->platform.cherryview)
+		display->mmio.funcs =3D &vlv_mmio_funcs;
+	else if (DISPLAY_VER(display) >=3D 7)
+		display->mmio.funcs =3D &ivb_mmio_funcs;
+	else if (DISPLAY_VER(display) >=3D 6)
+		display->mmio.funcs =3D &snb_mmio_funcs;
+	else
+		display->mmio.funcs =3D &i9xx_mmio_funcs;
 
---2zvnwa2sqytkzb4j
-Content-Type: application/pgp-signature; name="signature.asc"
+(This includes changes from later patches.)
 
------BEGIN PGP SIGNATURE-----
+I guess I'd like to see the decisions here (and in the vblank code) be
+based on platforms rather than driver, even though there's some overlap.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCauxJHAAKCRAnX84Zoj2+
-dpi6AYDFcyxVth1IfzYJl7Mk/wdU/UrwZChOoRG3vJ2c4jm3YXPwmaZCDBG4hPm/
-E3dp1WQBf2Htv+GDvQkXS9avpT+uRjkpFRqowDqfaE0gXWHKwBFuo13bOFi12DLC
-XPBNQCk6+w==
-=O+mF
------END PGP SIGNATURE-----
+>  }
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/=
+gpu/drm/i915/display/intel_display_core.h
+> index 3a48119f7890..aded2af8c92a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_core.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+> @@ -533,6 +533,15 @@ struct intel_display {
+>  	} modeset;
+>=20=20
+>  	struct {
+> +		/*
+> +		 * Simultaneous accesses to the same cacheline of
+> +		 * registers may hang IVB/HSW systems. This lock
+> +		 * serializes all display register accesses done
+> +		 * using intel_de_{read,write}(), but not those
+> +		 * done using intel_de_{read,write}_fw().
+> +		 */
+> +		spinlock_t lock;
+> +
 
---2zvnwa2sqytkzb4j--
+I guess the comment begs the question why are we doing the locking also
+on display < 20? Just because the lock is (ab)used for other purposes as
+well?
+
+>  		struct intel_uncore *uncore;
+>  		const struct intel_mmio_funcs *funcs;
+>  	} mmio;
+> diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/dr=
+m/i915/display/intel_vblank.c
+> index 1d4753605675..fc9d1e14ec87 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vblank.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+> @@ -281,10 +281,6 @@ static int __intel_get_crtc_scanline(struct intel_cr=
+tc *crtc)
+>  }
+>=20=20
+>  /*
+> - * The uncore version of the spin lock functions is used to decide
+> - * whether we need to lock the uncore lock or not.  This is only
+> - * needed in i915, not in Xe.
+> - *
+>   * This lock in i915 is needed because some old platforms (at least
+>   * IVB and possibly HSW as well), which are not supported in Xe, need
+>   * all register accesses to the same cacheline to be serialized,
+> @@ -292,17 +288,15 @@ static int __intel_get_crtc_scanline(struct intel_c=
+rtc *crtc)
+>   */
+>  #ifdef I915
+>  static void intel_vblank_section_enter(struct intel_display *display)
+> -	__acquires(uncore->lock)
+> +	__acquires(display->mmio.lock)
+>  {
+> -	struct intel_uncore *uncore =3D to_intel_uncore(display->drm);
+> -	spin_lock(&uncore->lock);
+> +	spin_lock(&display->mmio.lock);
+>  }
+>=20=20
+>  static void intel_vblank_section_exit(struct intel_display *display)
+> -	__releases(uncore->lock)
+> +	__releases(display->mmio.lock)
+>  {
+> -	struct intel_uncore *uncore =3D to_intel_uncore(display->drm);
+> -	spin_unlock(&uncore->lock);
+> +	spin_unlock(&display->mmio.lock);
+>  }
+>  #else
+>  static void intel_vblank_section_enter(struct intel_display *display)
+> @@ -550,7 +544,7 @@ void intel_crtc_update_active_timings(const struct in=
+tel_crtc_state *crtc_state,
+>  	 * consistent state during fastset seamless refresh rate changes.
+>  	 *
+>  	 * vblank_time_lock takes care of all drm_vblank.c stuff, and
+> -	 * uncore.lock takes care of __intel_get_crtc_scanline() which
+> +	 * display->mmio.lock takes care of __intel_get_crtc_scanline() which
+>  	 * may get called elsewhere as well.
+>  	 *
+>  	 * TODO maybe just protect everything (including
+
+--=20
+Jani Nikula, Intel
