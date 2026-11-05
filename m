@@ -2,123 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22ADB606D827
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A748606EEB5
 	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:06:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zg+N9Od5
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ul3wcDfo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD3F910FECD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5A4B10FB80;
 	Thu,  5 Nov 2026 14:06:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1258112372;
- Thu,  5 Nov 2026 11:39:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9849760F48;
- Thu,  5 Nov 2026 11:39:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511611F000C1;
- Thu,  5 Nov 2026 11:39:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793878764;
- bh=nBYw1ywhOZ/qkhjAQYbGVUhl6PlTBeWYLHkpD07E2JA=;
- h=From:To:Cc:Subject:Date;
- b=Zg+N9Od5zSsBpPaBLRFCUpb24UpOsG40XB2g0jmYK6PIQt6/NgQ6o2D2xIuTzZ/Yk
- n6qi1h1mcFVesVxnhwbMsmTUH1QB6RESQX4KKKY9qM5V5a1Qt34ympeOCATm10u+Qb
- KsD8LoDt+yYWFple6BRBYHS00aQXSP21UQIPEWU+iZu0aTrXsVViG1oSfnzN4lbid7
- +NtTSPHgZdaPtu4vtc2CGV3LS2PrgEkos8Ndw3PblxkRKOpgx3J0ri4gsEugrTYfHe
- 7DmN1Y0bubaFVVlSZVlcXHAXCWDlBUlRQw5uW10GtWu6zcyakaDEKVloKzQiGJGquJ
- mxbW2ns2oLR1g==
-From: Philipp Stanner <phasta@kernel.org>
-To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Heiko Stuebner <heiko@sntech.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Matthew Brost <matthew.brost@intel.com>,
- Natalie Vock <nat@pixelcluster.dev>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Neill Kapron <nkapron@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Sunil Khatri <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- David Rosca <david.rosca@amd.com>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Shixiong Ou <oushixiong@kylinos.cn>,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Al Viro <viro@zeniv.linux.org.uk>,
- Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
- Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.or
-Subject: [PATCH 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
-Date: Thu,  5 Nov 2026 12:35:27 +0100
-Message-ID: <20261105113529.1989375-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 775F710F04F
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 06:04:41 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-3b083afebe4so194020a91.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 22:04:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793858681; x=1794463481; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=YPu8h0jDpjB4vijwFawJAErayo8SO8CuvsZ0ZVqanQU=;
+ b=Ul3wcDfosVBqlZGOSZ5rcHsDD3MMJEld+jrjdyGYCIadOqQd0Mj6N/pctWIXOhXZ0+
+ jVi57lqrhb7G0aQq1WCw7AHHXWRWkfxHte20PQnT5ams4alcFcKOT1GE0/0V6KbZWWpu
+ oejLWIxHC2qGzUAxom1fYnnSbLv0XQIROpge6+zGGQRyKCi/6ltvOYlsjgL5mbf6O0sg
+ hfcUpmhW+ruCmO6FliHyNFqbzFTOBJIc0ewX3kNV2FkIORMrs5JwYfk1nOZxe6ak8IVo
+ +PszgmOFVdy6CX333iksuNllECHtm3we23TgX/IkiaeDsIwJQc3lQFuvAH/O2N1PCkGo
+ 5PxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793858681; x=1794463481;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YPu8h0jDpjB4vijwFawJAErayo8SO8CuvsZ0ZVqanQU=;
+ b=r34vC5Xta2rQ+FWOcbn5h9B/0CjLSLqFeB22nGytKscMRXE3MOo/uWtZt6ZNKr558Z
+ 1TY+put/J9XXOpstO0aYmR24es9FoLrMxeyJ52aiDcyArgIAphKNjahkQI2m5VbfAeYe
+ g7MSGG5f9kxkXURAqTMHNJM5a0JtBr/WmV1YhJ8eT8LdLxr2oxurk5kpEcEkcGg3gTre
+ 0A4+Z1b/q1iRl4DaBRQ6/uqe+6N94aICl+Fz1um33StzDm+660InaIkCUjRdIRjX1Jp+
+ fOZgFpFqV3G38Rv+hlbIV/CRGZcYfPlvrSknvpBcSLZ5R3JsD8vjUfUvZ8oxFJi6rNsC
+ cSTg==
+X-Gm-Message-State: APuU4Z/XXVssfXJghBXIJt1QJI0ZKEkFR78OB/pqgc7se6SvGafpA8GZ
+ z6Ntz0KQ2PMcY/kZSDxuBikpleNhPx+jW+b9XxJ1oMPsKn19fwGOAN4xwaPx2w==
+X-Gm-Gg: AYBFou1vkZscXlLgZInw0Ac42oM4isptBBJAxID7XGrD7qObiUDmVNPFqn1cC+jG/3w
+ npE9wjEhJaSA5s/oyMkeWf47dex3uxj1s43lNQRHsyHUFAoWodbMlo2HH+F+aPf4zBN7k22xXNu
+ vBwISelr/S9S0Rzxxat9KjNHVZ2pXIPwO/s+xahgx7tqmc0ADwgCMB6tLTyUDpBb0DqIPA0IUCU
+ iVnrAsrVfUc9+sgSnaPsDsd0Ht9dAeqiwWgmcDP88kzSrnu9qo3zRXfYORze+XPKdNP8bsO3DT2
+ AUsT8xrRSSyp5dumz8JwOcduom8gpX0O+DA1h6zNGsGPyl7rMXK9Ef7OnPRDmFWlxXq7wQxSQMx
+ 1tqBhBWnvTQbO/Q4mzIW/SQ5FYA7uwt2pc//sy6MxQtqgAfCVENd+1bWNuZ7rohD4NNyNveoiO0
+ f1PdgSvc3z38N+yh/ZQMiWGjVI/9EENpjkqxEL5XXUmgpeJbEjqf9mP20p3GPtuSfcxnIDOEzWd
+ p/57PcOZKGl2FlDbLaEkk+JmjII7I59U0gGv9gYEu+lCIlTHpFp/sJDdY2WIkzXupCfpYMIFGeX
+ Hu0QZiIbN5KOMu1btAOdDxo2Pn1AKZX5zLbGBf2kaQ==
+X-Received: by 2002:a17:90b:1652:b0:3ac:a7ee:6785 with SMTP id
+ 98e67ed59e1d1-3ae895a0406mr26169727a91.1.1793858680988; 
+ Wed, 04 Nov 2026 22:04:40 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b0b313c0dcsm2093100a91.1.2026.11.04.22.04.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2026 22:04:40 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, stable@vger.kernel.org,
+ Chengyu Liu <lui2012qwq@gmail.com>
+Subject: [PATCH v2 1/2] i915/gt: don't store ERR_PTR into ppgtt->base.pd on
+ allocation failure
+Date: Thu,  5 Nov 2026 14:04:21 +0800
+Message-Id: <20261105060422.51848-2-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261105060422.51848-1-lui2012qwq@gmail.com>
+References: <20261105060422.51848-1-lui2012qwq@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -134,95 +87,72 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-We recently had a discussion about reworking dma_fence init to close a
-race-window [1].
+gen6_ppgtt_create() stores the result of gen6_alloc_top_pd() directly
+into ppgtt->base.pd, and on failure the ERR_PTR stays in the field.
+i915_vm_put() runs vm->cleanup = gen6_ppgtt_cleanup(), where
+gen6_ppgtt_free_pd() dereferences pd via gen6_for_all_pdes() - with an
+ERR_PTR that is an invalid dereference and a crash (in the async
+release worker).
 
-The community agreement seems to have been that we can get rid of
-dma_fence_init64(), so let's do that already. In the meantime we can
-continue our discussions regarding the race in [1].
+Assign to a local first and store into the field only after it is
+validated, so the field never holds an error pointer; on the failure
+path it stays NULL, and gen6_ppgtt_free_pd() now bails out on a NULL
+pd.
 
-This also touches the Rust dma_fence, which actually should use 64-bit
-seqnos (was forgotten so far). Rust fence has no users currently, so
-needs no backporting, so I would like to address that in a distinct
-patch.
+Found by static analysis.
 
-Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
-the USER flag, so I hope we're fine.
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-
-P.
-
-[1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@kernel.org/
-
-
-Philipp Stanner (3):
-  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
-  dma-buf: Port users of dma_fence_init64()
-  dma-buf: dma-fence: Remove dma_fence_init64()
-
- drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
- drivers/accel/ethosu/ethosu_job.c             |  2 +-
- drivers/accel/ivpu/ivpu_job.c                 |  2 +-
- drivers/accel/rocket/rocket_job.c             |  2 +-
- drivers/dma-buf/dma-fence-array.c             |  2 +-
- drivers/dma-buf/dma-fence-chain.c             |  4 +-
- drivers/dma-buf/dma-fence.c                   | 58 +++++++++----------
- drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
- drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
- drivers/dma-buf/st-dma-fence.c                |  2 +-
- drivers/dma-buf/st-dma-resv.c                 |  2 +-
- drivers/dma-buf/sw_sync.c                     |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
- .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
- .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
- drivers/gpu/drm/drm_crtc.c                    |  2 +-
- drivers/gpu/drm/drm_writeback.c               |  2 +-
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
- drivers/gpu/drm/i915/i915_request.c           |  2 +-
- drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
- drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
- .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
- drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
- drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
- drivers/gpu/drm/lima/lima_sched.c             |  2 +-
- drivers/gpu/drm/msm/msm_fence.c               |  2 +-
- drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
- drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
- drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
- drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
- drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
- drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
- .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
- drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
- .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
- drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
- drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
- drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
- drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
- drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
- drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
- drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
- drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
- drivers/gpu/host1x/fence.c                    |  2 +-
- drivers/iio/industrialio-buffer.c             |  2 +-
- drivers/usb/gadget/function/f_fs.c            |  2 +-
- include/linux/dma-fence.h                     | 14 +++--
- rust/kernel/dma_buf/dma_fence.rs              |  2 +-
- 52 files changed, 95 insertions(+), 94 deletions(-)
-
-
-base-commit: 8258a37702b9b9cf27f5c0ea07625e3e6bd74f5a
+diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+index 438cd4724ac4..f747ee1f96d7 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+@@ -259,6 +259,9 @@ static void gen6_ppgtt_free_pd(struct gen6_ppgtt *ppgtt)
+ 	struct i915_page_table *pt;
+ 	u32 pde;
+ 
++	if (!pd)
++		return;
++
+ 	gen6_for_all_pdes(pt, pd, pde)
+ 		if (pt)
+ 			free_pt(&ppgtt->base.vm, pt);
+@@ -427,6 +430,7 @@ void gen6_ppgtt_unpin(struct i915_ppgtt *base)
+ 
+ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
+ {
++	struct i915_page_directory *pd;
+ 	struct i915_ggtt * const ggtt = gt->ggtt;
+ 	struct gen6_ppgtt *ppgtt;
+ 	int err;
+@@ -455,11 +459,12 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
+ 	if (err)
+ 		goto err_put;
+ 
+-	ppgtt->base.pd = gen6_alloc_top_pd(ppgtt);
+-	if (IS_ERR(ppgtt->base.pd)) {
+-		err = PTR_ERR(ppgtt->base.pd);
++	pd = gen6_alloc_top_pd(ppgtt);
++	if (IS_ERR(pd)) {
++		err = PTR_ERR(pd);
+ 		goto err_put;
+ 	}
++	ppgtt->base.pd = pd;
+ 
+ 	return &ppgtt->base;
+ 
 -- 
-2.56.0
+2.25.1
 
