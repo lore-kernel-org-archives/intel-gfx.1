@@ -2,162 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0925606A31B
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:35:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DA6606A31B
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:43:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fzfhnCGS;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JFXfKm2c
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wlv6jVUD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C471A10E899;
-	Thu,  5 Nov 2026 13:35:20 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51CBC10E1C0
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 13:35:09 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A5B3Le53193493
- for <intel-gfx@lists.freedesktop.org>; Thu, 5 Nov 2026 13:35:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=C6les2P6C3VYvsc8kD6y8hS8
- 7HftniHxNnR9mHrsnsE=; b=fzfhnCGS61R5KeLTKzhUcDeAl/a29wFH1O5NR8ZL
- Iw6z2btcm6+JaEDnK9eSRH8JWClTBhbiW1AFYg/luuhSwwunNo2lkKeM8EYe8rvZ
- TV7x7CaQX3OrmcH16RuJqyNZaCGDINouoX1PTlszEStB77ayp7XVqjs4moIZ4Xso
- E6/GKvXrqnzlh6tuy2aaE4RkQ/asZV+KBiDYP4qK9qy4XiIAloPmt7N3Uj5FTN0f
- HCbfzWU/oCCQ7Jmpz8VKhvc9YoBR8esCIXqkfvzL9IGE8Mvw/QTBa0j286UPKh9Y
- aM/5s7PwOIzIj6WL90/6ma44jvKpdaijgodIthb/ysITBA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrrkdrmx3-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Nov 2026 13:35:08 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93cbf2fd504so370350885a.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Nov 2026 05:35:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793885708; x=1794490508;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=C6les2P6C3VYvsc8kD6y8hS87HftniHxNnR9mHrsnsE=;
- b=JFXfKm2caeL45rU6qXn/1/q2iRxI/Lv3cIwEyDz3MiMjfaGBh4OMIzsxra8ES0Ce0A
- W5mEcwr+0j9LCE/Ecee4wsbZXN/8KKfLaeZxXUAfDMsEag0O6F7RELOsg/iCHPr7wNUS
- VAEOw9hk6j8+8AugyMBf7LdPrdYIWDEDW9JQmlAMOVxPA6PtebIqCdzUeaJNDA3XW6ae
- MPOZb8jO7F1J4VoP+FZ+zSrgqwOW3o5/NFBFZxdZfTnh3r1J4eTTGy9V5V8KOWGmZ+Tj
- QYZVXwVIxe2ECy7kt2uWZBe1EnHq2rOHxckMgy/pIhIV+5ToIHKELm81/x4vINU+iqV7
- dO3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793885708; x=1794490508;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=C6les2P6C3VYvsc8kD6y8hS87HftniHxNnR9mHrsnsE=;
- b=iiisFxmFUqQqNXnV8Z7IoPl43pYFNUYBFBKxGRkhc6kEPJ0COPAQnBZoOmhqQDSFfT
- 4aKXCugUe2p6nOXyZfVL7rDeu967EoXBJ+2pBnqs/tB5wZlxyQvb/FhT7kFxtbIkXjY+
- 6STgHO+kUP2zh3B1X3n8Khd9iNUZv3tnOjX39HrujIT17K7AxQkVXL1OYhN1FdSZIqE/
- Dlwh+2l/qsv6kRRuK4Ctb9qlqrONagSxLFmupAu0oWWlh88cInL6q3FRBMhvTOyHnEAO
- 8eYNfl0vettHZNsuuLQDd0wDlbbVbx/UEzMOQu3GR1mDnqp2HhhTiS/WZQRwslY3ANPe
- nldQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw6XCwusgyUaUaDV+0amoAcJGRWh2LgGPHz4sy1zVpKe92/QHR9yuu8sZ/JOXZiWD2oqgDZCBmH/mc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9Oc4n0H/egpH8XQQtzNoorSzNXOAN/eVcPpE9XpNqUdPsbE046
- UHqILAmgQIqc0uLGi6Bfujd8zVyDYS0nv5qXTF0ucjKJmC9VEBq/9qcHaq4rOKVb/MgzWYM5Rl5
- klEGj4fGksCM8BIX2o3MuYAh2Tt7rFlawlEpnbe2xeGlRzFVBmUkKEcJiI3LpqpsanmhzBvI=
-X-Gm-Gg: AYBFou1qjEAemKAKylhMr0Ek0mB5zRVXuy7nfivezAT84MQ5oJSwClcvYtdHEB7wh47
- NU+d4KpY+hBcu3qGFEyIaNZrMv54BRsBLDknpRr9gQyU81NE8ql93WZBGQzOOvVxbl0S4MMInCK
- BmNmr2TdiYeoLNTAjtNODCkEVgXCSx2zmXmVOwT3MVD806LbMlWBe5Ckiv0fU5jkmg5iGkFmD+G
- nrCdcA6y6kZfLEUj6hQIK13qkz1xK0f4jPGIb3yhpvwBYlK9jbqxFgAg+VrXdHgLxVskg9BXXJJ
- QzKT3RoARfF2WDzU7uYGJZ/UEFEBpSG7fiIzR+jioJQ662r/USA2To0zcmskdhqnR2nVGpYPI/0
- R+HSYLabMlJzYRtgeFIBXHDyJxYDvvI7si/0/i3ZkkRuB7AkcQM5JN1OU2Uh1VlfgQ0/RhgMBTz
- Jysol/o9pxNp+aO+bxgqxsAxQaWdGDZXvOmzvaUmYhLsa2KFP4JPZGJgTMyJKy
-X-Received: by 2002:a05:620a:a905:b0:945:b9c8:de5a with SMTP id
- af79cd13be357-945b9c8dedbmr1578449185a.20.1793885707639; 
- Thu, 05 Nov 2026 05:35:07 -0800 (PST)
-X-Received: by 2002:a05:620a:a905:b0:945:b9c8:de5a with SMTP id
- af79cd13be357-945b9c8dedbmr1578445985a.20.1793885707078; 
- Thu, 05 Nov 2026 05:35:07 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3acdc6e07fdsm10695471fa.28.2026.11.05.05.35.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2026 05:35:05 -0800 (PST)
-Date: Thu, 5 Nov 2026 15:35:03 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Francesco Dolcini <francesco@dolcini.it>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v8 5/9] drm/bridge: aux-hpd: let drivers pass IRQ_HPD
- events
-Message-ID: <6x7dtyvhbk22ri6nnpuo5jpk2ijphaebgbbchoramc4fhnvgjl@slhivetxacte>
-References: <20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com>
- <20261024-hpd-irq-events-v8-5-6ee949e7a384@oss.qualcomm.com>
- <179387924494.1025980.3024349339803589757.b4-review@b4>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B241112447;
+	Thu,  5 Nov 2026 13:43:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4266710E14B;
+ Thu,  5 Nov 2026 13:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793886221; x=1825422221;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=aKuGAb5ubV8sRuf+5o1waPKj5iXP4+iOJY4uENXRg+I=;
+ b=Wlv6jVUDVcbHSBvWJcKhJ1Y+LKR/CkMhE3FCFrsGkfVaqWS31+ST21bG
+ TSy07UL0TXjsiz8OUyRmqOSrWIYEfAFI0NIGY3H0fqUhBZp5GXh6K0UUE
+ bejCjU5HqJQOPbr8/06KlGfOgA+NPzH2kEwMakYao30+1OAtx9+c+t4yy
+ M8va+Edz5tOY+w3GODhgqp928ZGUhv6EMjlEmcVRmNI7D/EDcw76swdNj
+ Dl5PG0z59QMq0RzIyrOJvm9Y9xH5FmT8yAijjVOTq/jpefXN1SAD8N/oK
+ 9SKZZjgQXWFaLCaisGuD4lRAk/IF89CckfM/jpm5a8Mw/T+X7nlEmNUYK A==;
+X-CSE-ConnectionGUID: b1KtJC7OR6mZ8TxwumT/aw==
+X-CSE-MsgGUID: 7CFMDW7ET9qQY0V4gN8UAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2666236"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2666236"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 05:43:41 -0800
+X-CSE-ConnectionGUID: R5yBValnTFybuz0GtgG1Gw==
+X-CSE-MsgGUID: gPKtTWpvTqW4TYdWJ3GQ1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7177019"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.198])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 05:43:39 -0800
+Date: Thu, 5 Nov 2026 15:43:36 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 5/9] drm/i915/de: Introduce display->mmio.lock
+Message-ID: <auyICBzA2aa9hHBw@intel.com>
+References: <20261104221842.18799-1-ville.syrjala@linux.intel.com>
+ <20261104221842.18799-6-ville.syrjala@linux.intel.com>
+ <e14bda43b109cc92c66277921b9d2cb31b8befce@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <179387924494.1025980.3024349339803589757.b4-review@b4>
-X-Authority-Analysis: v=2.4 cv=Xd4cX455 c=1 sm=1 tr=0 ts=6aec860c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=P-IC7800AAAA:8
- a=oSBH3dYeosbuySqTTykA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
- a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: fWrjSec9GvJivRewo_p30GPyfcw2Nn5b
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1NCBTYWx0ZWRfXy5zzUvMjVxbj
- dpWcNlHXZKOhUOFbsz5nyEPqQF0yVcKWkKKvCIFRgfdYHmWSzNsv+B2601GDzhldGGaBNURz6ip
- dcchZJCZT8+8S4tOVcJ3B3PpawOjvfs=
-X-Proofpoint-GUID: fWrjSec9GvJivRewo_p30GPyfcw2Nn5b
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1NCBTYWx0ZWRfX9G2xuuGeluYD
- JqqKB343rQOev0zY3yfDLTNbCBP1UeQDIEYJh/SPHQgBfVhP9rDs3BuJQ8yX83J+zaeHeIQKaDA
- 0ggyFySY6rSMwMLfMsbXrCZsrHb+C8z6rcy3ZU4eTbaRBbVeRrmoloikUQmAZTVbJtXD+GltJON
- x6bFzD9tvI7n1rPbzhd3rrrNujY22lEJcmIaXSeYy0Ivm9X8FFkqCRFf3XuF2qReHhcU+F71nvS
- dxRrzIxmqG4+ejkKLD0raVHdGnZtuoxD5YSl+eUS7rRtB9tij5zfYO6FR+x6g6PtZUgnx9wroTf
- ybTnw4mzcaw1lxpnT8cSfWRdSiR7B35g/HfbcsiyCuIeETugEoKanjG+0bRn5W3xi+SLZGncF5o
- y6Xt238vwRegXEWHBzoyPzHeaFPotabOgCcgIOSzT+sKT0rmjj0NMDO1+JJZm6h5t8JvhjbThK9
- ry2knZe+UabxzKQIIJA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0 spamscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050054
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e14bda43b109cc92c66277921b9d2cb31b8befce@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,37 +70,361 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 05, 2026 at 12:47:24PM +0100, Luca Ceresoli wrote:
-> > The DisplayPort standard defines a special kind of HPD events called
-> > IRQ_HPD. These events are used to notify DP Source about the events on
-> > the Sink side.
+On Thu, Nov 05, 2026 at 11:32:25AM +0200, Jani Nikula wrote:
+> On Thu, 05 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > >
-> > Let users of aux-hpd, the UCSI and PMIC GLINK drivers pass the IRQ_HPD
-> > events to the DisplayPort drivers.
+> > Introduce our own display specific mmio.lock, and wrap
+> > the more expensive non-fw register accesses with it. And
+> > everything that explicitly takes the uncore.lock currently,
+> > switch over to mmio.lock as well.
 > >
-> > The drm_aux_hpd_bridge_notify() is kept to ease merging of the series,
-> > preventing extra cross-tree merges. It will be removed once all
-> > drivers are converted. The drm_bridge_hpd_notify() function is kept for
-> > the drivers which only care about the connector status and will always
-> > pass DRM_CONNECTOR_NO_EXTRA_STATUS as the extra status.
+> > This will preserve the same serialization behavior between
+> > display registers as the uncore.lock is currently providing.
+> > Once uncore.lock has actually been eliminated from display
+> > registers (not the case yet) display vs. non-display
+> > register accesses could happen in parallel. But that should
+> > be fine since generally the registers for different hardware
+> > units don't live on the same cacheline, so even concerns
+> > about parallel accesses to the same cacheline potentially
+> > hanging the machine (on IVB/HSW) should be assuaged.
+> >
+> > Currently uncore.lock usage is limited to SNB+ on i915.
+> > The xe driver, and older platforms on the i915 driver
+> > don't use uncore.lock. Follow the same rule for the mmio.lock
+> > initially.
+> >
+> > With this we now end up with a double lock, or even a
+> > triple lock due to i915's mmio debug lock. But we'll eliminate
+> > the extra locks shortly. The end goal is either just mmio.lock
+> > or no locks whatsoever. Well, ignoring the DMC wakelock stuff
+> > that uses an additional lock as well.
+> >
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/i9xx_wm.c        |  9 ++-
+> >  drivers/gpu/drm/i915/display/intel_de.c       | 69 +++++++++++++++++--
+> >  .../gpu/drm/i915/display/intel_display_core.h |  9 +++
+> >  drivers/gpu/drm/i915/display/intel_vblank.c   | 16 ++---
+> >  4 files changed, 83 insertions(+), 20 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i915/display/i9xx_wm.c
+> > index 0233f5053d95..46bfada7c060 100644
+> > --- a/drivers/gpu/drm/i915/display/i9xx_wm.c
+> > +++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
+> > @@ -1863,7 +1863,6 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+> >  				   struct intel_crtc *crtc)
+> >  {
+> >  	struct intel_display *display = to_intel_display(crtc);
+> > -	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+> >  	const struct intel_crtc_state *crtc_state =
+> >  		intel_atomic_get_new_crtc_state(state, crtc);
+> >  	const struct vlv_fifo_state *fifo_state =
+> > @@ -1884,15 +1883,15 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+> >  	trace_vlv_fifo_size(crtc, sprite0_start, sprite1_start, fifo_size);
+> >  
+> >  	/*
+> > -	 * uncore.lock serves a double purpose here. It allows us to
+> > -	 * use the less expensive I915_{READ,WRITE}_FW() functions, and
+> > +	 * display->mmio.lock serves a double purpose here. It allows us to
+> > +	 * use the less expensive intel_de_{read,write}_fw() functions, and
+> >  	 * it protects the DSPARB registers from getting clobbered by
+> >  	 * parallel updates from multiple pipes.
+> >  	 *
+> >  	 * intel_pipe_update_start() has already disabled interrupts
+> >  	 * for us, so a plain spin_lock() is sufficient here.
+> >  	 */
+> > -	spin_lock(&uncore->lock);
+> > +	spin_lock(&display->mmio.lock);
+> >  
+> >  	switch (crtc->pipe) {
+> >  	case PIPE_A:
+> > @@ -1952,7 +1951,7 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+> >  
+> >  	intel_de_read_fw(display, DSPARB(display));
+> >  
+> > -	spin_unlock(&uncore->lock);
+> > +	spin_unlock(&display->mmio.lock);
+> >  }
+> >  
+> >  #undef VLV_FIFO
+> > diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
+> > index 66de0d6be569..8b7a4e696ff9 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_de.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_de.c
+> > @@ -164,6 +164,7 @@ u16 intel_de_read16(struct intel_display *display, intel_reg_t reg)
+> >  }
+> >  
+> >  #define __MMIO_WAKELOCK		BIT(0)
+> > +#define __MMIO_LOCK		BIT(1)
+> >  
+> >  static __always_inline void
+> >  __mmio_wakelock_pre(struct intel_display *display, intel_reg_t reg,
+> > @@ -181,16 +182,35 @@ __mmio_wakelock_post(struct intel_display *display, intel_reg_t reg,
+> >  		intel_dmc_wl_put(display, reg);
+> >  }
+> >  
+> > +static __always_inline void
+> > +__mmio_lock_pre(struct intel_display *display, unsigned long *irqflags,
+> > +		const unsigned int mmio_flags)
+> > +{
+> > +	if (mmio_flags & __MMIO_LOCK)
+> > +		spin_lock_irqsave(&display->mmio.lock, *irqflags);
+> > +}
+> > +
+> > +static __always_inline void
+> > +__mmio_lock_post(struct intel_display *display, unsigned long irqflags,
+> > +		 const unsigned int mmio_flags)
+> > +{
+> > +	if (mmio_flags & __MMIO_LOCK)
+> > +		spin_unlock_irqrestore(&display->mmio.lock, irqflags);
+> > +}
+> > +
+> >  static __always_inline u32
+> >  __intel_de_read(struct intel_display *display, intel_reg_t reg,
+> >  		const unsigned int mmio_flags)
+> >  {
+> > +	unsigned long irqflags;
+> >  	u32 val;
+> >  
+> >  	__mmio_wakelock_pre(display, reg, mmio_flags);
+> > +	__mmio_lock_pre(display, &irqflags, mmio_flags);
+> >  
+> >  	val = intel_uncore_read(__to_uncore(display), reg);
+> >  
+> > +	__mmio_lock_post(display, irqflags, mmio_flags);
+> >  	__mmio_wakelock_post(display, reg, mmio_flags);
+> >  
+> >  	return val;
+> > @@ -200,10 +220,14 @@ static __always_inline void
+> >  __intel_de_write(struct intel_display *display, intel_reg_t reg, u32 val,
+> >  		 const unsigned int mmio_flags)
+> >  {
+> > +	unsigned long irqflags;
+> > +
+> >  	__mmio_wakelock_pre(display, reg, mmio_flags);
+> > +	__mmio_lock_pre(display, &irqflags, mmio_flags);
+> >  
+> >  	intel_uncore_write(__to_uncore(display), reg, val);
+> >  
+> > +	__mmio_lock_post(display, irqflags, mmio_flags);
+> >  	__mmio_wakelock_post(display, reg, mmio_flags);
+> >  }
+> >  
+> > @@ -226,6 +250,25 @@ static const struct intel_mmio_funcs i9xx_mmio_funcs = {
+> >  	.write = i9xx_mmio_write,
+> >  };
+> >  
+> > +#define SNB_MMIO_FLAGS __MMIO_LOCK
+> > +
+> > +static u32 snb_mmio_read(struct intel_display *display, intel_reg_t reg)
+> > +{
+> > +	return __intel_de_read(display, reg, SNB_MMIO_FLAGS);
+> > +}
+> > +
+> > +static void snb_mmio_write(struct intel_display *display, intel_reg_t reg, u32 val)
+> > +{
+> > +	__intel_de_write(display, reg, val, SNB_MMIO_FLAGS);
+> > +}
+> > +
+> > +#undef SNB_MMIO_FLAGS
+> > +
+> > +static const struct intel_mmio_funcs snb_mmio_funcs = {
+> > +	.read = snb_mmio_read,
+> > +	.write = snb_mmio_write,
+> > +};
+> > +
+> >  #define LNL_MMIO_FLAGS __MMIO_WAKELOCK
+> >  
+> >  static u32 lnl_mmio_read(struct intel_display *display, intel_reg_t reg)
+> > @@ -245,12 +288,30 @@ static const struct intel_mmio_funcs lnl_mmio_funcs = {
+> >  	.write = lnl_mmio_write,
+> >  };
+> >  
+> > +static bool driver_is_i915(void)
+> > +{
+> > +#ifdef I915
+> > +	return true;
+> > +#else
+> > +	return false;
+> > +#endif
+> > +}
 > 
-> Do you have a plan to later convert all drm_bridge_hpd_notify() to the new
-> _extra() variant, then remove drm_bridge_hpd_notify() and eventually rename
-> drm_bridge_hpd_notify_extra() to drm_bridge_hpd_notify()?
+> Ugh. Can we just not add this, because it needs to go real soon now
+> anyway? Or do you already have patches in your tree removing this after
+> some juggle?
 
-I'd say, only if they require the extra status. Otherwise, it's just a
-noise which is perfectly handled by the wrapper.
+One could just kill it now, but that will bring the lock and
+unclaimed register detection to xe. I didn't want to do such
+a drastic change in this ones series.
 
 > 
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> > +
+> >  void intel_de_init(struct intel_display *display)
+> >  {
+> >  	display->mmio.uncore = to_intel_uncore(display->drm);
+> >  
+> > -	if (DISPLAY_VER(display) >= 20)
+> > -		display->mmio.funcs = &lnl_mmio_funcs;
+> > -	else
+> > -		display->mmio.funcs = &i9xx_mmio_funcs;
+> > +	spin_lock_init(&display->mmio.lock);
+> > +
+> > +	if (driver_is_i915()) {
+> > +		if (DISPLAY_VER(display) >= 6)
+> > +			display->mmio.funcs = &snb_mmio_funcs;
+> > +		else
+> > +			display->mmio.funcs = &i9xx_mmio_funcs;
+> > +	} else {
+> > +		if (DISPLAY_VER(display) >= 20)
+> > +			display->mmio.funcs = &lnl_mmio_funcs;
+> > +		else
+> > +			display->mmio.funcs = &i9xx_mmio_funcs;
+> > +	}
+> 
+> If we temporarily need driver_is_i915() for the non-functional iterative
+> approach, seems like a different arrangement of the if ladder would be
+> benefitial for the eventual removal of driver_is_i915(), maybe something
+> like:
+> 
+> 	if (DISPLAY_VER(display) >= 20)
+> 		display->mmio.funcs = &lnl_mmio_funcs;
+> 	else if (!driver_is_i915())
+> 		display->mmio.funcs = &i9xx_mmio_funcs;
+> 	else if (display->platform.valleyview || display->platform.cherryview)
+> 		display->mmio.funcs = &vlv_mmio_funcs;
+> 	else if (DISPLAY_VER(display) >= 7)
+> 		display->mmio.funcs = &ivb_mmio_funcs;
+> 	else if (DISPLAY_VER(display) >= 6)
+> 		display->mmio.funcs = &snb_mmio_funcs;
+> 	else
+> 		display->mmio.funcs = &i9xx_mmio_funcs;
+> 
+> (This includes changes from later patches.)
+
+Feels like that makes the driver difference really hard to see, so
+a casual reading of the code may give one the wrong impression of
+what is happening. But I'll not die on that hill, so can go with
+the single if ladder if you prefer. It should be a fairly short lived
+state of affairs anyway.
+
+> 
+> I guess I'd like to see the decisions here (and in the vblank code) be
+> based on platforms rather than driver, even though there's some overlap.
+
+The driver difference will go away eventually. That said, I need
+to have a real look at the vblank code's use of the lock to figure
+out what to about that part. Might be I just end up removing the lock
+there.
+
+> 
+> >  }
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+> > index 3a48119f7890..aded2af8c92a 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_core.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+> > @@ -533,6 +533,15 @@ struct intel_display {
+> >  	} modeset;
+> >  
+> >  	struct {
+> > +		/*
+> > +		 * Simultaneous accesses to the same cacheline of
+> > +		 * registers may hang IVB/HSW systems. This lock
+> > +		 * serializes all display register accesses done
+> > +		 * using intel_de_{read,write}(), but not those
+> > +		 * done using intel_de_{read,write}_fw().
+> > +		 */
+> > +		spinlock_t lock;
+> > +
+> 
+> I guess the comment begs the question why are we doing the locking also
+> on display < 20? Just because the lock is (ab)used for other purposes as
+> well?
+
+The reason is that i915 has always used the lock on SNB+, so
+we simply have no empirical data to tell us whether the more
+recent platforms might still suffer from the same issue that
+was observed on IVB/HSW before the lock was introduced.
+
+I did a quick test run with the old 'xonotic + old version of
+intel_gpu_top' reproducer, and sure enough IVB/HSW hang within
+a reasonable amount of time. I also left that running on SNB 
+and BDW for most of the day without hitting the hang. So I guess
+that might be an indication that the problem is indeed real
+but limited to IVB/HSW. Unfortunately the hsd is long gone
+so I can't actually check what conclusions they reached there.
+
+So my plan is to start by playing it safe without major
+changes to the locking behaviour. And then follow up with
+(easily revertable) changes to remove the lock from platforms
+that we suspect don't need it.
+
+But I also still need to figure out if making the unclaimed
+register detection lockless is feasible. Otherwise we'll
+be stuck with the lock for all HSW+ regardless of any
+hardware issues.
+
+> 
+> >  		struct intel_uncore *uncore;
+> >  		const struct intel_mmio_funcs *funcs;
+> >  	} mmio;
+> > diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+> > index 1d4753605675..fc9d1e14ec87 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_vblank.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+> > @@ -281,10 +281,6 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
+> >  }
+> >  
+> >  /*
+> > - * The uncore version of the spin lock functions is used to decide
+> > - * whether we need to lock the uncore lock or not.  This is only
+> > - * needed in i915, not in Xe.
+> > - *
+> >   * This lock in i915 is needed because some old platforms (at least
+> >   * IVB and possibly HSW as well), which are not supported in Xe, need
+> >   * all register accesses to the same cacheline to be serialized,
+> > @@ -292,17 +288,15 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
+> >   */
+> >  #ifdef I915
+> >  static void intel_vblank_section_enter(struct intel_display *display)
+> > -	__acquires(uncore->lock)
+> > +	__acquires(display->mmio.lock)
+> >  {
+> > -	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+> > -	spin_lock(&uncore->lock);
+> > +	spin_lock(&display->mmio.lock);
+> >  }
+> >  
+> >  static void intel_vblank_section_exit(struct intel_display *display)
+> > -	__releases(uncore->lock)
+> > +	__releases(display->mmio.lock)
+> >  {
+> > -	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+> > -	spin_unlock(&uncore->lock);
+> > +	spin_unlock(&display->mmio.lock);
+> >  }
+> >  #else
+> >  static void intel_vblank_section_enter(struct intel_display *display)
+> > @@ -550,7 +544,7 @@ void intel_crtc_update_active_timings(const struct intel_crtc_state *crtc_state,
+> >  	 * consistent state during fastset seamless refresh rate changes.
+> >  	 *
+> >  	 * vblank_time_lock takes care of all drm_vblank.c stuff, and
+> > -	 * uncore.lock takes care of __intel_get_crtc_scanline() which
+> > +	 * display->mmio.lock takes care of __intel_get_crtc_scanline() which
+> >  	 * may get called elsewhere as well.
+> >  	 *
+> >  	 * TODO maybe just protect everything (including
+> 
+> -- 
+> Jani Nikula, Intel
 
 -- 
-With best wishes
-Dmitry
+Ville Syrjälä
+Intel
