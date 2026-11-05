@@ -2,54 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F041F606A32F
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=FUhC5hHF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00490606A31B
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:12:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFB1F112496;
-	Thu,  5 Nov 2026 14:06:25 +0000 (UTC)
-X-Greylist: delayed 377 seconds by postgrey-1.36 at gabe;
- Thu, 05 Nov 2026 10:29:34 UTC
-Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de
- [91.216.248.212])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DECD112336;
- Thu,  5 Nov 2026 10:29:34 +0000 (UTC)
-Date: Thu, 5 Nov 2026 11:23:10 +0100
-X-Lima-ML-UUID: ab4092fd-651d-462a-9247-000d564dfeec
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
- s=securedbylima-20251205; t=1793874195;
- bh=gXX2mnTLfth5ZTDzamsxEs+SWoSG3jV7YBbC52hKC48=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=FUhC5hHFzIKA7BDUGja/oo4cvdkaO6GJ2HhDh0NBtAHHxmzw00wPqeyb+/7GSJsLf
- kRN41MUEPiR0jv/4d56TJh05vb9tuzntjnXn+3JVGcty4G9dOJHv2AtHjlm9GADJd2
- DBSqmkI0xfZMSrWY91Yw3js5tuLtTbuRAIrLo0O19fq+LUjev17PczSGTv3yUfBa2Z
- uuRwjm1ZOtphkkCYTeeo/zzYvVE0qzOdmVQrZAWBaFV/7YPWoO00ZO/3k1GKmU1v82
- hVyuvBpJ7Ae++Z9VIvPeHE6IOk0c7RBoERjbx+6ChRYa/g3EaAM6EgXyySSrYGl/8C
- I1xDjaxnWzDMw==
-From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
-To: Alexander Fischer <alexander.fischer@kait2en.org>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Lukas Wunner
- <lukas@wunner.de>, Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>,
- =?UTF-8?B?QW5kcsOp?= Eikmeyer <andre.eikmeyer@kait2en.org>, Yossef Osman
- <yossef.osman@proton.me>, Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH v4] drm/i915/psr: enable PSR on Apple T2 eDP panels
-Message-ID: <20261105112310.44f7e1cd@kait2en-mbp15-1>
-In-Reply-To: <20261016140707.1900947-1-alexander.fischer@kait2en.org>
-References: <20260916072558.147343-1-alexander.fischer@kait2en.org>
- <20261016140707.1900947-1-alexander.fischer@kait2en.org>
-Organization: KaiT2en
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7847D10E13C;
+	Thu,  5 Nov 2026 14:12:05 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 609DD10E13C;
+ Thu,  5 Nov 2026 14:12:04 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2730716531483008423=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 05 Nov 2026 14:06:18 +0000
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/cdclk=3A_Ignore_?=
+ =?utf-8?q?SWF18_in_SKL_CDCLK_sanitization?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 05 Nov 2026 14:12:04 -0000
+Message-ID: <179388792438.125275.7223324447899942377@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261105124737.24456-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261105124737.24456-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,20 +34,161 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 16 Oct 2026 16:07:07 +0200
-Alexander Fischer <alexander.fischer@kait2en.org> wrote:
+--===============2730716531483008423==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> v3 did not receive any review yet, so this rebases it onto current
-> drm-tip. No functional changes.
+== Series Details ==
 
-Lukas, I am sure it slipped through the cracks. Would you mind reviewing
-v4? This little patch works a treat and makes our Macs reach pkg-c10.
-Without it we are stuck with pc7.
+Series: drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization
+URL   : https://patchwork.freedesktop.org/series/177843/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19454 -> Patchwork_177843v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177843v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@core_debugfs@read-all-entries:
+    - bat-adlp-6:         [PASS][1] -> [DMESG-WARN][2] ([i915#15673])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-adlp-6/igt@core_debugfs@read-all-entries.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html
+
+  
+#### Possible fixes ####
+
+  * igt@core_auth@basic-auth:
+    - bat-adlp-6:         [DMESG-WARN][3] ([i915#15673]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-adlp-6/igt@core_auth@basic-auth.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-adlp-6/igt@core_auth@basic-auth.html
+
+  * igt@kms_pm_rpm@basic-rte:
+    - bat-rpls-4:         [DMESG-WARN][5] ([i915#13400]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19454 -> Patchwork_177843v1
+
+  CI-20190529: 20190529
+  CI_DRM_19454: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9177: 9177
+  Patchwork_177843v1: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html
+
+--===============2730716531483008423==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177843/">https://patchwork.freedesktop.org/series/177843/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19454 -&gt; Patchwork_177843v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177843v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@core_debugfs@read-all-entries:<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-adlp-6/igt@core_debugfs@read-all-entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_auth@basic-auth:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-adlp-6/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-adlp-6/igt@core_auth@basic-auth.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-rte:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19454 -&gt; Patchwork_177843v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19454: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9177: 9177<br />
+  Patchwork_177843v1: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2730716531483008423==--
