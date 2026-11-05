@@ -2,61 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A948A606A31B
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 03:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jndl5XB8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365D1606A326
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 04:09:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D7D10E2EA;
-	Thu,  5 Nov 2026 03:47:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2976A10E081;
- Thu,  5 Nov 2026 03:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793850467; x=1825386467;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=GNlgRYMpprZyno9nyFl8JZ1JQyWiZO7Vptq6p2E0QKQ=;
- b=jndl5XB8mJz7t446Adfm6Q+YDsDW5ZvE+tmA6meDLn1TjlLH3JIACQjR
- E6KgSyCjRozwvKjb6d7Uu1503eAiBL2LKKQUUWgaI2kBDKCKhuxor4KUs
- EyZZCkVp/ZzDsO+EyfVZfRKR6XbBed8FVjhZWDU1Sj39EU0bswzB6Y7S+
- Cr6VWyXS66J088ClO4f8MtDMZj8CiOtSRuwJU+/iiMnMnz4vCVWtx9Qft
- n9W/aS2KeY6vIMynEHKE8PMuXTsKT4joWoyNK9ta4nKQ9v2qhMLFzKycA
- EdvMgHlQqQxp0CZTwiTdVvWkqDZDvnic3anl4PJpRfEStZVxzk4u6VzvM Q==;
-X-CSE-ConnectionGUID: qY/pMxP1RwOKqgA/y+G+YA==
-X-CSE-MsgGUID: GCHJlIHpTB2j/2wi0jtBIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2630493"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2630493"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 19:47:47 -0800
-X-CSE-ConnectionGUID: wiPU3gEnSV2O1m65CRX87A==
-X-CSE-MsgGUID: idpvQEziRjKU0kBlaxGMTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="7241354"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO kialmah1-mobl2.lan)
- ([10.125.110.84])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 19:47:47 -0800
-From: Khaled Almahallawy <khaled.almahallawy@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Khaled Almahallawy <khaled.almahallawy@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Uma Shankar <uma.shankar@intel.com>,
- Jonathan Cavitt <jonathan.cavitt@intel.com>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v3] drm/display: Increase DP_RECEIVER_CAP_SIZE from 15 to 16
- bytes
-Date: Wed,  4 Nov 2026 19:46:58 -0800
-Message-ID: <20261105034658.18959-1-khaled.almahallawy@intel.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 972E010E0E6;
+	Thu,  5 Nov 2026 04:09:33 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8F2E10E0E6;
+ Thu,  5 Nov 2026 04:09:31 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6030217684285727376=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_i915=3A_two_teardown_fixe?=
+ =?utf-8?q?s_=28gen6_ppgtt_ERR=5FPTR=2C_OA_config_sysfs_leak=29_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chengyu Liu" <lui2012qwq@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 05 Nov 2026 04:09:31 -0000
+Message-ID: <179385177168.122337.15707719295219175507@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261104073311.1617823-1-lui2012qwq@gmail.com>
+In-Reply-To: <20261104073311.1617823-1-lui2012qwq@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,68 +34,256 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Several Link Layer tests (4.2.2.1-2, 4.2.2.7-8) fail because DPTX doesn't
-read DPCD ADAPTER_CAP addresses (0x000F and 0x220F).
+--===============6030217684285727376==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-4.2.2.1 test states [1]:
-"Fail1: Source DUT failed to read the DPCD Receiver Capability field
-(DPCD:00000h:0000Fh) through AUX_CH before link training."
+== Series Details ==
 
-4.2.2.2 test states [1]:
-"Fail2: Source DUT failed to read the DPCD Extended Receiver Capability
-field (DPCD:02200h:0220Fh) through AUX_CH before link training."
+Series: i915: two teardown fixes (gen6 ppgtt ERR_PTR, OA config sysfs leak) (rev2)
+URL   : https://patchwork.freedesktop.org/series/177748/
+State : success
 
-Additionally, the spec [2] states:
-"The Source device shall respond to Hot Plug event/Hot Re-plug event by
-first reading DPCD Link/Sink Device Status registers at DPCD 00200h
-through 00205h –or– DPCD 02002h through 0200Fh. If the link is unstable
-or lost, the Source device then reads the DPCD Receiver Capabilities
-registers at DPCD 00000h through 0000Fh to determine the appropriate
-information needed to train the link. The Source device shall then
-initiate link training."
+== Summary ==
 
-Increasing DP_RECEIVER_CAP_SIZE by 1 byte ensures passing the test
-conditions for these link layer tests.
+CI Bug Log - changes from CI_DRM_19448 -> Patchwork_177748v2
+====================================================
 
-[1]: DisplayPort v2.1 Link Layer Compliance Test Specification
-sections 4.2.2.1 & 4.2.2.2
-[2]: DisplayPort Standard v2.1 - Sec 5.1.4 Source Device Behavior
-upon HPD Pulse Detection
+Summary
+-------
 
-v3: Rebase, drop deprecated test 4.2.2.9 from the commit message
-v2: Rebase
+  **SUCCESS**
 
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
----
- include/drm/display/drm_dp.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  No regressions found.
 
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index e63c7f075f54..a2a7338552e1 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -1715,7 +1715,7 @@ enum drm_dp_phy {
- #define DP_LINK_STATUS_SIZE	   6
- 
- #define DP_BRANCH_OUI_HEADER_SIZE	0xc
--#define DP_RECEIVER_CAP_SIZE		0xf
-+#define DP_RECEIVER_CAP_SIZE		0x10
- #define DP_DSC_RECEIVER_CAP_SIZE        0x10 /* DSC Capabilities 0x60 through 0x6F */
- #define DP_DSC_BRANCH_CAP_SIZE		3
- #define EDP_PSR_RECEIVER_CAP_SIZE	2
--- 
-2.53.0
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/index.html
 
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177748v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-rpls-4:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@gem_lmem_swapping@random-engines:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][2] ([i915#4613]) +3 other tests skip
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@gem_lmem_swapping@random-engines.html
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735]) +80 other tests dmesg-warn
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19448/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][5] ([i915#17465])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-b-edp-1:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][6] ([i915#17461]) +3 other tests skip
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-b-edp-1.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [PASS][7] -> [DMESG-WARN][8] ([i915#13735] / [i915#15673]) +49 other tests dmesg-warn
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19448/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  * igt@kms_psr@psr-primary-page-flip:
+    - bat-rpls-4:         NOTRUN -> [SKIP][9] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@kms_psr@psr-primary-page-flip.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-rpls-4:         NOTRUN -> [SKIP][10] ([i915#3555])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@kms_setmode@basic-clone-single-crtc.html
+    - fi-skl-6600u:       NOTRUN -> [SKIP][11] ([i915#17463])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-read:
+    - bat-rpls-4:         NOTRUN -> [SKIP][12] ([i915#17448] / [i915#3708]) +2 other tests skip
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@prime_vgem@basic-read.html
+
+  
+#### Possible fixes ####
+
+  * igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1:
+    - fi-skl-6600u:       [INCOMPLETE][13] -> [PASS][14] +1 other test pass
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19448/fi-skl-6600u/igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - bat-rpls-4:         [INCOMPLETE][15] -> [PASS][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19448/bat-rpls-4/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#17448]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448
+  [i915#17461]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17461
+  [i915#17463]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17463
+  [i915#17465]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17465
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#3708]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19448 -> Patchwork_177748v2
+
+  CI-20190529: 20190529
+  CI_DRM_19448: 3379b0f74f31bfc3746b692822a7700aeeebe15d @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9177: 9177
+  Patchwork_177748v2: 3379b0f74f31bfc3746b692822a7700aeeebe15d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/index.html
+
+--===============6030217684285727376==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>i915: two teardown fixes (gen6 ppgtt ERR_PTR, OA config sysfs leak) (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177748/">https://patchwork.freedesktop.org/series/177748/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19448 -&gt; Patchwork_177748v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177748v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-rpls-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@random-engines:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@gem_lmem_swapping@random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19448/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +80 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17465">i915#17465</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-b-edp-1:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-nv12@pipe-b-edp-1.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17461">i915#17461</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19448/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +49 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-page-flip:</p>
+<ul>
+<li>bat-rpls-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@kms_psr@psr-primary-page-flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-rpls-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17463">i915#17463</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-read:</p>
+<ul>
+<li>bat-rpls-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@prime_vgem@basic-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448">i915#17448</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1:</p>
+<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19448/fi-skl-6600u/igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/fi-skl-6600u/igt@kms_flip@basic-flip-vs-wf_vblank@b-edp1.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19448/bat-rpls-4/igt@kms_pm_rpm@basic-pci-d3-state.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177748v2/bat-rpls-4/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19448 -&gt; Patchwork_177748v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19448: 3379b0f74f31bfc3746b692822a7700aeeebe15d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9177: 9177<br />
+  Patchwork_177748v2: 3379b0f74f31bfc3746b692822a7700aeeebe15d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6030217684285727376==--
