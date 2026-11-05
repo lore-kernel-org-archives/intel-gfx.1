@@ -2,28 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00490606A31B
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:12:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5288D606A329
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:12:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWjTVxdB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7847D10E13C;
-	Thu,  5 Nov 2026 14:12:05 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 609DD10E13C;
- Thu,  5 Nov 2026 14:12:04 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2730716531483008423=="
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/cdclk=3A_Ignore_?=
- =?utf-8?q?SWF18_in_SKL_CDCLK_sanitization?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 05 Nov 2026 14:12:04 -0000
-Message-ID: <179388792438.125275.7223324447899942377@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261105124737.24456-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261105124737.24456-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0F7210EB83;
+	Thu,  5 Nov 2026 14:12:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3B4510E2E1;
+ Thu,  5 Nov 2026 14:12:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6CB7642E87;
+ Thu,  5 Nov 2026 14:12:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1474B1F00A15;
+ Thu,  5 Nov 2026 14:12:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793887961;
+ bh=1L8SFwsbCq8ib1q3/FLH2P/dD3IRfBmCfNyQaGx79ds=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JWjTVxdB3MuqR1DbV450wviKMuccNG+KozL4NydKaXiqMlNzH/wNhhC2r/w7YffzU
+ nRxiNVzJWrPKmB0rQktStfFzHzUVc+zcOfsjblCX2fUID0BNEhhW3DpZh1BGsyMqt9
+ YklLmmAA2cfo47Os12Fgk+xzpeMrHQN0oat8Ym6vleVFFIPdqvfac81dvAcSBQDCme
+ 4rMEvAvI1Kem4FUsCm7L9HQvwXnne+zEL1ephhyWscWFiR8pj5wijIp6dp1971/Y9v
+ zuMPCi11FbmobPeVQ115/V3suBbaldNxM/qKzysmNja8ZJMsoFhtkFnCLguNCx09Fa
+ MbHMJJjXdMYvQ==
+Message-ID: <sashiko-outbox-199210@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/dsb: Fill all padding before GOSUB
+To: "Hanson Wang" <hanson.wang@ugreen.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261105134658.3724628-1-hanson.wang@ugreen.com>
+References: <20261105134658.3724628-1-hanson.wang@ugreen.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 14:12:40 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,161 +48,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
---===============2730716531483008423==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/i915/dsb: intel_dsb_gosub_align() duplicates intel_dsb_align_ta=
+il()
+--
 
-== Series Details ==
+commit 9778ee8e90748be72ffe6e979a8d71a200d84540
+Author: Hanson Wang <hanson.wang@ugreen.com>
 
-Series: drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization
-URL   : https://patchwork.freedesktop.org/series/177843/
-State : success
+drm/i915/dsb: Fill all padding before GOSUB
 
-== Summary ==
+This commit updates intel_dsb_gosub_align() to zero all bytes skipped when
+aligning free_pos to a cacheline boundary before emitting a GOSUB
+instruction, rather than only zeroing the gap when at most two QW slots
+remain.
 
-CI Bug Log - changes from CI_DRM_19454 -> Patchwork_177843v1
-====================================================
+> diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i=
+915/display/intel_dsb.c
+> index 299d778520a22..83aeb3fc89425 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dsb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+> @@ -608,8 +608,13 @@ static void intel_dsb_gosub_align(struct intel_dsb *=
+dsb)
+>  	/*
+>  	 * Wa_16024917128
+>  	 * "Ensure GOSUB is not placed in cacheline QW slot 6 or 7 (numbered 0-=
+7)"
+> +	 *
+> +	 * free_pos always advances to the next cacheline, so the skipped
+> +	 * bytes remain inside the programmed command range. Fill the whole
+> +	 * gap with NOPs; clearing only slots 6 and 7 leaves a larger gap
+> +	 * uninitialized.
+>  	 */
+> -	if (aligned_tail - tail <=3D 2 * 8)
+> +	if (aligned_tail > tail)
+>  		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
+> =20
+>  	dsb->free_pos =3D aligned_tail / 4;
 
-Summary
--------
+[Severity: Low]
+Wa_16024917128 states that GOSUB must not be placed in cacheline QW slot 6
+or 7 (where 0 < aligned_tail - tail <=3D 2 * 8). When tail is in QW slots 0
+through 5, GOSUB is allowed at that slot, and the trailing
+intel_dsb_align_tail(dsb) call at the end of intel_dsb_gosub() already pads
+the instructions following GOSUB within that cacheline with NOPs:
 
-  **SUCCESS**
+drivers/gpu/drm/i915/display/intel_dsb.c:intel_dsb_gosub() {
+	...
+	intel_dsb_gosub_align(dsb);
+	...
+	intel_dsb_emit(dsb, lower_32_bits(head_tail),
+		       (DSB_OPCODE_GOSUB << DSB_OPCODE_SHIFT) |
+		       upper_32_bits(head_tail));
 
-  No regressions found.
+	/*
+	 * "NOTE: the instructions within the cacheline
+	 *  FOLLOWING the GOSUB instruction must be NOPs."
+	 */
+	intel_dsb_align_tail(dsb);
+}
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html
+In commit 2c41d62f6fb1, intel_dsb_gosub_align() checked
+if (aligned_tail - tail <=3D 2 * 8) to detect QW slots 6 and 7, but left
+dsb->free_pos =3D aligned_tail / 4 outside the conditional block, which cau=
+sed
+free_pos to advance to the next cacheline without zeroing the skipped bytes
+when tail was in QW slots 1 through 5.
 
-Participating hosts (40 -> 39)
-------------------------------
+With this change to if (aligned_tail > tail), intel_dsb_gosub_align()
+becomes an exact duplicate of intel_dsb_align_tail() defined immediately
+above it:
 
-  Missing    (1): bat-dg2-13 
+static void intel_dsb_align_tail(struct intel_dsb *dsb)
+{
+	u32 aligned_tail, tail;
 
-Known issues
-------------
+	intel_dsb_ins_align(dsb);
 
-  Here are the changes found in Patchwork_177843v1 that come from known issues:
+	tail =3D dsb->free_pos * 4;
+	aligned_tail =3D ALIGN(tail, CACHELINE_BYTES);
 
-### IGT changes ###
+	if (aligned_tail > tail)
+		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
 
-#### Issues hit ####
+	dsb->free_pos =3D aligned_tail / 4;
+}
 
-  * igt@core_debugfs@read-all-entries:
-    - bat-adlp-6:         [PASS][1] -> [DMESG-WARN][2] ([i915#15673])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html
+Should dsb->free_pos =3D aligned_tail / 4 instead be moved inside the
+if (aligned_tail - tail <=3D 2 * 8) block so that free_pos only advances to
+the next cacheline when GOSUB would land in QW slot 6 or 7, or if
+unconditional cacheline alignment before GOSUB is intended, should
+intel_dsb_gosub() call intel_dsb_align_tail() directly instead of
+duplicating it?
 
-  
-#### Possible fixes ####
-
-  * igt@core_auth@basic-auth:
-    - bat-adlp-6:         [DMESG-WARN][3] ([i915#15673]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-adlp-6/igt@core_auth@basic-auth.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-adlp-6/igt@core_auth@basic-auth.html
-
-  * igt@kms_pm_rpm@basic-rte:
-    - bat-rpls-4:         [DMESG-WARN][5] ([i915#13400]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19454 -> Patchwork_177843v1
-
-  CI-20190529: 20190529
-  CI_DRM_19454: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9177: 9177
-  Patchwork_177843v1: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html
-
---===============2730716531483008423==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177843/">https://patchwork.freedesktop.org/series/177843/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19454 -&gt; Patchwork_177843v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_177843v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@core_debugfs@read-all-entries:<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-adlp-6/igt@core_debugfs@read-all-entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@core_auth@basic-auth:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-adlp-6/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-adlp-6/igt@core_auth@basic-auth.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-rte:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19454/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177843v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19454 -&gt; Patchwork_177843v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19454: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9177: 9177<br />
-  Patchwork_177843v1: 0e8b43b5a5ef2dd52c454158e7fd8a927d796eb4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2730716531483008423==--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105134658.3724=
+628-1-hanson.wang@ugreen.com?part=3D1
