@@ -2,66 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADA6606A336
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:06:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F041F606A32F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:06:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qd0I7Vod
+	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=FUhC5hHF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D296C112498;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFB1F112496;
 	Thu,  5 Nov 2026 14:06:25 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EB2810E14B;
- Thu,  5 Nov 2026 13:24:12 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jL31M2Q9yzKp4M;
- Thu, 05 Nov 2026 14:24:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1793885047; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cr7b357bQF9gcmhhu+T4xYlpo1IDNyxkNJbpgvGxS7k=;
- b=qd0I7VodEh/YGmDacD0GpRjBefhw/+7TY4fYCETDCELlDau43W4Iv1ZAtJX5YQM/vD7F/t
- Io2f6fgGc/1F5ghEf/MwbMRYSvhnO23qAWB8qco1mS8wiPuKLqck7hVRtAjv9KvLCpRwsN
- 5BDGlkKRIyCWuqV/u+BODFeuOQ9d5alieCuk/+Y6suKKqh7/GA3zAEMoUY4UorCuzThBnx
- RAoCZP1x6JKpPOjnRBqcV4hJHO2lbA1oGvP5u59rPEgEaDAqhk/4utGymk+LRznEokAtCo
- zHJ1rjx+Yg28UFnUB1y5TF6dTQ9YwzaheqekvhLUbhZMsDBU6ghGaQzycEEhCw==
-Message-ID: <2fa6e631e133acfc7e7de1b287c8b3983168b1c6.camel@mailbox.org>
-Subject: Re: [PATCH 1/3] dma-buf: dma-fence: Add flags parameter to
- dma_fence_init()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Philipp Stanner
- <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-usb@vger.kernel.org
-Date: Thu, 05 Nov 2026 14:24:04 +0100
-In-Reply-To: <b8179edb-bc59-49af-b8d0-f62e39752f3a@ursulin.net>
-References: <20261105113529.1989375-2-phasta@kernel.org>
- <20261105113529.1989375-3-phasta@kernel.org>
- <2f377d0f-2760-4465-ac68-b62210b33bd6@ursulin.net>
- <005b77fd-5bd2-4ae5-a0c0-cff3f1f6c680@amd.com>
- <b8179edb-bc59-49af-b8d0-f62e39752f3a@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+X-Greylist: delayed 377 seconds by postgrey-1.36 at gabe;
+ Thu, 05 Nov 2026 10:29:34 UTC
+Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de
+ [91.216.248.212])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DECD112336;
+ Thu,  5 Nov 2026 10:29:34 +0000 (UTC)
+Date: Thu, 5 Nov 2026 11:23:10 +0100
+X-Lima-ML-UUID: ab4092fd-651d-462a-9247-000d564dfeec
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+ s=securedbylima-20251205; t=1793874195;
+ bh=gXX2mnTLfth5ZTDzamsxEs+SWoSG3jV7YBbC52hKC48=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=FUhC5hHFzIKA7BDUGja/oo4cvdkaO6GJ2HhDh0NBtAHHxmzw00wPqeyb+/7GSJsLf
+ kRN41MUEPiR0jv/4d56TJh05vb9tuzntjnXn+3JVGcty4G9dOJHv2AtHjlm9GADJd2
+ DBSqmkI0xfZMSrWY91Yw3js5tuLtTbuRAIrLo0O19fq+LUjev17PczSGTv3yUfBa2Z
+ uuRwjm1ZOtphkkCYTeeo/zzYvVE0qzOdmVQrZAWBaFV/7YPWoO00ZO/3k1GKmU1v82
+ hVyuvBpJ7Ae++Z9VIvPeHE6IOk0c7RBoERjbx+6ChRYa/g3EaAM6EgXyySSrYGl/8C
+ I1xDjaxnWzDMw==
+From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
+To: Alexander Fischer <alexander.fischer@kait2en.org>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Lukas Wunner
+ <lukas@wunner.de>, Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>,
+ =?UTF-8?B?QW5kcsOp?= Eikmeyer <andre.eikmeyer@kait2en.org>, Yossef Osman
+ <yossef.osman@proton.me>, Lukas Wunner <lukas@wunner.de>
+Subject: Re: [PATCH v4] drm/i915/psr: enable PSR on Apple T2 eDP panels
+Message-ID: <20261105112310.44f7e1cd@kait2en-mbp15-1>
+In-Reply-To: <20261016140707.1900947-1-alexander.fischer@kait2en.org>
+References: <20260916072558.147343-1-alexander.fischer@kait2en.org>
+ <20261016140707.1900947-1-alexander.fischer@kait2en.org>
+Organization: KaiT2en
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: bba065728d0df46fffa
-X-MBO-RS-META: 6r63pcufosrhwuio4jrkztwnqgi8ttuw
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 05 Nov 2026 14:06:18 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,44 +60,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 2026-11-05 at 12:51 +0000, Tvrtko Ursulin wrote:
-> On 05/11/2026 12:35, Christian K=C3=B6nig wrote:
-> > Well one advantage of the Linux kernel is to avoid such wrappers. I
-> > think having more than one function for the same thing basically
-> > just adds more confusion.
->=20
-> Sure we can churn if we really want. But as 99% of callers will be=20
-> passing 0 it's not even very readable. Another option is variadic like=
-=20
-> kmalloc_objs so flags can be optional. Anyway, for consideration only.
+On Fri, 16 Oct 2026 16:07:07 +0200
+Alexander Fischer <alexander.fischer@kait2en.org> wrote:
 
+> v3 did not receive any review yet, so this rebases it onto current
+> drm-tip. No functional changes.
 
-It has the advantage of forcing the reader to think about whether he
-wants 64-bit sequence numbers or not. In Rust-fence, for example, we
-completely overlooked that for months:
-
-https://lore.kernel.org/rust-for-linux/20261023175750.2979015-2-phasta@kern=
-el.org/
-
-
-Besides unused flags fields are quite common in APIs. As I state in the
-description, this is also for future extensions, see my race-flag (if
-accepted) as one potential example.
-
-It could also be used for canonically setting the user-flags, which
-users currently do with a manual set_bit(NR, &fence.base.flags;
-
-So I think it's safe to say that it's the right thing for long-term
-reduction of churn and maintainability.
-
-
-P.
+Lukas, I am sure it slipped through the cracks. Would you mind reviewing
+v4? This little patch works a treat and makes our Macs reach pkg-c10.
+Without it we are stuck with pc7.
