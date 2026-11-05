@@ -2,134 +2,114 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E649D606A31B
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912C7606A32E
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:39:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=EuPhVUPU
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZSAua1Ac;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=76odSSKy;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AEImqxpM;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VUxoYqgF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76B561124B7;
-	Thu,  5 Nov 2026 14:24:19 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010059.outbound.protection.outlook.com [52.101.56.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E65A11245A;
- Thu,  5 Nov 2026 14:24:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yTQ3lBP7t1HohBIxH0AxKro3SRKet1hE+wQ5PzLPI7+H99K1wz3a4pKvo2hb4WpbCkpGZnCCPrFMLxnu8O9+d0SGE+EcsIZHpPi166NYf+nGCfTncS2doKnrlew+a+s83vS0AiwNg4AmkeN0Q+iB/j06CYZF5b2HhcCaevENnsqZjbABGuvx7VSUXKj0RQDEM0j0crA2odfwRfuWwXrwMvFqIi0Q5Z41iagcBpECUbYq1uSnXbh6DH7eUVEZnC/zjqT2NofxwoLPt6Ae23I2x8zvwtm7uDjNbnnuDSGnfpTn45GhK9igkExvrshvodr/pmcm+Nzd3xHxLQw60kUCYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lKRyd6jPZ38O4z5cge9frYoPKfd8yqA+2zb6XL9yHDw=;
- b=awqBlvJ2NOd0+c0k24unn78+kCMb33PvFRi1dWF8f9b3RlGElLl3ZjpMrfcFgsiyvE8jJs2RgHTih2g0gph0BCckuAMecJ4KbtrImVaA/dsbbv6IFcP9X+Kgc7lBw+p0OQspc+CVHS39I3qc90bPCiLWpkrGhzmwQeTU/vT3By97VPJt0yv1+r0nmZ06bbhWer7MYcrjlt9P/1VLTvb+L/eFLsEGhjljcmoeFSUjnPcV2bQioS7n0SX6U5o//Yvmh7J8NNEkwXCUKlrjbbJoLEuORbsMnvMbvuPBIws8OWh9gW1u6AOE7UV/giudBRA1cia6c0Vv6P7uOJ5s0jAKOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lKRyd6jPZ38O4z5cge9frYoPKfd8yqA+2zb6XL9yHDw=;
- b=EuPhVUPUFDSXCSzpb/O5okXz68TN9xM1GftjG7fjBePou/nsV9J3SoBEU1KIhxaJ4sCZuTgfl/XgImBPmyXR0sSCB+qfODlZS+56Fj/0Gc75+IjDIG9XACcd7wW+QEQh5dU5/VH8ArBzHE58Wo4v6sz5NGgYCtZajLvMQWVOCPs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB7523.namprd12.prod.outlook.com (2603:10b6:610:148::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 14:24:02 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 14:24:02 +0000
-Message-ID: <e7943b6b-0f3a-4336-8a0b-306aa11c8d31@amd.com>
-Date: Thu, 5 Nov 2026 15:23:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dma-buf: dma-fence: Add flags parameter to
- dma_fence_init()
-To: phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-usb@vger.kernel.org
-References: <20261105113529.1989375-2-phasta@kernel.org>
- <20261105113529.1989375-3-phasta@kernel.org>
- <2f377d0f-2760-4465-ac68-b62210b33bd6@ursulin.net>
- <005b77fd-5bd2-4ae5-a0c0-cff3f1f6c680@amd.com>
- <f284e3b9501acca2cf41fd19409004de84a36e15.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <f284e3b9501acca2cf41fd19409004de84a36e15.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0085.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06BF410E2F3;
+	Thu,  5 Nov 2026 14:39:47 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01EED10E2F3;
+ Thu,  5 Nov 2026 14:39:35 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DB80121F3C;
+ Thu,  5 Nov 2026 14:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793889558; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rJpyyUQDMgKqdh12KLMA9gRwcgdaMEZ473Jmw8fQziI=;
+ b=ZSAua1AcIK1yop86/+6QW4s03h8pgdvbWC10Vf8XvTTvB8nyMSMspvKqzRtmed807KMN6t
+ jSrtza07BLQvpoJHJpbfqhdhpyiBKBGI2eVsKRmM5qQJqvQKimhiAdKVU7Bwd8I9+/H6Om
+ nqZvH/d1+gnPnRCjeBblRDBACH3gewY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793889558;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rJpyyUQDMgKqdh12KLMA9gRwcgdaMEZ473Jmw8fQziI=;
+ b=76odSSKyN+ljpV7n7en0oS3kYD/O9xoLWFZdxwegYTc6d42xG4aj3dZ0s7e3lgbE845ljH
+ PWg1lWRW2Id4QdAw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=AEImqxpM;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VUxoYqgF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793889557; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rJpyyUQDMgKqdh12KLMA9gRwcgdaMEZ473Jmw8fQziI=;
+ b=AEImqxpMfnK11mlhP1OdqJl7omcxMC0i+4onOHolTjrFj2pOZEBbocMeaf8FAHOzDD+kFn
+ 13pelAQvv+UzntUPRfgCygU/kGVXDWDVs3pv9+wv10cwy8HN+AN1ntOx0zdRuf/cmB7qZw
+ 8wgzJ0UQs2QQsYZBIztj0XB2/HrOdvU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793889557;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rJpyyUQDMgKqdh12KLMA9gRwcgdaMEZ473Jmw8fQziI=;
+ b=VUxoYqgFAPzz2Jy62pjd7O7HSCQPWA2CLfGa8hOjWGWm/qM6eYvM6zwnRDSpi6heD2AyKE
+ rn57swKbNUAzxLAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 54899133F6;
+ Thu,  5 Nov 2026 14:39:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id b9uAARWV7GoUMwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 05 Nov 2026 14:39:17 +0000
+Date: Thu, 5 Nov 2026 15:39:15 +0100
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <20261105143915.GA896462@linux.fritz.box>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7523:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec5a5c40-99f4-4e2e-b119-08df3b48704e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|23010399003|1800799024|376014|22082099003|6133799003|10067099003|18002099003|261026121527099003|56012099006|11063799006|4143699003|261021121427099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info: em4XYO2yBRkv3TPrZO9m5dOjdwSydqv1pRiSz4fLGp90mAQslFzUZPhQKp8HJDUmXH0BskJ7IT5reLK1Zq5C06JbVwjV0Tt0KTWDrEcAeddNJrB+rTW8TESR7wWBIQPLNput/KZ7ItE8V2CYXcxKa8HErwzzPX/8xoVGznoIRWbdDm0wRxH43RYWaxwyp+MDXhDx0Bko+GQr4l9RHtxgTfiYVs58t7QWQO4OVRfetNagjKOxzbf44pIW9TtiTLgOA5FhtiRRga7fmc8EwBYRO8i6EAQqyOnKhTNvfpLsPZS/C2dk5LxCyjF5UfjYbvHvu4PwF+pk63OYYxdA79HpKGdkV7A9raAwQLO6IJqmOIyTSzmnhjOnY3OeAh+e4bItE3pVF3KbkmzAl/6ZqDoYvaG8MFzP8TE+y5PL/gCPq/yXOe4FhEtpyd/Tvl64dCq9KOtsHI7TY0F0Kqy912RFE6O/IXS3/yzvkR+VXkmc5VjIVux91vDsXhsFk6gkze7Xov7m5/8jKNXyFZ5WdICgR3KBg8PGGgJsaRjSWX/yMS4ywRwj0+Ru76vqv2TG0zC0mw8A1cCDgNOmw0NiaMzHAffmb3pYVIfYeC3SjIv0MHNvdxtKMf20Oz03aF2A7NJhQStPYpgU1qT51HYat2MTVlMNTEcT5lMTkWteBOpxDeg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(23010399003)(1800799024)(376014)(22082099003)(6133799003)(10067099003)(18002099003)(261026121527099003)(56012099006)(11063799006)(4143699003)(261021121427099003)(261102123227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXlJUGFwRFRuam5mZDNaZGVYYmJGNlFaaitwOUllQTB6TkM1R3RGL2lXVDdP?=
- =?utf-8?B?dVByVTg3QWRNdDhNRnNBMGd6YURpRzA0V3orczRpdEN3ZFdnRExtSzE2TVRN?=
- =?utf-8?B?K0ZwNEVTcU12TWZVZW1vcmwvbVdTVkFUemdKV1p6dWRTWVIrN2tKdTRyYzZt?=
- =?utf-8?B?cHdQRFgzSmYrRGtreFZ1RzcxQlVYWmY5d2w1aldmSnpRRUZZc3JaYkc4TjYr?=
- =?utf-8?B?WFYySVlzQ2JkQ0UxcXM3elVkblBSNStCMWRhRkc3bWprVk50YUcrLzErSnJa?=
- =?utf-8?B?YkVSSkZQUVlMUFJsYVUzUTVid0kvYkxVNDhIRkNDdG9acEdxYVkyc2hQbWx6?=
- =?utf-8?B?MFZoUGI3T2dkVTloY3RGRjNRamhTSlR5RElNYk5wcGpITjY0N1NMU2VUcE1T?=
- =?utf-8?B?Q3pFRlpUaUtZbmErOGFKVW5jRCtMSHBCRGhKU0ZzbUdpZERLOFYzTEZXbEJZ?=
- =?utf-8?B?cHNOam11Nm92clpQUzhnbVJGTE54UzJPTnpvU0tpaWhES090K25mTmN3c3I1?=
- =?utf-8?B?cTdpZ21SMjl0LzN4R0ZBVXFwa25VZjgyZERmL3FtMGVsOUFSa2FoS0I4T2xX?=
- =?utf-8?B?Q3QzYmxLWGFNcFNLWnJ3OWRRbFdCcXdMZ09NSmliRnN1QmZMeTlCN1dSTjJw?=
- =?utf-8?B?R0p0MEl3Y3FjVEJEbU5FaTNTU3cwbTFmWWJzM05BOXNiQUkxMVp1L29CTzIv?=
- =?utf-8?B?ajJiV1BWUUhzSEZiT2tJSnBZZ0hTUnNZUEN4N1N6SDZ4b3lpSDlkQnRTYVhH?=
- =?utf-8?B?RkhaaGFGR0lnMG02Wm9hNW1OZm5mVkQ0c2RGdkp0S3pSd3ErUmdiUHRsMm5r?=
- =?utf-8?B?cjNHRm9GS3ZyclhpZnFvMGNUSkZEVjIyNWRaVnRJZnFQK1NHdGxpNHBwN3V5?=
- =?utf-8?B?a1d5cjMwdXlMMlFLZVB0K1R3cFBXT01QdE5MZVFpQ25lLzQ4ck16aVIzMElH?=
- =?utf-8?B?TnQrMVpXYk45QVVPNlladEdVclBBSWVjdVNNd2JwWkdLSTVoTGFrMlpTcEF2?=
- =?utf-8?B?NG1rdmkvVGxNcHhYOC9LNkZVWmVZOEhibU50OVRRTStRU0ROanRpQU1iK0FV?=
- =?utf-8?B?bVFoY1IvUkNzdDB5OGg5M01nVjdoei9xVEFnTGxLS3gweDV6cEJtVGJ2dmE3?=
- =?utf-8?B?VGdnQ2g3aEt1R0ZsYjFkTUgzdHJidnRDM2dkKzI3TFJZVWZjUFdZQm05YUVr?=
- =?utf-8?B?aEszbGRBTklVcmIzZ1RyaHZqcmRIeTFFWnc4TCs1TlBoRUF6WCtyQ21MRmRL?=
- =?utf-8?B?ZGo3MHJBbG15UGJnUEtNT3hpVDl4cUZiSFhhNytGVmRPeVpqcEU4aHBwMy9z?=
- =?utf-8?B?cDMxWE9lOU85SlFoeTlJRGdKS05mcTlBL3Q4TnJFZUMwQnJMT3R6SXU2T25J?=
- =?utf-8?B?ckZGdjYxZzVlN0loWXRyUU0zRXZBNGtXTFk3UTlYcWR6a1lQL3Era21NM3FI?=
- =?utf-8?B?YXJib21TYytoQ2krRGVWZ3l5ZEVVSmVmY3ZuTlVoM0s2dEFVdE1zTWM3Ni9l?=
- =?utf-8?B?WkQyZ3EvbEcyd0NNcldnUVdIbDJFNG1JbDQxam4vd3hjKytVd05oSWJxZHVi?=
- =?utf-8?B?MVcxUTRYK1dBY2cxTDF3UjdjeWZmWllrVHZOb0ZQUCtjYzd6T01iR1RkSVI4?=
- =?utf-8?B?eWF6NjdTN0lhTm9tQlRUNC9obnloWTNuUzhISHJGaE5aRHArdGZxMG9TdUVl?=
- =?utf-8?B?S3ExeTRwNWFoNmRkNmdsN2FSM1JDaU15TUVIME9reStNUU9MY2lsTVJDMEg1?=
- =?utf-8?B?elBienlmcitpaE9SVThUR2FGblBtdjl6UklDdlNDeWhLd2huYWRHbUlueWxL?=
- =?utf-8?B?NXZaUVVxOE1MTlI5VUV1eDZOWnhqc2M4cDhTdGlJMU1kS1pvWVVqMVpLamsv?=
- =?utf-8?B?ZTVxUW9rQ3lVWmh0R1A0MCthRDJEVFFTYzVKTkZja0VIYXJQRDNpTkQ3QW5j?=
- =?utf-8?B?Rmkvd0NRcm42TW8rSHliWm5rQm81SWFtTVBIclRVTloxQ3FlR3dQTG9qVDdT?=
- =?utf-8?B?YmJtMWNodDlpZERnaFNiM25ESExSN3lKR1B6ME0xWkFzZW96Z2haMlhxcWZX?=
- =?utf-8?B?RUFYSVZZU3hkaXVPVUVUcllNNmRtSVZjakYvSE9nV3ZzTVEvenM0RUJJaWk0?=
- =?utf-8?B?enUwcFU2MjhyUUdmaUxTUVBWUkVVRnh0ZXRhZDdLdWwwd0h5cEllYUJqOG1M?=
- =?utf-8?B?bGplN052VnJWOHNnMHJFcS9SZ1VSWkxmeXhGbzdUWXhOZFNUdURuN1QvbFBP?=
- =?utf-8?B?MTl1SWJ1TXRHRFNBRTQ1dlE5SkhMZmVpbTVOaW5peklLaXBraGFURW53U3Fy?=
- =?utf-8?Q?t5aCMoyO0mSOb5LNGt?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec5a5c40-99f4-4e2e-b119-08df3b48704e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 14:24:01.9043 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8gut7kjbd5NTDxIdvP6ityKol10YUxTqhhdwlguD9tphlt2DkWnJS3/tYyaeX9Zj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7523
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: DB80121F3C
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-13.51 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ MIME_TRACE(0.00)[0:+];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim,gitlab.freedesktop.org:url];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -13.51
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,62 +121,248 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/5/26 13:48, Philipp Stanner wrote:
-> -Cc rust-for-linux, since it was typo'ed and now misses the thread anyways..
-> 
-> On Thu, 2026-11-05 at 13:35 +0100, Christian KÃ¶nig wrote:
->> On 11/5/26 13:06, Tvrtko Ursulin wrote:
->>>
->>> [I aggresively rewrote the To: list because my SMTP won't let me
->>> send this as it was.]
->>>
->>> On 05/11/2026 11:35, Philipp Stanner wrote:
->>>> Currently, there are two init functions for dma_fence,
->>>> dma_fence_init()
->>>> and dma_fence_init64().
->>>>
->>>> Since more future user options for dma_fence initialization would
->>>> require distinct init functions, too, it is better to do this in
->>>> a
->>>> unified way.
->>>
->>> Why not add something like dma_fence_init_flags() and leave the 99%
->>> of the callers out of the (huge) diff? Ie. just port
->>> dma_fence_init64() to dma_fence_init_flags().
->>
->> Well one advantage of the Linux kernel is to avoid such wrappers. I
->> think having more than one function for the same thing basically just
->> adds more confusion.
-> 
-> Do you think all future users would want SEQNO64 by default, btw?
+Hi Dave, Sima,
 
-I was considering to invert the flag meaning, e.g. have SEQNO32 instead of SEQNO64.
+here is the PR from drm-misc-fixes for this week. I'm not sure what happened,
+but it appears as if we didn't have a -fixes PR in recent weeks. So it's a bit
+larger than usual.
 
-But as I recently learned even on brand new x86 Intel CPUs you can do non 64bit aligned 64bit writes (yeah x86 architecture!) and PCIe devices see that as two 32bit writes to system memory which might or might not read coherently.
+Best regards
+Thomas
 
-So assuming all future HW will be 64bit is clearly not possible.
 
->>
->> That's also why I would really like to just have one
->> dma_fence_signal() and not like five (or was it four?) variants.
-> 
-> It should be dma_fence_signal(fence, error), anihilating
-> dma_fence_set_error(), which is just another massive incentive to add
-> race conditions.
+drm-misc-fixes-2026-11-05:
+Short summary of fixes pull:
 
-Yeah I'm largely in favor of that as well.
+atomic:
+- Fix CRTC dma-fence handling
 
-Regards,
-Christian.
+bridge:
+- nwl-dsi: Fix LCDIF handling
 
-> 
-> 
-> P.
+dma-buf:
+- Fix IOVA offset
+- Restore the scatter-list entry count before freeing
 
+dp:
+- Keep MOT set between messages when no_zero_sized is set
+
+etnaviv:
+- Fix NULL dereference in etnaviv_unbind()
+- Flush the tile status cache through both the PE and BLT
+
+imagination:
+- Align rogue_fwif_hwrtdata to 64 bytes
+
+loongson:
+- Fix BO handling in several places
+
+nouveau:
+- Map Kepler video engine contexts non-privileged
+- Clear use.enabled when subdev init fails
+- Avoid running VBIOS twice
+- Fix CE channel creation on pre-Kepler GPUs
+
+panel:
+- visionox-r66451: Set brightness MSB first; Increase reset waiting time
+
+panic:
+- Fix display loop
+- Fix line parsing
+
+sched:
+- Fix out of bounds entity priority check
+- Adjust run-queue when changing priority at runtime
+
+v3d:
+- Initialize job timedout_batches
+- Fix cache_clean_lock
+
+vc4:
+- Move output fence and BO unreserve out of job_lock
+- Power down PYH when output is disabled
+- hdmi: Fix scrambling
+The following changes since commit c347fef5f8f8927985bd67835331ce4cf7ff43a4:
+
+  drm/panthor: fix immortalis condition (2026-10-14 16:57:52 +0100)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-11-05
+
+for you to fetch changes up to 75709a35da45bc67f94c9ceb91bf8871fdfe4d9e:
+
+  drm/sched: Adjust run-queue when changing priority at runtime (2026-11-05 14:35:33 +0100)
+
+----------------------------------------------------------------
+Short summary of fixes pull:
+
+atomic:
+- Fix CRTC dma-fence handling
+
+bridge:
+- nwl-dsi: Fix LCDIF handling
+
+dma-buf:
+- Fix IOVA offset
+- Restore the scatter-list entry count before freeing
+
+dp:
+- Keep MOT set between messages when no_zero_sized is set
+
+etnaviv:
+- Fix NULL dereference in etnaviv_unbind()
+- Flush the tile status cache through both the PE and BLT
+
+imagination:
+- Align rogue_fwif_hwrtdata to 64 bytes
+
+loongson:
+- Fix BO handling in several places
+
+nouveau:
+- Map Kepler video engine contexts non-privileged
+- Clear use.enabled when subdev init fails
+- Avoid running VBIOS twice
+- Fix CE channel creation on pre-Kepler GPUs
+
+panel:
+- visionox-r66451: Set brightness MSB first; Increase reset waiting time
+
+panic:
+- Fix display loop
+- Fix line parsing
+
+sched:
+- Fix out of bounds entity priority check
+- Adjust run-queue when changing priority at runtime
+
+v3d:
+- Initialize job timedout_batches
+- Fix cache_clean_lock
+
+vc4:
+- Move output fence and BO unreserve out of job_lock
+- Power down PYH when output is disabled
+- hdmi: Fix scrambling
+
+----------------------------------------------------------------
+André Draszik (2):
+      drm/drm_crtc: ensure dma_fence_ops remain valid during device unbind
+      drm/drm_crtc: fix race with dma_fence_signal() in ::get_driver_name()
+
+Christian Gmeiner (2):
+      drm/etnaviv: Fix NULL dereference on unbind without PPU flop reset
+      drm/etnaviv: Flush the tile status cache through both the PE and BLT
+
+Davidlohr Bueso (1):
+      dma-buf: validate the attachment before asserting its reservation lock
+
+Devin Wittmayer (2):
+      drm/panic: Fix kmsg screen hang on a long log line
+      drm/panic: Accept a trailing newline in panic_screen
+
+Dom Cobley (1):
+      drm/vc4: hdmi: power down the BCM2712 PHY when the output is disabled
+
+Esben Haabendal (2):
+      drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
+      drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+
+Evanshenf (3):
+      drm/loongson: Fix framebuffer selection in async cursor updates
+      drm/loongson: Fix double free on BO initialization failure
+      drm/loongson: Handle buffer mapping failures when clearing a BO
+
+Finn Zeruhn (1):
+      drm/dp: keep MOT set between messages when no_zero_sized is set
+
+Ilia Mirkin (1):
+      drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts
+
+Jose Maria Casanova Crespo (1):
+      drm/v3d: Initialize timedout_batches when running a CSD job
+
+Karl Mehltretter (1):
+      dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
+
+Konstantin Sinyuk (1):
+      MAINTAINERS: Update habanalabs maintainer contacts and status
+
+Leon Romanovsky (1):
+      dma-buf: Restore the scatterlist entry count before freeing
+
+Lucas Tanure (2):
+      drm/vc4: hdmi: always cancel the scrambling work synchronously
+      drm/vc4: hdmi: enable scrambling before the TMDS clock starts
+
+Maíra Canal (3):
+      drm/vc4: Publish the output fence outside of job_lock
+      drm/vc4: Drop the BO reservations outside of job_lock
+      drm/v3d: Widen cache_clean_lock over the whole L2TCACTL sequence
+
+Michal Wilczynski (1):
+      drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
+
+Munique Feitoza (1):
+      drm/nouveau: Fix CE channel creation on pre-Kepler GPUs
+
+Rosen Penev (2):
+      drm/nouveau/fifo: map Kepler video engine contexts non-privileged
+      drm/nouveau/nvkm: clear use.enabled when subdev init fails
+
+Tvrtko Ursulin (2):
+      drm/sched: Fix out of bounds entity priority check
+      drm/sched: Adjust run-queue when changing priority at runtime
+
+Vladimir Zapolskiy (2):
+      drm/panel: visionox-r66451: Send the brightness value MSB first
+      drm/panel: visionox-r66451: Wait longer after the panel reset
+
+Yili Zhang (1):
+      dma-buf: Fix IOVA offset when linking phys vecs to sgt
+
+luyuantao (1):
+      drm/panic: Fix the loop that causes kmsg to not display correctly
+
+ .mailmap                                           |  2 ++
+ MAINTAINERS                                        |  6 ++--
+ drivers/dma-buf/dma-buf-mapping.c                  |  8 +++--
+ drivers/dma-buf/dma-buf.c                          |  4 +++
+ drivers/gpu/drm/bridge/nwl-dsi.c                   | 17 +++++----
+ drivers/gpu/drm/display/drm_dp_helper.c            |  3 +-
+ drivers/gpu/drm/drm_crtc.c                         | 18 ++++++----
+ drivers/gpu/drm/drm_panic.c                        | 12 +++++--
+ drivers/gpu/drm/etnaviv/etnaviv_buffer.c           | 40 ++++++++++------------
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c              |  6 ++--
+ drivers/gpu/drm/imagination/pvr_rogue_fwif.h       |  2 +-
+ drivers/gpu/drm/loongson/lsdc_gem.c                | 14 +++++---
+ drivers/gpu/drm/loongson/lsdc_plane.c              |  2 +-
+ drivers/gpu/drm/loongson/lsdc_ttm.c                | 14 +++++---
+ drivers/gpu/drm/loongson/lsdc_ttm.h                |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c              |  7 +++-
+ drivers/gpu/drm/nouveau/nvkm/core/subdev.c         |  1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c   | 13 +++++++
+ .../gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c    | 20 +++++++++++
+ drivers/gpu/drm/panel/panel-visionox-r66451.c      |  4 +--
+ drivers/gpu/drm/scheduler/sched_entity.c           | 29 ++++++++--------
+ drivers/gpu/drm/v3d/v3d_gem.c                      |  5 ++-
+ drivers/gpu/drm/v3d/v3d_sched.c                    |  2 ++
+ drivers/gpu/drm/vc4/vc4_gem.c                      | 14 ++++++--
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     | 10 +++---
+ drivers/gpu/drm/vc4/vc4_hdmi_phy.c                 |  5 +++
+ 26 files changed, 172 insertions(+), 88 deletions(-)
+
+-- 
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
