@@ -2,79 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A748606EEB5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BB8606D826
 	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 14:06:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ul3wcDfo
+	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=q1zdsM6t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5A4B10FB80;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E72C410FF88;
 	Thu,  5 Nov 2026 14:06:19 +0000 (UTC)
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 775F710F04F
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 06:04:41 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-3b083afebe4so194020a91.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 22:04:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793858681; x=1794463481; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=YPu8h0jDpjB4vijwFawJAErayo8SO8CuvsZ0ZVqanQU=;
- b=Ul3wcDfosVBqlZGOSZ5rcHsDD3MMJEld+jrjdyGYCIadOqQd0Mj6N/pctWIXOhXZ0+
- jVi57lqrhb7G0aQq1WCw7AHHXWRWkfxHte20PQnT5ams4alcFcKOT1GE0/0V6KbZWWpu
- oejLWIxHC2qGzUAxom1fYnnSbLv0XQIROpge6+zGGQRyKCi/6ltvOYlsjgL5mbf6O0sg
- hfcUpmhW+ruCmO6FliHyNFqbzFTOBJIc0ewX3kNV2FkIORMrs5JwYfk1nOZxe6ak8IVo
- +PszgmOFVdy6CX333iksuNllECHtm3we23TgX/IkiaeDsIwJQc3lQFuvAH/O2N1PCkGo
- 5PxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793858681; x=1794463481;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=YPu8h0jDpjB4vijwFawJAErayo8SO8CuvsZ0ZVqanQU=;
- b=r34vC5Xta2rQ+FWOcbn5h9B/0CjLSLqFeB22nGytKscMRXE3MOo/uWtZt6ZNKr558Z
- 1TY+put/J9XXOpstO0aYmR24es9FoLrMxeyJ52aiDcyArgIAphKNjahkQI2m5VbfAeYe
- g7MSGG5f9kxkXURAqTMHNJM5a0JtBr/WmV1YhJ8eT8LdLxr2oxurk5kpEcEkcGg3gTre
- 0A4+Z1b/q1iRl4DaBRQ6/uqe+6N94aICl+Fz1um33StzDm+660InaIkCUjRdIRjX1Jp+
- fOZgFpFqV3G38Rv+hlbIV/CRGZcYfPlvrSknvpBcSLZ5R3JsD8vjUfUvZ8oxFJi6rNsC
- cSTg==
-X-Gm-Message-State: APuU4Z/XXVssfXJghBXIJt1QJI0ZKEkFR78OB/pqgc7se6SvGafpA8GZ
- z6Ntz0KQ2PMcY/kZSDxuBikpleNhPx+jW+b9XxJ1oMPsKn19fwGOAN4xwaPx2w==
-X-Gm-Gg: AYBFou1vkZscXlLgZInw0Ac42oM4isptBBJAxID7XGrD7qObiUDmVNPFqn1cC+jG/3w
- npE9wjEhJaSA5s/oyMkeWf47dex3uxj1s43lNQRHsyHUFAoWodbMlo2HH+F+aPf4zBN7k22xXNu
- vBwISelr/S9S0Rzxxat9KjNHVZ2pXIPwO/s+xahgx7tqmc0ADwgCMB6tLTyUDpBb0DqIPA0IUCU
- iVnrAsrVfUc9+sgSnaPsDsd0Ht9dAeqiwWgmcDP88kzSrnu9qo3zRXfYORze+XPKdNP8bsO3DT2
- AUsT8xrRSSyp5dumz8JwOcduom8gpX0O+DA1h6zNGsGPyl7rMXK9Ef7OnPRDmFWlxXq7wQxSQMx
- 1tqBhBWnvTQbO/Q4mzIW/SQ5FYA7uwt2pc//sy6MxQtqgAfCVENd+1bWNuZ7rohD4NNyNveoiO0
- f1PdgSvc3z38N+yh/ZQMiWGjVI/9EENpjkqxEL5XXUmgpeJbEjqf9mP20p3GPtuSfcxnIDOEzWd
- p/57PcOZKGl2FlDbLaEkk+JmjII7I59U0gGv9gYEu+lCIlTHpFp/sJDdY2WIkzXupCfpYMIFGeX
- Hu0QZiIbN5KOMu1btAOdDxo2Pn1AKZX5zLbGBf2kaQ==
-X-Received: by 2002:a17:90b:1652:b0:3ac:a7ee:6785 with SMTP id
- 98e67ed59e1d1-3ae895a0406mr26169727a91.1.1793858680988; 
- Wed, 04 Nov 2026 22:04:40 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b0b313c0dcsm2093100a91.1.2026.11.04.22.04.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2026 22:04:40 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, stable@vger.kernel.org,
- Chengyu Liu <lui2012qwq@gmail.com>
-Subject: [PATCH v2 1/2] i915/gt: don't store ERR_PTR into ppgtt->base.pd on
- allocation failure
-Date: Thu,  5 Nov 2026 14:04:21 +0800
-Message-Id: <20261105060422.51848-2-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261105060422.51848-1-lui2012qwq@gmail.com>
-References: <20261105060422.51848-1-lui2012qwq@gmail.com>
+X-Greylist: delayed 346 seconds by postgrey-1.36 at gabe;
+ Thu, 05 Nov 2026 13:53:22 UTC
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA53610E028;
+ Thu,  5 Nov 2026 13:53:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
+ s=pkvm2402; t=1793886797;
+ bh=uWmr2ZKtpH5h2OBV51HqQXW86BPRnxbtgCLgC9kQTMc=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=q1zdsM6tOq7ieGS8iHqv4aJObV5BZcPF+E0QhFE/7RTjw2O3CRZKOepFXGVtpRKNW
+ r1sj4CsF/MqQP6NM86gpCuTighaL1H/fVqqC/StiDQ+IXtZwfscdJFWdVgiF5WlFNU
+ n6IEEpRuJ/3pwJUeN0jOPcCrRe7ryv5qN54Rdol0=
+X-QQ-mid: esmtpsz16t1793886427t16ce7834
+X-QQ-Originating-IP: KKWTrCpi6UQoea4zvr1hB8wuxKsh3btIMCG7n8Tta0I=
+Received: from exmail.qq.com ( [113.89.160.251])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 05 Nov 2026 21:47:01 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13853959520253082465
+From: Hanson Wang <hanson.wang@ugreen.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/i915/dsb: Fill all padding before GOSUB
+Date: Thu,  5 Nov 2026 21:46:58 +0800
+Message-Id: <20261105134658.3724628-1-hanson.wang@ugreen.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OBupBPlx2MQ7edX+gYnAZbXL458segYHv0zB8Fyakxq9ghgn/g+TGnbt
+ 3cU4fyOw+rXrAWvmu56XNteobRofspeiYXXqpI3YuUOIjLfZe6ZbK5X8MaTrD8jUQtv98bd
+ Y9X9SdYdnR0lvPRuIZGUPm7AKIGqTiH2R27gkwojcsqJfHG3ZA6dwJg/Zw1/Xx1/5siiEAT
+ spJpUhvi9S0jXhtOzsBhyji3EicuMDN/j+r/R4nFzoG1JT3JQyb3bf5XFj8lQwwLE3W9gYp
+ l8Zp/RD98cfKn6StRMlU/Scfuf9QQ/prLjjh2eemUVdmDCpFgtCMOtlyb66ui2qi6nwHPZp
+ VcFNFjsRUlhP2wTktZWlfLNm/kx6w8DXZINTgseDOWTDmziAzg/djXrZ8j/49iO5PJWH7fm
+ Am2j6PZNYUODuG+G+QsILzgCu4lr/MDEytvqvIxcRQYGX/I0vKGdgZ3FQGq2ERjn7lofcui
+ QqiNsgvwsdQoYZmSjVjejBLcXkPL4OEwS8+bT8YS9rwBG32+5r7cmP5XJoAXwKHc7qCakmq
+ UtB/s1voApDVbpaRq84xIf7yASrBztwEMZ/y9mGYLb/fw0rggen/Urja6LPlAd/B5QCn4dW
+ g6Ch7ZaGny9SO2nIgzLruosQlRd4ZNsZDztp/BfWdEpPecBIZ4aZLjPgU1wZwVNrHn0rCqd
+ r5f/6dQ48lJG/xDcfYjMGuNliEsI5HjjNi+tiN1dKgc94iQkPwRAFkD+tXS7LROk9xCNnn+
+ c2pikJQDBvLAnAOTXE7hiRbkOOEHneza5b0EVs7t/mrWo7emWIW4SpvIqz0RV37KNNFTGZX
+ zq6fZq7Vrrp4xvBUChA89rwdqHcWBGYL4Pv2uifD7Ry4Spp0+vEyU/sAOzbmb/9fmCnO6+Z
+ RsLp8SQj9BS/KmhPz7B/rwtBlEz8PAn6uXjNTUDv5X0sS5H3sN0vAPQtLPhKP1gOCmulVhz
+ DccTdjQwfQ0gtM9RmSwlc/2YQP1LtI1Lmubd5qexO3oG2zYyiTejNk3YAYoW95zcewDd7ge
+ AWXnMP+CMsGCM+8ztI03lPSaEF8zU=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Thu, 05 Nov 2026 14:06:18 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,72 +78,63 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-gen6_ppgtt_create() stores the result of gen6_alloc_top_pd() directly
-into ppgtt->base.pd, and on failure the ERR_PTR stays in the field.
-i915_vm_put() runs vm->cleanup = gen6_ppgtt_cleanup(), where
-gen6_ppgtt_free_pd() dereferences pd via gen6_for_all_pdes() - with an
-ERR_PTR that is an invalid dereference and a crash (in the async
-release worker).
+intel_dsb_gosub_align() aligns free_pos to a cacheline boundary
+before emitting GOSUB, but zeroes the skipped bytes only when at most
+two QW slots remain. Any larger gap stays between head and tail and is
+fetched as DSB instructions.
 
-Assign to a local first and store into the field only after it is
-validated, so the field never holds an error pointer; on the failure
-path it stays NULL, and gen6_ppgtt_free_pd() now bails out on a NULL
-pd.
+A Panther Lake dump taken from a DSB idle timeout shows that gap: the
+tail is 0x58, GOSUB is at 0x80, and the 40 bytes between them are
+nonzero instead of NOP (opcode 0).
 
-Found by static analysis.
+Zero every byte skipped by the existing alignment. Preserve the GOSUB
+placement, which avoids cacheline QW slots 6 and 7 as required by
+Wa_16024917128.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+Fixes: 2c41d62f6fb1 ("drm/i915/dsb: Implement intel_dsb_gosub()")
+Cc: stable@vger.kernel.org # v6.17+
+Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
 ---
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+Hardware: Intel Core Ultra 5 336H (Panther Lake), 6.18-based kernel
+Reboots:  7/100 DSB idle timeouts before this fix, 0/200 after
+Build:    6.18 backport; both xe and i915 intel_dsb.o
+Upstream: not built or booted
+Reproducer: upstream intel_dsb_gosub_align(), buffer prefilled with
+            0xa5. 5/8 cacheline positions missed NOPs before; 32/32
+            pass after, including the 0x58 -> 0x80 gap from the dump
+Limit:    these results do not show that every DSB or flip_done
+          timeout has the same cause
 
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index 438cd4724ac4..f747ee1f96d7 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -259,6 +259,9 @@ static void gen6_ppgtt_free_pd(struct gen6_ppgtt *ppgtt)
- 	struct i915_page_table *pt;
- 	u32 pde;
+ drivers/gpu/drm/i915/display/intel_dsb.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index d9a270362a82..b71e99ed8705 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -607,8 +607,13 @@ static void intel_dsb_gosub_align(struct intel_dsb *dsb)
+ 	/*
+ 	 * Wa_16024917128
+ 	 * "Ensure GOSUB is not placed in cacheline QW slot 6 or 7 (numbered 0-7)"
++	 *
++	 * free_pos always advances to the next cacheline, so the skipped
++	 * bytes remain inside the programmed command range. Fill the whole
++	 * gap with NOPs; clearing only slots 6 and 7 leaves a larger gap
++	 * uninitialized.
+ 	 */
+-	if (aligned_tail - tail <= 2 * 8)
++	if (aligned_tail > tail)
+ 		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
  
-+	if (!pd)
-+		return;
-+
- 	gen6_for_all_pdes(pt, pd, pde)
- 		if (pt)
- 			free_pt(&ppgtt->base.vm, pt);
-@@ -427,6 +430,7 @@ void gen6_ppgtt_unpin(struct i915_ppgtt *base)
- 
- struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
- {
-+	struct i915_page_directory *pd;
- 	struct i915_ggtt * const ggtt = gt->ggtt;
- 	struct gen6_ppgtt *ppgtt;
- 	int err;
-@@ -455,11 +459,12 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
- 	if (err)
- 		goto err_put;
- 
--	ppgtt->base.pd = gen6_alloc_top_pd(ppgtt);
--	if (IS_ERR(ppgtt->base.pd)) {
--		err = PTR_ERR(ppgtt->base.pd);
-+	pd = gen6_alloc_top_pd(ppgtt);
-+	if (IS_ERR(pd)) {
-+		err = PTR_ERR(pd);
- 		goto err_put;
- 	}
-+	ppgtt->base.pd = pd;
- 
- 	return &ppgtt->base;
- 
+ 	dsb->free_pos = aligned_tail / 4;
 -- 
-2.25.1
+2.34.1
 
