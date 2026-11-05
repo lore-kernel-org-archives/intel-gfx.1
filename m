@@ -2,61 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C8B606A328
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 09:32:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S/y9rS/Y
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA2D606A33C
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 09:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 135CF1122AB;
-	Thu,  5 Nov 2026 09:32:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E148B10E2CD;
- Thu,  5 Nov 2026 09:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793871151; x=1825407151;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=QTMUN2WITFlJPk4hSLu0WdmcyUC4quNKNvDGlMJCS3k=;
- b=S/y9rS/Yvx+ZfusS5+AoNY1VivyRT4dbFolzrjLJI4Oso1uG6d+NQdFD
- THodGjFYLQsxtx4oAQ5D4hbB2V56iI3AtSQ1JdnCJ30kuPLcXf+HY4hlC
- w69G5j1rqeD5mi92IzhAGVROEnjvxHma2Npp9pDPPQZ+Cq1A+Y1xyMzpn
- 22vHC5ZSngQRq8pKYImEei5+Nj5uy5gJQSLetpZ9PZwoO9f7bGcGSlxbO
- r6CS/dwh6THu3+nq+iBncOoN+6RDimlNZOi2di4+WDpEBE8Dhgt0yoYDH
- AuhXvUDFkVRi2ImcReuqRwfd5mxAz7swFhb6qxVDlf9xuQSOnEh1icTfk w==;
-X-CSE-ConnectionGUID: 5dqAS4KuScGvQDf0X1vKNQ==
-X-CSE-MsgGUID: t2bKEpBCTNSOF95hOIoeLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2552294"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2552294"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 01:32:29 -0800
-X-CSE-ConnectionGUID: OFMMOhNERK2l+5Z+dcV0wA==
-X-CSE-MsgGUID: ebvE+moKQd2pdg66IV7Qpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7030906"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.187])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 01:32:29 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 5/9] drm/i915/de: Introduce display->mmio.lock
-In-Reply-To: <20261104221842.18799-6-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261104221842.18799-1-ville.syrjala@linux.intel.com>
- <20261104221842.18799-6-ville.syrjala@linux.intel.com>
-Date: Thu, 05 Nov 2026 11:32:25 +0200
-Message-ID: <e14bda43b109cc92c66277921b9d2cb31b8befce@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5BD41122C6;
+	Thu,  5 Nov 2026 09:51:53 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE2F1122C4;
+ Thu,  5 Nov 2026 09:51:53 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8892690450438377601=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/gt=3A_Adjust_usa?=
+ =?utf-8?q?ge_of_SFC=5FDONE_registers_on_Gen_12?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Krzysztof Karas" <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 05 Nov 2026 09:51:53 -0000
+Message-ID: <179387231351.123683.3306197644293479638@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261105071426.1159739-1-krzysztof.karas@intel.com>
+In-Reply-To: <20261105071426.1159739-1-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,330 +34,192 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 05 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Introduce our own display specific mmio.lock, and wrap
-> the more expensive non-fw register accesses with it. And
-> everything that explicitly takes the uncore.lock currently,
-> switch over to mmio.lock as well.
->
-> This will preserve the same serialization behavior between
-> display registers as the uncore.lock is currently providing.
-> Once uncore.lock has actually been eliminated from display
-> registers (not the case yet) display vs. non-display
-> register accesses could happen in parallel. But that should
-> be fine since generally the registers for different hardware
-> units don't live on the same cacheline, so even concerns
-> about parallel accesses to the same cacheline potentially
-> hanging the machine (on IVB/HSW) should be assuaged.
->
-> Currently uncore.lock usage is limited to SNB+ on i915.
-> The xe driver, and older platforms on the i915 driver
-> don't use uncore.lock. Follow the same rule for the mmio.lock
-> initially.
->
-> With this we now end up with a double lock, or even a
-> triple lock due to i915's mmio debug lock. But we'll eliminate
-> the extra locks shortly. The end goal is either just mmio.lock
-> or no locks whatsoever. Well, ignoring the DMC wakelock stuff
-> that uses an additional lock as well.
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/i9xx_wm.c        |  9 ++-
->  drivers/gpu/drm/i915/display/intel_de.c       | 69 +++++++++++++++++--
->  .../gpu/drm/i915/display/intel_display_core.h |  9 +++
->  drivers/gpu/drm/i915/display/intel_vblank.c   | 16 ++---
->  4 files changed, 83 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i91=
-5/display/i9xx_wm.c
-> index 0233f5053d95..46bfada7c060 100644
-> --- a/drivers/gpu/drm/i915/display/i9xx_wm.c
-> +++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
-> @@ -1863,7 +1863,6 @@ static void vlv_atomic_update_fifo(struct intel_ato=
-mic_state *state,
->  				   struct intel_crtc *crtc)
->  {
->  	struct intel_display *display =3D to_intel_display(crtc);
-> -	struct intel_uncore *uncore =3D to_intel_uncore(display->drm);
->  	const struct intel_crtc_state *crtc_state =3D
->  		intel_atomic_get_new_crtc_state(state, crtc);
->  	const struct vlv_fifo_state *fifo_state =3D
-> @@ -1884,15 +1883,15 @@ static void vlv_atomic_update_fifo(struct intel_a=
-tomic_state *state,
->  	trace_vlv_fifo_size(crtc, sprite0_start, sprite1_start, fifo_size);
->=20=20
->  	/*
-> -	 * uncore.lock serves a double purpose here. It allows us to
-> -	 * use the less expensive I915_{READ,WRITE}_FW() functions, and
-> +	 * display->mmio.lock serves a double purpose here. It allows us to
-> +	 * use the less expensive intel_de_{read,write}_fw() functions, and
->  	 * it protects the DSPARB registers from getting clobbered by
->  	 * parallel updates from multiple pipes.
->  	 *
->  	 * intel_pipe_update_start() has already disabled interrupts
->  	 * for us, so a plain spin_lock() is sufficient here.
->  	 */
-> -	spin_lock(&uncore->lock);
-> +	spin_lock(&display->mmio.lock);
->=20=20
->  	switch (crtc->pipe) {
->  	case PIPE_A:
-> @@ -1952,7 +1951,7 @@ static void vlv_atomic_update_fifo(struct intel_ato=
-mic_state *state,
->=20=20
->  	intel_de_read_fw(display, DSPARB(display));
->=20=20
-> -	spin_unlock(&uncore->lock);
-> +	spin_unlock(&display->mmio.lock);
->  }
->=20=20
->  #undef VLV_FIFO
-> diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i9=
-15/display/intel_de.c
-> index 66de0d6be569..8b7a4e696ff9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_de.c
-> +++ b/drivers/gpu/drm/i915/display/intel_de.c
-> @@ -164,6 +164,7 @@ u16 intel_de_read16(struct intel_display *display, in=
-tel_reg_t reg)
->  }
->=20=20
->  #define __MMIO_WAKELOCK		BIT(0)
-> +#define __MMIO_LOCK		BIT(1)
->=20=20
->  static __always_inline void
->  __mmio_wakelock_pre(struct intel_display *display, intel_reg_t reg,
-> @@ -181,16 +182,35 @@ __mmio_wakelock_post(struct intel_display *display,=
- intel_reg_t reg,
->  		intel_dmc_wl_put(display, reg);
->  }
->=20=20
-> +static __always_inline void
-> +__mmio_lock_pre(struct intel_display *display, unsigned long *irqflags,
-> +		const unsigned int mmio_flags)
-> +{
-> +	if (mmio_flags & __MMIO_LOCK)
-> +		spin_lock_irqsave(&display->mmio.lock, *irqflags);
-> +}
-> +
-> +static __always_inline void
-> +__mmio_lock_post(struct intel_display *display, unsigned long irqflags,
-> +		 const unsigned int mmio_flags)
-> +{
-> +	if (mmio_flags & __MMIO_LOCK)
-> +		spin_unlock_irqrestore(&display->mmio.lock, irqflags);
-> +}
-> +
->  static __always_inline u32
->  __intel_de_read(struct intel_display *display, intel_reg_t reg,
->  		const unsigned int mmio_flags)
->  {
-> +	unsigned long irqflags;
->  	u32 val;
->=20=20
->  	__mmio_wakelock_pre(display, reg, mmio_flags);
-> +	__mmio_lock_pre(display, &irqflags, mmio_flags);
->=20=20
->  	val =3D intel_uncore_read(__to_uncore(display), reg);
->=20=20
-> +	__mmio_lock_post(display, irqflags, mmio_flags);
->  	__mmio_wakelock_post(display, reg, mmio_flags);
->=20=20
->  	return val;
-> @@ -200,10 +220,14 @@ static __always_inline void
->  __intel_de_write(struct intel_display *display, intel_reg_t reg, u32 val,
->  		 const unsigned int mmio_flags)
->  {
-> +	unsigned long irqflags;
-> +
->  	__mmio_wakelock_pre(display, reg, mmio_flags);
-> +	__mmio_lock_pre(display, &irqflags, mmio_flags);
->=20=20
->  	intel_uncore_write(__to_uncore(display), reg, val);
->=20=20
-> +	__mmio_lock_post(display, irqflags, mmio_flags);
->  	__mmio_wakelock_post(display, reg, mmio_flags);
->  }
->=20=20
-> @@ -226,6 +250,25 @@ static const struct intel_mmio_funcs i9xx_mmio_funcs=
- =3D {
->  	.write =3D i9xx_mmio_write,
->  };
->=20=20
-> +#define SNB_MMIO_FLAGS __MMIO_LOCK
-> +
-> +static u32 snb_mmio_read(struct intel_display *display, intel_reg_t reg)
-> +{
-> +	return __intel_de_read(display, reg, SNB_MMIO_FLAGS);
-> +}
-> +
-> +static void snb_mmio_write(struct intel_display *display, intel_reg_t re=
-g, u32 val)
-> +{
-> +	__intel_de_write(display, reg, val, SNB_MMIO_FLAGS);
-> +}
-> +
-> +#undef SNB_MMIO_FLAGS
-> +
-> +static const struct intel_mmio_funcs snb_mmio_funcs =3D {
-> +	.read =3D snb_mmio_read,
-> +	.write =3D snb_mmio_write,
-> +};
-> +
->  #define LNL_MMIO_FLAGS __MMIO_WAKELOCK
->=20=20
->  static u32 lnl_mmio_read(struct intel_display *display, intel_reg_t reg)
-> @@ -245,12 +288,30 @@ static const struct intel_mmio_funcs lnl_mmio_funcs=
- =3D {
->  	.write =3D lnl_mmio_write,
->  };
->=20=20
-> +static bool driver_is_i915(void)
-> +{
-> +#ifdef I915
-> +	return true;
-> +#else
-> +	return false;
-> +#endif
-> +}
+--===============8892690450438377601==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Ugh. Can we just not add this, because it needs to go real soon now
-anyway? Or do you already have patches in your tree removing this after
-some juggle?
+== Series Details ==
 
-> +
->  void intel_de_init(struct intel_display *display)
->  {
->  	display->mmio.uncore =3D to_intel_uncore(display->drm);
->=20=20
-> -	if (DISPLAY_VER(display) >=3D 20)
-> -		display->mmio.funcs =3D &lnl_mmio_funcs;
-> -	else
-> -		display->mmio.funcs =3D &i9xx_mmio_funcs;
-> +	spin_lock_init(&display->mmio.lock);
-> +
-> +	if (driver_is_i915()) {
-> +		if (DISPLAY_VER(display) >=3D 6)
-> +			display->mmio.funcs =3D &snb_mmio_funcs;
-> +		else
-> +			display->mmio.funcs =3D &i9xx_mmio_funcs;
-> +	} else {
-> +		if (DISPLAY_VER(display) >=3D 20)
-> +			display->mmio.funcs =3D &lnl_mmio_funcs;
-> +		else
-> +			display->mmio.funcs =3D &i9xx_mmio_funcs;
-> +	}
+Series: drm/i915/gt: Adjust usage of SFC_DONE registers on Gen 12
+URL   : https://patchwork.freedesktop.org/series/177819/
+State : failure
 
-If we temporarily need driver_is_i915() for the non-functional iterative
-approach, seems like a different arrangement of the if ladder would be
-benefitial for the eventual removal of driver_is_i915(), maybe something
-like:
+== Summary ==
 
-	if (DISPLAY_VER(display) >=3D 20)
-		display->mmio.funcs =3D &lnl_mmio_funcs;
-	else if (!driver_is_i915())
-		display->mmio.funcs =3D &i9xx_mmio_funcs;
-	else if (display->platform.valleyview || display->platform.cherryview)
-		display->mmio.funcs =3D &vlv_mmio_funcs;
-	else if (DISPLAY_VER(display) >=3D 7)
-		display->mmio.funcs =3D &ivb_mmio_funcs;
-	else if (DISPLAY_VER(display) >=3D 6)
-		display->mmio.funcs =3D &snb_mmio_funcs;
-	else
-		display->mmio.funcs =3D &i9xx_mmio_funcs;
+CI Bug Log - changes from CI_DRM_19452 -> Patchwork_177819v1
+====================================================
 
-(This includes changes from later patches.)
+Summary
+-------
 
-I guess I'd like to see the decisions here (and in the vblank code) be
-based on platforms rather than driver, even though there's some overlap.
+  **FAILURE**
 
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/=
-gpu/drm/i915/display/intel_display_core.h
-> index 3a48119f7890..aded2af8c92a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_core.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-> @@ -533,6 +533,15 @@ struct intel_display {
->  	} modeset;
->=20=20
->  	struct {
-> +		/*
-> +		 * Simultaneous accesses to the same cacheline of
-> +		 * registers may hang IVB/HSW systems. This lock
-> +		 * serializes all display register accesses done
-> +		 * using intel_de_{read,write}(), but not those
-> +		 * done using intel_de_{read,write}_fw().
-> +		 */
-> +		spinlock_t lock;
-> +
+  Serious unknown changes coming with Patchwork_177819v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_177819v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-I guess the comment begs the question why are we doing the locking also
-on display < 20? Just because the lock is (ab)used for other purposes as
-well?
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html
 
->  		struct intel_uncore *uncore;
->  		const struct intel_mmio_funcs *funcs;
->  	} mmio;
-> diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/dr=
-m/i915/display/intel_vblank.c
-> index 1d4753605675..fc9d1e14ec87 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vblank.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-> @@ -281,10 +281,6 @@ static int __intel_get_crtc_scanline(struct intel_cr=
-tc *crtc)
->  }
->=20=20
->  /*
-> - * The uncore version of the spin lock functions is used to decide
-> - * whether we need to lock the uncore lock or not.  This is only
-> - * needed in i915, not in Xe.
-> - *
->   * This lock in i915 is needed because some old platforms (at least
->   * IVB and possibly HSW as well), which are not supported in Xe, need
->   * all register accesses to the same cacheline to be serialized,
-> @@ -292,17 +288,15 @@ static int __intel_get_crtc_scanline(struct intel_c=
-rtc *crtc)
->   */
->  #ifdef I915
->  static void intel_vblank_section_enter(struct intel_display *display)
-> -	__acquires(uncore->lock)
-> +	__acquires(display->mmio.lock)
->  {
-> -	struct intel_uncore *uncore =3D to_intel_uncore(display->drm);
-> -	spin_lock(&uncore->lock);
-> +	spin_lock(&display->mmio.lock);
->  }
->=20=20
->  static void intel_vblank_section_exit(struct intel_display *display)
-> -	__releases(uncore->lock)
-> +	__releases(display->mmio.lock)
->  {
-> -	struct intel_uncore *uncore =3D to_intel_uncore(display->drm);
-> -	spin_unlock(&uncore->lock);
-> +	spin_unlock(&display->mmio.lock);
->  }
->  #else
->  static void intel_vblank_section_enter(struct intel_display *display)
-> @@ -550,7 +544,7 @@ void intel_crtc_update_active_timings(const struct in=
-tel_crtc_state *crtc_state,
->  	 * consistent state during fastset seamless refresh rate changes.
->  	 *
->  	 * vblank_time_lock takes care of all drm_vblank.c stuff, and
-> -	 * uncore.lock takes care of __intel_get_crtc_scanline() which
-> +	 * display->mmio.lock takes care of __intel_get_crtc_scanline() which
->  	 * may get called elsewhere as well.
->  	 *
->  	 * TODO maybe just protect everything (including
+Participating hosts (40 -> 39)
+------------------------------
 
---=20
-Jani Nikula, Intel
+  Missing    (1): bat-dg2-13 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_177819v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [PASS][1] -> [FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177819v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - fi-tgl-1115g4:      [FAIL][3] ([i915#17751]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live:
+    - bat-arlh-3:         [INCOMPLETE][5] ([i915#16547]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/bat-arlh-3/igt@i915_selftest@live.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/bat-arlh-3/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@dmabuf:
+    - bat-arlh-3:         [INCOMPLETE][7] ([i915#17776]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/bat-arlh-3/igt@i915_selftest@live@dmabuf.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/bat-arlh-3/igt@i915_selftest@live@dmabuf.html
+
+  
+  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
+  [i915#17751]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17751
+  [i915#17776]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17776
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19452 -> Patchwork_177819v1
+
+  CI-20190529: 20190529
+  CI_DRM_19452: 77675f3f5804ae46707c2d08afd75c64f424ef57 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9177: 9177
+  Patchwork_177819v1: 77675f3f5804ae46707c2d08afd75c64f424ef57 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html
+
+--===============8892690450438377601==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gt: Adjust usage of SFC_DONE registers on Gen 12</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177819/">https://patchwork.freedesktop.org/series/177819/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19452 -&gt; Patchwork_177819v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_177819v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_177819v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_177819v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@kms_hdmi_inject@inject-audio:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177819v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17751">i915#17751</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/bat-arlh-3/igt@i915_selftest@live.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@dmabuf:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/bat-arlh-3/igt@i915_selftest@live@dmabuf.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17776">i915#17776</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/bat-arlh-3/igt@i915_selftest@live@dmabuf.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19452 -&gt; Patchwork_177819v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19452: 77675f3f5804ae46707c2d08afd75c64f424ef57 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9177: 9177<br />
+  Patchwork_177819v1: 77675f3f5804ae46707c2d08afd75c64f424ef57 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8892690450438377601==--
