@@ -2,59 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5432606A326
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 08:25:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC276606A326
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 08:38:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gmVVusd/
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tuYpFVUv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38CFD10E2C4;
-	Thu,  5 Nov 2026 08:25:51 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77E6610E2C4;
- Thu,  5 Nov 2026 08:25:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793867145; x=1825403145;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=6EBRjcp5G1Ckr8WeOTCb83fZ6iA4VB24J7u8Itoq+54=;
- b=gmVVusd/Wkhq4MWUCN9i5lT7WZqndl1DIwvidcPK/CVWkk71qXPRwmxn
- HzHQUOwhGE7efFH6NUUJmFrNYNsEcK1dtJFPJRKcuoAFXpAuIuJbL8c6h
- gAmpZoOQSwS/ScRGu9rgoY77vvvQ8iyH9GmuZSlr6Ol1CARzrDKQi3db0
- Yu8eq96mF/Y8l+WMM/iOgr9HGRRZlUt2X5FFRuPUid0lwFb9LcJn/8C2Q
- J50WqZWmOQj0skHar7e9Z4rbaKJUm7KyJ24uLQk84XvwwrJ3fDhZkHTgg
- Eh0lO37Cw6LVXmQrlBPm2WyDO9lmNYF9b6IRC1n5wFJqDL/2ubxI1mMx2 A==;
-X-CSE-ConnectionGUID: XRm+MLmeTric3ShCainJYg==
-X-CSE-MsgGUID: 9LP5rWC3R2+i58PhHzYkEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2738796"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2738796"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 00:25:45 -0800
-X-CSE-ConnectionGUID: jhk4GLNOTuCKjxyiEG54tA==
-X-CSE-MsgGUID: Mx28KSO3Q9eYAKiNMwYDdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6824973"
-Received: from dev-417.igk.intel.com (HELO dev-417) ([10.91.214.181])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 00:25:43 -0800
-Date: Thu, 5 Nov 2026 09:25:38 +0100
-From: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@linux.intel.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v1 2/2] drm/i915/psr: clean register macro's name from typo
-Message-ID: <7ejc6pruwt3r55cuwi4ncqyzbzbr7b3piz3xt5zxbdsaft3ohk@asw7lnftulqx>
-References: <20261104231812.1704129-1-michal.grzelak@linux.intel.com>
- <20261104231812.1704129-3-michal.grzelak@linux.intel.com>
- <sashiko-outbox-198292@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20ADD10E956;
+	Thu,  5 Nov 2026 08:38:50 +0000 (UTC)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2707010E956
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 08:38:44 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-cc4c02ddd62so1049938a12.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Nov 2026 00:38:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793867924; x=1794472724; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=0uDYlxqiv0mSLq/hIWs5/UPyDpAbAUOWaGdtWRXlapg=;
+ b=tuYpFVUvKgLktSqBiwEfPYSGvKYzFqEonioz5EWW1kNmIRbByNuYVobKYqdGlWhMx0
+ JaegITB0gSJMun7CURDrUt2nu3s0idoRAG6dtf75HYLFv7nrsiepaLkAX9MnDJcRY5VW
+ +Skl9tQxJVOrtNjhTTvp1jfRuGkB5M1XcsSxtQDEbr5LVu2hrUaVwmIbH6j2EeZ1Rtn8
+ LTfnTG9O2pIZavwhrHmWJkjq6G3JuVFZCNBLEzKBWY2HMpV9UlSwRAVK0YbcEBikd1Pf
+ Uq8/XmiRBSvMgQp0Z91sUo/b5hlNHvFkXg4SSL5yS6Y3HQHeZmWNKKVtH1FEXidDoTPb
+ KDKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793867924; x=1794472724;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=0uDYlxqiv0mSLq/hIWs5/UPyDpAbAUOWaGdtWRXlapg=;
+ b=OX8nZDWmnrLNiNHX0IAChIx5ifMye9E0eWwNfg/pgFzQ+Npb7O6QIuG6wqNnrilOfK
+ gaA1Yb6A6zsMP5Qipow49hwEUOjgugkYC4cSuUAXBxm0/RHulPAKePVTBG6jodvL2akD
+ WCz2kTm4W1cMLozI/GSO2ERdVJf4MJCoATbzMr5PU0RJTPaXXK1k/OOY9tolC49EpGok
+ iO/lDeiQot+mNFdejXzOm0YfS0j5CIa2SMeKu6rSO27icGt027Q7OyEuTtWuw5/4lYP2
+ D+fx3Jn8EQmJHn1WMBeOHBZC8OlgcukJ8Sr8KUyh2y/BNMn6fP2oT9+lhtjfFXQzXynV
+ CtAQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzbsd6hZMbBAShwWXudztm/3NMaTyNe6MH5t3BHp9k1SEFNJuLULc0kgUoaQ2/iLwSDJjAJ94Yo5Aw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9uJJm+FeHMwH3pShwYxU8jlxEGnn/8t8WWViABJYMthUdOeMkT
+ 8mUKg6yDCy650eUyUwrb4Vga5IOItA/QbJBFxwz+4pI3T2Xn0LBrxweCACd4FA==
+X-Gm-Gg: AYBFou3ODmOjPwLfOo5WF+9R9Juq1QTCjHUMQt1fOqMNTpb3ZbrPRTRTYB4QLCduhxC
+ INSMhn+jk+fqCg5N3XjgjGTLbkbAeT5UU0c4+C5A3SDb3vg7VeUghmD3xCJ6iXQBmhmX+fohl7q
+ nqFT6wqDAvHOtAfvfLcb60TXvsppPkh+Q6cgcwJB3s725OikKCp6TrpSXmFTg/quBg1sK1e4hUq
+ 388X1PIYMPow8ouBSewng/5BEQXtOXnFvD0uEp6zv6QJbfJyD6KgQgKHQcZJLYtxgkk2FSnB6rf
+ HSk3RqTN9WSazF9hTVcKXJbks+IYrZiFjLSZVqml0zNf4Pv1cxphITIOGi2qjtIKQT9aD4cO05V
+ RyBLxUAIRYfHSA14LH2h3MGyeCoqTIqoOdk5wRw8Wyf99kFtmEV8EbD1lE9tQU3RB0qmXlIe4JC
+ fHJi/Yo3N3zfRCinzx2bBTWFDusvYUXh8j+QAX5b25+lvuJ2VkaQlChL0zbqb7ncLkUJlaFA9nG
+ gC3eHhofJSIieP5DwzNrSFnC3zgCaz2XeqqWTQROyM7J2arLZov58Id4zczzCQOfMqo17euCKs4
+ rE0uuzyLrnJuA7d9TznFNtDpPiK42mIfUQ==
+X-Received: by 2002:a17:90b:4c52:b0:3ab:1481:69e5 with SMTP id
+ 98e67ed59e1d1-3ae897ccbfdmr15940958a91.11.1793867923599; 
+ Thu, 05 Nov 2026 00:38:43 -0800 (PST)
+Received: from localhost ([2400:2650:24e0:bf00:cc77:213f:afc3:65e2])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b0b31d2b5esm2812294a91.15.2026.11.05.00.38.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2026 00:38:43 -0800 (PST)
+Date: Thu, 5 Nov 2026 17:38:41 +0900
+From: Zhenyu Wang <zhenyuw.linux@gmail.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: zhi.wang.linux@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/gvt: Release GGTT MM if scratch page setup fails
+Message-ID: <auxAkaQM1Rri52K9@dell-wzy>
+References: <20261103065407.1070225-1-vulab@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-198292@kernel.org>
+In-Reply-To: <20261103065407.1070225-1-vulab@iscas.ac.cn>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,83 +89,65 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 04, 2026 at 11:22:37PM GMT, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] drm/i915/psr: macro rename introduces new typo _CONTINOUOS_
-> --
+On Tue, Nov 03, 2026 at 06:54:07AM +0000, Wentao Liang wrote:
+> intel_vgpu_init_gtt() creates the GGTT MM before allocating the scratch
+> page table tree. If scratch page allocation or DMA mapping fails,
+> create_scratch_page_tree() releases its own pages, but the GGTT MM and
+> its virtual GGTT and host GGTT buffers remain allocated. The caller
+> skips intel_vgpu_clean_gtt() when intel_vgpu_init_gtt() fails.
 > 
-> commit 6ee099cfe2ac28d1b7981063a5dd7a20aa5f8373
-> Author: Michał Grzelak <michal.grzelak@linux.intel.com>
+> Drop the GGTT MM reference and clear its pointer before returning the
+> scratch page initialization error.
+>
+> Fixes: 3b6411c2c205 ("drm/i915/gvt: implement scratch page table tree for shadow PPGTT")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/gpu/drm/i915/gvt/gtt.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 > 
-> drm/i915/psr: clean register macro's name from typo
-> 
-> This commit renames ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME and
-> PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME to fix a spelling typo in the
-> register macro names.
-> 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-> > index f7fae75751f54..2fd77313971be 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> > @@ -1074,7 +1074,7 @@ static void dg2_activate_panel_replay(struct intel_dp *intel_dp)
-> >  
-> >  	intel_de_rmw(display,
-> >  		     PSR2_MAN_TRK_CTL(display, intel_dp->psr.transcoder),
-> > -		     0, ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME);
-> > +		     0, ADLP_PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME);
-> >  
-> >  	intel_de_rmw(display, TRANS_DP2_CTL(intel_dp->psr.transcoder), dp2_ctl_clear, dp2_ctl_set);
-> >  }
-> > @@ -2618,8 +2618,8 @@ static u32 man_trk_ctl_partial_frame_bit_get(struct intel_display *display)
-> >  static u32 man_trk_ctl_continuous_full_frame(struct intel_display *display)
-> >  {
-> >  	return display->platform.alderlake_p || DISPLAY_VER(display) >= 14 ?
-> > -	       ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME :
-> > -	       PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME;
-> > +	       ADLP_PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME :
-> > +	       PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME;
-> >  }
-> >  
-> >  static void intel_psr_force_update(struct intel_dp *intel_dp)
-> > diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
-> > index a57bc111290d1..56df4d2f97286 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
-> > @@ -241,7 +241,7 @@
-> >  #define  PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR_MASK		REG_GENMASK(20, 11)
-> >  #define  PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR(val)		REG_FIELD_PREP(PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR_MASK, val)
-> >  #define  PSR2_MAN_TRK_CTL_SF_SINGLE_FULL_FRAME			REG_BIT(3)
-> > -#define  PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME		REG_BIT(2)
-> > +#define  PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME		REG_BIT(2)
-> >  #define  PSR2_MAN_TRK_CTL_SF_PARTIAL_FRAME_UPDATE		REG_BIT(1)
-> >  #define  ADLP_PSR2_MAN_TRK_CTL_SU_REGION_START_ADDR_MASK	REG_GENMASK(28, 16)
-> >  #define  ADLP_PSR2_MAN_TRK_CTL_SU_REGION_START_ADDR(val)	REG_FIELD_PREP(ADLP_PSR2_MAN_TRK_CTL_SU_REGION_START_ADDR_MASK, val)
-> > @@ -249,7 +249,7 @@
-> >  #define  ADLP_PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR(val)		REG_FIELD_PREP(ADLP_PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR_MASK, val)
-> >  #define  ADLP_PSR2_MAN_TRK_CTL_SF_PARTIAL_FRAME_UPDATE		REG_BIT(31)
-> >  #define  ADLP_PSR2_MAN_TRK_CTL_SF_SINGLE_FULL_FRAME		REG_BIT(14)
-> > -#define  ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME		REG_BIT(13)
-> > +#define  ADLP_PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME		REG_BIT(13)
-> 
-> [Severity: Low]
-> This isn't a bug, but should _CONTINOUOS_ be _CONTINUOUS_ in
-> PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME and
-> ADLP_PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME (as well as their callers
-> dg2_activate_panel_replay() and man_trk_ctl_continuous_full_frame()),
-> matching LNL_CFF_CTL_SF_CONTINUOUS_FULL_FRAME?
-> 
+> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
+> index 5056a5887b31..17d61548ec05 100644
+> --- a/drivers/gpu/drm/i915/gvt/gtt.c
+> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
+> @@ -2403,6 +2403,7 @@ static int create_scratch_page_tree(struct intel_vgpu *vgpu)
+>  int intel_vgpu_init_gtt(struct intel_vgpu *vgpu)
+>  {
+>  	struct intel_vgpu_gtt *gtt = &vgpu->gtt;
+> +	int ret;
+>  
+>  	INIT_RADIX_TREE(&gtt->spt_tree, GFP_KERNEL);
+>  
+> @@ -2420,7 +2421,13 @@ int intel_vgpu_init_gtt(struct intel_vgpu *vgpu)
+>  
+>  	INIT_LIST_HEAD(&gtt->ggtt_mm->ggtt_mm.partial_pte_list);
+>  
+> -	return create_scratch_page_tree(vgpu);
+> +	ret = create_scratch_page_tree(vgpu);
+> +	if (ret) {
+> +		intel_vgpu_destroy_mm(gtt->ggtt_mm);
+> +		gtt->ggtt_mm = NULL;
+> +	}
 
-Yes.
+Better to just call intel_vgpu_destroy_ggtt_mm(vgpu) which is more
+aligned as for ggtt mm handling.
 
-BR,
-Michał
+The issue you identified with AI tool might make sense, but pls learn
+how to work with kernel community first.
 
+> +
+> +	return ret;
+>  }
+>  
+>  void intel_vgpu_destroy_all_ppgtt_mm(struct intel_vgpu *vgpu)
 > -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261104231812.1704129-1-michal.grzelak@linux.intel.com?part=2
+> 2.34.1
