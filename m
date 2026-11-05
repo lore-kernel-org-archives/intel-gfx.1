@@ -2,28 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C354D606A31B
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 16:12:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB090606A328
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 16:44:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ADA010E5F8;
-	Thu,  5 Nov 2026 16:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2918610E936;
+	Thu,  5 Nov 2026 16:44:14 +0000 (UTC)
 Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B425210E070;
- Thu,  5 Nov 2026 16:12:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0483710E936;
+ Thu,  5 Nov 2026 16:44:13 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/dsb=3A?=
- =?utf-8?q?_Fill_all_padding_before_GOSUB?=
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_i915=3A_two_tea?=
+ =?utf-8?q?rdown_fixes_=28gen6_ppgtt_ERR=5FPTR=2C_OA_config_sysfs_leak=29_?=
+ =?utf-8?q?=28rev3=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Hanson Wang" <hanson.wang@ugreen.com>
+To: "Chengyu Liu" <lui2012qwq@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 05 Nov 2026 16:12:03 -0000
-Message-ID: <179389512373.127389.7806244146483161356@221881a7231d>
+Date: Thu, 05 Nov 2026 16:44:13 -0000
+Message-ID: <179389705301.127559.9124441854690599448@221881a7231d>
 X-Patchwork-Hint: ignore
-References: <20261105134658.3724628-1-hanson.wang@ugreen.com>
-In-Reply-To: <20261105134658.3724628-1-hanson.wang@ugreen.com>
+References: <20261105060422.51848-1-lui2012qwq@gmail.com>
+In-Reply-To: <20261105060422.51848-1-lui2012qwq@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,15 +44,15 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 == Series Details ==
 
-Series: drm/i915/dsb: Fill all padding before GOSUB
-URL   : https://patchwork.freedesktop.org/series/177863/
+Series: i915: two teardown fixes (gen6 ppgtt ERR_PTR, OA config sysfs leak) (rev3)
+URL   : https://patchwork.freedesktop.org/series/177748/
 State : failure
 
 == Summary ==
 
-Series author address 'hanson.wang@ugreen.com' is not on the allowlist, which prevents CI from being automatically triggered.
+Series author address 'lui2012qwq@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
 If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
 Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/192114/ (on built-in)
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/192116/ (on built-in)
 
 
