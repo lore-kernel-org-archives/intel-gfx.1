@@ -2,28 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA2D606A33C
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 09:51:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0713606B576
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 11:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oEAl6rSn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5BD41122C6;
-	Thu,  5 Nov 2026 09:51:53 +0000 (UTC)
-Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE2F1122C4;
- Thu,  5 Nov 2026 09:51:53 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8892690450438377601=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83CAF112386;
+	Thu,  5 Nov 2026 11:47:58 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA89D112377
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 11:47:51 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 6C4B64E407D8;
+ Thu,  5 Nov 2026 11:47:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 1BEA05FF85;
+ Thu,  5 Nov 2026 11:47:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 16F1110328CE3; Thu,  5 Nov 2026 12:47:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1793879262; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=5jiuSYWr/X4Yj8yrZR9utlC8Rdw8fQ7cuQ21H6LtP70=;
+ b=oEAl6rSn/0Yk4SEMdJ+UAoZyhj4Cb8QKHfvLkq5DO9ySBTIiJy2RjhH0LRJSeDNBpZoqgI
+ cMz32xkW8TQBpiui7fCtQuRqEBg2qMvwOpcK92uqsIB20qIpG6nPNTTbdHtCEz5NYJTPOL
+ WX9Cawg49OL4gHKkmsekEg6p6R6AD6EeuXJLmWDXVw7bx+m3+5Fmh4Aa+IfzZPYlzQHrdf
+ UL01ujuPaGgXrXHKtQwrsOaGoOnM/62t5JVq5V8wNdPasKaFv9q1QyxtkWRN5vMyeTf5fp
+ HW6Pf9FaEyBPyEXRg5W1HNgGzi/FhDd2nKvsi6fd4epoj7kfgm7Wec6UMDO1zQ==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/gt=3A_Adjust_usa?=
- =?utf-8?q?ge_of_SFC=5FDONE_registers_on_Gen_12?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 05 Nov 2026 09:51:53 -0000
-Message-ID: <179387231351.123683.3306197644293479638@221881a7231d>
-X-Patchwork-Hint: ignore
-References: <20261105071426.1159739-1-krzysztof.karas@intel.com>
-In-Reply-To: <20261105071426.1159739-1-krzysztof.karas@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v8 1/9] drm/connector: report out-of-band IRQ_HPD
+ events
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Francesco Dolcini <francesco@dolcini.it>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+In-Reply-To: <20261024-hpd-irq-events-v8-1-6ee949e7a384@oss.qualcomm.com>
+References: <20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com>
+ <20261024-hpd-irq-events-v8-1-6ee949e7a384@oss.qualcomm.com>
+Date: Thu, 05 Nov 2026 12:47:24 +0100
+Message-Id: <179387924490.1025980.16294467387972507446.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,192 +84,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============8892690450438377601==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Sat, 24 Oct 2026 03:35:17 +0300, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> The DisplayPort standard defines a special kind of events called IRQ.
+> These events are used to notify DP Source about the events on the Sink
+> side. It is extremely important for DP MST handling, where the MST
+> events are reported through this IRQ.
+> 
+> In case of the USB-C DP AltMode there is no actual HPD pulse, but the
+> events are reported through the bits in the AltMode VDOs.
+> 
+> [...]
 
-== Series Details ==
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Series: drm/i915/gt: Adjust usage of SFC_DONE registers on Gen 12
-URL   : https://patchwork.freedesktop.org/series/177819/
-State : failure
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19452 -> Patchwork_177819v1
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_177819v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_177819v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_177819v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-tgl-1115g4:      [PASS][1] -> [FAIL][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_177819v1 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - fi-tgl-1115g4:      [FAIL][3] ([i915#17751]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live:
-    - bat-arlh-3:         [INCOMPLETE][5] ([i915#16547]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/bat-arlh-3/igt@i915_selftest@live.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/bat-arlh-3/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@dmabuf:
-    - bat-arlh-3:         [INCOMPLETE][7] ([i915#17776]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/bat-arlh-3/igt@i915_selftest@live@dmabuf.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/bat-arlh-3/igt@i915_selftest@live@dmabuf.html
-
-  
-  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
-  [i915#17751]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17751
-  [i915#17776]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17776
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19452 -> Patchwork_177819v1
-
-  CI-20190529: 20190529
-  CI_DRM_19452: 77675f3f5804ae46707c2d08afd75c64f424ef57 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9177: 9177
-  Patchwork_177819v1: 77675f3f5804ae46707c2d08afd75c64f424ef57 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html
-
---===============8892690450438377601==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gt: Adjust usage of SFC_DONE registers on Gen 12</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177819/">https://patchwork.freedesktop.org/series/177819/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19452 -&gt; Patchwork_177819v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_177819v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_177819v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_177819v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@kms_hdmi_inject@inject-audio:<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_177819v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17751">i915#17751</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/fi-tgl-1115g4/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/bat-arlh-3/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@dmabuf:</p>
-<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19452/bat-arlh-3/igt@i915_selftest@live@dmabuf.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17776">i915#17776</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177819v1/bat-arlh-3/igt@i915_selftest@live@dmabuf.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19452 -&gt; Patchwork_177819v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19452: 77675f3f5804ae46707c2d08afd75c64f424ef57 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9177: 9177<br />
-  Patchwork_177819v1: 77675f3f5804ae46707c2d08afd75c64f424ef57 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8892690450438377601==--
