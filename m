@@ -2,82 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC276606A326
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 08:38:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8029D606A326
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 08:58:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tuYpFVUv
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dxilwpMy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20ADD10E956;
-	Thu,  5 Nov 2026 08:38:50 +0000 (UTC)
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2707010E956
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 08:38:44 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id
- 41be03b00d2f7-cc4c02ddd62so1049938a12.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Nov 2026 00:38:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793867924; x=1794472724; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=0uDYlxqiv0mSLq/hIWs5/UPyDpAbAUOWaGdtWRXlapg=;
- b=tuYpFVUvKgLktSqBiwEfPYSGvKYzFqEonioz5EWW1kNmIRbByNuYVobKYqdGlWhMx0
- JaegITB0gSJMun7CURDrUt2nu3s0idoRAG6dtf75HYLFv7nrsiepaLkAX9MnDJcRY5VW
- +Skl9tQxJVOrtNjhTTvp1jfRuGkB5M1XcsSxtQDEbr5LVu2hrUaVwmIbH6j2EeZ1Rtn8
- LTfnTG9O2pIZavwhrHmWJkjq6G3JuVFZCNBLEzKBWY2HMpV9UlSwRAVK0YbcEBikd1Pf
- Uq8/XmiRBSvMgQp0Z91sUo/b5hlNHvFkXg4SSL5yS6Y3HQHeZmWNKKVtH1FEXidDoTPb
- KDKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793867924; x=1794472724;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=0uDYlxqiv0mSLq/hIWs5/UPyDpAbAUOWaGdtWRXlapg=;
- b=OX8nZDWmnrLNiNHX0IAChIx5ifMye9E0eWwNfg/pgFzQ+Npb7O6QIuG6wqNnrilOfK
- gaA1Yb6A6zsMP5Qipow49hwEUOjgugkYC4cSuUAXBxm0/RHulPAKePVTBG6jodvL2akD
- WCz2kTm4W1cMLozI/GSO2ERdVJf4MJCoATbzMr5PU0RJTPaXXK1k/OOY9tolC49EpGok
- iO/lDeiQot+mNFdejXzOm0YfS0j5CIa2SMeKu6rSO27icGt027Q7OyEuTtWuw5/4lYP2
- D+fx3Jn8EQmJHn1WMBeOHBZC8OlgcukJ8Sr8KUyh2y/BNMn6fP2oT9+lhtjfFXQzXynV
- CtAQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzbsd6hZMbBAShwWXudztm/3NMaTyNe6MH5t3BHp9k1SEFNJuLULc0kgUoaQ2/iLwSDJjAJ94Yo5Aw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9uJJm+FeHMwH3pShwYxU8jlxEGnn/8t8WWViABJYMthUdOeMkT
- 8mUKg6yDCy650eUyUwrb4Vga5IOItA/QbJBFxwz+4pI3T2Xn0LBrxweCACd4FA==
-X-Gm-Gg: AYBFou3ODmOjPwLfOo5WF+9R9Juq1QTCjHUMQt1fOqMNTpb3ZbrPRTRTYB4QLCduhxC
- INSMhn+jk+fqCg5N3XjgjGTLbkbAeT5UU0c4+C5A3SDb3vg7VeUghmD3xCJ6iXQBmhmX+fohl7q
- nqFT6wqDAvHOtAfvfLcb60TXvsppPkh+Q6cgcwJB3s725OikKCp6TrpSXmFTg/quBg1sK1e4hUq
- 388X1PIYMPow8ouBSewng/5BEQXtOXnFvD0uEp6zv6QJbfJyD6KgQgKHQcZJLYtxgkk2FSnB6rf
- HSk3RqTN9WSazF9hTVcKXJbks+IYrZiFjLSZVqml0zNf4Pv1cxphITIOGi2qjtIKQT9aD4cO05V
- RyBLxUAIRYfHSA14LH2h3MGyeCoqTIqoOdk5wRw8Wyf99kFtmEV8EbD1lE9tQU3RB0qmXlIe4JC
- fHJi/Yo3N3zfRCinzx2bBTWFDusvYUXh8j+QAX5b25+lvuJ2VkaQlChL0zbqb7ncLkUJlaFA9nG
- gC3eHhofJSIieP5DwzNrSFnC3zgCaz2XeqqWTQROyM7J2arLZov58Id4zczzCQOfMqo17euCKs4
- rE0uuzyLrnJuA7d9TznFNtDpPiK42mIfUQ==
-X-Received: by 2002:a17:90b:4c52:b0:3ab:1481:69e5 with SMTP id
- 98e67ed59e1d1-3ae897ccbfdmr15940958a91.11.1793867923599; 
- Thu, 05 Nov 2026 00:38:43 -0800 (PST)
-Received: from localhost ([2400:2650:24e0:bf00:cc77:213f:afc3:65e2])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b0b31d2b5esm2812294a91.15.2026.11.05.00.38.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2026 00:38:43 -0800 (PST)
-Date: Thu, 5 Nov 2026 17:38:41 +0900
-From: Zhenyu Wang <zhenyuw.linux@gmail.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: zhi.wang.linux@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gvt: Release GGTT MM if scratch page setup fails
-Message-ID: <auxAkaQM1Rri52K9@dell-wzy>
-References: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED3D010E091;
+	Thu,  5 Nov 2026 08:58:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D7CE10E091;
+ Thu,  5 Nov 2026 08:58:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793869109; x=1825405109;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=cFf0LaCBQLa8+oCQ/3plVEMp0XBwn/RDC5zToRS+HEs=;
+ b=dxilwpMyjVgIF1nrWDv99ZeQV++ZlCpV0BjPcbbGET04K2tcbOfBO1ae
+ a6P9sHieh/pQgIxPWn09l69mqbGssB8au3LzPcZ0BL9ijvei8ncvpIedR
+ zpbx7iE/AM9brkUcR2hOma7LvT+ssHThIshASHYRIfsCNNBi3orLDyUij
+ vqPa9ogoGLARyQCbtGKzUNFoUbawOcDa24AYX6Mca7qghmeYDYucleZdp
+ aoAGqVNiZHZTewh9DliBIm+rj2FaP6bc4uXNi58qFDmslPgdTJpDBKSmp
+ oTvGPyD+4d8fsJadw/SSwCiGuODWInPsxrZ1mSPwKyrbYFd+//o2AwVYD g==;
+X-CSE-ConnectionGUID: +vzcQjOXR++ItT/hHNgj9A==
+X-CSE-MsgGUID: lsUNYVVZRZewjCklEEo9/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2678811"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2678811"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 00:58:29 -0800
+X-CSE-ConnectionGUID: l2VN4NaDSY69n6SJDjz+sQ==
+X-CSE-MsgGUID: uIubwZIBQaO9sMjnsH9qmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="7292850"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.187])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 00:58:26 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: sashiko-reviews@lists.linux.dev, Ville Syrjala
+ <ville.syrjala@linux.intel.com>, intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 1/9] drm/i915/de: Introduce dislay->mmio and
+ intel_de_init()
+In-Reply-To: <sashiko-outbox-198229@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261104221842.18799-1-ville.syrjala@linux.intel.com>
+ <20261104221842.18799-2-ville.syrjala@linux.intel.com>
+ <sashiko-outbox-198229@kernel.org>
+Date: Thu, 05 Nov 2026 10:58:24 +0200
+Message-ID: <27be76640e973479b717bd601330ff7d7bcdfa15@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,65 +70,136 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 03, 2026 at 06:54:07AM +0000, Wentao Liang wrote:
-> intel_vgpu_init_gtt() creates the GGTT MM before allocating the scratch
-> page table tree. If scratch page allocation or DMA mapping fails,
-> create_scratch_page_tree() releases its own pages, but the GGTT MM and
-> its virtual GGTT and host GGTT buffers remain allocated. The caller
-> skips intel_vgpu_clean_gtt() when intel_vgpu_init_gtt() fails.
-> 
-> Drop the GGTT MM reference and clear its pointer before returning the
-> scratch page initialization error.
+On Wed, 04 Nov 2026, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] drm/i915/de: NULL display->mmio.uncore when intel_de_init() is s=
+kipped
+> --
 >
-> Fixes: 3b6411c2c205 ("drm/i915/gvt: implement scratch page table tree for shadow PPGTT")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/gpu/drm/i915/gvt/gtt.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-> index 5056a5887b31..17d61548ec05 100644
-> --- a/drivers/gpu/drm/i915/gvt/gtt.c
-> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
-> @@ -2403,6 +2403,7 @@ static int create_scratch_page_tree(struct intel_vgpu *vgpu)
->  int intel_vgpu_init_gtt(struct intel_vgpu *vgpu)
->  {
->  	struct intel_vgpu_gtt *gtt = &vgpu->gtt;
-> +	int ret;
->  
->  	INIT_RADIX_TREE(&gtt->spt_tree, GFP_KERNEL);
->  
-> @@ -2420,7 +2421,13 @@ int intel_vgpu_init_gtt(struct intel_vgpu *vgpu)
->  
->  	INIT_LIST_HEAD(&gtt->ggtt_mm->ggtt_mm.partial_pte_list);
->  
-> -	return create_scratch_page_tree(vgpu);
-> +	ret = create_scratch_page_tree(vgpu);
-> +	if (ret) {
-> +		intel_vgpu_destroy_mm(gtt->ggtt_mm);
-> +		gtt->ggtt_mm = NULL;
-> +	}
+> commit 0c47f694d22974ac99844e39b462f72389dd014b
+> Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> drm/i915/de: Introduce dislay->mmio and intel_de_init()
+>
+> This commit adds a display->mmio struct and intel_de_init() to initialize
+> display->mmio.uncore, and updates __to_uncore() to return display->mmio.u=
+ncore
+> instead of calling to_intel_uncore(display->drm).
+>
+> [ ... ]
+>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i=
+915/display/intel_de.h
+>> index d0a239a369807..f1135ee5071b4 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_de.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_de.h
+>> @@ -14,9 +14,11 @@
+>>=20=20
+>>  static inline struct intel_uncore *__to_uncore(struct intel_display *di=
+splay)
+>>  {
+>> -	return to_intel_uncore(display->drm);
+>> +	return display->mmio.uncore;
+>>  }
+>
+> [ ... ]
+>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drive=
+rs/gpu/drm/i915/display/intel_display_device.c
+>> index c74256359c253..f1bd1252a9602 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display_device.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_display_device.c
+>> @@ -1798,6 +1798,13 @@ static void __intel_display_device_info_runtime_i=
+nit(struct intel_display *displ
+>>  	struct intel_display_runtime_info *display_runtime =3D DISPLAY_RUNTIME=
+_INFO(display);
+>>  	enum pipe pipe;
+>>=20=20
+>> +	/*
+>> +	 * TODO end of intel_display_device_probe() would be a more
+>> +	 * logical place, but at the moment i915 calls that super
+>> +	 * early when things aren't fully set up yet.
+>> +	 */
+>> +	intel_de_init(display);
+>
+> [Severity: High]
+> Can this leave display->mmio.uncore NULL and cause a NULL pointer derefer=
+ence
+> when HAS_DISPLAY(display) is already false before runtime init?
+>
+> In drivers/gpu/drm/i915/display/intel_display_device.c,
+> intel_display_device_info_runtime_init() only calls
+> __intel_display_device_info_runtime_init() when HAS_DISPLAY(display) is t=
+rue:
+>
+> void intel_display_device_info_runtime_init(struct intel_display *display)
+> {
+> 	if (HAS_DISPLAY(display))
+> 		__intel_display_device_info_runtime_init(display);
+>
+> On devices where intel_display_device_probe() sets DISPLAY_INFO() to
+> no_display=E2=80=94such as Ivybridge Quanta server SKUs (INTEL_IVB_Q_IDS =
+via
+> has_no_display()), PCI IDs without an entry in intel_display_ids like Arc=
+tic
+> Sound-M (INTEL_ATS_M_IDS where find_platform_desc() returns NULL), or GMD=
+_ID
+> platforms (INTEL_MTL_IDS / INTEL_ARL_IDS) where probe_gmdid_display() rea=
+ds 0
+> from GMD_ID_DISPLAY=E2=80=94HAS_DISPLAY(display) is false and
+> __intel_display_device_info_runtime_init() is skipped.
+>
+> Because __to_uncore(display) in drivers/gpu/drm/i915/display/intel_de.h n=
+ow
+> returns display->mmio.uncore instead of computing
+> to_intel_uncore(display->drm), any subsequent unconditional intel_de_*() =
+call
+> will pass a NULL struct intel_uncore pointer to intel_uncore_read*() or
+> intel_uncore_write*():
+>
+> 1. On INTEL_IVB_Q_IDS, ilk_irq_handler() in drivers/gpu/drm/i915/i915_irq=
+.c
+>    unconditionally calls ilk_display_irq_master_disable() and
+>    ilk_display_irq_master_enable() in
+>    drivers/gpu/drm/i915/display/intel_display_irq.c on every interrupt, w=
+hich
+>    call intel_de_read_fw(display, DEIER) and intel_de_write_fw(display, D=
+EIER,
+>    ...).
+>
+> 2. On INTEL_ATS_M_IDS and headless GMD_ID platforms, gen11_irq_handler() =
+and
+>    dg1_irq_handler() unconditionally call gen11_gu_misc_irq_ack() in
+>    drivers/gpu/drm/i915/display/intel_display_irq.c when GEN11_GU_MISC_IR=
+Q is
+>    set, which calls intel_de_read_fw(display, GEN11_GU_MISC_IIR) and
+>    intel_de_write_fw(display, GEN11_GU_MISC_IIR, iir).
+>
+> 3. During system resume, i915_drm_resume() in
+>    drivers/gpu/drm/i915/i915_driver.c unconditionally calls
+>    intel_gmbus_reset(display) in drivers/gpu/drm/i915/display/intel_gmbus=
+.c,
+>    which calls intel_de_write_fw(display, GMBUS0(display), 0) and
+>    intel_de_write_fw(display, GMBUS4(display), 0).
+>
+> Should intel_de_init(display) be called unconditionally at the start of
+> intel_display_device_info_runtime_init() before the HAS_DISPLAY(display)
+> check?
 
-Better to just call intel_vgpu_destroy_ggtt_mm(vgpu) which is more
-aligned as for ggtt mm handling.
+Seems annoying but valid, at least until we figure something else out.
 
-The issue you identified with AI tool might make sense, but pls learn
-how to work with kernel community first.
+BR,
+Jani.
 
-> +
-> +	return ret;
->  }
->  
->  void intel_vgpu_destroy_all_ppgtt_mm(struct intel_vgpu *vgpu)
-> -- 
-> 2.34.1
+
+
+--=20
+Jani Nikula, Intel
