@@ -2,106 +2,154 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2CD606A326
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 00:08:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623F2606A31B
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 02:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jX/neGOv
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eruJ5nRe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84CAB112BC5;
-	Fri,  6 Nov 2026 00:08:38 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03413112A28;
- Fri,  6 Nov 2026 00:08:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C367F10E9B8;
+	Fri,  6 Nov 2026 02:24:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2017610E010;
+ Fri,  6 Nov 2026 02:24:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793923712; x=1825459712;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=GAhIFHGgpK+/gmBI+fcdZaWTlP9imu2O5XRQejhlP+w=;
- b=jX/neGOv/fxToonkwkjabDyPWmdV/niN6+Ah1vCuycIuwpBJdnEQLwKR
- RoAic1z17rDpzazp/IsjGSYDa9L3yNuB9RnLPd98QYEC6JWB3MkND0nqP
- ffR2us//F6SUtWo7Q+Yeh8EIZVgWfN5R+lQtPI52We2Iha+XQdq7jYxcQ
- Zj/ODQtreMYTlqsmRV+5HYAdmfdxrlaM4/9k8a+OhWR4IqKaCQxNjLfh8
- ZyXHyqpAvhwRuD1GXbebzFjDhMVo5BlXC5yGjm2YGgi9Ri6TWWSgJIneU
- GyeeTclAUyO7Guwh74wTQwI7i+MxSDxYzGU4aRQi+5GzIl6jOUqfX9B97 Q==;
-X-CSE-ConnectionGUID: 6Kx19berRsWIbMS6AHpjPQ==
-X-CSE-MsgGUID: T2ZoL13GRyWxCszNmQV0rQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2627820"
+ t=1793931873; x=1825467873;
+ h=date:from:to:cc:subject:message-id:
+ content-transfer-encoding:mime-version;
+ bh=g4KD81e8XqmwTra2BGK/rrjDDGUbxWwpSvo5jnx0+OQ=;
+ b=eruJ5nRe/75Y5Jzwr78YAClNsDnNjcHtyB6l077Uqf7/e7g45w6OwEBI
+ cUy7XH9spUrNJAYSyzv3b3t3z8kb5SazwyGtJpSx9sWsTvN1Fr3lcHZjT
+ lttSfOl2z4Q7c2DSdsef+ApaM7ic0TAhDLhssMh9ZsWzdKr8vfBQ9AfMK
+ IWvu7Vh1u/yHPoCbAwBPlqOGcOUBTx07uRobnTxB56Ja0PEriHdtsPblf
+ m5V1o0uFLr+9YFViAN0UDyCXPBG90oE1YYqq8jkYMXoO9ivmXkHoW+wCH
+ 1erVeiyKx9rY3laMtwF857HZ+c5qDrdvExrZBv1QttX0hJVjluK/FEtwY A==;
+X-CSE-ConnectionGUID: MuOfoCnIS/OMI1xohClDWQ==
+X-CSE-MsgGUID: kPetdRx+Q5m6Y7K89T/a1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2655937"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2627820"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 16:08:32 -0800
-X-CSE-ConnectionGUID: ygkoJBd1Q+G5xaFU4G0jiA==
-X-CSE-MsgGUID: 6YxtbCpxT2a2eRnnR1X8ZA==
+   d="scan'208";a="2655937"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 18:24:32 -0800
+X-CSE-ConnectionGUID: SmqoyJ9FQdGvDN6phnrCzw==
+X-CSE-MsgGUID: F1z3kuqgQki15SH02NwHoQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7023944"
-Received: from aschende-mobl.amr.corp.intel.com (HELO [10.125.110.106])
- ([10.125.110.106])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 16:08:31 -0800
-Message-ID: <3dc05c1e-fe02-475b-a525-7c53081e816a@intel.com>
-Date: Thu, 5 Nov 2026 16:08:30 -0800
+   d="scan'208";a="7290706"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2026 18:24:32 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 18:24:31 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 18:24:31 -0800
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.35) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 18:24:30 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IadEvyg5ZT/yiX/qbHTMtX6z9KcFYRviY+je6WT3g2Yi7io3CENrPMFE2vCM2HuFT2JBaBadnv/lzrOnNY4rNlxqA+NpFahHmrE79AL97FFMJSUZdEerunageaITny7fTa8qhz+bJVIUyBb61k75xJA7t7uxbvUnSH/wmjBHQNG+SSPrHrnCI5p1KSPLW8cxiBG1itoFCxdhKlPyy9YZkn38DNw3aNZvGrXhLysDl7GpsIzZO6BFbIPfXl7fUygIn3AoowoWHKC9eGdV/zmI26tKbe221adz5KatXwNevflqFxizRn6nb2zQKJRNU6SxUtdlgNTyOS3uYyh62xkz0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=24wyUWKRl5ipVXM2bZbwwHGzKPsG7wSKrjFld/fccf4=;
+ b=goQNW8Pa3EIwGv/LF3gG4K/WDhNfhgrOZg5EtRfmHiMxgvKw099uCrNyz6qQUZqu1dNuJjqyy0CdAA6hR+oWtNXfqt0U5uLYPsMA8/imoj7ypcO8i78yMOyCmwl71NJ6bQqGxzX0ymLrFfJk/498L8jmNrnrMwGfiaRa8nAMJy9vd0ziCsMCVj9Azj8fNMI8ItZ4+IJlUk5yD6w+ZWVF9NyAFCQrREQDTjLlaf/Q5xD1Do35U08nieMle17rwVf9/6zaYWQXESVvGsEkyjYu1lScO3jl8366/uZyu1s/5pPAPk3uaA76VjSFfSi9KVxfO9Wgxhr8EYpnhgs8DyMF4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by DS0PR11MB6327.namprd11.prod.outlook.com (2603:10b6:8:d1::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 02:24:28 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 02:24:27 +0000
+Date: Thu, 5 Nov 2026 18:24:25 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
+ Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dim-tools@lists.freedesktop.org>
+Subject: [PULL] drm-xe-fixes
+Message-ID: <au06WTroGBQ/Gqbt@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR03CA0331.namprd03.prod.outlook.com
+ (2603:10b6:303:dc::6) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Nasty console and xe driver interactions
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Zack Rusin <zack.rusin@broadcom.com>, dri-devel@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, intel-xe@lists.freedesktop.org
-References: <5e79d3c0-5b2c-4e6c-ba38-3b723daf7109@intel.com>
- <atDXDlI-EhrA791a@intel.com> <d4d5302f-9768-4122-bbab-4384ef7aa9fe@intel.com>
- <atD66da36wMZ0gie@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <atD66da36wMZ0gie@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DS0PR11MB6327:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d1bbcfe-f76b-45e8-4cd5-08df3bad14e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|6133799003|10067099003|3023799007|11063799006|5023799004|261026140227099003|261026121527099003|261028144727099003|261102123227099003|261022105027099003|261022113327099003|261021121427099003|56012099006|261009221727099003|261022115727099003|261021123027099003|261009223327099003|261009221227099003|261009220027099003|261022075727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: +Z3DuXhLpRyhVn63XPAxJeV7ARCFBT1n+s3CGX5VaB6vWIFLOGFdsm3W5G8QWc96NP64S9Dh0N6YQb9ArsNGlm4btI98WF0sLOifS7QOjCznVY2dWZFCnJZGJpCAhdoAz6zjPOzHlB+VhI/kkuniUp6NVEOhuGkARFdPE1CcznAG10KvXVIJCKoREMs+lygfAlqwtrW3OstqMeYJ7gAu8NSWAMhAv6+DxhaQYXOmYd4yrXAYEICaARfik2ahZBQAWbjx5E63LzWim7Z638Fs3y3dK08myrmvxPzUK37TAV94o2PAq6mHnTTkIsSDvcizyKlLwAxCGMCuRO/9vMgDU9wgjlt4Gvcqoy2Z2mdO0qwwA10DOpK0mb2G1zjspAhqiQKmlEbjHmjcrZxwfZs1XGZC6eeTbtLIu451sH5XqZNfogn83c0PHvy6T+KCZOPnVvoXL1TqVZESMIIHBDocbMFMMkBdt/QtK3MB1HG+F+MtTLW4RRlg1e/h5bLkd3TrixdMP7DpWDeui1osM0lMg7MATPGI8ZRoRZpfpEjGBI8597Nc11G/da2GplIvuMQ5wD++TL3KC3Fy0WZutFpdE4mAOr3vx3mFGIw2vbxG6Tk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(6133799003)(10067099003)(3023799007)(11063799006)(5023799004)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(261022105027099003)(261022113327099003)(261021121427099003)(56012099006)(261009221727099003)(261022115727099003)(261021123027099003)(261009223327099003)(261009221227099003)(261009220027099003)(261022075727099003)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?0ruGOaPbKXFB4F4gsjtI9JkHW+kKw3u9MKIf3BDwF7Zman0wO3XrmC4WD8?=
+ =?iso-8859-1?Q?kXIV57sP6v4t7T2VuS/kHc2lQBcev4pKszr+zGYYb2ZMUhsvFSzumL3sDn?=
+ =?iso-8859-1?Q?Iy63l9Rk8ldm2xO30rSe/54RrsUw7nw5LiZAjEDfwep25xBh/hXtQl13iw?=
+ =?iso-8859-1?Q?4NU4wDlyC19o1QDIB6oOr5wD+S18gGwGDNfS30jSVRxYLKYFYsDWIhybAQ?=
+ =?iso-8859-1?Q?4SrWpNw84rv2RTVVSHtRkENkCMK/OGeUDIABaBmObWDr+PW3c82VcW4hFm?=
+ =?iso-8859-1?Q?gGq+9DGQsOBLuiuluPhevA6LHC2ToBRuCz87sBzZO/rtrbvt/6hw91qrsD?=
+ =?iso-8859-1?Q?54Rz/3qoTBozw51ajp74U0WIdAxeLjeiKvJ1tzOGqCEjNCuwY3KxmdweTk?=
+ =?iso-8859-1?Q?YCXBsNj1cm5/nkpQKG6Ccph8VOJNs6+hqDawCOec6y0Ie/aH+nqMjqBfkM?=
+ =?iso-8859-1?Q?POFkh66GQfGRiGAnNP7SmjFYPMV/1EsURMTzNN1GVrgEJ5AudpoDYk0IId?=
+ =?iso-8859-1?Q?HuehsP9aPUyuyWnqDvSXtvgd9X2k6Jyfe7tppEn2J2EBs7unKAKHwiTmTQ?=
+ =?iso-8859-1?Q?3fH5ebW19iCt8n4DADPoCJGOH8KSZ7DTUnLv+QveGn9JWNTPojHyAeDXVh?=
+ =?iso-8859-1?Q?QO5MU94T4FsWJXYnk1VuW9zD07DTIsGhxEA4bj3ufnucr9LJ1K2EeJ8wiO?=
+ =?iso-8859-1?Q?2MlV5E5G/pfAZvGAdIlp7sa7fEd+oveJwLrmlnsJKPYw5a7jiJN0zPbAp8?=
+ =?iso-8859-1?Q?Y6SpKHfXN4outHHkeeINyb2xoG5xnI5kuNnxvXgOs1/tr8gyM2t9jlWQ7A?=
+ =?iso-8859-1?Q?43jf3g2FbySXWPOchkK3NQCgFXrFRMpPI9wCYNOPv61pd3r8TzWIvfoNmx?=
+ =?iso-8859-1?Q?0zuwvRB6uhHcTK1GXmxPaDg9xZakDsg4NrRbqsw4LsqLw5CuynfCTRqhs1?=
+ =?iso-8859-1?Q?cM0/wabKitgqJIu4mLKRwdhLak88NZqA/IDS7E2+Erd52zeBRxl2HTQZhH?=
+ =?iso-8859-1?Q?mbXrsud1GTh8aQ/xD2A27Gt0rmjk8clzYc13z6SuhiK1t9CIuv0ZRH9rj8?=
+ =?iso-8859-1?Q?ZMrlZ0U23YOZ5wXqYtHNKbX9OsX9On4ja8Yh2+enaET0R+mjTbXQWW2fiU?=
+ =?iso-8859-1?Q?1aX5yTHLJy9sn7IkXaQo+O78+k02iQO+06+coOG1eM8R2ar+9Vk1Cs/pWe?=
+ =?iso-8859-1?Q?21nR2F9s5HowYgQxvHunKTLMsszA8L34ittapiCSTEkUAG9Lr/yGR6lcyT?=
+ =?iso-8859-1?Q?JJH0gEOKn+jsxGrGIbGoV6+KXkkeLDHKbZ7tKiNxF+4JZSfMxmb5XapQ1N?=
+ =?iso-8859-1?Q?CJ10AEx4/RJglFXxYW9ZOTvW/hE5V/T6XE76D/L9Q2LDumL2ZCuxRTWDn1?=
+ =?iso-8859-1?Q?TkIGHNmE9ckQ3eUoWA6afdphtxPqcjX6gpHe2I+rUvguwmJwHKxJcInfAX?=
+ =?iso-8859-1?Q?dGOebPY45s7IrZSFsr38Tu4iHrP9PoX1lk6LXTEsGOr7zrqTT45rG9E+AQ?=
+ =?iso-8859-1?Q?4M7RHXEYqh4jDVF41TWwBHIA6HuB+GRSHR+8ornk12QFyL12id+haN6iFG?=
+ =?iso-8859-1?Q?JX+rF09MZ5ALzVx+QQOMx4m0NLGMJD5+mPP1y/qqdg2SUYf1F/JYoSpzPS?=
+ =?iso-8859-1?Q?sBH2kUh/iZ7biqhu32QduK+kkycrfJtSdVdfEmc/HsIRyVihHVAJkGW38j?=
+ =?iso-8859-1?Q?IajfOrkud9Li4tSVlAInruihQSls5w5GJBSEAZ+zrimMrWdQxj3ZVGndmG?=
+ =?iso-8859-1?Q?v1ExXybfcLBrU2pu9mAuS+qgblE4uLt/4tO6yH3kmcTlZfG5pncpuMnQ3L?=
+ =?iso-8859-1?Q?v65IoTGGOA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: TmoehBBmEQzhWASUMaZM8xJukdA1nNiDVmBPa+W8IcCWypUrRj140mDPNhAchAf4UcOErt5Ozf0LTCqoVAvsh+qPbloAFYZo+3AvClwuasTxyUXjUWvfIXPeBSz/DmFu/l54bQZqfbwJZPRvweDsRb5YL0sQcDG7h9re/YWVa/azzB4bPZe4DZh4bxzlQ+Z4DM++OKMonO4nVlpLNm9sB1cj6kwiX2lWLCNfVIVtqeAgRoUtIyDrpRiD0kB6sa8KQDPGJVpplV/yMM/Nkfb8GGep6NSF2gJJkHq1poTOQBrNLxIo/3qyfaTMC7iLzSDOC9ijKV8V9dZrYkf8zS+gWA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d1bbcfe-f76b-45e8-4cd5-08df3bad14e6
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 02:24:27.7712 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wPVlB00QVkXwaFE3Gg40nd0n8fykhn4zpMnNZgIoDyEoaX7u6STkR/V/AhDhqiHiw9xr7xVkDG4JJWLEuxy1qA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6327
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,68 +161,246 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/15/26 09:10, Rodrigo Vivi wrote:
->> BTW, "xe.force_probe=!*" on the command-line also gets the output back
->> to normal.
-> the force probe proves that we can still probe safely, but apparently
-> on my first attempt I missed the fact that pcim_enable_device will
-> touch the device and register a pci_disable_device that might
-> clear stuff and mess with the VGA fb...
-> 
-> Perhaps if we move just one step over:
-> 
-> https://github.com/rodrigovivi/linux/
-> commit/616cd8c1b4d4414cd1f7ad56fa5d8abd36d7968d
+Dave, Sima,
 
-So I gave this exact commit a go. It still seems to have the same basic
-problems. I put the missing "ptl_guc_70.bin" file in place, but it just
-moved over to needing the "huc" and went back to the no console
-behavior. I added the "huc" and the "gsc", which seems to make the
-driver happier, but the screen has garbage. Looks like I may be missing
-one of those MEI drivers.
+Here is this week's PR for drm-xe-fixes. Apologies for the sheer number
+of patches. I got caught up in various internal fires before rc1 was
+released and dropped the ball on getting out interim fixes PRs.
 
-But, still, the driver seems to be rather aggressive about killing the
-console even before it is working itself:
+Honestly, there's nothing particularly interesting here: some hwmon
+work, a bit of GuC submission backend rework, VRAM offline fixes, and a
+bunch of other small fixes.
 
-> [    0.672748] xe 0000:00:02.0: vgaarb: deactivate vga console
-> [    0.673227] xe 0000:00:02.0: [drm] Running in SR-IOV PF mode
-> [    0.676750] xe 0000:00:02.0: [drm] Tile0: GT0: Using GuC firmware from xe/ptl_guc_70.bin version 70.72.1
-> [    0.914206] xe 0000:00:02.0: [drm] Tile0: GT0: ccs1 fused off
-> [    0.914213] xe 0000:00:02.0: [drm] Tile0: GT0: ccs2 fused off
-> [    0.914214] xe 0000:00:02.0: [drm] Tile0: GT0: ccs3 fused off
-> [    0.935645] xe 0000:00:02.0: [drm] Tile0: GT1: Using GuC firmware from xe/ptl_guc_70.bin version 70.72.1
-> [    0.937939] xe 0000:00:02.0: [drm] Tile0: GT1: Using HuC firmware from xe/ptl_huc.bin version 10.3.3
-> [    0.938382] xe 0000:00:02.0: [drm] Tile0: GT1: Using GSC firmware from xe/ptl_gsc_1.bin version 105.0.2.1397
-> [    0.938855] xe 0000:00:02.0: [drm] Tile0: GT1: can't init GSC proxy due to missing mei component
-> [    0.959120] xe 0000:00:02.0: [drm] Tile0: GT1: vcs1 fused off
-> [    0.959139] xe 0000:00:02.0: [drm] Tile0: GT1: vcs2 fused off
-> [    0.959150] xe 0000:00:02.0: [drm] Tile0: GT1: vcs3 fused off
-> [    0.959159] xe 0000:00:02.0: [drm] Tile0: GT1: vcs4 fused off
-> [    0.959168] xe 0000:00:02.0: [drm] Tile0: GT1: vcs5 fused off
-> [    0.959177] xe 0000:00:02.0: [drm] Tile0: GT1: vcs6 fused off
-> [    0.959186] xe 0000:00:02.0: [drm] Tile0: GT1: vcs7 fused off
-> [    0.959195] xe 0000:00:02.0: [drm] Tile0: GT1: vecs1 fused off
-> [    0.959205] xe 0000:00:02.0: [drm] Tile0: GT1: vecs2 fused off
-> [    0.959214] xe 0000:00:02.0: [drm] Tile0: GT1: vecs3 fused off
-> [    1.024100] [drm] Initialized xe 1.1.0 for 0000:00:02.0 on minor 0
+I hope everything after this PR settles down in the cycle.
 
-BTW, I am building the "xe" driver in. It's causing all kinds of fun
-problems, like needing to manually add xe firmware to my initrd.
+Matt 
 
-Maybe the:
+drm-xe-fixes-2026-11-05:
+Driver Changes:
+- VRAM offlining fixes (Tejas)
+- ras: Fix sysctrl and drm-ras discrepancy (Roper)
+- pat: Return error from xe_pat_init_early() on unknown (Roper)
+- Prevent VF memory IRQ from accessing a torn-down engine (Piotr)
+- guc: Protect timeout handling from device unplug (Satya)
+- gt: Disable GT reset worker before engine teardown (Satya)
+- Various hwmon fixes (Karthik)
+- tuning: Restrict Anyhit NULL-query tuning to render engines (Nitin)
+- gsc: Fix NVL-S GSC compatibility number (Daniele)
+- Don't abort the shrinker walk on -EBUSY (Thomas)
+- Mark xe_vma_ops_alloc() noinline for error injection (Shuicheng)
+- lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET programming for pre-Xe2 (Helen)
+- Fix build with DRM_XE=y and CONFIGFS_FS=m (Rodrigo)
+- madvise: use already clamped pat_index (Auld)
+- Various wedging fixes (Raag)
+- Rebind BOs evicted before the first LR queue (Arvind)
+- Toggle the D3Cold enable flag at runtime resume (Vinay)
+- Access GT MMIO after pcode init (Vinay)
+- xe_late_bind_fw: Fix firmware leak on missing manifest entry (Badal)
+- svm: Preserve default PAT index when resetting VMA attributes (Arvind)
+- Unwrap sync fences before adding them as job dependencies (Junjia)
+- Schedule disable G2H fixes (Jagmeet)
+The following changes since commit 9b6f2eabc8371dea951c244f4aa9e013f36de9f8:
 
-	config DRM_XE_DISPLAY
-	        bool "Enable display support"
-	        depends on DRM_XE && DRM_XE=m && HAS_IOPORT
+  Merge tag 'rtc-7.4' of git://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux (2026-11-01 08:41:03 -0800)
 
-DRM_XE=m dependency is biting me. Is it stealing the console before it
-knows it can actually display something?
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-11-05
+
+for you to fetch changes up to 28f45837549a0558c5dbe19a78c0717fc7d774ee:
+
+  drm/xe/guc: Do not attribute a TDR disable to a pending suspend (2026-11-05 10:59:35 -0800)
+
+----------------------------------------------------------------
+Driver Changes:
+- VRAM offlining fixes (Tejas)
+- ras: Fix sysctrl and drm-ras discrepancy (Roper)
+- pat: Return error from xe_pat_init_early() on unknown (Roper)
+- Prevent VF memory IRQ from accessing a torn-down engine (Piotr)
+- guc: Protect timeout handling from device unplug (Satya)
+- gt: Disable GT reset worker before engine teardown (Satya)
+- Various hwmon fixes (Karthik)
+- tuning: Restrict Anyhit NULL-query tuning to render engines (Nitin)
+- gsc: Fix NVL-S GSC compatibility number (Daniele)
+- Don't abort the shrinker walk on -EBUSY (Thomas)
+- Mark xe_vma_ops_alloc() noinline for error injection (Shuicheng)
+- lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET programming for pre-Xe2 (Helen)
+- Fix build with DRM_XE=y and CONFIGFS_FS=m (Rodrigo)
+- madvise: use already clamped pat_index (Auld)
+- Various wedging fixes (Raag)
+- Rebind BOs evicted before the first LR queue (Arvind)
+- Toggle the D3Cold enable flag at runtime resume (Vinay)
+- Access GT MMIO after pcode init (Vinay)
+- xe_late_bind_fw: Fix firmware leak on missing manifest entry (Badal)
+- svm: Preserve default PAT index when resetting VMA attributes (Arvind)
+- Unwrap sync fences before adding them as job dependencies (Junjia)
+- Schedule disable G2H fixes (Jagmeet)
+
+----------------------------------------------------------------
+Arvind Yadav (2):
+      drm/xe: Rebind BOs evicted before the first LR queue
+      drm/xe/svm: Preserve default PAT index when resetting VMA attributes
+
+Avi Weiss (3):
+      init/bootconfig: pass init arguments in documented order
+      irqchip/riscv-imsic: Report successful hardware retrigger
+      irqchip/irq-msi-lib: Free wired MSI descriptors
+
+Badal Nilawar (1):
+      drm/xe/xe_late_bind_fw: Fix firmware leak on missing manifest entry
+
+Chen, Junjia (1):
+      drm/xe: Unwrap sync fences before adding them as job dependencies
+
+Daniele Ceraolo Spurio (1):
+      drm/xe/gsc: Fix NVL-S GSC compatibility number
+
+Dnyaneshwar Bhadane (1):
+      drm/xe/pat: Return error from xe_pat_init_early() on unknown platform
+
+Helen Koike (1):
+      drm/xe/lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET programming for pre-Xe2
+
+Hui Su (2):
+      hrtimer: Add cleanup class for on-stack timers
+      sched/idle: Use hrtimer cleanup class in play_idle_precise()
+
+Hung-Jui Lin (2):
+      posix-timers: Report zero remaining time for disarmed SIGEV_NONE timers
+      selftests: timers: Add a test for disarmed SIGEV_NONE timers
+
+Hungyu Lin (3):
+      posix-timers: Accept NULL clock_getres() output in stubs
+      timers/itimer: Keep a nonzero value at CPU timer expiry
+      time/namespace: Fix overflow when converting absolute deadlines
+
+Jagmeet Randhawa (2):
+      drm/xe/guc: Fix race around q->guc->suspend_pending access
+      drm/xe/guc: Do not attribute a TDR disable to a pending suspend
+
+Karl Mehltretter (1):
+      clocksource: Prevent immediate watchdog rerun after a delay
+
+Karthik Poosa (5):
+      drm/xe/hwmon: Fix pcode power limit handling
+      drm/xe/hwmon: Decode mailbox temperature as sign-magnitude
+      drm/xe/hwmon: Fix thermal sensor data handling
+      drm/xe/hwmon: Add helpers to validate thermal sensor readings
+      drm/xe/hwmon: Handle unavailable memory controller sensors
+
+Linus Torvalds (1):
+      Linux 7.4-rc1
+
+Matthew Auld (1):
+      drm/xe/madvise: use already clamped pat_index
+
+Nitin Gote (1):
+      drm/xe/tuning: Restrict Anyhit NULL-query tuning to render engines
+
+Peng Wang (1):
+      tick/nohz: Reevaluate the tick for kicks flushed outside hardirq
+
+Raag Jadav (8):
+      drm/xe/ras: Fix sysctrl and drm-ras discrepancy
+      drm/xe/gt: Use GT ordered workqueue for wedging
+      drm/xe: Drop xe_device_set_wedged_method()
+      drm/xe/hw_error: Guard csc_hw_error_work() with runtime PM
+      drm/xe: Move xe_device_wedged_fini() registration to xe_device_probe_early()
+      drm/xe: Make xe_device_declare_wedged() IRQ safe
+      drm/xe/pci_error: Flush GT wedge worker before bus reset
+      drm/xe/amc: Guard xe_amc_work() with runtime PM
+
+Rodrigo Vivi (1):
+      drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m
+
+Satyanarayana K V P (3):
+      drm/xe: Prevent VF memory IRQ from accessing a torn-down engine
+      drm/xe/guc: Protect timeout handling from device unplug
+      drm/xe/gt: Disable GT reset worker before engine teardown
+
+Shuicheng Lin (1):
+      drm/xe: Mark xe_vma_ops_alloc() noinline for error injection
+
+Stian Halseth (1):
+      sched/cputime: Don't warn when the tick period starts after idle exit
+
+Tejas Upadhyay (3):
+      drm/xe: Re-validate external pin under resv lock before VRAM purge
+      drm/xe: Drop RCU list handling for VRAM bad-page tracking, use mgr->lock
+      drm/xe: Keep VRAM fault injection within the usable range
+
+Thomas Hellström (1):
+      drm/xe: Don't abort the shrinker walk on -EBUSY
+
+Thomas Weißschuh (1):
+      vdso/gettimeofday: Correct the read of tz_minuteswest and tz_dsttime
+
+Vinay Belgaumkar (2):
+      drm/xe: Toggle the D3Cold enable flag at runtime resume
+      drm/xe: Access GT MMIO after pcode init
+
+ Makefile                                      |   4 +-
+ drivers/gpu/drm/xe/regs/xe_lrc_layout.h       |   3 +
+ drivers/gpu/drm/xe/xe_amc.c                   |  10 +-
+ drivers/gpu/drm/xe/xe_configfs.h              |   2 +-
+ drivers/gpu/drm/xe/xe_device.c                |  60 ++++-----
+ drivers/gpu/drm/xe/xe_device.h                |   7 +-
+ drivers/gpu/drm/xe/xe_device_types.h          |   4 +
+ drivers/gpu/drm/xe/xe_drm_ras.c               |  17 ++-
+ drivers/gpu/drm/xe/xe_gpu_scheduler_types.h   |   5 +-
+ drivers/gpu/drm/xe/xe_gsc.c                   |   3 +-
+ drivers/gpu/drm/xe/xe_gt.c                    |  63 +++++++--
+ drivers/gpu/drm/xe/xe_gt_sriov_vf.c           |   2 +-
+ drivers/gpu/drm/xe/xe_gt_types.h              |   9 ++
+ drivers/gpu/drm/xe/xe_guc.c                   |   1 -
+ drivers/gpu/drm/xe/xe_guc_exec_queue_types.h  |   5 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c            | 119 +++++++++++------
+ drivers/gpu/drm/xe/xe_hw_engine.c             |  17 ++-
+ drivers/gpu/drm/xe/xe_hw_error.c              |   2 +
+ drivers/gpu/drm/xe/xe_hwmon.c                 | 180 +++++++++++++++++++-------
+ drivers/gpu/drm/xe/xe_irq.c                   |   3 +
+ drivers/gpu/drm/xe/xe_late_bind_fw.c          |  15 ++-
+ drivers/gpu/drm/xe/xe_lrc.c                   |   8 +-
+ drivers/gpu/drm/xe/xe_memirq.c                |   3 +
+ drivers/gpu/drm/xe/xe_mert.c                  |   6 +-
+ drivers/gpu/drm/xe/xe_pat.c                   |  11 +-
+ drivers/gpu/drm/xe/xe_pat.h                   |   4 +-
+ drivers/gpu/drm/xe/xe_pci.c                   |   5 +
+ drivers/gpu/drm/xe/xe_pci_error.c             |   6 +-
+ drivers/gpu/drm/xe/xe_pci_types.h             |   1 +
+ drivers/gpu/drm/xe/xe_pm.c                    |  12 +-
+ drivers/gpu/drm/xe/xe_ras.c                   |   3 +-
+ drivers/gpu/drm/xe/xe_shrinker.c              |   3 +
+ drivers/gpu/drm/xe/xe_survivability_mode.c    |   3 +-
+ drivers/gpu/drm/xe/xe_svm.c                   |   1 +
+ drivers/gpu/drm/xe/xe_sync.c                  |  33 ++++-
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c          |  53 +++++---
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr_types.h    |   2 -
+ drivers/gpu/drm/xe/xe_tuning.c                |   2 +-
+ drivers/gpu/drm/xe/xe_uc_fw.c                 |   2 +-
+ drivers/gpu/drm/xe/xe_vm.c                    |  11 +-
+ drivers/gpu/drm/xe/xe_vm_madvise.c            |   5 +-
+ drivers/irqchip/irq-msi-lib.c                 |   1 +
+ drivers/irqchip/irq-riscv-imsic-platform.c    |   2 +-
+ include/linux/hrtimer.h                       |  24 ++++
+ init/main.c                                   |   6 +-
+ kernel/sched/cputime.c                        |   7 +-
+ kernel/sched/idle.c                           |  16 ++-
+ kernel/time/clocksource.c                     |   2 +-
+ kernel/time/hrtimer.c                         |   8 +-
+ kernel/time/itimer.c                          |   2 +-
+ kernel/time/namespace.c                       |   2 +-
+ kernel/time/posix-stubs.c                     |   4 +-
+ kernel/time/posix-timers.c                    |  25 ++--
+ kernel/time/tick-sched.c                      |  14 +-
+ lib/vdso/gettimeofday.c                       |   4 +-
+ tools/testing/selftests/timers/posix_timers.c |  43 +++++-
+ 56 files changed, 631 insertions(+), 234 deletions(-)
