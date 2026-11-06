@@ -2,102 +2,111 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A5F606A31B
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 05:08:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42406606A326
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 07:16:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SPVdzA3p
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZtngVeIz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lLu+zf76;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZtngVeIz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lLu+zf76
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EAE910E302;
-	Fri,  6 Nov 2026 05:08:15 +0000 (UTC)
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
- [209.85.160.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8913710E302
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 05:08:09 +0000 (UTC)
-Received: by mail-qt1-f169.google.com with SMTP id
- d75a77b69052e-5364042eecfso3085021cf.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Nov 2026 21:08:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793941688; cv=none;
- d=google.com; s=arc-20260327;
- b=neL9WKgxNWcnXk9oPCxfxQrpIWfY0GMYVKwLxLKGkVJtSq+zVMsaJoWFUf+Qbo4xvN
- c45SBsL+Nuwwyo2CNWdw8vIHtXqKftOBAbZnh69DiXJxler03iqrQu8zVeMnVYgh43HY
- AxzlrHfvgftEn8B3GO2gTYfPVNSqE/HMd1hCbhY9sC2kk4yM+DNgYnL7Ol/CrbbeC9w9
- GEAdTf8SbfGVzIKB5B/YyGvSkhhRRarJsATQeqKCjrF9fftMJRI/h70aaEqGKElZNs4H
- GaIzQAPBxfOYsavY9pjbWaCqQuXwiXrJE9csRuxY4OSmqiNFYYNgyvp7CMMUZG2AkZJu
- zaBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=huVl+IlIYSdVDEO2gdFrs3mcLTIebTCw/xfvvqFw3UI=;
- fh=SFEWLXyHLR+Yd0SmfDKw5NIsQrmC6JW0krrNcsfkbVg=;
- b=NFMRPuzib0Zh/DX2msgOmtHC1m/aN0RnlTJdD5EIfSz+btEZnwR2HOyKVCciShTd/5
- yXsYFqzWnS3jL6lntF8C1BjEd55qxe0a9iKYb+pHoRjcYhfO/WoWkZJDW8uHWHH/krCS
- gT8iy6hw9HWYCqrBC82P25XWSkCQNj5J+CgJyzz/DHH1r4RD5U1eqEeWgthGaAAtR0bH
- 4P3Roco+Dr2tOTGJvzgdu0MKzMMt0tExPOJ8E5uCoMbIQDa69fptatLTKlnL5KCtmFQk
- r7//NqD357oytALJB6rwd67OUdypixfcl0/x50cXmDYbQtMO7GiufjUIJBNHR3wbiram
- mKOw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793941688; x=1794546488; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=huVl+IlIYSdVDEO2gdFrs3mcLTIebTCw/xfvvqFw3UI=;
- b=SPVdzA3pVp+q3ITJ1Oi5/tuLEOFGYaoge9/koXWmuhA0cjWdaLOvU/3VXtNL+G1cdh
- WaOiEBfLVcmfNZCgKa0uKWlkFAaug3fuTLgvZ3noqk3QeEahjsInCIqvbZDgNBTsZU21
- UW0s8gCTK6RbqkPDtv7HCiUca2CvqnHJoGrkrXlwULJdTwYVrR0F7iNJ2B/2VymMf3oT
- qrPFhbRfAzSoIe2ER076txBePAKq/LvbsT79oCaYzckBzjpd94tywYiJjA8SluTNaWZj
- EeZAfXbXgF8AayS3tWFTWhRFuma8kdFmqDtvceHX3vEL1Pff4UFM9n8lwpsLJBcNuDK4
- UXxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793941688; x=1794546488;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=huVl+IlIYSdVDEO2gdFrs3mcLTIebTCw/xfvvqFw3UI=;
- b=r439wCcqLiMs2OIgh5DZ8IjdgBJ5fauL6vKnKaiTDGLz9ELvWyl8wAc+LMOZ0VcCUR
- ++kejUkpt9hUwKrceGBvLi1dDNQMnScvOh2PuOJ/QGCF2eKVwOHo2cBpcSo4i1NH9ihd
- 3x9fYxjD8d3uxUAxDAVhuHpTrt1yB6yC72LBMsXvFEsqXnXiLyrZrdnFuBrFQDY9K/DI
- 01ZNlm+EMtIPP+PyclCL4qsNzR/esZKMU61r+fRw8CbBrq3AGDGCKcMio3UoyTL/D3vK
- Ghi6UnKxXZQI8eGW/giVSzzwQ+gOzgcmaThYQRZyo5FNvcfb3BpWM02uCfEPUdT0OeGK
- 8DjQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy7RWsCRvvilntqbhVemBUycSmIqx4cxOMBZ0YBdvKUgXmTNXiNcX5GEhJWXU8B/N6A7zawXsSEG2k=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8ozx/arLV6YVukoHpQ2usnTOFWvEhx8idNfb1aVM/FPyB+OxM9
- bhVKuGDeLEuRwMLqJsHEImkjYYvc/tdIQz8631YIgKGuCXrgUWHghnngyFK/K56lcKE9iACxuic
- HlK/5dw0JvKeZYXTJVltGcAkWiQAyvDA=
-X-Gm-Gg: AYBFou1P3N/+E+sIce9EihllR7k2TO4l3u2MeADpEoyyhUvsXLt0iaFovCwOuhx1iXL
- FN70GVGjHFaCg6LmagSyXrW+O3LkAdolZtYcxr2FCmm4zoKFTK/LrIgOmmk3RCgGFm4NBiJVMEC
- Dj+meP3hTsT0JYqc+af2N9d38ARJLPZqmzQUj02SlTftxeQKwHYHDNK8uGnp1vDldHzl3yXjqBi
- 8Ez6iRuJTnXKoGwZzOWKhdAKEWHKtRM6j7Gz1XYQiaNicndW+X9KuZxwskgCiq4sUS7YkaphXzM
- +hnVIW84rIrlRlKUpJEeL/7Zqr9U6cTWCd9bN3K1gnqlgKxRUNWRa+T0h1lxybJj7MhaC22WAl2
- S34lm6UtvjGNYrrz+XY9UB4ycHHvT8zEO6DMDYv+/FK+loBxKkiUB6XbT+d2/KgYSAqpKilOAeL
- eZSKOKCYkLXTjEIDzlDELp9w==
-X-Received: by 2002:a05:622a:114b:b0:54d:6b3a:d22f with SMTP id
- d75a77b69052e-54e1309deb9mr23285741cf.22.1793941683728; Thu, 05 Nov 2026
- 21:08:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B62010E212;
+	Fri,  6 Nov 2026 07:16:25 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2555410E212;
+ Fri,  6 Nov 2026 07:16:14 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 953F71FB91;
+ Fri,  6 Nov 2026 07:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793949372; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
+ b=ZtngVeIz/TscJr8b9y5RTN9n5X+bg/cNRN00Oz2g+hFPMmLSmqsADPx22wIU+tW5frtTXf
+ IWsmAsZ4rOlHuhJBlnrm/4U0uvbiJZCYS1DlBvBc4iO3kgpSMb8MxJgF+27T7U4KqY2x7/
+ YeIetPUkth5XD3Y94Co75NmVA/cfwbk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793949372;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
+ b=lLu+zf76rfClxEuSsGW0Ae6rkgGtWxyCr+fsvMkHXRmrwdiVDnipU6nREaSTFb11PVlnOU
+ LX3GWXoWdJd0BjDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793949372; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
+ b=ZtngVeIz/TscJr8b9y5RTN9n5X+bg/cNRN00Oz2g+hFPMmLSmqsADPx22wIU+tW5frtTXf
+ IWsmAsZ4rOlHuhJBlnrm/4U0uvbiJZCYS1DlBvBc4iO3kgpSMb8MxJgF+27T7U4KqY2x7/
+ YeIetPUkth5XD3Y94Co75NmVA/cfwbk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793949372;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
+ b=lLu+zf76rfClxEuSsGW0Ae6rkgGtWxyCr+fsvMkHXRmrwdiVDnipU6nREaSTFb11PVlnOU
+ LX3GWXoWdJd0BjDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CABA6134E9;
+ Fri,  6 Nov 2026 07:16:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id eUSTJ7t+7WpeLQAAD6G6ig
+ (envelope-from <tiwai@suse.de>); Fri, 06 Nov 2026 07:16:11 +0000
+Date: Fri, 06 Nov 2026 08:16:11 +0100
+Message-ID: <87ld76qvk4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org,	intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,	Jani Nikula <jani.nikula@linux.intel.com>,
+ Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,	Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,	Tvrtko Ursulin <tursulin@ursulin.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,	Maxime Ripard
+ <mripard@kernel.org>,	Thomas Zimmermann <tzimmermann@suse.de>,	David Airlie
+ <airlied@gmail.com>,	Simona Vetter <simona@ffwll.ch>,	Takashi Iwai
+ <tiwai@suse.com>,	Jaroslav Kysela <perex@perex.cz>,
+ linux-sound@vger.kernel.org,	Harry Wentland <harry.wentland@amd.com>,	Leo
+ Li <sunpeng.li@amd.com>,	Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org,	Lyude Paul <lyude@redhat.com>,	Danilo
+ Krummrich <dakr@kernel.org>,	=?ISO-8859-2?Q?Tom=E1=B9?= Hnyk
+ <tomashnyk@gmail.com>,	Wim Taymans <wtaymans@redhat.com>,
+ nouveau@lists.freedesktop.org,	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] drm: Populate ELD Port_ID to identify audio endpoints
+In-Reply-To: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
+References: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <au06WTroGBQ/Gqbt@gsse-cloud1.jf.intel.com>
- <au09iOI78yeru3BK@gsse-cloud1.jf.intel.com>
-In-Reply-To: <au09iOI78yeru3BK@gsse-cloud1.jf.intel.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Fri, 6 Nov 2026 15:07:51 +1000
-X-Gm-Features: AclHuK-Tzf2viDf_stMcddnJZaRm6-IN9felbic9bp3B876AGg3rzgiWvizNEeY
-Message-ID: <CAPM=9twYRmFoaibBZQA2+-qRe=dTc8z9fC0WjgudM=HD+QzDGQ@mail.gmail.com>
-Subject: Re: [PULL] drm-xe-fixes
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dim-tools@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.30 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[27]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,linux.intel.com,intel.com,ursulin.net,kernel.org,suse.de,gmail.com,ffwll.ch,suse.com,perex.cz,vger.kernel.org,amd.com,redhat.com];
+ R_RATELIMIT(0.00)[to_ip_from(RL9y5169nakf5i7mj5a3kbj5yk)];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
+X-Spam-Level: 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,40 +118,60 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
->
-> I'm not sure why patches below bac6deafcd2b are in this PR?
->
-> I did have to force-push drm-xe-fixes today, likewise had to force the
-> PR generation as patches which were not Xe's complained about a missing
-> SoB.
->
-> Not sure what is going here. If you need to drop this PR, I can sync
-> with my fellow Intel maintainers and try again after rc2. Again apologie.
->
+On Thu, 05 Nov 2026 17:02:38 +0100,
+Kai Vehmanen wrote:
+> 
+> The ELD Port_ID field (bytes 8..15 of the baseline block) is typically
+> zero on Linux today: drm_edid_to_eld() leaves it empty and no in-tree driver
+> fills it in. amdgpu, radeon and nouveau pass the raw connector->eld to
+> the audio component. On the amdgpu DC Azalia register path the value
+> is a hardcoded constant, the same for every port.
+> Only closed display drivers fill the value.
+> 
+> Pipewire added support for "Port_ID" in merge request:
+> https://gitlab.freedesktop.org/pipewire/pipewire/-/merge_requests/3025
+> 
+> As a result, when two identical monitors are connected their ELDs are
+> byte-identical, and userspace (e.g. PipeWire/WirePlumber) cannot
+> passively tell which HDMI/DP PCM belongs to which DRM connector.
+> 
+> This series adds a DRM helper that fills Port_ID with a common layout,
+> and uses it in i915:
+> 
+>   bits 63:48 - PCI domain of the DRM device
+>   bits 47:32 - PCI bus/device/function of the DRM device
+>   bits 31:0  - DRM connector object ID
+> 
+> The upper half follows the layout documented for the AMD Azalia sink
+> info registers (dce_audio.c: "PORT_ID1 = 16bit BDF"). The aim is for
+> this to become a convention other drivers can opt into. For drivers
+> that copy connector->eld to the audio component (amdgpu DM, radeon,
+> nouveau), adopting it would be a one-line change. Comments from the
+> AMD and nouveau folks on whether the layout works for them are very
+> welcome.
+> 
+> An alternative would be to fill Port_ID directly in drm_edid_to_eld(),
+> so every driver gets it without changes. I went with an opt-in helper
+> to avoid changing the ELD contents seen by all drivers and existing
+> userspace at once.
+> 
+> The value is exposed to userspace via the ALSA ELD control and
+> /proc/asound/cardX/eld#Y.
+> 
+> Kai Vehmanen (2):
+>   drm/eld: Add drm_eld_set_port_id() helper
+>   drm/i915/audio: Populate ELD Port_ID
 
-Something is very messed up, you don't have v7.4-rc1 so it seems like
-somebody rebased back too far and screwed up the tree history.
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
-Please rebase onto Linus v7.4-rc1 tag
 
-commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4 (tag: v7.4-rc1)
+thanks,
 
-In your tree
-
-commit 8f26dd9c8361a9428cad2ffa40bad672577be6c6
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Commit: Matthew Brost <matthew.brost@intel.com>
-
-    Linux 7.4-rc1
-
-Something went wrong in a rebase land, force pushing was probably not
-the right answer.
-
-Dave.
+Takashi
