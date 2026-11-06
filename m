@@ -2,68 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686F9606A323
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 13:50:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C10606A31C
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 13:57:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M8zLzQAW
+	dkim=pass (1024-bit key) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=WK0uuDtx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6AA610F2D4;
-	Mon,  9 Nov 2026 13:50:53 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A038D10F2DA;
- Mon,  9 Nov 2026 13:50:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794232247; x=1825768247;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=fk+ULn+LiMYolzMljOxfZYHMNqgMG1FKUhWrEn7F8iI=;
- b=M8zLzQAWzwL4X+pmhJLXkrOKsJaID5u5H+GbXsMoRlSF1mPJqSG9HWN3
- 22uyYCTMIJ4iTvJfwUPzru+vvlRbdmP6CILujMjF069KCGBu7hIOnDehp
- jNj9kI40sIcm940nN5tyDAUbZCgP90Mq5oCWMY2it46Gff8j8ZPTaQiMZ
- 1Kyp767u78KG1ezeVRtLeeTps3h71wMotgtWj7bVNIP3NA6sSWsVVbX02
- h7o1MBa/6it9VbwCRaKksOYaB/FOz9RbYyVlaD9e8fDF5eGcf0PLJqOQZ
- EeJYXgw6/zNWWgMfXkvPaTwuXMy3jkQSTNzivlIejGfEGJBf1zvr27O33 Q==;
-X-CSE-ConnectionGUID: lFN3qfrbSmCwhnanCO3rVA==
-X-CSE-MsgGUID: fJ4Xu4jZS86VPnO4+USGRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2985776"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2985776"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 05:50:47 -0800
-X-CSE-ConnectionGUID: seZ/F5gVRPiD6OPQFxKKUQ==
-X-CSE-MsgGUID: eQlnhf9cQb215+SktPBVAg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7897628"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.99])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 05:50:43 -0800
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E540710F315;
+	Mon,  9 Nov 2026 13:57:35 +0000 (UTC)
+X-Greylist: delayed 74172 seconds by postgrey-1.36 at gabe;
+ Fri, 06 Nov 2026 10:23:54 UTC
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.58.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0D0710E220;
+ Fri,  6 Nov 2026 10:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
+ s=pkvm2402; t=1793960612;
+ bh=9AfE/cfKfBtCctU1Gai/X++88Iu6z+gq2zm4ryifuSg=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=WK0uuDtxaPPzmKOUMwakGUNc990TLe4iy0Ajf8hsFR7OJEVfXWcEM5a3CI0Izd9n7
+ nHKkLKLSzmbcwxsrXYpfzZG8jMXZXzz7ZLzGyagB7t5DG9wNbrLsDj5WES9sq8tsZB
+ GG4X+UgWh07ob3vJHkm/KQM6FqoFbVg2Np8kPDn4=
+X-QQ-mid: zesmtpsz3t1793960606t071e06aa
+X-QQ-Originating-IP: S3UmKB0bvoMHHcYgWAGxlLQXFmqsu4Zb9qoHPz9nc7A=
+Received: from exmail.qq.com ( [183.16.164.172])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 06 Nov 2026 18:23:17 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8634473018609808824
+From: Hanson Wang <hanson.wang@ugreen.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/i915/dsb: Realign GOSUB only for QW slots 6 and 7
+Date: Fri,  6 Nov 2026 18:23:15 +0800
+Message-Id: <20261106102315.1361645-1-hanson.wang@ugreen.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261105134658.3724628-1-hanson.wang@ugreen.com>
+References: <20261105134658.3724628-1-hanson.wang@ugreen.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261109131011.1815-4-ilpo.jarvinen@linux.intel.com>
-References: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
- <20261109131011.1815-4-ilpo.jarvinen@linux.intel.com>
-Subject: Re: [PATCH 3/3] drm/i915: Remove driver side resource assignment
- after BAR resize
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
- Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>,
- Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Date: Mon, 09 Nov 2026 15:50:40 +0200
-Message-ID: <179423224043.176713.9574389595098924070@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MpvVxjO9l39xd6tLpiMIVI1u2Nmd3/JrG0kWbNZAaKMafAJgdk5O34BZ
+ b8LlY20ubhQwNuUMI+yJbNXTXCnDYaJyKEV4bsg0/xyjoVrg6ZbqnhLOp0u3m0bsDrhT657
+ odl25FSZIPdg7Rtzur0qQAleJL08gtUXd0Cgeef7cW1ewMyVV4ojDV8IfcDRAGEBx5Zt5+s
+ fsgiQv+eYlrnB4pYPRJZO94uO94CdDvFKw2m/buImn6+qrstPEa3dCRebIeyOSEQOxCgNxk
+ VYdCz9SGvM1P1uaKMgNV8fqoZfS+1Z2abbeq9lyBYSjkl4vnwVR/jo6yfvH69nSe0nSwwZ7
+ e+bsj1D4ruuyZGs2+VNQx+4LCgesHK9xLI4/DIZnf+cC4H8kGRGVH0aADkaHgrOX9eDmzwb
+ TFAj4lXCZjJwy8yMfDt+87blroD73jgsI71LbQrHaOfAK7aeMvzbLpGzZpV7J6K4J5n0eIh
+ 6IH5QcSGa/M/35GdPX6rTw2wXJW9PaAsUJMA2z8a2q6B/rkoHuh6NX1hqMj9jKU1vFvsBm1
+ eRDwBGBuTGTCGvz5dw9X0PUrdeFeEV3xe8aNBW5PGRmi7o6sfP0rWElMTudTKDdkLWhrKTi
+ 5d8wZ1S8Rg9rJCKzUaDWzBctr8Al/asIxaKggaL1jv4CquBINKgTiYVDLfH7fs0784pleP9
+ sleqcpxZPu3xU4zc0Ja38MTMzSWxHouCdvaBqYPHfysZJhaSHL/Q0kNdCpjMCrCPLGKoWLG
+ tf9DIUosiggNCM3sWVT0qO5eZZVtjHbvqIclgsEEWn9LasnvjjvgRSHmYYpjlDgjSrMTkxm
+ kywdjBi6F+vxBIncWM/9Xs9FY7PJ3ttbLUVd5WyNm+xzwdTbNfan1E1ksjVQR+MwqC4HRNC
+ eISgIp7lT5DXv7SmNKh9Uon8IAPeE4g0QjDa/rsySQG49apeA/zoK/s0dztSR9HybXflqPM
+ F9DMcMBHSTd9GEGuLuf96TnBLqZa7MeLEQtJRPmNvYYW6q1rayCmN3sG8JOVdkiDHj0+RP/
+ rVoz0DeJj7hzQVJMdoABSEzz2PFNyCjou2JcniFgHSPB7WF8Pp
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
+X-Mailman-Approved-At: Mon, 09 Nov 2026 13:57:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,27 +80,84 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Quoting Ilpo J=C3=A4rvinen (2026-11-09 15:10:10)
-> pci_resize_resource() assigns the resized BAR and the other BARs it
-> released, or restores the original configuration on failure. Calling
-> pci_assign_unassigned_bus_resources() after it is redundant. If that
-> call manages to assign more resources in some scenario, the problem
-> should be fixed inside pci_resize_resource() instead.
->=20
-> Remove the pci_assign_unassigned_bus_resources() call from
-> i915_resize_lmem_bar().
->=20
-> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+intel_dsb_gosub_align() moves free_pos to the next cacheline
+unconditionally, but only clears the skipped bytes when at most two
+QW slots remain. Wa_16024917128 forbids GOSUB in slots 6 and 7 only.
+A larger gap is still executed. A Panther Lake DSB dump showed
+nonzero data in that gap, with the tail at 0x58 and GOSUB at 0x80.
 
-Reviewed-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Advance free_pos only when the instruction would land in slot 6 or 7,
+and fill that gap with NOPs. Emit GOSUB in place for every other slot.
+intel_dsb_align_tail() still clears the rest of the cacheline.
 
-Feel free to apply on pci tree where the refactoring also landed.
+Update free_pos inside the existing gap check in intel_dsb_align_tail()
+as well, so the two helpers keep the same shape.
 
-Regards, Joonas
+Fixes: 2c41d62f6fb1 ("drm/i915/dsb: Implement intel_dsb_gosub()")
+Cc: stable@vger.kernel.org # v6.17+
+Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
+---
+v2:
+- Advance free_pos only for QW slots 6 and 7, and NOP-fill that gap
+  (Ville)
+- Update free_pos inside the existing check in intel_dsb_align_tail()
+  so the two helpers stay in the same shape
+
+Hardware: Intel Core Ultra 5 336H (Panther Lake), 6.18-based kernel
+Build:    6.18 backport; both xe and i915 intel_dsb.o
+Upstream: not built or booted
+Reboots:  7/100 DSB idle timeouts before either fix
+          v1 (always align): 0/200
+          v2 (this patch):   0/200
+
+ drivers/gpu/drm/i915/display/intel_dsb.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index d9a270362a82..07d864039e82 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -589,10 +589,10 @@ static void intel_dsb_align_tail(struct intel_dsb *dsb)
+ 	tail = dsb->free_pos * 4;
+ 	aligned_tail = ALIGN(tail, CACHELINE_BYTES);
+ 
+-	if (aligned_tail > tail)
++	if (aligned_tail > tail) {
+ 		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
+-
+-	dsb->free_pos = aligned_tail / 4;
++		dsb->free_pos = aligned_tail / 4;
++	}
+ }
+ 
+ static void intel_dsb_gosub_align(struct intel_dsb *dsb)
+@@ -607,11 +607,15 @@ static void intel_dsb_gosub_align(struct intel_dsb *dsb)
+ 	/*
+ 	 * Wa_16024917128
+ 	 * "Ensure GOSUB is not placed in cacheline QW slot 6 or 7 (numbered 0-7)"
++	 *
++	 * Move to the next cacheline only for those two slots. The skipped
++	 * bytes stay in the programmed range, so fill them with NOPs. Any
++	 * other slot can take the GOSUB directly.
+ 	 */
+-	if (aligned_tail - tail <= 2 * 8)
++	if (aligned_tail - tail <= 2 * 8) {
+ 		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
+-
+-	dsb->free_pos = aligned_tail / 4;
++		dsb->free_pos = aligned_tail / 4;
++	}
+ }
+ 
+ void intel_dsb_gosub(struct intel_dsb *dsb,
+-- 
+2.34.1
+
