@@ -2,45 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44A0606A31C
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 13:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614B3606A322
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 13:57:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=CaIAN5N4;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=CaIAN5N4
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=VTct3TJM;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=VTct3TJM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB75710F32D;
-	Mon,  9 Nov 2026 13:57:37 +0000 (UTC)
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011056.outbound.protection.outlook.com [52.101.70.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39BE410E11D
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 17:17:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF8010F334;
+	Mon,  9 Nov 2026 13:57:42 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013056.outbound.protection.outlook.com
+ [40.107.162.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62BB81127C4;
+ Fri,  6 Nov 2026 08:30:13 +0000 (UTC)
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=GG6uJ8vdVbG/ZshwMLun5UaB20DrITtL5jQXXrRI+bbYLsjt4qEEfwckmqjUrxhlGfNTayj7KInnpkETog3FrFmXmM6QLszE3H+ibid1iaIL0SP9dMQBD2LA8Z9MxM+ODbZhF7w6RZrrtKHOk/xGXf120447XR19BMvVY4ShxbMn0LsH9c6ZUbk5z4rL+REdb7UnRt2thWiF4oZ9IEWWDjHNPdKBcDBnTjOK3dwtqTPU3f4H6UPFgD92eWMbrPNwANdrWPrIcGLPH4eWFYAKnqsUJjI7hKmjUtk9Y3pcZYgXqyJUTqLDPey1k3y5mqUAXpJoIFVj5eMYiNkmKOU3tw==
+ b=OdCVbwH56MMbZNewyuT/pqQanw3xwV3kLkdIKEitKvnuem+nJ728pq7yohU8iSAdnXZEvKmTjh59DCXnqz4Yaq0kYmw7XN+QiDgJ9iaDmlrIAxL6u1n8bQTIXf57lEkiNf/z/wVpR92+QWKTu+jccm0nBIs+suKncDDW7lZuNrzFZVj8pzGGWB/kD7dCm8dI+hEF6M/pgqxqIliJgvgRlJB8WoLXTbhxmtJ79Vy1uarOPYBPyP5ZL2JtTzaaeevfEJS+FF7S1VCLZXSFVM4UaF7e9jaNuRnTxx0CCymT5edPqZQvj9vIofk5jhsWHhoasIw7UqgV54+I7Ochzv7ZvQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eTpVa0KXLbeyN7w0naRmQVXV/ayHx+u2by3c7Xc6o7k=;
- b=N98R7wcm6n1eL4iAYorGbYYRZtwosX3HetQf30r6kQRDNniij+r7FpoCSyJyhm278OVtC5qkD9GdVB5Xg4YJcbrr0ig9MslWif8tF4dwLIwm1H94gZ62SxASfG+XnoVXi3MShPdPaGvlnEp9eKqo7LbZot2KLYOymcypEVn6bLwathE3VIibSUZP5ENYQNbU32E0RPeaTHyC/213E0QR5qESKym2NXcpqXDajvc6Zi6barvJLzZi6+fmC2+kBQt6NHLwyo6Wcna7GJrEISY3+nVHqyvYQSt1Lc12oSR8oL1iV/Ka5P0R8nQA+mYhR+NrkaVkRbuDPlgn9I23UJ2NNA==
+ bh=L6VJsBBw+9aLUNmIbT5EOz+b9Lupz6euvihDRf+q8UA=;
+ b=fJkVx2FTNpfQu6ContC49sJUkM1uWbN/7SQbVCc6br+M7qVLKXwFgo0tgYmPEqLKy9uGFpPPytrAeRPA8zPAvT2rjkHeEFtEJ4tO4EmI7EGBGvnsCGgM03Q+oenqsrVk83748H4u5SVoGpPUYY7yLISvUgSkGJmWU5YcKSQyuEdOLrCb/+VgVd5otYQmS/XYw84hT3F5cm72CC2of8ufs6F1CXkDfD/MtMNpyUtEpNH5MsQOfJ/MaYTpuVU2gXm53Q3/fIdbv4niOT+fDc2VtvHnOvEPq/IO3uVx6DJhD+66avmQ0TpMFAZo2DMtlTKIPf5zJBW08oT7fC2UK63TvA==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=google.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ 4.158.2.129) smtp.rcpttodomain=infradead.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
  spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eTpVa0KXLbeyN7w0naRmQVXV/ayHx+u2by3c7Xc6o7k=;
- b=CaIAN5N4KxHcigNOYRbk45xUO2LtjBwP1RcO6UocUwkLmLngtuH1PFm1W9qK070H8wGK+EAIvCMy1FmK+zskIqBAKkq1NYRD5QCr8KNA3xlgrYx00+WqKHZJ58CIKLbEGAkmo8kXeQNKaP/QVgTyeLDwpYmBJ5kP9HAUZ3Gm4Ds=
-Received: from AM0P190CA0017.EURP190.PROD.OUTLOOK.COM (2603:10a6:208:190::27)
- by GV2PR08MB771685.eurprd08.prod.outlook.com (2603:10a6:150:37f::5)
+ bh=L6VJsBBw+9aLUNmIbT5EOz+b9Lupz6euvihDRf+q8UA=;
+ b=VTct3TJM+OunBfzGKVKBs1bHWhwAuwIGQQLM9WyomdtBvDXcGitFSBsJw3rmK2+GxfFUf6PYXASw2g/WrvG280L9uw2yJf1eQhvxzypYk32uzbyPrrN0byTHHDvsZuwQX+qVQSenj0+RkPJOTkRgJhHTnr9L8zwWDV8Gyl9B1Ko=
+Received: from DB9PR06CA0010.eurprd06.prod.outlook.com (2603:10a6:10:1db::15)
+ by AM0PR08MB5364.eurprd08.prod.outlook.com (2603:10a6:208:186::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 17:17:39 +0000
-Received: from ZR1PEPF0000E463.eurprd04.prod.outlook.com
- (2603:10a6:208:190:cafe::7b) by AM0P190CA0017.outlook.office365.com
- (2603:10a6:208:190::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 17:17:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 08:30:07 +0000
+Received: from MAD0EPF000008B1.eurprd04.prod.outlook.com
+ (2603:10a6:10:1db:cafe::99) by DB9PR06CA0010.outlook.office365.com
+ (2603:10a6:10:1db::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 08:30:07 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 4.158.2.129) smtp.mailfrom=arm.com;
  dkim=pass (signature was verified)
@@ -49,165 +50,165 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- ZR1PEPF0000E463.mail.protection.outlook.com (10.167.241.56) with Microsoft
+ MAD0EPF000008B1.mail.protection.outlook.com (10.167.241.133) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Thu, 5 Nov 2026 17:17:37 +0000
+ via Frontend Transport; Fri, 6 Nov 2026 08:30:06 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VEZqCzho2/q+WM4A/n/O5lZPad5M03fWy6PydBnZ+pgD8xakqpjqKQ6yzLSqS9y1voz9C507lcDMwxeFMrZqYVA9Y4uxrld5ti01yE8ZMNkbbCd22kFKAy8CQbf0RXVo2BwPcwBX6ddkjgNINH3xiS3fhu7+Y4BnGPKZ61ukK31rrhDPeStjlKxEd5wwfYIZdto9ZqhnuyeKaZA/75PveSmb2cxOuRXr7L7sTPtX5kMapSYQ1d1BVkF8oOKJ5MVvk6ZvdWpLly4n6t8b5mu9U/Inzq06hBTh00rOMrwCa2/IhYypvdQ3fCeO0lchqdGchcHNya0LH1g14nFz+cQSBA==
+ b=s0U5i4Rn/UCIlotiLo/VvUA1a6U0v7YRBf0h0qxbKixjoTDXolHKMHI+81ST2iSBij40UkhqXDsL+sYt4MCLe5uWreOA7SkVr9TWGBJLsh9uuHMbNo/9Hn49hzj17LP8Sp7Xwa+48BNcoeykitRg/I9krN35oK1HKLgn0IomDqmVT9K1NRIhqPItUFmZ4WSP5n37dMz8RoWaQGFh71bQMHlIvtJZaKs5GFCad9CbuGItn33hnXVXTkuLGPJExq8CMcdPGQqZKrGyia9tyh1WuZoTO2vQ5B3p5TMA1E+ZTUhddqj3KImydjuyu55+G+yd0AQPzip/TZ/koWdM8u3ObQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eTpVa0KXLbeyN7w0naRmQVXV/ayHx+u2by3c7Xc6o7k=;
- b=cKmvEXKhg2kB4cgWM1cpqYzakFjRONndSFcXHpgnMGuwnfzUv/M2tx4fHwtGpMYEQrc1CJaVjdLszML62Xnh7RioTbXTZg3WfmVbj5+FYwXAiy6VBLWdKMWKlt7diBrXfStOI1+aLZAXIQBwl82A0KCpj6hA3RHcbX2tA3tZFGGijFRAoEbBypnHobn4JE6+bb+fOF9WRg6ssIspwaDJn/b2WUTKNOEeW/X3u5taONOZIeJlq66U4NQDi+Ru80g4kX6odBHezS/tEVY9iEn3A3srZlTIWpWv+r1k8GguIkQBUEU5cZVI9EOFNdngJ9r/+nf9Mysywjxr1kl/jfTTgQ==
+ bh=L6VJsBBw+9aLUNmIbT5EOz+b9Lupz6euvihDRf+q8UA=;
+ b=sljIyRyMiC/coR93PrX6AW9+zxGgQss9F5QGMweCfqgDQgcl07npH3G5kGJCC/ARACEbb/zVDf8AkeRr4g21mNI00hgprYqUmQfXaIePTPKaQOkxb+9FhJt8/Z8E9HLbweo6RmtWALMi0oa5NGTvcuzjGelY8BJKeIy0GEGb6zaCZ1tRXYgde7SEuzzvAKNVJC/lvlnKiCcQRWAss21cXrIokd1eVN2BHV+7EHqUX+j68pJsWkTmlAeJTOHE4iBZxShKge/EQwhRYYZIp1dEFEFAyorj6hRwkOY4+GQzRqql3JQ/TjO/PYVbrtW8xsWtrIsvIiTIAr+8wiFCFUMLyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eTpVa0KXLbeyN7w0naRmQVXV/ayHx+u2by3c7Xc6o7k=;
- b=CaIAN5N4KxHcigNOYRbk45xUO2LtjBwP1RcO6UocUwkLmLngtuH1PFm1W9qK070H8wGK+EAIvCMy1FmK+zskIqBAKkq1NYRD5QCr8KNA3xlgrYx00+WqKHZJ58CIKLbEGAkmo8kXeQNKaP/QVgTyeLDwpYmBJ5kP9HAUZ3Gm4Ds=
+ bh=L6VJsBBw+9aLUNmIbT5EOz+b9Lupz6euvihDRf+q8UA=;
+ b=VTct3TJM+OunBfzGKVKBs1bHWhwAuwIGQQLM9WyomdtBvDXcGitFSBsJw3rmK2+GxfFUf6PYXASw2g/WrvG280L9uw2yJf1eQhvxzypYk32uzbyPrrN0byTHHDvsZuwQX+qVQSenj0+RkPJOTkRgJhHTnr9L8zwWDV8Gyl9B1Ko=
 Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
  signed) header.d=none;dmarc=none action=none header.from=arm.com;
 Received: from AS8PR08MB10291.eurprd08.prod.outlook.com
- (2603:10a6:20b:629::15) by PAWPR08MB11487.eurprd08.prod.outlook.com
- (2603:10a6:102:509::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 17:17:02 +0000
+ (2603:10a6:20b:629::15) by VI0PR08MB11199.eurprd08.prod.outlook.com
+ (2603:10a6:800:255::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 08:29:30 +0000
 Received: from AS8PR08MB10291.eurprd08.prod.outlook.com
  ([fe80::9f01:508:17aa:279c]) by AS8PR08MB10291.eurprd08.prod.outlook.com
- ([fe80::9f01:508:17aa:279c%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 17:17:02 +0000
-From: Bence Csokas <bence.csokas@arm.com>
-Subject: [PATCH 0/3] Add offsetofp() and offsetofendp() for pointer arithmetic
-Date: Thu, 05 Nov 2026 18:16:15 +0100
-Message-Id: <20261105-offsetof-v1-0-4153f5c10edc@arm.com>
-Content-Type: text/plain; charset="utf-8"
+ ([fe80::9f01:508:17aa:279c%6]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 08:29:30 +0000
+Message-ID: <00152592-fd72-4413-88cd-c78a3722829a@arm.com>
+Date: Fri, 6 Nov 2026 09:29:24 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] Add offsetofp() and offsetofendp() for pointer
+ arithmetic
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Chengchang Tang <tangchengchang@huawei.com>,
+ Junxian Huang <huangjunxian6@hisilicon.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Steffen Klassert <steffen.klassert@secunet.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, =?UTF-8?B?TWlja2HDq2wgU2FsYcO8?=
+ =?UTF-8?Q?n?= <mic@digikod.net>, =?UTF-8?Q?G=C3=BCnther_Noack?=
+ <gnoack@google.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Vineet Gupta <vgupta@kernel.org>, Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Selvin Xavier <selvin.xavier@broadcom.com>,
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Benson Leung <bleung@chromium.org>,
+ Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>,
+ Nilesh Javali <njavali@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+ Bharath SM <bharathsm@microsoft.com>, Carlos Maiolino <cem@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>,
+ Davidlohr Bueso <dave@stgolabs.net>, =?UTF-8?Q?Andr=C3=A9_Almeida?=
+ <andrealmeid@igalia.com>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ "Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-wireless@vger.kernel.org,
+ bpf@vger.kernel.org, netdev@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-snps-arc@lists.infradead.org,
+ linux-bluetooth@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-hyperv@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-scsi@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-xfs@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20261105-offsetof-v1-0-4153f5c10edc@arm.com>
+ <au2J-lMcEn4p4KGR@infradead.org>
+Content-Language: en-US
+From: =?UTF-8?B?QmVuY2UgQ3PDs2vDoXM=?= <bence.csokas@arm.com>
+In-Reply-To: <au2J-lMcEn4p4KGR@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAN+57GoC/yWM0QoCIRBFf2WZ5wS1kuhXoofRnWknSMOxCJb99
- 7Qez+Wcu4JSFVI4TytUeotKyR3cboK0YL6RkbkzeOuDc/ZoCrNSK2w4eMSwP5zYztD1ZyWWz+/
- qcv2zvuKdUhv9MCIqmVgxp2VMD9RGFbbtC8SiO6aFAAAA
-X-Change-ID: 20261105-offsetof-f62aa6348f0d
-To: Chengchang Tang <tangchengchang@huawei.com>, 
- Junxian Huang <huangjunxian6@hisilicon.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
- Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Steffen Klassert <steffen.klassert@secunet.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
- =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Vineet Gupta <vgupta@kernel.org>, 
- Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Philipp Stanner <phasta@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
- Cristian Marussi <cristian.marussi@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Selvin Xavier <selvin.xavier@broadcom.com>, 
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
- Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>, 
- GR-QLogic-Storage-Upstream@marvell.com, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>, 
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
- Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
- Bharath SM <bharathsm@microsoft.com>, Carlos Maiolino <cem@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, 
- linux-wireless@vger.kernel.org, bpf@vger.kernel.org, netdev@vger.kernel.org, 
- linux-security-module@vger.kernel.org, linux-snps-arc@lists.infradead.org, 
- linux-bluetooth@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-hyperv@vger.kernel.org, chrome-platform@lists.linux.dev, 
- linux-scsi@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-cifs@vger.kernel.org, samba-technical@lists.samba.org, 
- linux-xfs@vger.kernel.org, linux-sound@vger.kernel.org, 
- Bence Csokas <bence.csokas@arm.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: PA7P264CA0148.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:377::20) To AS8PR08MB10291.eurprd08.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0163.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::6) To AS8PR08MB10291.eurprd08.prod.outlook.com
  (2603:10a6:20b:629::15)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: AS8PR08MB10291:EE_|PAWPR08MB11487:EE_|ZR1PEPF0000E463:EE_|GV2PR08MB771685:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b5a8957-35f7-4f45-00fe-08df3b60b0ba
+X-MS-TrafficTypeDiagnostic: AS8PR08MB10291:EE_|VI0PR08MB11199:EE_|MAD0EPF000008B1:EE_|AM0PR08MB5364:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24d05a3e-000b-4f47-7812-08df3be029d2
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|376014|23010399003|7416014|366016|1800799024|921020|11063799006|261022105027099003|56012099006|261026140227099003|261021123027099003|261009221727099003|261009223027099003|261009220027099003|261102123227099003|261009223327099003|261009221227099003|261021121427099003|261028144727099003|18002099003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info-Original: VVFJelSxgClgHU9Gtoq4Np58blMsVJiYNVkaIgBD3Kda8p7uFES7uDdvskqBfhvNllgGw/qAtW12NPqaBVdvk4ZYFfnQe8laSo4WN2wZcLuV+6Ls+MvKPlHwMhcfL1RbKgblJo4i2rUS4jjtMhyz9qo2xvragkBFn34kbxM0iTHnsaN+gPhD67b/IcF3r6HVLcTNOnHRFMUpcf0+iLjkpRnYRUbrab/PHeOmbGtNro95TN9UsPvdhO6PldzlHPKf7ZZNJlpOSOh7OwLdtD0zysxFHY/C+b+ylXuYjsxqMQp9b+9BaEY0xf0L/3c4iA24o34oyh+UQi6dBvRJrDf6sW65Bz+VcdQqeUAkV0fGA6G10BtY8jy14IU1qHwZRGJm81pK4CX/E/o/7Amv2GxssrvtcJxbffPt37eOt+KSCMhp2CiUH5XN1+ZBilitXmoJivb5+2OWAoS6HLj95IdkmifoK+ovvckzuZXk/tavkwbXj5IakXLNZKy0L0r8lbrSQHC1Jy7nsmCQzJ2YWOamUbE8RA1sTgFPOpaCWWY5f1bL+jIPUHlEJpp791vLT/aQpcpVxHyR3vrpDYKvtgzfMu9aQaV+owbl9mB/ToTaBlQPYyEwiDcHLU+UHpbFGGdh/O1LYM9NItuCQfFZYumxpmoXSIDncDmWCUStHnEWJgFdqQxNQg1EcyeceAdb8xthdWSjR5qTTNbbstdKE8Al0w==
+ ARA:13230040|376014|7416014|23010399003|1800799024|366016|4143699003|11063799006|56012099006|261022105027099003|261022075727099003|261021121427099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original: faF+axEssCynoG70FYMCePhIoNpODz8nUUte48ilBjAxzSF2ljdTx9FZ+6SAHTl+L2p2VXDJxSZLAuGF+8xFPD/wczlw8gbdBoL9FYDE/uIqKiUIVgMy9ykCSws2uLPnpBAK7V16FmgaDTf3NDZ4MRCgeh2p/ygbAULsuCjRiqxv58kWepRcOoaQ5ttqxnXxAXPKc2jvzHJmnczt5v2Kl8dZU8kI8J59iMg6p2A2UfEIkbd6esvii3NT0/PLpM3QpDXXGSib9e/FqsLftpDpwBHPG0ajxoEH77qdkiTImbxXmZaR+H7buSGy9nCBRwtkWF3EQzXzU8Un+j3LQ0ndbfjxrZXJuKFFb9qdo9vdlnYBzuYxZliIbcBCqGM8uEl08awDM9NgD4ISXI2Z8Fk9vjKO8IB+rDAACKMn7XVoXXn3aXYaoxFiC/+fU1rUjP9DJCuOdM/TNxWqW5sG/GIglVNr8u83u9+GzJGqGnbVLzt5toXnEiRGY02Q00lVU8FSmMDMgovq4aRgxyJtQSPVxatmi9SLwh4GF4wg+JPW2VuGA+Prl2qZeAir1/AyWcIbQEfeM8jN9f+XIQ7UjGHZqoolFhgR72yHr5Gwpsv/xmaYN35+U3vuTQYmWiwrxxEi2A3dMvf09/CGVjsdblkAJlBwzfpwxVdFkOsORGPVI/Y=
 X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
  SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AS8PR08MB10291.eurprd08.prod.outlook.com;
  PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(921020)(11063799006)(261022105027099003)(56012099006)(261026140227099003)(261021123027099003)(261009221727099003)(261009223027099003)(261009220027099003)(261102123227099003)(261009223327099003)(261009221227099003)(261021121427099003)(261028144727099003)(18002099003)(10067099003)(3023799007);
+ SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(22082099003)(18002099003)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: i5Kdf4NVZB3qcEAKDEN8z3u/rEwYL5shrfrJ1u4X4MdMG+lv2DetnqLTnq31fZAnRYwiGzTgsf1oSpi6saZ75HkcUyx/3h98hXWOJlEPjrXUxg3OOBcysY7P3N55lMhG1Z2fNqG6Lak8blwYov+ix693fusE9l2kYOOApblXSbjK2x9WPTbcqM3wNFzOHQdk7H40neNVxiHnw60Ipx4+wODymJasqclub/qBHqK5Ml65fFKx36twCtDVU8LAtOt18dKbnZ0OUi7tvrv1F/Lty2sqVckwZdsOrP3RcW2owtVjVO0adkKnEIafdOw9MKYaTfJCIErf6dFsSeTV9WbIGA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB11487
+X-Exchange-RoutingPolicyChecked: NeCIiAyKEnvG3hV2ch//xgC4atks9H+CsONLPBStOOh8CG85CyJF+aQCcRm3+Ez54VEWInVKsHEWmfQrrnHjx6GKV9fAL09L5MGK+lgS0vVTtRHSlZub1CBrTbF2T1URA+C9/2gQAvxl/cpBCRA670gFqJRIIOROFz25Frpvk68WIa5CF9Z832T4xoZMom1cCsaSvT8hspU7R+kOxNryq7oFCYnDuEUv/9AOknzx7HFViRfLoJG5F3ZXvirXd0fxz5WgVPd0+JUsUzOsKiXYZvDW5EXdOgNkIDrg3X8Nd9FzJNwSSx5bCq41uZQbnmLUoMn5JwUmO/XCfEZBdMBkTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11199
 X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: ZR1PEPF0000E463.eurprd04.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: MAD0EPF000008B1.eurprd04.prod.outlook.com
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 3915e4d8-3158-4aa3-5d0f-08df3b609ba5
+X-MS-Office365-Filtering-Correlation-Id-Prvs: e5a6ba2e-9dc8-46a5-9ba1-08df3be013e6
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|14060799003|7416014|23010399003|376014|35042699022|18002099003|10067099003|3023799007|921020|56012099006|261021121427099003|11063799006|261026140227099003|261102123227099003|261028144727099003|261021123027099003|261009220027099003|261009221727099003|261022105027099003|261009221227099003|261009223027099003|261009223327099003;
-X-Microsoft-Antispam-Message-Info: xaTR01x5s7BMEbGxoLAsOEFegz36gDBiuZulOVnD+y7uvR3pHE4TSEf6RgNpEVEsfG2qL7dCGrqWlP0O626OxQVdSW5YCD9Ti/tD6OLvOIbKaLFDkdswbu0CHZmaS/DYLzgGTr5z4Xion4SBpbnEvTaGHL07OG0z/RFytwVGXIkRAbkgwlZeotXxmfqUwXhdSQ0KUhX5K7IPmS+CCAlazBuMPWYe39CRYzvO6qpmM6lXPksExTlKvTQt3WbeGQyMxyl9H3f/sDLN2Tp/iWKeYw8HQWoUEjKNs0z9MrC2J7OStOteWx8SNO6mbDELwKQIO5sWgBGg1o3sWOMyEzCR6JhAt4YnR8saclaKknGXR5RLAsl+EsJVKagkdEzbW5q5W7ia9J5PZXBoZ3cWp9R6cykXMZhRiE/ol0HKc8jcQy/1+3XBzy3vVm6bNrf/yU0aKuEnRMT383hq9Z/2aVOgZB4p4B2UlF0KsrmmOsRPzSGWGpCjz4Bz8OWu+NhEd+y4ddHSW2oww5Dy/O0fIhzQltVFKOLx9Uf5gQcXpTDPh7TeCBIJwEWIUQEpm4z14VULIvArkAnEPqD1MYge+nwwrCOv8W5Lg14BN6kAQM3noxuqZ6yBk6ByoroqCmKGvBlGTGfoxzROvVBnUtOjpglWONckE8a8aNVtyIToTSx/vSDi58iY1OTO4QNa5jSq5OFqjKhxwgfgWtr17dxJyIdfuYGwG2/Xrllhl3YiEQkvQ2r5pqbQiveg8yyLJrUc3uwm
+ ARA:13230040|7416014|23010399003|1800799024|376014|35042699022|36860700016|14060799003|82310400026|10067099003|56012099006|11063799006|4143699003|261028144727099003|261022075727099003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261102123227099003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: KtcyxRwdz3XBeacj4DF3DwNqY6a6d5Weo4tvd+TnltgcLhTsGMkL3kCtdI8UpoXpYAUwx/b2CmVjEeSh+JnJtf4N+dqfPw/n6ze1qz3MNi2yw6dXGemhnTVvKKR9M+vneL6+u9TGRH65DUOrJm8/OW0GhFlJnKhzoDX7XzhHLbRFVdr4iFTW0on0eCA2rEB5kcAv5E2b4Txm3phHfcX4RuRLaNoYRDzTiizAKs7cdfhRAFtPvesurNGwgYbo+QVAggNbuQ7rmyAp/xINx/de9dPDEZLqELMbLdvsvqGOGKeh/S2GCOSuSCGoknwDU7pBDh1yISojYHo0yTw0q2ckXqdqO8uQQSLrLgOOd7ul/Lyxjx+0Xq7saXt0fGTuiUAh7b2JHzfC3L/qIoR9gI5uBp5NRsyB58WSQeXjN/TDN5XhIiKIVc8OTUAzOmQQNe4G6Isb2orxbpEoFrkjyUeWkBbSE4vHO7PafD/jj0dlQjrMwtS03TyRHah0JC7uA6moqHov1eUiw8wCr6uxjs8HoYGzv70pLZsHd1FNI8lsnKrtxgu6M0bornoJa5WTag1CYsHQJWt9sW1lIELgFHbebJ9W+2kAel28FcyyKXefK13yN4XMUfzE/XkjCh6RrafaWwcaHcid8wPVYmFrxwRwudebPkkIAWWg1D4SOQvElM72cRSz1MH99QwFvxc63WjxHfRApR7T27LkYb/FxR7qiw==
 X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
  PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(14060799003)(7416014)(23010399003)(376014)(35042699022)(18002099003)(10067099003)(3023799007)(921020)(56012099006)(261021121427099003)(11063799006)(261026140227099003)(261102123227099003)(261028144727099003)(261021123027099003)(261009220027099003)(261009221727099003)(261022105027099003)(261009221227099003)(261009223027099003)(261009223327099003);
+ SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(35042699022)(36860700016)(14060799003)(82310400026)(10067099003)(56012099006)(11063799006)(4143699003)(261028144727099003)(261022075727099003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261102123227099003)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: MUnEkuw+NPVM5RfE+sjkYO/GaipHcyy8aMPP+oiwXbnnsogw5LiNxUtT40N6NqtdrIFA4ppWvZ0HHWv/j44BSei76NRk9uAziSF9n/skydjfBZRm/63Gs45SE0Do+4fWNP6PLJDqlIiccjbHXad2P5x4dsBoNr2GHBl4EKX8hJENKll7WI/x//iTk1PyIYyZ8bD2Tlpts2VfuH5D7g84+4A2ZWLSwBUsF40/c5d6Iua7Xn8QP3ywLpvF6z2PL8YNictFIaFYvZe5tdtLl64U3Vl8NztCgIXkJKtPxBEYwXN+wxa9N5JCi1YtPvYP8HWaLwlkmFxBdD87sa3b7kKUNcbpYdsTRmHvxAOt7t0UZ33jq+I5w2RFP76bgJrRUaOdg/tr7Fx4gwqCURQDYQR1AWfd0fzkg6BnlHHnKUGDrRLdYOURqFZqTgHYZEkBpqjR
+X-MS-Exchange-AntiSpam-MessageData-0: Z71oRdmj/uG70Vv6dYtTt4jsBSPoaF2wcTw7jfAJ2b/QLyGBLwZJJNwdruOK7NeIbGuT5N7cIVdJF2TVV7I1f08Y5SHmBFQuhSBEFJtUrq8462moxunkngyB7S2Dc8clo2hUZeK9GBw/f2kYQDniZV+TZSDv3nijBPQNfbLz7vJanFT1YnluwBjRGmgalWZHmCDiMmM8yo+fURJhiaXOfuUVOdxXiGmibQgwih3BzdrHWrMrt9kQ6/3wdT6HK7bXyRH6wz5/B9mtZ0YH+D8WRvYn1J6WkzUTbgccmI01rbCw1EIc9i4ZL/GyO/bwnIB2RjtJ6WJit0o1LUIK3a5EnXrnKOPs0ve9DrYSIUUivyeJmlRM0e2LtDVKNx6fzX6CzrG1AxB3sD1LsmlLrQ4T52r1Q/B+EkC57F9bbfMHMTr6IbwBqox0mdYpGBYlovES
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 17:17:37.6388 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b5a8957-35f7-4f45-00fe-08df3b60b0ba
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 08:30:06.7787 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24d05a3e-000b-4f47-7812-08df3be029d2
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
  Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: ZR1PEPF0000E463.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MAD0EPF000008B1.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB771685
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5364
 X-Mailman-Approved-At: Mon, 09 Nov 2026 13:57:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -220,86 +221,40 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A common usage pattern for offsetof() is the following:
+Hi,
 
-  offsetof(typeof(*ptr), member)
+On 2026. 11. 06. 9:04, Christoph Hellwig wrote:
+> On Thu, Nov 05, 2026 at 06:16:15PM +0100, Bence Csokas wrote:
+>> A common usage pattern for offsetof() is the following:
+>>
+>>    offsetof(typeof(*ptr), member)
+>>
+>> Condense this operation to one macro for a more maintainable code base.
+> 
+> What exactly makes non-standard macros with no obvious safety benefit
+> more maintainable?
 
-Condense this operation to one macro for a more maintainable code base.
+It is written out in more detail in the msg of 1/3: it helps keep lines 
+short, and as typeof(*ptr) may not come naturally to many, some may be 
+compelled to write out the typename twice::
 
-Signed-off-by: Bence Csokas <bence.csokas@arm.com>
----
-Bence Csokas (3):
-      stddef: Add offsetofp() and offsetofendp() for pointer arithmetic
-      treewide: Use offsetofendp()
-      treewide: Use offsetofp()
+   struct my_struct_type *p;
+   off = offsetof(struct my_struct_type, member);
+   // pointer arithmetic with p and off
 
- arch/arc/kernel/unwind.c                           |  4 ++--
- drivers/bluetooth/btmrvl_main.c                    | 12 +++++-----
- drivers/dma-buf/dma-resv.c                         |  2 +-
- drivers/firmware/arm_scmi/base.c                   |  2 +-
- drivers/gpu/drm/drm_edid.c                         | 26 +++++++++++-----------
- drivers/gpu/drm/i915/gem/i915_gem_object.c         |  4 ++--
- drivers/gpu/drm/i915/i915_active.c                 |  2 +-
- drivers/gpu/drm/i915/i915_sw_fence_work.c          |  2 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 12 +++++-----
- drivers/infiniband/hw/bnxt_re/qplib_fp.c           |  2 +-
- drivers/infiniband/hw/hns/hns_roce_cq.c            |  4 ++--
- drivers/infiniband/hw/hns/hns_roce_qp.c            |  6 ++---
- drivers/media/usb/uvc/uvc_v4l2.c                   |  4 ++--
- drivers/net/hyperv/rndis_filter.c                  |  2 +-
- drivers/net/wireless/intel/iwlwifi/iwl-drv.c       |  2 +-
- drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c     |  2 +-
- drivers/net/wireless/intel/iwlwifi/mvm/rs.c        |  2 +-
- .../net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c |  5 ++---
- drivers/net/wireless/realtek/rtl8xxxu/core.c       |  2 +-
- drivers/net/wireless/realtek/rtw88/fw.c            |  2 +-
- drivers/net/wireless/realtek/rtw89/core.c          |  2 +-
- drivers/net/wireless/realtek/rtw89/fw.c            |  8 +++----
- drivers/net/wireless/virtual/mac80211_hwsim_main.c |  4 ++--
- drivers/platform/chrome/cros_ec_lightbar.c         |  4 ++--
- drivers/scsi/qla2xxx/qla_gs.c                      |  2 +-
- drivers/scsi/qla2xxx/qla_mbx.c                     |  2 +-
- drivers/scsi/qla2xxx/qla_os.c                      |  2 +-
- drivers/scsi/qla2xxx/qla_tmpl.c                    |  4 ++--
- drivers/scsi/scsi_transport_fc.c                   |  2 +-
- fs/readdir.c                                       |  2 +-
- fs/smb/client/cifssmb.c                            |  4 ++--
- fs/smb/client/reparse.c                            |  2 +-
- fs/xfs/scrub/attr.c                                |  4 ++--
- fs/xfs/scrub/attr_repair.c                         |  4 ++--
- fs/xfs/scrub/dir.c                                 |  4 ++--
- fs/xfs/scrub/dir_repair.c                          |  4 ++--
- include/linux/stddef.h                             | 16 +++++++++++++
- kernel/futex/core.c                                |  2 +-
- net/bpf/test_run.c                                 |  2 +-
- net/ipv4/ip_output.c                               |  4 ++--
- net/ipv4/udp.c                                     |  4 ++--
- net/ipv6/udp.c                                     |  4 ++--
- net/key/af_key.c                                   |  2 +-
- net/mac80211/agg-rx.c                              |  3 +--
- net/mac80211/agg-tx.c                              |  3 +--
- net/mac80211/parse.c                               |  2 +-
- net/mac80211/tdls.c                                |  4 ++--
- net/wireless/nl80211.c                             |  2 +-
- net/wireless/reg.c                                 |  2 +-
- net/wireless/scan.c                                |  2 +-
- security/landlock/net.c                            |  4 ++--
- sound/usb/mixer_scarlett2.c                        |  2 +-
- 53 files changed, 113 insertions(+), 100 deletions(-)
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261105-offsetof-f62aa6348f0d
+which induces additional work if *p's type changes.
 
-Best regards,
---  
-Bence Csokas <bence.csokas@arm.com>
+However, as Sashiko pointed out (don't know why it didn't write this 
+earlier), struct_offset() already exists, so we should just use that 
+one, and probably add a struct_offset_end() variant.
 
+Sorry for the noise, everyone.
+
+Bence
