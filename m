@@ -2,82 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8BA606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA6A606A322
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 13:57:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=iLeoVZ0D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7648F10F332;
-	Mon,  9 Nov 2026 13:57:38 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D45F910F807;
- Fri,  6 Nov 2026 12:08:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1793966871;
- bh=RKL+Jq6O2pfebghYB1j2lq21xSpMlV0Qw0R3bOf7GlA=;
- h=From:To:Subject:Mime-Version:Date:Message-ID;
- b=iLeoVZ0Dynjy53D8PSDn+bM44qQzig84PJJ41N10+vgcmxbtlhwYPZF9qLW5wL6E5
- BFg3YR5ShU9NEPkSqR+CYlYwAWlaAlrjGznqfxLNayvUgYsvfBjQ6MT2x1c+klhtob
- 1CO+1XebrAdJNktTBgCdS86myHrVEvy+CrUlSOmI=
-EX-QQ-RecipientCnt: 7
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqRO9CuWAcjeqco6/xKk62mDx0R4/xCnRF0=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: bUHm4PH7GlVFcTGS3fAfhOCI6XVLqGMrh2Zb3jI7J6c=
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1793966865tbb17d3fa
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?SmFuaSBOaWt1bGE=?=" <jani.nikula@linux.intel.com>,
- "=?utf-8?B?am9vbmFzLmxhaHRpbmVu?=" <joonas.lahtinen@linux.intel.com>,
- "=?utf-8?B?aW1yZS5kZWFr?=" <imre.deak@intel.com>,
- "=?utf-8?B?am91bmkuaG9nYW5kZXI=?=" <jouni.hogander@intel.com>
-Cc: "=?utf-8?B?aW50ZWwtZ2Z4?=" <intel-gfx@lists.freedesktop.org>,
- "=?utf-8?B?aW50ZWwteGU=?=" <intel-xe@lists.freedesktop.org>,
- "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915/display: Don't drop the async-put delay on
- self-requeue
+	by gabe.freedesktop.org (Postfix) with ESMTP id F322310F33D;
+	Mon,  9 Nov 2026 13:57:43 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8414A10E61E;
+ Sat,  7 Nov 2026 18:49:00 +0000 (UTC)
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+ by APP-05 (Coremail) with SMTP id zQCowAC3T7WWcu9qyHeKAA--.6613S2;
+ Sun, 08 Nov 2026 02:48:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/i915: Fix vm reference leak in mock_gem_device()
+Date: Sat, 07 Nov 2026 17:09:52 +0000
+Message-ID: <1794071392.2684479.vulab@iscas.ac.cn>
+In-Reply-To: <178962823827.28653.5098493516220452854@jlahtine-mobl>
+References: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+ <178962823827.28653.5098493516220452854@jlahtine-mobl>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Fri, 6 Nov 2026 20:07:45 +0800
-X-Priority: 3
-Message-ID: <tencent_4C927CB66A067D2368DD192E@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
- <a2b152662d219f9be0861e63ddbb78dd1971dc2a@intel.com>
-In-Reply-To: <a2b152662d219f9be0861e63ddbb78dd1971dc2a@intel.com>
-X-QQ-ReplyHash: 3438078101
-X-BIZMAIL-ID: 14064812400548868991
-X-Address-Ticket: version=; type=; ticket_id=; id_list=; display_name=;
- session_id=; 
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Fri, 06 Nov 2026 20:07:46 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MIHPxziOyMXedoTZoUSZeQDVnMyw46BT4LEQMHI+t9jwJAKZyzBLxPZV
- jndnBOMO4jn/dzENGOQDS42AYhShNAwvMJqMKz+jaGHEEc1WQ4IaTdaTp8nZNdOkkNFelq4
- GVv69kKr9wezKqG7LjApvbhVW2heffBTCFzQ7aDCivpVOemSGxz1Veq/waquEWTpDTyIBdE
- y/D6mIXlga8b8rFdAWi5ZLyaG/BEdMrAyXUqG7F3tmCKJONMb1pxrdldgl7KxGaJUzd3UYI
- Gnw6jDGAvGvPJgDs/ZihOxPRDD98eWoh4SnMa4aDUrN4wKrWcMqclQFUF5dtR2C20NZoEN/
- 8Ig48HjWWYstv5GPRrXjB4HbsRttHvPGr+dBu8ZM6P/EFWEx73pUIh2Vwfy0Pd8X3XBAaBo
- uaF8feX6KLLi8bIokT/ZN7rUZsUWpIyjtLf7mxSRN4RPpYigpL61y+3cTnbUTeAMv152L0w
- XZNkRJKno3/EFNDnX8vBHBq5cukGmaHjE2MJAGAdPzIjbx818lLzpXoBvVXD7QPXt0ootpJ
- 8eOH3f5KyfCFfgZZDMsgvRipi3REJlJ3pL7GOf//GXfv5VAM/eT5PECmQAOBbbNOm5ln1hE
- gRRN3tcxWs7S9Z9GRFs5uqr4xwyqZUHhutWLCY98+foBn1a8zD8is5KVR2cVnUdF0q0xZ8A
- GA3ekm4cpIYkt0K0euSx01fh1eJJTfyMcU8Ie7r5Axxy7IpoELxFx15tFEKe6/0UNn6k8ZD
- UEzOOVC5K2lLSsg87pHYCTTZ5R4hm0vPdmYPsK1zSg60I5FJHP9b6veYfO0qqEbwKNX7WU7
- ep1KRwkdTtxRrkzjjlXwoE1Xc4XsyzkP2vRS6haxKSiv5pyIySS3h/JuQ1iiQcvkXU0T52W
- kFbD3zrU52ah6YUtN6ToqSG+yXAmRT6MaLbHRE1DTrFYEKAewq+6KLhc4vpVwNG0zKQWCy0
- ie44kXoiOZa37O4UcQMqsijOEP4p5DaQ3SDADKZPr2jIEZkJ/xPc2qs4l7QSuB6bqKLOHFZ
- XMoJ9aFM4z4xeS591Atk9K4F68MMb5SzxkrEcC3CGKV/BzHQ1j/2S/KXka68kvuVuq43Kec
- hCeetZmxgvoHf+sQw36zEHxOxCXNN8DKQ==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAC3T7WWcu9qyHeKAA--.6613S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFWUXr48uFWftryfury5XFb_yoW5ur1UpF
+ s3K3W3Ar1kGF1fCws2vF40y34ruFZ5A3yUXFs8W3yUZ3Z8uFyIgFWSyF4jvasru393Wr12
+ vr4j9rykZF4DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvIb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+ cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+ AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+ 6r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+ 0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80
+ ewAv7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7x
+ kEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxG
+ rwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
+ 0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
+ tVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
+ CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
+ wI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf
+ 9x07b0DGrUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIEA2rvPctHVAAAs8
 X-Mailman-Approved-At: Mon, 09 Nov 2026 13:57:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,36 +60,74 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FROM_EXCESS_BASE64,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-SGksDQoNCj4gT24gV2VkLCAwNCBOb3YgMjAyNiwgV2VudGFvIEd1YW4gPGd1YW53ZW50YW9A
-dW5pb250ZWNoLmNvbT4gd3JvdGU6DQo+ID4gY2FuY2VsX2FzeW5jX3B1dF93b3JrKCkgYWxz
-byBjbGVhcnMgYXN5bmNfcHV0X25leHRfZGVsYXksIHNvIG1vdmluZyBpdA0KPiA+IGFoZWFk
-IG9mIHRoZSByZXF1ZXVlIGluIGludGVsX2Rpc3BsYXlfcG93ZXJfcHV0X2FzeW5jX3dvcmso
-KSBtYWtlcyB0aGUNCj4gPiByZXF1ZXVlIGFsd2F5cyB1c2UgYSB6ZXJvIGRlbGF5LiBUaGF0
-IGRpc2NhcmRzIHRoZSBkZWxheSBhY2N1bXVsYXRlZCBieQ0KPiA+IGNvbmN1cnJlbnQgYXN5
-bmMgcHV0cywgaW5jbHVkaW5nIHRoZSAxNyBtcyBEQy1zdGF0ZSBhbnRpLXRvZ2dsZSBkZWxh
-eQ0KPiA+IHJlcXVlc3RlZCBmb3IgUE9XRVJfRE9NQUlOX0RDX09GRi4NCj4gPg0KPiA+IFVz
-ZSBjYW5jZWxfZGVsYXllZF93b3JrKCkgZGlyZWN0bHkgdG8gY2FuY2VsIHRoZSBzdGFsZSBp
-bnN0YW5jZSB3aXRob3V0DQo+ID4gY2xlYXJpbmcgdGhlIGRlbGF5LCBhbmQgY2xlYXIgdGhl
-IGRlbGF5IG9ubHkgYWZ0ZXIgdGhlIHJlcXVldWUgaGFzDQo+ID4gY29uc3VtZWQgaXQuDQo+
-ID4NCj4gPiBGaXhlczogMzBjYTYzNjViYjQyICgiZHJtL2k5MTU6IEZpeCBhc3NlcnQgb24g
-cGVuZGluZyBhc3luYy1wdXQgcG93ZXIgZG9tYWluIHdvcmsgd2hlbiBpdCByZXF1ZXVlcyBp
-dHNlbGYiKQ0KPiA+IENjOiA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4gIyB2Ni4xMSsNCj4g
-PiBTaWduZWQtb2ZmLWJ5OiBXZW50YW8gR3VhbiA8Z3VhbndlbnRhb0B1bmlvbnRlY2guY29t
-Pg0KPiANCj4gSG93IGRpZCB5b3UgZmluZCB0aGlzPw0KRHVyaW5nIGEgc3RhYmxlIGJ1Z2Zp
-eCBiYWNrcG9ydCB3b3JrLCBmb3VuZCBieSBnaXRodWIgY29waWxvdCBtYXgoZ3B0LTYuMS1z
-b2xbUmVhc29uaW5nRWZmb3J0PXhoaWdoXSkuDQoNCj4gSXMgdGhlcmUgYSBidWcgcmVwb3J0
-IGFib3V0IHRoaXM/DQpKdXN0IHNlZTogaHR0cHM6Ly9naXRodWIuY29tL2RlZXBpbi1jb21t
-dW5pdHkva2VybmVsL3B1bGwvMjIzOSNkaXNjdXNzaW9uX3I0NDYzNzE4ODgzDQoNCj4gSG93
-IGRpZCB5b3UgdGVzdCB0aGlzPw0KUmV2aWV3IGFnYWluLCBidWlsZCBhZ2FpbiwgaW50ZWdh
-dGlvbiBieSBhbm90aG9yIG9uZS4NCkl0IGlzIG5vdCB0aGUgb3JpZ2luYWwgYnVnIHdlIG1l
-dCwgdGhlIGJ1ZyBzb3ZsZWQgYnkgYmFja3BvcnQgbWFueSBpOTE1IHVwZGF0ZSBjb21taXRz
-IGFzIHRoZW0gaW4gbWFpbmxpbmUuDQoNCkJScw0KV2VudGFvIEd1YW4=
+Hi Joonas,
+
+First of all, I sincerely apologize for my very late reply, and thank you
+for taking the time to raise these concerns.
+
+I have read your message carefully. Your criticism is justified, not only
+regarding this particular patch, but also regarding the way I have been
+submitting patches to the kernel community.
+
+For this patch, I failed to properly assess the severity and scope of the
+issue before submitting it. This is a selftest-only cleanup, and it should
+never have been marked for stable backporting. I also failed to pay
+sufficient attention to the subsystem's coding conventions and teardown
+ordering. These are things I should have checked myself before asking
+maintainers to review the change.
+
+I have revisited the relevant code and revised the patch to address these
+issues. The v2 removes the Fixes and stable tags, corrects the subject
+prefix, and adjusts the cleanup ordering. I understand that correcting
+these details now does not excuse the lack of care in the original
+submission.
+
+I also want to be transparent about the use of AI tools. The initial
+finding came from static analysis, and I used DeepSeek and GPT 6.1 Sol to
+help examine the finding and prepare the patch. However, I was the one
+who decided to submit it, and I am fully responsible for its correctness,
+testing, and presentation. Using these tools does not reduce that
+responsibility, and I should not have submitted a patch without
+sufficient independent verification.
+
+More importantly, I owe you and the other maintainers an apology for my
+broader submission practices. I submitted far too many patches in a short
+period of time without giving each one the attention it deserved. I also
+failed to respond to review comments and requests for changes, including
+requests to acknowledge AI assistance. I understand how frustrating this
+must have been, especially when maintainers are spending their own
+limited time reviewing contributions.
+
+You were right to question whether I was taking the review process
+seriously. Looking back at how I handled those submissions, I can
+understand why they gave that impression. I regret that my actions wasted
+maintainers' time and undermined their trust in my contributions.
+
+I am changing how I approach kernel contributions. I will stop submitting
+patches in bulk, review outstanding feedback individually, and prioritize
+resolving existing discussions over sending new patches. Going forward, I
+will submit changes only after I have examined the relevant code paths,
+checked the subsystem conventions, and performed appropriate validation. I
+will also make sure that any AI assistance is properly acknowledged.
+
+I understand that trust cannot be restored simply by writing an apology.
+It will take consistent care and follow-through in future contributions,
+and I intend to demonstrate that through my actions.
+
+I have prepared a revised version of this patch, but I also understand if
+you do not consider this particular cleanup worth pursuing. I will
+respect that decision and will not continue pushing it if you would
+prefer to leave it aside.
+
+Thank you again for your feedback, and I am genuinely sorry for the
+unnecessary review burden and for not responding sooner.
+
+Regards,
+Wentao
 
