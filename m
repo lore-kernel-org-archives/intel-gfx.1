@@ -2,41 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0348606A31C
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 13:57:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D8C606A323
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 13:57:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=o4m2gz2i
+	dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=IGdFcVa0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F4DE10F347;
-	Mon,  9 Nov 2026 13:57:46 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9441810E0EA
- for <intel-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 22:32:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail2; t=1794176984; x=1794436184;
- bh=IPQUpb6i+nLFnMLA9a1Elw+H2n4QnL7ADYg7p7un71M=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=o4m2gz2iE2IsQ0rR14YV7ZDkr3CQunOQStHMRqO3VSxVNU1tK5/hhTCNxE/jIvs8p
- LtZuePcdNwl+ZLmWPU61zpdhFII9U80fdPk5FHn/Ed98jwvuY2UcO7h6DSajVgG2k/
- N+xMlczQfKuPoNot/wNHMBhecOi7+MdZ8sOHEV8qIQuM+tqZ31idfpvqqEHxQqfxxS
- e/BYIeU7N+Gs62zwLpstEf72E5SXd/TaBKAS+5ZGbUsz48D0UubmIPAzaJLI3uLcgX
- G4JjrmE3mG3M9M8/zdGx69zz3NJ+baduEhFVW+3s0Nq3DouDMFCd/D2/sSbEyjtbrt
- 5SdS+cRLcl2/g==
-Date: Sun, 08 Nov 2026 22:29:38 +0000
-To: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>
-From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/i915/bios: validate VBT vswing/preemphasis override table
-Message-ID: <40IXMMqFQJJm26J3saK7hx09nF4FuE3ZJcU6gMIryuxuGC5VENrcgA9q4klryPNSLnMwE64szv7eg4wf__gU8OlgzlL8tw3CmV_78Kc_H14=@proton.me>
-Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: f5a919b28448b5cbde6dce3ce891cdedb4a6e049
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E92810F34B;
+	Mon,  9 Nov 2026 13:57:47 +0000 (UTC)
+Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de
+ [91.216.248.207])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CED9910E4A3;
+ Sun,  8 Nov 2026 10:09:32 +0000 (UTC)
+From: Andre Eikmeyer <dev@deq.rocks>
+X-Lima-ML-UUID: 0cb6624c-966a-4a95-a126-0519d608ab05
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+ s=securedbylima-20251205; t=1794132570;
+ bh=S6Y/LwG+wCmImnTNaesKgeOzR3fz30WpQYzLROThjVQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=IGdFcVa0bidLQ3V6WX5gz1QLex4rCqOuR9A/6rS4Mi5BcStBYv7sEXYtNC+u17+ck
+ 4Y2GdUVRw/GmC7SkGlLWLZh9k3q4LbQUZWc/m5/QzC/hmCx7/Tln68oUBv/GkqdMMd
+ Wn5PdWnZLBCVT4SutpfwE2sM7CRIzY++Dar86UWTONIj4ZlNldiBzsCGZ9e5Bcy3yG
+ 0U1Lcu5IGK/AGZ1jghZciN8xbJAAvqtPYH3ZutsiDOQOUE0GBcZhlN2owqiF9677hn
+ W2fMkh8yPpLwR/7EBZPI1U7nv0sd/RBtZEuxmE3aUGJw+bxMlD68GhTgyr1sGhM5Hc
+ 9AoFEUZS/IHPw==
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>
+Subject: [PATCH] drm/i915/backlight: restore the gmux brightness on dual GPU
+ T2 MacBook Pros
+Date: Sun,  8 Nov 2026 11:09:26 +0100
+Message-ID: <20261108100926.28950-1-dev@deq.rocks>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Nov 2026 13:57:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,93 +55,157 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello,
+When i915 drives the panel of a dual GPU T2 MacBook Pro, the panel comes
+back at 80% brightness after every screen lock, login and resume, while
+the gmux backlight device still reports the level userspace set.
 
-Proposed-fix limitation: the patch below does not validate the full
-VBT table extent against the section size. The malformed/short-table
-out-of-bounds case described below remains unresolved by these
-existence and minimum-count checks. This is an incomplete proposal for
-maintainer review; a complete fix still needs section-extent bounds
-validation.
+gmux resets its brightness register to 0xcccc of 0xffff when i915 powers
+the panel off and applies that value when the panel comes back on.
 
-parse_vswing_preemph_override() stores the raw pointer and count fields
-from VBT block 57 without validating that the block actually contains
-the announced table, and allocate_vswing_preemph_override() allocates
-the consumer structures whenever a child device sets use_vbt_vswing -
-even when the block is absent entirely. validate_vspeo() only checks
-that devdata->vspeo is non-NULL and that the port has DP.
+This cannot be handled in apple-gmux. gmux raises no interrupt when the
+panel is powered off or on. Only the GPU driver knows when the panel is
+back.
 
-Two failure modes follow at DDI buffer-translation time:
- - block absent: tables =3D=3D NULL, num_columns =3D=3D 0, so the consumer
-   dereferences tables[0] (NULL).
- - block short or malformed: the table walk reads up to
-   (5+1)*num_rows*num_columns u32s from a block whose enforced minimum
-   size is 2 bytes - with num_columns =3D 255 that is ~98 KB past a small
-   heap allocation, and the values are programmed into PHY registers.
+amdgpu needs no such restore. When it drives the panel, the gmux
+brightness register and the panel's DPCD brightness stay unchanged across
+a screen lock.
 
-The patch gates the consumer on the table existing with sane counts.
-A complete fix should also validate the table extent against the
-section size, which is not currently plumbed through; happy to rework
-if there is a preferred way to carry the section size.
+Add a DMI quirk for these models and write the cached level back through
+the gmux backlight device after enabling the backlight. The device is
+looked up by name so i915 does not depend on apple-gmux.
 
-Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd =
-(v7.4-rc1, 2026-11-07), drivers/gpu/drm/i915/display/intel_bios.c:2216-2234=
- (parse), 2654-2676 (allocate), 3874-3923 (validate/consume).
-Introduced in the v7.4 merge window.
+Tested on the MacBookPro15,1 and MacBookPro16,1.
 
-This was found during an assisted (AI-supported) static source review of
-mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); e=
-very code path cited below was re-verified by the
-reporter against that tree. The patch below has NOT been compiled and has
-NOT been runtime tested, and no reproducer was produced - the triggering
-conditions are described above instead. Please treat this as a report for
-verification rather than a battle-tested fix.
-
-Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 ---
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i9=
-15/display/intel_bios.c
-index 7b6a6f8..d99a675 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -2657,7 +2657,8 @@ static void allocate_vswing_preemph_override(struct i=
-ntel_bios_encoder_data *dev
- =09union intel_ddi_buf_trans_entry *entries;
- =09struct intel_ddi_buf_trans *vspeo;
-=20
--=09if (!intel_bios_encoder_requests_vspeo(devdata))
-+=09if (!intel_bios_encoder_requests_vspeo(devdata) ||
-+=09    !devdata->display->vbt.vspeo.tables)
- =09=09return;
-=20
- =09vspeo =3D kzalloc_obj(*vspeo);
-@@ -3876,6 +3877,8 @@ validate_vspeo(const struct intel_bios_encoder_data *=
-devdata, bool has_dp)
- {
- =09struct intel_ddi_buf_trans *vspeo;
-=20
-+=09struct intel_display *display =3D devdata->display;
-+
- =09vspeo =3D devdata->vspeo;
- =09if (!vspeo)
- =09=09return false;
-@@ -3883,5 +3886,10 @@ validate_vspeo(const struct intel_bios_encoder_data =
-*devdata, bool has_dp)
- =09if (!has_dp)
- =09=09return false;
-=20
-+=09if (!display->vbt.vspeo.tables ||
-+=09    display->vbt.vspeo.num_columns < 3 ||
-+=09    display->vbt.vspeo.num_tables < 6)
-+=09=09return false;
-+
- =09return true;
- }
+ .../gpu/drm/i915/display/intel_backlight.c    | 31 ++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.c   | 37 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
+ 3 files changed, 69 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index b128896cb..fddd2292e 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -793,6 +793,35 @@ static void __intel_backlight_enable(const struct intel_crtc_state *crtc_state,
+ 		panel->backlight.device->props.power = BACKLIGHT_POWER_ON;
+ }
+ 
++#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
++/*
++ * The gmux of dual GPU T2 MacBook Pros falls back to its default brightness
++ * whenever the panel is powered off and raises no interrupt for it. Its
++ * backlight device still holds the level userspace set, so apply that level
++ * again once the panel is back on.
++ */
++static void intel_backlight_restore_gmux(struct intel_display *display)
++{
++	struct backlight_device *bd;
++
++	if (!intel_has_quirk(display, QUIRK_GMUX_RESETS_BRIGHTNESS))
++		return;
++
++	bd = backlight_device_get_by_name("gmux_backlight");
++	if (!bd)
++		return;
++
++	drm_dbg_kms(display->drm, "restoring gmux brightness %d\n",
++		    bd->props.brightness);
++	backlight_update_status(bd);
++	put_device(&bd->dev);
++}
++#else
++static void intel_backlight_restore_gmux(struct intel_display *display)
++{
++}
++#endif
++
+ void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
+ 			    const struct drm_connector_state *conn_state)
+ {
+@@ -811,6 +840,8 @@ void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
+ 	__intel_backlight_enable(crtc_state, conn_state);
+ 
+ 	mutex_unlock(&display->backlight.lock);
++
++	intel_backlight_restore_gmux(display);
+ }
+ 
+ #if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 96eb9a40d..739e030cf 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,13 @@ static void quirk_disable_psr2(struct intel_display *display)
+ 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+ }
+ 
++/* The gmux of dual GPU T2 MacBook Pros resets the brightness on panel power off */
++static void quirk_gmux_resets_brightness(struct intel_display *display)
++{
++	intel_set_quirk(display, QUIRK_GMUX_RESETS_BRIGHTNESS);
++	drm_info(display->drm, "Applying gmux brightness restore quirk\n");
++}
++
+ static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+@@ -196,6 +203,36 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 		},
+ 		.hook = quirk_no_pps_backlight_power_hook,
+ 	},
++	{
++		.dmi_id_list = &(const struct dmi_system_id[]) {
++			{
++				.ident = "MacBookPro15,1",
++				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
++				},
++			},
++			{
++				.ident = "MacBookPro15,3",
++				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
++				},
++			},
++			{
++				.ident = "MacBookPro16,1",
++				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
++				},
++			},
++			{
++				.ident = "MacBookPro16,4",
++				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
++				},
++			},
++			{ }
++		},
++		.hook = quirk_gmux_resets_brightness,
++	},
+ };
+ 
+ static struct intel_quirk intel_quirks[] = {
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 4996419ae..7498583c1 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -24,6 +24,7 @@ enum intel_quirk_id {
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
+ 	QUIRK_ENABLE_DPCD_BACKLIGHT,
++	QUIRK_GMUX_RESETS_BRIGHTNESS,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
+
+base-commit: 7b42cc130bec053d6989b849785c553f27b752ce
