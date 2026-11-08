@@ -2,48 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88815606A326
-	for <intel-gfx@archiver.kernel.org>; Sat,  7 Nov 2026 19:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Iu9B80J0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AD4606A31C
+	for <intel-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 10:07:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23B0510E083;
-	Sat,  7 Nov 2026 19:30:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F242C10E083;
- Sat,  7 Nov 2026 19:30:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8C91043617;
- Sat,  7 Nov 2026 19:30:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA731F0089F;
- Sat,  7 Nov 2026 19:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1794079825;
- bh=8g7cR/WfR/eUbHCF+GE50Sz7JEA0/fNnj5WKAgXjCvk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Iu9B80J0GHvWl1iKythlXI69JWmaLbTzgDj3ALnFzjrBft32lr3EnGZnBO3SUlawO
- TfKG9S4+LI/D2utxjyA3wmHmWyQEKfZu9jVfK+owsh8TT8eIE4f7bK11dF+zbJTF4f
- aLv1aq7l4bkHFojQoj8y1lSPME3+EKwY6xgRyuBQ=
-Date: Sat, 7 Nov 2026 14:30:22 -0500
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915: Fix vm reference leak in mock_gem_device()
-Message-ID: <2026110723-lure-fifteen-b69d@gregkh>
-References: <20260916171935.2087305-1-vulab@iscas.ac.cn>
- <178962823827.28653.5098493516220452854@jlahtine-mobl>
- <1794071392.2684479.vulab@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B909510E444;
+	Sun,  8 Nov 2026 10:07:53 +0000 (UTC)
+Received: from coelho.fi (coelho.fi [88.99.146.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B457B10E444;
+ Sun,  8 Nov 2026 10:07:52 +0000 (UTC)
+Received: from 85-156-80-143.elisa-laajakaista.fi ([85.156.80.143]
+ helo=[192.168.100.138])
+ by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
+ id 1xPzoK-000000055ix-0I3x; Sun, 08 Nov 2026 12:07:49 +0200
+Message-ID: <4d7e8000b64d0fb40c5c7b72772acd484b3aff1d.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: uma.shankar@intel.com, imre.deak@intel.com
+Date: Sun, 08 Nov 2026 12:07:52 +0200
+In-Reply-To: <20261013161131.2572279-6-dibin.moolakadan.subrahmanian@intel.com>
+References: <20261013161131.2572279-4-dibin.moolakadan.subrahmanian@intel.com>
+ <20261013161131.2572279-6-dibin.moolakadan.subrahmanian@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10+b1 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1794071392.2684479.vulab@iscas.ac.cn>
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
+	aws-us-west-2-korg-listserv-alma10-1
+X-Spam-Level: 
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
+Subject: Re: [PATCH 2/2] drm/i915/dmc_wl: Avoid blocking on delayed wakelock
+ release
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,77 +49,54 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
-	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 07, 2026 at 05:09:52PM +0000, Wentao Liang wrote:
-> Hi Joonas,
-> 
-> First of all, I sincerely apologize for my very late reply, and thank you
-> for taking the time to raise these concerns.
-> 
-> I have read your message carefully. Your criticism is justified, not only
-> regarding this particular patch, but also regarding the way I have been
-> submitting patches to the kernel community.
-> 
-> For this patch, I failed to properly assess the severity and scope of the
-> issue before submitting it. This is a selftest-only cleanup, and it should
-> never have been marked for stable backporting. I also failed to pay
-> sufficient attention to the subsystem's coding conventions and teardown
-> ordering. These are things I should have checked myself before asking
-> maintainers to review the change.
-> 
-> I have revisited the relevant code and revised the patch to address these
-> issues. The v2 removes the Fixes and stable tags, corrects the subject
-> prefix, and adjusts the cleanup ordering. I understand that correcting
-> these details now does not excuse the lack of care in the original
-> submission.
-> 
-> I also want to be transparent about the use of AI tools. The initial
-> finding came from static analysis, and I used DeepSeek and GPT 6.1 Sol to
-> help examine the finding and prepare the patch. However, I was the one
-> who decided to submit it, and I am fully responsible for its correctness,
-> testing, and presentation. Using these tools does not reduce that
-> responsibility, and I should not have submitted a patch without
-> sufficient independent verification.
-> 
-> More importantly, I owe you and the other maintainers an apology for my
-> broader submission practices. I submitted far too many patches in a short
-> period of time without giving each one the attention it deserved. I also
-> failed to respond to review comments and requests for changes, including
-> requests to acknowledge AI assistance. I understand how frustrating this
-> must have been, especially when maintainers are spending their own
-> limited time reviewing contributions.
-> 
-> You were right to question whether I was taking the review process
-> seriously. Looking back at how I handled those submissions, I can
-> understand why they gave that impression. I regret that my actions wasted
-> maintainers' time and undermined their trust in my contributions.
-> 
-> I am changing how I approach kernel contributions. I will stop submitting
-> patches in bulk, review outstanding feedback individually, and prioritize
-> resolving existing discussions over sending new patches. Going forward, I
-> will submit changes only after I have examined the relevant code paths,
-> checked the subsystem conventions, and performed appropriate validation. I
-> will also make sure that any AI assistance is properly acknowledged.
-> 
-> I understand that trust cannot be restored simply by writing an apology.
-> It will take consistent care and follow-through in future contributions,
-> and I intend to demonstrate that through my actions.
+On Tue, 2026-10-13 at 21:41 +0530, Dibin Moolakadan Subrahmanian wrote:
+> intel_dmc_wl_disable() flushes the pending wakelock release work,
+> disables the wakelock mechanism and sets wl->enabled to false.
+> It then clears DMC_WAKELOCK_CTL_REQ and sets wl->taken to false.
+>=20
+> Flushing the work forces it to run immediately and waits for completion.
+> When the refcount is zero, the worker clears DMC_WAKELOCK_CTL_REQ and
+> waits for ACK to clear. This adds workqueue scheduling and ACK polling
+> to the DC-exit path, just before disable clears the request itself.
+>=20
+> Since intel_dmc_wl_put() queues the release DMC_WAKELOCK_HOLD_TIME later
+> and the DC-exit path reaches disable well before that, the work remains
+> pending and is forced to run. This delays the POWER_DOMAIN_DC_OFF get
+> in intel_atomic_commit_tail() for the DC3CO case, where DC3CO is entered
+> and exited on every flip. On a 3840x2400@120 eDP panel, dropping the
+> forced run reduced that get by roughly 330 us.
+>=20
+> Cancel the pending work instead, so it is dropped rather than run. Once
+> wl->enabled is false, subsequent puts do not queue release work.
+>=20
+> Use the sync variant so that an already-running worker is still waited
+> for, as it was with the flush.
+>=20
+> Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmani=
+an@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dmc_wl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_dmc_wl.c b/drivers/gpu/dr=
+m/i915/display/intel_dmc_wl.c
+> index ab4e0e9573df..3eae11900978 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dmc_wl.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dmc_wl.c
+> @@ -400,7 +400,7 @@ void intel_dmc_wl_disable(struct intel_display *displ=
+ay)
+>  	if (!__intel_dmc_wl_supported(display))
+>  		return;
+> =20
+> -	intel_dmc_wl_flush_release_work(display);
+> +	cancel_delayed_work_sync(&wl->work);
+> =20
+>  	spin_lock_irqsave(&wl->lock, flags);
+> =20
 
-Thank you for finally responding to these massive responses that seem to
-have been ignored.
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 
-Please go back and respond to all of your previous submissions and ask
-the maintainers involved to ignore them and not accept them so that they
-do not unnecessarily take the time to review the patches.
-
-Then follow what you say you are going to do here, one patch at a time,
-and build up some actual experience doing fixes, not blanket massive
-patch floods that are obviously wrong and harmful to us.
-
-greg k-h
+--
+Cheers,
+Luca.
