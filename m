@@ -2,61 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56912606A321
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:27:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jmTea9TK
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E74F606A31C
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 17:23:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFFC810E25A;
-	Mon,  9 Nov 2026 14:27:51 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A984E10E25A
- for <intel-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 14:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794234466; x=1825770466;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=dHPa8ycUsfh0aOSEhWvCNiPJBXcVuDkuyab5t03UsJY=;
- b=jmTea9TKDHXoeHAg93qJBJTCpRxBiNnyZCmLpMKwGiD65cG2CY1z91Mr
- +Yrv25dSx5pLEk/Ds0t7dXOF1W8eRES0PI9mRls/prYt4b5Rn94jagibF
- sq9tD8rMMkYZAHq+lyZtaxL8UB6fjrWHKBe5cT3s5fv4OmWcBrmZRBDsT
- fSh+tYO9r+lLQYUyYBkPxodsmY/16/gwvbK94+h8QPZxlKHCuShxYWOEX
- SGPwRKSo0vNUUbZPwauJHomj5HP/g95y8ORndtu+5pSehTiobZm71w8/M
- A0IQU37syw5KZ4hkXqTZt2ijyCO3Fv+P1+wVDEeiWumO5cZ3piDtFB016 w==;
-X-CSE-ConnectionGUID: 3vbeIIDDS2KN8t9+HLhHxQ==
-X-CSE-MsgGUID: TqTaT7KmQ5KSgXYnzN6KMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2982244"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2982244"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 06:27:45 -0800
-X-CSE-ConnectionGUID: TaTeZtjbR02AtEhxsoIOtQ==
-X-CSE-MsgGUID: 2FpuFtzHTlmMETw6Fx2ZtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7765120"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.93])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2026 06:27:44 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 3/3] drm/i915/irq: Check the master bit outside
- gen11_gu_misc_irq_ack()
-In-Reply-To: <20261109123012.8110-4-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261109123012.8110-1-ville.syrjala@linux.intel.com>
- <20261109123012.8110-4-ville.syrjala@linux.intel.com>
-Date: Mon, 09 Nov 2026 16:27:41 +0200
-Message-ID: <0ed8eef5270646619eb0ef30807f6f80327132be@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E33A110F48C;
+	Mon,  9 Nov 2026 17:23:05 +0000 (UTC)
+Received: from 221881a7231d (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4F3B10F483;
+ Mon,  9 Nov 2026 17:23:04 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3121294378938716509=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drivers=3A_Improve_memory?=
+ =?utf-8?q?_management_for_large_object_allocations_when_i915/shmem_is_used_?=
+ =?utf-8?q?with_iommu?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Krzysztof Karas" <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 09 Nov 2026 17:23:04 -0000
+Message-ID: <179424498492.140606.8593608804099950891@221881a7231d>
+X-Patchwork-Hint: ignore
+References: <20261109113758.1491891-1-krzysztof.karas@intel.com>
+In-Reply-To: <20261109113758.1491891-1-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,92 +35,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 09 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Pull the master GEN11_GU_MISC_IRQ bit check out from
-> gen11_gu_misc_irq_ack(). This is just to make the code more
-> consistent, with all the other sub irq handlers already checking
-> the master bit(s) in the top level irq handlers.
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+--===============3121294378938716509==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+== Series Details ==
 
-> ---
->  drivers/gpu/drm/i915/i915_irq.c | 16 +++++++---------
->  1 file changed, 7 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_=
-irq.c
-> index b3fc3e31a5d4..648d76600c49 100644
-> --- a/drivers/gpu/drm/i915/i915_irq.c
-> +++ b/drivers/gpu/drm/i915/i915_irq.c
-> @@ -493,14 +493,10 @@ static inline void gen11_master_intr_enable(void __=
-iomem * const regs)
->  	raw_reg_write(regs, GEN11_GFX_MSTR_IRQ, GEN11_MASTER_IRQ);
->  }
->=20=20
-> -static u32 gen11_gu_misc_irq_ack(void __iomem * const regs,
-> -				 u32 master_ctl)
-> +static u32 gen11_gu_misc_irq_ack(void __iomem * const regs)
->  {
->  	u32 iir;
->=20=20
-> -	if (!(master_ctl & GEN11_GU_MISC_IRQ))
-> -		return 0;
-> -
->  	iir =3D raw_reg_read(regs, GEN11_GU_MISC_IIR);
->  	if (likely(iir))
->  		raw_reg_write(regs, GEN11_GU_MISC_IIR, iir);
-> @@ -514,8 +510,8 @@ static irqreturn_t gen11_irq_handler(int irq, void *a=
-rg)
->  	struct intel_display *display =3D i915->display;
->  	void __iomem * const regs =3D intel_uncore_regs(&i915->uncore);
->  	struct intel_gt *gt =3D to_gt(i915);
-> +	u32 gu_misc_iir =3D 0;
->  	u32 master_ctl;
-> -	u32 gu_misc_iir;
->=20=20
->  	if (!intel_irqs_enabled(i915))
->  		return IRQ_NONE;
-> @@ -534,7 +530,8 @@ static irqreturn_t gen11_irq_handler(int irq, void *a=
-rg)
->  	if (master_ctl & GEN11_DISPLAY_IRQ)
->  		intel_display_irq_handler(display, NULL);
->=20=20
-> -	gu_misc_iir =3D gen11_gu_misc_irq_ack(regs, master_ctl);
-> +	if (master_ctl & GEN11_GU_MISC_IRQ)
-> +		gu_misc_iir =3D gen11_gu_misc_irq_ack(regs);
->=20=20
->  	gen11_master_intr_enable(regs);
->=20=20
-> @@ -575,7 +572,7 @@ static irqreturn_t dg1_irq_handler(int irq, void *arg)
->  	struct intel_gt *gt =3D to_gt(i915);
->  	void __iomem * const regs =3D intel_uncore_regs(gt->uncore);
->  	u32 master_tile_ctl, master_ctl;
-> -	u32 gu_misc_iir;
-> +	u32 gu_misc_iir =3D 0;
->=20=20
->  	if (!intel_irqs_enabled(i915))
->  		return IRQ_NONE;
-> @@ -603,7 +600,8 @@ static irqreturn_t dg1_irq_handler(int irq, void *arg)
->  	if (master_ctl & GEN11_DISPLAY_IRQ)
->  		intel_display_irq_handler(display, NULL);
->=20=20
-> -	gu_misc_iir =3D gen11_gu_misc_irq_ack(regs, master_ctl);
-> +	if (master_ctl & GEN11_GU_MISC_IRQ)
-> +		gu_misc_iir =3D gen11_gu_misc_irq_ack(regs);
->=20=20
->  	dg1_master_intr_enable(regs);
+Series: drivers: Improve memory management for large object allocations when i915/shmem is used with iommu
+URL   : https://patchwork.freedesktop.org/series/178094/
+State : success
 
---=20
-Jani Nikula, Intel
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19475 -> Patchwork_178094v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178094v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19475 -> Patchwork_178094v1
+
+  CI-20190529: 20190529
+  CI_DRM_19475: d72707a042b6aff601449a9cf87e5fe55decbc5c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9181: 9181
+  Patchwork_178094v1: d72707a042b6aff601449a9cf87e5fe55decbc5c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178094v1/index.html
+
+--===============3121294378938716509==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drivers: Improve memory management for large object allocations when i915/shmem is used with iommu</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178094/">https://patchwork.freedesktop.org/series/178094/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178094v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178094v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19475 -&gt; Patchwork_178094v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178094v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19475 -&gt; Patchwork_178094v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19475: d72707a042b6aff601449a9cf87e5fe55decbc5c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9181: 9181<br />
+  Patchwork_178094v1: d72707a042b6aff601449a9cf87e5fe55decbc5c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3121294378938716509==--
