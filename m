@@ -2,48 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D8C606A323
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 13:57:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC57606A33E
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:24:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=IGdFcVa0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HJD1sjwt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E92810F34B;
-	Mon,  9 Nov 2026 13:57:47 +0000 (UTC)
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de
- [91.216.248.207])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CED9910E4A3;
- Sun,  8 Nov 2026 10:09:32 +0000 (UTC)
-From: Andre Eikmeyer <dev@deq.rocks>
-X-Lima-ML-UUID: 0cb6624c-966a-4a95-a126-0519d608ab05
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
- s=securedbylima-20251205; t=1794132570;
- bh=S6Y/LwG+wCmImnTNaesKgeOzR3fz30WpQYzLROThjVQ=;
- h=From:To:Cc:Subject:Date:From;
- b=IGdFcVa0bidLQ3V6WX5gz1QLex4rCqOuR9A/6rS4Mi5BcStBYv7sEXYtNC+u17+ck
- 4Y2GdUVRw/GmC7SkGlLWLZh9k3q4LbQUZWc/m5/QzC/hmCx7/Tln68oUBv/GkqdMMd
- Wn5PdWnZLBCVT4SutpfwE2sM7CRIzY++Dar86UWTONIj4ZlNldiBzsCGZ9e5Bcy3yG
- 0U1Lcu5IGK/AGZ1jghZciN8xbJAAvqtPYH3ZutsiDOQOUE0GBcZhlN2owqiF9677hn
- W2fMkh8yPpLwR/7EBZPI1U7nv0sd/RBtZEuxmE3aUGJw+bxMlD68GhTgyr1sGhM5Hc
- 9AoFEUZS/IHPw==
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>
-Subject: [PATCH] drm/i915/backlight: restore the gmux brightness on dual GPU
- T2 MacBook Pros
-Date: Sun,  8 Nov 2026 11:09:26 +0100
-Message-ID: <20261108100926.28950-1-dev@deq.rocks>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55F1A10F3BB;
+	Mon,  9 Nov 2026 14:24:43 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25E7A10F3BB
+ for <intel-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 14:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794234278; x=1825770278;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version:content-transfer-encoding;
+ bh=zBwbLTPI8JHFdFsMrCbslZBG1AaSsZPAJ5a0IZzBqZA=;
+ b=HJD1sjwtH+HzSgChzbzegh6XbN6HENey/jlf0uMeGNu8/WKppQTqkz61
+ stEPQWdubVOcnW89q9tjaF2sDnKAbdLcBmMP42gM6U8PJH5mhFaC4AXcL
+ /ATqm7Y9qYi5Wx3L6IOsIbmNCtGF2srcnaFfY+GkteMdBzinywn0/ry2j
+ VrCmBfqZqx31FvxCwMOcsweBYo4Hyh8oG7D3AlwfO4ma22jGC+EVgYIo6
+ Jha0tEmJ5ZK29nUM8WJ11Bpy2kyJvHghBilGf+Hr6q9dxPZ4iGsoAxYvh
+ rReCNMnnRtin1IqxV+FQ8QKKW+4ziCHiZ6m9TQOfmRGoSTnnx/Ghh/kRd A==;
+X-CSE-ConnectionGUID: UhJdcBT/SVqMKK6gwTuPTg==
+X-CSE-MsgGUID: QU2vAq1ESQyB4GZdj6+FmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2853665"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2853665"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2026 06:24:37 -0800
+X-CSE-ConnectionGUID: 4uhpXvGHQPicSOpLp4DDtQ==
+X-CSE-MsgGUID: T2LiMkPnSciLSmWBfFrnJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8227424"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.93])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2026 06:24:36 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 1/3] drm/i915/irq: Don't call gen8_gt_irq_handler()
+ needlessly
+In-Reply-To: <20261109123012.8110-2-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261109123012.8110-1-ville.syrjala@linux.intel.com>
+ <20261109123012.8110-2-ville.syrjala@linux.intel.com>
+Date: Mon, 09 Nov 2026 16:24:31 +0200
+Message-ID: <52d812a102fe9fc43a5811e700d8cf90085ff874@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 09 Nov 2026 13:57:35 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,157 +68,52 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When i915 drives the panel of a dual GPU T2 MacBook Pro, the panel comes
-back at 80% brightness after every screen lock, login and resume, while
-the gmux backlight device still reports the level userspace set.
+On Mon, 09 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> We already have GEN8_GT_IRQS to teel whether any of the GT
+> interrupts need processing. If none of the relevant bits are
+> set skip the whole gen8_gt_irq_handler(), as a micro optimization.
+> We already do the equivalent for the display irqs, so why not
+> do it for GT irqs as well.
+>
+> Originally gen8_gt_irq_handler() was a static inline, so this
+> probably wouldn't have made sense. But these days it's a proper
+> function call every time.
+>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-gmux resets its brightness register to 0xcccc of 0xffff when i915 powers
-the panel off and applies that value when the panel comes back on.
+With the typo fixed,
 
-This cannot be handled in apple-gmux. gmux raises no interrupt when the
-panel is powered off or on. Only the GPU driver knows when the panel is
-back.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-amdgpu needs no such restore. When it drives the panel, the gmux
-brightness register and the panel's DPCD brightness stay unchanged across
-a screen lock.
+> ---
+>  drivers/gpu/drm/i915/i915_irq.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_=
+irq.c
+> index 0762017d9089..448c4730d178 100644
+> --- a/drivers/gpu/drm/i915/i915_irq.c
+> +++ b/drivers/gpu/drm/i915/i915_irq.c
+> @@ -455,7 +455,8 @@ static irqreturn_t gen8_irq_handler(int irq, void *ar=
+g)
+>  	}
+>=20=20
+>  	/* Find, queue (onto bottom-halves), then clear each source */
+> -	gen8_gt_irq_handler(to_gt(dev_priv), master_ctl);
+> +	if (master_ctl & GEN8_GT_IRQS)
+> +		gen8_gt_irq_handler(to_gt(dev_priv), master_ctl);
+>=20=20
+>  	/* IRQs are synced during runtime_suspend, we don't require a wakeref */
+>  	if (master_ctl & ~GEN8_GT_IRQS) {
 
-Add a DMI quirk for these models and write the cached level back through
-the gmux backlight device after enabling the backlight. The device is
-looked up by name so i915 does not depend on apple-gmux.
-
-Tested on the MacBookPro15,1 and MacBookPro16,1.
-
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
- .../gpu/drm/i915/display/intel_backlight.c    | 31 ++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.c   | 37 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
- 3 files changed, 69 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index b128896cb..fddd2292e 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -793,6 +793,35 @@ static void __intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 		panel->backlight.device->props.power = BACKLIGHT_POWER_ON;
- }
- 
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
-+/*
-+ * The gmux of dual GPU T2 MacBook Pros falls back to its default brightness
-+ * whenever the panel is powered off and raises no interrupt for it. Its
-+ * backlight device still holds the level userspace set, so apply that level
-+ * again once the panel is back on.
-+ */
-+static void intel_backlight_restore_gmux(struct intel_display *display)
-+{
-+	struct backlight_device *bd;
-+
-+	if (!intel_has_quirk(display, QUIRK_GMUX_RESETS_BRIGHTNESS))
-+		return;
-+
-+	bd = backlight_device_get_by_name("gmux_backlight");
-+	if (!bd)
-+		return;
-+
-+	drm_dbg_kms(display->drm, "restoring gmux brightness %d\n",
-+		    bd->props.brightness);
-+	backlight_update_status(bd);
-+	put_device(&bd->dev);
-+}
-+#else
-+static void intel_backlight_restore_gmux(struct intel_display *display)
-+{
-+}
-+#endif
-+
- void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state)
- {
-@@ -811,6 +840,8 @@ void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 	__intel_backlight_enable(crtc_state, conn_state);
- 
- 	mutex_unlock(&display->backlight.lock);
-+
-+	intel_backlight_restore_gmux(display);
- }
- 
- #if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 96eb9a40d..739e030cf 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,13 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+/* The gmux of dual GPU T2 MacBook Pros resets the brightness on panel power off */
-+static void quirk_gmux_resets_brightness(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_GMUX_RESETS_BRIGHTNESS);
-+	drm_info(display->drm, "Applying gmux brightness restore quirk\n");
-+}
-+
- static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-@@ -196,6 +203,36 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 		},
- 		.hook = quirk_no_pps_backlight_power_hook,
- 	},
-+	{
-+		.dmi_id_list = &(const struct dmi_system_id[]) {
-+			{
-+				.ident = "MacBookPro15,1",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro15,3",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro16,1",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro16,4",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-+				},
-+			},
-+			{ }
-+		},
-+		.hook = quirk_gmux_resets_brightness,
-+	},
- };
- 
- static struct intel_quirk intel_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 4996419ae..7498583c1 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -24,6 +24,7 @@ enum intel_quirk_id {
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
- 	QUIRK_ENABLE_DPCD_BACKLIGHT,
-+	QUIRK_GMUX_RESETS_BRIGHTNESS,
- };
- 
- void intel_init_quirks(struct intel_display *display);
-
-base-commit: 7b42cc130bec053d6989b849785c553f27b752ce
+--=20
+Jani Nikula, Intel
