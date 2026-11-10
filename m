@@ -2,53 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBB7606A325
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 18:46:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CFA606A321
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 18:46:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Lt5o5qRq
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=glyR+hcW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1A210EB03;
-	Tue, 10 Nov 2026 18:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB5C310F13E;
+	Tue, 10 Nov 2026 18:46:41 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13CFE10EB03;
- Tue, 10 Nov 2026 18:46:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 273ED10F066;
+ Tue, 10 Nov 2026 18:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794336391; x=1825872391;
+ t=1794336395; x=1825872395;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=HtjFtIlXHP6dDqRu/1DTPNPjJneLl3bQJIODyBVnT60=;
- b=Lt5o5qRqu2JLp/ZC54HFfrpy+vcIvNwrHlNfkT+GNne8VPuLVH9rLlXb
- Jys/bowJVjjDnOf+lbHDXFxxDX1yoGZTfu0S6N6vZ5NR9ASjnBq5qJVlo
- iINN82L68j4/SJHVhKOnyQDBVprGNJwpLoTB+w3zF0a3PaOhqAHeYijOG
- FJMFo7/V4xddyyuLEhF9c8GvWbMSFjRRJXNYwEwxLOcGedAewmLJFbCtF
- olRJXE8CsyKn71b96COc4ydidKUI1pcRAqXigUqmMEoBNtp+t3bNyo7YK
- vExKx4jypj8pF8KWI73YGRIavLDmDtiFUjajGgasKEnxYnFALm4KYDrxN Q==;
-X-CSE-ConnectionGUID: iVXCfb5BS/2OsKKE3tw5ew==
-X-CSE-MsgGUID: eimWK4MKQnuAAoZNa1hGPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2972790"
+ bh=1VqQiBDPz5jj3NA6GxwMbaFVPW09imwm6p4zIwWINiw=;
+ b=glyR+hcWg8xmWM7aQTkKBUPDZujvgNdX6H2PEaAM4c1C48/JRGt/buuS
+ B3jBrRIPo0pnVcKCuPUSZR/LDUWCermXSKBs7aefds5ZHtb1IX23c3ijw
+ cJixFQ5tPV4otSRY0MV5D3N8NEduICf91EZ5nm06Lchd2CDYOsOnB8Ds0
+ ZCUPdwxZMmQHZByjTn20klIJArL9jRugbFqdt8WBaeJoKwZZd14qvNvXm
+ NosQVB5KKE+Us0fYdGqqG6Mk6HnMdX+pxNZNsb6OPeF/chBfs8deuA4Ey
+ aK5d6ZkDyoV2Q/HifFVYUy9gyC1ZR3OYJLhw1HO2v8YjZcM6511RYXFS/ w==;
+X-CSE-ConnectionGUID: z4AcFRMPQU6NjZG1VEZDZw==
+X-CSE-MsgGUID: sHAkq8e0Q2eWudnPnXx6uQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2972798"
 X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="2972790"
+   d="scan'208";a="2972798"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 10:46:30 -0800
-X-CSE-ConnectionGUID: uNy5PZAoQzeIX+l7hM2kLQ==
-X-CSE-MsgGUID: +G/B2sXhQ2+o3YaapYOncg==
+ 10 Nov 2026 10:46:35 -0800
+X-CSE-ConnectionGUID: PU+e57SjSWiUBFuWxawKjQ==
+X-CSE-MsgGUID: r7N39svrRMqfNRyvuG84RA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8550880"
+   d="scan'208";a="8550917"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.86])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 10:46:29 -0800
+ 10 Nov 2026 10:46:34 -0800
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@linux.intel.com>
-Subject: [PATCH v2 01/10] drm/i915/de: Introduce dislay->mmio and
- intel_de_init()
-Date: Tue, 10 Nov 2026 20:46:12 +0200
-Message-ID: <20261110184622.1721-2-ville.syrjala@linux.intel.com>
+	Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH v2 02/10] drm/i915/de: Convert intel_de_{read,
+ write}() into vfuncs
+Date: Tue, 10 Nov 2026 20:46:13 +0200
+Message-ID: <20261110184622.1721-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261110184622.1721-1-ville.syrjala@linux.intel.com>
 References: <20261110184622.1721-1-ville.syrjala@linux.intel.com>
@@ -69,116 +69,112 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Add a place for upcoming mmio stuff in the form of
-a display->mmio struct and intel_de_init() to fill it up.
-For now we'll just stick the uncore pointer there, but
-it'll get replaced by something else eventually.
+Different platforms will need to do different things in
+their mmio accessors. The plan is to trade the overhead
+of runtime platform checks into no runtime checks and
+the cost of a vfunc call. This seems to provide slightly
+better overall performance.
 
-I originally wanted to call intel_de_init() just after
-intel_display_device_probe(), but i915 calls that before
-the uncore/mmio setup has been done. Right now that wouldn't
-matter since the &i915->uncore is valid nonetheless. But
-eventually I think we'll just want to get the 'void __iomem *'
-from the core driver and that of course need to be mapped
-before intel_de_init() is called. So put the init call into
-__intel_display_device_info_runtime_init() which should be the
-first place where we call any intel_de_*() stuff
-
-v2: Call intel_de_init() even for !HAS_DISPLAY()
-
-Reviewed-by: Michał Grzelak <michal.grzelak@linux.intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_de.c             |  5 +++++
- drivers/gpu/drm/i915/display/intel_de.h             |  4 +++-
- drivers/gpu/drm/i915/display/intel_display_core.h   |  5 +++++
- drivers/gpu/drm/i915/display/intel_display_device.c | 10 ++++++++++
- 4 files changed, 23 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_de.c         | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_de.h         |  9 +++++++--
+ .../gpu/drm/i915/display/intel_display_core.h   |  2 ++
+ 3 files changed, 26 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
-index a7417905192d..6b3d06147e58 100644
+index 6b3d06147e58..4f423a684ec2 100644
 --- a/drivers/gpu/drm/i915/display/intel_de.c
 +++ b/drivers/gpu/drm/i915/display/intel_de.c
-@@ -162,3 +162,8 @@ u16 intel_de_read16(struct intel_display *display, intel_reg_t reg)
- 
+@@ -163,7 +163,24 @@ u16 intel_de_read16(struct intel_display *display, intel_reg_t reg)
  	return intel_uncore_read16(__to_uncore(display), reg);
  }
-+
-+void intel_de_init(struct intel_display *display)
+ 
++static u32 i9xx_mmio_read(struct intel_display *display, intel_reg_t reg)
 +{
-+	display->mmio.uncore = to_intel_uncore(display->drm);
++	return intel_uncore_read(__to_uncore(display), reg);
 +}
++
++static void i9xx_mmio_write(struct intel_display *display, intel_reg_t reg, u32 val)
++{
++	intel_uncore_write(__to_uncore(display), reg, val);
++}
++
++static const struct intel_mmio_funcs i9xx_mmio_funcs = {
++	.read = i9xx_mmio_read,
++	.write = i9xx_mmio_write,
++};
++
+ void intel_de_init(struct intel_display *display)
+ {
+ 	display->mmio.uncore = to_intel_uncore(display->drm);
++
++	display->mmio.funcs = &i9xx_mmio_funcs;
+ }
 diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-index d0a239a36980..f1135ee5071b 100644
+index f1135ee5071b..63aef17e6ed3 100644
 --- a/drivers/gpu/drm/i915/display/intel_de.h
 +++ b/drivers/gpu/drm/i915/display/intel_de.h
-@@ -14,9 +14,11 @@
+@@ -12,6 +12,11 @@
+ #include "intel_uncore.h"
+ #include "intel_uncore_trace.h"
  
++struct intel_mmio_funcs {
++	u32 (*read)(struct intel_display *display, intel_reg_t reg);
++	void (*write)(struct intel_display *display, intel_reg_t reg, u32 val);
++};
++
  static inline struct intel_uncore *__to_uncore(struct intel_display *display)
  {
--	return to_intel_uncore(display->drm);
-+	return display->mmio.uncore;
- }
+ 	return display->mmio.uncore;
+@@ -30,7 +35,7 @@ intel_de_read(struct intel_display *display, intel_reg_t reg)
  
-+void intel_de_init(struct intel_display *display);
-+
- u8 intel_de_read8(struct intel_display *display, intel_reg_t reg);
- void intel_de_write8(struct intel_display *display, intel_reg_t reg, u8 val);
- u16 intel_de_read16(struct intel_display *display, intel_reg_t reg);
+ 	intel_dmc_wl_get(display, reg);
+ 
+-	val = intel_uncore_read(__to_uncore(display), reg);
++	val = display->mmio.funcs->read(display, reg);
+ 
+ 	intel_dmc_wl_put(display, reg);
+ 
+@@ -60,7 +65,7 @@ intel_de_write(struct intel_display *display, intel_reg_t reg, u32 val)
+ {
+ 	intel_dmc_wl_get(display, reg);
+ 
+-	intel_uncore_write(__to_uncore(display), reg, val);
++	display->mmio.funcs->write(display, reg, val);
+ 
+ 	intel_dmc_wl_put(display, reg);
+ }
 diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index c80b4a2f74f9..35409f9abb2f 100644
+index 35409f9abb2f..3a48119f7890 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_core.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -51,6 +51,7 @@ struct intel_hotplug_irq_funcs;
+@@ -49,6 +49,7 @@ struct intel_fbdev;
+ struct intel_fdi_funcs;
+ struct intel_hotplug_irq_funcs;
  struct intel_initial_plane_config;
++struct intel_mmio_funcs;
  struct intel_opregion;
  struct intel_overlay;
-+struct intel_uncore;
- struct task_struct;
+ struct intel_uncore;
+@@ -533,6 +534,7 @@ struct intel_display {
  
- /* Amount of SAGV/QGV points, BSpec precisely defines this */
-@@ -530,6 +531,10 @@ struct intel_display {
- 		const struct intel_modeset_funcs *funcs;
- 	} modeset;
- 
-+	struct {
-+		struct intel_uncore *uncore;
-+	} mmio;
-+
  	struct {
- 		/* protected by wm.wm_mutex */
- 		u16 linetime[I915_MAX_PIPES];
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index c74256359c25..69046d0cd5e9 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -1966,6 +1966,16 @@ static void __intel_display_device_info_runtime_init(struct intel_display *displ
+ 		struct intel_uncore *uncore;
++		const struct intel_mmio_funcs *funcs;
+ 	} mmio;
  
- void intel_display_device_info_runtime_init(struct intel_display *display)
- {
-+	/*
-+	 * intel_de_init() must be called even with !HAS_DISPLAY
-+	 * because eg. IVB DE_MASTER_IRQ_CONTROL lives in the display.
-+	 *
-+	 * TODO end of intel_display_device_probe() would be a more
-+	 * logical place, but at the moment i915 calls that super
-+	 * early when things aren't fully set up yet.
-+	 */
-+	intel_de_init(display);
-+
- 	if (HAS_DISPLAY(display))
- 		__intel_display_device_info_runtime_init(display);
- 
+ 	struct {
 -- 
 2.56.0
 
