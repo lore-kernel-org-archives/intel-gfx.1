@@ -2,43 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32536606A321
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 12:14:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF9D606A31C
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 12:27:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6QKhh0o
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IQ2NQ2Bf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C138910F646;
-	Tue, 10 Nov 2026 12:14:29 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03BA010F643;
- Tue, 10 Nov 2026 12:14:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D939638CF;
- Tue, 10 Nov 2026 12:14:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 094301F0089F;
- Tue, 10 Nov 2026 12:14:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794312862;
- bh=0q+IpIU5/zKMLQVg9mTp1sn4euIxNR2Sjqe7xlaPajA=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=I6QKhh0obyxXsTCAmoatk+4i+Qc3OHy1yTqeSCrJIGtxCTKo7i7v/lZNQS4VCx8E6
- Ik4rJC/dHJUj6xE1kSpl9Tr2viKwxZieY2iU6Tsk5iWh58GqCj7Q6D+wGhNtgTWwcM
- i7ku0ENoCTBOF0YtA0H67HFbfXLsM1qQbHpY/YmCtaqJpvdB7ZuLb0KL4Uz86jsfq9
- dvQgztH8MEfSeN/7qG4KHBfmDhdvTGYKyKTxsjMx/SNUtTSnrpfz80WELrpBDkpLTM
- lDQ75TqZJSMz5hf5JQE928qRBww/JwN/c4zXr5k3sbe9yEIP12W7vVNn8vtDlr1pQe
- QNu1l585khx9g==
-Message-ID: <sashiko-outbox-206990@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/i915/dp: Use the VBT fast link training link
- config for eDP
-To: "Lee Shawn C" <shawn.c.lee@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261110115432.894616-5-shawn.c.lee@intel.com>
-References: <20261110115432.894616-1-shawn.c.lee@intel.com>
- <20261110115432.894616-5-shawn.c.lee@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 12:14:21 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16DC110F64E;
+	Tue, 10 Nov 2026 12:27:51 +0000 (UTC)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC7D710F64E
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 12:27:44 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-8b309147589so20797257b3.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 04:27:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794313664; x=1794918464; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3ixdFvUfIg90lvMmM7M6eUC+tu9hRfgkXmJsKL6PGT8=;
+ b=IQ2NQ2BfuGgqxyqVAxn0UFTnDRQOf0cjWOOariJtzv09agBHfnmAkooJnwmUUFlWNY
+ y8QAZtHQ/J7y6UPJEdQB9PabZjYO2U9CBAvHLlmYLUopd5VLj2VAlboW5+m5iEcO9Not
+ aSXVs79DOTsG3cVo0j+LFHr/Jt6ZnSExPNkEKT+QgJGlOsHjLr2pltYr8HOURumoPZjl
+ CHsx14cCvFpwM1NgcDn4YKzEuuye7HGCZGc0ySs4xY+c2ZrwdbQkrRTv/WAWV6iLcnUO
+ KRnsopC76atT63C5+pU7y1A8EbFaq+WZ4RXWNs+oxotUlgk22w801TnTQu/3yTNCzgN2
+ Rs0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794313664; x=1794918464;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3ixdFvUfIg90lvMmM7M6eUC+tu9hRfgkXmJsKL6PGT8=;
+ b=NzkBV0cK5ekiupBvxXTm2nAKwpXah3sAu+sywbAnKs+5VXCW8vFT3OnbgakKJEEDum
+ HAinjpFKRiOKTKvL/A6TSmvGkwS1dLpB9WxL1gYqnLs7HM8CUnROskRXjnz9hYR8KsnR
+ Rc6RAIFfwaz0/Q8v2SVvbTwP+tZorRsUm7mlLNu1w83DB6yRG4SlnsehkUbmDndQzZvQ
+ Feok1ObwShHdtXY6AnT8iIDGoFRKRidrNUspnPVsbk5Kk/BmqfRZo57NYdvI0EpmWrHD
+ 3Udtfv9HNR5l7uQBv85ASvqZEBAwZdsPWtMpFPNYSOnlS8K+nhYO1uzLYQGRcpaGhs4S
+ nNXg==
+X-Gm-Message-State: APuU4Z9RdXsKcOApYDvlhGC51Z9Bp3VB230UoNL6N3LzO1UnZkQXH8he
+ ccxU0kZsilLJbuFv2TBd03vLnM07UWYqGs8y7tb7CyoyH8kLvQHVwwGKWTJDI1pT
+X-Gm-Gg: AYBFou1dC0/M2uqS5cP4575XLzd0lNyVHas6UP4zpdLFYIGxqdrpHD01dEkJo5MT3gi
+ yobTdJylSmWhm1qk0d6HWhrP7667aIPigXo3eOoMuTLNnQ3tDUy8AaVGd8i4Rkt7dkioTZv6NEE
+ 9paiEIwN7rsp3V8oLZzT1TZl6Q0M/W6vjW2oQcU0ncUsbW/9H2gufW4olUNHr36CMGnuADhkhAf
+ xUL7qmnQVjG1m9aZ3+XMH3QaCbgazFVmD7a5cBOpUEm5qePfdA51nkhtj+Ps9OnIFKE4/D5kAiO
+ 7DDdCZ0cvUzW22Z9hnQsVox525tp1PX7ke86Wz9p119teYkP9ty9XITKEgZx/Bj4eTSLrCSrQ46
+ QSHFbaFP/WNHpCp6FoWalsR0yX1Rp7XRpbCvzDx5DQ/+F2YpZ/y91Jf1NfpZeR8Nc8b4JSfvJvr
+ KPRZ7m+y7X6kWPecYohxvXT5o9FmkvMMvC23fnN4qwY7SFhfC23cZjdZwXl4edX7ZMtQeQ2MKJt
+ SlRhTcANuPQAv2DthGkJb14FtlVbzVofVHqpxpIbhZ4mOl94+ZyUJZOsDRoWksrIYtjqOT5q9nH
+ xhaJEN4IajQbkzFpCwRhCT3r7lddP0FL6B8gSIFmyf4QMTZ2mrdMLcXdzqhs
+X-Received: by 2002:a05:690c:e153:b0:8b0:e55b:9b71 with SMTP id
+ 00721157ae682-8b392893b75mr12193607b3.8.1794313663572; 
+ Tue, 10 Nov 2026 04:27:43 -0800 (PST)
+Received: from f90457aaaf9e ([186.153.252.80])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-8b393421a3esm17859727b3.32.2026.11.10.04.27.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Nov 2026 04:27:42 -0800 (PST)
+From: Javier MV <javiermv@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Javier MV <javiermv@duck.com>, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, matthew.brost@intel.com,
+ daniele.ceraolospurio@intel.com, umesh.nerlige.ramappa@intel.com
+Subject: [PATCH 0/2] drm/i915/guc: Fix requests of a banned context never
+ completing
+Date: Tue, 10 Nov 2026 12:24:46 +0000
+Message-ID: <20261110122534.12989-1-javiermv@gmail.com>
+X-Mailer: git-send-email 2.51.1
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,169 +82,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/i915/dp: use_max_params overrides
-  intel_dp_apply_vbt_edp_link_config()
-- [High] drm/i915/dp: no M/N or BW fallback in
-  intel_dp_apply_vbt_edp_link_config()
---
+From: Javier MV <javiermv@duck.com>
 
-commit 46497d5cbedd717d0790bb659b620e0c9e18c67c
-Author: Lee Shawn C <shawn.c.lee@intel.com>
+On ADL-P with GuC submission, a GuC context reset of a context whose requests
+are being cancelled by the request watchdog can leave that context's requests
+incomplete forever. The client waits on their fences forever, and if it is
+killed its buffers stay pinned until reboot (here 7.5 GB of Shmem/Unevictable,
+with the process gone from DRM clients).
+Reported in https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15301.
 
-drm/i915/dp: Use the VBT fast link training link config for eDP
+The sequence, from instrumented runs (a llama.cpp Vulkan compute job,
+request_timeout_ms=2000 via debugfs, preempt_timeout_ms=7500):
 
-This commit restricts the candidate eDP link configurations during compute
-config to the rate and lane count specified by the VBT fast link training
-parameters when fast link training is enabled.
+ 1. The watchdog cancels a request: guc_context_cancel_request() blocks the
+    context (schedule disable) to skip it.
+ 2. GuC can't preempt the compute work (no mid-thread preemption on Gen12) and
+    resets the context instead. The reset handler captures, bans (revoke finds
+    the disable pending, so it only sets a 1 ms preemption timeout) and replays,
+    which unwinds the incomplete requests back to the scheduler queue.
+ 3. The late schedule disable done G2H clears SCHED_STATE_BANNED and cancels
+    nothing (the list is already empty), then guc_context_unblock() enables
+    scheduling of the banned context.
+ 4. Either the resubmitted requests run as NOPs and everything retires
+    (harmless), or GuC resets the context again at the first preemption (1 ms
+    timeout). That second notification is ignored for a banned context, so its
+    submitted requests never complete. In one run this was followed by G2H
+    action 0x6000 rejected with -EOPNOTSUPP, a stopped rcs0 heartbeat and a
+    full GT reset; after it the context was no longer registered, and the
+    dequeue only marks the last of a banned context's merged requests
+    complete, so the other 9 never completed.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index ef164a7976187..0390bd62d7596 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -2824,6 +2824,62 @@ intel_dp_compute_m_n_ratio_limits(struct intel_dp =
-*intel_dp,
->  	return true;
->  }
-> =20
-> +/*
-> + * If the VBT enables eDP fast link training for the panel, restrict the
-> + * candidate link configs to the VBT fast link training link rate and/or
-> + * lane count (a zero value means no restriction for that parameter). The
-> + * filter is intersected with any filter already set in @limits. If no
-> + * allowed config matches (e.g. the VBT values are not supported by the
-> + * source/sink, or link training fallback has disabled all such configs),
-> + * the VBT params are ignored.
-> + */
-> +static void
-> +intel_dp_apply_vbt_edp_link_config(struct intel_dp *intel_dp,
-> +				   struct intel_connector *connector,
-> +				   struct link_config_limits *limits)
-> +{
-> +	struct intel_display *display =3D to_intel_display(intel_dp);
-> +	struct intel_dp_link_caps *link_caps =3D intel_dp->link.caps;
-> +	struct intel_dp_link_caps_filter vbt_filter =3D INTEL_DP_LINK_CAPS_FILT=
-ER_NONE;
-> +	struct intel_dp_link_caps_iter iter;
-> +	struct intel_dp_link_config config;
-> +	int vbt_rate =3D connector->panel.vbt.edp.rate;
-> +	int vbt_lanes =3D connector->panel.vbt.edp.lanes;
-> +
-> +	if (!intel_dp_is_edp(intel_dp) ||
-> +	    !connector->panel.vbt.edp.fast_link_training ||
-> +	    (!vbt_rate && !vbt_lanes))
-> +		return;
-> +
-> +	intel_dp_link_caps_iter_start(&iter, link_caps,
-> +				      intel_dp_link_caps_connector_compute_order(connector),
-> +				      limits->link_config_filter);
-> +	for_each_dp_link_config(&iter, &config) {
-> +		if (vbt_rate && config.rate !=3D vbt_rate)
-> +			continue;
-> +		if (vbt_lanes && config.lane_count !=3D vbt_lanes)
-> +			continue;
-> +
-> +		intel_dp_link_caps_filter_add(link_caps, &vbt_filter, &config);
-> +	}
-> +	intel_dp_link_caps_iter_end(&iter);
-> +
-> +	if (!vbt_filter.config_mask) {
-> +		drm_dbg_kms(display->drm,
-> +			    "[CONNECTOR:%d:%s] VBT eDP link config (lanes %d, rate %d) not in=
- allowed link configs, ignoring\n",
-> +			    connector->base.base.id, connector->base.name,
-> +			    vbt_lanes, vbt_rate);
-> +		return;
-> +	}
-> +
-> +	drm_dbg_kms(display->drm,
-> +		    "[CONNECTOR:%d:%s] Limiting link configs to VBT eDP lanes %d, rate=
- %d\n",
-> +		    connector->base.base.id, connector->base.name,
-> +		    vbt_lanes, vbt_rate);
-> +
-> +	limits->link_config_filter =3D vbt_filter;
-> +}
-> +
->  bool
->  intel_dp_compute_config_limits(struct intel_dp *intel_dp,
->  			       struct drm_connector_state *conn_state,
-> @@ -2940,6 +2996,8 @@ intel_dp_compute_config_limits(struct intel_dp *int=
-el_dp,
->  		limits->link_config_filter =3D new_filter;
->  	}
-> =20
-> +	intel_dp_apply_vbt_edp_link_config(intel_dp, connector, limits);
+Patch 1 completes all requests of a non-schedulable context on resubmission
+(once it is off the HW), and patch 2 stops unblock from re-enabling a banned
+context.
 
-[Severity: High]
-Does calling intel_dp_apply_vbt_edp_link_config() after the
-intel_dp->use_max_params block cause non-maximum VBT configs to be
-ignored whenever use_max_params is set?
+A reset notification for an already banned context is still ignored. I didn't
+see one with this series, so it doesn't change that, but if one can still
+happen some other way, that context's requests could stay incomplete. I have
+an additional patch for that case, which cancels the requests on such a
+notification. It has never run in my tests because I couldn't reach that path
+with these patches applied, so I left it out, but I can send it if you want it.
 
-intel_edp_init_dpcd() initializes intel_dp->use_max_params =3D true for all
-eDP < 1.4 panels, and intel_dp_compute_config_limits() narrows
-limits->link_config_filter to the single max_config entry before calling
-intel_dp_apply_vbt_edp_link_config().  Any VBT rate or lane count lower
-than max_config will not match that single-entry filter, so the VBT config
-is ignored and intel_dp_use_vbt_fast_link_levels() also returns false.
+Tested on i5-1235U (ADL-P GT2, 8086:46a8), GuC 70.36.0, on top of Ubuntu's
+7.0.0-42 (mainline 7.0.14; the touched code is identical in mainline as of
+2026-10-29). Without the series: 5 hangs in 17 runs with the setup above
+(some with other GPU or CPU load), one of them leaked as described (as did
+an earlier run on the stock module). With this series: 30 runs, 1 hang (the
+ecode of the run that leaked): no full GT reset, the client got
+VK_ERROR_DEVICE_LOST instead of waiting forever, nothing stayed pinned.
+Instrumented builds that also carried the additional patch above, which never
+fired: 20 runs with both patches, 2 hangs of the leaking kind (same ecodes as
+before), handled the same way, and the logs show no second reset; 20 runs with
+patch 1 alone, 1 hang, also contained.
 
-On eDP >=3D 1.4 panels, if link training fails on the VBT config, the first
-fallback step in intel_dp_get_link_train_fallback_values() sets
-intel_dp->use_max_params =3D true and returns 0 without disabling the
-failed config in link_caps:
+I can reproduce this here, though a hang takes 10 to 30 runs. If it helps, I
+can send the full log of a hang from the instrumented build, attach error
+states, or test a different approach if you'd rather fix it another way.
 
-drivers/gpu/drm/i915/display/intel_dp_link_training.c:intel_dp_get_link_tra=
-in_fallback_values() {
-	if (intel_dp_is_edp(intel_dp) && !intel_dp->use_max_params) {
-		lt_dbg(intel_dp, DP_PHY_DPRX,
-		       "Retrying Link training for eDP with max parameters\n");
-		intel_dp->use_max_params =3D true;
-		return 0;
-	}
-}
+Tool disclosure: I did this work with Claude Code (Opus 5.5), over several
+sessions. I reported the symptoms, ran it on my machine and decided what to
+pursue. The assistant read the i915 sources and the logs, wrote the debug
+instrumentation and test scripts, worked out the sequence above, and wrote both
+patches, their changelogs and most of this letter. The logs and results quoted
+here come from runs on my machine. I have checked the sequence and the patches
+against the code and can answer for them.
 
-If the VBT config was already max_config, the retry repeats the exact
-same failed config; if it was lower than max_config, the failed VBT
-config stays enabled in link_caps and will be selected again if
-max_config later fails and falls back.
+Javier MV (2):
+  drm/i915/guc: Complete all requests of a non-schedulable context
+  drm/i915/guc: Don't unblock a banned context
 
-> +
->  	if (!intel_dp_compute_m_n_ratio_limits(intel_dp, conn_state, crtc_state=
-, limits))
->  		return false;
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-[Severity: High]
-Can restricting limits->link_config_filter to vbt_filter cause the
-modeset to fail instead of falling back when the VBT config cannot
-support the mode's M/N ratio or required bandwidth?
 
-If the VBT specifies a rate or lane count that is present in link_caps
-(for example RBR 1.62 Gbps, which is encoded as 0 in VBT versions
-182..223) but is too low for the panel's mode, vbt_filter is non-empty
-and overwrites limits->link_config_filter.
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+-- 
+2.51.1
 
-When vbt_rate violates the Link M/N ratio limit,
-intel_dp_compute_m_n_ratio_limits() then sees no valid configs in
-limits->link_config_filter and fails intel_dp_compute_config_limits()
-even if higher rates in link_caps would pass.  Even if the M/N check
-passes, intel_dp_compute_link_config_wide() only searches
-limits->link_config_filter and returns -EINVAL when the VBT config lacks
-bandwidth for the mode, which fails the modeset on non-DSC eDP panels (or
-picks the under-provisioned VBT config without a bandwidth check in
-dsc_compute_compressed_bpp() on DSC-capable eDP panels).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261110115432.8946=
-16-1-shawn.c.lee@intel.com?part=3D4
