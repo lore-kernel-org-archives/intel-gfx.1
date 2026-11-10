@@ -2,63 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533D3606A321
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:41:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77310606A31C
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:56:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CdNSwi2N
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dCniZXBd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9895110F42F;
-	Tue, 10 Nov 2026 11:41:11 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB36B10EFDC;
- Tue, 10 Nov 2026 11:41:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1158310F570;
+	Tue, 10 Nov 2026 11:56:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E72A10F4C8;
+ Tue, 10 Nov 2026 11:56:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794310864; x=1825846864;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=5RB2wjgt1U5BVMdu5w5ghTikSgQ492TBZK/vSgymKxM=;
- b=CdNSwi2NfIDVQ89QFsZUq46KLM+JETEe6x1dEM56w7lFIAnQ21P328O/
- fm2PGCoUURtVpUJXGNlAHbjDuVe7iEpOFt/zLg7jaKtbPy6SxJonOD3XP
- PaLYtiGR4A88VnzzrBEJE0+T4RbZLVxRG9mgnvRGx9bpoTuaVnuwdfcw4
- Rksdfv3VYMrO66sfEsIUYYSrJYFT/QjCj6ggdU/rHabMeAlOrlt21x6Ch
- gc4+itPnxVxaxwcH4x0qxyOeiRfr8/mPyWpKU7lrz+qbOiLdScvtmIlxA
- isCokwUQaIclAevsHQT9UEP23wv+4wHQBS+WxXK+pM9t3agzMnLJ/UDMi A==;
-X-CSE-ConnectionGUID: 5aiQ7p8SRhyvBOBr7SdWhQ==
-X-CSE-MsgGUID: /3/BY9nFQC60tPY83nkf7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3050947"
+ t=1794311773; x=1825847773;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=E9ZwEO3MGQWmNoGhjXm7+UeE0nIJiRJsIGpJxb1o3Z8=;
+ b=dCniZXBdqjWfKVyNrB4NZ1e03CzmT7Rr2ipyujBBCXsXWlLx7XJ8zuUW
+ SJl3UzKCvvN6Qda4k1bWGB6JBVSMTNys2xP9qplsSGiemIuc+1lxR2wm6
+ aYOzGm/N/C+UU1CsyDz4yBdqNwmx5Xra7XoKa7YKKoI1X574hyZ5qJ4qX
+ K6GnHznNnTTe1nKMcilZIMgcVYTKiKw+mSF+QlITos4i4ay1Sp8XPps2B
+ 582AvP2REbqgObFOX5E4+2dZC9h2+TadMNf7MX6dQ2QuWaQ2wIxeHw+zF
+ W6wNgIBmCZ0YWJFfPcfPLhIlWbh6LJmPNgOk9HG/BKLjn4LwPH+Txppe5 A==;
+X-CSE-ConnectionGUID: bqRHhiu8RCyWWeN8b8DIEA==
+X-CSE-MsgGUID: 1ZHKVL+JQmqdDyPRyzbTqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3055633"
 X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3050947"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 03:40:55 -0800
-X-CSE-ConnectionGUID: GlGNXMqMQK+ILC/QygSWAw==
-X-CSE-MsgGUID: hQQ0Q7eQTFm4Bbr1WXOHEw==
+   d="scan'208";a="3055633"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 03:56:12 -0800
+X-CSE-ConnectionGUID: 5JY0IXJDTvGxMaaLAXz71w==
+X-CSE-MsgGUID: /kkEv/tPSyWz+EFxkmTUfw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8456708"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.33])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 03:40:55 -0800
-Date: Tue, 10 Nov 2026 13:40:51 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Mika Kahola <mika.kahola@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Victor Carreras <vicajilau@gmail.com>
-Subject: Re: [PATCH] drm/i915/dp: Don't recheck the eDP link state after a
- passing link training
-Message-ID: <avMCw5rPER8uY_wu@intel.com>
-References: <20261110101713.3684346-1-mika.kahola@intel.com>
+   d="scan'208";a="8004335"
+Received: from shawnle1-z890-eagle-wifi7.itwn.intel.com ([10.225.64.208])
+ by orviesa005.jf.intel.com with ESMTP; 10 Nov 2026 03:56:11 -0800
+From: Lee Shawn C <shawn.c.lee@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH 0/4] drm/i915/dp: Use the VBT eDP fast link training params
+Date: Tue, 10 Nov 2026 11:54:28 +0000
+Message-ID: <20261110115432.894616-1-shawn.c.lee@intel.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261110101713.3684346-1-mika.kahola@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,70 +63,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 10:17:13AM +0000, Mika Kahola wrote:
-> On eDP, a link retrain power cycles the panel. If the panel reports a
-> transient link error after power-on, the link state recheck after a
-> passing link training ends up in a retrain loop. Skip this recheck on
-> eDP.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17737
-> Tested-by: Victor Carreras <vicajilau@gmail.com>
-> Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-> ---
->  .../drm/i915/display/intel_dp_link_training.c | 19 +++++++++++++++----
->  1 file changed, 15 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> index ac1aff6edf05..35bf29f7b996 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -1800,12 +1800,23 @@ void intel_dp_stop_link_train(struct intel_dp *intel_dp,
->  
->  	intel_hpd_unblock(encoder);
->  
-> -	if (!display->hotplug.ignore_long_hpd &&
-> -	    link_recovery_autoretrain_allowed(link_training)) {
-> -		int delay_ms = link_recovery_autoretrain_pending(link_training) ? 0 : 2000;
-> +	if (display->hotplug.ignore_long_hpd ||
-> +	    !link_recovery_autoretrain_allowed(link_training))
-> +		return;
->  
-> -		intel_encoder_link_check_queue_work(encoder, delay_ms);
-> +	if (link_recovery_autoretrain_pending(link_training)) {
-> +		intel_encoder_link_check_queue_work(encoder, 0);
-> +		return;
->  	}
-> +
-> +	/*
-> +	 * An eDP retrain power cycles the panel, which can retrigger
-> +	 * a transient link error after power-on, leading to a retrain loop.
-> +	 */
+The VBT provides per-panel eDP fast link training params, which the
+driver parses but doesn't use. Use them when fast link training is
+enabled in the VBT:
 
-Is it a transient error? Ie. does the interlane align bit ping-ponging 
-randomly or does it always (as in every link rate and lane count
-that is possible) stay completely off after link training?
+- Patch 1-2: parse the params only if the enable bit is set.
+- Patch 3: start link training from the VBT vswing/pre-emphasis levels.
+- Patch 4: use the VBT link rate and lane count.
 
-We know that on those crappy CH7511 bridges the bit only works during
-link training, and then just permanently turns off when link training
-ends. IIRC on those the bit disappears exactly when we switch the
-training pattern off.
+The existing AUX handshake based link training sequence is kept; link
+training without AUX handshake is not implemented.
 
-> +	if (intel_dp_is_edp(intel_dp))
-> +		return;
-> +
-> +	intel_encoder_link_check_queue_work(encoder, 2000);
->  }
->  
->  static bool
-> -- 
-> 2.43.0
+Lee Shawn C (4):
+  drm/i915/bios: Split out parsing the eDP fast link training params
+  drm/i915/bios: Parse eDP fast link training params only if enabled
+  drm/i915/dp: Start eDP link training from VBT fast link train
+    vswing/pre-emphasis levels
+  drm/i915/dp: Use the VBT fast link training link config for eDP
+
+ drivers/gpu/drm/i915/display/intel_bios.c     | 85 ++++++++++++++-----
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 58 +++++++++++++
+ .../drm/i915/display/intel_dp_link_training.c | 76 +++++++++++++++++
+ 4 files changed, 197 insertions(+), 23 deletions(-)
 
 -- 
-Ville Syrjälä
-Intel
+2.53.0
+
