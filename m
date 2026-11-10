@@ -2,61 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A934A606A31C
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 18:47:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZLbURwYD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FBB606A323
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 19:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3775E10ED1E;
-	Tue, 10 Nov 2026 18:47:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D03810F2DB;
- Tue, 10 Nov 2026 18:47:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794336430; x=1825872430;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=IN0SoWY7agMLdn5GjsWZIjFNeCbV2ScAgmtswYJsGVk=;
- b=ZLbURwYDSye8QJabfI4/Me8kzHLUuixxFghpWQGCCrWiwcUfZiiU/5Re
- UgFrdChc+WYzrSoaYLkCZifawiC1mv39UVDDNIWu65BkHWCcaYrMIWFuI
- 1MTPVKx6xgOHAwHl0ddRx4M6IngJlwVWoxteBP+JhnyzsKWCIcfVizfSV
- 4usXs8DBfWuN0uJ+OFDaSAyFfYREYbrmZzkOPye/q+5qiF4S4XQ5MJogY
- xGxtJlkqUJEzcPvxBhNhTHN8hXsalVDnPaxTRy1q/KXHiwd298g60xF5G
- HhsIsmMYD9a/xZ/hN0Z82jghGh3MyPudQtMzkJGPxWD/Su3gAI7t9CiGF Q==;
-X-CSE-ConnectionGUID: /AtMMVAaTF+CursPtDBv6A==
-X-CSE-MsgGUID: HsArMiazSJygUbPwhMxEyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2975379"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="2975379"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 10:47:09 -0800
-X-CSE-ConnectionGUID: yVYZADGQTa6/FgYPUXQXkQ==
-X-CSE-MsgGUID: y+yMgnYfS92Nkv/m60h2gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; d="scan'208";a="10007782"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.86])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2026 10:47:08 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v2 10/10] drm/xe: Nuke the intel_uncore_{read,
- write}() wrappers
-Date: Tue, 10 Nov 2026 20:46:21 +0200
-Message-ID: <20261110184622.1721-11-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110184622.1721-1-ville.syrjala@linux.intel.com>
-References: <20261110184622.1721-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4390410E38C;
+	Tue, 10 Nov 2026 19:46:21 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C21510E38C;
+ Tue, 10 Nov 2026 19:46:19 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0829133048530128085=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/de=3A_Work_towar?=
+ =?utf-8?q?ds_uncore_elimination_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 10 Nov 2026 19:46:19 -0000
+Message-ID: <179433997950.5264.2642077678675461465@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261110184622.1721-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261110184622.1721-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,59 +34,182 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============0829133048530128085==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-intel_uncore_{read,write}() are no longer needed by the
-display code. Remove them.
+== Series Details ==
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- .../drm/xe/compat-i915-headers/intel_uncore.h    | 16 ----------------
- 1 file changed, 16 deletions(-)
+Series: drm/i915/de: Work towards uncore elimination (rev2)
+URL   : https://patchwork.freedesktop.org/series/177795/
+State : failure
 
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-index 2f198e2e2fec..238addc1e5fc 100644
---- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-+++ b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-@@ -23,14 +23,6 @@ static inline struct xe_mmio *__compat_uncore_to_mmio(struct intel_uncore *uncor
- 	return xe_root_tile_mmio(xe);
- }
- 
--static inline u32 intel_uncore_read(struct intel_uncore *uncore,
--				    i915_reg_t i915_reg)
--{
--	struct xe_reg reg = XE_REG(i915_mmio_reg_offset(i915_reg));
--
--	return xe_mmio_read32(__compat_uncore_to_mmio(uncore), reg);
--}
--
- static inline u8 intel_uncore_read8(struct intel_uncore *uncore,
- 				    i915_reg_t i915_reg)
- {
-@@ -55,14 +47,6 @@ static inline u16 intel_uncore_read16(struct intel_uncore *uncore,
- 	return xe_mmio_read16(__compat_uncore_to_mmio(uncore), reg);
- }
- 
--static inline void intel_uncore_write(struct intel_uncore *uncore,
--				      i915_reg_t i915_reg, u32 val)
--{
--	struct xe_reg reg = XE_REG(i915_mmio_reg_offset(i915_reg));
--
--	xe_mmio_write32(__compat_uncore_to_mmio(uncore), reg, val);
--}
--
- static inline u32 intel_uncore_read_fw(struct intel_uncore *uncore,
- 				       i915_reg_t i915_reg)
- {
--- 
-2.56.0
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_19484 -> Patchwork_177795v2
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_177795v2 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_177795v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/index.html
+
+Participating hosts (40 -> 38)
+------------------------------
+
+  Missing    (2): bat-dg2-13 bat-adls-6 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_177795v2:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-skl-6600u:       [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19484/fi-skl-6600u/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/fi-skl-6600u/igt@i915_selftest@live@hangcheck.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_177795v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - fi-skl-6600u:       [PASS][3] -> [INCOMPLETE][4] ([i915#17731])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19484/fi-skl-6600u/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/fi-skl-6600u/igt@i915_selftest@live.html
+
+  
+#### Possible fixes ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [DMESG-WARN][5] ([i915#13400]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19484/bat-rpls-4/igt@vgem_basic@unload.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#17731]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17731
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19484 -> Patchwork_177795v2
+
+  CI-20190529: 20190529
+  CI_DRM_19484: c8d0fb6110b86aa64eb59502df08b529e221f232 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9184: 9184
+  Patchwork_177795v2: c8d0fb6110b86aa64eb59502df08b529e221f232 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/index.html
+
+--===============0829133048530128085==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/de: Work towards uncore elimination (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/177795/">https://patchwork.freedesktop.org/series/177795/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19484 -&gt; Patchwork_177795v2</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_177795v2 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_177795v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_177795v2:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19484/fi-skl-6600u/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/fi-skl-6600u/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_177795v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19484/fi-skl-6600u/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/fi-skl-6600u/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17731">i915#17731</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19484/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_177795v2/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19484 -&gt; Patchwork_177795v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19484: c8d0fb6110b86aa64eb59502df08b529e221f232 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9184: 9184<br />
+  Patchwork_177795v2: c8d0fb6110b86aa64eb59502df08b529e221f232 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0829133048530128085==--
