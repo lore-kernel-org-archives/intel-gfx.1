@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD49860A3821
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 23:48:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BA3606D904
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 23:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BQ4GfNMt
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YK/w9e5I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D27410E484;
-	Wed, 11 Nov 2026 23:48:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84A4810E9ED;
+	Wed, 11 Nov 2026 23:48:39 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47D9C10E484;
- Wed, 11 Nov 2026 23:48:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6721110E47F;
+ Wed, 11 Nov 2026 23:48:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794440908; x=1825976908;
+ t=1794440911; x=1825976911;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=q1YR4O6Pn8a/WBsLbrw9tPRH3nJNXpm/xlU+/ogg2iY=;
- b=BQ4GfNMttcAeoC0VG7NCztOU4xqbzRr3/lTWWsfs74GtED7WwEwDlmy2
- /fwKYT4gdnM/M/5zZXQ2kyF5Ko6wc8rbGpjspTeVelJBYxCZWfCA1auan
- CEld6MfUAX1624K0mZaG6IqPErcUPtUDJ+LED36lSeUCMgwPjLrN2XQhl
- PmaH4NDbrC0x1t2k7V/aeXuV9KiG0QB41fMoO2IV0YBw+IDN6qiJU3qCC
- 30QAXSLx4SpwNKLp1gIerFVSOzJR+dXB0HXbJfV1wpIXkgjImcd+3mLzn
- 8eUvI7oFK9QYl8MKBQDVnR+dHkHvmwq1Avt/2fy/w+/vQ0UtVm83mtF/I Q==;
-X-CSE-ConnectionGUID: QDE+2iYGT4S3iEfOE7W2/g==
-X-CSE-MsgGUID: PVkuNmP6S4u3Hob8PKrvqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226575"
+ bh=F2WuUYmuXTPXL+P5748IfGeMmC4KPLynQ6+J0uAEp+0=;
+ b=YK/w9e5IWHuHOGZCpyrIiUoz0lAFiaLXtm0kYASpfId+l4gbZDextDvN
+ 4jK8UuJ65ggGldkyBBHxkLRGMlRrq4ODK1fOGT3l2iRR3J6EnsWkzwudK
+ EYDcUK3z776OVqqQJJ4WtFsw6F1Xa6i/dty4AZe96fBTgnFGqf4N3qOC8
+ g9GvxlO2jcQ4WVnettuz8ZQpFxqacfcTe7taY/3kKa5Os0nK+Ys/+19xg
+ Dw/hrAD4lfLx/wTqSf4yAE+GKBsAIb+3Kfl9Wigd6bkQ88Tv766WgkPLQ
+ x+zgM+4xl0n6DvoRWaeNDX2ORGtb62M81rhn4Zm83Y5vl5PfMpPRAJc6R A==;
+X-CSE-ConnectionGUID: +PHhN9paTVeRcRk1EeGnLg==
+X-CSE-MsgGUID: 97yHCcTnRi6WFU9KPt0snw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226591"
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3226575"
+   d="scan'208";a="3226591"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 15:48:27 -0800
-X-CSE-ConnectionGUID: F05e9Uf3T3Wyn+R/qG/Pzw==
-X-CSE-MsgGUID: Xo/xsAjGQ+KBqS19hoz1WA==
+ 11 Nov 2026 15:48:31 -0800
+X-CSE-ConnectionGUID: L4ZeofTETcawVOXtCfTrDg==
+X-CSE-MsgGUID: WFO6/awMR/Gk2uILNvf7Cg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8512353"
+   d="scan'208";a="8512363"
 Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
  ([10.3.206.11])
- by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:24 -0800
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:28 -0800
 From: Pavel Popov <pavel.e.popov@intel.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -66,10 +66,9 @@ Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
  linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
  linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/7] ACPI: mipi-disco-img: Include <asm/cpu_device_id.h>
- unconditionally
-Date: Wed, 11 Nov 2026 16:48:14 -0700
-Message-ID: <20261111234821.4814-2-pavel.e.popov@intel.com>
+Subject: [PATCH 2/7] drm/i915: Include <asm/cpu_device_id.h> unconditionally
+Date: Wed, 11 Nov 2026 16:48:15 -0700
+Message-ID: <20261111234821.4814-3-pavel.e.popov@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
 References: <20261111234821.4814-1-pavel.e.popov@intel.com>
@@ -108,32 +107,28 @@ it is in mainline.
 
 [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
 
- drivers/acpi/mipi-disco-img.c | 5 ++---
+ drivers/gpu/drm/i915/intel_cpu_info.c | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/acpi/mipi-disco-img.c b/drivers/acpi/mipi-disco-img.c
-index ea4bffe3c02..3d841d2bdfd 100644
---- a/drivers/acpi/mipi-disco-img.c
-+++ b/drivers/acpi/mipi-disco-img.c
-@@ -30,6 +30,8 @@
- 
- #include <media/v4l2-fwnode.h>
+diff --git a/drivers/gpu/drm/i915/intel_cpu_info.c b/drivers/gpu/drm/i915/intel_cpu_info.c
+index e52d0ac713a..a6b46cc841a 100644
+--- a/drivers/gpu/drm/i915/intel_cpu_info.c
++++ b/drivers/gpu/drm/i915/intel_cpu_info.c
+@@ -6,12 +6,11 @@
+  * intel_device_info.h by having a separate file.
+  */
  
 +#include <asm/cpu_device_id.h>
 +
- #include "internal.h"
- 
- static LIST_HEAD(acpi_mipi_crs_csi2_list);
-@@ -724,9 +726,6 @@ void acpi_mipi_crs_csi2_cleanup(void)
- }
+ #include "intel_cpu_info.h"
  
  #ifdef CONFIG_X86
 -#include <asm/cpu_device_id.h>
 -#include <asm/intel-family.h>
 -
- /* CPU matches for Dell generations with broken ACPI MIPI DISCO info */
- static const struct x86_cpu_id dell_broken_mipi_disco_cpu_gens[] = {
- 	X86_MATCH_VFM(INTEL_TIGERLAKE, NULL),
+ static const struct x86_cpu_id g8_cpu_ids[] = {
+ 	X86_MATCH_VFM(INTEL_ALDERLAKE,		NULL),
+ 	X86_MATCH_VFM(INTEL_ALDERLAKE_L,	NULL),
 -- 
 2.54.0
 
