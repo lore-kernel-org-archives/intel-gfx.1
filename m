@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD8E606D930
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 23:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393E3606EDC3
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 23:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E2QiMpt5
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MyDwC8CY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8ED410E495;
-	Wed, 11 Nov 2026 23:48:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 904E210E4C0;
+	Wed, 11 Nov 2026 23:48:53 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7A3E10E4C0;
- Wed, 11 Nov 2026 23:48:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFDFE10EAC1;
+ Wed, 11 Nov 2026 23:48:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794440925; x=1825976925;
+ t=1794440928; x=1825976928;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=u5AVXTElJz7EZV2h5YwoTsJFHDCSeIjHVrhKH9eyfwI=;
- b=E2QiMpt5MfsPpHXSQPG5TZn+rJlTRWvUM4K5ky6tXx/I0iEjnhOgOS2G
- nxmlZF3+/u+mqIAb59MNyY7mcD30KviPBQ6TsbDBSO+mJIE9tirUDvURv
- pV4S/4oTU5HiISeNALAXNZA0UhBp89N0doGqyarllCqrtVOuMoz+jlx8X
- pvsltLHQvW65pHnHC3eEVwJJS814rHXnCUsab60rWdMukeOUSEtkfZ3Ml
- g6wVdNJGed3bTFYQIKV9b3lwSL5HXDp8bKK6X6ii3OP4k9gQ9njNftHPb
- N5/xLvwXs24XZ6muMaXE14nEpuHx2ogudzNDiPTQE8pcVUUGVKfd5uJWJ w==;
-X-CSE-ConnectionGUID: vd0tOiCYTo+CpYtc7iql8A==
-X-CSE-MsgGUID: 73iT4SS7RWGdW8SGjqnQmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226664"
+ bh=nn492t9vwWyNrSlbHv+ImXuNJXcsvtoFtn2kqzaYrJE=;
+ b=MyDwC8CYx58Gq1PPnGXos1jG0sRdsLBAZkO4R6vtLizUvYgnf+cBUBc3
+ iime9MArLvER9vGVqyWYWf14A2ZaQs4FPUFGUvasqPLNy4F++bb2zsOXP
+ vZ6BMaicqrY2qPOnavtZO+dZxmU8qTFtSZiAfaMZqa1iVgkXVnh8Zemym
+ xqq+4DxxDyOm61u8DDb/2Zt2pNn7+9C8Xw9jg0VzoIwb/hfRUQGVDkSp9
+ fPrR28e8LkPb17HhzvI/d9IhCNHLfqUkI8PoLMnRk2s/rTzmmFH1/eAFG
+ 5Sz4b/gQrcWo6+O85yx+bNU9fwLotYyUqpkM4hna+Wku7usmfPeWXgAcD g==;
+X-CSE-ConnectionGUID: cykHXQgrSdi0CRgyW8pq4A==
+X-CSE-MsgGUID: SWwFr7mdSLiKQjYWxHBWqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226682"
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3226664"
+   d="scan'208";a="3226682"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 15:48:44 -0800
-X-CSE-ConnectionGUID: o71bEf/wRTCxDbrm4F0BNA==
-X-CSE-MsgGUID: YEu72Nx6Sn6B9UBCg1VsnA==
+ 11 Nov 2026 15:48:47 -0800
+X-CSE-ConnectionGUID: meJAifVaQEOpz/aGc9pt4Q==
+X-CSE-MsgGUID: YrrcqYuLTPOSRGb2SidOoA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8512405"
+   d="scan'208";a="8512421"
 Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
  ([10.3.206.11])
- by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:41 -0800
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:44 -0800
 From: Pavel Popov <pavel.e.popov@intel.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -66,9 +66,9 @@ Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
  linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
  linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 6/7] tpm: Include <asm/cpu_device_id.h> unconditionally
-Date: Wed, 11 Nov 2026 16:48:19 -0700
-Message-ID: <20261111234821.4814-7-pavel.e.popov@intel.com>
+Subject: [PATCH 7/7] crypto: ccp - Drop unused <asm/cpu_device_id.h> include
+Date: Wed, 11 Nov 2026 16:48:20 -0700
+Message-ID: <20261111234821.4814-8-pavel.e.popov@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
 References: <20261111234821.4814-1-pavel.e.popov@intel.com>
@@ -94,33 +94,29 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-<asm/cpu_device_id.h> now has a generic version, so the #ifdef
-CONFIG_X86 around the include is no longer needed.
+Nothing in ccp-dev.c uses <asm/cpu_device_id.h>; the CPU match table
+it was included for is long gone. Drop the include and the #ifdef
+CONFIG_X86 around it.
 
 Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 ---
-Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
-it is in mainline.
+ drivers/crypto/ccp/ccp-dev.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-[1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
-
- drivers/char/tpm/tpm.h | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/char/tpm/tpm.h b/drivers/char/tpm/tpm.h
-index fa554c5ad80..ad1534aa00c 100644
---- a/drivers/char/tpm/tpm.h
-+++ b/drivers/char/tpm/tpm.h
-@@ -28,9 +28,7 @@
- #include <linux/tpm.h>
- #include <linux/tpm_eventlog.h>
- 
+diff --git a/drivers/crypto/ccp/ccp-dev.c b/drivers/crypto/ccp/ccp-dev.c
+index 41d9bdac95d..017e7a6551f 100644
+--- a/drivers/crypto/ccp/ccp-dev.c
++++ b/drivers/crypto/ccp/ccp-dev.c
+@@ -21,9 +21,6 @@
+ #include <linux/hw_random.h>
+ #include <linux/cpu.h>
+ #include <linux/atomic.h>
 -#ifdef CONFIG_X86
- #include <asm/cpu_device_id.h>
+-#include <asm/cpu_device_id.h>
 -#endif
+ #include <linux/ccp.h>
  
- #define TPM_MINOR		224	/* officially assigned */
- #define TPM_NUM_DEVICES		65536
+ #include "ccp-dev.h"
 -- 
 2.54.0
 
