@@ -2,28 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033E6606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 20:30:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D498960A3810
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 23:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YKkCWlIq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D10D10EA2D;
-	Wed, 11 Nov 2026 20:30:10 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 398CB10EA2D;
- Wed, 11 Nov 2026 20:30:09 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0959006784827792870=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4FF10E4A2;
+	Wed, 11 Nov 2026 23:48:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 532BC10E47F;
+ Wed, 11 Nov 2026 23:48:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794440905; x=1825976905;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9Cuegc/MuoDCo4oN8xNnf/pcpxsFdQP4keN2fSB0lfE=;
+ b=YKkCWlIqbv+MntrVW1kAk69u3zKeJW/GD1CSSwTDnD0Ob5D5SSbeHTyk
+ sn4s6B0i5m3smTrzwoOWuw267qBIEuwr6p478RQ98VMyz4jaTZMRqa8OI
+ Mp21r62yVLog0SEOLH8g9oiiS+XJw8tIDfKJLWcW1+WPpeAw7Cp5eQZYK
+ VUs4fCT9XSPPNw8Gz3Q+/XOcj+Zu8+5r8UpZ/bTqN71fy78UofwJ3iQkr
+ kIUQnTrIexfFu5g6wwamCCXnSwSedS8eioqwBWo9afJjbK3YH1HEW9vGu
+ ncLWDOk5VcDaCWPjN3+VQ7Q1bvv0OXHnM/7WRmlUPz3VLUvNTmBaQVuq2 g==;
+X-CSE-ConnectionGUID: 8wuA8lVOSRGp3NDEc8FgNw==
+X-CSE-MsgGUID: rfGeikJBQaOtIETc7n05Tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226555"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3226555"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 15:48:24 -0800
+X-CSE-ConnectionGUID: OBrl5lPZQVGsO4ZZ0YyItw==
+X-CSE-MsgGUID: Wdq4BZXQSVqd2thien9rrw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8512350"
+Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
+ ([10.3.206.11])
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:21 -0800
+From: Pavel Popov <pavel.e.popov@intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, "David S . Miller" <davem@davemloft.net>,
+ x86@kernel.org, linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 0/7] Include <asm/cpu_device_id.h> without #ifdef CONFIG_X86
+Date: Wed, 11 Nov 2026 16:48:13 -0700
+Message-ID: <20261111234821.4814-1-pavel.e.popov@intel.com>
+X-Mailer: git-send-email 2.54.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/irq=3A_Micro_opt?=
- =?utf-8?q?imize_gen8/gen11_irq_handlers_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Nov 2026 20:30:09 -0000
-Message-ID: <179442900922.12029.4457378713928703299@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261109123012.8110-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261109123012.8110-1-ville.syrjala@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +83,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============0959006784827792870==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+<asm/cpu_device_id.h> exists only on x86, so generic code that uses it
+wraps the include in #ifdef CONFIG_X86. The P2PDMA series [1] adds a
+generic version of the header, so the include can be unconditional.
 
-== Series Details ==
+This series drops the #ifdef around the include in the remaining
+users, and in ccp, which does not use the header, the include itself.
+Some of them also include <asm/intel-family.h>, which has no
+generic version. That include is removed: on x86 it is already pulled
+in by <asm/cpu_device_id.h>, and on other architectures the INTEL_*
+model defines are not used. The #ifdef stays around code that needs
+x86 for other reasons: CPU match tables using the INTEL_* model
+defines and boot_cpu_data accesses.
 
-Series: drm/i915/irq: Micro optimize gen8/gen11 irq handlers (rev2)
-URL   : https://patchwork.freedesktop.org/series/178098/
-State : success
+Patches 1-6 are independent of each other and can go through the
+respective trees once [1] has landed. Patch 7 does not depend on [1].
 
-== Summary ==
+Based on mainline (7.4-rc2+) plus [1]. Built with x86_64 and arm64
+allmodconfig, each patch separately.
 
-CI Bug Log - changes from CI_DRM_19495 -> Patchwork_178098v2
-====================================================
+[1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
 
-Summary
--------
+Pavel Popov (7):
+  ACPI: mipi-disco-img: Include <asm/cpu_device_id.h> unconditionally
+  drm/i915: Include <asm/cpu_device_id.h> unconditionally
+  drm/amdgpu: Include <asm/cpu_device_id.h> unconditionally
+  cpufreq: ondemand: Include <asm/cpu_device_id.h> unconditionally
+  platform/x86: Include <asm/cpu_device_id.h> unconditionally in soc.h
+  tpm: Include <asm/cpu_device_id.h> unconditionally
+  crypto: ccp - Drop unused <asm/cpu_device_id.h> include
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178098v2/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19495 -> Patchwork_178098v2
-
-  CI-20190529: 20190529
-  CI_DRM_19495: 931ccd1599a57f5e30d0e64db37c994355356f8e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9186: 9186
-  Patchwork_178098v2: 931ccd1599a57f5e30d0e64db37c994355356f8e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178098v2/index.html
-
---===============0959006784827792870==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ drivers/acpi/mipi-disco-img.c              | 5 ++---
+ drivers/char/tpm/tpm.h                     | 2 --
+ drivers/cpufreq/cpufreq_ondemand.h         | 4 ++--
+ drivers/crypto/ccp/ccp-dev.c               | 3 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+ drivers/gpu/drm/i915/intel_cpu_info.c      | 5 ++---
+ include/linux/platform_data/x86/soc.h      | 5 ++---
+ 7 files changed, 8 insertions(+), 19 deletions(-)
 
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+prerequisite-patch-id: 2a8952c8b8b6b019585a8bc449db628f458658cb
+prerequisite-patch-id: 6b1715c7e4f230fedfcadf38303ce5966922caff
+prerequisite-patch-id: 88872ad297c6b8ec80cb4ec4057ab281e10c148d
+-- 
+2.54.0
 
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/irq: Micro optimize gen8/gen11 irq handlers (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178098/">https://patchwork.freedesktop.org/series/178098/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178098v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178098v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19495 -&gt; Patchwork_178098v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178098v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19495 -&gt; Patchwork_178098v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19495: 931ccd1599a57f5e30d0e64db37c994355356f8e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9186: 9186<br />
-  Patchwork_178098v2: 931ccd1599a57f5e30d0e64db37c994355356f8e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============0959006784827792870==--
