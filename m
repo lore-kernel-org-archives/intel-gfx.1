@@ -2,58 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D25606A321
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40557606A336
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:28:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=TUTlgG/6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrOFs5f5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9084610FDBD;
-	Wed, 11 Nov 2026 16:09:36 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8696010FDC2;
- Wed, 11 Nov 2026 16:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=S6FVGPb1ZvpOph0pJYvEx0mS+mnul1pNHVlTgogu8qQ=;
- t=1794413349; x=2109773349; b=TUTlgG/6LrNdJisRLg6NGGpFCBTqr9IlLwzpdaQKR7lphnN
- BmwQ8trVpyW7BFNyZ7x88rDGeuyBlBMwc8vERO6Jdcot0oL0TWuw6DChG6pSYOKzTBqbPNeah0VV9
- a8Pnij2JcTGlhqeREh5c/x+fsR064+43Xp/zmVZp8kyV9zBB4/ks0SEuf9jXUzEQVK3vqRY//cf6a
- 54yk3X7vgPqfnYa4RWj9R/x6s3IRKG1H0ShypsNWAAHBE/4Aby5j7OBpvyUEitnpZMUZiX1E+A+cu
- Ys1rdFiFy7pB+jgisMJfwzpCVqMqgja5It7NB5Xb7DvLxsF5KuQ7kdUuQQTiR5zg==;
-Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
- helo=killbill) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRAsN-008u8Y-KC; Wed, 11 Nov 2026 17:08:43 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
- aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
- daniels@collabora.com, harry.wentland@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, mwen@igalia.com,
- sebastian.wick@redhat.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@gmail.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
- John Harrison <John.Harrison@igalia.com>
-Subject: [PATCH v5 13/15] drm/amd/display: allow individual colorop changes
-Date: Wed, 11 Nov 2026 17:05:26 +0100
-Message-ID: <20261111160814.21326-14-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111160814.21326-1-mwen@igalia.com>
-References: <20261111160814.21326-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4B6510F90C;
+	Wed, 11 Nov 2026 16:28:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BA8810F90C;
+ Wed, 11 Nov 2026 16:28:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 053FD42E07;
+ Wed, 11 Nov 2026 16:28:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A429C1F00A05;
+ Wed, 11 Nov 2026 16:28:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794414498;
+ bh=F/P7xksbuJ6mdsb06SrrKj8pKQP+jAbMmCMBzirJ3rk=;
+ h=Date:From:To:Cc:Subject;
+ b=QrOFs5f5GvRB0IDh0ZtDRLuEX+hxqyb9OQWFJh9VLjHmEsir76O6ErTD7WqQ0c+0j
+ ImA0rPNk1Fgs3KClrmsAzs1la/lALnwTuCao6uBCMTfwP3hxpXHG5q3VKum+oPbKjH
+ 7gXX7d4X1Z45WE87v8VorGUot64hTCLJNjyWB0nQHuFJbutn2oF2x3PMae11vkJER5
+ ifCBtOBnGpqze9He7HYfPENUXhWfVbf4P1J1ysztEjd7fnL6cJ413T3yYaNaRCttvL
+ W5wUw4i9LCovmSK+Wql0JjKeoetIYZZ9RtFJ0mqkyeTgSk231c2nkjiQ3uN3mtpreE
+ Gi+d8QkWdIbHA==
+Date: Wed, 11 Nov 2026 16:28:14 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Mika Kahola <mika.kahola@intel.com>
+Subject: linux-next: manual merge of the drm-intel tree with the
+ drm-intel-fixes tree
+Message-ID: <avSXnsYmYkIrge5W@sirena.org.uk>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="9/G13HJc/YtuFupn"
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,474 +58,729 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If userspace modifies a single property of a colorop but doesn't
-resubmit the entire color pipeline, the other colorops will not be
-present in the commit; consequently, on plane recreation, the system
-would silently fall back to the legacy color path instead of maintaining
-the previously applied settings. Commit 20331505df9c ("drm/amd/display:
-pull colorops into state when recreating a plane") addresses this issue
-by ensuring that all colorops associated with a plane are included in
-the commit whenever that plane is recreated, because at this point, only
-new colorop states were taken into account in an atomic commit.
 
-Use the committed state of a colorop within the active color pipeline
-when the commit doesn't introduce a new state for it. A colorop that is
-not included in the commit remains unchanged; therefore, its committed
-state is also its new state. Consequently, remove the call to
-drm_atomic_add_affected_colorops() from dm_update_plane_state(), since a
-duplicated colorop state would just contain those same,
-already-committed values. Also fix AMD KUnit color test accordingly.
+--9/G13HJc/YtuFupn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 9ba25915efba ("drm/amd/display: Add support for sRGB EOTF in DEGAM block")
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  13 --
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 213 +++++++-----------
- .../amdgpu_dm/tests/amdgpu_dm_color_test.c    |  15 +-
- 3 files changed, 92 insertions(+), 149 deletions(-)
+Hi all,
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0ea45ab12119..4d6a965d2b6b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6048,19 +6048,6 @@ dm_update_plane_state(struct dc *dc,
- 		if (ret)
- 			goto out;
- 
--		/*
--		 * Recreating the plane re-derives its DC color pipeline from the
--		 * colorop states in this commit. Pull the plane's colorops in so
--		 * the derivation sees the current pipeline; otherwise every stage
--		 * silently defaults to bypass (dropping YUV->RGB, shaper, 3D LUT
--		 * and regamma) when userspace didn't touch color in this commit.
--		 */
--		if (new_plane_state->color_pipeline) {
--			ret = drm_atomic_add_affected_colorops(state, plane);
--			if (ret)
--				goto out;
--		}
--
- 		WARN_ON(dm_new_plane_state->dc_state);
- 
- 		dc_new_plane_state = dc_create_plane_state(dc);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index f53228072fc8..7332c8874397 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1592,21 +1592,14 @@ __set_dm_plane_colorop_fixed_matrix(struct drm_plane_state *plane_state,
- 				    struct dc_plane_state *dc_plane_state,
- 				    struct drm_colorop *colorop)
- {
--	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-+	struct drm_colorop_state *colorop_state = NULL;
- 	struct drm_atomic_commit *state = plane_state->state;
--	int i = 0;
--
--	old_colorop = colorop;
--
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop) {
--			colorop_state = new_colorop_state;
--			break;
--		}
--	}
- 
-+	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
- 	if (!colorop_state)
-+		colorop_state = colorop->state;
-+
-+	if (colorop->type != DRM_COLOROP_FIXED_MATRIX)
- 		return -EINVAL;
- 
- 	if (colorop_state->bypass) {
-@@ -1647,24 +1640,13 @@ __set_dm_plane_colorop_degamma(struct drm_plane_state *plane_state,
- 			       struct dc_plane_state *dc_plane_state,
- 			       struct drm_colorop *colorop)
- {
--	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-+	struct drm_colorop_state *colorop_state;
- 	struct drm_atomic_commit *state = plane_state->state;
--	int i = 0;
--
--	old_colorop = colorop;
- 
- 	/* 1st op: 1d curve - degamma */
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop &&
--		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_degam_tfs)) {
--			colorop_state = new_colorop_state;
--			break;
--		}
--	}
--
-+	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
- 	if (!colorop_state)
--		return -EINVAL;
-+		colorop_state = colorop->state;
- 
- 	return __set_colorop_in_tf_1d_curve(dc_plane_state, colorop_state);
- }
-@@ -1675,43 +1657,37 @@ __set_dm_plane_colorop_3x4_matrix(struct drm_plane_state *plane_state,
- 				  struct dc_plane_state *dc_plane_state,
- 				  struct drm_colorop *colorop)
- {
--	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-+	struct drm_colorop_state *colorop_state;
- 	struct drm_atomic_commit *state = plane_state->state;
- 	const struct drm_device *dev = colorop->dev;
- 	const struct drm_property_blob *blob;
- 	struct drm_color_ctm_3x4 *ctm = NULL;
--	int i = 0;
- 
- 	/* 3x4 matrix */
--	old_colorop = colorop;
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop &&
--		    new_colorop_state->colorop->type == DRM_COLOROP_CTM_3X4) {
--			colorop_state = new_colorop_state;
--			break;
--		}
-+	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-+	if (!colorop_state)
-+		colorop_state = colorop->state;
-+
-+	if (colorop->type != DRM_COLOROP_CTM_3X4)
-+		return -EINVAL;
-+
-+	if (colorop_state->bypass) {
-+		dc_plane_state->gamut_remap_matrix.enable_remap = false;
-+		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-+		return 0;
- 	}
- 
--	if (colorop_state && colorop->type == DRM_COLOROP_CTM_3X4) {
--		if (colorop_state->bypass) {
--			dc_plane_state->gamut_remap_matrix.enable_remap = false;
--			dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
--			return 0;
--		}
--
--		drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
--		blob = colorop_state->data;
--		if (blob->length == sizeof(struct drm_color_ctm_3x4)) {
--			ctm = (struct drm_color_ctm_3x4 *) blob->data;
--			__drm_ctm_3x4_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
--			dc_plane_state->gamut_remap_matrix.enable_remap = true;
--			dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
--		} else {
--			drm_warn(dev, "blob->length (%zu) isn't equal to drm_color_ctm_3x4 (%zu)\n",
--				 blob->length, sizeof(struct drm_color_ctm_3x4));
--			return -EINVAL;
--		}
-+	drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
-+	blob = colorop_state->data;
-+	if (blob->length == sizeof(struct drm_color_ctm_3x4)) {
-+		ctm = (struct drm_color_ctm_3x4 *) blob->data;
-+		__drm_ctm_3x4_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
-+		dc_plane_state->gamut_remap_matrix.enable_remap = true;
-+		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-+	} else {
-+		drm_warn(dev, "blob->length (%zu) isn't equal to drm_color_ctm_3x4 (%zu)\n",
-+			 blob->length, sizeof(struct drm_color_ctm_3x4));
-+		return -EINVAL;
- 	}
- 
- 	return 0;
-@@ -1723,29 +1699,23 @@ __set_dm_plane_colorop_multiplier(struct drm_plane_state *plane_state,
- 				  struct dc_plane_state *dc_plane_state,
- 				  struct drm_colorop *colorop)
- {
--	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-+	struct drm_colorop_state *colorop_state;
- 	struct drm_atomic_commit *state = plane_state->state;
- 	const struct drm_device *dev = colorop->dev;
--	int i = 0;
- 
- 	/* Multiplier */
--	old_colorop = colorop;
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop &&
--		    new_colorop_state->colorop->type == DRM_COLOROP_MULTIPLIER) {
--			colorop_state = new_colorop_state;
--			break;
--		}
--	}
-+	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-+	if (!colorop_state)
-+		colorop_state = colorop->state;
- 
--	if (colorop_state && colorop->type == DRM_COLOROP_MULTIPLIER) {
--		if (colorop_state->bypass) {
--			dc_plane_state->hdr_mult = dc_fixpt_one;
--		} else {
--			drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
--			dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
--		}
-+	if (colorop->type != DRM_COLOROP_MULTIPLIER)
-+		return -EINVAL;
-+
-+	if (colorop_state->bypass) {
-+		dc_plane_state->hdr_mult = dc_fixpt_one;
-+	} else {
-+		drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
-+		dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
- 	}
- 
- 	return 0;
-@@ -1757,8 +1727,6 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 			      struct dc_plane_state *dc_plane_state,
- 			      struct drm_colorop *colorop)
- {
--	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *new_colorop_state;
- 	struct drm_colorop_state *tf_state = NULL, *lut_state = NULL;
- 	struct drm_atomic_commit *state = plane_state->state;
- 	struct drm_colorop *lut_colorop;
-@@ -1767,38 +1735,32 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 	const struct drm_color_lut32 *shaper_lut;
- 	struct drm_device *dev = colorop->dev;
- 	u32 shaper_size;
--	int i = 0, ret = 0;
-+	int ret = 0;
- 
- 	tf->type = TF_TYPE_BYPASS;
- 	dc_plane_state->cm.flags.bits.shaper_enable = 0;
- 
- 	/* 1D Curve - SHAPER TF: find state */
--	old_colorop = colorop;
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop &&
--		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_shaper_tfs)) {
--			tf_state = new_colorop_state;
--			break;
--		}
--	}
-+	if (colorop->type != DRM_COLOROP_1D_CURVE)
-+		return -EINVAL;
-+
-+	tf_state = drm_atomic_get_new_colorop_state(state, colorop);
-+	if (!tf_state)
-+		tf_state = colorop->state;
- 
- 	/* 1D LUT - SHAPER LUT: find state */
--	lut_colorop = old_colorop->next;
--	if (!lut_colorop) {
-+	lut_colorop = colorop->next;
-+	if (!lut_colorop || lut_colorop->type != DRM_COLOROP_1D_LUT) {
- 		drm_dbg(dev, "no Shaper LUT colorop found\n");
- 		return -EINVAL;
- 	}
- 
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == lut_colorop &&
--		    new_colorop_state->colorop->type == DRM_COLOROP_1D_LUT) {
--			lut_state = new_colorop_state;
--			break;
--		}
--	}
-+	lut_state = drm_atomic_get_new_colorop_state(state, lut_colorop);
-+	if (!lut_state)
-+		lut_state = lut_colorop->state;
- 
--	if (tf_state && !tf_state->bypass) {
--		drm_dbg(dev, "Shaper TF colorop with ID: %d\n", old_colorop->base.id);
-+	if (!tf_state->bypass) {
-+		drm_dbg(dev, "Shaper TF colorop with ID: %d\n", colorop->base.id);
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-@@ -1808,7 +1770,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 		dc_plane_state->cm.flags.bits.shaper_enable = 1;
- 	}
- 
--	if (lut_state && !lut_state->bypass) {
-+	if (!lut_state->bypass) {
- 		drm_dbg(dev, "Shaper LUT colorop with ID: %d\n", lut_colorop->base.id);
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf;
-@@ -1865,8 +1827,7 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
- 			     struct dc_plane_state *dc_plane_state,
- 			     struct drm_colorop *colorop)
- {
--	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-+	struct drm_colorop_state *colorop_state;
- 	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
- 	struct drm_atomic_commit *state = plane_state->state;
- 	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
-@@ -1874,19 +1835,17 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
- 	const struct drm_device *dev = colorop->dev;
- 	const struct drm_color_lut32 *lut3d;
- 	uint32_t lut3d_size;
--	int i = 0, ret = 0;
-+	int ret = 0;
- 
- 	/* 3D LUT */
--	old_colorop = colorop;
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop &&
--		    new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT) {
--			colorop_state = new_colorop_state;
--			break;
--		}
--	}
-+	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-+	if (!colorop_state)
-+		colorop_state = colorop->state;
- 
--	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_3D_LUT) {
-+	if (colorop->type != DRM_COLOROP_3D_LUT)
-+		return -EINVAL;
-+
-+	if (!colorop_state->bypass) {
- 		if (!has_3dlut) {
- 			drm_dbg(dev, "3D LUT is not supported by hardware\n");
- 			return -EINVAL;
-@@ -1926,8 +1885,6 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 			     struct dc_plane_state *dc_plane_state,
- 			     struct drm_colorop *colorop)
- {
--	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *new_colorop_state;
- 	struct drm_colorop_state *tf_state = NULL, *lut_state = NULL;
- 	struct drm_atomic_commit *state = plane_state->state;
- 	struct drm_colorop *lut_colorop;
-@@ -1936,38 +1893,32 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 	const struct drm_color_lut32 *blend_lut = NULL;
- 	struct drm_device *dev = colorop->dev;
- 	uint32_t blend_size = 0;
--	int i = 0, ret;
-+	int ret;
- 
- 	tf->type = TF_TYPE_BYPASS;
- 	dc_plane_state->cm.flags.bits.blend_enable = 0;
- 
- 	/* 1D Curve - BLND TF: find state */
--	old_colorop = colorop;
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop &&
--		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_blnd_tfs)) {
--			tf_state = new_colorop_state;
--			break;
--		}
--	}
-+	if (colorop->type != DRM_COLOROP_1D_CURVE)
-+		return -EINVAL;
-+
-+	tf_state = drm_atomic_get_new_colorop_state(state, colorop);
-+	if (!tf_state)
-+		tf_state = colorop->state;
- 
- 	/* 1D LUT - BLND LUT: find state */
--	lut_colorop = old_colorop->next;
--	if (!lut_colorop) {
-+	lut_colorop = colorop->next;
-+	if (!lut_colorop || lut_colorop->type != DRM_COLOROP_1D_LUT) {
- 		drm_dbg(dev, "no Blend LUT colorop found\n");
- 		return -EINVAL;
- 	}
- 
--	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == lut_colorop &&
--		    new_colorop_state->colorop->type == DRM_COLOROP_1D_LUT) {
--			lut_state = new_colorop_state;
--			break;
--		}
--	}
-+	lut_state = drm_atomic_get_new_colorop_state(state, lut_colorop);
-+	if (!lut_state)
-+		lut_state = lut_colorop->state;
- 
--	if (tf_state && !tf_state->bypass) {
--		drm_dbg(dev, "Blend TF colorop with ID: %d\n", old_colorop->base.id);
-+	if (!tf_state->bypass) {
-+		drm_dbg(dev, "Blend TF colorop with ID: %d\n", colorop->base.id);
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-@@ -1977,7 +1928,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 		dc_plane_state->cm.flags.bits.blend_enable = 1;
- 	}
- 
--	if (lut_state && !lut_state->bypass) {
-+	if (!lut_state->bypass) {
- 		drm_dbg(dev, "Blend LUT colorop with ID: %d\n", lut_colorop->base.id);
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-index d2ae35bf550f..8e00da61a04b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-@@ -1847,8 +1847,9 @@ struct dm_test_colorop_fixture {
-  * @test: KUnit test context
-  * @type: colorop type to assign
-  *
-- * Fabricates a minimal drm_atomic_commit with one colorop slot so that
-- * for_each_new_colorop_in_state() finds exactly the colorop under test.
-+ * Fabricates a minimal drm_atomic_commit with the colorop in the only colorop
-+ * slot (index 0), so that drm_atomic_get_new_colorop_state() returns its new
-+ * state.
-  *
-  * Returns: a populated fixture (by value).
-  */
-@@ -1865,6 +1866,7 @@ dm_test_colorop_setup(struct kunit *test, enum drm_colorop_type type)
- 	f.colorop = kunit_kzalloc(test, sizeof(*f.colorop), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, f.colorop);
- 	f.colorop->dev = &f.adev->ddev;
-+	f.colorop->index = 0;
- 	f.colorop->type = type;
- 
- 	f.colorop_state = kunit_kzalloc(test, sizeof(*f.colorop_state), GFP_KERNEL);
-@@ -1911,8 +1913,10 @@ static void dm_test_colorop_multiplier_applied(struct kunit *test)
- }
- 
- /**
-- * dm_test_colorop_multiplier_no_match - Non-multiplier colorop leaves hdr_mult untouched
-+ * dm_test_colorop_multiplier_no_match - Non-multiplier colorop: return -EINVAL.
-  * @test: KUnit test context
-+ *
-+ * left hdr_mult untouched
-  */
- static void dm_test_colorop_multiplier_no_match(struct kunit *test)
- {
-@@ -1923,7 +1927,7 @@ static void dm_test_colorop_multiplier_no_match(struct kunit *test)
- 
- 	KUNIT_EXPECT_EQ(test,
- 			__set_dm_plane_colorop_multiplier(f.plane_state, f.dc_plane_state, f.colorop),
--			0);
-+			-EINVAL);
- 	KUNIT_EXPECT_EQ(test, f.dc_plane_state->hdr_mult.value, 0LL);
- }
- 
-@@ -2414,7 +2418,7 @@ static void dm_test_update_plane_color_mgmt_plane_ctm(struct kunit *test)
-  * dm_test_colorop_pipeline_add - append one colorop to a fabricated pipeline
-  * @test: KUnit test context
-  * @f: color update fixture that owns the atomic state
-- * @index: colorop array index to populate
-+ * @index: colorop array index to populate, also used as the colorop index
-  * @type: colorop type
-  * @curve_1d_type: 1D curve type for DRM_COLOROP_1D_CURVE states
-  * @bypass: bypass flag for the new colorop state
-@@ -2434,6 +2438,7 @@ dm_test_colorop_pipeline_add(struct kunit *test,
- 	colorop = kunit_kzalloc(test, sizeof(*colorop), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, colorop);
- 	colorop->dev = &f->adev->ddev;
-+	colorop->index = index;
- 	colorop->type = type;
- 	colorop->size = MAX_COLOR_LUT_ENTRIES;
- 
--- 
-2.53.0
+Today's linux-next merge of the drm-intel tree got a conflict in:
 
+  drivers/gpu/drm/i915/display/intel_psr.c
+
+between commits:
+
+  9bf9ced37e60a ("drm/i915/psr: Clear CFF state on flip flush")
+  4247f4e2c10ea ("drm/i915/psr: Re-arm PSR after flush")
+  6b3ea5a07eac0 ("drm/i915/psr: Flush on cursor update also when not using =
+Selective Fetch")
+  e30830d21860f ("drm/i915/psr: Don't clip plane state destination rectangl=
+e")
+  b56721c32eb3a ("drm/i915/psr: Disable linked plane sel fetch as well")
+  94cb1f08b197d ("drm/i915/display: Add enabled pipe planes into state for =
+selective fetch")
+  cbe565475988d ("drm/i915/psr: Clear selective fetch area when duplicating=
+ plane state")
+
+=66rom the drm-intel-fixes tree and commits:
+
+  233e3453eb705 ("drm/i915/psr: Clear CFF state on flip flush")
+  731ed8af13bde ("drm/i915/psr: Re-arm PSR after flush")
+  043ab39fe2daa ("drm/i915/psr: Flush on cursor update also when not using =
+Selective Fetch")
+  82a273802e29b ("drm/i915/psr: Allow Panel Replay and PSR2 with joiner")
+  81492de01598e ("drm/i915/psr: Resolve the PSR encoders through the joiner=
+ primary")
+  dd038a8d440a9 ("drm/i915/psr: Merge the selective fetch area across joine=
+d pipes")
+  ce234fd7ac01d ("drm/i915/psr: Derive the alignment loop condition from th=
+e SU area")
+  6a33b0c495174 ("drm/i915/psr: Split the selective fetch calculation into =
+helpers")
+  384679cd97c88 ("drm/i915/psr: Take the selective fetch area from pipe_src=
+")
+  e9b810694a5b1 ("drm/i915/psr: Exclude the joiner secondary from active_no=
+n_psr_pipes")
+  20470bb876bcf ("drm/i915/psr: Track all joined pipes for frontbuffer trac=
+king")
+  8621f3bcea6b0 ("drm/i915/psr: Don't clip plane state destination rectangl=
+e")
+  8330f2041b95f ("drm/i915/psr: Remove drm_info_once on failed selective fe=
+tch area")
+  1e922ed8c092a ("drm/i915/psr: Skip sel fetch support check for invisible =
+planes")
+  b10c83af60cbc ("drm/i915/psr: Disable linked plane sel fetch as well")
+  0d173898b1115 ("drm/i915/display: Add enabled pipe planes into state for =
+selective fetch")
+  bd58f0e221386 ("drm/i915/psr: Clear selective fetch area when duplicating=
+ plane state")
+
+=66rom the drm-intel tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/i915/display/intel_psr.c
+index 0ae347fe6cd19,bd16563603249..0000000000000
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@@ -36,6 -36,7 +36,7 @@@
+  #include "intel_cursor_regs.h"
+  #include "intel_ddi.h"
+  #include "intel_de.h"
++ #include "intel_display.h"
+  #include "intel_display_irq.h"
+  #include "intel_display_regs.h"
+  #include "intel_display_rpm.h"
+@@@ -1597,6 -1598,13 +1598,13 @@@ static bool intel_sel_update_config_val
+  	struct intel_dp *intel_dp =3D intel_attached_dp(connector);
+  	struct intel_display *display =3D to_intel_display(intel_dp);
+ =20
++ 	if (crtc_state->joiner_pipes && !crtc_state->dsc.compression_enable &&
++ 	    crtc_state->output_format =3D=3D INTEL_OUTPUT_FORMAT_YCBCR420) {
++ 		drm_dbg_kms(display->drm,
++ 			    "Selective update not enabled, uncompressed joiner does not suppor=
+t YUV 4:2:0\n");
++ 		goto unsupported;
++ 	}
++=20
+  	if (HAS_PSR2_SEL_FETCH(display) &&
+  	    !intel_psr2_sel_fetch_config_valid(intel_dp, crtc_state) &&
+  	    !HAS_PSR_HW_TRACKING(display)) {
+@@@ -1744,8 -1752,8 +1752,8 @@@ static bool _panel_replay_compute_confi
+ =20
+  	/* Remaining checks are for eDP only */
+ =20
+- 	if (to_intel_crtc(crtc_state->uapi.crtc)->pipe !=3D PIPE_A &&
+- 	    to_intel_crtc(crtc_state->uapi.crtc)->pipe !=3D PIPE_B)
++ 	/* Every joined pipe needs its own PSR/Panel Replay register block. */
++ 	if (intel_crtc_joined_pipe_mask(crtc_state) & ~(BIT(PIPE_A) | BIT(PIPE_B=
+)))
+  		return false;
+ =20
+  	/* 128b/132b Panel Replay is not supported on eDP */
+@@@ -1802,6 -1810,19 +1810,19 @@@ static void psr2_dc3co_disable_work(str
+  	mutex_unlock(&intel_dp->psr.lock);
+  }
+ =20
++ /* Frontbuffer bits for every pipe driving this PSR/Panel Replay instance=
+=2E */
++ static unsigned int psr_frontbuffer_mask(struct intel_dp *intel_dp)
++ {
++ 	struct intel_display *display =3D to_intel_display(intel_dp);
++ 	unsigned int mask =3D 0;
++ 	enum pipe pipe;
++=20
++ 	for_each_pipe_masked(display, pipe, intel_dp->psr.pipe_mask)
++ 		mask |=3D INTEL_FRONTBUFFER_ALL_MASK(pipe);
++=20
++ 	return mask;
++ }
++=20
+  static void
+  psr2_dc3co_flush_locked(struct intel_dp *intel_dp, unsigned int frontbuff=
+er_bits)
+  {
+@@@ -1817,8 -1838,7 +1838,7 @@@
+  	 * At every frontbuffer flush flip event modified delay of delayed work,
+  	 * when delayed work schedules that means display has been idle.
+  	 */
+- 	if (!(frontbuffer_bits &
+- 	    INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe)))
++ 	if (!(frontbuffer_bits & psr_frontbuffer_mask(intel_dp)))
+  		return;
+ =20
+  	mod_delayed_work(display->wq.unordered, &intel_dp->psr.dc3co_work,
+@@@ -1849,7 -1869,7 +1869,7 @@@ void intel_psr_set_non_psr_pipes(struc
+  	active_pipes =3D intel_calc_active_pipes(state, active_pipes);
+ =20
+  	crtc_state->active_non_psr_pipes =3D active_pipes &
+- 		~BIT(to_intel_crtc(crtc_state->uapi.crtc)->pipe);
++ 		~intel_crtc_joined_pipe_mask(crtc_state);
+  }
+ =20
+  void intel_psr_compute_config(struct intel_dp *intel_dp,
+@@@ -1877,17 -1897,6 +1897,6 @@@
+  		return;
+  	}
+ =20
+- 	/*
+- 	 * FIXME figure out what is wrong with PSR+joiner and
+- 	 * fix it. Presumably something related to the fact that
+- 	 * PSR is a transcoder level feature.
+- 	 */
+- 	if (crtc_state->joiner_pipes) {
+- 		drm_dbg_kms(display->drm,
+- 			    "PSR disabled due to joiner\n");
+- 		return;
+- 	}
+-=20
+  	/* Only used for state verification. */
+  	crtc_state->panel_replay_dsc_support =3D connector->dp.panel_replay_caps=
+=2Edsc_support;
+  	crtc_state->has_panel_replay =3D _panel_replay_compute_config(crtc_state=
+, conn_state);
+@@@ -1899,6 -1908,14 +1908,14 @@@
+  		return;
+ =20
+  	crtc_state->has_sel_update =3D intel_sel_update_config_valid(crtc_state,=
+ conn_state);
++=20
++ 	/* Plain PSR1 is not supported with joiner. */
++ 	if (crtc_state->joiner_pipes && !crtc_state->has_panel_replay &&
++ 	    !crtc_state->has_sel_update) {
++ 		drm_dbg_kms(display->drm,
++ 			    "PSR disabled, PSR1 not supported with joiner\n");
++ 		crtc_state->has_psr =3D false;
++ 	}
+  }
+ =20
+  void intel_psr_get_config(struct intel_encoder *encoder,
+@@@ -2179,6 -2196,7 +2196,7 @@@ static void intel_psr_enable_locked(str
+  	intel_dp->psr.panel_replay_enabled =3D crtc_state->has_panel_replay;
+  	intel_dp->psr.busy_frontbuffer_bits =3D 0;
+  	intel_dp->psr.pipe =3D to_intel_crtc(crtc_state->uapi.crtc)->pipe;
++ 	intel_dp->psr.pipe_mask =3D intel_crtc_joined_pipe_mask(crtc_state);
+  	intel_dp->psr.transcoder =3D crtc_state->cpu_transcoder;
+  	/* DC5/DC6 requires at least 6 idle frames */
+  	val =3D usecs_to_jiffies(intel_get_frame_time_us(crtc_state) * 6);
+@@@ -2398,6 -2416,7 +2416,7 @@@ static void intel_psr_disable_locked(st
+  	intel_dp->psr.psr2_sel_fetch_cff_enabled =3D false;
+  	intel_dp->psr.active_non_psr_pipes =3D 0;
+  	intel_dp->psr.pkg_c_latency_used =3D 0;
++ 	intel_dp->psr.pipe_mask =3D 0;
+  	cancel_delayed_work(&intel_dp->psr.dc3co_work);
+  	intel_dp->psr.dc3co_allowed =3D false;
+  }
+@@@ -2623,6 -2642,24 +2642,24 @@@ static void intel_psr_force_update(stru
+  	intel_de_write(display, CURSURFLIVE(display, intel_dp->psr.pipe), 0);
+  }
+ =20
++ /*
++  * The joiner secondary has no encoders of its own, its uapi.encoder_mask=
+ is
++  * zero. PSR is a transcoder level feature driven by the primary, so take=
+ the
++  * encoders from there. Only valid once the state has been swapped in, i.=
+e.
++  * from the commit phase.
++  */
++ static u32 psr_encoder_mask(const struct intel_crtc_state *crtc_state)
++ {
++ 	struct intel_crtc *primary_crtc;
++=20
++ 	if (!intel_crtc_is_joiner_secondary(crtc_state))
++ 		return crtc_state->uapi.encoder_mask;
++=20
++ 	primary_crtc =3D intel_primary_crtc(crtc_state);
++=20
++ 	return to_intel_crtc_state(primary_crtc->base.state)->uapi.encoder_mask;
++ }
++=20
+  void intel_psr2_program_trans_man_trk_ctl(struct intel_dsb *dsb,
+  					  const struct intel_crtc_state *crtc_state)
+  {
+@@@ -2635,7 -2672,7 +2672,7 @@@
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		if (!dsb)
+@@@ -2646,9 -2683,11 +2683,11 @@@
+  		break;
+  	}
+ =20
+- 	intel_de_write_dsb(display, dsb,
+- 			   PSR2_MAN_TRK_CTL(display, cpu_transcoder),
+- 			   crtc_state->psr2_man_track_ctl);
++ 	/* The joined pipes drive one transcoder, so program it once. */
++ 	if (!intel_crtc_is_joiner_secondary(crtc_state))
++ 		intel_de_write_dsb(display, dsb,
++ 				   PSR2_MAN_TRK_CTL(display, cpu_transcoder),
++ 				   crtc_state->psr2_man_track_ctl);
+ =20
+  	if (!crtc_state->enable_psr2_su_region_et)
+  		return;
+@@@ -2733,12 -2772,11 +2772,11 @@@ static void clip_area_update(struct drm
+  		overlap_damage_area->y2 =3D inter.y2;
+  }
+ =20
+- static bool intel_psr2_sel_fetch_pipe_alignment(struct intel_crtc_state *=
+crtc_state)
++ static void intel_psr2_sel_fetch_pipe_alignment(struct intel_crtc_state *=
+crtc_state)
+  {
+  	struct intel_display *display =3D to_intel_display(crtc_state);
+  	const struct drm_dsc_config *vdsc_cfg =3D &crtc_state->dsc.config;
+  	u16 y_alignment;
+- 	bool su_area_changed =3D false;
+ =20
+  	/* ADLP aligns the SU region to vdsc slice height in case dsc is enabled=
+ */
+  	if (crtc_state->dsc.compression_enable &&
+@@@ -2747,18 -2785,12 +2785,12 @@@
+  	else
+  		y_alignment =3D crtc_state->su_y_granularity;
+ =20
+- 	if (crtc_state->psr2_su_area.y1 % y_alignment) {
++ 	if (crtc_state->psr2_su_area.y1 % y_alignment)
+  		crtc_state->psr2_su_area.y1 -=3D crtc_state->psr2_su_area.y1 % y_alignm=
+ent;
+- 		su_area_changed =3D true;
+- 	}
+ =20
+- 	if (crtc_state->psr2_su_area.y2 % y_alignment) {
++ 	if (crtc_state->psr2_su_area.y2 % y_alignment)
+  		crtc_state->psr2_su_area.y2 =3D ((crtc_state->psr2_su_area.y2 /
+  						y_alignment) + 1) * y_alignment;
+- 		su_area_changed =3D true;
+- 	}
+-=20
+- 	return su_area_changed;
+  }
+ =20
+  /*
+@@@ -2768,8 -2800,7 +2800,7 @@@
+  static void
+  intel_psr2_sel_fetch_et_alignment(struct intel_atomic_state *state,
+  				  struct intel_crtc *crtc,
+- 				  struct drm_rect *display_area,
+- 				  bool *cursor_in_su_area)
++ 				  struct drm_rect *display_area)
+  {
+  	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
+  	struct intel_plane_state *new_plane_state;
+@@@ -2797,7 -2828,6 +2828,6 @@@
+ =20
+  		clip_area_update(&crtc_state->psr2_su_area, &new_plane_state->uapi.dst,
+  				 display_area);
+- 		*cursor_in_su_area =3D true;
+  	}
+  }
+ =20
+@@@ -2874,6 -2904,11 +2904,11 @@@ intel_psr_apply_su_area_workarounds(str
+  {
+  	struct intel_display *display =3D to_intel_display(crtc_state);
+ =20
++ 	/*
++ 	 * Called on the merged area, with the joiner primary crtc_state. The
++ 	 * secondary has no encoders of its own and the WAs below have to see
++ 	 * the whole SU region that goes into PSR2_MAN_TRK_CTL.
++ 	 */
+  	/* Wa_14014971492 */
+  	if (!crtc_state->has_panel_replay &&
+  	    ((IS_DISPLAY_VERx100_STEP(display, 1400, STEP_A0, STEP_B0) ||
+@@@ -2891,39 -2926,22 +2926,22 @@@
+  		intel_psr_apply_pr_link_on_su_wa(crtc_state);
+  }
+ =20
+- int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+- 				struct intel_crtc *crtc)
++ static void psr2_sel_fetch_compute_su_area(struct intel_atomic_state *sta=
+te,
++ 					   struct intel_crtc *crtc,
++ 					   bool *full_update)
+  {
+- 	struct intel_display *display =3D to_intel_display(state);
+- 	const struct intel_crtc_state *old_crtc_state =3D
+- 		intel_atomic_get_old_crtc_state(state, crtc);
+  	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
+  	struct intel_plane_state *new_plane_state, *old_plane_state;
+  	struct intel_plane *plane;
+  	struct drm_rect display_area =3D {
+  		.x1 =3D 0,
+  		.y1 =3D 0,
+- 		.x2 =3D crtc_state->hw.adjusted_mode.crtc_hdisplay,
+- 		.y2 =3D crtc_state->hw.adjusted_mode.crtc_vdisplay,
++ 		.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 		.y2 =3D drm_rect_height(&crtc_state->pipe_src),
+  	};
+- 	bool full_update =3D false, su_area_changed;
+  	int i;
+ =20
+- 	/*
+- 	 * Selective fetch is not always usable, for instance it is dropped
+- 	 * while pipe CRC is active. The planes keep their selective fetch
+- 	 * enable bit set in hardware over that, and a plane disabled while
+- 	 * selective fetch is off never gets the bit cleared. Once selective
+- 	 * fetch comes back the hardware would resume fetching for a plane that
+- 	 * is no longer enabled and keep its DDB range reserved, so have the
+- 	 * plane update drop the bit for every plane of the pipe as selective
+- 	 * fetch is turned off.
+- 	 */
+- 	crtc_state->clear_psr2_sel_fetch =3D old_crtc_state->enable_psr2_sel_fet=
+ch &&
+- 		!crtc_state->enable_psr2_sel_fetch;
+-=20
+- 	if (!crtc_state->enable_psr2_sel_fetch)
+- 		return 0;
++ 	*full_update =3D false;
+ =20
+  	crtc_state->psr2_su_area.x1 =3D 0;
+  	crtc_state->psr2_su_area.y1 =3D -1;
+@@@ -2931,8 -2949,8 +2949,8 @@@
+  	crtc_state->psr2_su_area.y2 =3D -1;
+ =20
+  	if (!psr2_sel_fetch_pipe_state_supported(crtc_state)) {
+- 		full_update =3D true;
+- 		goto skip_su_area_calc;
++ 		*full_update =3D true;
++ 		return;
+  	}
+ =20
+  	/*
+@@@ -2953,8 -2971,9 +2971,9 @@@
+  		    !old_plane_state->uapi.visible)
+  			continue;
+ =20
+- 		if (!psr2_sel_fetch_plane_state_supported(new_plane_state)) {
+- 			full_update =3D true;
++ 		if (new_plane_state->uapi.visible &&
++ 		    !psr2_sel_fetch_plane_state_supported(new_plane_state)) {
++ 			*full_update =3D true;
+  			break;
+  		}
+ =20
+@@@ -3003,58 -3022,117 +3022,122 @@@
+ =20
+  		clip_area_update(&crtc_state->psr2_su_area, &damaged_area, &display_are=
+a);
+  	}
++ }
+ =20
+- 	/*
+- 	 * TODO: For now we are just using full update in case
+- 	 * selective fetch area calculation fails. To optimize this we
+- 	 * should identify cases where this happens and fix the area
+- 	 * calculation for those.
+- 	 */
+- 	if (crtc_state->psr2_su_area.y1 =3D=3D -1) {
+- 		drm_info_once(display->drm,
+- 			      "Selective fetch area calculation failed in pipe %c\n",
+- 			      pipe_name(crtc->pipe));
+- 		full_update =3D true;
++ static void psr2_sel_fetch_set_su_area(struct intel_atomic_state *state,
++ 				       u8 joined_pipes, int y1, int y2)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc *crtc;
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 		struct intel_crtc_state *crtc_state =3D
++ 			intel_atomic_get_new_crtc_state(state, crtc);
++=20
++ 		crtc_state->psr2_su_area.y1 =3D y1;
++ 		crtc_state->psr2_su_area.y2 =3D y2;
++ 	}
++ }
++=20
++ /*
++  * One transcoder means one SU region. Joining splits the image horizonta=
+lly, so
++  * the pipes share the Y range. Returns false if no joined pipe has any d=
+amage.
++  */
++ static bool psr2_sel_fetch_merge_su_area(struct intel_atomic_state *state,
++ 					 u8 joined_pipes)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc_state *crtc_state;
++ 	struct intel_crtc *crtc;
++ 	int y1 =3D INT_MAX, y2 =3D INT_MIN;
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 		crtc_state =3D intel_atomic_get_new_crtc_state(state, crtc);
++=20
++ 		/* An empty area must not drag the merged one down. */
++ 		if (crtc_state->psr2_su_area.y1 =3D=3D -1)
++ 			continue;
++=20
++ 		y1 =3D min(y1, crtc_state->psr2_su_area.y1);
++ 		y2 =3D max(y2, crtc_state->psr2_su_area.y2);
+  	}
+ =20
+- 	if (full_update)
+- 		goto skip_su_area_calc;
++ 	if (y1 =3D=3D INT_MAX)
++ 		return false;
+ =20
+- 	intel_psr_apply_su_area_workarounds(crtc_state);
++ 	psr2_sel_fetch_set_su_area(state, joined_pipes, y1, y2);
++=20
++ 	return true;
++ }
++=20
++ /*
++  * Merging only grows the area, so a cursor that missed its own pipe's ar=
+ea can
++  * end up partially covered. Realign on the merged area until it stops gr=
+owing.
++  */
++ static void psr2_sel_fetch_align_su_area(struct intel_atomic_state *state,
++ 					 u8 joined_pipes)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc *crtc;
++ 	bool su_area_changed;
+ =20
+  	do {
+- 		bool cursor_in_su_area =3D false;
++ 		su_area_changed =3D false;
+ =20
+- 		/*
+- 		 * Adjust su area to cover cursor fully as necessary
+- 		 * (early transport). A visible cursor is in the state
+- 		 * even when it is not updated by itself as all planes
+- 		 * of the pipe are added into the state before the plane
+- 		 * checks when selective fetch is enabled.
+- 		 */
+- 		intel_psr2_sel_fetch_et_alignment(state, crtc, &display_area,
+- 						  &cursor_in_su_area);
++ 		for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 			struct intel_crtc_state *crtc_state =3D
++ 				intel_atomic_get_new_crtc_state(state, crtc);
++ 			struct drm_rect display_area =3D {
++ 				.x1 =3D 0,
++ 				.y1 =3D 0,
++ 				.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 				.y2 =3D drm_rect_height(&crtc_state->pipe_src),
++ 			};
++ 			struct drm_rect old_su_area =3D crtc_state->psr2_su_area;
+ =20
+- 		su_area_changed =3D intel_psr2_sel_fetch_pipe_alignment(crtc_state);
++ 			/* Needs the planes already pulled into the state. */
++ 			intel_psr2_sel_fetch_et_alignment(state, crtc, &display_area);
+ =20
+- 		/*
+- 		 * If the cursor was outside the SU area before
+- 		 * alignment, the alignment step (which only expands
+- 		 * SU) may pull the cursor partially inside, so we
+- 		 * must run ET alignment again to fully cover it. But
+- 		 * if the cursor was already fully inside before
+- 		 * alignment, expanding the SU area won't change that,
+- 		 * so no further work is needed.
+- 		 */
+- 		if (cursor_in_su_area)
+- 			break;
++ 			intel_psr2_sel_fetch_pipe_alignment(crtc_state);
++=20
++ 			su_area_changed |=3D !drm_rect_equals(&crtc_state->psr2_su_area,
++ 							    &old_su_area);
++ 		}
++=20
++ 		if (su_area_changed)
++ 			psr2_sel_fetch_merge_su_area(state, joined_pipes);
+  	} while (su_area_changed);
++ }
++=20
++ static int psr2_sel_fetch_apply_su_area(struct intel_atomic_state *state,
++ 					struct intel_crtc *crtc,
++ 					bool full_update)
++ {
++ 	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
++ 	struct intel_plane_state *new_plane_state, *old_plane_state;
++ 	struct intel_plane *plane;
++ 	struct drm_rect display_area =3D {
++ 		.x1 =3D 0,
++ 		.y1 =3D 0,
++ 		.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 		.y2 =3D drm_rect_height(&crtc_state->pipe_src),
++ 	};
++ 	int i;
++=20
++ 	/*
++ 	 * On full update the whole pipe is fetched, the plane loop below then
++ 	 * gives every visible plane its full area. Plane states come out of
++ 	 * the duplicate with a zero sized area, so this has to run on full
++ 	 * update as well.
++ 	 */
++ 	if (full_update)
++ 		crtc_state->psr2_su_area =3D display_area;
+ =20
+ +skip_su_area_calc:
+ +	if (full_update)
+ +		clip_area_update(&crtc_state->psr2_su_area, &display_area,
+ +				 &display_area);
+ +
+  	/*
+  	 * Now that we have the pipe damaged area check if it intersect with
+  	 * every plane, if it does set the plane selective fetch area.
+@@@ -3107,6 -3185,82 +3190,82 @@@
+  	psr2_man_trk_ctl_calc(crtc_state, full_update);
+  	crtc_state->pipe_srcsz_early_tpt =3D
+  		psr2_pipe_srcsz_early_tpt_calc(crtc_state, full_update);
++=20
++ 	return 0;
++ }
++=20
++ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
++ 				struct intel_crtc *crtc)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	const struct intel_crtc_state *old_crtc_state =3D
++ 		intel_atomic_get_old_crtc_state(state, crtc);
++ 	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
++ 	struct intel_crtc *joined_crtc;
++ 	bool full_update =3D false;
++ 	u8 joined_pipes;
++ 	int ret;
++=20
++ 	/*
++ 	 * Selective fetch is not always usable, for instance it is dropped
++ 	 * while pipe CRC is active. The planes keep their selective fetch
++ 	 * enable bit set in hardware over that, and a plane disabled while
++ 	 * selective fetch is off never gets the bit cleared. Once selective
++ 	 * fetch comes back the hardware would resume fetching for a plane that
++ 	 * is no longer enabled and keep its DDB range reserved, so have the
++ 	 * plane update drop the bit for every plane of the pipe as selective
++ 	 * fetch is turned off.
++ 	 */
++ 	crtc_state->clear_psr2_sel_fetch =3D old_crtc_state->enable_psr2_sel_fet=
+ch &&
++ 		!crtc_state->enable_psr2_sel_fetch;
++=20
++ 	if (!crtc_state->enable_psr2_sel_fetch)
++ 		return 0;
++=20
++ 	/* The joined pipes are handled in one go from the primary. */
++ 	if (intel_crtc_is_joiner_secondary(crtc_state))
++ 		return 0;
++=20
++ 	joined_pipes =3D intel_crtc_joined_pipe_mask(crtc_state);
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, joined_crtc, joined_pipes) {
++ 		psr2_sel_fetch_compute_su_area(state, joined_crtc, &full_update);
++=20
++ 		/* One pipe falling back takes all of them with it. */
++ 		if (full_update)
++ 			break;
++ 	}
++=20
++ 	/*
++ 	 * TODO: For now we are just using full update in case selective fetch
++ 	 * area calculation fails. To optimize this we should identify cases
++ 	 * where this happens and fix the area calculation for those.
++ 	 */
++ 	if (!full_update && !psr2_sel_fetch_merge_su_area(state, joined_pipes))
++ 		full_update =3D true;
++=20
++ 	if (!full_update) {
++ 		/*
++ 		 * The WAs clamp the SU region that ends up in the per
++ 		 * transcoder PSR2_MAN_TRK_CTL, so they have to run on the
++ 		 * merged area rather than on the per pipe ones. crtc_state is
++ 		 * the joiner primary, the only one carrying the encoders the
++ 		 * WAs look at, and the merge guarantees a non empty area.
++ 		 */
++ 		intel_psr_apply_su_area_workarounds(crtc_state);
++ 		psr2_sel_fetch_set_su_area(state, joined_pipes,
++ 					   crtc_state->psr2_su_area.y1,
++ 					   crtc_state->psr2_su_area.y2);
++=20
++ 		psr2_sel_fetch_align_su_area(state, joined_pipes);
++ 	}
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, joined_crtc, joined_pipes) {
++ 		ret =3D psr2_sel_fetch_apply_su_area(state, joined_crtc, full_update);
++ 		if (ret)
++ 			return ret;
++ 	}
++=20
+  	return 0;
+  }
+ =20
+@@@ -3332,7 -3486,7 +3491,7 @@@ void intel_psr_wait_for_idle_locked(con
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     new_crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(new_crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+  		int ret;
+ =20
+@@@ -3621,8 -3775,7 +3780,7 @@@ void intel_psr_invalidate(struct intel_
+  			continue;
+  		}
+ =20
+- 		pipe_frontbuffer_bits &=3D
+- 			INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe);
++ 		pipe_frontbuffer_bits &=3D psr_frontbuffer_mask(intel_dp);
+  		intel_dp->psr.busy_frontbuffer_bits |=3D pipe_frontbuffer_bits;
+ =20
+  		if (pipe_frontbuffer_bits)
+@@@ -3693,8 -3846,7 +3851,7 @@@ void intel_psr_flush(struct intel_displ
+  			continue;
+  		}
+ =20
+- 		pipe_frontbuffer_bits &=3D
+- 			INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe);
++ 		pipe_frontbuffer_bits &=3D psr_frontbuffer_mask(intel_dp);
+ =20
+  		if (pipe_frontbuffer_bits =3D=3D 0)
+  			goto unlock;
+@@@ -3981,7 -4133,7 +4138,7 @@@ void intel_psr_lock(const struct intel_
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		mutex_lock(&intel_dp->psr.lock);
+@@@ -4004,7 -4156,7 +4161,7 @@@ void intel_psr_unlock(const struct inte
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		mutex_unlock(&intel_dp->psr.lock);
+@@@ -4609,6 -4761,10 +4766,10 @@@ void intel_psr_compute_config_late(stru
+  		crtc_state->has_sel_update =3D false;
+  		crtc_state->enable_psr2_su_region_et =3D false;
+  		crtc_state->enable_psr2_sel_fetch =3D false;
++=20
++ 		/* Plain PSR1 is not supported with joiner. */
++ 		if (crtc_state->joiner_pipes)
++ 			crtc_state->has_psr =3D false;
+  	}
+ =20
+  	/* Wa_18037818876 */
+
+--9/G13HJc/YtuFupn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0l50ACgkQJNaLcl1U
+h9AkwQf/XXDo43RPkKONKU/GDUXtEdXWkV1PKLS3G1FPULOwhA6CTVkN2bSMiL3w
+zv7CKTgtv/bdm9NLowQ/wQLcH+/U2n83gpKJPyvXZjHiAKxJCF01RNXuLGhNHnTu
+jxjC/p0yOWKWjDTjmYkIfNVkqX8tf0UXGo9JhE6TS25HPthrBKeSWVGfJ7H9eHtY
+hAi1ENBbzqNc39v65k74quMRcfO8WvSAQqfR7QNRaNim59MUvpQgHsXmnXSoytxS
+45lgzV9sZIbHhIx7KkkXjNpBmkEJ6i7KfdoXT6ZkWlQC/hC9uyyBYoNdAGcc8R+X
+8IL+tlCEuew1Qc+48nki0KNU5zk5nQ==
+=334l
+-----END PGP SIGNATURE-----
+
+--9/G13HJc/YtuFupn--
