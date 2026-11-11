@@ -2,163 +2,161 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F87606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 13:00:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C88606A333
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 13:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=otOxawUx;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Fg+Nrul0;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=EhbSiBds;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3pIOXjjl
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CZVAfM/D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65AD310FB6B;
-	Wed, 11 Nov 2026 13:00:28 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E06410FB2C
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 13:00:16 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1077822163;
- Wed, 11 Nov 2026 12:59:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794401998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
- b=otOxawUxw790/QFBjM3l+MFthA3861nlTmYALPAV8UroFCQPTuhWdqQLx2Bc1uIFTNjUSf
- mnB6pWLs5IMmL/6Nh1C4bBTDNKUwUU7gS0QrpHdV+W4K35O9r7vi4hE7ol2MHfBI5rkx3k
- JbleWrObvsXGVSk2sYZAGh9tC4q+53o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794401998;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
- b=Fg+Nrul0Jyo5LklpxiAuZ0HYrvjr7mnXZnx3MVHOfvH21g/exOhh1s1UL3D/FUe/akkrR2
- wP4WfFpYZXc1TlDQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=EhbSiBds;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3pIOXjjl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794401997; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
- b=EhbSiBdsrSVaKSADwnL0R0h2FhNTtiQe8O4S+eqdUQd7Xrl3mwHjJ524yrql/BM+FAIbBh
- HcAzG0kPGFOJOYhrbr+minyw5ZLHbacQpG6BNn1fmyvfN8AukapPIrVspm4teWxjv0DZBr
- REDvjtoemSrILrH4izF8HUQ1q72PYZk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794401997;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vckRnu8yhYPujC9czlRHD4eY30Ogbh/EdkpZK4P1gpY=;
- b=3pIOXjjlSEb/Dd0pQ3rAW5PfZnnK2WJEDuZe2OvPfIrsqGCueoEmJPkiIgDh+2Aw4Jz8eq
- hcEUcN+9syH0oIBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E94B11339F;
- Wed, 11 Nov 2026 12:59:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SHrxKstm9GqAMwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Nov 2026 12:59:55 +0000
-Message-ID: <64a26d9d-664b-4443-8d71-b854bb01316d@suse.de>
-Date: Wed, 11 Nov 2026 13:59:55 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2351210E3BF;
+	Wed, 11 Nov 2026 13:17:53 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3683710E3BF;
+ Wed, 11 Nov 2026 13:17:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794403067; x=1825939067;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=PGG6jUiEaLS0OY1wAi8Gh4ZKi7RH8GPV1oHWpPN9ssw=;
+ b=CZVAfM/DSIyfZF14QAfMdrnVenFX0Ge2geP5JLK7Gic40gQ6jXmhW9jH
+ tKz0UyvEXmFdAAHyt1vCln5Ohq0RhGDv/GHzF2bBegpvR5hT7X3Zgtv1z
+ FcG/DvJWC6jKckBUhKHNVhYYdlepogjLTfRkIHyz6arcQRpKVpdgBCXjF
+ hdNQ3yNV/U0kfcUfnIO+iEEAwzMUEiE3Xvte7ElUvz9iJnFFAM4PJihX4
+ 6Xm2tM6yLLi+zUlTnYHZg3Yx8iO0NiUcRamHyu0euK5TuyFIad8dkVAAM
+ V9y+GZcRbPM3672pckintFKm7woxxWuK4YOoSuSchHNXMtEOXqfb9+53G A==;
+X-CSE-ConnectionGUID: rxqW96yATLuUK+fo3Cogew==
+X-CSE-MsgGUID: rjuzBDWURIu1rjqjheLQ2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3179222"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3179222"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 05:17:47 -0800
+X-CSE-ConnectionGUID: 8RpVgndjQ3ypSkwFZ4eEdg==
+X-CSE-MsgGUID: PnTR7/evQmCSrpZZXbegnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8280778"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 05:17:46 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 05:17:45 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 05:17:45 -0800
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.4) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 05:17:45 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m/Yu8fmhKWA9RYzqBttVzI2NuvCkyZ89Ckhgrpip5KAEhRMYu833B19zlzzMjBpn1akm1TL2EfqZc1F1pis7TmeqDEgLhrBc/lF+IHnJWi9lYv5CKEK0czgaj/iq5ylfPf3jXsD6YIFQCEaBqpQP9ds7o6fs4LKRv7BalFIaMrR5rBj4C6HvI3ZcYM4fNQ6Xz07ddnvjwzUbqcYG7rx1O5ZwnQ2Lx5oTLOUfKwFVwjUCklrOLjboWNS/uohiEexV/+Ihjt730uwAJlmN8G//Zl7evbJ5IU+mPeMfprFbxYgoUQlJFXANbFOVTJBGwHWAf/6mPrPTycXMWevjCjNgXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8WIncSbNcdYp+InoDlJI3YtnYdwT6GG6OtMvvPYzeNU=;
+ b=zFdsaFu+/lbgwK6CUQBPdq77T/xvtpPUlVTdC2iUFbackJjE6Ag/w7awdEQMyjXVo4lfhhN2BwRmCGdWOAigAESrbPyw6Z4nShOoQ876y27NfY1ydLl/ACTAK8phJ8sWDqXRwyCFypaPZyotAQ9Sa9SmTk4Ouh/Zn89kVdxpUAH2j/LgPMcZpPreN71rUl/VMFv0v0VxzJaC0hXt5mE/Yld5Rd4xp7Pa64CkUX6ILo1cy3jgLGcxWaJtwZ8y4hnauEN3XINua/xvq5seX/Uu1DVFHlY3cZNbxQv2CvuNvqsOvIiDBFWMW/Zq7iHFzBEBYs23AD6xiwAGHAfdTXoljw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from LY0PR11MB357627.namprd11.prod.outlook.com
+ (2603:10b6:404:21a::11) by CH9PR11MB759243.namprd11.prod.outlook.com
+ (2603:10b6:610:30f::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 13:17:39 +0000
+Received: from LY0PR11MB357627.namprd11.prod.outlook.com
+ ([fe80::71fd:d139:945b:a71c]) by LY0PR11MB357627.namprd11.prod.outlook.com
+ ([fe80::71fd:d139:945b:a71c%5]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 13:17:38 +0000
+Message-ID: <5fa1b644-2389-458f-b8dd-cfec57a7ebad@intel.com>
+Date: Wed, 11 Nov 2026 18:47:31 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915/dip: Write the DIP header last with SDP
+ transmission lines
+To: Xiao Lu <xiaolu.xie@intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <ankit.k.nautiyal@intel.com>, <suraj.kandpal@intel.com>
+References: <20261111103542.4093652-1-chaitanya.kumar.borah@intel.com>
+ <20261111121653.79410-1-xiaolu.xie@intel.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20261111121653.79410-1-xiaolu.xie@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0069.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b3::17) To LY0PR11MB357627.namprd11.prod.outlook.com
+ (2603:10b6:404:21a::11)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] drm/gem: Switch to __nonnull_args() macro
-To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
- <billy_tsai@aspeedtech.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Kees Cook <kees@kernel.org>,
- Andy Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, Andy Whitcroft
- <apw@canonical.com>, Joe Perches <joe@perches.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-References: <cover.1793027261.git.d@ilvokhin.com>
- <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 1077822163
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[38];
- FREEMAIL_TO(0.00)[ilvokhin.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,intel.com,ursulin.net,kernel.org,jms.id.au,codeconstruct.com.au,aspeedtech.com,infradead.org,linux-foundation.org,canonical.com,perches.com,lwn.net,linuxfoundation.org];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,lists.infradead.org,lists.ozlabs.org,kvack.org,gmail.com];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+];
- R_RATELIMIT(0.00)[to_ip_from(RLgosu6qu4h11rje89ht7rjgg5)];
- DBL_BLOCKED_OPENRESOLVER(0.00)[ilvokhin.com:email, suse.de:dkim, suse.com:url,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.00
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LY0PR11MB357627:EE_|CH9PR11MB759243:EE_
+X-MS-Office365-Filtering-Correlation-Id: 969177a8-4bc9-4420-e133-08df3ff628b1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|260925021911599003|260925021311599003|260925022911599003|10067099003|11063799006|4143699003|56012099006|261022105027099003|261026121527099003|261026140227099003|261028144727099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: gyRwQ5AWpD8OYeL6ovsxNxMsaTrM7u3l7meK0i28MrqJEe+fkKCr0eTzHBf/8fW5Ljt7hMBI+51aAiz9sRj1HO6Ygx4uH3oebV3hZESqRRjVNERFREzhM4PoKV4DpMr0KI8p/ZCo/2QZpo+laMa5WFC/vEHUSk3v36iy3lqsaat4enHXNkaISH5seznmeiXKVp18I+8W6GHOgU0RlU59/e2D45Db+WJsDLlABTFCn2rhcQ4rEOYiZSk+Hpptp07atOHp170i098zD318J15BGiUvJ0KoeDmA/hNcjWrwdBx3pR12nMRt6qxgEkZuS0zSrD6LB71RoF/Ks69oQcBJ6O7WJEWGju7q68msmfQ/pW1EmNrdQRwvww2jlprVP+C3Xcoaynp568ZWknoIb5AU+9Vys1kUw32KVhc91pbIyiv9pYeO4wC+smv+8an4iQDRLJV/tvw5IA0lTjGDkYWITd58vBIETxej+GBpxJUU0XIb8qNPUhzCUDtBqqV7Wot5BF6em7d2NVUumm1BRVl/fVZFy4SjiS6BHLjf3DBS60pFKl/aDo15f+/M3zc66KmZkhan60aFj1ZAuEdtvgVbaJ8IQByuwgMhu60WxX+KMGg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LY0PR11MB357627.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(260925021911599003)(260925021311599003)(260925022911599003)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TlQzSUFqY1dsNTJkVXFpcUF5T2Y0dElkaHFWRWlPRGttYzA1Titjb3hHQ0hq?=
+ =?utf-8?B?Wm1sYXpsblVJQ0xsYTlrZ3pBWWJwaXhVV09kWS9Iai9vTWswNUw3Tkc5MmlL?=
+ =?utf-8?B?RUVTTEtqTmgvMFZmdGdmdUh4b1ZIdkhTSlpTUU9nTkh2dlZoSENCUStnL3lD?=
+ =?utf-8?B?UzM4NzE0azV6RlFvZTNsdCtpV1VCNjZianBrZyswdFFMQlVUTUZnWjh3bnBY?=
+ =?utf-8?B?M2FsdWRvNHFBUSsyb2RJa092RTFiNDZxYmgrdk5FOVlsbWFYY1JYa2lqUVhS?=
+ =?utf-8?B?Q2hSL2wxT3JxY3lpSWdtRU45K2R6N1hHc00xL25nUllvd3NRWnV0alZXdnYz?=
+ =?utf-8?B?ejJYWHkwRlpPOHNJaThMeFVlaU15WXR3K29VOHh6elVjU2NsQzRRRzBpRTF4?=
+ =?utf-8?B?VzI1eXIwNXJIeEFTejJmZlVaaEdEVUN0SXFURVNNM2J4bUxNY3RhaWlkMUlK?=
+ =?utf-8?B?WlhsL1RTY2ZTMkV0bVZXQ0VyV2Z6N1NzQjRFRmFxQis3emtlTCtDQUdrcmFj?=
+ =?utf-8?B?NlFrUFpSMUxYdDNId0NqMUMzeFdORElHRzJSUk80b04xQVU5TGRMZTFXb3Bu?=
+ =?utf-8?B?bmJSTi96MkpVTUFoRnFRdVRUemI3RkdrR2pIajZ5SG8wQWZ0Q0IwbmlZMTBh?=
+ =?utf-8?B?VG1yR3RMbzVrMmhoallUbHN3N0NHSG9DSWpxVllKR0hYNTk3OTgxVjBwb0FV?=
+ =?utf-8?B?dllZT0x2eGxNVUZhN0cwWHJLUkJlNi9CdFkwL0VPUU11RFRoOXpuSHNBZ3hS?=
+ =?utf-8?B?bVNQdHk3cHpZNlB2eXhnSHBnRUZiUVMrMVBNSTdsbDNhQjg2V0Z0Q2Rndzlt?=
+ =?utf-8?B?c0hET1VTamRUK042Tkx1UTBqaFhUN3ZyaXU1TDdWRG9zMi9TWmMyNG1DVWhB?=
+ =?utf-8?B?MXJQbUUzZ1pmRkE2WkFLS2c5MW4xM3ZldUVZSXBCNjIwTitoSVNBU0lJcSt2?=
+ =?utf-8?B?YklnUDZDZDl5U0svdE1hUU5aN1BybFhLUzc4VWFnTkJndGwrWmxIbTJYVEdO?=
+ =?utf-8?B?L2cxemhRckdCK09rTXFsbGFET25ESEVkaTd4WlNZc2w5bGJWRU9pZnNwQmgy?=
+ =?utf-8?B?SWJ5NVhERjlQWWJFdkVIbTdFOGdSYnhEN3UzOVZ1VWwyVFoxRWxpZGJyN1RV?=
+ =?utf-8?B?eE10Y2tEa2IvbmdVTm5IZVg1NnUwSjVrY0xKckRGTzJYdEZnTExaTUFQVlVw?=
+ =?utf-8?B?TzRleW1UWFgvYXNSckdjV2NhaTZoQkJlOXFvUlRFMS9janBndmRiTGVicTFo?=
+ =?utf-8?B?bVlKQ3dxVlpkN1hjT2NNeXkwRjJLQ2U0eU5SSTVSYzFZa1JDNlIxUXVBRGNE?=
+ =?utf-8?B?RUJXMlpZbWl6TnB6QlloWUhIb2ZqdE5rUzNlQWJHK2xuQ0xHL1ExTXdEdmty?=
+ =?utf-8?B?K0tBSTBEVXRPSnZkRldCWDJVbjZCek54RDA4YUplTUpPTXRrdU5INlRnU1pB?=
+ =?utf-8?B?enBscVM2V3RXNng1akpSOHd3eVl5MHh6Q1h2R2I5aXlITldRNnQ1WjFEbGdu?=
+ =?utf-8?B?NEVOR0M3T0xab2RFWDVKWHZKempXdFd5N2g3cURpWUVIQjdLM0xMME5jS3hh?=
+ =?utf-8?B?RElPV2syNkVkcHA1emNDaUg2dHluS0loWEFKelkvTHA0LzN6cUh2bWtJT1Fy?=
+ =?utf-8?B?NVcvSnhEOU96eUlWaHVQT1dFQ0xBUFB5RllSNFhWZGU2SnhUSUcxNVAvQ292?=
+ =?utf-8?B?M1Fqenp3MWhhejdZSWV4RG5pcGVaZ1krZCtjakR6b3dkQ1lRRXJ5b1FBa21T?=
+ =?utf-8?B?c2RISlY2dkZhdFBTMCtuSEdaU0VsaGp6RkFIRm1JVGVkTm41aGVWbE9yaDA5?=
+ =?utf-8?B?a244QWdWLzZQZytmcmtpNWYwUVhQVFo0d3hZQ3dNbUdEeUZEdjNVQ0F6ajVR?=
+ =?utf-8?B?b0E0Ni8vL2tkSDRRQVNhS3VVbXZvMEFaM1FwVzl4dXVCMWp2RDl6MEw0MzIz?=
+ =?utf-8?B?WVlJVEZiZm1ueit2NXd2Mi84TGFRWFk4U1gwZklhYkZyaVJoVm53MDhFSzA4?=
+ =?utf-8?B?YTRYWTI1aWxiN1EvbVlJbktkTkxEZENxTDIwTXpFSUw2YlJKNTRwMTNzRUNM?=
+ =?utf-8?B?S0gwWXV4NjZYYlRwV3dleUZIelhCOVh2eWZ4NTZGQzdLMjZaMWMvcFhVL21u?=
+ =?utf-8?B?ak8yM1M5RE5veitLSXNRMk9Qc1l5OEdGcVZnMHRlUnJUd29HdTF5TU8yR1Nk?=
+ =?utf-8?B?YmFUUm82S25BRTRNQmxyTkc5MzRZdVpoNGtwWWVTNHJwbTl4d2ljaG00U0l0?=
+ =?utf-8?B?N21iVjdvYkVIMTgvRDBrV3Erd0ZOZG5MK3crRWhuZzI1WUFINE9mVGIxSW5F?=
+ =?utf-8?B?NjBQN0E0NWt2MHJYbG81MnFDU3VubVErMUoyUHF1Y1ZFekRickZ3Q1R4Kyti?=
+ =?utf-8?Q?EtLCDleFAU2YECU4=3D?=
+X-Exchange-RoutingPolicyChecked: ezePIPubAGcCL48grWCv616OLyRwMpzu3vcQT1JNHbAUaAqJhvGLcRX81sxq8Zmet7Kam6ln5d9aalH01OjMnkbcfwT17r9kQclfU2tHk0j8fvJAhGMceyrbT8vYdlWGOKvnbtr5ALrWmlekten06QnoKzsH1SjWpNBiwewyLJJx2SqmwsIDtQ6S7nhJy3sh+xTJ1iQBkaltY/GlguSYzig2zeY4+2Qh1wvRl2WDS7InzI5vdrnN4zWsFFTFdD+MaOmSGaRRAfGHb8vOudzZ6JG+K9ueep43hTKAYb5edxf7NQqIIzZGSVmIyVERcCZz3vAqaAeGgY+amZXM9jcPXQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 969177a8-4bc9-4420-e133-08df3ff628b1
+X-MS-Exchange-CrossTenant-AuthSource: LY0PR11MB357627.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 13:17:38.7749 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: THzwga+eIICZedui2jtDpwLbqEJ/tj8yWpZTMRQ+HVkJ8ylt1h2jCzPLTaYsxKqL2pfHFJSBzpaCeWjoDaSNCmbk9pHssVlzDHQMFx1SUC4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR11MB759243
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,54 +168,100 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hello Xiao,
 
-
-Am 28.10.26 um 09:19 schrieb Dmitry Ilvokhin:
-> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-> nonnull") added the macro __nonnull_args() to wrap raw compiler
-> attribute.
+On 11/11/2026 5:46 PM, Xiao Lu wrote:
+> Hi Chaitanya,
+> 
+> On Wed, 11 Nov 2026 16:05:42 +0530, Chaitanya Kumar Borah wrote:
+>> On platforms with SDP transmission line registers, the packets anchored
+>> to them are double buffered in the transcoder (TC) clock domain. The packet
+>> registers are in the core display (CD) clock domain and the whole packet is
+>> clock crossed on the write of the header (dword 0), so Bspec requires the
+>> data to be programmed first and the header last.
+>>
+>> hsw_write_infoframe() writes the header first, so the packet is crossed
+>> before its payload is in place and the previous payload keeps being sent.
+> 
+> This is the same change, with the same reasoning (Bspec 75640), as the one
+> I posted for Xe2+ two weeks ago:
+> 
+>    https://patchwork.freedesktop.org/patch/763779/
+>    Message-ID: <20261028112423.2445450-1-xiaolu.xie@intel.com>
+> 
+> Yours looks like the better base for that part, as HAS_EMP_AS_SDP_TL also
+> covers BMG and it has the Fixes: and stable tags, so I'm happy to rebase on
+> top of it.
+> 
+> [...]
+> 
+>> Alternatives considered:
+>>   - 6a1712052859 (v7.2): AS SDP on whenever VRR is possible. The PTL
+>>     report is fixed by reverting it. Narrower than the spec argument, as
+>>     it only covers v7.2 and later.
+> 
+> Is that PTL report this one?
+> 
+>    https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9693
+> 
+> Our patch was written for it: an eDP panel dropping the VSC SDP after some
+> HDR modesets on PTL, with different VSC ECC registers compared to the
+> working case. The reporter tested our patch on the affected machine and
+> commented in the issue that the test passes.
+> 
+> [...]
 >
-> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
-> nonnull attribute usage across the tree and keep the attribute's quirks
-> in one place rather than open-coded at every call site.
->
-> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 
-I've added this patch to drm-misc-next
+Thanks for the pointer to your earlier patch. Sorry, I missed it. The 
+PTL issue I was referring to was a different one:
 
-> ---
->   include/drm/drm_gem.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index ed329408acbe..56dd15921c7a 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -566,7 +566,7 @@ static inline void drm_gem_object_get(struct drm_gem_object *obj)
->   	kref_get(&obj->refcount);
->   }
->   
-> -__attribute__((nonnull))
-> +__nonnull_args()
->   static inline void
->   __drm_gem_object_put(struct drm_gem_object *obj)
->   {
+   https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9746
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+where reverting 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR 
+is possible or PR !async") helps, but it looks like the same problem as 
+seen in
 
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17732
+
+
+>> +	if (header_last)
+>> +		intel_de_write(display,
+>> +			       hsw_dip_data_reg(display, cpu_transcoder, type, 0),
+>> +			       data[0]);
+>> +
+>>   	/* Wa_14013475917 */
+>>   	if (!(IS_DISPLAY_VER(display, 13, 14) && crtc_state->has_psr &&
+>>   	      !crtc_state->has_panel_replay && type == DP_SDP_VSC))
+> 
+> There is one more hunk in our patch that yours does not have. Right below
+> this, hsw_write_infoframe() ORs VSC_DIP_HW_DATA_SW_HEA into VIDEO_DIP_CTL
+> for the VSC SDP. VSC_SELECT is a two bit field (VSC_SELECT_MASK), so a
+> stale value is not replaced but merged with the new one, e.g. 1 | 2 results
+> in 3. We clear the field before setting it, and also clear it in
+> intel_dp_set_infoframes() when the SDPs get disabled.
+> 
+> Was leaving that out intentional, e.g. because the field is guaranteed to be
+> clear at that point, or is it something that was missed? If it is needed, I
+> can send it as a separate patch on top of yours.
+> 
+
+I didn't look at VSC_SELECT, as the header write order alone fixed what 
+I was seeing. The driver only ever writes the "data only" value there, 
+so a stale value would have to come from state the driver didn't write 
+(e.g. BIOS) but I reckon clearing it first is harmless. You can post it 
+on top of v2 where I plan to drop the HAS_EMP_AS_SDP_TL check, as Ville 
+suggested.
+
+==
+Chaitanya
+
+> Thanks,
+> Xiao
 
