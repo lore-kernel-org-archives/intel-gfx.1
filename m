@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD1D606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 10:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A00D606A327
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 11:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n7dkZqTx
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FXfbwwMs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B35A10FAC5;
-	Wed, 11 Nov 2026 10:58:58 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF8710FACB;
- Wed, 11 Nov 2026 10:58:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 048B210FAEB;
+	Wed, 11 Nov 2026 11:14:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F22A10FAE6;
+ Wed, 11 Nov 2026 11:14:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794394733; x=1825930733;
+ t=1794395673; x=1825931673;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=wAxIcKnQLFuEIpR+gtRgDnl+FmtnM4Ewvlsw7sKz1jw=;
- b=n7dkZqTxEnqocclq0IA3V5C46ypk05A9sacgiW7KACk+53KPcuEkbf6d
- BZGFlUBcRF/xWJ87Uo8VD32YuP91zETXNJkJR5ZyuMBKTUNqub24zakUk
- Jdj/jj4WtB6o7HB/jEmXkFvMPxfQF8MHs3oMvEoVOB7Ej/8vlF6vm8MtA
- +tFde3Q9f37DjuvT6WCBS+8nXkczDOsSYedKYBfgLFnTLXXzIcQhiktBO
- LQmdmnf7CFVZw5bTdV1pWgHczXz3A8o2q9IZ1wUve4QTlBvXSWoDGhx8b
- DjtPUW9YZB2TZP+YOFMG+PtbdrOYM4oMxyAnUJQPiwYJSx2ztmOm8rykZ Q==;
-X-CSE-ConnectionGUID: RW6o40DmSQSd9tEnoUIJFQ==
-X-CSE-MsgGUID: u3vDnL5QRbeYGJ526csZ7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3064423"
+ bh=fnzEOwCHjDpWqrxB1DbPI9LdH7xvbC7iPRAf6iSv1us=;
+ b=FXfbwwMsd/2IQrvVr3EZuAuc7Qds6mZSVVnI1tNCKyVK6ip5xYZJXSRu
+ 2MsAX+f38YAoZO6FEMShm5FSRiIfIprbk2pVOMYIRFTgiUTx9WzHt2p6l
+ z3pgpMzt2eM5l1d22E6VdKyzQyspG6KfHkL4Smcsgu9MsbaDBN7FUodmO
+ BWokCH1bERu91PzThfgBmBrgBqXhw20k7Yi2FrySb93XvIKfxoyveUNxQ
+ d9EfqxUmfybsjVTcjPmelo+62agsDEIYyGFdXTLGs9iHDv65Nn68yn0nQ
+ O/nDusgDlUh9d87G14RAnqft6Ae61Er9ildadyqxNpr9i0fQZItWSHiNI Q==;
+X-CSE-ConnectionGUID: D2v9K32KSeCTxuenXl+ENQ==
+X-CSE-MsgGUID: gFZdQgMVSey2SSKBBkSQdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3161695"
 X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3064423"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 02:58:52 -0800
-X-CSE-ConnectionGUID: 4VajYzGfTKeSOMtMoe96gA==
-X-CSE-MsgGUID: 7PgorDSwSK2UdINBsoYILg==
+   d="scan'208";a="3161695"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 03:14:30 -0800
+X-CSE-ConnectionGUID: cl3NP+yqSZqCQ+1wtSLbtw==
+X-CSE-MsgGUID: oXKEQCuNSGK5wBxm+bHP3w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8962332"
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa010.fm.intel.com with ESMTP; 11 Nov 2026 02:58:50 -0800
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- stable@vger.kernel.org, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/dip: Write the DIP header last with SDP transmission
- lines
-Date: Wed, 11 Nov 2026 16:05:42 +0530
-Message-ID: <20261111103542.4093652-1-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.50.1
+   d="scan'208";a="8491546"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by fmviesa005.fm.intel.com with ESMTP; 11 Nov 2026 03:14:27 -0800
+From: Xiao Lu <xiaolu.xie@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: suraj.kandpal@intel.com, ankit.k.nautiyal@intel.com, mika.kahola@intel.com,
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ Xiao Lu <xiaolu.xie@intel.com>
+Subject: [PATCH] drm/i915/ltphy: Fix the HDMI PLL setup for a DCO below 11.85
+ GHz
+Date: Wed, 11 Nov 2026 19:12:18 +0800
+Message-ID: <20261111111218.23625-1-xiaolu.xie@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -72,127 +72,87 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On platforms with SDP transmission line registers, the packets anchored
-to them are double buffered in the transcoder (TC) clock domain. The packet
-registers are in the core display (CD) clock domain and the whole packet is
-clock crossed on the write of the header (dword 0), so Bspec requires the
-data to be programmed first and the header last.
+The HDMI PLL algorithm looks for a DCO frequency in the 11850 - 16200 MHz
+range first and, if there is no solution, in the 10000 - 12000 MHz range.
+The result is then treated as a low ("12G") DCO if it is below the fixed
+DCO_MIN_FREQ_MHZ (11850 MHz). That selects different loop filter and DCO
+fine settings, and makes pll_type 0, so the PLL registers are written at
+the USB PLL addresses.
 
-hsw_write_infoframe() writes the header first, so the packet is crossed
-before its payload is in place and the previous payload keeps being sent.
-This hits the AS SDP, and the VSC SDP whenever an AS SDP is enabled, which
-is whenever VRR is possible since commit 6a1712052859 ("drm/i915/dp: Enable
-AS SDP whenever VRR is possible or PR !async"). With CMN_SDP_TL, enabled by
-commit bfa597238073 ("drm/i915/dip: Enable Common SDP Transmission line"),
-it also hits the GMP and VSC SDPs: on NVL, entering HDR on an eDP panel
-leaves the image discoloured and scaled until the headers are rewritten.
+For a port clock between about 540 and 592.5 MHz neither y = 4 nor y = 6
+gives a DCO in the 11850 - 16200 MHz range, so the solution is always
+found in the second range, with a DCO between 10000 and 11850 MHz.
+2560x1440@144 (580.1 MHz, DCO 11602 MHz) is such a mode. On NVL, with the
+sink connected through a DP dual mode adaptor (Parade PS8219), the sink
+never locks at this mode: SCDC Status_Flags (0x40) never read 0x0f, the
+sink drops HPD within about 10 seconds of the modeset, and the compositor
+falls back to 2560x1440@120 (497.76 MHz, DCO 14932 MHz), which works. The
+same sink works at 144 Hz on the same machine with the Windows driver,
+which compares the DCO with the lower limit of the DCO range the solution
+was found in (10000 MHz for the second range) instead.
 
-Write the payload, including the ECC zero fill, first and the header last
-on platforms with EMP_AS_SDP_TL. CD domain packets have no ordering
-requirement and Bspec recommends the same order for all packets, so use it
-for all of them. Older platforms keep the current order.
+Do the same here. Make calculate_target_dco_and_loop_cnt() return the
+lower limit of the DCO range it used and compare the DCO with that, so
+a DCO found in the second range is not treated as a 12G DCO anymore.
+The PLL then uses pll_type 1 (DP PLL), prop_coeff 3, int_coeff 7,
+ana_cfg 8 and the regular DCO fine settings, like for any other port
+clock.
 
-Bspec: 75640, 71197, 74384
-Fixes: e1123e617e51 ("drm/i915/vrr: Program EMP_AS_SDP_TL for DP AS SDP")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17732
-Cc: <stable@vger.kernel.org> # v6.17+
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Port clocks outside of that 540 - 592.5 MHz window get the same result as
+before. Tested on NVL with 2560x1440@144 only: the sink locks (SCDC
+Status_Flags 0x0f) and there are no HPD drops.
+
+Fixes: 6fedb7bf73d7 ("drm/i915/ltphy: Implement HDMI Algo for Pll state")
+Bspec: 74667
+Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
 ---
 
 Notes:
-    Fixes tag rationale
+    With this the 12G branches (prop_coeff 4, int_coeff 8, ana_cfg 6, dco_12g) are
+    never taken any more, since a solution is by construction not below the
+    lower limit of its own DCO range. I kept them to keep the fix small, and
+    can drop them in a follow up if preferred.
     
-    The Fixes tag points at commit e1123e617e51 ("drm/i915/vrr: Program
-    EMP_AS_SDP_TL for DP AS SDP"). The AS SDP has been written header first
-    since it was added by commit 8845021b7331 ("drm/i915/display: Read/Write
-    Adaptive Sync SDP"), but EMP_AS_SDP_TL, which holds the double buffer
-    point and the transmission line of the AS SDP on BMG and LNL+, was only
-    programmed from that commit on. From then on the driver relies on that
-    register to anchor the AS SDP, and the VSC SDP whenever an AS SDP is
-    enabled, and the programming note of the register asks for the packet
-    data first and the header last. The two later commits cited in the commit
-    message only widened the exposure: the first enabled the AS SDP whenever
-    VRR is possible and the second added CMN_SDP_TL for the GMP and VSC SDPs.
-    
-    Alternatives considered:
-     - 6a1712052859 (v7.2): AS SDP on whenever VRR is possible. The PTL
-       report is fixed by reverting it. Narrower than the spec argument, as
-       it only covers v7.2 and later.
-     - bfa597238073 (7.4): CMN_SDP_TL. The NVL regression, verified on
-       hardware, but covered by the older tag as every kernel with it also
-       has e1123e617e51.
-     - 8845021b7331 (v6.10): first header first AS SDP write, but
-       EMP_AS_SDP_TL was not programmed until e1123e617e51, so exposure
-       before it could not be shown.
-    
-    Not verified:
-     - The failure was observed on NVL with CMN_SDP_TL (rewriting the GMP and
-       VSC headers makes the panel recover). The AS SDP and the VSC SDP with
-       an AS SDP on BMG, LNL and PTL follow from the Bspec requirement and
-       were not reproduced here.
-     - No reproduction on kernels older than v7.2.
-     - Stable backports need the HAS_EMP_AS_SDP_TL gate adapted, as it is
-       defined in intel_dip.h, which is new in 7.4.
+    Only 2560x1440@144 (580.1 MHz) was tested on hardware. Other port clocks
+    in the 540 - 592.5 MHz window, e.g. 3440x1440@100 (543.5 MHz) and
+    1920x1080@240 (592 MHz), get the same change but were not tested.
 
- drivers/gpu/drm/i915/display/intel_hdmi.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_lt_phy.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 4ec0db8d93fb..3ecf017b3176 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -51,6 +51,7 @@
- #include "intel_cx0_phy.h"
- #include "intel_ddi.h"
- #include "intel_de.h"
-+#include "intel_dip.h"
- #include "intel_display_driver.h"
- #include "intel_display_regs.h"
- #include "intel_display_types.h"
-@@ -524,6 +525,15 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
- 	const u32 *data = frame;
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 	intel_reg_t ctl_reg = HSW_TVIDEO_DIP_CTL(display, cpu_transcoder);
-+	/*
-+	 * On platforms with the SDP transmission line registers some of the
-+	 * packets are double buffered in the transcoder clock domain, and the
-+	 * packet is clock crossed on the write of the header (dword 0). Program
-+	 * the payload first and the header last, so that the whole packet gets
-+	 * crossed. Packets double buffered in the core display clock domain
-+	 * have no ordering requirement, so use the same order for all of them.
-+	 */
-+	bool header_last = HAS_EMP_AS_SDP_TL(display);
- 	int data_size;
- 	int i;
- 	u32 val = intel_de_read(display, ctl_reg);
-@@ -535,18 +545,21 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
- 	val &= ~hsw_infoframe_enable(type);
- 	intel_de_write(display, ctl_reg, val);
+diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+index 86492651b0..a6374b07ae 100644
+--- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+@@ -1360,7 +1360,8 @@ static u64 mul_q32_u32(u64 a_q32, u32 b)
+ }
  
--	for (i = 0; i < len; i += 4) {
-+	for (i = header_last ? 4 : 0; i < len; i += 4)
- 		intel_de_write(display,
- 			       hsw_dip_data_reg(display, cpu_transcoder, type, i >> 2),
--			       *data);
--		data++;
--	}
-+			       data[i >> 2]);
- 	/* Write every possible data byte to force correct ECC calculation. */
- 	for (; i < data_size; i += 4)
- 		intel_de_write(display,
- 			       hsw_dip_data_reg(display, cpu_transcoder, type, i >> 2),
- 			       0);
+ static bool
+-calculate_target_dco_and_loop_cnt(u32 frequency_khz, u64 *target_dco_mhz, u32 *loop_cnt)
++calculate_target_dco_and_loop_cnt(u32 frequency_khz, u64 *target_dco_mhz, u32 *loop_cnt,
++				  u32 *dco_min_freq_used)
+ {
+ 	u32 ppm_value = 1;
+ 	u32 dco_min_freq = DCO_MIN_FREQ_MHZ;
+@@ -1401,6 +1402,7 @@ calculate_target_dco_and_loop_cnt(u32 frequency_khz, u64 *target_dco_mhz, u32 *l
+ 								 scale);
+ 					*target_dco_mhz = temp0 * scale;
+ 					*loop_cnt = y;
++					*dco_min_freq_used = dco_min_freq;
+ 					return true;
+ 				}
+ 			}
+@@ -1548,7 +1550,9 @@ intel_lt_phy_calculate_hdmi_state(struct intel_lt_phy_pll_state *lt_state,
+ 		(ndiv << 9) + (1 << 4);
+ 	p.bias_trim.val = (csel2fo_ovrd_en << 30) + (csel2fo << 24);
+ 	p.ssc_inj.val = 0;
+-	found = calculate_target_dco_and_loop_cnt(frequency_khz, &target_dco_mhz, &loop_cnt);
++	/* dco_fmin becomes the lower limit of the DCO range the solution is in */
++	found = calculate_target_dco_and_loop_cnt(frequency_khz, &target_dco_mhz, &loop_cnt,
++						  &dco_fmin);
+ 	if (!found)
+ 		return -EINVAL;
  
-+	if (header_last)
-+		intel_de_write(display,
-+			       hsw_dip_data_reg(display, cpu_transcoder, type, 0),
-+			       data[0]);
-+
- 	/* Wa_14013475917 */
- 	if (!(IS_DISPLAY_VER(display, 13, 14) && crtc_state->has_psr &&
- 	      !crtc_state->has_panel_replay && type == DP_SDP_VSC))
 -- 
-2.50.1
+2.43.0
 
