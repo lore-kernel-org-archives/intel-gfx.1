@@ -2,58 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985F6606A326
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 12:28:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D0B606A321
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 12:39:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GQg4JEbH
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YMMItjn+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 188F710FAFD;
-	Wed, 11 Nov 2026 12:28:19 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2E9C10FAFD;
- Wed, 11 Nov 2026 12:28:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E4E510FB3F;
+	Wed, 11 Nov 2026 12:39:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B58210FB3F;
+ Wed, 11 Nov 2026 12:39:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794400093; x=1825936093;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6wpkx329J8RO6rYVrz+fz1PzztfS7kOeZIvkFPNq7GA=;
- b=GQg4JEbHAVgwXd6+k4WmKzETmyJufsgXTdysAGET6A/4INwIxtXE+Kjp
- TGSQRSk9FlO4hKnZht2fMHJugxrfGDNr7j13xiemWjqlIKYCoJbvngMxY
- LM7X9F0toi318W14jxTgzuDthZCh2y2obw8Lgh4vPAMe4mA/NUm1wd6Vb
- f+JMXpAivYU0FDfmlRe5I3jfGBmXE5+SXQpusCLcaAYcMbGU4Wj86lUKP
- 7q74FAWnUC6E4JnsZqlTu/Hy5NJXlqI//9y0E3gAZvE7I8ziYZNpHi9Vo
- dkZWnrdb2wS2VrcY79EDSYsylUWDx0sVoPXbhmT9uBnI+rxhPIs1+989L A==;
-X-CSE-ConnectionGUID: KPVvchFCSIiosTR/TKavvQ==
-X-CSE-MsgGUID: 24FrgUFzTKyP/Mp13774/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3203149"
+ t=1794400773; x=1825936773;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=grBxa0NUtC5bERIvoQ5jPW8d/jQtYdKDGq7rJ7f68ns=;
+ b=YMMItjn+9uj/rdqEQGDzOJAH6xkDLacMwTE737bGL1aLFfODJctVMHvK
+ ADxXMbgel3zg2mWTkVueAgIN/bf4TsOG6QlHl7QPi6j7VwrNZphl6Uujv
+ g9xJeWwop/asyguLJ3ZsMlKUlXSz2ZIrXhiQBVImrw447k06IRJw8wWN3
+ 8MPOcH0CkErDOCpd9hzxueGL2zyyS2Z1pIhil44ng4UC9D8ciGY5bawM3
+ Q1Jwa6Z3UOV41L+axXpomeqxTLdDrJzTcx0BuzixAAvyZhpBoqZUFX2vE
+ 3X+N/ljgIFgux7aotNy6FcVjTpS8+jxvBeCXwMzEkFaPQgJylj0+pWt68 w==;
+X-CSE-ConnectionGUID: RvPbgXYBQMGg1jSs5wgYSg==
+X-CSE-MsgGUID: yBxEQsEOSf+QR4uNv0TeZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3192116"
 X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3203149"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 04:28:12 -0800
-X-CSE-ConnectionGUID: DE+AkHrpTUWkUN1liNni4w==
-X-CSE-MsgGUID: 6sMpEePiQyC74b7yyWbz9Q==
+   d="scan'208";a="3192116"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 04:39:32 -0800
+X-CSE-ConnectionGUID: G6ZJNYzOQtucNSojye1SrA==
+X-CSE-MsgGUID: fue2UZDwS2+3f4+YW5bvvA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8326792"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by orviesa007.jf.intel.com with ESMTP; 11 Nov 2026 04:28:11 -0800
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: ville.syrjala@linux.intel.com
-Cc: chaitanya.kumar.borah@intel.com, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
- suraj.kandpal@intel.com, Xiao Lu <xiaolu.xie@intel.com>
-Subject: Re: [PATCH] drm/i915/dip: Write the DIP header last with SDP
- transmission lines
-Date: Wed, 11 Nov 2026 20:26:02 +0800
-Message-ID: <20261111122602.80325-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111121653.79410-1-xiaolu.xie@intel.com>
-References: <20261111121653.79410-1-xiaolu.xie@intel.com>
+   d="scan'208";a="8585926"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.181])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 04:39:31 -0800
+Date: Wed, 11 Nov 2026 14:39:27 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 06/13] drm/i915/dpt: Compute DPT size in the DPT code
+Message-ID: <avRh_5mkErMktGqN@intel.com>
+References: <20261111112007.16790-1-ville.syrjala@linux.intel.com>
+ <20261111112007.16790-7-ville.syrjala@linux.intel.com>
+ <sashiko-outbox-208882@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-208882@kernel.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,27 +71,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Ville,
+On Wed, Nov 11, 2026 at 11:31:06AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found no new issues
+> in this patch, but noticed 1 related pre-existing issue it does not
+> introduce:
+> - [High] drm/xe/display: double BO unpin on __intel_fbdev_fb_alloc()
+>   error path [1]
+> --
+> 
+> commit ae1435739339ed58396679163558aae13db1d253
+> Author: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> drm/i915/dpt: Compute DPT size in the DPT code
+> 
+> This commit passes the GTT view instead of a precomputed size to
+> intel_parent_dpt_create() so that the DPT code computes the DPT size for
+> both normal and remapped views.
+> 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> > index b3344e3f187fb..35f1d5dd31d7d 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> > @@ -2275,13 +2275,15 @@ int intel_framebuffer_init(struct intel_framebuffer *intel_fb,
+> >  
+> >  	if (intel_fb_uses_dpt(fb)) {
+> >  		struct drm_gem_object *obj = intel_fb_bo(&intel_fb->base);
+> > +		const struct intel_gtt_view *view;
+> >  		struct intel_dpt *dpt;
+> > -		size_t size = 0;
+> >  
+> >  		if (intel_fb_needs_pot_stride_remap(intel_fb))
+> > -			size = intel_remapped_info_size(&intel_fb->remapped_view.gtt.remapped);
+> > +			view = &intel_fb->remapped_view.gtt;
+> > +		else
+> > +			view = &intel_fb->normal_view.gtt;
+> >  
+> > -		dpt = intel_parent_dpt_create(display, obj, size);
+> > +		dpt = intel_parent_dpt_create(display, obj, view);
+> >  		if (IS_ERR(dpt)) {
+> >  			drm_dbg_kms(display->drm, "failed to create DPT\n");
+> >  			ret = PTR_ERR(dpt);
+> 
+> [Severity: High]
+> This problem wasn't introduced by this patch, but can failing in
+> intel_framebuffer_init() after intel_bo_framebuffer_init() cause a double
+> BO unpin on Xe when called from __intel_fbdev_fb_alloc() [1]?
+> 
+> In __intel_fbdev_fb_alloc(), intel_bo_fbdev_create() allocates the BO via
+> xe_bo_create_pin_map_novm() with XE_BO_FLAG_PINNED set and a pin count of
+> 1, and xe_display_bo_framebuffer_init() only takes a reference without
+> pinning it again.  If a later step in intel_framebuffer_init() fails and
+> jumps to err_bo_framebuffer_fini, xe_display_bo_framebuffer_fini() sees
+> XE_BO_FLAG_PINNED and unpins the BO:
+> 
+> drivers/gpu/drm/xe/display/xe_display_bo.c:xe_display_bo_framebuffer_fini() {
+> 	struct xe_bo *bo = gem_to_xe_bo(obj);
+> 
+> 	if (bo->flags & XE_BO_FLAG_PINNED) {
+> 		/* Unpin our kernel fb first */
+> 		xe_bo_lock(bo, false);
+> 		xe_bo_unpin(bo);
+> 		xe_bo_unlock(bo);
+> 	}
+> 	xe_bo_put(bo);
+> }
+> 
+> When control returns to __intel_fbdev_fb_alloc(), error handling calls
+> intel_bo_fbdev_destroy() -> xe_display_bo_fbdev_destroy() ->
+> xe_bo_unpin_map_no_vm(), which unpins the BO a second time, triggering
+> assertions in xe_bo_unpin() and underflowing bo->pin_count in
+> ttm_bo_unpin().
 
-Adding you, as you reviewed this patch and I missed you on the Cc list of
-my mail below.
+Yes, the xe pin_map() stuff is broken by design. I've mentioned it
+before, and I think the correct way to fix it is by making it a
+custom object type in xe, and have the object destructor itself do
+the needed cleanup.
 
-On Wed, 11 Nov 2026 12:16:53, Xiao Lu wrote:
-> VSC_SELECT is a two bit field (VSC_SELECT_MASK), so a stale value is not
-> replaced but merged with the new one, e.g. 1 | 2 results in 3. We clear the
-> field before setting it, and also clear it in intel_dp_set_infoframes()
-> when the SDPs get disabled.
->
-> Was leaving that out intentional, e.g. because the field is guaranteed to be
-> clear at that point, or is it something that was missed?
+> 
+> [1] https://sashiko.dev/#/bug/linux-227b0044-5f2a-4c7c-81e6-93b67cb4f477
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261111112007.16790-1-ville.syrjala@linux.intel.com?part=6
 
-hsw_write_infoframe() ORs VSC_DIP_HW_DATA_SW_HEA into VIDEO_DIP_CTL for the
-VSC SDP without clearing VSC_SELECT first. Do you know if that needs
-clearing, or is the field known to be clear there? If it does, I can send it
-as a separate patch on top of Chaitanya's.
+-- 
+Ville Syrjälä
+Intel
