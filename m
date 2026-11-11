@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCF2606A332
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A26C606A321
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ZnulfA9B
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=NVH5P6hv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B41310FD40;
-	Wed, 11 Nov 2026 16:09:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7034810FD88;
+	Wed, 11 Nov 2026 16:09:07 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21D7010FD98;
- Wed, 11 Nov 2026 16:09:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4575110FD64;
+ Wed, 11 Nov 2026 16:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=7iO8yRKiK2KoQa6hRzM46vYrUp4atmnTKqY7wydsfBM=;
- t=1794413340; x=2109773340; b=ZnulfA9BclFj1rztN/UgjUak9LmgNkigRlsNzhVeucMrMwL
- 9/Jd5YPWukuhv0N+6+pQNRztnQjG/YVe3PSXR6NC0r4KnthWyeQJEaPm6z9hP/XVpK16oER8vXeHB
- 6Bp0i4ZkivVbvYKeTiF1AgrDEEGpEMQp8dfqYs33tNgiCdrVc/3kiC8k9znOCdFv218R7dB5ggNUE
- E9JnCk8yIzFcUI2iOMxULfuucCpGoPWkQUAQggCWQCM5Dy2grpQHcKsDtRnbBJGRlBhMknyl+Jv+P
- oZHwFBWiqrjBDkbtJ0eYFKic77Lby/I6usI+T7j2h5aS94K/TTmcB1LzJcyuUIbA==;
+ Cc:To:From:From:Reply-To; bh=l8ufin4b6JTIr8GwZJXnQtcoiPIiiHXtK7fdPA9GJTg=;
+ t=1794413336; x=2109773336; b=NVH5P6hvI9UHdov/HNuGQpFuG/oXU7SSRYo0CcppaQEhgp1
+ +N2xWVYvUnKm5fRpGrZwrMsqEIrHodefL8uWaML4xCJeAlluoYqrcl75A7B/i/82ZAJXBtTmijEk+
+ 46+asvsKch4WaaJ6sloENqiTHUtkv9KMe/XqLA+JeyylTQ77UQZIb8yzm4IvDwweFsgZBwanq+K8+
+ yrQCoBU8fiuqbCg5dgL+Tui+Rf5r4rueR/4AlHkSZEZ/v6q5F8czVKuvTmiF/ec+vv8bgYXF4H4Pt
+ TPsY37yB0FWFPAZcK5CNhwD+AqumYygwh6TjyhZ/ePlFIWfMJbOxVbMpbxH41wMw==;
 Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRAsI-008u8Y-8x; Wed, 11 Nov 2026 17:08:38 +0100
+ id 1xRAsD-008u8Y-Ox; Wed, 11 Nov 2026 17:08:33 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -45,10 +45,10 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
  John Harrison <John.Harrison@igalia.com>
-Subject: [PATCH v5 08/15] drm/atomic: check if an active colorop has a blob if
- its type requires one
-Date: Wed, 11 Nov 2026 17:05:21 +0100
-Message-ID: <20261111160814.21326-9-mwen@igalia.com>
+Subject: [PATCH v5 04/15] drm/amd/display: add plane to commit on KUnit cursor
+ mode tests
+Date: Wed, 11 Nov 2026 17:05:17 +0100
+Message-ID: <20261111160814.21326-5-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111160814.21326-1-mwen@igalia.com>
 References: <20261111160814.21326-1-mwen@igalia.com>
@@ -74,94 +74,110 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If colorop TYPE requires a data blob, userspace have to set a blob
-whenever enables this colorop, i.e. when setting this colorop bypass
-property to false. Clarify this in the documentation and reject the
-atomic commit if colorop TYPE requires a DATA but set bypass to false
-and no blob submitted.
+KUnit tests for cursor mode were also taking into account inactive
+colorops where its color pipeline and plane state weren't active. Add
+the plane state to the atomic commit state and activate the colorop
+color pipeline by setting it to the plane state color_pipeline.
 
-Fixes: e5719e7f1900 ("drm/colorop: Add 3x4 CTM type")
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/drm_atomic.c  | 22 ++++++++++++++++++++--
- drivers/gpu/drm/drm_colorop.c |  5 ++++-
- include/drm/drm_colorop.h     |  6 ++++--
- 3 files changed, 28 insertions(+), 5 deletions(-)
+ .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c   | 49 +++++++++++++++++++
+ 1 file changed, 49 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 36c9550c2749..d8b56fa47d45 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -990,8 +990,13 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
-  * drm_atomic_colorop_check - check new colorop state
-  * @new_colorop_state: new colorop state to check
-  *
-- * Ensure that the colorop in @new_colorop_state belongs to an active color
-- * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-+ * Check that a colorop whose TYPE requires a data blob has one when it's
-+ * enabled, i.e. userspace can't clear (or never set) the DATA property while
-+ * taking the colorop out of bypass, since drivers would have nothing to
-+ * program.
-+ *
-+ * Also ensure that the colorop in @new_colorop_state belongs to an active
-+ * color pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-  * property of current, old or new plane state.
-  *
-  * Userspace is allowed to finalize colorop's settings in the same commit that
-@@ -1015,6 +1020,19 @@ static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_
- 	if (state->duplicated)
- 		return 0;
- 
-+	/*
-+	 * Reject if colorop TYPE requires a DATA but set bypass to false and
-+	 * no blob submitted
-+	 */
-+	if (new_colorop_state->colorop->data_property &&
-+	    !new_colorop_state->bypass && !new_colorop_state->data) {
-+		drm_dbg_atomic(new_colorop_state->colorop->dev,
-+			       "[COLOROP:%d:%d] enabled without a DATA blob\n",
-+			       new_colorop_state->colorop->base.id,
-+			       new_colorop_state->colorop->type);
-+		return -EINVAL;
-+	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_cursor_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_cursor_test.c
+index 2212451043fb..c1765dababe4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_cursor_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_cursor_test.c
+@@ -179,11 +179,43 @@ static void dm_test_add_cursor_mode_colorop(struct kunit *test,
+ 	fixture->state->colorops[0].ptr = colorop;
+ 	fixture->state->colorops[0].old_state = old_colorop_state;
+ 	fixture->state->colorops[0].new_state = new_colorop_state;
++	colorop->index = 0;
+ 	colorop->plane = fixture->primary;
+ 	old_colorop_state->colorop = colorop;
+ 	old_colorop_state->bypass = old_bypass;
+ 	new_colorop_state->colorop = colorop;
+ 	new_colorop_state->bypass = new_bypass;
 +
- 	/* Not a plane colorop */
- 	if (!plane)
- 		return 0;
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index 95da03d6c65c..842fd7dc31e6 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -55,7 +55,10 @@
-  * enumerated 1D curves, 1D LUTs, 3D LUTs, matrices, etc. See the
-  * &drm_colorop_type documentation for information on each type.
-  *
-- * If a colorop advertises the BYPASS property it can be bypassed.
-+ * If a colorop advertises the BYPASS property it can be bypassed. If a
-+ * colorop advertises DATA and BYPASS properties, BYPASS can only be set to
-+ * false if DATA contains a blob. An atomic commit that leaves such a
-+ * colorop enabled without a blob will fail, returning -EINVAL.
-  *
-  * Information about colorop and color pipeline design decisions can be
-  * found at rfc/color_pipeline.rst, but note that this document will
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index 11a88e9477f1..952c30b06d83 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -283,8 +283,10 @@ struct drm_colorop_state {
- 	/**
- 	 * @data:
- 	 *
--	 * Data blob for any TYPE that requires such a blob. The
--	 * interpretation of the blob is TYPE-specific.
-+	 * Data blob for any TYPE that requires such a blob. The interpretation
-+	 * of the blob is TYPE-specific. Whenever @bypass is false, @data must
-+	 * be provided; otherwise, the atomic check will reject an active
-+	 * colorop without a blob.
- 	 *
- 	 * See the &drm_colorop_type documentation for how blob is laid
- 	 * out.
++	/* Colorop needs to be part of an active plane color pipeline */
++	fixture->old_primary_state->color_pipeline = colorop;
++	fixture->primary_state->color_pipeline = colorop;
++}
++
++/* Add plane to atomic commit state and make pipeline active by setting it to
++ * old/new_state color pipeline.
++ */
++static void dm_test_add_plane_to_commit(struct kunit *test,
++					struct drm_atomic_commit *state,
++					struct drm_plane *plane,
++					struct drm_colorop *pipeline)
++{
++	struct drm_plane_state *old_state;
++	struct drm_plane_state *new_state;
++	unsigned int i = drm_plane_index(plane);
++
++	old_state = kunit_kzalloc(test, sizeof(*old_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, old_state);
++	new_state = kunit_kzalloc(test, sizeof(*new_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, new_state);
++
++	old_state->plane = plane;
++	old_state->color_pipeline = pipeline;
++	*new_state = *old_state;
++	new_state->state = state;
++
++	state->planes[i].ptr = plane;
++	state->planes[i].old_state = old_state;
++	state->planes[i].new_state = new_state;
+ }
+ 
+ static int dm_test_get_cursor_mode(struct dm_cursor_mode_fixture *fixture,
+@@ -447,14 +479,21 @@ static void dm_test_plane_color_pipeline_active(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_NULL(test, new_colorop_state);
+ 	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, plane);
++	state->planes = kunit_kzalloc(test, sizeof(*state->planes), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, state->planes);
+ 	state->colorops = kunit_kzalloc(test, sizeof(*state->colorops), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, state->colorops);
+ 
++	adev->ddev.mode_config.num_total_plane = 1;
+ 	adev->ddev.mode_config.num_colorop = 1;
+ 	state->dev = &adev->ddev;
++	plane->dev = &adev->ddev;
++	plane->index = 0;
++	dm_test_add_plane_to_commit(test, state, plane, colorop);
+ 	state->colorops[0].ptr = colorop;
+ 	state->colorops[0].old_state = old_colorop_state;
+ 	state->colorops[0].new_state = new_colorop_state;
++	colorop->index = 0;
+ 	colorop->plane = plane;
+ 	old_colorop_state->colorop = colorop;
+ 	old_colorop_state->bypass = true;
+@@ -488,13 +527,23 @@ static void dm_test_plane_color_pipeline_ignores_other_plane(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_NULL(test, colorop_plane);
+ 	other_plane = kunit_kzalloc(test, sizeof(*other_plane), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, other_plane);
++	state->planes = kunit_kcalloc(test, 2, sizeof(*state->planes), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, state->planes);
+ 	state->colorops = kunit_kzalloc(test, sizeof(*state->colorops), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, state->colorops);
+ 
++	adev->ddev.mode_config.num_total_plane = 2;
+ 	adev->ddev.mode_config.num_colorop = 1;
+ 	state->dev = &adev->ddev;
++	colorop_plane->dev = &adev->ddev;
++	colorop_plane->index = 0;
++	other_plane->dev = &adev->ddev;
++	other_plane->index = 1;
++	dm_test_add_plane_to_commit(test, state, colorop_plane, colorop);
++	dm_test_add_plane_to_commit(test, state, other_plane, NULL);
+ 	state->colorops[0].ptr = colorop;
+ 	state->colorops[0].new_state = colorop_state;
++	colorop->index = 0;
+ 	colorop->plane = colorop_plane;
+ 	colorop_state->colorop = colorop;
+ 
 -- 
 2.53.0
 
