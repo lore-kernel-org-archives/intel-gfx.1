@@ -2,75 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442FA606A330
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 14:28:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16427606A32E
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 14:28:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jiebPAWE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bhRW52/O
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBFB910E7F7;
-	Fri, 13 Nov 2026 14:28:12 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47D921121C9
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 15:58:52 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2eb0f1b592bso52245ad.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 07:58:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794499132; x=1795103932; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=PBaR9YGz0f77rnkIf9yudCqFA3ukRsghy48xQHT8H54=;
- b=jiebPAWEH8GdzSRMuk7yyQEOi+Z3fZ6SbN31CVslFMfJfjHaK1bfrcTxLhq6fuwG/D
- YcUNyMxrrb250RRhl06KHF18CCgcXmfkwhJH6UVOsdw25D+CFnV4PQepNiSs3RjBZlK1
- ikPFNSYy+CGvOp98D1E7BO00nPPC/+GXLpPSQxjklzttrWHd5zJ6BnIE/pg3SvIKHmwU
- +9f5a1z7uwNwpNyXvq0PqxtwiM/ZcwosS5/WdDvg2VWY84HGuUrf2qQSfS9E6SrK/6Jx
- R2Afhn2moDuUks9JTlGvsPukbI/N/bhJCanEJLIJ83v3oM5ju7lhBIukHry2XMK7bU5k
- zQgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794499132; x=1795103932;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=PBaR9YGz0f77rnkIf9yudCqFA3ukRsghy48xQHT8H54=;
- b=HxwSCopAEaeOSIid/U25xOTWWJMwo6wO19uzYNgg18chLU/pR9SDrQUE4IT7PCI2pz
- kqd67Tf46pKRxDLfzj2NyTKSCXZeklXmnayY//IPbxY7rRkP7UVUJN2y3SsUFazuCge3
- zobtBePG743f0v6M3wnvKMNQaC1FUuqAWyAAUT+mMl1sFzSoMF/UN0eQULLAF5N3oB6H
- 1/Iwq2XBd4zbyshA1sbvG9vGaHllGAhxF2xXhCdnG27v17iR62VFrITsvSPcA84+uaqQ
- ObWfWDkznJLNOoXlszrPyXH8iGh27CcvYS6uOiF6yqjm/mJM+53LxEMNQprlc2YxF8k/
- L+bw==
-X-Gm-Message-State: APuU4Z/+dIvo8QgAPEb7wDqSUpoqCvuzQfaCtRni5CsiI+b3LR1QNV78
- R5v/khB/MP4++0WHRab6FM63yoOCqzUeR+RIxAcfnsuB5ip0qPWJaYDk
-X-Gm-Gg: AYBFou09hB0XFRhA3dvIBDt82l3ZVGFvDEwlYdH4mizJSdcI43ZkpDeOGlix24xYoZc
- KNZo6tYgbszfOig1Ciel38EyN6iK5MFEztUc1N/bCDXaUt0KxQELztqWJW8wStB5peWVuDYiXTx
- CQRr5hhpiBRsKoCfa1g/r1vNIZF6bg2WT8+DOG1XCHGw5M9Y5esLhUXdzA561/4TrKCi3UvLzs9
- ke/DkwQuIKH2QP5RuOx/KXW4lkm4ReSdF8lq7WaWp0Qfi0HfRoeEnf0VGpFeCwjN/xkZNlw4D+x
- blD7ApAdztAM2ZDyN/3CXNA6vzlHD2Wo8igK7rXt5WEiRN+I233Om1SDoOssFEs5MU/OSjBB8aM
- A+W4WWeSfjL+S8CjcjN5axbiRD6C4MeFkKDnd2/VIgJXnMneqJ8pBOh9G5qVKxYCMZc1g3uJm/3
- zVHaxu3xLrma6kFP5ulJONYjEqKrM0Su4obyfijbPicxBywY1NwK5ibMmNHqwWCp5q2PfOKpEhg
- F3WKRt90JGa7DPCeWLJdt7U6zqEd7BxQJnw7XFT+NMgvT2Lvpp0uoa31QkpH7VovbQ9Pr6R5n/L
- w3xpqYg3L5LXowEYqJ8=
-X-Received: by 2002:a17:903:1111:b0:2e8:7686:4d46 with SMTP id
- d9443c01a7336-2edd788d0bemr62363735ad.34.1794499131728; 
- Thu, 12 Nov 2026 07:58:51 -0800 (PST)
-Received: from oslab.. ([101.6.42.129]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2edb6d4b93csm35556945ad.14.2026.11.12.07.58.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Nov 2026 07:58:51 -0800 (PST)
-From: Tuo Li <islituo@gmail.com>
-To: zhenyuw.linux@gmail.com, zhi.wang.linux@gmail.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch, ankit.k.nautiyal@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tuo Li <islituo@gmail.com>
-Subject: [PATCH] drm/i915/gvt: Fix NULL pointer dereference in slot switch
-Date: Thu, 12 Nov 2026 23:58:22 +0800
-Message-ID: <20261112155822.1336713-1-islituo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AFC01123D1;
+	Fri, 13 Nov 2026 14:28:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A26510FFFD;
+ Thu, 12 Nov 2026 10:47:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2309263629;
+ Thu, 12 Nov 2026 10:47:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85FD1F00A05;
+ Thu, 12 Nov 2026 10:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794480472;
+ bh=LaAKKhAngwkFxDGEu7glsCDhQDKP6or5IXQD5q9C6lk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=bhRW52/OaiERqOjVo+YsX7WenTAM+RkUSYdDbFFgDeELIFl5MCvdrQ4/lrfg3PaBP
+ OJEvlXHrGI0KP6Sf7isOdA90CQUC1tSnbnlL7KMlGmOGy1uOT4Tps4k2NALfzc5lt4
+ GBKdaLdl6Hn4QG7D1jOt3xg+R2SbDhwXqrQ5QTOpBVzV6PCDTf9sB1jcXxmSVYEwEX
+ 9k1ve7B7mHoKt9f85FezBUXVhvbLCq9DZT0dTEHtWXQsiFKFjjwdYqhwDGS2C9B8hk
+ PMIxYSXrd0qwW336ZZGtXr/22P+Xd17f+e0rYlMLg9nZUtItJXlZjgdtGYx+r60Y9l
+ +6iWNMqoSTUaQ==
+Date: Thu, 12 Nov 2026 11:47:38 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bence Csokas <bence.csokas@arm.com>
+Cc: Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, 
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Selvin Xavier <selvin.xavier@broadcom.com>, 
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Chengchang Tang <tangchengchang@huawei.com>,
+ Junxian Huang <huangjunxian6@hisilicon.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+ Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, Benson Leung <bleung@chromium.org>, 
+ Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, 
+ Nilesh Javali <njavali@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, 
+ arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, 
+ chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] stddef: Add offsetofend() variant of
+ struct_offset()
+Message-ID: <avWY8kNFlkLyxIrX@devuan>
+References: <20261112-offsetof-v2-0-276ede839967@arm.com>
+ <20261112-offsetof-v2-1-276ede839967@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="hmbonzz4lyxux25l"
+Content-Disposition: inline
+In-Reply-To: <20261112-offsetof-v2-1-276ede839967@arm.com>
 X-Mailman-Approved-At: Fri, 13 Nov 2026 14:28:12 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,45 +99,141 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The running slot is updated to the pending slot before updating the running
-context. However, the condition checks the old running context instead of
-the newly assigned running slot.
 
-When no pending slot exists, running_slot becomes NULL. If the previous
-running_context is non-NULL, the code attempts to access
-running_slot->ctx[0], resulting in a NULL pointer dereference.
+--hmbonzz4lyxux25l
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bence Csokas <bence.csokas@arm.com>
+Cc: Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Selvin Xavier <selvin.xavier@broadcom.com>, 
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Leon Romanovsky <leon@kernel.org>, Chengchang Tang <tangchengchang@huawei.com>, 
+	Junxian Huang <huangjunxian6@hisilicon.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+	Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, Benson Leung <bleung@chromium.org>, 
+	Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, 
+	Nilesh Javali <njavali@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] stddef: Add offsetofend() variant of
+ struct_offset()
+Message-ID: <avWY8kNFlkLyxIrX@devuan>
+References: <20261112-offsetof-v2-0-276ede839967@arm.com>
+ <20261112-offsetof-v2-1-276ede839967@arm.com>
+MIME-Version: 1.0
+In-Reply-To: <20261112-offsetof-v2-1-276ede839967@arm.com>
 
-To fix this possible NULL pointer dereference, check running_slot instead
-to ensure that running_context is updated only when a valid slot is
-available.
+Hi Bence,
 
-Fixes: 8453d674ae7e ("drm/i915/gvt: vGPU execlist virtualization")
-Signed-off-by: Tuo Li <islituo@gmail.com>
----
- drivers/gpu/drm/i915/gvt/execlist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Date: 2026-11-12 10:29:33+0100
+> From: Bence Csokas <bence.csokas@arm.com>
+>
+> Many call sites of offsetofend() use it for the purpose of pointer
+> artihmetic. Thus, a common usage pattern is:
+>=20
+>   offsetofend(typeof(*ptr), member)
+>=20
+> Capturing this in one macro helps keep lines short and terse, while
+> still making the purpose clear. It also helps discourage spelling out
+> the type name on every callsite, leading to more maintainable code.
+>=20
+> A similar struct_offset() macro already exists, so add an offsetof()
+> variant in the same spirit.
+>=20
+> Signed-off-by: Bence Csokas <bence.csokas@arm.com>
+> ---
+>  include/linux/overflow.h | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>=20
+> diff --git a/include/linux/overflow.h b/include/linux/overflow.h
+> index d0f04436343e..060dad4b6f3e 100644
+> --- a/include/linux/overflow.h
+> +++ b/include/linux/overflow.h
+> @@ -464,6 +464,18 @@ static __always_inline size_t __must_check size_sub(=
+size_t minuend, size_t subtr
+>   */
+>  #define struct_offset(p, member) (offsetof(typeof(*(p)), member))
+> =20
+> +/**
+> + * struct_offsetofend() - Calculate the end of a member within a struct
+> + * @p: Pointer to the struct
+> + * @member: Name of the member to get the end offset of
+> + *
+> + * Calculates the offset of the end of a particular @member of the struc=
+ture
+> + * pointed to by @p.
+> + *
+> + * Return: number of bytes to the location of @member.
+> + */
+> +#define struct_offsetofend(p, member) (offsetofend(typeof(*(p)), member))
 
-diff --git a/drivers/gpu/drm/i915/gvt/execlist.c b/drivers/gpu/drm/i915/gvt/execlist.c
-index 29147a9f162e..763c310f2aaf 100644
---- a/drivers/gpu/drm/i915/gvt/execlist.c
-+++ b/drivers/gpu/drm/i915/gvt/execlist.c
-@@ -73,7 +73,7 @@ static void switch_virtual_execlist_slot(struct intel_vgpu_execlist *execlist)
- 
- 	execlist->running_slot = execlist->pending_slot;
- 	execlist->pending_slot = NULL;
--	execlist->running_context = execlist->running_context ?
-+	execlist->running_context = execlist->running_slot ?
- 		&execlist->running_slot->ctx[0] : NULL;
- 
- 	gvt_dbg_el("[after] running slot %d/context %x pending slot %d\n",
--- 
-2.43.0
+The outer parentheses are unnecessary (they are unnecessary in
+struct_offset() too, but that already exists).
 
+
+Have a lovely day!
+Alex
+
+> +
+>  /**
+>   * __DEFINE_FLEX() - helper macro for DEFINE_FLEX() family.
+>   * Enables caller macro to pass arbitrary trailing expressions
+>=20
+> --=20
+> 2.56.1
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--hmbonzz4lyxux25l
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr1mUAACgkQ64mZXMKQ
+wqniCg//WgRXXz7luTnHUaMXrHNthttFpY3wBO557jzGIfLwMa+0tJqYgSh8MGS8
+7F44pQ7lX8E0qC+aMkDd3ItqdrKeD3McIbqqgpr8iU1VT0ljohr8pnTU7UIyIP/u
+bX/o22pWYohJFt/xcJcLxQ63rHmjcfjH2ug2i8ZgZHh/YGX+Biah79nfkcAB+uYX
+NI+43mSTP1aHvUK3Jf/z7PJF/v1/vyv1zJ/nsoN74w3JhlYGMggMcXHSu+dp0jmX
+qJUkyYJ5SQEzMdU/n2pSgOJFIZl6YS957I6fhU3GxEPXSldcnd/VIH/QRKMpSyjM
+jWzBsyjyyink+9RSw7AcmU46DJ28GeWMW5jZdg7jXq6ZGjO0/AKleOtMrevQLN4s
+hB7CzUrtofXBv5Oa5javphhfKIEoawgDsDch5eXFQW/Rm9rSflWysbPTCST5n/h0
+GfKbUEzD+COFj6I+Y8COEceKp4Xv8Y08A3r6CyyNIPzPwcc0CulK6xAmHbsMxIXZ
+c6uz3LLfqukMfbuquIZE4KhlNt+ZLRtnxL6rFfFkvLYdz4KwIsljmiPqoyPQxp9A
+OX5vOdZ9ulzmuuNoTY5OeJWSlsI6edzNc17hE6jjR1+wFfJSzVF2cvvv6mRGnpY/
+bGpmsQZFuH/KWJutZlHbsMGYEKF7lo42UH0Tqx57oaglMss89x4=
+=8quq
+-----END PGP SIGNATURE-----
+
+--hmbonzz4lyxux25l--
