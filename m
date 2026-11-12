@@ -2,64 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45184606A321
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 12:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E63606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 12:42:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SEqNZUOD
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WPHZEC+i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43081120B8;
-	Thu, 12 Nov 2026 12:30:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 032DD1120B8;
- Thu, 12 Nov 2026 12:29:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF21310E5DE;
+	Thu, 12 Nov 2026 12:42:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C459310E403;
+ Thu, 12 Nov 2026 12:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794486595; x=1826022595;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=AHF2xH2R7JBmR5THnwNyGnMNDpxxg1QNOefOFUtVVGc=;
- b=SEqNZUODOYozmQFYj0o6UzxkCMV2aV5Oo0Twrx8rfrButA6HZDRodYYc
- AIfqGdnaTh4WfeZsE9tB7YeMJuY2KUrE7eI1E7XUZ3cFbG9cj6lp444xP
- Ifk4ogSy7YZxlq5/RSf97mVn2VwYFJ5Al/yxxUw4pm4PxwaiaHF2HU4bU
- HaTBTHQahVBzsQgbNCvW/xePRYBVZ3MLWrxg5geyLz+wbhVioQYFzY5er
- MCdcXvFDfzYVwjRwLI3v0wq3V2byOThGMtZzBxD7kef2FXUCFndFlwnkO
- W6I/p6/lY3lB4G0Oc/YxIln5awsJ+otTrh1vPPZaQen1hnNV3RWKkofcK w==;
-X-CSE-ConnectionGUID: YPLG621lTIyGOqcIpQnlAg==
-X-CSE-MsgGUID: 8Am9eIdfQl6yWnXr2ifJ4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3166203"
+ t=1794487329; x=1826023329;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=7/6Uxr5LvA9RUwKWX+SKKoVDbvHY1GEfAtIRM269cEY=;
+ b=WPHZEC+iKLqpLngqIDM372L7auLxX6IwAKNrCKK98wvEL/tGZ8rt0gst
+ Al9Yr1HBFO+LFxNgjDMQp/KkIqdy7uPipVoGgW0NSRG5cJw9wGBRUskpB
+ eTgzkj5Ik1IGOEuMID5nlxgSm8Btyvg5QyBFUXWvjldC585aiM5smNT/8
+ /V06wkXKQSIuydjJsqggUEo1u1EQmKy7T+sj311lC5PTMEhTxWPzRY7oY
+ XVPr76Yh3VTY7h0hLr4DfdIehJdvSEm3KldBgLd6qzijipwGAbG/ovcjj
+ Pn8eHCWsmiHYF9X45nxsjS/n+M0kkxd5q8fZsnBZ9SYWkrzNknGIzStgu Q==;
+X-CSE-ConnectionGUID: nVSwht9CSTyQi2mFPFqHOQ==
+X-CSE-MsgGUID: LXMGHnzeSBWLSXvQOY3w4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3154756"
 X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3166203"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2026 04:29:55 -0800
-X-CSE-ConnectionGUID: SEg33JfuSguz8aseg5c0yA==
-X-CSE-MsgGUID: MBOPxt2lQj2NdRsX01s/pA==
+   d="scan'208";a="3154756"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2026 04:42:09 -0800
+X-CSE-ConnectionGUID: d/XCWAZVRfWuXMp/ri3jSQ==
+X-CSE-MsgGUID: 0dZcBWzTQd+DqT+5IWgKDg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="9084670"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.169])
+   d="scan'208";a="8817752"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.60])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2026 04:29:52 -0800
-Message-ID: <500844ca6329952ed41a7cedf97b5f6a84ede545.camel@linux.intel.com>
-Subject: Re: [PATCH v8 2/6] drm/i915/gem: Count mapped pages in a folio
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, =?UTF-8?Q?Micha=C5=82?= Grzelak
- <michal.grzelak@intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>,  Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, stable@vger.kernel.org
-Date: Thu, 12 Nov 2026 13:29:50 +0100
-In-Reply-To: <20261109113758.1491891-3-krzysztof.karas@intel.com>
-References: <20261109113758.1491891-1-krzysztof.karas@intel.com>
- <20261109113758.1491891-3-krzysztof.karas@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+ 12 Nov 2026 04:42:06 -0800
+Date: Thu, 12 Nov 2026 14:42:03 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 14/15] drm/i915/pfit: Account for pfit downscaling in
+ pixel rate on GMCH platforms
+Message-ID: <avW0G8HNImWkdT_0@intel.com>
+References: <20261019135309.23578-1-ville.syrjala@linux.intel.com>
+ <20261019135309.23578-15-ville.syrjala@linux.intel.com>
+ <shbezg62hmcqseiclkdfdgmcqef2x6dcqzg4xwh6lorkshydkq@2ihuuarp5vj7>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <shbezg62hmcqseiclkdfdgmcqef2x6dcqzg4xwh6lorkshydkq@2ihuuarp5vj7>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,207 +74,109 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Krzysztof,
+On Thu, Nov 12, 2026 at 10:47:47AM +0100, Michał Grzelak wrote:
+> On Mon, Oct 19, 2026 at 04:53:08PM GMT, Ville Syrjala wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > 
+> > Now that we have crtc_state->pch.dst populated on GMCH platforms
+> > we can use the existing ILK+ code to calculate the downscale
+> > adjusted pixel rate correctly on GMCH platforms.
+> > 
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display.c | 23 +++++++-------------
+> >  1 file changed, 8 insertions(+), 15 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> > index 200426bf0c59..6b813efff955 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -2278,7 +2278,8 @@ static bool intel_crtc_supports_double_wide(const struct intel_crtc *crtc)
+> >  		(crtc->pipe == PIPE_A || display->platform.i915g);
+> >  }
+> >  
+> > -static u32 ilk_pipe_pixel_rate(const struct intel_crtc_state *crtc_state)
+> > +static unsigned int
+> 
+> Is there any consensus on when to use u32 and when unsigned int? I see
+> that here it is because of pixel_rate_cdclk being defined as unsigned
+> int, but asking for general guidance.
 
-On Mon, 2026-11-09 at 11:37 +0000, Krzysztof Karas wrote:
-> Before addition of commit 029ae067431a
-> ("drm/i915: Fix potential overflow of shmem scatterlist length")
-> and after folios were introduced complete folios were always
-> allocated, possibly overloading the scatterlist capacity which
-> was never truly limited to PAGE_SIZE when requested via
-> max_segment. The above commit addressed scatterlist overloading,
-> but unintentionally disabled PAGE_SIZE as a valid max_segment
-> value and failed to take care of remaining pages from folios
-> above max_segment boundary.
-> This created a state, where multitude of scatterlists were used
-> for the same folio, but never counting enough of its pages to
-> jump to the next folio.
->=20
-> Furthermore, current do-while loop goes over the same folio
-> multiple times, increasing the refcount each time, and breaks
-> get/put symmetry: many shmem_read_folio_gfp() gets and only one
-> put in i915_gem_object_put_pages_shmem() per folio.
->=20
-> Track how many pages have already been counted in a folio and
-> use that number as an offset on consecutive allocations from the
-> same folio to ensure it is fully covered before reading next
-> folio.
->=20
-> Fixes: 029ae067431a ("drm/i915: Fix potential overflow of shmem scatterli=
-st length")
-> Cc: stable@vger.kernel.org
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15816
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 101 +++++++++++++---------
->  1 file changed, 59 insertions(+), 42 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> index e35ee4bd456f..d57b5c67d47b 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -71,6 +71,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915,=
- struct sg_table *st,
->  	unsigned long i;
->  	struct scatterlist *sg;
->  	unsigned long next_pfn =3D 0;	/* suppress gcc warning */
-> +	struct folio *folio =3D NULL;
->  	gfp_t noreclaim;
->  	int ret;
-> =20
-> @@ -104,7 +105,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  	sg =3D st->sgl;
->  	st->nents =3D 0;
->  	for (i =3D 0; i < page_count; i++) {
-> -		struct folio *folio;
-> +		unsigned long folio_page_index;
->  		unsigned long nr_pages;
->  		const unsigned int shrink[] =3D {
->  			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
-> @@ -112,51 +113,61 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  		}, *s =3D shrink;
->  		gfp_t gfp =3D noreclaim;
-> =20
+My general rules are roughly this:
+1. Just plain old 'int' for most things
+2. Use 'unsigned int' for some address/offset calculations and whatnot
+   where negative values are never a thing
+3. u32 for hardware registers and so forth
 
-I was looking for a way to make this patch still more easily readable, but=
-=C2=A0
-all I invented would look like below, so not a standard syntax, then:
+The pixel rate stuff should perhaps just all be 'int', but that
+would probably need to double check a few things before doing that.
 
-Reviewed-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+The one slight annoyance with signed ints is that stupid static
+analyzers may start to nag you about unchecked negative values
+even if they're not actually possible.
 
-> -		do {
-+		if (i && (next_pfn < folio_pfn(folio) + folio_nr_pages(folio))) {
-+			/*
-+			 * We are still inside the same folio,
-+			 * so just update its page index.
-+			 */
-+			folio_page_index =3D next_pfn - folio_pfn(folio);
-+		} else do {
-+			/* Grab the next folio if we exhausted the current one. */
+But a signed int is almost always the safer option in case you end
+up using it in some arithmetic expression where negative results are
+a possibility. Even a single 'unsigned int' there will probably 
+convert the whole expression to unsigned due to C rules on integer
+promotion/conversion, and then you negative result will become a
+really large positive result.
 
-> -			cond_resched();
-> -			folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> -			if (!IS_ERR(folio))
-> -				break;
-> -
-> -			if (!*s) {
-> -				ret =3D PTR_ERR(folio);
-> -				goto err_sg;
-> -			}
-> +		if (!i || (next_pfn >=3D folio_pfn(folio) + folio_nr_pages(folio))) {
-> +			/* Grab the next folio if we exhausted the current one. */
-> +			do {
-> +				cond_resched();
-> +				folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> +				folio_page_index =3D 0;
-> +				if (!IS_ERR(folio))
-> +					break;
-> =20
-> -			i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> +				if (!*s) {
-> +					ret =3D PTR_ERR(folio);
-> +					goto err_sg;
-> +				}
-> =20
-> -			/*
-> -			 * We've tried hard to allocate the memory by reaping
-> -			 * our own buffer, now let the real VM do its job and
-> -			 * go down in flames if truly OOM.
-> -			 *
-> -			 * However, since graphics tend to be disposable,
-> -			 * defer the oom here by reporting the ENOMEM back
-> -			 * to userspace.
-> -			 */
-> -			if (!*s) {
-> -				/* reclaim and warn, but no oom */
-> -				gfp =3D mapping_gfp_mask(mapping);
-> +				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> =20
->  				/*
-> -				 * Our bo are always dirty and so we require
-> -				 * kswapd to reclaim our pages (direct reclaim
-> -				 * does not effectively begin pageout of our
-> -				 * buffers on its own). However, direct reclaim
-> -				 * only waits for kswapd when under allocation
-> -				 * congestion. So as a result __GFP_RECLAIM is
-> -				 * unreliable and fails to actually reclaim our
-> -				 * dirty pages -- unless you try over and over
-> -				 * again with !__GFP_NORETRY. However, we still
-> -				 * want to fail this allocation rather than
-> -				 * trigger the out-of-memory killer and for
-> -				 * this we want __GFP_RETRY_MAYFAIL.
-> +				 * We've tried hard to allocate the memory by reaping
-> +				 * our own buffer, now let the real VM do its job and
-> +				 * go down in flames if truly OOM.
-> +				 *
-> +				 * However, since graphics tend to be disposable,
-> +				 * defer the oom here by reporting the ENOMEM back
-> +				 * to userspace.
->  				 */
-> -				gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> -			}
-> -		} while (1);
-> +				if (!*s) {
-> +					/* reclaim and warn, but no oom */
-> +					gfp =3D mapping_gfp_mask(mapping);
-> +
-> +					/*
-> +					 * Our bo are always dirty and so we require
-> +					 * kswapd to reclaim our pages (direct reclaim
-> +					 * does not effectively begin pageout of our
-> +					 * buffers on its own). However, direct reclaim
-> +					 * only waits for kswapd when under allocation
-> +					 * congestion. So as a result __GFP_RECLAIM is
-> +					 * unreliable and fails to actually reclaim our
-> +					 * dirty pages -- unless you try over and over
-> +					 * again with !__GFP_NORETRY. However, we still
-> +					 * want to fail this allocation rather than
-> +					 * trigger the out-of-memory killer and for
-> +					 * this we want __GFP_RETRY_MAYFAIL.
-> +					 */
-> +					gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> +				}
-> +			} while (1);
-> +		} else {
-> +			/*
-> +			 * Otherwise, we are still inside the same folio,
-> +			 * so just update its page index.
-> +			 */
-> +			folio_page_index =3D next_pfn - folio_pfn(folio);
-> +		}
-> =20
-> -		nr_pages =3D min3(folio_nr_pages(folio),
-> +		nr_pages =3D min3(folio_nr_pages(folio) - folio_page_index,
->  				page_count - i, max_segment / PAGE_SIZE);
-> =20
->  		if (!i ||
-> @@ -166,13 +177,19 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  				sg =3D sg_next(sg);
-> =20
->  			st->nents++;
-> -			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
-> +			sg_set_page(sg, folio_page(folio, folio_page_index),
-> +				    nr_pages * PAGE_SIZE, 0);
->  		} else {
->  			nr_pages =3D min(nr_pages, (max_segment - sg->length) / PAGE_SIZE);
-> =20
->  			sg->length +=3D nr_pages * PAGE_SIZE;
->  		}
-> -		next_pfn =3D folio_pfn(folio) + nr_pages;
-> +
-> +		/*
-> +		 * Store the next PFN, so contiguous physical pages
-> +		 * can be merged into the same SG entry.
-> +		 */
-> +		next_pfn =3D folio_pfn(folio) + folio_page_index + nr_pages;
->  		i +=3D nr_pages - 1;
-> =20
->  		/* Check that the i965g/gm workaround works. */
+> 
+> Since that's a side question:
+> 
+> Reviewed-by: Michał Grzelak <michal.grzelak@linux.intel.com>
+> 
+> BR,
+> Michał
+> 
+> > +intel_pipe_pixel_rate(const struct intel_crtc_state *crtc_state)
+> >  {
+> >  	u32 pixel_rate = crtc_state->hw.pipe_mode.crtc_clock;
+> >  	struct drm_rect src;
+> > @@ -2299,7 +2300,8 @@ static u32 ilk_pipe_pixel_rate(const struct intel_crtc_state *crtc_state)
+> >  				   pixel_rate);
+> >  }
+> >  
+> > -static u32 ilk_pipe_pixel_rate_cdclk(const struct intel_crtc_state *crtc_state)
+> > +static unsigned int
+> > +intel_pipe_pixel_rate_cdclk(const struct intel_crtc_state *crtc_state)
+> >  {
+> >  	struct intel_display *display = to_intel_display(crtc_state);
+> >  	u32 pixel_rate = crtc_state->hw.pipe_mode.crtc_clock;
+> > @@ -2345,19 +2347,10 @@ static void intel_mode_from_crtc_timings(struct drm_display_mode *mode,
+> >  
+> >  static void intel_crtc_compute_pixel_rate(struct intel_crtc_state *crtc_state)
+> >  {
+> > -	struct intel_display *display = to_intel_display(crtc_state);
+> > -
+> > -	if (HAS_GMCH(display)) {
+> > -		/* FIXME calculate proper pipe pixel rate for GMCH pfit */
+> > -		crtc_state->pixel_rate =
+> > -			crtc_state->hw.pipe_mode.crtc_clock;
+> > -		crtc_state->pixel_rate_cdclk = crtc_state->pixel_rate;
+> > -	} else {
+> > -		crtc_state->pixel_rate =
+> > -			ilk_pipe_pixel_rate(crtc_state);
+> > -		crtc_state->pixel_rate_cdclk =
+> > -			ilk_pipe_pixel_rate_cdclk(crtc_state);
+> > -	}
+> > +	crtc_state->pixel_rate =
+> > +		intel_pipe_pixel_rate(crtc_state);
+> > +	crtc_state->pixel_rate_cdclk =
+> > +		intel_pipe_pixel_rate_cdclk(crtc_state);
+> >  }
+> >  
+> >  static void intel_joiner_adjust_timings(const struct intel_crtc_state *crtc_state,
+> > -- 
+> > 2.55.0
+> > 
+> > 
+
+-- 
+Ville Syrjälä
+Intel
