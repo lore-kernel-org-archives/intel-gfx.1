@@ -2,28 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D6B606A32A
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 16:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88EB606A321
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 17:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xi1M0Wrq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C5CE10E1E9;
-	Thu, 12 Nov 2026 16:22:01 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2558E10E1E9;
- Thu, 12 Nov 2026 16:22:00 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7544707206775256703=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC0511226E;
+	Thu, 12 Nov 2026 17:18:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9475F11225B;
+ Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 441464233C;
+ Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179EA1F000C4;
+ Thu, 12 Nov 2026 17:17:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794503876;
+ bh=VMi+hIkLWXT7siLEN9ATyCll+A1V4GrHFAEeCBcDPio=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Xi1M0WrqH5bMvx0n0pi4w5v7a8qJzrxjW4xzgjyJBTk4w5Ha9LDFHd8Q2SIO4bI0/
+ R1AH44wKcxNJXbaWLeAun1BY623lBE7mWeM8MlocaX0VT4oGCtm1o/G3AsbPIXS1Ln
+ HAfe4Gi1tJJQuDHDrzTAcmJcvP7xkP9KNg6uFt8kIbAQS0k0mQOiMe1zrTRcGbMEAP
+ QjV4y8GkI+IFa+IR6J9g75IGth5ijUGZ2Wd4tjx81In8/mDCI0Hl19n37GOo0mpyES
+ RMm1owYYSjXmybNXysJzMRsSMwbMIAEWBzrarLAWP33yYlnJBqzwDlRjfOGVF8svjx
+ eUQ0ymv8EqhZg==
+Date: Thu, 12 Nov 2026 09:17:55 -0800
+From: Kees Cook <kees@kernel.org>
+To: Bence Csokas <bence.csokas@arm.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Selvin Xavier <selvin.xavier@broadcom.com>,
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Chengchang Tang <tangchengchang@huawei.com>,
+ Junxian Huang <huangjunxian6@hisilicon.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>,
+ GR-QLogic-Storage-Upstream@marvell.com,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] Add struct_offsetofend() for pointer arithmetic
+Message-ID: <202611120916.3619B95@keescook>
+References: <20261112-offsetof-v2-0-276ede839967@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/selftests=3A_fix?=
- =?utf-8?q?_stolen_reset_test_races?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Nov 2026 16:22:00 -0000
-Message-ID: <179450052014.16687.16758976171615092711@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261112115907.16263-1-sebastian.brzezinka@intel.com>
-In-Reply-To: <20261112115907.16263-1-sebastian.brzezinka@intel.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261112-offsetof-v2-0-276ede839967@arm.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,236 +98,153 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============7544707206775256703==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Nov 12, 2026 at 10:29:32AM +0100, Bence Csokas wrote:
+> A common usage pattern for offsetof() is the following:
+> 
+>   offsetof(typeof(*ptr), member)
+> 
+> This is exactly the definition of struct_offset(). Some call sites use
+> offsetofend() instead of offsetof(). Add this variant, then replace all
+> call sites with the corresponding macros.
 
-== Series Details ==
+Yeah, I think this is reasonable. I'd prefer to see the Coccinelle
+script explicitly added to tools/coccinelle/api/ though, so it can be
+trivially re-run as needed.
 
-Series: drm/i915/selftests: fix stolen reset test races
-URL   : https://patchwork.freedesktop.org/series/178393/
-State : success
+Also, while Alejandro is right about the needless outer parens, I think
+I'd like to keep them just to match the other define, and they do no
+harm.
 
-== Summary ==
+-Kees
 
-CI Bug Log - changes from CI_DRM_19506 -> Patchwork_178393v1
-====================================================
+> 
+> Signed-off-by: Bence Csokas <bence.csokas@arm.com>
+> ---
+> Changes in v2:
+> - Use struct_offset() instead of reinventing it
+> - Rename offsetofendp() to struct_offsetofend()
+> - Merge the two treewide patches
+> - Link to v1: https://patch.msgid.link/20261105-offsetof-v1-0-4153f5c10edc@arm.com
+> 
+> To: Kees Cook <kees@kernel.org>
+> To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> To: Marcel Holtmann <marcel@holtmann.org>
+> To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+> To: Sumit Semwal <sumit.semwal@linaro.org>
+> To: Christian König <christian.koenig@amd.com>
+> To: Philipp Stanner <phasta@kernel.org>
+> To: Sudeep Holla <sudeep.holla@kernel.org>
+> To: Cristian Marussi <cristian.marussi@arm.com>
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: Jani Nikula <jani.nikula@linux.intel.com>
+> To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> To: Tvrtko Ursulin <tursulin@ursulin.net>
+> To: Lyude Paul <lyude@redhat.com>
+> To: Danilo Krummrich <dakr@kernel.org>
+> To: Zack Rusin <zack.rusin@broadcom.com>
+> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+> To: Selvin Xavier <selvin.xavier@broadcom.com>
+> To: Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
+> To: Jason Gunthorpe <jgg@ziepe.ca>
+> To: Leon Romanovsky <leon@kernel.org>
+> To: Chengchang Tang <tangchengchang@huawei.com>
+> To: Junxian Huang <huangjunxian6@hisilicon.com>
+> To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> To: Hans de Goede <hansg@kernel.org>
+> To: Mauro Carvalho Chehab <mchehab@kernel.org>
+> To: Haiyang Zhang <haiyangz@microsoft.com>
+> To: Wei Liu <wei.liu@kernel.org>
+> To: Dexuan Cui <decui@microsoft.com>
+> To: Andrew Lunn <andrew+netdev@lunn.ch>
+> To: "David S. Miller" <davem@davemloft.net>
+> To: Eric Dumazet <edumazet@kernel.org>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: Paolo Abeni <pabeni@redhat.com>
+> To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+> To: Jes Sorensen <Jes.Sorensen@gmail.com>
+> To: Ping-Ke Shih <pkshih@realtek.com>
+> To: Johannes Berg <johannes@sipsolutions.net>
+> To: Benson Leung <bleung@chromium.org>
+> To: Tzung-Bi Shih <tzungbi@kernel.org>
+> To: Guenter Roeck <groeck@chromium.org>
+> To: Nilesh Javali <njavali@marvell.com>
+> To: GR-QLogic-Storage-Upstream@marvell.com
+> To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+> To: "Martin K. Petersen" <mkp@kernel.org>
+> Cc: linux-hardening@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-bluetooth@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> Cc: arm-scmi@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
+> Cc: linux-rdma@vger.kernel.org
+> Cc: linux-hyperv@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Cc: linux-wireless@vger.kernel.org
+> Cc: chrome-platform@lists.linux.dev
+> Cc: linux-scsi@vger.kernel.org
+> 
+> ---
+> Bence Csokas (2):
+>       stddef: Add offsetofend() variant of struct_offset()
+>       treewide: Use struct_offset()
+> 
+>  drivers/bluetooth/btmrvl_main.c                    | 12 +++++-----
+>  drivers/dma-buf/dma-resv.c                         |  2 +-
+>  drivers/firmware/arm_scmi/base.c                   |  2 +-
+>  drivers/gpu/drm/drm_edid.c                         | 26 +++++++++++-----------
+>  drivers/gpu/drm/i915/gem/i915_gem_object.c         |  4 ++--
+>  drivers/gpu/drm/i915/i915_active.c                 |  2 +-
+>  drivers/gpu/drm/i915/i915_sw_fence_work.c          |  2 +-
+>  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 12 +++++-----
+>  drivers/infiniband/hw/bnxt_re/qplib_fp.c           |  2 +-
+>  drivers/infiniband/hw/hns/hns_roce_cq.c            |  4 ++--
+>  drivers/infiniband/hw/hns/hns_roce_qp.c            |  6 ++---
+>  drivers/media/usb/uvc/uvc_v4l2.c                   |  4 ++--
+>  drivers/net/hyperv/rndis_filter.c                  |  2 +-
+>  drivers/net/wireless/intel/iwlwifi/iwl-drv.c       |  2 +-
+>  drivers/net/wireless/intel/iwlwifi/mvm/rs-fw.c     |  2 +-
+>  drivers/net/wireless/intel/iwlwifi/mvm/rs.c        |  2 +-
+>  .../net/wireless/intel/iwlwifi/pcie/ctxt-info-v2.c |  5 ++---
+>  drivers/net/wireless/realtek/rtl8xxxu/core.c       |  2 +-
+>  drivers/net/wireless/realtek/rtw88/fw.c            |  2 +-
+>  drivers/net/wireless/realtek/rtw89/core.c          |  2 +-
+>  drivers/net/wireless/realtek/rtw89/fw.c            |  8 +++----
+>  drivers/net/wireless/virtual/mac80211_hwsim_main.c |  4 ++--
+>  drivers/platform/chrome/cros_ec_lightbar.c         |  4 ++--
+>  drivers/scsi/qla2xxx/qla_gs.c                      |  2 +-
+>  drivers/scsi/qla2xxx/qla_mbx.c                     |  2 +-
+>  drivers/scsi/qla2xxx/qla_os.c                      |  2 +-
+>  drivers/scsi/qla2xxx/qla_tmpl.c                    |  4 ++--
+>  drivers/scsi/scsi_transport_fc.c                   |  2 +-
+>  include/linux/overflow.h                           | 12 ++++++++++
+>  30 files changed, 75 insertions(+), 64 deletions(-)
+> ---
+> base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+> change-id: 20261105-offsetof-f62aa6348f0d
+> 
+> Best regards,
+> --  
+> Bence Csokas <bence.csokas@arm.com>
+> 
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/index.html
-
-Participating hosts (39 -> 39)
-------------------------------
-
-  Additional (1): bat-adls-6 
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_178393v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][6] ([i915#17452])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#17448] / [i915#3291]) +2 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#17448]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448
-  [i915#17452]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17452
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19506 -> Patchwork_178393v1
-
-  CI-20190529: 20190529
-  CI_DRM_19506: 8182671511e86bff6780533bce20c209a13dc8bb @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9187: 9187
-  Patchwork_178393v1: 8182671511e86bff6780533bce20c209a13dc8bb @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/index.html
-
---===============7544707206775256703==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/selftests: fix stolen reset test races</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178393/">https://patchwork.freedesktop.org/series/178393/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19506 -&gt; Patchwork_178393v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 39)</h2>
-<p>Additional (1): bat-adls-6 <br />
-  Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_178393v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17452">i915#17452</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178393v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448">i915#17448</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19506 -&gt; Patchwork_178393v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19506: 8182671511e86bff6780533bce20c209a13dc8bb @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9187: 9187<br />
-  Patchwork_178393v1: 8182671511e86bff6780533bce20c209a13dc8bb @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7544707206775256703==--
+-- 
+Kees Cook
