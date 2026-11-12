@@ -2,175 +2,163 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B19606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:23:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A04606A321
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 02:40:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lKmC3XaG
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KI/qRF06;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MB63mz6D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A76AD10EAFB;
-	Thu, 12 Nov 2026 01:23:28 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67F2F10EAE6;
- Thu, 12 Nov 2026 01:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794446601; x=1825982601;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=cA6uCR8VIe7leAztjJ5roG39+Ntke2hXFHDqt0WNkkk=;
- b=lKmC3XaGyQvYGo+kEdC53S6u+VvQ5m72RChtK2jzRu3vuNUjLd8PEyc2
- lPqDj5M682aD6z/cnLXkCM1YuHjxHFZ24Aheaa1v8LYbVxH/EZPImUfcN
- YzQIgtSbzaeobeP/1Q+A0ueQe0iuBQncQrAivbBVq4f62qC1FB6JHAWUw
- vdyNhTPy85Go03Y3UWYJOsJCcybqvqdpg2GkP9iDfpGTrtrMPvqwCXb8t
- TKVHiIKHBeNGu8ddteTrzoGSWMWMr6sL2P7AqhcRq9xnng7e815TWAMQJ
- IBGJiPZpJZA41kSJZWTp0xHBH3TdZ0IouBUOyaD0Lws+HadllJIlt/Xm+ w==;
-X-CSE-ConnectionGUID: DBWLMuSQQYWHmQ1PqrtK6A==
-X-CSE-MsgGUID: 5q7VKCLmSB2PNKhZzYpr4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3117919"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3117919"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 17:23:21 -0800
-X-CSE-ConnectionGUID: KhhMTgHPQamowe6u6ZmxTw==
-X-CSE-MsgGUID: hSWzyHXkSBizyXVckXtc1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8420589"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 17:23:20 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 11 Nov 2026 17:23:19 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 17:23:19 -0800
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.44) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 11 Nov 2026 17:23:19 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TUmBZgS34RE7CUy7DqceUq6CdRgOinBRcqRXxVqNZiemc1C31eFXqObM+Qp8RzXeatQkXyaDKCQPEctf1SJvcLxNCoEN5R81/wNhh1JNnUFY2a+W6iuWQtb3kytrY2MJmAvbIhHWuLaR2R7hZqZJoJ1hNRA3XdbOsoznqHvOvgh7FwRbnZ/zg+ji5smBeyIUF7p70QnJBH/5u9oh93uT0AejCQPO2xPObaFVl4BvD7J9IC/LIEfJAiDtbl+yLeZ2csMvEjDqRFpX0Nv6KHcwJNSBLcc7qZLWzWpMlhrgR8M90nOC36iJnt93U99tJXACoVHE1BIxofuwnLWEuthT3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cA6uCR8VIe7leAztjJ5roG39+Ntke2hXFHDqt0WNkkk=;
- b=xRSi+ARv0fj3rM+WqY6WeWoUUXGOCjyJtsk3ek9h4HRDHPwBEx7MMp4VVU1t/39OGA/8GC5ivofPf6laBNLi1nnk8NmFzNncz/MvJyBd3GfUAMCa+5XnwPHIh6yc+Y3R/JGF9NuTbufPfzdK5veZc4ewjLc/rkWN36iyZ5LS8XCxzGXy4xJRBAKYdNsiZDs2/+TpCaACBQlnSW5OC+fMOSKOxygMx6S3vZGglYcNKwhAlctKQ+bc57FVaORtW6PlQEI9cZpndr73D1U5bxI4jUFxOzb1L1lmO42GxxPrP8jAYAvmoYAGmFdsyfFkG5aPJr+XtZYqsPbWxNbDJdNN0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from LV2PR11MB6070.namprd11.prod.outlook.com (2603:10b6:408:179::22)
- by PH7PR11MB7004.namprd11.prod.outlook.com (2603:10b6:510:20b::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 01:22:46 +0000
-Received: from LV2PR11MB6070.namprd11.prod.outlook.com
- ([fe80::4c84:af62:dc60:fd9]) by LV2PR11MB6070.namprd11.prod.outlook.com
- ([fe80::4c84:af62:dc60:fd9%5]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 01:22:46 +0000
-From: "Popov, Pavel E" <pavel.e.popov@intel.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-CC: "Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar
- <viresh.kumar@linaro.org>, Jani Nikula <jani.nikula@linux.intel.com>, "Joonas
- Lahtinen" <joonas.lahtinen@linux.intel.com>, "Vivi, Rodrigo"
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alex Deucher
- <alexander.deucher@amd.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
- <christian.koenig@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?iso-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Peter Huewe
- <peterhuewe@gmx.de>, Tom Lendacky <thomas.lendacky@amd.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Leon Romanovsky <leon@kernel.org>, "Bjorn
- Helgaas" <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>, "Arnd
- Bergmann" <arnd@arndb.de>, Len Brown <lenb@kernel.org>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "David S . Miller"
- <davem@davemloft.net>, "x86@kernel.org" <x86@kernel.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
- "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
- "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 6/7] tpm: Include <asm/cpu_device_id.h> unconditionally
-Thread-Topic: [PATCH 6/7] tpm: Include <asm/cpu_device_id.h> unconditionally
-Thread-Index: AQHdcjc2diIJvqCo3U+vE4WoMv7TQ7cpmE8AgAAKUsA=
-Date: Thu, 12 Nov 2026 01:22:46 +0000
-Message-ID: <LV2PR11MB6070B890C1A4683EF36F5CB6B2702@LV2PR11MB6070.namprd11.prod.outlook.com>
-References: <20261111234821.4814-1-pavel.e.popov@intel.com>
- <20261111234821.4814-7-pavel.e.popov@intel.com> <avUK6uzoAJax0ZKn@kernel.org>
-In-Reply-To: <avUK6uzoAJax0ZKn@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV2PR11MB6070:EE_|PH7PR11MB7004:EE_
-x-ms-office365-filtering-correlation-id: a19cb1c4-2224-42e4-3f30-08df405b757b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|7416014|18002099003|22082099003|11063799006|4143699003|56012099006|261028144727099003|261026140227099003|261026121527099003|261022105027099003|38070700021|10067099003;
-x-microsoft-antispam-message-info: H3fkz/+GtXcTUrJ76CMLAVyGRSA1v7o73lO6ipeACWw6MA2rvjpSBGbHLZ2ZIvwWcczjCFnh7KcwJNNc+D5xjl1CVKaH6O5wxYXlDmOAeOefS6BmKDCMAsKRIp3tPHo1RSp9UFCWgRUgoc1NPYLozeFb6eTcl0/DJ0zt8yoeC7Q0ik/5DUkaCI4TdS24pHllfkoKFRfPDiPkAYyJimOhoZCCwfdwiazSB3RsE050ftZpfjAUL5qBl3LvE2VHYqaCm6KVdiRHsx6/swy2OL+lWzG/Qrh4sXwOoYxZOTgalxWbc8D1bjutIyCGEHrlreIXVYHJhrcxy0VkcetfyqleXgSeA2jgH4kX6diXRTv5+z1CpkXkkkzNZNjH3gPEKB+J5IFY/TZiPWH6YdCHBpfDGxuoaW/FP1K3R/pYtscZPFvrZ4fZhY/bBeKw+kqglbpl5RkYw8JUadtt3sDU58K6x7rc7t9FQoGO48crKqYNX5GVJia13K5xAfmYCvN9qwtWTB0lcsVCWYq2xBmkYyIdi3fb70/6lBFgg98Q6TamVs0jQ13QJ8yZEYKBwhmY7lj8bCh73R6jZf3sh6wMDH3B4x7+gVNdTkbmHnayjYNgJbF3Q8pVsweDtOlomlOjCePuYaGobACPw57MnD//A9FTV39oidabJOaru7YkwMcLTDU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR11MB6070.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(38070700021)(10067099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?0hnp6tC1Zjr7c1RRaNdPxqUVH/Gor31bxgkoMTtNUuaCG94KFruambQ6P4?=
- =?iso-8859-1?Q?9rPtGu7e8QBLx/O546a8U5nRqbt58FaGeIVypJv6TjOREcKZ2tBMTafAjr?=
- =?iso-8859-1?Q?ibdtA4o6gi30n55L+iTLOc3pAGvPx5s8QI4H0WGwpNFr6VGRhFVL3vXucH?=
- =?iso-8859-1?Q?DrbOxLE3DCo5Y0JTwwb3tBuJwvdIBa6FWW+Q886LFxTG92scsa6Fk3LDnx?=
- =?iso-8859-1?Q?u9U8gTLnajXAIgb+4lWxhIjfSMnvjla4LcxRS/qdRicAjpRk7jdV9r3nAM?=
- =?iso-8859-1?Q?b0KE+bLS4UplH+mzm+Kov9bn/O1pyLtoFIRcoc/YYw34NQhPyvk5mJd7g+?=
- =?iso-8859-1?Q?lka2zd2IZmui9SFO3XoTZ31eatutX0YJ4MpN3cEbqMvQrADuttL0PjZlKx?=
- =?iso-8859-1?Q?ftSeGj4yZDUk+RCvY7DU1JF41Ngk+l/mTF/9fn4W3rLX+LR2LrOjoo7hx9?=
- =?iso-8859-1?Q?EVTdPvvpQRj09ekrURunZTJ8vO0m0d5sEI3Mf02HqPkXqKiVNxDbbAyF+s?=
- =?iso-8859-1?Q?uS+kTeaIHFLB5JeWavOknehNUf6WzdilRkLqnoiwdsslflIUq2IRxjq8qC?=
- =?iso-8859-1?Q?IkBvK5pQdWq7vVmo77qMV8VtbORKOyKngAwpqIirh+spfK+n9WGYLIeJ4e?=
- =?iso-8859-1?Q?tXKrWqPBYbtQvAjzZFvm11CvBc2duh7jXdWQ22AnFEHqcn2q8riLQyOorI?=
- =?iso-8859-1?Q?Gs3mQCPLvBRcKs2hYVU5H7zNTwuiAwnDI0HUunvAQB9CrMQnuHINa/Z8rx?=
- =?iso-8859-1?Q?XUNcKyUktcnlvT+bGzY73vqyPEyG+18HTLEREB7N0Mopl5L6nppX/5zbgI?=
- =?iso-8859-1?Q?0EMixdkTbxnAUvM0yAg9ZxulQZgrJfewydA644c819mNBs2zaTkBPEv6Lz?=
- =?iso-8859-1?Q?NaqrSQPGZnyTZYVCZ+y8IRdEsEG4YthcPWf9MkJf45YfzkOMyB+sgBLxfU?=
- =?iso-8859-1?Q?QJ5hHepWFwqvrnC6iU/9ppO9SQWA3KZTwoO2teTcA4+LkbJRlIPJxeKIOj?=
- =?iso-8859-1?Q?9weGRwBhu01lQclScILcptw3DSsR1yXP8svNp0UDenyuGTo5uGPhLqqyxh?=
- =?iso-8859-1?Q?RLHuQS22xwjzFuf2PLSDtOKqGgpZG3hV/DWEHM6MhMM2+zkYiKoFoQzpu+?=
- =?iso-8859-1?Q?899Yn5dBxPEiPMfokLpeY2Fze3MQo34N+IDxfaz341KBlxly0QGvr7kCUn?=
- =?iso-8859-1?Q?B9xMdtB5Qpm1RtlHluc0vQIh4qXBxZyJFBAnD8JsMeU6BDNCLv51cL1HRO?=
- =?iso-8859-1?Q?MnihWU8GX+8Q/jPYUHVUSW6WZVRtSLNvdyZQ0uNOFs6qPDSLqx3YXG7NmR?=
- =?iso-8859-1?Q?MwDxY89TW7WpvSOBbfP5vf6x9YHHntS7S4I2DY8IToPX4TYLrKDpulrvT1?=
- =?iso-8859-1?Q?96iKgBAJG33JOrgRxATeJRpGozDEJ71H3rOG1gSKsSFWK15RpUSl6thx3z?=
- =?iso-8859-1?Q?Ou5Rm+IvqP37VjtgmuNwr3MgSLRcisduy9TPDObVNBE3ujHnMOU0/oA20v?=
- =?iso-8859-1?Q?vjCD6aqmoP+P6pNPphCc2YrNr3iWk5F72VnETrSY3h0ngrmmvKlu8ZODlv?=
- =?iso-8859-1?Q?myhFeo8//OoKjpZgqkGUXOT/grlPtupvEZF7AzVOPVfuOTZ1sdTe/ID4Nt?=
- =?iso-8859-1?Q?7Nvq53KdRveL91uwLwlPOs/muny48fsw1QX72ck91h5qNJyuPHH3tSMMij?=
- =?iso-8859-1?Q?dWT2SdmEloIppcjGv4ccVGGCh/oFo9t8HY2W+1EFMcEKuW8zgBx1nyD+FZ?=
- =?iso-8859-1?Q?pqIbvOyHO8fT9nJbJRGmgyHWQuXyxW2NIuBGmQhpDehVFkT6GZijzTqiU5?=
- =?iso-8859-1?Q?RdYJo7BZSQ=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71B1510E3EF;
+	Thu, 12 Nov 2026 02:40:32 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 385C310E3EF
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 02:40:21 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AC2aUih1475355
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 02:40:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ iih96abnjxj/PozHFDBWYCK9JcXmwzDO9tgu+OyMggw=; b=KI/qRF060qDr0r2Y
+ cJuOgXtsBpuDssWcFJlKOO1nnz751BpTeh9oz1oPGvjmslvWwhtLwO06nYw9Mz4r
+ ecj4zy4uuMABNaIYsfdpdtFlcLHOb0GPfLodjZXjXNDK8Vf+XQwfP+fvVcSjA1fG
+ 8h4TorsRex4rX7DoDD7Xb8uxUGXLLNcE7DByWRDzOUXxuwCBoKiBaRMH9GFL3BUA
+ /SVMy9oqTiO0QrtV7oovqEHmjChkcnZA0sdNFtNSTh5HzTW33BNQPX4QbldT90Az
+ F5ZYYFXjKa2Gozlp/vRRIx8hfdaKFek54kf3AKzEgLxcExHQcVbuPbqhhr1obTxj
+ daAuAw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvtymt9n3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 02:40:19 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-535131e4c25so77715851cf.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 18:40:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794451219; x=1795056019;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=iih96abnjxj/PozHFDBWYCK9JcXmwzDO9tgu+OyMggw=;
+ b=MB63mz6DLZYSoHsTbjR+0xTdgw77ISdF9F1cWV7J5CYrbRPCrWLtxQVE+jq0TkUiKs
+ UO4jxuxQDNLaol1WP+Tzz6FEjEVKYPVSXzc4ypsEwkbVYBbHXNPF4dtQttj+3mkG4rm4
+ /sk/bziO2InVR7IVnJRf4/Pg4HT06S34IhZFpj5mGR87fld8Pc0nyyrTFdWNSLEn6u0M
+ 9S1h3U8kIM6QPBWiuUgAoBP0UvQVbzHGjbmfQzvv9EPMpxktNOwsFI1czNtEh8/7AZwJ
+ QSihNR740Ro3mPdcwmhxRrArUI/WMhF8aKn2iNRGnGImpznEyeZiEEI7h5Wuakh4clT6
+ 8azg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794451219; x=1795056019;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=iih96abnjxj/PozHFDBWYCK9JcXmwzDO9tgu+OyMggw=;
+ b=Cpig3EgkN94ddUpn0cywLEIo8LwK6/SpaDPOovHlhWGSlvBo+elfSIUFdBmohWhxld
+ O2l+pLEhO5qfOKZr5pTgEOP+SfIlbPHr4mmQ01w32G/jwhp56uMG6J5c2q7hpNpMYPeN
+ zHVoGF0PqvjK2QIQ7Mb/ZQq1NIsG8tFrvTN3tc3sJOKB+pLIjZSwctsfVuKGquS2iUC/
+ l6L7iMkuijQFHj0yb/eZx7qKk5Ul3vX+RZ1jqak89O/DzlkJcNwYICCpFC93CvH12K8G
+ wMftT/qrz4hCde+zzVL1q1g45kb9Iqo6FExz0b358Z7mMiS5+IHs21vje7CiGNDcsVrT
+ p2jg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHiMuVwrxvm7vx27Ft+KJ2+nhbcG4/E4vVNZ8OygzOwTeSH68WR9ZlVPPjp/qrzJ72LLtsBKjcZdlE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8GPMHzEJhB65GlJ9m8eBQTCldMyRwJ/Fg8P8JfmOSa3i7i1gl8
+ PTR7O6/XSNI+HsRnNHMSLakLYZKywqB77PvoXtxi6ZGCaP9ixR2mltj9d5OomNiH2AYLO498W2s
+ Z6Vwn2ZicweoHdvtx0cwPw1OUGGDvXEwC7/OZTiLqqZdnlKLQJp/FW00CqovJ+UcUta6WX1c=
+X-Gm-Gg: AYBFou23inXKTkkbv4BDJRgdPGP4e+4da5MHlrSWKeGAbIGu6rCKqg4QIOcPX1wA42C
+ j/6qNp0hwp4xp24/8ez4VFu7lCsVgfhhzqO9joWMrPSBNKLFI3jwSkifJOg5R2EHETvtyS+kDLq
+ ke25WZbt6BsL52W5W2J95MixZY0XVaJCdFNlP0PN/RrNfmXUhOApVpYBkB2OWH/RRkqhEjh/5Z/
+ bCHca2CvpNVxJGT1sJcJE8l9Ok32x65jAg0MjWU7Y+acpgYjc4Jtcc5nRN5IQW9JzRzersnhg3N
+ s3Gyv+XIYYoGoFC/+ey1HLROSDos/lbkPKI5BDblkgEQvbb9hFEQVVX0S35fjSg90Ux2aOyLsRj
+ bGZ2lcjDh4fHtEmsnbIxe2dIirL3eVc4kkYYEZ4AQFk7e3+ceRY2ZKiqkKXkPw/tVGq0gSaEs7a
+ Mim7nAaW9f4nZG+9/pfdAMMmgEokSnmqLC163ABYg=
+X-Received: by 2002:a05:622a:4e0a:b0:536:352d:65e9 with SMTP id
+ d75a77b69052e-556c25188e0mr64866101cf.65.1794451219049; 
+ Wed, 11 Nov 2026 18:40:19 -0800 (PST)
+X-Received: by 2002:a05:622a:4e0a:b0:536:352d:65e9 with SMTP id
+ d75a77b69052e-556c25188e0mr64861391cf.65.1794451209677; 
+ Wed, 11 Nov 2026 18:40:09 -0800 (PST)
+Received: from [10.111.167.254] (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-5550bd33340sm64426881cf.21.2026.11.11.18.39.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Nov 2026 18:40:09 -0800 (PST)
+Message-ID: <ffe9dd90-909c-4259-8a57-2ea67307a95b@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 10:39:56 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Rfszv+TW3TevVLyR1gybw1zxYWiVIEVYBDAmM3RTaGKjL1JF+aiZ8eE0X0BPZKp7p+PCn7GpHWhYo4DGw2cEL1Nx14UbibaL+QfA2yoDZ6LtnqpyA3CK+b3zFrGj49+bEx2ekV9DngTVqIXMrzl310mEt1sU1jqhrxBzlQQrUT+pItLRzAZQCbY8Gvk/XGkGIQjzxjlxChl+8Y2zI8l2T7OZZGS49+ms1/dL6QuWXvaMBfj5WFKnxyVVaHQMofAr9lg+K6hKj7DExKg+iOpc06XWFufN0rmKnW1s1SHKJyFh4QEJxRnko4hA8QVLrRpE1vCBdkPkbQTvtI0Ftoez6Q==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB6070.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a19cb1c4-2224-42e4-3f30-08df405b757b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2026 01:22:46.6847 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wdlLmGS1HUgpRqFQYcCKvOJHe+R5cqrUXUR5gI2nhRckS0T3oZ7k238X3j/8VqgPA3fXMNt/xditiIslGldOYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7004
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 6/9] drm/msm/dp: don't take extra references on
+ multiple plug events
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Francesco Dolcini <francesco@dolcini.it>, Kevin Hilman
+ <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com>
+ <20261024-hpd-irq-events-v8-6-6ee949e7a384@oss.qualcomm.com>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <20261024-hpd-irq-events-v8-6-6ee949e7a384@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: pwwF-tUYOuZiPWFYIgULFHT9YVcsCMwp
+X-Proofpoint-ORIG-GUID: pwwF-tUYOuZiPWFYIgULFHT9YVcsCMwp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAxMCBTYWx0ZWRfX2ld+M7kvbosv
+ 0DjdQEjwF/O67k69Gyv4WIGSpDk17FHx++RnUr2CkEtZxUz8xjVtVykpHD/CJqGip2tTepbIvYr
+ paVg/EDBmxTf9p7E3xKgr5guErAWJOazrJtWKBXiGK+r+RypVnWRyrTy7yC3iJMNcNK3eHt/+5T
+ LVcxkTTRsEx1SrIIsXb+SE/eIQtYNUDyTgreCKE1LM1fvS3qlPj0ghV/nth1Ah1i8LctxitiBBJ
+ JoQnbIQCJSRd5bIiH0OZ/EBFFxWGRNz06oXzlrgjjTmK2PdBopVtbaLhgsNmv8RIRdr+lAQvWzO
+ X+V02w/CAlCbgQ3FLWa3+mgIYUcZY+PFpeoo3UdjOqQGsmG6JLZchdhCWCHXYNhPRV214KLQ9AZ
+ 4VHUiXuvncW+rq81IWuyc68fxqAyVpwCyITDyL8I2PNmpl92CwXRQPrayHWeiTzh4PhEfvjjsFS
+ uXa/WkwA1hOlUhR1mXA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAxMCBTYWx0ZWRfX20w1rx+gp00h
+ cLC9ND92U8ATH2uRLVob1z7oUaz6bNw0rKt6N1qh4sWzcMVAQPi1MS99DGq2XwtVi7KejCtmnI+
+ 75T1Ojyj0o9/CVShpw0YVmm9C4C+7r0=
+X-Authority-Analysis: v=2.4 cv=Q4BHcI2a c=1 sm=1 tr=0 ts=6af52713 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=UkfVDg3vQ6na--iosyQA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ adultscore=0 suspectscore=0 clxscore=1011 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120010
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,63 +170,50 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
->
-> Are these expected to be picked separately by subsystems?
 
-Yes, each through its own subsystem tree, once [1] is in mainline.
-The tpm patch does not build on non-x86 before that.
 
-[1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
+On 10/24/2026 8:35 AM, Dmitry Baryshkov wrote:
+> The upper layers might signal multiple sequential HPD plug events. Don't
+> take extra references and skip all further HPD plug events until we
+> receive the unplug event.
+> 
+> Fixes: 3ea2d1c3d154 ("drm/msm/dp: turn link_ready into plugged")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index fa8942922b53..ce919a26fba2 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -412,6 +412,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
+>   
+>   	guard(mutex)(&dp->plugged_lock);
+>   
+> +	if (dp->plugged)
+> +		return 0;
+> +
+>   	ret = pm_runtime_resume_and_get(&pdev->dev);
+>   	if (ret) {
+>   		DRM_ERROR("failed to pm_runtime_resume\n");
+> 
+Hi, the issue reported by the AI is real. There is a regression in the 
+SST case: when .detect() runs first, it sets plugged to true. As a 
+result, when msm_dp_hpd_plug_handle() is called, 
+msm_dp_display_process_hpd_high() is skipped, which causes the 
+subsequent failure.
 
-Thanks,
-Pavel
-
-> -----Original Message-----
-> From: Jarkko Sakkinen <jarkko@kernel.org>
-> Sent: Wednesday, November 11, 2026 5:40 PM
-> To: Popov, Pavel E <pavel.e.popov@intel.com>
-> Cc: Rafael J. Wysocki <rafael@kernel.org>; Viresh Kumar
-> <viresh.kumar@linaro.org>; Jani Nikula <jani.nikula@linux.intel.com>; Joo=
-nas
-> Lahtinen <joonas.lahtinen@linux.intel.com>; Vivi, Rodrigo
-> <rodrigo.vivi@intel.com>; Tvrtko Ursulin <tursulin@ursulin.net>; Alex Deu=
-cher
-> <alexander.deucher@amd.com>; Christian K=F6nig
-> <christian.koenig@amd.com>; Hans de Goede <hansg@kernel.org>; Ilpo
-> J=E4rvinen <ilpo.jarvinen@linux.intel.com>; Peter Huewe
-> <peterhuewe@gmx.de>; Tom Lendacky <thomas.lendacky@amd.com>;
-> Herbert Xu <herbert@gondor.apana.org.au>; Leon Romanovsky
-> <leon@kernel.org>; Bjorn Helgaas <bhelgaas@google.com>; Logan Gunthorpe
-> <logang@deltatee.com>; Arnd Bergmann <arnd@arndb.de>; Len Brown
-> <lenb@kernel.org>; Sakari Ailus <sakari.ailus@linux.intel.com>; Jason
-> Gunthorpe <jgg@ziepe.ca>; David Airlie <airlied@gmail.com>; Simona Vetter
-> <simona@ffwll.ch>; David S . Miller <davem@davemloft.net>;
-> x86@kernel.org; linux-acpi@vger.kernel.org; linux-pm@vger.kernel.org; int=
-el-
-> gfx@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; dri-
-> devel@lists.freedesktop.org; platform-driver-x86@vger.kernel.org; linux-
-> integrity@vger.kernel.org; linux-crypto@vger.kernel.org; linux-
-> arch@vger.kernel.org; linux-pci@vger.kernel.org; linux-kernel@vger.kernel=
-.org
-> Subject: Re: [PATCH 6/7] tpm: Include <asm/cpu_device_id.h> unconditional=
-ly
->=20
-> On Wed, Nov 11, 2026 at 04:48:19PM -0700, Pavel Popov wrote:
-> > <asm/cpu_device_id.h> now has a generic version, so the #ifdef
-> > CONFIG_X86 around the include is no longer needed.
-> >
-> > Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
->=20
-> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
->=20
-> Are these expected to be picked separately by subsystems?
->=20
-> Br, Jarkko
+I tried removing the plugged update from .detect(), and that fixes the 
+SST issue. The display works now. However, there is still an 
+intermittent issue where the wrong resolution is selected. I suspect 
+this is related to the timing of the EDID read: when fbcon comes up, the 
+correct EDID may not be available immediately.
