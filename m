@@ -2,77 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CBF606A336
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 21:35:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F32606A327
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 22:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kXc7Y1nZ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtSf8AS/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B44510E3E8;
-	Thu, 12 Nov 2026 21:35:10 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF3D10E133;
- Thu, 12 Nov 2026 21:35:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794519304; x=1826055304;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=qiPKcs32cIql2L4FKZiiE+381T/H6p7Ydei/f5AE/Xk=;
- b=kXc7Y1nZakc4z6acqtuMcvVf6lPAD6UaTf1jv00vuJ820ElUNxVTJ7v3
- qCXIygQKo6GCfbAFAL1TYnwK/rBPSHKuFhaFVFlSfjRJEPB44Cqz4OjnX
- Pkuw3iwcmW1ldvbqhjR05l3L3ptVi2Dhn3n4wXq4YcNOvY8aHVX7KHjDc
- uCx7ZRJlKcSw6S9JvsnL3j3ZbYBesWGzcHk42wHPAIELDE8VTYHc5mg7j
- Hh0hK/nPqGmBYVVOSGVhpvpbFkgQ1gO8IL8JJAw1fUFEdNtK0rzlR4Fpb
- 0YmBKchY0W7IvjyliatlSvNUuppZ6dgMaTgNV7BvKCQHrbekPWSTXBf+7 A==;
-X-CSE-ConnectionGUID: ykpOQ8dUQzGjLIFas9uQqg==
-X-CSE-MsgGUID: BxyYB7nxQWSPEmVwHpEWhA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3337902"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3337902"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2026 13:35:04 -0800
-X-CSE-ConnectionGUID: RpXP1+IKRjCrp7G288nWEQ==
-X-CSE-MsgGUID: 7Z8WZBzRQqymuNkyk7JalA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="9317428"
-Received: from zzombora-mobl1 (HELO kekkonen.fi.intel.com) ([10.245.244.107])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2026 13:34:59 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
- by kekkonen.fi.intel.com (Postfix) with SMTP id 153E5121B71;
- Thu, 12 Nov 2026 23:34:59 +0200 (EET)
-Date: Thu, 12 Nov 2026 23:34:59 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-pci@vger.kernel.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the
- pci_ids.h
-Message-ID: <avYxAxh61Rv956SO@kekkonen.localdomain>
-References: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
- <asFuWAQUPxETWqDL@kekkonen.localdomain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4C2310E15A;
+	Thu, 12 Nov 2026 22:09:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0069810E15A;
+ Thu, 12 Nov 2026 22:09:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8D5F04115B;
+ Thu, 12 Nov 2026 22:09:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C94D01F000C4;
+ Thu, 12 Nov 2026 22:09:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794521351;
+ bh=YdaqQU5UQrIE7jz+L18q1ofvhwJPYfk/YgBxfo4uzJ8=;
+ h=From:Subject:Date:To:Cc;
+ b=UtSf8AS/2vkBzFQsYMRwuG1chkyE3t6cf92PIU1mH6Zccmm+N7wlrDPMvoqYVIzeg
+ JaLGGZUy2+KPrln/QsrIgnjuKFaGDX8Ul4e5+R6J9wuhUlJxYqeuFzFJkhawftra1r
+ 7SRhv9cNjIbSPkFZlJNY1RkXOEYclnV9rxg6sieR55Lx5ecY0vkYsZqBeGZ/uxLJlF
+ Qrc4sbjJPGk5oW5iS/G1qEymWrpXDPeK65SVHwwPX1ALJNiO4mLgB9nfDeBE6PPOAh
+ LYb0r3Ey8u0d2JvuAPbuxNQZd5+VkItHekuWndG07g9VEf+lahJlbpgVYIRfUGeslY
+ O2MPZl+vhSR0w==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 0/5] mm,drm/i915,powerpc/spufs: vm_ops->access related
+ fixes
+Date: Thu, 12 Nov 2026 23:08:56 +0100
+Message-Id: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asFuWAQUPxETWqDL@kekkonen.localdomain>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPg49moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0Mj3cTk5NTi4vjijMySVN0Ui0QTc1NTS1Nzo1QloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAywJpcnAAAAA=
+X-Change-ID: 20261112-access_shite-d8a47559572e
+To: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ Willy Tarreau <w@1wt.eu>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linuxppc-dev@lists.ozlabs.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1463; i=david@kernel.org;
+ h=from:subject:message-id; bh=WdwVU4D50DJi588gxgEao7aVctqzLO6VANAj2lIv6bs=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+Wfx957ddpWa78tHiMrVrJ99FeK1a/GtDtFr8v2eVG
+ 8tPF86K7ShlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiGw8x/JU5HnSJ1W7u5NdB
+ n0Tf3ezdkWO74I2I2MJ5z7NfhK+8ermJ4b+bh3bR4pbPQQmrj9+Vd5eZuOcZt0PR6/sme6cfFHx
+ xYxU/AA==
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,24 +82,53 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+While working on vm_ops->access related fixes in core code for FOLL_ANON
+and VMA access permission + size handling, I stumbled over two driver
+issues. Also, I have to update one selftest that specifies PROT_WRITE
+but actually wants read-access.
 
-On Sun, Oct 04, 2026 at 12:06:32AM +0300, Sakari Ailus wrote:
-> > Assuming that media subsystem is the main beneficiary I think it is the best
-> > to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
-> > are agree.
+Fixing it all in this series, because it's all intertwined.
 
-Just checking -- are the respective maintainers fine with merging this via
-the media tree?
+In patch #5 we break a debugging use case for older ROCm versions, where
+the amdgpu driver hacked around it by exploiting broken access checks in
+core-mm.
 
--- 
-Regards,
+Tested as good as I can with selftests. I cannot really test the
+i915 and powerpc/spufs stuff on real hardware.
 
-Sakari Ailus
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+Chris Mason (1):
+      mm: do not call vm_ops->access with FOLL_ANON
+
+David Hildenbrand (Arm) (4):
+      drm/i915: consider vm_pgoff in vm_access()
+      drm/i915/selftests: request read access for mmap access tests
+      powerpc/spufs: consider vm_pgoff in spufs_mem_mmap_access()
+      mm: check permissions and bounds for vm_ops->access
+
+ arch/powerpc/platforms/cell/spufs/file.c           |  3 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c           |  4 +++-
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  3 ++-
+ mm/memory.c                                        | 28 ++++++++++++++++++++--
+ 4 files changed, 33 insertions(+), 5 deletions(-)
+
+---
+
+base-commit: cc06c90c164a389d51444a7df5056a8460d26d5b
+
+change-id: 20261112-access_shite-d8a47559572e
+
+--
+
+Cheers,
+
+David
+
