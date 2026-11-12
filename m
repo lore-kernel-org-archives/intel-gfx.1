@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D15A606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 12:22:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F1B606A32D
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 12:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsknD2hx
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mR5KKl4s
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C58611206C;
-	Thu, 12 Nov 2026 12:22:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF8731120A3;
+	Thu, 12 Nov 2026 12:26:54 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83CDA11206C
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 12:22:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C93C1120C5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 12:26:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 06CC140127;
- Thu, 12 Nov 2026 12:22:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEBD11F00A07;
- Thu, 12 Nov 2026 12:22:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0901F43BC4;
+ Thu, 12 Nov 2026 12:26:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08BE1F00A05;
+ Thu, 12 Nov 2026 12:26:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794486123;
- bh=plqgDGLlxAQzijnnjhDRp2hS5sgXaCMEZKigbwTgr7o=;
+ s=k20260515; t=1794486408;
+ bh=IYraidGPhAOX1DDi6taboD4IE4fJQ+V1D0hw6nLBoqE=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=IsknD2hxUjHxsdCVZpHqUzUGoyPI4NmCCIMgoJ2PnKlG8vkL3PJZhcZAZ4QzO50Bl
- uXtY9K829DQFuTjJqbML72Wp4ZcO0iMjuEaebDH2KNbtz1aMr7syx/rxvI693B79Fb
- YUCXBNVwc0ln/3u2irHqS9T6Zb0ibYmE98aEVmrBv4VAlMuZWfgBSzssikLPqpQI0T
- w/DWo2dhjNjfoptiphav0px6SacHZ8SizxWdY5hWUslWuLX9bVCIUCC0ClJRzx+gIB
- v4f1wsrxxtc2QI8wbpEmBlyHvY9fFJyGzFd0AN0MQSatJAVAQY6KvWk/m0ElXEMay0
- +tM6LnASbm7UA==
-Message-ID: <sashiko-outbox-211081@kernel.org>
+ b=mR5KKl4sDIzYS+2pbJwFDK/St6VEWO2NVRPrJlb+bNnpjYEXFrH0+PWJyR263ZLIj
+ zbFvxdrDb9ZqehY6x9T3XTdJLcToU8+C57qexSwJtihRMCZtw7Jeb8Tyava49QFDDe
+ mRqtc7QJEsxqc4OoKAhUb7VuzOR6b/hn9ozPf9pYQaLAEqzROXc5vTCrl0UKSY/rur
+ bxWX1bSiMNJB+7zG4SjSBB0wN7ayXzWVdk9bw7Bjv/SKko9xt8uuc7cxNmTqhgnJu1
+ K7zcN+anEEvViMgDl8JC7oX5BqyRM7qKh3m4+Dcrva+Dx3K2czsuh/ug1HqDHUabWU
+ KYNGwxGlISoyA==
+Message-ID: <sashiko-outbox-211085@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/2] drm/i915/selftests: Fix unlocked mm.stolen in
- reset selftest
+Subject: Re: [PATCH v5 2/2] drm/i915/selftests: take error_mutex in stolen
+ reset test
 To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>,
  intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261112115907.16263-2-sebastian.brzezinka@intel.com>
+In-Reply-To: <20261112115907.16263-3-sebastian.brzezinka@intel.com>
 References: <20261112115907.16263-1-sebastian.brzezinka@intel.com>
- <20261112115907.16263-2-sebastian.brzezinka@intel.com>
+ <20261112115907.16263-3-sebastian.brzezinka@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 12:22:03 +0000
+Date: Thu, 12 Nov 2026 12:26:48 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,79 +59,92 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/i915/selftests: redundant poisoned bitmap in
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/i915/selftests: lock inversion holding error_mutex in
   __igt_reset_stolen()
+- [Medium] drm/i915/selftests: lockdep inversion in __igt_reset_stolen()
+  insert_page()
 --
 
-commit cf1445c8fb09a3c8cb2c299dc6e5c96c660ff936
+commit c33d0f8d797f0fad1f041bc0438964e9aab4e35c
 Author: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 
-drm/i915/selftests: Fix unlocked mm.stolen in reset selftest
+drm/i915/selftests: take error_mutex in stolen reset test
 
-This commit fixes the stolen memory reset selftest to hold
-i915->mm.stolen_lock across the poison and verify passes, check against
-mm.stolen.head_node, cap the tested range to dsm.usable_size, and track
-poisoned pages in a bitmap.
+This commit acquires ggtt->error_mutex around the stolen memory page
+sampling and GPU reset in __igt_reset_stolen() to serialize access to the
+ggtt->error_capture slot.
 
 > diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i=
 915/gt/selftest_reset.c
-> index 3599c9f101e14..a419dfe9a34fb 100644
+> index a419dfe9a34fb..386741637e45d 100644
 > --- a/drivers/gpu/drm/i915/gt/selftest_reset.c
 > +++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
-[ ... ]
-> @@ -79,6 +97,8 @@ __igt_reset_stolen(struct intel_gt *gt,
->  		i915_request_add(rq);
+> @@ -98,6 +98,7 @@ __igt_reset_stolen(struct intel_gt *gt,
 >  	}
 > =20
-> +	mutex_lock(&gt->i915->mm.stolen_lock);
-> +
+>  	mutex_lock(&gt->i915->mm.stolen_lock);
+> +	mutex_lock(&ggtt->error_mutex);
+> =20
 >  	for (page =3D 0; page < num_pages; page++) {
 >  		dma_addr_t dma =3D (dma_addr_t)dsm->start + (page << PAGE_SHIFT);
->  		void __iomem *s;
-> @@ -95,10 +115,10 @@ __igt_reset_stolen(struct intel_gt *gt,
->  				      ggtt->error_capture.start,
->  				      PAGE_SIZE);
-> =20
-> -		if (!__drm_mm_interval_first(&gt->i915->mm.stolen,
-> -					     page << PAGE_SHIFT,
-> -					     ((page + 1) << PAGE_SHIFT) - 1))
-> +		if (stolen_page_unused(gt, page)) {
->  			memset_io(s, STACK_MAGIC, PAGE_SIZE);
-> +			__set_bit(page, poisoned);
-> +		}
-[ ... ]
-> @@ -143,10 +163,13 @@ __igt_reset_stolen(struct intel_gt *gt,
->  			in =3D tmp;
->  		x =3D crc32_le(0, in, PAGE_SIZE);
-> =20
-> -		if (x !=3D crc[page] &&
-> -		    !__drm_mm_interval_first(&gt->i915->mm.stolen,
-> -					     page << PAGE_SHIFT,
-> -					     ((page + 1) << PAGE_SHIFT) - 1)) {
-> +		/*
-> +		 * Only check pages we poisoned: pages in use before the
-> +		 * reset (e.g. ring buffers) may legitimately be rewritten
-> +		 * and released during the reset.
-> +		 */
-> +		if (x !=3D crc[page] && test_bit(page, poisoned) &&
-> +		    stolen_page_unused(gt, page)) {
->  			pr_debug("unused stolen page %pa modified by GPU reset\n",
->  				 &page);
->  			if (count++ =3D=3D 0)
 
-[Severity: Low]
-Is the poisoned bitmap needed when gt->i915->mm.stolen_lock is held
-continuously across the poison pass, the reset, and the verify pass?
+[Severity: Medium]
+Does calling ggtt->vm.insert_page() in the two sampling loops while
+holding ggtt->error_mutex introduce a lockdep circular dependency on
+Cherryview and Broxton with VT-d?
 
-Every insertion and removal in gt->i915->mm.stolen (including
-i915_gem_object_release_stolen() -> __i915_gem_stolen_remove_node()) takes
-stolen_lock.  Because __igt_reset_stolen() never drops stolen_lock between
-the two loops, no stolen node can be released during the reset, so
-stolen_page_unused(gt, page) in the verify pass always returns the same
-value as in the poison pass and matches test_bit(page, poisoned).
+On platforms where intel_vm_no_concurrent_access_wa() is true,
+gen8_gmch_probe() sets ggtt->vm.insert_page to
+bxt_vtd_ggtt_insert_page__BKL(), which calls stop_machine() and acquires
+cpu_hotplug_lock.  Because i915_vma_coredump_create() acquires
+ggtt->error_mutex inside a dma_fence_begin_signalling() section (after
+i915_vma_resource_hold()), lockdep already tracks cpu_hotplug_lock ->
+dma_fence_map -> ggtt->error_mutex.  Calling ggtt->vm.insert_page() under
+ggtt->error_mutex inverts that order.
+
+Using ggtt->vm.raw_insert_page when non-NULL, the same way
+i915_vma_coredump_create() does under ggtt->error_mutex, avoids
+stop_machine().
+
+> @@ -182,6 +183,7 @@ __igt_reset_stolen(struct intel_gt *gt,
+>  	mb();
+>  	ggtt->vm.clear_range(&ggtt->vm, ggtt->error_capture.start, PAGE_SIZE);
+> =20
+> +	mutex_unlock(&ggtt->error_mutex);
+>  	mutex_unlock(&gt->i915->mm.stolen_lock);
+> =20
+>  	if (count > 0) {
+
+[Severity: Medium]
+Can keeping ggtt->error_mutex held across intel_gt_reset() cause an ABBA
+deadlock with GuC error capture?
+
+CPU0                                  kworker (guc->ct.requests.worker)
+----                                  ---------------------------------
+__igt_reset_stolen()
+  mutex_lock(&ggtt->error_mutex)
+  intel_gt_reset()
+    mutex_lock(&gt->reset.mutex)
+    ...
+    flush_work(&guc->ct.requests.worker)
+                                      ct_incoming_request_worker_func()
+                                        ...
+                                        i915_vma_coredump_create()
+                                          mutex_lock(&ggtt->error_mutex)
+
+ *** DEADLOCK ***
+
+Holding ggtt->error_mutex across intel_gt_reset() also inverts the lock
+order against i_mmap_rwsem (acquired in gt_revoke() ->
+unmap_mapping_range()) and dma_fence_map, since i915_vma_coredump_create()
+takes ggtt->error_mutex inside a dma_fence_begin_signalling() section.
+
+Since ggtt->error_capture is cleared before the reset and
+gt->i915->mm.stolen_lock stays held across it, ggtt->error_mutex could be
+unlocked before the reset and re-locked for the post-reset loop.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112115907.1626=
-3-1-sebastian.brzezinka@intel.com?part=3D1
+3-1-sebastian.brzezinka@intel.com?part=3D2
