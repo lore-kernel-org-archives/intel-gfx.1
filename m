@@ -2,16 +2,16 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6815606A899
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 06:25:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212B5606A32A
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 06:39:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED9810EA42;
-	Thu, 12 Nov 2026 06:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD50810EB1A;
+	Thu, 12 Nov 2026 06:39:58 +0000 (UTC)
 Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D8F310EA42;
- Thu, 12 Nov 2026 06:25:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1845610E53E;
+ Thu, 12 Nov 2026 06:39:58 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============2203150470228238784=="
+ boundary="===============0973330787993238236=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EFull=3A_success_for_drm/i915=3A_Reduce_overh?=
@@ -19,8 +19,8 @@ Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EFull=3A_success_for_drm/i915=3A_Reduce_
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Dibin Moolakadan Subrahmanian" <dibin.moolakadan.subrahmanian@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Nov 2026 06:25:41 -0000
-Message-ID: <179446474129.13707.5446666048065230837@9ac1b63fe3ea>
+Date: Thu, 12 Nov 2026 06:39:58 -0000
+Message-ID: <179446559807.13751.804328618175595993@9ac1b63fe3ea>
 X-Patchwork-Hint: ignore
 References: <20261111075105.2166760-4-dibin.moolakadan.subrahmanian@intel.com>
 In-Reply-To: <20261111075105.2166760-4-dibin.moolakadan.subrahmanian@intel.com>
@@ -42,7 +42,7 @@ X-Spam-Status: No, score=-4.9 required=3.0 tests=BAYES_00,HTML_MESSAGE,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============2203150470228238784==
+--===============0973330787993238236==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -1871,7 +1871,7 @@ Build changes
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176063v2/index.html
 
---===============2203150470228238784==
+--===============0973330787993238236==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -5713,4 +5713,4 @@ edesktop.org/piglit</p>
 </body>
 </html>
 
---===============2203150470228238784==--
+--===============0973330787993238236==--
