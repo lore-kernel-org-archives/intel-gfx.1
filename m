@@ -2,28 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1693460A3831
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BE1606ABA5
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m9/8uyhk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9878210E371;
-	Fri, 13 Nov 2026 13:25:05 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA1710E371;
- Fri, 13 Nov 2026 13:25:04 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2602494853689957330=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB0A81124EA;
+	Fri, 13 Nov 2026 13:30:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4794C1124B9;
+ Fri, 13 Nov 2026 13:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794576609; x=1826112609;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=N4xDIdgbCfGZKmQDxMDQjBUOJ68HV/WloBaiIxO/kkw=;
+ b=m9/8uyhk28KFHgne2fBCtADLRNu1WCNTNkSdE5U4DG1x70LavRZ+lfc4
+ 1HE3GNknVaF04kxY4g/NYXcje6STL9xe0jp9fAD7nha7WjUDItnKx0TuB
+ ZcMgd+ZY6vE89DJSso67MXqRRw3H3jMl719s+R8ukANKkgVkrj9IJbqRY
+ Npl9MRjc5Gj2s/T4JMV605YUW8iDtBAlEgFcgNrmzznnN8ENOoTP/9brS
+ R0kg1GTJfQzagTTbvLe1fBdhYPqkCrMgooIzPiVb/A43BOp3mEBvynpmb
+ Ph/1uyqM81kAqtCEi52135X32/r0ScRDE48uRkH3jKdg9pXEv7JrvehSZ Q==;
+X-CSE-ConnectionGUID: 4U1w/rgGQFOtnKCeAdsBlw==
+X-CSE-MsgGUID: TCQJVZyWR4uv8sP/P1wtiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3390072"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3390072"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 05:30:08 -0800
+X-CSE-ConnectionGUID: ym61yZWgSg2WtOV/bUkM7w==
+X-CSE-MsgGUID: vW87QfSkQBabTui+bKhFcw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9243331"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.126])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 05:30:06 -0800
+Date: Fri, 13 Nov 2026 15:30:02 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Matthew Brost <matthew.brost@intel.com>
+Subject: Re: [PATCH v5 3/5] drm/xe: Raise gt frequency slightly earlier.
+Message-ID: <avcQ2n9X3uYWUizr@intel.com>
+References: <20261113124453.144408-7-dev@lankhorst.se>
+ <20261113124453.144408-10-dev@lankhorst.se>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Add_quirk_?=
- =?utf-8?q?to_allow_eDP_joiner_on_ASUS_ROG_Strix_SCAR_18_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Nov 2026 13:25:04 -0000
-Message-ID: <179457630412.19925.9930214570448977992@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261113124453.144408-10-dev@lankhorst.se>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +69,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============2602494853689957330==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Fri, Nov 13, 2026 at 01:44:57PM +0100, Maarten Lankhorst wrote:
+> Move raising the gt frequency to before display_register, so the
+> blit that's potentially performed to copy stolen memory to system
+> memory will run at full speed.
 
-== Series Details ==
+Is this the thing that drops the media frequency after init?
+I've been pondering if we should also be doing the frequency
+pumping at runtime around display commits because MMIO
+performance is apparently tied in with the media frequency.
+Even with media at high frequency MMIO is glacial on MTL+,
+and becomes even more so after the media frequency drops :/
 
-Series: drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18 (rev2)
-URL   : https://patchwork.freedesktop.org/series/176901/
-State : success
+> 
+> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+> ---
+>  drivers/gpu/drm/xe/xe_device.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+> index 6911c2ac39f82..616e02066ae6d 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -1069,6 +1069,9 @@ int xe_device_probe(struct xe_device *xe)
+>  	if (err)
+>  		return err;
+>  
+> +	for_each_gt(gt, xe, id)
+> +		xe_gt_sanitize_freq(gt);
+> +
+>  	xe_display_register(xe);
+>  
+>  	err = xe_oa_register(xe);
+> @@ -1093,9 +1096,6 @@ int xe_device_probe(struct xe_device *xe)
+>  	if (err)
+>  		goto err_unregister_display;
+>  
+> -	for_each_gt(gt, xe, id)
+> -		xe_gt_sanitize_freq(gt);
+> -
+>  	xe_vsec_init(xe);
+>  
+>  	err = xe_sriov_init_late(xe);
+> -- 
+> 2.55.0
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19516 -> Patchwork_176901v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v2/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-rkl-11600 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19516 -> Patchwork_176901v2
-
-  CI-20190529: 20190529
-  CI_DRM_19516: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9190: 9190
-  Patchwork_176901v2: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v2/index.html
-
---===============2602494853689957330==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18 (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/176901/">https://patchwork.freedesktop.org/series/176901/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19516 -&gt; Patchwork_176901v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_176901v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-rkl-11600 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19516 -&gt; Patchwork_176901v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19516: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9190: 9190<br />
-  Patchwork_176901v2: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2602494853689957330==--
+-- 
+Ville Syrjälä
+Intel
