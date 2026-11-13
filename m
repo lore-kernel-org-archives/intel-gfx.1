@@ -2,45 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92BB606A32E
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 09:31:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akOqDgwi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678D9606A32D
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 09:53:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABE2112325;
-	Fri, 13 Nov 2026 09:31:33 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFF76112325;
- Fri, 13 Nov 2026 09:31:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 97DDE444EA;
- Fri, 13 Nov 2026 09:31:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F2C1F000C4;
- Fri, 13 Nov 2026 09:31:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794562286;
- bh=EMfXNYkZVks7flMrKu46XaAukhBAJVxT9U2dtg8td+A=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=akOqDgwi1ZOWtxGBNJUwwA0lC8PNQpA7oZJ7gd5aRY8wFX4DwX0CXzusFVGMP8HDW
- +w0jb/BoZEBKSpqHIwVtXQpghl2++WwDJKAvYfOm0f9aRHW1XmhwmnQGA0/sDkB1Fe
- 08k/RTa/oF8MP1apqx7WvhPeFDEuhG4WYqXj9FvDyAVv7wz4arsNJfUrbwvNkV2N53
- ruq56b3aKlbkk/FJyufUj8YDX0/gCTnTYkb6fxhWe+jNbVpH5JL84bWawJ+EwzSEBh
- 0+sMa1n0ix4K3xzhNU/RFESpOU+ysaSngiZSOhhwTGFCTqVne1eqgJRWAisSPVoz4Q
- IkPrLaVI+Y0XA==
-Message-ID: <sashiko-outbox-212547@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] stddef: Add offsetofend() variant of
- struct_offset()
-To: "Bence Csokas" <bence.csokas@arm.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-scsi@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261112-offsetof-v2-1-276ede839967@arm.com>
-References: <20261112-offsetof-v2-0-276ede839967@arm.com>
- <20261112-offsetof-v2-1-276ede839967@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 09:31:25 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF2E10EBFF;
+	Fri, 13 Nov 2026 09:53:58 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB97010EBFF;
+ Fri, 13 Nov 2026 09:53:57 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2328455159920265714=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dip=3A_Write_the?=
+ =?utf-8?q?_DIP_header_last?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 13 Nov 2026 09:53:57 -0000
+Message-ID: <179456363769.19323.13699458446754197240@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261113074849.30768-1-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20261113074849.30768-1-chaitanya.kumar.borah@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,59 +34,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] overflow: inaccurate kernel-doc Return comment for
-  struct_offsetofend()
---
+--===============2328455159920265714==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit a83afd15b73f01058421922341af6cf7cf31d535
-Author: Bence Csokas <bence.csokas@arm.com>
+== Series Details ==
 
-stddef: Add offsetofend() variant of struct_offset()
+Series: drm/i915/dip: Write the DIP header last
+URL   : https://patchwork.freedesktop.org/series/178463/
+State : success
 
-This commit adds the struct_offsetofend() macro to include/linux/overflow.h
-to calculate offsetofend() on the type of a struct pointer.
+== Summary ==
 
-> diff --git a/include/linux/overflow.h b/include/linux/overflow.h
-> index d0f04436343e5..060dad4b6f3e0 100644
-> --- a/include/linux/overflow.h
-> +++ b/include/linux/overflow.h
-> @@ -464,6 +464,18 @@ static __always_inline size_t __must_check size_sub(=
-size_t minuend, size_t subtr
->   */
->  #define struct_offset(p, member) (offsetof(typeof(*(p)), member))
-> =20
-> +/**
-> + * struct_offsetofend() - Calculate the end of a member within a struct
-> + * @p: Pointer to the struct
-> + * @member: Name of the member to get the end offset of
-> + *
-> + * Calculates the offset of the end of a particular @member of the struc=
-ture
-> + * pointed to by @p.
-> + *
-> + * Return: number of bytes to the location of @member.
-> + */
-> +#define struct_offsetofend(p, member) (offsetofend(typeof(*(p)), member))
+CI Bug Log - changes from CI_DRM_19516 -> Patchwork_178463v1
+====================================================
 
-[Severity: Low]
-This isn't a bug, but the Return description was copied from
-struct_offset() and says "the location of @member" rather than the end of
-@member.  Also, the commit message body refers to adding an "offsetof()
-variant" instead of an offsetofend() variant, and the subject uses the
-"stddef:" prefix for a change in include/linux/overflow.h.
+Summary
+-------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-offsetof-v=
-2-0-276ede839967@arm.com?part=3D1
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178463v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_178463v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [DMESG-WARN][1] ([i915#13400]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19516/bat-rpls-4/igt@vgem_basic@unload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178463v1/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19516 -> Patchwork_178463v1
+
+  CI-20190529: 20190529
+  CI_DRM_19516: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9190: 9190
+  Patchwork_178463v1: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178463v1/index.html
+
+--===============2328455159920265714==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dip: Write the DIP header last</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178463/">https://patchwork.freedesktop.org/series/178463/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178463v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178463v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19516 -&gt; Patchwork_178463v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178463v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_178463v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19516/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178463v1/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19516 -&gt; Patchwork_178463v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19516: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9190: 9190<br />
+  Patchwork_178463v1: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2328455159920265714==--
