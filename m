@@ -2,60 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E18A606A323
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jMVykBCN
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB61C606A8AD
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7F6F112595;
-	Fri, 13 Nov 2026 13:44:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2A8F112572;
- Fri, 13 Nov 2026 13:44:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794577470; x=1826113470;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0Ee8aiiJf108ZX/4HCmzXCaYWgZk5obf23FJ/B8R+zU=;
- b=jMVykBCNUWxJ4O2Xf1OzzyqhgoKYzvWNlSQZt2b4krRAZrMZf/fWNoDT
- Q89MIM5szE78i5Um6/IdsjjxURCJerLQxu+7Z3GY8+C7qsfWYs8fzSKiU
- m/AUFxd1oaCs8enYHD/Dx1pgE8PFF3zMDL4iJ5JuPEwJI/wQB/v4fnzK7
- 80XhaBCJVKv00Lde3adx4gNObATYHz+ZiKZxYJLEk607N2DAYbhDgpGsM
- jlb4/9MlXYkqicfCbm8K3hFyyf4sTnvZs834ZowpS7GSySTS9zWG4qjvR
- rmsu6Pd8+ZORrUSUrW9QBU7rlx2ElCgpWqd3g+amVYTwSi3cjLa2N9RRj A==;
-X-CSE-ConnectionGUID: 6+BkAvPjSNK5+bi1pLcLbQ==
-X-CSE-MsgGUID: +NHGbE2ZRte3G9oobHtKOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3382563"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3382563"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 05:44:29 -0800
-X-CSE-ConnectionGUID: wQk4LOo+TR2nc0J751FT4g==
-X-CSE-MsgGUID: oiPS4XiHT4GyPGSFHb1j+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="9345287"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.126])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 05:44:29 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 8/8] drm/i915/de: Nuke driver_is_i915()
-Date: Fri, 13 Nov 2026 15:43:55 +0200
-Message-ID: <20261113134355.14579-9-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113134355.14579-1-ville.syrjala@linux.intel.com>
-References: <20261113134355.14579-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46C8511251A;
+	Fri, 13 Nov 2026 13:53:19 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC77510FDD9;
+ Fri, 13 Nov 2026 13:53:17 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3343870811311677706=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/xe/display=3A_Transpa?=
+ =?utf-8?q?rant_fallback_from_stolen_to_sysmem=2E_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Maarten Lankhorst" <dev@lankhorst.se>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 13 Nov 2026 13:53:17 -0000
+Message-ID: <179457799776.20412.13911659101137799127@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261113124453.144408-7-dev@lankhorst.se>
+In-Reply-To: <20261113124453.144408-7-dev@lankhorst.se>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,88 +34,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============3343870811311677706==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Now that both i915 and xe use the same mmio funcs for
-TGL+ we can unify the intel_de_init() if-ladders for
-the two drivers and get rid of driver_is_i915().
+== Series Details ==
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_de.c | 45 +++++++------------------
- 1 file changed, 13 insertions(+), 32 deletions(-)
+Series: drm/xe/display: Transparant fallback from stolen to sysmem. (rev4)
+URL   : https://patchwork.freedesktop.org/series/170760/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
-index 9399db0d8e1b..3a8ee5141fdd 100644
---- a/drivers/gpu/drm/i915/display/intel_de.c
-+++ b/drivers/gpu/drm/i915/display/intel_de.c
-@@ -522,44 +522,25 @@ static const struct intel_mmio_funcs lnl_mmio_funcs = {
- 	.check_for_unclaimed_mmio = hsw_check_for_unclaimed_mmio,
- };
- 
--static bool driver_is_i915(void)
--{
--#ifdef I915
--	return true;
--#else
--	return false;
--#endif
--}
--
- void intel_de_init(struct intel_display *display)
- {
- 	display->mmio.uncore = to_intel_uncore(display->drm);
- 
- 	spin_lock_init(&display->mmio.lock);
- 
--	/*
--	 * TODO: enable unclaimed register detection
--	 * (ideally without the lock) for xe and get
--	 * rid of driver_is_i915().
--	 */
--	if (driver_is_i915()) {
--		if (DISPLAY_VER(display) >= 12)
--			display->mmio.funcs = &tgl_mmio_funcs;
--		else if (DISPLAY_VER(display) >= 9 ||
--			 display->platform.broadwell || display->platform.haswell)
--			display->mmio.funcs = &hsw_mmio_funcs;
--		else if (display->platform.valleyview || display->platform.cherryview)
--			display->mmio.funcs = &vlv_mmio_funcs;
--		else if (DISPLAY_VER(display) >= 6)
--			display->mmio.funcs = &snb_mmio_funcs;
--		else
--			display->mmio.funcs = &i9xx_mmio_funcs;
--	} else {
--		if (DISPLAY_VER(display) >= 20)
--			display->mmio.funcs = &lnl_mmio_funcs;
--		else
--			display->mmio.funcs = &tgl_mmio_funcs;
--	}
-+	if (DISPLAY_VER(display) >= 20)
-+		display->mmio.funcs = &lnl_mmio_funcs;
-+	else if (DISPLAY_VER(display) >= 12)
-+		display->mmio.funcs = &tgl_mmio_funcs;
-+	else if (DISPLAY_VER(display) >= 9 ||
-+		 display->platform.broadwell || display->platform.haswell)
-+		display->mmio.funcs = &hsw_mmio_funcs;
-+	else if (display->platform.valleyview || display->platform.cherryview)
-+		display->mmio.funcs = &vlv_mmio_funcs;
-+	else if (DISPLAY_VER(display) >= 6)
-+		display->mmio.funcs = &snb_mmio_funcs;
-+	else
-+		display->mmio.funcs = &i9xx_mmio_funcs;
- 
- 	if (display->mmio.funcs->check_for_unclaimed_mmio)
- 		WRITE_ONCE(display->mmio.unclaimed_mmio_check, true);
--- 
-2.56.0
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_19516 -> Patchwork_170760v4
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v4/index.html
+
+Participating hosts (40 -> 38)
+------------------------------
+
+  Missing    (2): bat-dg2-13 bat-adls-6 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_170760v4 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [DMESG-WARN][1] ([i915#13400]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19516/bat-rpls-4/igt@vgem_basic@unload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v4/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19516 -> Patchwork_170760v4
+
+  CI-20190529: 20190529
+  CI_DRM_19516: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9190: 9190
+  Patchwork_170760v4: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v4/index.html
+
+--===============3343870811311677706==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/xe/display: Transparant fallback from stolen to sysmem. (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170760/">https://patchwork.freedesktop.org/series/170760/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19516 -&gt; Patchwork_170760v4</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v4/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_170760v4 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19516/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v4/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19516 -&gt; Patchwork_170760v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19516: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9190: 9190<br />
+  Patchwork_170760v4: d41695c479e8bb24eb941e5ba916e42784af6f4d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3343870811311677706==--
