@@ -2,59 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8341606A330
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 16:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD8B606A883
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 16:41:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TRGk5I20
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KkKOnno6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1301126B6;
-	Fri, 13 Nov 2026 16:30:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3232A1126B6;
- Fri, 13 Nov 2026 16:30:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA1261126D4;
+	Fri, 13 Nov 2026 16:41:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA7E61126CF;
+ Fri, 13 Nov 2026 16:41:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794587409; x=1826123409;
+ t=1794588069; x=1826124069;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=cENFi0tID0byaA/JAu9N7k9VHYdGAh0X9CPu8mAw6Xg=;
- b=TRGk5I20TrrhpHsqvHgpFe3muNJxJYnrGexkErMz24eASOHvCCQit+MC
- qwZFTi0U/ZCu7Rfa7BjHS6S/Cis/vJCivvxUzNF+YaGbhsiXvvUOis/h/
- VCvXQooF9mV3wABqPrWlR8ub9Dx5aPZ5zRn1cYaIndd5DmjiQIHsokp/t
- WjOOvClrfVrmeA3ncr1IvGxxeTEunIi1xH1/Ulapa3dIv4Y/q5kzY+rNG
- IiqQn5PyRoR7xeoTQpHeQNOdLbIUaFtbOSQ2UfY1yVH5yQmu48seRA5ht
- ptdHLkw4FWFB+/4GC+tUWeF+5O48slS0G5+YnmjJOqIQw2j70RygnfvTK w==;
-X-CSE-ConnectionGUID: jHoNTQm/T0avIL+Ua7AO6g==
-X-CSE-MsgGUID: z2HmuEspSFeadn/Txs94YQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3383240"
+ bh=szokGNCf3usRr/2R9fUspBWmWj1YM4rwxd+C5M/9CoI=;
+ b=KkKOnno6wfk49wi0toAWXo9X20URlLEuYlYwTj/kk0vYHBnsgjZce5/N
+ kSLMx/TuWevBuWGJPD1C0gYUwwaO6F3EXn5VukjtfgHeRxiPTTE0aILlR
+ YPMbMTJSx7VEzYj9nqd95CtYhAZzl46+y9V9wMSbRnXxFF/wu5VY90bAg
+ vVJ1+uQPptrv1qW+jIoryDrvZ4ayvaORvGdDGv6qWejOoyalA6uxtktJ8
+ RlMLekH/enDc6oxIWwxQIqtG1u+lztXkRBnpA7VSsBXJmuLxUcpwytEzr
+ 72E56o0tTl6ansgtamVLbtADJ1f5velnaaRqQZLQUtatEtN1pNZLF0UBy g==;
+X-CSE-ConnectionGUID: H9Ib5flrSg2hUATot2towQ==
+X-CSE-MsgGUID: D1CEIxIMRdyiUcc91GAxxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3430046"
 X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="3383240"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 08:30:09 -0800
-X-CSE-ConnectionGUID: K5v3aTmiQrau5YyBmzCKxw==
-X-CSE-MsgGUID: LyUZ7gI4TZSdYC32UBz0Gg==
+   d="scan'208";a="3430046"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 08:41:09 -0800
+X-CSE-ConnectionGUID: Qqi+LrMXScuMAnutWdgE5A==
+X-CSE-MsgGUID: HjrgxenLSZ+EPyTZsJ6n4g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="8880667"
+   d="scan'208";a="9503329"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.244.126])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 08:30:08 -0800
-Date: Fri, 13 Nov 2026 18:30:03 +0200
+ 13 Nov 2026 08:41:06 -0800
+Date: Fri, 13 Nov 2026 18:41:03 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 4/8] drm/i915/de: Make mmio_debug lockless
-Message-ID: <avc7C3GbK39VmAzo@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>
+Subject: Re: =?utf-8?B?4pyXIFhlLkNJLkJBVDogZmFpbHVy?=
+ =?utf-8?Q?e_for_drm=2F{i915=2C_xe}?= =?utf-8?Q?=3A?= Make unclaimed mmio
+ detection lockless and enable it for xe
+Message-ID: <avc9nyu-ovaH3LuG@intel.com>
 References: <20261113134355.14579-1-ville.syrjala@linux.intel.com>
- <20261113134355.14579-5-ville.syrjala@linux.intel.com>
+ <179458245157.20639.5243522719041784725@9ac1b63fe3ea>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113134355.14579-5-ville.syrjala@linux.intel.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <179458245157.20639.5243522719041784725@9ac1b63fe3ea>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -69,288 +75,202 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 13, 2026 at 03:43:51PM +0200, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> Currently we protect the mmio_debug state using mmio.lock.
-> We can't just drop the locks or we risk the read-modify-writes
-> to the modparam to get out of whack. But if we get rid of the
-> read-modify-writes and just switch to simple booleans all
-> we need are loads and stores which are naturally atomic.
-> 
-> This is of course racy, but quite harmlessly so. Perhaps the
-> worst thing that can happen is that we mistake which register
-> caused the unclaimed access, but that can already happen since
-> we use the completely lockless intel_de_{read,write}_fw() in
-> many places. And a pair of threads getting a bit confused
-> about the state of the booleans should also be harmless. Perhaps
-> we end up doing a few extra unclaimed mmio debug checks while the
-> first thread is already about to disable the thing. No big deal.
-> 
-> And for good measure, let's annotate the booleans with
-> READ_ONCE()/WRITE_ONCE() to highlight the lockless nature,
-> though I don't think we need those for correctness.
-> 
-> With the booleans we do lose the capability to set mmio_debug
-> to a specific value, and then automagically disable it once
-> that many unclaimed register accesses have been detected.
-> With the boolean it's mmio_debug all the time or none of
-> the time. Not sure if anyone actually used that feature
-> anyway, so doesn't seem like a big loss to me.
-> 
-> I do want to preserve the oneshot detection thing automagically
-> armed by intel_de_arm_unclaimed_mmio_detection(). So we need a
-> second boolean for that.
-> 
-> And the third boolean will be mmio.unclaimed_mmio_check. That
-> was already effectively a boolean, but still being adjusted
-> with rmw.
-> 
-> The FPGA_DBG/CLAIM_ER accesses done from the read/write vfuncs
-> will still be conditionally protected by the mmio.lock, based
-> on mmio_flags. But the accesses from intel_de_unclaimed_mmio_detected()
-> and intel_de_arm_unclaimed_mmio_detection() need another
-> solution. For that I'm just adding another boolean into the
-> mmio funcs that tells us whether the lock should be taken
-> there or not. Calls to these functions are exceedingly rare
-> so no need to come up with any clever solution here.
-> 
-> Note that the modparam will now refuse any non-0/1 value, so
-> if anyone has left this enabled accidentally the module will
-> fail to load. But reminding people to turn this off in
-> production is probably a good thing :P
+On Fri, Nov 13, 2026 at 03:07:31PM -0000, Patchwork wrote:
+> =3D=3D Series Details =3D=3D
+>=20
+> Series: drm/{i915, xe}: Make unclaimed mmio detection lockless and enable=
+ it for xe
+> URL   : https://patchwork.freedesktop.org/series/178490/
+> State : failure
+>=20
+> =3D=3D Summary =3D=3D
+>=20
+> CI Bug Log - changes from xe-6136-d41695c479e8bb24eb941e5ba916e42784af6f4=
+d_BAT -> xe-pw-178490v1_BAT
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+>=20
+> Summary
+> -------
+>=20
+>   **FAILURE**
+>=20
+>   Serious unknown changes coming with xe-pw-178490v1_BAT absolutely need =
+to be
+>   verified manually.
+>  =20
+>   If you think the reported changes have nothing to do with the changes
+>   introduced in xe-pw-178490v1_BAT, please notify your bug team (I915-ci-=
+infra@lists.freedesktop.org) to allow them
+>   to document this new failure mode, which will reduce false positives in=
+ CI.
+>=20
+>  =20
+>=20
+> Participating hosts (13 -> 13)
+> ------------------------------
+>=20
+>   No changes in participating hosts
+>=20
+> Possible new issues
+> -------------------
+>=20
+>   Here are the unknown changes that may have been introduced in xe-pw-178=
+490v1_BAT:
+>=20
+> ### IGT changes ###
+>=20
+> #### Possible regressions ####
+>=20
+>   * igt@kms_flip@basic-flip-vs-dpms@c-edp1:
+>     - bat-ptl-2:          [PASS][1] -> [ABORT][2] +1 other test abort
+>    [1]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-6136-d41695c479e8bb2=
+4eb941e5ba916e42784af6f4d/bat-ptl-2/igt@kms_flip@basic-flip-vs-dpms@c-edp1.=
+html
+>    [2]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-178490v1/bat-ptl-=
+2/igt@kms_flip@basic-flip-vs-dpms@c-edp1.html
 
-Argh. Apparently igt uses the modparam for some reason. But it
-only sets it to -1, which is the default w/ the debug .config
-anyway. I guess it might make sense for people running the
-w/o all the debug knobs enabled in .config...
+xe is very borked. Looks like intel_alpm_disable() is one main culprit:
 
-> 
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/Kconfig.debug            |  2 +-
->  drivers/gpu/drm/i915/display/intel_de.c       | 58 +++++++++----------
->  drivers/gpu/drm/i915/display/intel_de.h       |  1 +
->  .../gpu/drm/i915/display/intel_display_core.h |  7 +--
->  .../drm/i915/display/intel_display_params.c   |  4 +-
->  .../drm/i915/display/intel_display_params.h   |  2 +-
->  6 files changed, 34 insertions(+), 40 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-> index dc43dcfbadb6..6a020adc43ee 100644
-> --- a/drivers/gpu/drm/i915/Kconfig.debug
-> +++ b/drivers/gpu/drm/i915/Kconfig.debug
-> @@ -76,7 +76,7 @@ config DRM_I915_DEBUG_MMIO
->  	help
->  	  By default, always enables the extra sanity checks (extra register
->  	  reads) around every mmio (register) access that will slow the system
-> -	  down. This sets the default value of i915.mmio_debug to -1 and can
-> +	  down. This sets the default value of i915.mmio_debug to Y and can
->  	  be overridden at module load.
->  
->  	  Recommended for driver developers only.
-> diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
-> index 06d91570bee2..5a74cf173cb8 100644
-> --- a/drivers/gpu/drm/i915/display/intel_de.c
-> +++ b/drivers/gpu/drm/i915/display/intel_de.c
-> @@ -242,12 +242,16 @@ static bool vlv_check_for_unclaimed_mmio(struct intel_display *display)
->  	return true;
->  }
->  
-> +static bool mmio_debug_is_enabled(struct intel_display *display)
-> +{
-> +	return READ_ONCE(display->params.mmio_debug) ||
-> +		READ_ONCE(display->mmio.mmio_debug_oneshot);
-> +}
-> +
->  static void check_unclaimed_mmio_pre(struct intel_display *display,
->  				     intel_reg_t reg, bool write)
->  {
-> -	lockdep_assert_held(&display->mmio.lock);
-> -
-> -	if (!display->params.mmio_debug)
-> +	if (!mmio_debug_is_enabled(display))
->  		return;
->  
->  	if (!display->mmio.funcs->check_for_unclaimed_mmio(display))
-> @@ -262,9 +266,7 @@ static void check_unclaimed_mmio_pre(struct intel_display *display,
->  static void check_unclaimed_mmio_post(struct intel_display *display,
->  				      intel_reg_t reg, bool write)
->  {
-> -	lockdep_assert_held(&display->mmio.lock);
-> -
-> -	if (!display->params.mmio_debug)
-> +	if (!mmio_debug_is_enabled(display))
->  		return;
->  
->  	if (!display->mmio.funcs->check_for_unclaimed_mmio(display))
-> @@ -275,8 +277,7 @@ static void check_unclaimed_mmio_post(struct intel_display *display,
->  		 write ? "write to" : "read from",
->  		 i915_mmio_reg_offset(reg));
->  
-> -	/* Only report the first N failures */
-> -	display->params.mmio_debug--;
-> +	WRITE_ONCE(display->mmio.mmio_debug_oneshot, false);
->  }
->  
->  bool intel_de_unclaimed_mmio_detected(struct intel_display *display)
-> @@ -286,43 +287,36 @@ bool intel_de_unclaimed_mmio_detected(struct intel_display *display)
->  	if (!display->mmio.funcs->check_for_unclaimed_mmio)
->  		return false;
->  
-> -	spin_lock_irq(&display->mmio.lock);
-> -	ret = display->mmio.funcs->check_for_unclaimed_mmio(display);
-> -	spin_unlock_irq(&display->mmio.lock);
-> +	if (display->mmio.funcs->check_for_unclaimed_mmio_needs_lock) {
-> +		spin_lock_irq(&display->mmio.lock);
-> +		ret = display->mmio.funcs->check_for_unclaimed_mmio(display);
-> +		spin_unlock_irq(&display->mmio.lock);
-> +	} else {
-> +		ret = display->mmio.funcs->check_for_unclaimed_mmio(display);
-> +	}
->  
->  	return ret;
->  }
->  
->  bool intel_de_arm_unclaimed_mmio_detection(struct intel_display *display)
->  {
-> -	bool ret = false;
-> -
-> -	if (!display->mmio.funcs->check_for_unclaimed_mmio)
-> +	if (!READ_ONCE(display->mmio.unclaimed_mmio_check))
->  		return false;
->  
-> -	spin_lock_irq(&display->mmio.lock);
-> -
-> -	if (display->mmio.unclaimed_mmio_check <= 0)
-> -		goto out;
-> -
-> -	if (!display->mmio.funcs->check_for_unclaimed_mmio(display))
-> -		goto out;
-> +	if (!intel_de_unclaimed_mmio_detected(display))
-> +		return false;
->  
-> -	if (!display->params.mmio_debug) {
-> +	if (!READ_ONCE(display->params.mmio_debug)) {
->  		drm_dbg_kms(display->drm,
->  			    "Unclaimed register detected, "
->  			    "enabling oneshot unclaimed register reporting. "
-> -			    "Please use i915.mmio_debug=N for more information.\n");
-> -		display->params.mmio_debug++;
-> +			    "Please use i915.mmio_debug=Y for more information.\n");
-> +		WRITE_ONCE(display->mmio.mmio_debug_oneshot, true);
->  	}
->  
-> -	display->mmio.unclaimed_mmio_check--;
-> -	ret = true;
-> +	WRITE_ONCE(display->mmio.unclaimed_mmio_check, false);
->  
-> -out:
-> -	spin_unlock_irq(&display->mmio.lock);
-> -
-> -	return ret;
-> +	return true;
->  }
->  
->  #define __MMIO_WAKELOCK		BIT(0)
-> @@ -474,12 +468,14 @@ static const struct intel_mmio_funcs hsw_mmio_funcs = {
->  	.read = hsw_mmio_read,
->  	.write = hsw_mmio_write,
->  	.check_for_unclaimed_mmio = hsw_check_for_unclaimed_mmio,
-> +	.check_for_unclaimed_mmio_needs_lock = true,
->  };
->  
->  static const struct intel_mmio_funcs vlv_mmio_funcs = {
->  	.read = hsw_mmio_read,
->  	.write = hsw_mmio_write,
->  	.check_for_unclaimed_mmio = vlv_check_for_unclaimed_mmio,
-> +	.check_for_unclaimed_mmio_needs_lock = true,
->  };
->  
->  #define LNL_MMIO_FLAGS __MMIO_WAKELOCK
-> @@ -539,7 +535,7 @@ void intel_de_init(struct intel_display *display)
->  	}
->  
->  	if (display->mmio.funcs->check_for_unclaimed_mmio)
-> -		display->mmio.unclaimed_mmio_check = 1;
-> +		WRITE_ONCE(display->mmio.unclaimed_mmio_check, true);
->  
->  	/* clear out unclaimed reg detection bit someone else left behind */
->  	if (intel_de_unclaimed_mmio_detected(display))
-> diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-> index 2c469a2d6a20..cbf44975dced 100644
-> --- a/drivers/gpu/drm/i915/display/intel_de.h
-> +++ b/drivers/gpu/drm/i915/display/intel_de.h
-> @@ -13,6 +13,7 @@ struct intel_mmio_funcs {
->  	u32 (*read)(struct intel_display *display, intel_reg_t reg);
->  	void (*write)(struct intel_display *display, intel_reg_t reg, u32 val);
->  	bool (*check_for_unclaimed_mmio)(struct intel_display *display);
-> +	bool check_for_unclaimed_mmio_needs_lock;
->  };
->  
->  void intel_de_init(struct intel_display *display);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-> index d68ecc19b8a8..92a3ce4247b1 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_core.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-> @@ -539,17 +539,14 @@ struct intel_display {
->  		 * serializes all display register accesses done
->  		 * using intel_de_{read,write}(), but not those
->  		 * done using intel_de_{read,write}_fw().
-> -		 *
-> -		 * The lock also protects mmio.unclaimed_mmio_check
-> -		 * and read-modify-write of display->params.mmio_debug.
->  		 */
->  		spinlock_t lock;
->  
->  		struct intel_uncore *uncore;
->  		const struct intel_mmio_funcs *funcs;
->  
-> -		/* protected by mmio.lock */
-> -		int unclaimed_mmio_check;
-> +		bool mmio_debug_oneshot;
-> +		bool unclaimed_mmio_check;
->  	} mmio;
->  
->  	struct {
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-> index ace3081461de..7ef974861c8e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_params.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-> @@ -143,8 +143,8 @@ intel_display_param_named_unsafe(enable_dmc_wl, int, 0400,
->  	"(-1=use per-chip default, 0=disabled, 1=enabled, 2=match any register, 3=always locked) "
->  	"Default: -1");
->  
-> -intel_display_param_named(mmio_debug, int, 0400,
-> -	"Enable the MMIO debug code for the first N failures (default: off). "
-> +intel_display_param_named(mmio_debug, bool, 0400,
-> +	"Enable MMIO debug code (default: false). "
->  	"This may negatively affect performance.");
->  
->  __maybe_unused
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-> index bcbca95318d6..f6b9c294840c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_params.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-> @@ -51,7 +51,7 @@ struct drm_printer;
->  	param(bool, psr_safest_params, false, 0400) \
->  	param(bool, enable_psr2_sel_fetch, true, 0400) \
->  	param(int, enable_dmc_wl, -1, 0400) \
-> -	param(int, mmio_debug, -IS_ENABLED(CONFIG_DRM_I915_DEBUG_MMIO), 0600) \
-> +	param(bool, mmio_debug, IS_ENABLED(CONFIG_DRM_I915_DEBUG_MMIO), 0600) \
->  	/*
->  	 * Debugfs-only knob (per-device): no matching module_param is registered
->  	 * in intel_display_params.c on purpose. Runtime-toggle via debugfs.
-> -- 
-> 2.56.0
+<7> [78.666940] xe 0000:00:02.0: [drm:intel_psr_disable_locked [xe]] Disabl=
+ing PSR1
+<6> [78.673547] ------------[ cut here ]------------
+<4> [78.673558] xe 0000:00:02.0: [drm] Unclaimed read from register 0x62950
+<4> [78.673565] WARNING: drivers/gpu/drm/i915/display/intel_de.c:263 at che=
+ck_unclaimed_mmio_post+0x77/0xb0 [xe], CPU#2: kms_flip/1657
+<4> [78.673992] Modules linked in: snd_hda_codec_intelhdmi snd_hda_codec_hd=
+mi xe drm_gpuvm drm_gpusvm_helper drm_buddy gpu_sched drm_ttm_helper ttm dr=
+m_suballoc_helper drm_exec drm_display_helper cec rc_core drm_kunit_helpers=
+ kunit i2c_algo_bit hid_sensor_custom overlay hid_sensor_hub hid_generic in=
+tel_ishtp_hid hid intel_rapl_msr intel_uncore_frequency intel_uncore_freque=
+ncy_common x86_pkg_temp_thermal intel_powerclamp cmdlinepart spi_nor corete=
+mp mtd mei_gsc_proxy snd_hda_intel snd_intel_dspcfg snd_hda_codec ucsi_acpi=
+ typec_ucsi typec snd_hda_core wmi_bmof kvm_intel snd_hwdep snd_pcm kvm r81=
+69 irqbypass snd_timer binfmt_misc aesni_intel gf128mul i2c_i801 snd intel_=
+cstate spi_intel_pci intel_skl_int3472_tps68470 tps68470_regulator i2c_mux =
+realtek i2c_smbus spi_intel e1000e soundcore clk_tps68470 video mei_me phy_=
+package phylink idma64 mei intel_pmc_core int3403_thermal nls_iso8859_1 pro=
+cessor_thermal_device_pci processor_thermal_device processor_thermal_wt_hin=
+t platform_temperature_control pmt_telemetry
+<4> [78.674373]  processor_thermal_soc_slider pmt_discovery pmt_class proce=
+ssor_thermal_rfim acpi_tad intel_skl_int3472_discrete wmi intel_hid process=
+or_thermal_rapl intel_pmc_ssram_telemetry intel_rapl_common int3400_thermal=
+ sparse_keymap pinctrl_intel_platform intel_pmc_pwrm_telemetry acpi_thermal=
+_rel acpi_pad intel_skl_int3472_common intel_ish_ipc processor_thermal_wt_r=
+eq processor_thermal_power_floor intel_vpu intel_ishtp thunderbolt processo=
+r_thermal_mbox igen6_edac int340x_thermal_zone intel_vsec dm_multipath msr =
+nvme_fabrics fuse fsdev_dax efi_pstore autofs4
+<4> [78.674512] CPU: 2 UID: 0 PID: 1657 Comm: kms_flip Tainted: G S   U  W =
+          7.4.0-rc2-lgci-xe-xe-pw-178490v1-debug+ #1 PREEMPT(lazy)=20
+<4> [78.674524] Tainted: [S]=3DCPU_OUT_OF_SPEC, [U]=3DUSER, [W]=3DWARN
+<4> [78.674530] Hardware name: Intel Corporation Panther Lake Client Platfo=
+rm/PTL-UH LP5 T3 RVP1, BIOS PTLPFWI1.R00.3514.D01.2512291130 12/29/2025
+<4> [78.674536] RIP: 0010:check_unclaimed_mmio_post+0x80/0xb0 [xe]
+<4> [78.674917] Code: 48 85 ff 74 04 48 8b 7f 08 4c 8b 77 50 4d 85 f6 74 3e=
+ e8 73 67 2e e1 48 89 c6 48 8d 3d 69 bd 21 00 45 89 e0 4c 89 e9 4c 89 f2 <6=
+7> 48 0f b9 3a c6 83 38 07 00 00 00 5b 41 5c 41 5d 41 5e 5d 31 c0
+<4> [78.674924] RSP: 0018:ffffc9000bea7498 EFLAGS: 00010246
+<4> [78.674934] RAX: ffffffffa1420138 RBX: ffff88812c48a000 RCX: ffffffffa1=
+427a46
+<4> [78.674940] RDX: ffff8881067ecf10 RSI: ffffffffa1420138 RDI: ffffffffa1=
+20c820
+<4> [78.674944] RBP: ffffc9000bea74b8 R08: 0000000000062950 R09: 0000000000=
+000000
+<4> [78.674950] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000=
+062950
+<4> [78.674955] R13: ffffffffa1427a46 R14: ffff8881067ecf10 R15: 0000000000=
+000000
+<4> [78.674960] FS:  0000766c5546a2c0(0000) GS:ffff8884e5d42000(0000) knlGS=
+:0000000000000000
+<4> [78.674966] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4> [78.674972] CR2: 00007546fc3dbb68 CR3: 0000000129117004 CR4: 0000000108=
+f72ef0
+<4> [78.674977] PKRU: 55555554
+<4> [78.674982] Call Trace:
+<4> [78.674987]  <TASK>
+<4> [78.675000]  lnl_mmio_read+0xd1/0xe0 [xe]
+<4> [78.675406]  intel_alpm_disable+0xad/0x120 [xe]
+<4> [78.675829]  intel_ddi_disable+0x15a/0x230 [xe]
+<4> [78.676215]  intel_encoders_disable+0x9c/0xd0 [xe]
+<4> [78.676557]  hsw_crtc_disable+0x5b/0x160 [xe]
 
--- 
-Ville Syrjälä
+Cc:ing some people.
+
+>     - bat-lnl-1:          [PASS][3] -> [ABORT][4] +1 other test abort
+>    [3]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-6136-d41695c479e8bb2=
+4eb941e5ba916e42784af6f4d/bat-lnl-1/igt@kms_flip@basic-flip-vs-dpms@c-edp1.=
+html
+>    [4]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-178490v1/bat-lnl-=
+1/igt@kms_flip@basic-flip-vs-dpms@c-edp1.html
+>=20
+>   * igt@kms_flip@basic-flip-vs-dpms@d-edp1:
+>     - bat-ptl-2:          [PASS][5] -> [DMESG-WARN][6]
+>    [5]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-6136-d41695c479e8bb2=
+4eb941e5ba916e42784af6f4d/bat-ptl-2/igt@kms_flip@basic-flip-vs-dpms@d-edp1.=
+html
+>    [6]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-178490v1/bat-ptl-=
+2/igt@kms_flip@basic-flip-vs-dpms@d-edp1.html
+>=20
+>   * igt@kms_force_connector_basic@force-connector-state:
+>     - bat-wcl-2:          [PASS][7] -> [ABORT][8]
+>    [7]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-6136-d41695c479e8bb2=
+4eb941e5ba916e42784af6f4d/bat-wcl-2/igt@kms_force_connector_basic@force-con=
+nector-state.html
+>    [8]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-178490v1/bat-wcl-=
+2/igt@kms_force_connector_basic@force-connector-state.html
+>=20
+>   * igt@kms_force_connector_basic@prune-stale-modes:
+>     - bat-bmg-2:          [PASS][9] -> [ABORT][10]
+>    [9]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-6136-d41695c479e8bb2=
+4eb941e5ba916e42784af6f4d/bat-bmg-2/igt@kms_force_connector_basic@prune-sta=
+le-modes.html
+>    [10]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-178490v1/bat-bmg=
+-2/igt@kms_force_connector_basic@prune-stale-modes.html
+>=20
+>   * igt@xe_module_load@load:
+>     - bat-wcl-1:          [PASS][11] -> [ABORT][12]
+>    [11]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-6136-d41695c479e8bb=
+24eb941e5ba916e42784af6f4d/bat-wcl-1/igt@xe_module_load@load.html
+>    [12]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-178490v1/bat-wcl=
+-1/igt@xe_module_load@load.html
+>=20
+>   * igt@xe_query@multigpu-query-topology-l3-bank-mask:
+>     - bat-bmg-3:          [PASS][13] -> [ABORT][14]
+>    [13]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-6136-d41695c479e8bb=
+24eb941e5ba916e42784af6f4d/bat-bmg-3/igt@xe_query@multigpu-query-topology-l=
+3-bank-mask.html
+>    [14]: https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-178490v1/bat-bmg=
+-3/igt@xe_query@multigpu-query-topology-l3-bank-mask.html
+>=20
+>  =20
+>=20
+>=20
+> Build changes
+> -------------
+>=20
+>   * IGT: IGT_9190 -> IGT_9191
+>   * Linux: xe-6136-d41695c479e8bb24eb941e5ba916e42784af6f4d -> xe-pw-1784=
+90v1
+>=20
+>   IGT_9190: 9190
+>   IGT_9191: 9191
+>   xe-6136-d41695c479e8bb24eb941e5ba916e42784af6f4d: d41695c479e8bb24eb941=
+e5ba916e42784af6f4d
+>   xe-pw-178490v1: 178490v1
+>=20
+> =3D=3D Logs =3D=3D
+>=20
+> For more details see: https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-178=
+490v1/index.html
+
+--=20
+Ville Syrj=E4l=E4
 Intel
