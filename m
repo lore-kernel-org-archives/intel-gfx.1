@@ -2,80 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A04606A323
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 14:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C263606A880
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 14:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gguEGFo4
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PSlAsAlB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5146810F0B4;
-	Mon, 16 Nov 2026 14:37:32 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D169E10E805
- for <intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 02:51:51 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-c50604721c8so336347066b.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 18:51:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2E4110F13F;
+	Mon, 16 Nov 2026 14:37:37 +0000 (UTC)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F373A10E2C0
+ for <intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 01:44:03 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-c4d581da0aaso241492066b.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 17:44:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794624710; x=1795229510; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794620642; x=1795225442; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=MhJIErRaTVfRxe+/WdgTiC6buoyYG4cHph19YbmHDSc=;
- b=gguEGFo4Bf67glihAZVbNVEZ6M/Yhig3Fk1RiIIC+BWln/cLe181im+hestGCMHkko
- s7q2RxTPMysd5n04U5E+H8wAQ1uqOT3JDUog6yzExhyiqK7DIWQLgTZ/dLHkxhFq3IiL
- j7avTIwljGYiknjcpnGg+baG4PHHahbtg984M6jWXgnilHZ9SWCHPvCi1i69RclRd/CI
- eyM0Q5QvWzB+JTRRcZzVXJhOeSY2m8zw52eDRzPb/YY58ibmfqCFTZv9KROGV0uQt5oI
- d6NbfROIsKez592nsTeC0KguPNUyIKh4nQ1Mb1qEQdMBWkpYnbBPmnNiODKYDU3/GYJd
- DNow==
+ bh=gVcYrHxuKjjRDsavX/u54wCI8Z5NBBro/KfpNW0Hgew=;
+ b=PSlAsAlBKR1eJfNX0s3CCrfiFEzTUQqfrqtOZ4XRAIAMeGPMVzd7wfkCDRtrSfwD3C
+ DOLLejzMzrOBfVsSV4F7z/47Yd/OVor5z5MaNNPdpOvLmkz0a6XM44QIlPRLSYbDps2t
+ kEskpE1m0ue68ot1HyVvJN7Hp2V89tGnBfa8nUeUVcJmQfqLV2yvZdhXKTjiTvknNOke
+ LdqBAEfD/OSCToueU9OijOwTdc8Iak1M2OzaP7h167/L+LseKBIpfslLiEQDICW1l/T6
+ AAg5h0naC5EsL4KLp0SIEUWYr7vS1qVJMegalcYKXru+vwwo+4Am4oKsJUPiGKtIhfZV
+ yYVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794624710; x=1795229510;
+ d=1e100.net; s=20260707; t=1794620642; x=1795225442;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=MhJIErRaTVfRxe+/WdgTiC6buoyYG4cHph19YbmHDSc=;
- b=idbF3I6gGaCD5i7nj1Ru/9ZP8UEgPs+ZwvUiNQIy7K2EwYeY5JyL5knooz8uIEWuN2
- tN44jyRhIh00M0jz2aIDAtVjCa6Xch6UwKDgUG2nD8Isxon0mMHR7kxAi1z/Nvm0mlud
- uQx2jn9lMdbaA2UqFlMtLViSlRiFaqHc9AF05kEP9rGHsp+Y6UuobnRmnAicV5vUNqjd
- ooj+iAtIQSknXzkLtIRFYjF47v3NIUZl2K0CiDGfqFrvXsGtCP5q063BsgtvOMDGFCHJ
- CMg4NP73Xaa8oKOHsHCinEuWMcr5LpcPcmIWPyLoCBkutDBCmqmeYPv2CbcQwNN9oh0/
- fbNw==
-X-Forwarded-Encrypted: i=1;
- AL+hErFRCjRwGcw5G3SadjKp6Ri+yOFzhmnDVffj3GpCSD0hrcXjsLG4EMWsu3w7LuTxKMYKGv4hozfl4oY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8HDsp1Ymi7FEgTTVw+zK0o8faCUSLXKUuuHfRagN5oqEunmuCx
- miuyMtGtrZIuWAibCFdFJKIVZtOtVa9yfyXgw7d5NsH/y+QhYDGWeGjX
-X-Gm-Gg: AYBFou2ZhAleR/QUkq45MWuKbIqH/AWLBLfPu88B7cU+nAxp1MxpbxDm4j/vZS2Uh0a
- cQ9zz4eTdB4jxeOKOFAnlMe9KTv5Uw3pRCPD0A6+pgWjR1PxpDP/muT8HV4l5nrkO1AEUVoccaA
- t6YrwuAu7xgIR2Tf0vNZysVeiIe7AeJ1SLY3dZSNv+Wq2ZiPjgEmf/BOTX/iCBlo9zR0J+98/ay
- sGDUnn4tfn+w3N9svZgkMNcLeyCul2Yeku9+aKQM7FviijWnDW4/Whf8YVxLVt4Q6NrETWEj17t
- WQiU2hrhJeG4W02FpuJATDVJn+cU3I8Wu1YFawuckxny0WSoLFkjv+LnfpeCbSuvB2OtbsAf5JS
- 2mBeh+ZtRuZTQmon1IQMlXHmsEQ39womQodlGYmfS/Oslndw4tn28i4tAmbZzgDdYLqO58fNtc4
- P19NxDntEWY8bq48r0cuz2k4ttN/oQe2BmfWA5VzVVI4jXEm3UTrZrCJRQNyqT6wgi64o3okWQF
- k3N62IZ9beiGz/LOG1UK9tDpC4vNozAZTwzOdAJac6Jniv5CZakjAUrRZXr8/+0HWUVHzGNL71A
- Pi5NsX2A7+1l1aX+3VVGRrivRb3SP9vtU5r8zx4d018zgKBu6tgnojejf7VYIRZmlQJ/92jsC2I
- m7In8bplRN8H/g6IRc2WctilkrfNdcNRmZFH3K4PdDTHu
-X-Received: by 2002:a17:907:3e10:b0:c40:231:6eab with SMTP id
- a640c23a62f3a-c5096370c31mr367846866b.16.1794624709830; 
- Fri, 13 Nov 2026 18:51:49 -0800 (PST)
+ bh=gVcYrHxuKjjRDsavX/u54wCI8Z5NBBro/KfpNW0Hgew=;
+ b=O7glCx/hluZ9uGS3JZyVBCx4BG0uhZTBUK3UKAFYX81W1d/V6QdT5sYb1VaJXXxe06
+ pReOMJKWoMXFrTuIQDfZseG15EleWT3YzuBiooLWyHxF7wmiwVhuOds12Ji757q0Uf+D
+ trH2jQB1QKixDT+eZxwLS/BdwJVurTGPsC5CM5cxbkGQ8gnVZ0nENpMORZnrUAjzlXQ+
+ GN9CaqbD0AyhC8ybZ7b9URWQJ/I1cUTj7eQUByvQGdewS/Kn4mcLl+MZ9XXGbi0R3YKR
+ fndyiAnfwESY51e7SNcKmXoQJARdDp3eFinSwKUWgGQA+swcwTxQ/pqrwHv7Pue4YfCQ
+ vtMw==
+X-Gm-Message-State: APuU4Z+UsHl3ZJ8mLtw+9+J9MRux+dyEjsXxM9rTOUOv5eFQ4cwCFCBg
+ ybJD2AX1gIah+Q600xuf9hCurWLKUDk59PfAhugXMjQUVmfsNWAlsoS3sxu/XhEomsI=
+X-Gm-Gg: AYBFou3Jtrv8I58aljZy+kV5GqgMflwsmn7UdNh9f2IjerNxG1oNEGD/JErVbZpacri
+ t1OI0p1EgXwz6b0G2K0Q8WwwoplTREzaRk7NiwfDgOn72cTqz+Tgc6mtALdpcOrqdsOlk4ArDvS
+ oJ4FkTwhr1N7L1NTH465txIpAQAkdrkqk9d6vtFLIiqXMBYOjJRNGbKDQCLWuvn6VgnSq0zeX1q
+ Pb8IRDY/t3APXzCu8/S8NDAh2roF2DpGHUqkHgw3Ymyg3FipW5zkH0BtgQnEUxjdBiRbFujc93s
+ KpCigAXTi63DWE7LQGA9FipdZ3j54y+l+k0B1XCOHMXHXFsOdm9u/XXGVvlH/LYFMdNRwcnEBZQ
+ I8MxPT9tB7iOVitEJ5pNr6MriECm8NTjTxJCG36LKF8wuA8M+TSB7xfZ7Z4kQVkkREFN41/6ltP
+ ABameZw4RBBBw+v/rrdcXTN0cOmLg/SMQv3B4LKRTJDFCINo2DlQ+cy+AonlefrXZFs4madxhGx
+ omV+8X4BM/o3kiRE20jk7ZheaYUeq3nuXQPk+XZ0eEejmIfzHJ8ImUuNG7BjtuQKJA6KusbI7ix
+ hsPhifaWFgmt25PM0RL1ZDgPYQtlUB8txNn0mQdcsrVYXI+Gi3O9fou8UP+PnR3INrX1SC3X/se
+ 1uzXJrT1A0ZXreHfiFwN87vo=
+X-Received: by 2002:a17:907:96ac:b0:c29:3c97:c994 with SMTP id
+ a640c23a62f3a-c50963bd677mr349321366b.35.1794620642059; 
+ Fri, 13 Nov 2026 17:44:02 -0800 (PST)
 Received: from SMOK.angora-ide.ts.net
  (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b58981sm166556766b.45.2026.11.13.18.51.49
+ a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.44.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 18:51:49 -0800 (PST)
+ Fri, 13 Nov 2026 17:44:01 -0800 (PST)
 From: ElXreno <elxreno@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: ElXreno <elxreno@gmail.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com
-Subject: Re: [PATCH 7/7] drm/i915/vrr: Allow VRR with the pipe joiner
-Date: Sat, 14 Nov 2026 05:51:12 +0300
-Message-ID: <20261114025115.2419087-1-elxreno@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
+ mitulkumar.ajitkumar.golani@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ElXreno <elxreno@gmail.com>
+Subject: [PATCH 5/7] drm/i915: Arm joined pipes within one vblank evasion for
+ VRR
+Date: Sat, 14 Nov 2026 04:43:33 +0300
+Message-ID: <20261114014335.2132756-6-elxreno@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <sashiko-outbox-214052@kernel.org>
+In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
 References: <20261114014335.2132756-1-elxreno@gmail.com>
- <20261114014335.2132756-8-elxreno@gmail.com>
- <sashiko-outbox-214052@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -91,29 +92,200 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 14, 2026 at 02:24:32AM +0000, sashiko-bot@kernel.org wrote:
-> Can allowing vrr.enable on joined pipes trigger a NULL pointer dereference
-> in intel_crtc_needs_joined_update() [...]
+All joined pipes run off the transcoder of the primary, so one vblank
+latches every one of them. On the MMIO path each pipe nevertheless
+goes through its own intel_pipe_update_start()/intel_pipe_update_end()
+critical section, one pipe after another. When the vblank falls
+between two of them the earlier pipe latches its new state a frame
+ahead of the later one, and for that frame the halves of the screen
+come from different frames.
 
-Yes. I can't reproduce it, no third pipe can be lit on the i915 side of
-my machine. v2 will have
+With VRR that gets worse, as the commit ends the frame itself: the
+push at the end of the primary's section latches whatever has been
+armed by then. Commit the joined pipes together when VRR is in use:
+do the vblank evasion once, on the primary, arm all of them inside
+that critical section and let the primary send the push at its end.
+The evasion accounting, the trace events and the atomic update
+failure check then run once as well, for the primary.
 
-+		/* A DDB change can pull in one joined pipe on its own */
-+		if (!new_pipe_crtc_state)
+Armed this way the critical section takes 15 us on average for two
+pipes on Arrow Lake (71983 commits at 240 fps: 71918 under 30 us, 16
+between 30 and 60 us, 49 between 60 and 188 us), against the 100 us
+the evasion allows for. The window is not scaled with the number of
+pipes. The 49 are single MMIO writes that stall, not more work: the
+instruction count is that of an ordinary section, the CPU stays in
+C0, there is no SMI or NMI, and the register differs from case to
+case. The per pipe sections of the same mode without VRR and with
+the DSB turned off show the same stalls (15 of 72002 sections over
+60 us), so they do not come from arming two pipes in one section.
+None of them ran into a vblank.
+
+The per pipe sequence is kept where the critical section has per
+pipe work attached or the pipes need sequencing against others:
+modesets, the atomic fallback of a legacy cursor update, async flips,
+commits that need the vblank worker for the LUT load and commits that
+change the DDB allocation of a joined pipe. The vblank worker is
+needed on the platforms without double buffered LUTs, when a colour
+update or a fastset has LUTs to load that can neither be preloaded
+nor be left to a colour DSB. Commits that go through the DSB or the
+flip queue are not affected, and neither is the commit sequence of a
+joined configuration without VRR. The latter has the same race
+against the fixed vblank, it is left alone only to keep this change
+to the case that can be tested with it.
+
+On the platforms with double buffered LUTs there is no vblank worker.
+Where no colour DSB is used the LUTs are loaded with MMIO inside the
+critical section, which here is the joined one and then loads them
+for all joined pipes. I have no such hardware and have not tested
+that.
+
+No functional change yet, VRR is not allowed with the joiner.
+
+Signed-off-by: ElXreno <elxreno@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_crtc.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_crtc.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_display.c | 88 ++++++++++++++++++++
+ 3 files changed, 90 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 139c9dae536e..f41616a060b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -487,7 +487,7 @@ int intel_crtc_get_pipe_from_crtc_id_ioctl(struct drm_device *dev, void *data,
+ 	return 0;
+ }
+ 
+-static bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state)
++bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
+index 12507b51ee77..0478394b01e8 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.h
++++ b/drivers/gpu/drm/i915/display/intel_crtc.h
+@@ -50,6 +50,7 @@ void intel_pipe_update_start(struct intel_atomic_state *state,
+ 			     struct intel_crtc *crtc);
+ void intel_pipe_update_end(struct intel_atomic_state *state,
+ 			   struct intel_crtc *crtc);
++bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state);
+ void intel_wait_for_vblank_workers(struct intel_atomic_state *state);
+ struct intel_crtc *intel_first_crtc(struct intel_display *display);
+ struct intel_crtc *intel_crtc_for_pipe(struct intel_display *display,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index aa03f674d93b..1fda1bb15674 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7151,12 +7151,100 @@ static void intel_post_update_crtc(struct intel_atomic_state *state,
+ 	}
+ }
+ 
++/*
++ * All joined pipes run off the transcoder of the primary, so one
++ * vblank latches every one of them, and with VRR the commit itself
++ * ends the frame with a push. The arming registers of all joined
++ * pipes then have to be written within a single vblank evasion
++ * critical section, with the push at its end, or the pipes may
++ * latch in different frames.
++ */
++static bool intel_crtc_needs_joined_update(struct intel_atomic_state *state,
++					   struct intel_crtc *crtc)
++{
++	struct intel_display *display = to_intel_display(state);
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++	struct intel_crtc *pipe_crtc;
++
++	if (!new_crtc_state->joiner_pipes)
++		return false;
++
++	/* FIXME do this for the fixed refresh rate case as well */
++	if (!old_crtc_state->vrr.enable && !new_crtc_state->vrr.enable)
++		return false;
++
++	/* FIXME the cursor unpin works are set up per pipe */
++	if (state->base.legacy_cursor_update)
++		return false;
++
++	for_each_intel_crtc_in_pipe_mask(display, pipe_crtc,
++					 intel_crtc_joined_pipe_mask(new_crtc_state)) {
++		const struct intel_crtc_state *old_pipe_crtc_state =
++			intel_atomic_get_old_crtc_state(state, pipe_crtc);
++		const struct intel_crtc_state *new_pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
++
++		/* The DSB and the flip queue do their own vblank evasion */
++		if (new_pipe_crtc_state->commit_type != INTEL_COMMIT_MMIO)
 +			return false;
++
++		if (intel_crtc_needs_modeset(new_pipe_crtc_state) ||
++		    new_pipe_crtc_state->do_async_flip)
++			return false;
++
++		/* FIXME the vblank work is set up per pipe */
++		if (intel_crtc_needs_vblank_work(new_pipe_crtc_state))
++			return false;
++
++		/*
++		 * A changed DDB allocation must be sequenced
++		 * against the other pipes one pipe at a time.
++		 */
++		if (!skl_ddb_entry_equal(&old_pipe_crtc_state->wm.skl.ddb,
++					 &new_pipe_crtc_state->wm.skl.ddb))
++			return false;
++	}
++
++	return true;
++}
++
++static void intel_update_joined_crtcs(struct intel_atomic_state *state,
++				      struct intel_crtc *primary_crtc)
++{
++	struct intel_display *display = to_intel_display(state);
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, primary_crtc);
++	u8 pipe_mask = intel_crtc_joined_pipe_mask(new_crtc_state);
++	struct intel_crtc *pipe_crtc;
++
++	/* Perform vblank evasion around the commit of all joined pipes */
++	intel_pipe_update_start(state, primary_crtc);
++
++	for_each_intel_crtc_in_pipe_mask_reverse(display, pipe_crtc, pipe_mask)
++		commit_pipe_arm(state, pipe_crtc);
++
++	intel_pipe_update_end(state, primary_crtc);
++
++	for_each_intel_crtc_in_pipe_mask_reverse(display, pipe_crtc, pipe_mask)
++		intel_post_update_crtc(state, pipe_crtc);
++}
++
+ static void intel_update_crtc(struct intel_atomic_state *state,
+ 			      struct intel_crtc *crtc)
+ {
+ 	struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 
++	if (intel_crtc_needs_joined_update(state, crtc)) {
++		/* The secondaries are committed along with the primary */
++		if (intel_crtc_is_joiner_primary(new_crtc_state))
++			intel_update_joined_crtcs(state, crtc);
++		return;
++	}
++
+ 	switch (new_crtc_state->commit_type) {
+ 	case INTEL_COMMIT_FLIPQ:
+ 		intel_flipq_enable(new_crtc_state);
+-- 
+2.56.0
 
-> When a joined pipe's DDB allocation changes while VRR is enabled, does
-> falling back to per-pipe updates in skl_commit_modeset_enables() break VRR
-> push sequencing?
-
-It delays, it does not break: without a push the secondary latches at
-the vmax vblank, one frame of up to 1/min refresh later. The cover
-letter lists DDB changes among the commits that keep the per pipe
-sequence.
