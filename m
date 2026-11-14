@@ -2,227 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FB4606A32C
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 14:37:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF9F606A31C
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 14:37:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha1 header.s=fm3 header.b=pjuVmr/L;
-	dkim=permerror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha1 header.s=fm3 header.b=syy3aDEc
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GI5hNT7U
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC99E10ED26;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4CDF10EE43;
 	Mon, 16 Nov 2026 14:37:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="pjuVmr/L";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="syy3aDEc";
-	dkim-atps=neutral
-X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
- Sun, 15 Nov 2026 01:26:16 UTC
-Received: from flow-a8-smtp.messagingengine.com
- (flow-a8-smtp.messagingengine.com [103.168.172.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BBA310E3B0
- for <intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2026 01:26:16 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailflow.phl.internal (Postfix) with ESMTP id D931F1381D93
- for <intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 20:20:09 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Sat, 14 Nov 2026 20:20:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-type:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm3; t=1794705609; x=
- 1794712809; bh=QIES4zNTDxRjCnYHiHcWq6p6uX7fK/EWYh7I/zXroHQ=; b=p
- juVmr/LC7nCJ0SQ2rWUhRQGDMnlVGg/71zflyfizaeCefqOj8Wyp1bv5cUdTgRb8
- 7XUxKSQFA4h5chwE1lADu0vrwg8OhHP6GoQHRhO7+gqlPzaI30gfxszAJ8iBZnAq
- w6LhtavpJKSJHCgIMJ9jaiAQhtgloSfAXiebl32YH12R4n49k4Dhf+Y8W3pLV4v+
- Lk6DFTk8SpQ9jSXzpScexBSvyhdEJDbrQwMC0927YExgznJjfLZe0flh8fHQL7IO
- vj78LH6slSiU2T+/dLzxP/iDcsVNxx1fb6S0NI/BKneEKfRIjGfp58LmRDVhLSom
- qjpjx4Q11TfgHJQJAHUUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1794705609; x=1794712809; bh=QIES4zNTDxRjCnYHiHcWq6p6uX7fK/EWYh7
- I/zXroHQ=; b=syy3aDEccFqwMWi7OqQgN+5WtM3ZAfMLRFvK6Ty6zA65HPirgvN
- ilcYb0Q1wBWUsxvkCfegkY1pzVtpHUOC6WAP6pTtbZPWcSU2JRmZq5bj3XtaI5mJ
- 5KZK4MCZjfikGyCw8udPD79DzKX657SNeo8VKm+NBs1zDN72HR3ZemlLBm38jus1
- WDdVI20E7k3nTziG5v/jPkof/xTKUHTBh7LLvCto0jlE2c4pmQs/fxRRAq0SyBeZ
- lruY2Ddh8f3CbRk7/EsENeVrGkeN2qYTfTHHssLqQwRRARUN/edAoqWV9ygwuEYm
- jIS3U35+DcIoM5H/MAq31DLvDAGEUQlNvVA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794705609; d=sakamocchi.jp;
- mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
- rt=PGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm3:rsa-sha256:ICFsiIoopJENmbWpwZzpRTzKPsf8vnVlbLIg+iphQL2vkKG
- 5rachxRLTpgHW4AX3OCwNMgZEpHTqiVE9WyFDlDAUEkMf4vGjlGjWw2DKFZYqzdu
- i71YpfqoD/7IG15Gwh7c7nwISWwU69mlzE4icXBP1gSbCMS+LOUdL2HYP+JAAx1O
- YfzZ+hyLIajrzT1K5sK7HyD40N1M8XZvddPhzlwaugGNx/kbRo3aofiMOEVIE5KW
- eZcV01D1Z/PHqcBz5yugFUqOr8L1HDIzrEBE0ntGOzfeeWjvq3A4A1Nqw3zxNRBO
- OeHMfTHzPYHj5HNZhCc9/qRGHeyFGEtsOxEuX/Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=mi-m=1; hc=13;
- hn=cc,content-disposition,content-type,date,feedback-id,from,
- in-reply-to,mail-followup-to,message-id,mime-version,references,
- subject,to;
-Message-Instance: m=1;
- h=sha256:ntV32t7KOIfGMot6swX3CNi9IkfeqivW9U6qBDwCqc8=:4RP5xhIBVdE4nHZvdVXdOxDGDwEwdGMsIHWUj8/gqfI=;
-X-ME-Sender: <xms:xQj5aiop4gg9dsJ6_Vn6u45zXMYueatHm6sTqNkrPjF6p_uliIn0fA>
- <xme:xQj5ao-c0CruU-TGxTE7NFYZSaEuQncLSSmM997vVUnXnDFfvxt3Mt5vMRNmSfmhf
- 34fKN--fbmH87piFvayMBFAxnjq6WHAkHe46t3SFxeylFtFg6aPnx9A>
-X-ME-Received: <xmr:xQj5atXGMWjP8faJlCtXj9RrVZeBW-gqDucCpC0ZXa191cT5jnWReGYw_Z8rYiOMsAtlcaNqIM8bDcRsKH9aHiPzWCfQ_w>
-X-ME-Proxy-Cause: dmFkZTGQstm6GOmXFdPQXDqZqAYG7aQouPeZUHJ4IBXrRYWFH6lFNnMWIuGsSOCFSsBuXW
- LbDJxfVrfV3cl+wc1JM2qA4EvGILGxXqZILW7GfZPYDe6vWDeehuWas6PsFLq2rp3ZCMLK
- vb2ZkQs61G65smsTsr3W8fx/U8N5II0Wva1plTCgHg5UpMnhi5PWu1EQKVr47yDlfh1UvS
- LYKjU/U9x7MTbsMHbdhB5rWUTX8pbvj9eAIRg5DGXYvFzZokg4/nvH5yq0IUoDc8xEYNrb
- hSXdXqov4GW1obuCd3P9CA8Y5vszeSouSKwogVvelkFQGttmZKq/NF5ipA4vDPXyrU1Xrm
- Zrz3WElYlhVCDcPNRnAGrD/gNAj1b7M9bHXUiJrCqgmTebsAx0cfPWnZGZ3/j9Ea2UWcPj
- qqJZ67js4v5NriJFPwSb5fBisbBQrZL2hM4YjWQCJ9uoloExIgLFI0L7sZA853RBWP4ncp
- DBuj0o8Fkgdi7cJEPrTBBMdPRnMErqVngCb+aWeUA0zKt+uaR6UB1bg9ZicNV0ayYa37yt
- I8T18lqRGBzHHbPK9Mrtu/1JSrYmpYKqgKJaY1owBZ4nprZ++3QPl5fwcLNIPsiGvSmzop
- Zbr1xrRPLyP5mMh+v5LgBzIwywaOGj2L4LIDZM+0lWqxfhjtWj2WgxvXglrg
-X-ME-Proxy: <xmx:xQj5avAwgflb4ksIG5XRwHT6xxt96MMxRO3omUvuEt-3k_ppqJzgYw>
- <xmx:xQj5aka9rFrx7_oeihBM0qdilVdSsLFNvKaV60FpVwOaq7EoVM3bNQ>
- <xmx:xQj5ak3AzNFqwOx2mTfPhYibu1bQ_UDkW9NgFtUhfBWBcyXvs0uL4A>
- <xmx:xQj5aoGo_8KYcqvEjpNAxM_sotiXZsyQPcuJ_BoRuwGjdfls4pLNfg>
- <xmx:yQj5amBDENmX5NhRabHbZy5mqP0Iv6_jzPBpOZyadDNP-V1uD_qCKZw->
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 20:19:47 -0500 (EST)
-Date: Sun, 15 Nov 2026 10:19:45 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, linux-mm@kvack.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- linux-block@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- linux-atm-general@lists.sourceforge.net,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- linux-mtd@lists.infradead.org, Neill Kapron <nkapron@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 02/12] docs: ioctl-number: update sound entries
-Message-ID: <20261115011945.GA238787@sakamocchi.jp>
-Mail-Followup-To: Randy Dunlap <rdunlap@infradead.org>,
- linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, linux-mm@kvack.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- linux-block@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- linux-atm-general@lists.sourceforge.net,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>,
- Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- linux-mtd@lists.infradead.org, Neill Kapron <nkapron@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Tzung-Bi Shih <tzungbi@kernel.org>,
- Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-References: <20261114202653.3113381-1-rdunlap@infradead.org>
- <20261114202653.3113381-3-rdunlap@infradead.org>
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 010EB10E2C0
+ for <intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 01:43:57 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-c506a231b88so266783366b.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 17:43:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794620636; x=1795225436; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pqbc+Iv+L3kyD9FoDQGOW1amYeE8uWPjW4ipo2/GpSE=;
+ b=GI5hNT7UFzx2JKPJsLeAZvpeOlXgt8mAnGnT5iXRybSpevVjOkGbDilVFLHFocOfrU
+ 46fLo6pcuHYwOpBYSfJ2idLLE3khLl3iNMGX1exysu9ZtLsxuyCl6z3VWBjNHFiO9hFy
+ UP/3Gmqzi2YXEiQv2TcnwiaB6QMyal+RYCDC41tJYVX/4ddBELMrZzfIDixMZXhpMAnl
+ PIw+E2sDrrPBBGPsAylGQlOiDNNccQ3tTx8S4iFndXjYVjtjllq+1sc4+NnEN5oo2qbS
+ UuHNGT7EeE+dntd10oot32KCbadqBxud5J/SakavezW1+Yq4b4Et6S4ksHuxxZzdXX37
+ 2q4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794620636; x=1795225436;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=pqbc+Iv+L3kyD9FoDQGOW1amYeE8uWPjW4ipo2/GpSE=;
+ b=fP/qTVqbb88MgCV9e1JJWtarGfxwWuVt+OnOvQHLxdz/uGB8nG9BC5nj/elqOmNfbH
+ pSXzjDegbDtCEEIAhKcTijv6y0MiWvQ32XFT1vA+SiEVeiJI1IKHBHRB6hAUwYwhHGtu
+ PCqbMkOUnCKRz/fYjHO4Zw/saEXBywMmIeVfWHerjrw2dZ8r63gWr8sLQSbmSunfveis
+ VYR+JVx7KU9XxNA7bdzWPjRjRtSJ/18nw68nAcFzDPfiTDPACbpElgpP0IjRWaxNxH6K
+ 7WeMB1fyFWodvaUI1gZyLTPl0LExVICy++wP28N/iJ/3WghQTrREjQcacEf9P6yT7OPK
+ wwnw==
+X-Gm-Message-State: APuU4Z/VmFYObL80RtG8mIdmbbhcS4ORjd0WZqKa0PYuqW//PSvnKaDL
+ WvG2tztjMbjYFZPlKeJBbKZQ/PK+HuxeoU323+mhbrF0WmBiS8+/2LLGHHwvT8yULuk=
+X-Gm-Gg: AYBFou2UQdpf3jXu+E3+B9k+R9dTIBE/bK/erfu1xp93RTWWEOakk+L2Nn4jruspzFr
+ EKc7zWDyjNuddsiC2V+j1P+03sUwEDYgnMMY6nQUTHFhmkKoL+hhgGlMmBBJJCwENQ3z/uPpyUv
+ TnIXYM87hFu4SUeBsFTPhriqkIZtXxGHXDIKtOgqbaq8QsZgSRX9dCrj/ye3QLdzJbjQ6axiZKh
+ jiskbw7eBTFshrNTsG3p/HoVHQjaSkEAd+4NpHtuGLjL+XtTseqaAQ2nAkJ/bxbkGwyWrS1nUv9
+ e4v9JYP2pZ/GzVEc175iCqOhs4LxhO6A7i2uw4hA3WmTH/s31FF3367CLTb1gLk9qcQMprp7hYW
+ VbYUprgZyAT6d0fvK3IHnTYdKpClbmjq9Px2lYoj2j9Ox4MNaG/HSg6H4lhiwCTK3hzp8FdoPII
+ oEKjGtvcgJkqYzsW0dcR4hlYeJECtlAlGKJx8QqotURQzgMZgzXe89N3kJYQGgrQnLH2M8QQyZg
+ sUKP5EPbOPwq2QxgHN17MiGf8WqDB2i/6oaPZ/qjAPO7pNJSRm2/5KNIWnWgFZazevK9zpYCugk
+ zeolzTGyXQPo/K9MFjlbRycEvZJ0rMAjsuRuZfA0kQ/bZoIEC2fnGZ+SlDdGpxqG4R5uEo2T6M9
+ AhOE/1CGjrBIES7rtTef15Eg=
+X-Received: by 2002:a17:907:1611:b0:c50:564b:c63 with SMTP id
+ a640c23a62f3a-c50961d365bmr338389066b.6.1794620636011; 
+ Fri, 13 Nov 2026 17:43:56 -0800 (PST)
+Received: from SMOK.angora-ide.ts.net
+ (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.43.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Nov 2026 17:43:55 -0800 (PST)
+From: ElXreno <elxreno@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
+ mitulkumar.ajitkumar.golani@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ElXreno <elxreno@gmail.com>
+Subject: [PATCH 0/7] drm/i915: VRR with the pipe joiner
+Date: Sat, 14 Nov 2026 04:43:28 +0300
+Message-ID: <20261114014335.2132756-1-elxreno@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114202653.3113381-3-rdunlap@infradead.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Nov 2026 14:37:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -235,58 +88,128 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+This series allows VRR on modes that need the pipe joiner, such as
+3840x2400@240 on the eDP panels of current 18" laptops. So far such
+modes are kept on the fixed refresh rate timing generator.
 
-On Sat, Nov 14, 2026 at 12:26:40PM -0800, Randy Dunlap wrote:
-> Update the list of files where sound ioctls are defined and update
-> the ranges of function numbers that are used.
-> 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> [Since having multiple maintainers trying to merge these would
-> cause some conflicts, it would be more manageable for Jon to
-> take all of these through the docs-next tree.]
-> 
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: linux-doc@vger.kernel.org
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: linux-sound@vger.kernel.org
-> 
->  Documentation/userspace-api/ioctl/ioctl-number.rst |   12 +++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> --- linux-next-20261111.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-> +++ linux-next-20261111/Documentation/userspace-api/ioctl/ioctl-number.rst
-> ...(snip)...
-> @@ -168,7 +174,7 @@ Code  Seq#    Include File
->  'H'   C0-DF  net/bluetooth/cmtp/cmtp.h                                 conflict!
->  'H'   C0-DF  net/bluetooth/bnep/bnep.h                                 conflict!
->  'H'   F1     linux/hid-roccat.h                                        <mailto:erazor_de@users.sourceforge.net>
-> -'H'   F8-FA  sound/firewire.h
-> +'H'   F8-FE  sound/firewire.h                                          conflict!
-> ...(snip)...
+What was missing is the sequencing of the transcoder level VRR
+operations (timings, enable, disable, push) against the pipe level
+updates of the joined pipes [1][2]; joiner + fixed_rr went in as the
+first step [3], commit 0ec46988ae6c ("drm/i915/vrr: Allow fixed_rr
+with pipe joiner"). Here the sequencing is done on the MMIO path: all
+joined pipes are armed inside one vblank evasion critical section on
+the primary, which then sends the push.
 
-I overlooked this entry when inserting the additional ioctl commands in
-the following commits:
+Tested on one machine (BOE NE180QA1-MM1 on Arrow Lake-HX, DSC, pipes
+A+B) with a backport to 7.3.4. On drm-tip it is build tested only.
 
-* 90e8ac5c9d446 ("ALSA: firewire-tascam: add new hwdep ioctl command to get state image")
-* 58b62ab702591 ("ALSA: firewire-motu: add ioctl command to read cached hardware meter")
-* ca15a09ccc5bd ("ALSA: firewire-motu: add ioctl command to read cached parameters in register DSP model")
+ - patches 1 and 2 fix two int overflows that a 2342.4 MHz pixel
+   clock runs into
+ - patch 3 leaves the VRR timings, enable, disable and push to the
+   joiner primary
+ - patches 4 and 5 arm all joined pipes inside one vblank evasion
+   critical section when VRR is in use, with the push at its end
+ - patch 6 makes the per pipe vblank evasion that is left look at the
+   scanline counter of the primary
+ - patch 7 allows VRR with the joiner and keeps such commits off the
+   DSB
 
-Thank you for catching and correcting this.
+Why not the DSB: each pipe runs its own DSB and nothing orders them
+against the push. A port that only skips the push on the secondaries
+gave "DSB 0 timed out waiting for idle" on the secondary 13 times in
+27 minutes, details in patch 7. I don't know whether the DSB of the
+primary could write the plane registers of the other pipes, which
+would allow one DSB for all joined pipes. If it can, that is the
+better end state and I'd be glad to hear it.
 
-Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Why one critical section: with one evasion per pipe the secondary can
+latch at the vmax boundary a frame ahead of the primary. Sampling
+PLANE_SURFLIVE of both pipes through MMIO, the halves of the screen
+showed different frames for one frame in 9 of 20777 frames over
+three runs with the per pipe sections forced.
+
+With the series, same machine and method:
+
+ - no such frame in 18028 frames of plain flips with VRR on, no DSB,
+   vblank evasion or push errors
+ - the joined critical section takes 15 us on average for the two
+   pipes, against the 100 us the evasion allows; 49 of 71983 took 60
+   to 188 us on a stalled MMIO write, which the per pipe sections
+   without VRR show as well (patch 5)
+ - the flip event follows the new surface going live by a median
+   12 us, and content at a steady 240 fps is paced at 4.17 ms at p50,
+   p95 and p99
+ - VRR can be toggled at run time. With LUTs loaded, as here, turning
+   it off is a joined commit with the colour DSBs, turning it on
+   takes the per pipe sections with the vblank worker
+
+Still on the per pipe sections with VRR and the joiner, and so still
+able to latch the pipes a frame apart: modesets, the atomic fallback
+of a legacy cursor update, async flips, DDB changes, and commits that
+need the vblank worker for the LUT load. On the platforms with double
+buffered LUTs the latter stay joined and load the LUTs of all joined
+pipes with MMIO inside the critical section, which I could not
+measure. LRR and DC balance are kept off with the joiner. The commit
+sequence of a joined configuration without VRR and the guardband
+computation are not changed.
+
+Not tested: IGT, anything on drm-tip beyond the build (i915 and xe),
+LNL and later (PSR/Panel Replay with VRR and their guardband terms,
+double buffered LUTs, the always on VRR timing generator), PSR2/Panel
+Replay with the joiner, the ultrajoiner, anything but eDP, a colour
+update that changes the LUTs while VRR stays on, and the refresh
+rate change that patch 1 fixes. Suspend/resume was only run on an
+earlier version.
+
+The base EDID range of the panel ends at 120 Hz, 240 Hz is only in
+its DisplayID Adaptive-Sync block, so testing this needs "drm/edid:
+Read the monitor range from the DisplayID Adaptive-Sync block", sent
+separately to dri-devel [4].
+
+On tooling, per Documentation/process/generated-content.rst: this
+series was written with an LLM coding assistant (Claude Code). It did
+the source and mailing list archive analysis, wrote the patches, the
+changelogs and the measurement scripts, and ran the measurements on my
+machine under my direction. The scripts are in [5]. I have reviewed
+all of it and take responsibility for the result.
+
+[1] https://lore.kernel.org/intel-gfx/20250224061717.1095226-14-ankit.k.nautiyal@intel.com/
+[2] https://lore.kernel.org/intel-gfx/Z7N9RHhQDltsygA_@intel.com/
+[3] https://lore.kernel.org/intel-gfx/Z78vx24DwelqHTc9@intel.com/
+[4] https://lore.kernel.org/r/20261114010749.1949247-1-elxreno@gmail.com
+[5] https://gist.github.com/ElXreno/c2e6e6f34b056efaf99c238772cf74a3
+
+ElXreno (7):
+  drm/i915/panel: Fix the pixel clock overflow in the VRR vtotal
+  drm/i915/vrr: Fix the pixel clock overflow in the vmax computation
+  drm/i915/vrr: Leave the transcoder to the joiner primary
+  drm/i915: Split intel_update_crtc() into its stages
+  drm/i915: Arm joined pipes within one vblank evasion for VRR
+  drm/i915: Evade the vblank on the scanline of the joiner primary
+  drm/i915/vrr: Allow VRR with the pipe joiner
+
+ drivers/gpu/drm/i915/display/intel_color.c   |   4 +
+ drivers/gpu/drm/i915/display/intel_crtc.c    |   2 +-
+ drivers/gpu/drm/i915/display/intel_crtc.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_display.c | 189 +++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_panel.c   |   4 +-
+ drivers/gpu/drm/i915/display/intel_vblank.c  |  12 +-
+ drivers/gpu/drm/i915/display/intel_vblank.h  |   2 +-
+ drivers/gpu/drm/i915/display/intel_vrr.c     |  56 ++++--
+ drivers/gpu/drm/i915/display/intel_vrr.h     |   1 +
+ 9 files changed, 217 insertions(+), 54 deletions(-)
 
 
-Thanks
+base-commit: f40cc5e715fe9e7a5e61f7cd44f63f68c1625f2c
+prerequisite-patch-id: c7f9956bca76130b71364377ca611051a16f466c
+-- 
+2.56.0
 
-Takashi Sakamoto
