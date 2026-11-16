@@ -2,42 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CE7606A33B
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 14:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A4D606A323
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 15:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=is2ZO7df
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hrhqEx4T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B86A110EA46;
-	Mon, 16 Nov 2026 14:49:36 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5067A10EA46;
- Mon, 16 Nov 2026 14:49:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C67946501;
- Mon, 16 Nov 2026 14:49:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23901F000C6;
- Mon, 16 Nov 2026 14:49:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794840571;
- bh=PxVOi7tPmLo7n67xVcopT5WRl6oeAOApaY8g9JY/xHc=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=is2ZO7dfjhQ0v8Isxdm3msTG1tx7FjnwWuEG2Lq83BkCcHl9vBE93KUS9Fs50fFU4
- rUXaftyCpAdNpuKDWKsfvF+OYEza40a6V5KEtM/Spks/e2OP3U14nddt67ZbQPHZSy
- qIaoVN8lIfMIJyPO8x1YGGMnJNaz6xVraji0jIIYsyV1d4nbCmX5NjOqsdiQRLeHw6
- GXWg+Gl0tcPKba7Np8VbB+bBZUBG5mT4c0ibEOO2Q1QVOao/S2RiiwopacI7+W1NGF
- buzYJJj6wu6YKZb1IEcT8OVEa19OqI/mAsXNVLC9o7SgGtWQvMwGxABXUF5j+FFwyF
- AY36v5a7x8ztw==
-Message-ID: <sashiko-outbox-217194@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [REGRESSION] i915: UHBR training fails with TB5 dock after
- 1fd440de4e02; source FFE update skipped?
-To: "Frederik Schwan" <frederik@tty42.de>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <aveDNRBLx1a-9hRQ@mail.tty42.de>
-References: <aveDNRBLx1a-9hRQ@mail.tty42.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 14:49:29 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id F293210E5AB;
+	Mon, 16 Nov 2026 15:14:17 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3946410EDD4;
+ Mon, 16 Nov 2026 15:14:12 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 91BD01A1688;
+ Mon, 16 Nov 2026 15:14:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5EAA66023F;
+ Mon, 16 Nov 2026 15:14:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 4C02C11BC183B; Mon, 16 Nov 2026 16:13:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1794842044; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=3/EqQi0niERAJNyYMq1hZvt8inmcWvBEwiXFS+iUL0s=;
+ b=hrhqEx4T9QQ2tYqo/iy/LuHHWtedSZ9onNfveWjQEAHCqavnOAmS/ZBSwa0pXuUaWeGFoE
+ JGCYD0UbYierkaXyh0sZ3XHSFY7px3bitUZsQ7cefgjxtV9TKEdgN+UnSHWYcazeLuMLRa
+ y0D43nUuTbTvY1O4ahIhQ5AZdq9uNR1fET/1oCNLS/AAxHecGpl9Xo3GRN04KMCeM/FXbo
+ HdGlvhmVr4WZLcCCC0L84Q/igHfDx5fj09IetVv+8GoiA2nGgWVaET5ZXXgFEdDbgLj2nO
+ 8YrbUgEfY4SbQ1e7+mgn6uxvPcnpTlwq48fuftp1BeekqTdBgBbdTLkzAUhHxA==
+Message-ID: <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
+Date: Mon, 16 Nov 2026 16:13:52 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
+ information report
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>,
+ Manasi Navare <navaremanasi@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>,
+ Drew Davenport <ddavenport@google.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+ <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,139 +79,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/i915/dp: raw email report in changelog, sign-off mismatch,
-  and Fixes tag
---
 
-commit 4c3a78dc876392e84ec307e2257c7451d9a82be2
-Author: Frederik Schwan <frederik@tty42.de>
 
-> i915: UHBR training fails with TB5 dock after 1fd440de4e02; source FFE up=
-date skipped?
->
-> Hi everyone,
-> I just upgraded my system to 7.3.x and found a regression with my noteboo=
-k/dock setup.
-> 3x 4k displays are hooked to the dock, 2 by DP and one through USB-C (I g=
-uess that DP-alt mode then).
->
-> Until 7.2 all displays worked. With 7.3 all displays work until kernel sw=
-itches from fbdev (?) after
-> which the 2 DP displays have no signal anymore but the USB-C one still wo=
-rks.
->
-> Bisect:
->
-> # bad: [c03c1a14507dfaf8b856c2608f9ac216021fc222] Linux 7.3
-> # good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
-> git bisect start 'v7.3' 'v7.2' '--' 'drivers/gpu/drm/i915/display' 'drive=
-rs/gpu/drm/display'
-> # good: [bbf51a67d1fe895f3d27402d2560259a619b6dba] drm/i915/dp_link_caps:=
- Use max common lane count from link_caps
-> git bisect good bbf51a67d1fe895f3d27402d2560259a619b6dba
-> # good: [d6a1bc7c9b4ce71674a633242251d8a804ced82d] drm/i915: Throw away t=
-he BIOS fb if has the wrong depth/bpp
-> git bisect good d6a1bc7c9b4ce71674a633242251d8a804ced82d
-> # bad: [f0cabcc880aba3f05ca59d735f6d166b7fceca80] drm/i915/fbc: No surfac=
-e size restrictions from LNL onwards
-> git bisect bad f0cabcc880aba3f05ca59d735f6d166b7fceca80
-> # good: [b0b6d44646dc7750df4f052d17688fb7e7569a74] drm/dp_tunnel: Add UHB=
-R tunneling support
-> git bisect good b0b6d44646dc7750df4f052d17688fb7e7569a74
-> # bad: [662560bad9be29c3e1a2668806392d2ed9a743d6] drm/i915/bw: Fix spelli=
-ng mistake "threshod" -> "threshold"
-> git bisect bad 662560bad9be29c3e1a2668806392d2ed9a743d6
-> # good: [47fff2b1749e9ba5dfab7528960555cc865360b5] drm/i915/dp: Disable U=
-HBR link configs with 1/2 lanes
-> git bisect good 47fff2b1749e9ba5dfab7528960555cc865360b5
-> # bad: [8b9bc7786adef4e2df3a23293c0682efac6dcc83] drm/i915/dram: Interpre=
-t 0xF populated-channel count as 16
-> git bisect bad 8b9bc7786adef4e2df3a23293c0682efac6dcc83
-> # bad: [1fd440de4e02efab97874bbda0a4daf59d228fa3] drm/i915/dp_tunnel: Add=
- UHBR tunneling support
-> git bisect bad 1fd440de4e02efab97874bbda0a4daf59d228fa3
-> # first 'bad' commit: [1fd440de4e02efab97874bbda0a4daf59d228fa3] drm/i915=
-/dp_tunnel: Add UHBR tunneling support
->
-> I collected logs as well with `drm.debug=3D0x10e log_buf_len=3D32M thunde=
-rbolt.dyndbg=3D+p`:
->
-> good: v7.2-rc1-263-gb0b6d44646dc.log
-> bad: v7.2-rc1-268-g1fd440de4e02.log
-> patched: patched.log
->
-> #regzbot introduced: 1fd440de4e02efab97874bbda0a4daf59d228fa3
-> #regzbot title: i915: UHBR training fails through TB5 dock when source FF=
-E updates are skipped
->
-> I was desperate and thought I'd give it a quick try with help of Codex wh=
-ich ended in a rabbit whole of DP protocol investigation for me :).
-> We came up with a patch which I tested successfully.
->
-> I've attached the patch and the "report" codex created in case you're int=
-erested.
->
-> Best regards,
-> Frederik
->
-> UHBR link training uses intra-hop AUX replies at the DPRX address even
-> when LTTPRs are present. However, intel_dp_set_signal_levels() only
-> programs the source transmitter when intel_dp_phy_is_downstream_of_source=
-()
-> identifies the receiver being trained as directly downstream of it.
-> With LTTPRs present, this check rejects DP_PHY_DPRX.
->
-> As a result, UHBR training updates the requested FFE presets in the DPCD
-> training set but does not apply them to the source PHY. This causes
-> UHBR20 and UHBR10 training failures on a Meteor Lake system connected to
-> a ThinkPad Thunderbolt 5 Smart Dock 7500. Enabling UHBR tunneling exposed
-> the existing assumption in the source signal-level update path.
->
-> Always update the source signal levels during UHBR training. Preserve
-> the per-PHY check for 8b/10b training, which trains downstream receivers
-> individually.
->
-> With this change, the affected system completes four-lane UHBR20
-> training, including channel equalization, interlane alignment and CDS.
->
-> Fixes: 1fd440de4e02 ("drm/i915/dp_tunnel: Add UHBR tunneling support")
-> Signed-off-by: Frederik Schwan <freswa@archlinux.org>
-> Assisted-by: Codex:gpt-6
+On 11/16/26 14:10, Jani Nikula wrote:
+> On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+>> DisplayPort link training negotiates the physical-layer parameters needed
+>> for a reliable connection: lane count, link rate, and optionally Display
+>> Stream Compression (DSC). Currently, each driver exposes this state in
+>> its own way, often through driver-specific debugfs entries, with no
+>> standard interface for userspace diagnostic and monitoring tools.
+>>
+>> This series introduces generic helpers, for exposing DP link capabilities
+>> and state as standard sysfs entries.
+> 
+> So how did we end up with sysfs here?
 
-[Severity: Low]
-Should the Fixes tag reference a421d8a99216 ("drm/i915/dp: rewrite DP 2.0
-128b/132b link training based on errata") instead?
+In the first RFC it was in DRM properties. I presented it in the display 
+hackfest in Nice last years. People suggested to use sysfs instead but 
+if the need appears later in the development move back to DRM 
+properties. I first though DRM properties seems better as it is the user 
+interface used by distros but I had no strong argument about the change 
+to sysfs, so I moved on to it.
 
-Commit 1fd440de4e02 ("drm/i915/dp_tunnel: Add UHBR tunneling support") only
-enabled 128b/132b link rates over DP tunnels and exposed this issue on
-Thunderbolt 5 docks.  The bug in intel_dp_set_signal_levels() when training
-128b/132b links with LTTPRs was introduced by a421d8a99216 ("drm/i915/dp:
-rewrite DP 2.0 128b/132b link training based on errata"), which switched
-intel_dp_128b132b_lane_eq() to concurrent intra-hop AUX mode passing
-DP_PHY_DPRX without updating intel_dp_set_signal_levels() to program the
-source PHY for UHBR links, and citing 1fd440de4e02 ("drm/i915/dp_tunnel:
-Add UHBR tunneling support") could prevent backports to stable kernels with
-non-tunneled UHBR and LTTPR configurations.
+>> The aim of such development is to guide users to select the most suitable
+>> DisplayPort connector for their needs. For example, if you have a USB-C
+>> hub with lesser capabilities than your computer’s native DisplayPort
+>> connector (such as HBR2 versus HBR3 support), the system could recommend
+>> connecting high-resolution displays directly to the computer’s port
+>> instead of through the hub to ensure optimal performance.
+> 
+> I do wonder how all this is supposed to work in more complex real world
+> scenarios, though.
+> 
+> I believe the user primarily cares about *modes*. Which display modes
+> can be used with each display/connector pair.
+> 
+> With the low level link information, are you proposing to compute the
+> required bandwidth for modes in userspace? I think it's going to be a
+> lot of work to compute the bandwidth requirements, taking into account
+> DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
+> still miss any driver/GPU specific contraints. Or are you just proposing
+> to match the physical characteristics only?
 
-In addition, the subject line is phrased as a bug-report question rather
-than an imperative patch subject with the "drm/i915/dp:" prefix, the first
-half of the commit message retains the conversational email report, raw git
-bisect output, and regzbot directives, and the Author email address
-(<frederik@tty42.de>) does not match the Signed-off-by address
-(<freswa@archlinux.org>).
+This is a requirement from Google, yes they want to compute the 
+bandwidth for modes in the userspace side.
+@Manasi could describe in detail how would you implement it?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/aveDNRBLx1a-9hRQ@ma=
-il.tty42.de?part=3D1
+> Given all the connectors and displays and their modes on a system, you
+> could estimate a) for each display, what modes could be used on each
+> connector, and b) for each connector, what modes could be used on a
+> display, if connected. From the user POV, they could be shown why some
+> display mode is not available on the current connector, and crucially,
+> on which connector it could be available.
+> 
+> In general, I'm wondering if you're really after higher level
+> information, something like "connector max available bandwidth
+> with/without DSC", that would more directly map to the user needs as I
+> see them than low level link details.
+> 
+> Do you have the userspace somewhere? That's needed for merging UABI
+> anyway [1].
+> 
+> [1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requirements
+
+I wanted to add it to IGT GPU tools, but I was hopping for community 
+review on this RFC before the IGT development.
+
+>> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
+>> source and sink training capabilities to userspace via sysfs attributes
+>> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
+>> report current link information at runtime.
+>>
+>> Three drivers are updated as reference implementations: i915 (direct
+>> connector path), ANX7625 and MediaTek (via the bridge connector framework
+>> using a new DRM_BRIDGE_OP_DP flag).
+>>
+>> Here is a sysfs example:
+>>
+>> cur_link_info_dsc            sink_link_caps_nlanes
+>> cur_link_info_link_rate      source_link_caps_dsc
+>> cur_link_info_nlanes         source_link_caps_link_rates
+>> sink_link_caps_dsc           source_link_caps_nlanes
+>> sink_link_caps_link_rates
+>>
+>> 1620000 2160000 2700000 3240000 4320000 5400000
+>>
+>> 1620000 2700000 5400000 10000000 20000000
+>>
+>> 5400000
+>>
+>> This series is rebased on top of drm-misc and may conflict with the
+>> current state of the drm i915 tree. Which tree should pick this up,
+>> given that it mixes core development with driver changes?
+> 
+> For development, please just base your work on top of drm-tip, and the
+> tree(s) will be sorted out later.
+
+Oh, ok, thanks you.
+
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
