@@ -2,38 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B179606A32C
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:12:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F28606A323
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:12:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lankhorst.se header.i=@lankhorst.se header.a=rsa-sha256 header.s=default header.b=X+gasLrs
+	dkim=pass (2048-bit key) header.d=lankhorst.se header.i=@lankhorst.se header.a=rsa-sha256 header.s=default header.b=KZfr556F
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D378C10F146;
-	Mon, 16 Nov 2026 13:12:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC45710F147;
+	Mon, 16 Nov 2026 13:12:52 +0000 (UTC)
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64D4710F14B;
- Mon, 16 Nov 2026 13:12:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A439010F143;
+ Mon, 16 Nov 2026 13:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1794834761;
- bh=veIzabU++axDdL/czso3gMtAmDO8RPomzf2ZET+Af6c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X+gasLrsXg7lHF/cGItFWFxWk4MaB9n9HXnDWosa6fcFiNHcO1c/6ZP00iFZh5kMb
- 94a/M36PZpeZYIliOjkvgr7UU9Op95VCrrmc/L5OIWViZgllfKHuP4dnjw9A8gFSY4
- HZeKSHoC0UabGlB0ZkFmQpncii37wMkOxbdEwJFV3QNDR3dT3yfV0jh7CNUCY4pKLN
- SbUovOyoWzmC8VOC1DmZwlyalPl4JP7u4qur+8Y00SjqradoxELMFpz2CtpohY7Zqj
- 4pVmWIgCEBxh2IRFIwPa6pWZoY3R8Z3DW8y5/QbPVrnqK/+aWEalcyYu3X3HVbUmDt
- HESSyH0V9SLFA==
+ s=default; t=1794834759;
+ bh=B/QvyBrbNeWr8CkhT7iJ51OTpIORfEiODMWTo7S5rUA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=KZfr556FT8L97xTJxoznWRr7BZqI2nj/BkDu66UhgnvySxL/tlHmpkZQepWGWXfu9
+ mN5mRSCqy65zk605LhAjiv6cLzj+n25LymnS1gQbGiJKady70F17iojxva8dyqacAU
+ 3C6HYdx+4Y8Tm4+4I45R/88zOPZhec5JkCvBXNFWlGKoa1BWCNL0TFgD0qmsggUYB7
+ ZvOOakcLUdJC5WoBDaYsBZUM3aw5+xBrrYrYgLXHDY81QCA6/eqaunGL/vwjK6+Ynj
+ WWnl9Nw3AHxi3SssKejgVAwrNf02ATZarBz5n4SPyNiiJ2SHTdJ8rzgCVEHoYOJW+L
+ 1r+wyN4v+X2uw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
- Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH v5 3/5] drm/xe: Raise gt frequency slightly earlier.
-Date: Mon, 16 Nov 2026 14:13:53 +0100
-Message-ID: <20261116131349.333818-10-dev@lankhorst.se>
+Cc: intel-gfx@lists.freedesktop.org,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v5 0/5] drm/xe/display: Transparant fallback from stolen to
+ sysmem.
+Date: Mon, 16 Nov 2026 14:13:50 +0100
+Message-ID: <20261116131349.333818-7-dev@lankhorst.se>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261116131349.333818-7-dev@lankhorst.se>
-References: <20261116131349.333818-7-dev@lankhorst.se>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -46,48 +46,40 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move raising the gt frequency to before display_register, so the
-blit that's potentially performed to copy stolen memory to system
-memory will run at full speed.
+The previous version didn't migrate the BO correctly, both on
+earlier platforms without stolen devmem and on later platforms that had it.
+Fix both issues, and drop R-B tag, as the migration patch changed too much
+to preserve it.
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/xe/xe_device.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Maarten Lankhorst (5):
+  drm/xe/display: Avoid using stolen memory for framebuffer when media
+    gt exists.
+  drm/xe/migrate: Support copying between sysmem and stolen
+  drm/xe: Raise gt frequency slightly earlier.
+  HACK: Always fallback
+  drm/i915: Introduce intel_bo_fbdev_bios_fb_takeover()
 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index 6911c2ac39f82..616e02066ae6d 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -1069,6 +1069,9 @@ int xe_device_probe(struct xe_device *xe)
- 	if (err)
- 		return err;
- 
-+	for_each_gt(gt, xe, id)
-+		xe_gt_sanitize_freq(gt);
-+
- 	xe_display_register(xe);
- 
- 	err = xe_oa_register(xe);
-@@ -1093,9 +1096,6 @@ int xe_device_probe(struct xe_device *xe)
- 	if (err)
- 		goto err_unregister_display;
- 
--	for_each_gt(gt, xe, id)
--		xe_gt_sanitize_freq(gt);
--
- 	xe_vsec_init(xe);
- 
- 	err = xe_sriov_init_late(xe);
+ drivers/gpu/drm/i915/display/intel_bo.c       |  7 ++
+ drivers/gpu/drm/i915/display/intel_bo.h       |  1 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c    | 68 +++++++++++++++---
+ drivers/gpu/drm/i915/i915_bo.c                | 14 +++-
+ drivers/gpu/drm/i915/i915_bo.h                |  6 --
+ drivers/gpu/drm/i915/i915_initial_plane.c     | 14 ----
+ drivers/gpu/drm/xe/display/xe_display_bo.c    | 72 ++++++++++++++++++-
+ drivers/gpu/drm/xe/display/xe_display_bo.h    |  6 --
+ drivers/gpu/drm/xe/display/xe_initial_plane.c | 10 +--
+ drivers/gpu/drm/xe/xe_device.c                |  6 +-
+ drivers/gpu/drm/xe/xe_migrate.c               | 35 +++++++--
+ include/drm/intel/display_parent_interface.h  |  1 +
+ 12 files changed, 183 insertions(+), 57 deletions(-)
+
 -- 
 2.55.0
 
