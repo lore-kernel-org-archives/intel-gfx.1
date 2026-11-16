@@ -2,28 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB46606A329
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEF0606A323
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 10:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dMO8ecDb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C94310EE6E;
-	Mon, 16 Nov 2026 09:49:07 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 783E310EE76;
- Mon, 16 Nov 2026 09:49:05 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8079681418750910087=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id B275510EF31;
+	Mon, 16 Nov 2026 10:35:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AFAD10EF31;
+ Mon, 16 Nov 2026 10:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794825330; x=1826361330;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=/UZDrPrPsnD6LBTHOM4nV0t5o1AUMv0eEZfDcvrX/es=;
+ b=dMO8ecDbRCuSSm+wqSUU4ZAqvw7c/fzCrMwfpcYClhsGuUP6n67MoONk
+ e+e3DCTGuqS3P14lO7Ys+xfl/xatnvXex38Y7dk9sK7Uf7HpVckYa1Sq2
+ GAlSwipzDyALwv9lJ8x7dRrYogF7zIwkIKbF3TDaAmylr7Zo5IUVRjblb
+ Nz8npAKT66CCsnEpNfgKwvAy0K86cQFayYHy2baprCIofrlOKUD+CQEcG
+ 1wBKVuC0i9RL86L8WYThY16ffeRS6t2vl+EiWaBizkXN+y1Dhw1/W3DFx
+ zpfTk2bCptUr5qcliVskZYs4bpOVbaB3ELFT90xDj3w+oALETBOugJc/G A==;
+X-CSE-ConnectionGUID: +320i786RLCHVK5iYsm5Lw==
+X-CSE-MsgGUID: AKpf12vEQZ2Pfbm46DOqLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3546263"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3546263"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 02:35:30 -0800
+X-CSE-ConnectionGUID: /bxSobFmRn26xiMcwxAH0g==
+X-CSE-MsgGUID: cBiure3tSf6iBViQ1OYQYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9762142"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.117])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 02:35:28 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Frederik Schwan <frederik@tty42.de>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: regressions@lists.linux.dev, Imre Deak <imre.deak@intel.com>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>
+Subject: Re: [REGRESSION] i915: UHBR training fails with TB5 dock after
+ 1fd440de4e02; source FFE update skipped?
+In-Reply-To: <aveDNRBLx1a-9hRQ@mail.tty42.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <aveDNRBLx1a-9hRQ@mail.tty42.de>
+Date: Mon, 16 Nov 2026 12:35:25 +0200
+Message-ID: <40e2af4139b94eaeecd41fcdccb4ec1ef3dc098a@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dsb=3A_Optimize_?=
- =?utf-8?q?indexed_register_writes?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 16 Nov 2026 09:49:05 -0000
-Message-ID: <179482254548.28384.7096545078688214305@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261116081041.6519-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261116081041.6519-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,132 +67,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============8079681418750910087==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Fri, 13 Nov 2026, Frederik Schwan <frederik@tty42.de> wrote:
+> Hi everyone,
+> I just upgraded my system to 7.3.x and found a regression with my notebook/dock setup.
+> 3x 4k displays are hooked to the dock, 2 by DP and one through USB-C (I guess that DP-alt mode then).
+>
+> Until 7.2 all displays worked. With 7.3 all displays work until kernel switches from fbdev (?) after
+> which the 2 DP displays have no signal anymore but the USB-C one still works.
 
-== Series Details ==
+Please file i915 bugs as described at [1].
 
-Series: drm/i915/dsb: Optimize indexed register writes
-URL   : https://patchwork.freedesktop.org/series/178638/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19528 -> Patchwork_178638v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178638v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_178638v1 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@vgem_basic@unload:
-    - bat-rpls-4:         [DMESG-WARN][1] ([i915#13400]) -> [PASS][2] +1 other test pass
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19528/bat-rpls-4/igt@vgem_basic@unload.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178638v1/bat-rpls-4/igt@vgem_basic@unload.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+BR,
+Jani.
 
 
-Build changes
--------------
-
-  * Linux: CI_DRM_19528 -> Patchwork_178638v1
-
-  CI-20190529: 20190529
-  CI_DRM_19528: 7bc1ac64a8303bd83e0394f306c4137a5a2febf3 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9192: 9192
-  Patchwork_178638v1: 7bc1ac64a8303bd83e0394f306c4137a5a2febf3 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178638v1/index.html
-
---===============8079681418750910087==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
 
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dsb: Optimize indexed register writes</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178638/">https://patchwork.freedesktop.org/series/178638/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178638v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178638v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19528 -&gt; Patchwork_178638v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178638v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_178638v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@vgem_basic@unload:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19528/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178638v1/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19528 -&gt; Patchwork_178638v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19528: 7bc1ac64a8303bd83e0394f306c4137a5a2febf3 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9192: 9192<br />
-  Patchwork_178638v1: 7bc1ac64a8303bd83e0394f306c4137a5a2febf3 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8079681418750910087==--
+-- 
+Jani Nikula, Intel
