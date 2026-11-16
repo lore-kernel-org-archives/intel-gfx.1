@@ -2,149 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF89606A32C
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:47:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB33606A886
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:59:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MnCv8Fdj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+msHCWp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D20C210ECE1;
-	Mon, 16 Nov 2026 13:47:14 +0000 (UTC)
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011009.outbound.protection.outlook.com [52.101.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6521110F1E5;
- Mon, 16 Nov 2026 13:47:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VTT/QqNSgHGjx2ttCvzygsHXut3Q8X89Rb8bFWG+Yu0cvQK052LM7yeNwX/AxBAXrIMvmwfEZcEgzq942hiAOF0nzB+u/HGXFPUwbi/T8cgSkOuUt4pxBhO/JT+gjJ7tgSMLQQr4D9Zwhh1jiG0nAf7R/R5omME3EiC26SSmnMRC5fG5Us2gvlc7Jhljvmnl75swQQK0abVekbtwin4yiq/jDLQQyYelrkdz1ZzRNpefGYmEMTry0WTFDGpAG5afnyflJ0/gZwhOINtES+rwO96Y3Kgd9GgT0TxdAgu+SxvTgfVFVg8WllvoafE42AcyXB83CdgoPyXbcsiyy7E6fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s6+we+zNEogUULxek8r/se8xwtl5vHAyZIOGOEG2TtU=;
- b=ewwsrdv58MwJRmzDyRVrysPiVfh+UsGjqPR6OGlidHAV7/9jxFaV57eFwvDeD6HK4neQufPybEayIG1ydG3A9r1oARescdcwv2IGz9LhN0A3hYvUHXbygoAMpY1eJG4A6fTly5rj1C0c0vM1Wa0R9xJKSLOrX8yQVsJMfqSza9CWNZpJOYvWGdUzTAm7Zb3lB2J0vQF9kST1OP5U3CGz00KKwHS10hbs7aovE9QT5RvghexVSEWtr6Y74Da5lIoc55gNDJUiZTl7G3Vj1URJbbRzxT1tDbvR2OxoRSqMM0GTmg2yCqACSrDNykMrP5NQSMg6WUwQO6Y475VYT/5zLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s6+we+zNEogUULxek8r/se8xwtl5vHAyZIOGOEG2TtU=;
- b=MnCv8FdjIyxwwMpHhAB0ZJsbYV2Pw54iJRL3zINQDbQWGRthffO81OEnMVKcQ+sSm92yYvL5DoYTG4KTCVKe3ltB0cZgFYRgGjsCI/7o3pfDh00jNPsU+JoSr2s/O4jOBe65RVkt6xYycihEmv3Y15+aT5beYiQzCrV+SU+waDT0wQCCrSH2rIqa835DyJphcXQ+MiMyw2j8qxx2qkxTNPp3XwmgGGhH83+fV7anb3bTgkO6xy9GemkbIw/L8OER3Gne7UrX91dRNEGCFe6V3LJijHMmNZSFl6Y/mglfOVlHJ/+utlITvXI/enn90sMTeMVUsESJuiObKYuIbLPLbQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GV1PR04MB10126.eurprd04.prod.outlook.com (2603:10a6:150:1a5::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
- 2026 13:47:02 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 13:47:02 +0000
-Date: Mon, 16 Nov 2026 08:46:49 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, Guan-Yu Lin <guanyulin@google.com>,
- Mathias Nyman <mathias.nyman@linux.intel.com>,
- linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- linux-staging@lists.linux.dev, netdev@vger.kernel.org,
- imx@lists.linux.dev, Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
- return 1 when !CONFIG_PM
-Message-ID: <avsJSUvOTl1Pp6Qe@lizhi-Precision-Tower-5810>
-References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
- <CAJZ5v0jyuMjh4En_r2TYui+sNbGveJ0Rz1Da39LEK9e-HxHgGA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62FBE10F1FA;
+	Mon, 16 Nov 2026 13:59:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC87310EA07;
+ Mon, 16 Nov 2026 13:59:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D4790433EE;
+ Mon, 16 Nov 2026 13:59:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E96B1F000C4;
+ Mon, 16 Nov 2026 13:59:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794837550;
+ bh=B4r7obWrBshz8/ij81t0z5VobX7siIhhNRXwTONmOKI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=G+msHCWpxZX6a+NNYV/hOKf4AX97/ShHJSKRi1+0LcNoYOJi9sm8VqyyI3TU7uLth
+ mmBHrpxEJURURotjFLkUW1iZC8LEGC/0hP5YMvBufiqYPLaX3GUmBOLQv9rnRA7d07
+ L3BMi0qZGadvsNJZkX4NET5bunoll6NNNh1o+mp4VCDDZoqbwV3yFzb+vV9aflN2O6
+ yagk6+dW5KY++nsGkqfC8w/BjwHcOYhd6AB9GUISO8tl0ViJMne5RwNraWNZ3tXnlP
+ g1yK2i8Bk2CLgc5tuLx8opKhRiqCYoADkqItg/XkUSJ19gyAR5Ek9PTOyX+6szAbSs
+ DqdMDzjF5ongA==
+Message-ID: <sashiko-outbox-217123@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/5] drm/i915: Introduce
+ intel_bo_fbdev_bios_fb_takeover()
+To: "Maarten Lankhorst" <dev@lankhorst.se>, intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+In-Reply-To: <20261116131349.333818-12-dev@lankhorst.se>
+References: <20261116131349.333818-7-dev@lankhorst.se>
+ <20261116131349.333818-12-dev@lankhorst.se>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0jyuMjh4En_r2TYui+sNbGveJ0Rz1Da39LEK9e-HxHgGA@mail.gmail.com>
-X-ClientProxiedBy: PH8P221CA0040.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:346::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB10126:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5eb739a-d46b-40eb-7b63-08df43e8182e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261021121427099003|261026121527099003|261102123227099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: arWDUWabQbUJW+iJBHLLTlm4QNkiF1ZoS9iwwa+uuoHQ2r9xjWchQVEzlJMdLcU/gO5sG10EtSwCSOPzu3EAKz7n4X47gR4Rvk5ccOvW7J3yYScGQUFlepv8ZWgzVePs+SbZwOHY3aUYr6xj9aogd2ejo8QoDk0VEgs+ZVpAAp1rqPEEhS0EX3uPiZY3KsRRHRsVkXYeaEPK6ddnHDi3ZovPGztOFNo6UV+pY7i3aU8SPD65nYD6mTvBC+dl3mHu8qy0GZ0gVv5dNqVC7lxdQCBlGW1m+lg7JC5xqz4PLOI2dxHH5IJPZoj/mtY7jZ/2ueeGImwrL1ilFQBRN0MOx2+SxArzOKOigaQzwGZ+pV6AlhC0e9xgRJFpnK2tCOyXldWYQPPD16BXNffXp42Qf7+lMb5I294KbW65u6JLVshT7JjSv0JImjCP3kOMvByKEyK+FPnjZZf1LKtoq7RR5ByrHJVrSm9qZHJx1orBuQ8SpUlMxJjcEPRg6YhzpXpcgFN6qSdr1yB6RWtz3yR/Fx8foSLHBiNI7MUETfTc8BbJOGVBTru70xP9AWDDWjcIM/TUkIZGSeN4/85uCKw/WjlsEyFLxjudKt0fpgjcWh7WLZHxYbC4Gsckch5U14Ka15zDoNKBiFkh19GxTWFCLA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261026121527099003)(261102123227099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHp4dnV3T01RODltYW0xWTlGdkRHME9VWkJ1MDZXY3gvTlBlU0IzZ0ZpcU1a?=
- =?utf-8?B?ZG5KZ2xqb0VDOGhKVnovRDMzZWFSRWl2MkozNHNWTzJ2WlBkN2wyMFB3RmZQ?=
- =?utf-8?B?bkFsRVhYcWFlaFpoS1J0K1Y4cmVXWGlNak85c1B0TFZ2MU9Mek1HQzB6b2U0?=
- =?utf-8?B?alROVjhySUFPbFZMRVBzSDVjMFNWc2diOUpnYWltOUJPVlBRZ3ozYWJqWWxH?=
- =?utf-8?B?cDh3WDJ5SDJLSEJOYUxhU2RpNXRiN3NiendOaVVvL3hxMlQ5ZDl6ZkwyZTlU?=
- =?utf-8?B?ekZrSEE1Y0JEMk5VM3pONTZMSkVoYnZsQlJkaEpodFRyaEYwdnc2dm8vd0RE?=
- =?utf-8?B?bHZ6Y2MxbWp5R0hNeEVIa3ZOUUpPTWV4ZVVCWk5jK1czUHJ1bDJDOGhaQi9W?=
- =?utf-8?B?K29VTko4N2wvaU5Tc3ZIM3JEOGRhT0pqS012VWRZQzg0V3IreE9mTmNweGtx?=
- =?utf-8?B?ME9ZUFFaQWR4bmNtYkR6eGtrUTBGUE55QWJ6WEtuTW1VY1hhR2VvakxOd1Uy?=
- =?utf-8?B?Unh0U2U4RDZqdWFiRW55ZFpaKzBzMFNSZ1pZMUxiNmtoa3p3YWFvOTI3WDlV?=
- =?utf-8?B?SW4zYkNhVzNMUng1Y3hpSzYyUzR0Qm11QktVZWdFVEdtVGlqc3BienVzUWhv?=
- =?utf-8?B?Qyt2aE9QNUx1VG9lZTk2bUpyY2lpZjVpOXB3ZXVtYjVMYUNJWlVQdDNUdG1F?=
- =?utf-8?B?R3YveHZUMFJ2NmZVRU5SVEtaOXVOTW8vMjFaL01kdVhaSGRFeEZUMGdNV1Z1?=
- =?utf-8?B?cS9YamFNTk9LelRUcWpEa1kzQlZNSjhRVGZHU2pTUXA1UjB2V1dwanVSdzcr?=
- =?utf-8?B?NTlTVXovS0RkTkFsRzdEeE4vRmNWdEZ4ZUdYMjFab1E1SHd0Zk5FajNOc1Zn?=
- =?utf-8?B?VzE1REtzMkZFek5tdWd2STRDVXRtVmJaT3JRLy9GMFdNZUkwVVo5eE80a1dB?=
- =?utf-8?B?bFZ4eTUzbmhJVW5vMnkvTVZDSmlkQUlDaWU5cnZaZWhGOTVDT3lVclRCTlMw?=
- =?utf-8?B?dlA2Z3NTUTV0WnYwVUszNDcrbnUwaDZIR1MvbTBwd2ZwRGswNGJFRW04N21Y?=
- =?utf-8?B?VFFzZ1dDWG52R1lYeGZjd1JUSzhjL1JEc0ZBYlFaSHJkQjNzMklZNTlub0gw?=
- =?utf-8?B?eHRtYTFoU2NXSWg0RFVtbU0xK24zM3YvdDQ1bmNpYWljcFJVYkFoWXp2cWpu?=
- =?utf-8?B?MnRKSk12Skx3dXJ4N0ptc1ZjZC82bWswU1ZJQUVGSWZJQ1VHYkFFOXZCYVEz?=
- =?utf-8?B?UGk2T1NxaVFLWHcyaWxCSkFCdVFPNkxTaTV5UHRRd0NxdE9reHByRlF2YWxW?=
- =?utf-8?B?S3JuVzdESXduWGt6d3VQOVVRN0VVbXluS21jSTkrNTZzazVCWEFBVHZpek5T?=
- =?utf-8?B?Tll4V1RYN3hWUmlhVHBjdnVIOUNLblpvbGs1NEdxZm5VZ3dRODQ1K1hBMjdL?=
- =?utf-8?B?ckExUTl5TjBjandzYmduNXpWTjVoVHdEWVAxMVkvZ0JJSTRUbEdWWUhzSmR1?=
- =?utf-8?B?a1FiQnBYL3JQS2lPQjJDTlFudThpTTNTd240TmNhM255eGEvUFdlNStHaFpn?=
- =?utf-8?B?blgvOFg2OXEwVUpIeEZWTkpzVjBGdGwvbkdqWUdHejdJSk9KTUVUdzlYSjNk?=
- =?utf-8?B?ekg0S2ZQZTVYU3dFaEpyTlRmV3JORmJRM2w5MzhCV0xva3l6Q1FJcGpleDVK?=
- =?utf-8?B?LzJaZXFjY3lURytMeE1aQ0s1UEdEWGU0NWZRSE03L0MxRlB5M0k1WDYxZmp6?=
- =?utf-8?B?QjJPZ3lZVE1OZUg3dkpHa1RpZkI4ejZEU253UU5NbzQ0TzhzcVlpUjd4NzJR?=
- =?utf-8?B?WGhNVWNkWllVWGlDeTdLR3AxT3V5TlRJdmpOQmVpQ3BIUEZJZUN2ajRia0dK?=
- =?utf-8?B?K28vU2dUc1FHNG9Zc2MxSTI5OGIvSCtrRkhwekY3ajlrelB6VDBnUGtSc25F?=
- =?utf-8?B?TFh3WTVZRHF5bDFUNHMrUTBwMlIrVVhrcVYzMmoxSlBWVWJlVHQzOHdDdHFa?=
- =?utf-8?B?K3VwUHpWM2grNnc5eGVaQ1JqNU1FUU52cldYOXErVnNhL2V2dkNmNzVibWpy?=
- =?utf-8?B?S1lSWEk1U3l5U0dCdmJPM212NVFVZVNwMU1DMWZWb0NRcVVNd1REengxbzVo?=
- =?utf-8?B?TEdPcGZhRmE3a0tFdDNtYlFyemhpZDAwZXBrOEF2UEQyYjZtb2RPY1h3MklG?=
- =?utf-8?B?N2VZUE5VclFKUDBGUDgreDVwaCtiQUJyRlpzd29mNGJvb2I5bXJCazEzSVZW?=
- =?utf-8?B?SlVxWHhSYlpSeHFxVVF2UUM5T20xZ2podFJTbDU4VWxzdlRNdTdsV1N0WExw?=
- =?utf-8?B?Z1R1UUV1cWlEZHdlK1BwbFROV3BjMk1kcjBvekM0N0IrSVpYZkdhbitrMXRB?=
- =?utf-8?Q?lg/KbMN6cDJNuuk9DdarxLt9LxDJFBekHGGff?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5eb739a-d46b-40eb-7b63-08df43e8182e
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 13:47:02.8120 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Mdqg3vBx9hCegs+4Ra+oGFNChPKkebTPci0RDlWfSahWAH72anKnjKucUH5I32fNbky99Zkq9wFEGh3xTQuOsi3Vee9ykMTZE7mksrDtekO/x23SaNtnjo2olyRkHE8L
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10126
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 13:59:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,78 +49,361 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri, Nov 13, 2026 at 07:18:55PM +0100, Rafael J. Wysocki (Intel) wrote:
-> On Thu, Oct 29, 2026 at 5:31 PM <Frank.Li@oss.nxp.com> wrote:
-> >
-> > From: Frank Li <Frank.Li@nxp.com>
-> >
-> > When CONFIG_PM is not enabled, all devices runtime PM state should be
-> > treated as active.
-> >
-> > __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
-> > pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
-> > stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
-> > should return the same value as the stub pm_runtime_get(), which is 1.
-> >
-> > Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
-> >
-> > Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
-> >   Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
-> >   Callers: drivers/accel/ethosu/ethosu_perfmon.c,
-> >            drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
-> >            drivers/gpu/drm/msm/msm_perfcntr.c,
-> >            drivers/gpu/drm/v3d/v3d_mmu.c,
-> >            drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
-> >            drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
-> >            drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
-> >            drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
-> >            drivers/media/pci/intel/ipu6/ipu6-buttress.c,
-> >            sound/hda/core/device.c
-> >
-> > Pattern B: if (!ret) after get -- no impact
-> >   Both -EINVAL and 1 are non-zero, !ret is false in both cases.
-> >   drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
-> >     in kernels without CONFIG_PM), drivers/pci/pci.c
-> >
-> > Pattern C: ret > 0 / ret <= 0 / ret != 1 checks -- FIXED
-> >   drivers/usb/core/offload.c: checks (!= 1), old -EINVAL caused
-> >     -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
-> >   drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<= 0), old -EINVAL
-> >     spuriously triggered WARN. Fixed: 1 > 0, no warn.
-> >   drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<= 0), old
-> >     -EINVAL triggered error path. Fixed: 1 > 0, correct path.
-> >   drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
-> >     Fixed: proceeds correctly without CONFIG_PM.
-> >   drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
-> >     (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
-> >     xe_pxp.c) now correctly treat !CONFIG_PM as active.
-> >   drivers/net/ipa/ipa_smp2p.c: power_on = (> 0), now correctly true.
-> >   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
-> >     executes stall register update.
-> >   drivers/staging/media/ipu7/ipu7-buttress.c: active (<= 0) early
-> >     return now skipped, correctly proceeds.
-> >
-> > Pattern D: explicit -EINVAL check
-> >   drivers/hwmon/prom21-xhci.c: checks (> 0) then (== -EINVAL).
-> >     Old: took -EINVAL fallback. New: takes (> 0) fast path.
-> >     Both succeed when CONFIG_PM is disabled; functionally equivalent.
-> >   drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
-> >     stub is never reached. No impact.
-> >
-> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
->
-> People sent feedback, so I'm wondering if there's going to be a v2 or
-> does someone else need to take care of this going forward?
+Thank you for your contribution! Sashiko AI review found 7 potential
+issues to consider:
+- [High] drm/xe: unmasked PTE PAT bits and stolen underflow in
+  initial_plane_bo()
+- [High] drm/xe: emit_pte() omits stolen base offset for pre-12.70
+  stolen BOs
+- [Medium] drm/xe: unconditional return false in
+  xe_display_bo_fbdev_prefer_stolen()
+- [Medium] drm/i915: deferred BIOS FB takeover in bios_fb_pick() breaks
+  FBC and drm_panic
+- [Medium] drm/i915/fbdev: double unpin on error in
+  __intel_fbdev_fb_realloc()
+- [Medium] drm/xe/display: missing fence wait in
+  xe_display_bo_fbdev_bios_fb_takeover()
+- [Low] drm/i915: commit message mismatch on bios_fb_pick() and
+  initial_plane_bo()
+--
 
-Sorry, I forget this thread. I will post v2 soon.
+commit 9503bd0192927fbc3fe3b1c40cd72de52b1ba89d
+Author: Maarten Lankhorst <dev@lankhorst.se>
 
-Frank
+drm/i915: Introduce intel_bo_fbdev_bios_fb_takeover()
 
+This commit defers the stolen-memory suitability check for the BIOS
+framebuffer from initial plane readout to fbdev probing via a new
+intel_bo_fbdev_bios_fb_takeover() callback, and copies the stolen BIOS
+framebuffer to system memory on Xe when stolen memory is not preferred.
+
+> Additionally, bios_fb_ok() was renamed
+> to bios_fb_takeover() with a different function signature.
+
+[Severity: Low]
+This isn't a bug, but the patch renames bios_fb_ok() to bios_fb_pick()
+(while introducing intel_bo_fbdev_bios_fb_takeover() as the BO helper),
+and the changelog also does not mention the phys_base calculation change
+in initial_plane_bo().
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm=
+/i915/display/intel_fbdev.c
+> index 219ee17de3f68..97d5e1279dbc1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+
+[ ... ]
+
+> @@ -262,32 +262,68 @@ __intel_fbdev_fb_alloc(struct intel_display *displa=
+y,
+> =20
+>  }
+> =20
+> -static bool bios_fb_ok(const struct intel_framebuffer *fb,
+> -		       const struct drm_fb_helper_surface_size *sizes)
+> +static struct intel_framebuffer *
+> +__intel_fbdev_fb_realloc(struct intel_display *display,
+> +			 const struct drm_framebuffer *orig_fb,
+> +			 struct drm_gem_object *obj)
+> +{
+> +	struct drm_framebuffer *new_fb;
+> +	struct drm_mode_fb_cmd2 mode_cmd =3D {
+> +		.flags =3D DRM_MODE_FB_MODIFIERS,
+> +		.width =3D orig_fb->width,
+> +		.height =3D orig_fb->height,
+> +		.pitches[0] =3D orig_fb->pitches[0],
+> +		.offsets[0] =3D orig_fb->offsets[0],
+> +		.pixel_format =3D orig_fb->format->format,
+> +		.modifier[0] =3D orig_fb->modifier,
+> +	};
+> +
+> +	new_fb =3D intel_framebuffer_create(obj, orig_fb->format, &mode_cmd);
+> +
+> +	if (IS_ERR(new_fb)) {
+> +		intel_bo_fbdev_destroy(obj);
+> +		return ERR_CAST(new_fb);
+> +	}
+
+[Severity: Medium]
+Can intel_bo_fbdev_destroy(obj) double-unpin obj on Xe if
+intel_framebuffer_create() fails after intel_bo_framebuffer_init()?
+
+On Xe, xe_display_bo_fbdev_bios_fb_takeover() creates copy_bo with
+XE_BO_FLAG_PINNED (pin_count =3D=3D 1).  If intel_framebuffer_init() fails =
+at
+a later step such as drm_framebuffer_init(), its error unwind calls
+intel_bo_framebuffer_fini() -> xe_display_bo_framebuffer_fini(), which
+sees XE_BO_FLAG_PINNED and calls xe_bo_unpin(bo) even though
+xe_display_bo_framebuffer_init() only took a reference:
+
+drivers/gpu/drm/xe/display/xe_display_bo.c:xe_display_bo_framebuffer_fini()=
+ {
+	struct xe_bo *bo =3D gem_to_xe_bo(obj);
+
+	if (bo->flags & XE_BO_FLAG_PINNED) {
+		/* Unpin our kernel fb first */
+		xe_bo_lock(bo, false);
+		xe_bo_unpin(bo);
+		xe_bo_unlock(bo);
+	}
+	xe_bo_put(bo);
+}
+
+Calling intel_bo_fbdev_destroy(obj) -> xe_bo_unpin_map_no_vm(copy_bo)
+then unpins copy_bo a second time when pin_count is already 0, triggering
+xe_assert() and WARN_ON_ONCE(!bo->pin_count) in ttm_bo_unpin().
+
+[ ... ]
+
+> @@ -305,13 +341,23 @@ int intel_fbdev_driver_fbdev_probe(struct drm_fb_he=
+lper *helper,
+> =20
+>  	ifbdev->fb =3D NULL;
+> =20
+> -	if (fb && !bios_fb_ok(fb, sizes)) {
+> -		drm_framebuffer_put(&fb->base);
+> -		fb =3D NULL;
+> -	}
+> -
+>  	wakeref =3D intel_display_rpm_get(display);
+> =20
+> +	if (fb) {
+> +		struct intel_framebuffer *bios_fb =3D
+> +			bios_fb_pick(fb, sizes);
+> +
+> +		if (IS_ERR(bios_fb)) {
+> +			drm_dbg_kms(display->drm, "Re-using BIOS fb failed (%pe).", bios_fb);
+> +			bios_fb =3D NULL;
+> +		}
+> +
+> +		if (fb !=3D bios_fb) {
+> +			drm_framebuffer_put(&fb->base);
+> +			fb =3D bios_fb;
+> +		}
+> +	}
+
+[Severity: Medium]
+Does deferring the prefer_stolen check to intel_fbdev_driver_fbdev_probe()
+break FBC allocation during initial commit and leave the stolen BIOS
+framebuffer active on the hardware plane when fbcon takeover does not run
+immediately?
+
+First, removing the prefer_stolen check from initial_plane_vma() and
+initial_plane_bo() keeps the BIOS framebuffer allocated in stolen memory
+across intel_initial_commit(), which runs before intel_fbdev_setup().
+When the BIOS framebuffer occupies more than half of stolen memory,
+intel_fbc_alloc_cfb() -> find_compression_limit() during initial commit
+either fails with -ENOSPC or permanently degrades the FBC compression
+ratio (as intel_fbc_is_cfb_ok() does not reallocate a 1:1 CFB once the
+initial FB is freed).
+
+Second, when fb !=3D bios_fb here, drm_framebuffer_put(&fb->base) only drops
+ifbdev's reference while the primary plane's plane_state->hw.fb still
+scans out the original stolen framebuffer until a modeset commit flips the
+plane.  When CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER=3Dy (during a
+quiet boot) or CONFIG_FRAMEBUFFER_CONSOLE=3Dn, register_framebuffer() does
+not immediately call fb_set_par(), so the hardware plane continues
+scanning out the stolen BO while ifbdev->fb points to the new system
+memory FB.  Aside from keeping the stolen BO active despite workarounds
+(such as Wa_22018444074 on MTL and Wa_22019338487_display on Xe), a panic
+in that window causes intel_get_scanout_buffer() to see
+plane_state->hw.fb !=3D intel_fbdev_framebuffer() and call
+intel_parent_panic_setup() on the stolen BIOS BO, which fails on both
+i915 (-EOPNOTSUPP) and Xe (ttm_bo_kmap_try_from_panic() returns NULL for
+stolen memory).
+
+> diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm=
+/xe/display/xe_display_bo.c
+> index d78d893210c4f..43d05a58bcb47 100644
+> --- a/drivers/gpu/drm/xe/display/xe_display_bo.c
+> +++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
+> @@ -120,7 +121,7 @@ static u32 xe_display_bo_fbdev_pitch_align(u32 stride)
+>  	return ALIGN(stride, XE_PAGE_SIZE);
+>  }
+> =20
+> -bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsigned in=
+t size)
+> +static bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsi=
+gned int size)
+>  {
+>  	struct ttm_resource_manager *stolen;
+> =20
+> @@ -152,6 +153,64 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_dev=
+ice *xe, unsigned int size)
+>  	return stolen->size >=3D (size * 2) >> PAGE_SHIFT;
+>  }
+
+[Severity: Medium]
+Does xe_display_bo_fbdev_prefer_stolen() still have an unconditional
+"return false;" right above the size check (introduced in earlier series
+commit "HACK: Always fallback")?  That makes the stolen->size check
+unreachable and forces xe_display_bo_fbdev_bios_fb_takeover() to always
+reject stolen memory and copy the BIOS framebuffer to system memory on
+every integrated platform.
+
+> +
+> +static struct drm_gem_object *xe_display_bo_fbdev_bios_fb_takeover(struc=
+t drm_gem_object *obj)
+> +{
+> +	struct xe_bo *orig_bo =3D gem_to_xe_bo(obj), *copy_bo;
+> +	struct xe_device *xe =3D xe_bo_device(orig_bo);
+> +	struct xe_validation_ctx ctx;
+> +	struct drm_exec exec;
+> +	int err;
+> +
+> +	if (IS_DGFX(xe) ||
+> +	    xe_display_bo_fbdev_prefer_stolen(xe, xe_bo_size(orig_bo)))
+> +		return obj;
+> +
+> +	copy_bo =3D xe_bo_create_pin_map_novm(xe, xe_device_get_root_tile(xe), =
+xe_bo_size(orig_bo),
+> +					    ttm_bo_type_kernel,
+> +					    XE_BO_FLAG_FORCE_WC | XE_BO_FLAG_SYSTEM | XE_BO_FLAG_GGTT,
+> +					    false);
+> +	if (IS_ERR(copy_bo))
+> +		return ERR_CAST(copy_bo);
+> +
+> +	xe_validation_guard(&ctx, &xe->val, &exec, (struct xe_val_flags) {}, er=
+r) {
+> +		struct dma_fence *fence;
+> +
+> +		err =3D drm_exec_lock_obj(&exec, &orig_bo->ttm.base);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (err)
+> +			break;
+> +
+> +		err =3D drm_exec_lock_obj(&exec, &copy_bo->ttm.base);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (err)
+> +			break;
+> +
+> +		err =3D dma_resv_reserve_fences(orig_bo->ttm.base.resv, 1);
+> +		if (err)
+> +			break;
+> +
+> +		err =3D dma_resv_reserve_fences(copy_bo->ttm.base.resv, 1);
+> +		if (err)
+> +			break;
+> +
+> +		fence =3D xe_migrate_copy(xe_device_get_root_tile(xe)->migrate, orig_b=
+o, copy_bo,
+> +					orig_bo->ttm.resource, copy_bo->ttm.resource, false);
+
+[Severity: High]
+Does xe_migrate_copy() copy from physical address 0 instead of stolen
+memory when orig_bo is in XE_PL_STOLEN on pre-12.70 integrated platforms
+(such as TGL, ADL, or RPL)?
+
+In __xe_migrate_copy(), src_is_vram is determined by is_devmem(), which
+returns false for XE_PL_STOLEN when
+xe_ttm_stolen_cpu_access_needs_ggtt(xe) is true (GRAPHICS_VERx100(xe) <
+1270):
+
+drivers/gpu/drm/xe/xe_migrate.c:is_devmem() {
+	if (res->mem_type !=3D XE_PL_STOLEN ||
+	    xe_ttm_stolen_cpu_access_needs_ggtt(xe_bo_device(bo)))
+		return false;
+	return true;
+}
+
+When is_vram is false, emit_pte() uses xe_res_dma(cur) & PAGE_MASK
+(which is the 0-based offset within stolen memory) and skips adding
+vram_region_gpu_offset(res) (xe_ttm_stolen_gpu_offset(xe)):
+
+drivers/gpu/drm/xe/xe_migrate.c:emit_pte() {
+    ...
+			addr =3D xe_res_dma(cur) & PAGE_MASK;
+			if (is_vram) {
+    ...
+				addr +=3D vram_region_gpu_offset(res);
+				devmem =3D true;
+			}
+    ...
+}
+
+As a result, the migration PTEs map physical address 0x0 + offset instead
+of stolen_base + offset, causing an IOMMU fault or copying low host RAM
+into the fbdev framebuffer.
+
+> +		if (IS_ERR(fence)) {
+> +			err =3D PTR_ERR(fence);
+> +			break;
+> +		}
+> +
+> +		dma_resv_add_fence(copy_bo->ttm.base.resv, fence, DMA_RESV_USAGE_KERNE=
+L);
+> +		dma_resv_add_fence(orig_bo->ttm.base.resv, fence, DMA_RESV_USAGE_BOOKK=
+EEP);
+> +		dma_fence_put(fence);
+> +
+> +		return &copy_bo->ttm.base;
+
+[Severity: Medium]
+Can CPU accesses to info->screen_base race with the asynchronous
+xe_migrate_copy() blit when &copy_bo->ttm.base is returned without waiting
+for fence to signal?
+
+In intel_fbdev_driver_fbdev_probe(), intel_bo_fbdev_fill_info() exposes
+copy_bo->vmap.vaddr_iomem as info->screen_base without waiting on
+copy_bo's reservation fences.  If fb_set_par()'s modeset commit does not
+run before CPU access (for instance under deferred console takeover or
+when a DRM master is active), CPU writes to info->screen_base can be
+overwritten by the in-flight GPU copy from orig_bo.
+
+> diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/=
+drm/xe/display/xe_initial_plane.c
+> index 0f86b73036d03..1c70ade960e86 100644
+> --- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> +++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> @@ -100,15 +99,8 @@ initial_plane_bo(struct xe_device *xe,
+>  			return NULL;
+>  		}
+> =20
+> -		phys_base =3D base;
+> +		phys_base =3D (pte - xe_ttm_stolen_gpu_offset(xe)) & PAGE_MASK;
+>  		flags |=3D XE_BO_FLAG_STOLEN;
+
+[Severity: High]
+Does masking with PAGE_MASK leave the upper GGTT PTE PAT bits (bits 52:53)
+set in phys_base on Xe_LPG+ platforms?
+
+On 64-bit kernels, PAGE_MASK is GENMASK_ULL(63, 12), whereas GGTT PTEs on
+GRAPHICS_VERx100(xe) >=3D 1270 store XELPG_GGTT_PTE_PAT0 (BIT_ULL(52)) and
+XELPG_GGTT_PTE_PAT1 (BIT_ULL(53)) above the physical address in
+XE_PAGE_ADDR_MASK(PAGE_SHIFT) (GENMASK_ULL(51, 12)).  When the BIOS/GOP
+sets a non-zero PAT index in the GGTT PTE, phys_base retains bits 52:53,
+and passing it as start to xe_bo_create_pin_map_at_novm() ->
+__xe_bo_create_locked() calls:
+
+drivers/gpu/drm/xe/xe_bo.c:__xe_bo_create_locked() {
+    ...
+			if (flags & XE_BO_FLAG_FIXED_PLACEMENT) {
+				err =3D xe_ggtt_insert_bo_at(t->mem.ggtt, bo,
+							   start + xe_bo_size(bo), U64_MAX,
+							   exec);
+			}
+    ...
+}
+
+Because start >=3D BIT_ULL(52) exceeds the GGTT size, xe_ggtt_insert_bo_at()
+fails with -ENOSPC and breaks BIOS framebuffer takeover.  In addition,
+pte is not checked against XE_PAGE_PRESENT or bounds-checked against
+xe_ttm_stolen_gpu_offset(xe) before subtraction (which can underflow
+phys_base on pre-12.70 platforms where need_pte_local(xe) is false), and
+passing the stolen offset phys_base (often 0) as start to
+__xe_bo_create_locked() no longer tells xe_ggtt_insert_bo_at() to avoid
+the active BIOS GGTT range at plane_config->base.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116131349.3338=
+18-7-dev@lankhorst.se?part=3D5
