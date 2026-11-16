@@ -2,79 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D588D606A323
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 12:03:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77B0606A330
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 12:03:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ggVF+zgt
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqMxocZS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B1710EFAF;
-	Mon, 16 Nov 2026 12:03:04 +0000 (UTC)
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C02E10EFB2
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 12:02:57 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-8b4bc216e9dso10264207b3.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 04:02:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794830576; x=1795435376; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=EtXXp+gERr+VQooeT8RtlOTQCTUXPoOb6izAMQjVcRM=;
- b=ggVF+zgt1KZH9VRE/6dtovWfakmmyWitYef03S9j7HTuiU1zyRfh8J/ds1Oy6aetat
- p2m3TYYKtRljXjbSB1/JADO01yjRM6vdY5+elxKuF5zZWFaYygSi9St2B3sxNBU/SznQ
- XwFc8V1wyitdM1RgbaO7Cd6w9hzrvBbhRIfcmY57oWVv0S5yy6cM5E5nKU+jfdWCtlrc
- 29fLhXE4ljJhVX1UJtopqtyFLzRnRmci323jPxAiHEt8rBNLkYF8AQnE5LJDJsidlidQ
- IR5wCiz2sr/ba8AgSPGEqO1luqBhYLNX8uZHvcQ+bRUgAIXQXFcpRGoBxLktH9eQ02Sh
- 1LpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794830576; x=1795435376;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=EtXXp+gERr+VQooeT8RtlOTQCTUXPoOb6izAMQjVcRM=;
- b=KTTfHtW7MvN/FOtaFeqYHXIYl1vlVbYGRmPp8/Fdx1xJ9+TDs5u33SrolLNt/6MmkZ
- ksUKtx4SKHVAnqC3T0Ml+I09Eu3W+hr17x7h5yWx48CTv6MXFmlOlJGKRDzm197GblfD
- OeXc2rIhCqS/luW9TKsjdaqH8lNc1GYzPeliu64WVJYBRmEXl2rPo+L+QsQyjjQ/PDV3
- u4vXM36zKUc4BkH2/hKgcL7osR8UddHKp+WNV44XFVkm2TQJ39CIoCCaLfs9iP8c+HhV
- 1/rRa1k/WZfbYhr14kLn21GmhZ4F1aVX4fr53UXH7UelIkdVavMN60mkiDhC9ok6lPo4
- bPjg==
-X-Gm-Message-State: APuU4Z9P2tAchFuvI8DqI7fDQ1RLoyrqZGD9vlL01DBIsYXZzHecOg/k
- UMkFEOmMSTpTbgbLly4s9Uc8T1yyW2YTVsF9g4v668jiD/b1SCOWa7N2f0293rNn
-X-Gm-Gg: AZFdTZcyeps6EZ+p3rRT3K7OjzUXGqMBO3OiZdJSEqjoYQZJFAU1XkdAt+girx7rDrg
- C5u9J1JaTGKlCHStMLYeRvmmxhN2I42UdnhvuclF0FO/1nMj/Lyo0b94ndb/rqQlSGk9HDVCBsJ
- sccPskNFExGV/S0yzeUvablSUsTwGiOZi3S8gCCaGpQ0I3vCkPo/lsc8ffMb0xsEy7a2Y/VMFTo
- Njbf+pkl5x0ryxEWFWVP4jXytu6x2use1cGikOGxJPnLuhXWVqqIdBL4RsBQH0GMamc3e3mk8DG
- 1BOgMA7ozbBBYOlXhwUB9YOHSVa1leEVlDQGIA2C6iKZEIQjzDcIY5WUNtjTqFRe3XMaA7JIQnP
- KDrE68YMwIBNceP7/L4v7wfdm/XTVRZ4clvlOGqUoYMqxSGZYTnRuq2bykt/8afaNDqc62UoB8K
- NE39euXF1h4729SwRKAE+fuE1w1/kDTlAKniFDUpRSalXJP4dzqUgsBNkTFqJq+OZbsYBm/3mCQ
- KnDgKMFJQZ5hFoV8sLp0FXtwDqE0B5nmkP/HOU/xfFphg6+9gU7oERsa9lujFNDjJaHFall+oCQ
- +CsXJAylad+JPL3m1XKgSnfZyZkpBAud/QlTnTCbADoYFrr87NmUdYURbHbh
-X-Received: by 2002:a05:690c:e3ed:b0:8b0:a30a:7f05 with SMTP id
- 00721157ae682-8b4aa35069bmr51507437b3.84.1794830576464; 
- Mon, 16 Nov 2026 04:02:56 -0800 (PST)
-Received: from f90457aaaf9e ([186.153.252.80])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8b4aa99f7a1sm83572997b3.29.2026.11.16.04.02.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 04:02:26 -0800 (PST)
-From: Javier MV <javiermv@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Javier MV <javiermv@duck.com>, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, matthew.brost@intel.com,
- daniele.ceraolospurio@intel.com, umesh.nerlige.ramappa@intel.com
-Subject: [PATCH v3 1/2] drm/i915/guc: Complete all requests of a
- non-schedulable context
-Date: Mon, 16 Nov 2026 11:59:47 +0000
-Message-ID: <20261116115958.9499-2-javiermv@gmail.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20261116115958.9499-1-javiermv@gmail.com>
-References: <20261116115958.9499-1-javiermv@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D7D310EFBB;
+	Mon, 16 Nov 2026 12:03:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16C3010EFB5;
+ Mon, 16 Nov 2026 12:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794830624; x=1826366624;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Bf5cAdHMAJ7il91i8L2BuKajCP/dY1k+p59Ms1D7n+U=;
+ b=cqMxocZSi5Tq1UEPNK2Ir2JanxLkU7CZn7gGo8gw48Q+7/HN0lBraHUJ
+ qkk4dCfI1p7Edgn8OPvKqCai2WO1+25Ak+FlEzO5IT8SNzjyXpsoT2OtA
+ /Kof4b0DU4PGwIEx7Edlh/iVjDraa+nSxk53+SrFzQs7mkOz8JtaLP5lC
+ 2x3tJfvZJIIS5me8paLDnDsjJKF+r+F4aJk5pa+Z3BSItOfUosqVHbiVJ
+ IsmbjFWDGD3YGWI8aYXSxSnuGonsd6qX+YrcAPelNXyUoA9A1Uh+tcF+Z
+ qWNk6xt8ExNo+D0n8cd1STUagh8ZiyL7qaj+dccOQ3rm1Mug9ud1pFC7L g==;
+X-CSE-ConnectionGUID: 5T6TZnf2S7CG3yYWP8WZaQ==
+X-CSE-MsgGUID: M1w0y5PBT/aXEiM0UwVFtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3552920"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3552920"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 04:03:43 -0800
+X-CSE-ConnectionGUID: NBN82YKvRumnOXUGXvHsOA==
+X-CSE-MsgGUID: 0PwLTXsfT56YDMVgPQUegw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9427054"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.117])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 04:03:33 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Kory Maincent <kory.maincent@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
+ <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Manasi Navare
+ <navaremanasi@google.com>, Drew Davenport <ddavenport@google.com>, Louis
+ Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Kory Maincent
+ <kory.maincent@bootlin.com>
+Subject: Re: [PATCH RFC v3 2/8] drm: Move DSC capability reading helper out
+ of i915
+In-Reply-To: <20261012-feat_link_cap-v3-2-7517f4aba0f3@bootlin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+ <20261012-feat_link_cap-v3-2-7517f4aba0f3@bootlin.com>
+Date: Mon, 16 Nov 2026 14:03:30 +0200
+Message-ID: <d2ff3419f0965670bbf566bc4cb0afd1cab8e461@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,75 +87,148 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Javier MV <javiermv@duck.com>
+On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> In preparation for adding generic DRM properties to report source and
+> sink capabilities, move the DSC capability reading helper out of the
+> i915 driver into the generic DRM helpers.
 
-guc_dequeue_one_context() merges the queued requests of a context and
-passes only the last one to __guc_add_request(), which marks only that
-one complete when the context is banned or exiting. The earlier ones
-are on ce->guc_state.requests and need the context to run to signal
-their breadcrumbs. After a full GT reset the context is unregistered and
-never runs again, so they never complete and their objects stay pinned.
-Seen on ADL-P after a GuC context reset of a Vulkan compute job: the
-client waited on its fences forever, and 7.5 GB stayed pinned after it
-was killed.
+Independent of the goal of the series, I support moving helpers from
+i915 to generic drm code.
 
-Complete every request on the list once the context is off the HW, as
-guc_cancel_context_requests() does.
+It might even make sense to try to do that separately, to make forward
+progress.
 
-Found with the help of Claude Code.
+> No functional change intended.
+>
+> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+> ---
+> Change in v3:
+> - New patch
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 30 ++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.c | 28 ++++------------------------
+>  include/drm/display/drm_dp_helper.h     |  2 ++
+>  3 files changed, 36 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index 8ef096a0138e4..93cf43d166c6e 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -5149,3 +5149,33 @@ int drm_dp_read_edp_sink_rates(struct drm_dp_aux *aux, u8 edp_dpcd_rev,
+>  	return num_sink_rates;
+>  }
+>  EXPORT_SYMBOL_GPL(drm_dp_read_edp_sink_rates);
+> +
+> +/**
+> + * drm_dp_read_dsc_dpcd() - read the DSC capabilities from the DPCD
+> + * @aux: DisplayPort AUX channel
+> + * @dsc_dpcd: Buffer to store the DSC capabilities read from the DPCD
+> + *
+> + * Attempts to read the sink DSC capabilities from the DPCD of @aux.
+> + *
+> + * Returns: 0 on success or a negative error code on failure.
+> + */
+> +int drm_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
+> +			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
 
-Fixes: ae8ac10dfd2a ("drm/i915/guc: Implement banned contexts for GuC submission")
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15301
-Signed-off-by: Javier MV <javiermv@duck.com>
----
-v3:
-- Shorter commit message and comment (Rodrigo).
+Nitpick, I think all or nearly all of the DSC functions here use the
+drm_dp_dsc_ prefix, and so should this.
 
-v2:
-- Complete rq on its own only when the loop doesn't run, under the
-  lock. v1 completed it again after the unlock, when the loop had
-  already completed it and it could have been retired and freed
-  (Sashiko).
+BR,
+Jani.
 
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c   | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 788e59cdfac9..229fa0fd3714 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -709,7 +709,22 @@ static int __guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 	 * request resubmitted after the context was banned.
- 	 */
- 	if (unlikely(!intel_context_is_schedulable(ce))) {
--		i915_request_put(i915_request_mark_eio(rq));
-+		struct i915_request *pos;
-+
-+		/*
-+		 * Only the last merged request is passed in. Once the context
-+		 * is off the HW, complete all of them (rq included).
-+		 */
-+		spin_lock(&ce->guc_state.lock);
-+		if (!context_enabled(ce) && !context_pending_enable(ce) &&
-+		    !context_pending_disable(ce)) {
-+			list_for_each_entry(pos, &ce->guc_state.requests, sched.link)
-+				i915_request_put(i915_request_mark_eio(pos));
-+		} else {
-+			i915_request_put(i915_request_mark_eio(rq));
-+		}
-+		spin_unlock(&ce->guc_state.lock);
-+
- 		intel_engine_signal_breadcrumbs(ce->engine);
- 		return 0;
- 	}
+> +{
+> +	int ret;
+> +
+> +	ret = drm_dp_dpcd_read_data(aux, DP_DSC_SUPPORT, dsc_dpcd,
+> +				    DP_DSC_RECEIVER_CAP_SIZE);
+> +	if (ret) {
+> +		drm_dbg_kms(aux->drm_dev,
+> +			    "Could not read DSC DPCD register 0x%x Error: %pe\n",
+> +			    DP_DSC_SUPPORT, ERR_PTR(ret));
+> +		return ret;
+> +	}
+> +
+> +	drm_dbg_kms(aux->drm_dev, "DSC DPCD: %*ph\n",
+> +		    DP_DSC_RECEIVER_CAP_SIZE,
+> +		    dsc_dpcd);
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(drm_dp_read_dsc_dpcd);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index da73ad11e9cac..830fe6eda17d7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4430,26 +4430,6 @@ static bool intel_dp_get_sst_split_sdp_status(u8 dprx)
+>  	return dprx & DP_SST_SPLIT_SDP_CAP;
+>  }
+>  
+> -static int intel_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
+> -				  u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
+> -{
+> -	int ret;
+> -
+> -	ret = drm_dp_dpcd_read_data(aux, DP_DSC_SUPPORT, dsc_dpcd,
+> -				    DP_DSC_RECEIVER_CAP_SIZE);
+> -	if (ret) {
+> -		drm_dbg_kms(aux->drm_dev,
+> -			    "Could not read DSC DPCD register 0x%x Error: %pe\n",
+> -			    DP_DSC_SUPPORT, ERR_PTR(ret));
+> -		return ret;
+> -	}
+> -
+> -	drm_dbg_kms(aux->drm_dev, "DSC DPCD: %*ph\n",
+> -		    DP_DSC_RECEIVER_CAP_SIZE,
+> -		    dsc_dpcd);
+> -	return 0;
+> -}
+> -
+>  static void init_dsc_overall_throughput_limits(struct intel_connector *connector, bool is_branch)
+>  {
+>  	u8 branch_caps[DP_DSC_BRANCH_CAP_SIZE];
+> @@ -4498,8 +4478,8 @@ void intel_dp_get_dsc_sink_cap(u8 dpcd_rev,
+>  	if (dpcd_rev < DP_DPCD_REV_14)
+>  		return;
+>  
+> -	if (intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
+> -				   connector->dp.dsc_dpcd) < 0)
+> +	if (drm_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
+> +				 connector->dp.dsc_dpcd) < 0)
+>  		return;
+>  
+>  	if (drm_dp_dpcd_readb(connector->dp.dsc_decompression_aux, DP_FEC_CAPABILITY,
+> @@ -4530,8 +4510,8 @@ static void intel_edp_get_dsc_sink_cap(u8 edp_dpcd_rev, struct intel_connector *
+>  	if (edp_dpcd_rev < DP_EDP_14)
+>  		return;
+>  
+> -	if (intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
+> -				   connector->dp.dsc_dpcd) < 0)
+> +	if (drm_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
+> +				 connector->dp.dsc_dpcd) < 0)
+>  		return;
+>  
+>  	if (connector->dp.dsc_dpcd[0] & DP_DSC_DECOMPRESSION_IS_SUPPORTED)
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> index d7f4c6f2ba4c7..7bc3b36f38b82 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -215,6 +215,8 @@ drm_dp_is_branch(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>  }
+>  
+>  /* DP/eDP DSC support */
+> +int drm_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
+> +			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+>  u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+>  u32 drm_dp_dsc_slice_count_to_mask(int slice_count);
+>  u32 drm_dp_dsc_sink_slice_count_mask(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE],
+
 -- 
-2.51.1
-
+Jani Nikula, Intel
