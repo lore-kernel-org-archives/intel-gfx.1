@@ -2,96 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1891606A329
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:16:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C49606A323
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:22:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EMITteBu
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SpeSUFBw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73ABA10E3DB;
-	Mon, 16 Nov 2026 09:16:54 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A5CF10EE6C
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 09:16:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794820607;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oRP30ct8ql2mTXDmxPgRrEvZM+dzcMrlEdSg9+eoSP4=;
- b=EMITteBu+Zq8r2lIitF9xBTTKbkSgXU4IffsBkd4BZFKpcgITbCd7jZEUSnebvtB2Q1W6d
- PH35SJqECAscrYKbWMwb5wWggcBbMPV98Z82Erc6SmcAfUQrQ+UmiqSowFcYnMHNmbUBtL
- /2QOZwEK8sHfcBqS3vJlpjRRNyFyp5s=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-230-Hzwu9_aPNRm4OIgomC4pjw-1; Mon, 16 Nov 2026 04:16:42 -0500
-X-MC-Unique: Hzwu9_aPNRm4OIgomC4pjw-1
-X-Mimecast-MFC-AGG-ID: Hzwu9_aPNRm4OIgomC4pjw_1794820601
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-48e0fc747a7so2015536f8f.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 01:16:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794820601; x=1795425401;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=oRP30ct8ql2mTXDmxPgRrEvZM+dzcMrlEdSg9+eoSP4=;
- b=VyYOcezfaDYPImFAqs6GFFR2/NRlihQu6d00EH69G8nioknoqt+7Sg+MAmD9OipLn8
- vdIcspFN4wdppaHJdvAMCgiLEtk/u/NkMNz4NhkR/ZpHl653lf5rhBljEoJJ5UyNyS/x
- S/2GKQuEC3XiUydORcuEGtcoZ+Efiq1QHqrbwRg5EUev7D93LO4cKrZCpPYhgOecKbFB
- etUk/9UAZV5+t/694aq/oYW2Uu6P7E9OwsTG1UnGTIgRPmdngmkfPYOEYHOnibo25aad
- 7YYm6mUSaOEt9G+eAvZPOeXlinTg514jSsViKKt/UpkwmqPekL2OAoQZJGBnojCBRhFU
- 2Ziw==
-X-Forwarded-Encrypted: i=1;
- AL+hErHKaaK8N/ZlDPuSV3o1rTzccyGTBZM3T4qsmYdEa5T32hQp33/i+jYWVyu7wh+CpKq5g9pGlSHNIiQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/NJMT4FM/BBhOLrQChmojgt+1TnqaQU94ow6V/nAP7A8f7ytXx
- wi8VoDmwHnrP4LOiISoL/TvqkkFGoSnfvwS+YBh4XZFXZLX0rBkD93CCcE+uJGbu3LwGxT2ukpq
- p3jeDp9pggsOOCi1kSWB0sc4ikM8we+rpZVX5mO9Q71fCKaNUyhr5qEcMKF1EKEfbYhCftg==
-X-Gm-Gg: AZFdTZf6F685YaTBXD5xd9s5xths6de8CzE+esVjsMnRUvHLQT9CojCdeOLXjkzavve
- MZdnu0jM6f2vqRBZOr4XC32MulF+Q5yRreQ74wMiN0DC9ACik7TeOUIUpC9bghu/9wULZNnBKXH
- JnSG4kv8gPSfpNnaH2QXrb2hetj23i66Ijfa2thIIzxaaCy8K3mEK3M8G7RqIEIuBVR88nDF9D4
- 1tqK42KNzydoJSr5Q6J/w4mwT3eeVn/1FwWKoFS6X+hiIsUkDMTY8VeVhpxmKoYy8QM9WO3f813
- i1WkR6CSC7czk+S5oO1coT7jvlSq8J5+wZte8GtSYNCV7fL47iHtbQN7DeFCRYwHd10C7wnWYeQ
- MTYjoo1lFJCP/j4c8EMbO6GnWClq8IiDXPYBK/fFbWwZ1k/Cglq5C+T7RuLChnTpDz/r9pSukuv
- j2vFQehNvTNh9GNVGaCUCuJ4OVf80s6Avv0Yb8iRk=
-X-Received: by 2002:a05:6000:4907:b0:48e:b62:d133 with SMTP id
- ffacd0b85a97d-49c6d453058mr20772416f8f.5.1794820600440; 
- Mon, 16 Nov 2026 01:16:40 -0800 (PST)
-X-Received: by 2002:a05:6000:4907:b0:48e:b62:d133 with SMTP id
- ffacd0b85a97d-49c6d453058mr20772359f8f.5.1794820599837; 
- Mon, 16 Nov 2026 01:16:39 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49dc430fa15sm14802191f8f.13.2026.11.16.01.16.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 01:16:39 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
- <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani
- Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Mario Limonciello <superm1@kernel.org>, Xaver Hugl
- <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6AB10E296;
+	Mon, 16 Nov 2026 09:22:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECFFE10E296;
+ Mon, 16 Nov 2026 09:22:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794820962; x=1826356962;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Y2zldT+YuSEQD9QzOAhBed/JdXYSi8OLsQFal3RWfDo=;
+ b=SpeSUFBw90zeiiChxFxuuanpMXURA7yzlj+Rx1ihvvqrBunBOqZszDny
+ Pp3cYgGmUngL53lp3rqdyu8PuWJiu4UkvnoPReGRIBb/r8Fnx2VQW3sSY
+ w3DtlLrf044fHI/d5r5pEBujj4FeNsq6tCluY1l2pyfaySrFNMcb6sx2O
+ +8Y5HXFYzZRwu6M3+S6n2TAr/eSGQNdudqWNUc2NAXf4feh0KvXKTnXHP
+ vv6X1+vwG7cvpEXPPNGOwjSP3WC83Orjkz94J3fYRAjZ2OY3/Ydusqo2w
+ mDdDfnDVd1KYOmqWRamzlRLD7CUZbIyaHZVAHO3xxcVMuQVGjKyASuP+B w==;
+X-CSE-ConnectionGUID: RxDTTptPRxiUbS0OjaWwKQ==
+X-CSE-MsgGUID: 9O75o80RT7CkpEbDQLUgMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3442857"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3442857"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 01:22:39 -0800
+X-CSE-ConnectionGUID: EQntyqAFTXq7wdrA1wo5ow==
+X-CSE-MsgGUID: Snrum0OSRqWvUnjJB+5zPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9640030"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.93])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 01:22:35 -0800
+Date: Mon, 16 Nov 2026 11:22:32 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: aot.lerwin@gmail.com
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: Re: [PATCH v11 06/12] drm/bridge: add connector luminance operations
-In-Reply-To: <20261103-superm1-backlight-property-v11-6-00cce7b2ba22@kernel.org>
-References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
- <20261103-superm1-backlight-property-v11-6-00cce7b2ba22@kernel.org>
-Date: Mon, 16 Nov 2026 10:16:38 +0100
-Message-ID: <xlv1tslhrv9l.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/i915/display: Ignore disabled planes in async
+ flip checks
+Message-ID: <avrLWCctBVWAjOo4@intel.com>
+References: <20261115-i915-async-planes-v2-1-c5163dfea5b2@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: XIFJSa4qyAaXAy7cyn90EoXdVGjJxxTRlWJtd0leEMQ_1794820601
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261115-i915-async-planes-v2-1-c5163dfea5b2@gmail.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,33 +75,107 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-"Mario Limonciello (AMD)" <superm1@kernel.org> writes:
+On Sun, Nov 15, 2026 at 04:43:35PM +0100, Erwin Springer via B4 Relay wrote:
+> From: Erwin Springer <aot.lerwin@gmail.com>
+> 
+> Atomic async flips may carry properties that don't change, so compositors
+> tend to send their whole plane state with every commit. KWin for example
+> adds all planes of the pipe, including the ones that are disabled and stay
+> disabled (CRTC_ID=0, FB_ID=0).
 
-Hello Mario,
+I have slightly more universal solution to this atomic+async issue.
+I just posted it and Cc:d you.
 
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> Allow bridges that own brightness control to advertise a luminance
-> operation and its supported relative range.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> intel_async_flip_check_uapi() fails the commit as soon as the state
+> contains any plane of the pipe that can't do async flips:
+> 
+>   [drm:intel_atomic_check [i915]] [PLANE:66:plane 2A] async flip not supported
+>   [drm:drm_atomic_check_only.cold] atomic driver check for ... failed: -22
+> 
+> So with such a compositor tearing never works on a pipe with sprite or
+> cursor planes, even though only the FB of the primary plane changes. KWin
+> silently falls back to vsynced flips, about 60 rejected commits per second.
+> 
+> A plane without a framebuffer before and after the commit takes no part in
+> the flip. Skip it in both async flip checks.
+> 
+> A plane that is disabled in uapi may still be used by the hardware as the
+> Y plane of a planar framebuffer on another plane (planar_linked_plane on
+> ICL+). Don't skip such a plane in the uapi check, so the commit is still
+> rejected there as before, instead of the linked planes being pulled into
+> the state later and tripping the drm_WARN_ON() in
+> intel_async_flip_check_hw().
+> 
+> Tested on Raptor Lake-U (Iris Xe) with the patch applied to the i915 of
+> Linux 7.3.4, unmodified KWin 6.8.2 and a fullscreen client that requests
+> tearing through wp_tearing_control_v1. Before, none of about 350 frames per
+> run was presented without vsync. With the patch 3334 of 3340 frames tear
+> and the message above is gone. What is still rejected is the first flip
+> after the modifier or format changed, once per run, as intended.
+> 
+> Signed-off-by: Erwin Springer <aot.lerwin@gmail.com>
 > ---
-
-I'm not a bridge expert but this make sense to me.
-
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+> Changes in v2:
+> - Don't skip a disabled plane that is in use as the Y plane of a planar
+>   framebuffer, it would trip the drm_WARN_ON() in
+>   intel_async_flip_check_hw() (found by the Sashiko review)
+>   The device test was done with v1, no planar framebuffer was in use
+>   there. v2 is compile-tested (W=1).
+> - Link to v1: https://patch.msgid.link/20261115-i915-async-planes-v1-1-d13498d0b6be@gmail.com
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index f4d9148ef..9be7596fa 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -6281,6 +6281,16 @@ static int intel_async_flip_check_uapi(struct intel_atomic_state *state,
+>  		if (plane->pipe != crtc->pipe)
+>  			continue;
+>  
+> +		/*
+> +		 * Userspace may add planes it doesn't change to the commit.
+> +		 * A plane that is disabled and stays disabled takes no part
+> +		 * in the async flip, unless it is in use as the Y plane of
+> +		 * a planar format on another plane.
+> +		 */
+> +		if (!old_plane_state->uapi.fb && !new_plane_state->uapi.fb &&
+> +		    !old_plane_state->planar_linked_plane)
+> +			continue;
+> +
+>  		/*
+>  		 * TODO: Async flip is only supported through the page flip IOCTL
+>  		 * as of now. So support currently added for primary plane only.
+> @@ -6346,6 +6356,10 @@ static int intel_async_flip_check_hw(struct intel_atomic_state *state, struct in
+>  		if (plane->pipe != crtc->pipe)
+>  			continue;
+>  
+> +		/* Disabled planes that stay disabled take no part in the flip. */
+> +		if (!old_plane_state->hw.fb && !new_plane_state->hw.fb)
+> +			continue;
+> +
+>  		/*
+>  		 * Only async flip capable planes should be in the state
+>  		 * if we're really about to ask the hardware to perform
+> 
+> ---
+> base-commit: 419bb0e4cadd214a0847010c02ade95e5fc511f7
+> change-id: 20261115-i915-async-planes-d532ca94cf3c
+> 
+> Best regards,
+> --  
+> Erwin Springer <aot.lerwin@gmail.com>
+> 
 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Ville Syrjälä
+Intel
