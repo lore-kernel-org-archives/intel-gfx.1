@@ -2,61 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22DC606A31C
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 12:57:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D1D606A323
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:10:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D/zyN+Hk
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Db7RY90V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 927BE10F122;
-	Mon, 16 Nov 2026 12:57:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBCA910F106;
- Mon, 16 Nov 2026 12:57:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A9ED10F12D;
+	Mon, 16 Nov 2026 13:10:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 161AE10F12D;
+ Mon, 16 Nov 2026 13:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794833836; x=1826369836;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=kx80+iVT0K/rR5znwIn6S+ycgVAvrV4U7MbNwpiJeJs=;
- b=D/zyN+HkePsYOMBA5aICEBAVd1ETtbfnTwf+kvwWdNjxAJjyh7eYK+Kf
- /e22cupRgB5L7pS6k9PlWk/+COZchv/jlq5RXnIbnSkDCo2ujOqL18kaU
- T7LkyJI2yTHRrzs21Z/fqVbTDSTHoCnzjWcNTOhKI+7YM/esjJJZ35SLH
- oQDAfgWjLk08VpRSEH9ea5CIpcMN9U1eip9GuwZ02fGQC236Ty2Q2WTjV
- FU6oUxNSl4HI2QaZC/rsnuwmQIipLpjLNHlAfrXt15VYXflV8YINJvf7k
- Es6QxWDADgEwE6Za62vw5PBxgxvo6grZrKBB8st2ymtg4fzYNyIsjzq1F Q==;
-X-CSE-ConnectionGUID: D6lQT6qfSlCOntrvZAKh5Q==
-X-CSE-MsgGUID: u5Npc8HHTBS3jgYFWbmQyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3557851"
+ t=1794834644; x=1826370644;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=FE8Eb/o2jNhMmUkY0cmLF5+hbV0dzwgrgopBYqNs/2g=;
+ b=Db7RY90VJBMp0IobypR/45LHYchBIG55PtBnIF62pvPKlws3a0zSfHpJ
+ FqdpSYbOXsu5Vko1Qlqk4SYO9cPLQrM3C6XhGOd6GmvrKtW7zc19lIDhG
+ Bw/McS3IAwLu1cWrpaG8snjCyFORJTj+JKn42P/U1bhQdsUscvnIPEi3I
+ mxkde87AKXLpvIROSwA+2vC8VoM80yZI32Gqll8OovpH0J6GoYSk4cd8G
+ /m/RsaudiU7b1+1rjyvtZb4jKuvE179SVNZqyUSaZhq9ZWu3qLRClpdi4
+ gWRZY5SJ9/20MP4Kk1hdTCqYGhHL8ickdcN+lxYMciEvKrdJu/weypXoq A==;
+X-CSE-ConnectionGUID: sAmTLOMWTm20BhMkZW3rig==
+X-CSE-MsgGUID: 45avBj4RS56S7amHHLiQPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3464635"
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3557851"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 04:57:16 -0800
-X-CSE-ConnectionGUID: U67JIv9WRKmiVuPdA/N14w==
-X-CSE-MsgGUID: 9sCZ22HbTmOmt1KoJTflCw==
+   d="scan'208";a="3464635"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 05:10:43 -0800
+X-CSE-ConnectionGUID: neqRBvN9TSuOXPoowwyZdg==
+X-CSE-MsgGUID: HJr8YL80TZmLcafdJ7R4kA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9439994"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.93])
+   d="scan'208";a="9388760"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.117])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 04:57:14 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: [PATCH 4/4] drm/tests: Test event ownership in atomic states
-Date: Mon, 16 Nov 2026 14:56:49 +0200
-Message-ID: <20261116125649.15742-5-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261116125649.15742-1-ville.syrjala@linux.intel.com>
-References: <20261116125649.15742-1-ville.syrjala@linux.intel.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ 16 Nov 2026 05:10:34 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Kory Maincent <kory.maincent@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
+ <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Manasi Navare
+ <navaremanasi@google.com>, Drew Davenport <ddavenport@google.com>, Louis
+ Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Kory Maincent
+ <kory.maincent@bootlin.com>
+Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
+ information report
+In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+Date: Mon, 16 Nov 2026 15:10:30 +0200
+Message-ID: <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,263 +87,175 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> DisplayPort link training negotiates the physical-layer parameters needed
+> for a reliable connection: lane count, link rate, and optionally Display
+> Stream Compression (DSC). Currently, each driver exposes this state in
+> its own way, often through driver-specific debugfs entries, with no
+> standard interface for userspace diagnostic and monitoring tools.
+>
+> This series introduces generic helpers, for exposing DP link capabilities
+> and state as standard sysfs entries.
 
-Add KUnit tests for what happens to the event of a CRTC state that went
-through drm_atomic_helper_setup_commit(): an internally allocated event
-and an event provided by the caller must both be thrown away, releasing
-their reference on the commit, if the state is destroyed without the
-event having been consumed, while a consumed and sent event completes
-flip_done and is left alone.
+So how did we end up with sysfs here?
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- .../gpu/drm/tests/drm_atomic_commit_test.c    | 201 +++++++++++++++++-
- 1 file changed, 200 insertions(+), 1 deletion(-)
+> The aim of such development is to guide users to select the most suitable
+> DisplayPort connector for their needs. For example, if you have a USB-C
+> hub with lesser capabilities than your computer=E2=80=99s native DisplayP=
+ort
+> connector (such as HBR2 versus HBR3 support), the system could recommend
+> connecting high-resolution displays directly to the computer=E2=80=99s po=
+rt
+> instead of through the hub to ensure optimal performance.
 
-diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-index 6ccb001f6264..80b3f6fd872a 100644
---- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-+++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-@@ -5,9 +5,13 @@
-  * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
-  */
- 
-+#include <linux/dma-fence.h>
-+
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_file.h>
-+#include <drm/drm_vblank.h>
- #include <drm/drm_kunit_helpers.h>
- #include <drm/drm_probe_helper.h>
- 
-@@ -378,6 +382,187 @@ KUNIT_ARRAY_PARAM(drm_check_in_clone_mode, drm_clone_mode_tests,
- KUNIT_ARRAY_PARAM(drm_check_valid_clones, drm_valid_clone_mode_tests,
- 		  drm_check_valid_clones_desc);
- 
-+struct drm_event_test_ctx {
-+	struct drm_atomic_test_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *state;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_crtc_commit *commit;
-+};
-+
-+/*
-+ * Set up a state with an enabled CRTC and run drm_atomic_helper_setup_commit()
-+ * on it. Takes an extra reference on the CRTC commit, which the caller has to
-+ * drop, so that the references held by the state and its event can be counted.
-+ */
-+static void drm_event_test_setup_commit(struct kunit *test,
-+					struct drm_event_test_ctx *c,
-+					struct drm_pending_vblank_event *event,
-+					bool active)
-+{
-+	int ret;
-+
-+	c->priv = drm_atomic_test_init_drm_components(test, false);
-+	KUNIT_ASSERT_NOT_NULL(test, c->priv);
-+
-+	drm_modeset_acquire_init(&c->ctx, 0);
-+
-+	c->state = drm_kunit_helper_atomic_state_alloc(test, &c->priv->drm,
-+						       &c->ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, c->state);
-+
-+	c->crtc_state = drm_atomic_get_crtc_state(c->state, c->priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, c->crtc_state);
-+
-+	c->crtc_state->enable = active;
-+	c->crtc_state->active = active;
-+	c->crtc_state->event = event;
-+
-+	ret = drm_atomic_helper_setup_commit(c->state, false);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	c->commit = c->crtc_state->commit;
-+	KUNIT_ASSERT_NOT_NULL(test, c->commit);
-+	if (active) {
-+		KUNIT_ASSERT_NOT_NULL(test, c->crtc_state->event);
-+		KUNIT_EXPECT_PTR_EQ(test, c->crtc_state->event->base.completion,
-+				    &c->commit->flip_done);
-+	}
-+
-+	drm_crtc_commit_get(c->commit);
-+}
-+
-+static void drm_event_test_finish(struct drm_event_test_ctx *c)
-+{
-+	drm_crtc_commit_put(c->commit);
-+	drm_modeset_drop_locks(&c->ctx);
-+	drm_modeset_acquire_fini(&c->ctx);
-+}
-+
-+/*
-+ * Test that destroying a state whose commit was never queued throws away the
-+ * event allocated by drm_atomic_helper_setup_commit(), and gives up the
-+ * reference the event held on the commit.
-+ */
-+static void drm_test_event_abort_internal(struct kunit *test)
-+{
-+	struct drm_event_test_ctx c;
-+
-+	drm_event_test_setup_commit(test, &c, NULL, true);
-+
-+	/* state, crtcs[].commit and the event, plus the one taken above */
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 4);
-+
-+	drm_atomic_commit_clear(c.state);
-+
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
-+	KUNIT_EXPECT_FALSE(test, try_wait_for_completion(&c.commit->flip_done));
-+
-+	drm_event_test_finish(&c);
-+}
-+
-+/*
-+ * Same as above, but with an event provided by the caller, like the atomic
-+ * uapi does.
-+ */
-+static void drm_test_event_abort_user(struct kunit *test)
-+{
-+	struct drm_pending_vblank_event *event;
-+	struct drm_event_test_ctx c;
-+
-+	event = kzalloc_obj(*event);
-+	KUNIT_ASSERT_NOT_NULL(test, event);
-+
-+	drm_event_test_setup_commit(test, &c, event, true);
-+	KUNIT_EXPECT_PTR_EQ(test, c.crtc_state->event, event);
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 4);
-+
-+	/* the event is freed here */
-+	drm_atomic_commit_clear(c.state);
-+
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
-+
-+	drm_event_test_finish(&c);
-+}
-+
-+static const char *drm_event_test_fence_name(struct dma_fence *fence)
-+{
-+	return "drm-event-test";
-+}
-+
-+static const struct dma_fence_ops drm_event_test_fence_ops = {
-+	.get_driver_name = drm_event_test_fence_name,
-+	.get_timeline_name = drm_event_test_fence_name,
-+};
-+
-+/*
-+ * Test that an event from the atomic uapi (here with an out-fence) is thrown
-+ * away with the state when the CRTC stays off. drm_atomic_helper_setup_commit()
-+ * skips such CRTCs, so no driver is required to consume the event and nothing
-+ * but the state destructor is left to free it. The fence reference tells
-+ * whether the event got freed.
-+ */
-+static void drm_test_event_stays_off(struct kunit *test)
-+{
-+	struct drm_pending_vblank_event *event;
-+	struct drm_event_test_ctx c;
-+	struct dma_fence fence;
-+	spinlock_t lock;
-+
-+	event = kzalloc_obj(*event);
-+	KUNIT_ASSERT_NOT_NULL(test, event);
-+
-+	spin_lock_init(&lock);
-+	dma_fence_init(&fence, &drm_event_test_fence_ops, &lock, 0, 0);
-+	/* the event's reference; the one from dma_fence_init() stays ours */
-+	event->base.fence = dma_fence_get(&fence);
-+
-+	drm_event_test_setup_commit(test, &c, event, false);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, c.crtc_state->event, event);
-+	KUNIT_EXPECT_NULL(test, event->base.completion);
-+	KUNIT_EXPECT_TRUE(test, try_wait_for_completion(&c.commit->flip_done));
-+	KUNIT_EXPECT_EQ(test, kref_read(&fence.refcount), 2);
-+
-+	/* the event is freed here */
-+	drm_atomic_commit_clear(c.state);
-+
-+	KUNIT_EXPECT_EQ(test, kref_read(&fence.refcount), 1);
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
-+
-+	/* the last reference is not dropped, @fence is on the stack */
-+	drm_event_test_finish(&c);
-+}
-+
-+/*
-+ * Test that an event which the driver consumed is not touched when the state
-+ * is destroyed, and that sending it completes flip_done.
-+ */
-+static void drm_test_event_consumed(struct kunit *test)
-+{
-+	struct drm_pending_vblank_event *event;
-+	struct drm_event_test_ctx c;
-+
-+	drm_event_test_setup_commit(test, &c, NULL, true);
-+
-+	event = c.crtc_state->event;
-+	c.crtc_state->event = NULL;
-+
-+	spin_lock_irq(&c.priv->drm.event_lock);
-+	drm_send_event_locked(&c.priv->drm, &event->base);
-+	spin_unlock_irq(&c.priv->drm.event_lock);
-+
-+	KUNIT_EXPECT_TRUE(test, try_wait_for_completion(&c.commit->flip_done));
-+	/* the event gave up its reference when it was sent */
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 3);
-+
-+	drm_atomic_commit_clear(c.state);
-+
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
-+
-+	drm_event_test_finish(&c);
-+}
-+
- static struct kunit_case drm_test_check_modeset_test[] = {
- 	KUNIT_CASE(drm_test_check_connector_changed_modeset),
- 	{}
-@@ -391,6 +576,19 @@ static struct kunit_case drm_in_clone_mode_check_test[] = {
- 	{}
- };
- 
-+static struct kunit_case drm_event_ownership_tests[] = {
-+	KUNIT_CASE(drm_test_event_abort_internal),
-+	KUNIT_CASE(drm_test_event_abort_user),
-+	KUNIT_CASE(drm_test_event_stays_off),
-+	KUNIT_CASE(drm_test_event_consumed),
-+	{}
-+};
-+
-+static struct kunit_suite drm_event_ownership_test_suite = {
-+	.name = "drm_atomic_event_ownership",
-+	.test_cases = drm_event_ownership_tests,
-+};
-+
- static struct kunit_suite drm_test_check_modeset_test_suite = {
- 	.name = "drm_validate_modeset",
- 	.test_cases = drm_test_check_modeset_test,
-@@ -402,7 +600,8 @@ static struct kunit_suite drm_in_clone_mode_check_test_suite = {
- };
- 
- kunit_test_suites(&drm_in_clone_mode_check_test_suite,
--		  &drm_test_check_modeset_test_suite);
-+		  &drm_test_check_modeset_test_suite,
-+		  &drm_event_ownership_test_suite);
- 
- MODULE_AUTHOR("Jessica Zhang <quic_jesszhan@quicinc.com");
- MODULE_DESCRIPTION("Test cases for the drm_atomic_helper functions");
--- 
-2.56.0
+I do wonder how all this is supposed to work in more complex real world
+scenarios, though.
 
+I believe the user primarily cares about *modes*. Which display modes
+can be used with each display/connector pair.
+
+With the low level link information, are you proposing to compute the
+required bandwidth for modes in userspace? I think it's going to be a
+lot of work to compute the bandwidth requirements, taking into account
+DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
+still miss any driver/GPU specific contraints. Or are you just proposing
+to match the physical characteristics only?
+
+Given all the connectors and displays and their modes on a system, you
+could estimate a) for each display, what modes could be used on each
+connector, and b) for each connector, what modes could be used on a
+display, if connected. From the user POV, they could be shown why some
+display mode is not available on the current connector, and crucially,
+on which connector it could be available.
+
+In general, I'm wondering if you're really after higher level
+information, something like "connector max available bandwidth
+with/without DSC", that would more directly map to the user needs as I
+see them than low level link details.
+
+Do you have the userspace somewhere? That's needed for merging UABI
+anyway [1].
+
+[1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-require=
+ments
+
+>
+> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
+> source and sink training capabilities to userspace via sysfs attributes
+> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
+> report current link information at runtime.
+>
+> Three drivers are updated as reference implementations: i915 (direct
+> connector path), ANX7625 and MediaTek (via the bridge connector framework
+> using a new DRM_BRIDGE_OP_DP flag).
+>
+> Here is a sysfs example:
+>
+> cur_link_info_dsc            sink_link_caps_nlanes
+> cur_link_info_link_rate      source_link_caps_dsc
+> cur_link_info_nlanes         source_link_caps_link_rates
+> sink_link_caps_dsc           source_link_caps_nlanes
+> sink_link_caps_link_rates
+>
+> 1620000 2160000 2700000 3240000 4320000 5400000
+>
+> 1620000 2700000 5400000 10000000 20000000
+>
+> 5400000
+>
+> This series is rebased on top of drm-misc and may conflict with the
+> current state of the drm i915 tree. Which tree should pick this up,
+> given that it mixes core development with driver changes?
+
+For development, please just base your work on top of drm-tip, and the
+tree(s) will be sorted out later.
+
+BR,
+Jani.
+
+
+> Patch 1,2: Move helpers out of i915
+> Patch 3: Introduce DisplayPort link training capabilities and state helpe=
+rs
+> Patch 4: Read i915 DSC capabilities in any case
+> Patch 5  Use dp_connector helpers in i915 to expose link training state
+> Patch 6: Introduce DRM_BRIDGE_OP_DP and wire bridge connectors
+> Patch 7: Use dp_connector helpers in anx7625 to expose link training state
+> Patch 8: Use dp_connector helpers in mediatek to expose link training sta=
+te
+>
+> Changes in v3:
+> - Rework the core to use new helpers instead of an extension of
+>   drmm_connector_init().
+> - Add a new mutex to protect sysfs read write access instead of using
+>   the global connection_mutex.
+> - Move helpers out of i915.
+> - Add the support in the anx7625 driver.
+> - Link to v2: https://patch.msgid.link/20260619-feat_link_cap-v2-0-a3dec4=
+c02ad9@bootlin.com
+>
+> Changes in v2:
+> - Removed work converting i915 to DRM managed resource
+> - Remove voltage swing and pre-emphasis properties
+> - Expose link training state via sysfs dp_link/ group instead of
+>   connector properties
+> - Add comprehensive sysfs attributes for both source and sink capabilities
+> - Add new helpers for managing sink capabilities and for current link
+>   parameters
+> - Link to v1: https://lore.kernel.org/r/20260409-feat_link_cap-v1-0-7069e=
+8199ce2@bootlin.com
+>
+> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+> ---
+> Kory Maincent (8):
+>       drm: Move sink link rates reading helpers out of i915
+>       drm: Move DSC capability reading helper out of i915
+>       drm: Introduce DisplayPort link training capabilities and state hel=
+pers
+>       drm/i915/display/dp: Read DPCD DSC capabilities in any case
+>       drm/i915/display/dp: Use dp_connector helpers to expose link traini=
+ng state
+>       drm/bridge: Expose link training state via new DRM_BRIDGE_OP_DP flag
+>       drm/analogix/anx7625: Use dp_connector helpers to expose link train=
+ing state
+>       drm/mediatek: Use dp_connector helpers to expose link training state
+>
+>  Documentation/ABI/testing/sysfs-class-drm-dp       |  85 +++
+>  drivers/gpu/drm/bridge/analogix/anx7625.c          |  68 +++
+>  drivers/gpu/drm/bridge/analogix/anx7625.h          |   1 +
+>  drivers/gpu/drm/display/Kconfig                    |   1 +
+>  drivers/gpu/drm/display/drm_bridge_connector.c     |  29 ++
+>  drivers/gpu/drm/display/drm_dp_helper.c            | 571 +++++++++++++++=
+++++++
+>  drivers/gpu/drm/drm_connector.c                    |  11 +
+>  drivers/gpu/drm/drm_sysfs.c                        | 155 ++++++
+>  drivers/gpu/drm/i915/display/intel_display_types.h |   2 +
+>  drivers/gpu/drm/i915/display/intel_dp.c            | 249 ++++-----
+>  .../gpu/drm/i915/display/intel_dp_link_training.c  |  14 +
+>  drivers/gpu/drm/mediatek/mtk_dp.c                  |  79 ++-
+>  include/drm/display/drm_dp.h                       |   1 +
+>  include/drm/display/drm_dp_helper.h                |  25 +
+>  include/drm/drm_bridge.h                           |  13 +
+>  include/drm/drm_connector.h                        |  53 ++
+>  include/drm/drm_sysfs.h                            |   1 +
+>  17 files changed, 1202 insertions(+), 156 deletions(-)
+> ---
+> base-commit: 34e9ab0182494d7599dc9759bc216550d814b396
+> change-id: 20260226-feat_link_cap-20cbb6f31d40
+>
+> Best regards,
+> --=20=20
+> K=C3=B6ry Maincent, Bootlin
+> Embedded Linux and kernel engineering
+> https://bootlin.com
+>
+
+--=20
+Jani Nikula, Intel
