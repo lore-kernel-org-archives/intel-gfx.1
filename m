@@ -2,97 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4657606A31C
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:39:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCCC606A8A9
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:45:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PBL997xy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZDD2HqH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F70510EDE8;
-	Mon, 16 Nov 2026 09:39:26 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A51910EDDB
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 09:39:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794821950;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vfDtkcqPvV+2k9dyjsvEmJCR0/Gq1KXbglEhzSUqmq4=;
- b=PBL997xyALWdIUtLQySIsabVRkPZx4sYJBK+YA8ZClrQS63OO5cyWMtXELjyUH3WWLmyae
- ypFmygs2qJkDAWOWuX67xiIIvWRoiFLDcUvpv2LMWvrcaqc24ASGfeKadAGeHNZqHEjBZw
- aSv2M6djm0joeYt8cgDJlvJMw6fJfcQ=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-642-mTGamfhZMMqEg7vYXe5HNQ-1; Mon, 16 Nov 2026 04:39:07 -0500
-X-MC-Unique: mTGamfhZMMqEg7vYXe5HNQ-1
-X-Mimecast-MFC-AGG-ID: mTGamfhZMMqEg7vYXe5HNQ_1794821946
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-490d2ac331bso3058976f8f.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 01:39:06 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794821946; x=1795426746;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=vfDtkcqPvV+2k9dyjsvEmJCR0/Gq1KXbglEhzSUqmq4=;
- b=fFBvltVUJRxd3bSSpUIueXFEPuEmBWDAwp5Af0JATrdvv4WEca44VdcpnJWDmd8PSW
- 6cDBAkV0Dn0DLLG2wNQ2PbTv8cNXyqDJO34CZAWJH535F6tO3cNDrpOvAAG09e+EcFgc
- MDc8/4ApYi1twxSY24kCneRhEnMSqPgUznMKjLFc2fBgJmCD9gLlgjy5uBIFaltoFKSU
- hX7EYHEB4Shz+GeK3i7LswQXKKbQjHwSbG8/pO4q8DsevceQFv31ddvrhlqAWquG2OSB
- VDqlpMwTfZh8IzfiiMBtaxRvaSvJcN2FAYhwO2VEaAqg5nGJ6/RLp3BrBK2yk0Z5y4ts
- lxWw==
-X-Forwarded-Encrypted: i=1;
- AL+hErF9RQnhEsQ+UW9i5PvBok3D5XhSsR+hGEIEHkW41IF12r/Aevc3Nng4Mgo0jCOGpwYE6BLqsh5aIzE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+ETwUHkB44DFgLPTnaGUSp606O6tQy+PMKoxFu/5Y7iV9dbakh
- KLtf3a+mofhAhrMBz3ojgWZbQSPYggaKYoSZhgZlSmL7A+qEXDKQveIjik5Rtd4Ui/EpYpDURTk
- MHvhRlld8GUMjaO4dBMQ/oJQOjWcJSDPjCKQU16JT8hyEZRKXgGLE/Q9aTMNTE4KT5QHBLQ==
-X-Gm-Gg: AZFdTZfjQJ/tM+1f+KOARvUCWGlfXYRx78AkTJNvrr8Q5sfIoD5yk8N0E0GxLa0JJWg
- DxAwwe7soLH5/FbXSUEw3j6aciS8fVsbkXXlRSuYFau9TXZe4xWaD1TVAxx0+cfAif+MGAVqH0x
- 2BBP3pEm+BTjaD2y+p00bjA0biPFp2Zw9OeGgpY597utNYnK4vZFTJCiYJBIh+6OdFzLa8JKV5O
- IxJbjWCqDTBYvHTbOBNYTsoiYiwZjAU8MVB2lZlGPpm3oeBxATVn8v/Z6vq3CJnKsp2eXma1Pdm
- BHRnVIR1fwzRwwdmNAiITwwYlSKzm9gTMPonptUPhzbe7lx9ix6HxQj+t9iNIKMn9qu7GVdva/K
- auWf0iac5NOE+PYsmU1RYAP2IRYr48tBlfgVlW8nENsBr4iiaJ5GA09T5F8/XoUnz90F0qrm8KG
- 6sZ0fhaL9PqkFESWttZSClGveiLi6RsXhkuLbdMQ8=
-X-Received: by 2002:a05:6000:25c1:b0:4a1:486b:4eb9 with SMTP id
- ffacd0b85a97d-4a1486b53eemr6359097f8f.40.1794821945574; 
- Mon, 16 Nov 2026 01:39:05 -0800 (PST)
-X-Received: by 2002:a05:6000:25c1:b0:4a1:486b:4eb9 with SMTP id
- ffacd0b85a97d-4a1486b53eemr6359053f8f.40.1794821945065; 
- Mon, 16 Nov 2026 01:39:05 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49c7da37b19sm21564920f8f.5.2026.11.16.01.39.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 01:39:04 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
- <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani
- Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Mario Limonciello <superm1@kernel.org>, Xaver Hugl
- <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: Re: [PATCH v11 12/12] drm/solomon: add SSD130x connector luminance
- support
-In-Reply-To: <20261103-superm1-backlight-property-v11-12-00cce7b2ba22@kernel.org>
-References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
- <20261103-superm1-backlight-property-v11-12-00cce7b2ba22@kernel.org>
-Date: Mon, 16 Nov 2026 10:39:03 +0100
-Message-ID: <xlv1ik1xru88.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: vLRFJriTJlBz4_F041pHzjnLNKKbGNbjkQ_6VtKqcK0_1794821946
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF3B810ED61;
+	Mon, 16 Nov 2026 09:45:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D87E910ED63;
+ Mon, 16 Nov 2026 09:45:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C529762834;
+ Mon, 16 Nov 2026 09:44:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344961F000C4;
+ Mon, 16 Nov 2026 09:44:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794822299;
+ bh=6G0145n9dvi9pc5EU5BthwJpudqxGvPRdSxqVMDAG70=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gZDD2HqHiYjImJQZMxylljl2f0hBJZxsnjMb20zI5K8Gy7ghsfrldtSqfLh/Kv2bU
+ nmmmEKMu2ndZOlKKP5VAUEWRzBxJHKtvxOmMNgiPwcAu2NElLfESGhykudAtT47Iok
+ KgOtNX/ebylSm1wBZiKjoZAOG5rbo9cBtP3NmgXVioLjxm5t+GQ6KDDMHxSHMW3Cbv
+ qPzZGxvU1vJf5o5wOupTY+e+TgWunIuKjXnvPQt7+tROzfQt3smv3BjjZcEiHE7174
+ Nb02HEH9yTECOgHOnHaBuP7cO2k6tya/fLkTlSSoHjCfebrgAWF0AMHTpmDIkvIWFe
+ GQME/HHE8UiSA==
+Message-ID: <sashiko-outbox-216633@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 11/12] drm/atomic/uapi: Make async flips a bit more
+ palatable through atomic
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261116091130.13950-12-ville.syrjala@linux.intel.com>
+References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
+ <20261116091130.13950-12-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 09:44:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,70 +51,161 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-"Mario Limonciello (AMD)" <superm1@kernel.org> writes:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/atomic: skipping all no-op planes breaks CRTC-only async
+  flips
+- [Medium] drm/atomic: stale FB_DAMAGE_CLIPS read in
+  drm_atomic_set_property()
+--
 
-Hello Mario,
+commit 64d10f48b65296ed20fc62e81d5d8b357f0e8b51
+Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> Expose SSD130x contrast through the connector LUMINANCE property when
-> DRM_LUMINANCE is enabled. Program contrast directly and register the
-> backlight class device only when DRM_LUMINANCE is disabled, so contrast
-> has a single owner.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> v11:
->  * Keep selecting BACKLIGHT_CLASS_DEVICE and drop the guards (Sashiko)
->  * Register the backlight device only without DRM_LUMINANCE (Sashiko)
->  * Initialise the controller with the committed luminance and don't
->    clobber the saved contrast on disable (Sashiko)
->  * Skip contrast writes while the controller is powered down (Sashiko)
->  * Unify contrast dispatch and backlight ops (Sashiko)
->  * Drop Reviewed-by due to the rework
-> v10:
->  * Guard the backlight operations and registration with
->    BACKLIGHT_CLASS_DEVICE
->  * Fix Kconfig recursive issue
->  * Add the Reviewed-by tag
-> ---
->  drivers/gpu/drm/solomon/ssd130x.c | 149 ++++++++++++++++++++++++--------------
->  drivers/gpu/drm/solomon/ssd130x.h |   2 +
->  2 files changed, 98 insertions(+), 53 deletions(-)
+drm/atomic/uapi: Make async flips a bit more palatable through atomic
 
-[...]
+This commit filters out no-op property changes during atomic async flips
+in drm_atomic_set_property() before duplicating plane and connector states,
+while still adding the associated CRTCs to the commit.
 
-> +static void ssd130x_connector_set_luminance(const struct drm_connector_state *conn_state)
-> +{
-> +	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 7517950d2e515..87181aba14514 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+
+[ ... ]
+
+> @@ -1285,16 +1326,19 @@ int drm_atomic_set_property(struct drm_atomic_com=
+mit *state,
+>  		struct drm_plane_state *plane_state;
+>  		struct drm_mode_config *config =3D &plane->dev->mode_config;
+>  		const struct drm_plane_helper_funcs *plane_funcs =3D plane->helper_pri=
+vate;
+> -
+> -		plane_state =3D drm_atomic_get_plane_state(state, plane);
+> -		if (IS_ERR(plane_state)) {
+> -			ret =3D PTR_ERR(plane_state);
+> -			break;
+> -		}
+> +		bool is_noop =3D false;
+> =20
+>  		if (async_flip) {
+> -			/* no-op changes are always allowed */
+> -			ret =3D drm_atomic_plane_get_property(plane, plane_state,
+> +			const struct drm_plane_state *current_plane_state;
 > +
-> +	/*
-> +	 * The encoder enable already initialized the controller with the
-> +	 * committed luminance. Skip if it failed to power up the controller.
-> +	 */
-> +	if (!ssd130x->enabled || ssd130x->contrast == conn_state->luminance)
-> +		return;
+> +			current_plane_state =3D
+> +				__drm_atomic_get_current_plane_state(state, plane);
+> +			if (IS_ERR(current_plane_state)) {
+> +				ret =3D PTR_ERR(current_plane_state);
+> +				break;
+> +			}
 > +
+> +			ret =3D drm_atomic_plane_get_property(plane, current_plane_state,
+>  							    prop, &old_val);
 
-Is not clear to me why you need this enabled field? I would prefer to not
-keep that state if possible.
+[Severity: Medium]
+Does reading prop_fb_damage_clips from current_plane_state return the
+previous commit's damage blob ID instead of 0?
 
-The changes look good to me though:
+Unlike IN_FENCE_FD (which always reports -1), drm_atomic_plane_get_property=
+()
+returns state->fb_damage_clips->base.id, and state->fb_damage_clips is only
+cleared to NULL when __drm_atomic_helper_plane_duplicate_state() duplicates
+the state for a new commit.  Before this change, drm_atomic_get_plane_state=
+()
+ran first, so old_val was always 0 on a fresh plane state.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+When current_plane_state is the un-duplicated plane->state from a previous
+commit that attached damage clips, passing FB_DAMAGE_CLIPS =3D 0 on a
+non-primary plane (such as a cursor plane) looks like a property change
+(old_val !=3D 0) and fails the async flip with -EINVAL.  Conversely, if
+userspace passes the same blob ID as the previous commit before FB_ID in the
+property list, FB_DAMAGE_CLIPS is skipped as a no-op and then wiped to NULL
+when FB_ID duplicates the plane state.
 
--- 
-Best regards,
+>  			if (ret)
+>  				break;
+> @@ -1318,25 +1362,40 @@ int drm_atomic_set_property(struct drm_atomic_com=
+mit *state,
+>  				break;
+>  			}
+> =20
+> -			/*
+> -			 * FIXME this is in the wrong place. Whether to do a
+> -			 * bypass commit for async flips would is a driver
+> -			 * decision. Drivers that want this need to just do
+> -			 * these checks themselves somewhere.
+> -			 */
+> -			if (old_val !=3D prop_value && plane->type !=3D DRM_PLANE_TYPE_PRIMAR=
+Y) {
+> -				/* ask the driver if this non-primary plane is supported */
+> -				if (plane_funcs && plane_funcs->atomic_bypass_check)
+> -					ret =3D plane_funcs->atomic_bypass_check(plane, state, true);
+> -				else
+> -					ret =3D -EINVAL;
+> -
+> -				if (ret) {
+> -					drm_dbg_atomic(prop->dev,
+> -						       "[PLANE:%d:%s] does not support async flips\n",
+> -						       obj->id, plane->name);
+> -					break;
+> -				}
+> +			if (old_val =3D=3D prop_value)
+> +				is_noop =3D true;
+> +		}
+> +
+> +		/* No-op plane property changes can be fully skipped */
+> +		if (is_noop) {
+> +			ret =3D 0;
+> +			break;
+> +		}
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+[Severity: High]
+What happens when all plane property updates in an async flip commit are
+no-ops (for example, primary plane FB_ID set to the current FB_ID)?
 
+__drm_atomic_get_current_plane_state() adds the CRTC to the commit and
+set_async_flip() sets crtc_state->async_flip =3D true, but skipping all pla=
+nes
+leaves the commit with zero planes in state.
+
+On i915/xe, crtc_state->do_async_flip is only set in
+intel_plane_atomic_calc_changes(), which only runs for planes in state.
+With no planes in state, do_async_flip stays false:
+
+1. If the first async flip on a pipe is a no-op, uapi.async_flip becomes
+   true in crtc->state without switching the primary plane to minimal
+   wm0/DDB.  On the next async flip where FB_ID actually changes,
+   intel_plane_do_async_flip() sees old_crtc_state->uapi.async_flip =3D=3D =
+true
+   and sets do_async_flip =3D true, while skl_compute_wm() tries to switch =
+to
+   minimal wm0/DDB for the first time; skl_ddb_add_affected_planes() and
+   skl_wm_add_affected_planes() then reject that and all subsequent async
+   flips with -EINVAL because watermarks/DDB cannot change during an async
+   flip.
+
+2. intel_crtc_complete_noop_async_flip() from commit "drm/i915: Complete
+   no-op async flips by hand" returns early on !crtc_state->do_async_flip,
+   so a no-op async flip falls through to a vblank-waited sync commit.
+
+3. On amdgpu_dm, a commit with no planes skips pageflip event arming in
+   amdgpu_dm_commit_planes() and falls back to drm_send_event_locked() in
+   amdgpu_dm_atomic_commit_tail(), sending DRM_EVENT_FLIP_COMPLETE with a
+   zeroed sequence and timestamp.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116091130.1395=
+0-1-ville.syrjala@linux.intel.com?part=3D11
