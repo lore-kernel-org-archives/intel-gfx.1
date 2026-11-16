@@ -2,81 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C263606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BAC606A890
 	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 14:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PSlAsAlB
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Aw3gATfw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2E4110F13F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C369810F159;
 	Mon, 16 Nov 2026 14:37:37 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F373A10E2C0
- for <intel-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 01:44:03 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c4d581da0aaso241492066b.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 17:44:03 -0800 (PST)
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
+ [74.125.224.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B88BE10E0D8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 00:02:36 +0000 (UTC)
+Received: by mail-yx1-f49.google.com with SMTP id
+ 956f58d0204a3-67c0bd676eeso2088708d50.3
+ for <intel-gfx@lists.freedesktop.org>; Sun, 15 Nov 2026 16:02:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794620642; x=1795225442; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=gVcYrHxuKjjRDsavX/u54wCI8Z5NBBro/KfpNW0Hgew=;
- b=PSlAsAlBKR1eJfNX0s3CCrfiFEzTUQqfrqtOZ4XRAIAMeGPMVzd7wfkCDRtrSfwD3C
- DOLLejzMzrOBfVsSV4F7z/47Yd/OVor5z5MaNNPdpOvLmkz0a6XM44QIlPRLSYbDps2t
- kEskpE1m0ue68ot1HyVvJN7Hp2V89tGnBfa8nUeUVcJmQfqLV2yvZdhXKTjiTvknNOke
- LdqBAEfD/OSCToueU9OijOwTdc8Iak1M2OzaP7h167/L+LseKBIpfslLiEQDICW1l/T6
- AAg5h0naC5EsL4KLp0SIEUWYr7vS1qVJMegalcYKXru+vwwo+4Am4oKsJUPiGKtIhfZV
- yYVQ==
+ d=gmail.com; s=20260707; t=1794787355; x=1795392155; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=y5g9gX+PiRwxc1Lcoo4j5plcZ5ytlB3/FlKk63qNKGI=;
+ b=Aw3gATfwKCJXaDERQa2BcE2LN6pt5Crr0mF2bjorPi8LG6VfedaaHJq5LalhOdVfvP
+ khx5aOeitfrfNTwHC3eaKQ1nFUXhVg85MJThG1o26YmB1FfeLChHI8kV25RlLxL9P8/Y
+ z5LBE3qQuGxit4wKZm/5BfNPwvYqtJw5UrwTZn2iPDuDBMGyDnOIcftA4T9NT4PzqTKV
+ 1LwFSSZrB/bttPD1e86g1RL0Njeu6H9SeTUaKxuavTWyFhCefNMv0X74LQGtwTSCYEER
+ xa68+yXtFyL81AhL9eScCywpBGJwPHKqUoxd+I3sDw75nWFGZlrVA3GCjZHFfR1oktv5
+ A6/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794620642; x=1795225442;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=gVcYrHxuKjjRDsavX/u54wCI8Z5NBBro/KfpNW0Hgew=;
- b=O7glCx/hluZ9uGS3JZyVBCx4BG0uhZTBUK3UKAFYX81W1d/V6QdT5sYb1VaJXXxe06
- pReOMJKWoMXFrTuIQDfZseG15EleWT3YzuBiooLWyHxF7wmiwVhuOds12Ji757q0Uf+D
- trH2jQB1QKixDT+eZxwLS/BdwJVurTGPsC5CM5cxbkGQ8gnVZ0nENpMORZnrUAjzlXQ+
- GN9CaqbD0AyhC8ybZ7b9URWQJ/I1cUTj7eQUByvQGdewS/Kn4mcLl+MZ9XXGbi0R3YKR
- fndyiAnfwESY51e7SNcKmXoQJARdDp3eFinSwKUWgGQA+swcwTxQ/pqrwHv7Pue4YfCQ
- vtMw==
-X-Gm-Message-State: APuU4Z+UsHl3ZJ8mLtw+9+J9MRux+dyEjsXxM9rTOUOv5eFQ4cwCFCBg
- ybJD2AX1gIah+Q600xuf9hCurWLKUDk59PfAhugXMjQUVmfsNWAlsoS3sxu/XhEomsI=
-X-Gm-Gg: AYBFou3Jtrv8I58aljZy+kV5GqgMflwsmn7UdNh9f2IjerNxG1oNEGD/JErVbZpacri
- t1OI0p1EgXwz6b0G2K0Q8WwwoplTREzaRk7NiwfDgOn72cTqz+Tgc6mtALdpcOrqdsOlk4ArDvS
- oJ4FkTwhr1N7L1NTH465txIpAQAkdrkqk9d6vtFLIiqXMBYOjJRNGbKDQCLWuvn6VgnSq0zeX1q
- Pb8IRDY/t3APXzCu8/S8NDAh2roF2DpGHUqkHgw3Ymyg3FipW5zkH0BtgQnEUxjdBiRbFujc93s
- KpCigAXTi63DWE7LQGA9FipdZ3j54y+l+k0B1XCOHMXHXFsOdm9u/XXGVvlH/LYFMdNRwcnEBZQ
- I8MxPT9tB7iOVitEJ5pNr6MriECm8NTjTxJCG36LKF8wuA8M+TSB7xfZ7Z4kQVkkREFN41/6ltP
- ABameZw4RBBBw+v/rrdcXTN0cOmLg/SMQv3B4LKRTJDFCINo2DlQ+cy+AonlefrXZFs4madxhGx
- omV+8X4BM/o3kiRE20jk7ZheaYUeq3nuXQPk+XZ0eEejmIfzHJ8ImUuNG7BjtuQKJA6KusbI7ix
- hsPhifaWFgmt25PM0RL1ZDgPYQtlUB8txNn0mQdcsrVYXI+Gi3O9fou8UP+PnR3INrX1SC3X/se
- 1uzXJrT1A0ZXreHfiFwN87vo=
-X-Received: by 2002:a17:907:96ac:b0:c29:3c97:c994 with SMTP id
- a640c23a62f3a-c50963bd677mr349321366b.35.1794620642059; 
- Fri, 13 Nov 2026 17:44:02 -0800 (PST)
-Received: from SMOK.angora-ide.ts.net
- (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
+ d=1e100.net; s=20260707; t=1794787355; x=1795392155;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=y5g9gX+PiRwxc1Lcoo4j5plcZ5ytlB3/FlKk63qNKGI=;
+ b=TKaEZwboETJkrm8HAPAvFDj1ij9x6Czbx2SQJffnTemmJkSAYXDnKpXXonBSn6Z++M
+ FMjKefgYNrVwaGg3xQRvIQZUTZHJUv0Kmw4u9Ac+9p2pZ2Y5T+NkurAK5uKiJ41qfxNH
+ 04HoLdwwWvd81+0TeedPVJGH1qHI+wErtG4LBQkL/8aHmDyeCq5DIpNTvSjs+PKSAC/b
+ Dn3YqIiV/SJwD7zAQtzOGi/Da1oYHxfnqCwizH/s/jO5CQR52DqgiGayziF4S71QteYp
+ K3vXGBFJS0PPaLylNex8QN9igQgpTWlZuWttNNMJW6IjWfwIXq7WKwZIZrOErYNnB/6G
+ LIUA==
+X-Gm-Message-State: APuU4Z/wESIZ9iLRYazY0rUnm8l8UUMw3SI2APHLqDUasIHiRrnivtzB
+ o/1oHjHDd0ZQ5d0UaGSRomIQiNgn5+ODydGxLM+fKLfuwJZw/dQwvNBb/UZj+G42
+X-Gm-Gg: AZFdTZc6Wxq9ZWHBL37GaTeWmzBwE6p+/dJFWA0cLuVPsebr6n/xzLTSq3oIPn0/BD0
+ AA03gIE84YaP4iyw1cV3vBEHrrz7uFPiGPqSiXoOGE+zx3r6XGVFPYOJNa2FsnhD4eykNH6h6Ds
+ laV2RtFUo4ZwPXU5DWpQDk5FNQAweiFhWcsLsE+uYeQfEJ1+BONwoxQ/FYDTec5bFsC/9Na82yu
+ lmqx0+NqKp1fIKtie4gFVPqQ2N3FbWuO4dLoZPWvxpGkUUi4qKqmn9xvsn1cXTzX+HQq/mgIXYl
+ V3d9uJPTG5aMMQHgEzg4NLHuTwUhsucsUiui/xuhNbWK6RvuqdNEcQpbZ+HtWLUkq31tPorrixS
+ uQbtOvB9C2Pp2023eGpvOyJC8oa2eXhFMQII9gDXL/jln0nZfLnhU3lEb8Q6vaokiHKLncaNdH+
+ ecMkiw1R5t9wg4hWo9CC3X9FdDW8kNFiWT6U7jwR+NEY6c3LqPFPVDXTT7PE7WwYq0gWL/sLeVj
+ c3xxgac6ZydDST7bpseJuoyj+ddP/d6S2QjoZV5Y5fl1DTrS/L6jlUdQ72ENGFAjPCJ80n7djVn
+ bkrdy8mAzLAmLm6U7rti1DUKe+Lo4uhs0Oam58yKurVoQzBPrkHoGryt1a1bMQJBzLgnWKGshDk
+ urQ==
+X-Received: by 2002:a05:690e:803:10b0:677:d180:d39c with SMTP id
+ 956f58d0204a3-67d8965a4damr3708220d50.20.1794787355165; 
+ Sun, 15 Nov 2026 16:02:35 -0800 (PST)
+Received: from localhost.localdomain ([190.13.90.101])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.44.00
+ 956f58d0204a3-67d8a6210ffsm8400263d50.20.2026.11.15.16.02.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 17:44:01 -0800 (PST)
-From: ElXreno <elxreno@gmail.com>
+ Sun, 15 Nov 2026 16:02:34 -0800 (PST)
+From: Lucas Moreno <lucasgabmoreno@gmail.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
- mitulkumar.ajitkumar.golani@intel.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ElXreno <elxreno@gmail.com>
-Subject: [PATCH 5/7] drm/i915: Arm joined pipes within one vblank evasion for
- VRR
-Date: Sat, 14 Nov 2026 04:43:33 +0300
-Message-ID: <20261114014335.2132756-6-elxreno@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
-References: <20261114014335.2132756-1-elxreno@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, i915-ci-infra@lists.freedesktop.org,
+ Lucas Moreno <lucasgabmoreno@gmail.com>
+Subject: [PATCH RESEND] drm/i915/bios: Fix reset sequence order on GLK VBTs
+ with DEASSERT_RESET in INIT_OTP
+Date: Sun, 15 Nov 2026 21:00:30 -0300
+Message-ID: <20261116000030.8978-1-lucasgabmoreno@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -95,197 +91,152 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-All joined pipes run off the transcoder of the primary, so one vblank
-latches every one of them. On the MMIO path each pipe nevertheless
-goes through its own intel_pipe_update_start()/intel_pipe_update_end()
-critical section, one pipe after another. When the vblank falls
-between two of them the earlier pipe latches its new state a frame
-ahead of the later one, and for that frame the halves of the screen
-come from different frames.
+Some Gemini Lake VBTs, such as the one on the Lenovo IdeaPad
+D330-10IGL, have an empty MIPI_SEQ_DEASSERT_RESET and perform the whole
+panel reset pulse (GPIO set/clear/set with delays) from
+MIPI_SEQ_INIT_OTP. The driver runs INIT_OTP after the DSI host has been
+brought up, so the panel gets reset with the link already active. On
+the affected machine this leaves the panel black with the backlight on
+after S3 resume (the driver reports success at every step), and
+randomly on boot and on output off/on cycles.
 
-With VRR that gets worse, as the commit ends the frame itself: the
-push at the end of the primary's section latches whatever has been
-armed by then. Commit the joined pipes together when VRR is in use:
-do the vblank evasion once, on the primary, arm all of them inside
-that critical section and let the primary send the push at its end.
-The evasion accounting, the trace events and the atomic update
-failure check then run once as well, for the primary.
+vlv_fixup_mipi_sequences() already handles the same kind of VBT bug on
+VLV, but only for version 1 sequence blocks. The D330 uses a version 3
+block, so add an equivalent fixup for GLK: if DEASSERT_RESET is
+missing or empty, ASSERT_RESET exists, the panel is in video mode and
+INIT_OTP only contains GPIO and delay elements, run INIT_OTP as
+DEASSERT_RESET and leave INIT_OTP empty (or swap them if an empty
+DEASSERT_RESET was present).
 
-Armed this way the critical section takes 15 us on average for two
-pipes on Arrow Lake (71983 commits at 240 fps: 71918 under 30 us, 16
-between 30 and 60 us, 49 between 60 and 188 us), against the 100 us
-the evasion allows for. The window is not scaled with the number of
-pipes. The 49 are single MMIO writes that stall, not more work: the
-instruction count is that of an ordinary section, the CPU stays in
-C0, there is no SMI or NMI, and the register differs from case to
-case. The per pipe sections of the same mode without VRR and with
-the DSB turned off show the same stalls (15 of 72002 sections over
-60 us), so they do not come from arming two pipes in one section.
-None of them ran into a vblank.
+Tested on a Lenovo IdeaPad D330-10IGL (BIOS G0CN14WW, Celeron N4020)
+with an otherwise unmodified v6.12.107 i915: 10/10 S3 resumes, 10/10
+rotations and output off/on cycles, and 10/10 reboots with a working
+display, where it failed every time before.
 
-The per pipe sequence is kept where the critical section has per
-pipe work attached or the pipes need sequencing against others:
-modesets, the atomic fallback of a legacy cursor update, async flips,
-commits that need the vblank worker for the LUT load and commits that
-change the DDB allocation of a joined pipe. The vblank worker is
-needed on the platforms without double buffered LUTs, when a colour
-update or a fastset has LUTs to load that can neither be preloaded
-nor be left to a colour DSB. Commits that go through the DSB or the
-flip queue are not affected, and neither is the commit sequence of a
-joined configuration without VRR. The latter has the same race
-against the fixed vblank, it is left alone only to keep this change
-to the case that can be tested with it.
-
-On the platforms with double buffered LUTs there is no vblank worker.
-Where no colour DSB is used the LUTs are loaded with MMIO inside the
-critical section, which here is the joined one and then loads them
-for all joined pipes. I have no such hardware and have not tested
-that.
-
-No functional change yet, VRR is not allowed with the joiner.
-
-Signed-off-by: ElXreno <elxreno@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13225
+Signed-off-by: Lucas Moreno <lucasgabmoreno@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_crtc.h    |  1 +
- drivers/gpu/drm/i915/display/intel_display.c | 88 ++++++++++++++++++++
- 3 files changed, 90 insertions(+), 1 deletion(-)
+Resending: the original posting (Oct 13) has had no comments so far, and
+Intel GFX CI did not run on it because my author address is not on the
+allowlist (LGCI.VerificationFailed, Patchwork series 176138). I also
+asked in the thread and on i915-ci-infra, with no reply yet.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 139c9dae536e..f41616a060b5 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -487,7 +487,7 @@ int intel_crtc_get_pipe_from_crtc_id_ioctl(struct drm_device *dev, void *data,
- 	return 0;
- }
- 
--static bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state)
-+bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
-index 12507b51ee77..0478394b01e8 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.h
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.h
-@@ -50,6 +50,7 @@ void intel_pipe_update_start(struct intel_atomic_state *state,
- 			     struct intel_crtc *crtc);
- void intel_pipe_update_end(struct intel_atomic_state *state,
- 			   struct intel_crtc *crtc);
-+bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state);
- void intel_wait_for_vblank_workers(struct intel_atomic_state *state);
- struct intel_crtc *intel_first_crtc(struct intel_display *display);
- struct intel_crtc *intel_crtc_for_pipe(struct intel_display *display,
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index aa03f674d93b..1fda1bb15674 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7151,12 +7151,100 @@ static void intel_post_update_crtc(struct intel_atomic_state *state,
+Tested on v6.12.107 on a Lenovo IdeaPad D330-10IGL. This version is
+ported to current mainline, where only the platform check differs
+(display->platform.geminilake instead of IS_GEMINILAKE()). I could
+not build or test it on mainline on this machine. See the discussion
+in the issue linked above, where Ville pointed at the empty
+MIPI_SEQ_DEASSERT_RESET in this VBT.
+
+Question: should this apply to all GLK with this VBT shape, or be
+limited with a DMI quirk? I only have one unit.
+
+ drivers/gpu/drm/i915/display/intel_bios.c | 80 +++++++++++++++++++++++
+ 1 file changed, 80 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 97cbae2..d1c48d9 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2056,6 +2056,84 @@ static void icl_fixup_mipi_sequences(struct intel_display *display,
  	}
  }
  
 +/*
-+ * All joined pipes run off the transcoder of the primary, so one
-+ * vblank latches every one of them, and with VRR the commit itself
-+ * ends the frame with a push. The arming registers of all joined
-+ * pipes then have to be written within a single vblank evasion
-+ * critical section, with the push at its end, or the pipes may
-+ * latch in different frames.
++ * Count the elements of a v3 MIPI sequence, and report whether all of
++ * them are GPIO or delay elements (i.e. nothing that needs the DSI host
++ * to be up, like sending a packet).
 + */
-+static bool intel_crtc_needs_joined_update(struct intel_atomic_state *state,
-+					   struct intel_crtc *crtc)
++static int mipi_seq_v3_count_elems(const u8 *seq, bool *gpio_delay_only)
 +{
-+	struct intel_display *display = to_intel_display(state);
-+	const struct intel_crtc_state *old_crtc_state =
-+		intel_atomic_get_old_crtc_state(state, crtc);
-+	const struct intel_crtc_state *new_crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+	struct intel_crtc *pipe_crtc;
++	const u8 *p = seq + 5;	/* skip the sequence byte and the size */
++	const u8 *end = seq + 5 + *((const u32 *)(seq + 1));
++	int count = 0;
 +
-+	if (!new_crtc_state->joiner_pipes)
-+		return false;
++	*gpio_delay_only = true;
 +
-+	/* FIXME do this for the fixed refresh rate case as well */
-+	if (!old_crtc_state->vrr.enable && !new_crtc_state->vrr.enable)
-+		return false;
++	while (p < end) {
++		u8 op = *p++;
 +
-+	/* FIXME the cursor unpin works are set up per pipe */
-+	if (state->base.legacy_cursor_update)
-+		return false;
++		if (op == MIPI_SEQ_ELEM_END)
++			break;
++		if (p >= end) {
++			*gpio_delay_only = false;
++			break;
++		}
++		if (op != MIPI_SEQ_ELEM_GPIO && op != MIPI_SEQ_ELEM_DELAY)
++			*gpio_delay_only = false;
 +
-+	for_each_intel_crtc_in_pipe_mask(display, pipe_crtc,
-+					 intel_crtc_joined_pipe_mask(new_crtc_state)) {
-+		const struct intel_crtc_state *old_pipe_crtc_state =
-+			intel_atomic_get_old_crtc_state(state, pipe_crtc);
-+		const struct intel_crtc_state *new_pipe_crtc_state =
-+			intel_atomic_get_new_crtc_state(state, pipe_crtc);
-+
-+		/* The DSB and the flip queue do their own vblank evasion */
-+		if (new_pipe_crtc_state->commit_type != INTEL_COMMIT_MMIO)
-+			return false;
-+
-+		if (intel_crtc_needs_modeset(new_pipe_crtc_state) ||
-+		    new_pipe_crtc_state->do_async_flip)
-+			return false;
-+
-+		/* FIXME the vblank work is set up per pipe */
-+		if (intel_crtc_needs_vblank_work(new_pipe_crtc_state))
-+			return false;
-+
-+		/*
-+		 * A changed DDB allocation must be sequenced
-+		 * against the other pipes one pipe at a time.
-+		 */
-+		if (!skl_ddb_entry_equal(&old_pipe_crtc_state->wm.skl.ddb,
-+					 &new_pipe_crtc_state->wm.skl.ddb))
-+			return false;
++		p += 1 + *p;	/* length byte + payload */
++		count++;
 +	}
 +
-+	return true;
++	return count;
 +}
 +
-+static void intel_update_joined_crtcs(struct intel_atomic_state *state,
-+				      struct intel_crtc *primary_crtc)
++/*
++ * Some GLK VBTs (e.g. Lenovo IdeaPad D330-10IGL) have an empty
++ * MIPI_SEQ_DEASSERT_RESET and do the whole panel reset pulse from
++ * MIPI_SEQ_INIT_OTP instead. INIT_OTP runs after the DSI host has been
++ * brought up, but the panel reset must happen before that. When
++ * INIT_OTP only contains GPIO and delay elements, run it as
++ * DEASSERT_RESET instead.
++ */
++static void glk_fixup_mipi_sequences(struct intel_display *display,
++				     struct intel_panel *panel)
 +{
-+	struct intel_display *display = to_intel_display(state);
-+	const struct intel_crtc_state *new_crtc_state =
-+		intel_atomic_get_new_crtc_state(state, primary_crtc);
-+	u8 pipe_mask = intel_crtc_joined_pipe_mask(new_crtc_state);
-+	struct intel_crtc *pipe_crtc;
++	u8 *deassert = (u8 *)panel->vbt.dsi.sequence[MIPI_SEQ_DEASSERT_RESET];
++	u8 *init_otp = (u8 *)panel->vbt.dsi.sequence[MIPI_SEQ_INIT_OTP];
++	bool gpio_delay_only;
 +
-+	/* Perform vblank evasion around the commit of all joined pipes */
-+	intel_pipe_update_start(state, primary_crtc);
-+
-+	for_each_intel_crtc_in_pipe_mask_reverse(display, pipe_crtc, pipe_mask)
-+		commit_pipe_arm(state, pipe_crtc);
-+
-+	intel_pipe_update_end(state, primary_crtc);
-+
-+	for_each_intel_crtc_in_pipe_mask_reverse(display, pipe_crtc, pipe_mask)
-+		intel_post_update_crtc(state, pipe_crtc);
-+}
-+
- static void intel_update_crtc(struct intel_atomic_state *state,
- 			      struct intel_crtc *crtc)
- {
- 	struct intel_crtc_state *new_crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 
-+	if (intel_crtc_needs_joined_update(state, crtc)) {
-+		/* The secondaries are committed along with the primary */
-+		if (intel_crtc_is_joiner_primary(new_crtc_state))
-+			intel_update_joined_crtcs(state, crtc);
++	if (panel->vbt.dsi.seq_version != 3 ||
++	    panel->vbt.dsi.config->is_cmd_mode)
 +		return;
-+	}
 +
- 	switch (new_crtc_state->commit_type) {
- 	case INTEL_COMMIT_FLIPQ:
- 		intel_flipq_enable(new_crtc_state);
++	if (!init_otp || !panel->vbt.dsi.sequence[MIPI_SEQ_ASSERT_RESET])
++		return;
++
++	/* Only if DEASSERT_RESET is missing or empty */
++	if (deassert && mipi_seq_v3_count_elems(deassert, &gpio_delay_only))
++		return;
++
++	/* And INIT_OTP only toggles GPIOs and waits */
++	if (!mipi_seq_v3_count_elems(init_otp, &gpio_delay_only) ||
++	    !gpio_delay_only)
++		return;
++
++	drm_dbg_kms(display->drm,
++		    "Running INIT_OTP (GPIO/delay only) as DEASSERT_RESET\n");
++
++	/* The sequence executor checks the id byte of each sequence */
++	init_otp[0] = MIPI_SEQ_DEASSERT_RESET;
++	panel->vbt.dsi.sequence[MIPI_SEQ_DEASSERT_RESET] = init_otp;
++
++	if (deassert) {
++		deassert[0] = MIPI_SEQ_INIT_OTP;
++		panel->vbt.dsi.sequence[MIPI_SEQ_INIT_OTP] = deassert;
++	} else {
++		panel->vbt.dsi.sequence[MIPI_SEQ_INIT_OTP] = NULL;
++	}
++}
++
+ static void fixup_mipi_sequences(struct intel_display *display,
+ 				 struct intel_panel *panel)
+ {
+@@ -2063,6 +2141,8 @@ static void fixup_mipi_sequences(struct intel_display *display,
+ 		icl_fixup_mipi_sequences(display, panel);
+ 	else if (display->platform.valleyview)
+ 		vlv_fixup_mipi_sequences(display, panel);
++	else if (display->platform.geminilake)
++		glk_fixup_mipi_sequences(display, panel);
+ }
+ 
+ static void
 -- 
-2.56.0
+2.43.0
 
