@@ -2,44 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45138606A331
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:23:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD36606A32A
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:27:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzUCvcZG
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=O8yOG7EC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B58FE10EDD6;
-	Mon, 16 Nov 2026 09:23:52 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0F2F10E3C6;
- Mon, 16 Nov 2026 09:23:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CBB2661169;
- Mon, 16 Nov 2026 09:23:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6571F000C5;
- Mon, 16 Nov 2026 09:23:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794821025;
- bh=H0jozQ+jMVhP9EQ25TbSqzBbba9YkkiI8kP5Djl5nAw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QzUCvcZGXcgNztqba5I4OWRnmuqZCm8PaNR9FNT3Q5pmHNFCSlcqhPAS2/Ww3H38P
- eauVrMloT5gm3e7V1kgA7SHwScdVVP1prygQC9KvzNZLuDDW0sbtbO0n4kJ98ib+Tz
- wB6pXXSJWOM+qtAWrQTl4vg07iVPlMjWFyUWksDX40eL/J+A9DMv4ci+xGhZpjysrX
- OYqbap0Dz/HYs/rxsIq5JCFy2zhv/JnMbk1T+jNvq9ir9P0n0QDGC7D3b12DUaBfWk
- lIbeYB4xMOMbEKrjbRkO5YO/r764V0X92yZrlzyYTJXL1VEREj5BNaWML18a0Kh8CZ
- ZU05xLzcXB2EQ==
-Message-ID: <sashiko-outbox-216608@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/12] drm/atomic: s/async/bypass/
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261116091130.13950-3-ville.syrjala@linux.intel.com>
-References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
- <20261116091130.13950-3-ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 09:23:44 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF05C10EE14;
+	Mon, 16 Nov 2026 09:27:43 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77AD410E9B3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 09:27:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1794821256;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UeghsTiOb4ju5n7zGZ1nHsTM034u6BwVxNZLSRJoYfw=;
+ b=O8yOG7ECcm43MInd7H6L/X28k91eZ2Rd3+TGYWtLGMufYSscasJ7HrvM5gEEtfbQ5mDBH7
+ uW7S+SG8Vc3T2cB75fu/m8+qpwQOLEsxNSHE3m3hsqXNoO3R8YAgzSvpwfvcDCYZGIiAgn
+ /4aiUiZ4S71FmbYBdzaGVtSCbsXto0Y=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-711-ISZNpeVTMBqTkJrn9R8WbQ-1; Mon, 16 Nov 2026 04:27:35 -0500
+X-MC-Unique: ISZNpeVTMBqTkJrn9R8WbQ-1
+X-Mimecast-MFC-AGG-ID: ISZNpeVTMBqTkJrn9R8WbQ_1794821254
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-4b0a307487aso14787375e9.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 01:27:34 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794821254; x=1795426054;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=UeghsTiOb4ju5n7zGZ1nHsTM034u6BwVxNZLSRJoYfw=;
+ b=QUKbCF5A8KaYaKaI5a4txyMhjdibMlYzkfUj2Z9CJ6kkiWNHvx2LZpnL+9gwTIWfZy
+ mZPjcgAXASEAuQvJwyEUh9Z+QWufveuwCVKrSJQt+UKkZbYAk9PLYEFDLaxX5TyKVBWm
+ lnKFrZbc0OpA/FRNg+pJceDIm7I6VUuJpkAXKOdm5d9ALUWbG2VHx2Y/KHhsOjOwqWA7
+ m/Rnw8YD22jQH5ejIJ7lCJWoFGtiZyxz9ePye/dephq2RNdZZe3HzqHtfA6LzP3eQbvq
+ nerQa4/WF1WejQFbEICo5JhrxFlc3ITE8JYSfCp8w/QLwc20tIzac9zxyOP71sn6NVR2
+ 8bPw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErF8C9Jlj17oR7fL308keDYqk82nFRS1MPAU9H5+RgCdFG5GtN8dOy4sJsDm6PyLOi9HnlE+5mo3dNI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/kIdWqCVfypWuYk7fv4g2JmMuxohen0ebY3Vx8pxfyHJyY7/5g
+ Ei56xq8kXxJSrACtFrPUcUkatmJDjmcZeZL6F8oTQBsm40BmQcZ1cAzkSJ+afsZmvzOFRVkmVVT
+ gdX9E5yQlhHWVeetauZ9iBCNHUaDSyuT3/Xf2U0t3/uRRDd22vl6j8RI5YQaQ7m7+3xq8RQ==
+X-Gm-Gg: AYBFou2fMvIDaToTbzo4WK7nHrxCvBALJp6qOr/C4qytZYPa3QgPf4lktAKF0qXm6GW
+ Ueb5hm3zdlI95qbWG0aNYJBSkL0/BcYpHz6TAMK2i2+b8Rn8cJEdLe5Jl8dHALVwGydKmTEFPcM
+ DgFAORlbaCdmW1RiwfIbMz3sMNngxRySJZwvsN+DV28hhOrAjfi0CVWJ0lLPYOzvopBNITAfZcV
+ zYltxWR40Afhtp5tL3+cBQqOH8OCAsNAa+RvrtuACPjWt9MzlI6fombbxMTs+lRnu23i05td0PV
+ Vhotrm1EsgYwKWNj3ayUO5Rrcn2sD9fmxRyF9Cx/4PSRjPTfkKutmM1bBayafxA1EryfRrQ7DxS
+ 4JEIuBLuH2lgy381sVXABR/r846oWE4boSUSVUU9dnHKHjAgS6bwTyVb88eflwr4ettlBBj3nDH
+ G5mmVSJAab7Vs5YXTHfjBBzaCqC9S/MwA0xLmhTiY=
+X-Received: by 2002:a05:600c:3114:b0:4a2:167a:c939 with SMTP id
+ 5b1f17b1804b1-4bb55a5de41mr207754025e9.21.1794821253834; 
+ Mon, 16 Nov 2026 01:27:33 -0800 (PST)
+X-Received: by 2002:a05:600c:3114:b0:4a2:167a:c939 with SMTP id
+ 5b1f17b1804b1-4bb55a5de41mr207753235e9.21.1794821253228; 
+ Mon, 16 Nov 2026 01:27:33 -0800 (PST)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb52bab8bbsm280128335e9.13.2026.11.16.01.27.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Nov 2026 01:27:32 -0800 (PST)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
+ <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani
+ Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
+ <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Mario Limonciello <superm1@kernel.org>, Xaver Hugl
+ <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: Re: [PATCH v11 07/12] drm/panel: add connector luminance forwarding
+In-Reply-To: <20261103-superm1-backlight-property-v11-7-00cce7b2ba22@kernel.org>
+References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
+ <20261103-superm1-backlight-property-v11-7-00cce7b2ba22@kernel.org>
+Date: Mon, 16 Nov 2026 10:27:31 +0100
+Message-ID: <xlv1qzglrurg.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 1e7sG6X1A_qLZEoNiFcSFn83z2lNpeUu8grS7F7C2qc_1794821254
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,114 +102,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 2 related pre-existing issues it does not
-introduce:
-- [High] drm/loongson: live state mutation in
-  lsdc_cursor_plane_atomic_async_check() [1]
-- [Medium] drm/loongson: incomplete state copy in
-  lsdc_cursor_plane_atomic_async_update() [2]
---
+"Mario Limonciello (AMD)" <superm1@kernel.org> writes:
 
-commit 7aa4a6090dacda1cd98d23702b18772083dad3be
-Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> Add helpers that expose a panel backlight through the connector
+> LUMINANCE property and forward connector updates to the backlight
+> backend.
+>
+> Hook the helpers into panel bridges that create their own connector.
+> Panels consumed directly, or by a panel bridge attached with
+> DRM_BRIDGE_ATTACH_NO_CONNECTOR, remain unchanged. Turning the backlight
+> on and off is left to drm_panel_enable() and drm_panel_disable(), which
+> already honour self refresh.
+>
+> The panel backlight remains the hardware backend and keeps its
+> /sys/class/backlight device, which is owned by the backlight driver.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-drm/atomic: s/async/bypass/
+Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 
-This commit renames the atomic plane async update helpers, hooks, and
-state flags to "bypass" across the DRM core and display drivers.
+-- 
+Best regards,
 
-[ ... ]
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
-> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c b/drivers/gpu/drm/loon=
-gson/lsdc_plane.c
-> index c425288ba4909..59f85072273a6 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-> @@ -172,9 +172,9 @@ static const struct drm_plane_helper_funcs lsdc_prima=
-ry_helper_funcs =3D {
->  	.atomic_disable =3D lsdc_primary_atomic_disable,
->  };
-> =20
-> -static int lsdc_cursor_plane_atomic_async_check(struct drm_plane *plane,
-> -						struct drm_atomic_commit *state,
-> -						bool flip)
-> +static int lsdc_cursor_plane_atomic_bypass_check(struct drm_plane *plane,
-> +						 struct drm_atomic_commit *state,
-> +						 bool flip)
->  {
->  	struct drm_plane_state *new_state;
->  	struct drm_crtc_state *crtc_state;
-
-[Severity: High]
-This problem wasn't introduced by this patch, but should
-lsdc_cursor_plane_atomic_bypass_check() pass new_state instead of
-plane->state to drm_atomic_helper_check_plane_state() [1]?
-
-drivers/gpu/drm/loongson/lsdc_plane.c:lsdc_cursor_plane_atomic_bypass_check=
-() {
-	...
-	return drm_atomic_helper_check_plane_state(plane->state,
-						   crtc_state,
-						   DRM_PLANE_NO_SCALING,
-						   DRM_PLANE_NO_SCALING,
-						   true, true);
-}
-
-drm_atomic_helper_check_plane_state() updates src, dst, and visible on the
-passed-in state, so passing plane->state mutates the live committed state
-during the check phase, racing with concurrent readers and corrupting
-active state if the check fails or runs as TEST_ONLY.
-
-> @@ -219,8 +219,8 @@ static int lsdc_cursor_plane_atomic_async_check(struc=
-t drm_plane *plane,
->  						   true, true);
->  }
-> =20
-> -static void lsdc_cursor_plane_atomic_async_update(struct drm_plane *plan=
-e,
-> -						  struct drm_atomic_commit *state)
-> +static void lsdc_cursor_plane_atomic_bypass_update(struct drm_plane *pla=
-ne,
-> +						   struct drm_atomic_commit *state)
->  {
->  	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
->  	const struct lsdc_cursor_plane_ops *ops =3D cursor->ops;
-
-[Severity: Medium]
-This problem wasn't introduced by this patch, but does
-lsdc_cursor_plane_atomic_bypass_update() leave plane->state with stale
-clipping rectangles and visibility [2]?
-
-drivers/gpu/drm/loongson/lsdc_plane.c:lsdc_cursor_plane_atomic_bypass_updat=
-e() {
-	...
-	plane->state->src_x =3D new_state->src_x;
-	plane->state->src_y =3D new_state->src_y;
-	plane->state->src_h =3D new_state->src_h;
-	plane->state->src_w =3D new_state->src_w;
-	swap(plane->state->fb, new_state->fb);
-	...
-}
-
-The in-place state update copies the integer coordinates and swaps fb, but
-never copies src, dst, or visible from new_state into plane->state, leaving
-them out of sync with the updated coordinates once the check phase stops
-mutating plane->state directly.
-
-[1] https://sashiko.dev/#/bug/linux-6b50e65f-5d91-4154-8ead-a7e41b3bb981
-[2] https://sashiko.dev/#/bug/linux-39745fec-ddf4-4f7a-a3b2-188ca2cfda2a
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116091130.1395=
-0-1-ville.syrjala@linux.intel.com?part=3D2
