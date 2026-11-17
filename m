@@ -2,61 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCEE606A329
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 14:20:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3917606A323
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 14:29:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O0auQB5D
+	dkim=pass (2048-bit key, unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.a=rsa-sha256 header.s=default header.b=LcZbNNuG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D72810F788;
-	Tue, 17 Nov 2026 14:20:20 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E7E110F77E;
- Tue, 17 Nov 2026 14:20:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794925214; x=1826461214;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=OTJm7uZYjx0g7j47liDmK6W9k866qQxvxAKBe6ssu7A=;
- b=O0auQB5Dz6e8r2nG4PUTSyTyDRF+KTJljsjj6KwWNTWtYJwftFHzRBoG
- 0CQXiY/E2PCCJAySfBnTmhkoh4q8G+0sIWfazg7ABhJJkU/Zq4MzdT/4Y
- mTqQ44OoiY0dAQd5wDlAS9uf6q9fFzViwARG8JApZxQ3KqcgrSkYLFBP/
- 2WOPw8NMadglZuan7XJ044Yax6RhC63HpJBvvsCTPuofm/EnMpdQ0zU89
- to5sQ9/0eeyVKd5eAoljY1+1nD9q0DcDtuty/V+2I+S+CvlNDWzyaC7J1
- QrFC72aI+sSBxVvI5tSUz8+QOAtBK0/gaCOa1F3e/K4r69vkfKfGdOX5A g==;
-X-CSE-ConnectionGUID: DRnf8fXySxeRr1PXZq3qIA==
-X-CSE-MsgGUID: ZHv9YY6GR9iE+5tkXCMT2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3562780"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3562780"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 06:20:14 -0800
-X-CSE-ConnectionGUID: gp87UjdIQiW1HA+KnTvTwQ==
-X-CSE-MsgGUID: y/9BeyxLRkKBF5UIHlsMYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; d="scan'208";a="11580226"
-Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 06:20:12 -0800
-Date: Tue, 17 Nov 2026 15:19:57 +0100
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, igt-dev@lists.freedesktop.org, 
- Sk Anirban <sk.anirban@intel.com>
-Subject: Re: [PATCH v2 i-g-t 1/2] lib/xe_gt: Add function to toggle efficient
- freq
-Message-ID: <bcxh4lgvnmcloc3ovgobcf42x2pszklx3w2vlffrpnaqwjdhrd@by5cigap77ec>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
- Vinay Belgaumkar <vinay.belgaumkar@intel.com>, intel-gfx@lists.freedesktop.org,
- igt-dev@lists.freedesktop.org, 
- Sk Anirban <sk.anirban@intel.com>
-References: <20261113021149.3941522-3-vinay.belgaumkar@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D78910F796;
+	Tue, 17 Nov 2026 14:29:35 +0000 (UTC)
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8FE710F793;
+ Tue, 17 Nov 2026 14:29:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1794925768;
+ bh=wgkvFu5V+wcuJzs8d2ztcGa1vlfCXOEzmPGUpxmrO1M=;
+ h=From:To:Cc:Subject:Date:From;
+ b=LcZbNNuGX1ObgIv4zbTx5Qn8cXf9pJNTN4nALJeJvSXeuw3XGpwLHWfpghs0fZm4j
+ eFIFfO0CMZsAaiB/ymjanqAKgroPB6/HguI2UtULIb3PRYLtk1Axmg0/j0Md1G5ynm
+ 36xMnzeW1scr0lvfReWS09P8Kvy0DgPRVDLdm+nvmrl8kO8poCSZ+J5KSjHtPeP7t3
+ rhzmth0CnjgG4/cVv7JBAwLTbXgErqUxNDgS7JsRBR9+9h5S6d4MceKa0Ud7Es/vzB
+ YnxkWRZ6BENiha9I/q8VABhApN81HTdUy+oAkCfPfvOM4hUJzGpsI0i+FZjqEZyLSG
+ E1CbikeXr5fwQ==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v6 0/5] drm/xe/display: Transparant fallback from stolen to
+ sysmem.
+Date: Tue, 17 Nov 2026 15:30:39 +0100
+Message-ID: <20261117143038.479557-7-dev@lankhorst.se>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261113021149.3941522-3-vinay.belgaumkar@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,117 +46,39 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Vinay,
-On 2026-11-12 at 18:11:50 -0800, Vinay Belgaumkar wrote:
-> This writes to the use_rpe sysfs interface to toggle the use
-> of GT efficient frequency. The KMD patch that introduces this
-> sysfs is at: https://patchwork.freedesktop.org/series/178352/
-> 
-> v2: Address review comments (Anirban)
-> 
-> Cc: Sk Anirban <sk.anirban@intel.com>
-> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-> ---
->  lib/xe/xe_gt.c | 59 ++++++++++++++++++++++++++++++++++++++++++++++++++
->  lib/xe/xe_gt.h |  2 ++
->  2 files changed, 61 insertions(+)
-> 
-> diff --git a/lib/xe/xe_gt.c b/lib/xe/xe_gt.c
-> index 1f0b77986..6f33df890 100644
-> --- a/lib/xe/xe_gt.c
-> +++ b/lib/xe/xe_gt.c
-> @@ -345,6 +345,65 @@ int xe_gt_set_freq(int fd, int gt_id, const char *freq_name, uint32_t freq)
->  	return ret;
->  }
->  
-> +/**
-> + * xe_gt_set_use_rpe:
-> + * @fd: pointer to xe drm fd
-> + * @gt_id: GT id
-> + * @val: Value to set use_rpe
-> + *
-> + * Set use_rpe. Function will assert if the sysfs node is
-> + * not found.
-> + *
-> + * Return: success or failure
-> + */
-> +int xe_gt_set_use_rpe(int fd, int gt_id, uint32_t val)
-> +{
-> +	int ret = -EAGAIN;
-> +	int gt_fd;
-> +
-> +	gt_fd = xe_sysfs_gt_open(fd, gt_id);
-> +	igt_assert_lte(0, gt_fd);
-> +
-> +	while (ret == -EAGAIN)
-> +		ret = igt_sysfs_printf(gt_fd, "freq0/use_rpe", "%u", val);
-> +
-> +	close(gt_fd);
-> +
-> +	return ret;
-> +}
-> +
-> +/**
-> + * xe_gt_get_use_rpe:
-> + * @fd: pointer to xe drm fd
-> + * @gt_id: GT id
-> + *
-> + * Get use_rpe. Function will assert if the sysfs node is
-> + * not found.
-> + *
-> + * Return: use_rpe value
-> + */
-> +uint32_t xe_gt_get_use_rpe(int fd, int gt_id)
-> +{
-> +	int err = -EAGAIN;
-> +	int gt_fd;
-> +	uint32_t use_rpe;
-> +
-> +	igt_debug("Opening attr: %s\n", "freq0/rpe");
-> +	gt_fd = xe_sysfs_gt_open(fd, gt_id);
-> +	igt_assert_lte(0, gt_fd);
-> +
-> +	while (err == -EAGAIN)
-> +		err = igt_sysfs_scanf(gt_fd, "freq0/use_rpe", "%u", &use_rpe);
-> +
-> +	igt_assert_eq(err, 1);
+Fix issue with migrate and address Ville's comments.
 
-Can you fallback to old method on older kernels?
-I mean when err == -ENOENTRY.
+Should pass BAT and FULL again now.
 
-Regards,
-Kamil
+Maarten Lankhorst (5):
+  drm/xe/display: Avoid using stolen memory for framebuffer when media
+    gt exists.
+  drm/xe/migrate: Support copying between sysmem and stolen
+  drm/xe: Raise gt frequency slightly earlier.
+  HACK: Always fallback
+  drm/i915: Introduce intel_bo_fbdev_bios_fb_takeover()
 
+ drivers/gpu/drm/i915/display/intel_bo.c       |  7 ++
+ drivers/gpu/drm/i915/display/intel_bo.h       |  1 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c    | 63 +++++++++++++++-
+ drivers/gpu/drm/i915/i915_bo.c                | 14 +++-
+ drivers/gpu/drm/i915/i915_bo.h                |  6 --
+ drivers/gpu/drm/i915/i915_initial_plane.c     | 14 ----
+ drivers/gpu/drm/xe/display/xe_display_bo.c    | 72 ++++++++++++++++++-
+ drivers/gpu/drm/xe/display/xe_display_bo.h    |  6 --
+ drivers/gpu/drm/xe/display/xe_initial_plane.c |  8 ---
+ drivers/gpu/drm/xe/xe_device.c                |  6 +-
+ drivers/gpu/drm/xe/xe_migrate.c               | 54 +++++++++-----
+ include/drm/intel/display_parent_interface.h  |  1 +
+ 12 files changed, 193 insertions(+), 59 deletions(-)
 
-> +
-> +	igt_debug("gt%d: use_rpe %u\n", gt_id, use_rpe);
-> +
-> +	close(gt_fd);
-> +
-> +	return use_rpe;
-> +}
-> +
->  /**
->   * xe_gt_get_freq:
->   * @fd: pointer to xe drm fd
-> diff --git a/lib/xe/xe_gt.h b/lib/xe/xe_gt.h
-> index 9ef15d7dd..7f824ca63 100644
-> --- a/lib/xe/xe_gt.h
-> +++ b/lib/xe/xe_gt.h
-> @@ -29,4 +29,6 @@ int xe_gt_count_engines_by_class(int fd, int gt, int class);
->  
->  int xe_gt_set_freq(int fd, int gt_id, const char *freq_name, uint32_t freq);
->  uint32_t xe_gt_get_freq(int fd, int gt_id, const char *freq_name);
-> +uint32_t xe_gt_get_use_rpe(int fd, int gt_id);
-> +int xe_gt_set_use_rpe(int fd, int gt_id, uint32_t val);
->  #endif
-> -- 
-> 2.53.0
-> 
+-- 
+2.55.0
+
