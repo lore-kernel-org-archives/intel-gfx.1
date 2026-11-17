@@ -2,42 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB176606A31C
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 11:29:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A38606A323
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 12:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FjMl9ONJ
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DlJXUD+N
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0C110E5A4;
-	Tue, 17 Nov 2026 11:29:20 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C644E10E562;
- Tue, 17 Nov 2026 11:29:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3059943FDC;
- Tue, 17 Nov 2026 11:29:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D57391F000C4;
- Tue, 17 Nov 2026 11:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794914953;
- bh=1eJAfsZkq5uKq46cATNY5pcmbsh8PHuUWrTYu1zMCyc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FjMl9ONJm8vRYDbIpuihL8q2ODVr+9MLTw4MyfFf73bvhDe3+uW06bywhJPTWGWJN
- 4zW6ciKh3Zk9M6Y9FsIlboUOXKEhRuCJFUKe+9n9FnDSCmp78orVObPO8ntr0xBMCE
- FlQXo/UYVejlUOigFWr/SEBGjsD2k/U3fU80SuxE4EkHvy27IVS7TM1jB5YfAp4C3s
- ZFpFGEI6Vf9GIDwqYseU0FX+9a5SE7iLC1Le4XDupwHe7yMNJY6BdVkfSljxkC/KXv
- J29Ma8kfGXt0nYJ3Ez9b7A8gW2IBq56YH8uwZOiNVB8v3cw8VxcAc7bCJeUQ9vNIqy
- xrB+Yes5Uz2sQ==
-Message-ID: <sashiko-outbox-218711@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/dp: Extend HDR mode to HLG
-To: "Vidya Srinivas" <vidya.srinivas@intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 601AD10F681;
+	Tue, 17 Nov 2026 12:03:06 +0000 (UTC)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC8910F681
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 12:03:00 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-8b271e573adso2009424b3a.2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 04:03:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794916980; x=1795521780; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=lsj+W+dztmJjTNrJoBYvQiFoO2Mec9ITL0HnwrtrNmQ=;
+ b=DlJXUD+NvHEv+apF022It5/j0WxbPC85balHEKMa+0HlCnLtSCVoSrIZD5wJIG6z5R
+ 6urgNtVDKERiKzNqNnvXxgRoZ4QooESjoQs2hCyJC4BRu0g+b+S7lhoYAM+OorlPnq7K
+ j18nXMpT7UaqcP0Cg7C81HpDdZFK/VXKbLtIUPkmafeOsnpCZQrJZAe4Cg2RlNxupsB6
+ FeZkouTpF/Jj4GwKIDnHAWEPv02Kf1z45BgM61k9dkYmX6Evov2/OmmVARBhFDd1gQYN
+ 98AO3woOiJXpatuOEfYQbgh3N8L9SGUVUsMEn0DfZYQtQWdSFMy1k5ubDG+/2r0jEGjz
+ 0w1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794916980; x=1795521780;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lsj+W+dztmJjTNrJoBYvQiFoO2Mec9ITL0HnwrtrNmQ=;
+ b=vnVeSF1ZMVOr4E93qllgvR4x/2ezk3mQ8oylYWIpX73AGF1toIifi4RqP1wbIHOxTh
+ 97U5iT2m7JuyNOewNgNGvMW+JVF41YuCF6o5U70kW5FBwhGaOxinczXHfYIwvgvMzfOK
+ YXV9eKrKiaOnBZCdEH1MRYTFAUQYZ4DGwXr1DrDl38WKghUCIjZCMzzrQfLxI1RHiEVu
+ 7U+KxJ3U1pks5nPMSsNbhuCMRTe1kvB+KtlxcQc8VMvhn1vrUjCbVU0xAZoJsWBoNRsR
+ KGuKbEnPpGvJ8k2JzBmqpkCit9Vd4GKlr/tCvBTF+zCTtWjSSbOnpRS3ZKGQEBJg0j1J
+ PgWw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFt+hyuN47OQa72t2mwjSy2rXTZI2J40SN3W1LIGwTGauCmGTcEPJqiwmw25Md2YE740E+JsuGw3xs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9PRAEMyBa0ofZ4D1Yp8qjw3K5cNEQE04mm5u6rp651fb6u8h5e
+ XIjZvQYs/nEfkQ/Vk+gZHFZmQIcCk+JYkgsSewWGAJ2TLqpiLcwPHv6f
+X-Gm-Gg: AYBFou2NL34X3QX3Kqs1PfbXhI7WHmOCFCpuvNBjnUJl01S5eNu69ENSyTK1ifmgrZF
+ YBZKxexgeIJrfQMLUAbFkMDRQwRjK41FgKrnzq2D02b71lhKzjwn4e1n1HAR5e1Ftn8DGXtyzWc
+ WAzlA5iRy8LUPPWHWkGYYrkiG6u4dGUUAGcObKqqHL7x7IeJkFe2Gl9acbR2nai7B2RtourMf/G
+ 6LlvFG0VGCkRzJTN50yfKEcDG3dPpInlsOmFz6jRIC+FtviUVDMhq09+HipdBuP9z79vffzv9eb
+ IY3hHSJD96ho83GlqQwYE7LbkBR759u8RV9AE8SYOODiLwjVuOQzxZ2sqD15eisXyyzuun6a803
+ ogV+eLVRX+foOGRFCP8QHkefaCgOpZ3ONKHG7JLhDRmbca7KPREotWHkTMF54ODFZlFPvvvomnV
+ JhzZOdYM7JnRahO3Dhu2ablcDFnmM18tzajVd9IzXwOG0/h7p4DPv1+iHTyWgtUjM3acNhivDfj
+ yaNlNjuXpFgPMaOiKeX36VkPJTQFYpzm3uCUIZosXVqFPOh6YF0QyhIzGtYmmjT7owJvdy1VzSN
+ Qewt/9w16bI+ilUvOnYrw3BVzq3tB/Nmblm5wzjTl0xP6fNKd2XR0vGHqErAJIQ8FrvQM9q537p
+ u
+X-Received: by 2002:a05:6a21:8203:b0:3e2:490d:5127 with SMTP id
+ adf61e73a8af0-3f7a4dbe495mr15470232637.2.1794916979374; 
+ Tue, 17 Nov 2026 04:02:59 -0800 (PST)
+Received: from [134.134.139.69] ([134.134.139.69])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8bed204f7d6sm5232183b3a.35.2026.11.17.04.02.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Nov 2026 04:02:58 -0800 (PST)
+Message-ID: <c8f03306-1b2b-4729-b9ed-7036d0f8ff44@gmail.com>
+Date: Tue, 17 Nov 2026 14:02:54 +0200
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/13] drm/i915/dpt: Cache DPTs in the gem object
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-In-Reply-To: <20261117104808.2023577-1-vidya.srinivas@intel.com>
-References: <20261117104808.2023577-1-vidya.srinivas@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 11:29:12 +0000
+References: <20261111112007.16790-1-ville.syrjala@linux.intel.com>
+ <20261111112007.16790-11-ville.syrjala@linux.intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Juha-Pekka_Heikkil=C3=A4?= <juhapekka.heikkila@gmail.com>
+In-Reply-To: <20261111112007.16790-11-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,96 +89,728 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/i915/dp: PQ/HLG fastset skips TCON update in
-  intel_backlight_update()
-- [Medium] drm/i915/dp: stale HDR TCON bits in
-  intel_dp_aux_fill_hdr_tcon_params()
---
 
-commit 12c8fa843bb08be12fb5ea03fd4f7818e8682022
-Author: Vidya Srinivas <vidya.srinivas@intel.com>
 
-drm/i915/dp: Extend HDR mode to HLG
-
-This commit extends intel_dp_in_hdr_mode() to recognize BT.2100 HLG in
-addition to SMPTE ST 2084 (PQ), while restricting
-INTEL_EDP_HDR_TCON_2084_DECODE_ENABLE to PQ outputs in the eDP AUX HDR
-backlight path.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/driv=
-ers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> index dc2f0f3088a94..fa68cc6803a6a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> @@ -284,8 +284,16 @@ intel_dp_aux_fill_hdr_tcon_params(const struct drm_c=
-onnector_state *conn_state,
->  	 * HDR mode.
->  	 */
->  	if (intel_dp_in_hdr_mode(conn_state)) {
-> +		const struct hdr_output_metadata *hdr_metadata =3D
-> +			conn_state->hdr_output_metadata->data;
+On 11/11/2026 13.20, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> Currently DPTs are tracked in the framebuffer. Each new
+> framebuffer gets a fresh DPT. On first glance that seems fine,
+> but the problem is that your typical userspace doesn't
+> cache framebuffers at all. Each new frame gets a whole new
+> framebuffer, and we have to therefore start with a new DPT
+> as well and populate it (and its GGTT mapping) from scratch.
+> This is all rather expensive.
+> 
+> Fix the situation by tracking the DPTs in the gem object instead.
+> The whole thing is somewhat modeled after the already existing
+> vma tracking. Each time a new framebuffer is created we first
+> look through the already existing DPTs on the gem object, and
+> if one with an identical gtt view is found it gets reused.
+> 
+> The one major difference between this and the vma stuff is that
+> vmas can get unbound when not pinned, if there is sufficient
+> pressure on the address space. I didn't bother implementing
+> a similar mechanism for DPTs, and instead any created DPT will
+> simply stay around as long as the actual gem object will stay
+> around. I'm thinking large gem objects at least shouldn't stay
+> around long past their use as a framebuffer. Should that turn
+> out to be false we might need to add some kind of reaping stuff,
+> or perhaps just limit the number of cached DPTs per gem object.
+> 
+> With this the display code no longer has to even see the
+> DPT object pointer. Though we do have to pass the obj+view
+> also the unpin functions so that we can find the right DPT
+> there. Technically we could now even stop passing around
+> the vma pointers through the display code, except that
+> would probably break the vma reuse hacks that xe has..
+> 
+> As for some performance numbers, just a quick
+> 'vblank_mode=0 glxgears -fullscreen' run on MTL with a
+> debug heavy kernel used to spend ~20% of the time in
+> .prepare_fb(), and now it's about 5%. And an optimized
+> kernel on a DG2 shows approximately 6% -> 1%.
+> 
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>   .../drm/i915/display/intel_display_types.h    |   3 -
+>   drivers/gpu/drm/i915/display/intel_fb.c       |  16 +--
+>   drivers/gpu/drm/i915/display/intel_parent.c   |  26 ++--
+>   drivers/gpu/drm/i915/display/intel_parent.h   |  13 +-
+>   drivers/gpu/drm/i915/display/intel_plane.c    |  13 +-
+>   drivers/gpu/drm/i915/gem/i915_gem_object.c    |   6 +
+>   .../gpu/drm/i915/gem/i915_gem_object_types.h  |   6 +
+>   drivers/gpu/drm/i915/i915_dpt.c               | 119 +++++++++++++++---
+>   drivers/gpu/drm/i915/i915_dpt.h               |   7 ++
+>   drivers/gpu/drm/i915/i915_fb_pin.c            |  44 +++++--
+>   drivers/gpu/drm/xe/display/xe_fb_pin.c        |  12 +-
+>   include/drm/intel/display_parent_interface.h  |  11 +-
+>   12 files changed, 180 insertions(+), 96 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> index 90a5d29169c6..afe0c6134534 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -147,8 +147,6 @@ struct intel_framebuffer {
+>   		struct intel_fb_view remapped_view;
+>   	};
+>   
+> -	struct intel_dpt *dpt;
+> -
+>   	unsigned int min_alignment;
+>   	unsigned int vtd_guard;
+>   
+> @@ -690,7 +688,6 @@ struct intel_plane_state {
+>   	} hw;
+>   
+>   	struct i915_vma *ggtt_vma;
+> -	struct i915_vma *dpt_vma;
+>   
+>   	struct intel_fb_view view;
+>   
+> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> index 35f1d5dd31d7..dba2d5ec6688 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> @@ -2078,9 +2078,6 @@ static void intel_user_framebuffer_destroy(struct drm_framebuffer *fb)
+>   
+>   	drm_framebuffer_cleanup(fb);
+>   
+> -	if (intel_fb_uses_dpt(fb))
+> -		intel_parent_dpt_destroy(display, intel_fb->dpt);
+> -
+>   	intel_bo_framebuffer_fini(intel_fb_bo(fb));
+>   
+>   	intel_parent_frontbuffer_put(display, intel_fb->frontbuffer);
+> @@ -2276,34 +2273,27 @@ int intel_framebuffer_init(struct intel_framebuffer *intel_fb,
+>   	if (intel_fb_uses_dpt(fb)) {
+>   		struct drm_gem_object *obj = intel_fb_bo(&intel_fb->base);
+>   		const struct intel_gtt_view *view;
+> -		struct intel_dpt *dpt;
+>   
+>   		if (intel_fb_needs_pot_stride_remap(intel_fb))
+>   			view = &intel_fb->remapped_view.gtt;
+>   		else
+>   			view = &intel_fb->normal_view.gtt;
+>   
+> -		dpt = intel_parent_dpt_create(display, obj, view);
+> -		if (IS_ERR(dpt)) {
+> +		ret = intel_parent_dpt_create(display, obj, view);
+> +		if (ret) {
+>   			drm_dbg_kms(display->drm, "failed to create DPT\n");
+> -			ret = PTR_ERR(dpt);
+>   			goto err_bo_framebuffer_fini;
+>   		}
+> -
+> -		intel_fb->dpt = dpt;
+>   	}
+>   
+>   	ret = drm_framebuffer_init(display->drm, fb, &intel_fb_funcs);
+>   	if (ret) {
+>   		drm_err(display->drm, "framebuffer init failed %d\n", ret);
+> -		goto err_free_dpt;
+> +		goto err_bo_framebuffer_fini;
+>   	}
+>   
+>   	return 0;
+>   
+> -err_free_dpt:
+> -	if (intel_fb_uses_dpt(fb))
+> -		intel_parent_dpt_destroy(display, intel_fb->dpt);
+>   err_bo_framebuffer_fini:
+>   	intel_bo_framebuffer_fini(obj);
+>   err_frontbuffer_put:
+> diff --git a/drivers/gpu/drm/i915/display/intel_parent.c b/drivers/gpu/drm/i915/display/intel_parent.c
+> index 8497694b29d7..22be54098b3d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_parent.c
+> +++ b/drivers/gpu/drm/i915/display/intel_parent.c
+> @@ -25,20 +25,14 @@
+>   #include "intel_parent.h"
+>   
+>   /* dpt */
+> -struct intel_dpt *intel_parent_dpt_create(struct intel_display *display,
+> -					  struct drm_gem_object *obj,
+> -					  const struct intel_gtt_view *view)
+> +int intel_parent_dpt_create(struct intel_display *display,
+> +			    struct drm_gem_object *obj,
+> +			    const struct intel_gtt_view *view)
+>   {
+>   	if (display->parent->dpt)
+>   		return display->parent->dpt->create(obj, view);
+>   
+> -	return NULL;
+> -}
+> -
+> -void intel_parent_dpt_destroy(struct intel_display *display, struct intel_dpt *dpt)
+> -{
+> -	if (display->parent->dpt)
+> -		display->parent->dpt->destroy(dpt);
+> +	return 0;
+>   }
+>   
+>   /* fb_pin */
+> @@ -62,22 +56,20 @@ void intel_parent_fb_pin_ggtt_unpin(struct intel_display *display,
+>   
+>   int intel_parent_fb_pin_dpt_pin(struct intel_display *display,
+>   				struct drm_gem_object *obj,
+> -				struct intel_dpt *dpt,
+>   				const struct intel_fb_pin_params *pin_params,
+> -				struct i915_vma **out_dpt_vma,
+>   				struct i915_vma **out_ggtt_vma,
+>   				u32 *out_offset)
+>   {
+> -	return display->parent->fb_pin->dpt_pin(obj, dpt, pin_params,
+> -						out_dpt_vma, out_ggtt_vma, out_offset);
+> +	return display->parent->fb_pin->dpt_pin(obj, pin_params,
+> +						out_ggtt_vma, out_offset);
+>   }
+>   
+>   void intel_parent_fb_pin_dpt_unpin(struct intel_display *display,
+> -				   struct intel_dpt *dpt,
+> -				   struct i915_vma *dpt_vma,
+> +				   struct drm_gem_object *obj,
+> +				   const struct intel_gtt_view *view,
+>   				   struct i915_vma *ggtt_vma)
+>   {
+> -	return display->parent->fb_pin->dpt_unpin(dpt, dpt_vma, ggtt_vma);
+> +	return display->parent->fb_pin->dpt_unpin(obj, view, ggtt_vma);
+>   }
+>   
+>   struct i915_vma *intel_parent_fb_pin_reuse_vma(struct intel_display *display,
+> diff --git a/drivers/gpu/drm/i915/display/intel_parent.h b/drivers/gpu/drm/i915/display/intel_parent.h
+> index b22f92404f65..e95710e115be 100644
+> --- a/drivers/gpu/drm/i915/display/intel_parent.h
+> +++ b/drivers/gpu/drm/i915/display/intel_parent.h
+> @@ -23,10 +23,9 @@ struct intel_stolen_node;
+>   struct iosys_map;
+>   
+>   /* dpt */
+> -struct intel_dpt *intel_parent_dpt_create(struct intel_display *display,
+> -					  struct drm_gem_object *obj,
+> -					  const struct intel_gtt_view *view);
+> -void intel_parent_dpt_destroy(struct intel_display *display, struct intel_dpt *dpt);
+> +int intel_parent_dpt_create(struct intel_display *display,
+> +			    struct drm_gem_object *obj,
+> +			    const struct intel_gtt_view *view);
+>   
+>   /* fb_pin */
+>   int intel_parent_fb_pin_ggtt_pin(struct intel_display *display,
+> @@ -40,14 +39,12 @@ void intel_parent_fb_pin_ggtt_unpin(struct intel_display *display,
+>   				    int fence_id);
+>   int intel_parent_fb_pin_dpt_pin(struct intel_display *display,
+>   				struct drm_gem_object *obj,
+> -				struct intel_dpt *dpt,
+>   				const struct intel_fb_pin_params *pin_params,
+> -				struct i915_vma **out_dpt_vma,
+>   				struct i915_vma **out_ggtt_vma,
+>   				u32 *out_offset);
+>   void intel_parent_fb_pin_dpt_unpin(struct intel_display *display,
+> -				   struct intel_dpt *dpt,
+> -				   struct i915_vma *dpt_vma,
+> +				   struct drm_gem_object *obj,
+> +				   const struct intel_gtt_view *view,
+>   				   struct i915_vma *ggtt_vma);
+>   struct i915_vma *intel_parent_fb_pin_reuse_vma(struct intel_display *display,
+>   					       struct i915_vma *old_ggtt_vma,
+> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+> index d23de0f34e4b..40e9b1ac4e11 100644
+> --- a/drivers/gpu/drm/i915/display/intel_plane.c
+> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
+> @@ -137,7 +137,6 @@ intel_plane_duplicate_state(struct drm_plane *plane)
+>   	__drm_atomic_helper_plane_duplicate_state(plane, &intel_state->uapi);
+>   
+>   	intel_state->ggtt_vma = NULL;
+> -	intel_state->dpt_vma = NULL;
+>   	intel_state->fence_id = -1;
+>   	intel_state->damage = DRM_RECT_INIT(0, 0, 0, 0);
+>   	intel_state->psr2_sel_fetch_area = DRM_RECT_INIT(0, 0, 0, 0);
+> @@ -173,7 +172,6 @@ intel_plane_destroy_state(struct drm_plane *plane,
+>   	struct intel_plane_state *plane_state = to_intel_plane_state(state);
+>   
+>   	drm_WARN_ON(plane->dev, plane_state->ggtt_vma);
+> -	drm_WARN_ON(plane->dev, plane_state->dpt_vma);
+>   
+>   	__drm_atomic_helper_plane_destroy_state(&plane_state->uapi);
+>   	if (plane_state->hw.fb)
+> @@ -1371,7 +1369,6 @@ int intel_plane_pin_fb(struct intel_plane_state *plane_state,
+>   	const struct intel_framebuffer *old_fb =
+>   		to_intel_framebuffer(old_plane_state->hw.fb);
+>   	struct i915_vma *ggtt_vma = NULL;
+> -	struct i915_vma *dpt_vma = NULL;
+>   	int fence_id = -1;
+>   	u32 offset = 0;
+>   	int ret;
+> @@ -1410,14 +1407,12 @@ int intel_plane_pin_fb(struct intel_plane_state *plane_state,
+>   		};
+>   
+>   		ret = intel_parent_fb_pin_dpt_pin(display, intel_fb_bo(&fb->base),
+> -						  fb->dpt, &pin_params,
+> -						  &dpt_vma, &ggtt_vma, &offset);
+> +						  &pin_params, &ggtt_vma, &offset);
+>   	}
+>   	if (ret)
+>   		return ret;
+>   
+>   got_vma:
+> -	plane_state->dpt_vma = dpt_vma;
+>   	plane_state->ggtt_vma = ggtt_vma;
+>   	plane_state->fence_id = fence_id;
+>   
+> @@ -1440,11 +1435,11 @@ void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state)
+>   		old_plane_state->ggtt_vma = NULL;
+>   		old_plane_state->fence_id = -1;
+>   	} else {
+> -		intel_parent_fb_pin_dpt_unpin(display, fb->dpt,
+> -					      old_plane_state->dpt_vma,
+> +		intel_parent_fb_pin_dpt_unpin(display,
+> +					      intel_fb_bo(&fb->base),
+> +					      &old_plane_state->view.gtt,
+>   					      old_plane_state->ggtt_vma);
+>   
+> -		old_plane_state->dpt_vma = NULL;
+>   		old_plane_state->ggtt_vma = NULL;
+>   	}
+>   }
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> index 9e01f8b2079a..f5873e59666b 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> @@ -32,6 +32,7 @@
+>   #include "display/intel_frontbuffer.h"
+>   #include "pxp/intel_pxp.h"
+>   
+> +#include "i915_dpt.h"
+>   #include "i915_drv.h"
+>   #include "i915_file_private.h"
+>   #include "i915_gem_clflush.h"
+> @@ -116,6 +117,9 @@ void i915_gem_object_init(struct drm_i915_gem_object *obj,
+>   	INIT_LIST_HEAD(&obj->lut_list);
+>   	spin_lock_init(&obj->lut_lock);
+>   
+> +	INIT_LIST_HEAD(&obj->dpt_list);
+> +	spin_lock_init(&obj->dpt_lock);
 > +
->  		*ctrl |=3D INTEL_EDP_HDR_TCON_SEGMENTED_BACKLIGHT_ENABLE;
-> -		*ctrl |=3D INTEL_EDP_HDR_TCON_2084_DECODE_ENABLE;
+>   	spin_lock_init(&obj->mmo.lock);
+>   	obj->mmo.offsets = RB_ROOT;
+>   
+> @@ -402,6 +406,8 @@ void __i915_gem_free_object(struct drm_i915_gem_object *obj)
+>   	if (obj->shares_resv_from)
+>   		i915_vm_resv_put(obj->shares_resv_from);
+>   
+> +	i915_dpt_obj_free(obj);
 > +
-> +		/* The TCON can only decode SMPTE ST 2084 (PQ), not HLG. */
-> +		if (hdr_metadata->hdmi_metadata_type1.eotf =3D=3D HDMI_EOTF_SMPTE_ST20=
-84)
-> +			*ctrl |=3D INTEL_EDP_HDR_TCON_2084_DECODE_ENABLE;
-> +		else
-> +			*ctrl &=3D ~INTEL_EDP_HDR_TCON_2084_DECODE_ENABLE;
->  	}
+>   	__i915_gem_object_fini(obj);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> index 969f6ea2b855..2a2735bfc7c9 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+> @@ -288,6 +288,12 @@ struct drm_i915_gem_object {
+>   	struct list_head lut_list;
+>   	spinlock_t lut_lock; /* guards lut_list */
+>   
+> +	/**
+> +	 * @dpt_list: List of DPTs backed by this object
+> +	 */
+> +	struct list_head dpt_list;
+> +	spinlock_t dpt_lock; /* protects dpt_list */
+> +
+>   	/**
+>   	 * @obj_link: Link into @i915_gem_ww_ctx.obj_list
+>   	 *
+> diff --git a/drivers/gpu/drm/i915/i915_dpt.c b/drivers/gpu/drm/i915/i915_dpt.c
+> index e625ec293c5c..27f9a648bb26 100644
+> --- a/drivers/gpu/drm/i915/i915_dpt.c
+> +++ b/drivers/gpu/drm/i915/i915_dpt.c
+> @@ -20,16 +20,15 @@ struct intel_dpt {
+>   	struct drm_i915_gem_object *obj;
+>   	struct i915_vma *vma;
+>   	void __iomem *iomem;
+> +	struct intel_gtt_view view;
+> +	struct list_head obj_link;
+>   	struct list_head ggtt_link;
+>   };
+>   
+> -#define i915_is_dpt(vm) ((vm)->is_dpt)
+> -
+> -static inline struct intel_dpt *
+> -i915_vm_to_dpt(struct i915_address_space *vm)
+> +struct intel_dpt *i915_vm_to_dpt(struct i915_address_space *vm)
+>   {
+>   	BUILD_BUG_ON(offsetof(struct intel_dpt, vm));
+> -	drm_WARN_ON(&vm->i915->drm, !i915_is_dpt(vm));
+> +	drm_WARN_ON(&vm->i915->drm, !vm->is_dpt);
+>   	return container_of(vm, struct intel_dpt, vm);
+>   }
+>   
+> @@ -196,10 +195,66 @@ static void i915_dpt_free(struct intel_dpt *dpt)
+>   	i915_dpt_put(dpt);
+>   }
+>   
+> -static struct intel_dpt *i915_dpt_create(struct drm_gem_object *obj,
+> -					 const struct intel_gtt_view *view)
+> +static struct intel_dpt *__i915_dpt_lookup(struct drm_i915_gem_object *obj,
+> +					   const struct intel_gtt_view *view)
+> +{
+> +	struct intel_dpt *dpt;
+> +
+> +	lockdep_assert_held(&obj->dpt_lock);
+> +
+> +	list_for_each_entry(dpt, &obj->dpt_list, obj_link) {
+> +		if (!intel_gtt_view_compare(&dpt->view, view))
+> +			return dpt;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +struct intel_dpt *i915_dpt_lookup(struct drm_i915_gem_object *obj,
+> +				  const struct intel_gtt_view *view)
+> +{
+> +	struct intel_dpt *dpt;
+> +
+> +	spin_lock(&obj->dpt_lock);
+> +	dpt = __i915_dpt_lookup(obj, view);
+> +	spin_unlock(&obj->dpt_lock);
+> +
+> +	return dpt;
+> +}
+> +
+> +static void i915_dpt_add(struct drm_i915_gem_object *obj,
+> +			 struct intel_dpt *new_dpt)
+> +{
+> +	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+> +	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
+> +	struct intel_dpt *old_dpt;
+> +
+> +	spin_lock(&obj->dpt_lock);
+> +
+> +	/*
+> +	 * If someone else inserted a suitable DPT in the
+> +	 * meantime we keep that and throw away the new one.
+> +	 */
+> +	old_dpt = __i915_dpt_lookup(obj, &new_dpt->view);
+> +	if (old_dpt) {
+> +		spin_unlock(&obj->dpt_lock);
+> +		i915_dpt_free(new_dpt);
+> +		return;
+> +	}
+> +
+> +	list_add_tail(&new_dpt->obj_link, &obj->dpt_list);
+> +
+> +	spin_unlock(&obj->dpt_lock);
+> +
+> +	spin_lock(&ggtt->dpt_lock);
+> +	list_add_tail(&new_dpt->ggtt_link, &ggtt->dpt_list);
+> +	spin_unlock(&ggtt->dpt_lock);
+> +}
+> +
+> +static struct intel_dpt *dpt_create(struct drm_i915_gem_object *obj,
+> +				    const struct intel_gtt_view *view)
+>   {
+> -	struct drm_i915_private *i915 = to_i915(obj->dev);
+> +	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+>   	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
+>   	struct drm_i915_gem_object *dpt_obj;
+>   	struct i915_address_space *vm;
+> @@ -211,7 +266,7 @@ static struct intel_dpt *i915_dpt_create(struct drm_gem_object *obj,
+>   		size = intel_remapped_info_size(&view->remapped);
+>   	} else {
+>   		drm_WARN_ON(&i915->drm, !intel_gtt_view_is_normal(view));
+> -		size = DIV_ROUND_UP_ULL(obj->size, I915_GTT_PAGE_SIZE);
+> +		size = DIV_ROUND_UP_ULL(obj->base.size, I915_GTT_PAGE_SIZE);
+>   	}
+>   
+>   	size = round_up(size * sizeof(gen8_pte_t), I915_GTT_PAGE_SIZE);
+> @@ -241,6 +296,8 @@ static struct intel_dpt *i915_dpt_create(struct drm_gem_object *obj,
+>   
+>   	vm = &dpt->vm;
+>   
+> +	dpt->view = *view;
+> +
+>   	vm->gt = to_gt(i915);
+>   	vm->i915 = i915;
+>   	vm->dma = i915->drm.dev;
+> @@ -262,22 +319,47 @@ static struct intel_dpt *i915_dpt_create(struct drm_gem_object *obj,
+>   	dpt->obj = dpt_obj;
+>   	dpt->obj->is_dpt = true;
+>   
+> -	spin_lock(&ggtt->dpt_lock);
+> -	list_add_tail(&dpt->ggtt_link, &ggtt->dpt_list);
+> -	spin_unlock(&ggtt->dpt_lock);
+> -
+>   	return dpt;
+>   }
+>   
+> -static void i915_dpt_destroy(struct intel_dpt *dpt)
+> +static int i915_dpt_create(struct drm_gem_object *_obj,
+> +			   const struct intel_gtt_view *view)
+>   {
+> -	struct i915_ggtt *ggtt = i915_dpt_to_vm(dpt)->gt->ggtt;
+> +	struct drm_i915_gem_object *obj = to_intel_bo(_obj);
+> +	struct intel_dpt *dpt;
+> +
+> +	/* already have one? */
+> +	dpt = i915_dpt_lookup(obj, view);
+> +	if (dpt)
+> +		return 0;
+> +
+> +	dpt = dpt_create(obj, view);
+> +	if (IS_ERR(dpt))
+> +		return PTR_ERR(dpt);
+> +
+> +	i915_dpt_add(obj, dpt);
+> +
+> +	return 0;
+> +}
+> +
+> +void i915_dpt_obj_free(struct drm_i915_gem_object *obj)
+> +{
+> +	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+> +	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
+> +	struct intel_dpt *dpt, *next;
+> +	LIST_HEAD(dpt_list);
+> +
+> +	spin_lock(&obj->dpt_lock);
+> +	list_splice_init(&obj->dpt_list, &dpt_list);
+> +	spin_unlock(&obj->dpt_lock);
+>   
+>   	spin_lock(&ggtt->dpt_lock);
+> -	list_del_init(&dpt->ggtt_link);
+> +	list_for_each_entry(dpt, &dpt_list, obj_link)
+> +		list_del_init(&dpt->ggtt_link);
+>   	spin_unlock(&ggtt->dpt_lock);
+>   
+> -	i915_dpt_free(dpt);
+> +	list_for_each_entry_safe(dpt, next, &dpt_list, obj_link)
+> +		i915_dpt_free(dpt);
+>   }
+>   
+>   void i915_dpt_suspend(struct i915_ggtt *ggtt)
+> @@ -321,7 +403,7 @@ void i915_dpt_resume(struct i915_ggtt *ggtt)
+>   
+>   	/*
+>   	 * i915_ggtt_resume_vm() with evict_all==true
+> -	 * only does a quick sanity check, so OK to call
+> +	 * only does a sanity check, so OK to call
+>   	 * with ggtt->dpt_lock held.
+>   	 */
+>   	spin_lock(&ggtt->dpt_lock);
+> @@ -339,5 +421,4 @@ u64 i915_dpt_offset(struct i915_vma *dpt_vma)
+>   
+>   const struct intel_display_dpt_interface i915_display_dpt_interface = {
+>   	.create = i915_dpt_create,
+> -	.destroy = i915_dpt_destroy,
+>   };
+> diff --git a/drivers/gpu/drm/i915/i915_dpt.h b/drivers/gpu/drm/i915/i915_dpt.h
+> index 51a497abb5e1..5e88d8881db1 100644
+> --- a/drivers/gpu/drm/i915/i915_dpt.h
+> +++ b/drivers/gpu/drm/i915/i915_dpt.h
+> @@ -6,10 +6,17 @@
+>   
+>   #include <linux/types.h>
+>   
+> +struct drm_i915_gem_object;
+>   struct i915_address_space;
+>   struct i915_ggtt;
+>   struct i915_vma;
+>   struct intel_dpt;
+> +struct intel_gtt_view;
+> +
+> +struct intel_dpt *i915_vm_to_dpt(struct i915_address_space *vm);
+> +void i915_dpt_obj_free(struct drm_i915_gem_object *obj);
+> +struct intel_dpt *i915_dpt_lookup(struct drm_i915_gem_object *obj,
+> +				  const struct intel_gtt_view *view);
+>   
+>   struct i915_address_space *i915_dpt_to_vm(struct intel_dpt *dpt);
+>   struct i915_vma *i915_dpt_pin_to_ggtt(struct intel_dpt *dpt, unsigned int alignment);
+> diff --git a/drivers/gpu/drm/i915/i915_fb_pin.c b/drivers/gpu/drm/i915/i915_fb_pin.c
+> index b5672b2cf5bd..91385c17e564 100644
+> --- a/drivers/gpu/drm/i915/i915_fb_pin.c
+> +++ b/drivers/gpu/drm/i915/i915_fb_pin.c
+> @@ -15,11 +15,10 @@
+>   #include "i915_vma.h"
+>   
+>   static struct i915_vma *
+> -intel_fb_pin_to_dpt(struct drm_gem_object *_obj, struct intel_dpt *dpt,
+> +intel_fb_pin_to_dpt(struct drm_i915_gem_object *obj, struct intel_dpt *dpt,
+>   		    const struct intel_fb_pin_params *pin_params)
+>   {
+> -	struct drm_i915_private *i915 = to_i915(_obj->dev);
+> -	struct drm_i915_gem_object *obj = to_intel_bo(_obj);
+> +	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+>   	struct i915_address_space *vm = i915_dpt_to_vm(dpt);
+>   	struct i915_gem_ww_ctx ww;
+>   	struct i915_vma *vma;
+> @@ -225,6 +224,8 @@ static int i915_fb_pin_ggtt_pin(struct drm_gem_object *obj,
+>   	if (IS_ERR(ggtt_vma))
+>   		return PTR_ERR(ggtt_vma);
+>   
+> +	drm_WARN_ON(obj->dev, ggtt_vma->vm->is_dpt);
+> +
+>   	*out_ggtt_vma = ggtt_vma;
+>   
+>   	/*
+> @@ -244,18 +245,23 @@ static int i915_fb_pin_ggtt_pin(struct drm_gem_object *obj,
+>   static void i915_fb_pin_ggtt_unpin(struct i915_vma *ggtt_vma,
+>   				   int fence_id)
+>   {
+> +	WARN_ON(ggtt_vma->vm->is_dpt);
+> +
+>   	intel_fb_unpin_vma(ggtt_vma, fence_id);
+>   }
+>   
+> -static int i915_fb_pin_dpt_pin(struct drm_gem_object *obj, struct intel_dpt *dpt,
+> +static int i915_fb_pin_dpt_pin(struct drm_gem_object *_obj,
+>   			       const struct intel_fb_pin_params *pin_params,
+> -			       struct i915_vma **out_dpt_vma,
+>   			       struct i915_vma **out_ggtt_vma,
+>   			       u32 *out_offset)
+>   {
+> +	struct drm_i915_gem_object *obj = to_intel_bo(_obj);
+>   	struct i915_vma *ggtt_vma, *dpt_vma;
+> +	struct intel_dpt *dpt;
+>   
+> -	WARN_ON(!dpt);
+> +	dpt = i915_dpt_lookup(obj, pin_params->view);
+> +	if (drm_WARN_ON(obj->base.dev, !dpt))
+> +		return -EINVAL;
+>   
+>   	ggtt_vma = i915_dpt_pin_to_ggtt(dpt, pin_params->alignment / 512);
+>   	if (IS_ERR(ggtt_vma))
+> @@ -267,20 +273,36 @@ static int i915_fb_pin_dpt_pin(struct drm_gem_object *obj, struct intel_dpt *dpt
+>   		return PTR_ERR(dpt_vma);
+>   	}
+>   
+> -	drm_WARN_ON(obj->dev, ggtt_vma == dpt_vma);
+> +	drm_WARN_ON(obj->base.dev, ggtt_vma == dpt_vma);
+> +	drm_WARN_ON(obj->base.dev, ggtt_vma->vm->is_dpt);
+> +	drm_WARN_ON(obj->base.dev, !dpt_vma->vm->is_dpt);
+>   
+>   	*out_ggtt_vma = ggtt_vma;
+> -	*out_dpt_vma = dpt_vma;
+> -
+>   	*out_offset = i915_ggtt_offset(ggtt_vma);
+>   
+>   	return 0;
+>   }
+>   
+> -static void i915_fb_pin_dpt_unpin(struct intel_dpt *dpt,
+> -				  struct i915_vma *dpt_vma,
+> +static void i915_fb_pin_dpt_unpin(struct drm_gem_object *_obj,
+> +				  const struct intel_gtt_view *view,
+>   				  struct i915_vma *ggtt_vma)
+>   {
+> +	struct drm_i915_gem_object *obj = to_intel_bo(_obj);
+> +	struct i915_vma *dpt_vma;
+> +	struct intel_dpt *dpt;
+> +
+> +	dpt = i915_dpt_lookup(obj, view);
+> +	if (drm_WARN_ON(obj->base.dev, !dpt))
+> +		return;
+> +
+> +	dpt_vma = i915_vma_lookup(obj, i915_dpt_to_vm(dpt), view);
+> +	if (drm_WARN_ON(obj->base.dev, !dpt_vma))
+> +		return;
+> +
+> +	drm_WARN_ON(obj->base.dev, ggtt_vma == dpt_vma);
+> +	drm_WARN_ON(obj->base.dev, ggtt_vma->vm->is_dpt);
+> +	drm_WARN_ON(obj->base.dev, !dpt_vma->vm->is_dpt);
+> +
+>   	intel_fb_unpin_vma(dpt_vma, -1);
+>   	i915_dpt_unpin_from_ggtt(dpt);
 
-[Severity: Medium]
-Will switching hdr_output_metadata between SMPTE ST 2084 (PQ) and BT.2100
-HLG on an active panel skip updating INTEL_EDP_HDR_TCON_2084_DECODE_ENABLE?
+Later in series here dpt is changed to be ggtt_vma which is unpinned.
+If those lookups above failed this will leave ggtt_vma pinned?
 
-Because intel_dp_in_hdr_mode() now returns true for both PQ and HLG, both
-compute the same pipe_bpp and infoframes.enable mask, and
-intel_pipe_config_compare() skips PIPE_CONF_CHECK_INFOFRAME(drm) when
-checking for a fastset.  Switching between PQ and HLG therefore takes the
-fastset path, where intel_ddi_update_pipe_dp() -> intel_backlight_update()
-skips __intel_backlight_enable() -> intel_dp_aux_hdr_enable_backlight()
-because panel->backlight.enabled is already true:
+This was the only thing I noticed in this series; all the *other* 
+patches in this series are
 
-drivers/gpu/drm/i915/display/intel_backlight.c:intel_backlight_update() {
-	...
-	mutex_lock(&display->backlight.lock);
-	if (!panel->backlight.enabled)
-		__intel_backlight_enable(crtc_state, conn_state);
+Reviewed-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
 
-	mutex_unlock(&display->backlight.lock);
-	...
-}
 
-As a result, INTEL_EDP_HDR_GETSET_CTRL_PARAMS is not updated in DPCD during
-a PQ <-> HLG transition, leaving the panel TCON decoding HLG as PQ or
-failing to decode PQ after HLG.
+>   }
+> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> index 8df844120ea8..5cf02eb5b380 100644
+> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> @@ -421,33 +421,27 @@ static void xe_fb_pin_ggtt_unpin(struct i915_vma *ggtt_vma,
+>   	__xe_unpin_fb_vma(ggtt_vma);
+>   }
+>   
+> -static int xe_fb_pin_dpt_pin(struct drm_gem_object *obj, struct intel_dpt *dpt,
+> +static int xe_fb_pin_dpt_pin(struct drm_gem_object *obj,
+>   			     const struct intel_fb_pin_params *pin_params,
+> -			     struct i915_vma **out_dpt_vma,
+>   			     struct i915_vma **out_ggtt_vma,
+>   			     u32 *out_offset)
+>   {
+>   	struct i915_vma *ggtt_vma;
+>   
+> -	WARN_ON(dpt);
+> -
+>   	ggtt_vma = __xe_pin_fb_vma(obj, true, pin_params);
+>   	if (IS_ERR(ggtt_vma))
+>   		return PTR_ERR(ggtt_vma);
+>   
+> -	*out_dpt_vma = NULL; /* not used on xe */
+>   	*out_ggtt_vma = ggtt_vma;
+>   	*out_offset = xe_ggtt_node_addr(ggtt_vma->node);
+>   
+>   	return 0;
+>   }
+>   
+> -static void xe_fb_pin_dpt_unpin(struct intel_dpt *dpt,
+> -				struct i915_vma *dpt_vma,
+> +static void xe_fb_pin_dpt_unpin(struct drm_gem_object *obj,
+> +				const struct intel_gtt_view *view,
+>   				struct i915_vma *ggtt_vma)
+>   {
+> -	WARN_ON(dpt || dpt_vma);
+> -
+>   	__xe_unpin_fb_vma(ggtt_vma);
+>   }
+>   
+> diff --git a/include/drm/intel/display_parent_interface.h b/include/drm/intel/display_parent_interface.h
+> index 00f8e27be9f3..d905d59cc43e 100644
+> --- a/include/drm/intel/display_parent_interface.h
+> +++ b/include/drm/intel/display_parent_interface.h
+> @@ -66,9 +66,8 @@ struct intel_display_bo_interface {
+>   };
+>   
+>   struct intel_display_dpt_interface {
+> -	struct intel_dpt *(*create)(struct drm_gem_object *obj,
+> -				    const struct intel_gtt_view *view);
+> -	void (*destroy)(struct intel_dpt *dpt);
+> +	int (*create)(struct drm_gem_object *obj,
+> +		      const struct intel_gtt_view *view);
+>   };
+>   
+>   struct intel_display_dsb_interface {
+> @@ -90,13 +89,11 @@ struct intel_display_fb_pin_interface {
+>   	void (*ggtt_unpin)(struct i915_vma *ggtt_vma,
+>   			   int fence_id);
+>   	int (*dpt_pin)(struct drm_gem_object *obj,
+> -		       struct intel_dpt *dpt,
+>   		       const struct intel_fb_pin_params *pin_params,
+> -		       struct i915_vma **out_dpt_vma,
+>   		       struct i915_vma **out_ggtt_vma,
+>   		       u32 *out_offset);
+> -	void (*dpt_unpin)(struct intel_dpt *dpt,
+> -			  struct i915_vma *dpt_vma,
+> +	void (*dpt_unpin)(struct drm_gem_object *obj,
+> +			  const struct intel_gtt_view *view,
+>   			  struct i915_vma *ggtt_vma);
+>   	struct i915_vma *(*reuse_vma)(struct i915_vma *old_ggtt_vma,
+>   				      struct drm_gem_object *old_obj,
 
-[Severity: Medium]
-Does intel_dp_aux_fill_hdr_tcon_params() leave
-INTEL_EDP_HDR_TCON_2084_DECODE_ENABLE and
-INTEL_EDP_HDR_TCON_SEGMENTED_BACKLIGHT_ENABLE set when
-intel_dp_in_hdr_mode(conn_state) is false?
-
-intel_dp_aux_hdr_enable_backlight() initializes ctrl from the current DPCD
-INTEL_EDP_HDR_GETSET_CTRL_PARAMS value (old_ctrl) before calling
-intel_dp_aux_fill_hdr_tcon_params().  When enabling the backlight in SDR
-mode, the if (intel_dp_in_hdr_mode(conn_state)) block is not entered, so
-neither bit is cleared if it was previously set in DPCD.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117104808.2023=
-577-1-vidya.srinivas@intel.com?part=3D1
