@@ -2,33 +2,34 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2810A606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B8F606A31C
 	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 14:29:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lankhorst.se header.i=@lankhorst.se header.a=rsa-sha256 header.s=default header.b=X9q0Myhc
+	dkim=pass (2048-bit key) header.d=lankhorst.se header.i=@lankhorst.se header.a=rsa-sha256 header.s=default header.b=AXE//ssJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88ACC10F79A;
-	Tue, 17 Nov 2026 14:29:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3620B10F798;
+	Tue, 17 Nov 2026 14:29:39 +0000 (UTC)
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4F8610F79B;
- Tue, 17 Nov 2026 14:29:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBCC710F796;
+ Tue, 17 Nov 2026 14:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1794925770;
- bh=Y2Q7J7r26GdZ8w8odEi97wVNI17w7xFkRfXmRboNsIU=;
+ s=default; t=1794925768;
+ bh=YaMTH2wykcP3miWOyfepOmpgVoSReR/hI6xxmSLHdPo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X9q0MyhcVxKW88AuBFGWFYyixjLacG40HejsDaFw+7EjsQA/6j8FkwLKsTtMjm2kY
- jX9ESNsjN6mlDBR0T/9NPWkuM0ASWhU0fxTSW+qh0EbkbzweDFB7y+s8I5Azk/E/ir
- zhUOSSI6g3sfPZLg8OZZZr6FABWy5tLKKqt/fTu0cMt2OBOSdeRudI8CFJJglRGcQh
- 5Q6b3fCxBjvz4bmR48Ve8ZjhgFuMIQ0VUS+O79lPCTunkt7nH83axkUMtKY6XadEJG
- l2PSqEHn87a78lRTH/pzDjSb0A6uT91jPxxvBM7ELeDZf7IZZwLW8gNgrq/oyDCQkU
- lYfevYWkhDpeQ==
+ b=AXE//ssJn6xOVjJ7Y1qIfMpk8h1RSqFenPmG6NZ0+051j6RR76lJQgq8bQFYOxRjm
+ 4KM+qLIl76cIlb5BhHnObgz0JQpjt+RPGxzVd+VWrF2aIPLfqPzfNeUQ98jsL2kiW+
+ Vn4lxaQZiPFGoc/eKiMTD8otrvpWP2pdtOZpS99qgqW5ax0vZJKa/eezdMkUfOHkWx
+ ysC2xibFOvsKxw6U51/dEfsUrNQJyKaUnQaWa/ydY+FBVh8CuDJQPhy+0c/GxyoWeC
+ NrcDW+c0yVtJ7EoGGXP0rL68eqGOdUf6JZB4dURS8HlF4TzJRs5uxAN3YJNj5TrW3S
+ iwii9XI14b7RA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v6 4/5] HACK: Always fallback
-Date: Tue, 17 Nov 2026 15:30:43 +0100
-Message-ID: <20261117143038.479557-11-dev@lankhorst.se>
+Cc: intel-gfx@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Matthew Auld <matthew.auld@intel.com>, Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH v6 1/5] drm/xe/display: Avoid using stolen memory for
+ framebuffer when media gt exists.
+Date: Tue, 17 Nov 2026 15:30:40 +0100
+Message-ID: <20261117143038.479557-8-dev@lankhorst.se>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261117143038.479557-7-dev@lankhorst.se>
 References: <20261117143038.479557-7-dev@lankhorst.se>
@@ -53,24 +54,43 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On systems with media GT, extra latency is added when accessing stolen
+memory when the GT is in MC6.
+
+Simply disable allocating stolen memory for framebuffers when media gt
+is found.
+
+Thanks to the previous patch, it will be possible to preserve the
+contents.
+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Link: https://patch.msgid.link/20260630135523.1775379-3-dev@lankhorst.se
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/display/xe_display_bo.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/xe/display/xe_display_bo.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
-index 9385026a80b97..d78d893210c4f 100644
+index f5102cd0e95d6..9385026a80b97 100644
 --- a/drivers/gpu/drm/xe/display/xe_display_bo.c
 +++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
-@@ -142,6 +142,8 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsigned int size)
+@@ -131,6 +131,14 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsigned int size)
+ 	if (IS_DGFX(xe))
+ 		return false;
+ 
++	/*
++	 * Avoid stolen memory when the media_gt exists,
++	 * because a lot of latency is added when media gt is in MC6
++	 */
++	if (xe_device_get_root_tile(xe)->media_gt)
++		return false;
++
++	/* machine hang when doing lots of LMEMBAR accesses */
  	if (XE_DEVICE_WA(xe, 22019338487_display))
  		return false;
  
-+	return false;
-+
- 	/*
- 	 * If the FB is too big, just don't use it since fbdev is not very
- 	 * important and we should probably use that space with FBC or other
 -- 
 2.55.0
 
