@@ -2,61 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70F8606A31C
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 16:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26220606A32A
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 16:30:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sh4OtYTu
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kgK+aJpm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B6AE10EB9A;
-	Tue, 17 Nov 2026 16:07:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B75DF10EB97;
- Tue, 17 Nov 2026 16:07:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B19A110F761;
+	Tue, 17 Nov 2026 16:30:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3C610F7F6
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 16:30:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794931640; x=1826467640;
+ t=1794933007; x=1826469007;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=9WBl97ox45VwdJud2Nt486jdjH9XjODUFDGoT9sLQTs=;
- b=Sh4OtYTuWWqSIbnJQVoldKWGypAvQNMw6nKmVECRaWP7kJ74fNoGeQL2
- IDkekLSMM6P5Tn2i5YRfx9j0yunqWtEtFgAZVre/So1XYVxmd+Mdtsbp7
- YO/Z5EcyKSRUmUcCvO7LJpdWvE0BzlKo/KcXGPnXBM9PAi48C+qkRVd9I
- 23RQ0ohQ7my2pWZdRQgWbMrGH1SMOdPIA7qyqrYwuIKDbof9Jzk/nZIp+
- HwtPFu3EhV55q7E1Z1GAuj7a/f5y7joqUvZviUCHi3lHX1xdP3ZL6gEti
- 6srRljmlTOIhKm1VBVc1TlKOxi2r8k1MmjEB6OOkVmIeAADpmiqzL2ZAc Q==;
-X-CSE-ConnectionGUID: Phc8aKNXQgmVVRqQQN8Q2w==
-X-CSE-MsgGUID: uLAStSg6SGqXI9miMXL2/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3560056"
+ message-id:mime-version;
+ bh=48qAC6hjDvoPA+ktoaJTaO+V6uH0b+IsTqAcZEORYaY=;
+ b=kgK+aJpmUN9s4FFrqFkpbbE6DLBbR2qMhyi4JpGNCGx1A9yPyf7aS++C
+ GTQWEqtAA0/LRXz5fUUU7Wz0Hkoz89JrD9G36cV+ErD63MbPLi8wudw1n
+ GFO/sJG13mTmKZaZtlVXl4NFFQvsOE9hBB4KzkhzhLpfVbSWB6LmRDEg3
+ et6cVbdxRTS1nGFwl7Sepd+YcR0ipIOTK9FqeQubwk6fgbpT0Z3kPCkmd
+ e9zGrNSJPBeKUBMQ/IzFDdflZImFZtSGwO4gWkdnGsaabb/4C+ZqWcSwG
+ AAsRousWfuVlXRKa5tk6h4eiy3VMP/0WQL5uuNgjwuJ2y67YBhir07hKO g==;
+X-CSE-ConnectionGUID: 063UJc0NRI+po/DQmeAKhw==
+X-CSE-MsgGUID: 7NdFnGFLSua/Q3Sh2zBehQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3603447"
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3560056"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 08:07:19 -0800
-X-CSE-ConnectionGUID: EYqedJK5TI2lXI+6+rKu/g==
-X-CSE-MsgGUID: dDUCnr2hQ6WyuM93BaA8Yg==
+   d="scan'208";a="3603447"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 08:30:06 -0800
+X-CSE-ConnectionGUID: nI/Xu1yWRf6Trta/CRmj2g==
+X-CSE-MsgGUID: bKfXSaFNQr62hRPhJvftPg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; d="scan'208";a="10401808"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; d="scan'208";a="10134016"
 Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.94])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 08:07:18 -0800
+ 17 Nov 2026 08:30:04 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 5/7] drm/i915/dsb: Update previous instruction tracking
- in intel_dsb_align_tail() & co.
-In-Reply-To: <20261116081041.6519-6-ville.syrjala@linux.intel.com>
+To: "Main Maximilian (BhP/TEF-EAT13)" <Maximilian.Main@de.bosch.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: "patrik.jakobsson@intel.com" <patrik.jakobsson@intel.com>, "Schoellhorn
+ Martin (BhP/TEF-EAT13)" <Martin.Schoellhorn@de.bosch.com>
+Subject: Re: [PATCH] drm/i915/display: Add CH7511 ignore interlane align bit
+ quirk for Axiomtek PICO841 (Bosch mPad)
+In-Reply-To: <BR0PR10MB43211421F7CC2B157EF79F0472D9722@BR0PR10MB432114.EURPRD10.PROD.OUTLOOK.COM>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261116081041.6519-1-ville.syrjala@linux.intel.com>
- <20261116081041.6519-6-ville.syrjala@linux.intel.com>
-Date: Tue, 17 Nov 2026 18:07:15 +0200
-Message-ID: <7d90df4bf575d83be6b34824d3a40d07fa5d10d2@intel.com>
+References: <BR0PR10MB43211421F7CC2B157EF79F0472D9722@BR0PR10MB432114.EURPRD10.PROD.OUTLOOK.COM>
+Date: Tue, 17 Nov 2026 18:30:01 +0200
+Message-ID: <d2e48084ae0385794669ae5141cff9095ac32a93@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,58 +67,29 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 16 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+On Tue, 10 Nov 2026, "Main Maximilian (BhP/TEF-EAT13)" <Maximilian.Main@de.bosch.com> wrote:
+> Hello Intel Team,
 >
-> intel_dsb_align_tail() and intel_dsb_gosub_align() simply memset
-> a bunch of QWs to 0. What that actually does is emit a bunch of
-> NOOP instructions. For complete correctness let's keep the
-> previous instruction tracking up to date, instead of leaving
-> it pointing at whatever instruction preceded the alignment
-> NOOPs.
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dsb.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i=
-915/display/intel_dsb.c
-> index 75f98b31c780..f8ca64a3c076 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dsb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-> @@ -601,6 +601,8 @@ static void intel_dsb_align_tail(struct intel_dsb *ds=
-b)
->  	if (aligned_tail > tail) {
->  		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
->  		dsb->free_pos =3D aligned_tail / 4;
-> +
-> +		intel_dsb_set_ins(dsb, dsb->free_pos - 2, 0, 0);
+> Since kernel 6.11, the internal display on the Bosch mPad (which is
+> built on an Axiomtek PICO841 industrial single-board computer) suffers
+> from endless link retraining loops. This causes the panel to
+> power-cycle/flicker continuously every 2 seconds.
 
-So is this just the last two NOOPs?
+Please file i915 issues as described at [1].
 
 BR,
 Jani.
 
->  	}
->  }
->=20=20
-> @@ -624,6 +626,8 @@ static void intel_dsb_gosub_align(struct intel_dsb *d=
-sb)
->  	if (aligned_tail - tail <=3D 2 * 8) {
->  		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
->  		dsb->free_pos =3D aligned_tail / 4;
-> +
-> +		intel_dsb_set_ins(dsb, dsb->free_pos - 2, 0, 0);
->  	}
->  }
+[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
 
---=20
+
+
+-- 
 Jani Nikula, Intel
