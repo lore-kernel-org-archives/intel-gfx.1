@@ -2,60 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26220606A32A
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 16:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1B6606A337
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 16:42:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kgK+aJpm
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SNLsQ3jv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B19A110F761;
-	Tue, 17 Nov 2026 16:30:12 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3C610F7F6
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 16:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD90810F7E8;
+	Tue, 17 Nov 2026 16:42:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70C3410E1E9;
+ Tue, 17 Nov 2026 16:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794933007; x=1826469007;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=48qAC6hjDvoPA+ktoaJTaO+V6uH0b+IsTqAcZEORYaY=;
- b=kgK+aJpmUN9s4FFrqFkpbbE6DLBbR2qMhyi4JpGNCGx1A9yPyf7aS++C
- GTQWEqtAA0/LRXz5fUUU7Wz0Hkoz89JrD9G36cV+ErD63MbPLi8wudw1n
- GFO/sJG13mTmKZaZtlVXl4NFFQvsOE9hBB4KzkhzhLpfVbSWB6LmRDEg3
- et6cVbdxRTS1nGFwl7Sepd+YcR0ipIOTK9FqeQubwk6fgbpT0Z3kPCkmd
- e9zGrNSJPBeKUBMQ/IzFDdflZImFZtSGwO4gWkdnGsaabb/4C+ZqWcSwG
- AAsRousWfuVlXRKa5tk6h4eiy3VMP/0WQL5uuNgjwuJ2y67YBhir07hKO g==;
-X-CSE-ConnectionGUID: 063UJc0NRI+po/DQmeAKhw==
-X-CSE-MsgGUID: 7NdFnGFLSua/Q3Sh2zBehQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3603447"
+ t=1794933737; x=1826469737;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ACghu4UkJaO43l4XeTjYfOaiaydWWXpQ+H2N5YHOvo8=;
+ b=SNLsQ3jviIi0nd7AA3nBjsmSqRBctqJprjXL6GS7RTd4LObp1geJyLg1
+ c6y3DROsK6jB5Zq8JVL2/yuibwd6qU9mCdGSSYZNqn7djyH5E4GaDMH/e
+ ZCRgdfuLS7Ja2oThDWx/oy/RvaMsyoqZhwaDZEiuGyz7qgiO9XoWwpsLw
+ XzO9pjc6aoIQo9JBXxf95ZYuR++hDsW1kwhHPxjGx1y2wM8hHWsEbfqS9
+ m4drpYT28G0QRYD7FfKTxVG2/YV8y/wAJpFmWr4x09gF641Dh31kKay8m
+ Iognjdw5kuZYWpgmxQGFejlAb5i2fqW2JXdXAz78+oNoTFOjzAj3FefTo A==;
+X-CSE-ConnectionGUID: yavbjO/5RcOjA6HkjlvP5w==
+X-CSE-MsgGUID: JGMJMortRritS7iD4DMbxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3707917"
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3603447"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 08:30:06 -0800
-X-CSE-ConnectionGUID: nI/Xu1yWRf6Trta/CRmj2g==
-X-CSE-MsgGUID: bKfXSaFNQr62hRPhJvftPg==
+   d="scan'208";a="3707917"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 08:42:16 -0800
+X-CSE-ConnectionGUID: oHUh12qLRa6rcm2mpl6jQg==
+X-CSE-MsgGUID: 1ye7LhZcQLmYwlS6g+03bg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; d="scan'208";a="10134016"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.94])
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9943149"
+Received: from dev-417.igk.intel.com (HELO dev-417) ([10.91.214.181])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 08:30:04 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Main Maximilian (BhP/TEF-EAT13)" <Maximilian.Main@de.bosch.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Cc: "patrik.jakobsson@intel.com" <patrik.jakobsson@intel.com>, "Schoellhorn
- Martin (BhP/TEF-EAT13)" <Martin.Schoellhorn@de.bosch.com>
-Subject: Re: [PATCH] drm/i915/display: Add CH7511 ignore interlane align bit
- quirk for Axiomtek PICO841 (Bosch mPad)
-In-Reply-To: <BR0PR10MB43211421F7CC2B157EF79F0472D9722@BR0PR10MB432114.EURPRD10.PROD.OUTLOOK.COM>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <BR0PR10MB43211421F7CC2B157EF79F0472D9722@BR0PR10MB432114.EURPRD10.PROD.OUTLOOK.COM>
-Date: Tue, 17 Nov 2026 18:30:01 +0200
-Message-ID: <d2e48084ae0385794669ae5141cff9095ac32a93@intel.com>
+ 17 Nov 2026 08:42:15 -0800
+Date: Tue, 17 Nov 2026 17:41:42 +0100
+From: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@linux.intel.com>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH v1 2/2] drm/i915/psr: clean register macro's name from typo
+Message-ID: <x2lfaqsfstljgxzvzewgkepf4yb7vu2vzs2t24joglsmqkwvze@f6e6vntw7zvy>
+References: <20261104231812.1704129-1-michal.grzelak@linux.intel.com>
+ <20261104231812.1704129-3-michal.grzelak@linux.intel.com>
+ <DS4PPFE901A304FC4C5B1FA4B93526BB552E3722@DS4PPFE901A304F.namprd11.prod.outlook.com>
+ <DS4PPFE901A304FC60900D006E7FFCD74FDE3722@DS4PPFE901A304F.namprd11.prod.outlook.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DS4PPFE901A304FC60900D006E7FFCD74FDE3722@DS4PPFE901A304F.namprd11.prod.outlook.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,29 +68,122 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 10 Nov 2026, "Main Maximilian (BhP/TEF-EAT13)" <Maximilian.Main@de.bosch.com> wrote:
-> Hello Intel Team,
->
-> Since kernel 6.11, the internal display on the Bosch mPad (which is
-> built on an Axiomtek PICO841 industrial single-board computer) suffers
-> from endless link retraining loops. This causes the panel to
-> power-cycle/flicker continuously every 2 seconds.
+On Tue, Nov 10, 2026 at 06:29:34AM GMT, Kandpal, Suraj wrote:
+> > Subject: RE: [PATCH v1 2/2] drm/i915/psr: clean register macro's name from
+> > typo
+> > 
+> > > Subject: [PATCH v1 2/2] drm/i915/psr: clean register macro's name from
+> > > typo
+> > >
+> > > Apply s/_CONTINUOS_/_CONTINOUOS_/ for both
+> > > ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME and
+> > > PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME.
+> > >
+> > > No functional change.
+> > >
+> > > Signed-off-by: Michał Grzelak <michal.grzelak@linux.intel.com>
+> > 
+> > LGTM,
+> > Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> > 
+> > > ---
+> > >  drivers/gpu/drm/i915/display/intel_psr.c      | 6 +++---
+> > >  drivers/gpu/drm/i915/display/intel_psr_regs.h | 4 ++--
+> > >  2 files changed, 5 insertions(+), 5 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_psr.c
+> > > b/drivers/gpu/drm/i915/display/intel_psr.c
+> > > index 5bfac64284ef8..5e0cf34e1a819 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> > > @@ -1074,7 +1074,7 @@ static void dg2_activate_panel_replay(struct
+> > > intel_dp
+> > > *intel_dp)
+> > >
+> > >  	intel_de_rmw(display,
+> > >  		     PSR2_MAN_TRK_CTL(display, intel_dp->psr.transcoder),
+> > > -		     0,
+> > > ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME);
+> > > +		     0,
+> > > ADLP_PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME);
+> > >
+> > >  	intel_de_rmw(display, TRANS_DP2_CTL(intel_dp->psr.transcoder),
+> > > dp2_ctl_clear, dp2_ctl_set);  } @@ -2618,8 +2618,8 @@ static u32
+> > > man_trk_ctl_partial_frame_bit_get(struct intel_display *display)
+> > > static u32 man_trk_ctl_continuous_full_frame(struct intel_display *display)  {
+> > >  	return display->platform.alderlake_p || DISPLAY_VER(display) >= 14 ?
+> > > -	       ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME :
+> > > -	       PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME;
+> > > +	       ADLP_PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME :
+> > > +	       PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME;
+> > >  }
+> > >
+> > >  static void intel_psr_force_update(struct intel_dp *intel_dp) diff
+> > > --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h
+> > > b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+> > > index a57bc111290d1..56df4d2f97286 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
+> > > +++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+> > > @@ -241,7 +241,7 @@
+> > >  #define  PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR_MASK
+> > > 	REG_GENMASK(20, 11)
+> > >  #define  PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR(val)
+> > > 	REG_FIELD_PREP(PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR_MASK
+> > > , val)
+> > >  #define  PSR2_MAN_TRK_CTL_SF_SINGLE_FULL_FRAME
+> > > 	REG_BIT(3)
+> > > -#define  PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME
+> > > 	REG_BIT(2)
+> > > +#define  PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME
+> > > 	REG_BIT(2)
+> > >  #define  PSR2_MAN_TRK_CTL_SF_PARTIAL_FRAME_UPDATE
+> > > 	REG_BIT(1)
+> > >  #define  ADLP_PSR2_MAN_TRK_CTL_SU_REGION_START_ADDR_MASK
+> > > 	REG_GENMASK(28, 16)
+> > >  #define  ADLP_PSR2_MAN_TRK_CTL_SU_REGION_START_ADDR(val)
+> > > 	REG_FIELD_PREP(ADLP_PSR2_MAN_TRK_CTL_SU_REGION_START_ADD
+> > > R_MASK, val)
+> > > @@ -249,7 +249,7 @@
+> > >  #define  ADLP_PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR(val)
+> > > 	REG_FIELD_PREP(ADLP_PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR
+> > > _MASK, val)
+> > >  #define  ADLP_PSR2_MAN_TRK_CTL_SF_PARTIAL_FRAME_UPDATE
+> > > 	REG_BIT(31)
+> > >  #define  ADLP_PSR2_MAN_TRK_CTL_SF_SINGLE_FULL_FRAME
+> > > 	REG_BIT(14)
+> > > -#define  ADLP_PSR2_MAN_TRK_CTL_SF_CONTINUOS_FULL_FRAME
+> > > 	REG_BIT(13)
+> > > +#define  ADLP_PSR2_MAN_TRK_CTL_SF_CONTINOUOS_FULL_FRAME
+> > > 	REG_BIT(13)
+> 
+> *Continuous
+> 😝
 
-Please file i915 issues as described at [1].
+... O:)
+
+> 
+> With that fixed LGTM
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> 
+
+Thanks!
+
+Since I somehow lost this email will reply to the newest version with
+your R-B. Apologies.
 
 BR,
-Jani.
+Michał
 
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-
-
--- 
-Jani Nikula, Intel
+> > >
+> > >  #define _LNL_SFF_CTL_A				0x60918
+> > >  #define _LNL_SFF_CTL_B				0x61918
+> > > --
+> > > 2.45.2
+> 
