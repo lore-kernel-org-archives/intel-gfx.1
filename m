@@ -2,43 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9666606A325
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:26:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C11E606A320
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:26:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jwa3aT1k
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nPh3L66s
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96FE4112551;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AED92112552;
 	Thu, 19 Nov 2026 15:26:20 +0000 (UTC)
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Wed, 18 Nov 2026 19:21:29 UTC
-Received: from mta0.migadu.com (out-68.mta0.migadu.com [91.218.175.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A36F10FFB4
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 19:21:29 +0000 (UTC)
-X-Envelope-To: intel-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=LsuxcOhvKdi13O8EO+aoLGAH07VJh+BMmeR5nHZjkL8=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795029687; v=1; x=1795634487;
- b=jwa3aT1kFUsoAXECub71N5goYBHauDDpRIQJDmg9vvqKZVyTbQXSLBxsc4R2bFD0CdtDNgh8
- jYUBzLkIZ9IJEjDucXra7iRn6ABUUrOAEsqxP4RHPeTH6gcRWiNeDFMm7LJlJqjd9QHrY8qA4BD
- fgYylc8wTUAxFu/Tpd9//2NM=
-X-Envelope-To: intel-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id d26edee295264752;
- Wed, 18 Nov 2026 19:15:23 +0000
-X-Mizu-Trace-ID: d26edee295264752
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: uma.shankar@intel.com, chaitanya.kumar.borah@intel.com,
- Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [RFC PATCH 0/2] drm/i915/color: 3D LUT fixes
-Date: Wed, 18 Nov 2026 11:15:11 -0800
-Message-ID: <20261118191514.2931270-1-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.56.1
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACBBE10FDF7
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:35:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0d
+ SYoc96Z/CKs/r/Hn8wki19v98dUkiWQeKXaHKJfGQ=; b=nPh3L66sjVuGjpLnf+
+ sW5qZB5D7KoIYOpyL6mQ5J9rXBDVgidjbO5p1d9JhhaxvnNdipJlplPziJF9j4GV
+ qUNKJcs0xGjEWC/ROMBdSeL9WKGj3gi7FjhgWYfNf9ZDYK+P0TN3apz9iGoY7vOG
+ jsnmWEGmeVKWsA5SAbNeBEA3o=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id
+ _____wDXvxH1xP1qgAB1Hw--.27589S2; 
+ Wed, 18 Nov 2026 23:32:07 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Haoxiang Li <haoxiang_li2024@163.com>
+Subject: [PATCH] drm/i915/vma: Fix a memory leak in i915_vma_pin_ww()
+Date: Wed, 18 Nov 2026 23:32:05 +0800
+Message-Id: <20261118153205.2432736-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wDXvxH1xP1qgAB1Hw--.27589S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKFWkZr1UAry8GryUWw47XFb_yoWDtrc_CF
+ y0vrWxWryjyrWqvFy5CFs3ZFy0ywnYqrWxAw1ft3s3tryUCr4Du3sxWryrXr4xCa1DtFZI
+ qas7XFn8Ar97KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRNiiSDUUUUU==
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7ReI9mr9xPdgsQAA3x
 X-Mailman-Approved-At: Thu, 19 Nov 2026 15:26:19 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,46 +53,40 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-20.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Two fixes for the 3D LUT support that came with the plane color
-pipeline. I ran into both while bringing up the pipe-bound 3D LUT on
-Lunar Lake for gamescope, using out-of-tree patches that expose it
-through the CRTC color pipeline proposed in [1].
+i915_vma_pin_ww() allocates bind work before retrieving the object's
+moving fence. If the lookup fails, it jumps to err_rpm, bypassing the
+fence commit at err_fence and leaking the work allocation.
 
-Patch 1 stops planes that do not own the 3D LUT from rewriting
-LUT_3D_CTL. On Lunar Lake an enable bit set by hand is cleared by the
-next plane update. Reading the code, the same write from any
-non-primary plane on Xe3p_LPD disables the LUT the primary plane
-enabled.
+Jump to err_fence instead so the fence callbacks can release the work.
 
-Patch 2 writes the table in the order the hardware reads it. The colorop
-blob has red as the fastest axis and the hardware has blue. I measured
-this on Lunar Lake only, with the LUT bound to the pipe, by writing
-LUT_3D_INDEX and LUT_3D_DATA from userspace and decoding the pipe CRC of
-solid color frames. I have no Nova Lake hardware, so the plane-bound
-case is unchecked. If the plane binding indexes the table differently
-this patch is wrong for it, and I would appreciate a pointer to what
-Bspec says about the entry order.
+Fixes: 8ec5c0006c50 ("Merge tag 'drm-intel-next-2022-05-20' of git://anongit.freedesktop.org/drm/drm-intel into drm-intel-gt-next")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ drivers/gpu/drm/i915/i915_vma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[1] https://lore.kernel.org/all/20260716160556.227556-1-mwen@igalia.com/
-
-Matthew Schwartz (2):
-  drm/i915/color: only let the owning plane program the 3D LUT
-  drm/i915/color: load the 3D LUT in the order the hardware indexes it
-
- drivers/gpu/drm/i915/display/intel_color.c    | 28 ++++++++++++++++---
- drivers/gpu/drm/i915/display/intel_color.h    |  5 ++++
- .../drm/i915/display/intel_color_pipeline.c   | 12 ++------
- 3 files changed, 31 insertions(+), 14 deletions(-)
-
-
-base-commit: fb078d17b966f7a24720b6e3a5de06d43c2e184a
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 16782d8579a8..4ba1c9ea5ecb 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -1470,7 +1470,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 
+ 		err = i915_gem_object_get_moving_fence(vma->obj, &moving);
+ 		if (err)
+-			goto err_rpm;
++			goto err_fence;
+ 
+ 		dma_fence_work_chain(&work->base, moving);
+ 
 -- 
-2.56.1
+2.25.1
 
