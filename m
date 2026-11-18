@@ -2,69 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC58606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 13:42:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4DF606A31C
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 13:46:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=qnccTQVP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnAsgjRT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB5610E371;
-	Wed, 18 Nov 2026 13:41:56 +0000 (UTC)
-X-Greylist: delayed 36480 seconds by postgrey-1.36 at gabe;
- Wed, 18 Nov 2026 13:41:49 UTC
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.64.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22FD610E371;
- Wed, 18 Nov 2026 13:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
- s=pkvm2402; t=1795009287;
- bh=Z/ONwmnRxmJlfxOWf1O7ZnguWs7jkhfBNvJhld8u8tA=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=qnccTQVPQYKAjn8Hd8S0Gf94gJZ1CMfzNM9ttEJr/G6YszPSbOia5wXUk/hDa1JMX
- FHWlBBaoZwFUll0rA0YGCxobv8EYChpdriDcqCpXRdciD62Mx55ubtjtxSlBFQZaQA
- LC1FrCntk0+vd187x9BXn4Izw5zEgcsRYWVpkG1I=
-X-QQ-mid: zesmtpgz3t1795009286ta8c1c6a0
-X-QQ-Originating-IP: aSpVeBmsJBlkEulbQQYGu8bom56cFHjww6RvOE6lsE8=
-Received: from exmail.qq.com ( [14.155.219.48])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 18 Nov 2026 21:41:20 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1006432374697517955
-EX-QQ-RecipientCnt: 8
-From: Hanson Wang <hanson.wang@ugreen.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- hanson.wang@ugreen.com
-Subject: Re: [PATCH] drm/i915/bw: sync global BW after non-atomic plane disable
-Date: Wed, 18 Nov 2026 21:41:19 +0800
-Message-Id: <20261118134119.2648155-1-hanson.wang@ugreen.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <sashiko-outbox-220061@kernel.org>
-References: <sashiko-outbox-220061@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B05710FC37;
+	Wed, 18 Nov 2026 13:45:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC1410FA50;
+ Wed, 18 Nov 2026 13:45:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4193144E88;
+ Wed, 18 Nov 2026 13:45:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337C41F000C5;
+ Wed, 18 Nov 2026 13:45:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795009547;
+ bh=6cCL93ssdEirtEIN7IN1AXWvsFJlWDaYl18DuhqCOQs=;
+ h=From:To:Cc:Subject:Date;
+ b=UnAsgjRTHy0X5p6+yQJK1J7Ig6nX5Irnk6nGzKNbeg36UPsZaYClq6NCtB6/N5WD4
+ k1P+gLlIbKTDTx0Dja5qIrmXbuB01KxoalS9L381uKEW4sjsbG9LWJWJF+6I0ewgb0
+ srQzRqHUN6vavVY9eU3eoednEHrkmEEMLcP4N45Qztet6mF+tPtjWkEfrXCkQb6kCe
+ skH45IXlffpjzwSPTOH6AeTFX/YVvTMlnRUUrLSWf3uy+5YDAZU6iMm9R85Sv2D5oy
+ PYCKr/ezc9EO8vagVPtUbzsWH2NigoK9xyJQF7nNXAELRH6UPxyNq/PcrYq5wJazuO
+ jwgYcnLh6RBYQ==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sunil Khatri <sunil.khatri@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ David Rosca <david.rosca@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.or
+Subject: [PATCH v2 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
+Date: Wed, 18 Nov 2026 14:45:20 +0100
+Message-ID: <20261118134522.1646892-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MjKQVE11soRgqUV8BimdQC4gsuhdFGMGqfslMSMZq34QCMHwna+/ZBGh
- vgPddKHdYPwG/4pMtyhOZmo5vtuXuyvzaIpp5buG2iZVAy3/cqt8/iIY+FWjZKZPDqq38k2
- MXqEW0IdQt0EbnSzuKJ5hvrJxIJAsKNT14V6o843iQwKxg77zzFZjaL86dUhAZuN/oxEERQ
- 8j8LpMOisbw5gdXPdWd3Wif2kQG+lgDQap2fvtrceEKuWuyEpd9mCqCc5kkCTaUwt7bY2MM
- cbra8ZkU6I/b1S95A8elaVn3y98zwOahtiAMhZrHjpm+fJiKrXAFpObqwopyNGSYKKFs0Bt
- t/EEPUN4IK3tkZtyRwbMbZ+AZ1GB18EdEngkVVHM1kj7l7gwtoDPmc3d1WiZwDn+h0Rv3O5
- lpeWuywfxiX8B9vUPENZZlSeTKc0fIgjc9Ezzg3VPSUPGyKnklwjSCRnfpEtTjHRXQTM084
- t5DG6oN19f6jPsRmZ6BxO0NsGSjokmcD0it88y8t14DgBah8tzxnUnJPPbuNHEtMu66R6Wb
- 50r7pZZiYqQO2TFjsyK+AiNOeQ4foU0pP9JuW/dvhKo7PWZmejnWEKLBodlT4KpvWR9PJz5
- gfeXtDP8VnL62ItvVmexDDTzRLFMobPvIHNyBm7msM0P70kxn5Cps74G4L7QjUnrYD6Bms0
- ZdRM/kNDtUTAGMauWvd0YFnumSX6YpCQYmH2kQvNdH7Z6jI2AJFapZSeirLfIu+aLj70lKu
- 95+PvlJFsKx4iVC38I26lNU3hItDNChQX8Q2m+2GnckKaV7JbXOzTIaDPGEvxEaVfOJN+N8
- xsaiTrqVbCTUcPV1BP6TTbgP9Ju7C2ZqjHhUH0EilzJkhb8OmH+RHgvG2hNMDWJy0+D3c9R
- +6/ZyBQ90bDgTK7e+PIc18HFkrv6wfzWjlLgSoc+xAX47WlEc9bc3Iq4anWOSZu1Y5mZY3+
- aW+uD4McztGzqO74ALkSwWdkYn89G1eUPiCGOl22HO5DMyKWclbjKQZMBm8ln7hn6Z4Orxp
- +i+obflVlmT5171D87LGjXsPhhqbliw0zVmqDGyA==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,32 +71,101 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Thanks for the review.
+(Only adding vc4 and dma-fence folks to Cc to avoid noise)
 
-I retested the patched mainline kernel on the N5105 with KMS
-debug logging enabled. The original DBUF sanitization path was
-triggered: pipe B initially accounted for 196000 kB/s and one
-plane, and the patch cleared that accounting after plane disable.
+Changes in v2:
+  - Rebase due to conflict in drm/vc4
+  - Change dma_fence_flags_invalid() to dma_fence_flags_valid()
+    (Christian)
 
-The subsequent full modeset enabled pipe A and disabled pipe B.
-The KMS log explicitly shows pipe B's minimum CDCLK changing
-from 24500 kHz to 0 kHz.
+We recently had a discussion about reworking dma_fence init to close a
+race-window [1].
 
-Post-boot inspection also confirmed that the per-CRTC and global
-minima agree, and that dbuf_bw_min_cdclk is 9282 kHz, matching
-the value recomputed from the current DBUF bandwidth state.
+The community agreement seems to have been that we can get rid of
+dma_fence_init64(), so let's do that already. In the meantime we can
+continue our discussions regarding the race in [1].
 
-Thus, I did not observe persistent stale CDCLK minima on this
-boot path. This does not rule out the plane-only disable case
-where the CRTC remains enabled without a subsequent full modeset;
-that case remains untested.
+This also touches the Rust dma_fence, which actually should use 64-bit
+seqnos (was forgotten so far). Rust fence has no users currently, so
+needs no backporting, so I would like to address that in a distinct
+patch.
 
-Thanks,
-Hanson
+Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
+the USER flag, so I hope we're fine.
+
+
+P.
+
+[1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@kernel.org/
+
+Philipp Stanner (3):
+  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+  dma-buf: Port users of dma_fence_init64()
+  dma-buf: dma-fence: Remove dma_fence_init64()
+
+ drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
+ drivers/accel/ethosu/ethosu_job.c             |  2 +-
+ drivers/accel/ivpu/ivpu_job.c                 |  2 +-
+ drivers/accel/rocket/rocket_job.c             |  2 +-
+ drivers/dma-buf/dma-fence-array.c             |  2 +-
+ drivers/dma-buf/dma-fence-chain.c             |  4 +-
+ drivers/dma-buf/dma-fence.c                   | 57 +++++++++----------
+ drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
+ drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
+ drivers/dma-buf/st-dma-fence.c                |  2 +-
+ drivers/dma-buf/st-dma-resv.c                 |  2 +-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ drivers/gpu/drm/drm_crtc.c                    |  2 +-
+ drivers/gpu/drm/drm_writeback.c               |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+ drivers/gpu/drm/i915/i915_request.c           |  2 +-
+ drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
+ drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+ drivers/gpu/drm/msm/msm_fence.c               |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+ drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
+ drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
+ drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
+ drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
+ drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
+ drivers/gpu/host1x/fence.c                    |  2 +-
+ drivers/iio/industrialio-buffer.c             |  2 +-
+ drivers/usb/gadget/function/f_fs.c            |  2 +-
+ include/linux/dma-fence.h                     | 14 +++--
+ rust/kernel/dma_buf/dma_fence.rs              |  2 +-
+ 52 files changed, 95 insertions(+), 93 deletions(-)
+
+
+base-commit: 17a180572ca50c8d38f3aa47d6fc81ce7c5594da
+-- 
+2.56.0
+
