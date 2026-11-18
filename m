@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE1560A2602
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 22:02:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF75606A32C
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 22:27:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB4310ECA4;
-	Wed, 18 Nov 2026 22:02:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E37A10E811;
+	Wed, 18 Nov 2026 22:27:31 +0000 (UTC)
 Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00AA610EC65;
- Wed, 18 Nov 2026 22:02:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 794C710E811;
+ Wed, 18 Nov 2026 22:27:29 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============6815655635953788554=="
+ boundary="===============8963143383489908153=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Add_struct=5Foffsetofend?=
- =?utf-8?q?=28=29_for_pointer_arithmetic_=28rev3=29?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dip=3A_Clear_VSC?=
+ =?utf-8?q?=5FSELECT_before_setting_it?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Bence Csokas" <bence.csokas@arm.com>
+To: "Eriksen Xie" <xiaolu.xie@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Nov 2026 22:02:13 -0000
-Message-ID: <179503933399.46520.9716177310535731250@9ac1b63fe3ea>
+Date: Wed, 18 Nov 2026 22:27:29 -0000
+Message-ID: <179504084948.46520.6171198177734157599@9ac1b63fe3ea>
 X-Patchwork-Hint: ignore
-References: <20261118-offsetof-v4-0-95b385c10b22@arm.com>
-In-Reply-To: <20261118-offsetof-v4-0-95b385c10b22@arm.com>
+References: <20261118131441.2023100-1-xiaolu.xie@intel.com>
+In-Reply-To: <20261118131441.2023100-1-xiaolu.xie@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,20 +42,20 @@ X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============6815655635953788554==
+--===============8963143383489908153==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: Add struct_offsetofend() for pointer arithmetic (rev3)
-URL   : https://patchwork.freedesktop.org/series/178382/
+Series: drm/i915/dip: Clear VSC_SELECT before setting it
+URL   : https://patchwork.freedesktop.org/series/178911/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_19557 -> Patchwork_178382v3
+CI Bug Log - changes from CI_DRM_19557 -> Patchwork_178911v1
 ====================================================
 
 Summary
@@ -65,26 +65,26 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178382v3/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178911v1/index.html
 
-Participating hosts (40 -> 38)
+Participating hosts (40 -> 39)
 ------------------------------
 
-  Missing    (2): bat-dg2-13 bat-mtlp-9 
+  Missing    (1): bat-dg2-13 
 
 Known issues
 ------------
 
-  Here are the changes found in Patchwork_178382v3 that come from known issues:
+  Here are the changes found in Patchwork_178911v1 that come from known issues:
 
 ### IGT changes ###
 
 #### Issues hit ####
 
-  * igt@core_hotunplug@unbind-rebind:
+  * igt@kms_pm_rpm@basic-rte:
     - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19557/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178382v3/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19557/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178911v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
 
   
   [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
@@ -93,18 +93,18 @@ Known issues
 Build changes
 -------------
 
-  * Linux: CI_DRM_19557 -> Patchwork_178382v3
+  * Linux: CI_DRM_19557 -> Patchwork_178911v1
 
   CI-20190529: 20190529
   CI_DRM_19557: 6d6b6ed3d20eb8db677d6463fd2f267fc29cd510 @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_9197: 9197
-  Patchwork_178382v3: 6d6b6ed3d20eb8db677d6463fd2f267fc29cd510 @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_178911v1: 6d6b6ed3d20eb8db677d6463fd2f267fc29cd510 @ git://anongit.freedesktop.org/gfx-ci/linux
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178382v3/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178911v1/index.html
 
---===============6815655635953788554==
+--===============8963143383489908153==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -124,42 +124,42 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>Add struct_offsetofend() for pointer arithmetic (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178382/">https://patchwork.freedesktop.org/series/178382/</a></td></tr>
+<tr><td><b>Series:</b></td><td>drm/i915/dip: Clear VSC_SELECT before setting it</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178911/">https://patchwork.freedesktop.org/series/178911/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178382v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178382v3/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178911v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178911v1/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_19557 -&gt; Patchwork_178382v3</h1>
+    <h1>CI Bug Log - changes from CI_DRM_19557 -&gt; Patchwork_178911v1</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178382v3/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 bat-mtlp-9 </p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178911v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
 <h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_178382v3 that come from known issues:</p>
+<p>Here are the changes found in Patchwork_178911v1 that come from known issues:</p>
 <h3>IGT changes</h3>
 <h4>Issues hit</h4>
 <ul>
-<li>igt@core_hotunplug@unbind-rebind:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19557/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178382v3/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+<li>igt@kms_pm_rpm@basic-rte:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19557/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178911v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
 </ul>
 </li>
 </ul>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_19557 -&gt; Patchwork_178382v3</li>
+<li>Linux: CI_DRM_19557 -&gt; Patchwork_178911v1</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_19557: 6d6b6ed3d20eb8db677d6463fd2f267fc29cd510 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_9197: 9197<br />
-  Patchwork_178382v3: 6d6b6ed3d20eb8db677d6463fd2f267fc29cd510 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_178911v1: 6d6b6ed3d20eb8db677d6463fd2f267fc29cd510 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 
 </body>
 </html>
 
---===============6815655635953788554==--
+--===============8963143383489908153==--
