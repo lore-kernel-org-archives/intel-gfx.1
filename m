@@ -2,76 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A786460A2602
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 16:51:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AECA606A338
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 17:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MR+cqIhP
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mK3eZ/SO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15B4110FE7B;
-	Wed, 18 Nov 2026 16:51:31 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE96810FE75;
- Wed, 18 Nov 2026 16:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA20310FE97;
+	Wed, 18 Nov 2026 17:01:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7644E10FE97;
+ Wed, 18 Nov 2026 17:01:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795020684; x=1826556684;
+ t=1795021276; x=1826557276;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version:content-transfer-encoding;
- bh=ajDnh0zw+64dcFPrEUfvS5sWfWZYQWJZbcQwO+AcVNs=;
- b=MR+cqIhPvcv9ENCgwgQp+w136q5E5ZrF8Gr2k1oHAStv3nmORyTsYhIx
- dmB4ZhZA3RiHYKpQT9jX+b9oATSksOCgpupoAqcVsB6qiO987bQJCdp2+
- RvFFOvAEPIQYhayUD6l7g0YziH62AmA1xbRHANVmNBNhDrsm/sT62LZ+1
- los1cgShguo+tNWVMW5YTqnOFCf+4MI3IP5FktQFdubs9TNg5rw1x2kLt
- aT7NzqI44nrUxjFq72/wodsiZN9iPoQtNnoJphJCdqCJTFjpYQLcPxwr0
- +ppilDS7nihsZEZvDQnpPZxEFDxvsIXNunqPfO47sNuWDzZSwx77IZqCQ Q==;
-X-CSE-ConnectionGUID: ufF2x8MjSTe8MVsBRvojhg==
-X-CSE-MsgGUID: hTuyctwxQIOM9eJRzdtD/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3699708"
+ bh=6qL+AYOl3XwCwU8XmLtthaNrzMaFqAwFPP7fTAfYrPY=;
+ b=mK3eZ/SO9oGAgVmlbPaNqoTz8x1lLZdA9GmELbKh2NCeFte3riumQBtz
+ fIPrEkQDtFxqCPf8qVrmB4M4qKKzxapMwqyHjKPDx1/gnDmzO5EwZmlOv
+ gp9J9s5THjiJ7oO0WRAkZnRsVJwRvhQ4w5q7L7JlhrAvOzvlViuccIcJo
+ rQGJ4kKg/pe/iorL4CanXZ4CjvPnFdWuQZOFgJP2voqr+zUI6MDGRwAN0
+ C4nDPYOL+jWOR6HzqZWmZjrex3em5SHiTDUYn2Y2Lv6aR0BIaz3cE6og6
+ BYU9NJ5k+rytU/SGZwy33FodLgBFdbqZ5Hr4wihAKJOnc76jejlPD/F1R w==;
+X-CSE-ConnectionGUID: mC0elyYLSVGuuz2GL2RgSg==
+X-CSE-MsgGUID: EbcWXIORQKWNvS25wRBdrg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3833276"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3699708"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 08:50:31 -0800
-X-CSE-ConnectionGUID: k/DCmaX/Qp2q9S20vakyDw==
-X-CSE-MsgGUID: YVFQiz1BSVmcIhLrCJbvrQ==
+   d="scan'208";a="3833276"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 09:01:16 -0800
+X-CSE-ConnectionGUID: DAOp5a8fQbysa1mgIxaSQQ==
+X-CSE-MsgGUID: wodZLCU5TL6XtnFenutVCA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="9985477"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10074409"
 Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.187])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 08:50:21 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sasha
- Finkelstein <k@chaosmail.tech>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, dri-devel@lists.freedesktop.org,
- asahi@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- linux-riscv@lists.infradead.org, etnaviv@lists.freedesktop.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imagination@lists.freedesktop.org,
- linux-mips@vger.kernel.org, lima@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 9/9] drm: Unify coding style for *_device_id arrays
-In-Reply-To: <av2rKJQ0AKU9CFZI@monoceros>
+ 18 Nov 2026 09:01:13 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/fb: move intel_dumb_fb_max_stride() to
+ intel_fb.[ch]
+In-Reply-To: <av3GffVIJ7ZoAViU@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cover.1795002467.git.ukleinek@kernel.org>
- <a2d5ce256b8ec150de4a6494c177b19693a33222.1795002467.git.ukleinek@kernel.org>
- <7692c160e418e7ad0528739fcc879b11fbac8ab0@intel.com>
- <av2rKJQ0AKU9CFZI@monoceros>
-Date: Wed, 18 Nov 2026 18:50:19 +0200
-Message-ID: <8ebe3b7219ffd963a498cccbcfe6cefc92717f0c@intel.com>
+References: <20261118134101.3465842-1-jani.nikula@intel.com>
+ <av3GffVIJ7ZoAViU@intel.com>
+Date: Wed, 18 Nov 2026 19:01:10 +0200
+Message-ID: <29eab9520dbe40df4579c5873463d2dfc57854e6@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -87,96 +67,210 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 18 Nov 2026, Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com> w=
-rote:
-> Hello Jani,
->
-> On Wed, Nov 18, 2026 at 03:27:40PM +0200, Jani Nikula wrote:
->> > [...]
->> >  drivers/gpu/ipu-v3/ipu-common.c               |   8 +-
->> >  drivers/gpu/ipu-v3/ipu-pre.c                  |   4 +-
->> >  drivers/gpu/ipu-v3/ipu-prg.c                  |   4 +-
->> >  254 files changed, 1155 insertions(+), 940 deletions(-)
+On Wed, 18 Nov 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Wed, Nov 18, 2026 at 03:41:01PM +0200, Jani Nikula wrote:
+>> Move intel_plane_fb_max_stride() and intel_dumb_fb_max_stride() to
+>> intel_fb.[ch], and make the former static as its users are now
+>> exclusively in intel_fb.c.
 >>=20
->> How do you expect a patch of this size be merged?
+>> As a side effect, we can reduce the display include "surface" of
+>> i915_gem_create.c, as intel_display.h is quite a big header.
 >
-> Using b4 am :-) Honestly, in the cover letter I wrote about an immutable
-> branch and offered to rebase to 7.4-rc1. When trying to apply this
-> series on top ov 7.4-rc1 there are only 6 conflicts (1x modify/delete
-> and 5x content); these are all not so hard to resolve (and even dropping
-> the respective hunks (i.e. resolving using `git checkout HEAD`) is fine
-> for me.)
->
->> > diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i9=
-15_pci.c
->> > index 84a7dc6ab5db..faceb3de4fa3 100644
->> > --- a/drivers/gpu/drm/i915/i915_pci.c
->> > +++ b/drivers/gpu/drm/i915/i915_pci.c
->> > @@ -870,7 +870,7 @@ static const struct pci_device_id pciidlist[] =3D {
->> >  	INTEL_ATS_M_IDS(INTEL_VGA_DEVICE, &ats_m_info),
->> >  	INTEL_ARL_IDS(INTEL_VGA_DEVICE, &mtl_info),
->> >  	INTEL_MTL_IDS(INTEL_VGA_DEVICE, &mtl_info),
->> > -	{}
->> > +	{ }
->>=20
->> Personally, I would *always* use {} instead of { }, and would rather not
->> change.
->>=20
->> Across the tree, {} is slightly more common than { }. IMO changing them
->> is pointless churn.
->
-> It depends on how you count. My statistic looks as follows (on top of
-> next-20261117):
->
-> 	$ git grep -l device_id | xargs -n 1 perl -g -n -e 'print "$1\n" if m/de=
-vice_id\s*[a-zA-Z_0-9]*\[\]\s*=3D\s*{(?:\s*{[^}]*},\s*({\s*}))/' | sort | u=
-niq -c
-> 	      2 	}
-> 	      2 {
-> 	      6 {  }
-> 	   2598 { }
-> 	   1262 {}
->
-> So over all *_device_id { } is more common by a factor of > 2. This
-> series fixes one {  } and reduces the number of {} by 37. For only
-> pci_device_id it's:
->
-> 	$ git grep -l pci_device_id | xargs -n 1 perl -g -n -e 'print "$1\n" if =
-m/pci_device_id\s*[a-zA-Z_0-9]*\[\]\s*=3D\s*{(?:\s*{[^}]*},\s*({\s*}))/' | =
-sort | uniq -c
-> 	    159 { }
-> 	     32 {}
->
-> Without the context of an array initializer there are many empty
-> code blocks (function bodys or `do {} while (0)`), empty dt nodes, and
-> {} in Rust code, which IMHO have to be considered off-topic for this
-> statistic.
+> Eventually we should perhaps consider sucking all the exported
+> symbols into completely separate headers with nothing else
+> in them. But no rush with that I guess.
 
-I realize my phrasing was careless.
+I've been thinking about that.
 
-My point was not so much about one being more common than the other, but
-rather that there are *thousands* of instances of both, specifically as
-C compound literals with empty initializer list. I think it's pointless
-to convert one to other, regardless of whether you're adding or removing
-a space.
+Keep the headers in display/ or move to include/drm/intel/?
 
-I mentioned my preference, because if I were to go on a style fixing
-spree, I'd go the other direction. But I think that too would be
-pointless.
+One big intel_display_api.h header, or multiple _api.h headers?
 
-I suggest to just accept either.
+In the mean time it's helpful to reduce the APIs, there are still too
+many. If it's a clean header with a reasonable amount of functions,
+maybe a single header works.
 
 
 BR,
 Jani.
 
+
+>
+>>=20
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>
+> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_display.c | 35 -------------------
+>>  drivers/gpu/drm/i915/display/intel_display.h |  5 ---
+>>  drivers/gpu/drm/i915/display/intel_fb.c      | 36 ++++++++++++++++++++
+>>  drivers/gpu/drm/i915/display/intel_fb.h      |  2 ++
+>>  drivers/gpu/drm/i915/gem/i915_gem_create.c   |  2 +-
+>>  5 files changed, 39 insertions(+), 41 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/=
+drm/i915/display/intel_display.c
+>> index f4d9148efde3..19caae633d29 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+>> @@ -590,41 +590,6 @@ void intel_disable_transcoder(const struct intel_cr=
+tc_state *old_crtc_state)
+>>  		intel_wait_for_pipe_off(old_crtc_state);
+>>  }
+>>=20=20
+>> -u32 intel_plane_fb_max_stride(struct intel_display *display,
+>> -			      const struct drm_format_info *info,
+>> -			      u64 modifier)
+>> -{
+>> -	struct intel_crtc *crtc;
+>> -	struct intel_plane *plane;
+>> -
+>> -	/*
+>> -	 * We assume the primary plane for pipe A has
+>> -	 * the highest stride limits of them all,
+>> -	 * if in case pipe A is disabled, use the first pipe from pipe_mask.
+>> -	 */
+>> -	crtc =3D intel_first_crtc(display);
+>> -	if (!crtc)
+>> -		return 0;
+>> -
+>> -	plane =3D to_intel_plane(crtc->base.primary);
+>> -
+>> -	return plane->max_stride(plane, info, modifier,
+>> -				 DRM_MODE_ROTATE_0);
+>> -}
+>> -
+>> -u32 intel_dumb_fb_max_stride(struct drm_device *drm,
+>> -			     u32 pixel_format, u64 modifier)
+>> -{
+>> -	struct intel_display *display =3D to_intel_display(drm);
+>> -
+>> -	if (!HAS_DISPLAY(display))
+>> -		return 0;
+>> -
+>> -	return intel_plane_fb_max_stride(display,
+>> -					 drm_get_format_info(drm, pixel_format, modifier),
+>> -					 modifier);
+>> -}
+>> -
+>>  void intel_set_plane_visible(struct intel_crtc_state *crtc_state,
+>>  			     struct intel_plane_state *plane_state,
+>>  			     bool visible)
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/=
+drm/i915/display/intel_display.h
+>> index d53b7b4a80e7..8bb37dfe47fc 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_display.h
+>> @@ -356,11 +356,6 @@ void intel_link_compute_m_n(u16 bpp, int nlanes,
+>>  			    int pixel_clock, int link_clock,
+>>  			    int bw_overhead,
+>>  			    struct intel_link_m_n *m_n);
+>> -u32 intel_plane_fb_max_stride(struct intel_display *display,
+>> -			      const struct drm_format_info *info,
+>> -			      u64 modifier);
+>> -u32 intel_dumb_fb_max_stride(struct drm_device *drm,
+>> -			     u32 pixel_format, u64 modifier);
+>>  enum drm_mode_status
+>>  intel_mode_valid_max_plane_size(struct intel_display *display,
+>>  				const struct drm_display_mode *mode,
+>> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i=
+915/display/intel_fb.c
+>> index 9d71f594537f..2c63aeefaea8 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_fb.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+>> @@ -12,6 +12,7 @@
+>>  #include <drm/drm_print.h>
+>>=20=20
+>>  #include "intel_bo.h"
+>> +#include "intel_crtc.h"
+>>  #include "intel_display.h"
+>>  #include "intel_display_core.h"
+>>  #include "intel_display_types.h"
+>> @@ -1330,6 +1331,41 @@ static bool intel_plane_needs_remap(const struct =
+intel_plane_state *plane_state)
+>>  	return stride > max_stride;
+>>  }
+>>=20=20
+>> +static u32 intel_plane_fb_max_stride(struct intel_display *display,
+>> +				     const struct drm_format_info *info,
+>> +				     u64 modifier)
+>> +{
+>> +	struct intel_crtc *crtc;
+>> +	struct intel_plane *plane;
+>> +
+>> +	/*
+>> +	 * We assume the primary plane for pipe A has
+>> +	 * the highest stride limits of them all,
+>> +	 * if in case pipe A is disabled, use the first pipe from pipe_mask.
+>> +	 */
+>> +	crtc =3D intel_first_crtc(display);
+>> +	if (!crtc)
+>> +		return 0;
+>> +
+>> +	plane =3D to_intel_plane(crtc->base.primary);
+>> +
+>> +	return plane->max_stride(plane, info, modifier,
+>> +				 DRM_MODE_ROTATE_0);
+>> +}
+>> +
+>> +u32 intel_dumb_fb_max_stride(struct drm_device *drm,
+>> +			     u32 pixel_format, u64 modifier)
+>> +{
+>> +	struct intel_display *display =3D to_intel_display(drm);
+>> +
+>> +	if (!HAS_DISPLAY(display))
+>> +		return 0;
+>> +
+>> +	return intel_plane_fb_max_stride(display,
+>> +					 drm_get_format_info(drm, pixel_format, modifier),
+>> +					 modifier);
+>> +}
+>> +
+>>  static int convert_plane_offset_to_xy(const struct intel_framebuffer *f=
+b, int color_plane,
+>>  				      int plane_width, int *x, int *y)
+>>  {
+>> diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i=
+915/display/intel_fb.h
+>> index 0a027e2595b2..ebf6485fd2fd 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_fb.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_fb.h
+>> @@ -119,6 +119,8 @@ intel_user_framebuffer_create(struct drm_device *dev,
+>>  bool intel_fb_modifier_uses_dpt(struct intel_display *display, u64 modi=
+fier);
+>>  bool intel_fb_uses_dpt(const struct drm_framebuffer *fb);
+>>=20=20
+>> +u32 intel_dumb_fb_max_stride(struct drm_device *drm, u32 pixel_format, =
+u64 modifier);
+>> +
+>>  unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier);
+>>=20=20
+>>  struct drm_gem_object *intel_fb_bo(const struct drm_framebuffer *fb);
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/dr=
+m/i915/gem/i915_gem_create.c
+>> index e12ec59afb8d..c7ebec72a5e5 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+>> @@ -6,7 +6,7 @@
+>>  #include <drm/drm_fourcc.h>
+>>  #include <drm/drm_print.h>
+>>=20=20
+>> -#include "display/intel_display.h"
+>> +#include "display/intel_fb.h"
+>>  #include "gem/i915_gem_ioctls.h"
+>>  #include "gem/i915_gem_lmem.h"
+>>  #include "gem/i915_gem_region.h"
+>> --=20
+>> 2.47.3
 
 --=20
 Jani Nikula, Intel
