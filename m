@@ -2,60 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDB6606A32F
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 10:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7ED606A331
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 10:37:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Iemi3ABa
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=C5CPUmss
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1A510FAA1;
-	Wed, 18 Nov 2026 10:24:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC0F610E511;
- Wed, 18 Nov 2026 10:24:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794997488; x=1826533488;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Wm8VmhTabhOpl9Lbk2lJZ3IrVa6fHF0sCSEVtOGg6zg=;
- b=Iemi3ABaSToXfLC84zsfOPLIX4PazDV1EbYFh3B17ttdFPI+MFS83iws
- NW8MgtQ8G5M8ogIZHYVqXvPb/rvyKbwqjIUTZq6rHplbse2uMmYuyVp8q
- krTwGFrjcmet4LcuCx+a8iMpyLjXMbxwXg8nneeWk5Z4TfMuoKqmgPOue
- WyPR5mifhbvrtAykGv7Z0y9i3/WyaH3Ilxmf/wWx4+7yos9a+FOh+Cv5W
- 41UErE9qj1T2AOlwOsO6IS1PDNhk8DA7catszkUliRQpHBR145MifkU1G
- E6ZkSS72AsvqueaVhbMxsx5wdRCeYGf7IiTGjerNc6SGbwxIh3wO8UbGf A==;
-X-CSE-ConnectionGUID: gtYn2vl6Rc+YjFWBO/F5cg==
-X-CSE-MsgGUID: KaSmScMdRky1DBNR8+U/Eg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3792713"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3792713"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 02:24:47 -0800
-X-CSE-ConnectionGUID: A2JZtvEUTmGsZ6ZmdZmgSA==
-X-CSE-MsgGUID: sC/yW/N9QpammuvW+kL6NQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="12045472"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.187])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 02:24:46 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Maarten Lankhorst <dev@lankhorst.se>, intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
- Matthew Auld <matthew.auld@intel.com>, Uma Shankar <uma.shankar@intel.com>
-Subject: Re: [PATCH v6 1/5] drm/xe/display: Avoid using stolen memory for
- framebuffer when media gt exists.
-In-Reply-To: <20261117143038.479557-8-dev@lankhorst.se>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261117143038.479557-7-dev@lankhorst.se>
- <20261117143038.479557-8-dev@lankhorst.se>
-Date: Wed, 18 Nov 2026 12:24:43 +0200
-Message-ID: <db7ccaec935c5df651a6c1d051d70185b06872b0@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC5DC10FAD2;
+	Wed, 18 Nov 2026 10:36:59 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9E510FAB5;
+ Wed, 18 Nov 2026 10:36:52 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 6E01F1A16D1;
+ Wed, 18 Nov 2026 10:36:51 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 41D235FE9B;
+ Wed, 18 Nov 2026 10:36:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 8764211BC106E; Wed, 18 Nov 2026 11:36:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1794998209; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=+3kyzjg3dtcYpCdDljWXckSn2UKrKCqRAGKJNdgkqoM=;
+ b=C5CPUmsstGoDbtYuaYFDxgrJrTaQqtB6k3DI5LuQlItKm9YgAXWhv8bkpxmfxDo7sAql+1
+ LXPOJptscYYFhRx3kdwsEE3bzO4fDYQfaJwALQN8LTy1G5zEZdMZEmYZWLHZYKo3QXVmYR
+ QL94fa7s3f+U6c+OtvQqcYMFffUHjcwJ74Vf8E66npIbuRkeoYmT2fP87TpCO4WPujbRFa
+ rBG/B4S4kj8pcgFrojQRImDhP5MZtSxa1c9v9EP0OFHTdGJFQrMifPw1cfB8h411/9acfp
+ kAOl2YC12Z8glwCN5/Nv0YkTszLUKm8rULP40foP7HT3WRTkbogb/KBWAZ3G6A==
+From: Kory Maincent <kory.maincent@bootlin.com>
+Date: Wed, 18 Nov 2026 11:36:28 +0100
+Subject: [PATCH 1/8] drm/dp: Move max DPRX link rate helper out of i915
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261118-feat_move_i915_helper-v1-1-652177f3107a@bootlin.com>
+References: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
+In-Reply-To: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, 
+ Manasi Navare <navaremanasi@google.com>, 
+ Drew Davenport <ddavenport@google.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Kory Maincent <kory.maincent@bootlin.com>
+X-Mailer: b4 0.16.1-dev-17221
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,56 +67,137 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 17 Nov 2026, Maarten Lankhorst <dev@lankhorst.se> wrote:
-> On systems with media GT, extra latency is added when accessing stolen
-> memory when the GT is in MC6.
->
-> Simply disable allocating stolen memory for framebuffers when media gt
-> is found.
->
-> Thanks to the previous patch, it will be possible to preserve the
-> contents.
->
-> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+Move the drm_dprx_max_rate() helper from the i915 driver into the
+generic DRM helpers. It returns the maximum DPRX link rate, either from
+the DP tunnel capabilities when bandwidth allocation is enabled or from
+the DPCD DP_MAX_LINK_RATE register.
 
-Closes: instead?
+Keep the Intel eDP HBR2 limitation quirk handling in the driver.
 
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> Link: https://patch.msgid.link/20260630135523.1775379-3-dev@lankhorst.se
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+---
+ drivers/gpu/drm/display/drm_dp_helper.c | 11 +++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c | 35 +++++++++++----------------------
+ include/drm/display/drm_dp_helper.h     |  4 ++++
+ 3 files changed, 27 insertions(+), 23 deletions(-)
 
-What's this needed for?
-
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-> ---
->  drivers/gpu/drm/xe/display/xe_display_bo.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
-> index f5102cd0e95d6..9385026a80b97 100644
-> --- a/drivers/gpu/drm/xe/display/xe_display_bo.c
-> +++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
-> @@ -131,6 +131,14 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsigned int size)
->  	if (IS_DGFX(xe))
->  		return false;
->  
-> +	/*
-> +	 * Avoid stolen memory when the media_gt exists,
-> +	 * because a lot of latency is added when media gt is in MC6
-> +	 */
-> +	if (xe_device_get_root_tile(xe)->media_gt)
-> +		return false;
-> +
-> +	/* machine hang when doing lots of LMEMBAR accesses */
->  	if (XE_DEVICE_WA(xe, 22019338487_display))
->  		return false;
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 2b6ce05556b0d..e58dabdad1f39 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -37,6 +37,7 @@
+ 
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/display/drm_dp_mst_helper.h>
++#include <drm/display/drm_dp_tunnel.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fixed.h>
+ #include <drm/drm_print.h>
+@@ -4914,3 +4915,13 @@ int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes)
+ 				  1000000 * 8);
+ }
+ EXPORT_SYMBOL(drm_dp_max_dprx_data_rate);
++
++int drm_dprx_max_rate(const struct drm_dp_tunnel *tunnel,
++		      const u8 dpcd[DP_RECEIVER_CAP_SIZE])
++{
++	if (tunnel && drm_dp_tunnel_bw_alloc_is_enabled(tunnel))
++		return drm_dp_tunnel_max_dprx_rate(tunnel);
++	else
++		return drm_dp_bw_code_to_link_rate(dpcd[DP_MAX_LINK_RATE]);
++}
++EXPORT_SYMBOL_GPL(drm_dprx_max_rate);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ef164a7976187..96379c18b8cd4 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -159,28 +159,6 @@ int intel_dp_link_symbol_clock(int rate)
+ 	return DIV_ROUND_CLOSEST(rate * 10, intel_dp_link_symbol_size(rate));
+ }
+ 
+-static int max_dprx_rate(struct intel_dp *intel_dp)
+-{
+-	struct intel_display *display = to_intel_display(intel_dp);
+-	int max_rate;
+-
+-	if (intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
+-		max_rate = drm_dp_tunnel_max_dprx_rate(intel_dp->tunnel);
+-	else
+-		max_rate = drm_dp_bw_code_to_link_rate(intel_dp->dpcd[DP_MAX_LINK_RATE]);
+-
+-	/*
+-	 * Some platforms + eDP panels may not reliably support HBR3
+-	 * due to signal integrity limitations, despite advertising it.
+-	 * Cap the link rate to HBR2 to avoid unstable configurations for the
+-	 * known machines.
+-	 */
+-	if (intel_dp_is_edp(intel_dp) && intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
+-		max_rate = min(max_rate, 540000);
+-
+-	return max_rate;
+-}
+-
+ static int max_dprx_lane_count(struct intel_dp *intel_dp)
+ {
+ 	if (intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
+@@ -221,6 +199,7 @@ static u8 dprx_128b132b_link_rates(struct intel_dp *intel_dp, u8 no_bwa_rates)
+ /* update sink rates from dpcd */
+ static void intel_dp_set_dpcd_sink_rates(struct intel_dp *intel_dp)
+ {
++	struct intel_display *display = to_intel_display(intel_dp);
+ 	static const int dp_rates[] = {
+ 		162000, 270000, 540000, 810000
+ 	};
+@@ -241,7 +220,17 @@ static void intel_dp_set_dpcd_sink_rates(struct intel_dp *intel_dp)
+ 	/*
+ 	 * Sink rates for 8b/10b.
+ 	 */
+-	max_rate = max_dprx_rate(intel_dp);
++	max_rate = drm_dprx_max_rate(intel_dp->tunnel, intel_dp->dpcd);
++
++	/*
++	 * Some platforms + eDP panels may not reliably support HBR3
++	 * due to signal integrity limitations, despite advertising it.
++	 * Cap the link rate to HBR2 to avoid unstable configurations for the
++	 * known machines.
++	 */
++	if (intel_dp_is_edp(intel_dp) && intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
++		max_rate = min(max_rate, 540000);
++
+ 	max_lttpr_rate = drm_dp_lttpr_max_link_rate(intel_dp->lttpr_common_caps);
+ 	if (max_lttpr_rate)
+ 		max_rate = min(max_rate, max_lttpr_rate);
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index f497c9f3a5504..fe08a66f2bb1e 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -33,6 +33,7 @@ struct drm_device;
+ struct drm_dp_aux;
+ struct drm_panel;
+ struct drm_printer;
++struct drm_dp_tunnel;
+ 
+ bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+ 			  int lane_count);
+@@ -701,6 +702,9 @@ static inline int drm_dp_dpcd_write_byte(struct drm_dp_aux *aux,
+ int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
+ 			  u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+ 
++int drm_dprx_max_rate(const struct drm_dp_tunnel *tunnel,
++		      const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
++
+ int drm_dp_dpcd_read_link_status(struct drm_dp_aux *aux,
+ 				 u8 status[DP_LINK_STATUS_SIZE]);
+ 
 
 -- 
-Jani Nikula, Intel
+2.43.0
+
