@@ -2,43 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF64606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 13:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F496606A320
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 13:17:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tsgwa26m
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XVzleHUA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9455810E7DA;
-	Wed, 18 Nov 2026 13:13:43 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D486F10FC14
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 13:13:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 91D5440F3F;
- Wed, 18 Nov 2026 13:13:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568461F000C4;
- Wed, 18 Nov 2026 13:13:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795007616;
- bh=7EE5GoC93x9hCb3JkEKCHJoz9aB3GqssFXrerk4AYO0=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=Tsgwa26mX2HpDShA+oXh1XNDBClc+IUBVPhACKHixmmn4ge9Y8M9Q1uOJtfeneU2W
- diNa/2sDzaQh6Jdhk659AA+TJx0U2NFPI9R8BbMcQ8+zILe0qZ10q7Zu185O42eu2i
- 1hBeCPF7Y76kig59IVS2czKOaEZVJRAZq7gf8wTRjf/yR3p8Pd8VtVOG5OPXxwLnfN
- LqATHOcO9Lruc8En0ohxruhVtPU2jFVsQa72edoDZBfA/W1y58pVajhfVYUD10xfc4
- B1SvEq6Wl4gf61+cbiac8KOCIAvnC/m9BSKYE4gfg7apCxm3Dg5xlvK2qJkdGrPIbk
- x5ghNBVLd/ZBg==
-Message-ID: <sashiko-outbox-220987@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/3] drm/i915/selftests: take error_mutex in stolen
- reset test
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <72a2b16b5a4cf8deffad74e8ae85a586a5d693a2.1795006734.git.sebastian.brzezinka@intel.com>
-References: <cover.1795006734.git.sebastian.brzezinka@intel.com>
- <72a2b16b5a4cf8deffad74e8ae85a586a5d693a2.1795006734.git.sebastian.brzezinka@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 13:13:35 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 038C310E759;
+	Wed, 18 Nov 2026 13:16:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A10310E148;
+ Wed, 18 Nov 2026 13:16:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795007809; x=1826543809;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Rm4iHKGrWU4he/NwMqlWHf8p94NQz0PLz1Q2wbyFoNY=;
+ b=XVzleHUAPYaTykhomA0ue7cPJE1deaQJhKw2+He3uHR+ct4HomdE7QcV
+ Nwhnne/0Qs36dJOgDuuDUudHvYpcvSrYix1/M6eFBSaV5mVGTQCfl4NQH
+ KOG4O6YwvpGDVUNBVWmlS+UM00P4rilYG6ctuyXggg3LX83tZGR9Xhymp
+ tg/nfVvFNK7HQlhXbhW8D7Bj4nIt18EKJXKPRIHcokE8OZjuTOufu5gfo
+ X34Uiji7rkhbDvA6zUunW6W/icUSwxTaW3icQ1qC/QHgtLidKIG2eFTnQ
+ EZO65H19WbiXhqTJXsj6nKNiqOcAj0IEqVS4JvoKWihEjs3kTyLvoTI46 A==;
+X-CSE-ConnectionGUID: +TyPLJB5QWiGxxGLe/5kUA==
+X-CSE-MsgGUID: cGSpx6i0QH+d/JzXJa0K6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3839762"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3839762"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 05:16:48 -0800
+X-CSE-ConnectionGUID: XLiz4IRWSVGsvRRyiNwXOg==
+X-CSE-MsgGUID: u5OXmQ9uTn+tzfsoTKUgMA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10158052"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by orviesa002.jf.intel.com with ESMTP; 18 Nov 2026 05:16:47 -0800
+From: Eriksen Xie <xiaolu.xie@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH] drm/i915/dip: Clear VSC_SELECT before setting it
+Date: Wed, 18 Nov 2026 21:14:41 +0800
+Message-ID: <20261118131441.2023100-1-xiaolu.xie@intel.com>
+X-Mailer: git-send-email 2.43.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,52 +62,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/i915/selftests: missing Fixes trailer for
-  __igt_reset_stolen() race fix
---
+VSC_SELECT in VIDEO_DIP_CTL is a two bit field selecting whether the
+header and the data of the VSC SDP are generated by the hardware or
+taken from the DIP data registers. hsw_write_infoframe() ORs
+VSC_DIP_HW_DATA_SW_HEA into the value read back from the register
+without clearing the field first, so a different value left in it,
+e.g. by the firmware, isn't replaced but combined with the new one
+(VSC_DIP_HW_HEA_SW_DATA | VSC_DIP_HW_DATA_SW_HEA results in
+VSC_DIP_SW_HEA_DATA).
 
-commit 2d0178da9e274898248734afa1c912d704b93b76
-Author: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Clear the field before setting it.
 
-> drm/i915/selftests: take error_mutex in stolen reset test
->
-> The stolen reset test reads and writes stolen pages through the ggtt
-> error_capture slot, but it does not take ggtt->error_mutex. The DEBUG_GEM
-> poisoning of stolen pages, which runs from the object free worker, and
-> the GPU error capture use the same slot, and both take that mutex.
->
-> So the free worker can change the slot while the test is using it, and
-> part of its poison ends up in the page under test. The page then looks
-> partly like STACK_MAGIC and partly like POISON_INUSE/POISON_FREE, and the
-> test wrongly reports that the GPU reset modified stolen memory.
->
-> Take ggtt->error_mutex, nested inside stolen_lock, around each sampling
-> loop. Don't hold it across the reset, as the GuC CT worker can take it
-> from the error capture path while the reset flushes that worker. Use
-> raw_insert_page when available, as i915_vma_coredump_create() does.
->
-> Signed-off-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Signed-off-by: Eriksen Xie <xiaolu.xie@intel.com>
+---
 
-[Severity: Low]
-__igt_reset_stolen() has accessed the ggtt->error_capture slot without
-holding ggtt->error_mutex since it was added.  Should this include a
-Fixes: tag?
+This was split out of my earlier patch [1], as suggested by Ankit in the
+review of Chaitanya's v2 [2]. It doesn't depend on that patch and applies
+with or without it.
 
-  Fixes: 3da3c5c1c982 ("drm/i915: Exclude low pages (128KiB) of stolen from=
- use")
+There is no report of a stale VSC_SELECT value on actual hardware, the
+issue follows from the field being only ORed into.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/c47b0ea2093da73a92e=
-9e6d62b062f9cc52851d1.1795006734.git.sebastian.brzezinka@intel.com?part=3D3
+[1] https://patchwork.freedesktop.org/patch/763779/
+[2] https://lists.freedesktop.org/archives/intel-gfx/2026-November/400881.html
+
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 4ec0db8d93..14dacbb58a 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -552,8 +552,10 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
+ 	      !crtc_state->has_panel_replay && type == DP_SDP_VSC))
+ 		val |= hsw_infoframe_enable(type);
+ 
+-	if (type == DP_SDP_VSC)
++	if (type == DP_SDP_VSC) {
++		val &= ~VSC_SELECT_MASK;
+ 		val |= VSC_DIP_HW_DATA_SW_HEA;
++	}
+ 
+ 	intel_de_write(display, ctl_reg, val);
+ 	intel_de_posting_read(display, ctl_reg);
+-- 
+2.43.0
+
