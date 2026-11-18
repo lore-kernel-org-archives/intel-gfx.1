@@ -2,57 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376D0606A320
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 13:41:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC58606A31C
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 13:42:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iGsaX6Ai
+	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=qnccTQVP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A643B10FC3C;
-	Wed, 18 Nov 2026 13:41:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D0A810FC3C;
- Wed, 18 Nov 2026 13:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795009267; x=1826545267;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=JdZy/WlkAQB2Ck8n/thEiBFLytFaKiYKjEmXofqgfDU=;
- b=iGsaX6AibN/eL17wUmftXU0xYKvgK2Nmcvxu+6DY0J3c0TSbwq+dkWRb
- ksQt4BqXGILvzv/vBwKNEGdfCu1aprhna0BEU1HqVFvYjYLSCre8IsTEL
- tTcBIyn4iXXMtc0XhczoM4MAfxC7HPiltFOkXEWfhhjZ7bsepkECJaOAO
- BeMaNQZ2JT+duMKyqk4xfZ12Rn8NySY+3E4ugAv01B3a/NCrG4IWmG+La
- Z90p4F5uw1qNswxf0o3UuH9qy7ptacpDgRLxZEVa3GJatt87EK7gsVjEw
- RdEaTrBJbkAc3h+H5u6G/C5GSZ2Gb0I4J9FDdgICHvQAbsOVZZ3B5mw+3 g==;
-X-CSE-ConnectionGUID: 5Ei6PUwSQW+RYnSMk4sFbQ==
-X-CSE-MsgGUID: J1l/kTdMTVW5pIYFGTuuQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3810025"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3810025"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 05:41:07 -0800
-X-CSE-ConnectionGUID: 20Fli1HET6ebH2miXUy08g==
-X-CSE-MsgGUID: 3agZ7wVjSCOhSriK/XelxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10238415"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.187])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 05:41:05 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH] drm/i915/fb: move intel_dumb_fb_max_stride() to intel_fb.[ch]
-Date: Wed, 18 Nov 2026 15:41:01 +0200
-Message-ID: <20261118134101.3465842-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEB5610E371;
+	Wed, 18 Nov 2026 13:41:56 +0000 (UTC)
+X-Greylist: delayed 36480 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Nov 2026 13:41:49 UTC
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.64.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22FD610E371;
+ Wed, 18 Nov 2026 13:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
+ s=pkvm2402; t=1795009287;
+ bh=Z/ONwmnRxmJlfxOWf1O7ZnguWs7jkhfBNvJhld8u8tA=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=qnccTQVPQYKAjn8Hd8S0Gf94gJZ1CMfzNM9ttEJr/G6YszPSbOia5wXUk/hDa1JMX
+ FHWlBBaoZwFUll0rA0YGCxobv8EYChpdriDcqCpXRdciD62Mx55ubtjtxSlBFQZaQA
+ LC1FrCntk0+vd187x9BXn4Izw5zEgcsRYWVpkG1I=
+X-QQ-mid: zesmtpgz3t1795009286ta8c1c6a0
+X-QQ-Originating-IP: aSpVeBmsJBlkEulbQQYGu8bom56cFHjww6RvOE6lsE8=
+Received: from exmail.qq.com ( [14.155.219.48])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 18 Nov 2026 21:41:20 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 1006432374697517955
+EX-QQ-RecipientCnt: 8
+From: Hanson Wang <hanson.wang@ugreen.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ hanson.wang@ugreen.com
+Subject: Re: [PATCH] drm/i915/bw: sync global BW after non-atomic plane disable
+Date: Wed, 18 Nov 2026 21:41:19 +0800
+Message-Id: <20261118134119.2648155-1-hanson.wang@ugreen.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <sashiko-outbox-220061@kernel.org>
+References: <sashiko-outbox-220061@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MjKQVE11soRgqUV8BimdQC4gsuhdFGMGqfslMSMZq34QCMHwna+/ZBGh
+ vgPddKHdYPwG/4pMtyhOZmo5vtuXuyvzaIpp5buG2iZVAy3/cqt8/iIY+FWjZKZPDqq38k2
+ MXqEW0IdQt0EbnSzuKJ5hvrJxIJAsKNT14V6o843iQwKxg77zzFZjaL86dUhAZuN/oxEERQ
+ 8j8LpMOisbw5gdXPdWd3Wif2kQG+lgDQap2fvtrceEKuWuyEpd9mCqCc5kkCTaUwt7bY2MM
+ cbra8ZkU6I/b1S95A8elaVn3y98zwOahtiAMhZrHjpm+fJiKrXAFpObqwopyNGSYKKFs0Bt
+ t/EEPUN4IK3tkZtyRwbMbZ+AZ1GB18EdEngkVVHM1kj7l7gwtoDPmc3d1WiZwDn+h0Rv3O5
+ lpeWuywfxiX8B9vUPENZZlSeTKc0fIgjc9Ezzg3VPSUPGyKnklwjSCRnfpEtTjHRXQTM084
+ t5DG6oN19f6jPsRmZ6BxO0NsGSjokmcD0it88y8t14DgBah8tzxnUnJPPbuNHEtMu66R6Wb
+ 50r7pZZiYqQO2TFjsyK+AiNOeQ4foU0pP9JuW/dvhKo7PWZmejnWEKLBodlT4KpvWR9PJz5
+ gfeXtDP8VnL62ItvVmexDDTzRLFMobPvIHNyBm7msM0P70kxn5Cps74G4L7QjUnrYD6Bms0
+ ZdRM/kNDtUTAGMauWvd0YFnumSX6YpCQYmH2kQvNdH7Z6jI2AJFapZSeirLfIu+aLj70lKu
+ 95+PvlJFsKx4iVC38I26lNU3hItDNChQX8Q2m+2GnckKaV7JbXOzTIaDPGEvxEaVfOJN+N8
+ xsaiTrqVbCTUcPV1BP6TTbgP9Ju7C2ZqjHhUH0EilzJkhb8OmH+RHgvG2hNMDWJy0+D3c9R
+ +6/ZyBQ90bDgTK7e+PIc18HFkrv6wfzWjlLgSoc+xAX47WlEc9bc3Iq4anWOSZu1Y5mZY3+
+ aW+uD4McztGzqO74ALkSwWdkYn89G1eUPiCGOl22HO5DMyKWclbjKQZMBm8ln7hn6Z4Orxp
+ +i+obflVlmT5171D87LGjXsPhhqbliw0zVmqDGyA==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,172 +76,32 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move intel_plane_fb_max_stride() and intel_dumb_fb_max_stride() to
-intel_fb.[ch], and make the former static as its users are now
-exclusively in intel_fb.c.
+Thanks for the review.
 
-As a side effect, we can reduce the display include "surface" of
-i915_gem_create.c, as intel_display.h is quite a big header.
+I retested the patched mainline kernel on the N5105 with KMS
+debug logging enabled. The original DBUF sanitization path was
+triggered: pipe B initially accounted for 196000 kB/s and one
+plane, and the patch cleared that accounting after plane disable.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 35 -------------------
- drivers/gpu/drm/i915/display/intel_display.h |  5 ---
- drivers/gpu/drm/i915/display/intel_fb.c      | 36 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_fb.h      |  2 ++
- drivers/gpu/drm/i915/gem/i915_gem_create.c   |  2 +-
- 5 files changed, 39 insertions(+), 41 deletions(-)
+The subsequent full modeset enabled pipe A and disabled pipe B.
+The KMS log explicitly shows pipe B's minimum CDCLK changing
+from 24500 kHz to 0 kHz.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f4d9148efde3..19caae633d29 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -590,41 +590,6 @@ void intel_disable_transcoder(const struct intel_crtc_state *old_crtc_state)
- 		intel_wait_for_pipe_off(old_crtc_state);
- }
- 
--u32 intel_plane_fb_max_stride(struct intel_display *display,
--			      const struct drm_format_info *info,
--			      u64 modifier)
--{
--	struct intel_crtc *crtc;
--	struct intel_plane *plane;
--
--	/*
--	 * We assume the primary plane for pipe A has
--	 * the highest stride limits of them all,
--	 * if in case pipe A is disabled, use the first pipe from pipe_mask.
--	 */
--	crtc = intel_first_crtc(display);
--	if (!crtc)
--		return 0;
--
--	plane = to_intel_plane(crtc->base.primary);
--
--	return plane->max_stride(plane, info, modifier,
--				 DRM_MODE_ROTATE_0);
--}
--
--u32 intel_dumb_fb_max_stride(struct drm_device *drm,
--			     u32 pixel_format, u64 modifier)
--{
--	struct intel_display *display = to_intel_display(drm);
--
--	if (!HAS_DISPLAY(display))
--		return 0;
--
--	return intel_plane_fb_max_stride(display,
--					 drm_get_format_info(drm, pixel_format, modifier),
--					 modifier);
--}
--
- void intel_set_plane_visible(struct intel_crtc_state *crtc_state,
- 			     struct intel_plane_state *plane_state,
- 			     bool visible)
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index d53b7b4a80e7..8bb37dfe47fc 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -356,11 +356,6 @@ void intel_link_compute_m_n(u16 bpp, int nlanes,
- 			    int pixel_clock, int link_clock,
- 			    int bw_overhead,
- 			    struct intel_link_m_n *m_n);
--u32 intel_plane_fb_max_stride(struct intel_display *display,
--			      const struct drm_format_info *info,
--			      u64 modifier);
--u32 intel_dumb_fb_max_stride(struct drm_device *drm,
--			     u32 pixel_format, u64 modifier);
- enum drm_mode_status
- intel_mode_valid_max_plane_size(struct intel_display *display,
- 				const struct drm_display_mode *mode,
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 9d71f594537f..2c63aeefaea8 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -12,6 +12,7 @@
- #include <drm/drm_print.h>
- 
- #include "intel_bo.h"
-+#include "intel_crtc.h"
- #include "intel_display.h"
- #include "intel_display_core.h"
- #include "intel_display_types.h"
-@@ -1330,6 +1331,41 @@ static bool intel_plane_needs_remap(const struct intel_plane_state *plane_state)
- 	return stride > max_stride;
- }
- 
-+static u32 intel_plane_fb_max_stride(struct intel_display *display,
-+				     const struct drm_format_info *info,
-+				     u64 modifier)
-+{
-+	struct intel_crtc *crtc;
-+	struct intel_plane *plane;
-+
-+	/*
-+	 * We assume the primary plane for pipe A has
-+	 * the highest stride limits of them all,
-+	 * if in case pipe A is disabled, use the first pipe from pipe_mask.
-+	 */
-+	crtc = intel_first_crtc(display);
-+	if (!crtc)
-+		return 0;
-+
-+	plane = to_intel_plane(crtc->base.primary);
-+
-+	return plane->max_stride(plane, info, modifier,
-+				 DRM_MODE_ROTATE_0);
-+}
-+
-+u32 intel_dumb_fb_max_stride(struct drm_device *drm,
-+			     u32 pixel_format, u64 modifier)
-+{
-+	struct intel_display *display = to_intel_display(drm);
-+
-+	if (!HAS_DISPLAY(display))
-+		return 0;
-+
-+	return intel_plane_fb_max_stride(display,
-+					 drm_get_format_info(drm, pixel_format, modifier),
-+					 modifier);
-+}
-+
- static int convert_plane_offset_to_xy(const struct intel_framebuffer *fb, int color_plane,
- 				      int plane_width, int *x, int *y)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.h b/drivers/gpu/drm/i915/display/intel_fb.h
-index 0a027e2595b2..ebf6485fd2fd 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.h
-+++ b/drivers/gpu/drm/i915/display/intel_fb.h
-@@ -119,6 +119,8 @@ intel_user_framebuffer_create(struct drm_device *dev,
- bool intel_fb_modifier_uses_dpt(struct intel_display *display, u64 modifier);
- bool intel_fb_uses_dpt(const struct drm_framebuffer *fb);
- 
-+u32 intel_dumb_fb_max_stride(struct drm_device *drm, u32 pixel_format, u64 modifier);
-+
- unsigned int intel_fb_modifier_to_tiling(u64 fb_modifier);
- 
- struct drm_gem_object *intel_fb_bo(const struct drm_framebuffer *fb);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-index e12ec59afb8d..c7ebec72a5e5 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-@@ -6,7 +6,7 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_print.h>
- 
--#include "display/intel_display.h"
-+#include "display/intel_fb.h"
- #include "gem/i915_gem_ioctls.h"
- #include "gem/i915_gem_lmem.h"
- #include "gem/i915_gem_region.h"
--- 
-2.47.3
+Post-boot inspection also confirmed that the per-CRTC and global
+minima agree, and that dbuf_bw_min_cdclk is 9282 kHz, matching
+the value recomputed from the current DBUF bandwidth state.
 
+Thus, I did not observe persistent stale CDCLK minima on this
+boot path. This does not rule out the plane-only disable case
+where the CRTC remains enabled without a subsequent full modeset;
+that case remains untested.
+
+Thanks,
+Hanson
