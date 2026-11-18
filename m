@@ -2,50 +2,129 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72ED9606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2128C606A320
 	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:26:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I3AL+VPl
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=cMpbmfZ0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6413112556;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18089112555;
 	Thu, 19 Nov 2026 15:26:21 +0000 (UTC)
-Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2604610FFB5
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 19:21:48 +0000 (UTC)
-X-Envelope-To: intel-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=fmcXfnQxb0qtqIl21TRZlE6o9ga9GKgYl2RPp4Wr9Aw=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795029707; v=1; x=1795634507;
- b=I3AL+VPlYHdXCMYwDZ5diJb2WbwxvvCPVyG0yDi0+qTUzNYaK8uU4Bco34KlfG8+LzQRg01Z
- asT1TUMDUE5aTt297WGxVMDlAKwP3+FJwRQeExvs10X1okYxjl9YXolsUpBg9KgSh2eRwnZ8xUv
- yhiNCwf2iZZKlschEqHgOpgc=
-X-Envelope-To: intel-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id d39edd8d2b425d4b;
- Wed, 18 Nov 2026 19:15:43 +0000
-X-Mizu-Trace-ID: d39edd8d2b425d4b
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: uma.shankar@intel.com, chaitanya.kumar.borah@intel.com,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDD2310E7F3;
+ Wed, 18 Nov 2026 14:05:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=foydl+Nk9ZmJviej/30gV1cygoCTSVCceGPI7w/fow0=; b=cMpbmfZ0BwP5BHLVj+ahy7474K
+ 9jQVZUTYDPRWMmNInqlwq3Il9TbgjATQK7ing2WRUOh+0zkz6gdJ06IIlFf0kAgGCezCNZYU5YvcV
+ DMbIAtPVR4KGaM4r0jjXRWj63/NGqk/VvxCuqWAyU7vg3ueZRkWC1YrlwedfaaaTLZgXVm9MNV/Z+
+ bTtoazxVy81wDZTODobdzyYIrGH5ns62eNNCyuU1UQhxdkcuIdhm0K7+sUgro43CUTcrfkfggiZtG
+ JRC/pLl0dPHJoH0LTcq4Cat0YqPdDv0VykNQ/LGugccBVDJEpbAxIr1vdePSum1wbi1k+DVWpC2D2
+ 2sm77DEQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+ id 1xTgHi-0000000E2Nt-35pT; Wed, 18 Nov 2026 14:05:15 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id E2EC13005AF; Wed, 18 Nov 2026 15:05:13 +0100 (CET)
+Date: Wed, 18 Nov 2026 15:05:13 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Bence Csokas <bence.csokas@arm.com>
+Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Suraj Kandpal <suraj.kandpal@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/2] drm/i915/color: load the 3D LUT in the order the
- hardware indexes it
-Date: Wed, 18 Nov 2026 11:15:13 -0800
-Message-ID: <20261118191514.2931270-3-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261118191514.2931270-1-matthew.schwartz@linux.dev>
-References: <20261118191514.2931270-1-matthew.schwartz@linux.dev>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Selvin Xavier <selvin.xavier@broadcom.com>,
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Chengchang Tang <tangchengchang@huawei.com>,
+ Junxian Huang <huangjunxian6@hisilicon.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>,
+ GR-QLogic-Storage-Upstream@marvell.com,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Julia Lawall <Julia.Lawall@inria.fr>,
+ Nicolas Palix <nicolas.palix@imag.fr>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+ Bharath SM <bharathsm@microsoft.com>,
+ Carlos Maiolino <cem@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>,
+ Davidlohr Bueso <dave@stgolabs.net>,
+ =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>,
+ Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ Steffen Klassert <steffen.klassert@secunet.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+ =?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ "Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org,
+ cocci@inria.fr, linux-fsdevel@vger.kernel.org,
+ linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-xfs@vger.kernel.org, bpf@vger.kernel.org,
+ ipsec@lists.linux.dev, linux-security-module@vger.kernel.org,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] treewide: Use struct_offset()
+Message-ID: <20261118140513.GO1813469@noisy.programming.kicks-ass.net>
+References: <20261118-offsetof-v4-0-95b385c10b22@arm.com>
+ <20261118-offsetof-v4-2-95b385c10b22@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118-offsetof-v4-2-95b385c10b22@arm.com>
 X-Mailman-Approved-At: Thu, 19 Nov 2026 15:26:19 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,99 +137,16 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The 3D LUT colorop blob is laid out with red as the fastest axis,
-index = R + n * (G + n * B). glk_load_lut_3d() writes the blob to
-LUT_3D_DATA front to back, but the hardware walks its table with blue as
-the fastest axis and red as the slowest. Every entry whose red and blue
-coordinates differ lands at the node with the two exchanged.
+On Wed, Nov 18, 2026 at 12:50:09PM +0100, Bence Csokas wrote:
+> Generated with a simple Coccinelle patch found in
+> scripts/coccinelle/api/struct_offsetof.cocci
 
-Measured on Lunar Lake by programming the pipe-bound LUT through
-LUT_3D_INDEX and LUT_3D_DATA directly and decoding the pipe CRC of solid
-color frames. A table holding each node's own stream position reads back
-position B + 17 * G + 289 * R, and an identity table written in that
-order reproduces all of 70 sampled colors exactly.
-
-Write the table in hardware order.
-
-Fixes: 65db7a1f9cf7 ("drm/i915/color: Add 3D LUT to color pipeline")
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
----
- drivers/gpu/drm/i915/display/intel_color.c     | 18 +++++++++++++++---
- drivers/gpu/drm/i915/display/intel_color.h     |  2 ++
- .../drm/i915/display/intel_color_pipeline.c    |  2 +-
- 3 files changed, 18 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 742ae471540d..ea4e6c9f0309 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -4112,8 +4112,8 @@ static void glk_load_lut_3d(struct intel_dsb *dsb,
- {
- 	struct intel_display *display = to_intel_display(crtc->base.dev);
- 	const struct drm_color_lut32 *lut = blob->data;
--	int i, lut_size = drm_color_lut32_size(blob);
- 	enum pipe pipe = crtc->pipe;
-+	int r, g, b;
- 
- 	if (!dsb && intel_de_read(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
- 		drm_err(display->drm, "[CRTC:%d:%s] 3D LUT not ready, not loading LUTs\n",
-@@ -4121,9 +4121,21 @@ static void glk_load_lut_3d(struct intel_dsb *dsb,
- 		return;
- 	}
- 
-+	/*
-+	 * The hardware walks the table with blue as the fastest axis, the
-+	 * colorop blob with red.
-+	 */
- 	intel_de_write_dsb(display, dsb, LUT_3D_INDEX(pipe), LUT_3D_AUTO_INCREMENT);
--	for (i = 0; i < lut_size; i++)
--		intel_de_write_dsb(display, dsb, LUT_3D_DATA(pipe), glk_3dlut_10(&lut[i]));
-+	for (r = 0; r < LUT_3D_SIZE; r++) {
-+		for (g = 0; g < LUT_3D_SIZE; g++) {
-+			for (b = 0; b < LUT_3D_SIZE; b++) {
-+				int i = r + LUT_3D_SIZE * (g + LUT_3D_SIZE * b);
-+
-+				intel_de_write_dsb(display, dsb, LUT_3D_DATA(pipe),
-+						   glk_3dlut_10(&lut[i]));
-+			}
-+		}
-+	}
- 	intel_de_write_dsb(display, dsb, LUT_3D_INDEX(pipe), 0);
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.h b/drivers/gpu/drm/i915/display/intel_color.h
-index 9d11741423ef..02ef30390558 100644
---- a/drivers/gpu/drm/i915/display/intel_color.h
-+++ b/drivers/gpu/drm/i915/display/intel_color.h
-@@ -18,6 +18,8 @@ struct drm_property_blob;
- enum pipe;
- enum plane_id;
- 
-+#define LUT_3D_SIZE 17
-+
- void intel_color_init_hooks(struct intel_display *display);
- int intel_color_init(struct intel_display *display);
- void intel_color_crtc_init(struct intel_crtc *crtc);
-diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-index 77f65182e3e3..0c73072819fb 100644
---- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-+++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-@@ -88,7 +88,7 @@ struct intel_colorop *intel_color_pipeline_plane_add_colorop(struct drm_plane *p
- 		break;
- 	case INTEL_PLANE_CB_3DLUT:
- 		ret = drm_plane_colorop_3dlut_init(dev, &colorop->base, plane,
--						   &intel_colorop_funcs, 17,
-+						   &intel_colorop_funcs, LUT_3D_SIZE,
- 						   DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
- 						   true);
- 		break;
--- 
-2.56.1
-
+I think this is a good example of why we don't need this. It adds yet
+another macro to remember, and doesn't actually save many characters at
+all.
