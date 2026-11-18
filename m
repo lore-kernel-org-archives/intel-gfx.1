@@ -2,89 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2FD606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 00:50:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7095606A31C
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 01:52:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=dv+UlE7D
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GgCgaVpC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA8C10E688;
-	Wed, 18 Nov 2026 00:50:00 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6C010E688;
- Wed, 18 Nov 2026 00:49:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=X1mRNb9No3wdnTR/cMHZKezqf8q53Bzdh8b1/a21plE=; b=dv+UlE7D0vybkp2FFYzNVNv6tm
- zuETQaw8E6xBRIiGf3XrdmMTGCImEG/hGKGwMuJ7CT58L6L1y6BHWR1FYaQve6JaIFsv0ISM2sMJx
- 8jAWIyB13E0JYfbhkuwbqpTPS9B2dOpD2JlFRWg8y9c1FQiQhBb4rKxPs1Hgycu2lCiv7O43j4UPS
- 7RA3u1p6jp7RnjHRo7iObXjiXdgaou2K+XNoFnLv/G+NOYOowQFgY7dqYq1ReDt5U2TnxKsVY+WD0
- 8/o+99/RZuj1sQMk2r3zRJ/Xp4lmlrEtBAp5LKX9JOjA2VYJlOnSYRluHFMJFWl7bKg/+hNKg3ahe
- 3rwqX+mw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xTTrj-00000007PFp-2tTG; Wed, 18 Nov 2026 00:49:35 +0000
-Message-ID: <aab3bd74-80c6-4d51-a433-140b1d27946e@infradead.org>
-Date: Tue, 17 Nov 2026 16:49:32 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7129610E6FA;
+	Wed, 18 Nov 2026 01:52:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E7810E6E9;
+ Wed, 18 Nov 2026 01:52:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794966742; x=1826502742;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=JzvAYy+mMgwCByAroYj9N8rDne/Z6sbblIq4Fe1MpRs=;
+ b=GgCgaVpC8IFJbkd8qYEHQJJbBdx4ERZk00zupOrrH2ZeN9qOgpz0MnH1
+ tBAjnee40gFiA8bgRTzY3YxOAPuy9go0quHLxRs6QQOMASpaXev5x/MBH
+ NhOY6XvnuHfz6HXbzfB+Knn6/kvo3CuX5dmV3TncLMjav7l5LjGisofiG
+ 3/CPvaMmskLfZMHRpAo8tEIts3QgnXqKvUcYctB6c2LTI+BTzY+CHN5Ti
+ A4k6Oj9rsQgqhsMT6LZL7reRn+Q2f9SksIqvTzzXTwJ79FDI0QZ5HMm5L
+ wK8Cte6LRFfl6G/CR8/H9lmxlP5RTmh7q9nARW2z9zo1JFHulqx28oMse Q==;
+X-CSE-ConnectionGUID: XVn+2jaFRdyLPrijQFl53A==
+X-CSE-MsgGUID: YhRKKBAnQACGn+ozAigBLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3777424"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3777424"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 17:52:21 -0800
+X-CSE-ConnectionGUID: IHmTfrMeRRGkZVF1+ha2cg==
+X-CSE-MsgGUID: /vNDjvkrTpyMqpQemnh5+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10172462"
+Received: from fred-panther-lake-client-platform.sh.intel.com
+ ([10.239.144.227])
+ by fmviesa002.fm.intel.com with ESMTP; 17 Nov 2026 17:52:18 -0800
+From: Fred Gao <fred.gao@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, ville.syrjala@linux.intel.com,
+ Fred Gao <fred.gao@intel.com>, Chenchen Wang <chenchen.wang@intel.com>
+Subject: [PATCH v2] drm/i915/panel: Restrict highest mode to DRRS-compatible
+ modes
+Date: Wed, 18 Nov 2026 09:49:49 +0800
+Message-ID: <20261118014949.399026-1-fred.gao@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/12] docs: ioctl-number: update FS entries
-To: sashiko-reviews@lists.linux.dev
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, linux-mm@kvack.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- Chas Williams <3chas3@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
- Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, kvm@vger.kernel.org, virtualization@lists.linux.dev,
- Jan Kara <jack@suse.cz>, Theodore Ts'o <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Chao Yu <chao@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Tzung-Bi Shih <tzungbi@kernel.org>,
- Benson Leung <bleung@chromium.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-References: <20261114202653.3113381-1-rdunlap@infradead.org>
- <20261114202653.3113381-11-rdunlap@infradead.org>
- <sashiko-outbox-215810@kernel.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <sashiko-outbox-215810@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,55 +65,61 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+intel_dp_mode_clock() uses intel_panel_highest_mode() when seamless M/N
+updates are supported so the link configuration can accommodate every
+seamless DRRS refresh rate.
 
+The panel fixed mode list can also contain modes with the same active
+size but different blanking timings. Such modes require a full modeset
+and cannot participate in a seamless M/N switch. Letting them affect the
+highest clock can unnecessarily reduce the selected bpp.
 
-On 11/15/26 12:27 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Low] docs: ioctl-number: ext4 00-2F ioctl range points to
->   fs/ext4/ext4.h instead of uapi/linux/ext4.h
-> --
-> 
-> commit 9072a8199d2be085dc5ab2567392180faf810c6d
-> Author: Randy Dunlap <rdunlap@infradead.org>
-> 
-> docs: ioctl-number: update FS entries
-> 
-> This commit updates the header file paths and sequence number ranges for
-> filesystem ioctls in Documentation/userspace-api/ioctl/ioctl-number.rst.
-> 
->> diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
->> index 87e547be9e2ac..abc89b6288ba3 100644
->> --- a/Documentation/userspace-api/ioctl/ioctl-number.rst
->> +++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-> 
-> [ ... ]
-> 
->> @@ -275,7 +276,7 @@ Code  Seq#    Include File                                             Comments
->>  'f'   00-1F  linux/ext2_fs.h                                           conflict!
->>  'f'   00-1F  linux/ext3_fs.h                                           conflict!
->>  'f'   00-0F  fs/jfs/jfs_dinode.h                                       conflict!
->> -'f'   00-0F  fs/ext4/ext4.h                                            conflict!
->> +'f'   00-2F  fs/ext4/ext4.h                                            conflict!
-> 
-> [Severity: Low]
-> Should this entry point to uapi/linux/ext4.h (or both headers) instead of
-> only fs/ext4/ext4.h?
-> 
-> Commit 519fe1bae7e2 ("ext4: Add a uapi header for ext4 userspace APIs")
-> moved the EXT4_IOC_* definitions spanning 0x03 through 0x2E into
-> include/uapi/linux/ext4.h, leaving only the compat EXT4_IOC32_* definitions
-> (0x03 through 0x08) in fs/ext4/ext4.h.
+On a 5120x2160 panel, the preferred DisplayID mode uses 717260 kHz, while a
+CTA mode with different blanking uses 742500 kHz. HBR2 x4 can carry the
+preferred mode at 24 bpp, but not the CTA clock. The latter therefore makes
+the link configuration fall back to 18 bpp. The firmware state is 24 bpp,
+so the mismatch forces a full modeset and an eDP backlight and panel power
+cycle during driver takeover.
 
-Done.
+Use is_alt_drrs_mode() to consider only fixed modes whose timings and flags
+match the adjusted mode. This preserves bandwidth reservation for genuine
+seamless DRRS alternatives while excluding modes that would require a full
+modeset.
 
+Fixes: 74d6f31fa427 ("drm/i915: Add intel_panel_highest_mode()")
+Signed-off-by: Fred Gao <fred.gao@intel.com>
+Reviewed-by: Chenchen Wang <chenchen.wang@intel.com>
+---
+v2:
+ - Resubmit as requested by the CI team to trigger a fresh CI run.
+   No code changes. The previous IGT failures were caused by unrelated
+   patches.
+
+ drivers/gpu/drm/i915/display/intel_panel.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 81e638d0c7b3..e82082adb4c0 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -192,7 +192,8 @@ intel_panel_highest_mode(struct intel_connector *connector,
+ 
+ 	/* pick the fixed_mode that has the highest clock */
+ 	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
+-		if (fixed_mode->clock > best_mode->clock)
++		if (is_alt_drrs_mode(fixed_mode, adjusted_mode) &&
++		    fixed_mode->clock > best_mode->clock)
+ 			best_mode = fixed_mode;
+ 	}
+ 
 -- 
-~Randy
+2.43.0
 
