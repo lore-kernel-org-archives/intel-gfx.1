@@ -2,28 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5042606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 03:03:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C62606A31C
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 03:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=s01hniYD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA7510E3DA;
-	Wed, 18 Nov 2026 03:03:13 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6213E10E086;
- Wed, 18 Nov 2026 03:03:12 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6639420431301643126=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 469CF10E509;
+	Wed, 18 Nov 2026 03:33:58 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB18B10E509;
+ Wed, 18 Nov 2026 03:33:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
+ s=pkvm2402; t=1794972802;
+ bh=YBj7F4I90IGKi8cfgKadgBBTN/FnYbC0nvHjsK56iT4=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=s01hniYDBu1qVGlN+mJ/6Rzpxhav288dWTCLHexraZPCJThvst20E3KujK2fkvPJa
+ efvxfGz6Zgl3YaGdz6WszsZr0h0OwD0Xz0D+AJv0aR2NrCw28HqU9BqHNlaBwMLuQO
+ +Wq4867RbI31NM5U9f9nT4zbV0yOkcVbP/qtiSd0=
+X-QQ-mid: zesmtpgz9t1794972800t002a3add
+X-QQ-Originating-IP: ZPeXYgEqB33GYeECWIshq316oUwbgzeSxRhmtGUcVBM=
+Received: from exmail.qq.com ( [14.155.229.203])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 18 Nov 2026 11:33:15 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6685117099968580623
+EX-QQ-RecipientCnt: 8
+From: Hanson Wang <hanson.wang@ugreen.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ hanson.wang@ugreen.com
+Subject: [PATCH] drm/i915/bw: sync global BW after non-atomic plane disable
+Date: Wed, 18 Nov 2026 11:33:12 +0800
+Message-Id: <20261118033312.902366-1-hanson.wang@ugreen.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/panel=3A_Restric?=
- =?utf-8?q?t_highest_mode_to_DRRS-compatible_modes?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Fred Gao" <fred.gao@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Nov 2026 03:03:12 -0000
-Message-ID: <179497099239.40746.2358522368920962959@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261118014949.399026-1-fred.gao@intel.com>
-In-Reply-To: <20261118014949.399026-1-fred.gao@intel.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MjlOSqg8Riw08vgkbgCwoiUM5XWTJf9ADWm8qhUG6W5kBS7KKio8t4T7
+ Aj8KoI+4ANeZ2GUG4vQO2JSrYzi7LWW/LeI+Ouh3UKwkT4w8Uj0dTxUCE8yR8PMVJDlNkgS
+ DPpqUoPC2NXFSBh+8V6Qe2G7EIHWOVUmVgJfjTHwc85z+3j6k7Zkvar4hQoxFt3jdcDqMgC
+ 0SqrhwDJVOTqSh1p/3XTheoHpZkB9xfnd8TCkEGwb2Ij0Lb0j+Vnx3MF9+sUK+z6xGro1s2
+ AAYlKOju4RvSQt5lRS6F7p3r/VDBQgohZ5HmFsZM03EIsvHpN8QkyGX/9A4IRcjEFqUWZ2k
+ p587emoAV2sUzTEf3VRXDVducNl0yZjxuqSjTSElcqnOFujUHJaWXE4vlvFvsCEAGjqwBuG
+ IjtfHxh15/wqWY0VDSqo7WCzlg5g0TXSLBKnMWZrgbTUXAbyNiqIxLbwXfC+KskjrQTguQA
+ rtAPnVgyJSNg7CdjzjW3G3mPTFzu19+XcWjVpUl9wbGo5tGyVQR15XW0mfdWwSEut9J/2P3
+ V4KLq/8AsmlhGPaNtPEoPZJ4YDUNcr1Cevh+rIDslGTyccaiIy2Ecm2I8V5K4eH3tTAiuUq
+ J+2myGohK/SXHFbanVV8N2HNRnTa6Q7rbNtLzvqVR5xB5LA0XHNMitGOasZxrd7d84+UfZJ
+ 9D15KkzEvbrqiJoQv2/jFdfSXovh5Ca/qFTXum+7m/nIcexOZNawUdFm113BtG1cGU+Qqyp
+ lunRF+PUNawQZL00RpcabQAqRG6AYZmbwReAJct45KaIkbQ4+C1+mOEkk/Qf34Elj7oUisV
+ r9RXFRmPutRyIBjeKm/FlqtONQppE/l9eiVkvDTeK/hyqcUAFArxas2ZZtT/dXBG1OKCXka
+ evB/JqaSr0nb+FHuKX4T+RaleoZ+Z+fkL3dl35kButjXiZ5I3Mbf29ECBg06bwYynl5+g6K
+ S0NnJylNKEdrQhWCsVMJwXdBhGe1V9ozwZ0YNmhA6ZY5mhKeDVqa1OWf6M037/gDIUdMS/n
+ t2MasSSnyBGmQAc2gLDpI4ahzIqbjFaDtxprmW7Q==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,131 +71,180 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============6639420431301643126==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hardware readout copies the firmware plane configuration into the
+global bandwidth state. skl_dbuf_sanitize() may then disable those
+planes through intel_plane_disable_noatomic(), which clears the
+CRTC-local active_planes, data_rate and DDB entries but does not
+update the global state.
 
-== Series Details ==
+A later atomic modeset sees both the old and new per-CRTC bandwidth
+as zero and skips the global update. The sanitized pipe therefore
+keeps contributing a phantom data rate and an active plane to the
+QGV check.
 
-Series: drm/i915/panel: Restrict highest mode to DRRS-compatible modes
-URL   : https://patchwork.freedesktop.org/series/178839/
-State : success
+Do not force !hw.active to zero. A logically enabled but inactive CRTC
+must retain its bandwidth reservation so that reactivating it cannot
+fail due to insufficient bandwidth. After the non-atomic disable,
+recompute the global intel_bw_state and the separate dbuf bandwidth
+state from the updated CRTC-local plane and DDB state.
 
-== Summary ==
+Reproduced on two N5105 systems from different board vendors running
+6.18.15. After DBUF sanitization, pipe B retained 196000 kB/s and one
+plane in the global BW state despite its local plane state being
+cleared and the pipe subsequently being disabled.
 
-CI Bug Log - changes from CI_DRM_19544 -> Patchwork_178839v1
-====================================================
+With the corresponding fix backported to 6.18.15 on one system, the
+same sanitization path updated the global accounting to 0 kB/s and
+zero planes. Subsequent QGV checks no longer included the stale
+bandwidth.
 
-Summary
--------
+Link: https://lore.kernel.org/intel-gfx/20261016014704.3876294-1-hanson.wang@ugreen.com
 
-  **SUCCESS**
+Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
+---
+Testing:
+- The corresponding 6.18.15 backport was tested on one N5105 system.
+- This mainline version has not been runtime-tested.
+- The original high-bandwidth application failure was not replayed.
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178839v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_178839v1 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - fi-bsw-n3050:       [ABORT][1] -> [PASS][2] +1 other test pass
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19544/fi-bsw-n3050/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178839v1/fi-bsw-n3050/igt@i915_selftest@live.html
-
-  
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19544 -> Patchwork_178839v1
-
-  CI-20190529: 20190529
-  CI_DRM_19544: 6faeea4d5058d20e3a6e7edba8c13e4918636cd9 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9196: 9196
-  Patchwork_178839v1: 6faeea4d5058d20e3a6e7edba8c13e4918636cd9 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178839v1/index.html
-
---===============6639420431301643126==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/panel: Restrict highest mode to DRRS-compatible modes</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178839/">https://patchwork.freedesktop.org/series/178839/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178839v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178839v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19544 -&gt; Patchwork_178839v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178839v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_178839v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19544/fi-bsw-n3050/igt@i915_selftest@live.html">ABORT</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178839v1/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19544 -&gt; Patchwork_178839v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19544: 6faeea4d5058d20e3a6e7edba8c13e4918636cd9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9196: 9196<br />
-  Patchwork_178839v1: 6faeea4d5058d20e3a6e7edba8c13e4918636cd9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6639420431301643126==--
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index 99fd84a5ac13..84fe1f68e312 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -1444,6 +1444,20 @@ static void intel_bw_crtc_update(struct intel_bw_state *bw_state,
+ 		    bw_state->num_active_planes[crtc->pipe]);
+ }
+ 
++void intel_bw_crtc_update_noatomic(struct intel_crtc *crtc)
++{
++	struct intel_display *display = to_intel_display(crtc);
++	struct intel_bw_state *bw_state =
++		to_intel_bw_state(display->bw.obj.state);
++	const struct intel_crtc_state *crtc_state =
++		to_intel_crtc_state(crtc->base.state);
++
++	if (DISPLAY_VER(display) < 11)
++		return;
++
++	intel_bw_crtc_update(bw_state, crtc_state);
++}
++
+ void intel_bw_update_hw_state(struct intel_display *display)
+ {
+ 	struct intel_bw_state *bw_state =
+@@ -1456,12 +1470,9 @@ void intel_bw_update_hw_state(struct intel_display *display)
+ 	bw_state->pipe_sagv_reject = 0;
+ 
+ 	for_each_intel_crtc(display, crtc) {
+-		const struct intel_crtc_state *crtc_state =
+-			to_intel_crtc_state(crtc->base.state);
+ 		enum pipe pipe = crtc->pipe;
+ 
+-		if (DISPLAY_VER(display) >= 11)
+-			intel_bw_crtc_update(bw_state, crtc_state);
++		intel_bw_crtc_update_noatomic(crtc);
+ 
+ 		/* initially SAGV has been forced off */
+ 		bw_state->pipe_sagv_reject |= BIT(pipe);
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.h b/drivers/gpu/drm/i915/display/intel_bw.h
+index 99b447388245..41ace27608dc 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.h
++++ b/drivers/gpu/drm/i915/display/intel_bw.h
+@@ -30,6 +30,7 @@ void intel_bw_init_hw(struct intel_display *display);
+ int intel_bw_init(struct intel_display *display);
+ int intel_bw_atomic_check(struct intel_atomic_state *state);
+ void intel_bw_update_hw_state(struct intel_display *display);
++void intel_bw_crtc_update_noatomic(struct intel_crtc *crtc);
+ void intel_bw_crtc_disable_noatomic(struct intel_crtc *crtc);
+ 
+ bool intel_bw_pmdemand_needs_update(struct intel_atomic_state *state);
+diff --git a/drivers/gpu/drm/i915/display/intel_dbuf_bw.c b/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
+index 6cf674c586dc..453ceaa52e26 100644
+--- a/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
+@@ -226,21 +226,29 @@ int intel_dbuf_bw_calc_min_cdclk(struct intel_atomic_state *state,
+ 	return 0;
+ }
+ 
+-void intel_dbuf_bw_update_hw_state(struct intel_display *display)
++void intel_dbuf_bw_crtc_update_noatomic(struct intel_crtc *crtc)
+ {
++	struct intel_display *display = to_intel_display(crtc);
+ 	struct intel_dbuf_bw_state *dbuf_bw_state =
+ 		to_intel_dbuf_bw_state(display->dbuf_bw.obj.state);
+-	struct intel_crtc *crtc;
++	const struct intel_crtc_state *crtc_state =
++		to_intel_crtc_state(crtc->base.state);
+ 
+ 	if (DISPLAY_VER(display) < 9)
+ 		return;
+ 
+-	for_each_intel_crtc(display, crtc) {
+-		const struct intel_crtc_state *crtc_state =
+-			to_intel_crtc_state(crtc->base.state);
++	skl_crtc_calc_dbuf_bw(&dbuf_bw_state->dbuf_bw[crtc->pipe], crtc_state);
++}
+ 
+-		skl_crtc_calc_dbuf_bw(&dbuf_bw_state->dbuf_bw[crtc->pipe], crtc_state);
+-	}
++void intel_dbuf_bw_update_hw_state(struct intel_display *display)
++{
++	struct intel_crtc *crtc;
++
++	if (DISPLAY_VER(display) < 9)
++		return;
++
++	for_each_intel_crtc(display, crtc)
++		intel_dbuf_bw_crtc_update_noatomic(crtc);
+ }
+ 
+ void intel_dbuf_bw_crtc_disable_noatomic(struct intel_crtc *crtc)
+diff --git a/drivers/gpu/drm/i915/display/intel_dbuf_bw.h b/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
+index 61875b9d5969..434f3c605995 100644
+--- a/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
++++ b/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
+@@ -32,6 +32,7 @@ int intel_dbuf_bw_calc_min_cdclk(struct intel_atomic_state *state,
+ int intel_dbuf_bw_min_cdclk(struct intel_display *display,
+ 			    const struct intel_dbuf_bw_state *dbuf_bw_state);
+ void intel_dbuf_bw_update_hw_state(struct intel_display *display);
++void intel_dbuf_bw_crtc_update_noatomic(struct intel_crtc *crtc);
+ void intel_dbuf_bw_crtc_disable_noatomic(struct intel_crtc *crtc);
+ 
+ #endif /* __INTEL_DBUF_BW_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index b897678a93c0..b81d8f288810 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -67,6 +67,7 @@
+ #include "intel_cursor.h"
+ #include "intel_cursor_regs.h"
+ #include "intel_cx0_phy.h"
++#include "intel_dbuf_bw.h"
+ #include "intel_ddi.h"
+ #include "intel_de.h"
+ #include "intel_dip.h"
+@@ -679,6 +680,14 @@ void intel_plane_disable_noatomic(struct intel_crtc *crtc,
+ 
+ 	skl_wm_plane_disable_noatomic(crtc, plane);
+ 
++	/*
++	 * Keep the global bandwidth states in sync with the updated
++	 * CRTC-local plane and DDB state. Otherwise a later atomic check
++	 * may skip the update when its old and new inputs are identical.
++	 */
++	intel_bw_crtc_update_noatomic(crtc);
++	intel_dbuf_bw_crtc_update_noatomic(crtc);
++
+ 	if ((crtc_state->active_planes & ~BIT(PLANE_CURSOR)) == 0 &&
+ 	    hsw_ips_disable(crtc_state)) {
+ 		crtc_state->ips_enabled = false;
+-- 
+2.34.1
