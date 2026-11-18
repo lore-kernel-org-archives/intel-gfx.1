@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBF2606A31C
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 10:46:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D842606A31C
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 10:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZ5Jxm6G
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+GR9KcG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD9E10E53B;
-	Wed, 18 Nov 2026 10:46:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A089710FAF3;
+	Wed, 18 Nov 2026 10:53:34 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA8D10E53B;
- Wed, 18 Nov 2026 10:45:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E134F10FAF3;
+ Wed, 18 Nov 2026 10:53:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 594E7620D7;
- Wed, 18 Nov 2026 10:45:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A101F000C4;
- Wed, 18 Nov 2026 10:45:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 429CF611D9;
+ Wed, 18 Nov 2026 10:53:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B728B1F000C4;
+ Wed, 18 Nov 2026 10:53:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794998755;
- bh=YDSF4vMnZxyCsRB/mXgxAU9tjokM+Rr45Uv6HTlpgb0=;
+ s=k20260515; t=1794999208;
+ bh=ObmCS2LpeB6sVWvFmWLETOczR6xRy+N4hpl1ULDye4k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IZ5Jxm6GDwN9SauXSocsxFt4WrGBsXgXqdOd7/AEzxMjHCnD8TzTeyWOKiCMlwTFT
- mH9nEYi9gUfnCRRjzmyrbvO3R4kBvPgdFrXW9/MI2tZGxbIIUUnBrqy+BKXYa6aJqE
- Qxt1LSzyO274UewCixWmpF1D5naTuBqR2nbZ9cp0yG3BFdnnstVMt1ZM/DA9D/dBbq
- Jj+9ppOqTtaj/L66PUI1IU6Nj9RS8GjGK/zI7+OOzlMDDrdvAu4PV6XwA2JrYyxp8o
- QwRmaXMtvVrbzb0K6UTavTAetq1CPnNzI5tkYAI/UyazHqQ1yEtlxIhMtt0Ett1LHY
- VOL6R194Azc7g==
-Message-ID: <sashiko-outbox-220741@kernel.org>
+ b=f+GR9KcGNb08AGTd85p6YJBYX5Cu1cUPQimcZllOkArVEwyxgxpPzSg00ChQ8RkeV
+ mmIlJJGRWyALHxgS6GHfBPuGu6+4NtOF0JKKTjuDbpfTSsess7dyKpeEaea3bP8RvZ
+ t9Cz2EfSGJJX5IcTQlgkmqwCtPPd9WILmOHp1Fh9JoPDVgA1+68XrKQm1tEvQT/lJw
+ yFX3Mzp9ghHdBGK2GIeJc+KFQ5RIbjD9H6Cm9R1OtQ8NAp58hrBsDaC+zZvkUB4vrR
+ jH7E51pT4T3APFwj0ATAfaGHpuHEHl/d0BmH3CTCWlVzO7qmDLvsQ2ZDLS0Q1tl4ro
+ 2COloHk2cAP+w==
+Message-ID: <sashiko-outbox-220759@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 8/8] drm: Move DSC capability reading helper out of i915
+Subject: Re: [PATCH 7/8] drm/dp: Move eDP sink link rates reading helper out
+ of i915
 To: "Kory Maincent" <kory.maincent@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-In-Reply-To: <20261118-feat_move_i915_helper-v1-8-652177f3107a@bootlin.com>
+In-Reply-To: <20261118-feat_move_i915_helper-v1-7-652177f3107a@bootlin.com>
 References: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
- <20261118-feat_move_i915_helper-v1-8-652177f3107a@bootlin.com>
+ <20261118-feat_move_i915_helper-v1-7-652177f3107a@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 10:45:54 +0000
+Date: Wed, 18 Nov 2026 10:53:27 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,46 +62,121 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/dp: kernel-doc function name mismatch for
-  drm_dp_dsc_read_dpcd()
+- [Medium] drm/i915/dp: HBR2 quirk in intel_edp_set_sink_rates() skips
+  fallback
 --
 
-commit 383d83dc14220cf2fa31928b2396a83fa5b46bff
+commit b3bcea937e62f9aba672f8e2782fab0f2b184dbd
 Author: Kory Maincent <kory.maincent@bootlin.com>
 
-drm: Move DSC capability reading helper out of i915
+drm/dp: Move eDP sink link rates reading helper out of i915
 
-This commit moves the DSC DPCD capability reading helper from the i915
-driver into the generic DRM DisplayPort helpers as drm_dp_dsc_read_dpcd().
+This commit moves the eDP DP_SUPPORTED_LINK_RATES reading logic from i915
+into a generic drm_dp_read_edp_sink_rates() helper.
 
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
-splay/drm_dp_helper.c
-> index fc3d4db1c7639..06bf7a6ec8934 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -5144,3 +5144,33 @@ int drm_dp_read_edp_sink_rates(struct drm_dp_aux *=
-aux, u8 edp_dpcd_rev,
->  	return num_sink_rates;
->  }
->  EXPORT_SYMBOL_GPL(drm_dp_read_edp_sink_rates);
-> +
-> +/**
-> + * drm_dp_read_dsc_dpcd() - read the DSC capabilities from the DPCD
-> + * @aux: DisplayPort AUX channel
-> + * @dsc_dpcd: Buffer to store the DSC capabilities read from the DPCD
-> + *
-> + * Attempts to read the sink DSC capabilities from the DPCD of @aux.
-> + *
-> + * Returns: 0 on success or a negative error code on failure.
-> + */
-> +int drm_dp_dsc_read_dpcd(struct drm_dp_aux *aux,
-> +			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 8fee2d195c944..225f6ed8c32d8 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4815,56 +4815,21 @@ static void
+>  intel_edp_set_sink_rates(struct intel_dp *intel_dp)
+>  {
+>  	struct intel_display *display =3D to_intel_display(intel_dp);
+> +	int num_sink_rates;
+> =20
+> -	intel_dp->num_sink_rates =3D 0;
+> -
+> -	if (intel_dp->edp_dpcd[0] >=3D DP_EDP_14) {
+> -		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
+> -		int ret;
+> -		int i;
+> -
+> -		ret =3D drm_dp_dpcd_read_data(&intel_dp->aux,
+> -					    DP_SUPPORTED_LINK_RATES,
+> -					    sink_rates, sizeof(sink_rates));
+> -		if (ret < 0) {
+> -			drm_dbg_kms(display->drm,
+> -				    "Unable to read eDP supported link rates, using default rates\n"=
+);
+> -			memset(sink_rates, 0, sizeof(sink_rates));
+> -		}
+> -
+> -		for (i =3D 0; i < ARRAY_SIZE(sink_rates); i++) {
+> -			int rate;
+> -
+> -			/* Value read multiplied by 200kHz gives the per-lane
+> -			 * link rate in kHz. The source rates are, however,
+> -			 * stored in terms of LS_Clk kHz. The full conversion
+> -			 * back to symbols is
+> -			 * (val * 200kHz)*(8/10 ch. encoding)*(1/8 bit to Byte)
+> -			 */
+> -			rate =3D le16_to_cpu(sink_rates[i]) * 200 / 10;
+> -
+> -			if (rate =3D=3D 0)
+> -				break;
+> -
+> -			/*
+> -			 * Some platforms cannot reliably drive HBR3 rates due to PHY limitat=
+ions,
+> -			 * even if the sink advertises support. Reject any sink rates above H=
+BR2 on
+> -			 * the known machines for stable output.
+> -			 */
+> -			if (rate > 540000 &&
+> -			    intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
+> -				break;
+> +	num_sink_rates =3D drm_dp_read_edp_sink_rates(&intel_dp->aux,
+> +						    intel_dp->edp_dpcd[0],
+> +						    intel_dp->sink_rates);
+> +	if (num_sink_rates < 0)
+> +		num_sink_rates =3D 0;
+> =20
+> -			intel_dp->sink_rates[i] =3D rate;
+> -		}
+> -		intel_dp->num_sink_rates =3D i;
+> -	}
+> +	intel_dp->num_sink_rates =3D num_sink_rates;
+> =20
+>  	/*
+>  	 * Use DP_LINK_RATE_SET if DP_SUPPORTED_LINK_RATES are available,
+>  	 * default to DP_MAX_LINK_RATE and DP_LINK_BW_SET otherwise.
+>  	 */
+> -	if (intel_dp->num_sink_rates)
+> +	if (num_sink_rates)
+>  		intel_dp->use_rate_select =3D true;
+>  	else
+>  		intel_dp_set_sink_rates(intel_dp);
 
-[Severity: Low]
-Should the kernel-doc header name drm_dp_dsc_read_dpcd() instead of
-drm_dp_read_dsc_dpcd() to match the function definition and avoid a W=3D1 /
-htmldocs kernel-doc warning?
+[Severity: Medium]
+Can this leave intel_dp->num_sink_rates as 0 on platforms with
+QUIRK_EDP_LIMIT_RATE_HBR2 if DP_SUPPORTED_LINK_RATES only lists rates
+above 540000 kHz?
+
+Previously, rates above 540000 kHz were filtered out before checking
+intel_dp->num_sink_rates, so an empty filtered list fell back to
+intel_dp_set_sink_rates().  Now num_sink_rates is checked before the
+following intel_dp_rate_limit_len() call clamps intel_dp->sink_rates:
+
+drivers/gpu/drm/i915/display/intel_dp.c:intel_edp_set_sink_rates() {
+	...
+	if (num_sink_rates)
+		intel_dp->use_rate_select =3D true;
+	else
+		intel_dp_set_sink_rates(intel_dp);
+	...
+	if (intel_dp->num_sink_rates && intel_has_quirk(display, QUIRK_EDP_LIMIT_R=
+ATE_HBR2))
+		intel_dp->num_sink_rates =3D intel_dp_rate_limit_len(intel_dp->sink_rates,
+								   intel_dp->num_sink_rates,
+								   540000);
+}
+
+When all entries in DP_SUPPORTED_LINK_RATES exceed 540000 kHz, this sets
+intel_dp->use_rate_select to true, skips intel_dp_set_sink_rates(), and
+then reduces intel_dp->num_sink_rates to 0, triggering drm_WARN_ON() in
+intel_dp_get_common_rates() and breaking eDP link training.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-feat_move_=
-i915_helper-v1-0-652177f3107a@bootlin.com?part=3D8
+i915_helper-v1-0-652177f3107a@bootlin.com?part=3D7
