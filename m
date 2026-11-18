@@ -2,41 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE1E606A320
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:25:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F20606A320
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmKYlHJI
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=I2c9NUvq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD6211251A;
-	Thu, 19 Nov 2026 15:25:06 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB9011251A;
- Thu, 19 Nov 2026 15:25:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0AFEF43F9F;
- Thu, 19 Nov 2026 15:25:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79FC1F000C6;
- Thu, 19 Nov 2026 15:24:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795101899;
- bh=5NnTdAnw6oBwz99E8mfT0K7YRIrjWwDTh66iRAJZyNY=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=jmKYlHJIMIoGlAd/3MpXWl1+dRsscyxFkNgSCqMR9QEM4k+X+up3zBv5d9vqY4p6a
- R1AqmOIbKYciWK1hFF0/eeRT4Lwh0Hae/TdhmjxJiW2HLbrNKsgMj0ASQ4S60+LOE1
- MG0xWxlsVI2DVFWNIZLaMjAJtasoW7dUFQ5XyMhurgUWxBAcWt0FvWiwxHFEAvb018
- 0VPZ3TH8QhNXYSdJaI6lQ2CcVL/eTpmRr9bLD2Y9bOsDZPblEOLLphvgI2FC0cnaGk
- pZHY1Ub37AT1bhi5Mh7+URZy8FnlfpqR47GcyTpmQEsnjD/5K6rHYZUxms3WG4wj2p
- eXpgCY9mtDavw==
-Message-ID: <sashiko-outbox-223379@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/i915: drop unnecessary display/ includes
-To: "Jani Nikula" <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261119151644.4097956-1-jani.nikula@intel.com>
-References: <20261119151644.4097956-1-jani.nikula@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 15:24:59 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2002411254A;
+	Thu, 19 Nov 2026 15:26:20 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36EF10FCBB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 14:06:45 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4bb68c197c7so14096915e9.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 06:06:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1795010804; x=1795615604;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=O8kUxWwNMGGKdJF+2JBGIvhWCx8VFS9Gq0fs2XPEP3c=;
+ b=I2c9NUvq+C5FWl6oDgcyVl2svEUbTiDltKnvnXOJUTtS5VF8lE4PF4TXnpIfmKhhLc
+ FePg2dHSUPMK1ZfSD2kd42QnFIq0u0XYarUdIiwFma6iJF4p7lt1no6qF0A1CODDLXrH
+ VCfGF4h8mlr2vkDNeRdryTV2j8W245lGCJlr+4ZCDUaolWRTZLANpx1Gt9a8lzqbVeWx
+ oNgmr4XPecY3ySeavDFfDyMc8mKcP050Q3WCxdLiklx2DRMGDHYrxxr14kI2XXmCxxfs
+ 92bwsUeDezBQsgUGfwY8TR+fvQ/Hn87fwEIk9OWrAdPaTjSc2o8MwjvEo3nbnm0DJ0w6
+ ZXLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795010804; x=1795615604;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=O8kUxWwNMGGKdJF+2JBGIvhWCx8VFS9Gq0fs2XPEP3c=;
+ b=CoolaDeoxj6N42W0ZZi2Vdp3wOPYKYRhHpv77wUFgtN+MDX335z636LOpNZYxtE0oQ
+ mNRsrc5U3yxEo0EHpbjw7dDZqyJImB8TWx+gNmnrv7Q9DO91CE9Tt5oeG3ZSGNQdIRqT
+ 8d4hHfMTVDMNU2q6JSlUN4acfxkGiULq1X93tCGAbGcqwyq+EFdGh50tvolImmLsUCgL
+ cBldi5jw8GZt0Ko4ilSpCiNWVThy627h4UXwOxYIMWJbX7CWDf91xV4HBAcC1kzDRxvt
+ 6gpbFUuVRaqhazuOHa3Nn9VuOQQr2N/jjGjkfSpd10348xozxy1Ccc3R39Uv0TKAvgeS
+ 65yA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHRWMK88kDoV6sXl5XzeW7rCig6Y8iUI8iDeXKCDOUOWTGG3rZoL9jWjHq/q7tlPoiktrTFLdy5YM0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z91uJ6nTSzjwM7tjUy/7Nxn0P5sY3VOdhS2PtezjCwfDppXI4QB
+ geK+8OYdTUmHRUD2JHJcSEKr4yAc8nUBFv1bTOkeaXJ3d6LXQznGvEg+X9ZqXT+TDcs=
+X-Gm-Gg: AYBFou3mS+qqhktZuJlgoMtaMI/NBlwUxYjH22LmMYGjrrp8FKbkCEy2F0lv6A/js0d
+ j9Zvmqd4lqtQu/Gmk+SU1bQj66azPaFs0tRRR+mas8myR6HrPx835yxsuw1RrYBWZJ9/7DiPzNR
+ 7Kii4qFzj4AnsION5djACiob6P7MJCXUIvDqwv2nIAIYWKbhRSRBR3rOwFO5T2MkRA4JXPIAAJe
+ QVLmK+SI28rEd7sZgb+pv3RLtpOF7np9mchuinokxbzVZ/JVbXhUso8s3G4iBogpkQWLSUij4GL
+ Cfazn6z9K+pYJ4LQx2RueEbfAbADQ0AtmCkCE8OGRgU4ZcJkxVjKfft8IvHV5FZLQJO+9YJjznP
+ dCb6hBVVOOWVtMTPHZ7ycYmqJArdN+u5kXafXmL/XgiGOc7ElTREwpKtJxHZdDptqwIfcLo0Nw4
+ RZ/u61+Giqo6IlmLwmHFoagWaLIWXLT4b9FBkyf/k+hII1r6E/JcaAB3jclCOXsS0N548Vc/UsO
+ n/h1XAXwoziEPwGbKOUDmdT4t6ZeaWg+cmsp6roHD4aIYAbATUOC0TJEiidxg8g8pI1kQr8GfiC
+ g1ecIJ9C+/WBP51cannHfzhjpTBF07T0eTw=
+X-Received: by 2002:a05:600c:3509:b0:4bb:68b9:f610 with SMTP id
+ 5b1f17b1804b1-4bb7da03954mr52120315e9.9.1795010803953; 
+ Wed, 18 Nov 2026 06:06:43 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4bb7d256f64sm61534715e9.1.2026.11.18.06.06.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Nov 2026 06:06:43 -0800 (PST)
+Date: Wed, 18 Nov 2026 15:06:41 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sasha Finkelstein <k@chaosmail.tech>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, dri-devel@lists.freedesktop.org,
+ asahi@lists.linux.dev, 
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, 
+ linux-riscv@lists.infradead.org, etnaviv@lists.freedesktop.org,
+ linux-samsung-soc@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ imagination@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ lima@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 9/9] drm: Unify coding style for *_device_id arrays
+Message-ID: <av2rKJQ0AKU9CFZI@monoceros>
+References: <cover.1795002467.git.ukleinek@kernel.org>
+ <a2d5ce256b8ec150de4a6494c177b19693a33222.1795002467.git.ukleinek@kernel.org>
+ <7692c160e418e7ad0528739fcc879b11fbac8ab0@intel.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5c6ped4sw6nigwko"
+Content-Disposition: inline
+In-Reply-To: <7692c160e418e7ad0528739fcc879b11fbac8ab0@intel.com>
+X-Mailman-Approved-At: Thu, 19 Nov 2026 15:26:19 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,61 +111,101 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/i915: build failure in intel_uncore_init_mmio() due to
-  missing header
---
 
-commit 7bc6738060c0255c4ddc88b8481bd154e455c1f4
-Author: Jani Nikula <jani.nikula@intel.com>
+--5c6ped4sw6nigwko
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 9/9] drm: Unify coding style for *_device_id arrays
+MIME-Version: 1.0
 
-drm/i915: drop unnecessary display/ includes
+Hello Jani,
 
-This commit removes display/intel_crtc.h from i915_initial_plane.c and
-display/intel_display_core.h from intel_uncore.c.
+On Wed, Nov 18, 2026 at 03:27:40PM +0200, Jani Nikula wrote:
+> > [...]
+> >  drivers/gpu/ipu-v3/ipu-common.c               |   8 +-
+> >  drivers/gpu/ipu-v3/ipu-pre.c                  |   4 +-
+> >  drivers/gpu/ipu-v3/ipu-prg.c                  |   4 +-
+> >  254 files changed, 1155 insertions(+), 940 deletions(-)
+>=20
+> How do you expect a patch of this size be merged?
 
-> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/i=
-ntel_uncore.c
-> index e360e4f9d9a2d..925c52f4494b0 100644
-> --- a/drivers/gpu/drm/i915/intel_uncore.c
-> +++ b/drivers/gpu/drm/i915/intel_uncore.c
-> @@ -27,7 +27,6 @@
->  #include <drm/drm_managed.h>
->  #include <drm/drm_print.h>
-> =20
-> -#include "display/intel_display_core.h"
->  #include "gt/intel_engine_regs.h"
->  #include "gt/intel_gt.h"
->  #include "gt/intel_gt_regs.h"
+Using b4 am :-) Honestly, in the cover letter I wrote about an immutable
+branch and offered to rebase to 7.4-rc1. When trying to apply this
+series on top ov 7.4-rc1 there are only 6 conflicts (1x modify/delete
+and 5x content); these are all not so hard to resolve (and even dropping
+the respective hunks (i.e. resolving using `git checkout HEAD`) is fine
+for me.)
 
-[Severity: High]
-Does removing display/intel_display_core.h break the build in
-intel_uncore_init_mmio()?
+> > diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i91=
+5_pci.c
+> > index 84a7dc6ab5db..faceb3de4fa3 100644
+> > --- a/drivers/gpu/drm/i915/i915_pci.c
+> > +++ b/drivers/gpu/drm/i915/i915_pci.c
+> > @@ -870,7 +870,7 @@ static const struct pci_device_id pciidlist[] =3D {
+> >  	INTEL_ATS_M_IDS(INTEL_VGA_DEVICE, &ats_m_info),
+> >  	INTEL_ARL_IDS(INTEL_VGA_DEVICE, &mtl_info),
+> >  	INTEL_MTL_IDS(INTEL_VGA_DEVICE, &mtl_info),
+> > -	{}
+> > +	{ }
+>=20
+> Personally, I would *always* use {} instead of { }, and would rather not
+> change.
+>=20
+> Across the tree, {} is slightly more common than { }. IMO changing them
+> is pointless churn.
 
-drivers/gpu/drm/i915/intel_uncore.c:intel_uncore_init_mmio() {
-    ...
-	if (HAS_FPGA_DBG_UNCLAIMED(display))
-		uncore->flags |=3D UNCORE_HAS_FPGA_DBG_UNCLAIMED;
-    ...
-}
+It depends on how you count. My statistic looks as follows (on top of
+next-20261117):
 
-HAS_FPGA_DBG_UNCLAIMED() is defined in display/intel_display_device.h (which
-was previously pulled in via display/intel_display_core.h) and dereferences
-struct intel_display, which is defined in display/intel_display_core.h.
-Without that header, compiling intel_uncore.c fails with an implicit
-declaration error for HAS_FPGA_DBG_UNCLAIMED().
+	$ git grep -l device_id | xargs -n 1 perl -g -n -e 'print "$1\n" if m/devi=
+ce_id\s*[a-zA-Z_0-9]*\[\]\s*=3D\s*{(?:\s*{[^}]*},\s*({\s*}))/' | sort | uni=
+q -c
+	      2 	}
+	      2 {
+	      6 {  }
+	   2598 { }
+	   1262 {}
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119151644.4097=
-956-1-jani.nikula@intel.com?part=3D1
+So over all *_device_id { } is more common by a factor of > 2. This
+series fixes one {  } and reduces the number of {} by 37. For only
+pci_device_id it's:
+
+	$ git grep -l pci_device_id | xargs -n 1 perl -g -n -e 'print "$1\n" if m/=
+pci_device_id\s*[a-zA-Z_0-9]*\[\]\s*=3D\s*{(?:\s*{[^}]*},\s*({\s*}))/' | so=
+rt | uniq -c
+	    159 { }
+	     32 {}
+
+Without the context of an array initializer there are many empty
+code blocks (function bodys or `do {} while (0)`), empty dt nodes, and
+{} in Rust code, which IMHO have to be considered off-topic for this
+statistic.
+
+Best regards
+Uwe
+
+--5c6ped4sw6nigwko
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr9sOcACgkQj4D7WH0S
+/k4vggf+PQfM4MkbLgaQRCdXRWWsc4/Fa0tTMBQAl4gjx2p5NE/N7TDUO571o3+N
+oWcelzY5O1uRcc2qHZVnu3vAxFqzk4YHfGjsbGHsxQAibxnIFW7ttYTzt0w5a9NH
+v65V6+sebCdwLrPVE5ilcqzFFSgmnv1wTNm2vCEUxdKGacifySaGRmg4+ax+fLb1
+CL+RS7fM2EkQxG1k4iDEPv1Onrm9S4DtwTts0wxkK780rWYD9FoSLjHyX/x21Y8x
+SZKaXeNZlxtHJpQLq8ub8AL/t6k82nC020wYZOUbUmvPyqxhNoUuuS0/RVlz9xT6
+kXiliIwWzcMtAKt4ik8nbTRO5JERhQ==
+=0alU
+-----END PGP SIGNATURE-----
+
+--5c6ped4sw6nigwko--
