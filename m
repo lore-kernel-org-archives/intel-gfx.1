@@ -2,28 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6345D606A32C
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 01:07:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E55606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 01:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KOcV8ZRP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E6FB10ECD3;
-	Thu, 19 Nov 2026 01:07:37 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B021810ECD3;
- Thu, 19 Nov 2026 01:07:35 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============9092271991176749168=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 446781120FC;
+	Thu, 19 Nov 2026 01:29:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0866310ED25;
+ Thu, 19 Nov 2026 01:29:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795051793; x=1826587793;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=PSfxMbRtp5SghriBVjMcOCJYj/qGbZjDnmBthJkvrbk=;
+ b=KOcV8ZRPQfd1EFY5LkC8hvBhhFSFlqr7V/oNhld4qZsviR2c2Vz6m0Sg
+ Mx6izkf+Vy3J5oXZoqzZs28A8uG72nXqtVOka7H3may2ulWyQcF0SP0+Q
+ UBKD3MJ0IfTXAcNcgm+kqnxSWBeK+jU7Vo/82cs14c1I32aGudCnhFynI
+ YaHNbjZAQjun6hT+hKUy8taCQAoGna0iVt8+bsyVuWGCQU0FAE2Fb4zB/
+ OkUzBzyYE7P4+zhBNk2nhjpuPeLhBqL+gjXhrEtVWH4/D1xhE1gLBH864
+ 3cgVXlTajnLohE8sVMZwFkPAC1Nfm2CSd0XKpp1i9t/pPyFO/TPRRn02o A==;
+X-CSE-ConnectionGUID: 2o8bxZvVRuCfEWrlAxS+GQ==
+X-CSE-MsgGUID: H8LJT4L+RF6QW+lv2JEksg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3775577"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3775577"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 17:29:53 -0800
+X-CSE-ConnectionGUID: TUvq6+FoS6eVdr+zGQCL3w==
+X-CSE-MsgGUID: B9Y2d/QwS6SSzj7nu/u0OA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; d="scan'208";a="10431112"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa003.fm.intel.com with ESMTP; 18 Nov 2026 17:29:47 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xTqy8-00000001EjW-3STl;
+ Thu, 19 Nov 2026 01:29:44 +0000
+Date: Thu, 19 Nov 2026 09:28:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kory Maincent <kory.maincent@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: oe-kbuild-all@lists.linux.dev, Louis Chauvet <louis.chauvet@bootlin.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>,
+ Manasi Navare <navaremanasi@google.com>,
+ Drew Davenport <ddavenport@google.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Kory Maincent <kory.maincent@bootlin.com>
+Subject: Re: [PATCH 8/8] drm: Move DSC capability reading helper out of i915
+Message-ID: <202611190948.JPHU15IB-lkp@intel.com>
+References: <20261118-feat_move_i915_helper-v1-8-652177f3107a@bootlin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/atomic-helper=3A_Elim?=
- =?utf-8?q?inate_the_fake=5Fcommit_spurious_-EBUSYs_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 19 Nov 2026 01:07:35 -0000
-Message-ID: <179505045571.47904.3079768640928187066@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261117200253.27078-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261117200253.27078-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118-feat_move_i915_helper-v1-8-652177f3107a@bootlin.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,146 +79,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============9092271991176749168==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Kory,
 
-== Series Details ==
+kernel test robot noticed the following build warnings:
 
-Series: drm/atomic-helper: Eliminate the fake_commit spurious -EBUSYs (rev2)
-URL   : https://patchwork.freedesktop.org/series/178822/
-State : success
+[auto build test WARNING on d5a6e2921e68b0cc42812376ca6c8095b6c941a2]
 
-== Summary ==
+url:    https://github.com/intel-lab-lkp/linux/commits/Kory-Maincent/drm-dp-Move-max-DPRX-link-rate-helper-out-of-i915/20261118-113628
+base:   d5a6e2921e68b0cc42812376ca6c8095b6c941a2
+patch link:    https://lore.kernel.org/r/20261118-feat_move_i915_helper-v1-8-652177f3107a%40bootlin.com
+patch subject: [PATCH 8/8] drm: Move DSC capability reading helper out of i915
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20261119/202611190948.JPHU15IB-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261119/202611190948.JPHU15IB-lkp@intel.com/reproduce)
 
-CI Bug Log - changes from CI_DRM_19560 -> Patchwork_178822v2
-====================================================
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611190948.JPHU15IB-lkp@intel.com/
 
-Summary
--------
+All warnings (new ones prefixed by >>):
 
-  **SUCCESS**
+>> Warning: drivers/gpu/drm/display/drm_dp_helper.c:5158 expecting prototype for drm_dp_read_dsc_dpcd(). Prototype was for drm_dp_dsc_read_dpcd() instead
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_178822v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-adls-6:         [PASS][1] -> [FAIL][2] ([i915#17803])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19560/bat-adls-6/igt@i915_pm_rpm@module-reload.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/bat-adls-6/igt@i915_pm_rpm@module-reload.html
-
-  * igt@vgem_basic@unload:
-    - bat-rpls-4:         [PASS][3] -> [DMESG-WARN][4] ([i915#13400])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19560/bat-rpls-4/igt@vgem_basic@unload.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/bat-rpls-4/igt@vgem_basic@unload.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#17803]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17803
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19560 -> Patchwork_178822v2
-
-  CI-20190529: 20190529
-  CI_DRM_19560: 48995c76e90141a4e72ceafeb3762d4a3580eeef @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9197: 9197
-  Patchwork_178822v2: 48995c76e90141a4e72ceafeb3762d4a3580eeef @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/index.html
-
---===============9092271991176749168==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/atomic-helper: Eliminate the fake_commit spurious -EBUSYs (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178822/">https://patchwork.freedesktop.org/series/178822/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19560 -&gt; Patchwork_178822v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_178822v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>bat-adls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19560/bat-adls-6/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/bat-adls-6/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17803">i915#17803</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@vgem_basic@unload:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19560/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178822v2/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19560 -&gt; Patchwork_178822v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19560: 48995c76e90141a4e72ceafeb3762d4a3580eeef @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9197: 9197<br />
-  Patchwork_178822v2: 48995c76e90141a4e72ceafeb3762d4a3580eeef @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============9092271991176749168==--
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
