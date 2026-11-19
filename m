@@ -2,28 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE9D606A338
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 08:26:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4C360A2631
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 09:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QFecHBG/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2436011212F;
-	Thu, 19 Nov 2026 08:26:16 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F882112144;
- Thu, 19 Nov 2026 08:26:15 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2401293321831072741=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id C91CB10E22C;
+	Thu, 19 Nov 2026 09:32:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C1CD10E22C;
+ Thu, 19 Nov 2026 09:32:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795080769; x=1826616769;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=QS9BsHnFIcyk4yDW9WGTEWcfxuqQvwKTqkfDjLMRxoc=;
+ b=QFecHBG/V3j9umV0fuTeB6PNHpp3cx/dwLWRdRS7ud73CH5Dl6DZvnXs
+ sk57i82GyCcKTQ5FhD31mQpvunSQKJJjJ46uypjZY+yyHnNqqbzBTgF64
+ F+Xt7HHdxUd03z8LTHzzEz6qqnNOcGxlwv+Ul6LOwHnIi9oX2wiukXwBi
+ V+WqF0SNNnRVLJSfY8WnZQnT7z+rlHHGUfP0HYFM1vkqo52dj9mpWRYwX
+ gVw9tr7pP0dskT47WM8OO25MDGv+AmHiRL9+/idcVZiw7xcAzN1X52lIv
+ fQbNEaBa/n4dR9gX0wt8cyRClzhxNUtnG8+spXtue9u/fTDL6XXlTnReW w==;
+X-CSE-ConnectionGUID: TnG9MaJARaO8sIGnE5C/3Q==
+X-CSE-MsgGUID: Wc5+yl4lTc2i93wTCnrVEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3961361"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3961361"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 01:32:48 -0800
+X-CSE-ConnectionGUID: RK/NvZbvTyG+mq3b1kl6qw==
+X-CSE-MsgGUID: 7lzK6qF4RwuhXHEQrAag2Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; d="scan'208";a="12337513"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.90])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 01:32:46 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/de: prefer intel_reg_offset() over
+ i915_mmio_reg_offset()
+In-Reply-To: <av3QdAbcdznpwqyV@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261118094508.3343569-1-jani.nikula@intel.com>
+ <av3QdAbcdznpwqyV@intel.com>
+Date: Thu, 19 Nov 2026 11:32:44 +0200
+Message-ID: <e1f97e61963270c7da524f5050afff8847b3f911@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/selftests=3A_fix?=
- =?utf-8?q?_stolen_reset_test_races_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 19 Nov 2026 08:26:15 -0000
-Message-ID: <179507677518.49533.13063311528571434711@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <cover.1795006734.git.sebastian.brzezinka@intel.com>
-In-Reply-To: <cover.1795006734.git.sebastian.brzezinka@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +66,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============2401293321831072741==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, 18 Nov 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Wed, Nov 18, 2026 at 11:45:08AM +0200, Jani Nikula wrote:
+>> intel_reg_offset() should be preferred over i915_mmio_reg_offset() in
+>> display code. Convert the couple of instances that have crept in.
+>>=20
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>
+> Sorry about that chief. I have a vague recollection of changing
+> these, but evidently I either imagined it or lost it accidentally
+> in some rebase.
 
-== Series Details ==
+Blame it on poor review. ;)
 
-Series: drm/i915/selftests: fix stolen reset test races (rev2)
-URL   : https://patchwork.freedesktop.org/series/178898/
-State : success
+> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-== Summary ==
+Thanks, pushed to din.
 
-CI Bug Log - changes from CI_DRM_19563 -> Patchwork_178898v2
-====================================================
+>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_de.c | 4 ++--
+>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i=
+915/display/intel_de.c
+>> index 9ca5b27eb768..08a0027e7930 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_de.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_de.c
+>> @@ -219,7 +219,7 @@ static void check_unclaimed_mmio_pre(struct intel_di=
+splay *display,
+>>  		drm_dbg_kms(display->drm,
+>>  			    "Unclaimed access detected before %s register 0x%x\n",
+>>  			    write ? "write to" : "read from",
+>> -			    i915_mmio_reg_offset(reg));
+>> +			    intel_reg_offset(reg));
+>>  }
+>>=20=20
+>>  static void check_unclaimed_mmio_post(struct intel_display *display,
+>> @@ -234,7 +234,7 @@ static void check_unclaimed_mmio_post(struct intel_d=
+isplay *display,
+>>  		     display->mmio.funcs->check_for_unclaimed_mmio(display),
+>>  		     "Unclaimed %s register 0x%x\n",
+>>  		     write ? "write to" : "read from",
+>> -		     i915_mmio_reg_offset(reg)))
+>> +		     intel_reg_offset(reg)))
+>>  		/* Only report the first N failures */
+>>  		display->params.mmio_debug--;
+>>  }
+>> --=20
+>> 2.47.3
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178898v2/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19563 -> Patchwork_178898v2
-
-  CI-20190529: 20190529
-  CI_DRM_19563: 2bdca9b1f8638ef27955d61c149bc6fac856d291 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9198: 9198
-  Patchwork_178898v2: 2bdca9b1f8638ef27955d61c149bc6fac856d291 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178898v2/index.html
-
---===============2401293321831072741==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/selftests: fix stolen reset test races (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178898/">https://patchwork.freedesktop.org/series/178898/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178898v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178898v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19563 -&gt; Patchwork_178898v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178898v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19563 -&gt; Patchwork_178898v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19563: 2bdca9b1f8638ef27955d61c149bc6fac856d291 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9198: 9198<br />
-  Patchwork_178898v2: 2bdca9b1f8638ef27955d61c149bc6fac856d291 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2401293321831072741==--
+--=20
+Jani Nikula, Intel
