@@ -2,61 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DE3606A325
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 23:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N1QPIKHg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BAAD606A325
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 23:49:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 029EF1127F0;
-	Thu, 19 Nov 2026 23:44:51 +0000 (UTC)
-Received: from mgamail.intel.com (unknown [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4524A1127EF;
- Thu, 19 Nov 2026 23:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795131886; x=1826667886;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ld7fiPYN1Wy1vb2ijLUDZVrER4eq/U6P/98fhJSBncU=;
- b=N1QPIKHg0L/Znhh2T4knSbIzrS0++R96QQehCeMFYWqm7ZnFfkMqvzQx
- /MXipClXMtzY4z4qFlKKQHGqEse39cMv48T9/PxvOszyXRJ9Axw605WYi
- n1TgC8RAshTvJ1X01IxlnmPa6MoH/VLm7WFXI6XOvhpxUpaXNzbjKUwl7
- qgiMfMb37DL3BTeJ1PtLgwWZYI3plxdQj5n34D8jCh2FbJnBdnaymzbtK
- V4Es+2WDsHG1DSiEtsGzkSpmEDOWi9VAgWclW3QDpGVbKO2s1j84BSZRk
- wmxki0UNbXOGmh42ZKpLHqRQ1PpIPEaI4uIzuIDdfl87Ur+AieutHjcwM g==;
-X-CSE-ConnectionGUID: CR5yLAMxSl6X9O3Ka39oMg==
-X-CSE-MsgGUID: 8ObBe2weQb6QRMZ0SqVSvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3923960"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="3923960"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 15:44:34 -0800
-X-CSE-ConnectionGUID: KcxaTHm+SQuVKrcVc/WyYQ==
-X-CSE-MsgGUID: Wwt6ZtijSMauYQKS6Gob6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; d="scan'208";a="10788951"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.202])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 15:44:31 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/atomic: Prefer drm_WARN_ON() over WARN_ON() in
- drm_atomic_get_*_state()
-Date: Fri, 20 Nov 2026 01:44:23 +0200
-Message-ID: <20261119234423.11666-2-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261119234423.11666-1-ville.syrjala@linux.intel.com>
-References: <20261119234423.11666-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2928A1127CC;
+	Thu, 19 Nov 2026 23:49:56 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DFDA1127CC;
+ Thu, 19 Nov 2026 23:49:54 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_Add_support_for_a_DRM_bac?=
+ =?utf-8?q?klight_capability_=28rev7=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mario Limonciello" <mario.limonciello@amd.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 19 Nov 2026 23:49:54 -0000
+Message-ID: <179513219437.55409.13114840802001806432@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
+In-Reply-To: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,74 +34,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+== Series Details ==
 
-Change all the get_state() acquire_ctx WARNs to use drm_WARN_ON()
-instead of WARN_ON() so we get to know which device triggered it.
+Series: Add support for a DRM backlight capability (rev7)
+URL   : https://patchwork.freedesktop.org/series/169109/
+State : failure
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/drm_atomic.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index b0843e5a9e4d..324e79152e17 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -473,7 +473,7 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
- 	int ret;
- 	struct drm_crtc_state *crtc_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-@@ -666,7 +666,7 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- 	int ret;
- 	struct drm_plane_state *plane_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	/* the legacy pointers should never be set */
-@@ -741,7 +741,7 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
- 	int ret;
- 	struct drm_colorop_state *colorop_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-@@ -1144,7 +1144,7 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 	int ret;
- 	struct drm_private_state *obj_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	obj_state = drm_atomic_get_new_private_obj_state(state, obj);
-@@ -1459,7 +1459,7 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
- 	struct drm_mode_config *config = &connector->dev->mode_config;
- 	struct drm_connector_state *connector_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
--- 
-2.56.0
+Error: make failed
+  DESCEND objtool
+  AR      drivers/gpu/drm/renesas/rcar-du/built-in.a
+  AR      drivers/gpu/drm/renesas/rz-du/built-in.a
+  AR      drivers/gpu/drm/renesas/built-in.a
+  AR      drivers/gpu/drm/omapdrm/built-in.a
+  AR      drivers/gpu/drm/tilcdc/built-in.a
+  AR      drivers/gpu/drm/imx/built-in.a
+  AR      drivers/gpu/drm/panel/built-in.a
+  CC [M]  drivers/gpu/drm/panel/panel-auo-a030jtn01.o
+  CC [M]  drivers/gpu/drm/panel/panel-ilitek-ili9341.o
+  CC [M]  drivers/gpu/drm/panel/panel-orisetech-ota5601a.o
+  CC [M]  drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.o
+  CC [M]  drivers/gpu/drm/panel/panel-widechips-ws2401.o
+  AR      drivers/gpu/drm/bridge/analogix/built-in.a
+  AR      drivers/gpu/drm/bridge/cadence/built-in.a
+  AR      drivers/gpu/drm/bridge/imx/built-in.a
+  AR      drivers/gpu/drm/bridge/synopsys/built-in.a
+  AR      drivers/gpu/drm/bridge/built-in.a
+  CC [M]  drivers/gpu/drm/bridge/tda998x_drv.o
+  LD [M]  drivers/gpu/drm/bridge/tda998x.o
+  AR      drivers/gpu/drm/hisilicon/built-in.a
+  AR      drivers/gpu/drm/mxsfb/built-in.a
+  CC      drivers/gpu/drm/sysfb/drm_sysfb.o
+  CC      drivers/gpu/drm/sysfb/drm_sysfb_modeset.o
+  CC      drivers/gpu/drm/sysfb/drm_sysfb_screen_info.o
+  CC      drivers/gpu/drm/sysfb/simpledrm.o
+  AR      drivers/gpu/drm/sysfb/built-in.a
+  AR      drivers/gpu/drm/tiny/built-in.a
+  CC [M]  drivers/gpu/drm/tiny/bochs.o
+  CC [M]  drivers/gpu/drm/tiny/cirrus-qemu.o
+  CC [M]  drivers/gpu/drm/tiny/gm12u320.o
+  CC [M]  drivers/gpu/drm/tiny/panel-mipi-dbi.o
+  CC [M]  drivers/gpu/drm/tiny/hx8357d.o
+  CC [M]  drivers/gpu/drm/tiny/ili9163.o
+  CC [M]  drivers/gpu/drm/tiny/ili9225.o
+  CC [M]  drivers/gpu/drm/tiny/ili9341.o
+  CC [M]  drivers/gpu/drm/tiny/ili9486.o
+  CC [M]  drivers/gpu/drm/tiny/mi0283qt.o
+  CC [M]  drivers/gpu/drm/tiny/repaper.o
+  AR      drivers/gpu/drm/xen/built-in.a
+  CC [M]  drivers/gpu/drm/xen/xen_drm_front.o
+  CC [M]  drivers/gpu/drm/xen/xen_drm_front_kms.o
+  CC [M]  drivers/gpu/drm/xen/xen_drm_front_conn.o
+  CC [M]  drivers/gpu/drm/xen/xen_drm_front_evtchnl.o
+  CC [M]  drivers/gpu/drm/xen/xen_drm_front_cfg.o
+  CC [M]  drivers/gpu/drm/xen/xen_drm_front_gem.o
+  LD [M]  drivers/gpu/drm/xen/drm_xen_front.o
+  AR      drivers/gpu/drm/xlnx/built-in.a
+  AR      drivers/gpu/drm/gud/built-in.a
+  CC [M]  drivers/gpu/drm/gud/gud_drv.o
+  CC [M]  drivers/gpu/drm/gud/gud_pipe.o
+  CC [M]  drivers/gpu/drm/gud/gud_connector.o
+  LD [M]  drivers/gpu/drm/gud/gud.o
+  AR      drivers/gpu/drm/sitronix/built-in.a
+  AR      drivers/gpu/drm/solomon/built-in.a
+  CC [M]  drivers/gpu/drm/solomon/ssd130x.o
+  CC [M]  drivers/gpu/drm/solomon/ssd130x-i2c.o
+  CC [M]  drivers/gpu/drm/solomon/ssd130x-spi.o
+  CC [M]  drivers/gpu/drm/tests/drm_connector_test.o
+drivers/gpu/drm/tests/drm_connector_test.c: In function ‘drm_test_connector_attach_luminance_property’:
+drivers/gpu/drm/tests/drm_connector_test.c:162:9: error: implicit declaration of function ‘drm_atomic_helper_connector_reset’; did you mean ‘drm_atomic_helper_connector_tv_check’? [-Werror=implicit-function-declaration]
+  162 |         drm_atomic_helper_connector_reset(connector);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |         drm_atomic_helper_connector_tv_check
+cc1: some warnings being treated as errors
+make[6]: *** [scripts/Makefile.build:290: drivers/gpu/drm/tests/drm_connector_test.o] Error 1
+make[5]: *** [scripts/Makefile.build:572: drivers/gpu/drm/tests] Error 2
+make[4]: *** [scripts/Makefile.build:572: drivers/gpu/drm] Error 2
+make[3]: *** [scripts/Makefile.build:572: drivers/gpu] Error 2
+make[2]: *** [scripts/Makefile.build:572: drivers] Error 2
+make[1]: *** [/home/kbuild2/kernel/Makefile:2244: .] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+Build failed, no error log produced
+
 
