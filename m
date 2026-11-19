@@ -2,61 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B92606A908
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 20:51:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD423606A325
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 20:57:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E8fUEhyX
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaUi/NYy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBF6A10F10F;
-	Thu, 19 Nov 2026 20:51:20 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7247C10F0E9;
- Thu, 19 Nov 2026 20:51:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795121475; x=1826657475;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=YmNhKhHw+OyNl2UvecsUKm7lh+53yjye/thIK72lKbc=;
- b=E8fUEhyXQ49McdssNQG4BO1iStg4dDGH9eJN/XdTVFMmxx9Q+QcksG4w
- YWIqXa7txs0IQ5TjsNFu49s+ZCVPFP4BYwwOaAybOlAAAWVBhAbKcpDpl
- B4KyWInWHvyDsSXNJ30fqzGusEV0Gxv5Nej2WfdbuItKpCvfKwdFQgUdr
- L/5Nx2mqhYc9bGvOD74A3NLJ7WOhttB7YwYdyNg5Ob7AfwKcsk3wiz8pj
- G1aYI7Uggxvpaa3aYjXynT10Rk7E+VVes0ZqvNKAttmJUjwygFBupC7Dn
- deYrwlcSF6wTv74IFc//0/w22MzfDSLyHX1o+uEp5jhkIhItEyfmMym54 g==;
-X-CSE-ConnectionGUID: RihSph1dT6mm0+GUQwP1nA==
-X-CSE-MsgGUID: eskRsEXkQ8GVM7mhOi4YKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4030647"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="4030647"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 12:51:14 -0800
-X-CSE-ConnectionGUID: 37AMoNCUT/eLc0CsTM5urw==
-X-CSE-MsgGUID: lhUXGxVeRgeWdpvpksJIew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; d="scan'208";a="12511741"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.54])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 12:51:13 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH 6/6] drm/i915/de: Make display registers unlocked for TGL+ on
- i915
-Date: Thu, 19 Nov 2026 22:50:40 +0200
-Message-ID: <20261119205040.31935-7-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261119205040.31935-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE8E10E8D5;
+	Thu, 19 Nov 2026 20:57:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52FB410E8D5;
+ Thu, 19 Nov 2026 20:57:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E8DED44EB3;
+ Thu, 19 Nov 2026 20:57:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A86E1F000C6;
+ Thu, 19 Nov 2026 20:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795121853;
+ bh=SGR0SzEtmAStTnOW9T6GwZHcfycrUcDc8jiaJNUhELA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=BaUi/NYy99bgOplwfe/MeXcIyFdVOAn2jH6T3c+b9LGcFNysXb6cPm3NG4V/dQNHm
+ +I7hVFiuFLVuLsjxtSLYwl4qo08pO1ke67CwWczhjCfZFY2YKPPnJlnvRL6jQ1cNsm
+ y70Gw+uTTdnCMJ7noylh8W+o1WuEwPgTOcwzriZg7G98TEupVFpg09l6Mn0vLo20SZ
+ MAfIO8BdL7pp/ONRoWNQiCigF2V5GvvdeRCvSCCgpXDCDz8b+AqeyxcHPvWGGKEMgW
+ H5k9j8mlFNWb7Sgg4wyvHnmlGz7Yqtrq4G5nCEyzuRYeGBxIUb+d63dH6nSLlacpfi
+ PzQ41cOma1quw==
+Message-ID: <sashiko-outbox-224079@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/6] drm/i915/de: Make mmio_debug lockless
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+In-Reply-To: <20261119205040.31935-5-ville.syrjala@linux.intel.com>
 References: <20261119205040.31935-1-ville.syrjala@linux.intel.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+ <20261119205040.31935-5-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 20:57:33 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,75 +49,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/i915/de: intel_de_arm_unclaimed_mmio_detection() logs
+  invalid mmio_debug=3DY
+--
 
-Now that the unclaimed register detection should survive
-without the lock there should be no reason to use the lock
-on most platforms.
+commit 61affa910ea8da633b71cb74783032c77e14188a
+Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-Start by weaning TGL+ off the lock. Since some people have
-been using the (lockless) xe driver on TGL/etc. it should
-be fairly well established that serializing all register
-accesses is not needed on these platforms.
+drm/i915/de: Make mmio_debug lockless
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_de.c | 26 +++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+This commit converts the unclaimed MMIO debug tracking from lock-protected
+read-modify-write counters to lockless booleans, while keeping the
+mmio_debug module parameter as an int for compatibility.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
-index ebe3789e5441..5f7997a13764 100644
---- a/drivers/gpu/drm/i915/display/intel_de.c
-+++ b/drivers/gpu/drm/i915/display/intel_de.c
-@@ -482,6 +482,26 @@ static const struct intel_mmio_funcs vlv_mmio_funcs = {
- 	.check_for_unclaimed_mmio_needs_lock = true,
- };
- 
-+#define TGL_MMIO_FLAGS __MMIO_UNCLAIMED
-+
-+static u32 tgl_mmio_read(struct intel_display *display, intel_reg_t reg)
-+{
-+	return __intel_de_read(display, reg, TGL_MMIO_FLAGS);
-+}
-+
-+static void tgl_mmio_write(struct intel_display *display, intel_reg_t reg, u32 val)
-+{
-+	__intel_de_write(display, reg, val, TGL_MMIO_FLAGS);
-+}
-+
-+#undef TGL_MMIO_FLAGS
-+
-+static const struct intel_mmio_funcs tgl_mmio_funcs = {
-+	.read = tgl_mmio_read,
-+	.write = tgl_mmio_write,
-+	.check_for_unclaimed_mmio = hsw_check_for_unclaimed_mmio,
-+};
-+
- #define LNL_MMIO_FLAGS __MMIO_WAKELOCK
- 
- static u32 lnl_mmio_read(struct intel_display *display, intel_reg_t reg)
-@@ -522,8 +542,10 @@ void intel_de_init(struct intel_display *display)
- 	 * rid of driver_is_i915().
- 	 */
- 	if (driver_is_i915()) {
--		if (DISPLAY_VER(display) >= 9 ||
--		    display->platform.broadwell || display->platform.haswell)
-+		if (DISPLAY_VER(display) >= 12)
-+			display->mmio.funcs = &tgl_mmio_funcs;
-+		else if (DISPLAY_VER(display) >= 9 ||
-+			 display->platform.broadwell || display->platform.haswell)
- 			display->mmio.funcs = &hsw_mmio_funcs;
- 		else if (display->platform.valleyview || display->platform.cherryview)
- 			display->mmio.funcs = &vlv_mmio_funcs;
--- 
-2.56.0
+> diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i9=
+15/display/intel_de.c
+> index 17954963ddf98..82ed1c6a55c96 100644
+> --- a/drivers/gpu/drm/i915/display/intel_de.c
+> +++ b/drivers/gpu/drm/i915/display/intel_de.c
 
+[ ... ]
+
+> @@ -286,43 +287,36 @@ bool intel_de_unclaimed_mmio_detected(struct intel_=
+display *display)
+>  	if (!display->mmio.funcs->check_for_unclaimed_mmio)
+>  		return false;
+> =20
+> -	spin_lock_irq(&display->mmio.lock);
+> -	ret =3D display->mmio.funcs->check_for_unclaimed_mmio(display);
+> -	spin_unlock_irq(&display->mmio.lock);
+> +	if (display->mmio.funcs->check_for_unclaimed_mmio_needs_lock) {
+> +		spin_lock_irq(&display->mmio.lock);
+> +		ret =3D display->mmio.funcs->check_for_unclaimed_mmio(display);
+> +		spin_unlock_irq(&display->mmio.lock);
+> +	} else {
+> +		ret =3D display->mmio.funcs->check_for_unclaimed_mmio(display);
+> +	}
+> =20
+>  	return ret;
+>  }
+> =20
+>  bool intel_de_arm_unclaimed_mmio_detection(struct intel_display *display)
+>  {
+> -	bool ret =3D false;
+> -
+> -	if (!display->mmio.funcs->check_for_unclaimed_mmio)
+> +	if (!READ_ONCE(display->mmio.unclaimed_mmio_check))
+>  		return false;
+> =20
+> -	spin_lock_irq(&display->mmio.lock);
+> -
+> -	if (display->mmio.unclaimed_mmio_check <=3D 0)
+> -		goto out;
+> -
+> -	if (!display->mmio.funcs->check_for_unclaimed_mmio(display))
+> -		goto out;
+> +	if (!intel_de_unclaimed_mmio_detected(display))
+> +		return false;
+> =20
+> -	if (!display->params.mmio_debug) {
+> +	if (!READ_ONCE(display->params.mmio_debug)) {
+>  		drm_dbg_kms(display->drm,
+>  			    "Unclaimed register detected, "
+>  			    "enabling oneshot unclaimed register reporting. "
+> -			    "Please use i915.mmio_debug=3DN for more information.\n");
+> -		display->params.mmio_debug++;
+> +			    "Please use i915.mmio_debug=3DY for more information.\n");
+> +		WRITE_ONCE(display->mmio.mmio_debug_oneshot, true);
+>  	}
+
+[Severity: Low]
+Should this message suggest i915.mmio_debug=3D1 instead of i915.mmio_debug=
+=3DY?
+
+Because mmio_debug remains an int module parameter, param_set_int() rejects
+"Y" with -EINVAL and prevents the i915 module from loading when a user
+passes i915.mmio_debug=3DY on the command line.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119205040.3193=
+5-1-ville.syrjala@linux.intel.com?part=3D4
