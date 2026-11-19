@@ -2,73 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7755C606A332
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:58:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D32606A320
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:59:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ps74hRW7
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u+7to1Bg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8829D10E898;
-	Thu, 19 Nov 2026 14:58:40 +0000 (UTC)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
- [209.85.217.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABEA310E18D
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 14:58:34 +0000 (UTC)
-Received: by mail-vs1-f50.google.com with SMTP id
- ada2fe7eead31-7a6e560f580so1546579137.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 06:58:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51F1E10EB43;
+	Thu, 19 Nov 2026 14:59:07 +0000 (UTC)
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com
+ [209.85.217.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 755B51124F8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 14:59:01 +0000 (UTC)
+Received: by mail-vs1-f54.google.com with SMTP id
+ ada2fe7eead31-7d2da1667b2so1315396137.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 06:59:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795100313; x=1795705113; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795100340; x=1795705140; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=EWHuzKl1811WwogAgInHScJvEiU4Uc8gIvC7P2ok2bQ=;
- b=ps74hRW76SrsNjZTUTQrIiabLd9kPv2j2R+dXhR0YJa5XKdJAxMUnasXj5lv9sIA4t
- 8Y2rKGTZAJyDErT99ErxWwHUPdwb/va7KLeIde3fW+kkkfQD4yxnim0jDuqQWHAELcme
- tJhwOyRQeWRYSm+M0SlHKmNb03onu/rwB5Hb5UtLVqzJQnHYjIT3HnVBa+XWVeyfavGH
- I+5UJsNbFX7V8wu5HzS8RQSJe6bB317bqDXzIO8i97PnK493nznny7TYzrBfROBz/PAp
- X2wFzKrg6Y9Rge0U1Y7Cm/0bPpAv+Xtl4pWHYL6ENT1E/K0d1x3l0Lhy6rrjo8rI3LLP
- b22g==
+ bh=X8eb1KnawBYB7zI5bNmDTRr+MkAOVhf5pLdU5wizOSM=;
+ b=u+7to1Bgl2tmmOaNC+VMlabey60n/MWJEbGSAqVXL4x9y3xG4GT3MzsggFMQjYW+re
+ Az0gJdtBeKEyY7CEwMX/0kyfvnsFtQNMXkScH63N9fYvO/EguNKAQtED885razln7L2j
+ 5BLvPBT3RgXBOpD2Pq1xoi9a5LjndbJ4DLbvXa5J53vnelZaNjudhmfcXk3bfnwOBWwJ
+ TsLlLzXqy8v3gIlA2Mp6X5+bQyueGhRbiZ8ZZpWRT0WGmUvjCf4uZeVwZgQjE0Txb+OC
+ oCPME+E/s8q5Cf/AHXMnSRt4A/OVeFnJR1d3bNmcTdGu4ilPULwRg6P4O5F3QRpnNWYr
+ XeJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795100313; x=1795705113;
+ d=1e100.net; s=20260707; t=1795100340; x=1795705140;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=EWHuzKl1811WwogAgInHScJvEiU4Uc8gIvC7P2ok2bQ=;
- b=t9pCheh5PqT7l3xAVxeH1umA+HFh4PVBhlfqVUFDu84XIjwX1Cu+WogeEQzqsiY435
- gGFdrdr5W5rnYwg9WmANIlBlip0gqRD8PGqtvC6E8faEataXtpfBBTPrfGSD7fo111D/
- 9w2vynkyj2ryax5iCMV+aQR2Fc06ZSJtyr/GFJGje3m95yln1pob1ZoZ7zu/6i3n1Avn
- FSbmY7FOQUoRJu90H1RlL1qlPTmf773lHNZjtK6fRDWLXXZ7mt2szBzngFo9eiEnNS79
- DsNOw+m4ziBly9rRkZ5CbXAzZrObPvxMztIxz/uHptugSpKKWL9y9QjwK1FQ7KeQO7bW
- ScpA==
-X-Gm-Message-State: APuU4Z/QAeSNylfN1gMacPm/oXRU9f23o6r8WvZzU+md4SwApWIG0GpQ
- FSzGXVxNxhBDLpywCFeKO6zW5WaiDCNF7R2Gm923FE5BU4UH2MNl4cSYTybbuL52
-X-Gm-Gg: AYBFou36OQDP1bZtzMYQHHVbHlP10CmnX+NSX7Jg1706WZ83T/vLw16Tr0AwytuDY1z
- VXOu2/wVM0MKOL+re9nWqtgJIBch+E9FsIKB2aFs77MKmtXvgOBaFUTLZSiAbelgHoYdGQGXnpU
- 5OWkzNwmVP1EAG2aoID3KsS8Cl9zLSYrefGrc3eTJznLdPuyjbJAwJOlTItwugmrO6S01Mz2/R9
- mapK6TMmDw0dbStjzEK23umEYZ/GzyABrLmdE1ZNqR7vVnnof8q2whSsqv+2hYmxWaRkKHKNMee
- DJF8MV7v0gbLeLh9hIiPXeHJtllJ/DvoOMvSpaKeYMkOI9Y+sTIPo2AnXozMMq3CC5fy7HPBFdW
- 18ASH2NwAPm7o8zap5gRrVgT72o3fIa7EJF3CppGNMa6wVZR9jbMxx/6e5N21DfdnCxgWiCyA4G
- BXmb4tvRKpAVO3X1iLOlpVeYPpL69/PhZQ2k2WzU4jD5U9XHQcampnMAZ5XWm61799LzEJvND3W
- Fbx8omjQcTUSq1NLkxgVEwil8EqDE3YoBdGHVV3S1qOcaqTK/pVBCZtL6QEDLvDWAC25bXALVEo
- bz8BaNQacHV88FftIrHE1ycdq2Lgte702Ss2xuPEzpqqrg==
-X-Received: by 2002:a05:6102:290b:b0:7d2:c786:5a98 with SMTP id
- ada2fe7eead31-7d6ba3c0849mr2575312137.8.1795100313101; 
- Thu, 19 Nov 2026 06:58:33 -0800 (PST)
+ bh=X8eb1KnawBYB7zI5bNmDTRr+MkAOVhf5pLdU5wizOSM=;
+ b=Or/XM6wTQ6JLRgiCxLdo7mChgBRlztOrp6wAoJV76qD8UGhK+EEUPH4O9bSyz79X2W
+ 82br7LoM3LSKbJiLilFxqOxM5bYAbmBoyoDPcokYOCwexRzcmGe61lFi2ta8qDUvpbK5
+ ZDbyuvAB2eN9NwwTmw2k6Zvk3LMY5EW/3TZVWJL4UHP8DHlIZB8y6BNv2SbJBwMIIbz9
+ VgLd5TsnIGbaogwV2j+t5ZDJtOmwj33+1UHBhc11Ggmga19LGAkg6Tif7Fgb5AT18oBm
+ 2+fLArMQ3eaM5CMM3jiTzbsiKmRNN1GkN0GwJPUnxFkzyTTdfoPE0xtpetto8704DorK
+ Y4AQ==
+X-Gm-Message-State: APuU4Z+5tb1JD1XrY8lfdk5xW43GlsZmbhKKS2FzKYTm3IWJRKzH51Z9
+ iyIwm5+AWOUcpJbWCN1GvDF33/OcqBedl+6wmvItbrL7mX6ozu7fHlf6PbtI4BsA
+X-Gm-Gg: AYBFou2CeGewunH6bxLNHx2JybUobJxqzxn6EXLpLszUSfGW+X6ktQhNtkqXCkLBq8T
+ ACBFSMmsLD+ptRzL0hyGsYu7nJd3cB+TRnafvh5D/M8GRWkdR3bw/Lat8PoPa8enj+ykZg+3Xzd
+ pnzvhV0KyHM1O+EWpUa87PCpSXEAOZi70QaLasFo+ChXqPC8ucurbqx/y2PDJR9NRz4yGNbsq43
+ 1dcZN31CKUd2wMJXGsMkB+iAk/iIERf9B49mP28jU0TJlUOPHR+9W7XlLCc15WxG2kvyZhI8tGQ
+ QrDeTXEeuQ2+w7F+xeTeENlYr1Uu/zt9DUD17/LNb/HNC3oaL2xPvu2AEqJNIPzwfFVa+oIXHGK
+ dKvM2hYbk8dLoKYfbK1i0SEoq0ZA/r7o3B7AOP0F5bwxjCNuBnLVH6Ji5EsZlPkNXntPTvU7mIC
+ SrwD4ro0TMCednHP9oofV6Q2xs9MNRZkryDUw9LsVov5mRln097WMlui8sTlUF76kKUVlLGUY5s
+ olMicVhnTa1iImpmDF7VS2hht2cdZl5DfFD86Mbqqrzxm2V8v9+H6YTKLD4mjCPgSD6Lei/vrZP
+ qLruUHRcefGY0aoymiCeIyEQrE3X83X533g0kijP/9v6VO8di9V0RJSvYp48Sg==
+X-Received: by 2002:a05:6102:578b:b0:7cc:226a:f977 with SMTP id
+ ada2fe7eead31-7d6ba4d3bb7mr2459046137.36.1795100340192; 
+ Thu, 19 Nov 2026 06:59:00 -0800 (PST)
 Received: from f90457aaaf9e ([186.153.252.80])
  by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7d6e7f3d7bcsm6083137.4.2026.11.19.06.58.29
+ ada2fe7eead31-7d6e7f3d7bcsm6083137.4.2026.11.19.06.58.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 06:58:32 -0800 (PST)
+ Thu, 19 Nov 2026 06:58:59 -0800 (PST)
 From: Javier MV <javiermv@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Javier MV <javiermv@duck.com>, jani.nikula@linux.intel.com,
  joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
  tursulin@ursulin.net, matthew.brost@intel.com,
  daniele.ceraolospurio@intel.com, umesh.nerlige.ramappa@intel.com
-Subject: [PATCH v4 1/2] drm/i915/guc: Complete all requests of a
- non-schedulable context
-Date: Thu, 19 Nov 2026 14:56:54 +0000
-Message-ID: <20261119145709.6735-2-javiermv@gmail.com>
+Subject: [PATCH v4 2/2] drm/i915/guc: Don't unblock a non-schedulable context
+Date: Thu, 19 Nov 2026 14:56:55 +0000
+Message-ID: <20261119145709.6735-3-javiermv@gmail.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20261119145709.6735-1-javiermv@gmail.com>
 References: <20261119145709.6735-1-javiermv@gmail.com>
@@ -96,68 +95,49 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Javier MV <javiermv@duck.com>
 
-guc_dequeue_one_context() merges the queued requests of a context and
-passes only the last one to __guc_add_request(), which marks only that
-one complete when the context is banned or exiting. The earlier ones
-are on ce->guc_state.requests and need the context to run to signal
-their breadcrumbs. After a full GT reset the context is unregistered and
-never runs again, so they never complete and their objects stay pinned.
-Seen on ADL-P after a GuC context reset of a Vulkan compute job: the
-client waited on its fences forever, and 7.5 GB stayed pinned after it
-was killed.
+If a context is banned or revoked while guc_context_cancel_request() has
+it blocked, guc_context_revoke() finds the block's schedule disable
+pending and leaves the cancellation to its done handler, which clears
+SCHED_STATE_BANNED. guc_context_unblock() then enables scheduling again.
+GuC resets the context at the first preemption (1 ms timeout), the
+second reset is ignored, and on ADL-P this ended in a full GT reset.
 
-Complete every request on the list once the context is off the HW, with
-the same test as guc_context_revoke(). Otherwise leave them to the
-schedule disable done handler, which cancels the whole list in order.
+Also check intel_context_is_schedulable(), which stays false.
 
 Found with the help of Claude Code.
 
-Fixes: ae8ac10dfd2a ("drm/i915/guc: Implement banned contexts for GuC submission")
+Fixes: 9888beaaf118 ("drm/i915/guc: Don't enable scheduling on a banned context, guc_id invalid, not registered")
 Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15301
 Signed-off-by: Javier MV <javiermv@duck.com>
 ---
 v4:
-- Same off-HW test as guc_context_revoke(), and no else branch:
-  completing rq alone was out of order, and a pending enable left by a
-  reset kept the earlier requests from completing (Sashiko).
+- No changes.
 
 v3:
 - Shorter commit message and comment (Rodrigo).
 
 v2:
-- Complete rq on its own only when the loop doesn't run, under the
-  lock. v1 completed it again after the unlock, when the loop had
-  already completed it and it could have been retired and freed
-  (Sashiko).
+- Check !intel_context_is_schedulable() instead of
+  intel_context_is_banned(): revoke takes the same path for exiting
+  contexts (Sashiko).
 
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 788e59cdfac9..111cd4c89ad3 100644
+index 111cd4c89ad3..046a2f47db0c 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -709,7 +709,19 @@ static int __guc_add_request(struct intel_guc *guc, struct i915_request *rq)
- 	 * request resubmitted after the context was banned.
- 	 */
- 	if (unlikely(!intel_context_is_schedulable(ce))) {
--		i915_request_put(i915_request_mark_eio(rq));
-+		struct i915_request *pos;
-+
-+		/*
-+		 * rq and the requests merged before it are on
-+		 * ce->guc_state.requests. If the context is off the HW, complete
-+		 * them all here; otherwise the schedule disable done handler will.
-+		 */
-+		spin_lock(&ce->guc_state.lock);
-+		if (!context_enabled(ce) && !context_pending_disable(ce))
-+			list_for_each_entry(pos, &ce->guc_state.requests, sched.link)
-+				i915_request_put(i915_request_mark_eio(pos));
-+		spin_unlock(&ce->guc_state.lock);
-+
- 		intel_engine_signal_breadcrumbs(ce->engine);
- 		return 0;
- 	}
+@@ -3180,7 +3180,9 @@ static bool context_cant_unblock(struct intel_context *ce)
+ {
+ 	lockdep_assert_held(&ce->guc_state.lock);
+ 
++	/* The sched disable done handler clears SCHED_STATE_BANNED */
+ 	return (ce->guc_state.sched_state & SCHED_STATE_NO_UNBLOCK) ||
++		!intel_context_is_schedulable(ce) ||
+ 		context_guc_id_invalid(ce) ||
+ 		!ctx_id_mapped(ce_to_guc(ce), ce->guc_id.id) ||
+ 		!intel_context_is_pinned(ce);
 -- 
 2.51.1
 
