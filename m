@@ -2,58 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E180D606A32C
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 07:07:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TYdTEHN4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF77A606A334
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 07:09:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566C310E213;
-	Thu, 19 Nov 2026 07:06:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4684E10EB9B;
- Thu, 19 Nov 2026 07:06:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795072013; x=1826608013;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=jSDXEFLXcqzInHICNffjNWjiIxN/30GpiR2xgBh/h7s=;
- b=TYdTEHN4DGVopkvt2OoWhDVIU/eyKjNZscGIb2jpBmMY2+yg9hQ7qCiL
- a8PkCCeATsUueoch69BRHWOkcj/eFPXGEYkbcHiwSo5BJfIQ34AA/EtcY
- JMdqdwRI6CxWtrDzQZHdxDuoE+7LD3gcac+WGN53nmTGxHJ0xvnIFWZtS
- 5GTOkTgTED79FpxaLRgFcFiD5fGBS4lDUwv/sDCqAuHXoUoHZ+3lyxJAf
- RKppJ48mUr/nI+5dGE3H7BugL1YDTlisNUG2Y2sgs6Qk2BtpS+xHBswSs
- 4UK69YNe21EbuEC1xUJPa8QzphQEBxGKZIUnn1ojCbBqIY5fV1O1A2gLl A==;
-X-CSE-ConnectionGUID: ZUd/duexTPGrz01tSJs7/w==
-X-CSE-MsgGUID: 8C1ufrUSQuiaxizWjw3TuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3829562"
-X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
-   d="scan'208";a="3829562"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 23:06:53 -0800
-X-CSE-ConnectionGUID: KYVdvXUFS1KecGiqVx+m7g==
-X-CSE-MsgGUID: ArdZRRwkQN6OKlkQlqh9ww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; d="scan'208";a="10693035"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by fmviesa006.fm.intel.com with ESMTP; 18 Nov 2026 23:06:50 -0800
-From: Eriksen Xie <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
- Arun R Murthy <arun.r.murthy@intel.com>,
- Mika Kahola <mika.kahola@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Imre Deak <imre.deak@intel.com>, Eriksen Xie <xiaolu.xie@intel.com>
-Subject: [PATCH] drm/i915/lt_phy: Fix the main link to TX mapping
-Date: Thu, 19 Nov 2026 15:04:44 +0800
-Message-ID: <20261119070444.2106229-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 762A310ED56;
+	Thu, 19 Nov 2026 07:09:29 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C607910ED47;
+ Thu, 19 Nov 2026 07:09:28 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7775886144978530890=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_docs=3A_ioctl-number=3A_u?=
+ =?utf-8?q?pdate_entries_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Randy Dunlap" <rdunlap@infradead.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 19 Nov 2026 07:09:28 -0000
+Message-ID: <179507216880.48909.11671611453972598975@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261119053514.255348-1-rdunlap@infradead.org>
+In-Reply-To: <20261119053514.255348-1-rdunlap@infradead.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,113 +34,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Each main link (ML) is routed to a specific PHY lane and transmitter
-(TX). The mapping depends on the connection type, on the lane reversal
-and, in DP-alt mode, on the pin assignment, see the PHY Lane and
-Transmitter Usage table in the LT PHY Bspec page. The driver gets it
-wrong in two places.
+--===============7775886144978530890==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The signal levels (voltage swing, pre- and post-cursor) of an ML are
-programmed to TX (ML % 2) of PHY lane (ML / 2). This is correct only on
-native ports without lane reversal:
+== Series Details ==
 
-- In DP-alt mode ML0 uses TX2 and ML1 uses TX1 of PHY lane 0, so the
-  parameters of the two end up on each other's transmitter. With a
-  single lane the only enabled TX, TX2, is not programmed at all while
-  the unused TX1 is. Reading the PHY registers back on a DP-alt x1 link
-  showed the cursor values on TX1 and TX2 still at its reset values.
+Series: docs: ioctl-number: update entries (rev2)
+URL   : https://patchwork.freedesktop.org/series/178590/
+State : success
 
-- On lane reversed native ports ML n uses TX (3 - n), but the lane
-  reversal was not taken into account.
+== Summary ==
 
-Also, on a single lane DP-alt link with pin assignment D the driver
-enables TX1, whereas ML0 uses TX2 with every pin assignment.
+CI Bug Log - changes from CI_DRM_19563 -> Patchwork_178590v2
+====================================================
 
-Add a helper returning the TX of a ML and use it to program the signal
-levels, and enable TX2 for single lane DP-alt links regardless of the
-pin assignment. The orientation flip in DP-alt mode is handled by the
-FIA, so it does not need to be accounted for.
+Summary
+-------
 
-Fixes: 13ba213f921f ("drm/i915/ltphy: Program LT Phy Voltage Swing")
-Fixes: a54bdcb7142d ("drm/i915/ltphy: Enable/Disable Tx after Non TBT Enable sequence")
-Bspec: 74701
-Signed-off-by: Eriksen Xie <xiaolu.xie@intel.com>
----
- drivers/gpu/drm/i915/display/intel_lt_phy.c | 32 ++++++++++++++-------
- 1 file changed, 22 insertions(+), 10 deletions(-)
+  **SUCCESS**
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-index 86492651b0..2e2fa8fa64 100644
---- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-@@ -1827,8 +1827,6 @@ intel_lt_phy_enable_disable_tx(struct intel_encoder *encoder,
- 	u8 lane_count = ltpll->lane_count;
- 	bool is_dp_alt =
- 		intel_tc_port_in_dp_alt_mode(dig_port);
--	enum intel_tc_pin_assignment tc_pin =
--		intel_tc_port_get_pin_assignment(dig_port);
- 	u8 transmitter_mask = 0;
- 
- 	/*
-@@ -1841,12 +1839,8 @@ intel_lt_phy_enable_disable_tx(struct intel_encoder *encoder,
- 	switch (lane_count) {
- 	case 1:
- 		transmitter_mask = lane_reversal ? REG_BIT8(3) : REG_BIT8(0);
--		if (is_dp_alt) {
--			if (tc_pin == INTEL_TC_PIN_ASSIGNMENT_D)
--				transmitter_mask = REG_BIT8(0);
--			else
--				transmitter_mask = REG_BIT8(1);
--		}
-+		if (is_dp_alt)
-+			transmitter_mask = REG_BIT8(1);
- 		break;
- 	case 2:
- 		transmitter_mask = lane_reversal ? REG_GENMASK8(3, 2) : REG_GENMASK8(1, 0);
-@@ -2116,6 +2110,23 @@ void intel_lt_phy_pll_disable(struct intel_encoder *encoder)
- 	intel_lt_phy_transaction_end(encoder, wakeref);
- }
- 
-+/*
-+ * Get the transmitter (lane * 2 + TX - 1) used by a main link, which is also
-+ * the lane and TX to program the voltage swing for, see "PHY Lane and
-+ * Transmitter Usage" in Bspec.
-+ */
-+static int intel_lt_phy_ml_to_tx_idx(struct intel_encoder *encoder, int ml)
-+{
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+	static const u8 dp_alt_tx_idx[] = { 1, 0, 2, 3 };
-+
-+	/* The FIA muxing handles the orientation flip in DP-alt mode. */
-+	if (intel_tc_port_in_dp_alt_mode(dig_port))
-+		return dp_alt_tx_idx[ml];
-+
-+	return dig_port->lane_reversal ? 3 - ml : ml;
-+}
-+
- void intel_lt_phy_set_signal_levels(struct intel_encoder *encoder,
- 				    const struct intel_crtc_state *crtc_state)
- {
-@@ -2141,8 +2152,9 @@ void intel_lt_phy_set_signal_levels(struct intel_encoder *encoder,
- 
- 	for (ln = 0; ln < crtc_state->lane_count; ln++) {
- 		int level = intel_ddi_level(encoder, crtc_state, ln);
--		int lane = ln / 2;
--		int tx = ln % 2;
-+		int tx_idx = intel_lt_phy_ml_to_tx_idx(encoder, ln);
-+		int lane = tx_idx / 2;
-+		int tx = tx_idx % 2;
- 		u8 lane_mask = lane == 0 ? INTEL_LT_PHY_LANE0 : INTEL_LT_PHY_LANE1;
- 
- 		if (!(lane_mask & owned_lane_mask))
--- 
-2.43.0
+  No regressions found.
 
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v2/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_178590v2 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [DMESG-WARN][1] ([i915#13400]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19563/bat-rpls-4/igt@vgem_basic@unload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v2/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19563 -> Patchwork_178590v2
+
+  CI-20190529: 20190529
+  CI_DRM_19563: 2bdca9b1f8638ef27955d61c149bc6fac856d291 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9198: 9198
+  Patchwork_178590v2: 2bdca9b1f8638ef27955d61c149bc6fac856d291 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v2/index.html
+
+--===============7775886144978530890==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>docs: ioctl-number: update entries (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178590/">https://patchwork.freedesktop.org/series/178590/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19563 -&gt; Patchwork_178590v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_178590v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19563/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v2/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19563 -&gt; Patchwork_178590v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19563: 2bdca9b1f8638ef27955d61c149bc6fac856d291 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9198: 9198<br />
+  Patchwork_178590v2: 2bdca9b1f8638ef27955d61c149bc6fac856d291 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7775886144978530890==--
