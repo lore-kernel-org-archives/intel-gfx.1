@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34311606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A2F606A320
 	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:24:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mkLmdlYh
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O/F9v1Fc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C43FE112AC6;
-	Fri, 20 Nov 2026 14:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8568710E8FD;
+	Fri, 20 Nov 2026 14:23:55 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 851DF10E8FD;
- Fri, 20 Nov 2026 14:23:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1E4210E8FD;
+ Fri, 20 Nov 2026 14:23:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795184625; x=1826720625;
+ t=1795184630; x=1826720630;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0UP3rfg6jYSaz2dCLRThePSLDXQ6vxbq22UDHpG0ujg=;
- b=mkLmdlYh4k699xZ2WQWQalPzBQAx6ghHA52zXN/8WHiXUg8GrWxRskFZ
- Nu5bhklHXVbXxeb4pGS/JIXP8DAvfKNNB8X6b7qc7UPo8Cdb/TRaOV79D
- fBRCkiWQapBa+2Z3TOmrb8da71/EVREj8Uu/FvAmmgWlOgnDhJVCF4GZj
- LpLopW2swjLy7tuEJvL+8/jz1ULR4ma+XhaBCsf7ZZ3joAIms49RXHZ07
- rDIssxKqM6P08DDbT1ODQNagBOq4nIzgQVomfwTH4coiQX05XGhnW4/5Z
- zjJulqQeSR30TA0HISWHYbvMzCVcPQJr+grlBPGJi0apMJWUY6tVlwdhD g==;
-X-CSE-ConnectionGUID: 9oNHTHVxT9K2Te/qWhWKuw==
-X-CSE-MsgGUID: L2DewmfZSjOV6y5Pav2x/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090959"
+ bh=k9+lh8MrQLHvNRkkxcbr46bziCRsUkFzPGYRyiCoAwY=;
+ b=O/F9v1FcNTjW5s40POvEPP4ctJZ5dOTbNFP6iMMAcnoYH9q3CQzaXuI1
+ q/azOYD5PU2pM7p9qB2nlHY56yGM4aBX5zg65sl+EC3wHqlBcR9UNHLBX
+ bYSLCVdxPPdoWXs8FRa8TJwZ9b9MY+JDFb9epy2RIFZlSHZNXf+Uh4rpG
+ gOelIsTSdwm7otqPfziH7t0G9xPEPB+QWEV3UqXDglBZRLoIWcdHLCVqz
+ F0KPc2czOqO+QT4kAd+z+5dkZkDBxrZO8rQCNsnpsaOEzfL64uvJXZDQQ
+ B/U6KmG/6AjhY5q2NzO77sfxI0oRmUfBdF0BqwL7zm24YUnlI2JN/k7OY A==;
+X-CSE-ConnectionGUID: 7eg887JoTf2h+lRqxBUgdg==
+X-CSE-MsgGUID: oeHD71yZT7+FIWliO7JzLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090982"
 X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4090959"
+   d="scan'208";a="4090982"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:28 -0800
-X-CSE-ConnectionGUID: osXt7iHwQFydbvPgAa8sjw==
-X-CSE-MsgGUID: 6ZdPnTXsR+ylnGQti8revg==
+ 20 Nov 2026 06:23:34 -0800
+X-CSE-ConnectionGUID: Hvjxg7n9Sha6N0yx0BHuJw==
+X-CSE-MsgGUID: RaU01/aJTf2N6DRlceqDng==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422017"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422031"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:26 -0800
+ 20 Nov 2026 06:23:33 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: alexander.kaplan@sms-medipool.de,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 11/29] drm/dp: Add a helper to disable the PCON DSC encoder
-Date: Fri, 20 Nov 2026 19:37:11 +0530
-Message-ID: <20261120140729.466177-12-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 15/29] drm/i915/dp: Add a helper for the DSC stream version
+Date: Fri, 20 Nov 2026 19:37:15 +0530
+Message-ID: <20261120140729.466177-16-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
 References: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
@@ -67,71 +67,71 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DSC encoder of a PCON is enabled through DPCD 3052h[1], together
-with an optional PPS override in DPCD 3052h[3:2]. The existing helpers
-only ever set these bits.
+The DSC version of the stream the source sends is the lower of the
+source and sink versions. This is open coded twice. Add a helper for it,
+so that the following changes can use it as well.
 
-Add a helper to clear both, so that a driver can switch the encoder off
-when the PCON does not need to encode the stream.
+No functional change.
 
 Assisted-by: LLM
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 23 +++++++++++++++++++++++
- include/drm/display/drm_dp_helper.h     |  1 +
- 2 files changed, 24 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 2b6ce05556b0..e810addf52bc 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -4161,6 +4161,29 @@ int drm_dp_pcon_pps_override_param(struct drm_dp_aux *aux, u8 pps_param[6])
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1b61f36adaa7..14df2cebd17c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1984,6 +1984,15 @@ static int intel_dp_sink_dsc_version_minor(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP
+ 		DP_DSC_MINOR_SHIFT;
  }
- EXPORT_SYMBOL(drm_dp_pcon_pps_override_param);
  
-+/**
-+ * drm_dp_pcon_dsc_enc_disable() - Disable the DSC encoder of a PCON
-+ * @aux: DisplayPort AUX channel
-+ *
-+ * Disable the DSC encoder of a PCON, along with the encoder PPS override.
-+ *
-+ * Returns 0 on success, else returns negative error code.
-+ */
-+int drm_dp_pcon_dsc_enc_disable(struct drm_dp_aux *aux)
++/* The DSC version of the stream the source sends: the lower of the source and sink versions */
++static int intel_dp_dsc_stream_version_minor(const struct intel_connector *connector)
 +{
-+	u8 buf;
-+	int ret;
++	struct intel_display *display = to_intel_display(connector);
 +
-+	ret = drm_dp_dpcd_read_byte(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, &buf);
-+	if (ret < 0)
-+		return ret;
-+
-+	buf &= ~(DP_PCON_ENABLE_DSC_ENCODER | DP_PCON_ENCODER_PPS_OVERRIDE_MASK);
-+
-+	return drm_dp_dpcd_write_byte(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, buf);
++	return min(intel_dp_source_dsc_version_minor(display),
++		   intel_dp_sink_dsc_version_minor(connector->dp.dsc_dpcd));
 +}
-+EXPORT_SYMBOL(drm_dp_pcon_dsc_enc_disable);
 +
- /*
-  * drm_dp_pcon_convert_rgb_to_ycbcr() - Configure the PCon to convert RGB to Ycbcr
-  * @aux: displayPort AUX channel
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index f497c9f3a550..32c95f657631 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -1019,6 +1019,7 @@ int drm_dp_pcon_dsc_bpp_incr(const u8 pcon_dsc_dpcd[DP_PCON_DSC_ENCODER_CAP_SIZE
- int drm_dp_pcon_pps_default(struct drm_dp_aux *aux);
- int drm_dp_pcon_pps_override_buf(struct drm_dp_aux *aux, u8 pps_buf[128]);
- int drm_dp_pcon_pps_override_param(struct drm_dp_aux *aux, u8 pps_param[6]);
-+int drm_dp_pcon_dsc_enc_disable(struct drm_dp_aux *aux);
- bool drm_dp_downstream_rgb_to_ycbcr_conversion(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
- 					       const u8 port_cap[4], u8 color_spc);
- int drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8 color_spc);
+ static int intel_dp_get_slice_height(int vactive)
+ {
+ 	int slice_height;
+@@ -2031,9 +2040,7 @@ static int intel_dp_dsc_compute_params(const struct intel_connector *connector,
+ 	vdsc_cfg->dsc_version_major =
+ 		(connector->dp.dsc_dpcd[DP_DSC_REV - DP_DSC_SUPPORT] &
+ 		 DP_DSC_MAJOR_MASK) >> DP_DSC_MAJOR_SHIFT;
+-	vdsc_cfg->dsc_version_minor =
+-		min(intel_dp_source_dsc_version_minor(display),
+-		    intel_dp_sink_dsc_version_minor(connector->dp.dsc_dpcd));
++	vdsc_cfg->dsc_version_minor = intel_dp_dsc_stream_version_minor(connector);
+ 	if (vdsc_cfg->convert_rgb)
+ 		vdsc_cfg->convert_rgb =
+ 			connector->dp.dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] &
+@@ -2057,7 +2064,6 @@ static int intel_dp_dsc_compute_params(const struct intel_connector *connector,
+ static bool intel_dp_dsc_supports_format(const struct intel_connector *connector,
+ 					 enum intel_output_format output_format)
+ {
+-	struct intel_display *display = to_intel_display(connector);
+ 	u8 sink_dsc_format;
+ 
+ 	switch (output_format) {
+@@ -2068,8 +2074,7 @@ static bool intel_dp_dsc_supports_format(const struct intel_connector *connector
+ 		sink_dsc_format = DP_DSC_YCbCr444;
+ 		break;
+ 	case INTEL_OUTPUT_FORMAT_YCBCR420:
+-		if (min(intel_dp_source_dsc_version_minor(display),
+-			intel_dp_sink_dsc_version_minor(connector->dp.dsc_dpcd)) < 2)
++		if (intel_dp_dsc_stream_version_minor(connector) < 2)
+ 			return false;
+ 		sink_dsc_format = DP_DSC_YCbCr420_Native;
+ 		break;
 -- 
 2.50.1
 
