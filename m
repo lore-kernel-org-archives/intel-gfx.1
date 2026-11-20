@@ -2,69 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE3C606A337
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 10:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=EcAwf6j0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AC160A2605
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 10:58:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9F6D11288F;
-	Fri, 20 Nov 2026 10:10:18 +0000 (UTC)
-X-Greylist: delayed 950 seconds by postgrey-1.36 at gabe;
- Fri, 20 Nov 2026 10:10:12 UTC
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4E511288A;
- Fri, 20 Nov 2026 10:10:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
- from:content-type:reply-to; bh=5H4SaiSHQZbbitE0VP8DxeDHKADjdTBjB65w822tiJo=; 
- b=EcAwf6j0CntvZ07zEBA0EK7mGtRM6Ty9kNZvBf6cSfeCnUQIxwN3OjQZDd7K6GdsFR2OzUkBpsV
- c7TDp/i9LBg2XdYy1M6gNr3XFwEoyPSvrmRyLrfHOzRxWmDr342iLO9fZuqzeXHpsfU+A7EaF7Z/9
- YCt7WXWWR1eYd/GtGSpSHeME+zRUKqvXx12OjgFVjKGvNT0AAEIi2XlnD3uSg2pO53snN/fLlIaJq
- moAsgef5vq2jLcET6rJBrKnshrbeueOTP7zzuVY4SINFGmkc1TTjpLMQDUkt0VbWKbp9pRFZbps9i
- w46W2VEge/e+dJ3yg715glnlttUEofgA4hZA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
- id 1xULJc-0000000HYhH-3TYH; Fri, 20 Nov 2026 17:53:57 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 20 Nov 2026 17:53:56 +0800
-Date: Fri, 20 Nov 2026 17:53:56 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Pavel Popov <pavel.e.popov@intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>, Leon Romanovsky <leon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- "David S . Miller" <davem@davemloft.net>, x86@kernel.org,
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 7/7] crypto: ccp - Drop unused <asm/cpu_device_id.h>
- include
-Message-ID: <awAYtBlS9Fg8iBDz@gondor.apana.org.au>
-References: <20261111234821.4814-1-pavel.e.popov@intel.com>
- <20261111234821.4814-8-pavel.e.popov@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBE3A10E2A2;
+	Fri, 20 Nov 2026 10:58:54 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5894710E202;
+ Fri, 20 Nov 2026 10:58:54 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3042594430992178513=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111234821.4814-8-pavel.e.popov@intel.com>
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fix_selective_fetch_updat?=
+ =?utf-8?q?e?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 20 Nov 2026 10:58:54 -0000
+Message-ID: <179517233435.58444.1517006249326088101@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261120095541.1325118-1-jouni.hogander@intel.com>
+In-Reply-To: <20261120095541.1325118-1-jouni.hogander@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,26 +34,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 04:48:20PM -0700, Pavel Popov wrote:
-> Nothing in ccp-dev.c uses <asm/cpu_device_id.h>; the CPU match table
-> it was included for is long gone. Drop the include and the #ifdef
-> CONFIG_X86 around it.
-> 
-> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
-> ---
->  drivers/crypto/ccp/ccp-dev.c | 3 ---
->  1 file changed, 3 deletions(-)
+--===============3042594430992178513==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+== Series Details ==
+
+Series: Fix selective fetch update
+URL   : https://patchwork.freedesktop.org/series/179186/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19572 -> Patchwork_179186v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19572 -> Patchwork_179186v1
+
+  CI-20190529: 20190529
+  CI_DRM_19572: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9200: 9200
+  Patchwork_179186v1: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html
+
+--===============3042594430992178513==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix selective fetch update</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179186/">https://patchwork.freedesktop.org/series/179186/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19572 -&gt; Patchwork_179186v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19572 -&gt; Patchwork_179186v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19572: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9200: 9200<br />
+  Patchwork_179186v1: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3042594430992178513==--
