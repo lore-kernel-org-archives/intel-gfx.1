@@ -2,47 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9655D606A320
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 09:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE3C606A337
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 10:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1bxCYZF
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=EcAwf6j0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C1AE112861;
-	Fri, 20 Nov 2026 09:59:23 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89161112881;
- Fri, 20 Nov 2026 09:59:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7060B611C2;
- Fri, 20 Nov 2026 09:59:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E5E1F000C6;
- Fri, 20 Nov 2026 09:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795168756;
- bh=aNJVgiuqS87QmiPYqOjVcz6sjCHusWRo9ExL6mlDqFo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=j1bxCYZFoOt0X9covx9etBcBFCdrVjrT1Yau1iipB2H1WFuFw/hyKeDw2BXO1pJYO
- FLqi0knnY6DjMsSJChaYtgyWNfwY6Fr+fyyna2cw61c+AMlpAeTFVV+mFYq+t5+hCQ
- M90Zl03QwDRQMThFZrDF56aw9B1J8UfcEKu+gCTtzfAP2z/oymrFBt+GZf8qHjmJti
- 9nBBye9aWjcfrGWnnLbk+NySGLzq5VgomrY3Qa6munH2MBr674g12YZISvzZJXflmC
- 9aHiyKMPkDx/XZnhJToSrHiKm34Iy7FDktYBwOBihJxgNvKJ03I8CQq9IdZkVv7Vdm
- TYKmtoLQT3I5A==
-Date: Fri, 20 Nov 2026 10:59:12 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Haoxiang Li <haoxiang_li2024@163.com>
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9F6D11288F;
+	Fri, 20 Nov 2026 10:10:18 +0000 (UTC)
+X-Greylist: delayed 950 seconds by postgrey-1.36 at gabe;
+ Fri, 20 Nov 2026 10:10:12 UTC
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4E511288A;
+ Fri, 20 Nov 2026 10:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+ from:content-type:reply-to; bh=5H4SaiSHQZbbitE0VP8DxeDHKADjdTBjB65w822tiJo=; 
+ b=EcAwf6j0CntvZ07zEBA0EK7mGtRM6Ty9kNZvBf6cSfeCnUQIxwN3OjQZDd7K6GdsFR2OzUkBpsV
+ c7TDp/i9LBg2XdYy1M6gNr3XFwEoyPSvrmRyLrfHOzRxWmDr342iLO9fZuqzeXHpsfU+A7EaF7Z/9
+ YCt7WXWWR1eYd/GtGSpSHeME+zRUKqvXx12OjgFVjKGvNT0AAEIi2XlnD3uSg2pO53snN/fLlIaJq
+ moAsgef5vq2jLcET6rJBrKnshrbeueOTP7zzuVY4SINFGmkc1TTjpLMQDUkt0VbWKbp9pRFZbps9i
+ w46W2VEge/e+dJ3yg715glnlttUEofgA4hZA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+ id 1xULJc-0000000HYhH-3TYH; Fri, 20 Nov 2026 17:53:57 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Fri, 20 Nov 2026 17:53:56 +0800
+Date: Fri, 20 Nov 2026 17:53:56 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Pavel Popov <pavel.e.popov@intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Leon Romanovsky <leon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ "David S . Miller" <davem@davemloft.net>, x86@kernel.org,
+ linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/vma: Fix a memory leak in i915_vma_pin_ww()
-Message-ID: <awAYXcgE4RMg3Hqi@zenone.zhora.eu>
-References: <20261118153205.2432736-1-haoxiang_li2024@163.com>
+Subject: Re: [PATCH 7/7] crypto: ccp - Drop unused <asm/cpu_device_id.h>
+ include
+Message-ID: <awAYtBlS9Fg8iBDz@gondor.apana.org.au>
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
+ <20261111234821.4814-8-pavel.e.popov@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261118153205.2432736-1-haoxiang_li2024@163.com>
+In-Reply-To: <20261111234821.4814-8-pavel.e.popov@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,32 +76,25 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Haoxing,
-
-On Wed, Nov 18, 2026 at 11:32:05PM +0800, Haoxiang Li wrote:
-> i915_vma_pin_ww() allocates bind work before retrieving the object's
-> moving fence. If the lookup fails, it jumps to err_rpm, bypassing the
-> fence commit at err_fence and leaking the work allocation.
+On Wed, Nov 11, 2026 at 04:48:20PM -0700, Pavel Popov wrote:
+> Nothing in ccp-dev.c uses <asm/cpu_device_id.h>; the CPU match table
+> it was included for is long gone. Drop the include and the #ifdef
+> CONFIG_X86 around it.
 > 
-> Jump to err_fence instead so the fence callbacks can release the work.
+> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
+> ---
+>  drivers/crypto/ccp/ccp-dev.c | 3 ---
+>  1 file changed, 3 deletions(-)
 
-BTW, this commit description, along with the title, is too
-LLM-ish. Can you please write a simpler and more descriptive
-commit message?
-
-Please do not blindly rely on your LLM for this. Write it
-yourself and use the LLM only to fix the grammar.
-
-It would also be interesting to explain how this oversight
-(because that's what it is) happened in the first place.
-
-I'll wait for v2. You can add my R-b as well.
-
-Andi
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
