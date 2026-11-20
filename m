@@ -2,62 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8DC606A320
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 08:34:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD982606A326
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 09:14:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvHozla1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nd0MW7AQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 884BD1126FF;
-	Fri, 20 Nov 2026 08:34:04 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBF210E610;
- Fri, 20 Nov 2026 08:33:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF4210E5C3;
+	Fri, 20 Nov 2026 09:14:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C52DF10E566;
+ Fri, 20 Nov 2026 09:13:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795163639; x=1826699639;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=GMyEQJvmq27rqx1T/bFHEkXPkQXd+jF7hs13UOe1t2w=;
- b=kvHozla1xJhx23OnBtWIidfqHmzY/IikwD1OfqlL2piSiN91Z8hBxKH6
- 5W3FUl2Vfixi0XXC0SZSkvX1MBzBE7sRd7fWzqyziPE42wibeuKZMgkta
- EjpUvLpU0r6wi5IXyB4Zn/tvWPcsY5SWuHr+CdCeQcjJi8TCgONFsB1xF
- wH0DyLsANLReX95AlplqSFxl7OPttQ7CGxE5TcyVaSQfri1smKcSONl1o
- Cz2pFnWJf35p4QWKiKPZBL+lXS/+t1Y4gUW2AUM+MhsDRUtvq2CZkW4mV
- iBlXYf0FxRc0ZiI9cZuyOmI9lVySyF1TaaEoc8M+53XnQKJnQ4dEkrvKs A==;
-X-CSE-ConnectionGUID: 4yG4Qc7GSByhe+zC4f+bGA==
-X-CSE-MsgGUID: fcWz6QrTSmSDu+Ep4yuODw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3950686"
+ t=1795166038; x=1826702038;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=6u1JnrIesR1G82fQF15PMeN+1EsD+TC0aLsY9JIn0+s=;
+ b=Nd0MW7AQsfa3AfQal/WdknjjAkhzabosf8HowCzGTOjv8FUpTi0CSmhG
+ oyfjN/ldiLHXOpqYngdL4hWrWImavSJZER10rgH6/IszMYYQkZpMEAXzG
+ +ZyaU/cfYuirGvMjNT1QTFLrsC8eZkmHJNONCwOg93KU9wbn3olx8bVTw
+ 7puJweIWqpqKcKehXxlnvRR7/rou+LqzGUwfxTn83DEo4eD9vjJBNPTCd
+ +peNfgvaSa5ouqfwyRQXBYEgkQAOiUfw72zScbEc8Uvm9zvXuXljVZhuk
+ fvVkHjHLx3fmoEGytsyykZy2STOjMBHATnQ4nYPFiW5/XOUWxJf4cWaIg Q==;
+X-CSE-ConnectionGUID: bcvwJJo7T3eGrwaod/O2FA==
+X-CSE-MsgGUID: 9BcnzIifSRegcBXTMhX51Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4048896"
 X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="3950686"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 00:33:58 -0800
-X-CSE-ConnectionGUID: aXEXX1cHRaWdAopq149/8w==
-X-CSE-MsgGUID: D26vuOlwRlqmJloPrNm3Lg==
+   d="scan'208";a="4048896"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 01:13:58 -0800
+X-CSE-ConnectionGUID: BMiW046+RbqUuFRgouMGPQ==
+X-CSE-MsgGUID: 0CUbDhZHTeihwFq+Or78jA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10644733"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.228])
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="11088863"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.250])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 00:33:55 -0800
-Content-Type: text/plain; charset="utf-8"
+ 20 Nov 2026 01:13:53 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ian Rogers <irogers@google.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, Elkin Cruz <elkin@google.com>, Ian Rogers
+ <irogers@google.com>, Mika Kahola <mika.kahola@intel.com>
+Subject: Re: [PATCH] drm/i915/display: Pass crtc->pipe to
+ intel_pmdemand_update_port_clock()
+In-Reply-To: <20261119170642.1521198-1-irogers@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261119170642.1521198-1-irogers@google.com>
+Date: Fri, 20 Nov 2026 11:13:51 +0200
+Message-ID: <bc01cd57f349fa647fb0e38bfbbcba108ff8289e@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261120024210.1658348-1-lcy8047@gmail.com>
-References: <20261120024210.1658348-1-lcy8047@gmail.com>
-Subject: Re: [PATCH] drm/i915/gem: Set the VM owner before publishing the VM
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
-To: Changyul Lee <lcy8047@gmail.com>, David Airlie <airlied@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Date: Fri, 20 Nov 2026 10:33:52 +0200
-Message-ID: <179516363210.27957.16651774665226630199@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,73 +78,69 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Quoting Changyul Lee (2026-11-20 04:42:10)
-> i915_gem_vm_create_ioctl() adds the VM to the file's VM table before
-> setting its owner (vm.fpriv). A concurrent lookup can therefore see
-> the VM without an owner and allocate page tables that are missing
-> from the client's memory accounting.
-
-This commit message is just not making any sense.
-
-The ID used in the supposed lookup is returned from this very IOCTL.
-
-> Concurrent VM destruction can
-> also free the VM before the owner assignment, causing a write to
-> freed memory.
-
-Could you explain in your own terms the call sequence that'll lead to
-this?
-
-> Set the owner before inserting the VM into the table with xa_alloc().
-> If xa_alloc() fails, err_put still releases the VM.
-
-Very LLM'esque to just explain what the code does to inflate the patch
-description.
-
-> Fixes: ca02a0119f81 ("drm/i915: Record which client owns a VM")
-> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
-> ---
-> Found with a static analysis tool we are developing.
-
-Unless a competent human developer looked the patches through before
-submitting and wrote the patch descriptions, please redirect further
-submissions to /dev/null.
-
-Regards, Joonas
-
->=20
-> Compile-tested only, with x86_64_defconfig and W=3D1.
->=20
->  drivers/gpu/drm/i915/gem/i915_gem_context.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/dr=
-m/i915/gem/i915_gem_context.c
-> index c58ffa5a8fa6..489b221091d1 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> @@ -1838,6 +1838,8 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev=
-, void *data,
->                         goto err_put;
->         }
-> =20
-> +       ppgtt->vm.fpriv =3D file_priv;
-> +
->         err =3D xa_alloc(&file_priv->vm_xa, &id, &ppgtt->vm,
->                        xa_limit_32b, GFP_KERNEL);
->         if (err)
-> @@ -1845,7 +1847,6 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev=
-, void *data,
-> =20
->         GEM_BUG_ON(id =3D=3D 0); /* reserved for invalid/unassigned ppgtt=
- */
->         args->vm_id =3D id;
-> -       ppgtt->vm.fpriv =3D file_priv;
->         return 0;
-> =20
->  err_put:
->=20
-> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-> --=20
-> 2.43.0
+On Thu, 19 Nov 2026, Ian Rogers <irogers@google.com> wrote:
+> In intel_modeset_readout_hw_state(), 'pipe' is only populated inside the
+> earlier for_each_intel_encoder() loop. Later, inside
+> for_each_intel_crtc(), intel_pmdemand_update_port_clock() is called with
+> 'pipe' instead of 'crtc->pipe'.
 >
+> When the encoder list is empty (for example on headless SKUs or VBT
+> configurations with all display outputs disabled), 'pipe' is completely
+> uninitialized and indexes out-of-bounds into pmdemand_state->ddi_clocks[].
+> Even when encoders are present, every CRTC iteration overwrites the slot
+> for the last encoder's pipe rather than updating crtc->pipe.
+>
+> Scope 'pipe' locally to for_each_intel_encoder() and pass crtc->pipe to
+> intel_pmdemand_update_port_clock().
+>
+> Found via an x86_64 LLVM=1 (Clang 21.1.8) allyesconfig audit with
+> -Wconditional-uninitialized enabled; fix and changelog drafted with an AI
+> coding assistant. Build-tested for both i915 and xe under LLVM=1 W=1
+> (-Werror) and -Wconditional-uninitialized; not runtime-tested on Intel
+> Xe_LPD+ hardware.
+>
+> Fixes: 4c4cc7ac207f ("drm/i915/mtl: Add support for PM DEMAND")
+> Signed-off-by: Ian Rogers <irogers@google.com>
+
+Cc: <stable@vger.kernel.org> # v6.5+
+Cc: Mika Kahola <mika.kahola@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_modeset_setup.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> index 6aed88173770..e5d7c05e006a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> @@ -695,7 +695,6 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+>  {
+>  	struct intel_pmdemand_state *pmdemand_state =
+>  		to_intel_pmdemand_state(display->pmdemand.obj.state);
+> -	enum pipe pipe;
+>  	struct intel_crtc *crtc;
+>  	struct intel_encoder *encoder;
+>  	struct intel_connector *connector;
+> @@ -726,8 +725,7 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+>  
+>  	for_each_intel_encoder(display->drm, encoder) {
+>  		struct intel_crtc_state *crtc_state = NULL;
+> -
+> -		pipe = 0;
+> +		enum pipe pipe = PIPE_A;
+>  
+>  		if (encoder->get_hw_state(encoder, &pipe)) {
+>  			crtc = intel_crtc_for_pipe(display, pipe);
+> @@ -869,7 +867,8 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+>  		drm_dbg_kms(display->drm, "[CRTC:%d:%s] min_cdclk %d kHz\n",
+>  			    crtc->base.base.id, crtc->base.name, crtc_state->min_cdclk);
+>  
+> -		intel_pmdemand_update_port_clock(display, pmdemand_state, pipe,
+> +		intel_pmdemand_update_port_clock(display, pmdemand_state,
+> +						 crtc->pipe,
+>  						 crtc_state->port_clock);
+>  	}
+
+-- 
+Jani Nikula, Intel
