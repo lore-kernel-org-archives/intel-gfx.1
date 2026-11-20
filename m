@@ -2,28 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B59A606A337
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 12:23:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2BF60A260F
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 13:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TD3I+IMX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8670F10E75D;
-	Fri, 20 Nov 2026 12:23:42 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9221D10E75D;
- Fri, 20 Nov 2026 12:23:41 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8910004491283177191=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED32E112A48;
+	Fri, 20 Nov 2026 13:17:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9380112A48
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 13:17:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 16F39628C8;
+ Fri, 20 Nov 2026 13:17:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0D01F008B2;
+ Fri, 20 Nov 2026 13:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795180659;
+ bh=1r2RPLiYFSIogaEoUkz4XwYUZKQoUko/pKRdi08cxM0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=TD3I+IMXRD+9btMqjG+8B3kJTvc6/N3FGTiOQW0DBF8szaAbfyT3rdoeRLPEztlhd
+ 1fkasb/JgYhFktdnsYQr/hbjy8ZgctD2oCPodj+EcxdWF0TgHkODd7sFnXKKDQLPq8
+ 5ASnbC5RngYAvXnPAqtilUTGTnCIjoJva8uNteQehr3AeEwKXuZJgY2lgewq1DJ9PS
+ VwJ+/gaSErGpmwEF865LUS3VM1nLS3oOqHLTAYvriEXuxCXfiWnPIsOBBpItHfM9Qy
+ SlI1Q3+bLjypHspK7ZlbPfJeomFf2OJXl+Xuxt7f6hr2LyAcAONIPxsaFe381p00kt
+ 3qa5gmkswFQ8Q==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfauth.ams.internal (Postfix) with ESMTP id E3EF41980047;
+ Fri, 20 Nov 2026 08:17:33 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Fri, 20 Nov 2026 08:17:36 -0500
+X-ME-Sender: <xms:bUgAa0Ss467GVnDhyoa5GLJvJ3Qkb6jHpBysa7UtJwMHKBxrb5rknQ>
+ <xme:bUgAa_Jn5SAa9Gm26aQ6PCluN4Igj4Xbu-1eShGyKxR4qD4s9mbJsthGMUuBhDiiJ
+ DvPsGIIO4AzG_TK8e7R8mLHjv9E9hWIE1EgDfNtY4sRYb_WfmuVqNFO>
+X-ME-Received: <xmr:bUgAa92iCqHJb79UKYNhTmSvtYLPj7oT62s31rdeiXpMYGt1_RtpnZNe0lI>
+X-ME-Proxy-Cause: dmFkZTEMslbIUNDm8LIh02IXJPPGaz8x9nStkoY2McUqfXdvc0zDAMNuwAdNk567GWqWFb
+ Ue01QIrqSlGhLD7aTRxcawP+AUSNewklEcq6PMC9JP8w32Vkz0EAbVZ2QFm6NbbycGqrOT
+ 4Vb8re4U7agTXekt+mqlS2xCpK9NpzTwr+ErpQ3XVKIL+uqfYPpDVYCLRwfuz8aG4ZROa7
+ Xd1wxnnT9IcNmrmTW/L61gTt77vLm2hbvmmHDGa2LHM3iddXj9bf/9phFNGmR4hUZZM7Uc
+ ZJ9oEFeNgt22uQRjW3Wdih7LGzmvCPCrT/2DICvgDeLsnE5QRBd6+NlZnMM7O7XfT7q9Do
+ MkQJtlimT0MHz0XKCwD/pqeSVQTF9nQB6fmaRrIBniyooZx48Wp+fOdjkpjjfy1M74AB0h
+ vS3M9aDC5BqCGS+vBnYumDdMEN6m0xvfiEIP84KP4vUCXEzzfRXpY0HUEEr7Ux+TLE0CvM
+ 8mfzIpvGacxcLQSZU2/0i1GMY7jfN3hn3SzrJ9D9XCXiD5LzrcLQeHCkaf88rKLabxTIfx
+ MK6n/B4O2fmC0h6UK+8FsX8/QUZPhtXvSb6VY/dDu82xZH1mgNTNYlAD8mYnORC1N2N/Kt
+ 9BSKREudmnRmc0072qjsdqwInnjVlm+WtP0N1OdHG4S5m3ZYPrjrL8R/k2Sw
+X-ME-Proxy: <xmx:bUgAa7toYIuLcOc32pRwV-nsWDZX_L4XKKyWqDVC59SHUuoImBWT_A>
+ <xmx:bUgAa5HlJOmSY7P5WSFjnY6uqz8LobY_WUwzQM8wba5A2rgz9WGBCA>
+ <xmx:bUgAa1Jqwm68KOU2wpFhGSlDAH1XL0GVrygZ1G3sIJWJupOyMB2yEw>
+ <xmx:bUgAa0GHctFKPFG36KsYueFTUiK1wxmIM_ROA7NlIGuYWQMr6gettQ>
+ <xmx:bUgAax7INTnv3udfOUXtVTWi3rt4nW4moV6FhuG_CrgEs7tK_rv3kZad>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 20 Nov 2026 08:17:32 -0500 (EST)
+Date: Fri, 20 Nov 2026 13:17:31 +0000
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andi Shyti <andi.shyti@linux.intel.com>, 
+ David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] drm/i915/gem: Skip writeback of shmem folios with extra
+ references
+Message-ID: <awBIB3vjr_o-gfCn@shutemov.name>
+References: <20261119134243.3745282-1-kas@kernel.org>
+ <av8n42vx3Q7zvQK8@zenone.zhora.eu>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/alpm=3A_Track_th?=
- =?utf-8?q?e_configured_transcoder_lifetime?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 20 Nov 2026 12:23:41 -0000
-Message-ID: <179517742159.58569.9047569603272497878@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261120112446.1562267-1-jouni.hogander@intel.com>
-In-Reply-To: <20261120112446.1562267-1-jouni.hogander@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <av8n42vx3Q7zvQK8@zenone.zhora.eu>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,146 +86,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============8910004491283177191==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Nov 19, 2026 at 06:43:08PM +0100, Andi Shyti wrote:
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > index bf9e7480f0f5..748772c358ac 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > @@ -316,9 +316,15 @@ void __shmem_writeback(size_t size, struct address_space *mapping)
+> >  	 * leaving only CPU mmapings around) and add those folios to the LRU
+> >  	 * instead of invoking writeback so they are aged and paged out
+> >  	 * as normal.
+> > +	 *
+> > +	 * The same goes for a folio with references beyond the page cache
+> > +	 * and writeback_iter(). A folio that was just unmapped can still be
+> > +	 * written through a stale TLB entry until the unmapping side flushes
+> > +	 * the TLB and drops its reference. pageout() checks the same.
+> >  	 */
+> >  	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
+> > -		if (folio_mapped(folio))
+> > +		if (folio_mapped(folio) ||
+> > +		    folio_ref_count(folio) != 1 + folio_nr_pages(folio))
+> 
+> I don't think we need this fix in the current tree. The i915
+> writeback iterator already skips the shmem folio in the case you
+> describe, so the new refcount check doesn't change the outcome.
 
-== Series Details ==
+Oh. It took me a while to see why.
 
-Series: drm/i915/alpm: Track the configured transcoder lifetime
-URL   : https://patchwork.freedesktop.org/series/179192/
-State : success
+__shmem_writeback() asks writeback_iter() for PAGECACHE_TAG_DIRTY
+folios, and shmem never sets that tag, its ->dirty_folio is
+noop_dirty_folio(). So the loop body never runs for any folio, and
+hasn't since 776a853a43c9 ("i915: Use writeback_iter()").
 
-== Summary ==
+That makes me question the whole writeback thing. What's going on
+there, and what's the plan?
 
-CI Bug Log - changes from CI_DRM_19572 -> Patchwork_179192v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 bat-adls-6 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_179192v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-kbl-7567u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +28 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19572/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@kms_pm_rpm@basic-pci-d3-state:
-    - fi-kbl-7567u:       [PASS][3] -> [DMESG-WARN][4] ([i915#15673]) +51 other tests dmesg-warn
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19572/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19572 -> Patchwork_179192v1
-
-  CI-20190529: 20190529
-  CI_DRM_19572: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9200: 9200
-  Patchwork_179192v1: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/index.html
-
---===============8910004491283177191==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/alpm: Track the configured transcoder lifetime</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179192/">https://patchwork.freedesktop.org/series/179192/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19572 -&gt; Patchwork_179192v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_179192v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19572/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/fi-kbl-7567u/igt@i915_selftest@live@gt_heartbeat.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +28 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19572/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179192v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +51 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19572 -&gt; Patchwork_179192v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19572: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9200: 9200<br />
-  Patchwork_179192v1: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8910004491283177191==--
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
