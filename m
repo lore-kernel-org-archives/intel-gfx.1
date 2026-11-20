@@ -2,52 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FF2606A33A
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:23:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B522606A32C
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:23:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J6bYPTJY
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N1V7ejsy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B794A10E1C7;
-	Fri, 20 Nov 2026 14:23:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB68D112A8F;
+	Fri, 20 Nov 2026 14:23:16 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF06910E1C7;
- Fri, 20 Nov 2026 14:23:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEC210E1CC;
+ Fri, 20 Nov 2026 14:23:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795184589; x=1826720589;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=LGXdn3W8gZ9tio//QtCYo9HEsfrbCXmSWkqKMjvRoMg=;
- b=J6bYPTJYbftX+EOtABq/TvkE06gx9nMJTBFiUJKhdUVNFVJX4msTpmyv
- 7vmcylRNJ+sWk/obda3Co2yX51lHwDR1bIe1P1Oho4cyzt4L3ptc6EIbP
- JVQw2V/RpbIWc3NZUZ2QFycuRu3i7fIpKe7NFPfDckD4tgy3hxOa+1QKU
- r02aUjTQDS345jEnvRMby01njXCWQyO5cahC/ZQMbJkHLJbE1P2SDq7HY
- MvCa/JQ+gQTuTA0msbqaWfj/zBRFok3uT9BjfZVRjv4RsEN1IV5fVzqjA
- oXIsYntZtFvjx4j+nE2gi/1P7vSXBD2MuoEOa27b3L7+BYp9TmkuodFjq Q==;
-X-CSE-ConnectionGUID: BT8SOhPTQJ6ddRrwICT+Cw==
-X-CSE-MsgGUID: GRyzoWq8SFmUaNBU2p4Q3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090883"
+ t=1795184590; x=1826720590;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=cyIRckQnwOB729w8euiTezuJ+skC6CfzZNYZODwJ1q0=;
+ b=N1V7ejsyE8ng2s/a/MbX7dftQqsktoOPhrOCs3n2gYI8mK9Knsx3d+ut
+ QkFJwj6+pz0kQbqKdR7a9eiSLhoGp6jl+5V0ppN1PvLVCkORaD6CjCK/V
+ 4QClimqol8PT1XWdPk5IAV6nXKz45PuK7iS1AeCSUlSei2VUKoQEiKMDB
+ L24dF4xEITcdGUSZHebvYAOK+gilqX8qHOmu0EF9Mc/q5CVd4eY1M9A2b
+ D7A/S1XfIbyIAojolGDmLAf5WDEte9stAOHbeYf0DLOslt9t5Igh2srvH
+ XnANtnyDMbj/JvTT2oB8cg18XqDXTLtrqjeEpZ/cd7EYtuT4WeRcJ1aBI Q==;
+X-CSE-ConnectionGUID: ov+u/eREQW+cxp/DUUfpKQ==
+X-CSE-MsgGUID: uVbHEz1gQui2jJNRUpiRmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090887"
 X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4090883"
+   d="scan'208";a="4090887"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:08 -0800
-X-CSE-ConnectionGUID: lp0p1VBfSQ+tULxaNOUlIw==
-X-CSE-MsgGUID: tRN/tGqAQZi6UnzkLYJH5g==
+ 20 Nov 2026 06:23:10 -0800
+X-CSE-ConnectionGUID: W7W5NS7TRZiRJ+DNsTvMkw==
+X-CSE-MsgGUID: MxOFG5pZTHel8+1gBgBc1w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12421979"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12421982"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:07 -0800
+ 20 Nov 2026 06:23:09 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: alexander.kaplan@sms-medipool.de,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 00/29] DP-HDMI PCON DSC fixes
-Date: Fri, 20 Nov 2026 19:37:00 +0530
-Message-ID: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH 01/29] drm/i915/hdmi: Split the intel_hdmi_dsc_get_bpp()
+Date: Fri, 20 Nov 2026 19:37:01 +0530
+Message-ID: <20261120140729.466177-2-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
+References: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -62,114 +65,156 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The PCON mode_valid path currently does not fully account for the bandwidth
-limitations of the PCON <-> HDMI link. The DSC capability between the
-PCON and the HDMI sink also needs to be taken into account, which currently
-isn't. Furthermore, the compressed bpp chosen needs to fit the
-FRL configuration, which is also missing.
+Split the intel_hdmi_dsc_get_bpp() into two helper functions
+that can be called independently.
 
-This series:
- - reworks the HDMI DSC helpers so they can be reused across the
-   mode_valid, compute_config and FRL bandwidth check paths
- - fixes the FRL/TMDS downstream bandwidth checks, and allows
-   PCON DSC modes through the FRL check
- - Clamps the programmed DSC bpp to the FRL link bandwidth.
- - Adds the PCON DSC operations (decode, decode and re-encode and
-   pass-through), and uses the FRL rate of the stream on the HDMI link.
+While at it, improve the comments in the helper.
 
-This series is sent as a whole to have all the solution in one place.
-It will be split in 3 series and merged in this order:
- 1. Groundwork (patches 1-9): FRL/TMDS downstream bandwidth checks and
-    the HDMI DSC helpers. A couple of patches are still to be reviewed,
-    so these will be separated out for CI testing and merged first.
- 2. PCON DSC operations (patches 10-21): PCON DSC state, decode and
-    decode and re-encode operations and the FRL rate of the stream.
- 3. DSC pass-through (patches 22-29): pass-through of a DSC 1.2a stream,
-    within the limits of the HDMI sink.
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 97 ++++++++++++++---------
+ 1 file changed, 59 insertions(+), 38 deletions(-)
 
-Rev2:
- - Rebase and address comments from Suraj.
- - Drop drm/i915/dp: Use FRL pair check for the DFP dotclock limit as no
-   longer required.
-
-Rev3:
- - Address Comments from Sashiko.
- - Account for FRL encoding overhead during bw calculation.
- - Pass pixel clock instead of using mode->crtc_clock to make it work
-   with mode-valid case.
- - Clamp the target bpp only when it equals the pipe bpp to avoid
-   missing the case when dsc min_bpp and max_bpp are same.
-
-Rev4:
- - Add the PCON DSC operations as per DP Spec: decode,
-   decode and re-encode, and pass-through for a DSC 1.2a stream.
- - Add the PCON DSC state to crtc_state, compute the operation and the
-   PCON DSC encoder parameters in compute_config, and only program them
-   at enable. Disable the PCON DSC encoder unless it is needed.
- - Enable DSC pass-through in the PCON, and limit the slice count and
-   the compressed bpp of the DP stream to what the HDMI sink supports.
- - Store the FRL rate in crtc_state, use the regular or the DSC max FRL
-   rate depending on the stream on the HDMI link, and retrain the FRL
-   link from the link check work.
- - Use link bpp instead of pipe bpp in the target_bpp clamp patch and
-   reuse intel_dp_output_format_link_bpp_x16(). (Suraj)
-
-Ankit Nautiyal (29):
-  drm/i915/hdmi: Split the intel_hdmi_dsc_get_bpp()
-  drm/i915/dp: Fix FRL BW check for HDMI2.1 DFP
-  drm/i915/dp: Add a wrapper to check frl/tmds downstream constraints
-  drm/i915/dp: Use the common downstream bw check in compute_bpc
-  drm/i915/hdmi: Expose DSC min/max bpp helpers
-  drm/i915/hdmi: Add helper to check if DSC chunksize fits the sink
-    limits
-  drm/i915/hdmi: Pass pixel clock to DSC slice helper
-  drm/i915/dp: Account for FRL 16b/18b encoding overhead
-  drm/i915/hdmi: Clamp the target_bpp only when it equals the link bpp
-  drm/i915/dp: Add PCON DSC state to crtc_state
-  drm/dp: Add a helper to disable the PCON DSC encoder
-  drm/i915/dp: Compute the PCON DSC operation
-  drm/i915/dp: Disable the PCON DSC encoder unless it is needed
-  drm/i915/dp: Clamp PCON DSC bpp to the FRL link bandwidth
-  drm/i915/dp: Add a helper for the DSC stream version
-  drm/i915/dp: Add a helper for the FRL payload bandwidth
-  drm/i915/dp: Compute the PCON DSC encoder parameters
-  drm/i915/dp: Retrain the PCON FRL link from the link check work
-  drm/i915/dp: Store the PCON FRL rate in the crtc state
-  drm/i915/dp: Use the FRL rate of the stream on the HDMI link
-  drm/i915/dp: Allow PCON DSC modes through the FRL bw check
-  drm/i915/dp: Enable DSC pass-through in the PCON
-  drm/i915/dp: Limit the DP link bpp for DSC pass-through to the FRL
-    bandwidth
-  drm/i915/dp: Select DSC pass-through in the PCON for DSC 1.2a streams
-  drm/i915/dp: Allow limiting the DSC slice count for the downstream
-    device
-  drm/i915/dp: Check the HDMI sink slice limits for DSC pass-through
-  drm/i915/dp: Pick the DSC slice count for pass-through within the HDMI
-    limits
-  drm/i915/dp: Limit the compressed bpp for pass-through to the HDMI
-    sink
-  drm/i915/dp: Accept DSC 1.2a pass-through modes in the PCON mode check
-
- drivers/gpu/drm/display/drm_dp_helper.c       |  23 +
- drivers/gpu/drm/i915/display/g4x_dp.c         |   2 +-
- .../drm/i915/display/intel_crtc_state_dump.c  |  17 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |   4 +-
- .../drm/i915/display/intel_display_types.h    |  31 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 668 ++++++++++++++----
- drivers/gpu/drm/i915/display/intel_dp.h       |  13 +-
- .../drm/i915/display/intel_dp_link_training.c |   5 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 138 +++-
- drivers/gpu/drm/i915/display/intel_hdmi.h     |   8 +-
- include/drm/display/drm_dp_helper.h           |   1 +
- 11 files changed, 731 insertions(+), 179 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 4ec0db8d93fb..a67bcc8ef691 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -3325,61 +3325,49 @@ intel_hdmi_dsc_get_num_slices(const struct drm_display_mode *mode,
+ 	return target_slices;
+ }
+ 
+-/*
+- * intel_hdmi_dsc_get_bpp - get the appropriate compressed bits_per_pixel based on
+- * source and sink capabilities.
+- *
+- * @src_fraction_bpp: fractional bpp supported by the source
+- * @slice_width: dsc slice width supported by the source and sink
+- * @num_slices: num of slices supported by the source and sink
+- * @output_format: video output format
+- * @bpc: bits per color
+- * @hdmi_all_bpp: sink supports decoding of 1/16th bpp setting
+- * @hdmi_max_chunk_bytes: max bytes in a line of chunks supported by sink
+- *
+- * @return: compressed bits_per_pixel in step of 1/16 of bits_per_pixel
+- */
+-int
+-intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
+-		       enum intel_output_format output_format, int bpc,
+-		       bool hdmi_all_bpp, int hdmi_max_chunk_bytes)
++static void
++get_dsc_min_max_bpp(enum intel_output_format output_format, u8 bpc,
++		    bool hdmi_all_bpp, int *min_dsc_bpp, int *max_dsc_bpp)
+ {
+-	int max_dsc_bpp, min_dsc_bpp;
+-	int target_bytes;
+-	bool bpp_found = false;
+-	int bpp_decrement_x16;
+-	int bpp_target;
+-	int bpp_target_x16;
+-
+ 	/*
+-	 * Get min bpp and max bpp as per Table 7.23, in HDMI2.1 spec
++	 * Get min bpp and max bpp that can be supported for a
++	 * given bpc and output format.
+ 	 * Start with the max bpp and keep on decrementing with
+-	 * fractional bpp, if supported by PCON DSC encoder
++	 * fractional bpp, if supported by the DSC encoder
+ 	 *
+ 	 * for each bpp we check if no of bytes can be supported by HDMI sink
+ 	 */
+ 
+ 	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
+-		min_dsc_bpp = 6;
+-		max_dsc_bpp = 3 * bpc / 2;
++		*min_dsc_bpp = 6;
++		*max_dsc_bpp = 3 * bpc / 2;
+ 	} else if (output_format == INTEL_OUTPUT_FORMAT_YCBCR444 ||
+ 		   output_format == INTEL_OUTPUT_FORMAT_RGB) {
+-		min_dsc_bpp = 8;
+-		max_dsc_bpp = 3 * bpc;
++		*min_dsc_bpp = 8;
++		*max_dsc_bpp = 3 * bpc;
+ 	} else {
+ 		/* Assuming 4:2:2 encoding */
+-		min_dsc_bpp = 7;
+-		max_dsc_bpp = 2 * bpc;
++		*min_dsc_bpp = 7;
++		*max_dsc_bpp = 2 * bpc;
+ 	}
+ 
+ 	/*
+-	 * Taking into account if all dsc_all_bpp supported by HDMI2.1 sink
+-	 * Section 7.7.34 : Source shall not enable compressed Video
+-	 * Transport with bpp_target settings above 12 bpp unless
+-	 * DSC_all_bpp is set to 1.
++	 * Don't enable DSC bpp_target settings above 12 bpp,
++	 * unless DSC_all_bpp is set to 1.
+ 	 */
+ 	if (!hdmi_all_bpp)
+-		max_dsc_bpp = min(max_dsc_bpp, 12);
++		*max_dsc_bpp = min(*max_dsc_bpp, 12);
++}
++
++static int
++get_dsc_compressed_bpp(int num_slices, int slice_width, int hdmi_max_chunk_bytes,
++		       int src_fractional_bpp, int min_dsc_bpp, int max_dsc_bpp)
++{
++	int target_bytes;
++	bool bpp_found = false;
++	int bpp_decrement_x16;
++	int bpp_target;
++	int bpp_target_x16;
+ 
+ 	/*
+ 	 * The Sink has a limit of compressed data in bytes for a scanline,
+@@ -3423,6 +3411,39 @@ intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
+ 	return 0;
+ }
+ 
++/*
++ * intel_hdmi_dsc_get_bpp - get the appropriate compressed bits_per_pixel based on
++ * source and sink capabilities.
++ *
++ * @src_fraction_bpp: fractional bpp supported by the source
++ * @slice_width: dsc slice width supported by the source and sink
++ * @num_slices: num of slices supported by the source and sink
++ * @output_format: video output format
++ * @bpc: bits per color
++ * @hdmi_all_bpp: sink supports decoding of 1/16th bpp setting
++ * @hdmi_max_chunk_bytes: max bytes in a line of chunks supported by sink
++ *
++ * @return: compressed bits_per_pixel in step of 1/16 of bits_per_pixel
++ */
++int
++intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
++		       enum intel_output_format output_format, int bpc,
++		       bool hdmi_all_bpp, int hdmi_max_chunk_bytes)
++{
++	int max_dsc_bpp, min_dsc_bpp;
++	int dsc_bpp_x16;
++
++	get_dsc_min_max_bpp(output_format, bpc, hdmi_all_bpp,
++			    &min_dsc_bpp, &max_dsc_bpp);
++
++	dsc_bpp_x16 = get_dsc_compressed_bpp(num_slices, slice_width,
++					     hdmi_max_chunk_bytes,
++					     src_fractional_bpp,
++					     min_dsc_bpp, max_dsc_bpp);
++
++	return dsc_bpp_x16;
++}
++
+ int intel_hdmi_sink_max_frl_rate(struct drm_connector *connector)
+ {
+ 	int max_lanes = connector->display_info.hdmi.max_lanes;
 -- 
 2.50.1
 
