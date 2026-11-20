@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0AB606A320
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:24:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6D0606A320
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A0Mw5aZl
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SfI9RCDD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92F58112ACE;
-	Fri, 20 Nov 2026 14:24:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD854112AC9;
+	Fri, 20 Nov 2026 14:24:04 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22532112A90;
- Fri, 20 Nov 2026 14:23:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2079112AC1;
+ Fri, 20 Nov 2026 14:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795184635; x=1826720635;
+ t=1795184639; x=1826720639;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2LT9S/ZSxgKDk7ZS4QaHfHA0eXc46QpIhIZAb6AWHx8=;
- b=A0Mw5aZlk6GwW4FWSIXsd67N48z9dk5nMPxhHkqqy7YuBNx6VABxG/ST
- v4WKQukh8Q1bTDZMP3hH7SIB7NBHzu9/sQzrOTg9AvUhBkU5o9hAQI94u
- ByqWEd8KE4XB/1zsJdapsRUV6xbvDaj39GGRvqSM4uiJ55cXzPXgHFguX
- ldsdnyUY9HsZcvtd8TYA4SiXgNhxQHpy2v+2GrH4WVMV5CWV62254n+Ao
- XPqELSy5YoFkzs/uhFCDuvjpu3UeYzsYG7qmdkLmLqoUXFMYJqN264+UZ
- uIj0pzHY3n8sJDiRq5AldOqAaKZA7Mpk4YHdpefA+TUp+81MfUJuV2T1N A==;
-X-CSE-ConnectionGUID: Cq2c6tbXRrefEkklfyGGFw==
-X-CSE-MsgGUID: rhquDkjOTAiTxgeD9MX23A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090994"
+ bh=HHon3Hl6Z39L+yQbY9Jj0Pzj2I018LznD8RuBLyN7O0=;
+ b=SfI9RCDDeQnB7MVcRR0wVT/ru2s9dFP0bnbbZwIx11F92Jg6iqBvXwb3
+ tfx3MF/ZY2osS2sGKhhBl4lT2d/XUNzAd7qB5IEjxwtpEVuazsE6cT+SV
+ 7mvemKQo6zy8BqEvuDalJtj7ofWaW6whG10LUGSIb4HlFw/FnmUYoBQL8
+ OK2h19KLD4aUqzq29QXG7jTD8lUQRIHTtRkhT7U47sbhOXgJoHQe8N7vd
+ fu36BZxU9dLXKKGqGktrQbgFECBdFZLj2F3BhZUMLHMOObh7+29X/3esh
+ nmtSTv+Ktlks7CsOVSVEnbDCwwQsP9bpUGeDrvBrRGTqBnyHFzxZziwFu Q==;
+X-CSE-ConnectionGUID: OAXDNat9R7q1shS5ryRgmg==
+X-CSE-MsgGUID: z4GBPndvRaG7IHlwS2limA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4091005"
 X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4090994"
+   d="scan'208";a="4091005"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:38 -0800
-X-CSE-ConnectionGUID: mRa4HgVUQ4WpaFSt5oMLow==
-X-CSE-MsgGUID: zsibIeXcRp2yBMIZz8kZLg==
+ 20 Nov 2026 06:23:41 -0800
+X-CSE-ConnectionGUID: PkQn5ld2RUyXL5Z/UyQjjA==
+X-CSE-MsgGUID: IWid7UKbTkCovWLHO+i1dA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422038"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422044"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:36 -0800
+ 20 Nov 2026 06:23:40 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: alexander.kaplan@sms-medipool.de,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 17/29] drm/i915/dp: Compute the PCON DSC encoder parameters
-Date: Fri, 20 Nov 2026 19:37:17 +0530
-Message-ID: <20261120140729.466177-18-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 19/29] drm/i915/dp: Store the PCON FRL rate in the crtc state
+Date: Fri, 20 Nov 2026 19:37:19 +0530
+Message-ID: <20261120140729.466177-20-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
 References: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
@@ -71,282 +71,201 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When the HDMI link needs DSC and the DP stream is a DSC 1.1 stream, the
-PCON decodes it and encodes a DSC 1.2a stream for the HDMI sink. The
-encoder parameters are the slice height and width, and the compressed
-bpp. They describe the stream the HDMI sink receives, so compute them
-for the sink format, within the bandwidth of the FRL link.
+The FRL training derives the max rate to train the HDMI link at from the
+capabilities of the PCON and the HDMI sink, regardless of the stream
+that is going to be sent. The rate the stream needs can depend on the
+PCON DSC operation, which is only known once the DP link is computed.
 
-Do this when the DP link configuration is final, and store the result in
-the crtc state, instead of deriving the parameters at enable time from
-the stream going out of the pipe, whose format can differ from what the
-HDMI sink gets. The enable path now only programs the stored values.
+Compute the FRL rate together with the PCON DSC operation, store it in
+the crtc state and train the link at that rate. For now this is still
+the lower of the PCON and sink max rates, so there is no change in
+behavior.
 
-A DSC 1.2a stream can't be re-encoded by the PCON, so reject those. Modes
-that need DSC on the HDMI link are not selectable yet, so there is no
-change in behavior.
+A link that is already trained is kept only if it was trained at least
+at the rate the new stream needs, otherwise train it again.
 
 Assisted-by: LLM
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 194 +++++++++++++-----------
- 1 file changed, 105 insertions(+), 89 deletions(-)
+ drivers/gpu/drm/i915/display/g4x_dp.c         |  2 +-
+ .../drm/i915/display/intel_crtc_state_dump.c  |  5 ++-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  4 +-
+ .../drm/i915/display/intel_display_types.h    |  2 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 38 +++++++++++--------
+ drivers/gpu/drm/i915/display/intel_dp.h       |  3 +-
+ 6 files changed, 33 insertions(+), 21 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
+index b867443ff227..f8ac6d51f6ff 100644
+--- a/drivers/gpu/drm/i915/display/g4x_dp.c
++++ b/drivers/gpu/drm/i915/display/g4x_dp.c
+@@ -709,7 +709,7 @@ static void intel_enable_dp(struct intel_atomic_state *state,
+ 
+ 	intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+ 	intel_dp_configure_protocol_converter(intel_dp, pipe_config);
+-	intel_dp_check_frl_training(intel_dp);
++	intel_dp_check_frl_training(intel_dp, pipe_config);
+ 	intel_dp_pcon_dsc_configure(intel_dp, pipe_config);
+ 	intel_dp_start_link_train(state, intel_dp, pipe_config);
+ 	intel_dp_stop_link_train(intel_dp, pipe_config);
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index 51e8f3688362..3c803371e54a 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -250,8 +250,9 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 			   str_enabled_disabled(pipe_config->fec_enable),
+ 			   str_enabled_disabled(pipe_config->enhanced_framing));
+ 
+-		drm_printf(&p, "pcon: dsc op %s\n",
+-			   pcon_dsc_op_str[pipe_config->pcon_config.dsc_op]);
++		drm_printf(&p, "pcon: dsc op %s, frl rate: %d Gbps\n",
++			   pcon_dsc_op_str[pipe_config->pcon_config.dsc_op],
++			   pipe_config->pcon_config.frl_rate_gbps);
+ 		if (pipe_config->pcon_config.dsc_op == INTEL_PCON_DSC_DECODE_ENCODE)
+ 			drm_printf(&p,
+ 				   "pcon dsc encoder: slice height: %u, slice width: %u, bpp_x16: %u\n",
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index e21c237b39f4..f8357574710c 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2714,7 +2714,7 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	 */
+ 	intel_dp_sink_set_fec_ready(intel_dp, crtc_state, true);
+ 
+-	intel_dp_check_frl_training(intel_dp);
++	intel_dp_check_frl_training(intel_dp, crtc_state);
+ 	intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
+ 
+ 	/*
+@@ -2876,7 +2876,7 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	 */
+ 	intel_dp_sink_set_fec_ready(intel_dp, crtc_state, true);
+ 
+-	intel_dp_check_frl_training(intel_dp);
++	intel_dp_check_frl_training(intel_dp, crtc_state);
+ 	intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 429a071afad5..20f3b29f6e17 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1407,6 +1407,8 @@ struct intel_crtc_state {
+ 		enum intel_pcon_dsc_op dsc_op;
+ 		/* Only valid for INTEL_PCON_DSC_DECODE_ENCODE */
+ 		struct intel_pcon_dsc_enc_config dsc_enc;
++		/* Max FRL rate in Gbps to train the HDMI link at, 0 if no FRL */
++		int frl_rate_gbps;
+ 	} pcon_config;
+ 
+ 	/* DP tunnel used for BW allocation. */
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 07ce99829303..0991f913100e 100644
+index 61c2917e4b91..ff6fb5eca166 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -130,6 +130,7 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
- static void intel_dp_unset_edid(struct intel_dp *intel_dp);
- static int intel_dp_hdmi_sink_max_frl(struct intel_dp *intel_dp);
- static bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp);
-+static int intel_dp_dsc_stream_version_minor(const struct intel_connector *connector);
- 
- /* Is link rate UHBR and thus 128b/132b? */
- bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state)
-@@ -1232,6 +1233,69 @@ intel_dp_pcon_sink_support_frl(struct intel_dp *intel_dp)
- 		intel_dp_hdmi_sink_max_frl(intel_dp);
- }
- 
-+static bool intel_dp_pcon_can_encode_dsc(struct intel_dp *intel_dp)
-+{
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+
-+	return intel_dp_is_hdmi_2_1_sink(intel_dp) &&
-+		connector->base.display_info.hdmi.dsc_cap.v_1p2 &&
-+		drm_dp_pcon_enc_is_dsc_1_2(intel_dp->pcon_dsc_dpcd);
-+}
-+
-+/*
-+ * Compute the PCON DSC encoder parameters for the stream sent to the HDMI
-+ * sink, which is in @sink_format. @enc can be NULL to only check feasibility.
-+ */
-+static bool
-+intel_dp_pcon_dsc_enc_compute(struct intel_dp *intel_dp,
-+			      const struct drm_display_mode *mode, int pixel_clock,
-+			      int bpc, enum intel_output_format sink_format,
-+			      struct intel_pcon_dsc_enc_config *enc)
-+{
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+	const struct drm_display_info *info = &connector->base.display_info;
-+	int pcon_max_slices = drm_dp_pcon_dsc_max_slices(intel_dp->pcon_dsc_dpcd);
-+	int pcon_max_slice_width = drm_dp_pcon_dsc_max_slice_width(intel_dp->pcon_dsc_dpcd);
-+	int slice_height, num_slices, slice_width, max_link_dsc_bpp, bpp_x16;
-+
-+	if (!intel_dp_pcon_can_encode_dsc(intel_dp))
-+		return false;
-+
-+	slice_height = intel_hdmi_dsc_get_slice_height(mode->vdisplay);
-+	if (!slice_height)
-+		return false;
-+
-+	num_slices = intel_hdmi_dsc_get_num_slices(mode, pixel_clock, sink_format,
-+						   pcon_max_slices, pcon_max_slice_width,
-+						   info->hdmi.dsc_cap.max_slices,
-+						   info->hdmi.dsc_cap.clk_per_slice);
-+	if (!num_slices)
-+		return false;
-+
-+	slice_width = DIV_ROUND_UP(mode->hdisplay, num_slices);
-+
-+	/* The compressed stream has to fit the FRL link */
-+	max_link_dsc_bpp = intel_dp_hdmi_frl_payload_bw(intel_dp) / pixel_clock;
-+	if (!max_link_dsc_bpp)
-+		return false;
-+
-+	bpp_x16 = intel_hdmi_dsc_get_bpp(drm_dp_pcon_dsc_bpp_incr(intel_dp->pcon_dsc_dpcd),
-+					 slice_width, num_slices, sink_format, bpc,
-+					 info->hdmi.dsc_cap.all_bpp,
-+					 info->hdmi.dsc_cap.total_chunk_kbytes * 1024,
-+					 max_link_dsc_bpp);
-+	if (!bpp_x16)
-+		return false;
-+
-+	if (enc) {
-+		enc->slice_height = slice_height;
-+		enc->slice_width = slice_width;
-+		enc->bpp_x16 = bpp_x16;
-+	}
-+
-+	return true;
-+}
-+
- static enum drm_mode_status
- intel_dp_hdmi_bw_valid(struct intel_dp *intel_dp,
- 		       int target_clock, int bpc,
-@@ -3026,14 +3090,44 @@ bool intel_dp_joiner_needs_dsc(struct intel_display *display,
- 
- static int
- intel_dp_pcon_compute_config(struct intel_dp *intel_dp,
--			     struct intel_crtc_state *crtc_state)
-+			     struct intel_crtc_state *crtc_state,
-+			     bool respect_downstream_limits)
- {
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+	int bpc = crtc_state->pipe_bpp / 3;
-+
+@@ -3101,6 +3101,9 @@ intel_dp_pcon_compute_config(struct intel_dp *intel_dp,
  	if (!intel_dp_is_hdmi_2_1_sink(intel_dp))
  		return 0;
  
++	crtc_state->pcon_config.frl_rate_gbps =
++		min(intel_dp->dfp.pcon_max_frl_bw, intel_dp_hdmi_sink_max_frl(intel_dp));
++
  	if (crtc_state->dsc.compression_enable)
  		crtc_state->pcon_config.dsc_op = INTEL_PCON_DSC_DECODE;
  
-+	if (!respect_downstream_limits || !intel_dp_pcon_sink_support_frl(intel_dp))
-+		return 0;
-+
-+	if (intel_dp_frl_bw_valid(intel_dp, adjusted_mode->crtc_clock, bpc,
-+				  crtc_state->sink_format, true) == MODE_OK)
-+		return 0;
-+
-+	/*
-+	 * The HDMI link needs DSC. The PCON can only get it from a compressed DP
-+	 * stream, and re-encoding is only valid for a DSC 1.1 stream.
-+	 */
-+	if (!crtc_state->dsc.compression_enable ||
-+	    intel_dp_dsc_stream_version_minor(connector) >= 2 ||
-+	    !intel_dp_pcon_dsc_enc_compute(intel_dp, adjusted_mode,
-+					   adjusted_mode->crtc_clock, bpc,
-+					   crtc_state->sink_format,
-+					   &crtc_state->pcon_config.dsc_enc)) {
-+		drm_dbg_kms(display->drm,
-+			    "HDMI link needs DSC, but the PCON can't provide it\n");
-+		return -EINVAL;
-+	}
-+
-+	crtc_state->pcon_config.dsc_op = INTEL_PCON_DSC_DECODE_ENCODE;
-+
+@@ -4510,23 +4513,19 @@ intel_dp_pcon_is_frl_trained(struct intel_dp *intel_dp,
+ 	return false;
+ }
+ 
+-static int intel_dp_pcon_start_frl_training(struct intel_dp *intel_dp)
++static int intel_dp_pcon_start_frl_training(struct intel_dp *intel_dp,
++					    const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ #define TIMEOUT_FRL_READY_MS 500
+ #define TIMEOUT_HDMI_LINK_ACTIVE_MS 1000
+-	int max_frl_bw, max_pcon_frl_bw, max_edid_frl_bw, ret;
++	int max_frl_bw, ret;
+ 	u8 max_frl_bw_mask = 0, frl_trained_mask;
+ 	bool is_active;
+ 
+-	max_pcon_frl_bw = intel_dp->dfp.pcon_max_frl_bw;
+-	drm_dbg(display->drm, "PCON max rate = %d Gbps\n", max_pcon_frl_bw);
+-
+-	max_edid_frl_bw = intel_dp_hdmi_sink_max_frl(intel_dp);
+-	drm_dbg(display->drm, "Sink max rate from EDID = %d Gbps\n",
+-		max_edid_frl_bw);
+-
+-	max_frl_bw = min(max_edid_frl_bw, max_pcon_frl_bw);
++	max_frl_bw = crtc_state->pcon_config.frl_rate_gbps;
++	drm_dbg(display->drm, "FRL max rate = %d Gbps (PCON max rate = %d Gbps)\n",
++		max_frl_bw, intel_dp->dfp.pcon_max_frl_bw);
+ 
+ 	if (max_frl_bw <= 0)
+ 		return -EINVAL;
+@@ -4610,7 +4609,8 @@ int intel_dp_pcon_set_tmds_mode(struct intel_dp *intel_dp)
  	return 0;
  }
  
-@@ -3122,7 +3216,8 @@ intel_dp_compute_link_for_joined_pipes(struct intel_encoder *encoder,
- 			return -EINVAL;
- 	}
- 
--	ret = intel_dp_pcon_compute_config(intel_dp, pipe_config);
-+	ret = intel_dp_pcon_compute_config(intel_dp, pipe_config,
-+					   respect_downstream_limits);
- 	if (ret)
- 		return ret;
- 
-@@ -4545,79 +4640,16 @@ void intel_dp_check_frl_training(struct intel_dp *intel_dp)
- 	}
- }
- 
--static int
--intel_dp_pcon_dsc_enc_slice_height(const struct intel_crtc_state *crtc_state)
--{
--	int vactive = crtc_state->hw.adjusted_mode.vdisplay;
--
--	return intel_hdmi_dsc_get_slice_height(vactive);
--}
--
--static int
--intel_dp_pcon_dsc_enc_slices(struct intel_dp *intel_dp,
--			     const struct intel_crtc_state *crtc_state)
--{
--	struct intel_connector *connector = intel_dp->attached_connector;
--	const struct drm_display_info *info = &connector->base.display_info;
--	int hdmi_throughput = info->hdmi.dsc_cap.clk_per_slice;
--	int hdmi_max_slices = info->hdmi.dsc_cap.max_slices;
--	int pcon_max_slices = drm_dp_pcon_dsc_max_slices(intel_dp->pcon_dsc_dpcd);
--	int pcon_max_slice_width = drm_dp_pcon_dsc_max_slice_width(intel_dp->pcon_dsc_dpcd);
--
--	return intel_hdmi_dsc_get_num_slices(&crtc_state->hw.adjusted_mode,
--					     crtc_state->hw.adjusted_mode.crtc_clock,
--					     crtc_state->output_format,
--					     pcon_max_slices,
--					     pcon_max_slice_width,
--					     hdmi_max_slices, hdmi_throughput);
--}
--
--static int
--intel_dp_pcon_dsc_enc_bpp(struct intel_dp *intel_dp,
--			  const struct intel_crtc_state *crtc_state,
--			  int num_slices, int slice_width)
--{
--	struct intel_connector *connector = intel_dp->attached_connector;
--	const struct drm_display_info *info = &connector->base.display_info;
--	int output_format = crtc_state->output_format;
--	bool hdmi_all_bpp = info->hdmi.dsc_cap.all_bpp;
--	int pcon_fractional_bpp = drm_dp_pcon_dsc_bpp_incr(intel_dp->pcon_dsc_dpcd);
--	int hdmi_max_chunk_bytes =
--		info->hdmi.dsc_cap.total_chunk_kbytes * 1024;
--	int bpc = crtc_state->pipe_bpp / 3;
--
--	return intel_hdmi_dsc_get_bpp(pcon_fractional_bpp, slice_width,
--				      num_slices, output_format, bpc, hdmi_all_bpp,
--				      hdmi_max_chunk_bytes, 0);
--}
--
- void
- intel_dp_pcon_dsc_configure(struct intel_dp *intel_dp,
- 			    const struct intel_crtc_state *crtc_state)
+-void intel_dp_check_frl_training(struct intel_dp *intel_dp)
++void intel_dp_check_frl_training(struct intel_dp *intel_dp,
++				 const struct intel_crtc_state *crtc_state)
  {
  	struct intel_display *display = to_intel_display(intel_dp);
--	struct intel_connector *connector = intel_dp->attached_connector;
--	const struct drm_display_info *info;
-+	const struct intel_pcon_dsc_enc_config *enc = &crtc_state->pcon_config.dsc_enc;
- 	u8 pps_param[6];
--	int slice_height;
--	int slice_width;
--	int num_slices;
--	int bits_per_pixel;
+ 
+@@ -4620,11 +4620,15 @@ void intel_dp_check_frl_training(struct intel_dp *intel_dp)
+ 	 * -sink is HDMI2.1
+ 	 */
+ 	if (!(intel_dp->downstream_ports[2] & DP_PCON_SOURCE_CTL_MODE) ||
+-	    !intel_dp_is_hdmi_2_1_sink(intel_dp) ||
+-	    intel_dp->frl.is_trained)
++	    !intel_dp_is_hdmi_2_1_sink(intel_dp))
+ 		return;
+ 
+-	if (intel_dp_pcon_start_frl_training(intel_dp) < 0) {
++	/* A link trained at a lower rate than the stream needs has to be retrained */
++	if (intel_dp->frl.is_trained &&
++	    intel_dp->frl.trained_rate_gbps >= crtc_state->pcon_config.frl_rate_gbps)
++		return;
++
++	if (intel_dp_pcon_start_frl_training(intel_dp, crtc_state) < 0) {
+ 		int ret, mode;
+ 
+ 		drm_dbg(display->drm,
+@@ -4649,6 +4653,7 @@ int intel_dp_pcon_frl_recover(struct intel_encoder *encoder,
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++	struct intel_crtc *crtc;
+ 	u8 pipe_mask;
  	int ret;
--	bool hdmi_is_dsc_1_2;
--
--	if (!intel_dp_is_hdmi_2_1_sink(intel_dp))
--		return;
--
--	if (!connector)
--		return;
  
--	info = &connector->base.display_info;
--
--	hdmi_is_dsc_1_2 = info->hdmi.dsc_cap.v_1p2;
--
--	if (!drm_dp_pcon_enc_is_dsc_1_2(intel_dp->pcon_dsc_dpcd) ||
--	    !hdmi_is_dsc_1_2)
-+	if (!intel_dp_pcon_can_encode_dsc(intel_dp))
- 		return;
+@@ -4671,7 +4676,10 @@ int intel_dp_pcon_frl_recover(struct intel_encoder *encoder,
+ 	if (pipe_mask == 0)
+ 		return 0;
  
- 	if (crtc_state->pcon_config.dsc_op != INTEL_PCON_DSC_DECODE_ENCODE) {
-@@ -4627,28 +4659,12 @@ intel_dp_pcon_dsc_configure(struct intel_dp *intel_dp,
- 		return;
- 	}
+-	intel_dp_check_frl_training(intel_dp);
++	/* The stream is on the pipe of the connector's CRTC, locked above */
++	crtc = intel_crtc_for_pipe(display, ffs(pipe_mask) - 1);
++
++	intel_dp_check_frl_training(intel_dp, to_intel_crtc_state(crtc->base.state));
  
--	slice_height = intel_dp_pcon_dsc_enc_slice_height(crtc_state);
--	if (!slice_height)
--		return;
--
--	num_slices = intel_dp_pcon_dsc_enc_slices(intel_dp, crtc_state);
--	if (!num_slices)
--		return;
--
--	slice_width = DIV_ROUND_UP(crtc_state->hw.adjusted_mode.hdisplay,
--				   num_slices);
--
--	bits_per_pixel = intel_dp_pcon_dsc_enc_bpp(intel_dp, crtc_state,
--						   num_slices, slice_width);
--	if (!bits_per_pixel)
--		return;
--
--	pps_param[0] = slice_height & 0xFF;
--	pps_param[1] = slice_height >> 8;
--	pps_param[2] = slice_width & 0xFF;
--	pps_param[3] = slice_width >> 8;
--	pps_param[4] = bits_per_pixel & 0xFF;
--	pps_param[5] = (bits_per_pixel >> 8) & 0x3;
-+	pps_param[0] = enc->slice_height & 0xFF;
-+	pps_param[1] = enc->slice_height >> 8;
-+	pps_param[2] = enc->slice_width & 0xFF;
-+	pps_param[3] = enc->slice_width >> 8;
-+	pps_param[4] = enc->bpp_x16 & 0xFF;
-+	pps_param[5] = (enc->bpp_x16 >> 8) & 0x3;
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 070f6229cc39..83954c2c28e6 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -187,7 +187,8 @@ bool intel_dp_initial_fastset_check(struct intel_encoder *encoder,
+ void intel_dp_sync_state(struct intel_encoder *encoder,
+ 			 const struct intel_crtc_state *crtc_state);
  
- 	ret = drm_dp_pcon_pps_override_param(&intel_dp->aux, pps_param);
- 	if (ret < 0)
+-void intel_dp_check_frl_training(struct intel_dp *intel_dp);
++void intel_dp_check_frl_training(struct intel_dp *intel_dp,
++				 const struct intel_crtc_state *crtc_state);
+ int intel_dp_pcon_frl_recover(struct intel_encoder *encoder,
+ 			      struct drm_modeset_acquire_ctx *ctx);
+ void intel_dp_pcon_dsc_configure(struct intel_dp *intel_dp,
 -- 
 2.50.1
 
