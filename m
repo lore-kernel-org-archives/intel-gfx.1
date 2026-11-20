@@ -2,80 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2BF60A260F
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 13:17:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0523060A2617
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 13:43:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TD3I+IMX
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpVSaYgS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED32E112A48;
-	Fri, 20 Nov 2026 13:17:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 964AE10E076;
+	Fri, 20 Nov 2026 13:43:02 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9380112A48
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 13:17:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9FE310E076;
+ Fri, 20 Nov 2026 13:42:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 16F39628C8;
- Fri, 20 Nov 2026 13:17:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0D01F008B2;
- Fri, 20 Nov 2026 13:17:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0456162639;
+ Fri, 20 Nov 2026 13:42:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0AF1F000C6;
+ Fri, 20 Nov 2026 13:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180659;
- bh=1r2RPLiYFSIogaEoUkz4XwYUZKQoUko/pKRdi08cxM0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=TD3I+IMXRD+9btMqjG+8B3kJTvc6/N3FGTiOQW0DBF8szaAbfyT3rdoeRLPEztlhd
- 1fkasb/JgYhFktdnsYQr/hbjy8ZgctD2oCPodj+EcxdWF0TgHkODd7sFnXKKDQLPq8
- 5ASnbC5RngYAvXnPAqtilUTGTnCIjoJva8uNteQehr3AeEwKXuZJgY2lgewq1DJ9PS
- VwJ+/gaSErGpmwEF865LUS3VM1nLS3oOqHLTAYvriEXuxCXfiWnPIsOBBpItHfM9Qy
- SlI1Q3+bLjypHspK7ZlbPfJeomFf2OJXl+Xuxt7f6hr2LyAcAONIPxsaFe381p00kt
- 3qa5gmkswFQ8Q==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfauth.ams.internal (Postfix) with ESMTP id E3EF41980047;
- Fri, 20 Nov 2026 08:17:33 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Fri, 20 Nov 2026 08:17:36 -0500
-X-ME-Sender: <xms:bUgAa0Ss467GVnDhyoa5GLJvJ3Qkb6jHpBysa7UtJwMHKBxrb5rknQ>
- <xme:bUgAa_Jn5SAa9Gm26aQ6PCluN4Igj4Xbu-1eShGyKxR4qD4s9mbJsthGMUuBhDiiJ
- DvPsGIIO4AzG_TK8e7R8mLHjv9E9hWIE1EgDfNtY4sRYb_WfmuVqNFO>
-X-ME-Received: <xmr:bUgAa92iCqHJb79UKYNhTmSvtYLPj7oT62s31rdeiXpMYGt1_RtpnZNe0lI>
-X-ME-Proxy-Cause: dmFkZTEMslbIUNDm8LIh02IXJPPGaz8x9nStkoY2McUqfXdvc0zDAMNuwAdNk567GWqWFb
- Ue01QIrqSlGhLD7aTRxcawP+AUSNewklEcq6PMC9JP8w32Vkz0EAbVZ2QFm6NbbycGqrOT
- 4Vb8re4U7agTXekt+mqlS2xCpK9NpzTwr+ErpQ3XVKIL+uqfYPpDVYCLRwfuz8aG4ZROa7
- Xd1wxnnT9IcNmrmTW/L61gTt77vLm2hbvmmHDGa2LHM3iddXj9bf/9phFNGmR4hUZZM7Uc
- ZJ9oEFeNgt22uQRjW3Wdih7LGzmvCPCrT/2DICvgDeLsnE5QRBd6+NlZnMM7O7XfT7q9Do
- MkQJtlimT0MHz0XKCwD/pqeSVQTF9nQB6fmaRrIBniyooZx48Wp+fOdjkpjjfy1M74AB0h
- vS3M9aDC5BqCGS+vBnYumDdMEN6m0xvfiEIP84KP4vUCXEzzfRXpY0HUEEr7Ux+TLE0CvM
- 8mfzIpvGacxcLQSZU2/0i1GMY7jfN3hn3SzrJ9D9XCXiD5LzrcLQeHCkaf88rKLabxTIfx
- MK6n/B4O2fmC0h6UK+8FsX8/QUZPhtXvSb6VY/dDu82xZH1mgNTNYlAD8mYnORC1N2N/Kt
- 9BSKREudmnRmc0072qjsdqwInnjVlm+WtP0N1OdHG4S5m3ZYPrjrL8R/k2Sw
-X-ME-Proxy: <xmx:bUgAa7toYIuLcOc32pRwV-nsWDZX_L4XKKyWqDVC59SHUuoImBWT_A>
- <xmx:bUgAa5HlJOmSY7P5WSFjnY6uqz8LobY_WUwzQM8wba5A2rgz9WGBCA>
- <xmx:bUgAa1Jqwm68KOU2wpFhGSlDAH1XL0GVrygZ1G3sIJWJupOyMB2yEw>
- <xmx:bUgAa0GHctFKPFG36KsYueFTUiK1wxmIM_ROA7NlIGuYWQMr6gettQ>
- <xmx:bUgAax7INTnv3udfOUXtVTWi3rt4nW4moV6FhuG_CrgEs7tK_rv3kZad>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 Nov 2026 08:17:32 -0500 (EST)
-Date: Fri, 20 Nov 2026 13:17:31 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andi Shyti <andi.shyti@linux.intel.com>, 
- David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+ s=k20260515; t=1795182175;
+ bh=DelEkWRb0otuJ3Owk/bNvAUD48qPFcVpkVG0GdkPIyw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UpVSaYgSj1NtOF2npDd65U4IopbZzT3Hi6ZIqgFnGLCDO3Gz9D3X8hsrvlFN8b2vq
+ Ht3A6P/uyAEZs8Xl2usjLVUEolwygAOoserrISqQ57UvsNrrASNEs1wl7gTUDQC4c/
+ DPxaVbvyQSJwSuh/HjbvZ/7NShlFe6KHXux7nsFTAMK75rsqBcpMx1DC5ed/pykgWO
+ ZCqvnrCBcXk880Wo334MC2BZzmu0cma+pnffkE6hZrX3G6gcxkp0nHpcjlcH00NDm5
+ Xh+qzrinP/3wLbNonh0+OrQxLQ9uTdJZu04q8LTvKY/o9X7PWHu3K/nDowL1c2Hxao
+ gM6AxXrB+3Ssw==
+Message-ID: <sashiko-outbox-225261@kernel.org>
+From: sashiko-bot@kernel.org
 Subject: Re: [PATCH] drm/i915/gem: Skip writeback of shmem folios with extra
  references
-Message-ID: <awBIB3vjr_o-gfCn@shutemov.name>
+To: =?utf-8?b?S2lyeWwgU2h1dHNlbWF1IChNZXRhKQ==?= <kas@kernel.org>, "Jani
+ Nikula" <jani.nikula@linux.intel.com>,
+ "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, "Rodrigo
+ Vivi" <rodrigo.vivi@intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>
+Cc: "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Andi
+ Shyti" <andi.shyti@linux.intel.com>, "David Hildenbrand" <david@kernel.org>,
+ "Hugh
+ Dickins" <hughd@google.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, kernel-team@meta.com
+In-Reply-To: <20261119134243.3745282-1-kas@kernel.org>
 References: <20261119134243.3745282-1-kas@kernel.org>
- <av8n42vx3Q7zvQK8@zenone.zhora.eu>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <av8n42vx3Q7zvQK8@zenone.zhora.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 13:42:53 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,47 +57,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Nov 19, 2026 at 06:43:08PM +0100, Andi Shyti wrote:
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > index bf9e7480f0f5..748772c358ac 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > @@ -316,9 +316,15 @@ void __shmem_writeback(size_t size, struct address_space *mapping)
-> >  	 * leaving only CPU mmapings around) and add those folios to the LRU
-> >  	 * instead of invoking writeback so they are aged and paged out
-> >  	 * as normal.
-> > +	 *
-> > +	 * The same goes for a folio with references beyond the page cache
-> > +	 * and writeback_iter(). A folio that was just unmapped can still be
-> > +	 * written through a stale TLB entry until the unmapping side flushes
-> > +	 * the TLB and drops its reference. pageout() checks the same.
-> >  	 */
-> >  	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
-> > -		if (folio_mapped(folio))
-> > +		if (folio_mapped(folio) ||
-> > +		    folio_ref_count(folio) != 1 + folio_nr_pages(folio))
-> 
-> I don't think we need this fix in the current tree. The i915
-> writeback iterator already skips the shmem folio in the case you
-> describe, so the new refcount check doesn't change the outcome.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/i915/gem: missing folio_unlock() after redirty in
+  __shmem_writeback()
+- [High] drm/i915/gem: invalid dirty-tag writeback helpers in
+  __shmem_writeback()
+--
 
-Oh. It took me a while to see why.
+commit eee676ed22d7c6fdff448f68a9e29b819f5d0c1e
+Author: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-__shmem_writeback() asks writeback_iter() for PAGECACHE_TAG_DIRTY
-folios, and shmem never sets that tag, its ->dirty_folio is
-noop_dirty_folio(). So the loop body never runs for any folio, and
-hasn't since 776a853a43c9 ("i915: Use writeback_iter()").
+drm/i915/gem: Skip writeback of shmem folios with extra references
 
-That makes me question the whole writeback thing. What's going on
-there, and what's the plan?
+This commit skips shmem writeback in __shmem_writeback() for folios that
+carry references beyond the page cache and writeback_iter(), avoiding
+writeback while an unmapped PMD may still have pending stores through a
+stale TLB entry.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
+i915/gem/i915_gem_shmem.c
+> index bf9e7480f0f54..748772c358acd 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> @@ -316,9 +316,15 @@ void __shmem_writeback(size_t size, struct address_s=
+pace *mapping)
+>  	 * leaving only CPU mmapings around) and add those folios to the LRU
+>  	 * instead of invoking writeback so they are aged and paged out
+>  	 * as normal.
+> +	 *
+> +	 * The same goes for a folio with references beyond the page cache
+> +	 * and writeback_iter(). A folio that was just unmapped can still be
+> +	 * written through a stale TLB entry until the unmapping side flushes
+> +	 * the TLB and drops its reference. pageout() checks the same.
+>  	 */
+>  	while ((folio =3D writeback_iter(mapping, &wbc, folio, &error))) {
+> -		if (folio_mapped(folio))
+> +		if (folio_mapped(folio) ||
+> +		    folio_ref_count(folio) !=3D 1 + folio_nr_pages(folio))
+>  			folio_redirty_for_writepage(&wbc, folio);
+>  		else
+>  			error =3D shmem_write_folio(folio);
+
+[Severity: High]
+Does skipping writeback here leave the folio locked?
+
+writeback_iter() returns the folio locked via writeback_get_folio(), and
+neither folio_redirty_for_writepage() nor the next writeback_iter() call
+unlocks it.  Routing unmapped folios with extra references into the
+folio_redirty_for_writepage() branch without calling folio_unlock() leaves
+PG_locked set permanently, deadlocking later faults, reclaim or truncation
+on that folio.
+
+[Severity: High]
+Can writeback_iter() and folio_redirty_for_writepage() be used on a shmem
+mapping?
+
+writeback_get_folio() looks up folios by PAGECACHE_TAG_DIRTY, but
+shmem_aops uses noop_dirty_folio, which sets PG_dirty without tagging
+mapping->i_pages.  As a result, writeback_iter() never finds dirty shmem
+folios, and calling folio_redirty_for_writepage() on a shmem folio reaches
+__folio_mark_dirty(), which triggers:
+
+mm/page-writeback.c:__folio_mark_dirty() {
+	...
+	/*
+	 * Shmem writeback relies on swap, and swap writeback is LRU based,
+	 * not using the dirty mark.
+	 */
+	VM_WARN_ON_ONCE(folio_test_swapcache(folio) || shmem_mapping(mapping));
+	...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119134243.3745=
+282-1-kas@kernel.org?part=3D1
