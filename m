@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81A9606A325
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 05:12:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF093606A320
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 05:12:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JPc5Xj0w
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RmJ8xiwZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1255D10FDFE;
-	Fri, 20 Nov 2026 05:12:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53A1C10FFAB;
+	Fri, 20 Nov 2026 05:12:04 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DD4610F116;
- Fri, 20 Nov 2026 05:11:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C240210FE82;
+ Fri, 20 Nov 2026 05:11:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795151513; x=1826687513;
+ t=1795151519; x=1826687519;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=tDozPjSPD4DxrKeYkSiSxa//vWx69Tp/WnB/FzaZEVg=;
- b=JPc5Xj0wZ7q1WOLDJzVhitYxIBVflneIcKutmcROpupGP8aNu4o0Rcm/
- Q3JD9XPXphgW0PT+XU6PAsEuNIwB6foDda0bB0+LIajv+mETNIQ0NgdIh
- iPOoXd1cj4MQY4NfuRPqCsgn5JbnvB9cI0LWzBYM1sy9YFOfmc8XEIfBf
- yngBePVHnW6XCNIRbbauvH+RBqHkxzPdAleJu4ieoX7VQQAKYyG8ZSwqz
- wMKqoPxdLXKnRZegn1oyJSKMNwuI4JQfF94t1xec9IBNLt8FmgRrVvIX4
- FC5UihenG4MpIHdGex31+aO+eevlFbgeHqpao/EokbWGQud1Dxg2LNgDQ Q==;
-X-CSE-ConnectionGUID: Ofi17QPeRH+M6m6fRxOy5w==
-X-CSE-MsgGUID: eTYTRdGbQYm3NgMU5y0QuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3907486"
+ bh=TNkeVE4H/t6x9zLQe4RNI9R9/O6XANZSZP+0AUK6gY0=;
+ b=RmJ8xiwZ0DuNhIRd1xwXSeR5V6rkARDjmWxJyuheEL5IXJFdfUh1KOSX
+ 0bK2Y1KsMLKD31+LE3b8R5xyfiOXG51Ap0a5TFupqobGajkZKG2dR/Tlx
+ 1g1j2O9bQKR1rojUTJFEJ8R4z4fHQgK2aRWImwLgTbZteiMr5TFsNdnua
+ wciDC8ue0UMiYCdmmoTVgdaacLI546avEyw6XvlSLX7t77qLuCngYZUe9
+ x8PXLQcOcCowfwzMfaXb5ubZCcSr2Ix6BwtSuV/2X+YtBkCIY8ZL6lGSF
+ bKkLDwAUzJQLkextz/YZW0xoaCgM1D/y8w0xa3qiZEifeq6LUcGszzXvY w==;
+X-CSE-ConnectionGUID: eGQLuXgQQ3iQgv2h0rRmbw==
+X-CSE-MsgGUID: fNvZQaoDSkGHavhSugO8gQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3907501"
 X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="3907486"
+   d="scan'208";a="3907501"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 21:11:53 -0800
-X-CSE-ConnectionGUID: n3ndZQ1zStWQHj6jmGvhpQ==
-X-CSE-MsgGUID: KjCYbGaySPqAXqo3q6BX/w==
+ 19 Nov 2026 21:11:58 -0800
+X-CSE-ConnectionGUID: tjuv1bCdQ/WLv12MRTfO2A==
+X-CSE-MsgGUID: I8uF9mAETVqEXezdhMzqzg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10607300"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10607354"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa004.fm.intel.com with ESMTP; 19 Nov 2026 21:11:49 -0800
+ by fmviesa004.fm.intel.com with ESMTP; 19 Nov 2026 21:11:55 -0800
 From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Fri, 20 Nov 2026 10:36:10 +0530
-Subject: [PATCH v5 11/13] drm/dp: Add a helper for the DP BW margin
- overhead
+Date: Fri, 20 Nov 2026 10:36:12 +0530
+Subject: [PATCH v5 13/13] drm/i915/dp: Enable the DP symbol TG, with a
+ debugfs knob to disable it
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-vlk-64036-dp-symbol-tg-v5-11-bf8f78b32709@intel.com>
+Message-Id: <20261120-vlk-64036-dp-symbol-tg-v5-13-bf8f78b32709@intel.com>
 References: <20261120-vlk-64036-dp-symbol-tg-v5-0-bf8f78b32709@intel.com>
 In-Reply-To: <20261120-vlk-64036-dp-symbol-tg-v5-0-bf8f78b32709@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
@@ -69,147 +69,107 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Split out the SSC/REF_CLK and FEC margin part of the BW overhead from
-drm_dp_bw_overhead(), as it doesn't depend on the timings of the stream.
-This allows calculating the BW of a stream whose symbol alignment padding
-is accounted for by other means, for instance by an effective bpp.
+Enable symbol TG for 8b/10b MST and 128b/132b SST/MST on the platforms
+supporting it.
+
+Keep a debugfs knob, enable_dp_symbol_tg, to still select the pixel based
+timing generator, for the case of a sink having issues with the symbol
+based one, or for debugging purpose.
 
 Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 86 +++++++++++++++++++++------------
- include/drm/display/drm_dp_helper.h     |  1 +
- 2 files changed, 57 insertions(+), 30 deletions(-)
+ .../gpu/drm/i915/display/intel_display_params.h    |  6 ++++
+ drivers/gpu/drm/i915/display/intel_dp.c            | 32 ++++++++++------------
+ 2 files changed, 21 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 488fd123a01adb7c063d14e3952370726a3b65d6..576c62c2268a684b2c370190249d537b070bf41a 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -4773,45 +4773,23 @@ int drm_dp_link_symbol_cycles(int lane_count, int pixels, int dsc_slice_count,
- EXPORT_SYMBOL(drm_dp_link_symbol_cycles);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
+index 5c5a1a1358c32a08a460bdb81da76c3682827ab9..503eef8cf744fbf802bcf86d25f581871fcc3f8c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.h
++++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+@@ -56,6 +56,12 @@ struct drm_printer;
+ 	 * in intel_display_params.c on purpose. Runtime-toggle via debugfs.
+ 	 */ \
+ 	param(bool, enable_periodic_assdp, false, 0600) \
++	/*
++	 * Debugfs-only knob (per-device), to fall back to the pixel based DP timing
++	 * generator, if a sink has issues with the symbol based one. Applies to the
++	 * next modeset or mode validation.
++	 */ \
++	param(bool, enable_dp_symbol_tg, true, 0600) \
  
- /**
-- * drm_dp_bw_overhead - Calculate the BW overhead of a DP link stream
-- * @lane_count: DP link lane count
-- * @hactive: pixel count of the active period in one scanline of the stream
-- * @dsc_slice_count: number of slices for DSC or '0' for non-DSC
-- * @bpp_x16: bits per pixel in .4 binary fixed point
-+ * drm_dp_bw_margin_overhead - Calculate the margin BW overhead of a DP link stream
-  * @flags: DRM_DP_OVERHEAD_x flags
-  *
-- * Calculate the BW allocation overhead of a DP link stream, depending
-- * on the link's
-- * - @lane_count
-- * - SST/MST mode (@flags / %DRM_DP_OVERHEAD_MST)
-- * - symbol size (@flags / %DRM_DP_OVERHEAD_UHBR)
-+ * Calculate the part of the BW allocation overhead of a DP link stream which
-+ * only depends on the link's
-  * - FEC mode (@flags / %DRM_DP_OVERHEAD_FEC)
-  * - SSC/REF_CLK mode (@flags / %DRM_DP_OVERHEAD_SSC_REF_CLK)
-- * as well as the stream's
-- * - @hactive timing
-- * - @bpp_x16 color depth
-- * - compression mode (@dsc_slice_count != 0)
-- * Note that this overhead doesn't account for the 8b/10b, 128b/132b
-- * channel coding efficiency, for that see
-- * @drm_dp_link_bw_channel_coding_efficiency().
-+ * and not on the stream's timings, that is the overhead excluding the one
-+ * from the symbol alignment padding calculated by drm_dp_bw_overhead(). This
-+ * is useful if the symbol alignment is accounted for in another way, for
-+ * instance by the stream's effective bpp.
-  *
-  * Returns the overhead as 100% + overhead% in 1ppm units.
+ #define MEMBER(T, member, ...) T member;
+ struct intel_display_params {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 217b5d1e082f2bb9ee15773e382c528700671584..d312b82253b89359958ac326121121c0ef225e97 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1271,13 +1271,13 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
+ }
+ 
+ /*
+- * The symbol based timing generator is to be used for 8b/10b MST and 128b/132b
+- * SST/MST, but only once all the pieces needed for that are in place, which is
+- * done by a later patch.
++ * The symbol based timing generator is used for 8b/10b MST and 128b/132b
++ * SST/MST, unless disabled by the enable_dp_symbol_tg debugfs knob.
   */
--int drm_dp_bw_overhead(int lane_count, int hactive,
--		       int dsc_slice_count,
--		       int bpp_x16, unsigned long flags)
-+int drm_dp_bw_margin_overhead(unsigned long flags)
+ bool intel_dp_use_symbol_tg(struct intel_display *display, bool is_mst, bool is_uhbr)
  {
--	int symbol_size = flags & DRM_DP_BW_OVERHEAD_UHBR ? 32 : 8;
--	bool is_mst = flags & DRM_DP_BW_OVERHEAD_MST;
- 	u32 overhead = 1000000;
--	int symbol_cycles;
--
--	if (lane_count == 0 || hactive == 0 || bpp_x16 == 0) {
--		DRM_DEBUG_KMS("Invalid BW overhead params: lane_count %d, hactive %d, bpp_x16 " FXP_Q4_FMT "\n",
--			      lane_count, hactive,
--			      FXP_Q4_ARGS(bpp_x16));
+-	return false;
++	return HAS_DP_SYMBOL_TG(display) && display->params.enable_dp_symbol_tg &&
++		(is_mst || is_uhbr);
+ }
+ 
+ static int
+@@ -4004,7 +4004,7 @@ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 
+ 	/* MSO is only used with 8b/10b SST, where the symbol TG isn't used */
+ 	if (drm_WARN_ON(display->drm, crtc_state->splitter.enable))
+-		return 0;
++		return -EINVAL;
+ 
+ 	ret = intel_dp_compute_dsc_slices_and_link_bpp(crtc_state, connector,
+ 						       &dsc_slices, &link_bpp_x16);
+@@ -4019,12 +4019,11 @@ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 	hblank_cycles = cycles.hblank;
+ 	chunk_cycles = cycles.chunk;
+ 
+-	if (!intel_dp_symbol_tg_cycles_in_range(&cycles)) {
+-		drm_dbg_kms(display->drm,
+-			    "LL symbol timings out of range (hactive %d, hblank %d, chunk %d), using pixel TG\n",
+-			    hactive_cycles, hblank_cycles, chunk_cycles);
 -		return 0;
 -	}
++	/* The link config search already checked that the timings fit. */
++	if (drm_WARN(display->drm, !intel_dp_symbol_tg_cycles_in_range(&cycles),
++		     "LL symbol timings out of range (hactive %d, hblank %d, chunk %d)\n",
++		     hactive_cycles, hblank_cycles, chunk_cycles))
++		return -EINVAL;
  
- 	/*
- 	 * DP Standard v2.1 2.6.4.1
-@@ -4845,6 +4823,54 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
- 	WARN_ON((flags & DRM_DP_BW_OVERHEAD_UHBR) &&
- 		(flags & DRM_DP_BW_OVERHEAD_FEC));
+ 	if (is_uhbr) {
+ 		ch_num = 1568768;
+@@ -4077,12 +4076,11 @@ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 				     (u64)ch_num * (ssc_num / ssc_gcd),
+ 				     data_n[ssc]);
  
-+	return overhead;
-+}
-+EXPORT_SYMBOL(drm_dp_bw_margin_overhead);
-+
-+/**
-+ * drm_dp_bw_overhead - Calculate the BW overhead of a DP link stream
-+ * @lane_count: DP link lane count
-+ * @hactive: pixel count of the active period in one scanline of the stream
-+ * @dsc_slice_count: number of slices for DSC or '0' for non-DSC
-+ * @bpp_x16: bits per pixel in .4 binary fixed point
-+ * @flags: DRM_DP_OVERHEAD_x flags
-+ *
-+ * Calculate the BW allocation overhead of a DP link stream, depending
-+ * on the link's
-+ * - @lane_count
-+ * - SST/MST mode (@flags / %DRM_DP_OVERHEAD_MST)
-+ * - symbol size (@flags / %DRM_DP_OVERHEAD_UHBR)
-+ * - FEC mode (@flags / %DRM_DP_OVERHEAD_FEC)
-+ * - SSC/REF_CLK mode (@flags / %DRM_DP_OVERHEAD_SSC_REF_CLK)
-+ * as well as the stream's
-+ * - @hactive timing
-+ * - @bpp_x16 color depth
-+ * - compression mode (@dsc_slice_count != 0)
-+ * Note that this overhead doesn't account for the 8b/10b, 128b/132b
-+ * channel coding efficiency, for that see
-+ * @drm_dp_link_bw_channel_coding_efficiency().
-+ *
-+ * Returns the overhead as 100% + overhead% in 1ppm units.
-+ */
-+int drm_dp_bw_overhead(int lane_count, int hactive,
-+		       int dsc_slice_count,
-+		       int bpp_x16, unsigned long flags)
-+{
-+	int symbol_size = flags & DRM_DP_BW_OVERHEAD_UHBR ? 32 : 8;
-+	bool is_mst = flags & DRM_DP_BW_OVERHEAD_MST;
-+	u32 overhead;
-+	int symbol_cycles;
-+
-+	if (lane_count == 0 || hactive == 0 || bpp_x16 == 0) {
-+		DRM_DEBUG_KMS("Invalid BW overhead params: lane_count %d, hactive %d, bpp_x16 "
-+			      FXP_Q4_FMT "\n",
-+			      lane_count, hactive,
-+			      FXP_Q4_ARGS(bpp_x16));
-+		return 0;
-+	}
-+
-+	overhead = drm_dp_bw_margin_overhead(flags);
-+
- 	symbol_cycles = drm_dp_link_symbol_cycles(lane_count, hactive,
- 						  dsc_slice_count,
- 						  bpp_x16, symbol_size,
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 5b05a7fbe174a6497bb98cab34dc3f5607233815..a568da6b249b52914c253a92d815e5a96fd773f5 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -1028,6 +1028,7 @@ int drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8 color_spc);
- #define DRM_DP_BW_OVERHEAD_FEC		BIT(3)
- #define DRM_DP_BW_OVERHEAD_DSC		BIT(4)
+-		if (intel_dp_cmp_u128(data_m[ssc], data_n[ssc]) > 0) {
+-			drm_dbg_kms(display->drm,
+-				    "LL symbol data M/N ratio exceeds 1.0 (SSC %s), using pixel TG\n",
+-				    str_enabled_disabled(ssc));
+-			return 0;
+-		}
++		/* The link config search already checked that the stream fits. */
++		if (drm_WARN(display->drm, intel_dp_cmp_u128(data_m[ssc], data_n[ssc]) > 0,
++			     "LL symbol data M/N ratio exceeds 1.0 (SSC %s)\n",
++			     str_enabled_disabled(ssc)))
++			return -EINVAL;
+ 	}
  
-+int drm_dp_bw_margin_overhead(unsigned long flags);
- int drm_dp_bw_overhead(int lane_count, int hactive,
- 		       int dsc_slice_count,
- 		       int bpp_x16, unsigned long flags);
+ 	tg->enable = true;
 
 -- 
 2.25.1
