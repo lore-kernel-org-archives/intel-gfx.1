@@ -2,28 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AC160A2605
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 10:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F598606A320
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 11:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jN3My5gu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBE3A10E2A2;
-	Fri, 20 Nov 2026 10:58:54 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5894710E202;
- Fri, 20 Nov 2026 10:58:54 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3042594430992178513=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 817F5112915;
+	Fri, 20 Nov 2026 11:25:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEBD2112911;
+ Fri, 20 Nov 2026 11:25:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795173933; x=1826709933;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=nJflTo/S163kjEMWLt1CJc89L3Gu4IKHol7tUJLyxWY=;
+ b=jN3My5gugoMIr6qzxSxygOopxBu208lWDrLQ0XigGJ/KWv2tER6GboNq
+ 0i/GFfs3WTvPkeAq75Muzdx05SoYxzGkC6ba7G0l16P+J8O6nbCEY2ED6
+ 12UkDsKn2Ejt249qNNS2PFWHPR8ZyU1rOqqLgPnI+kWASfN3+nauLV+6w
+ vneuxhFWSTx1/dkiLdXPtw/10SZRLubJXvIlOcELS1z62Js5bn1NKKeJR
+ 5WKRTwqLM4MGiDU4IKdSkDFYvw56iSiezt+SVZtvhQ3QY2PGGFDUEmr3b
+ ZpYpnEhva6OIAsmirzfMuxIoBb2/HylVJne3sp36FaNMIEXfzLG6Du0sh Q==;
+X-CSE-ConnectionGUID: Q3h3SlQfTaet4q885jBNcQ==
+X-CSE-MsgGUID: ayfYXQb+RV+uUPSwDC4PSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4042340"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="4042340"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 03:25:32 -0800
+X-CSE-ConnectionGUID: NoJNMK8cT563Ib3Lyd4wAw==
+X-CSE-MsgGUID: yiF9uvDQToOC1XGNexgNJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="11012771"
+Received: from lpankiew-mobl.ger.corp.intel.com (HELO
+ jhogande-mobl3.intel.com) ([10.245.246.221])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 03:25:30 -0800
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Animesh Manna <animesh.manna@intel.com>, stable@vger.kernel.org
+Subject: [PATCH] drm/i915/alpm: Track the configured transcoder lifetime
+Date: Fri, 20 Nov 2026 13:24:46 +0200
+Message-ID: <20261120112446.1562267-1-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fix_selective_fetch_updat?=
- =?utf-8?q?e?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 20 Nov 2026 10:58:54 -0000
-Message-ID: <179517233435.58444.1517006249326088101@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261120095541.1325118-1-jouni.hogander@intel.com>
-In-Reply-To: <20261120095541.1325118-1-jouni.hogander@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +64,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============3042594430992178513==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ALPM disable can access a stale transcoder when ALPM was not configured
+for the current modeset, causing unclaimed register accesses during
+pipe teardown.
 
-== Series Details ==
+Record the transcoder only when programming ALPM and invalidate it
+after disable. Check it under the ALPM lock to avoid register accesses
+on repeated or unconfigured disables.
 
-Series: Fix selective fetch update
-URL   : https://patchwork.freedesktop.org/series/179186/
-State : success
+Fixes: 504766382edb ("drm/i915/lobf: Disintegrate alpm_disable from psr_disable")
+Cc: Animesh Manna <animesh.manna@intel.com>
+Cc: <stable@vger.kernel.org> # v6.16+
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_alpm.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index f54b29e193ee9..105006ca6be7f 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -46,6 +46,7 @@ bool intel_alpm_is_alpm_aux_less(struct intel_dp *intel_dp,
+ void intel_alpm_init(struct intel_dp *intel_dp)
+ {
+ 	mutex_init(&intel_dp->alpm.lock);
++	intel_dp->alpm.transcoder = INVALID_TRANSCODER;
+ }
+ 
+ static int get_silence_period_symbols(const struct intel_crtc_state *crtc_state)
+@@ -549,6 +550,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(crtc_state->alpm_state.check_entry_lines);
+ 
+ 	intel_de_write(display, ALPM_CTL(display, cpu_transcoder), alpm_ctl);
++	intel_dp->alpm.transcoder = cpu_transcoder;
+ 	mutex_unlock(&intel_dp->alpm.lock);
+ }
+ 
+@@ -556,7 +558,6 @@ void intel_alpm_configure(struct intel_dp *intel_dp,
+ 			  const struct intel_crtc_state *crtc_state)
+ {
+ 	lnl_alpm_configure(intel_dp, crtc_state);
+-	intel_dp->alpm.transcoder = crtc_state->cpu_transcoder;
+ }
+ 
+ void intel_alpm_port_configure(struct intel_dp *intel_dp,
+@@ -733,17 +734,23 @@ void intel_alpm_lobf_debugfs_add(struct intel_connector *connector)
+ void intel_alpm_disable(struct intel_dp *intel_dp)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+-	enum transcoder cpu_transcoder = intel_dp->alpm.transcoder;
++	enum transcoder cpu_transcoder;
+ 
+ 	if (DISPLAY_VER(display) < 20 || !intel_dp->alpm_dpcd)
+ 		return;
+ 
+ 	mutex_lock(&intel_dp->alpm.lock);
+ 
++	cpu_transcoder = intel_dp->alpm.transcoder;
++	if (cpu_transcoder == INVALID_TRANSCODER)
++		goto unlock;
++
+ 	intel_de_rmw(display, ALPM_CTL(display, cpu_transcoder),
+ 		     ALPM_CTL_ALPM_ENABLE | ALPM_CTL_LOBF_ENABLE, 0);
++	intel_dp->alpm.transcoder = INVALID_TRANSCODER;
+ 
+ 	drm_dbg_kms(display->drm, "Disabling ALPM\n");
++unlock:
+ 	mutex_unlock(&intel_dp->alpm.lock);
+ }
+ 
+-- 
+2.53.0
 
-CI Bug Log - changes from CI_DRM_19572 -> Patchwork_179186v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19572 -> Patchwork_179186v1
-
-  CI-20190529: 20190529
-  CI_DRM_19572: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9200: 9200
-  Patchwork_179186v1: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html
-
---===============3042594430992178513==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Fix selective fetch update</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179186/">https://patchwork.freedesktop.org/series/179186/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19572 -&gt; Patchwork_179186v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179186v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19572 -&gt; Patchwork_179186v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19572: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9200: 9200<br />
-  Patchwork_179186v1: 5273820504a824f0c81ed31f939599dd0da3fc69 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============3042594430992178513==--
