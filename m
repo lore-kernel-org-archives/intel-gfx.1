@@ -2,52 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96797606A332
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB45D606A32C
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:24:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RfdXs23W
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jRdw8Oiw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16C25112AEA;
-	Fri, 20 Nov 2026 14:24:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70C03112AE0;
+	Fri, 20 Nov 2026 14:24:22 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE680112ADF;
- Fri, 20 Nov 2026 14:24:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A865B112AEB;
+ Fri, 20 Nov 2026 14:24:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795184649; x=1826720649;
+ t=1795184656; x=1826720656;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=k8oFI/+0k9YONqEKabbVZ+Huk32BQqBQfFQYU/XPLQA=;
- b=RfdXs23WCbjfWH0O7RtjgyC/3sz02CErFaCzFJw+XUu5URyELbAmHDP2
- SXLusKsExDapYqeKrKNVkUaMFUcjHm+1i7cQvCZ84sdGZUv0VnbMhHmsr
- aZuh/+73r7Cj0MpwAka8oJEcBn3g7wkw4A5mQGLkhjJx3hiCZKKXKAWV3
- U6FmBAU2uqT2dQFyV9dQ/uMnxNGFnb4Mqh5km5PBIdSUGBr6nq3JYlryc
- XMdzahfmCi+QdGweYAq/CRSA3jKrp8nhiJRixiLrVl3CKMvMVdP/37KAA
- m5rCfluGUZYlg7tLBEQT1t63/xUMxj3W25+a/wXqJlX9k1vhT7EtnBXDV w==;
-X-CSE-ConnectionGUID: RhFtD61rTEqKj4yvIf3wGg==
-X-CSE-MsgGUID: Y5fqfnSaSvOf/sE7a5yrmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4091029"
+ bh=Y10V3uBNCcFPgIVTsnlmmF8Rs5Fu+jmwb/tA71KVJP4=;
+ b=jRdw8OiwQaw5njC66V0nllw5w0keINcgehgaz0l+Zt+bL04PsYHiUMbj
+ 5hKrUgU/puIyCIpSejhmlSQZ/eY31PGA4h7GuhEaJQhmeanpMgraA3qPj
+ t4HtEp3wcuJjVNojCOndWNkw5oV2hW/0AeG0knS2gD7RpVHhMmbKc1quQ
+ 7LmqxIpxxH+4w2sX1tw31IA7ElgjmHmSZjrxkOKJj1b5GYDeLhsY4xUsv
+ pGbzoIIHEpsO3SvDIDRa3vuDPlc02lgsvifBXfSehSCjMeWmOxUaUEdIM
+ KAONJ0wQ2nTrvNsaflfqDimUB7vMXugIAzbxqnDJDYs7i8FQ//RVcOHcj A==;
+X-CSE-ConnectionGUID: ROMn3fI+Sqq9twnp3cCc4A==
+X-CSE-MsgGUID: GBNkpuejTo+/d8T8uMMLIA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4091046"
 X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4091029"
+   d="scan'208";a="4091046"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:51 -0800
-X-CSE-ConnectionGUID: LU+3YaIhRJWFGgk/xrD8Rg==
-X-CSE-MsgGUID: wpE6uHoVQSOys8w5s95hFA==
+ 20 Nov 2026 06:23:58 -0800
+X-CSE-ConnectionGUID: VC6xFmKUSwCnFKZpy+NPAQ==
+X-CSE-MsgGUID: OEECQpNxQ8a3bekywU5l4A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422066"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422083"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:50 -0800
+ 20 Nov 2026 06:23:56 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: alexander.kaplan@sms-medipool.de,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 25/29] drm/i915/dp: Allow limiting the DSC slice count for the
- downstream device
-Date: Fri, 20 Nov 2026 19:37:25 +0530
-Message-ID: <20261120140729.466177-26-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 29/29] drm/i915/dp: Accept DSC 1.2a pass-through modes in the
+ PCON mode check
+Date: Fri, 20 Nov 2026 19:37:29 +0530
+Message-ID: <20261120140729.466177-30-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
 References: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
@@ -72,100 +72,71 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DP side picks the smallest DSC slice count that satisfies the DP
-sink. A device downstream of the DP sink, like an HDMI sink behind a
-PCON that passes the DSC stream through, can have its own limits for
-the slice count.
+An HDMI 2.1 PCON that supports DSC pass-through can forward a DSC 1.2a
+stream of the source to the HDMI sink as is. The mode check only
+considered the PCON DSC encoder, which can re-encode just a DSC 1.1
+stream, so modes that need DSC on the HDMI link were never accepted for
+a DSC 1.2a source.
 
-Add the minimum and the maximum slice count to the link config limits,
-and apply them when picking the slice config. No limit is set yet, so
-there is no change in behavior.
+Now that the pass-through is selected when computing the config, accept
+such a mode if the PCON supports pass-through and the lowest compressed
+bpp the HDMI sink supports fits the FRL bandwidth. The stream
+parameters are only known once the DP link is computed, so this is just
+a rough estimate, the config computation does the exact check.
 
 Assisted-by: LLM
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 13 ++++++++++++-
- drivers/gpu/drm/i915/display/intel_dp.h |  8 ++++++++
- 2 files changed, 20 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 28 +++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 83134be623cf..691148fba8f8 100644
+index 5ac687412406..81a8e4ad2c92 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -910,6 +910,7 @@ static bool
- intel_dp_dsc_get_slice_config(const struct intel_connector *connector,
- 			      int mode_clock, int mode_hdisplay,
- 			      int num_joined_pipes,
-+			      int dfp_min_slices, int dfp_max_slices,
- 			      struct intel_dsc_slice_config *config_ret)
+@@ -1392,8 +1392,9 @@ intel_dp_pcon_dsc_passthrough_ok(struct intel_dp *intel_dp,
+ }
+ 
+ /*
+- * Whether the PCON can compress a stream that doesn't fit the HDMI FRL link
+- * uncompressed. The DP stream has to be compressed for that as well.
++ * Whether the PCON can pass a DSC 1.2a stream through, or compress a stream
++ * that doesn't fit the HDMI FRL link uncompressed. The DP stream has to be
++ * compressed for that as well.
+  */
+ static bool
+ intel_dp_hdmi_dsc_possible(struct intel_dp *intel_dp,
+@@ -1401,11 +1402,26 @@ intel_dp_hdmi_dsc_possible(struct intel_dp *intel_dp,
+ 			   int bpc, enum intel_output_format sink_format)
  {
- 	struct intel_display *display = to_intel_display(connector);
-@@ -921,6 +922,8 @@ intel_dp_dsc_get_slice_config(const struct intel_connector *connector,
- 		drm_dp_dsc_sink_slice_count_mask(connector->dp.dsc_dpcd, is_edp);
- 	int slices_per_pipe;
- 
-+	min_slice_count = max(min_slice_count, dfp_min_slices);
+ 	struct intel_connector *connector = intel_dp->attached_connector;
++	const struct drm_display_info *info = &connector->base.display_info;
++	int min_dsc_bpp, max_dsc_bpp;
 +
- 	/*
- 	 * Find the closest match to the valid slice count values
- 	 *
-@@ -950,6 +953,9 @@ intel_dp_dsc_get_slice_config(const struct intel_connector *connector,
- 		      sink_slice_count_mask))
- 			continue;
- 
-+		if (slices_per_line > dfp_max_slices)
-+			continue;
++	if (!intel_dp_pcon_sink_support_frl(intel_dp))
++		return false;
 +
- 		if (mode_hdisplay % slices_per_line)
- 			continue;
- 
-@@ -979,7 +985,7 @@ u8 intel_dp_dsc_get_slice_count(const struct intel_connector *connector,
- 
- 	if (!intel_dp_dsc_get_slice_config(connector,
- 					   mode_clock, mode_hdisplay,
--					   num_joined_pipes, &config))
-+					   num_joined_pipes, 0, INT_MAX, &config))
- 		return 0;
- 
- 	return intel_dsc_line_slice_count(&config);
-@@ -2741,6 +2747,8 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 
- 	if (!intel_dp_dsc_get_slice_config(connector, adjusted_mode->crtc_clock,
- 					   adjusted_mode->crtc_hdisplay, num_joined_pipes,
-+					   limits->dfp_dsc.min_slices,
-+					   limits->dfp_dsc.max_slices,
- 					   &pipe_config->dsc.slice_config))
- 		return -EINVAL;
- 
-@@ -3092,6 +3100,9 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
- 
- 	limits->link_config_filter = INTEL_DP_LINK_CAPS_FILTER_ALL;
- 
-+	limits->dfp_dsc.min_slices = 0;
-+	limits->dfp_dsc.max_slices = INT_MAX;
++	/* A DSC 1.1 stream is re-encoded, a DSC 1.2a stream is passed through */
++	if (intel_dp_dsc_stream_version_minor(connector) < 2)
++		return intel_dp_pcon_dsc_enc_compute(intel_dp, mode, pixel_clock, bpc,
++						     sink_format, NULL);
 +
- 	limits->pipe.min_bpp = intel_dp_min_bpp(crtc_state->output_format);
- 	if (is_mst) {
- 		/*
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 83954c2c28e6..f02ae879fca2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -38,6 +38,14 @@ struct link_config_limits {
- 		/* Compressed or uncompressed link output bpp in 1/16 bpp units */
- 		int min_bpp_x16, max_bpp_x16;
- 	} link;
-+	struct {
-+		/*
-+		 * DSC limits of the downstream facing port: the slice count per
-+		 * line, for an HDMI sink behind a PCON passing the DSC stream
-+		 * through. No limit: 0 and INT_MAX.
-+		 */
-+		int min_slices, max_slices;
-+	} dfp_dsc;
- };
++	if (!intel_dp_pcon_can_passthrough_dsc(intel_dp) ||
++	    intel_dp_output_format(connector, sink_format) != sink_format)
++		return false;
++
++	/* The stream parameters are only known once the DP link is computed */
++	intel_hdmi_dsc_get_min_max_bpp(sink_format, bpc, info->hdmi.dsc_cap.all_bpp,
++				       &min_dsc_bpp, &max_dsc_bpp);
  
- void intel_edp_fixup_vbt_bpp(struct intel_encoder *encoder, int pipe_bpp);
+-	return intel_dp_pcon_sink_support_frl(intel_dp) &&
+-		intel_dp_dsc_stream_version_minor(connector) < 2 &&
+-		intel_dp_pcon_dsc_enc_compute(intel_dp, mode, pixel_clock, bpc,
+-					      sink_format, NULL);
++	return intel_dp_hdmi_frl_payload_bw(intel_dp, true) / pixel_clock >= min_dsc_bpp;
+ }
+ 
+ static enum drm_mode_status
 -- 
 2.50.1
 
