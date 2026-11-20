@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73669606A334
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:23:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D658F606A326
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ef99/QCd
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bPoTxdKy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0628A10E1CC;
-	Fri, 20 Nov 2026 14:23:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5E1112ABF;
+	Fri, 20 Nov 2026 14:23:53 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A93010E8FA;
- Fri, 20 Nov 2026 14:23:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A237F112AC3;
+ Fri, 20 Nov 2026 14:23:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795184603; x=1826720603;
+ t=1795184627; x=1826720627;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Yb7t6iXTOATNjMwXsdVxyxZD+1VON/7MaeT1G1RUb6I=;
- b=Ef99/QCduLxKjD08BrXH0WT1MIllw0UY6JCjnAzzZlogZ4/zwlkI7+oc
- F28AgW0omCeImiBUVK7TCH0Tv36tvH3QbnvrvZVGe+OTF2DA4g+hVJRgc
- T1FhvpFxTLUTQpZxJjlKHLnHppthEluEEp7yJ/WfQGFrebM7cNR4MEDNO
- xvWK5AW7YgIw6NZICzqiGQwAkZImEDoGpfr4qfCFixm338syV/MjwgcUb
- 7iIDhj1SF8LIkBHfyzmBKitT33J/z5eem3kNONWyoE7oJoYzqFbz12eTr
- v44dHDxyJW4tfYMk/DtvQ+z61l5Wr4kqau0wo9/wBud9B7ChtS2sNQJSS g==;
-X-CSE-ConnectionGUID: in7vVREKSgSMfZMRWOVz4Q==
-X-CSE-MsgGUID: L+gjZeMKTzC6o19eVD5EGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090935"
+ bh=gmsrFmC8BNExCTTOKCacZ0le4XUVaCI6sshVP/DzEhc=;
+ b=bPoTxdKyw8JuAnalAesbpK7yZ9RmoILCecmO8jaaU73T3+T42Ug+MSnN
+ ic3KHAZBy/XqWxnUyo8FXDypVjgow5HNZBCfe+eegp5WoEaMuXl7ai90+
+ zZ8+67EfKdaISBaiBX/xhlPyKO79R98t+Wus+wXER1MMORdPPRIZa7H4g
+ UjOf8nLZjzD7c698GKWfnpdtva170qkTUWKYUm4c5GI9Dp8JvV1VOKkl4
+ NUrgCUTViGIg7OtbD6j67Ja+RYoLzJ8Y894n1F254xygyxG2yMTK6rsI1
+ 6k6LE7tyFaN2vvj88UVk9XfIftRQLnNmtX6xDGeBpp1hAmJ+NXA9e8zLn w==;
+X-CSE-ConnectionGUID: HVkyv9YhRvaQ2DuqeMCmXg==
+X-CSE-MsgGUID: VwpyZg6WTl2J5O60W8kCcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090967"
 X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4090935"
+   d="scan'208";a="4090967"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:23 -0800
-X-CSE-ConnectionGUID: YIWMVYz9RNq9/Zrhg1yTsg==
-X-CSE-MsgGUID: 0RvZvJ8cQuiaSs8LjqaOnw==
+ 20 Nov 2026 06:23:29 -0800
+X-CSE-ConnectionGUID: /Gbg3U0fRE2JUGpgw/j8Pg==
+X-CSE-MsgGUID: lfHfTdzoT5eOBWIKKxs6nw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422007"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422021"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:21 -0800
+ 20 Nov 2026 06:23:28 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: alexander.kaplan@sms-medipool.de,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 08/29] drm/i915/dp: Account for FRL 16b/18b encoding overhead
-Date: Fri, 20 Nov 2026 19:37:08 +0530
-Message-ID: <20261120140729.466177-9-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 12/29] drm/i915/dp: Compute the PCON DSC operation
+Date: Fri, 20 Nov 2026 19:37:12 +0530
+Message-ID: <20261120140729.466177-13-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
 References: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
@@ -71,39 +71,62 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-HDMI 2.1 FRL uses 16b/18b line coding, so only 16/18 of the raw FRL
-rate carries payload. The FRL bandwidth check compared the required
-bandwidth against the raw rate of the PCON and the sink, and so
-accepted modes that cannot be carried.
+When the DP stream is compressed and the HDMI link of an HDMI 2.1 PCON
+carries it uncompressed, the PCON decodes the DSC stream. Record this in
+the PCON DSC state once the DP link configuration is final.
 
-Use the payload bandwidth for the check. The requirement is still
-estimated from the full pixel clock including blanking, so it remains
-an upper bound.
+The operations for HDMI links that need DSC are added once such modes
+can be selected.
 
 Assisted-by: LLM
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 45e4812777cb..0e32e0f0789a 100644
+index 6412248e9dcc..e837645a6421 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1206,8 +1206,11 @@ intel_dp_frl_bw_valid(struct intel_dp *intel_dp, int target_clock,
- 	max_frl_bw = min(intel_dp->dfp.pcon_max_frl_bw,
- 			 intel_dp_hdmi_sink_max_frl(intel_dp));
+@@ -129,6 +129,7 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
  
--	/* converting bw from Gbps to Kbps*/
--	max_frl_bw = max_frl_bw * 1000000;
-+	/*
-+	 * Convert the rate from Gbps to kbps. FRL uses 16b/18b line coding, so
-+	 * only 16/18 of the raw rate carries payload.
-+	 */
-+	max_frl_bw = max_frl_bw * 1000000 * 16 / 18;
+ static void intel_dp_unset_edid(struct intel_dp *intel_dp);
+ static int intel_dp_hdmi_sink_max_frl(struct intel_dp *intel_dp);
++static bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp);
  
- 	/* #FIXME check bandwidth with DSC if both PCON and HDMI sink support DSC */
- 	if (target_bw > max_frl_bw)
+ /* Is link rate UHBR and thus 128b/132b? */
+ bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state)
+@@ -3013,6 +3014,19 @@ bool intel_dp_joiner_needs_dsc(struct intel_display *display,
+ 		num_joined_pipes == 4;
+ }
+ 
++static int
++intel_dp_pcon_compute_config(struct intel_dp *intel_dp,
++			     struct intel_crtc_state *crtc_state)
++{
++	if (!intel_dp_is_hdmi_2_1_sink(intel_dp))
++		return 0;
++
++	if (crtc_state->dsc.compression_enable)
++		crtc_state->pcon_config.dsc_op = INTEL_PCON_DSC_DECODE;
++
++	return 0;
++}
++
+ static int
+ intel_dp_compute_link_for_joined_pipes(struct intel_encoder *encoder,
+ 				       struct intel_crtc_state *pipe_config,
+@@ -3098,6 +3112,10 @@ intel_dp_compute_link_for_joined_pipes(struct intel_encoder *encoder,
+ 			return -EINVAL;
+ 	}
+ 
++	ret = intel_dp_pcon_compute_config(intel_dp, pipe_config);
++	if (ret)
++		return ret;
++
+ 	drm_dbg_kms(display->drm,
+ 		    "DP lane count %d clock %d bpp input %d compressed " FXP_Q4_FMT " HDR %s link rate required %d available %d\n",
+ 		    pipe_config->lane_count, pipe_config->port_clock,
 -- 
 2.50.1
 
