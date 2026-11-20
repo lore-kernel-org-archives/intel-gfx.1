@@ -2,53 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFAF7606A32C
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:23:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F764606A33E
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:23:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TLPY4FsU
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TFpjldXP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41A3A112AB9;
-	Fri, 20 Nov 2026 14:23:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D84F4112ABB;
+	Fri, 20 Nov 2026 14:23:32 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C77F3112A9F;
- Fri, 20 Nov 2026 14:23:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C7D112AA3;
+ Fri, 20 Nov 2026 14:23:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795184600; x=1826720600;
+ t=1795184605; x=1826720605;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aOKura//W6w8F3/oTwpzgnhK7ur3FZBVTsNcKfIfFIM=;
- b=TLPY4FsUcxaGR/LERzJGRhOgPLh+4u4dpZjHLz4yJno3i2l5Yvkl51lT
- w/Hcri2t0a+ntnSNTO3W0IffOX8LCsWiTmYMA+rP3jeNY+B5dGjswCucO
- 4M+LCUreDHKLEB6r+10vdw6irvBxoNQLECuM0bv+lM/zL1XDauNubNG7a
- wiVYcF2sNeSjx/SgUyVgnVK3WyW0iVWE1fEWZB4pPnpzjKtm+9npQKMbI
- /gY7cGcKiwrKTgPLeb9PUiohADqCu20dqf30sn2gUQGc1jiy8uUCdSho7
- nTTWUFBZ120lQE70LIjhBgxxpAYV4ixqgBR/wO26BNuphZPJisFKZ/phS Q==;
-X-CSE-ConnectionGUID: TeTm4SsKSFuHJ505bSJ6rQ==
-X-CSE-MsgGUID: lh5Mv/EBQuWtC5CjTbY00Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090921"
+ bh=wmNOpAC90aRyXwpyA+Y4qxkb+V6+WZnmal6jsk/oGqo=;
+ b=TFpjldXP94jdG4sJd35Q2Eje6hAp9Wkq4CUvk71j3OarEava6ejU7amG
+ kLaZPe5NJ/JWTLz7kqh3p/20yHB3bvrl2fgcWZtqZPVy1yAW7NBZ3Zuhz
+ V9AamvX1AScXihSDPRsA2vfS+TcSTyobRDVMYwlKgbUg7CKcGMFMO3l99
+ yfcEreUPoYNn/bPom5iXCuNDqY1FNTcOgK9RB8o1CpDuWObn2nUrWpZy/
+ w2coosg4n07VwxeT+bfEcKOU1Ez/byMBShtCxlKOh2sRow/W8vZarXO4M
+ eazdCyYtqtnPYuDEMGjNTxhlijAklMj0TWLP+wJ4K/yQUKn5JnK1+YFJ2 w==;
+X-CSE-ConnectionGUID: mvLIDBw0TYqsYVs/E2BJFA==
+X-CSE-MsgGUID: zh8lhP81RGKBuZio83okrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090943"
 X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4090921"
+   d="scan'208";a="4090943"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:19 -0800
-X-CSE-ConnectionGUID: WOzLVbg+T2at7xWKl9KeWg==
-X-CSE-MsgGUID: +xJidTXSQyKnTjLtq0pDRg==
+ 20 Nov 2026 06:23:24 -0800
+X-CSE-ConnectionGUID: O+sRNzgWQOygIfYlbDDHJw==
+X-CSE-MsgGUID: 5XIrZtxCT+aC5mIrnZp32Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422000"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422010"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:18 -0800
+ 20 Nov 2026 06:23:23 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: alexander.kaplan@sms-medipool.de,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 06/29] drm/i915/hdmi: Add helper to check if DSC chunksize
- fits the sink limits
-Date: Fri, 20 Nov 2026 19:37:06 +0530
-Message-ID: <20261120140729.466177-7-ankit.k.nautiyal@intel.com>
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 09/29] drm/i915/hdmi: Clamp the target_bpp only when it equals
+ the link bpp
+Date: Fri, 20 Nov 2026 19:37:09 +0530
+Message-ID: <20261120140729.466177-10-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
 References: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
@@ -74,77 +73,73 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Introduce the helper intel_hdmi_dsc_bpp_fits_chunk_bytes() to check
-whether the chunksize computed for the given slice configuration is with
-in the sink's max chunksize limits.
+The max bpp from intel_hdmi_dsc_get_min_max_bpp() is at most the
+uncompressed link bpp, so when picking the compressed bpp we reduce the
+target to keep it below the uncompressed link bpp. Doing this
+unconditionally makes the search skip both the max and min boundaries,
+returning 0 when max_dsc_bpp equals min_dsc_bpp.
 
+That case isn't hit as of now, but an upcoming FRL link-bandwidth clamp
+can make max_dsc_bpp == min_dsc_bpp.
+
+Reduce the target only when it equals the uncompressed link bpp, start
+at max_dsc_bpp otherwise, and iterate down to and including min_dsc_bpp.
+
+v2: Use link bpp, reuse intel_dp_output_format_link_bpp_x16(). (Suraj)
+
+Assisted-by: LLM
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 25 ++++++++++++++++++++---
- drivers/gpu/drm/i915/display/intel_hdmi.h |  2 ++
- 2 files changed, 24 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 3321b673b3b6..027a337ad8b8 100644
+index ac2172a5a320..09c8d5b92b1c 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -3369,11 +3369,30 @@ intel_hdmi_dsc_get_min_max_bpp(enum intel_output_format output_format, u8 bpc,
- 		*max_dsc_bpp = min(*max_dsc_bpp, 12);
+@@ -3391,13 +3391,15 @@ intel_hdmi_dsc_bpp_fits_chunk_bytes(int bpp, int num_slices, int slice_width,
  }
  
-+/*
-+ * intel_hdmi_dsc_bpp_fits_chunk_bytes - check if a given compressed bpp keeps
-+ * the per-scanline chunk size within the sink's max_chunk_bytes limit.
-+ *
-+ * @bpp: compressed bits per pixel to test
-+ * @num_slices: num of slices supported by the source and sink
-+ * @slice_width: dsc slice width supported by the source and sink
-+ * @hdmi_max_chunk_bytes: max bytes in a line of chunks supported by sink
-+ *
-+ * @return: true if the resulting chunk size fits the sink limit
-+ */
-+bool
-+intel_hdmi_dsc_bpp_fits_chunk_bytes(int bpp, int num_slices, int slice_width,
-+				    int hdmi_max_chunk_bytes)
-+{
-+	int target_bytes = DIV_ROUND_UP((num_slices * slice_width * bpp), 8);
-+
-+	return target_bytes <= hdmi_max_chunk_bytes;
-+}
-+
  static int
- get_dsc_compressed_bpp(int num_slices, int slice_width, int hdmi_max_chunk_bytes,
+-get_dsc_compressed_bpp(int num_slices, int slice_width, int hdmi_max_chunk_bytes,
++get_dsc_compressed_bpp(enum intel_output_format output_format, int bpc,
++		       int num_slices, int slice_width, int hdmi_max_chunk_bytes,
  		       int src_fractional_bpp, int min_dsc_bpp, int max_dsc_bpp)
  {
--	int target_bytes;
  	bool bpp_found = false;
  	int bpp_decrement_x16;
  	int bpp_target;
-@@ -3408,8 +3427,8 @@ get_dsc_compressed_bpp(int num_slices, int slice_width, int hdmi_max_chunk_bytes
+ 	int bpp_target_x16;
++	int link_bpp_x16 = intel_dp_output_format_link_bpp_x16(output_format, 3 * bpc);
+ 
+ 	/*
+ 	 * The Sink has a limit of compressed data in bytes for a scanline,
+@@ -3422,9 +3424,13 @@ get_dsc_compressed_bpp(int num_slices, int slice_width, int hdmi_max_chunk_bytes
+ 	if (!src_fractional_bpp)
+ 		src_fractional_bpp = 1;
+ 	bpp_decrement_x16 = DIV_ROUND_UP(16, src_fractional_bpp);
+-	bpp_target_x16 = (bpp_target * 16) - bpp_decrement_x16;
++	bpp_target_x16 = bpp_target * 16;
+ 
+-	while (bpp_target_x16 > (min_dsc_bpp * 16)) {
++	/* The compressed bpp can't be the same as the uncompressed link bpp */
++	if (bpp_target_x16 == link_bpp_x16)
++		bpp_target_x16 -= bpp_decrement_x16;
++
++	while (bpp_target_x16 >= (min_dsc_bpp * 16)) {
  		int bpp;
  
  		bpp = DIV_ROUND_UP(bpp_target_x16, 16);
--		target_bytes = DIV_ROUND_UP((num_slices * slice_width * bpp), 8);
--		if (target_bytes <= hdmi_max_chunk_bytes) {
-+		if (intel_hdmi_dsc_bpp_fits_chunk_bytes(bpp, num_slices, slice_width,
-+							hdmi_max_chunk_bytes)) {
- 			bpp_found = true;
- 			break;
- 		}
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index 3ab75ef4836e..db87656eb27f 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -59,6 +59,8 @@ int intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width,
- 			   int bpc, bool hdmi_all_bpp, int hdmi_max_chunk_bytes);
- void intel_hdmi_dsc_get_min_max_bpp(enum intel_output_format output_format, u8 bpc,
- 				    bool hdmi_all_bpp, int *min_dsc_bpp, int *max_dsc_bpp);
-+bool intel_hdmi_dsc_bpp_fits_chunk_bytes(int bpp, int num_slices, int slice_width,
-+					 int hdmi_max_chunk_bytes);
- int intel_hdmi_dsc_get_num_slices(const struct drm_display_mode *mode,
- 				  enum intel_output_format output_format,
- 				  int src_max_slices, int src_max_slice_width,
+@@ -3466,7 +3472,8 @@ intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
+ 	intel_hdmi_dsc_get_min_max_bpp(output_format, bpc, hdmi_all_bpp,
+ 				       &min_dsc_bpp, &max_dsc_bpp);
+ 
+-	dsc_bpp_x16 = get_dsc_compressed_bpp(num_slices, slice_width,
++	dsc_bpp_x16 = get_dsc_compressed_bpp(output_format, bpc,
++					     num_slices, slice_width,
+ 					     hdmi_max_chunk_bytes,
+ 					     src_fractional_bpp,
+ 					     min_dsc_bpp, max_dsc_bpp);
 -- 
 2.50.1
 
