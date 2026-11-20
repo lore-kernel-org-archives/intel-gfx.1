@@ -2,52 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0B8606A320
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:23:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34311606A325
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:24:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j61C+B47
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mkLmdlYh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 828DC112AC3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C43FE112AC6;
 	Fri, 20 Nov 2026 14:23:54 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 093B1112AC6;
- Fri, 20 Nov 2026 14:23:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 851DF10E8FD;
+ Fri, 20 Nov 2026 14:23:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795184628; x=1826720628;
+ t=1795184625; x=1826720625;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=j28sLCsMav7WbnK4jgpQHx6XdQWRrSH46u3RsCeEwWA=;
- b=j61C+B47mLToOnM2nqp1u1obONaweXk8I5cDedobh/ODSFd6kQZi2eNe
- LedJnif1x+iTe9c0pVgwvvQDAIaUsp/ieIREyNMZOE6xwp1i4yz0UoMf6
- NanxYr6pLTYnQYnb3Sotv3aMK1pdrAyiMl5V578wG2T9FQ7aTKnsEPJMe
- 7YTyx07J2xL9rKTDBF97y6YNkAd7zTSaTDxf0aQwmv34FS0/WR4LAQ2FD
- E2JkvZK+j5gWymQAYGGa5gdA25zzEMg61NDL/wIp5TkScrj+A3opaaSHt
- M4qtOanxKcx6gThapnWna/JqLFbJy94zTaq9Qd6BwqHZAkc3/6LJA51ue g==;
-X-CSE-ConnectionGUID: a18dDufoRJ2SOmrFJkJGNw==
-X-CSE-MsgGUID: Bw4DbZFjT06Bd2RQlFFAzw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090972"
+ bh=0UP3rfg6jYSaz2dCLRThePSLDXQ6vxbq22UDHpG0ujg=;
+ b=mkLmdlYh4k699xZ2WQWQalPzBQAx6ghHA52zXN/8WHiXUg8GrWxRskFZ
+ Nu5bhklHXVbXxeb4pGS/JIXP8DAvfKNNB8X6b7qc7UPo8Cdb/TRaOV79D
+ fBRCkiWQapBa+2Z3TOmrb8da71/EVREj8Uu/FvAmmgWlOgnDhJVCF4GZj
+ LpLopW2swjLy7tuEJvL+8/jz1ULR4ma+XhaBCsf7ZZ3joAIms49RXHZ07
+ rDIssxKqM6P08DDbT1ODQNagBOq4nIzgQVomfwTH4coiQX05XGhnW4/5Z
+ zjJulqQeSR30TA0HISWHYbvMzCVcPQJr+grlBPGJi0apMJWUY6tVlwdhD g==;
+X-CSE-ConnectionGUID: 9oNHTHVxT9K2Te/qWhWKuw==
+X-CSE-MsgGUID: L2DewmfZSjOV6y5Pav2x/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4090959"
 X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4090972"
+   d="scan'208";a="4090959"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:31 -0800
-X-CSE-ConnectionGUID: +yYh2g8SR/yDsur/4y+z0A==
-X-CSE-MsgGUID: GsUUwVpfQT+WMDb3tkNYFA==
+ 20 Nov 2026 06:23:28 -0800
+X-CSE-ConnectionGUID: osXt7iHwQFydbvPgAa8sjw==
+X-CSE-MsgGUID: 6ZdPnTXsR+ylnGQti8revg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422024"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="12422017"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 06:23:30 -0800
+ 20 Nov 2026 06:23:26 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: alexander.kaplan@sms-medipool.de,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 13/29] drm/i915/dp: Disable the PCON DSC encoder unless it is
- needed
-Date: Fri, 20 Nov 2026 19:37:13 +0530
-Message-ID: <20261120140729.466177-14-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 11/29] drm/dp: Add a helper to disable the PCON DSC encoder
+Date: Fri, 20 Nov 2026 19:37:11 +0530
+Message-ID: <20261120140729.466177-12-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
 References: <20261120140729.466177-1-ankit.k.nautiyal@intel.com>
@@ -68,46 +67,71 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The PCON DSC encoder is only used when the PCON decodes a DSC 1.1 stream
-and encodes DSC 1.2a for the HDMI sink. Otherwise the PCON either
-decodes the stream, or passes a DSC 1.2a stream through, or there is no
-DSC at all.
+The DSC encoder of a PCON is enabled through DPCD 3052h[1], together
+with an optional PPS override in DPCD 3052h[3:2]. The existing helpers
+only ever set these bits.
 
-Currently the encoder is enabled with PPS override parameters whenever
-the PCON and the HDMI sink support DSC 1.2, even for streams that do not
-need it, and it is never disabled again.
-
-Program the encoder only for the decode and re-encode operation, and
-explicitly disable it for all the other operations.
+Add a helper to clear both, so that a driver can switch the encoder off
+when the PCON does not need to encode the stream.
 
 Assisted-by: LLM
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/display/drm_dp_helper.c | 23 +++++++++++++++++++++++
+ include/drm/display/drm_dp_helper.h     |  1 +
+ 2 files changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index e837645a6421..9f6cd726af26 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4610,6 +4610,13 @@ intel_dp_pcon_dsc_configure(struct intel_dp *intel_dp,
- 	    !hdmi_is_dsc_1_2)
- 		return;
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 2b6ce05556b0..e810addf52bc 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -4161,6 +4161,29 @@ int drm_dp_pcon_pps_override_param(struct drm_dp_aux *aux, u8 pps_param[6])
+ }
+ EXPORT_SYMBOL(drm_dp_pcon_pps_override_param);
  
-+	if (crtc_state->pcon_config.dsc_op != INTEL_PCON_DSC_DECODE_ENCODE) {
-+		ret = drm_dp_pcon_dsc_enc_disable(&intel_dp->aux);
-+		if (ret < 0)
-+			drm_dbg_kms(display->drm, "Failed to disable pcon DSC encoder\n");
-+		return;
-+	}
++/**
++ * drm_dp_pcon_dsc_enc_disable() - Disable the DSC encoder of a PCON
++ * @aux: DisplayPort AUX channel
++ *
++ * Disable the DSC encoder of a PCON, along with the encoder PPS override.
++ *
++ * Returns 0 on success, else returns negative error code.
++ */
++int drm_dp_pcon_dsc_enc_disable(struct drm_dp_aux *aux)
++{
++	u8 buf;
++	int ret;
 +
- 	slice_height = intel_dp_pcon_dsc_enc_slice_height(crtc_state);
- 	if (!slice_height)
- 		return;
++	ret = drm_dp_dpcd_read_byte(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, &buf);
++	if (ret < 0)
++		return ret;
++
++	buf &= ~(DP_PCON_ENABLE_DSC_ENCODER | DP_PCON_ENCODER_PPS_OVERRIDE_MASK);
++
++	return drm_dp_dpcd_write_byte(aux, DP_PROTOCOL_CONVERTER_CONTROL_2, buf);
++}
++EXPORT_SYMBOL(drm_dp_pcon_dsc_enc_disable);
++
+ /*
+  * drm_dp_pcon_convert_rgb_to_ycbcr() - Configure the PCon to convert RGB to Ycbcr
+  * @aux: displayPort AUX channel
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index f497c9f3a550..32c95f657631 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -1019,6 +1019,7 @@ int drm_dp_pcon_dsc_bpp_incr(const u8 pcon_dsc_dpcd[DP_PCON_DSC_ENCODER_CAP_SIZE
+ int drm_dp_pcon_pps_default(struct drm_dp_aux *aux);
+ int drm_dp_pcon_pps_override_buf(struct drm_dp_aux *aux, u8 pps_buf[128]);
+ int drm_dp_pcon_pps_override_param(struct drm_dp_aux *aux, u8 pps_param[6]);
++int drm_dp_pcon_dsc_enc_disable(struct drm_dp_aux *aux);
+ bool drm_dp_downstream_rgb_to_ycbcr_conversion(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
+ 					       const u8 port_cap[4], u8 color_spc);
+ int drm_dp_pcon_convert_rgb_to_ycbcr(struct drm_dp_aux *aux, u8 color_spc);
 -- 
 2.50.1
 
