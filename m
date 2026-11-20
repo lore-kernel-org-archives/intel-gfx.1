@@ -2,59 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88220606A320
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 05:12:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8ED60A2608
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 05:36:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jQXirzzC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eze1Mzwt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E840B10FFCE;
-	Fri, 20 Nov 2026 05:12:05 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2719910FC7E;
- Fri, 20 Nov 2026 05:11:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795151516; x=1826687516;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=lIO2nED+OOBjDK6gf1ZzTBVADKPefQjtv7UFQxuPTk8=;
- b=jQXirzzCX28MsE/vh5fjnvSb0F/1AtA13s7AzbTWrJukU31xPdOqG3bw
- O0LbpPP45ndFSiTLReXBQI+pPvlj6q1Dq/85WiCQ/TaeQdNcDL213LIhu
- 1+1btJRIkwLSwxxpvpqTqMSeGnCd3Yv87TWoJZGk2zhUyI1QesvSICUOD
- fwBOm6XOE0e2DrBNOcUwYz43R2FNGyY7a7tNOSthXCTFxy7T8Yr9Rngaj
- fwuN69Wwyd5GeWIErjShSrrhOuNDWqRu3rOl6Pgtf1AwoxUJJjI3nw39p
- PiL+xCgW1s2T4t8DOfop5RuXbru3oM+ZKmVLn37bWtXSx/sl6KmZzuVpS g==;
-X-CSE-ConnectionGUID: GcFnnDlWRuWXRyV+qJgG3w==
-X-CSE-MsgGUID: 2+buB0fyTLan19GgM3EbIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3907494"
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="3907494"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 21:11:56 -0800
-X-CSE-ConnectionGUID: ATcg2aUYQXiaoj34+9JArw==
-X-CSE-MsgGUID: PrjlUND1QGC59YA6AFPi8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10607329"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa004.fm.intel.com with ESMTP; 19 Nov 2026 21:11:52 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Fri, 20 Nov 2026 10:36:11 +0530
-Subject: [PATCH v5 12/13] drm/i915/dp: Account for the symbol TG in the DP
- BW calculations
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261120-vlk-64036-dp-symbol-tg-v5-12-bf8f78b32709@intel.com>
-References: <20261120-vlk-64036-dp-symbol-tg-v5-0-bf8f78b32709@intel.com>
-In-Reply-To: <20261120-vlk-64036-dp-symbol-tg-v5-0-bf8f78b32709@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- chaitanya.kumar.borah@intel.com, uma.shankar@intel.com, 
- suraj.kandpal@intel.com, Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
+	by gabe.freedesktop.org (Postfix) with ESMTP id D62D110E78D;
+	Fri, 20 Nov 2026 05:36:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 568E310E578;
+ Fri, 20 Nov 2026 05:36:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EA1844139C;
+ Fri, 20 Nov 2026 05:36:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9EBB1F000CF;
+ Fri, 20 Nov 2026 05:36:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795152967;
+ bh=tqyp9zPjjrIezYjpSAwpdJah8XiLFf3uLh8Q8IRH3Y0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eze1Mzwt1W+/jjpdnS4Mc6QQGi7FHo4IRG4Jao3lIte7M/tv9sgiqFgzFJgqdn1Wg
+ CMDoNFUjH0MKHAMwCYD/g6xavaGlisejHwL4hdvtHm5aASz1Z2O5amwKoGDupAO3Pg
+ IdEqIV9EyTe5Ck5P8UoEA4oJnX0znhaLzxBfrxFlP36lsgUFxdOFykApvtM9pKUMjo
+ L3EoiQUfJrOlHG4kOs2MsDsE1XDy8gKBjGRm/AASTcV2+72O/kvXJKm4/bXo2bihfP
+ 31CDZ1VR4ONh2hBQe6FEep0/vD70MLSZVOEiI8zDuP09QLwQKmpmLnM8q+MaS+9kRg
+ X1V0IXqJoOkqQ==
+Message-ID: <sashiko-outbox-224494@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 02/12] docs: ioctl-number: update sound entries
+To: "Randy Dunlap" <rdunlap@infradead.org>
+Cc: "Jonathan Corbet" <corbet@lwn.net>,
+ "Shuah Khan" <skhan@linuxfoundation.org>, "David
+ Hildenbrand" <david@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>,
+ "Jason Gunthorpe" <jgg@nvidia.com>, "Leon Romanovsky" <leonro@nvidia.com>,
+ linux-mm@kvack.org, "Jaroslav
+ Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, "Jens
+ Axboe" <axboe@kernel.dk>, "Marcel Holtmann" <marcel@holtmann.org>, "Luiz
+ Augusto von Dentz" <luiz.dentz@gmail.com>,
+ "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>, "Jason
+ Wang" <jasowangio@gmail.com>, "David Heidelberg" <david@ixit.cz>, "Chas
+ Williams" <3chas3@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Helge Deller" <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com, "James
+ E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
+ Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Zhihao
+ Cheng" <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org, "Neill
+ Kapron" <nkapron@google.com>, "Andrey Konovalov" <andreyknvl@gmail.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ "Juergen
+ Gross" <jgross@suse.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Hans
+ de Goede" <hansg@kernel.org>, "Arnd Bergmann" <arnd@arndb.de>, "Michael S.
+ Tsirkin" <mst@redhat.com>,
+ =?utf-8?b?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, "Sean
+ Christopherson" <seanjc@google.com>, "Paolo Bonzini" <pbonzini@redhat.com>,
+ kvm@vger.kernel.org, virtualization@lists.linux.dev, "Jan
+ Kara" <jack@suse.cz>, =?utf-8?b?VGhlb2RvcmUgVHMnbw==?= <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, "Mike
+ Marshall" <hubcap@omnibond.com>, devel@lists.orangefs.org,
+ "Paulo Alcantara" <pc@manguebit.org>, "Namjae
+ Jeon" <linkinjeon@kernel.org>, "Jaegeuk Kim" <jaegeuk@kernel.org>,
+ "Chao Yu" <chao@kernel.org>, "Florian
+ Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal kernel review
+ list" <bcm-kernel-feedback-list@broadcom.com>,
+ "Tzung-Bi Shih" <tzungbi@kernel.org>, "Benson
+ Leung" <bleung@chromium.org>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, "Jani Nikula" <jani.nikula@linux.intel.com>,
+ "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, "Rodrigo
+ Vivi" <rodrigo.vivi@intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>,
+ intel-gfx@lists.freedesktop.org, "Matthew Brost" <matthew.brost@intel.com>,
+ =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org, "Takashi
+ Sakamoto" <o-takashi@sakamocchi.jp>
+In-Reply-To: <20261119053514.255348-3-rdunlap@infradead.org>
+References: <20261119053514.255348-1-rdunlap@infradead.org>
+ <20261119053514.255348-3-rdunlap@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 05:36:04 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,640 +95,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-With the symbol based timing generator the stream is padded per line with
-the LL symbol cycle granularity, which the pixel based timing generator
-based BW model doesn't account for. As the link config, the TU and the PBN
-are sized from that model, nothing guaranteed that the Data M/N of the
-symbol based timing generator fits the reserved TUs/slots.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] docs: ioctl-number: incomplete sequence range for
+  sound/scarlett2.h
+--
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c        | 197 +++++++++++++++----------
- drivers/gpu/drm/i915/display/intel_dp.h        |  25 ++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c    | 116 +++++++++++----
- drivers/gpu/drm/i915/display/intel_dp_tunnel.c |   4 +-
- 4 files changed, 226 insertions(+), 116 deletions(-)
+commit 93a4f635ed001735e939a3dc4a2526e8af9e9bd0
+Author: Randy Dunlap <rdunlap@infradead.org>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 82966028b2a2867889169ca372d8d36b576d9119..217b5d1e082f2bb9ee15773e382c528700671584 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1469,9 +1469,11 @@ intel_dp_mode_valid_format(struct intel_connector *connector,
- 
- 	link_bpp_x16 = intel_dp_mode_min_link_bpp_x16(connector, mode,
- 						      output_format);
--	mode_rate = intel_dp_link_required(max_link_clock, max_lanes,
--					   target_clock, mode->hdisplay,
--					   link_bpp_x16, 0);
-+	mode_rate = intel_dp_stream_link_required(intel_dp, false,
-+						  max_link_clock, max_lanes,
-+						  target_clock, mode->hdisplay,
-+						  mode->htotal, 0, output_format,
-+						  link_bpp_x16, 0);
- 
- 	/*
- 	 * We cannot determine the required pipe‑join count before knowing whether
-@@ -1517,9 +1519,10 @@ intel_dp_mode_valid_format(struct intel_connector *connector,
- 				if (!drm_dp_is_uhbr_rate(max_link_clock))
- 					bw_overhead_flags |= DRM_DP_BW_OVERHEAD_FEC;
- 
--				dsc = intel_dp_mode_valid_with_dsc(connector,
-+				dsc = intel_dp_mode_valid_with_dsc(connector, false,
- 								   max_link_clock, max_lanes,
- 								   target_clock, mode->hdisplay,
-+								   mode->htotal,
- 								   num_joined_pipes,
- 								   output_format, pipe_bpp,
- 								   bw_overhead_flags);
-@@ -1531,7 +1534,7 @@ intel_dp_mode_valid_format(struct intel_connector *connector,
- 			continue;
- 		}
- 
--		if (mode_rate > max_rate && !dsc) {
-+		if ((mode_rate < 0 || mode_rate > max_rate) && !dsc) {
- 			status = MODE_CLOCK_HIGH;
- 			continue;
- 		}
-@@ -1540,14 +1543,6 @@ intel_dp_mode_valid_format(struct intel_connector *connector,
- 		if (status != MODE_OK)
- 			continue;
- 
--		if (!intel_dp_mode_valid_symbol_tg(connector, intel_dp, false, mode,
--						   max_link_clock, output_format,
--						   mode_rate <= max_rate,
--						   dsc ? dsc_slice_count : 0)) {
--			status = MODE_H_ILLEGAL;
--			continue;
--		}
--
- 		if (!dsc)
- 			dsc_slice_count = 0;
- 
-@@ -1871,16 +1866,20 @@ intel_dp_compute_link_config_wide(struct intel_dp *intel_dp,
- 					&pipe_config->hw.adjusted_mode;
- 			int mode_rate;
- 
--			mode_rate = intel_dp_link_required(link_config.rate,
--							   link_config.lane_count,
--							   clock, adjusted_mode->hdisplay,
--							   link_bpp_x16, 0);
-+			mode_rate = intel_dp_stream_link_required(intel_dp, false,
-+								  link_config.rate,
-+								  link_config.lane_count,
-+								  clock,
-+								  adjusted_mode->hdisplay,
-+								  adjusted_mode->htotal, 0,
-+								  pipe_config->output_format,
-+								  link_bpp_x16, 0);
- 
- 			link_avail = intel_dp_max_link_data_rate(intel_dp,
- 								 link_config.rate,
- 								 link_config.lane_count);
- 
--			if (mode_rate <= link_avail) {
-+			if (mode_rate >= 0 && mode_rate <= link_avail) {
- 				pipe_config->lane_count = link_config.lane_count;
- 				pipe_config->pipe_bpp = bpp;
- 				pipe_config->port_clock = link_config.rate;
-@@ -2067,21 +2066,26 @@ static bool intel_dp_dsc_supports_format(const struct intel_connector *connector
- 	return drm_dp_dsc_sink_supports_format(connector->dp.dsc_dpcd, sink_dsc_format);
- }
- 
--static bool is_bw_sufficient_for_dsc_config(struct intel_dp *intel_dp,
-+static bool is_bw_sufficient_for_dsc_config(struct intel_dp *intel_dp, bool is_mst,
- 					    int link_clock, int lane_count,
- 					    int mode_clock, int mode_hdisplay,
--					    int dsc_slice_count, int link_bpp_x16,
-+					    int mode_htotal, int dsc_slice_count,
-+					    enum intel_output_format output_format,
-+					    int link_bpp_x16,
- 					    unsigned long bw_overhead_flags)
- {
- 	int available_bw;
- 	int required_bw;
- 
- 	available_bw = intel_dp_max_link_data_rate(intel_dp, link_clock, lane_count);
--	required_bw = intel_dp_link_required(link_clock, lane_count,
--					     mode_clock, mode_hdisplay,
--					     link_bpp_x16, bw_overhead_flags);
-+	required_bw = intel_dp_stream_link_required(intel_dp, is_mst,
-+						    link_clock, lane_count,
-+						    mode_clock, mode_hdisplay,
-+						    mode_htotal, dsc_slice_count,
-+						    output_format, link_bpp_x16,
-+						    bw_overhead_flags);
- 
--	return available_bw >= required_bw;
-+	return required_bw >= 0 && available_bw >= required_bw;
- }
- 
- static int dsc_compute_link_config(struct intel_dp *intel_dp,
-@@ -2129,12 +2133,14 @@ static int dsc_compute_link_config(struct intel_dp *intel_dp,
- 			int line_slice_count =
- 				intel_dsc_line_slice_count(&pipe_config->dsc.slice_config);
- 
--			if (!is_bw_sufficient_for_dsc_config(intel_dp,
-+			if (!is_bw_sufficient_for_dsc_config(intel_dp, false,
- 							     link_config.rate,
- 							     link_config.lane_count,
- 							     adjusted_mode->crtc_clock,
- 							     adjusted_mode->hdisplay,
-+							     adjusted_mode->htotal,
- 							     line_slice_count,
-+							     pipe_config->output_format,
- 							     dsc_bpp_x16,
- 							     bw_overhead_flags))
- 				continue;
-@@ -2658,14 +2664,15 @@ static int compute_max_compressed_bpp_x16(struct intel_connector *connector,
- 	return max_link_bpp_x16;
- }
- 
--bool intel_dp_mode_valid_with_dsc(struct intel_connector *connector,
-+bool intel_dp_mode_valid_with_dsc(struct intel_connector *connector, bool is_mst,
- 				  int link_clock, int lane_count,
--				  int mode_clock, int mode_hdisplay,
-+				  int mode_clock, int mode_hdisplay, int mode_htotal,
- 				  int num_joined_pipes,
- 				  enum intel_output_format output_format,
- 				  int pipe_bpp, unsigned long bw_overhead_flags)
- {
--	struct intel_dp *intel_dp = intel_attached_dp(connector);
-+	struct intel_dp *intel_dp = is_mst ? connector->mst.dp :
-+					     intel_attached_dp(connector);
- 	int min_bpp_x16 = intel_dp_compute_min_compressed_bpp_x16(connector,
- 								  output_format);
- 	int max_bpp_x16 = compute_max_compressed_bpp_x16(connector,
-@@ -2684,10 +2691,11 @@ bool intel_dp_mode_valid_with_dsc(struct intel_connector *connector,
- 	if (dsc_slice_count == 0)
- 		return false;
- 
--	return is_bw_sufficient_for_dsc_config(intel_dp,
-+	return is_bw_sufficient_for_dsc_config(intel_dp, is_mst,
- 					       link_clock, lane_count,
- 					       mode_clock, mode_hdisplay,
--					       dsc_slice_count, min_bpp_x16,
-+					       mode_htotal, dsc_slice_count,
-+					       output_format, min_bpp_x16,
- 					       bw_overhead_flags);
- }
- 
-@@ -2975,13 +2983,30 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
- 						       limits);
- }
- 
--int intel_dp_config_required_rate(const struct intel_crtc_state *crtc_state)
-+int intel_dp_config_required_rate(struct intel_dp *intel_dp,
-+				  const struct intel_crtc_state *crtc_state)
- {
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
- 	int link_bpp_x16 = crtc_state->dsc.compression_enable ?
- 		crtc_state->dsc.compressed_bpp_x16 :
- 		fxp_q4_from_int(crtc_state->pipe_bpp);
-+	int dsc_slice_count = crtc_state->dsc.compression_enable ?
-+		intel_dsc_line_slice_count(&crtc_state->dsc.slice_config) : 0;
-+	bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
-+	int required_rate;
-+
-+	required_rate = intel_dp_stream_link_required(intel_dp, is_mst,
-+						      crtc_state->port_clock,
-+						      crtc_state->lane_count,
-+						      adjusted_mode->crtc_clock,
-+						      adjusted_mode->hdisplay,
-+						      adjusted_mode->htotal,
-+						      dsc_slice_count,
-+						      crtc_state->output_format,
-+						      link_bpp_x16, 0);
-+	if (required_rate >= 0)
-+		return required_rate;
- 
- 	return intel_dp_link_required(crtc_state->port_clock, crtc_state->lane_count,
- 				      adjusted_mode->crtc_clock, adjusted_mode->hdisplay,
-@@ -3092,7 +3117,7 @@ intel_dp_compute_link_for_joined_pipes(struct intel_encoder *encoder,
- 		    pipe_config->pipe_bpp,
- 		    FXP_Q4_ARGS(pipe_config->dsc.compressed_bpp_x16),
- 		    str_yes_no(intel_dp_in_hdr_mode(conn_state)),
--		    intel_dp_config_required_rate(pipe_config),
-+		    intel_dp_config_required_rate(intel_dp, pipe_config),
- 		    intel_dp_max_link_data_rate(intel_dp,
- 						pipe_config->port_clock,
- 						pipe_config->lane_count));
-@@ -3833,23 +3858,73 @@ static bool intel_dp_symbol_tg_cycles_in_range(const struct intel_dp_symbol_tg_c
- }
- 
- /*
-- * Check if the LL symbol timings of a mode fit the symbol based timing
-- * generator registers, for the given link rate and link bpp. The lower the
-- * bpp, the fewer cycles, so this can be called with the minimum bpp to prune
-- * the modes which can't be supported with any bpp.
-+ * Get the bpp and the BW overhead to use for the BW calculations of a stream
-+ * using the symbol based timing generator. The symbol based timing generator
-+ * pads the stream per line with the LL symbol cycle (4 symbols) granularity,
-+ * which is accounted for by the effective bpp (EFF_PIX_BPP_LL_SYM), so only the
-+ * SSC and FEC margin applies on top of it.
-+ *
-+ * Returns -EINVAL if the stream's LL symbol timings don't fit the symbol based
-+ * timing generator.
-  */
--static bool intel_dp_symbol_tg_mode_valid(struct intel_dp *intel_dp,
--					  const struct drm_display_mode *mode,
--					  int link_rate, int link_bpp_x16, int dsc_slices,
--					  enum intel_output_format output_format)
-+int intel_dp_symbol_tg_bw_params(struct intel_dp *intel_dp,
-+				 int hdisplay, int htotal,
-+				 int link_bpp_x16, int dsc_slice_count,
-+				 enum intel_output_format output_format,
-+				 bool is_uhbr, unsigned long bw_overhead_flags,
-+				 int *bw_bpp_x16, int *bw_overhead)
- {
- 	struct intel_dp_symbol_tg_cycles cycles;
-+	int symbol_size = is_uhbr ? 32 : 8;
-+
-+	intel_dp_symbol_tg_calc_cycles(intel_dp, hdisplay, htotal, link_bpp_x16,
-+				       dsc_slice_count, output_format, is_uhbr,
-+				       &cycles);
- 
--	intel_dp_symbol_tg_calc_cycles(intel_dp, mode->hdisplay, mode->htotal,
--				       link_bpp_x16, dsc_slices, output_format,
--				       drm_dp_is_uhbr_rate(link_rate), &cycles);
-+	if (!intel_dp_symbol_tg_cycles_in_range(&cycles))
-+		return -EINVAL;
-+
-+	if (is_uhbr)
-+		bw_overhead_flags |= DRM_DP_BW_OVERHEAD_UHBR;
-+
-+	/* EFF_PIX_BPP_LL_SYM = EFF_HTOTAL_LL_SYM_CYC_CNT * SYMBOL_SIZE * 4 / Htotal */
-+	*bw_bpp_x16 = DIV_ROUND_UP((cycles.hactive + cycles.hblank) *
-+				   LL_SYMBOLS_PER_CYCLE * symbol_size * 16, htotal);
-+	*bw_overhead = max(drm_dp_bw_margin_overhead(bw_overhead_flags),
-+			   intel_dp_bw_fec_overhead(bw_overhead_flags & DRM_DP_BW_OVERHEAD_FEC));
-+
-+	return 0;
-+}
-+
-+/*
-+ * The required data bandwidth of a stream, taking into account the symbol
-+ * based timing generator, if that is used. Returns -EINVAL if the stream
-+ * doesn't fit the symbol based timing generator.
-+ */
-+int intel_dp_stream_link_required(struct intel_dp *intel_dp, bool is_mst,
-+				  int link_clock, int lane_count,
-+				  int mode_clock, int mode_hdisplay, int mode_htotal,
-+				  int dsc_slice_count,
-+				  enum intel_output_format output_format,
-+				  int link_bpp_x16, unsigned long bw_overhead_flags)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	bool is_uhbr = drm_dp_is_uhbr_rate(link_clock);
-+	int bw_bpp_x16, bw_overhead, ret;
-+
-+	if (!intel_dp_use_symbol_tg(display, is_mst, is_uhbr))
-+		return intel_dp_link_required(link_clock, lane_count,
-+					      mode_clock, mode_hdisplay,
-+					      link_bpp_x16, bw_overhead_flags);
-+
-+	ret = intel_dp_symbol_tg_bw_params(intel_dp, mode_hdisplay, mode_htotal,
-+					   link_bpp_x16, dsc_slice_count,
-+					   output_format, is_uhbr, bw_overhead_flags,
-+					   &bw_bpp_x16, &bw_overhead);
-+	if (ret)
-+		return ret;
- 
--	return intel_dp_symbol_tg_cycles_in_range(&cycles);
-+	return intel_dp_effective_data_rate(mode_clock, bw_bpp_x16, bw_overhead);
- }
- 
- /* 64 x 64 -> 128 bit multiplication, result as {lo, hi} */
-@@ -3898,40 +3973,6 @@ void intel_dp_symbol_tg_select_mn(struct intel_crtc_state *crtc_state)
- 								      &crtc_state->dpll_hw_state));
- }
- 
--/*
-- * Check if the LL symbol timings of a mode can be supported by the symbol
-- * based timing generator, if that is used for the given link, either with an
-- * uncompressed stream (if @uncompressed_ok) or with DSC (if @dsc_slice_count
-- * is not 0), at the minimum link bpp.
-- */
--bool intel_dp_mode_valid_symbol_tg(struct intel_connector *connector,
--				   struct intel_dp *intel_dp, bool is_mst,
--				   const struct drm_display_mode *mode,
--				   int link_rate,
--				   enum intel_output_format output_format,
--				   bool uncompressed_ok, int dsc_slice_count)
--{
--	struct intel_display *display = to_intel_display(connector);
--	int min_bpp_x16, min_compressed_bpp_x16;
--
--	if (!intel_dp_use_symbol_tg(display, is_mst, drm_dp_is_uhbr_rate(link_rate)))
--		return true;
--
--	min_bpp_x16 = intel_dp_mode_min_link_bpp_x16(connector, mode, output_format);
--	if (uncompressed_ok &&
--	    intel_dp_symbol_tg_mode_valid(intel_dp, mode, link_rate,
--					  min_bpp_x16, 0, output_format))
--		return true;
--
--	min_compressed_bpp_x16 = intel_dp_compute_min_compressed_bpp_x16(connector,
--									 output_format);
--
--	return dsc_slice_count &&
--		intel_dp_symbol_tg_mode_valid(intel_dp, mode, link_rate,
--					      min_compressed_bpp_x16,
--					      dsc_slice_count, output_format);
--}
--
- /* Compute the DP link layer (LL) symbol based timing generator parameters */
- int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
- 			       struct intel_crtc_state *crtc_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index db65912047332bd788adc0fdd9401e06cf5acfa8..538c57fb5cd60fe9d863570ab2e38cb4954cbfec 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -107,7 +107,8 @@ void intel_dp_mst_suspend(struct intel_display *display);
- void intel_dp_mst_resume(struct intel_display *display);
- int intel_dp_rate_limit_len(const int *rates, int len, int max_rate);
- int intel_dp_max_source_lane_count(struct intel_digital_port *dig_port);
--int intel_dp_config_required_rate(const struct intel_crtc_state *crtc_state);
-+int intel_dp_config_required_rate(struct intel_dp *intel_dp,
-+				  const struct intel_crtc_state *crtc_state);
- int intel_dp_rate_select(struct intel_dp *intel_dp, int rate);
- int intel_dp_rate_index(const int *rates, int len, int rate);
- void intel_dp_update_sink_caps(struct intel_dp *intel_dp);
-@@ -149,9 +150,9 @@ int intel_dp_compute_min_compressed_bpp_x16(struct intel_connector *connector,
- bool intel_dp_get_connector_max_link_config(struct intel_connector *connector,
- 					    const struct link_config_limits *limits,
- 					    struct intel_dp_link_config *max_link_config);
--bool intel_dp_mode_valid_with_dsc(struct intel_connector *connector,
-+bool intel_dp_mode_valid_with_dsc(struct intel_connector *connector, bool is_mst,
- 				  int link_clock, int lane_count,
--				  int mode_clock, int mode_hdisplay,
-+				  int mode_clock, int mode_hdisplay, int mode_htotal,
- 				  int num_joined_pipes,
- 				  enum intel_output_format output_format,
- 				  int pipe_bpp, unsigned long bw_overhead_flags);
-@@ -217,12 +218,18 @@ int intel_dp_dsc_min_src_compressed_bpp(void);
- int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
- 				const struct drm_connector_state *conn_state);
- bool intel_dp_use_symbol_tg(struct intel_display *display, bool is_mst, bool is_uhbr);
--bool intel_dp_mode_valid_symbol_tg(struct intel_connector *connector,
--				   struct intel_dp *intel_dp, bool is_mst,
--				   const struct drm_display_mode *mode,
--				   int link_rate,
--				   enum intel_output_format output_format,
--				   bool uncompressed_ok, int dsc_slice_count);
-+int intel_dp_symbol_tg_bw_params(struct intel_dp *intel_dp,
-+				 int hdisplay, int htotal,
-+				 int link_bpp_x16, int dsc_slice_count,
-+				 enum intel_output_format output_format,
-+				 bool is_uhbr, unsigned long bw_overhead_flags,
-+				 int *bw_bpp_x16, int *bw_overhead);
-+int intel_dp_stream_link_required(struct intel_dp *intel_dp, bool is_mst,
-+				  int link_clock, int lane_count,
-+				  int mode_clock, int mode_hdisplay, int mode_htotal,
-+				  int dsc_slice_count,
-+				  enum intel_output_format output_format,
-+				  int link_bpp_x16, unsigned long bw_overhead_flags);
- void intel_dp_symbol_tg_select_mn(struct intel_crtc_state *crtc_state);
- int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
- 			       struct intel_crtc_state *crtc_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index ed615ee2f51ec08bb8d7f2e729f95edcf83de5b1..858f2c28e2703865ab6bc6887f6da5eca7f58524 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -176,22 +176,61 @@ static int intel_dp_mst_max_dpt_bpp(const struct intel_crtc_state *crtc_state,
- 			 mul_u32_u32(adjusted_mode->crtc_clock, 1030000));
- }
- 
--static int intel_dp_mst_bw_overhead(const struct intel_crtc_state *crtc_state,
--				    bool ssc, int dsc_slice_count, int bpp_x16)
-+static unsigned long intel_dp_mst_bw_overhead_flags(const struct intel_crtc_state *crtc_state,
-+						    bool ssc)
- {
--	const struct drm_display_mode *adjusted_mode =
--		&crtc_state->hw.adjusted_mode;
- 	unsigned long flags = DRM_DP_BW_OVERHEAD_MST;
- 
- 	flags |= ssc ? DRM_DP_BW_OVERHEAD_SSC_REF_CLK : 0;
- 	flags |= crtc_state->fec_enable ? DRM_DP_BW_OVERHEAD_FEC : 0;
- 
-+	return flags;
-+}
-+
-+static int intel_dp_mst_bw_overhead(const struct intel_crtc_state *crtc_state,
-+				    bool ssc, int dsc_slice_count, int bpp_x16)
-+{
-+	const struct drm_display_mode *adjusted_mode =
-+		&crtc_state->hw.adjusted_mode;
-+
- 	return intel_dp_link_bw_overhead(crtc_state->port_clock,
- 					 crtc_state->lane_count,
- 					 adjusted_mode->hdisplay,
- 					 dsc_slice_count,
- 					 bpp_x16,
--					 flags);
-+					 intel_dp_mst_bw_overhead_flags(crtc_state, ssc));
-+}
-+
-+/*
-+ * Get the bpp and the BW overhead to use for the BW calculations of a stream,
-+ * accounting for the symbol based timing generator, if that is used. Returns
-+ * -EINVAL if the stream doesn't fit the symbol based timing generator.
-+ */
-+static int intel_dp_mst_bw_params(struct intel_dp *intel_dp,
-+				  const struct intel_crtc_state *crtc_state,
-+				  bool ssc, int dsc_slice_count, int link_bpp_x16,
-+				  int *bw_bpp_x16, int *bw_overhead)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	const struct drm_display_mode *adjusted_mode =
-+		&crtc_state->hw.adjusted_mode;
-+	bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
-+
-+	if (intel_dp_use_symbol_tg(display, is_mst, intel_dp_is_uhbr(crtc_state)))
-+		return intel_dp_symbol_tg_bw_params(intel_dp,
-+						    adjusted_mode->crtc_hdisplay,
-+						    adjusted_mode->crtc_htotal,
-+						    link_bpp_x16, dsc_slice_count,
-+						    crtc_state->output_format,
-+						    intel_dp_is_uhbr(crtc_state),
-+						    intel_dp_mst_bw_overhead_flags(crtc_state, ssc),
-+						    bw_bpp_x16, bw_overhead);
-+
-+	*bw_bpp_x16 = link_bpp_x16;
-+	*bw_overhead = intel_dp_mst_bw_overhead(crtc_state, ssc, dsc_slice_count,
-+						link_bpp_x16);
-+
-+	return 0;
- }
- 
- static void intel_dp_mst_compute_m_n(const struct intel_crtc_state *crtc_state,
-@@ -324,8 +363,9 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 	drm_WARN_ON(display->drm, min_bpp_x16 % bpp_step_x16 || max_bpp_x16 % bpp_step_x16);
- 
- 	for (bpp_x16 = max_bpp_x16; bpp_x16 >= min_bpp_x16; bpp_x16 -= bpp_step_x16) {
--		int local_bw_overhead;
-+		int local_bw_overhead, local_bw_bpp_x16;
- 		int link_bpp_x16;
-+		int ret;
- 
- 		drm_dbg_kms(display->drm, "Trying bpp " FXP_Q4_FMT "\n", FXP_Q4_ARGS(bpp_x16));
- 
-@@ -339,21 +379,36 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 			intel_dp_output_format_link_bpp_x16(crtc_state->output_format,
- 							    fxp_q4_to_int(bpp_x16));
- 
--		local_bw_overhead = intel_dp_mst_bw_overhead(crtc_state,
--							     false, dsc_slice_count, link_bpp_x16);
-+		/*
-+		 * With the symbol based timing generator the BW is calculated
-+		 * from the effective bpp of the LL symbol timings, and the
-+		 * candidate is rejected if these don't fit the timing generator.
-+		 */
-+		ret = intel_dp_mst_bw_params(intel_dp, crtc_state, false,
-+					     dsc_slice_count, link_bpp_x16,
-+					     &local_bw_bpp_x16, &local_bw_overhead);
-+		if (ret) {
-+			drm_dbg_kms(display->drm,
-+				    "LL symbol timings don't fit with bpp " FXP_Q4_FMT "\n",
-+				    FXP_Q4_ARGS(bpp_x16));
-+			continue;
-+		}
- 
- 		intel_dp_mst_compute_m_n(crtc_state,
- 					 local_bw_overhead,
--					 link_bpp_x16,
-+					 local_bw_bpp_x16,
- 					 &crtc_state->dp_m_n);
- 
- 		if (is_mst) {
--			int remote_bw_overhead;
-+			int remote_bw_overhead, remote_bw_bpp_x16;
- 			int remote_tu;
- 			fixed20_12 pbn;
- 
--			remote_bw_overhead = intel_dp_mst_bw_overhead(crtc_state,
--								      true, dsc_slice_count, link_bpp_x16);
-+			ret = intel_dp_mst_bw_params(intel_dp, crtc_state, true,
-+						     dsc_slice_count, link_bpp_x16,
-+						     &remote_bw_bpp_x16, &remote_bw_overhead);
-+			if (drm_WARN_ON(display->drm, ret))
-+				continue;
- 
- 			/*
- 			 * The TU size programmed to the HW determines which slots in
-@@ -370,7 +425,7 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *intel_dp,
- 			 * enable SSC on the corresponding link.
- 			 */
- 			pbn.full = dfixed_const(intel_dp_mst_calc_pbn(adjusted_mode->crtc_clock,
--								      link_bpp_x16,
-+								      remote_bw_bpp_x16,
- 								      remote_bw_overhead));
- 			remote_tu = DIV_ROUND_UP(pbn.full, mst_state->pbn_div.full);
- 
-@@ -1522,6 +1577,7 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 	struct drm_dp_mst_topology_mgr *mgr = &intel_dp->mst.mgr;
- 	struct drm_dp_mst_port *port = connector->mst.port;
- 	int max_rate, mode_rate, max_lanes, max_link_clock;
-+	int est_slice_count = 0;
- 	unsigned long bw_overhead_flags =
- 		DRM_DP_BW_OVERHEAD_MST | DRM_DP_BW_OVERHEAD_SSC_REF_CLK;
- 	int min_link_bpp_x16 = fxp_q4_from_int(18);
-@@ -1564,10 +1620,23 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 
- 	max_rate = intel_dp_max_link_data_rate(intel_dp,
- 					       max_link_clock, max_lanes);
--	mode_rate = intel_dp_link_required(max_link_clock, max_lanes,
--					   mode->clock, mode->hdisplay,
--					   min_link_bpp_x16,
--					   bw_overhead_flags);
-+	/*
-+	 * The compressed stream's slice count depends on the joiner candidate,
-+	 * use the one for a single pipe as an estimate in the compressed case.
-+	 */
-+	if (supports_dsc && connector->mst.port->passthrough_aux)
-+		est_slice_count = intel_dp_dsc_get_slice_count(connector,
-+							       mode->clock,
-+							       mode->hdisplay, 1);
-+
-+	mode_rate = intel_dp_stream_link_required(intel_dp, true,
-+						  max_link_clock, max_lanes,
-+						  mode->clock, mode->hdisplay,
-+						  mode->htotal,
-+						  est_slice_count,
-+						  INTEL_OUTPUT_FORMAT_RGB,
-+						  min_link_bpp_x16,
-+						  bw_overhead_flags);
- 
- 	/* The symbol based timing generator has no Link M/N ratio limit */
- 	if (!intel_dp_use_symbol_tg(display, true, drm_dp_is_uhbr_rate(max_link_clock)) &&
-@@ -1599,7 +1668,7 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 	if (ret)
- 		return ret;
- 
--	if (mode_rate > max_rate ||
-+	if (mode_rate < 0 || mode_rate > max_rate ||
- 	    drm_dp_calc_pbn_mode(mode->clock, min_link_bpp_x16) > port->full_pbn) {
- 		*status = MODE_CLOCK_HIGH;
- 		return 0;
-@@ -1624,9 +1693,10 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 			if (!drm_dp_is_uhbr_rate(max_link_clock))
- 				bw_overhead_flags |= DRM_DP_BW_OVERHEAD_FEC;
- 
--			dsc = intel_dp_mode_valid_with_dsc(connector,
-+			dsc = intel_dp_mode_valid_with_dsc(connector, true,
- 							   max_link_clock, max_lanes,
- 							   target_clock, mode->hdisplay,
-+							   mode->htotal,
- 							   num_joined_pipes,
- 							   INTEL_OUTPUT_FORMAT_RGB, pipe_bpp,
- 							   bw_overhead_flags);
-@@ -1647,14 +1717,6 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 		if (*status != MODE_OK)
- 			continue;
- 
--		if (!intel_dp_mode_valid_symbol_tg(connector, intel_dp, true, mode,
--						   max_link_clock, INTEL_OUTPUT_FORMAT_RGB,
--						   mode_rate <= max_rate,
--						   dsc ? dsc_slice_count : 0)) {
--			*status = MODE_H_ILLEGAL;
--			continue;
--		}
--
- 		if (!dsc)
- 			dsc_slice_count = 0;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_tunnel.c b/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-index 2199396345646a0c2cd7c8ec7ed07a38688ec94e..399e40c2da7f04d30962f1626e55c5f709a5306d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-@@ -153,7 +153,7 @@ static int allocate_initial_tunnel_bw_for_pipes(struct intel_dp *intel_dp, u8 pi
- 	for_each_intel_crtc_in_pipe_mask(display, crtc, pipe_mask) {
- 		const struct intel_crtc_state *crtc_state =
- 			to_intel_crtc_state(crtc->base.state);
--		int stream_bw = intel_dp_config_required_rate(crtc_state);
-+		int stream_bw = intel_dp_config_required_rate(intel_dp, crtc_state);
- 
- 		tunnel_bw += stream_bw;
- 
-@@ -648,7 +648,7 @@ int intel_dp_tunnel_atomic_compute_stream_bw(struct intel_atomic_state *state,
- 	struct intel_display *display = to_intel_display(state);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	int required_rate = intel_dp_config_required_rate(crtc_state);
-+	int required_rate = intel_dp_config_required_rate(intel_dp, crtc_state);
- 	int ret;
- 
- 	if (!intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
+docs: ioctl-number: update sound entries
 
--- 
-2.25.1
+This commit updates the ioctl-number documentation table with additional
+sound subsystem files and sequence number ranges.
 
+> diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documen=
+tation/userspace-api/ioctl/ioctl-number.rst
+> index e1d56d5cccd14..f29d2c17ca7b9 100644
+> --- a/Documentation/userspace-api/ioctl/ioctl-number.rst
+> +++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
+
+[ ... ]
+
+> @@ -204,6 +209,9 @@ Code  Seq#    Include File                           =
+                  Comments
+>  'S'   80-81  scsi/scsi_ioctl.h                                         c=
+onflict!
+>  'S'   82-FF  scsi/scsi.h                                               c=
+onflict!
+>  'S'   00-7F  sound/asequencer.h                                        c=
+onflict!
+> +'S'   20-52  sound/core/seq/seq_compat.c                               c=
+onflict!
+> +'S'   60-63  sound/scarlett2.h                                         c=
+onflict!
+
+[Severity: Low]
+Should the sequence range for sound/scarlett2.h be 60-64?
+include/uapi/sound/scarlett2.h also defines
+SCARLETT2_IOCTL_GET_ERASE_PROGRESS with sequence number 0x64:
+
+include/uapi/sound/scarlett2.h:
+#define SCARLETT2_IOCTL_GET_ERASE_PROGRESS \
+	_IOR('S', 0x64, struct scarlett2_flash_segment_erase_progress)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119053514.2553=
+48-1-rdunlap@infradead.org?part=3D2
