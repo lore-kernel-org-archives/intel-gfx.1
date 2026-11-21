@@ -2,85 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DAE606A32A
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 15:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC8B606A327
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 15:18:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=Jql1qct1
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GRf6h5v5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D04A10EF45;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A440810EF50;
 	Mon, 23 Nov 2026 15:18:20 +0000 (UTC)
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDAE810E40E
- for <intel-gfx@lists.freedesktop.org>; Sat, 21 Nov 2026 12:25:59 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-93f20c3aaa5so171380085a.2
- for <intel-gfx@lists.freedesktop.org>; Sat, 21 Nov 2026 04:25:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc.ca; s=google; t=1795263959; x=1795868759;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZfJPa8uUh2EsffvwpmDril+FeS3X90n3oLx7atj56Zs=;
- b=Jql1qct1KY3Qjq8zVZcZWlIV7ggU2P104henqNtHstg39seHOlLx4mOuZAXYPinhvQ
- 2Stv75+MbGW7Mz29T5bkTEcWEtD0KcJI6etoJdJuDuBocUl4+yt4EQBmo8S0Yr9zCjfB
- 0yJwUa06ey8yQGCQwYLRcT0u2Odi81oGk1tX48ujkK98GbxweQXH18x5uS6faOEk2gCw
- y5bJr8hqz0mZ+yDGSeUqnP5OAZBlBvLx9bOi9pl5XeZjhiT7iZyzwOOACekSkD4aGZNQ
- xoDallDOXsQrPakHTiXWbKybRcBQcPg5Q9/65iYKV7sDDE0oyPWTEhbmgqHY0pdgKnSf
- 7RDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795263959; x=1795868759;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZfJPa8uUh2EsffvwpmDril+FeS3X90n3oLx7atj56Zs=;
- b=YC0TZDcZwsVARoWEYQtnVX3wttfZtu+cXrYUUTpfv7obPwv6tl52nM4n30CpVNI7DU
- yChpzxjLXVW7eTCOjrttSBzHdk2CFS9RZz/rovL9EOKrx6yQc/RfGZv1OyxW2yK7gokV
- pObDkal72iY2xLWEUcINJn4dqUl4pzdxR1tqjh1Z6zRrFWOUaav8COl8Q4rbvhpKVFOT
- rHQJqgy/pqe2nh6V6RbCXfWVukEsD2zhBnfujtCFhlteUJXCdGkNK1aUPEkjm9IsQTYR
- EyJtJ+8pppeZTFHCh31IBWY5oBR8ECrF8h67UxUfZ/PJH/iIG6Hzhm4lpwTyaX8MgL/D
- TwIQ==
-X-Gm-Message-State: APuU4Z9vY6TukoulyMoGQAs4IcgoYXGgUFFmRrrbySyHjkqSOaaOlqDV
- l1XJ/HiTUX+gCESJIrvvpwJFMbV1Tw/QfDj+iolnoygSVvLfLCz3ummTlLRzlIlS4oI=
-X-Gm-Gg: AZFdTZdJz1VgCazZetAa5fFQziEQkAwxB+4DLayepXx4vi5Hq3q9gthLj297MX8vCFw
- NgZZ982wtrv2+9xJ6V0NdjSmxpMJusbt4smz6kcSNDgiRN/AId1n9RAEcLM6+IhXcap2Ob7T6li
- KkwC5tpi2Zhz7+jLBqntdPX26XxHkAFPxbRm+wkr5H0ruZzPtCiksttIJnnUOZgLQqpwV8iX5v+
- n4jdAd+0/rbDP0HC2A/OSPfkZJIQ1pRCNSJAWHMKGAEFn38TZF+6/VMO89zfkMTUkrwoFIt0wqB
- HTxJYbxC/MtXbrUUzaQdWaQXy+mX7saBb+K8omEWQaQ6oAum4g+kspLtMMOwwp3c11kzMdM9meS
- hpVsPguOQ6TzsNl6ZMYGC64HRCYcb7ZzwcGGt9+m7PIY9m2Gr4AObiE9Wb5cdBoHWiyV1161ibt
- WYaT62FbkrrXXAQDF7m1gTKjIoBHCVCGWvCetoEeKlaJXs0nTzI/p9TrdSFzWF0F7bbaKQ2d+55
- X+N5PIYxeYwyLw8/jVdYyNhIQZQtH6isPj/E5VwVmVCAk1zeT/YxeMdVVt+dyo9djqpXL4l23zW
- FfR6kI5w+KIAooWTRh0trKHtrNVYkn9JTHeNa6hoIn2OPqFZuJ6MUDqjimuRPpBGqn0CnqAVA6s
- nYSlVa1uSQvubUQdMhx8JnH5N6nzirAz3o+bNord7jPBjb6Zb6gNdtY3XQqHVJjMKr358BVRbjH
- veJ8jLTft34SHakin2En4qatz9AhMnIQHWFx5ITPzBvE1YqSBCLattBbOWgSqXa/AF9y+sKa62U
- RYPb0iW
-X-Received: by 2002:a05:620a:700e:b0:93b:db80:e0cf with SMTP id
- af79cd13be357-949bab5101emr917995085a.60.1795263958848; 
- Sat, 21 Nov 2026 04:25:58 -0800 (PST)
-Received: from jake-laptop ([153.67.1.15]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-949bb4004e8sm407029185a.33.2026.11.21.04.25.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 Nov 2026 04:25:58 -0800 (PST)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: jouni.hogander@intel.com,
-	ville.syrjala@linux.intel.com
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- animesh.manna@intel.com, ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com
-Subject: [PATCH v2 4/4] drm/i915/display: Remove the Panel Replay quirk for
- Dell XPS 16 DA16260
-Date: Sat, 21 Nov 2026 07:25:50 -0500
-Message-ID: <8f1f576d6f816654a9c24f0bd00f9fde469da061.1795263689.git.j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <cover.1795263689.git.j@metarealtyinc.ca>
-References: <awCCGeCxHToY8tsI@intel.com>
- <cover.1795263689.git.j@metarealtyinc.ca>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 130E810E0B6;
+ Sat, 21 Nov 2026 07:18:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kO
+ LdrxtlbkJl5si7RCYhsrq7KDo3r3G+vXC21EW5Oac=; b=GRf6h5v53/wts6PEIH
+ lqwmV1URlwiSzQbXS8wprJg2TJ3n3644hxzqnRJAHTwHwaCjOcZPvekcCRtC7uPZ
+ 7BPgcNi9Gv2QlVjvNQv7SE93joTY8vCybwx3nmLfAveYXEMF/Q6gBabvKP2jdFof
+ diWd2qF5Byhs/Lr1vxUtK76zE=
+Received: from localhost.localdomain (unknown [])
+ by gzsmtp5 (Coremail) with SMTP id QCgvCgAHVaSsRQFrb83YHA--.29041S2;
+ Sat, 21 Nov 2026 15:18:06 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: andi.shyti@kernel.org, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Haoxiang Li <haoxiang_li2024@163.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+Subject: [PATCH v2] drm/i915/vma: Fix a memory leak in i915_vma_pin_ww()
+Date: Sat, 21 Nov 2026 15:17:13 +0800
+Message-Id: <20261121071713.335337-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: QCgvCgAHVaSsRQFrb83YHA--.29041S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7GFy7Cw17Xw4xJw4kCFWruFg_yoWDZFc_CF
+ yjy34jgrWUAryq9Fy5CFs3ZFy0y3WkZrs7XF1xt3s3JFyUCr4Du3s3WryrXw4xCF4qqFZF
+ q3Z7XFnxZr97KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRM8nYUUUUUU==
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7Q6XBmsBRa7SEgAA3z
 X-Mailman-Approved-At: Mon, 23 Nov 2026 15:17:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,46 +53,42 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-20.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Panel Replay was disabled on the Dell XPS 16 DA16260 because the panel
-judders with it. The judder comes from the AS SDP being suspended in PR
-Active, which the previous patches fix by sending it while frames are
-being updated. Panel Replay Selective Update works on this
-laptop now, so remove the quirk.
+The memory allocated by i915_vma_work() is not freed if
+i915_gem_object_get_moving_fence() fails. Change the
+goto label to do so.
 
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9119
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+Fixes: 8ec5c0006c50 ("Merge tag 'drm-intel-next-2022-05-20' of git://anongit.freedesktop.org/drm/drm-intel into drm-intel-gt-next")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_quirks.c | 8 --------
- 1 file changed, 8 deletions(-)
+Changes in v2:
+ - Modify the commit message. Thanks, Andi!
+---
+ drivers/gpu/drm/i915/i915_vma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 96eb9a40d..6070440f8 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -289,14 +289,6 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
--	/* Dell XPS 16 DA16260 */
--	{
--		.device = DEVICE_ID_ANY,
--		.subsystem_vendor = 0x1028,
--		.subsystem_device = 0x0dba,
--		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
--		.hook = quirk_disable_edp_panel_replay,
--	},
- 	/* TUXEDO InsanityBook 15 v1 */
- 	{
- 		.device = 0x591b,
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 16782d8579a8..4ba1c9ea5ecb 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -1470,7 +1470,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 
+ 		err = i915_gem_object_get_moving_fence(vma->obj, &moving);
+ 		if (err)
+-			goto err_rpm;
++			goto err_fence;
+ 
+ 		dma_fence_work_chain(&work->base, moving);
+ 
 -- 
-2.56.1
+2.25.1
 
