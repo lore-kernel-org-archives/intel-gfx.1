@@ -2,109 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD11606A320
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Nov 2026 08:24:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCF0606A320
+	for <intel-gfx@archiver.kernel.org>; Sun, 22 Nov 2026 16:49:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AfgUR4tg;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Zc2abgGb;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AfgUR4tg;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Zc2abgGb
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=If1yj84T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4533710E4F3;
-	Sun, 22 Nov 2026 08:24:21 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB2510E4F3
- for <intel-gfx@lists.freedesktop.org>; Sun, 22 Nov 2026 08:24:09 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 872601FAC1;
- Sun, 22 Nov 2026 08:24:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795335847; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B+vX4TM0jgSW9RcvX+lpb8mL2xXFoJqShhAK1AJC2Lc=;
- b=AfgUR4tg4yNCqy/77tVy5qEOklmV47RjyHWewlqu21oo70jn7NK7oFEjMQQkQ5GesG6+83
- f7p4W+9L0Z8HJRxnZOP5G9ucxfyVCzgTTiHlHq4z4GX9eDxHpsYrYHtd3jy7B1JogwAZ5+
- MCQyYz1zaXxNqDyrj+UTL4XRQ/AfgSk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795335847;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B+vX4TM0jgSW9RcvX+lpb8mL2xXFoJqShhAK1AJC2Lc=;
- b=Zc2abgGbrt4K7RMg+9UO20HV17XDDFfa/24VD44cXAKc0oNqLw9yv8rigTFx/ms7HJg53M
- W8cviA4YeDA7BUDw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=AfgUR4tg;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Zc2abgGb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795335847; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B+vX4TM0jgSW9RcvX+lpb8mL2xXFoJqShhAK1AJC2Lc=;
- b=AfgUR4tg4yNCqy/77tVy5qEOklmV47RjyHWewlqu21oo70jn7NK7oFEjMQQkQ5GesG6+83
- f7p4W+9L0Z8HJRxnZOP5G9ucxfyVCzgTTiHlHq4z4GX9eDxHpsYrYHtd3jy7B1JogwAZ5+
- MCQyYz1zaXxNqDyrj+UTL4XRQ/AfgSk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795335847;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B+vX4TM0jgSW9RcvX+lpb8mL2xXFoJqShhAK1AJC2Lc=;
- b=Zc2abgGbrt4K7RMg+9UO20HV17XDDFfa/24VD44cXAKc0oNqLw9yv8rigTFx/ms7HJg53M
- W8cviA4YeDA7BUDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 350981342D;
- Sun, 22 Nov 2026 08:24:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xWDgA6emAmtDbgAAD6G6ig
- (envelope-from <tiwai@suse.de>); Sun, 22 Nov 2026 08:24:07 +0000
-Date: Sun, 22 Nov 2026 09:24:06 +0100
-Message-ID: <874id96zq1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: linux-sound@vger.kernel.org, tiwai@suse.com,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, Michal Grzelak <michal.grzelak@intel.com>
-Subject: Re: [PATCH v2 1/2] ALSA: hda: intel: Release i915 power also when
- delayed probe fails
-In-Reply-To: <20261120150937.2187228-1-kai.vehmanen@linux.intel.com>
-References: <20261120150937.2187228-1-kai.vehmanen@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55FE010E5D8;
+	Sun, 22 Nov 2026 16:49:38 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6805910E5D8;
+ Sun, 22 Nov 2026 16:49:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=1n4tlVAMD1oQEfLg7AgK6BF8JkJzQIdhcOfMal/6gZY=; b=If1yj84Ty+PWC5pwN3l+urBf68
+ 2hR0b/KbpLdHtCSDssJRGtWWNVVHcXXibwvo0e16Wu5PcF1GbzrF+0Nn/0orhZPZLp3AaUrOqCeE3
+ M0g3/VZCXrSCWsLf3OJiUda66VgMdDR5zNN/JnYJhMr6Zloh8ZVpZL5T6FbjOGEGGG9pYSEFlPSo3
+ xNjZ+pwXJ34Yaiph8LhnUvR+33XsPWSndNcZzF1mF1Y/Rg3p7J5onQ/FXu2y6sBr06vas2ATQ1cNu
+ jo4l2Ca8g1GdoMwCPQY26/RHxrAwrwLjXqoQ1EhLUm39E6z3sHmGRuhzwWdrOJON3ct7fIVJwApAK
+ GCbPEuHg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+ id 1xVAkg-00000001O6v-277K; Sun, 22 Nov 2026 16:49:19 +0000
+Message-ID: <1e62d5c8-3ca7-441d-8979-f054fb815912@infradead.org>
+Date: Sun, 22 Nov 2026 08:49:16 -0800
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 872601FAC1
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-12.51 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_DN_SOME(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/12] docs: ioctl-number: update sound entries
+To: sashiko-reviews@lists.linux.dev
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, linux-mm@kvack.org,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
+ Chas Williams <3chas3@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
+ Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, kvm@vger.kernel.org, virtualization@lists.linux.dev,
+ Jan Kara <jack@suse.cz>, Theodore Ts'o <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
+ devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
+ Namjae Jeon <linkinjeon@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
+ Chao Yu <chao@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Tzung-Bi Shih <tzungbi@kernel.org>,
+ Benson Leung <bleung@chromium.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org, Takashi Sakamoto <o-takashi@sakamocchi.jp>
+References: <20261119053514.255348-1-rdunlap@infradead.org>
+ <20261119053514.255348-3-rdunlap@infradead.org>
+ <sashiko-outbox-224494@kernel.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <sashiko-outbox-224494@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,37 +96,55 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 20 Nov 2026 16:09:36 +0100,
-Kai Vehmanen wrote:
-> 
-> Commit fbaccb1b19c7 ("ALSA: hda: intel: Don't free card in the probe
-> work") stopped freeing the card from azx_probe_work() when the delayed
-> probe fails, and only disconnects it, leaving the free to azx_remove().
-> This avoids the double free, but the resources that were released by
-> the card free via azx_free() are now kept until the PCI device is
-> unbound. In particular the display power reference stay held, blocking
-> runtime suspend for i915/xe.
-> 
-> Release the display power in the azx_probe_continue() work in all cases.
-> This power reference is only taken for the purpose of the display codec
-> probe. If the display codec probe was successful, it will have taken its
-> own reference. In case of systems with the HDA controller on GPU side
-> (hda->need_i915_power), functionality is same as before - we have to
-> keep power.
-> 
-> Fixes: fbaccb1b19c7 ("ALSA: hda: intel: Don't free card in the probe work")
-> Reported-by: Michal Grzelak <michal.grzelak@intel.com>
-> Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17751
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-
-Applied now.  Thanks.
 
 
-Takashi
+On 11/19/26 9:36 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Low] docs: ioctl-number: incomplete sequence range for
+>   sound/scarlett2.h
+> --
+> 
+> commit 93a4f635ed001735e939a3dc4a2526e8af9e9bd0
+> Author: Randy Dunlap <rdunlap@infradead.org>
+> 
+> docs: ioctl-number: update sound entries
+> 
+> This commit updates the ioctl-number documentation table with additional
+> sound subsystem files and sequence number ranges.
+> 
+>> diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
+>> index e1d56d5cccd14..f29d2c17ca7b9 100644
+>> --- a/Documentation/userspace-api/ioctl/ioctl-number.rst
+>> +++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
+> 
+> [ ... ]
+> 
+>> @@ -204,6 +209,9 @@ Code  Seq#    Include File                                             Comments
+>>  'S'   80-81  scsi/scsi_ioctl.h                                         conflict!
+>>  'S'   82-FF  scsi/scsi.h                                               conflict!
+>>  'S'   00-7F  sound/asequencer.h                                        conflict!
+>> +'S'   20-52  sound/core/seq/seq_compat.c                               conflict!
+>> +'S'   60-63  sound/scarlett2.h                                         conflict!
+> 
+> [Severity: Low]
+> Should the sequence range for sound/scarlett2.h be 60-64?
+> include/uapi/sound/scarlett2.h also defines
+> SCARLETT2_IOCTL_GET_ERASE_PROGRESS with sequence number 0x64:
+> 
+> include/uapi/sound/scarlett2.h:
+> #define SCARLETT2_IOCTL_GET_ERASE_PROGRESS \
+> 	_IOR('S', 0x64, struct scarlett2_flash_segment_erase_progress)
+
+Yes. Fixed now.
+
+-- 
+~Randy
+
