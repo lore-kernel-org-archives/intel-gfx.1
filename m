@@ -2,48 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FB1606A326
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 19:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d+9tmbPS
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6474606A31E
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 19:49:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 603D410F1A5;
-	Mon, 23 Nov 2026 19:42:35 +0000 (UTC)
-Received: from mta1.migadu.com (out-54.mta1.migadu.com [95.215.58.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D826110F1A5
- for <intel-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 19:42:28 +0000 (UTC)
-X-Envelope-To: intel-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=rTMoIv3DzAud5qjlbtnRSvXY007vCDcg7JaAYuxydsY=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795462946; v=1; x=1796067746;
- b=d+9tmbPStXeqYuVgj5gZLTgaDL1ZwFaH4QyPIOkjTmTMV9x1c6Rx0Irrp3b2obCa3Kcjmie7
- UF4ZAtcm9CZiCkvf9eCKGEOlvapSYOt6qGNFj8xQap9lAlVUa4WSlcuQoOhE9xjk7d50LdXZTPA
- qgxGWrKip+uSpPq6L855ukTM=
-X-Envelope-To: intel-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 42586a383188ab19;
- Mon, 23 Nov 2026 19:42:26 +0000
-X-Mizu-Trace-ID: 42586a383188ab19
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5861610F1AD;
+	Mon, 23 Nov 2026 19:49:44 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 236E410F1AD;
+ Mon, 23 Nov 2026 19:49:43 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0238461710872456386=="
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.300.60\))
-Subject: Re: [PATCH v2] drm/i915/color: Program the 3D LUT on the plane's own
- pipe with joiner
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-In-Reply-To: <e564c1bb-3b90-4331-a2b3-02489ceaa096@intel.com>
-Date: Mon, 23 Nov 2026 11:42:00 -0800
-Cc: =?utf-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Uma Shankar <uma.shankar@intel.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A44DFD1C-A1EC-401D-AAE2-8BF129E0BECE@linux.dev>
-References: <20261119165925.683691-1-chaitanya.kumar.borah@intel.com>
- <20261123090251.934904-1-chaitanya.kumar.borah@intel.com>
- <awQO4Lln7Y1YQQ6d@intel.com> <e564c1bb-3b90-4331-a2b3-02489ceaa096@intel.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-X-Mailer: Apple Mail (2.3901.300.60)
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915=3A_Annotate_flex?=
+ =?utf-8?q?ible_array_members_with_=5F=5Fcounted=5Fby=28=29_attribute_=28rev?=
+ =?utf-8?q?2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Krzysztof Karas" <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 23 Nov 2026 19:49:43 -0000
+Message-ID: <179546338313.71994.12837665313388786158@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261123120137.3460155-1-krzysztof.karas@intel.com>
+In-Reply-To: <20261123120137.3460155-1-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,134 +35,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+--===============0238461710872456386==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: drm/i915: Annotate flexible array members with __counted_by() attribute (rev2)
+URL   : https://patchwork.freedesktop.org/series/179077/
+State : failure
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19588 -> Patchwork_179077v2
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_179077v2 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_179077v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_179077v2:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@gt_contexts:
+    - bat-arlh-2:         [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19588/bat-arlh-2/igt@i915_selftest@live@gt_contexts.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/bat-arlh-2/igt@i915_selftest@live@gt_contexts.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_179077v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-arlh-2:         [PASS][3] -> [INCOMPLETE][4] ([i915#16547])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19588/bat-arlh-2/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/bat-arlh-2/igt@i915_selftest@live.html
+
+  
+  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
 
 
-> On Nov 23, 2026, at 2:47=E2=80=AFAM, Borah, Chaitanya Kumar =
-<chaitanya.kumar.borah@intel.com> wrote:
->=20
->=20
->=20
-> On 11/23/2026 3:31 PM, Ville Syrj=C3=A4l=C3=A4 wrote:
->> On Mon, Nov 23, 2026 at 02:32:51PM +0530, Chaitanya Kumar Borah =
-wrote:
->>> With joiner, a secondary pipe plane gets its hw state from the =
-primary
->>> pipe's plane, but its own uapi.crtc stays NULL. =
-intel_color_load_3dlut()
->>> and intel_color_plane_commit_arm() take the CRTC from uapi.crtc, so =
-they
->>> skip the secondary plane and its pipe's 3D LUT is never loaded or
->>> enabled, leaving that part of the screen without it.
->>>=20
->>> Use hw.crtc, the CRTC the plane is actually on. The linked Y-plane =
-of a
->>> planar YUV scanout also has hw.crtc set but no 3D LUT state of its =
-own,
->>> so skip it in intel_color_plane_commit_arm() to keep it from =
-clearing
->>> LUT_3D_CTL.
->>>=20
->>> v2:
->>> - Correct the commit message (Sashiko)
->>> - Skip the linked Y-plane (Sashiko)
->>>=20
->>> Cc: Uma Shankar <uma.shankar@intel.com>
->>> Cc: Matthew Schwartz <matthew.schwartz@linux.dev>
->>> Fixes: 65db7a1f9cf7 ("drm/i915/color: Add 3D LUT to color pipeline")
->>> Signed-off-by: Chaitanya Kumar Borah =
-<chaitanya.kumar.borah@intel.com>
->>> ---
->>> Matthew, the is_y_plane check is only needed to keep this patch
->>> regression free on its own: with hw.crtc the linked Y-plane would
->>> otherwise reach glk_lut_3d_commit() and clear LUT_3D_CTL. If you
->>> rebase your series on top of this patch, the check can be dropped in
->>> your patch 1 [1], since the owning-plane check there already skips
->>> the Y-plane, which is never PLANE_PRIMARY.
->>>=20
->>> [1] =
-https://lore.kernel.org/intel-gfx/20261118191514.2931270-2-matthew.schwart=
-z@linux.dev/
->>>=20
->>>  drivers/gpu/drm/i915/display/intel_color.c | 8 ++++++--
->>>  1 file changed, 6 insertions(+), 2 deletions(-)
->>>=20
->>> diff --git a/drivers/gpu/drm/i915/display/intel_color.c =
-b/drivers/gpu/drm/i915/display/intel_color.c
->>> index 4070dc8d97d9..e5d40575aa95 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_color.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_color.c
->>> @@ -4278,7 +4278,11 @@ void intel_color_plane_commit_arm(struct =
-intel_dsb *dsb,
->>>     const struct intel_plane_state *plane_state)
->>>  {
->>>   struct intel_display *display =3D to_intel_display(plane_state);
->>> - struct intel_crtc *crtc =3D to_intel_crtc(plane_state->uapi.crtc);
->>> + struct intel_crtc *crtc =3D to_intel_crtc(plane_state->hw.crtc);
->>> +
->>> + /* The linked Y-plane has no 3D LUT state of its own */
->>> + if (plane_state->is_y_plane)
->>> + return;
->> I didn't think we exposed the 3D LUT property on anything but
->> one of the HDR planes?
->=20
-> Right, it's only exposed on the primary plane (PLANE_1). The check
-> keeps the current Y-plane behaviour: with uapi.crtc the linked Y-plane
-> was skipped, but with hw.crtc it would reach glk_lut_3d_commit() with
-> no LUT state and clear LUT_3D_CTL, disabling the LUT that PLANE_1 just
-> enabled.
->=20
->>>     if (crtc && intel_color_crtc_has_3dlut(display, crtc->pipe))
->>>   glk_lut_3d_commit(dsb, crtc, !!plane_state->hw.lut_3d);
->> This is where the problem seems to be. Why is this not checking
->> that the plane is actually the one exposing the 3D LUT?
->=20
-> Ack, the missing ownership check is the underlying bug. Matthew
-> already fixes it in his series [1] by letting only the owning
-> plane program LUT_3D_CTL, so I kept this patch limited to the joiner
-> problem and otherwise preserved the existing behaviour. The secondary
-> pipe's overlays now hit the same pre-existing issue as the primary
-> pipe's, and Matthew's patch fixes both. His patch can then also drop
-> the Y-plane check.
->=20
-> Let me know if you would rather have it folded into this patch.
+Build changes
+-------------
 
-We could also just combine them to make it a 3-patch series to keep this =
-simple. I have no real preference.
+  * Linux: CI_DRM_19588 -> Patchwork_179077v2
 
-Matt
+  CI-20190529: 20190529
+  CI_DRM_19588: 401a3e7b64d174c4f2b256b035de716c7b79bdc1 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9201: 9201
+  Patchwork_179077v2: 401a3e7b64d174c4f2b256b035de716c7b79bdc1 @ git://anongit.freedesktop.org/gfx-ci/linux
 
->=20
->> Also the 'crtc' NULL check looks completely pointless. This
->> shouldn't even be called for a disabled plane.
->=20
-> Ack. I just kept it as a defensive check. Will remove in v3.
->=20
-> [1] =
-https://lore.kernel.org/intel-gfx/20261118191514.2931270-2-matthew.schwart=
-z@linux.dev/
->=20
-> Thank you.
->=20
-> =3D=3D
-> Chaitanya
->=20
->>> @@ -4318,7 +4322,7 @@ intel_color_load_3dlut(struct intel_dsb *dsb,
->>>          const struct intel_plane_state *plane_state)
->>>  {
->>>   struct intel_display *display =3D to_intel_display(plane_state);
->>> - struct intel_crtc *crtc =3D to_intel_crtc(plane_state->uapi.crtc);
->>> + struct intel_crtc *crtc =3D to_intel_crtc(plane_state->hw.crtc);
->>>     if (crtc && intel_color_crtc_has_3dlut(display, crtc->pipe))
->>>   glk_load_lut_3d(dsb, crtc, plane_state->hw.lut_3d);
->>> --=20
->>> 2.50.1
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/index.html
+
+--===============0238461710872456386==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Annotate flexible array members with __counted_by() attribute (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179077/">https://patchwork.freedesktop.org/series/179077/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19588 -&gt; Patchwork_179077v2</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_179077v2 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_179077v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_179077v2:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@gt_contexts:<ul>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19588/bat-arlh-2/igt@i915_selftest@live@gt_contexts.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/bat-arlh-2/igt@i915_selftest@live@gt_contexts.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_179077v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19588/bat-arlh-2/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v2/bat-arlh-2/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19588 -&gt; Patchwork_179077v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19588: 401a3e7b64d174c4f2b256b035de716c7b79bdc1 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9201: 9201<br />
+  Patchwork_179077v2: 401a3e7b64d174c4f2b256b035de716c7b79bdc1 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0238461710872456386==--
