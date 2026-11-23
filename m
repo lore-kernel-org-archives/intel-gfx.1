@@ -2,98 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED420606A334
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 01:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E52606A327
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 03:16:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5brb9u8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eEpbKvAT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EB9610E6EF;
-	Mon, 23 Nov 2026 01:14:20 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19F6410E6E1;
- Mon, 23 Nov 2026 01:14:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A90CD411F0;
- Mon, 23 Nov 2026 01:14:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C351F000C0;
- Mon, 23 Nov 2026 01:14:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795396453;
- bh=1nAFz1rE2Zgq0kT2UJ5pKEhQqcU8lxqQXw2MrFx+Nfc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=m5brb9u8foWKbi7SrlcdW6nE2yWIS8IEGVU5QHSZYMih+9IEkmiqaNM0lLx2EYbPE
- Ene3Ka2hJ1BAvW2vOWqYEoxo49rMX/8KuHKgTHWJQeFE3NrlIrAf3xeYL6VLmMY+/l
- ekFXnTI29+zSfV1Cj1JiY8g0iM3LpoM2wMrgHM/4k71UbfvjD94MuJKD4cUZLqKZBp
- tapIlLzsw5cg25rKFRJ3Wy6OzHRx9WFNJ4Dy/E+S8IHUzJbf1ziPCMSD/LFgujVS+y
- I6gkNfNt8+7zFmlY0xlcmT0RV+dcWLazJhMGzWNLJfBLUPxJ9MdE0Cw4N9AumibzJ+
- +Zbi9zcgZuE0w==
-Date: Mon, 23 Nov 2026 01:13:59 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, linux-mm@kvack.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- linux-block@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- linux-mtd@lists.infradead.org, Neill Kapron <nkapron@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v2 11/12] docs: ioctl-number: update platform entries
-Message-ID: <awOTV4kbshpi_cxp@google.com>
-References: <20261119053514.255348-1-rdunlap@infradead.org>
- <20261119053514.255348-12-rdunlap@infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 103D010E31C;
+	Mon, 23 Nov 2026 03:15:58 +0000 (UTC)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 669EF10E31C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 03:15:52 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-3b3af93b85cso1543392a91.1
+ for <intel-gfx@lists.freedesktop.org>; Sun, 22 Nov 2026 19:15:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795403752; x=1796008552; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=tM7CoyIwY3mBBJWEKLWnIG7fS4CdbQVru8+n4SDpDTA=;
+ b=eEpbKvAT5WsjPiATYe8LGTmUOxvonVZnzrAgfQ5qq8oyhj2lDTKL9wXUW8CqPX6+IE
+ E6DpDX0XoIjj2xLRBGpKcP/qlDNvZSt3PjTzGy7KxmZbGMZm9uAYbAZLWdJqBaXbkE/J
+ xlDadtnWfhAjCRY6f8LN9OP7ZnEtnkKdu0B9hpH3+PfNyx/mYrDrO54ts/yjhdUEf5gn
+ Tk5xWaenf3iVgqkdfOAryZ0CdE0Ahs4YahUqytri8BW5aNV38XbksvcYgBfV6nYi3WYs
+ jdYPqIP81mSmVCuzNHNmr/wYY7SKD6UqpylFeyQ90XlIk6uACmPvo17jFzTmW57yC+nA
+ 2tVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795403752; x=1796008552;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=tM7CoyIwY3mBBJWEKLWnIG7fS4CdbQVru8+n4SDpDTA=;
+ b=qScL8ZcQd2YtnqAN3FwzLyVnfefi5IdYkTCLeOCvr3jaxGuyImSj7VWSzwhiPexQtj
+ /HC4/HxDECmSNKob7IfYPCmOUKv3IIPXJ5IYd36npBR3t7hw6ydpkiJA/wsPnGg8TQGA
+ aRZWuptLvOkwct3amrpaiHo0KK5SiezDHkFjy4/owPi4TF9w4f0o42q1zGtxebU+r4up
+ N5Hz1We4YeIU5pQIxSKIhHxBw8r2naRCrmBIK+A8zNl8eAkdahnWmZabWEHWvhOBdit6
+ eR+5IsKnewfu0klFQ60KPNAkMQbEShd37Qs8+gxD2LmK4SQFjbq4CagXgVmofHDaPFga
+ cCIQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEcFEdsgp0LrFQCEC0b2061zhyXWlMOLWD4sonafA0QVaHwxxIasW2pfzL/buhqDJq/DFgT7gDGb44=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+/MPudcZ8t1BbqhYcNlatVzeDCkfLGjmZoJAkiTdorI6qVzF7h
+ rfrpwxZVb5sfWZr52KjLpSfAxBcxj31Rb5RPXNs5BPWGVStJr23bv4sZkdXN/Q==
+X-Gm-Gg: AZFdTZcKY7vvPlqXr0rszuTKWduPj/746PltQm+Bin55ab2VjrQa5Dhufjmj03pek7s
+ j/9Y/qI6v+ARATSqmPwMqyf+lp7XX70b7FMH2PqyPKyRaVSL43tiAi5k+Hm2kktyGJguIgZuXHz
+ WgvWyWAH2oj5t+txMwc5Lxx1grdOiTOVapdhwo8hrb8UT4usQU/zFqJx4kkBMG0AAh1YuVz9Abm
+ LnDyLyy6dT9zNTdcww3VT5eGFxz2ZZhhGzn9MyyRUFJZEECv7Z4tWGLZRvV8PmUoTkQQF/7hFPz
+ IJb1pOchKR25Sb1/HBfoJ5cOm5PfcfmQYR2eRA1wA+hiKI7DqCpawdLXpFkWDCsplkbAGek6ils
+ 4wBVWjlOjDJcgPR3rY6E7qnEL4Pubm+3ddNG3/TJN6mfbGT+OrHgKcoBLjT1P4uf8uZi04pxvHE
+ ZBC/sJUED5/vj3z14z4p7vogpCdgvvh9pr4Efnn5SVWaRVIlj4W5tqi7EyzWbEZVHZDJ9pAgRrE
+ L4n+a7OPJQe27izKQ4yXmoJI9N9zLM32kaIDBS2TpYL5oRz2QLl5pqHQWg/Wyz3OAppRQrYQoFp
+ 4+s9PAIj5++JpL4xdfulUsc7ne8Ff/4rRKI=
+X-Received: by 2002:a17:90b:2b4c:b0:3b0:a7b5:c037 with SMTP id
+ 98e67ed59e1d1-3b41c7b6145mr9635414a91.1.1795403751833; 
+ Sun, 22 Nov 2026 19:15:51 -0800 (PST)
+Received: from localhost ([2400:2650:24e0:bf00:cc77:213f:afc3:65e2])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b409330ae8sm18368762a91.7.2026.11.22.19.15.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Nov 2026 19:15:51 -0800 (PST)
+Date: Mon, 23 Nov 2026 12:15:49 +0900
+From: Zhenyu Wang <zhenyuw.linux@gmail.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/i915/gvt: Descend to GVT Makefile through
+ kbuild, not include
+Message-ID: <awOv5SfoKabE-vBR@dell-wzy>
+References: <20261120155734.259742-1-jani.nikula@intel.com>
+ <20261120155734.259742-2-jani.nikula@intel.com>
+ <awBxf9ixOpSQpj1q@intel.com>
+ <40de34776e441b082b4dfa5e1d76ef933ea303e7@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261119053514.255348-12-rdunlap@infradead.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <40de34776e441b082b4dfa5e1d76ef933ea303e7@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,23 +91,28 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 18, 2026 at 09:35:12PM -0800, Randy Dunlap wrote:
-> Update the list of platform/ files where ioctls are defined and update
-> the ranges of function numbers that are used.
+On Fri, Nov 20, 2026 at 07:04:22PM +0200, Jani Nikula wrote:
+> On Fri, 20 Nov 2026, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> > On Fri, Nov 20, 2026 at 05:57:34PM +0200, Jani Nikula wrote:
+> >> Treat the gvt/ subdirectory and Makefile like a regular kernel driver
+> >> directory, and descend to it through kbuild, not Makefile include.
+> >> 
+> >> The main change is that the resulting kvmgt.ko is also placed in the
+> >> gvt/ subdirectory in the build directory.
+> >
+> > Does this also change where the module gets installed finally?
 > 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> v2: no change
+> Probably. If anyone depends on the exact location, they'll be hosed.
 > 
-> [Since having multiple maintainers trying to merge these would
-> cause some conflicts, it would be more manageable for Jon to
-> take all of these through the docs-next tree.]
 
-Acked-by: Tzung-Bi Shih <tzungbi@kernel.org> # cros_ec
+No, I don't think anyone depends on that, as long as module deps
+handled it fine.
+
+Reviewed-by: Zhenyu Wang <zhenyuw.linux@gmail.com>
