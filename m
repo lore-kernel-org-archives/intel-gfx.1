@@ -2,60 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D862606A6BD
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 08:10:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1C4606A31A
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 08:14:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNjdvnPp
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bJFQgm5c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B076F10E700;
-	Mon, 23 Nov 2026 08:10:28 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E89E410E5F1;
- Mon, 23 Nov 2026 08:10:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0122E61E15;
- Mon, 23 Nov 2026 08:10:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33A1E1F000C0;
- Mon, 23 Nov 2026 08:10:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795421420;
- bh=v5GWduFGID+XPcjZcpomhvmCUBYklqEgNOXrwIWDao8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=dNjdvnPpwjdmcjISaoQjFXL2w8UxVYHTleyaAVlQXmLzTb5vlljO/EZI7cZrNM+dF
- nzgf6wS0dpFGMgDRkISJjDkuL+xsHaTxjDTzJt+/8YpYLWg2SkrG7/CNW/jP2xXV7P
- QIWRpnbJeod9ssDw6cp2ebUsxbVz2I7mqnm2Qc5sI/G+vNR1IT+ktmFB5gqZLIqaoL
- VzRd+xA2s9ShJOStIFvk9rifnQe2Jgw10DHP0Fov7gX5w0HiD7oiJYWhLNEVD6INE6
- 0pww18WmqM9xGjJ5aAsmSyFIWdWAmObLR5PuUZJNwHnt4+6KSFe4PVF78HXadJ+OyS
- irdqyxohANIVg==
-Date: Mon, 23 Nov 2026 09:10:17 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Mario Limonciello <superm1@kernel.org>, Xaver Hugl <xaver.hugl@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-Message-ID: <awP0nasqAc4pAeMR@houat>
-References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
- <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
- <awB4Qe83u0l0XPKA@intel.com>
- <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
- <awPvoLCDeq1YFLE_@houat> <awPzsMWZ7e0i6i54@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD14710E684;
+	Mon, 23 Nov 2026 08:14:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD58B10E684;
+ Mon, 23 Nov 2026 08:14:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795421647; x=1826957647;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=w7FVwGcVFrwXsIlJ7ekIX0LM1Tot4i9qZLwIJJBQy7c=;
+ b=bJFQgm5cg3UUBxZAcWsUOMX8+QDh9+CvUFaDNj/mNKBqn+4TWS34BrCo
+ rh3KtnlPAQ18NaQWxp6rWKvgmDkCA53yohfBZ7fdJJzPto5XK717gS4S/
+ owJPTUy7cMFEQs66dB9ewCJVXOI16lrhzxLmeMC61lFsbpgVKQN/WPXpm
+ w6bRoynsSEOB0tMCscYGowoRI2bRvi/zllzD/vdodGoxdxx7aKSO0VKgY
+ SWSXPf6Sq/HHLKhtAM+671ATjHVFPpzA2MTmS2x3v0J0l9hiSnVT3TqU3
+ KW3BV80zXcjBkKVbznc16uQreHK/texgPLwGRYc0j7fa+JSb5ynmdu2gN g==;
+X-CSE-ConnectionGUID: nhYmYO4iS52erXCuX4dodw==
+X-CSE-MsgGUID: VYphsupOQG+olxjPEFWsBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4106851"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4106851"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2026 00:14:07 -0800
+X-CSE-ConnectionGUID: hYG084I1Si+Ew+qGjhVLrQ==
+X-CSE-MsgGUID: j1tvqu08Qj6KAaZ8kirzMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11445401"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.220])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2026 00:14:04 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>, intel-gfx
+ <intel-gfx@lists.freedesktop.org>, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/display: Handle type 0 in mipi_exec_send_packet()
+In-Reply-To: <20261122215051.73289-1-johannes.goede@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261122215051.73289-1-johannes.goede@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 10:14:01 +0200
+Message-ID: <235e24d3a8f6c9024f3344f87135557fd811c090@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="dwr325mwgufdlyuf"
-Content-Disposition: inline
-In-Reply-To: <awPzsMWZ7e0i6i54@intel.com>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,163 +68,57 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Sun, 22 Nov 2026, Hans de Goede <johannes.goede@oss.qualcomm.com> wrote:
+> Some devices, like e.g. the MPMan Converter9 tablet have some
+> MIPI_SEQ_ELEM_SEND_PKT in their VBT DSI init sequences table with a type
+> of 0. The table for Processor-to-Peripheral commands in the MIPI DSI spec
+> does not list such a type.
+>
+> This leads to the following error getting logged:
+>
+> i915 0000:00:02.0: [drm] *ERROR* DSI send packet failed with -EINVAL
+>
+> With no ill effects since errors are ignored.
+>
+> Presumably the intended behavior here is for this to be a no-op like
+> MIPI_DCS_NOP which is defined as 0; and the display works fine including
+> powering it off / on.
+>
+> At handling for a MIPI_SEQ_ELEM_SEND_PKT sequence with a type of 0 and
+> treat this as a nop to silence the error.
+>
+> Fixes: b84befa31266 ("drm/i915/display: Add default case to mipi_exec_send_packet")
+> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
---dwr325mwgufdlyuf
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-MIME-Version: 1.0
+The VBTs out there have ceased to surprise me.
 
-On Mon, Nov 23, 2026 at 10:05:04AM +0200, Ville Syrj=E4l=E4 wrote:
-> On Mon, Nov 23, 2026 at 08:50:29AM +0100, Maxime Ripard wrote:
-> > On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wrote:
-> > >=20
-> > >=20
-> > > On 11/20/26 10:41, Ville Syrj=E4l=E4 wrote:
-> > > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello wrote:
-> > > > > Panel brightness is a property of a display, and thus of a DRM
-> > > > > connector. Add an atomic per-connector LUMINANCE range property so
-> > > > > compositors can manage relative panel luminance together with the=
- rest
-> > > > > of the display state.
-> > > > >=20
-> > > > > Keep the core backend-agnostic. Drivers create the property with =
-their
-> > > > > hardware range and implement connector helper callbacks to set lu=
-minance
-> > > > > or disable panel emission. The atomic helpers sequence those call=
-backs
-> > > > > around pipeline enable and disable, including luminance-only comm=
-its.
-> > > > > The panel is left lit when the pipeline enters self refresh, and =
-the
-> > > > > luminance is only reprogrammed when it changes or a modeset enabl=
-es the
-> > > > > pipeline.
-> > > > >=20
-> > > > > The stored property value is independent of display power. A comm=
-it made
-> > > > > while the connector is inactive is retained and applied on the ne=
-xt
-> > > > > enable; disabling the pipeline does not overwrite it.
-> > > > >=20
-> > > > > LUMINANCE values are relative, driver-defined levels rather than
-> > > > > absolute luminance in cd/m^2. The interface supports emissive pan=
-els as
-> > > > > well as panels with a separate backlight.
-> > > > >=20
-> > > > > Keep the interface behind a default-off DRM_LUMINANCE option. Mig=
-rated
-> > > > > drivers retain their legacy backlight class ABI unless the new in=
-terface
-> > > > > is explicitly selected, allowing the DRM UAPI and legacy compatib=
-ility
-> > > > > policy to remain separate.
-> > > > >=20
-> > > > > Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-> > > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > > > > ---
-> > > > > v11:
-> > > > >   * Don't call .disable_luminance when the CRTC enters self refre=
-sh (Sashiko)
-> > > > >   * Only call .set_luminance when the luminance changes or on a m=
-odeset
-> > > > >     that isn't a self refresh exit (Leo Li, Sashiko)
-> > > > >   * Fix the .set_luminance self refresh documentation
-> > > > > v10:
-> > > > >   * Add tag
-> > > > > ---
-> > > > >   drivers/gpu/drm/Kconfig                    | 14 +++++
-> > > > >   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++++++=
-++++++++++++++-
-> > > > >   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
-> > > > >   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
-> > > > >   drivers/gpu/drm/drm_connector.c            | 57 +++++++++++++++=
-++
-> > > > >   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
-> > > > >   include/drm/drm_atomic_helper.h            |  3 +
-> > > > >   include/drm/drm_connector.h                | 16 +++++
-> > > > >   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
-> > > > >   9 files changed, 255 insertions(+), 1 deletion(-)
-> > > > >=20
-> > > > > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > > > > index 61111d50b1c65..1bbe2c2d7c76f 100644
-> > > > > --- a/drivers/gpu/drm/Kconfig
-> > > > > +++ b/drivers/gpu/drm/Kconfig
-> > > > > @@ -33,6 +33,20 @@ endmenu
-> > > > >   if DRM
-> > > > > +config DRM_LUMINANCE
-> > > > > +	bool "DRM connector luminance support"
-> > > > > +	help
-> > > > > +	  Expose relative luminance as an atomic DRM connector property=
-=2E Values
-> > > > > +	  are driver-defined levels rather than absolute luminance in c=
-d/m^2.
-> > > > > +	  Drivers provide connector helper callbacks to program their h=
-ardware;
-> > > > > +	  the DRM core does not depend on a particular backend.
-> > > > > +
-> > > > > +	  Drivers migrated to this interface will use it instead of reg=
-istering
-> > > > > +	  a legacy backlight class device. Leave this disabled to prese=
-rve the
-> > > > > +	  de-facto userspace ABI in /sys/class/backlight.
-> > > >=20
-> > > > I don't think this will fly if it breaks the backlight class interf=
-ace.
-> > > > No one can actually enable this outside of some niche embedded use
-> > > > cases where backwards compatibility is not an issue. I think what
-> > > > you need is a generic backlight class implementation on top of this.
-> > > >=20
-> > >=20
-> > > The idea with this was:
-> > > 1) to get the series landed
-> > > 2) let compositors merge solutions around it.
-> > > 3) Then add backwards compatibility to kernel so we can flip the Kcon=
-fig
-> > > default.
-> >=20
-> > I said this a few times already, but we keep having those discussions
-> > while the backlight sysfs handling is far from being the main point. You
-> > should *really* consider adding support for the luminance property for
-> > something that isn't tied to that interface (like DDC/CI for HDMI), and
-> > treat the sysfs API as a sysfs series.
-> >=20
-> > It looks like people just have conflicting opinions on this particular
-> > part that isn't going to solve itself easily. You should not treat this
-> > sysfs discussion as a blocker for the infrastructure work.
->=20
-> You want to be sure backwards compatibility with the backlight
-> class is a solvable problem before you land *anything*. Otherwise
-> you might just paint yourself into a corner with no way out.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-I disagree. The luminance property is more useful than *just* for
-backlights but is also useful for HDMI, DP, and MIPI-DSI that would all
-use it.
+> ---
+>  drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+> index fe12041e913c..423be33443c6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+> @@ -142,6 +142,9 @@ static const u8 *mipi_exec_send_packet(struct intel_dsi *intel_dsi,
+>  		    hs_mode ? "HS" : "LP", type, len, (int)len, data);
+>  
+>  	switch (type) {
+> +	case 0: /* Not in MIPI DSI specification, presumably nop like MIPI_DCS_NOP */
+> +		ret = 0;
+> +		break;
+>  	case MIPI_DSI_GENERIC_SHORT_WRITE_0_PARAM:
+>  		ret = mipi_dsi_generic_write(dsi_device, NULL, 0);
+>  		break;
 
-If that's the corner we paint ourselves into, it's still a pretty nice
-corner.
-
-Maxime
-
---dwr325mwgufdlyuf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawP06QAKCRAnX84Zoj2+
-dirlAYCaLJUdSt6csq7+6ZBW3alomOCJf+HmDo3pMuq+3WWMHrPsn7h9AGYUA8Ep
-foPjziwBfRuxWHnha3bp3vUm0RB95VfNQikyfGT5zDueZnd9cCI2Budw3etjGq6K
-zg6OFg9zrA==
-=bk0X
------END PGP SIGNATURE-----
-
---dwr325mwgufdlyuf--
+-- 
+Jani Nikula, Intel
