@@ -2,44 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7727606A31F
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 15:45:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IuGvDukY
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408E1606A32C
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 17:04:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54F0110EF32;
-	Mon, 23 Nov 2026 15:45:53 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6835410E800;
- Mon, 23 Nov 2026 15:45:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5071843D4E;
- Mon, 23 Nov 2026 15:45:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF32D1F000C4;
- Mon, 23 Nov 2026 15:45:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795448747;
- bh=LOYnWkn7AHS00ZvRSqVZZhkIKGxyKSc8eYfs8segn9s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IuGvDukYuuH4l7LckqEbfqO4MdlRcGlg2FIz4A4kPjTckO6O17bAG0JnKCM3TTSWp
- XnqlHaj47/s/cZNQESQ/YIma9wYfI7HgEK0cRRw5+cxuD7SjIAtYwNs3ZZOujsHOsP
- FHaWNFszO1bRNNAZtrUCfZhHGhJsUD2AMEn23HGjlyhCM6zEYzUiYDDijRseufN7AK
- enVPjljr/0/k52geoE5rT5JROiBSe5fPPVxvzr8zdys7TXoZLJR/H3dblpSKqRfbW7
- lAI7w6WjkjqZcJj+s0v/sf5cqFZfHSlGmNe5hxN2JE3N5Q5LtEOsQszQZmzZZqvwyc
- 4qb+tx48ot5Fg==
-Message-ID: <sashiko-outbox-229600@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] drm/i915/psr: Send the AS SDP in PR Active while
- frames are updating
-To: "Jake Steinman" <j@metarealtyinc.ca>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <ada2073fc66fa74685b73ac085513c5299b1526f.1795263689.git.j@metarealtyinc.ca>
-References: <awCCGeCxHToY8tsI@intel.com>
- <cover.1795263689.git.j@metarealtyinc.ca>
- <ada2073fc66fa74685b73ac085513c5299b1526f.1795263689.git.j@metarealtyinc.ca>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 15:45:46 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B65C910E0DB;
+	Mon, 23 Nov 2026 17:04:06 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C368110E0DB;
+ Mon, 23 Nov 2026 17:04:05 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7924360051717027377=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pps=3A_Don=27t_s?=
+ =?utf-8?q?teal_VDD_from_another_eDP_port_sharing_the_PPS?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 23 Nov 2026 17:04:05 -0000
+Message-ID: <179545344579.71505.10908872092909848861@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261123050422.3130438-1-suraj.kandpal@intel.com>
+In-Reply-To: <20261123050422.3130438-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,101 +34,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/i915/psr: stale psr.disable_as_sdp_when_pr_active on
-  seamless VRR toggle
---
+--===============7924360051717027377==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 80915725d9b9cf87d3b5497256fb042ac9a0cf2a
-Author: Jake Steinman <j@metarealtyinc.ca>
+== Series Details ==
 
-drm/i915/psr: Send the AS SDP in PR Active while frames are updating
+Series: drm/i915/pps: Don't steal VDD from another eDP port sharing the PPS
+URL   : https://patchwork.freedesktop.org/series/179337/
+State : success
 
-This commit enables Adaptive Sync SDP transmission in Panel Replay Active on
-frontbuffer flushes and suspends it again via delayed work after 6 idle
-frames.  It also refines disable_as_sdp_when_pr_active so that it is disabl=
-ed
-when periodic AS SDP skip frames is enabled.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i=
-915/display/intel_psr.c
-> index bd16563603249..8407b34f23934 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> @@ -1704,10 +1704,38 @@ static inline bool compute_link_off_after_as_sdp_=
-when_pr_active(struct intel_con
->  		DP_PANEL_REPLAY_LINK_OFF_SUPPORTED_IN_PR_AFTER_ADAPTIVE_SYNC_SDP);
->  }
-> =20
-> -static inline bool compute_disable_as_sdp_when_pr_active(struct intel_co=
-nnector *connector)
-> +static bool compute_disable_as_sdp_when_pr_active(struct intel_dp *intel=
-_dp,
-> +						  const struct intel_crtc_state *crtc_state)
->  {
-> -	return !(connector->dp.panel_replay_caps.dpcd[INTEL_PR_DPCD_INDEX(DP_PA=
-NEL_REPLAY_CAP_CAPABILITY)] &
-> -		 DP_PANEL_REPLAY_ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR);
-> +	struct intel_connector *connector =3D intel_dp->attached_connector;
-> +	const u8 *pr_dpcd =3D connector->dp.panel_replay_caps.dpcd;
-> +
-> +	if (pr_dpcd[INTEL_PR_DPCD_INDEX(DP_PANEL_REPLAY_CAP_CAPABILITY)] &
-> +	    DP_PANEL_REPLAY_ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR)
-> +		return false;
-> +
-> +	/* AS SDP skip frames needs the AS SDP to keep flowing in PR Active */
-> +	if (intel_alpm_pr_as_sdp_skip_frames_enabled(intel_dp, crtc_state))
-> +		return false;
+CI Bug Log - changes from CI_DRM_19586 -> Patchwork_179337v1
+====================================================
 
-[ ... ]
+Summary
+-------
 
-> @@ -2211,6 +2280,9 @@ static void intel_psr_enable_locked(struct intel_dp=
- *intel_dp,
->  	intel_dp->psr.io_wake_lines =3D crtc_state->alpm_state.io_wake_lines;
->  	intel_dp->psr.fast_wake_lines =3D crtc_state->alpm_state.fast_wake_line=
-s;
->  	intel_dp->psr.entry_setup_frames =3D crtc_state->entry_setup_frames;
-> +	intel_dp->psr.disable_as_sdp_when_pr_active =3D
-> +		crtc_state->disable_as_sdp_when_pr_active;
-> +	intel_dp->psr.as_sdp_in_active =3D false;
+  **SUCCESS**
 
-[Severity: Medium]
-Can intel_dp->psr.disable_as_sdp_when_pr_active become stale across a
-seamless VRR fastset?
+  No regressions found.
 
-Because intel_alpm_pr_as_sdp_skip_frames_enabled() is gated on
-!crtc_state->vrr.enable, toggling VRR when periodic AS SDP skip frames is
-configured flips crtc_state->disable_as_sdp_when_pr_active between true (VRR
-on) and false (VRR off).  During a seamless VRR transition, Panel Replay
-stays enabled and intel_psr_post_plane_update() does not call
-intel_psr_enable_locked(), so intel_dp->psr.disable_as_sdp_when_pr_active,
-intel_dp->psr.as_sdp_in_active, and intel_dp->psr.as_sdp_work are not
-updated to match the new crtc_state.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179337v1/index.html
 
-Even with the follow-up commit "drm/i915/alpm: Leave AS SDP Transmission in
-Active Disable to PSR code" preserving
-PR_ALPM_CTL_AS_SDP_TRANSMISSION_IN_ACTIVE_DISABLE in
-intel_alpm_configure_pr_as_sdp() when skip_frames is 0, toggling VRR off
-leaves intel_dp->psr.disable_as_sdp_when_pr_active set to true, so
-intel_psr_pr_as_sdp_suspend_work() will set
-PR_ALPM_CTL_AS_SDP_TRANSMISSION_IN_ACTIVE_DISABLE after 6 idle frames while
-mutually exclusive PR_ALPM_CTL_AS_SDP_SKIP_FRAMES is enabled.  Conversely,
-toggling VRR on leaves intel_dp->psr.disable_as_sdp_when_pr_active set to
-false, so intel_psr_pr_as_sdp_flush_locked() never schedules as_sdp_work and
-AS SDP transmission in PR Active remains permanently enabled when idle,
-blocking DC5/DC6.
+Participating hosts (40 -> 39)
+------------------------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795263689.gi=
-t.j@metarealtyinc.ca?part=3D2
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_179337v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19586/bat-rpls-4/igt@vgem_basic@unload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179337v1/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19586 -> Patchwork_179337v1
+
+  CI-20190529: 20190529
+  CI_DRM_19586: 121edef0b46026bc61b63cac3504e2c0851d89f4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9201: 9201
+  Patchwork_179337v1: 121edef0b46026bc61b63cac3504e2c0851d89f4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179337v1/index.html
+
+--===============7924360051717027377==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pps: Don&#x27;t steal VDD from another eDP port sharing the PPS</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179337/">https://patchwork.freedesktop.org/series/179337/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179337v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179337v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19586 -&gt; Patchwork_179337v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179337v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_179337v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19586/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179337v1/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19586 -&gt; Patchwork_179337v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19586: 121edef0b46026bc61b63cac3504e2c0851d89f4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9201: 9201<br />
+  Patchwork_179337v1: 121edef0b46026bc61b63cac3504e2c0851d89f4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7924360051717027377==--
