@@ -2,61 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B700D606A31A
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 08:49:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F941606A31A
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 09:04:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FDlwG7aK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUhZB/y7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED8310E75A;
-	Mon, 23 Nov 2026 08:49:25 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 068EC10E75A;
- Mon, 23 Nov 2026 08:49:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795423759; x=1826959759;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=VDqfNAPy2JKnA+2i2Uf52316VUmvieSrk/qcFA0i+U0=;
- b=FDlwG7aKlpogFc1ouf7kqgg6+lIBnioH8icTS6/KL6FpEXpBXrHhSQta
- smgeit2pFDbiVpY3fGl1TcsD2bBEAzWrr+Api3BGWHBa1SB8KqCjWt+c4
- nTeemvm03mzlAJs/FZuZ+JkLxELzCTKzpqkNoN5DKnNptHM+rH/7yvh/5
- 8OVm6df60rFPpd61OHOthR0yOu1kjOWnHsNdFWcq+XrxeRAjiNFIIJAlF
- G2CqJPJ7+fF00M0PnoDQKdMh98s5J4AxHYbazvY7S1jBzkr+wr5D3wrhx
- 8DhSIgwWC9P1YkUidXCrtvzEr0U+3uX2RbU19c4SyE2NYDrm8kmsUs1bf Q==;
-X-CSE-ConnectionGUID: Yw9rJDtKRGC6SjqiBdCuHw==
-X-CSE-MsgGUID: tG6IAUJ/T3KePNGFS288mg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4124630"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4124630"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 00:49:19 -0800
-X-CSE-ConnectionGUID: 53nR6vN8RIOQLC9WAMKPyQ==
-X-CSE-MsgGUID: M+4leTqeQEeILi+di3OUFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11582492"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.224])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 00:49:16 -0800
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA4110E7A2;
+	Mon, 23 Nov 2026 09:04:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D92F610E76E;
+ Mon, 23 Nov 2026 09:03:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D203B61ECB;
+ Mon, 23 Nov 2026 09:03:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AF01F000CA;
+ Mon, 23 Nov 2026 09:03:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795424633;
+ bh=4x7CJ1xMFs5pG+gh52UonDZiTq1wXOZaXmAxD7J5OAE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=EUhZB/y7qb0yQDBmX1MaXhfgnQ9Wwgz1PLjP1mJXwRjkSsXjNqSeST+yRBq/W7vtU
+ awKsG/1nDiAtCnsXlBI01lXjILgB/crOknqO7/ipdoky6vB5Z/XQT/THqDEkDAp1ax
+ 8b4H9RPRhvQ3Nyor9L3ml3Kw6yJkqSwm2du1+7uw7iCG8q4NXWAITiNGHpvdk2/3oY
+ TrmvJJk3leOwO72pKYHoHvNj9Ry9GI8DxZHbIfvy8K8XGpIpdK4wU2HiPAS7MSnWrG
+ O5zhCYFjoglRwo6l53D+TtrHf3j4pXrTtnhAETY5Cxpg0Vyzapt4keY2WgL68eqXEe
+ SEfvgu6ryg+oA==
+Date: Mon, 23 Nov 2026 10:03:50 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Mario Limonciello <superm1@kernel.org>, Xaver Hugl <xaver.hugl@gmail.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org
+Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
+Message-ID: <awQAlSSks2We5h2z@houat>
+References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
+ <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
+ <awB4Qe83u0l0XPKA@intel.com>
+ <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
+ <awPvoLCDeq1YFLE_@houat> <awPzsMWZ7e0i6i54@intel.com>
+ <awP0nasqAc4pAeMR@houat> <awP8hAy3Gim4eNxz@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261121071713.335337-1-haoxiang_li2024@163.com>
-References: <20261121071713.335337-1-haoxiang_li2024@163.com>
-Subject: Re: [PATCH v2] drm/i915/vma: Fix a memory leak in i915_vma_pin_ww()
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Haoxiang Li <haoxiang_li2024@163.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-To: Haoxiang Li <haoxiang_li2024@163.com>, airlied@gmail.com,
- andi.shyti@kernel.org, jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- simona@ffwll.ch, tursulin@ursulin.net
-Date: Mon, 23 Nov 2026 10:49:12 +0200
-Message-ID: <179542375283.27957.3540837456636790784@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="7qyyenfz3amoxweo"
+Content-Disposition: inline
+In-Reply-To: <awP8hAy3Gim4eNxz@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,70 +68,194 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Quoting Haoxiang Li (2026-11-21 09:17:13)
-> The memory allocated by i915_vma_work() is not freed if
-> i915_gem_object_get_moving_fence() fails. Change the
-> goto label to do so.
 
-That's better.
+--7qyyenfz3amoxweo
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
+MIME-Version: 1.0
 
-You still did not touch the title of the patch, however.
-If feedback is given to you, do not submit a new version
-without confirming that you addressed all parts of it.
-Consider this the last notice before getting ignored.
-
-What you have is a memory leak on error path without any
-assessment about if that error path is possible to hit.
-
-Please realize your LLM is very eager to over-state
-the impact of any findings. It's your responsibility to
-understand the impact and write the commit description
-and title accordingly.
-
-> Fixes: 8ec5c0006c50 ("Merge tag 'drm-intel-next-2022-05-20' of git://anon=
-git.freedesktop.org/drm/drm-intel into drm-intel-gt-next")
-
-You should just re-create the merge conflict and check which
-two patches conflicted. While it's within possibility that
-the merge commit itself summoned the error handling code
-from thin air as a trivial 'git blame' might show. It's not
-very likely, so needs to be looked into.
-
-Regards, Joonas
-
-> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-> ---
-> Changes in v2:
->  - Modify the commit message. Thanks, Andi!
-> ---
->  drivers/gpu/drm/i915/i915_vma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On Mon, Nov 23, 2026 at 10:42:44AM +0200, Ville Syrj=E4l=E4 wrote:
+> On Mon, Nov 23, 2026 at 09:10:17AM +0100, Maxime Ripard wrote:
+> > On Mon, Nov 23, 2026 at 10:05:04AM +0200, Ville Syrj=E4l=E4 wrote:
+> > > On Mon, Nov 23, 2026 at 08:50:29AM +0100, Maxime Ripard wrote:
+> > > > On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wrote:
+> > > > >=20
+> > > > >=20
+> > > > > On 11/20/26 10:41, Ville Syrj=E4l=E4 wrote:
+> > > > > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello wro=
+te:
+> > > > > > > Panel brightness is a property of a display, and thus of a DRM
+> > > > > > > connector. Add an atomic per-connector LUMINANCE range proper=
+ty so
+> > > > > > > compositors can manage relative panel luminance together with=
+ the rest
+> > > > > > > of the display state.
+> > > > > > >=20
+> > > > > > > Keep the core backend-agnostic. Drivers create the property w=
+ith their
+> > > > > > > hardware range and implement connector helper callbacks to se=
+t luminance
+> > > > > > > or disable panel emission. The atomic helpers sequence those =
+callbacks
+> > > > > > > around pipeline enable and disable, including luminance-only =
+commits.
+> > > > > > > The panel is left lit when the pipeline enters self refresh, =
+and the
+> > > > > > > luminance is only reprogrammed when it changes or a modeset e=
+nables the
+> > > > > > > pipeline.
+> > > > > > >=20
+> > > > > > > The stored property value is independent of display power. A =
+commit made
+> > > > > > > while the connector is inactive is retained and applied on th=
+e next
+> > > > > > > enable; disabling the pipeline does not overwrite it.
+> > > > > > >=20
+> > > > > > > LUMINANCE values are relative, driver-defined levels rather t=
+han
+> > > > > > > absolute luminance in cd/m^2. The interface supports emissive=
+ panels as
+> > > > > > > well as panels with a separate backlight.
+> > > > > > >=20
+> > > > > > > Keep the interface behind a default-off DRM_LUMINANCE option.=
+ Migrated
+> > > > > > > drivers retain their legacy backlight class ABI unless the ne=
+w interface
+> > > > > > > is explicitly selected, allowing the DRM UAPI and legacy comp=
+atibility
+> > > > > > > policy to remain separate.
+> > > > > > >=20
+> > > > > > > Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+> > > > > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > > > > > > ---
+> > > > > > > v11:
+> > > > > > >   * Don't call .disable_luminance when the CRTC enters self r=
+efresh (Sashiko)
+> > > > > > >   * Only call .set_luminance when the luminance changes or on=
+ a modeset
+> > > > > > >     that isn't a self refresh exit (Leo Li, Sashiko)
+> > > > > > >   * Fix the .set_luminance self refresh documentation
+> > > > > > > v10:
+> > > > > > >   * Add tag
+> > > > > > > ---
+> > > > > > >   drivers/gpu/drm/Kconfig                    | 14 +++++
+> > > > > > >   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++=
+++++++++++++++++++-
+> > > > > > >   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
+> > > > > > >   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
+> > > > > > >   drivers/gpu/drm/drm_connector.c            | 57 +++++++++++=
+++++++
+> > > > > > >   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
+> > > > > > >   include/drm/drm_atomic_helper.h            |  3 +
+> > > > > > >   include/drm/drm_connector.h                | 16 +++++
+> > > > > > >   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
+> > > > > > >   9 files changed, 255 insertions(+), 1 deletion(-)
+> > > > > > >=20
+> > > > > > > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> > > > > > > index 61111d50b1c65..1bbe2c2d7c76f 100644
+> > > > > > > --- a/drivers/gpu/drm/Kconfig
+> > > > > > > +++ b/drivers/gpu/drm/Kconfig
+> > > > > > > @@ -33,6 +33,20 @@ endmenu
+> > > > > > >   if DRM
+> > > > > > > +config DRM_LUMINANCE
+> > > > > > > +	bool "DRM connector luminance support"
+> > > > > > > +	help
+> > > > > > > +	  Expose relative luminance as an atomic DRM connector prop=
+erty. Values
+> > > > > > > +	  are driver-defined levels rather than absolute luminance =
+in cd/m^2.
+> > > > > > > +	  Drivers provide connector helper callbacks to program the=
+ir hardware;
+> > > > > > > +	  the DRM core does not depend on a particular backend.
+> > > > > > > +
+> > > > > > > +	  Drivers migrated to this interface will use it instead of=
+ registering
+> > > > > > > +	  a legacy backlight class device. Leave this disabled to p=
+reserve the
+> > > > > > > +	  de-facto userspace ABI in /sys/class/backlight.
+> > > > > >=20
+> > > > > > I don't think this will fly if it breaks the backlight class in=
+terface.
+> > > > > > No one can actually enable this outside of some niche embedded =
+use
+> > > > > > cases where backwards compatibility is not an issue. I think wh=
+at
+> > > > > > you need is a generic backlight class implementation on top of =
+this.
+> > > > > >=20
+> > > > >=20
+> > > > > The idea with this was:
+> > > > > 1) to get the series landed
+> > > > > 2) let compositors merge solutions around it.
+> > > > > 3) Then add backwards compatibility to kernel so we can flip the =
+Kconfig
+> > > > > default.
+> > > >=20
+> > > > I said this a few times already, but we keep having those discussio=
+ns
+> > > > while the backlight sysfs handling is far from being the main point=
+=2E You
+> > > > should *really* consider adding support for the luminance property =
+for
+> > > > something that isn't tied to that interface (like DDC/CI for HDMI),=
+ and
+> > > > treat the sysfs API as a sysfs series.
+> > > >=20
+> > > > It looks like people just have conflicting opinions on this particu=
+lar
+> > > > part that isn't going to solve itself easily. You should not treat =
+this
+> > > > sysfs discussion as a blocker for the infrastructure work.
+> > >=20
+> > > You want to be sure backwards compatibility with the backlight
+> > > class is a solvable problem before you land *anything*. Otherwise
+> > > you might just paint yourself into a corner with no way out.
+> >=20
+> > I disagree. The luminance property is more useful than *just* for
+> > backlights but is also useful for HDMI, DP, and MIPI-DSI that would all
+> > use it.
 >=20
-> diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_=
-vma.c
-> index 16782d8579a8..4ba1c9ea5ecb 100644
-> --- a/drivers/gpu/drm/i915/i915_vma.c
-> +++ b/drivers/gpu/drm/i915/i915_vma.c
-> @@ -1470,7 +1470,7 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i9=
-15_gem_ww_ctx *ww,
+> DSI and eDP are all over the place when it comes how backlight
+> is implemented, so very much would not all use it. Some HDMI and
+> external DP displays might have DDC/CI support, so I'll give you
+> those.
 > =20
->                 err =3D i915_gem_object_get_moving_fence(vma->obj, &movin=
-g);
->                 if (err)
-> -                       goto err_rpm;
-> +                       goto err_fence;
-> =20
->                 dma_fence_work_chain(&work->base, moving);
-> =20
-> --=20
-> 2.25.1
->
+> > If that's the corner we paint ourselves into, it's still a pretty nice
+> > corner.
+>=20
+> Separate APIs for different outputs on different drivers is just
+> a bad idea. Every userspace implementation will have to support
+> all of them until the end of the world.
+
+I agree, but then there's an easy answer: don't enable it on drivers
+that would expose it on both APIs. We do have a lot of drivers where
+there's just no backlight involved and would greatly benefit from these,
+and without the history of i915 or amdgpu to deal with.
+
+But at the end of the day, it was just an advice to Mario to make his
+experience easier, nothing more.
+
+Maxime
+
+--7qyyenfz3amoxweo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawQBdQAKCRAnX84Zoj2+
+dunrAX9OzZxIexpZ8Qw4XCq4/lezSrvBeTkuRX8CXqlW4RjMdA683eoraos3n1cE
+83wgjf4BgLjSuSezL8FBFpprUBA620g6fG8Jmw0qYXoo2/ZVS5AjEGJhDXBtMgug
+SYHfFtLmpA==
+=nRXr
+-----END PGP SIGNATURE-----
+
+--7qyyenfz3amoxweo--
