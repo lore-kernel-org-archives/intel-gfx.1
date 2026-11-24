@@ -2,57 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496FA606A32D
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 14:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BC3606A32E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 14:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y18lwXdo
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QLnvJAo6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC35310E875;
-	Tue, 24 Nov 2026 14:18:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D96FB10F666;
+	Tue, 24 Nov 2026 14:18:35 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C451610F666;
- Tue, 24 Nov 2026 14:18:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC48810F66B;
+ Tue, 24 Nov 2026 14:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795529905; x=1827065905;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=iwuACdQpMXnTlLN5ELk/oDxWxS/NOtcj7qdV2QAgoaI=;
- b=Y18lwXdoNQdQODjjMXFgnpJXzHyjPvJoIfLIUqnw+8hutVwMcF5xV368
- 5njmf0EWM/o3ap4cktfaSaxVQ3tL2Dduo/IWiofUFo49HUpDFzhMDWFHx
- +uvCi4YI9hJIKSK+jW5O8GGQUpER1HqFztNHACKjo+POjunlow5API9P2
- Zc7xhFmP1oSwvUXMwo6ZnvSx3M0LpDksFU2wseupaEm9t7ZlOdbrROSs8
- 1VPg3QFyzj5numH2ae8aXxqnQlgj1qCjvMnb0L1IFcJ5p0Ko3MNcYLDth
- H+Z7LhK7rU83qLKu4JS8CrpUbSIaE/btLZMful8x3vKeK+1wHhTUeN9Sd g==;
-X-CSE-ConnectionGUID: K4Jn5WhMTJ6ohJeu7WYo3Q==
-X-CSE-MsgGUID: KjB75A3URo2c5PDgHYVnZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4389688"
+ t=1795529910; x=1827065910;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Et4nNQPygyFXTSb5ejdPvxBoUQ2kk+hA7ZZH7G95BB0=;
+ b=QLnvJAo6ZhoZlGBo7sfgRLqin93FVUKzACnSQWEW/yqGNUSCfEhWYhlT
+ qQY+KOL7BFn4Hg25ytm8jIRYBQ3kFtjSqCXqiSUdWZtHnLHHSTyy3gtHS
+ FreXrNpwX+ExNiBlaDGUDb1VDvJlIjlk/YcZgFukJ45bceWHVAdInjM8P
+ TQs0JXoR9+gx+Qqc8ml40EjOT85Tww6MJ8m6ZjVFrHdYDyOw/QVVwq+BG
+ I0T6iJyxmt+Q7m0RwfZYMUHTdSCYowStntNzbyrNFijWj+N23R3Wgl82q
+ 857TjGRh5stiHFgnAQSrphDcPNFFnfL1bnx7149SzVJV1r+rtO/dHwwji g==;
+X-CSE-ConnectionGUID: MngqucDVQa+MjTyyCIUJUA==
+X-CSE-MsgGUID: kczp2iAmRHqeYvfsg3Zd+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4389696"
 X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4389688"
+   d="scan'208";a="4389696"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 06:14:55 -0800
-X-CSE-ConnectionGUID: CzpWYCwLQvi6x7hke8W52A==
-X-CSE-MsgGUID: lKXyb8w+QJ25lNk09yrp9A==
+ 24 Nov 2026 06:14:56 -0800
+X-CSE-ConnectionGUID: 414q7kylSfSqtd+PgyeBIQ==
+X-CSE-MsgGUID: DNpSwC+uRgqcuwlshySzUA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11569358"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.138])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 06:11:52 -0800
-From: Jani Nikula <jani.nikula@intel.com>
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11569633"
+Received: from display-adls.igk.intel.com ([10.211.131.198])
+ by orviesa007.jf.intel.com with ESMTP; 24 Nov 2026 06:13:05 -0800
+From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 1/2] drm/i915/display: don't be cute about printing
- enabling/disabling
-Date: Tue, 24 Nov 2026 16:11:45 +0200
-Message-ID: <20261124141146.1560208-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
+Cc: Mika Kahola <mika.kahola@intel.com>
+Subject: [PATCH 3/3] drm/i915/cmtg: Include flip queue exec time in the DC3co
+ exit latency
+Date: Tue, 24 Nov 2026 14:13:00 +0000
+Message-ID: <20261124141300.2600962-4-mika.kahola@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261124141300.2600962-1-mika.kahola@intel.com>
+References: <20261124141300.2600962-1-mika.kahola@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,66 +66,56 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Convert "%sabling", enable ? "en" : "dis" patterns to use
-str_enable_disable(). The imperative is just fine here.
+The pipe DMC may have a flip queue entry to execute on DC3co exit. Add
+its execution time to the DC5 exit latency in CMTG_HW_GB.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fdi.c     | 3 +--
- drivers/gpu/drm/i915/display/intel_gmbus.c   | 5 ++---
- drivers/gpu/drm/i915/display/intel_hotplug.c | 4 ++--
- 3 files changed, 5 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cmtg.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index c170d3104e4c..8f83762c1031 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -404,8 +404,7 @@ static void cpt_set_fdi_bc_bifurcation(struct intel_display *display, bool enabl
- 	if (enable)
- 		temp |= FDI_BC_BIFURCATION_SELECT;
+diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
+index 3c0f5b2fb2e70..75bdf0d1846fb 100644
+--- a/drivers/gpu/drm/i915/display/intel_cmtg.c
++++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
+@@ -18,6 +18,7 @@
+ #include "intel_display_power.h"
+ #include "intel_display_regs.h"
+ #include "intel_display_types.h"
++#include "intel_flipq.h"
+ #include "intel_vrr.h"
+ #include "intel_vrr_regs.h"
  
--	drm_dbg_kms(display->drm, "%sabling fdi C rx\n",
--		    enable ? "en" : "dis");
-+	drm_dbg_kms(display->drm, "%s FDI C RX\n", str_enable_disable(enable));
- 	intel_de_write(display, SOUTH_CHICKEN1, temp);
- 	intel_de_posting_read(display, SOUTH_CHICKEN1);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index d43c81d362e6..d68521588d54 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -1107,9 +1107,8 @@ void intel_gmbus_force_bit(struct i2c_adapter *adapter, bool force_bit)
- 	mutex_lock(&display->gmbus.mutex);
+@@ -397,6 +398,7 @@ static void intel_cmtg_set_hwgb(const struct intel_crtc_state *crtc_state)
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	u32 breakeven_gb;
+ 	u32 dc5_exit_latency;
++	u32 exit_latency_us = DC3CO_EXIT_LATENCY_US;
+ 	u32 line_time_us = 75;	/* Max default initialization value */
+ 	u32 val;
  
- 	bus->force_bit += force_bit ? 1 : -1;
--	drm_dbg_kms(display->drm,
--		    "%sabling bit-banging on %s. force bit now %d\n",
--		    force_bit ? "en" : "dis", adapter->name,
-+	drm_dbg_kms(display->drm, "%s bit-banging on %s. force bit now %d\n",
-+		    str_enable_disable(force_bit), adapter->name,
- 		    bus->force_bit);
+@@ -406,8 +408,15 @@ static void intel_cmtg_set_hwgb(const struct intel_crtc_state *crtc_state)
+ 	/* Break Even Guardband - DC3co Entry Latency / linetime */
+ 	breakeven_gb = DIV_ROUND_UP(DC3CO_ENTRY_LATENCY_US, line_time_us);
  
- 	mutex_unlock(&display->gmbus.mutex);
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index d095eb13dc06..09f34c9a8643 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -1309,8 +1309,8 @@ static ssize_t i915_hpd_short_storm_ctl_write(struct file *file,
- 	else if (kstrtobool(tmp, &new_state) != 0)
- 		return -EINVAL;
+-	/* DC5 Exit Latency - DC3co Exit Latency / linetime */
+-	dc5_exit_latency = DIV_ROUND_UP(DC3CO_EXIT_LATENCY_US, line_time_us);
++	/*
++	 * The pipe DMC may need to execute a flip queue entry on DC3co exit,
++	 * so include the flip queue execution time in the exit latency.
++	 */
++	if (intel_flipq_supported(display))
++		exit_latency_us += intel_flipq_exec_time_us(display);
++
++	/* DC5 Exit Latency - (DC3co Exit Latency + flip queue exec time) / linetime */
++	dc5_exit_latency = DIV_ROUND_UP(exit_latency_us, line_time_us);
  
--	drm_dbg_kms(display->drm, "%sabling HPD short storm detection\n",
--		    new_state ? "En" : "Dis");
-+	drm_dbg_kms(display->drm, "%s HPD short storm detection\n",
-+		    str_enable_disable(new_state));
- 
- 	spin_lock_irq(&display->irq.lock);
- 	hotplug->hpd_short_storm_enabled = new_state;
+ 	val = REG_FIELD_PREP(CMTG_HW_GB_BREAKEVEN_MASK, breakeven_gb) |
+ 	      REG_FIELD_PREP(CMTG_HW_GB_DC5_EXIT_LATENCY_MASK, dc5_exit_latency) |
 -- 
-2.47.3
+2.43.0
 
