@@ -2,86 +2,120 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3DE606A31E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 14:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220FF606A329
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 14:59:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=WEjOfnom
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QFvgJkmo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3676A10FCD8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3C410FCE8;
 	Wed, 25 Nov 2026 14:59:03 +0000 (UTC)
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
- [209.85.219.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 204E010F668
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 15:37:03 +0000 (UTC)
-Received: by mail-qv1-f43.google.com with SMTP id
- 6a1803df08f44-92134c4592dso42098416d6.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 07:37:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc.ca; s=google; t=1795534622; x=1796139422;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZfJPa8uUh2EsffvwpmDril+FeS3X90n3oLx7atj56Zs=;
- b=WEjOfnomNHjQOjx3P/PxEqb/dlFspbhU39mLb0Lw1veC7C5O00GVQN8ve5fJkizXuw
- mTSo/eL36JIQrspIRQ7psOJf0NtYpun8qYc2c0T2IeWaxIF/xHtG/yRYZCtObfjQGRcr
- MvFOqql3sMsbTTtf25LK5JSUKl1X+FMe9ZD90Vg5GU6WZsVKZP3WzbfYKdXKWfBVlLQW
- kojbm3t4edzoTWmPewVtWjlMBMR+A4qPYNjow1L20RXg5y5BvMlfSasRg+VWbGkub944
- D1m9C/1+oQJ7GjJYWYKva8HjpisLCa2cI/wQiVUQzcJkXOqelztcOcyq1en/6QL+BRgz
- 5G6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795534622; x=1796139422;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZfJPa8uUh2EsffvwpmDril+FeS3X90n3oLx7atj56Zs=;
- b=hZ+JHWBPLri0fFufD8nBKPnn3eVxmzOEcYwj7Cf9fElmJC9aJllKUAdlZPE+pfAz9E
- aEzPnkMGooCoWyUmZTAm+BeIb5pkf9jULs928mVeDJ2vtcyOiDGPHbspG3koef1cC6tq
- 117YFNQKi6IlwhcfpVLmbc0kNz23rp6JQeEEB5v8XTaCYfQbOIgCRE3zV1SGqPwEhY22
- d1BG2wtOZ13e3aK2Gp9ifEMfWi/z9b49K9dYF9CYwOk6MYI9/x4HiD0dCFiT55p7N1rw
- GzLbb9ro5ZSytU2Fq0sbUyPVHizCwSDmH+3/Hi//25DqegLQC5UU+Em5kz2kHxJSN4H0
- eFWg==
-X-Gm-Message-State: APuU4Z+idPj7RleG2P14fVRI+R4SvOJ0hgL2QmEJ2E9UWSc5glFfUfEh
- uwAgkRux1mVkegK6YA3lgKNQjphWbL9GNxym4Otbq+opT2b+3P8QLTm+Q7TxLnNgg78=
-X-Gm-Gg: AZFdTZeZV086WISz2PG4L1eos/DAsGCg4OCU9CiVYgN3tyBOFAoedXTGC0aSjFi/25O
- AT7cO5fok3YriCbsN+AePGrJgqCDItLutr2GfXykK5QGXrK4+dUOd0b05Ws73GpqQ1HAT1v3mvn
- 5hYUdF6IKeJVoT+Dx0DUKnwgpbkDp0Ofdlbfkm5dx2kL//JNW/GFQ6CRFy6LcwXfjnQkiuUrcwp
- 6x+ay8nz6dvNz+tPrt7ttnWEvD427RdWGkznX4ZmlKw/Z73jthPeALEssips9A2BEI+iG0K8LIV
- tYYjXYK4LE0K7SbsvkW+amsaFRKyZJK7NAZk/dxn7SBY9EJ3xbZWXsGUH/LYNFlvQTDYo7uBjzz
- zU1YckN01QWbbv+F15t6MHqBevU33NYvZwubcr+koEW7juiP433xXFj2PSg8kmI7yt/VsmLmSW6
- h3qNwACrbQxpO6j0nmrRKFsfL2bEnJVJrwkz1tSNAKbe/MgZsD+mHNI5SDQ+rYflwNMXm9jmE49
- GLBmMhGbLhwAw6PHlDPjPhLrXfjB6xS7wpQZ/4IWhivtyUrkA/5wky0dofRFD7E9ilvk99zr0jN
- SzpU+b3AvmZiFjAHNW+FIxdEGRW+25xnb0On4SSwVgSddBmn4MU7gAYXZEsNZyeFnhbs7w182e5
- akWO3XeQ9J0n+3U3/aSM032Ai2nojeCC0KoBH3c17JFRz8IK0n9I3jbbQU0ObZXWxQJgbr9PXZ1
- FeEb56po5weeubnadLcHBCulLLcma2ATvzj/NQ/oCbGPqMl+vodC7BikpPd4g1+jbQtV48+tZ/N
- VBYrmIvE/myeg==
-X-Received: by 2002:a05:620a:8081:b0:93b:d7a3:45cf with SMTP id
- af79cd13be357-949ba9e882fmr2493492185a.56.1795534621955; 
- Tue, 24 Nov 2026 07:37:01 -0800 (PST)
-Received: from jake-laptop ([2607:fea8:c6:a700::ec62])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-94a0175c67fsm26215985a.31.2026.11.24.07.37.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2026 07:37:01 -0800 (PST)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: jouni.hogander@intel.com,
-	ville.syrjala@linux.intel.com
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- animesh.manna@intel.com, ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com
-Subject: [PATCH v3 4/4] drm/i915/display: Remove the Panel Replay quirk for
- Dell XPS 16 DA16260
-Date: Tue, 24 Nov 2026 10:36:55 -0500
-Message-ID: <3a76c676f2d4a1785dcaa42ebb76bc8fd9bba405.1795527921.git.j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <cover.1795527921.git.j@metarealtyinc.ca>
-References: <3077ed0636a6c98e919934d2c860461f98222537.camel@intel.com>
- <cover.1795527921.git.j@metarealtyinc.ca>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25FFC10E222;
+ Tue, 24 Nov 2026 08:43:23 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AO34mGk1412604; Tue, 24 Nov 2026 08:42:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=21TKgW
+ 0K5jj6gPfdA/HfsQSmThGTrU/SrwtxeoW1Kw8=; b=QFvgJkmoQperorJhQoXt/M
+ tInTxbM0op4umEjumKTF2Sxgoj3C7Wx+NxNw0FwCk44x8+/zvD9qF8wG7BhopRNb
+ kfg9reC8JtYiGswymmpBuFq4r63Ig9uAQhGL9084S9fWrxCVnF7krUOJDaW/8wwn
+ K7kb+b+Z0f1+4sEKa+2/VOPI2ap4GQ+EGV+lgYm5m+pqS+GTMZ2SfUpaVh3ftBjX
+ g31jQV33DYwI5TmzVd51aaL00qAtmFX3cEoOW7yimcT48OsT5Lbq7ldNZUqi/QYz
+ Xr7e8JE/LFFJWoxDZYEUfJ9w66njh8IiqDDAXgFI+S6+97V+QHZ7KrTU1wzZ4KgA
+ ==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j34fa6v7m-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2026 08:42:16 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AO8di4w2086934; Tue, 24 Nov 2026 08:42:15 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4j3p0vj1p3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2026 08:42:15 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com
+ [10.39.53.231])
+ by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 6AO8gEbE15925834
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 24 Nov 2026 08:42:14 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 70A2F58052;
+ Tue, 24 Nov 2026 08:42:14 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B090F58050;
+ Tue, 24 Nov 2026 08:42:01 +0000 (GMT)
+Received: from [9.43.57.13] (unknown [9.43.57.13])
+ by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Tue, 24 Nov 2026 08:42:01 +0000 (GMT)
+Message-ID: <a4b839a8-b710-4dc7-8b48-847d0526070b@linux.ibm.com>
+Date: Tue, 24 Nov 2026 14:11:59 +0530
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] powerpc/spufs: consider vm_pgoff in
+ spufs_mem_mmap_access()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>, Michael Ellerman
+ <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
+References: <20261122-access_shite-v2-0-808d8d2aa700@kernel.org>
+ <20261122-access_shite-v2-3-808d8d2aa700@kernel.org>
+Content-Language: en-US
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+In-Reply-To: <20261122-access_shite-v2-3-808d8d2aa700@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAzMyBTYWx0ZWRfX83QlkRE/0mbR
+ rSbqFVtgR0hZ7p7222GUVWClMGUQMQp177LOEKllQdCkGG4PmVzEaDJqym9zfZi8w906ss6ZEZq
+ O7kwesKNucqAnGYQhXNruSUskMWo5Mu5QIEUFc5aTfLTHixAql3u/NK/AxKy87d5I90/B+bePMp
+ va9G2OkkDKI3colkcgsG7m7NHbkDnFjKQMnnNaaECNkH+0ppr9BJZiEi8XyfAG7wo22XVByCfz6
+ lxwvlHhJ6j7L4V0DJNufFmlwV6SmR9rADlacAfYMlI5rcgqfjaIfGOYfiUSVcMBeHoAInfk+4yV
+ ddl5+A2snQxmZkBU46/Z9SqhF+ThRn71MkYqILS55qnRaW+a4IU8sakm6IGidXe9s02ctPb7dIz
+ CJkri276R3EvFi7LQhRxQFpI5VSuqQ7tVGHTaFRJiArBT0fUGQ362waZxE/pETEwvqPbvMDdkC3
+ O6zlXsfGgP6v4xMLZsA==
+X-Proofpoint-ORIG-GUID: rQbUKh4nIiE8IXo8G5N8XMBLAUi8qg9T
+X-Authority-Analysis: v=2.4 cv=U6QHnuru c=1 sm=1 tr=0 ts=6b054de9 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=J0W00IkS15A3C8My_cQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: wYVClD_dI4O0Mxc2R867DqpheE8clw8Q
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAzMyBTYWx0ZWRfX/JRXOzmPmam+
+ wVJRsZSa1X8Rw8FTMHaGZ5FUkSM4ElkoYrscS5eX7fc+0HpJl3beTU7+ONmTkA7vNBvunwh2u6s
+ 3vIhhaEf7Dg1wq6W7uNEBvI7VoCH5bk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 spamscore=0 impostorscore=0
+ clxscore=1011 bulkscore=0 suspectscore=0 adultscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611240033
 X-Mailman-Approved-At: Wed, 25 Nov 2026 14:59:02 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,46 +128,54 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Panel Replay was disabled on the Dell XPS 16 DA16260 because the panel
-judders with it. The judder comes from the AS SDP being suspended in PR
-Active, which the previous patches fix by sending it while frames are
-being updated. Panel Replay Selective Update works on this
-laptop now, so remove the quirk.
 
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9119
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
----
- drivers/gpu/drm/i915/display/intel_quirks.c | 8 --------
- 1 file changed, 8 deletions(-)
+On 11/22/26 11:25 PM, David Hildenbrand (Arm) wrote:
+> spufs_mem_mmap_access() calculates the local store offset relative to the
+> start of the VMA and ignores vm_pgoff. After VMA splits, debugger reads and
+> writes access the wrong part of the local store. Mappings created with a
+> nonzero file offset have the same problem.
+>
+> Properly take the vm_pgoff into account, just like spufs_mem_mmap_fault()
+> already does.
+minor nit:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 96eb9a40d..6070440f8 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -289,14 +289,6 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
--	/* Dell XPS 16 DA16260 */
--	{
--		.device = DEVICE_ID_ANY,
--		.subsystem_vendor = 0x1028,
--		.subsystem_device = 0x0dba,
--		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
--		.hook = quirk_disable_edp_panel_replay,
--	},
- 	/* TUXEDO InsanityBook 15 v1 */
- 	{
- 		.device = 0x591b,
--- 
-2.56.1
+subject can be
+"powerpc/spufs: Fix local store offset calculation in 
+spufs_mem_mmap_access()"
 
+rest looks fine to me.
+Acked-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+
+> Fixes: a352894d0705 ("spufs: use new vm_ops->access to allow local state access from gdb")
+> Cc: stable@vger.kernel.org
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>   arch/powerpc/platforms/cell/spufs/file.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
+> index 98c47bafaf678..0a46d6f7178ab 100644
+> --- a/arch/powerpc/platforms/cell/spufs/file.c
+> +++ b/arch/powerpc/platforms/cell/spufs/file.c
+> @@ -248,7 +248,8 @@ static int spufs_mem_mmap_access(struct vm_area_struct *vma,
+>   				void *buf, int len, int write)
+>   {
+>   	struct spu_context *ctx = vma->vm_file->private_data;
+> -	unsigned long offset = address - vma->vm_start;
+> +	unsigned long offset = address - vma->vm_start +
+> +			       (vma->vm_pgoff << PAGE_SHIFT);
+>   	char *local_store;
+>   
+>   	if (write
+
+>   && !(vma->vm_flags & VM_WRITE))
+>
