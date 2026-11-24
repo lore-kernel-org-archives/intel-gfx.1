@@ -2,159 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615FB606A32E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15FE606A31E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:41:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K9PlMx0J;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=TjREHaIk
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zyXuPpa2;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MOcBuqH+;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zyXuPpa2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MOcBuqH+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4B5510F1E2;
-	Tue, 24 Nov 2026 08:18:02 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F43810F1E2;
- Tue, 24 Nov 2026 08:17:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795508271; x=1827044271;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=yzHtERIvN2r0IlbJ+NLOZ0SC/3qjYssfbU2aFp2h2qA=;
- b=K9PlMx0JFHlOaWpUk8lxW2N50lpZ1d7H8YtL+aDcvc0oRiu9PEpXmq2N
- 8HQWl8ZDhB3EDTM7dYmSaScSUDOOTxxpBEH5+Y4t7oLXlp3u59sP6Igk8
- c1AGbWDb8F8gdY2VS70sjoHAPEY3gvzW81oaLPPTNjO/JYzBTvTiEe60w
- 4f5uAgvEXtwE32nDjUVpuHtsUG4iyDPaWDwiucOvJ0+Q+sVqz6sSlNdKh
- pxRUHT26Tqv/Q7bUJAW8pdTrRbErtyCc6qrWZ4/DHHEt/wcM47U9Vf4Hu
- X9O8wdPwHPECRf2OGm8ud+EX08+qFjydHczRInixVEKGfLl/s0vWGguDq Q==;
-X-CSE-ConnectionGUID: dXY/PkN5TJWqAeUApHPl7g==
-X-CSE-MsgGUID: 31PrDjNpTNuZPSKIyz3Hjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4349993"
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
-   d="scan'208";a="4349993"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 00:16:37 -0800
-X-CSE-ConnectionGUID: 5uJPnqmvQkKKgiHN48HXug==
-X-CSE-MsgGUID: +eJ6zBoTRQGhvOXph+9QWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11719085"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 00:16:37 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 00:16:36 -0800
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57 via Frontend Transport; Tue, 24 Nov 2026 00:16:36 -0800
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.49) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 00:16:36 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O5LiB7AXwxLzg8vOY4Uwa77liFnMaDwwO/2QBVbhkzrmqbDL0umNmBK3MifoSJgKOGPkbPvBNnkj/PpQacIeG8G3ShPE06g7FBdoBQsR+Fr3tNK3w5YtkAB7YQQek5eZ9ZYXoikoE51B6W5WC2ng4em6kBUdfny2K2Uf8sicl8A+wmaOrdd6eLRj8FRHkA63/T0L3MUrW7JIFiDPfvjmK3Ut1UBzXE4cFmOHkvavi9DYJPCo5PW/tvaPME0G9hiG+IZXhpOgcfJ//yJGX7Yp/ivrY8vT25UuElaUsK+2HkOQlIuCrQIkAj3neCyWAUF6yuUvCbEOLA/nYoGl3NqC0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zdkk7yHlG/V9VPfyLOR81/A7zNdnlt0AgDEd0uFxSnQ=;
- b=woiox5Ra8UW+wwDYYvgl9J4SGmE2NSxIiNTS6V9zwXGsQ7OrTUqmCA7sbQ74S3PJ6OWS1B7bPE2udGK0McdAuFP/LwMoJZthFdVZzLBtt7gUljtzddrBAi8LTO/7dyexLai20/nD/yfAbz2eltp4gql2UWvQ034Mov5pnZwo0CjLdq8zIg9exxG8okw7JIKmXCIcc5yA1Ue6DKqdULfj63ye0FUl2dwnhwrT815yu8YHvL97QQYm1BIUq9Nayc2J8x9x15fWxrUi5czn/sXaJ7n39mONNGaJfCZ5jyADN68ASw1ULC4/a3Aun5qhkx+/xYP2BPi7FpUk4tMsD6Z7nA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zdkk7yHlG/V9VPfyLOR81/A7zNdnlt0AgDEd0uFxSnQ=;
- b=TjREHaIkKma4pIP3o/BfDJPKu8tHVtoZBns6auanRwB6Dqx9KTEMPM1WjMUZyI2vsaYHHAYImaE9OAWcjgFB7DaQ23DKtVnOVqwWbOAedZpiOZCK6KwPaEdQ9LTgcYKPwJxVxucS0EdgODFO2srhfnzeetLMXQSj24ODR5w9vUs=
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::5b) by PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 08:16:32 +0000
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::19f5:13eb:df52:68ff]) by DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::19f5:13eb:df52:68ff%8]) with mapi id 15.21.0639.011; Tue, 24 Nov 2026
- 08:16:31 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH v2] drm/i915/bios: Add quirk to allow eDP joiner on ASUS
- ROG Strix SCAR 18
-Thread-Topic: [PATCH v2] drm/i915/bios: Add quirk to allow eDP joiner on ASUS
- ROG Strix SCAR 18
-Thread-Index: AQHdc38Z6tihN3N6oUao3iDvEh8jo7c88RnQ
-Date: Tue, 24 Nov 2026 08:16:31 +0000
-Message-ID: <DS4PPFE901A304F08559172B55EBFC52E64E3442@DS4PPFE901A304F.namprd11.prod.outlook.com>
-References: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
- <20261113121106.3241899-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20261113121106.3241899-1-ankit.k.nautiyal@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|PH0PR11MB7424:EE_
-x-ms-office365-filtering-correlation-id: bd7b4d10-50b3-4048-4d65-08df4a033f57
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|261009223027099003|261021121427099003|261022113327099003|261102123227099003|261022075727099003|261026121527099003|56012099006|4143699003|10067099003|38070700021|5023799004|11063799006;
-x-microsoft-antispam-message-info: AaD0Puzc+fy7rLPK8zTbfM8rym2nA34O3yGrSx0sgas7YReQVjuvV5ikhZkRaibILQfapeYw6kDZRaG3kDLUp9vuxCFR9o1VM4ErWeU/lHSbBIbNdc7Grer/btB0rKTskyR8B8cowQrhxWFinqeaaIjvoE9I4DeYyY/R/vJ3pipY3gDdEc14+QZfQEG/ViTpd8eYdbha2VT0cU2dv2ZwnlSfoN3vsI4DVnonK3aeCB9ycsqTdVPtTJhy5nwgwQznByRm8+oijGgCfQuG0zIdUVKrJ3tBPTWqfMkj/F9BagvgVnLXI/zScwCi6/FgiVNWKnmmwVIFVNuBB78aGYeBtmxy0mJ3dB+3wRL4qj4GDiiHuO6ilKerJqp2Wr1jqBPkCYuXwmng4F9m4jIuCOC+abCrJ2Hhta2qdrC0FjoUgl7soJR3joJsI24CCWXBBaVvs6+A8Fdw7aOWQBGtTJlkBY3pdk5MzMTQYr73DUjQVG0MufNjQBEuTa6A+b/gUM9W7rzylqYX8BCWBHwKt1R1/zXqmFm7ezmWcnFOhINx1ELI0avb/sgR3SkzFUq9OgugBeXEF8UMX8jrnQyJ/PRIUUPcOoxazvxto1Ypmq0uTM3I4VA1spqFiOjlpg5NZemP4tUkN1JVBczZ48szl/fGMNW+3IEwZYgLNdnCK+mEFVU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(261009223027099003)(261021121427099003)(261022113327099003)(261102123227099003)(261022075727099003)(261026121527099003)(56012099006)(4143699003)(10067099003)(38070700021)(5023799004)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JpXNs7JELurs+LLyGh5uqYdwLNjBlromPrQ6asVGsgadm/79Slky2bAstpCt?=
- =?us-ascii?Q?rUd5c7kEEqc6XtoCrxEjhsC/hw8B5rArRGoRzuevotPyfBJu5S6Q1+bmboWW?=
- =?us-ascii?Q?7mGNdbL2zL9dKF3YEJ3pK/ZeIPqZkDPO7zwZyGRbBb0Ukyx/f+tQI+EDUvlL?=
- =?us-ascii?Q?u2E4OjuhXJrsSiIhlrIqsludA5XvY3r1ihCYZE/IaWXAVpDk3JSmjLYkf6Do?=
- =?us-ascii?Q?xLkU5s1Ft9+fZN7M0q+ulmjHLSDhO2K19mMVp7w72vVbE1PRm15nwrYLP2qL?=
- =?us-ascii?Q?jUzsZlI3P6LKHAgECh5JHTvVrlTbgmq4S0WmRAh+PK5e1GdyxhvD/Dm1Wiix?=
- =?us-ascii?Q?kOnxcOVkaZYj/XexlY2NQS5K7ub83JnRZRDRjqMc1IQkNd1HnQ4JsI70Ve72?=
- =?us-ascii?Q?6F08WOrPTg3t1MWLKEg2vhPA5CcaKfMafQyDnW6Ij2Vjdx+LqZz8azZR4Tvr?=
- =?us-ascii?Q?iAbCBIBEua6XNjEQl7FLXOQRSLWm7FERvswXzGNBErJcQONtF0u7ZRlAQubM?=
- =?us-ascii?Q?f3/Pwn79Ilz42RX5q3aXwYXXn7IdcLwWtAD+gYf2lPtJTGzxnD8qQ3ReDQfi?=
- =?us-ascii?Q?S6+tZUtlSoe7vWSzfAOYOidtCqwidC8ASAvRt1eLAXxk5pXCe3gbp0PRwWY+?=
- =?us-ascii?Q?jJbyBwb4R2jwq2sMrnlnt/iCueInB0k+8VQfOPAb1Hv6HMGcHAWkzwMv92Cy?=
- =?us-ascii?Q?VxZFRV01mXXxZ/7zM3YS8iXAoQ2LAscm2k1Z3ksBKHMJD8mohxaxvvV2E+4V?=
- =?us-ascii?Q?ji9yz9+TydVeDQkI3n7PDm/+iyGYIPVuPEzRHSjx8a6yE0etKUFNgXwcZCq7?=
- =?us-ascii?Q?R3E9soTDMKZ99HBtuYO/H0mh++NdZH0kP5bppSrbR8MDpJL+Z1LBg5g+L8jP?=
- =?us-ascii?Q?rs4PfVJV1h7LD2UrLCtmqo4NLf5nMAg+8+I36jIaAQ/DQOLVsccMj8lMgs1z?=
- =?us-ascii?Q?SarocHL7TQOktuVbP+4BztO0135nnHV3ielR+DkqCjsorkXskdeklFeYVOOs?=
- =?us-ascii?Q?WH0afgtQkuBFhEIlXcNJi0KZvAIXx3fRVmAuWiCCqDuvBrMuN3ASzMztCCqY?=
- =?us-ascii?Q?93VDnghtJ4hOkRd/N8xhuc6a6tXglfx4Yx3J/SeAXTSb9Ma+DAH8MLjSUjXU?=
- =?us-ascii?Q?G2ft6s4iRb5bm1ZzW0m8sMMKeCISIL3JH/TqS8ZH94nBhVazgc2KRizhp1vt?=
- =?us-ascii?Q?fuKEWi2/94WIDtouCgwu2IsI+4M2I+j5H4DsmEKQXb2cA5qcjLr1//nJ1Le+?=
- =?us-ascii?Q?3fqkYBP6s7VXKtAp10PHMUak62beeGRgYtuLAfIwkC0JyDcnIIo0DH4VG8B5?=
- =?us-ascii?Q?pdPSwroVZVP1W1G0KVMyn6G3z0/5+wZRrefnfCiUt+e1bEJ8JG8hoE+LZTHY?=
- =?us-ascii?Q?HjkYMgW2G39H2oWDywUm+QjTZzCIV4Xei1YYx6dF0Qhs8f3vC1WkkKY5ItB+?=
- =?us-ascii?Q?TNGzyJV7O70jcYHww72NX7meZUycyU/1yVyFdODz2BOAOD30CSiqImQpMBvp?=
- =?us-ascii?Q?uvKD8kN+7S+741jW/Pba7TbsQnF4tSgXIsR41HtZO2NDuFGwX8XSelQDzp7X?=
- =?us-ascii?Q?lRIbcE6MVm2b/Msjkv8kh7EymRdlszBJmnJlVFevXXgo181GYTqpO84+LaCz?=
- =?us-ascii?Q?NhAsbXa44DJH+gJPaYeW0dS/hjEIhDRtxxqehUwH+ys0SHsptaxRbhkXCTdr?=
- =?us-ascii?Q?6G+n0e2ZN1xPRzG/eB0/0ZPkxQhi0LV53KgBvUngUyhO9M4FqotyC/fP2iuZ?=
- =?us-ascii?Q?OckveDeXNA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4C210F373;
+	Tue, 24 Nov 2026 08:41:37 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41CC410F374;
+ Tue, 24 Nov 2026 08:41:15 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DBBD122267;
+ Tue, 24 Nov 2026 08:41:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795509673; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=MHbB8QlUvSML4Ps81dOhLyVy12cLGfgs0u1sDZ7gS1A=;
+ b=zyXuPpa22qQifB/CJpsmhOvyUxX0UMhstDvirot01CpC7rmWPHk1w8iQAXd7BO6ddhcmCh
+ aJrWuunQOpYcYR0qQ6B7VqNJaTBq1hZxIP1KhZjpR/ldFec5bTN7Xo/IN10KRLb6y5ko8c
+ g6LqKS9HqEmEsNw+NlgvO84wzyLaouE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795509673;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=MHbB8QlUvSML4Ps81dOhLyVy12cLGfgs0u1sDZ7gS1A=;
+ b=MOcBuqH+pqPOzaObcgyLv7LoYst0cP25KjFkPAHAaGS3TUGLQaAY01+tJ58RWurSYJhqrs
+ 5xhMp9TEMvdIp6AQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795509673; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=MHbB8QlUvSML4Ps81dOhLyVy12cLGfgs0u1sDZ7gS1A=;
+ b=zyXuPpa22qQifB/CJpsmhOvyUxX0UMhstDvirot01CpC7rmWPHk1w8iQAXd7BO6ddhcmCh
+ aJrWuunQOpYcYR0qQ6B7VqNJaTBq1hZxIP1KhZjpR/ldFec5bTN7Xo/IN10KRLb6y5ko8c
+ g6LqKS9HqEmEsNw+NlgvO84wzyLaouE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795509673;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=MHbB8QlUvSML4Ps81dOhLyVy12cLGfgs0u1sDZ7gS1A=;
+ b=MOcBuqH+pqPOzaObcgyLv7LoYst0cP25KjFkPAHAaGS3TUGLQaAY01+tJ58RWurSYJhqrs
+ 5xhMp9TEMvdIp6AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6C5C31339F;
+ Tue, 24 Nov 2026 08:41:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TBJ4BqlNBWv4GAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 24 Nov 2026 08:41:13 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: ville.syrjala@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Subject: [PATCH RESEND v3] drm/i915/display: Handle struct
+ drm_plane_state.ignore_damage_clips
+Date: Tue, 24 Nov 2026 09:40:01 +0100
+Message-ID: <20261124084108.528317-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: jr0vK9d8obXntQX2YUQX6SCk/7UJAr5wnnJCR+5S/08YAzZuhKUNku/6uCiOWPRJAcYxzeO/fMKc5nE0zRKaJDkzFq9Wk8hSa0ovWfkndrq21nrB+75zn63tnXNYzO4UKH1cgLpsDOkrODab9QEUEklhuZM7EvGFBv9wqbU9Ac2zCdwIFUny1k5XvSSecLcE2D9R+oJqdRlp7LFduH+9uvFSYSdWD0Iv5MeDJ/gQaToAl1dHtSwNOkqxv3x5bcHTslkFe20XqaykvN1UVMkjUPwZpz7Q3T1n33HEw26O1gI89EqRHmExD06S4WSH7U25n9pTr3xFHvxfka5L0H0N0Q==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd7b4d10-50b3-4048-4d65-08df4a033f57
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2026 08:16:31.7791 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IOrp7jrZXcOKHKkH8FMqHD3bXkZiOOQZQYpct33RpfreozB1uWnGs4Tf3/LXEJ+RQcUNZ+3kppj7cNktis817g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7424
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.80 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ FREEMAIL_TO(0.00)[intel.com,linux.intel.com,ursulin.net,gmail.com,ffwll.ch];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: -11.80
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,125 +102,81 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> Subject: [PATCH v2] drm/i915/bios: Add quirk to allow eDP joiner on ASUS =
-ROG
-> Strix SCAR 18
->=20
-> On Arrow Lake, VBT defaults the eDP pipe joiner enable bit to disabled, a=
-nd
-> commit 650471948e49 ("drm/i915/dp: Avoid joiner for eDP if not enabled in
-> VBT") made the driver honor that default.
->=20
-> On the ASUS ROG Strix SCAR 18 (G835LXG), the bit in VBT is left to the pl=
-atform
-> default instead of enabling it, even though the 3840x2400@240Hz panel
-> requires the joiner to reach its native mode. As a result the mode is pru=
-ned and
-> the panel is limited to 120Hz.
->=20
-> Since the VBT bit cannot be relied upon globally for ARL (it is needed to=
- block the
-> joiner on at least one other machine), add a machine-specific quirk, to b=
-ypass
-> the VBT restriction and allow the joiner on this machine.
->=20
-> v2: set panel->vbt.edp.pipe_joiner_enable directly in intel_bios.c
-> (Jani)
->=20
-> Fixes: 650471948e49 ("drm/i915/dp: Avoid joiner for eDP if not enabled in
-> VBT")
-> Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: <stable@vger.kernel.org> # v7.1+
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16854
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Call drm_atomic_helper_check_plane_damage() in plane_atomic_check()
+before copying the damage information to guarantees that ignore_damage_clips
+from struct drm_plane_state has the correct value. Although i915 does not
+directly modify or use the flag, DRM's damage iterator will soon rely on
+it.
 
-LGTM,
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+As a side effect, if the CRTC has been marked for a full modeset before
+the call to drm_atomic_helper_check_plane_damage() happens, the plane now
+ignores all damage clips and does a full update.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_bios.c   |  5 +++++
->  drivers/gpu/drm/i915/display/intel_quirks.c | 13 +++++++++++++
-> drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
->  3 files changed, 19 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c
-> b/drivers/gpu/drm/i915/display/intel_bios.c
-> index 7b6a6f8c3cf1..b77d1599482a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -41,6 +41,7 @@
->  #include "intel_display_types.h"
->  #include "intel_display_utils.h"
->  #include "intel_gmbus.h"
-> +#include "intel_quirks.h"
->  #include "intel_rom.h"
->  #include "intel_vdsc.h"
->=20
-> @@ -1575,6 +1576,10 @@ parse_edp(struct intel_display *display,
->  	if (display->vbt.version >=3D 261)
->  		panel->vbt.edp.pipe_joiner_enable =3D
->  			panel_bool(edp->pipe_joiner_enable, panel_type);
-> +
-> +	/* Some machines need the joiner regardless of what VBT says */
-> +	if (intel_has_quirk(display, QUIRK_ALLOW_EDP_JOINER))
-> +		panel->vbt.edp.pipe_joiner_enable =3D true;
->  }
->=20
->  static void
-> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c
-> b/drivers/gpu/drm/i915/display/intel_quirks.c
-> index 96eb9a40df9b..613a847184db 100644
-> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
-> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-> @@ -108,6 +108,16 @@ static void quirk_enable_dpcd_backlight(struct
-> intel_dp *intel_dp)
->  	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n");  }
->=20
-> +/*
-> + * VBT on some machines defaults the eDP pipe joiner to disabled even
-> +though
-> + * the panel requires it to achieve its native mode, so allow it regardl=
-ess.
-> + */
-> +static void quirk_allow_edp_joiner(struct intel_display *display) {
-> +	intel_set_quirk(display, QUIRK_ALLOW_EDP_JOINER);
-> +	drm_info(display->drm, "Applying allow eDP joiner quirk\n"); }
-> +
->  struct intel_quirk {
->  	int device;
->  	int subsystem_vendor;
-> @@ -270,6 +280,9 @@ static struct intel_quirk intel_quirks[] =3D {
->=20
->  	/* Xiaomi Book Pro 14 2026 */
->  	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
-> +
-> +	/* ASUS ROG Strix SCAR 18 G835LXG */
-> +	{ 0x7d67, 0x1043, 0x3b29, quirk_allow_edp_joiner },
->  };
->=20
->  static const struct intel_dpcd_quirk intel_dpcd_quirks[] =3D { diff --gi=
-t
-> a/drivers/gpu/drm/i915/display/intel_quirks.h
-> b/drivers/gpu/drm/i915/display/intel_quirks.h
-> index 4996419ae76b..c64d0fc39905 100644
-> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
-> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-> @@ -24,6 +24,7 @@ enum intel_quirk_id {
->  	QUIRK_DISABLE_EDP_PANEL_REPLAY,
->  	QUIRK_DISABLE_PSR2,
->  	QUIRK_ENABLE_DPCD_BACKLIGHT,
-> +	QUIRK_ALLOW_EDP_JOINER,
->  };
->=20
->  void intel_init_quirks(struct intel_display *display);
-> --
-> 2.50.1
+Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
+helpers to ignore damage clips") introduced ignore_damage_clips to
+selectively ignore damage clipping for certain framebuffer changes. The
+mode-setting pipeline can disabled damage clippings for an atomic commit
+by setting ignore_damage_clips in struct drm_plane_state. The atomic
+commit will then do a full display update.
+
+Future directions: there's currently a multitude of options that affect
+damage clipping; with different places seeing different state. In order
+to unify this, drm_atomic_helper_check_plane_state() will soon evaluate
+all options in a single place and set ignore_damage_clips accordingly. All
+later stages of the mode-setting pipeline will only look at this field.
+
+v3:
+- fix the call to drm_atomic_helper_check_plane_state()
+- use primary-CRTC's plane state (Sashiko)
+- note full-plane updates in commit description
+v2:
+- move _check_plane_damage() before reading damage first time (Sashiko)
+- expand commit description
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+---
+ drivers/gpu/drm/i915/display/intel_plane.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+index d23de0f34e4b..058e92f383e4 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -955,7 +955,7 @@ static int plane_atomic_check(struct intel_atomic_state *state,
+ 		intel_atomic_get_new_plane_state(state, plane);
+ 	const struct intel_plane_state *old_plane_state =
+ 		intel_atomic_get_old_plane_state(state, plane);
+-	const struct intel_plane_state *new_primary_crtc_plane_state;
++	struct intel_plane_state *new_primary_crtc_plane_state;
+ 	const struct intel_plane_state *old_primary_crtc_plane_state;
+ 	struct intel_crtc *crtc = intel_crtc_for_pipe(display, plane->pipe);
+ 	const struct intel_crtc_state *old_crtc_state =
+@@ -978,6 +978,14 @@ static int plane_atomic_check(struct intel_atomic_state *state,
+ 		old_primary_crtc_plane_state = old_plane_state;
+ 	}
+ 
++	/*
++	 * Prepare plane-damage state before using it; do this on all
++	 * display versions to keep the underlying DRM plane state in
++	 * good shape.
++	 */
++	drm_atomic_helper_check_plane_damage(&state->base,
++					     &new_primary_crtc_plane_state->uapi);
++
+ 	intel_plane_copy_uapi_plane_damage(new_plane_state,
+ 					   old_primary_crtc_plane_state,
+ 					   new_primary_crtc_plane_state);
+
+base-commit: 401a3e7b64d174c4f2b256b035de716c7b79bdc1
+-- 
+2.56.1
 
