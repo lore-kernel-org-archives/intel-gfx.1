@@ -2,26 +2,26 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57024606A31E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 23:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F3C606A31E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 23:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B879810E7F8;
-	Tue, 24 Nov 2026 23:28:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 466EB10E094;
+	Tue, 24 Nov 2026 23:59:14 +0000 (UTC)
 Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B2A810E25C;
- Tue, 24 Nov 2026 23:28:43 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 292A810F92D;
+ Tue, 24 Nov 2026 23:59:13 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4967842661953080379=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_warning_for_drm/i915=3A_Annotate_flex?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Annotate_flex?=
  =?utf-8?q?ible_array_members_with_=5F=5Fcounted=5Fby=28=29_attribute_=28rev?=
  =?utf-8?q?3=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Krzysztof Karas" <krzysztof.karas@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Nov 2026 23:28:43 -0000
-Message-ID: <179556292310.81311.5482698893474861759@9ac1b63fe3ea>
+Date: Tue, 24 Nov 2026 23:59:13 -0000
+Message-ID: <179556475316.81424.15517854566516170284@9ac1b63fe3ea>
 X-Patchwork-Hint: ignore
 References: <20261123120137.3460155-1-krzysztof.karas@intel.com>
 In-Reply-To: <20261123120137.3460155-1-krzysztof.karas@intel.com>
@@ -37,19 +37,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+
+--===============4967842661953080379==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
 Series: drm/i915: Annotate flexible array members with __counted_by() attribute (rev3)
 URL   : https://patchwork.freedesktop.org/series/179077/
-State : warning
+State : success
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/179077/revisions/3/mbox/ not found
+CI Bug Log - changes from CI_DRM_19603 -> Patchwork_179077v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v3/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_179077v3 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - fi-skl-6600u:       [DMESG-FAIL][1] ([i915#14808]) -> [PASS][2] +1 other test pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19603/fi-skl-6600u/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v3/fi-skl-6600u/igt@i915_selftest@live.html
+
+  
+  [i915#14808]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808
 
 
+Build changes
+-------------
+
+  * Linux: CI_DRM_19603 -> Patchwork_179077v3
+
+  CI-20190529: 20190529
+  CI_DRM_19603: eb69abc855e43aa21fe4558621fb228e824478bf @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9203: 9203
+  Patchwork_179077v3: eb69abc855e43aa21fe4558621fb228e824478bf @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v3/index.html
+
+--===============4967842661953080379==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Annotate flexible array members with __counted_by() attribute (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179077/">https://patchwork.freedesktop.org/series/179077/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19603 -&gt; Patchwork_179077v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v3/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_179077v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19603/fi-skl-6600u/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808">i915#14808</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179077v3/fi-skl-6600u/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19603 -&gt; Patchwork_179077v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19603: eb69abc855e43aa21fe4558621fb228e824478bf @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9203: 9203<br />
+  Patchwork_179077v3: eb69abc855e43aa21fe4558621fb228e824478bf @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4967842661953080379==--
