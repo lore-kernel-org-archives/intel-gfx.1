@@ -2,28 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8182606A336
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 10:06:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A09C606A330
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 10:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4CSrD4P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7106C10E847;
-	Tue, 24 Nov 2026 10:06:58 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 641F910E83D;
- Tue, 24 Nov 2026 10:06:57 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============9160493794227401985=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA94D10E3DF;
+	Tue, 24 Nov 2026 10:55:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4B0D10E3DF;
+ Tue, 24 Nov 2026 10:54:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E10C3625D9;
+ Tue, 24 Nov 2026 10:54:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6E51F000C0;
+ Tue, 24 Nov 2026 10:54:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795517695;
+ bh=PViI4YFFHH8dsw1LEuH9tJVkgS7gEQVSJSwRx25RdBE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=L4CSrD4Pd/4635lRv+mKeClDsIQNVAGClY7J5B0TFbtCYJrv8XGrNSv8bfYb099KF
+ wC8o1R6aQ0Bn7nTiOoZmqpe3qTBP9O2kp3uY8t0QLHE923JaYsAiAs647syhGGi3ql
+ rzDemC7kdFGZcp87kXJx3NxOWdQbmNsJaZ677/uvXT5JcmBcHYKCCQGBduJ8p544lp
+ XyYzCXsNck038FHGiMzId9PGt9Nv3JE/yK6xkniFpiNN3BdanIdvqgkRSAUVHUUZOx
+ pbPYIeumK9G8uPRbuWNXluD1WkjBbhz5KVZ5tJlZIguCGyW4jCIEiTrS/+Dv3FJXPh
+ i7O28MNBb4rcA==
+Date: Tue, 24 Nov 2026 10:54:50 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Subject: Re: [PATCH i-g-t] tests/gem_mmap_offset: Accept partial read in
+ oob-read
+Message-ID: <awVlaeEQSpee2cI2@gremlin>
+References: <20261123211018.12339-1-david@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Handl?=
- =?utf-8?q?e_struct_drm=5Fplane=5Fstate=2Eignore=5Fdamage=5Fclips_=28rev4=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Nov 2026 10:06:57 -0000
-Message-ID: <179551481740.76194.18096266535129230845@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261124084108.528317-1-tzimmermann@suse.de>
-In-Reply-To: <20261124084108.528317-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261123211018.12339-1-david@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +53,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============9160493794227401985==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Mon, Nov 23, 2026 at 10:10:18PM +0100, David Hildenbrand (Arm) wrote:
+> The oob-read test reads 8 bytes through /proc/self/mem, assuming that
+> the kernel would reject the entire read with EIO.
+>
+> However, we have 4 remaining bytes in the 4 KiB mapping we can read, so
+> it's valid for the kernel to only do a partial read that covers these 4
+> bytes. Allow that as well.
+>
+> Otherwise, the test will fail on a kernel with upcoming vm_ops->access
+> fixes, whereby vm_ops->access is limited to the current VMA, so the
+> read would continue with the next mapping (if any).
+>
+> So we have to make sure that nothing is mapped after the GEM mapping.
+> Let's reserve an 8 KiB memory region, map the GEM object into the first
+> 4 KiB slot, and create a hole by unmapping the second 4 KiB slot.
+>
+> With the kernel changes in place:
+>
+>   $ build/tests/gem_mmap_offset --run-subtest oob-read
+>   [...]
+>   Using IGT_SRANDOM=1795467759 for randomisation
+>   Opened device: /dev/dri/card1
+>   Starting subtest: oob-read
+>   Subtest oob-read: SUCCESS (0,000s)
+>
+> Link: https://lore.kernel.org/r/20261122-access_shite-v2-0-808d8d2aa700@kernel.org
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-== Series Details ==
+It's funny how these things can ripple out, but very much seems a correct
+change!
 
-Series: drm/i915/display: Handle struct drm_plane_state.ignore_damage_clips (rev4)
-URL   : https://patchwork.freedesktop.org/series/169627/
-State : success
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-== Summary ==
+> ---
+>  tests/intel/gem_mmap_offset.c | 35 ++++++++++++++++++++++++++++-------
+>  1 file changed, 28 insertions(+), 7 deletions(-)
+>
+> diff --git a/tests/intel/gem_mmap_offset.c b/tests/intel/gem_mmap_offset.c
+> index d3c56ab40..e4c0cfbd9 100644
+> --- a/tests/intel/gem_mmap_offset.c
+> +++ b/tests/intel/gem_mmap_offset.c
+> @@ -482,13 +482,29 @@ test_oob_read(int i915)
+>  	handle = gem_create(i915, 4096);
+>
+>  	for_each_mmap_offset_type(i915, t) {
+> -		uint32_t *ptr;
+> +		struct drm_i915_gem_mmap_offset arg = {
+> +			.handle = handle,
+> +			.flags = t->type,
+> +		};
+> +		void *ptr;
+>
+> -		ptr = __mmap_offset(i915, handle, 0, 4096,
+> -				    PROT_READ | PROT_WRITE,
+> -				    t->type);
+> -		if (!ptr)
+> +		if (mmap_offset_ioctl(i915, &arg))
+> +			continue;
+> +
+> +		/* Reserve a region for mapping + hole to stop read(). */
+> +		ptr = mmap(NULL, 8192, PROT_NONE,
+> +			   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +		igt_assert(ptr != MAP_FAILED);
+> +
+> +		/* Place our mapping into the first slot. */
+> +		if (mmap(ptr, 4096, PROT_READ | PROT_WRITE,
+> +			 MAP_SHARED | MAP_FIXED, i915, arg.offset) == MAP_FAILED) {
+> +			munmap(ptr, 8192);
+>  			continue;
+> +		}
+> +
+> +		/* And our hole into the second slot. */
+> +		munmap(ptr + 4096, 4096);
+>
+>  		memfd = open("/proc/self/mem", O_RDWR);
+>  		igt_require_f(memfd != -1, "/proc/self/mem\n");
+> @@ -497,9 +513,14 @@ test_oob_read(int i915)
+>  		ret = lseek(memfd, addr, SEEK_SET);
+>  		igt_assert_f(ret != -1, "lseek failed\n");
+>
+> -		/* Triggering the buf (out of bound read) */
+> +		/*
+> +		 * Read across the end of the mapping. The read is either
+> +		 * rejected entirely, or completes partially for the remaining
+> +		 * 4 bytes in the mapping.
+> +		 */
+>  		ret = read(memfd, read_buf, 8);
+> -		igt_assert(ret == -1 && errno ==  EIO);
+> +		igt_assert_f((ret == -1 && errno == EIO) || ret == 4,
+> +			     "ret=%d errno=%d\n", ret, errno);
+>
+>  		munmap(ptr, 4096);
+>  		close(memfd);
+> --
+> 2.56.1
+>
 
-CI Bug Log - changes from CI_DRM_19594 -> Patchwork_169627v4
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169627v4/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19594 -> Patchwork_169627v4
-
-  CI-20190529: 20190529
-  CI_DRM_19594: f3203131d5fcefbf2bb40a53111d9e37eb02b1a4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9202: 9202
-  Patchwork_169627v4: f3203131d5fcefbf2bb40a53111d9e37eb02b1a4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169627v4/index.html
-
---===============9160493794227401985==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: Handle struct drm_plane_state.ignore_damage_clips (rev4)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/169627/">https://patchwork.freedesktop.org/series/169627/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169627v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169627v4/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19594 -&gt; Patchwork_169627v4</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169627v4/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19594 -&gt; Patchwork_169627v4</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19594: f3203131d5fcefbf2bb40a53111d9e37eb02b1a4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9202: 9202<br />
-  Patchwork_169627v4: f3203131d5fcefbf2bb40a53111d9e37eb02b1a4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============9160493794227401985==--
+--
+Cheers, Lorenzo
