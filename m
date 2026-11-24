@@ -2,28 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DC6606A31E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 22:37:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F456606A31E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 22:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ayPV2/yc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52C7010E26A;
-	Tue, 24 Nov 2026 22:37:58 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB0F410E26A;
- Tue, 24 Nov 2026 22:37:56 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1914922383924729643=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id D827210F89B;
+	Tue, 24 Nov 2026 22:46:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4635310ED03;
+ Tue, 24 Nov 2026 22:46:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795560391; x=1827096391;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=TUNjnnZKvidmdSxYD6YdV9fJLhPd7vG4OSoTHg6IpVk=;
+ b=ayPV2/ycZJUxsDrLVRKUtUv5oCir5eytJyH2zJMmQqY1FQNvaAzNhw+g
+ e2eijMmTmqDvk18G4H5dBF1OtMB13c/07HWNCyWjVRZlD4uW7SJfPeFTc
+ jVNJWH68n5nfL0kapzFg4h4BxMhsttIyzGlM4TmnHRRwsqaPduCiQG89s
+ 44uY4o9TdLbeSUhSQJnnX7Dgo+KZfmFil4wTe8bOHmDsoUhjVU7uWTJqW
+ l4dG7/Tutjqih6mzOt1KDrgs5Wk7FoyB3rUqteg7CVFYynsNnX9MEQBcs
+ Qmk4LLwt/pAKK13mCdbGOCMoayDYDLunNe3TbWB/haXfG0zLCnaEDQ43j w==;
+X-CSE-ConnectionGUID: dR2bHMHEQ+iXYvEArXbNVw==
+X-CSE-MsgGUID: PLQNDCY0R6OexyDiw4QNuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4396174"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="4396174"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 14:46:31 -0800
+X-CSE-ConnectionGUID: Y2Ot0SLZQBaCl0KX8ffQxA==
+X-CSE-MsgGUID: 2j6xOC35QCCAdAghFWjI2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11484749"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.204])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 14:46:29 -0800
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/edid: Introduce drm_edid_get_displayid_product_id()
+Date: Wed, 25 Nov 2026 00:46:20 +0200
+Message-ID: <20261124224621.6506-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124224621.6506-1-ville.syrjala@linux.intel.com>
+References: <20261124224621.6506-1-ville.syrjala@linux.intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/xe=3A_remove_unused_f?=
- =?utf-8?q?ake_uncore_lock?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Nov 2026 22:37:56 -0000
-Message-ID: <179555987689.81077.12812398320758203578@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261124134850.1520247-1-jani.nikula@intel.com>
-In-Reply-To: <20261124134850.1520247-1-jani.nikula@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,158 +66,149 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============1914922383924729643==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-== Series Details ==
+Add drm_displayid_get_product_id() as the DisplayID based
+counterpart to the already existing EDID base block based
+drm_edid_get_product_id().
 
-Series: drm/xe: remove unused fake uncore lock
-URL   : https://patchwork.freedesktop.org/series/179494/
-State : success
+In DisplayID the information is stored in the "Product ID"
+block (0x00 or 0x20). The layout is slightly different to the
+EDID one as the vendor ID is a three byte OUI isntead of
+the compressed ASCII EISA/PNPID of EDID. The "year of
+manufacture" is now relative to the year 2000, as opposed
+to 1990 for EDID.
 
-== Summary ==
+There is also a product ID string, but I decided to leave that
+out from the user visible struct because the variable length
+would just complicate things.
 
-CI Bug Log - changes from CI_DRM_19602 -> Patchwork_179494v1
-====================================================
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/drm_displayid_internal.h | 11 ++++++
+ drivers/gpu/drm/drm_edid.c               | 49 ++++++++++++++++++++++++
+ include/drm/drm_edid.h                   | 10 +++++
+ 3 files changed, 70 insertions(+)
 
-Summary
--------
+diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+index ef7e6c9bd4db..2177c19cae4c 100644
+--- a/drivers/gpu/drm/drm_displayid_internal.h
++++ b/drivers/gpu/drm/drm_displayid_internal.h
+@@ -103,6 +103,17 @@ struct displayid_block {
+ 	u8 num_bytes;
+ } __packed;
+ 
++struct displayid_product_id_block {
++	struct displayid_block base;
++	u8 vendor_id[3];
++	__le16 product_code;
++	__le32 serial_number;
++	u8 week_of_manufacture;
++	u8 year_of_manufacture;
++	u8 size_of_product_id_string;
++	u8 product_id_string[];
++} __packed;
++
+ struct displayid_tiled_block {
+ 	struct displayid_block base;
+ 	u8 tile_cap;
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index b8f882a17c8f..8bde2a9cebb4 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -2791,6 +2791,55 @@ void drm_edid_get_product_id(const struct drm_edid *drm_edid,
+ }
+ EXPORT_SYMBOL(drm_edid_get_product_id);
+ 
++static bool displayid_is_product_id_block(const struct displayid_iter *iter,
++					  const struct displayid_block *block)
++{
++	return (displayid_version(iter) < DISPLAY_ID_STRUCTURE_VER_20 &&
++		block->tag == DATA_BLOCK_PRODUCT_ID) ||
++		(displayid_version(iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
++		 block->tag == DATA_BLOCK_2_PRODUCT_ID);
++}
++
++/**
++ * drm_displayid_get_product_id - Get the vendor and product identification from DisplayID
++ * @drm_edid: EDID
++ * @id: Where to place the product id
++ */
++void drm_displayid_get_product_id(const struct drm_edid *drm_edid,
++				  struct drm_displayid_product_id *id)
++{
++	const struct displayid_block *block;
++	struct displayid_iter iter;
++
++	memset(id, 0, sizeof(*id));
++
++	if (!drm_edid)
++		return;
++
++	displayid_iter_edid_begin(drm_edid, &iter);
++	displayid_iter_for_each(block, &iter) {
++		const struct displayid_product_id_block *prod_id =
++			(struct displayid_product_id_block *)block;
++
++		if (!displayid_is_product_id_block(&iter, block))
++			continue;
++
++		if (block->num_bytes < sizeof(*prod_id) - sizeof(prod_id->base))
++			continue;
++
++		id->vendor_id[0] = prod_id->vendor_id[0];
++		id->vendor_id[1] = prod_id->vendor_id[1];
++		id->vendor_id[2] = prod_id->vendor_id[2];
++		id->product_code = prod_id->product_code;
++		id->serial_number = prod_id->serial_number;
++		id->week_of_manufacture = prod_id->week_of_manufacture;
++		id->year_of_manufacture = prod_id->year_of_manufacture;
++		break;
++	}
++	displayid_iter_end(&iter);
++}
++EXPORT_SYMBOL(drm_displayid_get_product_id);
++
+ static void decode_date(struct seq_buf *s, const struct drm_edid_product_id *id)
+ {
+ 	int week = id->week_of_manufacture;
+diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+index a2617aa34edf..b44c26d42217 100644
+--- a/include/drm/drm_edid.h
++++ b/include/drm/drm_edid.h
+@@ -288,6 +288,14 @@ struct drm_edid_product_id {
+ 	u8 year_of_manufacture;
+ } __packed;
+ 
++struct drm_displayid_product_id {
++	u8 vendor_id[3];
++	__le16 product_code;
++	__le32 serial_number;
++	u8 week_of_manufacture;
++	u8 year_of_manufacture;
++} __packed;
++
+ struct edid {
+ 	u8 header[8];
+ 	/* Vendor & product info */
+@@ -484,6 +492,8 @@ int drm_edid_connector_add_modes(struct drm_connector *connector);
+ bool drm_edid_is_digital(const struct drm_edid *drm_edid);
+ void drm_edid_get_product_id(const struct drm_edid *drm_edid,
+ 			     struct drm_edid_product_id *id);
++void drm_displayid_get_product_id(const struct drm_edid *drm_edid,
++				  struct drm_displayid_product_id *id);
+ void drm_edid_print_product_id(struct drm_printer *p,
+ 			       const struct drm_edid_product_id *id, bool raw);
+ u32 drm_edid_get_panel_id(const struct drm_edid *drm_edid);
+-- 
+2.56.1
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_179494v1 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@fbdev@info:
-    - fi-hsw-4770:        [SKIP][1] ([i915#1849] / [i915#2582]) -> [PASS][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19602/fi-hsw-4770/igt@fbdev@info.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/fi-hsw-4770/igt@fbdev@info.html
-
-  * igt@fbdev@nullptr:
-    - fi-hsw-4770:        [SKIP][3] ([i915#2582]) -> [PASS][4] +3 other tests pass
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19602/fi-hsw-4770/igt@fbdev@nullptr.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/fi-hsw-4770/igt@fbdev@nullptr.html
-
-  * igt@vgem_basic@unload:
-    - bat-rpls-4:         [DMESG-WARN][5] ([i915#13400]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19602/bat-rpls-4/igt@vgem_basic@unload.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/bat-rpls-4/igt@vgem_basic@unload.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
-  [i915#2582]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19602 -> Patchwork_179494v1
-
-  CI-20190529: 20190529
-  CI_DRM_19602: cb6f07e3276d07538caeb25e6282c0b828d949e6 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9203: 9203
-  Patchwork_179494v1: cb6f07e3276d07538caeb25e6282c0b828d949e6 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/index.html
-
---===============1914922383924729643==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/xe: remove unused fake uncore lock</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179494/">https://patchwork.freedesktop.org/series/179494/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19602 -&gt; Patchwork_179494v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_179494v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@fbdev@info:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19602/fi-hsw-4770/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/fi-hsw-4770/igt@fbdev@info.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@fbdev@nullptr:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19602/fi-hsw-4770/igt@fbdev@nullptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/fi-hsw-4770/igt@fbdev@nullptr.html">PASS</a> +3 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@vgem_basic@unload:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19602/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179494v1/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19602 -&gt; Patchwork_179494v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19602: cb6f07e3276d07538caeb25e6282c0b828d949e6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9203: 9203<br />
-  Patchwork_179494v1: cb6f07e3276d07538caeb25e6282c0b828d949e6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1914922383924729643==--
