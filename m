@@ -2,81 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D238D606A32A
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 14:59:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAAB606A321
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 14:59:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=TIMNWBYf
+	dkim=pass (2048-bit key) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=SI1O31Iy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C18A10FCED;
-	Wed, 25 Nov 2026 14:59:04 +0000 (UTC)
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8309110E130
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 15:36:58 +0000 (UTC)
-Received: by mail-qk1-f179.google.com with SMTP id
- af79cd13be357-949680e6d82so517453085a.2
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 07:36:58 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB8310FCEE;
+	Wed, 25 Nov 2026 14:59:05 +0000 (UTC)
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
+ [209.85.222.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9DBE10F649
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 15:37:00 +0000 (UTC)
+Received: by mail-qk1-f178.google.com with SMTP id
+ af79cd13be357-94965745d92so480387485a.2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 07:37:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc.ca; s=google; t=1795534617; x=1796139417;
+ d=metarealtyinc.ca; s=google; t=1795534620; x=1796139420;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=XfcsbYjAJ0vhyPQMgTUzJ/Zehue/sf644GRkC36iL7E=;
- b=TIMNWBYfQnKL5A/2nb6kh6ST7EQB/e9cc7ZgZGnIQdGkfJqiI8stnVwYN70Kk2wP/j
- RXzjvgCOWp0iJx4nDu6p9AUEOGKMWDHdqajHmuZ8oawcXKxt9AnG8oy43EKYV/JGprNQ
- dUJk48NTvxBD9GVzzOhpS3I0QA9f8PCazVW2Nl6/hBFnoWb2kYfRdlAYh6V8pxbT8GAu
- DKZQYDGu5CzQzsuYNaBaeBLdOcU18xL8uRmK6o0/evx8ULd1bBPph2BP5QHT8Eqme32d
- na6jbxuuCkyRDifKhGpLOW1NwjBY8Y7ZNNj/lXSbouX2yCLIpgVAhmH7OTUSIONh7BGi
- vadg==
+ bh=sktL+iYwKlFrZn878JDfdhMoNqmZJtrMcYUSS3thb2c=;
+ b=SI1O31IyGhYNeaCCx4RCM0gJCcEeQ4HsFH/SZCPALu+Ew4A00PnqDHjRTEvf2pJrsu
+ l394kSjwGsOGpGf1cdgdWPI4/tnSTlAJmcKoyrq7Kgyv+906mPSoKL7ZtK7/6oiB077g
+ ql41kQZZ3qNb42uHdCZAHcDmvMw0HsTZYJBFeZWGlw2fIt0weAXI3adoQj0yZRLY7cBf
+ +7+d8pt6tD8s9Es2A4K6B6NuS+nakoarqPZNIee5jltlObpZxBtR0ZEbmSe/wSOO+oDn
+ W29uAmAB/+14KDouaOeXwMAsXtPlDZwU6+3raai8u9ZnpNhXJvI550sHTmp37Q5TnTGs
+ Cabg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795534617; x=1796139417;
+ d=1e100.net; s=20260707; t=1795534620; x=1796139420;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=XfcsbYjAJ0vhyPQMgTUzJ/Zehue/sf644GRkC36iL7E=;
- b=Qq/z19dfeuunyboWldZ+HJfoke8MWgZUKTDhBFXe8fs87tf/B0ccdhwGBrWttNUXll
- zsbmyVI/LmEf0aleG1raKxh5lwT58uBGqnKUsicolSNUFhpWCVPkOox7K7Gaz8KO+Nf1
- S5ZR3YL4fnXR298aDu2jsLToPdCMGbTxJwLoBkTkxC85ADBZeWuOQX/55V/wYeFVUIz6
- 2hez5yQdzhxNLRMhuAjGhpeNk6jq7sxXsWqBTkw0p8MK3EP9YmdUCr9WvTxjOCbzX+nP
- sZ5i4cnLFN6KiP+LAamD7eyvwn2/gzte2L0k4VW08xnYCe93s0IMVi2O8skL1ZLZew0Z
- OaRA==
-X-Gm-Message-State: APuU4Z/oLjDg/7Re1uGEDCQv8e/j7igJT2mTlENgEXSBfP2irza3D38j
- kqQlI8tAqdGNSGBZgKFjn/TRgzkmb1MrVb+nYuZa8QoBv9LmJsJFCjtuWD/tCCTXdFo=
-X-Gm-Gg: AZFdTZfmvnSvzaB6hTXSWzUdt2sFUHXXnbnXQUyjnmPWC/U2IvgG90RwzYFxtprwic7
- iM7ozFvfN0oIEgYJn/uZw8BHNbsrokCF635NNuS0gwrWnNyD0eD9EFoMm1zlnRctc210qx6outA
- wGRbpLS/4BpAMLLPtMfyDYw3rjHb/L8sFJ1gmFjulPAFiRFKppYqhv1VQWcMX/HvtKJkdfB5cto
- eW93crCLAADAEOMSI3xn6CuudRbJ74i6r6IRe5yIOdQUemMkrLWrLILQPeaQbDZj1pRhVeptEt9
- +mRGxj/RleVX+1x9iR4D+OPHMqka3S3Sxp3sX4pGXTo0NC8D5K2P3Nho7piOCe1fn12ixTefvsp
- iYKMVDNUTFbQ4GMPu0IPK71F+ZfiWxZeX93BBD5/5kTV38HxZpvHrbyBmfFrkM4omr/caD0OMqm
- i8tJClNEArm8GIo2/d01JhKcjiZLJT6aJ/00QGpcyUXFI2cvcoa+VHywAfPpmcFsXqzBS0858kK
- SUugO2gf1JwlS6eZYdzPSsUROsg0Q8UzcUVu3xSJSncoanqMuYREDvvzKNCIRX8pMtOk4xASFLV
- wXarWNrop6J9tkZ+La72X69D4XHMxr0eh0kA5UotltrgzKReEpohqWB0N/vINNcgx7JFtpgTb5r
- Ean2UAF3Kb8igxplQFrcyqAeBq3SmC0LzPHsm8+XxtZwBhvDpTvlbdKqJFRIYPYEevp+v0BIyeX
- WNzTJVIylVBrzwQmJABuABMzohE5h1PLhRqhYYISpt00M1mg1EC9lKiaFhne8FBMrdWhDrmf9ei
- STiDL7iaYzPgw==
-X-Received: by 2002:a05:620a:4713:b0:93f:735:6c83 with SMTP id
- af79cd13be357-949ba9e9b76mr2492027685a.56.1795534617177; 
- Tue, 24 Nov 2026 07:36:57 -0800 (PST)
+ bh=sktL+iYwKlFrZn878JDfdhMoNqmZJtrMcYUSS3thb2c=;
+ b=HuGw7RKBdjwHEugCSgd8kRU3kZw0V5Ds1ywQVyVK/o+EqFLjaTxU1GoXwJ0ssJaFUn
+ YWMbC9rhhi8Da7HbxperekFNBZE0+TWoZAv1IKhMFNKzSFi3u+vRrg6u1dvUhrpBm9YE
+ y86pngyXsEQy35CqIpps4jTTfoheF8i/FYz2UxNyJhCejsco7QLKZC/ptqgVYKelsVEc
+ A0pnct+yyAj+VxVtbhAT5mxWlWaxvEHkQiMBioQ1Jgixo9nOYJVbw3R6uh2ueE9mQs9i
+ r06xrklOjM8T1FEe9fI4pFZ3BcFeKoDkRuM7ZJuPlI/lkaenbTIKPqAQZHa9Jjh8QIts
+ FybQ==
+X-Gm-Message-State: APuU4Z8ftfavwxuNtxN6XUdxBU7v3Zvn86TI0b976Lpkh3uDkbqHx++6
+ PT4vJl03vRnJl6iMoD4AuQKC+kboEor4JTkzXG+osu4GHjDNxezHBZ5evYyHPaWVutM=
+X-Gm-Gg: AZFdTZcSpcYV31VcMZxEm6/ocNAU6LSrgHfFueHIbzZIfY63XaO00blH4EJNRqWgI3y
+ KVdIonqZxSzFWBoNTvjtkGjBvdSnnmFUMt+Bzw8C8M14TxMe6iHrxZ8Pomx6241+RIjuV5i3E1D
+ Kbmeu9gHTMkpg/Z1DXg/OTzYJtXm7c5WKMXIHK/6zP+DL8CZxRo+Ds+DxZhx9RRF0MRnfidFnHE
+ RWuxnDmWoPoZ24tcVsa9FUOk3Pb+ckazxikA4LBxVHolk+1eoRGTmvs9gzElilcbheR4qFvMiml
+ xcJk52ay24zFJrR6KT12opu/SDCw/lC/3nzSjXlya40WI+xWq1rDcPF1kKfLXq9DcwtOXOMrekd
+ 40HjsUd7P0MWyNL8XgebJx/TEqb/oKJBCHKbfG9Wa/rIXlKceNTuw0DffSJo4BhbEiguvUiuZK+
+ uusCDU+aUbw+D7rERDAt0IpaalnC44A+ey6Qb6fx4oZoIYbQ4CovRJ4c0OeVeZegcW8Cg1xcivR
+ q5zW+HbSiScFU5J6AcfN8E9yOSQdAS7IO8xxB7K1OALmN01gxInPzzHcZiyipOcm8i+nO+cpxdd
+ GoX8WSIu59gB/2zCkBnWFgcSZYue4686RvChgsnleqQi/n9EJAo7YL+6+uv5kKhouxnxWV2wQDZ
+ zTdH+MG+6lC/wYlYSd0ftSUNF0e9cH1y2H6UGztNc2i22D5VC2re795v70yCY3OlCXbpODXbth0
+ yaiQiUPonexNLjLYSyKjQips8+PBC0OGHuh7yndKtjv49U/Vzg+y33C8rUo8aKln4Zqq/JsXEQf
+ I4Voam8FuEEMw==
+X-Received: by 2002:a05:620a:6910:b0:944:12d5:fd45 with SMTP id
+ af79cd13be357-949bab2a96bmr2668296385a.70.1795534619622; 
+ Tue, 24 Nov 2026 07:36:59 -0800 (PST)
 Received: from jake-laptop ([2607:fea8:c6:a700::ec62])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-94a0175c67fsm26215985a.31.2026.11.24.07.36.55
+ af79cd13be357-94a0175c67fsm26215985a.31.2026.11.24.07.36.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2026 07:36:56 -0800 (PST)
+ Tue, 24 Nov 2026 07:36:59 -0800 (PST)
 From: Jake Steinman <j@metarealtyinc.ca>
 To: jouni.hogander@intel.com,
 	ville.syrjala@linux.intel.com
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  animesh.manna@intel.com, ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
  rodrigo.vivi@intel.com, jani.nikula@linux.intel.com
-Subject: [PATCH v3 0/4] drm/i915/psr: Send the AS SDP in PR Active while
+Subject: [PATCH v3 2/4] drm/i915/psr: Send the AS SDP in PR Active while
  frames are updating
-Date: Tue, 24 Nov 2026 10:36:51 -0500
-Message-ID: <cover.1795527921.git.j@metarealtyinc.ca>
+Date: Tue, 24 Nov 2026 10:36:53 -0500
+Message-ID: <6c8469acdedb91f0435967f94b2a2b6aabba8711.1795527921.git.j@metarealtyinc.ca>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <3077ed0636a6c98e919934d2c860461f98222537.camel@intel.com>
+In-Reply-To: <cover.1795527921.git.j@metarealtyinc.ca>
 References: <3077ed0636a6c98e919934d2c860461f98222537.camel@intel.com>
+ <cover.1795527921.git.j@metarealtyinc.ca>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -93,54 +94,228 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Jouni, Ville,
+Sinks that support async video timing in PR get the AS SDP suspended in
+PR Active (disable_as_sdp_when_pr_active). The LG panel in the Dell XPS
+16 DA16260 (sink OUI 00:22:b9) then judders while frames are updating,
+with the source flipping at a steady 8.33 ms. Leaving the AS SDP on
+fixes it but blocks DC5/DC6.
 
-v3 with Jouni's review comments on v2 and the sashiko-bot findings.
+Clear PR_ALPM_CTL[AS SDP Transmission in Active Disable] on a frontbuffer
+flush (flips, cursor updates and frontbuffer rendering) and set it again
+from a delayed work once there has been no flush for 6 frames, the same
+idle time DC3CO and DC5/DC6 use.
 
-It still uses frame updates as the trigger. Only non-flip flushes exit
-Panel Replay; for ORIGIN_FLIP intel_psr_flush() jumps to rearm, so PR
-stays enabled and does selective updates while the hook clears the bit.
-That is the path the judder is on here, and v2 has been smoother than
-the vblank version in daily use. Jouni prefers going back to vblank and
-Ville objected to it in the RFC thread, so I'll leave the trigger to the
-two of you and respin with whichever you agree on.
+Panel Replay is enabled with the AS SDP sent, so the bit is never set
+while frames are still being updated, and the delayed work suspends it
+once idle.
 
-The frame update trigger is unchanged from v2, which has run daily on
-7.4-rc3/rc4 on the Dell XPS 16 DA16260 (PTL, xe). The v3 changes are build
-tested on drm-tip (W=1, i915 and xe, each patch).
+disable_as_sdp_when_pr_active is now computed in
+intel_psr_compute_config_late(), after the AS SDP config, and is only set
+when the AS SDP is actually sent, ALPM AUX-less is used and AS SDP skip
+frames is not.
 
-Changes since v2:
-- Use intel_dp->alpm.transcoder in the helper (Jouni)
-- Compute disable_as_sdp_when_pr_active in
-  intel_psr_compute_config_late() (Jouni)
-- Don't set the bit at PR enable, start with the AS SDP sent and let the
-  idle work suspend it (Jouni)
-- Just stop setting the bit in intel_alpm_configure_pr_as_sdp() instead
-  of keeping its value (Jouni), which also fixes a stale bit (sashiko)
-- Update the latched setting on a seamless VRR toggle (sashiko)
+Fixes: d6a8336c5f06 ("drm/i915/alpm: Write PR_ALPM_CTL register")
+Cc: Jouni Högander <jouni.hogander@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.17+
+Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+---
+ .../drm/i915/display/intel_display_types.h    |  5 ++
+ drivers/gpu/drm/i915/display/intel_psr.c      | 84 ++++++++++++++++++-
+ 2 files changed, 85 insertions(+), 4 deletions(-)
 
-Jake Steinman (4):
-  drm/i915/alpm: Add a helper to suspend the AS SDP in PR Active
-  drm/i915/psr: Send the AS SDP in PR Active while frames are updating
-  drm/i915/alpm: Leave AS SDP Transmission in Active Disable to PSR code
-  drm/i915/display: Remove the Panel Replay quirk for Dell XPS 16
-    DA16260
-
- drivers/gpu/drm/i915/display/intel_alpm.c     |  44 ++++++-
- drivers/gpu/drm/i915/display/intel_alpm.h     |   4 +
- .../drm/i915/display/intel_display_types.h    |   5 +
- drivers/gpu/drm/i915/display/intel_psr.c      | 120 +++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_psr.h      |   2 +
- drivers/gpu/drm/i915/display/intel_quirks.c   |   8 --
- 6 files changed, 165 insertions(+), 18 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 90a5d2916..991d3a2fe 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1823,6 +1823,11 @@ struct intel_psr {
+ 	bool dc3co_allowed;
+ 	/* DC3CO disable work */
+ 	struct delayed_work dc3co_work;
++	/* AS SDP in PR Active is sent while frames are being updated */
++	bool disable_as_sdp_when_pr_active;
++	bool as_sdp_in_active;
++	unsigned long as_sdp_idle_delay;
++	struct delayed_work as_sdp_work;
+ 	u16 su_w_granularity;
+ 	u16 su_y_granularity;
+ 	bool source_panel_replay_support;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index bd1656360..62cda4365 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1704,10 +1704,23 @@ static inline bool compute_link_off_after_as_sdp_when_pr_active(struct intel_con
+ 		DP_PANEL_REPLAY_LINK_OFF_SUPPORTED_IN_PR_AFTER_ADAPTIVE_SYNC_SDP);
+ }
+ 
+-static inline bool compute_disable_as_sdp_when_pr_active(struct intel_connector *connector)
++static bool compute_disable_as_sdp_when_pr_active(struct intel_dp *intel_dp,
++						  const struct intel_crtc_state *crtc_state)
+ {
+-	return !(connector->dp.panel_replay_caps.dpcd[INTEL_PR_DPCD_INDEX(DP_PANEL_REPLAY_CAP_CAPABILITY)] &
+-		 DP_PANEL_REPLAY_ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR);
++	struct intel_connector *connector = intel_dp->attached_connector;
++	const u8 *pr_dpcd = connector->dp.panel_replay_caps.dpcd;
++
++	if (pr_dpcd[INTEL_PR_DPCD_INDEX(DP_PANEL_REPLAY_CAP_CAPABILITY)] &
++	    DP_PANEL_REPLAY_ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR)
++		return false;
++
++	/* AS SDP skip frames needs the AS SDP to keep flowing in PR Active */
++	if (intel_alpm_pr_as_sdp_skip_frames_enabled(intel_dp, crtc_state))
++		return false;
++
++	return intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
++		(crtc_state->infoframes.enable &
++		 intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC));
+ }
+ 
+ static bool _panel_replay_compute_config(struct intel_crtc_state *crtc_state,
+@@ -1745,7 +1758,6 @@ static bool _panel_replay_compute_config(struct intel_crtc_state *crtc_state,
+ 	}
+ 
+ 	crtc_state->link_off_after_as_sdp_when_pr_active = compute_link_off_after_as_sdp_when_pr_active(connector);
+-	crtc_state->disable_as_sdp_when_pr_active = compute_disable_as_sdp_when_pr_active(connector);
+ 
+ 	if (!intel_dp_is_edp(intel_dp))
+ 		return true;
+@@ -2183,6 +2195,45 @@ static bool psr_interrupt_error_check(struct intel_dp *intel_dp)
+ 	return true;
+ }
+ 
++/*
++ * Sinks that support async video timing in PR get the AS SDP suspended in PR
++ * Active. Some of them then drift out of phase with the source and judder
++ * while frames are being updated. Send the AS SDP in PR Active from the first
++ * frame update and suspend it again once the display has been idle for
++ * as_sdp_idle_delay. DC5/DC6 needs the same number of idle frames, so little
++ * DC5/DC6 residency is lost.
++ */
++static void intel_psr_pr_as_sdp_suspend_work(struct work_struct *work)
++{
++	struct intel_dp *intel_dp =
++		container_of(work, typeof(*intel_dp), psr.as_sdp_work.work);
++
++	mutex_lock(&intel_dp->psr.lock);
++	if (intel_dp->psr.enabled && intel_dp->psr.as_sdp_in_active) {
++		intel_alpm_pr_as_sdp_in_active_disable(intel_dp, true);
++		intel_dp->psr.as_sdp_in_active = false;
++	}
++	mutex_unlock(&intel_dp->psr.lock);
++}
++
++static void intel_psr_pr_as_sdp_flush_locked(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	lockdep_assert_held(&intel_dp->psr.lock);
++
++	if (!intel_dp->psr.disable_as_sdp_when_pr_active)
++		return;
++
++	if (!intel_dp->psr.as_sdp_in_active) {
++		intel_alpm_pr_as_sdp_in_active_disable(intel_dp, false);
++		intel_dp->psr.as_sdp_in_active = true;
++	}
++
++	mod_delayed_work(display->wq.unordered, &intel_dp->psr.as_sdp_work,
++			 intel_dp->psr.as_sdp_idle_delay);
++}
++
+ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 				    const struct intel_crtc_state *crtc_state)
+ {
+@@ -2201,6 +2252,7 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 	/* DC5/DC6 requires at least 6 idle frames */
+ 	val = usecs_to_jiffies(intel_get_frame_time_us(crtc_state) * 6);
+ 	intel_dp->psr.dc3co_exit_delay = val;
++	intel_dp->psr.as_sdp_idle_delay = val;
+ 	intel_dp->psr.psr2_sel_fetch_enabled = crtc_state->enable_psr2_sel_fetch;
+ 	intel_dp->psr.su_region_et_enabled = crtc_state->enable_psr2_su_region_et;
+ 	intel_dp->psr.psr2_sel_fetch_cff_enabled = false;
+@@ -2211,6 +2263,9 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 	intel_dp->psr.io_wake_lines = crtc_state->alpm_state.io_wake_lines;
+ 	intel_dp->psr.fast_wake_lines = crtc_state->alpm_state.fast_wake_lines;
+ 	intel_dp->psr.entry_setup_frames = crtc_state->entry_setup_frames;
++	intel_dp->psr.disable_as_sdp_when_pr_active =
++		crtc_state->disable_as_sdp_when_pr_active;
++	intel_dp->psr.as_sdp_in_active = false;
+ 
+ 	if (!psr_interrupt_error_check(intel_dp))
+ 		return;
+@@ -2243,6 +2298,17 @@ static void intel_psr_enable_locked(struct intel_dp *intel_dp,
+ 	intel_dp->psr.enabled = true;
+ 	intel_dp->psr.pause_counter = 0;
+ 
++	/*
++	 * Start with the AS SDP sent, the idle work suspends it once there has
++	 * been no frame update for as_sdp_idle_delay.
++	 */
++	if (intel_dp->psr.disable_as_sdp_when_pr_active) {
++		intel_alpm_pr_as_sdp_in_active_disable(intel_dp, false);
++		intel_dp->psr.as_sdp_in_active = true;
++		mod_delayed_work(display->wq.unordered, &intel_dp->psr.as_sdp_work,
++				 intel_dp->psr.as_sdp_idle_delay);
++	}
++
+ 	/*
+ 	 * Link_ok is sticky and set here on PSR enable. We can assume link
+ 	 * training is complete as we never continue to PSR enable with
+@@ -2419,6 +2485,8 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ 	intel_dp->psr.pipe_mask = 0;
+ 	cancel_delayed_work(&intel_dp->psr.dc3co_work);
+ 	intel_dp->psr.dc3co_allowed = false;
++	cancel_delayed_work(&intel_dp->psr.as_sdp_work);
++	intel_dp->psr.as_sdp_in_active = false;
+ }
+ 
+ /**
+@@ -2449,6 +2517,7 @@ void intel_psr_disable(struct intel_dp *intel_dp,
+ 	mutex_unlock(&intel_dp->psr.lock);
+ 	cancel_work_sync(&intel_dp->psr.work);
+ 	cancel_delayed_work_sync(&intel_dp->psr.dc3co_work);
++	cancel_delayed_work_sync(&intel_dp->psr.as_sdp_work);
+ }
+ 
+ /**
+@@ -3853,6 +3922,8 @@ void intel_psr_flush(struct intel_display *display,
+ 
+ 		intel_dp->psr.busy_frontbuffer_bits &= ~pipe_frontbuffer_bits;
+ 
++		intel_psr_pr_as_sdp_flush_locked(intel_dp);
++
+ 		if (intel_dp->psr.pause_counter)
+ 			goto rearm;
+ 
+@@ -3931,6 +4002,7 @@ void intel_psr_init(struct intel_dp *intel_dp)
+ 
+ 	INIT_WORK(&intel_dp->psr.work, intel_psr_work);
+ 	INIT_DELAYED_WORK(&intel_dp->psr.dc3co_work, psr2_dc3co_disable_work);
++	INIT_DELAYED_WORK(&intel_dp->psr.as_sdp_work, intel_psr_pr_as_sdp_suspend_work);
+ 	mutex_init(&intel_dp->psr.lock);
+ }
+ 
+@@ -4775,6 +4847,10 @@ void intel_psr_compute_config_late(struct intel_dp *intel_dp,
+ 	}
+ 
+ 	intel_psr_set_non_psr_pipes(intel_dp, crtc_state);
++
++	crtc_state->disable_as_sdp_when_pr_active =
++		crtc_state->has_panel_replay &&
++		compute_disable_as_sdp_when_pr_active(intel_dp, crtc_state);
+ }
+ 
+ int intel_psr_min_guardband(struct intel_crtc_state *crtc_state)
 -- 
 2.56.1
 
