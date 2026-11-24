@@ -2,52 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68E6606A334
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 13:59:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9358B606A331
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 14:10:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iiKgvzqJ
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i8nCv1At
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43E7510F5C8;
-	Tue, 24 Nov 2026 13:59:10 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E166E10F5D1;
- Tue, 24 Nov 2026 13:59:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2957D10F64C;
+	Tue, 24 Nov 2026 14:10:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5126010F64F;
+ Tue, 24 Nov 2026 14:10:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795528744; x=1827064744;
+ t=1795529447; x=1827065447;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=uNe1VhC9KnwwRSohsBCfR2+ip/zghJfs1Sv7lRDKqCk=;
- b=iiKgvzqJBxLPbpBJ0Gu8Hz5oNb/lVEpwpj8vhfJ6Nj+Gy8LMTCCl8vuA
- Eeht5S26LXUe8biXX4c6H/YEwETuoIIZDjnsLide0r9MO58lraZYfppyP
- sL4hs7Sb303MvdVlnykaj2C/lzCofuwl/il/BikHM5iohGY0Coirikdsp
- 5HyK7cZ2TyjPUtdilw3bIcA78232e5emWsjsUmKuJTGex8cUcOh5jy4gs
- wOoyBq9P8yJIbaHJ3D56mVfnJ0TKLJfkEoEHr6PNYFskmwSAzet44cUQi
- FFgVj8UcUVeT8iOLHFHLmiQqPhG+/Aca+xJGkNMpJKxD53Ad9sk7cwj/4 w==;
-X-CSE-ConnectionGUID: OJeKyEuMQpOaqzm/pf91rA==
-X-CSE-MsgGUID: 2oNuVa34R3ulIdXhvRSCFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4358733"
+ bh=iwuACdQpMXnTlLN5ELk/oDxWxS/NOtcj7qdV2QAgoaI=;
+ b=i8nCv1Atg7RaHCpryDo1kXQb5TKKnmww5eMnRGFHl9FQwzgL+rPf9k/q
+ ejZutJdKd8U5CID2KkpvPmsPP6jqKcaiZp09ZJ4QZ09wGBiPUXI9aCVNo
+ kiFCusNru/MCEyPyThOO2jNXu45quoF8+g8vTtN8TH4gNM6XJMWB9dpKX
+ 22IECVZrT59Fs+uZLDdbXri2bL47gvR9hf8w/xygFcueP7xzWvtMHvWHu
+ b53KSIFClRWjaBmcWjifz1bq6Cj6SxYeUfWcTG3AoTW1QcFpISNzORdEW
+ 24f9PVvz+c51qxo0244oSzzL3R41b4FtjaPs5mq+4/OC987MEROwTqxYi g==;
+X-CSE-ConnectionGUID: eJqdmkItTBCpG0g7F4oGfw==
+X-CSE-MsgGUID: fx0YkCJnRvyTsLDqVOaU5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4263903"
 X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4358733"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 05:59:02 -0800
-X-CSE-ConnectionGUID: bOLmZ8qHTrSsqqGYAFCmHA==
-X-CSE-MsgGUID: SleyQiDaT+eUH9lA31TkUw==
+   d="scan'208";a="4263903"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 06:10:46 -0800
+X-CSE-ConnectionGUID: K/jFNEj3RpWtddjMS6GAsw==
+X-CSE-MsgGUID: sz7ORFl3RdWUbZSsV6ItJQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11584029"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11889556"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.138])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 05:58:57 -0800
+ 24 Nov 2026 06:10:45 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH] drm/i915/bios: drop _INTEL_BIOS_PRIVATE check from
- intel_vbt_defs.h
-Date: Tue, 24 Nov 2026 15:58:52 +0200
-Message-ID: <20261124135852.1542458-1-jani.nikula@intel.com>
+Subject: [PATCH 1/2] drm/i915/display: don't be cute about printing
+ enabling/disabling
+Date: Tue, 24 Nov 2026 16:10:39 +0200
+Message-ID: <20261124141040.1560003-1-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -68,90 +68,65 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-intel_vbt_defs.h remains private to intel_bios.c (and gvt/opregion.c),
-but drop the extra check to ensure it's only included from said places.
-
-This allows running
-
-$ make HEADER_CHECK=drivers/gpu/drm/i915 headercheck
-
-without any exclusions.
+Convert "%sabling", enable ? "en" : "dis" patterns to use
+str_enable_disable(). The imperative is just fine here.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                 | 8 +-------
- drivers/gpu/drm/i915/display/intel_bios.c     | 4 +---
- drivers/gpu/drm/i915/display/intel_vbt_defs.h | 3 ---
- drivers/gpu/drm/i915/gvt/opregion.c           | 1 -
- 4 files changed, 2 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fdi.c     | 3 +--
+ drivers/gpu/drm/i915/display/intel_gmbus.c   | 5 ++---
+ drivers/gpu/drm/i915/display/intel_hotplug.c | 4 ++--
+ 3 files changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index ba7eecfffdca..43f7c433c447 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -446,14 +446,8 @@ ifdef CONFIG_DRM_I915_WERROR
- endif
+diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
+index c170d3104e4c..8f83762c1031 100644
+--- a/drivers/gpu/drm/i915/display/intel_fdi.c
++++ b/drivers/gpu/drm/i915/display/intel_fdi.c
+@@ -404,8 +404,7 @@ static void cpt_set_fdi_bc_bifurcation(struct intel_display *display, bool enabl
+ 	if (enable)
+ 		temp |= FDI_BC_BIFURCATION_SELECT;
  
- # header test
--
--# exclude some broken headers from the test coverage
--no-header-test := \
--	display/intel_vbt_defs.h
--
- always-$(CONFIG_DRM_I915_WERROR) += \
--	$(patsubst %.h,%.hdrtest, $(filter-out $(no-header-test), \
--		$(shell cd $(src) && find * -name '*.h')))
-+	$(patsubst %.h,%.hdrtest, $(shell cd $(src) && find * -name '*.h'))
+-	drm_dbg_kms(display->drm, "%sabling fdi C rx\n",
+-		    enable ? "en" : "dis");
++	drm_dbg_kms(display->drm, "%s FDI C RX\n", str_enable_disable(enable));
+ 	intel_de_write(display, SOUTH_CHICKEN1, temp);
+ 	intel_de_posting_read(display, SOUTH_CHICKEN1);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index d43c81d362e6..d68521588d54 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -1107,9 +1107,8 @@ void intel_gmbus_force_bit(struct i2c_adapter *adapter, bool force_bit)
+ 	mutex_lock(&display->gmbus.mutex);
  
- quiet_cmd_hdrtest = HDRTEST $(patsubst %.hdrtest,%.h,$@)
-       cmd_hdrtest = $(CC) $(filter-out $(CFLAGS_GCOV), $(c_flags)) -S -o /dev/null -x c /dev/null -include $<; \
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 7b6a6f8c3cf1..deb6c7912631 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -42,10 +42,8 @@
- #include "intel_display_utils.h"
- #include "intel_gmbus.h"
- #include "intel_rom.h"
--#include "intel_vdsc.h"
--
--#define _INTEL_BIOS_PRIVATE
- #include "intel_vbt_defs.h"
-+#include "intel_vdsc.h"
+ 	bus->force_bit += force_bit ? 1 : -1;
+-	drm_dbg_kms(display->drm,
+-		    "%sabling bit-banging on %s. force bit now %d\n",
+-		    force_bit ? "en" : "dis", adapter->name,
++	drm_dbg_kms(display->drm, "%s bit-banging on %s. force bit now %d\n",
++		    str_enable_disable(force_bit), adapter->name,
+ 		    bus->force_bit);
  
- /**
-  * DOC: Video BIOS Table (VBT)
-diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index 0dc13d080e8a..6858d2318b2d 100644
---- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -30,9 +30,6 @@
-  *
-  * Please do NOT include anywhere else.
-  */
--#ifndef _INTEL_BIOS_PRIVATE
--#error "intel_vbt_defs.h is private to intel_bios.c"
--#endif
+ 	mutex_unlock(&display->gmbus.mutex);
+diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
+index d095eb13dc06..09f34c9a8643 100644
+--- a/drivers/gpu/drm/i915/display/intel_hotplug.c
++++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
+@@ -1309,8 +1309,8 @@ static ssize_t i915_hpd_short_storm_ctl_write(struct file *file,
+ 	else if (kstrtobool(tmp, &new_state) != 0)
+ 		return -EINVAL;
  
- #ifndef _INTEL_VBT_DEFS_H_
- #define _INTEL_VBT_DEFS_H_
-diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
-index d6e76ba31d60..ff77ba0df2fe 100644
---- a/drivers/gpu/drm/i915/gvt/opregion.c
-+++ b/drivers/gpu/drm/i915/gvt/opregion.c
-@@ -30,7 +30,6 @@
-  * Note: Only for GVT-g virtual VBT generation, other usage must
-  * not do like this.
-  */
--#define _INTEL_BIOS_PRIVATE
- #include "display/intel_vbt_defs.h"
+-	drm_dbg_kms(display->drm, "%sabling HPD short storm detection\n",
+-		    new_state ? "En" : "Dis");
++	drm_dbg_kms(display->drm, "%s HPD short storm detection\n",
++		    str_enable_disable(new_state));
  
- #define OPREGION_SIGNATURE "IntelGraphicsMem"
+ 	spin_lock_irq(&display->irq.lock);
+ 	hotplug->hpd_short_storm_enabled = new_state;
 -- 
 2.47.3
 
