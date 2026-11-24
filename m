@@ -2,53 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434A3606A326
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 18:35:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F66606A31E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 18:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cmgCwYA7
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JQqZrWbJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA13910E4AA;
-	Tue, 24 Nov 2026 18:35:46 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD1E10E4AA
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 18:35:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7137F10F03C;
+	Tue, 24 Nov 2026 18:35:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0654B10F031
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 18:35:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795545340; x=1827081340;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=7Fn9y6E+F34gq1OoIAPdTBv34J+sVz89GTcta0vnyCU=;
- b=cmgCwYA7ii286SkxSakQy23tHeJMyKVS4pqgB2Xt9F4/Z26QIvWQZdjD
- I0KezVsvgQXp5nAaBBFCnEuKg77iCKGIo0C+Tx8c7d4SEMoWvBzBaWYuI
- tWeiUrvZIP+fUGnMc150jnwS1ZEFNBePObFYHdwRKLW2C0h0SdTv3pusX
- E0kC6UwSLJLk19eBWfC8Yd5ekzBkYWz9ahFiGX6QhQaqge9J7QyKh7xYk
- vat01HXgMoaYlnJ5aW6O4+qd+0fz40xXHqaB3kDngnhZPHJRVIgYNcQ7W
- erv5D7ullc/oqpzFCExtMuFbWQmPYGzDKxQEYZ0x1uUxo8hozpi9f/cAd g==;
-X-CSE-ConnectionGUID: Mr/OT+lbTuinR8n5EtM6QA==
-X-CSE-MsgGUID: flMSeNDzQDqI932CLxV0WQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4254481"
+ t=1795545351; x=1827081351;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=MY8myH3x85ivdljCZhxSWP99ggWUQoufPYd87lrA0rU=;
+ b=JQqZrWbJZrq4Ft/EpELI5dWmF2kL78/TRzNj7hteQTrKznC1r3afxEZa
+ 5hvbG5cFcQqyoHgl/hmGQV0wkTuwimhH2COJ048bATZ8/QsOXZQjxg1vp
+ ZmDHLlorZ7WaQw4VeDKCH1ytancXdYm4rgbgOFCGxndtzqiJyEvgrpKwB
+ ERdIwhFdjMIavepXIpz7xvUBBMMbDXZEbvNy8N+tXCNFoQsoKcX/eiqr0
+ Sa9N2frXcYn84lWNdxo9dezqOP6+QFTYHYYMCAfDO98rnd7MrSzvCJ1Dj
+ JwU6Q8XVr4ntXgwndN6UEcfD8FWjf+Hogsua3V0WQAZ8SW54v3O6eYFQJ Q==;
+X-CSE-ConnectionGUID: s2SzcHR+R1W3BTuuOS1Wug==
+X-CSE-MsgGUID: mEe1txZyTziMsSmGbIutZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4315626"
 X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4254481"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 10:14:13 -0800
-X-CSE-ConnectionGUID: 8ndY3KRMS8KBVvWWNsmOjw==
-X-CSE-MsgGUID: X7aC6GV1RYm/nHAzWgDHGg==
+   d="scan'208";a="4315626"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 10:17:13 -0800
+X-CSE-ConnectionGUID: /67J8TZJS8mRQj3SaOtIIQ==
+X-CSE-MsgGUID: mecPt1aXT2+JuTvbLn+r6A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11928472"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11964038"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.245.245.215])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 10:14:12 -0800
+ 24 Nov 2026 10:14:08 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 2/2] drm/i915/uncore: hide uncore forcewake iterators
-Date: Tue, 24 Nov 2026 20:14:05 +0200
-Message-ID: <20261124181405.1669126-2-jani.nikula@intel.com>
+Subject: [PATCH 1/2] drm/i915/uncore: abstract intel_uncore_fw_domains_show()
+Date: Tue, 24 Nov 2026 20:14:04 +0200
+Message-ID: <20261124181405.1669126-1-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261124181405.1669126-1-jani.nikula@intel.com>
-References: <20261124181405.1669126-1-jani.nikula@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
@@ -72,54 +70,84 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-There are no users of for_each_fw_domain_masked() and
-for_each_fw_domain() left outside of intel_uncore.c. Hide them from the
-rest of the driver.
+The debugfs shouldn't really have to know about uncore implementation
+details. Add a separate function to log the forcewake domains.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/intel_uncore.c | 8 ++++++++
- drivers/gpu/drm/i915/intel_uncore.h | 8 --------
- 2 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 14 +-------------
+ drivers/gpu/drm/i915/intel_uncore.c           | 18 ++++++++++++++++++
+ drivers/gpu/drm/i915/intel_uncore.h           |  2 ++
+ 3 files changed, 21 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+index adf2512e2ed5..1b39e5f19192 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+@@ -70,20 +70,8 @@ static int fw_domains_show(struct seq_file *m, void *data)
+ {
+ 	struct intel_gt *gt = m->private;
+ 	struct intel_uncore *uncore = gt->uncore;
+-	struct intel_uncore_forcewake_domain *fw_domain;
+-	unsigned int tmp;
+ 
+-	spin_lock_irq(&uncore->lock);
+-
+-	seq_printf(m, "user.bypass_count = %u\n",
+-		   uncore->user_forcewake_count);
+-
+-	for_each_fw_domain(fw_domain, uncore, tmp)
+-		seq_printf(m, "%s.wake_count = %u\n",
+-			   intel_uncore_forcewake_domain_to_str(fw_domain->id),
+-			   READ_ONCE(fw_domain->wake_count));
+-
+-	spin_unlock_irq(&uncore->lock);
++	intel_uncore_fw_domains_show(m, uncore);
+ 
+ 	return 0;
+ }
 diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 02f6000b203e..cefcec468963 100644
+index 4e10a02f5750..02f6000b203e 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.c
 +++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -42,6 +42,14 @@
- #define FORCEWAKE_ACK_TIMEOUT_MS 50
- #define GT_FIFO_TIMEOUT_MS	 10
+@@ -2691,6 +2691,24 @@ intel_uncore_forcewake_for_reg(struct intel_uncore *uncore,
+ 	return fw_domains;
+ }
  
-+/* Iterate over initialised fw domains */
-+#define for_each_fw_domain_masked(domain__, mask__, uncore__, tmp__) \
-+	for (tmp__ = (mask__); tmp__ ;) \
-+		for_each_if(domain__ = (uncore__)->fw_domain[__mask_next_bit(tmp__)])
++void intel_uncore_fw_domains_show(struct seq_file *m, struct intel_uncore *uncore)
++{
++	struct intel_uncore_forcewake_domain *fw_domain;
++	unsigned int tmp;
 +
-+#define for_each_fw_domain(domain__, uncore__, tmp__) \
-+	for_each_fw_domain_masked(domain__, (uncore__)->fw_domains, uncore__, tmp__)
++	spin_lock_irq(&uncore->lock);
 +
- struct intel_uncore *to_intel_uncore(struct drm_device *drm)
- {
- 	return &to_i915(drm)->uncore;
++	seq_printf(m, "user.bypass_count = %u\n",
++		   uncore->user_forcewake_count);
++
++	for_each_fw_domain(fw_domain, uncore, tmp)
++		seq_printf(m, "%s.wake_count = %u\n",
++			   intel_uncore_forcewake_domain_to_str(fw_domain->id),
++			   READ_ONCE(fw_domain->wake_count));
++
++	spin_unlock_irq(&uncore->lock);
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftests/mock_uncore.c"
+ #include "selftests/intel_uncore.c"
 diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
-index d5de6a172ff3..1819c9430181 100644
+index 9047d7d4d855..d5de6a172ff3 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.h
 +++ b/drivers/gpu/drm/i915/intel_uncore.h
-@@ -175,14 +175,6 @@ struct intel_uncore {
- 	unsigned int user_forcewake_count;
- };
+@@ -470,6 +470,8 @@ static inline void __iomem *intel_uncore_regs(struct intel_uncore *uncore)
+ 	return uncore->regs;
+ }
  
--/* Iterate over initialised fw domains */
--#define for_each_fw_domain_masked(domain__, mask__, uncore__, tmp__) \
--	for (tmp__ = (mask__); tmp__ ;) \
--		for_each_if(domain__ = (uncore__)->fw_domain[__mask_next_bit(tmp__)])
--
--#define for_each_fw_domain(domain__, uncore__, tmp__) \
--	for_each_fw_domain_masked(domain__, (uncore__)->fw_domains, uncore__, tmp__)
--
- static inline bool
- intel_uncore_has_forcewake(const struct intel_uncore *uncore)
- {
++void intel_uncore_fw_domains_show(struct seq_file *m, struct intel_uncore *uncore);
++
+ struct intel_uncore *to_intel_uncore(struct drm_device *drm);
+ 
+ /*
 -- 
 2.47.3
 
