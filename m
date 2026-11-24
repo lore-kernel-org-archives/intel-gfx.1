@@ -2,47 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A09C606A330
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 10:55:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9713606A32C
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 10:58:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4CSrD4P
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gIx6xwJX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA94D10E3DF;
-	Tue, 24 Nov 2026 10:55:02 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4B0D10E3DF;
- Tue, 24 Nov 2026 10:54:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E10C3625D9;
- Tue, 24 Nov 2026 10:54:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6E51F000C0;
- Tue, 24 Nov 2026 10:54:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795517695;
- bh=PViI4YFFHH8dsw1LEuH9tJVkgS7gEQVSJSwRx25RdBE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=L4CSrD4Pd/4635lRv+mKeClDsIQNVAGClY7J5B0TFbtCYJrv8XGrNSv8bfYb099KF
- wC8o1R6aQ0Bn7nTiOoZmqpe3qTBP9O2kp3uY8t0QLHE923JaYsAiAs647syhGGi3ql
- rzDemC7kdFGZcp87kXJx3NxOWdQbmNsJaZ677/uvXT5JcmBcHYKCCQGBduJ8p544lp
- XyYzCXsNck038FHGiMzId9PGt9Nv3JE/yK6xkniFpiNN3BdanIdvqgkRSAUVHUUZOx
- pbPYIeumK9G8uPRbuWNXluD1WkjBbhz5KVZ5tJlZIguCGyW4jCIEiTrS/+Dv3FJXPh
- i7O28MNBb4rcA==
-Date: Tue, 24 Nov 2026 10:54:50 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- Felix Kuehling <felix.kuehling@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [PATCH i-g-t] tests/gem_mmap_offset: Accept partial read in
- oob-read
-Message-ID: <awVlaeEQSpee2cI2@gremlin>
-References: <20261123211018.12339-1-david@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49A8510E819;
+	Tue, 24 Nov 2026 10:58:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3A9E10E672;
+ Tue, 24 Nov 2026 10:58:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795517923; x=1827053923;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=98o+aDgbV9EfwRRQx4ZVtKvTcDkwwn9qBFkWlOnJEi0=;
+ b=gIx6xwJXZ0EtkYEU+wDl1+Fri0wd9FZFKJbshLLGG2ipSkcBgf3zK4kX
+ 5jsR0UiwZezF0Lo6WnfxhFelCx4f2CHqiYHUxVxpD+az848ApqGZohz6K
+ aaBVE6msoylPPNVuC/Vt/ZEvKJ35TK7068JabdBCu+l9ztsfmx91f22Le
+ 7q+w81eg7BDYTVLrOVVWeeJ6GFUmPj60nmNp46AZ9UQGvbtmi/w3NIebL
+ 0jKKBv35nhjkQgwO9C8dqXtJc7oIDVWs8m6/K/0BlzneYTYu7AM86Gd3q
+ EYeeSSTi7faifxVSQRq7koyrzzBxI8mxbc9HuSQFKLqeHRFUBdTveYCOx A==;
+X-CSE-ConnectionGUID: DthpINExQfyVN5mYYk+4Zg==
+X-CSE-MsgGUID: wc20vGz9TEiGi9ZR5GpY6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4440464"
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
+   d="scan'208";a="4440464"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 02:58:11 -0800
+X-CSE-ConnectionGUID: 4nVnnpubRoC4FRqL1kccZw==
+X-CSE-MsgGUID: bVuZCwJrTj2noveyqhDIPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11416955"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa004.jf.intel.com with ESMTP; 24 Nov 2026 02:58:09 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 786D89D; Tue, 24 Nov 2026 11:58:08 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v1 1/1] drm/i915/hotplug: Use DEFINE_SHOW_STORE_ATTRIBUTE()
+ helper for debugfs
+Date: Tue, 24 Nov 2026 11:58:05 +0100
+Message-ID: <20261124105805.617827-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261123211018.12339-1-david@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,112 +68,79 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 23, 2026 at 10:10:18PM +0100, David Hildenbrand (Arm) wrote:
-> The oob-read test reads 8 bytes through /proc/self/mem, assuming that
-> the kernel would reject the entire read with EIO.
->
-> However, we have 4 remaining bytes in the 4 KiB mapping we can read, so
-> it's valid for the kernel to only do a partial read that covers these 4
-> bytes. Allow that as well.
->
-> Otherwise, the test will fail on a kernel with upcoming vm_ops->access
-> fixes, whereby vm_ops->access is limited to the current VMA, so the
-> read would continue with the next mapping (if any).
->
-> So we have to make sure that nothing is mapped after the GEM mapping.
-> Let's reserve an 8 KiB memory region, map the GEM object into the first
-> 4 KiB slot, and create a hole by unmapping the second 4 KiB slot.
->
-> With the kernel changes in place:
->
->   $ build/tests/gem_mmap_offset --run-subtest oob-read
->   [...]
->   Using IGT_SRANDOM=1795467759 for randomisation
->   Opened device: /dev/dri/card1
->   Starting subtest: oob-read
->   Subtest oob-read: SUCCESS (0,000s)
->
-> Link: https://lore.kernel.org/r/20261122-access_shite-v2-0-808d8d2aa700@kernel.org
-> Cc: Felix Kuehling <felix.kuehling@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Use DEFINE_SHOW_STORE_ATTRIBUTE() helper for read-write file to reduce some
+duplicated code.
 
-It's funny how these things can ripple out, but very much seems a correct
-change!
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_hotplug.c | 32 ++------------------
+ 1 file changed, 2 insertions(+), 30 deletions(-)
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
+index d095eb13dc06..c47a7c9044e7 100644
+--- a/drivers/gpu/drm/i915/display/intel_hotplug.c
++++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
+@@ -1246,20 +1246,7 @@ static ssize_t i915_hpd_storm_ctl_write(struct file *file,
+ 
+ 	return len;
+ }
+-
+-static int i915_hpd_storm_ctl_open(struct inode *inode, struct file *file)
+-{
+-	return single_open(file, i915_hpd_storm_ctl_show, inode->i_private);
+-}
+-
+-static const struct file_operations i915_hpd_storm_ctl_fops = {
+-	.owner = THIS_MODULE,
+-	.open = i915_hpd_storm_ctl_open,
+-	.read = seq_read,
+-	.llseek = seq_lseek,
+-	.release = single_release,
+-	.write = i915_hpd_storm_ctl_write
+-};
++DEFINE_SHOW_STORE_ATTRIBUTE(i915_hpd_storm_ctl);
+ 
+ static int i915_hpd_short_storm_ctl_show(struct seq_file *m, void *data)
+ {
+@@ -1271,13 +1258,6 @@ static int i915_hpd_short_storm_ctl_show(struct seq_file *m, void *data)
+ 	return 0;
+ }
+ 
+-static int
+-i915_hpd_short_storm_ctl_open(struct inode *inode, struct file *file)
+-{
+-	return single_open(file, i915_hpd_short_storm_ctl_show,
+-			   inode->i_private);
+-}
+-
+ static ssize_t i915_hpd_short_storm_ctl_write(struct file *file,
+ 					      const char __user *ubuf,
+ 					      size_t len, loff_t *offp)
+@@ -1324,15 +1304,7 @@ static ssize_t i915_hpd_short_storm_ctl_write(struct file *file,
+ 
+ 	return len;
+ }
+-
+-static const struct file_operations i915_hpd_short_storm_ctl_fops = {
+-	.owner = THIS_MODULE,
+-	.open = i915_hpd_short_storm_ctl_open,
+-	.read = seq_read,
+-	.llseek = seq_lseek,
+-	.release = single_release,
+-	.write = i915_hpd_short_storm_ctl_write,
+-};
++DEFINE_SHOW_STORE_ATTRIBUTE(i915_hpd_short_storm_ctl);
+ 
+ void intel_hpd_debugfs_register(struct intel_display *display)
+ {
+-- 
+2.50.1
 
-> ---
->  tests/intel/gem_mmap_offset.c | 35 ++++++++++++++++++++++++++++-------
->  1 file changed, 28 insertions(+), 7 deletions(-)
->
-> diff --git a/tests/intel/gem_mmap_offset.c b/tests/intel/gem_mmap_offset.c
-> index d3c56ab40..e4c0cfbd9 100644
-> --- a/tests/intel/gem_mmap_offset.c
-> +++ b/tests/intel/gem_mmap_offset.c
-> @@ -482,13 +482,29 @@ test_oob_read(int i915)
->  	handle = gem_create(i915, 4096);
->
->  	for_each_mmap_offset_type(i915, t) {
-> -		uint32_t *ptr;
-> +		struct drm_i915_gem_mmap_offset arg = {
-> +			.handle = handle,
-> +			.flags = t->type,
-> +		};
-> +		void *ptr;
->
-> -		ptr = __mmap_offset(i915, handle, 0, 4096,
-> -				    PROT_READ | PROT_WRITE,
-> -				    t->type);
-> -		if (!ptr)
-> +		if (mmap_offset_ioctl(i915, &arg))
-> +			continue;
-> +
-> +		/* Reserve a region for mapping + hole to stop read(). */
-> +		ptr = mmap(NULL, 8192, PROT_NONE,
-> +			   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> +		igt_assert(ptr != MAP_FAILED);
-> +
-> +		/* Place our mapping into the first slot. */
-> +		if (mmap(ptr, 4096, PROT_READ | PROT_WRITE,
-> +			 MAP_SHARED | MAP_FIXED, i915, arg.offset) == MAP_FAILED) {
-> +			munmap(ptr, 8192);
->  			continue;
-> +		}
-> +
-> +		/* And our hole into the second slot. */
-> +		munmap(ptr + 4096, 4096);
->
->  		memfd = open("/proc/self/mem", O_RDWR);
->  		igt_require_f(memfd != -1, "/proc/self/mem\n");
-> @@ -497,9 +513,14 @@ test_oob_read(int i915)
->  		ret = lseek(memfd, addr, SEEK_SET);
->  		igt_assert_f(ret != -1, "lseek failed\n");
->
-> -		/* Triggering the buf (out of bound read) */
-> +		/*
-> +		 * Read across the end of the mapping. The read is either
-> +		 * rejected entirely, or completes partially for the remaining
-> +		 * 4 bytes in the mapping.
-> +		 */
->  		ret = read(memfd, read_buf, 8);
-> -		igt_assert(ret == -1 && errno ==  EIO);
-> +		igt_assert_f((ret == -1 && errno == EIO) || ret == 4,
-> +			     "ret=%d errno=%d\n", ret, errno);
->
->  		munmap(ptr, 4096);
->  		close(memfd);
-> --
-> 2.56.1
->
-
---
-Cheers, Lorenzo
