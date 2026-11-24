@@ -2,28 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44271606A31E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 01:29:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBE0606A322
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 02:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AvSGVIx1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4FE110E109;
-	Tue, 24 Nov 2026 01:29:20 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92B2A10E080;
- Tue, 24 Nov 2026 01:29:19 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4510998744789365044=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8922D10ECC4;
+	Tue, 24 Nov 2026 02:27:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05B6110E2D1;
+ Tue, 24 Nov 2026 02:27:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795487268; x=1827023268;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=l29zmfhzIH4DD46Q5W7pw0sFlgDyNXXejKb81Dfpzy4=;
+ b=AvSGVIx1mojXQPAwoFRx8KcT1fOjDTJNicEgDd0My0cQZnuV72hU4aGg
+ mdPQapvJh27FKtu3R1xoL+1GvYhP2DybCB/mvrSMn/2lQWdKIfOXhl4MI
+ odiS+WM0WgzflM3tT9+BHxOw+TdIsGmqnHgZ6EoBv6+t0SuJlhqZA6tnt
+ wSTCYBsjSpvXq2Gn95dOt5JirLETBNB1Td32If0oPIM+IGjbhs/F2Y4QT
+ CkeffJtGNmcxTxL9+zkY1tDRWBnXfY0sDFIgWEtDjNbblX7v/4WGc422V
+ FjceVSTbQKRDkR6JkUcLTT8bp6RipP9izOWe80GAWfauTtmQlbNVKxaAs A==;
+X-CSE-ConnectionGUID: Kwtp4sF9TdWtQrBHHIfsXg==
+X-CSE-MsgGUID: nlxi1FE+T/OCnLwUrIG+ZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4204709"
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="4204709"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2026 18:27:48 -0800
+X-CSE-ConnectionGUID: gQ8gAWHXRQmyjaztwDMhkg==
+X-CSE-MsgGUID: X9V8hW/KQ4K/Z+AMzOCoOw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; d="scan'208";a="11762678"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by orviesa009.jf.intel.com with ESMTP; 23 Nov 2026 18:27:45 -0800
+From: Eriksen Xie <xiaolu.xie@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: Eriksen Xie <xiaolu.xie@intel.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Arun R Murthy <arun.r.murthy@intel.com>,
+ Mika Kahola <mika.kahola@intel.com>,
+ "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Imre Deak <imre.deak@intel.com>
+Subject: Re: [PATCH v2 0/2] drm/i915/lt_phy: Fix the ML to TX mapping
+Date: Tue, 24 Nov 2026 10:25:41 +0800
+Message-ID: <20261124022541.2524385-1-xiaolu.xie@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <fd03c9af88037c78b8bf6d1b49d38157adf16729@intel.com>
+References: <fd03c9af88037c78b8bf6d1b49d38157adf16729@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Eliminate_foo?=
- =?utf-8?q?=5Fstate-=3Estate_pointer_usage?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Nov 2026 01:29:19 -0000
-Message-ID: <179548375959.73200.14740865027028447384@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261123225139.23087-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261123225139.23087-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,174 +68,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============4510998744789365044==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Mon, 23 Nov 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+> For future reference, please don't send whole series in-reply-to
+> previous version of the series. It has a good chance of confusing both
+> the CI and the people.
 
-== Series Details ==
+Understood, thanks. I will send each new version as a separate thread.
 
-Series: drm/i915: Eliminate foo_state->state pointer usage
-URL   : https://patchwork.freedesktop.org/series/179413/
-State : success
+Please ignore the v2 that was sent in reply to the v1 review
+(cover.1795156437.git.xiaolu.xie@intel.com). It is superseded by the v2
+that I resent as a standalone series
+(cover.1795157860.git.xiaolu.xie@intel.com). CI has passed on both:
 
-== Summary ==
+  xe:   https://patchwork.freedesktop.org/series/179181/
+  i915: https://patchwork.freedesktop.org/series/179182/
 
-CI Bug Log - changes from CI_DRM_19592 -> Patchwork_179413v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_179413v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@core_debugfs@read-all-entries:
-    - bat-adlp-6:         [PASS][1] -> [DMESG-WARN][2] ([i915#15673])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19592/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-rpls-4:         [PASS][3] -> [DMESG-WARN][4] ([i915#13400])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19592/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_auth@basic-auth:
-    - bat-adlp-6:         [DMESG-WARN][5] ([i915#15673]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19592/bat-adlp-6/igt@core_auth@basic-auth.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/bat-adlp-6/igt@core_auth@basic-auth.html
-
-  * igt@vgem_basic@unload:
-    - bat-rpls-4:         [DMESG-WARN][7] ([i915#13400]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19592/bat-rpls-4/igt@vgem_basic@unload.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/bat-rpls-4/igt@vgem_basic@unload.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19592 -> Patchwork_179413v1
-
-  CI-20190529: 20190529
-  CI_DRM_19592: 6e071be9c703c9e81f5be2d2601dfa5754d446e2 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9201: 9201
-  Patchwork_179413v1: 6e071be9c703c9e81f5be2d2601dfa5754d446e2 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/index.html
-
---===============4510998744789365044==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Eliminate foo_state-&gt;state pointer usage</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179413/">https://patchwork.freedesktop.org/series/179413/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19592 -&gt; Patchwork_179413v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_179413v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@core_debugfs@read-all-entries:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19592/bat-adlp-6/igt@core_debugfs@read-all-entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19592/bat-rpls-4/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/bat-rpls-4/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@core_auth@basic-auth:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19592/bat-adlp-6/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/bat-adlp-6/igt@core_auth@basic-auth.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@vgem_basic@unload:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19592/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179413v1/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19592 -&gt; Patchwork_179413v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19592: 6e071be9c703c9e81f5be2d2601dfa5754d446e2 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9201: 9201<br />
-  Patchwork_179413v1: 6e071be9c703c9e81f5be2d2601dfa5754d446e2 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4510998744789365044==--
+Regards,
+Eriksen Xie
