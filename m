@@ -2,59 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177F7606A31E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 13:42:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C31606A31E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 13:48:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LCwewTvT
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eKOmCtXl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A883810E10A;
-	Tue, 24 Nov 2026 13:42:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC8810E10A;
- Tue, 24 Nov 2026 13:42:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF6610F5B6;
+	Tue, 24 Nov 2026 13:48:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 472F310E880;
+ Tue, 24 Nov 2026 13:48:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795527750; x=1827063750;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=xrF09vv+ciashULbO0v5LVsOaLbzLGwInEB/NeEGsQY=;
- b=LCwewTvTVFy0n/4FpSEiJC8ox5kpTKa5bkghlAdGU7I8Rm2F6BRv7ZuV
- 7xePJoEILtshKfUB1FMYEc69IvezosWSOTkV/3ny7Syq5Zigunbe1KPoU
- GQWBDcqU8rZVAMvKg3hnPCEiqhCerO/dgZEQZ8lXAo2Ni8qPL3b7aiJtt
- ACUKeJE/YyKuL1ca5K8t8ThdDLgAoJkA2iCZcEeN9yXXtBbIxOQRN3y5W
- OfrD2Qq+5GNGhbYpTR9xwhX//V6MKB9KNs6MwBo4jtUELXWa8/mQ73c9/
- PJIhFtcv5GG8LNRYKjIz5BVvooVzrEi/7JoDQgm+0T7wRk3m6b6wwGega w==;
-X-CSE-ConnectionGUID: XmG4E0KuTH+aCBnWeLJgKw==
-X-CSE-MsgGUID: AC7pA/RlSDCUBdAvQQfmIQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4244443"
+ t=1795528109; x=1827064109;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=bJz3iVqWp2Ns6pO0iDKSsh4sqEvaG2QRFkA9KBxOEjg=;
+ b=eKOmCtXl1CgS6eDGahJUVEbuBXX7nhZAv4pvI/auShioPhBaNn/npFDP
+ QKukegjbe2p8oqzxSzHRNIPe2b0DFuGGIJNLYni1wtgU/a2sKwWE7rO5k
+ OzJstN/kS2e8SBSc98q4I/PEKewPSZqKSQCa2vHJb9TEeJAj/LLxm/isw
+ tthGl4/VyFbrsjoh7n/2BXaGsC2YuwDHuGdNZzotVGxk75HVSUwLTendK
+ 8fIWL3EqK8mUObeKOh6ew4kyKnzlSuuUjH76jXaJgI9zuJ3HxPlRebC7E
+ BgRhIiMEgiqhaVzzqtU7p+7T8E4d9RH3sa3cwCeU+m6ofN/0Xe4wKtH2M w==;
+X-CSE-ConnectionGUID: saXqv+qHR2yiIpca2o8Yew==
+X-CSE-MsgGUID: w0MADCFURx29RFOqUjQ9ig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4280991"
 X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
-   d="scan'208";a="4244443"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 05:42:30 -0800
-X-CSE-ConnectionGUID: 3NJENb3hTNC/OsDt2BlJTQ==
-X-CSE-MsgGUID: 9SLlxSfJS4mTQ6t0GI0CzQ==
+   d="scan'208";a="4280991"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 05:48:28 -0800
+X-CSE-ConnectionGUID: elgcoOdUQWeYj3E7agvoIw==
+X-CSE-MsgGUID: DOGiopIbQLKp4terfCD4Fw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11923085"
-Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a)
- ([10.211.93.152])
- by fmviesa007.fm.intel.com with ESMTP; 24 Nov 2026 05:42:29 -0800
-Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xVqmw-000000005Cf-1ltf;
- Tue, 24 Nov 2026 13:42:26 +0000
-Date: Tue, 24 Nov 2026 14:42:21 +0100
-From: kernel test robot <lkp@intel.com>
-To: "Ville =?utf-8?Q?Syrj=C3=A4l=C3=A4"?= <ville.syrjala@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [drm-i915:for-linux-next 5/6]
- drivers/gpu/drm/i915/display/intel_de.c:350:18: warning: use of bitwise '|'
- with boolean operands
-Message-ID: <20261124143710.bu4mng1e-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11549465"
+Received: from dev-417.igk.intel.com (HELO dev-417) ([10.91.214.181])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 05:48:27 -0800
+Date: Tue, 24 Nov 2026 14:48:19 +0100
+From: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH] drm/xe/compat: remove leftover
+ intel_uncore_arm_unclaimed_mmio_detection()
+Message-ID: <paa4pkftdmgke2oqxa44gcjt5n4iowy4keqlmzws6yduu5g6dq@grxks4zi65zt>
+References: <20261124133804.1509493-1-jani.nikula@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261124133804.1509493-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,68 +64,45 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-tree:   https://gitlab.freedesktop.org/drm/i915/kernel.git for-linux-next
-head:   6d00cec4c9becea6540f75820bc0837d14ea7611
-commit: 1a6684ee830ff0a15147e332991e1a5d34c55592 [5/6] drm/i915/de: Optimize the mmio_debug checks in intel_de_{read,write}()
-config: riscv-randconfig-2005-20261124 (https://download.01.org/0day-ci/archive/20261124/20261124143710.bu4mng1e-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261124/20261124143710.bu4mng1e-lkp@intel.com/reproduce)
+On Tue, Nov 24, 2026 at 03:38:04PM GMT, Jani Nikula wrote:
+> When the unclaimed MMIO detection was moved to display, an xe compat
+> inline functionw was left behind. Remove it.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261124143710.bu4mng1e-lkp@intel.com/
+nit: *function
 
-All warnings (new ones prefixed by >>):
+Reviewed-by: Michał Grzelak <michal.grzelak@linux.intel.com>
 
->> drivers/gpu/drm/i915/display/intel_de.c:350:18: warning: use of bitwise '|' with boolean operands [-Wbitwise-instead-of-logical]
-     350 |         return unlikely(!!READ_ONCE(display->params.mmio_debug) |
-         |                ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |                                                                 ||
-     351 |                         READ_ONCE(display->mmio.mmio_debug_oneshot));
-         |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler.h:47:41: note: expanded from macro 'unlikely'
-      47 | #  define unlikely(x)   (__branch_check__(x, 0, __builtin_constant_p(x)))
-         |                          ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler.h:32:34: note: expanded from macro '__branch_check__'
-      32 |                         ______r = __builtin_expect(!!(x), expect);      \
-         |                                                      ~^~
-   drivers/gpu/drm/i915/display/intel_de.c:350:18: note: cast one or both operands to int to silence this warning
->> drivers/gpu/drm/i915/display/intel_de.c:350:18: warning: use of bitwise '|' with boolean operands [-Wbitwise-instead-of-logical]
-     350 |         return unlikely(!!READ_ONCE(display->params.mmio_debug) |
-         |                ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |                                                                 ||
-     351 |                         READ_ONCE(display->mmio.mmio_debug_oneshot));
-         |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler.h:47:68: note: expanded from macro 'unlikely'
-      47 | #  define unlikely(x)   (__branch_check__(x, 0, __builtin_constant_p(x)))
-         |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
-   include/linux/compiler.h:34:19: note: expanded from macro '__branch_check__'
-      34 |                                              expect, is_constant);      \
-         |                                                      ^~~~~~~~~~~
-   drivers/gpu/drm/i915/display/intel_de.c:350:18: note: cast one or both operands to int to silence this warning
-   2 warnings generated.
+BR,
+Michał
 
-
-vim +350 drivers/gpu/drm/i915/display/intel_de.c
-
-   345	
-   346	static __always_inline bool
-   347	__mmio_debug_is_enabled(struct intel_display *display)
-   348	{
-   349		/* with || gcc emits two branches for this */
- > 350		return unlikely(!!READ_ONCE(display->params.mmio_debug) |
-   351				READ_ONCE(display->mmio.mmio_debug_oneshot));
-   352	}
-   353	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h | 6 ------
+>  1 file changed, 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
+> index 238addc1e5fc..707f7ad0378d 100644
+> --- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
+> +++ b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
+> @@ -63,10 +63,4 @@ static inline void intel_uncore_write_fw(struct intel_uncore *uncore,
+>  	xe_mmio_write32(__compat_uncore_to_mmio(uncore), reg, val);
+>  }
+>  
+> -static inline bool
+> -intel_uncore_arm_unclaimed_mmio_detection(struct intel_uncore *uncore)
+> -{
+> -	return false;
+> -}
+> -
+>  #endif /* __INTEL_UNCORE_H__ */
+> -- 
+> 2.47.3
+> 
