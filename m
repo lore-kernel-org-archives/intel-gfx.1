@@ -2,95 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15FE606A31E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:41:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F37606A31E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:46:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zyXuPpa2;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MOcBuqH+;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zyXuPpa2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MOcBuqH+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=y4zmEq8c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4C210F373;
-	Tue, 24 Nov 2026 08:41:37 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41CC410F374;
- Tue, 24 Nov 2026 08:41:15 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DBBD122267;
- Tue, 24 Nov 2026 08:41:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795509673; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=MHbB8QlUvSML4Ps81dOhLyVy12cLGfgs0u1sDZ7gS1A=;
- b=zyXuPpa22qQifB/CJpsmhOvyUxX0UMhstDvirot01CpC7rmWPHk1w8iQAXd7BO6ddhcmCh
- aJrWuunQOpYcYR0qQ6B7VqNJaTBq1hZxIP1KhZjpR/ldFec5bTN7Xo/IN10KRLb6y5ko8c
- g6LqKS9HqEmEsNw+NlgvO84wzyLaouE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795509673;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=MHbB8QlUvSML4Ps81dOhLyVy12cLGfgs0u1sDZ7gS1A=;
- b=MOcBuqH+pqPOzaObcgyLv7LoYst0cP25KjFkPAHAaGS3TUGLQaAY01+tJ58RWurSYJhqrs
- 5xhMp9TEMvdIp6AQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795509673; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=MHbB8QlUvSML4Ps81dOhLyVy12cLGfgs0u1sDZ7gS1A=;
- b=zyXuPpa22qQifB/CJpsmhOvyUxX0UMhstDvirot01CpC7rmWPHk1w8iQAXd7BO6ddhcmCh
- aJrWuunQOpYcYR0qQ6B7VqNJaTBq1hZxIP1KhZjpR/ldFec5bTN7Xo/IN10KRLb6y5ko8c
- g6LqKS9HqEmEsNw+NlgvO84wzyLaouE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795509673;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=MHbB8QlUvSML4Ps81dOhLyVy12cLGfgs0u1sDZ7gS1A=;
- b=MOcBuqH+pqPOzaObcgyLv7LoYst0cP25KjFkPAHAaGS3TUGLQaAY01+tJ58RWurSYJhqrs
- 5xhMp9TEMvdIp6AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6C5C31339F;
- Tue, 24 Nov 2026 08:41:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id TBJ4BqlNBWv4GAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 24 Nov 2026 08:41:13 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: ville.syrjala@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>
-Subject: [PATCH RESEND v3] drm/i915/display: Handle struct
- drm_plane_state.ignore_damage_clips
-Date: Tue, 24 Nov 2026 09:40:01 +0100
-Message-ID: <20261124084108.528317-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.56.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8E6810F339;
+	Tue, 24 Nov 2026 08:46:28 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010046.outbound.protection.outlook.com [52.101.61.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAB7710F33A;
+ Tue, 24 Nov 2026 08:46:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zknl/jAzxi5KowY6ujhtCtk9s/I7ZLIJVErnZoYfTszb5YDWDvKVUApP7yVoYD75fc/u79ZnywArrJvr8++KsGNkOps5JIyxnWYRgOdDq7bO6WY2I2nF3YLJGUHc3mzajiBk2DNXtDWzhe+2pDu6fAgZls9aW5n/0yYdEoFPHF9IyJuPkLFirwEvmbJ3nZ6zhdKoxrQJyvUEaU6iC0e+O/opK8ZCzn8Fq0fkrc86NMn7hIgxF+ErFWybF+8AfCEHiCc3Jo1mc2/SeaoPgQ73ijKbbGQPfCQlgLWj4uP6QQ4aUcSmoIKF7x3VHKeJvY/COjeX/fHUasNbt+RqDFWI6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Oy1FBY3LVNKVVkyC32gAmuLHP6t76a9fH0FegoKgsTE=;
+ b=wqoa2lUR8Rd6LvmrMJEm/QUi+CxfGlwrQ2ovapDELzd3fyz3HDKqGAW7tDUteC29MLTUqly2Wlmh11c287TEzHhGnSOs2DjQq+JkfLfouo6TJw85zFdVthn6uLGkhRw9uPrBV8NkV3xjLrbyVT0my7CRaEA9vZKzy2nEmofiiPrsULJ23i7u8sV+fxMT25KArc5RGpTTdii1sDsDcqC/saFNDCvCcd6cWJlds2TD7j7/3qcs99e/ynfzcfaYFSCyeHy8zH1jeFEHuZ7J4etHvaWHazwcZxwJbx1TNDJPQlIISh7yAHaEc36Ogl8llLm3fIpTHp4d6sGk4Q11EeyDsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Oy1FBY3LVNKVVkyC32gAmuLHP6t76a9fH0FegoKgsTE=;
+ b=y4zmEq8cUsWBPxf1m/YA0TpSdO+WjQvxoE0FeC6dZBfwa1chqegTZ7zsZUfNEOnIFwdkMXzuWVqTOr5oxrY5B+VAvasMeHnwqNHYCz6EthxL3Hw1idHsVpjxW38sgwpOeMvpeBEqxakNbXNW98OOif4F8XR9DinjfexwmZGt2ys=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA3PR12MB707400.namprd12.prod.outlook.com (2603:10b6:208:715::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 08:46:20 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 08:46:19 +0000
+Message-ID: <a7c343d6-5eae-43dc-9b6c-3ea386510fcb@amd.com>
+Date: Tue, 24 Nov 2026 09:46:13 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH i-g-t] tests/gem_mmap_offset: Accept partial read in
+ oob-read
+To: "David Hildenbrand (Arm)" <david@kernel.org>, igt-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Felix Kuehling <felix.kuehling@amd.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Prosyak,
+ Vitaly" <Vitaly.Prosyak@amd.com>
+References: <20261123211018.12339-1-david@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261123211018.12339-1-david@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0074.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
- MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- FREEMAIL_TO(0.00)[intel.com,linux.intel.com,ursulin.net,gmail.com,ffwll.ch];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -11.80
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA3PR12MB707400:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f3b889f-88ee-4fb6-ad10-08df4a0768e0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|23010399003|6133799003|18002099003|22082099003|260925021911599003|260925021311599003|260925022911599003|261009223027099003|261021121427099003|261021123027099003|261026140227099003|261022105027099003|261102123227099003|261026121527099003|261022113327099003|261022075727099003|261028144727099003|56012099006|10067099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info: xukJi56Q3O1Bds2+7zAkkwVqSHAx6STGN3rBMsN0P83YQEQ8bZ+Tfvr4uEeV9wM6a+650C8URUW95hiui/dzn0JwEzCN1drkAoKAUBkiZJchrhBplSvgA4mt28o3JHfSFCeMe4A0eKO10Dcv8X2hk84pL+ZHUiNoOF1uG+0Zccf2nAbibTC0JfDeyK4CZa9EC9N5/C/YZx9vYEedQKCKiRXZlw0nTUXu3NFu4VehFbRIcdX9hr5J/tA80ww9CrQzu5AsINosVHHWfmLPQVXSemOnclpj2R1Upt0zJd2Y/CUxLMhEit/dMQ9Ij3RQszhMtR/Y6cttgppPd8pwEJbXkxvZAsW+ZRNXqTEjADEeBiNsaBmGpaW3gVTtSFpb2IRvpZjen2QOL1mblrtegtfebkwJmP648/8wahzAQkyae+Dm7cVIdO226VGYUqyDe869/MJL6y60Y6muwmoG3BUWemxu5LxJusnVsuv399qmwCWjWI3ClucDpPffb0REwDDMDKTiUknP+EWJsLUt7q8loVmmceiZ+jynWXTcty66w1NUTusqkhsSG/sWwhuRnwTjF7/Cj3ge+tnsCi9rWOl0ocp3XjQ5mptq1YdOHbgsAOw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(18002099003)(22082099003)(260925021911599003)(260925021311599003)(260925022911599003)(261009223027099003)(261021121427099003)(261021123027099003)(261026140227099003)(261022105027099003)(261102123227099003)(261026121527099003)(261022113327099003)(261022075727099003)(261028144727099003)(56012099006)(10067099003)(5023799004)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1Z0YytzZ3RiTXNMTzVFYkZGcVYzcVpDQ2tnaUFoK2Z5dFRXNEJIRXZYbHIw?=
+ =?utf-8?B?NU9yclpnTFhOVDAyNXI3RlFEanFKQ1dVQ0Z5QlBHeFIwMkJXTitZaXhSa0Fh?=
+ =?utf-8?B?ekFBR2tlN2dmcHlFWjk4bkpmR1VTT3VFbXJmbnVQTkp1R0hjc0xKWEZEakd3?=
+ =?utf-8?B?alZaLzhQcEh4QmVrRllRLzBXRmUxbnYrS1VzclRUMnVpNXF5TGlha2lyWWtr?=
+ =?utf-8?B?OFYrWlVBY0ZKdDFkaUpMQzVXUXdYWG81bFh1cGZRU2FVZVdtTkxpUUsxb1dC?=
+ =?utf-8?B?VkpJdTJjdkEyTGd3anVxODBsWWhZVC9GYXdlVHRsaE5FczMvdkd2SEVLb1VL?=
+ =?utf-8?B?QUg2SzE5Sk9RZU1tcnlvQU8xclo3QjRoVUFPWWlGVzF0T0ZXUVR3UC9sajNv?=
+ =?utf-8?B?UXFTVU1wQXVhNDA1UG5YQ1Yva1hSb0laUnpva1l3SUU2Y1BYcWl5dndNVUMz?=
+ =?utf-8?B?K25taW8reWJpK3luZEx0SjdnMlBvd3VxWWVMOEFBNnI1Qmp0THdicUhxZ0w4?=
+ =?utf-8?B?bExCaWZiZTBBaStTRmRXU2o1dURaY2ZsQzQ2WjM4QTdwR0hEMmNCMnA0K2hL?=
+ =?utf-8?B?VHlTZzQ5dlQwaE1UNUxuTUZCQlhXUkFBTm4yZ0lGaEFGREtjMHQ5YTBOV3Y2?=
+ =?utf-8?B?aTR2dWZDZEFoVHdUZXJkc2JQRHc2U21NQ2tkbFAxTEI2QXB5eE5sOGo1Tm96?=
+ =?utf-8?B?S3psVlVoSmJtMHhMYmhWUDJOaGZ1d2ZxbmFuSEZWWHNIQ1NJUGNWSzBMVmtP?=
+ =?utf-8?B?bHZWNG5rd3dwL0lGbWNQN0drNmY2eW96YkF1M3NHam1UODJ3bit4RVR2MmRl?=
+ =?utf-8?B?RURZL0tyQjRDQ3d5V3d0Z3lNbTZBM2hjQVFVTDhINXpvVkpjd1hVZElJN3FT?=
+ =?utf-8?B?NG5MMGt0M1I1VElrelNJUUZWZzJObUxZZFNIZTZrQzJNQTE5eXpLQ20yMGNn?=
+ =?utf-8?B?ZHZkdGhYUTV0V0lVSkVROEdGdTBZSzRzUUZ0TE5vLzVmeTcwV3FtMHdmWXUv?=
+ =?utf-8?B?MGFwck5yeEw1NE9WSUhlWG9GWTlpbDlMeDJmcVh4cUk0b24xTlJHL0JZczdx?=
+ =?utf-8?B?KzRMbW92Nm9sR1YzME1wdnJIdUNTZ3ZsZE1RUmkvdEFRTExLVHJuMERRZkFK?=
+ =?utf-8?B?RkhobTNNbVJlbzFiMlBzczNvMDBBcTduOXFVU3doMEpHdHlVVjhtNklIa0dR?=
+ =?utf-8?B?RjFXMVhhUTN6Rzd2N3ZGaWM4ek5OekdtMnU3MHNVU1RLU1NvY0QxN25naTZE?=
+ =?utf-8?B?L001Q1F4ZElqTUxTZ2JrOUlNVGFoenJXQWlwNlhxQytPaFZ0UGthTkxvSFNC?=
+ =?utf-8?B?ZDdEU2M2SWVoT0lVd0NhY0ZoTEpLQ3kzbGFFZzl3d1k3N2hQYkpsTnQ3Rkcr?=
+ =?utf-8?B?Tmk1OWcrOUxLQ2l4MXltSmhsTklNTXEvbzBwVzlpMm1BRWduSEJTUmd0bHN1?=
+ =?utf-8?B?dkh6Y0pVUVZZRFNISjRxakFtZlA5MzRBaUw0TFJMWDhHSUxoc1J1VXRTWEp2?=
+ =?utf-8?B?MVU5b2ROcDdMSURjTXZUN2VNVUppcDlVREU1NitMQjVyYUswY1VIcG96d1A3?=
+ =?utf-8?B?Y1NQeVlYZ2hzd2ttZlhoTW9KR1pnZllET2JmdERjcUhaSHloYW41RUc3R2VW?=
+ =?utf-8?B?VC9PU2xFbUxvS21qcjd0bGYzTEI3UitFd0s2L3FXdzgwSm5Hei94UE1nSWRy?=
+ =?utf-8?B?Z3pwcndkMy9LRHhvQUZrZ2xhMnVHTjJaYnl3emtzNG5nVndaQllicWlYRmww?=
+ =?utf-8?B?c2FzbDRkSmJQQ05tUzF0enhZUUxCdzVaOUVWUU9LSk1TcW9uUmdraDN5UWVr?=
+ =?utf-8?B?ZVdIdUppelpmY29LU3dvaDF4ZXpFdEhKSEl6UTEyWlI1bUR6Y2JSQjRENGNM?=
+ =?utf-8?B?TTBlQTdvMVFrbSszUFVDUzIxKy9nRnBpc0Y5Tlh2VVJtWDFKb283SjRDWGJR?=
+ =?utf-8?B?UklQQVhlczB5UWFiaDlRdFZ4TjlBUVpkTXQ5QU53YStMUytkbGJQdThNU0E3?=
+ =?utf-8?B?SkNXakgxNXlyTVNEQmZEMEIwNTJSNkE5ZEF3VE9SelYvQll4Q1IyVEdvRXJH?=
+ =?utf-8?B?Z0hWR1JCVnNlWnpUNHVUMlRONEdvUnYxY1JlMUg2STdVSEkvOEM2ek5CbHdQ?=
+ =?utf-8?B?KzdPOVlQam5VSWdJWlFhR0FLbW9VWjdzK2hIV1h5aXBHQ0ZqTTh0eHFtaWlP?=
+ =?utf-8?B?YjZmYmR5d3FobEl1bjRNTWRsdEQwMm85SzNhQUFDN2hHTGoyOXdhQ0pQVHNM?=
+ =?utf-8?B?eWhJYnBVWEJqSlJuak5XVjBtYUR0NktHb2g5WjhoTWV1ZUp2SGkyZ1NXaWx5?=
+ =?utf-8?Q?foRAXGmIGWEEKqn0ih?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f3b889f-88ee-4fb6-ad10-08df4a0768e0
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 08:46:19.7714 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vYUADv1vJGrGa5ky6LjtGHE0VR2yyYDvzv4210MTkiOfjFHPOfBN72KBwB5+Z4Y3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB707400
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,81 +131,112 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Call drm_atomic_helper_check_plane_damage() in plane_atomic_check()
-before copying the damage information to guarantees that ignore_damage_clips
-from struct drm_plane_state has the correct value. Although i915 does not
-directly modify or use the flag, DRM's damage iterator will soon rely on
-it.
+On 11/23/26 22:10, David Hildenbrand (Arm) wrote:
+> The oob-read test reads 8 bytes through /proc/self/mem, assuming that
+> the kernel would reject the entire read with EIO.
+> 
+> However, we have 4 remaining bytes in the 4 KiB mapping we can read, so
+> it's valid for the kernel to only do a partial read that covers these 4
+> bytes. Allow that as well.
 
-As a side effect, if the CRTC has been marked for a full modeset before
-the call to drm_atomic_helper_check_plane_damage() happens, the plane now
-ignores all damage clips and does a full update.
+If I understand it correctly what happens is that userspace tries to read over the end of one VMA into the next, right?
 
-Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
-helpers to ignore damage clips") introduced ignore_damage_clips to
-selectively ignore damage clipping for certain framebuffer changes. The
-mode-setting pipeline can disabled damage clippings for an atomic commit
-by setting ignore_damage_clips in struct drm_plane_state. The atomic
-commit will then do a full display update.
+Mhm, allowing that makes sense from the uAPI point of view but I'm not sure if that can't cause problems apart from that test case.
 
-Future directions: there's currently a multitude of options that affect
-damage clipping; with different places seeing different state. In order
-to unify this, drm_atomic_helper_check_plane_state() will soon evaluate
-all options in a single place and set ignore_damage_clips accordingly. All
-later stages of the mode-setting pipeline will only look at this field.
+> Otherwise, the test will fail on a kernel with upcoming vm_ops->access
+> fixes, whereby vm_ops->access is limited to the current VMA, so the
+> read would continue with the next mapping (if any).
+> 
+> So we have to make sure that nothing is mapped after the GEM mapping.
+> Let's reserve an 8 KiB memory region, map the GEM object into the first
+> 4 KiB slot, and create a hole by unmapping the second 4 KiB slot.
+> 
+> With the kernel changes in place:
+> 
+>   $ build/tests/gem_mmap_offset --run-subtest oob-read
+>   [...]
+>   Using IGT_SRANDOM=1795467759 for randomisation
+>   Opened device: /dev/dri/card1
+>   Starting subtest: oob-read
+>   Subtest oob-read: SUCCESS (0,000s)
+> 
+> Link: https://lore.kernel.org/r/20261122-access_shite-v2-0-808d8d2aa700@kernel.org
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-v3:
-- fix the call to drm_atomic_helper_check_plane_state()
-- use primary-CRTC's plane state (Sashiko)
-- note full-plane updates in commit description
-v2:
-- move _check_plane_damage() before reading damage first time (Sashiko)
-- expand commit description
+Adding Vitaly on CC to take a look as well and maybe double check with AMDs CI if your patch breaks anything.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
----
- drivers/gpu/drm/i915/display/intel_plane.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
-index d23de0f34e4b..058e92f383e4 100644
---- a/drivers/gpu/drm/i915/display/intel_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_plane.c
-@@ -955,7 +955,7 @@ static int plane_atomic_check(struct intel_atomic_state *state,
- 		intel_atomic_get_new_plane_state(state, plane);
- 	const struct intel_plane_state *old_plane_state =
- 		intel_atomic_get_old_plane_state(state, plane);
--	const struct intel_plane_state *new_primary_crtc_plane_state;
-+	struct intel_plane_state *new_primary_crtc_plane_state;
- 	const struct intel_plane_state *old_primary_crtc_plane_state;
- 	struct intel_crtc *crtc = intel_crtc_for_pipe(display, plane->pipe);
- 	const struct intel_crtc_state *old_crtc_state =
-@@ -978,6 +978,14 @@ static int plane_atomic_check(struct intel_atomic_state *state,
- 		old_primary_crtc_plane_state = old_plane_state;
- 	}
- 
-+	/*
-+	 * Prepare plane-damage state before using it; do this on all
-+	 * display versions to keep the underlying DRM plane state in
-+	 * good shape.
-+	 */
-+	drm_atomic_helper_check_plane_damage(&state->base,
-+					     &new_primary_crtc_plane_state->uapi);
-+
- 	intel_plane_copy_uapi_plane_damage(new_plane_state,
- 					   old_primary_crtc_plane_state,
- 					   new_primary_crtc_plane_state);
-
-base-commit: 401a3e7b64d174c4f2b256b035de716c7b79bdc1
--- 
-2.56.1
+> ---
+>  tests/intel/gem_mmap_offset.c | 35 ++++++++++++++++++++++++++++-------
+>  1 file changed, 28 insertions(+), 7 deletions(-)
+> 
+> diff --git a/tests/intel/gem_mmap_offset.c b/tests/intel/gem_mmap_offset.c
+> index d3c56ab40..e4c0cfbd9 100644
+> --- a/tests/intel/gem_mmap_offset.c
+> +++ b/tests/intel/gem_mmap_offset.c
+> @@ -482,13 +482,29 @@ test_oob_read(int i915)
+>  	handle = gem_create(i915, 4096);
+>  
+>  	for_each_mmap_offset_type(i915, t) {
+> -		uint32_t *ptr;
+> +		struct drm_i915_gem_mmap_offset arg = {
+> +			.handle = handle,
+> +			.flags = t->type,
+> +		};
+> +		void *ptr;
+>  
+> -		ptr = __mmap_offset(i915, handle, 0, 4096,
+> -				    PROT_READ | PROT_WRITE,
+> -				    t->type);
+> -		if (!ptr)
+> +		if (mmap_offset_ioctl(i915, &arg))
+> +			continue;
+> +
+> +		/* Reserve a region for mapping + hole to stop read(). */
+> +		ptr = mmap(NULL, 8192, PROT_NONE,
+> +			   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +		igt_assert(ptr != MAP_FAILED);
+> +
+> +		/* Place our mapping into the first slot. */
+> +		if (mmap(ptr, 4096, PROT_READ | PROT_WRITE,
+> +			 MAP_SHARED | MAP_FIXED, i915, arg.offset) == MAP_FAILED) {
+> +			munmap(ptr, 8192);
+>  			continue;
+> +		}
+> +
+> +		/* And our hole into the second slot. */
+> +		munmap(ptr + 4096, 4096);
+>  
+>  		memfd = open("/proc/self/mem", O_RDWR);
+>  		igt_require_f(memfd != -1, "/proc/self/mem\n");
+> @@ -497,9 +513,14 @@ test_oob_read(int i915)
+>  		ret = lseek(memfd, addr, SEEK_SET);
+>  		igt_assert_f(ret != -1, "lseek failed\n");
+>  
+> -		/* Triggering the buf (out of bound read) */
+> +		/*
+> +		 * Read across the end of the mapping. The read is either
+> +		 * rejected entirely, or completes partially for the remaining
+> +		 * 4 bytes in the mapping.
+> +		 */
+>  		ret = read(memfd, read_buf, 8);
+> -		igt_assert(ret == -1 && errno ==  EIO);
+> +		igt_assert_f((ret == -1 && errno == EIO) || ret == 4,
+> +			     "ret=%d errno=%d\n", ret, errno);
+>  
+>  		munmap(ptr, 4096);
+>  		close(memfd);
 
