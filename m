@@ -2,16 +2,16 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1656D606A31E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 05:30:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F68606A31E
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 05:31:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A61A210E7C6;
-	Wed, 25 Nov 2026 05:30:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A50F10E5CB;
+	Wed, 25 Nov 2026 05:31:53 +0000 (UTC)
 Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F01A10E7C6;
- Wed, 25 Nov 2026 05:30:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0EED10E181;
+ Wed, 25 Nov 2026 05:31:51 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============3264652111158465554=="
+ boundary="===============3633724530460054936=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5B1?=
@@ -20,8 +20,8 @@ Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Nov 2026 05:30:24 -0000
-Message-ID: <179558462424.82634.12503403234218047038@9ac1b63fe3ea>
+Date: Wed, 25 Nov 2026 05:31:51 -0000
+Message-ID: <179558471178.82759.13667518412163363623@9ac1b63fe3ea>
 X-Patchwork-Hint: ignore
 References: <20261124181405.1669126-1-jani.nikula@intel.com>
 In-Reply-To: <20261124181405.1669126-1-jani.nikula@intel.com>
@@ -43,7 +43,7 @@ X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============3264652111158465554==
+--===============3633724530460054936==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -113,7 +113,7 @@ Build changes
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179546v1/index.html
 
---===============3264652111158465554==
+--===============3633724530460054936==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -178,4 +178,4 @@ Content-Transfer-Encoding: 7bit
 </body>
 </html>
 
---===============3264652111158465554==--
+--===============3633724530460054936==--
