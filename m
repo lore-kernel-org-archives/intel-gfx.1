@@ -2,60 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDFE606A693
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 09:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CAB606A31E
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 09:45:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cgurv0Pz
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JTI4KPlb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1724F10E06F;
-	Wed, 25 Nov 2026 09:12:21 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9B2710E06F
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 09:12:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D46A510FAD9;
+	Wed, 25 Nov 2026 09:45:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A29410FAD1;
+ Wed, 25 Nov 2026 09:45:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795597934; x=1827133934;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=aNukOzmlXVqA/8iQWnrnYysxtma7Ts3S2ZJ9/rBGiC0=;
- b=cgurv0PzZgz3Y8iYFXcvAkEgCKrlTNL2pwQC7CYsW7iqKQg3UehUhqFL
- 6Kc9AMlXY+6HGu0QOyjO6a3h/OdpzBe1GWCS/QHG87WPEeiHiJizzn4Fa
- KWVYQUHd2mpSI4JaYI5bkTSboaxWU0Gc4tW5nvCkBRP+iZn5q25fUB1ZQ
- 2QuOJxBCGzl84VqfclDx0KPVVEELp543+DQ9Jh2WV2j32QBo33vniVcQL
- qvINFjhmynw1Wq/jNStInHru07VfaJmwY5OmXGqqouX4cD9ww2nPQxa3U
- 6i4ZIGJlYkV/NDaDhAXfxji57S+tBLjlZ03Y7tpntSetiwlxfm5UkucJT A==;
-X-CSE-ConnectionGUID: dVutmMvmQF6Op1REUcWydQ==
-X-CSE-MsgGUID: Uw9JTwW5S5KnzSBJzL6qUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4325867"
+ t=1795599942; x=1827135942;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=pAz9QCMK2g+sjrrKzBg/ayJIwQw8c7CEhoVNFJMFDkw=;
+ b=JTI4KPlba7soE+DwXOc/+7JKPmZan6tCx49fnvZzEkQSXdR9y0Pq7piA
+ /E6eFdygXA0iFHhXVBsxH1CIScI4ySAaF5s8oF1uG+TJESMwB43E3XDd7
+ Xj66MT77aswxdt9MoTFOuQPBEbQ1UfQsDMrPE5EYbiJcJbywuTZdzUu01
+ DS5j+ArVki5qdE/0Dr/wNQKKoxapLUL3js1aIL+GxUKSr7bz1l6xPFl+I
+ QJf84LHX4CjBKDGXshKnEM2B42+WKJcu1BMuxifqtoIbw25jfRG7CRLHm
+ 48oDdcIdzHvHwzpQFO24IWQeOhDQ25e/7rMascwdcYC93MVkNomHA2/Iz A==;
+X-CSE-ConnectionGUID: R3Fv4KRjSjGoqWDGHYiJCg==
+X-CSE-MsgGUID: Hg8C4kUiTtemvWcAYhs+xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4551749"
 X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="4325867"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 01:12:14 -0800
-X-CSE-ConnectionGUID: fN/TxFPnRDOiBt3hCxAqgg==
-X-CSE-MsgGUID: nyCtA6PtT3OBGW9gCLH8dA==
+   d="scan'208";a="4551749"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 01:38:25 -0800
+X-CSE-ConnectionGUID: H4+BfhJURaC6hIFgX5ZViQ==
+X-CSE-MsgGUID: 48vOVrHrSKCTSM1ql7iMCg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="12126437"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.40])
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="12252215"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.26])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 01:12:13 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] drm/i915/uncore: hide uncore forcewake iterators
-In-Reply-To: <awXsjTEyzIWAIhOP@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261124181405.1669126-1-jani.nikula@intel.com>
- <20261124181405.1669126-2-jani.nikula@intel.com>
- <awXsjTEyzIWAIhOP@intel.com>
-Date: Wed, 25 Nov 2026 11:12:11 +0200
-Message-ID: <2fc2f86379a7db6bb8e3b91707aeaf01354362ab@intel.com>
+ 25 Nov 2026 01:38:21 -0800
+Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <awZz6sq_4cjIgUcq@infradead.org>
+References: <20261119134243.3745282-1-kas@kernel.org>
+ <av8n42vx3Q7zvQK8@zenone.zhora.eu> <awBIB3vjr_o-gfCn@shutemov.name>
+ <awZz6sq_4cjIgUcq@infradead.org>
+Subject: Re: [PATCH] drm/i915/gem: Skip writeback of shmem folios with extra
+ references
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andi Shyti <andi.shyti@linux.intel.com>, David Hildenbrand <david@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, willy@infradead.org
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ Christoph Hellwig <hch@infradead.org>, willy@infradead.org, brauner@kernel.org,
+ torvalds@linux-foundation.org
+Date: Wed, 25 Nov 2026 11:38:17 +0200
+Message-ID: <179559949792.43928.13638993010156007645@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,78 +76,60 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 24 Nov 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Tue, Nov 24, 2026 at 08:14:05PM +0200, Jani Nikula wrote:
->> There are no users of for_each_fw_domain_masked() and
->> for_each_fw_domain() left outside of intel_uncore.c. Hide them from the
->> rest of the driver.
->>=20
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
->>  drivers/gpu/drm/i915/intel_uncore.c | 8 ++++++++
->>  drivers/gpu/drm/i915/intel_uncore.h | 8 --------
->>  2 files changed, 8 insertions(+), 8 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/=
-intel_uncore.c
->> index 02f6000b203e..cefcec468963 100644
->> --- a/drivers/gpu/drm/i915/intel_uncore.c
->> +++ b/drivers/gpu/drm/i915/intel_uncore.c
->> @@ -42,6 +42,14 @@
->>  #define FORCEWAKE_ACK_TIMEOUT_MS 50
->>  #define GT_FIFO_TIMEOUT_MS	 10
->>=20=20
->> +/* Iterate over initialised fw domains */
->> +#define for_each_fw_domain_masked(domain__, mask__, uncore__, tmp__) \
->> +	for (tmp__ =3D (mask__); tmp__ ;) \
->> +		for_each_if(domain__ =3D (uncore__)->fw_domain[__mask_next_bit(tmp__)=
-])
->> +
->> +#define for_each_fw_domain(domain__, uncore__, tmp__) \
->> +	for_each_fw_domain_masked(domain__, (uncore__)->fw_domains, uncore__, =
-tmp__)
->> +
->
-> Selftests use these. Do they include the whole .c file or something?
+Quoting Christoph Hellwig (2026-11-25 07:36:42)
+> On Fri, Nov 20, 2026 at 01:17:31PM +0000, Kiryl Shutsemau (Meta) wrote:
+> > > >   while ((folio =3D writeback_iter(mapping, &wbc, folio, &error))) {
+> > > > -         if (folio_mapped(folio))
+> > > > +         if (folio_mapped(folio) ||
+> > > > +             folio_ref_count(folio) !=3D 1 + folio_nr_pages(folio))
+> > >=20
+> > > I don't think we need this fix in the current tree. The i915
+> > > writeback iterator already skips the shmem folio in the case you
+> > > describe, so the new refcount check doesn't change the outcome.
+> >=20
+> > Oh. It took me a while to see why.
+> >=20
+> > __shmem_writeback() asks writeback_iter() for PAGECACHE_TAG_DIRTY
+> > folios, and shmem never sets that tag, its ->dirty_folio is
+> > noop_dirty_folio(). So the loop body never runs for any folio, and
+> > hasn't since 776a853a43c9 ("i915: Use writeback_iter()").
+>=20
+> Heh.  I'm surprised no one noticed..
 
-Yes. I hate it, but I'm dodging that battle.
+Not so funny to me, you folks are pushing regressions without ever
+Cc'ing a single maintainer in the original patches.
 
->
->>  struct intel_uncore *to_intel_uncore(struct drm_device *drm)
->>  {
->>  	return &to_i915(drm)->uncore;
->> diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/=
-intel_uncore.h
->> index d5de6a172ff3..1819c9430181 100644
->> --- a/drivers/gpu/drm/i915/intel_uncore.h
->> +++ b/drivers/gpu/drm/i915/intel_uncore.h
->> @@ -175,14 +175,6 @@ struct intel_uncore {
->>  	unsigned int user_forcewake_count;
->>  };
->>=20=20
->> -/* Iterate over initialised fw domains */
->> -#define for_each_fw_domain_masked(domain__, mask__, uncore__, tmp__) \
->> -	for (tmp__ =3D (mask__); tmp__ ;) \
->> -		for_each_if(domain__ =3D (uncore__)->fw_domain[__mask_next_bit(tmp__)=
-])
->> -
->> -#define for_each_fw_domain(domain__, uncore__, tmp__) \
->> -	for_each_fw_domain_masked(domain__, (uncore__)->fw_domains, uncore__, =
-tmp__)
->> -
->>  static inline bool
->>  intel_uncore_has_forcewake(const struct intel_uncore *uncore)
->>  {
->> --=20
->> 2.47.3
+I was under impression that Linux development had some rules about
+not introducing regressions and also some rules about not pushing
+stuff silently to other subsystems. Maybe it's just me not able to
+keep up with the vibes of these times.
 
---=20
-Jani Nikula, Intel
+> > That makes me question the whole writeback thing. What's going on
+> > there, and what's the plan?
+>=20
+> I (and others) have been asking forever to get drm out of micro-managing
+> tmpfs.  I guess given that this code path hasn't worked for a year and
+> a half is a pretty good indicator that this instance should simply
+> go away.
+
+That's not a good indicator in this case.
+
+The writeback for dirty shmem pages took multiple years and multiple
+iterations to address the best we could as it's not exactly a race
+that shows up frequently.
+
+It's also more likely on the hardware from the era the fix was developed
+on, and the owners of those older machines are not exactly jumping to the
+latest mainline but rather more likely to run Debian oldstable.
+
+So which one of you will be writing up a revert or fix for the offending
+patch or do you expect us to clean up the mess you've created?
+
+Regards, Joonas
