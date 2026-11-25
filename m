@@ -2,50 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414F1606A327
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 09:10:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDFE606A693
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 09:12:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=O+hub82O
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cgurv0Pz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB1110FA5A;
-	Wed, 25 Nov 2026 09:10:12 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5F6F10FA2D;
- Wed, 25 Nov 2026 09:10:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
- From:Reply-To; bh=M3vtZofjTmsp23qgQTvjgjIReu0eeNCUnUrku5J1vkE=; t=1795597800; 
- x=2110957800; b=O+hub82OSWJwJ8wFt80nDqxklCtVTD6ZFwYuRoXAQCwakTBB4HNmEaG42FYvi
- +HMsrN4PzIL+DE9aRHrwxFZtjxK+vGCOEq5VcE3OfXkIZ4lrsrGblUX7g+sSP2P7vFjxJBrv4FSFx
- 7o2Ht8T3xHeVhEVpNywS/A6/+Tu4DKTQgHYTROnKqixfPbtD65yE2Nuein5H81KprrphrKMjAUcJ5
- 8kk5obfTINGbvqSvYl3A04c8qWo1Zh5DR1CV6JFSSSDUCuXHLv0QngwZaCP1Ag5dzUmUJkae0WUo7
- S3uytnmAC5sm5W9qDUalOthLaSTTWpWnRPhVCaolEOX0345VVA==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with utf8esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xW90i-00000003q2R-3mNX; Wed, 25 Nov 2026 10:09:53 +0100
-Date: Wed, 25 Nov 2026 09:09:47 +0000
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-gt-next
-Message-ID: <awal23LmCd1nyXF5@localhost.localdomain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1724F10E06F;
+	Wed, 25 Nov 2026 09:12:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9B2710E06F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 09:12:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795597934; x=1827133934;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=aNukOzmlXVqA/8iQWnrnYysxtma7Ts3S2ZJ9/rBGiC0=;
+ b=cgurv0PzZgz3Y8iYFXcvAkEgCKrlTNL2pwQC7CYsW7iqKQg3UehUhqFL
+ 6Kc9AMlXY+6HGu0QOyjO6a3h/OdpzBe1GWCS/QHG87WPEeiHiJizzn4Fa
+ KWVYQUHd2mpSI4JaYI5bkTSboaxWU0Gc4tW5nvCkBRP+iZn5q25fUB1ZQ
+ 2QuOJxBCGzl84VqfclDx0KPVVEELp543+DQ9Jh2WV2j32QBo33vniVcQL
+ qvINFjhmynw1Wq/jNStInHru07VfaJmwY5OmXGqqouX4cD9ww2nPQxa3U
+ 6i4ZIGJlYkV/NDaDhAXfxji57S+tBLjlZ03Y7tpntSetiwlxfm5UkucJT A==;
+X-CSE-ConnectionGUID: dVutmMvmQF6Op1REUcWydQ==
+X-CSE-MsgGUID: Uw9JTwW5S5KnzSBJzL6qUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4325867"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4325867"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 01:12:14 -0800
+X-CSE-ConnectionGUID: fN/TxFPnRDOiBt3hCxAqgg==
+X-CSE-MsgGUID: nyCtA6PtT3OBGW9gCLH8dA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="12126437"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.40])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 01:12:13 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/i915/uncore: hide uncore forcewake iterators
+In-Reply-To: <awXsjTEyzIWAIhOP@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261124181405.1669126-1-jani.nikula@intel.com>
+ <20261124181405.1669126-2-jani.nikula@intel.com>
+ <awXsjTEyzIWAIhOP@intel.com>
+Date: Wed, 25 Nov 2026 11:12:11 +0200
+Message-ID: <2fc2f86379a7db6bb8e3b91707aeaf01354362ab@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +67,78 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Tue, 24 Nov 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Tue, Nov 24, 2026 at 08:14:05PM +0200, Jani Nikula wrote:
+>> There are no users of for_each_fw_domain_masked() and
+>> for_each_fw_domain() left outside of intel_uncore.c. Hide them from the
+>> rest of the driver.
+>>=20
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/intel_uncore.c | 8 ++++++++
+>>  drivers/gpu/drm/i915/intel_uncore.h | 8 --------
+>>  2 files changed, 8 insertions(+), 8 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/=
+intel_uncore.c
+>> index 02f6000b203e..cefcec468963 100644
+>> --- a/drivers/gpu/drm/i915/intel_uncore.c
+>> +++ b/drivers/gpu/drm/i915/intel_uncore.c
+>> @@ -42,6 +42,14 @@
+>>  #define FORCEWAKE_ACK_TIMEOUT_MS 50
+>>  #define GT_FIFO_TIMEOUT_MS	 10
+>>=20=20
+>> +/* Iterate over initialised fw domains */
+>> +#define for_each_fw_domain_masked(domain__, mask__, uncore__, tmp__) \
+>> +	for (tmp__ =3D (mask__); tmp__ ;) \
+>> +		for_each_if(domain__ =3D (uncore__)->fw_domain[__mask_next_bit(tmp__)=
+])
+>> +
+>> +#define for_each_fw_domain(domain__, uncore__, tmp__) \
+>> +	for_each_fw_domain_masked(domain__, (uncore__)->fw_domains, uncore__, =
+tmp__)
+>> +
+>
+> Selftests use these. Do they include the whole .c file or something?
 
-Hi Dave, Sima,
+Yes. I hate it, but I'm dodging that battle.
 
-A rather small drm-intel-gt-next pull request for 7.5. Not sure yet if I
-will do another one nearer to the cut-off, we will see.
+>
+>>  struct intel_uncore *to_intel_uncore(struct drm_device *drm)
+>>  {
+>>  	return &to_i915(drm)->uncore;
+>> diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/=
+intel_uncore.h
+>> index d5de6a172ff3..1819c9430181 100644
+>> --- a/drivers/gpu/drm/i915/intel_uncore.h
+>> +++ b/drivers/gpu/drm/i915/intel_uncore.h
+>> @@ -175,14 +175,6 @@ struct intel_uncore {
+>>  	unsigned int user_forcewake_count;
+>>  };
+>>=20=20
+>> -/* Iterate over initialised fw domains */
+>> -#define for_each_fw_domain_masked(domain__, mask__, uncore__, tmp__) \
+>> -	for (tmp__ =3D (mask__); tmp__ ;) \
+>> -		for_each_if(domain__ =3D (uncore__)->fw_domain[__mask_next_bit(tmp__)=
+])
+>> -
+>> -#define for_each_fw_domain(domain__, uncore__, tmp__) \
+>> -	for_each_fw_domain_masked(domain__, (uncore__)->fw_domains, uncore__, =
+tmp__)
+>> -
+>>  static inline bool
+>>  intel_uncore_has_forcewake(const struct intel_uncore *uncore)
+>>  {
+>> --=20
+>> 2.47.3
 
-Anyway, this one only contains one selftest fix and a fix for syncobj
-timeline error handling, where the latter is probably already upstream
-via the fixes flow.
-
-Tvrtko
-
-drm-intel-gt-next-2026-11-25:
-Driver Changes:
-
-Fixes/improvements/new stuff:
-
-- Reset err for each fence entry [gem] (Lu Yao)
-
-Miscellaneous:
-
-- Do not destroy uninitialized timer [selftests] (Krzysztof Karas)
-The following changes since commit ca4a6deadad15b91ee083afe445fa6bdbfb68206:
-
-  drm/i915/gt: Unmask interrupts only when ACTIVE is true (2026-09-30 11:58:59 +0200)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-gt-next-2026-11-25
-
-for you to fetch changes up to 4e9db08db75f55c920986ac929cfd82a4ee99f41:
-
-  drm/i915/gem: Reset err for each fence entry (2026-10-29 09:40:26 +0100)
-
-----------------------------------------------------------------
-Driver Changes:
-
-Fixes/improvements/new stuff:
-
-- Reset err for each fence entry [gem] (Lu Yao)
-
-Miscellaneous:
-
-- Do not destroy uninitialized timer [selftests] (Krzysztof Karas)
-
-----------------------------------------------------------------
-Krzysztof Karas (1):
-      drm/i915/gt: Do not destroy uninitialized timer
-
-Lu Yao (1):
-      drm/i915/gem: Reset err for each fence entry
-
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
- drivers/gpu/drm/i915/gt/selftest_migrate.c     | 9 +++++----
- 2 files changed, 6 insertions(+), 5 deletions(-)
+--=20
+Jani Nikula, Intel
