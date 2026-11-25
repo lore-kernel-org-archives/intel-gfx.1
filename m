@@ -2,28 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E90606A323
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 05:02:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1B6606A31E
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 05:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ecXhl7GQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A08A10E8BA;
-	Wed, 25 Nov 2026 05:02:49 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2D8010E85B;
- Wed, 25 Nov 2026 05:02:48 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8864214808001081748=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0825E10E5E3;
+	Wed, 25 Nov 2026 05:18:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E655510E05E;
+ Wed, 25 Nov 2026 05:18:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795583886; x=1827119886;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=fVdAUaiVHTybWbtqcCrgUFVv9MLzyW2xE1nf3cugLew=;
+ b=ecXhl7GQMc1hJgZlg50c4VM91waApdPh4rlScCLvJxCki/L81P6M0nr1
+ ZpDc3wCYw4v18RkDr5po5TVxM0CP6fQKD8ZXeSG7sc9V6W1Sz+aoyVdJJ
+ yXKtXw4SCCMR+7TophkMVCMDttFBfWcsJ3T+t4YHeZlLTuI6gIlyxlTMx
+ cpEakFEmHnYTx8tkiBFKKpf5UdauMv+tk0PBuwJi2/CSYe9Cn7olwuTLf
+ TxxHnUza2IHkp0NusSADsfeeIZO3Esof32hKQQgPtqHAjh5yp1AwtQfeB
+ 6nM9yRaLy2zFmYUxtLPTgcJlPW0PKp0exV1pHHxX1vfwvMclt/1+/8vsH A==;
+X-CSE-ConnectionGUID: /VfIhfzGTXCo6teu8phEpw==
+X-CSE-MsgGUID: /5pR6RMuQk6ZtBN/bZswVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4334158"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4334158"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 21:18:06 -0800
+X-CSE-ConnectionGUID: 2U3TZy3nQNGVSjPLdkhLFA==
+X-CSE-MsgGUID: eVZ3zpgyR8GSKXfHffvz4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="12092966"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 21:18:04 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: alexander.kaplan@sms-medipool.de,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 0/7] drm/i915/dp: Fix FRL/TMDS bandwidth checks for HDMI2.1
+ PCON
+Date: Wed, 25 Nov 2026 10:32:24 +0530
+Message-ID: <20261125050231.1942380-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5B1?=
- =?utf-8?q?/2=5D_drm/i915=3A_simplify_ULT/ULX_subplatform_detection?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Nov 2026 05:02:48 -0000
-Message-ID: <179558296891.82611.4023225341127774902@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261124173521.1619675-1-jani.nikula@intel.com>
-In-Reply-To: <20261124173521.1619675-1-jani.nikula@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,113 +62,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============8864214808001081748==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+This is the first part of the series at
+https://patchwork.freedesktop.org/series/171345/#rev4
 
-== Series Details ==
+The FRL bandwidth check for a DP->HDMI2.1 PCON ignores the max FRL rate
+of the HDMI sink, and is only done in mode_valid, not in compute_config.
+This series fixes the check, uses it for the bpc selection as well, and
+reworks the HDMI DSC helpers so that they can be reused by the
+subsequent PCON DSC changes.
 
-Series: series starting with [1/2] drm/i915: simplify ULT/ULX subplatform detection
-URL   : https://patchwork.freedesktop.org/series/179541/
-State : success
+These are the patches that are already reviewed, so they are sent
+separately for CI and to be merged first. The rest of the series, the PCON
+DSC operations, will be sent after this.
 
-== Summary ==
+Ankit Nautiyal (7):
+  drm/i915/hdmi: Split the intel_hdmi_dsc_get_bpp()
+  drm/i915/dp: Fix FRL BW check for HDMI2.1 DFP
+  drm/i915/dp: Add a wrapper to check frl/tmds downstream constraints
+  drm/i915/dp: Use the common downstream bw check in compute_bpc
+  drm/i915/hdmi: Expose DSC min/max bpp helpers
+  drm/i915/hdmi: Add helper to check if DSC chunksize fits the sink
+    limits
+  drm/i915/hdmi: Pass pixel clock to DSC slice helper
 
-CI Bug Log - changes from CI_DRM_19605 -> Patchwork_179541v1
-====================================================
+ drivers/gpu/drm/i915/display/intel_dp.c   |  76 ++++++++++----
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 121 +++++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_hdmi.h |   5 +
+ 3 files changed, 145 insertions(+), 57 deletions(-)
 
-Summary
--------
+-- 
+2.50.1
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179541v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19605 -> Patchwork_179541v1
-
-  CI-20190529: 20190529
-  CI_DRM_19605: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9203: 9203
-  Patchwork_179541v1: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179541v1/index.html
-
---===============8864214808001081748==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [1/2] drm/i915: simplify ULT/ULX subplatform detection</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179541/">https://patchwork.freedesktop.org/series/179541/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179541v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179541v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19605 -&gt; Patchwork_179541v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179541v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19605 -&gt; Patchwork_179541v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19605: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9203: 9203<br />
-  Patchwork_179541v1: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8864214808001081748==--
