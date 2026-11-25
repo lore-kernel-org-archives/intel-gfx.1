@@ -2,28 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC47606A31E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 01:53:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA44E606A69B
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 02:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lPURuigo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B7010E8C9;
-	Wed, 25 Nov 2026 01:53:34 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E76C010E8C9;
- Wed, 25 Nov 2026 01:53:32 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0562033105062125455=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id D291910F936;
+	Wed, 25 Nov 2026 02:06:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1794E10EEBF;
+ Wed, 25 Nov 2026 02:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795572375; x=1827108375;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=J6tI0oNu5ipgac+ZyULfo7Y10gS1m3hJ23/QN8OCwxg=;
+ b=lPURuigo9ihLMOXBpAf/OUH7TzGdZGKLPCypgF4aUjvSOYgdg8jPt4Al
+ oJ96zBaHStNx2wzhe62KvVPFLAfgEKHNAHhx1PIrF9aq8vDdZWbl5LoZZ
+ Hs4EjeqwLM+s9R17UBZpZAmFSjwcNyFuRhW8AYXruynwrqmjzLL7VXKR1
+ Mhg+8URgeZDECOyB+pjPjHfxBR2BY0LgRrskZEC2IQQcmqmNO/36nCp47
+ scgZwVf9JBSKQ2A6RkYWXHICNjPTnhu4N+KatCrj4wKSXIHO1XGyhV+se
+ Ki4kcunUvSs2xClhceT6S84Hqq+v36LO3sBC3026Lwa5yivEtIcPMXW0C A==;
+X-CSE-ConnectionGUID: 5ASUCf0kTAycTHWXfDfJqQ==
+X-CSE-MsgGUID: 2TLT2F2TRMWNO0cUqG/Vvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4322166"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="4322166"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 18:06:15 -0800
+X-CSE-ConnectionGUID: puKRDXZcRYeLkoNKbfjorw==
+X-CSE-MsgGUID: ClHvdapeSayvNMoP7nMyIg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="12161971"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa009.fm.intel.com with ESMTP; 24 Nov 2026 18:06:12 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xW2Of-00000001Qg2-44Mj;
+ Wed, 25 Nov 2026 02:06:09 +0000
+Date: Wed, 25 Nov 2026 10:06:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <20261125095513.u60l5aJo-lkp@intel.com>
+References: <awXJ__-grexFFPb4@sirena.org.uk>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Enable_flip_q?=
- =?utf-8?q?ueue_with_PSR2_and_Panel_Replay?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Mika Kahola" <mika.kahola@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Nov 2026 01:53:32 -0000
-Message-ID: <179557161293.81666.9377604391409583420@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261124141300.2600962-1-mika.kahola@intel.com>
-In-Reply-To: <20261124141300.2600962-1-mika.kahola@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awXJ__-grexFFPb4@sirena.org.uk>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,161 +67,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============0562033105062125455==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Mark,
 
-== Series Details ==
+kernel test robot noticed the following build errors:
 
-Series: drm/i915: Enable flip queue with PSR2 and Panel Replay
-URL   : https://patchwork.freedesktop.org/series/179507/
-State : success
+[auto build test ERROR on next-20261123]
+[cannot apply to drm-tip/drm-tip linus/master v7.4-rc4 v7.4-rc3 v7.4-rc2 v7.4-rc4]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-== Summary ==
+url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Brown/linux-next-build-failure-after-merge-of-the-drm-misc-tree/20261124-173143
+base:   next-20261123
+patch link:    https://lore.kernel.org/r/awXJ__-grexFFPb4%40sirena.org.uk
+patch subject: linux-next: build failure after merge of the drm-misc tree
+config: arm64-randconfig-1002-20261125 (https://download.01.org/0day-ci/archive/20261125/20261125095513.u60l5aJo-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2012344e5da8e03ea4b8283ecd6fad6e13f09d64)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125095513.u60l5aJo-lkp@intel.com/reproduce)
 
-CI Bug Log - changes from CI_DRM_19604 -> Patchwork_179507v1
-====================================================
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261125095513.u60l5aJo-lkp@intel.com/
 
-Summary
--------
+All errors (new ones prefixed by >>):
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_179507v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@core_debugfs@read-all-entries:
-    - bat-adlp-6:         [PASS][1] -> [DMESG-WARN][2] ([i915#15673])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19604/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-
-  * igt@kms_pm_rpm@basic-rte:
-    - bat-rpls-4:         [PASS][3] -> [DMESG-WARN][4] ([i915#13400])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19604/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_auth@basic-auth:
-    - bat-adlp-6:         [DMESG-WARN][5] ([i915#15673]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19604/bat-adlp-6/igt@core_auth@basic-auth.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/bat-adlp-6/igt@core_auth@basic-auth.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+>> drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: error: call to undeclared function 'dma_buf_unmap_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     217 |                 dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
+         |                 ^
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: note: did you mean 'dma_buf_vunmap_unlocked'?
+   include/linux/dma-buf.h:596:6: note: 'dma_buf_vunmap_unlocked' declared here
+     596 | void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
+         |      ^
+>> drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:8: error: call to undeclared function 'dma_buf_map_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     437 |         sgt = dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
+         |               ^
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:8: note: did you mean 'dma_buf_vmap_unlocked'?
+   include/linux/dma-buf.h:595:5: note: 'dma_buf_vmap_unlocked' declared here
+     595 | int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
+         |     ^
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:6: error: incompatible integer to pointer conversion assigning to 'struct sg_table *' from 'int' [-Wint-conversion]
+     437 |         sgt = dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
+         |             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:552:3: error: call to undeclared function 'dma_buf_unmap_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     552 |                 dma_buf_unmap_sgt_unlocked(attach, sgt, DMA_BIDIRECTIONAL);
+         |                 ^
+   4 errors generated.
 
 
-Build changes
--------------
+vim +/dma_buf_unmap_sgt_unlocked +217 drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c
 
-  * Linux: CI_DRM_19604 -> Patchwork_179507v1
+   208	
+   209	/*
+   210	 * Cleans up imported dmabuf.
+   211	 * Should be called with mutex held.
+   212	 */
+   213	static void vc_sm_clean_up_dmabuf(struct vc_sm_buffer *buffer)
+   214	{
+   215		/* Handle cleaning up imported dmabufs */
+   216		if (buffer->sgt) {
+ > 217			dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
+   218						   DMA_BIDIRECTIONAL);
+   219			buffer->sgt = NULL;
+   220		}
+   221		if (buffer->attach) {
+   222			dma_buf_detach(buffer->imported_dma_buf, buffer->attach);
+   223			buffer->attach = NULL;
+   224		}
+   225	}
+   226	
 
-  CI-20190529: 20190529
-  CI_DRM_19604: 59b46a8902d6416190f72ddc25ba74881639af3a @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9203: 9203
-  Patchwork_179507v1: 59b46a8902d6416190f72ddc25ba74881639af3a @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/index.html
-
---===============0562033105062125455==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Enable flip queue with PSR2 and Panel Replay</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179507/">https://patchwork.freedesktop.org/series/179507/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19604 -&gt; Patchwork_179507v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_179507v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@core_debugfs@read-all-entries:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19604/bat-adlp-6/igt@core_debugfs@read-all-entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-rte:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19604/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@core_auth@basic-auth:<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19604/bat-adlp-6/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179507v1/bat-adlp-6/igt@core_auth@basic-auth.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19604 -&gt; Patchwork_179507v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19604: 59b46a8902d6416190f72ddc25ba74881639af3a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9203: 9203<br />
-  Patchwork_179507v1: 59b46a8902d6416190f72ddc25ba74881639af3a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============0562033105062125455==--
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
