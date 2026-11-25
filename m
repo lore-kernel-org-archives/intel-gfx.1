@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF275606A321
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 03:31:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274F1606A31E
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 03:50:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D119C10E1BF;
-	Wed, 25 Nov 2026 03:31:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9255810E89A;
+	Wed, 25 Nov 2026 03:50:52 +0000 (UTC)
 Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC83F10EF6E;
- Wed, 25 Nov 2026 03:31:43 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0948746540844448018=="
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFBE410E775;
+ Wed, 25 Nov 2026 03:50:51 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/backlight=3A_mov?=
- =?utf-8?q?e_struct_intel=5Fpanel=5Fbl=5Ffuncs_to_intel=5Fbacklight=2Eh?=
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_linux-next=3A_build_failu?=
+ =?utf-8?q?re_after_merge_of_the_drm-misc_tree?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
+To: "Mark Brown" <broonie@kernel.org>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Nov 2026 03:31:43 -0000
-Message-ID: <179557750396.82292.16906873314448939981@9ac1b63fe3ea>
+Date: Wed, 25 Nov 2026 03:50:51 -0000
+Message-ID: <179557865171.82384.9412973438568863738@9ac1b63fe3ea>
 X-Patchwork-Hint: ignore
-References: <20261124154955.1573704-1-jani.nikula@intel.com>
-In-Reply-To: <20261124154955.1573704-1-jani.nikula@intel.com>
+References: <awXJ__-grexFFPb4@sirena.org.uk>
+In-Reply-To: <awXJ__-grexFFPb4@sirena.org.uk>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,159 +36,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============0948746540844448018==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
 == Series Details ==
 
-Series: drm/i915/backlight: move struct intel_panel_bl_funcs to intel_backlight.h
-URL   : https://patchwork.freedesktop.org/series/179534/
-State : success
+Series: linux-next: build failure after merge of the drm-misc tree
+URL   : https://patchwork.freedesktop.org/series/179539/
+State : failure
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_19605 -> Patchwork_179534v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_179534v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@core_debugfs@read-all-entries:
-    - bat-adlp-6:         [PASS][1] -> [DMESG-WARN][2] ([i915#15673])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19605/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html
-
-  * igt@i915_selftest@live:
-    - fi-kbl-8809g:       [PASS][3] -> [DMESG-FAIL][4] ([i915#14808]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19605/fi-kbl-8809g/igt@i915_selftest@live.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/fi-kbl-8809g/igt@i915_selftest@live.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_auth@basic-auth:
-    - bat-adlp-6:         [DMESG-WARN][5] ([i915#15673]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19605/bat-adlp-6/igt@core_auth@basic-auth.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/bat-adlp-6/igt@core_auth@basic-auth.html
-
-  
-  [i915#14808]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/179539/revisions/1/mbox/ not applied
+Applying: linux-next: build failure after merge of the drm-misc tree
+Using index info to reconstruct a base tree...
+A	drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c
+Falling back to patching base and 3-way merge...
+CONFLICT (modify/delete): drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c deleted in HEAD and modified in linux-next: build failure after merge of the drm-misc tree. Version linux-next: build failure after merge of the drm-misc tree of drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c left in tree.
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 linux-next: build failure after merge of the drm-misc tree
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
 
 
-Build changes
--------------
-
-  * Linux: CI_DRM_19605 -> Patchwork_179534v1
-
-  CI-20190529: 20190529
-  CI_DRM_19605: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9203: 9203
-  Patchwork_179534v1: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/index.html
-
---===============0948746540844448018==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/backlight: move struct intel_panel_bl_funcs to intel_backlight.h</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179534/">https://patchwork.freedesktop.org/series/179534/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19605 -&gt; Patchwork_179534v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_179534v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@core_debugfs@read-all-entries:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19605/bat-adlp-6/igt@core_debugfs@read-all-entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/bat-adlp-6/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19605/fi-kbl-8809g/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/fi-kbl-8809g/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808">i915#14808</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@core_auth@basic-auth:<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19605/bat-adlp-6/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179534v1/bat-adlp-6/igt@core_auth@basic-auth.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19605 -&gt; Patchwork_179534v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19605: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9203: 9203<br />
-  Patchwork_179534v1: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============0948746540844448018==--
