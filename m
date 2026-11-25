@@ -2,58 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA304606A31E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 11:48:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F5F606A326
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 12:27:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kz4ReoG2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DWeCe/ac
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E62610FBDD;
-	Wed, 25 Nov 2026 11:48:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEC2E10FBDB;
- Wed, 25 Nov 2026 11:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795607314; x=1827143314;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=SlAJNOZ8GH42CB5OxxCuaE69BzuEFOQuIRpLzKBMgPU=;
- b=kz4ReoG2gw+/7v5dq/8sLeaqPiT/2pf+MbhGTOnTaqmoYua+FwByRs1X
- 3N8p0u4hXUJSydwRGyuXxzthfnLEUhCKiKGTJjn9yiQTFPi9Pk7x3dnUN
- ZUukRo2+D1A3r+0vCUviOG8/WBAi3jiFS7rEodInNN17ueNEAV1ARvhLJ
- Y34nmlaufamTnUE8G+Wq+7NH19/lMalrzIq65vpsyjwxOE1n7myvltk4J
- dwfW0aVIwzYRwFdg+Gvaj4KTe5PdMh44uACjKkI1UMFeY9GC9Wn/W2Qtk
- 2EKIQG1a68tvqYYtVMLdx7ZVVRPGyQitrBpEwytmgIQndi9nxK1JrTFif w==;
-X-CSE-ConnectionGUID: sNFO767gRbquoNblyFSiZQ==
-X-CSE-MsgGUID: 6B+UPrM6T32FZHBwCF8qGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4369349"
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="4369349"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 03:48:33 -0800
-X-CSE-ConnectionGUID: 21w86H2gSvm1ifVn+5oXXA==
-X-CSE-MsgGUID: AUxD5cJ/QlSA9qpmwx68Fw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="11864946"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.40])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 03:48:32 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: sashiko-reviews@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] drm/i915/display: don't be cute about printing
- enabling/disabling
-In-Reply-To: <sashiko-outbox-231335@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261124141146.1560208-1-jani.nikula@intel.com>
- <sashiko-outbox-231335@kernel.org>
-Date: Wed, 25 Nov 2026 13:48:29 +0200
-Message-ID: <5c89a1a8b185633112990fa4201c92e8de0740c6@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B63810E09D;
+	Wed, 25 Nov 2026 12:27:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8EC710E2D0;
+ Wed, 25 Nov 2026 12:26:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8BEC744469;
+ Wed, 25 Nov 2026 12:26:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BE991F000D1;
+ Wed, 25 Nov 2026 12:26:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795609613;
+ bh=xAqd28s4f8vn1CrPK/sg0IERT2pAzAOTznJJ6Lxcu44=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=DWeCe/acoIloP0qvIzI2VYdET6w/HRxcI/8E0hOcoqIVzpvd6EgIMiNFHx1AHzZ/f
+ wo3WBL9CJJvQjFxp9oO/sc/xu0SA0UZE5PBycT0IuvoZlhGQBrm0AjfpdINYMS32fb
+ c9NXhaNTaECYmGgQ2Kr9BeSoqY42/3qp7TpxL2Qicqxv5pyQpmGR+JoJNgyY5iU+T9
+ X+4ase/EPiLovIyN9YpnHElNyox2rX7Sg+E9lP5bdf3o5VdyZA5V3DhsJCHAZYTVbW
+ 896vVtiaa8XeZJ/VsP5pm3H6OI3mKbAFnXB8uainb6ggaZmSkdjLSdmZbDiq/bFe/B
+ 3kN2ajV7yqkvA==
+Date: Wed, 25 Nov 2026 12:26:49 +0000
+From: Mark Brown <broonie@kernel.org>
+To: kernel test robot <lkp@intel.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>, oe-kbuild-all@lists.linux.dev,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <5fc38eb6-f999-4aaa-98df-21a0b1bca01b@sirena.org.uk>
+References: <awXJ__-grexFFPb4@sirena.org.uk>
+ <20261125093804.Ygd8f4XE-lkp@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="NwNhpivsrId1/Hnp"
+Content-Disposition: inline
+In-Reply-To: <20261125093804.Ygd8f4XE-lkp@intel.com>
+X-Cookie: -- Owen Meredith
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,72 +57,46 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 24 Nov 2026, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Low] drm/i915/display: intel_force_bit_banging_write() missed in
->   %sabling cleanup
-> --
->
-> commit a6f91eb39a4003adc548629cfa79fbc4fb32b5bb
-> Author: Jani Nikula <jani.nikula@intel.com>
->
-> drm/i915/display: don't be cute about printing enabling/disabling
->
-> This commit replaces "%sabling", enable ? "en" : "dis" debug logging
-> patterns in i915 display code with str_enable_disable().
->
-> [ ... ]
->
->> diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
->> index d43c81d362e6c..d68521588d54b 100644
->> --- a/drivers/gpu/drm/i915/display/intel_gmbus.c
->> +++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
->> @@ -1107,9 +1107,8 @@ void intel_gmbus_force_bit(struct i2c_adapter *adapter, bool force_bit)
->>  	mutex_lock(&display->gmbus.mutex);
->>  
->>  	bus->force_bit += force_bit ? 1 : -1;
->> -	drm_dbg_kms(display->drm,
->> -		    "%sabling bit-banging on %s. force bit now %d\n",
->> -		    force_bit ? "en" : "dis", adapter->name,
->> +	drm_dbg_kms(display->drm, "%s bit-banging on %s. force bit now %d\n",
->> +		    str_enable_disable(force_bit), adapter->name,
->>  		    bus->force_bit);
->>  
->>  	mutex_unlock(&display->gmbus.mutex);
->
-> [Severity: Low]
-> Should intel_force_bit_banging_write() in this same file also be converted
-> to str_enable_disable()?  It logs the identical bit-banging message using
-> the old "%sabling" pattern:
 
-Gah, a dupe of that shouldn't have been added in the first place. :/
+--NwNhpivsrId1/Hnp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Deduplication at [1].
+On Wed, Nov 25, 2026 at 09:44:55AM +0800, kernel test robot wrote:
+> Hi Mark,
+>=20
+> kernel test robot noticed the following build errors:
+>=20
+> [auto build test ERROR on next-20261123]
+> [cannot apply to drm-tip/drm-tip linus/master v7.4-rc4 v7.4-rc3 v7.4-rc2 =
+v7.4-rc4]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base' as documented in
+> https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
+This wasn't even a patch submission....=20
 
-BR,
-Jani.
+--NwNhpivsrId1/Hnp
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-[1] https://lore.kernel.org/r/cover.1795607055.git.jani.nikula@intel.com
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsG1AgACgkQJNaLcl1U
+h9AUcgf9FCehQxiRPZplaPK3PfRXFgPpW5RqatRU00lJ+gznpQJ+QZwuQ6ITguXe
+tX7XNPs9u7/zLqkilzRnrgCutfnONo7iQi9043zQj5jcbYxF6Mf8EcQGYWva3ASd
+h9/JgKI3e0Ye6RBr1c8fpV2LmCHDBDWP/WjIdPoGd/cnfvtl+P0CQhONuHKD20Xm
+0SStIcukvf9hdgZHm8+PK/d0wE3a331wT+aryED+ZoMLNh3o58XO4lDyKbwQmhRR
+3ExbSXNviix0GHjQJVYgGfeREGMuvkWCBs320YG1jwaJ1lQyVIywg+JUlzgOp0yM
+zDNd4HjDyZw4Hg+plhuj63WjdUjhOA==
+=ufWC
+-----END PGP SIGNATURE-----
 
->
-> drivers/gpu/drm/i915/display/intel_gmbus.c:intel_force_bit_banging_write() {
->     ...
-> 		drm_dbg_kms(display->drm,
-> 			    "%sabling bit-banging on %s. force bit now %d\n",
-> 			    force_bit_banging ? "en" : "dis",
-> 			    connector->base.ddc->name, force_bit);
->     ...
-> }
-
--- 
-Jani Nikula, Intel
+--NwNhpivsrId1/Hnp--
