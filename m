@@ -2,57 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BB0606A68E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 16:29:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2ED606A326
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 16:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=baWplgxz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LiPCrDRB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DD7010E16C;
-	Wed, 25 Nov 2026 16:29:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A4310E16C;
- Wed, 25 Nov 2026 16:29:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795624177; x=1827160177;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=eJho5MIO3KexRozeqPl6PYH5We9wslmeST5RaT9hs3I=;
- b=baWplgxzJ9WgU9pO99K0/u1PCT99jxPAreWW4hVvTjK+8UN4ioQm1XO/
- j91yclHUdlLGPlNYkAarrIiSZCT/Ku75hFMuXmUw0/JENTFMb7oRhxeMe
- pIVKmaE1IuTMIY+CF5hGnWSJB5OH33IbdLbfzIfMOwdU16i76X/WJJhto
- H93dSg+YXBEKcqJndasX/7pTfLwgl7nCNlVIEjVqYfumMygE4uutddcOX
- z02WNkSP6qJHHXndb2Gns0dOt6HlqkE/FCfNYrrGlYYZDAF93hi0gS8/J
- 8GM6nODPpLxBFePJJw0GpSzwrh/TFGr9CTaMXqz+7zbumCCFpiig0t79a Q==;
-X-CSE-ConnectionGUID: iYZWxHiTTrCeJs825KSKDA==
-X-CSE-MsgGUID: Drrxltg0Sg+gNMGx/D7m0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4422851"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4422851"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 07:58:36 -0800
-X-CSE-ConnectionGUID: tyZSuKV2TCKVXAYp1D+1Dg==
-X-CSE-MsgGUID: yySdCbfzRPmc3KBLXsSyZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; d="scan'208";a="11786955"
-Received: from inaky-mobl1.amr.corp.intel.com (HELO localhost)
- ([10.245.244.100])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 07:58:35 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id D666010FD8A;
+	Wed, 25 Nov 2026 16:43:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB85110FDA3;
+ Wed, 25 Nov 2026 16:43:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 69A9840B80;
+ Wed, 25 Nov 2026 16:43:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9B41F000C6;
+ Wed, 25 Nov 2026 16:43:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795625025;
+ bh=A9udLbN9//dFN5UhBICMCossv6E2WsFacptmj1hzcMg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LiPCrDRBVL+Tg2Q2HmaKrci+oBNtyqYnwRhRvYBhvHtRB/9jJpzMnoqcPiUuZ7GMw
+ D0M5Q4fUWFXxy1g5QbIq7SBZw6qL9e1Y+7stXX94TQZdoUJAckdi3y49yA/MdF2nVu
+ kjjPg+YQ60M+tP86C+pwbLokOyHYiU/YMr1i1dwOWHdYWDijuAi9NnEHCUWg0xEnYZ
+ kaTKnlMIqG95zQJCyA236/u+apdSVgSqya+5HJfEykkjD4ubkJcZA47hxc50HfrM3M
+ Olmb3ekxmjw61GvGoyNzZK7Waz5jWmRU29Q2ABcRtcQRo5PNHDfUO6a9Nv3yD8FNcP
+ mkTfeLPHoKVcw==
+Message-ID: <sashiko-outbox-233772@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/de: Convert mmio.lock to raw spinlock
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH] drm/i915/de: Convert mmio.lock to raw spinlock
-Date: Wed, 25 Nov 2026 17:58:31 +0200
-Message-ID: <20261125155831.17395-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.1
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261125155831.17395-1-ville.syrjala@linux.intel.com>
+References: <20261125155831.17395-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 16:43:44 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,135 +48,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/i915/vblank: IRQ-unsafe raw_spin_lock() in
+  intel_vblank_section_enter()
+--
 
-On PREEMPT_RT normal spinlocks turn into sleeping mutexes.
-We want to be able to read registers inside tracepoints
-(which still aren't allowed to sleep on PREEMPT_RT), so
-convert our mmio.lock into a raw spinlock.
+commit 8b5f59599d9077ae92b9dc93f4c4413fb415a8c7
+Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-The display specific mmio.lock (unlike the old device
-wide uncore.lock) is not held across forcewake waits and
-whatnot, so the lock hold times should be very short.
-Thus a raw spinlock is a good fit here.
+drm/i915/de: Convert mmio.lock to raw spinlock
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/i9xx_wm.c            |  6 +++---
- drivers/gpu/drm/i915/display/intel_de.c           | 10 +++++-----
- drivers/gpu/drm/i915/display/intel_display_core.h |  2 +-
- drivers/gpu/drm/i915/display/intel_vblank.c       |  4 ++--
- 4 files changed, 11 insertions(+), 11 deletions(-)
+This commit converts display->mmio.lock from a spinlock_t to a
+raw_spinlock_t so that display register accesses can be performed from
+non-sleepable contexts such as tracepoints on PREEMPT_RT kernels.
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i915/display/i9xx_wm.c
-index 46bfada7c060..1c8aaa1ec58f 100644
---- a/drivers/gpu/drm/i915/display/i9xx_wm.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
-@@ -1889,9 +1889,9 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
- 	 * parallel updates from multiple pipes.
- 	 *
- 	 * intel_pipe_update_start() has already disabled interrupts
--	 * for us, so a plain spin_lock() is sufficient here.
-+	 * for us, so a plain raw_spin_lock() is sufficient here.
- 	 */
--	spin_lock(&display->mmio.lock);
-+	raw_spin_lock(&display->mmio.lock);
- 
- 	switch (crtc->pipe) {
- 	case PIPE_A:
-@@ -1951,7 +1951,7 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
- 
- 	intel_de_read_fw(display, DSPARB(display));
- 
--	spin_unlock(&display->mmio.lock);
-+	raw_spin_unlock(&display->mmio.lock);
- }
- 
- #undef VLV_FIFO
-diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
-index bb008e1ee8fd..5cf8f681c3c8 100644
---- a/drivers/gpu/drm/i915/display/intel_de.c
-+++ b/drivers/gpu/drm/i915/display/intel_de.c
-@@ -276,9 +276,9 @@ bool intel_de_unclaimed_mmio_detected(struct intel_display *display)
- 		return false;
- 
- 	if (display->mmio.funcs->check_for_unclaimed_mmio_needs_lock) {
--		spin_lock_irq(&display->mmio.lock);
-+		raw_spin_lock_irq(&display->mmio.lock);
- 		ret = display->mmio.funcs->check_for_unclaimed_mmio(display);
--		spin_unlock_irq(&display->mmio.lock);
-+		raw_spin_unlock_irq(&display->mmio.lock);
- 	} else {
- 		ret = display->mmio.funcs->check_for_unclaimed_mmio(display);
- 	}
-@@ -332,7 +332,7 @@ __mmio_lock_pre(struct intel_display *display, unsigned long *irqflags,
- 		const unsigned int mmio_flags)
- {
- 	if (mmio_flags & __MMIO_LOCK)
--		spin_lock_irqsave(&display->mmio.lock, *irqflags);
-+		raw_spin_lock_irqsave(&display->mmio.lock, *irqflags);
- }
- 
- static __always_inline void
-@@ -340,7 +340,7 @@ __mmio_lock_post(struct intel_display *display, unsigned long irqflags,
- 		 const unsigned int mmio_flags)
- {
- 	if (mmio_flags & __MMIO_LOCK)
--		spin_unlock_irqrestore(&display->mmio.lock, irqflags);
-+		raw_spin_unlock_irqrestore(&display->mmio.lock, irqflags);
- }
- 
- static __always_inline bool
-@@ -534,7 +534,7 @@ void intel_de_init(struct intel_display *display)
- {
- 	display->mmio.uncore = to_intel_uncore(display->drm);
- 
--	spin_lock_init(&display->mmio.lock);
-+	raw_spin_lock_init(&display->mmio.lock);
- 
- 	/*
- 	 * TODO: enable unclaimed register detection
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index b422d24e21b2..bc00860c10f1 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -540,7 +540,7 @@ struct intel_display {
- 		 * using intel_de_{read,write}(), but not those
- 		 * done using intel_de_{read,write}_fw().
- 		 */
--		spinlock_t lock;
-+		raw_spinlock_t lock;
- 
- 		struct intel_uncore *uncore;
- 		const struct intel_mmio_funcs *funcs;
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 114ff43381b5..a9be8d4ad2df 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -290,13 +290,13 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
- static void intel_vblank_section_enter(struct intel_display *display)
- 	__acquires(display->mmio.lock)
- {
--	spin_lock(&display->mmio.lock);
-+	raw_spin_lock(&display->mmio.lock);
- }
- 
- static void intel_vblank_section_exit(struct intel_display *display)
- 	__releases(display->mmio.lock)
- {
--	spin_unlock(&display->mmio.lock);
-+	raw_spin_unlock(&display->mmio.lock);
- }
- #else
- static void intel_vblank_section_enter(struct intel_display *display)
--- 
-2.56.1
+> diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/dr=
+m/i915/display/intel_vblank.c
+> index 114ff43381b53..a9be8d4ad2dfe 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vblank.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+> @@ -290,13 +290,13 @@ static int __intel_get_crtc_scanline(struct intel_c=
+rtc *crtc)
+>  static void intel_vblank_section_enter(struct intel_display *display)
+>  	__acquires(display->mmio.lock)
+>  {
+> -	spin_lock(&display->mmio.lock);
+> +	raw_spin_lock(&display->mmio.lock);
+>  }
+> =20
+>  static void intel_vblank_section_exit(struct intel_display *display)
+>  	__releases(display->mmio.lock)
+>  {
+> -	spin_unlock(&display->mmio.lock);
+> +	raw_spin_unlock(&display->mmio.lock);
+>  }
+>  #else
+>  static void intel_vblank_section_enter(struct intel_display *display)
 
+[Severity: High]
+Can intel_vblank_section_enter() acquire display->mmio.lock with hardware
+interrupts enabled on PREEMPT_RT?
+
+Unlike i915_get_crtc_scanoutpos() and intel_get_crtc_scanline(), which
+call local_irq_save() before intel_vblank_section_enter(),
+intel_crtc_update_active_timings() only acquires vblank_time_lock:
+
+drivers/gpu/drm/i915/display/intel_vblank.c:intel_crtc_update_active_timing=
+s() {
+	...
+	spin_lock_irqsave(&display->drm->vblank_time_lock, irqflags);
+	intel_vblank_section_enter(display);
+	...
+}
+
+Because vblank_time_lock is a sleeping spinlock_t on PREEMPT_RT,
+spin_lock_irqsave() does not disable local interrupts.  Acquiring the raw
+display->mmio.lock without masking interrupts triggers a lockdep irq-usage
+inversion warning and can self-deadlock if a hardirq or tracepoint on the
+same CPU also takes display->mmio.lock.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125155831.1739=
+5-1-ville.syrjala@linux.intel.com?part=3D1
