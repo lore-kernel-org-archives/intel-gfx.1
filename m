@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C381A606A31E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 06:48:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D01606A32A
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 07:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D39210E78D;
-	Wed, 25 Nov 2026 06:48:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17B8510F9AE;
+	Wed, 25 Nov 2026 07:15:21 +0000 (UTC)
 Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E3B610E78D;
- Wed, 25 Nov 2026 06:48:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 548B210E6AD;
+ Wed, 25 Nov 2026 07:15:19 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============5319118914850640996=="
+ boundary="===============1418557331858014765=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Fix_FRL/TM?=
- =?utf-8?q?DS_bandwidth_checks_for_HDMI2=2E1_PCON?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_docs=3A_ioctl-number=3A_u?=
+ =?utf-8?q?pdate_entries_=28rev3=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+To: "Randy Dunlap" <rdunlap@infradead.org>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Nov 2026 06:48:47 -0000
-Message-ID: <179558932737.83303.9692632721666347755@9ac1b63fe3ea>
+Date: Wed, 25 Nov 2026 07:15:19 -0000
+Message-ID: <179559091933.83540.2768241577488657706@9ac1b63fe3ea>
 X-Patchwork-Hint: ignore
-References: <20261125050231.1942380-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20261125050231.1942380-1-ankit.k.nautiyal@intel.com>
+References: <20261125061340.3402300-1-rdunlap@infradead.org>
+In-Reply-To: <20261125061340.3402300-1-rdunlap@infradead.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,20 +42,20 @@ X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============5319118914850640996==
+--===============1418557331858014765==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: drm/i915/dp: Fix FRL/TMDS bandwidth checks for HDMI2.1 PCON
-URL   : https://patchwork.freedesktop.org/series/179594/
+Series: docs: ioctl-number: update entries (rev3)
+URL   : https://patchwork.freedesktop.org/series/178590/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_19605 -> Patchwork_179594v1
+CI Bug Log - changes from CI_DRM_19605 -> Patchwork_178590v3
 ====================================================
 
 Summary
@@ -65,35 +65,46 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179594v1/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v3/index.html
 
 Participating hosts (40 -> 39)
 ------------------------------
 
   Missing    (1): bat-dg2-13 
 
+Known issues
+------------
 
-Changes
--------
+  Here are the changes found in Patchwork_178590v3 that come from known issues:
 
-  No changes found
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19605/bat-rpls-4/igt@vgem_basic@unload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v3/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
 
 
 Build changes
 -------------
 
-  * Linux: CI_DRM_19605 -> Patchwork_179594v1
+  * Linux: CI_DRM_19605 -> Patchwork_178590v3
 
   CI-20190529: 20190529
   CI_DRM_19605: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_9203: 9203
-  Patchwork_179594v1: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_178590v3: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179594v1/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v3/index.html
 
---===============5319118914850640996==
+--===============1418557331858014765==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -113,34 +124,42 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: Fix FRL/TMDS bandwidth checks for HDMI2.1 PCON</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179594/">https://patchwork.freedesktop.org/series/179594/</a></td></tr>
+<tr><td><b>Series:</b></td><td>docs: ioctl-number: update entries (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/178590/">https://patchwork.freedesktop.org/series/178590/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179594v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179594v1/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v3/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_19605 -&gt; Patchwork_179594v1</h1>
+    <h1>CI Bug Log - changes from CI_DRM_19605 -&gt; Patchwork_178590v3</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179594v1/index.html</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v3/index.html</p>
 <h2>Participating hosts (40 -&gt; 39)</h2>
 <p>Missing    (1): bat-dg2-13 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_178590v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19605/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178590v3/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+</ul>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_19605 -&gt; Patchwork_179594v1</li>
+<li>Linux: CI_DRM_19605 -&gt; Patchwork_178590v3</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_19605: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_9203: 9203<br />
-  Patchwork_179594v1: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_178590v3: 28c36332c01de3058d0cb9e350a77e1282c31658 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 
 </body>
 </html>
 
---===============5319118914850640996==--
+--===============1418557331858014765==--
