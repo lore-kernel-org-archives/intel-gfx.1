@@ -2,59 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC972606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC665606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:40:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ccEYJlZK
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kO+c5kDQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4492410E969;
-	Thu, 26 Nov 2026 08:30:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1A8210E95A
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 08:30:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34BD810E1D7;
+	Thu, 26 Nov 2026 08:40:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6D5810E1D7;
+ Thu, 26 Nov 2026 08:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795681808; x=1827217808;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=IgALbm61eTsV/MrJIoiDFkqC+hx4kr3sy7xaKzicBW8=;
- b=ccEYJlZKl3bqr4ahsck3tnUcV7cjTGmS97zsT7DYbm+qCclUjz9fEhsr
- JRClfqi1Oi6ydUrXoue06sWWQyrkw99QZgY0Cq6cCoMgULB1Jm/X84KT8
- 4kSBrw99chadxRxN+eGIVpZC+s92T1GTRA/uLZVCgBLuv7bzNXYCqTUwj
- A+cOurHq4bjOENwoGiZk+93p9rJzi2iUe6uxi8cfSh+3AJ1zF9lVTJZ5k
- vjSTwG8sR3Fa8JxJsIC7flOVLE9befaz2kr6SLpQY49Ocwbf5Z6NaTzi2
- 8KMCMBz2VUKYbFFZHsowIh4SecLz/LJh66LeNREykPqXLAttCyxBdnAGP g==;
-X-CSE-ConnectionGUID: P9qKEd28QI+bUEoqAEd4Dw==
-X-CSE-MsgGUID: ehDfufooT1WCcgUaf80PKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4492377"
+ t=1795682412; x=1827218412;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=00U5HdvPIcUAOyjC+Ix14nGAiDk3/VE1h1kzDh/+zvI=;
+ b=kO+c5kDQWsDq54buOhimXWAThTDN38TOwTNK2I/IxyJ3CQOPerWzSjS6
+ duB1Ofz/PGwZprnVRGh0t7DuiHS7gax2dWMy+0NsgWOsTmXUbCjMNfoUd
+ LC17xlKpZg4GfjYQFRoSXPq2n4pbJkbJMoQm4ykkbt44ikB5yDB6QFM/S
+ P92yxRJvDe6uaXXJ07tE/ATnOp3nM9C1hPeMAclFz2sYj1McU7GBkm6wr
+ rbLHgCDnP113XvVz4O9FSZXvh0hUNaEqY404SnZgf70uuggbU1RNpaSBf
+ 7B0wSqDUV5luJdE10H5hD9/X4r5pKDpRMy1qEDtUWrOCCwI/2rnT+Qflb g==;
+X-CSE-ConnectionGUID: 4gYr0e52RSubLNS8rpMVgQ==
+X-CSE-MsgGUID: AaC0tcdsTDmlcw8I8OBtzw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4488500"
 X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4492377"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 00:29:54 -0800
-X-CSE-ConnectionGUID: sJZ/36bYQK+e+fMG3JNZjA==
-X-CSE-MsgGUID: kJnOd8qTQsijdNwN6pAlkw==
+   d="scan'208";a="4488500"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2026 00:40:12 -0800
+X-CSE-ConnectionGUID: d9PLpn6nTquZ+DEDlEiJCw==
+X-CSE-MsgGUID: cXuZomnVSEydEO8QsyMobQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12146496"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.174])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 00:29:53 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/sbi: add and use intel_sbi_rmw()
-In-Reply-To: <awX2Kv_A7kZs92fU@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261124170441.1600907-1-jani.nikula@intel.com>
- <awX2Kv_A7kZs92fU@intel.com>
-Date: Thu, 26 Nov 2026 10:29:50 +0200
-Message-ID: <5b0684d5641c89547d226441a22d219a991316d0@intel.com>
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12125642"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by orviesa007.jf.intel.com with ESMTP; 26 Nov 2026 00:40:09 -0800
+From: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCH v6 00/13] drm/i915/dp: Add support for the DP symbol based
+ timing generator
+Date: Thu, 26 Nov 2026 14:04:55 +0530
+Message-Id: <20261126-vlk-64036-dp-symbol-tg-v6-0-835a4f5c0a12@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADDvB2sC/4XPwWrDMAyA4VcpPs/DlhXZ2WnvMXZobLk1S5MSB
+ 7NS8u5ze1kWCDv+An1Cd5F5SpzF2+EuJi4pp3GoQS8H4c/H4cQyhdoCFJBWYGXpvyShMiTDVeb
+ bpRt7OZ9ksOARAFxDLOrydeKYvp/wx2ftc8rzON2ed4p+TP8li5ZKeqSI3EWyHN7TMHP/6seLe
+ JAF1ozbZaAyaBy23kATDGwZs2baXcZUhloFgIActd0y+MtohbsMViYoikz1NTq2W6ZZMaB2maY
+ yXXTRus6AVX+YZVl+ABsvrlrYAQAA
+X-Change-ID: 20261027-vlk-64036-dp-symbol-tg-d72c4222856e
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ chaitanya.kumar.borah@intel.com, uma.shankar@intel.com, 
+ suraj.kandpal@intel.com, Arun R Murthy <arun.r.murthy@intel.com>
+X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,332 +70,118 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 24 Nov 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Tue, Nov 24, 2026 at 07:04:41PM +0200, Jani Nikula wrote:
->> Almost all of SBI access is read-modify-write with separate reads and
->> writes. Add intel_sbi_rmw() modeled after intel_de_rwm(), and use it to
->> make the code more concise and easier to read.
->>=20
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
->>  .../gpu/drm/i915/display/intel_pch_refclk.c   | 144 +++++-------------
->>  drivers/gpu/drm/i915/display/intel_sbi.c      |  12 ++
->>  drivers/gpu/drm/i915/display/intel_sbi.h      |   2 +
->>  3 files changed, 49 insertions(+), 109 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/i915/display/intel_pch_refclk.c b/drivers/g=
-pu/drm/i915/display/intel_pch_refclk.c
->> index 5f88663ef5e8..fe9dbc2b21ee 100644
->> --- a/drivers/gpu/drm/i915/display/intel_pch_refclk.c
->> +++ b/drivers/gpu/drm/i915/display/intel_pch_refclk.c
->> @@ -36,91 +36,32 @@ static void lpt_fdi_reset_mphy(struct intel_display =
-*display)
->>  /* WaMPhyProgramming:hsw */
->>  static void lpt_fdi_program_mphy(struct intel_display *display)
->>  {
->> -	u32 tmp;
->> -
->>  	lpt_fdi_reset_mphy(display);
->>=20=20
->> -	tmp =3D intel_sbi_read(display, 0x8008, SBI_MPHY);
->> -	tmp &=3D ~(0xFF << 24);
->> -	tmp |=3D (0x12 << 24);
->> -	intel_sbi_write(display, 0x8008, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x2008, SBI_MPHY);
->> -	tmp |=3D (1 << 11);
->> -	intel_sbi_write(display, 0x2008, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x2108, SBI_MPHY);
->> -	tmp |=3D (1 << 11);
->> -	intel_sbi_write(display, 0x2108, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x206C, SBI_MPHY);
->> -	tmp |=3D (1 << 24) | (1 << 21) | (1 << 18);
->> -	intel_sbi_write(display, 0x206C, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x216C, SBI_MPHY);
->> -	tmp |=3D (1 << 24) | (1 << 21) | (1 << 18);
->> -	intel_sbi_write(display, 0x216C, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x2080, SBI_MPHY);
->> -	tmp &=3D ~(7 << 13);
->> -	tmp |=3D (5 << 13);
->> -	intel_sbi_write(display, 0x2080, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x2180, SBI_MPHY);
->> -	tmp &=3D ~(7 << 13);
->> -	tmp |=3D (5 << 13);
->> -	intel_sbi_write(display, 0x2180, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x208C, SBI_MPHY);
->> -	tmp &=3D ~0xFF;
->> -	tmp |=3D 0x1C;
->> -	intel_sbi_write(display, 0x208C, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x218C, SBI_MPHY);
->> -	tmp &=3D ~0xFF;
->> -	tmp |=3D 0x1C;
->> -	intel_sbi_write(display, 0x218C, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x2098, SBI_MPHY);
->> -	tmp &=3D ~(0xFF << 16);
->> -	tmp |=3D (0x1C << 16);
->> -	intel_sbi_write(display, 0x2098, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x2198, SBI_MPHY);
->> -	tmp &=3D ~(0xFF << 16);
->> -	tmp |=3D (0x1C << 16);
->> -	intel_sbi_write(display, 0x2198, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x20C4, SBI_MPHY);
->> -	tmp |=3D (1 << 27);
->> -	intel_sbi_write(display, 0x20C4, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x21C4, SBI_MPHY);
->> -	tmp |=3D (1 << 27);
->> -	intel_sbi_write(display, 0x21C4, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x20EC, SBI_MPHY);
->> -	tmp &=3D ~(0xF << 28);
->> -	tmp |=3D (4 << 28);
->> -	intel_sbi_write(display, 0x20EC, tmp, SBI_MPHY);
->> -
->> -	tmp =3D intel_sbi_read(display, 0x21EC, SBI_MPHY);
->> -	tmp &=3D ~(0xF << 28);
->> -	tmp |=3D (4 << 28);
->> -	intel_sbi_write(display, 0x21EC, tmp, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x8008, 0xFF << 24, 0x12 << 24, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x2008, 0, 1 << 11, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x2108, 0, 1 << 11, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x206C, 0, (1 << 24) | (1 << 21) | (1 << 18), S=
-BI_MPHY);
->> +	intel_sbi_rmw(display, 0x216C, 0, (1 << 24) | (1 << 21) | (1 << 18), S=
-BI_MPHY);
->> +	intel_sbi_rmw(display, 0x2080, 7 << 13, 5 << 13, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x2180, 7 << 13, 5 << 13, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x208C, 0xFF, 0x1C, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x218C, 0xFF, 0x1C, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x2098, 0xFF << 16, 0x1C << 16, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x2198, 0xFF << 16, 0x1C << 16, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x20C4, 0, 1 << 27, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x21C4, 0, 1 << 27, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x20EC, 0xF << 28, 4 << 28, SBI_MPHY);
->> +	intel_sbi_rmw(display, 0x21EC, 0xF << 28, 4 << 28, SBI_MPHY);
->
-> If only the diff would group these in a sane way :/
->
-> Went a bit cross-eyed looking at this, but it looks correct to me.
-> Asked Claude to double check it and it didn't spot any unintended
-> changes either.
->
-> Claude did spot a "rmw" vs. "rwm" typo in the commit message,
-> and...
->
->>  }
->>=20=20
->>  void lpt_disable_iclkip(struct intel_display *display)
->>  {
->> -	u32 temp;
->> -
->>  	intel_de_write(display, PIXCLK_GATE, PIXCLK_GATE_GATE);
->>=20=20
->>  	intel_sbi_lock(display);
->>=20=20
->> -	temp =3D intel_sbi_read(display, SBI_SSCCTL6, SBI_ICLK);
->> -	temp |=3D SBI_SSCCTL_DISABLE;
->> -	intel_sbi_write(display, SBI_SSCCTL6, temp, SBI_ICLK);
->> +	intel_sbi_rmw(display, SBI_SSCCTL6, 0, SBI_SSCCTL_DISABLE, SBI_ICLK);
->>=20=20
->>  	intel_sbi_unlock(display);
->>  }
->> @@ -185,7 +126,6 @@ void lpt_program_iclkip(const struct intel_crtc_stat=
-e *crtc_state)
->>  	struct intel_display *display =3D to_intel_display(crtc_state);
->>  	int clock =3D crtc_state->hw.adjusted_mode.crtc_clock;
->>  	struct iclkip_params p;
->> -	u32 temp;
->>=20=20
->>  	lpt_disable_iclkip(display);
->>=20=20
->> @@ -205,25 +145,23 @@ void lpt_program_iclkip(const struct intel_crtc_st=
-ate *crtc_state)
->>  	intel_sbi_lock(display);
->>=20=20
->>  	/* Program SSCDIVINTPHASE6 */
->> -	temp =3D intel_sbi_read(display, SBI_SSCDIVINTPHASE6, SBI_ICLK);
->> -	temp &=3D ~SBI_SSCDIVINTPHASE_DIVSEL_MASK;
->> -	temp |=3D SBI_SSCDIVINTPHASE_DIVSEL(p.divsel);
->> -	temp &=3D ~SBI_SSCDIVINTPHASE_INCVAL_MASK;
->> -	temp |=3D SBI_SSCDIVINTPHASE_INCVAL(p.phaseinc);
->> -	temp |=3D SBI_SSCDIVINTPHASE_DIR(p.phasedir);
->> -	temp |=3D SBI_SSCDIVINTPHASE_PROPAGATE;
->> -	intel_sbi_write(display, SBI_SSCDIVINTPHASE6, temp, SBI_ICLK);
->> +	intel_sbi_rmw(display, SBI_SSCDIVINTPHASE6,
->> +		      SBI_SSCDIVINTPHASE_DIVSEL_MASK |
->> +		      SBI_SSCDIVINTPHASE_INCVAL_MASK,
->
-> ... we both noticed that we don't clear the DIR bit here,
-> which means if it was set previously it'll remain set
-> when p.phasedir=3D=3D0 (which it always is).
->
-> But according to the spec we shouldn't even be touching
-> that bit (its specific meaning isn't even documented).
-> So the code actually matches the spec by accident. This
-> bit is probably some prehistoric leftover that we should
-> just completely nuke.
->
-> Anyways, this patch is
-> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+Xe3p adds a DP link layer (LL) symbol based timing generator, as an
+alternative to the pixel clock based one. It generates the transcoder
+timings in LL symbol cycles instead of pixels, which makes the per-line
+symbol insertion for 8b/10b MST and 128b/132b SST/MST compliant with
+the DP 2.1 hblank symbol cycle count. This reduces the line-to-line
+hblank jitter that some sinks can't handle, and the Min Hblank
+mechanism can't be used together with it.
 
-Thanks, fixed the rwm typo and added much of the above as a note to the
-commit message while pushing.
+This series computes the LL symbol HACT/HTOTAL/CHUNK_SIZE and the 128
+bit Data M/N for the symbol based timing generator, programs and enables
+it, and drops the Link M/N ratio limit, which only applies to the pixel
+based timing generator. If the symbol based timing generator can't be
+used (MSO/eDP splitter, timings out of range, Data M/N above 1.0), the
+pixel based one is kept.
 
->
->> +		      SBI_SSCDIVINTPHASE_DIVSEL(p.divsel) |
->> +		      SBI_SSCDIVINTPHASE_INCVAL(p.phaseinc) |
->> +		      SBI_SSCDIVINTPHASE_DIR(p.phasedir) |
->> +		      SBI_SSCDIVINTPHASE_PROPAGATE,
->> +		      SBI_ICLK);
->>=20=20
->>  	/* Program SSCAUXDIV */
->> -	temp =3D intel_sbi_read(display, SBI_SSCAUXDIV6, SBI_ICLK);
->> -	temp &=3D ~SBI_SSCAUXDIV_FINALDIV2SEL(1);
->> -	temp |=3D SBI_SSCAUXDIV_FINALDIV2SEL(p.auxdiv);
->> -	intel_sbi_write(display, SBI_SSCAUXDIV6, temp, SBI_ICLK);
->> +	intel_sbi_rmw(display, SBI_SSCAUXDIV6,
->> +		      SBI_SSCAUXDIV_FINALDIV2SEL(1),
->> +		      SBI_SSCAUXDIV_FINALDIV2SEL(p.auxdiv),
->> +		      SBI_ICLK);
->>=20=20
->>  	/* Enable modulator and associated divider */
->> -	temp =3D intel_sbi_read(display, SBI_SSCCTL6, SBI_ICLK);
->> -	temp &=3D ~SBI_SSCCTL_DISABLE;
->> -	intel_sbi_write(display, SBI_SSCCTL6, temp, SBI_ICLK);
->> +	intel_sbi_rmw(display, SBI_SSCCTL6, SBI_SSCCTL_DISABLE, 0, SBI_ICLK);
->>=20=20
->>  	intel_sbi_unlock(display);
->>=20=20
->> @@ -277,7 +215,7 @@ int lpt_get_iclkip(struct intel_display *display)
->>  static void lpt_enable_clkout_dp(struct intel_display *display,
->>  				 bool with_spread, bool with_fdi)
->>  {
->> -	u32 reg, tmp;
->> +	u32 reg;
->>=20=20
->>  	if (drm_WARN(display->drm, with_fdi && !with_spread,
->>  		     "FDI requires downspread\n"))
->> @@ -288,26 +226,19 @@ static void lpt_enable_clkout_dp(struct intel_disp=
-lay *display,
->>=20=20
->>  	intel_sbi_lock(display);
->>=20=20
->> -	tmp =3D intel_sbi_read(display, SBI_SSCCTL, SBI_ICLK);
->> -	tmp &=3D ~SBI_SSCCTL_DISABLE;
->> -	tmp |=3D SBI_SSCCTL_PATHALT;
->> -	intel_sbi_write(display, SBI_SSCCTL, tmp, SBI_ICLK);
->> +	intel_sbi_rmw(display, SBI_SSCCTL, SBI_SSCCTL_DISABLE, SBI_SSCCTL_PATH=
-ALT, SBI_ICLK);
->>=20=20
->>  	udelay(24);
->>=20=20
->>  	if (with_spread) {
->> -		tmp =3D intel_sbi_read(display, SBI_SSCCTL, SBI_ICLK);
->> -		tmp &=3D ~SBI_SSCCTL_PATHALT;
->> -		intel_sbi_write(display, SBI_SSCCTL, tmp, SBI_ICLK);
->> +		intel_sbi_rmw(display, SBI_SSCCTL, SBI_SSCCTL_PATHALT, 0, SBI_ICLK);
->>=20=20
->>  		if (with_fdi)
->>  			lpt_fdi_program_mphy(display);
->>  	}
->>=20=20
->>  	reg =3D HAS_PCH_LPT_LP(display) ? SBI_GEN0 : SBI_DBUFF0;
->> -	tmp =3D intel_sbi_read(display, reg, SBI_ICLK);
->> -	tmp |=3D SBI_GEN0_CFG_BUFFENABLE_DISABLE;
->> -	intel_sbi_write(display, reg, tmp, SBI_ICLK);
->> +	intel_sbi_rmw(display, reg, 0, SBI_GEN0_CFG_BUFFENABLE_DISABLE, SBI_IC=
-LK);
->>=20=20
->>  	intel_sbi_unlock(display);
->>  }
->> @@ -320,9 +251,7 @@ void lpt_disable_clkout_dp(struct intel_display *dis=
-play)
->>  	intel_sbi_lock(display);
->>=20=20
->>  	reg =3D HAS_PCH_LPT_LP(display) ? SBI_GEN0 : SBI_DBUFF0;
->> -	tmp =3D intel_sbi_read(display, reg, SBI_ICLK);
->> -	tmp &=3D ~SBI_GEN0_CFG_BUFFENABLE_DISABLE;
->> -	intel_sbi_write(display, reg, tmp, SBI_ICLK);
->> +	intel_sbi_rmw(display, reg, SBI_GEN0_CFG_BUFFENABLE_DISABLE, 0, SBI_IC=
-LK);
->>=20=20
->>  	tmp =3D intel_sbi_read(display, SBI_SSCCTL, SBI_ICLK);
->>  	if (!(tmp & SBI_SSCCTL_DISABLE)) {
->> @@ -389,10 +318,7 @@ static void lpt_bend_clkout_dp(struct intel_display=
- *display, int steps)
->>  		tmp =3D 0x00000000;
->>  	intel_sbi_write(display, SBI_SSCDITHPHASE, tmp, SBI_ICLK);
->>=20=20
->> -	tmp =3D intel_sbi_read(display, SBI_SSCDIVINTPHASE, SBI_ICLK);
->> -	tmp &=3D 0xffff0000;
->> -	tmp |=3D sscdivintphase[idx];
->> -	intel_sbi_write(display, SBI_SSCDIVINTPHASE, tmp, SBI_ICLK);
->> +	intel_sbi_rmw(display, SBI_SSCDIVINTPHASE, 0x0000ffff, sscdivintphase[=
-idx], SBI_ICLK);
->>=20=20
->>  	intel_sbi_unlock(display);
->>  }
->> diff --git a/drivers/gpu/drm/i915/display/intel_sbi.c b/drivers/gpu/drm/=
-i915/display/intel_sbi.c
->> index b636a0060d39..e671a8b5f3be 100644
->> --- a/drivers/gpu/drm/i915/display/intel_sbi.c
->> +++ b/drivers/gpu/drm/i915/display/intel_sbi.c
->> @@ -81,6 +81,18 @@ void intel_sbi_write(struct intel_display *display, u=
-16 reg, u32 value,
->>  	intel_sbi_rw(display, reg, destination, &value, false);
->>  }
->>=20=20
->> +u32 intel_sbi_rmw(struct intel_display *display, u16 reg, u32 clear, u3=
-2 set,
->> +		  enum intel_sbi_destination destination)
->> +{
->> +	u32 old, val;
->> +
->> +	old =3D intel_sbi_read(display, reg, destination);
->> +	val =3D (old & ~clear) | set;
->> +	intel_sbi_write(display, reg, val, destination);
->> +
->> +	return old;
->> +}
->> +
->>  void intel_sbi_init(struct intel_display *display)
->>  {
->>  	mutex_init(&display->sbi.lock);
->> diff --git a/drivers/gpu/drm/i915/display/intel_sbi.h b/drivers/gpu/drm/=
-i915/display/intel_sbi.h
->> index 841f77a142a1..5e4afbbf25a6 100644
->> --- a/drivers/gpu/drm/i915/display/intel_sbi.h
->> +++ b/drivers/gpu/drm/i915/display/intel_sbi.h
->> @@ -23,5 +23,7 @@ u32 intel_sbi_read(struct intel_display *display, u16 =
-reg,
->>  		   enum intel_sbi_destination destination);
->>  void intel_sbi_write(struct intel_display *display, u16 reg, u32 value,
->>  		     enum intel_sbi_destination destination);
->> +u32 intel_sbi_rmw(struct intel_display *display, u16 reg, u32 clear, u3=
-2 set,
->> +		  enum intel_sbi_destination destination);
->>=20=20
->>  #endif /* _INTEL_SBI_H_ */
->> --=20
->> 2.47.3
+Patch overview:
+ - Patch 1 factors out the DSC slice count and link bpp lookup, to be
+   shared with the Min Hblank computation.
+ - Patch 2 adds the symbol based timing generator registers.
+ - Patch 3 adds the symbol based timing generator state to the crtc
+   state, with its state dump and state checker comparison.
+ - Patch 4 adds HAS_DP_SYMBOL_TG().
+ - Patch 5 computes the timing generator parameters.
+ - Patch 6 programs and enables the timing generator, including the
+   state readout.
+ - Patch 7 lifts the Link M/N ratio limit when the symbol based timing
+   generator is used.
 
---=20
-Jani Nikula, Intel
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: chaitanya.kumar.borah@intel.com
+Cc: uma.shankar@intel.com
+Cc: suraj.kandpal@intel.com
+To: intel-gfx@lists.freedesktop.org
+To: intel-xe@lists.freedesktop.org
+To: dri-devel@lists.freedesktop.org
+
+Bspec: 68922
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+Changes in v6:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v5: https://lore.kernel.org/r/20261120-vlk-64036-dp-symbol-tg-v5-0-bf8f78b32709@intel.com
+
+Changes in v5:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v4: https://lore.kernel.org/r/20261104-vlk-64036-dp-symbol-tg-v4-0-d06fe6c466a9@intel.com
+
+Changes in v4:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v3: https://lore.kernel.org/r/20261029-vlk-64036-dp-symbol-tg-v3-0-69022424ef17@intel.com
+
+Changes in v3:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v2: https://lore.kernel.org/r/20261028-vlk-64036-dp-symbol-tg-v2-0-43849c325d32@intel.com
+
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://lore.kernel.org/r/20261027-vlk-64036-dp-symbol-tg-v1-0-c46f4ebf67ed@intel.com
+
+---
+Arun R Murthy (13):
+      drm/i915/dp: Factor out the DSC slice count and link bpp lookup
+      drm/i915/display: Add the DP link layer symbol timing generator registers
+      drm/i915/display: Add the DP symbol timing generator crtc state
+      drm/i915/display: Add HAS_DP_SYMBOL_TG()
+      drm/dp: Add the DPCD definitions of the Rx minimum Hblank
+      drm/i915/dp: Compute the DP symbol based timing generator parameters
+      drm/i915/display: Program the DP symbol based timing generator
+      drm/i915/dp: Don't limit the Link M/N ratio with the symbol timing generator
+      drm/i915/dp: Select the symbol TG Data M/N matching the active PLL
+      drm/i915/dp: Prune the modes not fitting the DP symbol timing generator
+      drm/dp: Add a helper for the DP BW margin overhead
+      drm/i915/dp: Account for the symbol TG in the DP BW calculations
+      drm/i915/dp: Enable the DP symbol TG
+
+ drivers/gpu/drm/display/drm_dp_helper.c            |  86 ++--
+ drivers/gpu/drm/i915/display/intel_audio.c         |  28 +-
+ .../gpu/drm/i915/display/intel_crtc_state_dump.c   |  11 +
+ drivers/gpu/drm/i915/display/intel_ddi.c           |   2 +
+ drivers/gpu/drm/i915/display/intel_display.c       | 125 +++++-
+ drivers/gpu/drm/i915/display/intel_display.h       |   1 +
+ drivers/gpu/drm/i915/display/intel_display_core.h  |   5 +
+ .../gpu/drm/i915/display/intel_display_debugfs.c   |   3 +
+ .../gpu/drm/i915/display/intel_display_device.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_display_regs.h  |  38 ++
+ drivers/gpu/drm/i915/display/intel_display_types.h |  24 +
+ drivers/gpu/drm/i915/display/intel_dp.c            | 493 +++++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_dp.h            |  25 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c        | 119 ++++-
+ drivers/gpu/drm/i915/display/intel_dp_tunnel.c     |   4 +-
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c      |  31 ++
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h      |   2 +
+ include/drm/display/drm_dp.h                       |   5 +
+ include/drm/display/drm_dp_helper.h                |   1 +
+ 19 files changed, 894 insertions(+), 110 deletions(-)
+---
+base-commit: d56ff005f0d16ec136ee31fe3238eb447fefdc1a
+change-id: 20261027-vlk-64036-dp-symbol-tg-d72c4222856e
+
+Best regards,
+-- 
+Arun R Murthy <arun.r.murthy@intel.com>
+
