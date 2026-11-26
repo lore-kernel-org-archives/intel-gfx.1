@@ -2,60 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23AFD606A31E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 14:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C3Zemlo5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196DA606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 14:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB17112440;
-	Thu, 26 Nov 2026 14:10:07 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12E1610E9AE;
- Thu, 26 Nov 2026 14:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795702201; x=1827238201;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=CfojkDmzfVf1IAAAG8GvMbO3+44orj1p84MmF7wtqy0=;
- b=C3Zemlo5zKYOUkrf7SUSxpWIyHYHYJCAgpbYADKjm6ajMCE0y08K9EN2
- EHG9w6eETY7xZ7uJT9uX2lPchcXU7hoC2HrbCk0HTTLxMtDRR+oSvCUnQ
- AcS7SXGmHEL5vBdEzPYKyRXb/c18mOPSDsnNqwD5ysKQ9ODVXUsKovN2c
- 89QV+8jSYB4rMha1cjEmlqvn1iODjQzGMqJdDvcE2Ohta1vbdD0eC1ocZ
- CUFbbc4YKV5yvWAEr52jw9O7KqWnHMj/gIaUAZzPQlP6roBQ0i9aj5tN5
- 7n4VhifX02ms3UXKgQpB8FRyTucdHzeAAeRYfcSyHQb1j8scoPsCifRkZ A==;
-X-CSE-ConnectionGUID: 3cERKQ0MTxGRzDvrlyuW6w==
-X-CSE-MsgGUID: uYta5KycS5+pgSK0mMq84w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4522036"
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="4522036"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 06:10:00 -0800
-X-CSE-ConnectionGUID: 3knpX4rqTt2JJD8W4/T5JQ==
-X-CSE-MsgGUID: Og2YUN7ARpmaTAev9TByGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; d="scan'208";a="12221749"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.235])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 06:10:00 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/xe/compat: remove leftover
- intel_uncore_arm_unclaimed_mmio_detection()
-In-Reply-To: <paa4pkftdmgke2oqxa44gcjt5n4iowy4keqlmzws6yduu5g6dq@grxks4zi65zt>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261124133804.1509493-1-jani.nikula@intel.com>
- <paa4pkftdmgke2oqxa44gcjt5n4iowy4keqlmzws6yduu5g6dq@grxks4zi65zt>
-Date: Thu, 26 Nov 2026 16:09:56 +0200
-Message-ID: <7cf43261183a04010bf04fdfd9b9353449b92b73@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8F031124A9;
+	Thu, 26 Nov 2026 14:46:16 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02CB51124AB;
+ Thu, 26 Nov 2026 14:46:16 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5014914572004391396=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Account_for_2_PPC_horizon?=
+ =?utf-8?q?tal_downscale_inefficiency_in_min_CDCLK?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Uma Shankar" <uma.shankar@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2026 14:46:16 -0000
+Message-ID: <179570437600.93863.14867525453648137226@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261126121827.1951200-1-uma.shankar@intel.com>
+In-Reply-To: <20261126121827.1951200-1-uma.shankar@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,58 +34,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 24 Nov 2026, Micha=C5=82 Grzelak <michal.grzelak@linux.intel.com> w=
-rote:
-> On Tue, Nov 24, 2026 at 03:38:04PM GMT, Jani Nikula wrote:
->> When the unclaimed MMIO detection was moved to display, an xe compat
->> inline functionw was left behind. Remove it.
->
-> nit: *function
->
-> Reviewed-by: Micha=C5=82 Grzelak <michal.grzelak@linux.intel.com>
+--===============5014914572004391396==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Gah, forgot to fix the typo while pushing. *facepalm*
+== Series Details ==
 
-Thanks for the review.
+Series: Account for 2 PPC horizontal downscale inefficiency in min CDCLK
+URL   : https://patchwork.freedesktop.org/series/179748/
+State : success
 
->
-> BR,
-> Micha=C5=82
->
->>=20
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
->>  drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h | 6 ------
->>  1 file changed, 6 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h b/dri=
-vers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
->> index 238addc1e5fc..707f7ad0378d 100644
->> --- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
->> +++ b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
->> @@ -63,10 +63,4 @@ static inline void intel_uncore_write_fw(struct intel=
-_uncore *uncore,
->>  	xe_mmio_write32(__compat_uncore_to_mmio(uncore), reg, val);
->>  }
->>=20=20
->> -static inline bool
->> -intel_uncore_arm_unclaimed_mmio_detection(struct intel_uncore *uncore)
->> -{
->> -	return false;
->> -}
->> -
->>  #endif /* __INTEL_UNCORE_H__ */
->> --=20
->> 2.47.3
->>=20
+== Summary ==
 
---=20
-Jani Nikula, Intel
+CI Bug Log - changes from CI_DRM_19616 -> Patchwork_179748v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_179748v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - fi-bsw-n3050:       [PASS][1] -> [ABORT][2] ([i915#17765]) +1 other test abort
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19616/fi-bsw-n3050/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/fi-bsw-n3050/igt@i915_selftest@live.html
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [PASS][3] -> [DMESG-WARN][4] ([i915#13400])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19616/bat-rpls-4/igt@vgem_basic@unload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#17765]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17765
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19616 -> Patchwork_179748v1
+
+  CI-20190529: 20190529
+  CI_DRM_19616: c7a2a8c7a31d55cffae58b6551a554b65009c67a @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_179748v1: c7a2a8c7a31d55cffae58b6551a554b65009c67a @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/index.html
+
+--===============5014914572004391396==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Account for 2 PPC horizontal downscale inefficiency in min CDCLK</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179748/">https://patchwork.freedesktop.org/series/179748/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19616 -&gt; Patchwork_179748v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_179748v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19616/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/fi-bsw-n3050/igt@i915_selftest@live.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17765">i915#17765</a>) +1 other test abort</li>
+</ul>
+</li>
+<li>
+<p>igt@vgem_basic@unload:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19616/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179748v1/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19616 -&gt; Patchwork_179748v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19616: c7a2a8c7a31d55cffae58b6551a554b65009c67a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_179748v1: c7a2a8c7a31d55cffae58b6551a554b65009c67a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============5014914572004391396==--
