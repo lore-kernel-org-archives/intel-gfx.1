@@ -2,60 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184A9606A31E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 21:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DZhsrQmG
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41BC606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 21:28:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAC1B112724;
-	Thu, 26 Nov 2026 21:28:12 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8913C112724;
- Thu, 26 Nov 2026 21:28:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795728487; x=1827264487;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=p2x6Giot7XVvlDqbpgec9iy/8vGfscXcRS6AxvAfr5U=;
- b=DZhsrQmGj3cYAl9I98CTv32MGOXGOfAEIajTfAshnxjS8GWENykwNQgi
- JXggImAdW4TCkpCvabpxYmJm7A/i1F0ImIT2bIbNW8LnzS86QxhwYWbTh
- nyK92/8gSQ0pv+dF5MfsmsRAlkVg9/tjXXZr5I0x63Zg/HPaCUfWEJtKs
- rYcRBc+szSLqg9qCeQmQss7I93d9DVEg/HMi+/Igv5ST9mjt7QyWv1zm2
- 1a+nRV85K7LGX7OQBOHeKij7LlRAODFNi3JXyShKUEZo2G35Z0JsFanTC
- nmbQ1ykvz+tfwhAl+aEcyH9bKVjc5ZodlvAfU3UZnQeevX1b+3egulxSJ A==;
-X-CSE-ConnectionGUID: ieus5vs6S1aqNQcUsCwlhA==
-X-CSE-MsgGUID: uPnILYiORwqIRLvNgCepcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4537105"
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="4537105"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 13:28:06 -0800
-X-CSE-ConnectionGUID: +YVQ4cX/SsmLj4UAoNjbig==
-X-CSE-MsgGUID: Pg92jQ7+SBe+sTZ86Clf3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; d="scan'208";a="13933857"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.221])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 13:28:05 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 7/7] drm/i915/de: Document intel_de_write8()'s usage
- restrictions
-Date: Thu, 26 Nov 2026 23:27:28 +0200
-Message-ID: <20261126212728.9034-8-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126212728.9034-1-ville.syrjala@linux.intel.com>
-References: <20261126212728.9034-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 921E4112729;
+	Thu, 26 Nov 2026 21:28:45 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B263F11271A;
+ Thu, 26 Nov 2026 21:28:44 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1287401777301094332=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_vbt/modparams?=
+ =?utf-8?q?-related_cleanups?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Micha=C5=82_Grzelak?= <michal.grzelak@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2026 21:28:44 -0000
+Message-ID: <179572852472.95577.9684827057767914472@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261126180614.224327-1-michal.grzelak@linux.intel.com>
+In-Reply-To: <20261126180614.224327-1-michal.grzelak@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,38 +34,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============1287401777301094332==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-intel_de_read8() has a comment explaining the WARN and why the
-function doesn't need to do anything exotic beyond the raw
-readb(). Add a similar comment to intel_de_write8().
+== Series Details ==
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_de.c | 1 +
- 1 file changed, 1 insertion(+)
+Series: drm/i915: vbt/modparams-related cleanups
+URL   : https://patchwork.freedesktop.org/series/179788/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i915/display/intel_de.c
-index 6d34a03d243a..fb86abe0301d 100644
---- a/drivers/gpu/drm/i915/display/intel_de.c
-+++ b/drivers/gpu/drm/i915/display/intel_de.c
-@@ -165,6 +165,7 @@ u8 intel_de_read8(struct intel_display *display, intel_reg_t reg)
- 
- void intel_de_write8(struct intel_display *display, intel_reg_t reg, u8 val)
- {
-+	/* this is only used on VGA registers (possible on pre-g4x) */
- 	drm_WARN_ON(display->drm, DISPLAY_VER(display) >= 5 || display->platform.g4x);
- 
- 	trace_intel_reg_rw(true, reg, val, sizeof(val));
--- 
-2.56.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_19618 -> Patchwork_179788v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179788v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_179788v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19618/bat-rpls-4/igt@vgem_basic@unload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179788v1/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19618 -> Patchwork_179788v1
+
+  CI-20190529: 20190529
+  CI_DRM_19618: 436eec0ef1b65f139fa2f3c42aea97c29da57c8c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_179788v1: 436eec0ef1b65f139fa2f3c42aea97c29da57c8c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179788v1/index.html
+
+--===============1287401777301094332==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: vbt/modparams-related cleanups</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179788/">https://patchwork.freedesktop.org/series/179788/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179788v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179788v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19618 -&gt; Patchwork_179788v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179788v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_179788v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19618/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179788v1/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19618 -&gt; Patchwork_179788v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19618: 436eec0ef1b65f139fa2f3c42aea97c29da57c8c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_179788v1: 436eec0ef1b65f139fa2f3c42aea97c29da57c8c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1287401777301094332==--
