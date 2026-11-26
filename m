@@ -2,62 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17466606A339
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 12:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SoSiEVWn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FD4606A31E
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 12:28:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB18311215D;
-	Thu, 26 Nov 2026 12:12:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 882EA10FD80;
- Thu, 26 Nov 2026 12:12:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795695160; x=1827231160;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=F6HUKQ7jyfTgEI24/gHVUuD3Gaw/dj741/VRoH9kaIY=;
- b=SoSiEVWns4356mFlzl3IKEoAhJLSsYUrzvGvmKsHmypu/BgMpM5c1ho/
- e5UkX6pYmCY+TCnPQy6n84+kfjE64pXUqQRtvQVBjOXA+KKthuomzuuLy
- 5J0ffl67LQfIW+Yr8oWl67jis25BaCLQDDjpbPbR5nMEKxfRU2+hOkjEM
- rm4WIxufilW8JV4qjnLeXXm1FXljDR2mn1Q0WX4EysiDWRopU1VizV+U6
- 4qgSgd16r1gEMAqD0l4BR/vZ3frI62q7juTDHxtPo8BZGc+ckiWUHfwiv
- o2bFl2cz3LO3H2/WZc/ZJje276f2SrSQeBdVqOGHOlmzlQxwnuVcouRl1 A==;
-X-CSE-ConnectionGUID: sXPm/HsMReWlzuN5PTuOEA==
-X-CSE-MsgGUID: 14bS9nG5QrCZMU1/dEgRag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4688125"
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4688125"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 04:12:39 -0800
-X-CSE-ConnectionGUID: ChgYRR/qSx26BVcy6SNjaQ==
-X-CSE-MsgGUID: Rs+Pw1X4Qx6fQQz2yv/8/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12456950"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.221])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 04:12:37 -0800
-Date: Thu, 26 Nov 2026 14:12:34 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Uma Shankar <uma.shankar@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] Revert "drm/i915/cdclk: Deal with 2 PPC hscale
- issues when calculating min CDCLK"
-Message-ID: <awgiMrUUq4h8wc9M@intel.com>
-References: <20261126121827.1951200-1-uma.shankar@intel.com>
- <20261126121827.1951200-2-uma.shankar@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCF110E3A1;
+	Thu, 26 Nov 2026 12:28:46 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50DF710E3A1;
+ Thu, 26 Nov 2026 12:28:45 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3202094566267354807=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261126121827.1951200-2-uma.shankar@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Reject_reloca?=
+ =?utf-8?q?tion_writes_to_RO_userptr_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2026 12:28:45 -0000
+Message-ID: <179569612531.92853.10897664522699416116@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261126094444.52858-1-joonas.lahtinen@linux.intel.com>
+In-Reply-To: <20261126094444.52858-1-joonas.lahtinen@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,209 +34,162 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 26, 2026 at 05:48:26PM +0530, Uma Shankar wrote:
-> This reverts commit f69946f6d891aca1614233573741543b3bab4e6a.
-> 
-> The empirical "double the entire fractional part of hscale and
-> multiply by vscale" formula overestimates the min CDCLK. Bspec now
-> documents the actual 2 PPC downscale formula, which will be
-> implemented in a follow-up patch.
+--===============3202094566267354807==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Why are you reverting this and then adding it back? Just add the
-min() to the existing thing?
+== Series Details ==
 
-> 
-> Conflicts resolved against the later GMCH pfit rework: the shared
-> intel_crtc_compute_pixel_rate() now simply uses the pipe pixel rate
-> as the CDCLK pixel rate again. GMCH platforms are 1 PPC, so nothing
-> changes for them.
-> 
-> Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c  | 27 +--------
->  drivers/gpu/drm/i915/display/intel_plane.c    | 55 -------------------
->  drivers/gpu/drm/i915/display/intel_plane.h    |  5 --
->  .../drm/i915/display/skl_universal_plane.c    |  6 +-
->  4 files changed, 4 insertions(+), 89 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 19caae633d29..3235bcbbf054 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -2283,30 +2283,6 @@ intel_pipe_pixel_rate(const struct intel_crtc_state *crtc_state)
->  				   pixel_rate);
->  }
->  
-> -static unsigned int
-> -intel_pipe_pixel_rate_cdclk(const struct intel_crtc_state *crtc_state)
-> -{
-> -	struct intel_display *display = to_intel_display(crtc_state);
-> -	u32 pixel_rate = crtc_state->hw.pipe_mode.crtc_clock;
-> -	unsigned int ppc = HAS_2PPC(display) ? 2 : 1;
-> -	struct drm_rect src;
-> -
-> -	/*
-> -	 * We only use IF-ID interlacing. If we ever use
-> -	 * PF-ID we'll need to adjust the pixel_rate here.
-> -	 */
-> -
-> -	if (!crtc_state->pfit.enabled)
-> -		return pixel_rate;
-> -
-> -	drm_rect_init(&src, 0, 0,
-> -		      drm_rect_width(&crtc_state->pipe_src) << 16,
-> -		      drm_rect_height(&crtc_state->pipe_src) << 16);
-> -
-> -	return intel_adjusted_rate_cdclk(&src, &crtc_state->pfit.dst,
-> -					 pixel_rate, ppc);
-> -}
-> -
->  static void intel_mode_from_crtc_timings(struct drm_display_mode *mode,
->  					 const struct drm_display_mode *timings)
->  {
-> @@ -2332,8 +2308,7 @@ static void intel_crtc_compute_pixel_rate(struct intel_crtc_state *crtc_state)
->  {
->  	crtc_state->pixel_rate =
->  		intel_pipe_pixel_rate(crtc_state);
-> -	crtc_state->pixel_rate_cdclk =
-> -		intel_pipe_pixel_rate_cdclk(crtc_state);
-> +	crtc_state->pixel_rate_cdclk = crtc_state->pixel_rate;
->  }
->  
->  static void intel_joiner_adjust_timings(const struct intel_crtc_state *crtc_state,
-> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
-> index d23de0f34e4b..82dcb1d87b5e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_plane.c
-> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
-> @@ -265,50 +265,6 @@ unsigned int intel_adjusted_rate(const struct drm_rect *src,
->  				dst_w * dst_h);
->  }
->  
-> -static unsigned int hscale_cdclk(const struct drm_rect *src,
-> -				 const struct drm_rect *dst,
-> -				 unsigned int ppc)
-> -{
-> -	unsigned int hscale;
-> -
-> -	hscale = drm_rect_calc_hscale(src, dst, 0, INT_MAX);
-> -	hscale = max(hscale, 0x10000);
-> -
-> -	/*
-> -	 * Double the fractional part due to some 2 PPC granularity issue
-> -	 *
-> -	 * FIXME: BSpec calls for doubling only the <0.5 fractional part,
-> -	 * and rounding it down to a unit fraction. In practice that is
-> -	 * not sufficient, and we need a more aggressive CDCLK bump in
-> -	 * many cases. The updated formula was derived empirically.
-> -	 * This may need to be updated once we have better undestading
-> -	 * of what's happening in the hardware...
-> -	 */
-> -	return (hscale & ~0xffff) + ppc * (hscale & 0xffff);
-> -}
-> -
-> -static unsigned int vscale_cdclk(const struct drm_rect *src,
-> -				 const struct drm_rect *dst)
-> -{
-> -	unsigned int vscale;
-> -
-> -	vscale = drm_rect_calc_vscale(src, dst, 0, INT_MAX);
-> -	vscale = max(vscale, 0x10000);
-> -
-> -	return vscale;
-> -}
-> -
-> -unsigned int intel_adjusted_rate_cdclk(const struct drm_rect *src,
-> -				       const struct drm_rect *dst,
-> -				       unsigned int rate,
-> -				       unsigned int ppc)
-> -{
-> -	unsigned int hscale = hscale_cdclk(src, dst, ppc);
-> -	unsigned int vscale = vscale_cdclk(src, dst);
-> -
-> -	return DIV64_U64_ROUND_UP((u64)rate * hscale * vscale, 1ull << 32);
-> -}
-> -
->  unsigned int intel_plane_pixel_rate(const struct intel_crtc_state *crtc_state,
->  				    const struct intel_plane_state *plane_state)
->  {
-> @@ -329,17 +285,6 @@ unsigned int intel_plane_pixel_rate(const struct intel_crtc_state *crtc_state,
->  				   crtc_state->pixel_rate);
->  }
->  
-> -unsigned int intel_plane_pixel_rate_cdclk(const struct intel_crtc_state *crtc_state,
-> -					  const struct intel_plane_state *plane_state)
-> -{
-> -	struct intel_display *display = to_intel_display(crtc_state);
-> -	unsigned int ppc = HAS_2PPC(display) ? 2 : 1;
-> -
-> -	return intel_adjusted_rate_cdclk(&plane_state->uapi.src,
-> -					 &plane_state->uapi.dst,
-> -					 crtc_state->pixel_rate_cdclk, ppc);
-> -}
-> -
->  unsigned int intel_plane_data_rate(const struct intel_crtc_state *crtc_state,
->  				   const struct intel_plane_state *plane_state,
->  				   int color_plane)
-> diff --git a/drivers/gpu/drm/i915/display/intel_plane.h b/drivers/gpu/drm/i915/display/intel_plane.h
-> index dba2be24aae2..31a6229aea73 100644
-> --- a/drivers/gpu/drm/i915/display/intel_plane.h
-> +++ b/drivers/gpu/drm/i915/display/intel_plane.h
-> @@ -29,13 +29,8 @@ bool intel_plane_can_async_flip(struct intel_plane *plane,
->  unsigned int intel_adjusted_rate(const struct drm_rect *src,
->  				 const struct drm_rect *dst,
->  				 unsigned int rate);
-> -unsigned int intel_adjusted_rate_cdclk(const struct drm_rect *src,
-> -				       const struct drm_rect *dst,
-> -				       unsigned int rate, unsigned int ppc);
->  unsigned int intel_plane_pixel_rate(const struct intel_crtc_state *crtc_state,
->  				    const struct intel_plane_state *plane_state);
-> -unsigned int intel_plane_pixel_rate_cdclk(const struct intel_crtc_state *crtc_state,
-> -					  const struct intel_plane_state *plane_state);
->  
->  unsigned int intel_plane_data_rate(const struct intel_crtc_state *crtc_state,
->  				   const struct intel_plane_state *plane_state,
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> index def4798f8502..4cd868d11ad6 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> @@ -267,7 +267,7 @@ bool icl_is_hdr_plane(struct intel_display *display, enum plane_id plane_id)
->  static int icl_plane_min_cdclk(const struct intel_crtc_state *crtc_state,
->  			       const struct intel_plane_state *plane_state)
->  {
-> -	unsigned int pixel_rate = intel_plane_pixel_rate_cdclk(crtc_state, plane_state);
-> +	unsigned int pixel_rate = intel_plane_pixel_rate(crtc_state, plane_state);
->  
->  	/* two pixels per clock */
->  	return DIV_ROUND_UP(pixel_rate, 2);
-> @@ -291,7 +291,7 @@ glk_plane_ratio(const struct intel_plane_state *plane_state,
->  static int glk_plane_min_cdclk(const struct intel_crtc_state *crtc_state,
->  			       const struct intel_plane_state *plane_state)
->  {
-> -	unsigned int pixel_rate = intel_plane_pixel_rate_cdclk(crtc_state, plane_state);
-> +	unsigned int pixel_rate = intel_plane_pixel_rate(crtc_state, plane_state);
->  	unsigned int num, den;
->  
->  	glk_plane_ratio(plane_state, &num, &den);
-> @@ -318,7 +318,7 @@ skl_plane_ratio(const struct intel_plane_state *plane_state,
->  static int skl_plane_min_cdclk(const struct intel_crtc_state *crtc_state,
->  			       const struct intel_plane_state *plane_state)
->  {
-> -	unsigned int pixel_rate = intel_plane_pixel_rate_cdclk(crtc_state, plane_state);
-> +	unsigned int pixel_rate = intel_plane_pixel_rate(crtc_state, plane_state);
->  	unsigned int num, den;
->  
->  	skl_plane_ratio(plane_state, &num, &den);
-> -- 
-> 2.50.1
+Series: drm/i915: Reject relocation writes to RO userptr (rev2)
+URL   : https://patchwork.freedesktop.org/series/179732/
+State : success
 
--- 
-Ville Syrjälä
-Intel
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_19615 -> Patchwork_179732v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/index.html
+
+Participating hosts (40 -> 38)
+------------------------------
+
+  Missing    (2): bat-dg2-13 bat-adls-6 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_179732v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +80 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#15673]) +49 other tests dmesg-warn
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  
+#### Possible fixes ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [DMESG-WARN][5] ([i915#13400]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/bat-rpls-4/igt@vgem_basic@unload.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19615 -> Patchwork_179732v2
+
+  CI-20190529: 20190529
+  CI_DRM_19615: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_179732v2: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/index.html
+
+--===============3202094566267354807==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Reject relocation writes to RO userptr (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179732/">https://patchwork.freedesktop.org/series/179732/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19615 -&gt; Patchwork_179732v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_179732v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +80 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +49 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v2/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19615 -&gt; Patchwork_179732v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19615: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_179732v2: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3202094566267354807==--
