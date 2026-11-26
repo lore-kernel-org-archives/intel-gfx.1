@@ -2,54 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5045606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 18:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BjZfq7zq
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A708F606A332
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 18:51:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7803810EA43;
-	Thu, 26 Nov 2026 18:49:16 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAB6A10EA17;
- Thu, 26 Nov 2026 18:49:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795718950; x=1827254950;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ziSeXISeoB5JnU3m7EO3SqqXPxF1FCUkxTOhHjEEJ+k=;
- b=BjZfq7zqTbeW20jpk1TuIqGzs03uTa8YZBrxjPf+/jNZ+zCHTVscd2HK
- XHdrEgrd6cH4uMGXyMd4dJq09NyCaePx7jnIVWMuxrTUUR66iuE9tzQDe
- HXe6WutajXdWOrvh36HX28XiaJB8ULNBjOOse9emOqwM7VwOMMY6Z/kM3
- h/Kr6OClP5GCEpwjw0qH5e0pCwIj93ulGe6c5+eSmwRfBAjrJ645kPVYb
- BFFufDrHBV9pu8GWOPDzyk1YD355TXkM7vbwim5mjrndfwoYTu2z/p7dg
- sRENiOm8/RmceU0O2Qq2zm8UyOIMN0OXr5p116Q9sNbB9oIOAarP6dghG A==;
-X-CSE-ConnectionGUID: Pw1zr+k2QeKJ7iMiuexspQ==
-X-CSE-MsgGUID: wR71wWNFSLyfSHilqb/eEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4478864"
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="4478864"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 10:49:09 -0800
-X-CSE-ConnectionGUID: XMidqCanR7uVUpx/8kNFZA==
-X-CSE-MsgGUID: SzfFBa7HS3KsdZFAK4NyJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; d="scan'208";a="12120363"
-Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by orviesa005.jf.intel.com with ESMTP; 26 Nov 2026 10:49:08 -0800
-From: Uma Shankar <uma.shankar@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, Uma Shankar <uma.shankar@intel.com>,
- Vidya Srinivas <vidya.srinivas@intel.com>
-Subject: [PATCH] drm/i915/cdclk: Fix 2 PPC hscale adjustment for min CDCLK
-Date: Fri, 27 Nov 2026 00:40:32 +0530
-Message-ID: <20261126191032.1961148-1-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.50.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BBE010E2D8;
+	Thu, 26 Nov 2026 18:51:50 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8604E10E2D8;
+ Thu, 26 Nov 2026 18:51:49 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============9032668011228764790=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/de=3A_Convert_mm?=
+ =?utf-8?q?io=2Elock_to_raw_spinlock_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2026 18:51:49 -0000
+Message-ID: <179571910953.95139.17116385811783173209@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261125155831.17395-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20261125155831.17395-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,110 +34,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The horizontal scaler filter works at 2 PPC, but still needs a full
-clock for a fractional shift of just one pixel. It doesn't shift by
-two pixels and re-align the taps, so the extra clock doesn't average
-out.
+--===============9032668011228764790==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Bspec now documents the downscale amount used for the min CDCLK
-calculation as:
+== Series Details ==
 
-  hscale_ppc = int(hscale) + min(1, ppc * frac(hscale))
-  downscale  = max(hscale_ppc, hscale * vscale)
+Series: drm/i915/de: Convert mmio.lock to raw spinlock (rev2)
+URL   : https://patchwork.freedesktop.org/series/179653/
+State : success
 
-Compared to the empirical formula we have now, the fractional penalty
-is capped at one extra clock, and since the scaler filters vertically
-first the penalty does not multiply with the vertical downscale factor.
-Update the code to match.
+== Summary ==
 
-Platforms without 2 PPC (ppc == 1) are unaffected as the formula then
-reduces to hscale * vscale.
+CI Bug Log - changes from CI_DRM_19617 -> Patchwork_179653v2
+====================================================
 
-Bspec: 68858
-Fixes: f69946f6d891 ("drm/i915/cdclk: Deal with 2 PPC hscale issues when calculating min CDCLK")
-Tested-by: Vidya Srinivas <vidya.srinivas@intel.com>
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_plane.c | 42 ++++++++++++++--------
- 1 file changed, 27 insertions(+), 15 deletions(-)
+Summary
+-------
 
-diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
-index d23de0f34e4b..4a430d6a0ba9 100644
---- a/drivers/gpu/drm/i915/display/intel_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_plane.c
-@@ -266,25 +266,28 @@ unsigned int intel_adjusted_rate(const struct drm_rect *src,
- }
- 
- static unsigned int hscale_cdclk(const struct drm_rect *src,
--				 const struct drm_rect *dst,
--				 unsigned int ppc)
-+				 const struct drm_rect *dst)
- {
- 	unsigned int hscale;
- 
- 	hscale = drm_rect_calc_hscale(src, dst, 0, INT_MAX);
- 	hscale = max(hscale, 0x10000);
- 
--	/*
--	 * Double the fractional part due to some 2 PPC granularity issue
--	 *
--	 * FIXME: BSpec calls for doubling only the <0.5 fractional part,
--	 * and rounding it down to a unit fraction. In practice that is
--	 * not sufficient, and we need a more aggressive CDCLK bump in
--	 * many cases. The updated formula was derived empirically.
--	 * This may need to be updated once we have better undestading
--	 * of what's happening in the hardware...
--	 */
--	return (hscale & ~0xffff) + ppc * (hscale & 0xffff);
-+	return hscale;
-+}
-+
-+/*
-+ * Bspec: 68858
-+ *
-+ * The horizontal filter works at 2 PPC but still needs a full clock
-+ * for a fractional shift of just 1 pixel, so the fractional part of
-+ * the horizontal downscale factor costs PPC times more, but at most
-+ * one full extra clock.
-+ */
-+static unsigned int hscale_ppc_cdclk(unsigned int hscale,
-+				     unsigned int ppc)
-+{
-+	return (hscale & ~0xffff) + min(ppc * (hscale & 0xffff), 0x10000);
- }
- 
- static unsigned int vscale_cdclk(const struct drm_rect *src,
-@@ -303,10 +306,19 @@ unsigned int intel_adjusted_rate_cdclk(const struct drm_rect *src,
- 				       unsigned int rate,
- 				       unsigned int ppc)
- {
--	unsigned int hscale = hscale_cdclk(src, dst, ppc);
-+	unsigned int hscale = hscale_cdclk(src, dst);
- 	unsigned int vscale = vscale_cdclk(src, dst);
-+	u64 scale;
-+
-+	/*
-+	 * The scaler filters vertically first, so the horizontal
-+	 * PPC inefficiency doesn't multiply with the vertical
-+	 * downscale factor. .32 fixed point.
-+	 */
-+	scale = max((u64)hscale_ppc_cdclk(hscale, ppc) << 16,
-+		    mul_u32_u32(hscale, vscale));
- 
--	return DIV64_U64_ROUND_UP((u64)rate * hscale * vscale, 1ull << 32);
-+	return DIV64_U64_ROUND_UP(rate * scale, 1ull << 32);
- }
- 
- unsigned int intel_plane_pixel_rate(const struct intel_crtc_state *crtc_state,
--- 
-2.50.1
+  **SUCCESS**
 
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179653v2/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_179653v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19617/bat-rpls-4/igt@vgem_basic@unload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179653v2/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19617 -> Patchwork_179653v2
+
+  CI-20190529: 20190529
+  CI_DRM_19617: 91d4e6d273671ae6821e97e2bebabaa0a553dde5 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_179653v2: 91d4e6d273671ae6821e97e2bebabaa0a553dde5 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179653v2/index.html
+
+--===============9032668011228764790==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/de: Convert mmio.lock to raw spinlock (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179653/">https://patchwork.freedesktop.org/series/179653/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179653v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179653v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19617 -&gt; Patchwork_179653v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179653v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_179653v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@vgem_basic@unload:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19617/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179653v2/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19617 -&gt; Patchwork_179653v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19617: 91d4e6d273671ae6821e97e2bebabaa0a553dde5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_179653v2: 91d4e6d273671ae6821e97e2bebabaa0a553dde5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============9032668011228764790==--
