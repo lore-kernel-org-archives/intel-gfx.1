@@ -2,60 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5B4606A31E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 13:25:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB29606A321
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 13:26:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lPGJg5CD
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=APEzf/Fy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 033EF1123E6;
-	Thu, 26 Nov 2026 13:25:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4CB71123E6;
- Thu, 26 Nov 2026 13:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF35F1123F5;
+	Thu, 26 Nov 2026 13:25:58 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 830D81123F7;
+ Thu, 26 Nov 2026 13:25:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795699522; x=1827235522;
+ t=1795699553; x=1827235553;
  h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=6rcHp35KtgLDvy/OPqUNVdYFy2OnO1E4CtTopejbOlo=;
- b=lPGJg5CDCJinLnpAk09UhD/dvifBCXpQBUvPcmI4chGq+cxZs5Mlbmbm
- VU5TSTKFm7k3VhI/gK4nisS0FUYfx+qdwls5+X7BqpebXMCAGzUKgS7Bv
- k/4aBMhMfWG6rgkMr34BWql6wMu2yhC0V50EsZrZSR9OLi1E32hSe2oyK
- jOdYejJ7y06Gz8le6X96+3xHrU5zys3WBHFQisvRIOY01nlLY3EThSYYA
- TGfHKLFQryOgDWQW1qB+QBbiCXvlq0aUni7YX4W6qN0YeH5BdsAoEz6aR
- 7/IwptzzcuLI6FN161XuA21QiaX2yW9vZQOJ4XsXg66NbW+DzsiJifN83 g==;
-X-CSE-ConnectionGUID: en6fuZgZTGmihsvozdhWfw==
-X-CSE-MsgGUID: k2FgUvfWTdCYovPoYmrq5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4578491"
+ mime-version; bh=HQomLUyOjzobaNwZ216abVYh66BrMdgL/aiNmJGH/4A=;
+ b=APEzf/FyrhymCrw6U3hwPt+4QXIrOHlAQGTzstbjwlHRBHN9IlpueBvr
+ LKY9dp/K2hkYDmHppP7zVLf+3b9+A5qfnAq78bw/VRrsF/T9MRfbwRSdz
+ 0IWCIqa4r68HQ68WSLwytNekbC0yDTdFknSH6+0ImECn9crqygJs92TIe
+ nLu0Ix7wLWqRKaHueXFVmQEtgp/1uwAPYQsHFsLeERSvqy+p6wvEZvAEU
+ vaLZkHHddUSbm9WYnFgjOJBkCge4cf5IpYrCdySSfZ/dLWR3f1b+QSEp2
+ HK/B1zDwx26SO9LScRSLq0fEyaE9GtxImAVK9Y2il7VCXwUMmW4vSfrhj w==;
+X-CSE-ConnectionGUID: z9PLxBQrTE+qeoM8FamMMw==
+X-CSE-MsgGUID: mqc3o+ITTAOOckT/tf9MJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4564501"
 X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4578491"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 05:25:21 -0800
-X-CSE-ConnectionGUID: /0X0rbg+Rw6sxw+DKmbY9Q==
-X-CSE-MsgGUID: wKxvjBUdScaDiZB02FbTMA==
+   d="scan'208";a="4564501"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2026 05:25:52 -0800
+X-CSE-ConnectionGUID: aBal8JBORi23Nz4XE6P3ig==
+X-CSE-MsgGUID: kwCCb1d/TSCxS2fAuOKT+Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12031430"
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12399092"
 Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.235])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 05:25:20 -0800
+ 26 Nov 2026 05:25:50 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 11/13] drm/i915/ddi_mgr: Verify and restore DDI
- allocations after runtime resume
-In-Reply-To: <20261126100755.1252635-12-imre.deak@intel.com>
+Subject: Re: [PATCH 12/13] drm/i915/ddi_mgr: Handle DDI pool system suspend
+ and resume
+In-Reply-To: <20261126100755.1252635-13-imre.deak@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20261126100755.1252635-1-imre.deak@intel.com>
- <20261126100755.1252635-12-imre.deak@intel.com>
-Date: Thu, 26 Nov 2026 15:25:16 +0200
-Message-ID: <ba22619bb6a72f0148c62f1ce123fc5c67c37f53@intel.com>
+ <20261126100755.1252635-13-imre.deak@intel.com>
+Date: Thu, 26 Nov 2026 15:25:47 +0200
+Message-ID: <8a94c7e3b2f58657a072ed654de3a031f2839fda@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,407 +73,270 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On Thu, 26 Nov 2026, Imre Deak <imre.deak@intel.com> wrote:
-> Check that the IOM resource pool and recorded legacy PHY assignments are
-> preserved across runtime suspend. Restore missing legacy assignments to
-> their original DDIs when those DDIs are free and the PHYs have no other
-> assignment.
+> Firmware may change DDI assignments during system suspend. Rebuild the
+> legacy routes on normal resume after IRQ postinstall masks HPD, and
+> refresh encoder VBT data, Type-C mode and lane reversal before hardware
+> readout and modeset restore. Update the logical HPD pin to HW IRQ source
+> mappings while keeping each encoder's logical pin fixed, so HPD block
+> counts need not be moved between pins.
 >
-> Firmware may reuse a legacy DDI while the device is suspended. Track
-> allocations that could not be restored separately from the saved routes,
-> and report their connectors as disconnected until the allocations can
-> be restored. Reject enabling these connectors, including when the loss
-> is discovered by the commit's runtime resume, while allowing them to be
-> detached.
+> Keep legacy assignments found in hardware. When a legacy PHY needs a
+> new assignment, prefer its pre-suspend DDI before identity or other free
+> DDIs, keeping the same DRM connector where possible.
+>
+> Rebuild source and common link limits when a route changes, resetting
+> link-training/recovery state while retaining cached sink capabilities
+> for normal resume and detection.
+>
+> Disable pool DDC adapters during suspend and restore their routes before
+> the resume modeset. On failed xe suspend recovery, preserve cached
+> allocations and HPD mappings because HW HPD IRQs stayed enabled
+> throughout the sequence.
+>
+> When restoring the pre-suspend display configuration, reject modesets
+> for HDMI connectors whose encoders no longer serve HDMI-capable legacy
+> PHYs, or DP connectors whose encoders now serve legacy PHYs without DP
+> support. If DDI configuration fails, switch the pool encoders to ALT-only
+> operation, allowing DP restores while keeping HDMI unavailable.
 >
 > Signed-off-by: Imre Deak <imre.deak@intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_ddi_mgr.c  | 123 ++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_ddi_mgr.h  |   2 +
->  drivers/gpu/drm/i915/display/intel_display.c  |  12 +-
->  .../drm/i915/display/intel_display_driver.c   |   3 +
->  drivers/gpu/drm/i915/display/intel_tc.c       |  33 ++++-
->  drivers/gpu/drm/xe/display/xe_display.c       |   3 +
->  6 files changed, 174 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_ddi_mgr.c  | 77 +++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_ddi_mgr.h  |  2 +
+>  .../drm/i915/display/intel_display_driver.c   |  1 +
+>  drivers/gpu/drm/i915/display/intel_dp.c       |  9 +++
+>  drivers/gpu/drm/i915/display/intel_dp.h       |  1 +
+>  drivers/gpu/drm/i915/display/intel_tc.c       | 13 ++++
+>  drivers/gpu/drm/i915/display/intel_tc.h       |  1 +
+>  drivers/gpu/drm/i915/i915_driver.c            |  7 ++
+>  drivers/gpu/drm/xe/display/xe_display.c       |  6 ++
+>  9 files changed, 117 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c b/drivers/gpu/d=
-rm/i915/display/intel_ddi_mgr.c
-> index 236146a37fc34..8f32e7c8dff27 100644
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c b/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
+> index 8f32e7c8dff27..a0157ff6afc04 100644
 > --- a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
 > +++ b/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: MIT
->  /* Copyright =C2=A9 2026 Intel Corporation */
->=20=20
-> +#include <linux/compiler.h>
->  #include <linux/iopoll.h>
->  #include <linux/seq_buf.h>
->  #include <linux/string.h>
-> @@ -45,6 +46,7 @@ struct intel_ddi_mgr {
->  	struct intel_ddi_route route[INTEL_DDI_MGR_NUM_PORTS];
->  	u8 ddc_pin[INTEL_DDI_MGR_NUM_PORTS];
->  	u8 pool_ddi_mask;
-> +	u8 disabled_ddi_mask;
->  	u8 legacy_phy_mask;
->  	u16 ddc_pins;
->  	bool has_hdmi;
-> @@ -101,6 +103,16 @@ bool intel_ddi_mgr_is_pool_ddi(struct intel_display =
-*display, enum port ddi)
->  		display->ddi_mgr->pool_ddi_mask & BIT(ddi - PORT_TC1);
->  }
->=20=20
-> +bool intel_ddi_mgr_is_ddi_disabled(struct intel_display *display, enum p=
-ort ddi)
-> +{
-> +	struct intel_ddi_mgr *mgr =3D display->ddi_mgr;
-> +
-> +	if (!mgr || ddi < PORT_TC1 || ddi > PORT_TC4)
-> +		return false;
-> +
-> +	return READ_ONCE(mgr->disabled_ddi_mask) & BIT(ddi - PORT_TC1);
-> +}
-> +
->  bool intel_ddi_mgr_pool_supports_hdmi(struct intel_display *display)
->  {
->  	struct intel_ddi_mgr *mgr =3D display->ddi_mgr;
-> @@ -165,6 +177,9 @@ bool intel_ddi_mgr_aux_available(struct intel_encoder=
- *encoder)
->  {
->  	struct intel_display *display =3D to_intel_display(encoder);
->=20=20
-> +	if (intel_ddi_mgr_is_ddi_disabled(display, encoder->port))
-> +		return false;
-> +
->  	if (!intel_ddi_mgr_is_pool_ddi(display, encoder->port))
->  		return true;
->=20=20
-> @@ -193,6 +208,9 @@ bool intel_ddi_mgr_connector_available(struct intel_c=
-onnector *connector)
->  		return true;
->=20=20
->  	encoder =3D &dig_port->base;
-> +	if (intel_ddi_mgr_is_ddi_disabled(display, encoder->port))
-> +		return false;
-> +
->  	if (connector->base.connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA)
->  		return intel_ddi_mgr_is_legacy_pool_encoder(encoder) &&
->  			(intel_bios_encoder_supports_hdmi(encoder->devdata) ||
-> @@ -822,6 +840,111 @@ static void update_hpd_sources(struct intel_display=
- *display)
+> @@ -840,6 +840,83 @@ static void update_hpd_sources(struct intel_display *display)
 >  	}
 >  }
->=20=20
-> +static u8 legacy_ddi_mismatch_mask(const struct intel_ddi_mgr *mgr, u32 =
-resources)
+>  
+> +void intel_ddi_mgr_suspend(struct intel_display *display)
 > +{
-> +	u8 ddi_mask =3D 0;
-> +	int ddi;
-> +
-> +	for (ddi =3D 0; ddi < INTEL_DDI_MGR_NUM_PORTS; ddi++) {
-> +		const struct intel_ddi_route *route =3D &mgr->route[ddi];
-> +
-> +		if (!(mgr->pool_ddi_mask & BIT(ddi)) ||
-> +		    route->mode !=3D INTEL_DDI_ROUTE_LEGACY)
-> +			continue;
-> +
-> +		if (IOM_DDI_CONSUMER_GET(resources, ddi) !=3D
-> +		    IOM_DDI_CONSUMER_PHY(route->phy))
-> +			ddi_mask |=3D BIT(ddi);
-> +	}
-> +
-> +	return ddi_mask;
-> +}
-> +
-> +static u32 restore_legacy_allocations(struct intel_display *display, u32=
- resources)
-> +{
-> +	struct intel_ddi_mgr *mgr =3D display->ddi_mgr;
-> +	u32 new_resources =3D resources;
-> +	u32 readback;
-> +	int ddi, slot;
-> +
-> +	for (ddi =3D 0; ddi < INTEL_DDI_MGR_NUM_PORTS; ddi++) {
-> +		const struct intel_ddi_route *route =3D &mgr->route[ddi];
-> +		u32 consumer =3D IOM_DDI_CONSUMER_GET(resources, ddi);
-> +
-> +		if (!(mgr->pool_ddi_mask & BIT(ddi)) || route->mode !=3D INTEL_DDI_ROU=
-TE_LEGACY)
-> +			continue;
-> +
-> +		if (consumer !=3D IOM_DDI_CONSUMER_FREE)
-> +			continue;
-> +
-> +		for (slot =3D 0; slot < IOM_DDI_NUM_SLOTS; slot++)
-> +			if (IOM_DDI_CONSUMER_GET(resources, slot) =3D=3D
-> +			    IOM_DDI_CONSUMER_PHY(route->phy))
-> +				break;
-> +
-> +		if (slot < IOM_DDI_NUM_SLOTS)
-> +			continue;
-> +
-> +		new_resources |=3D IOM_DDI_CONSUMER(ddi, IOM_DDI_CONSUMER_PHY(route->p=
-hy));
-> +	}
-> +
-> +	if (new_resources =3D=3D resources)
-> +		return resources;
-> +
-> +	intel_de_write(display, IOM_DP_RESOURCE_MNG, new_resources);
-> +	readback =3D intel_de_read(display, IOM_DP_RESOURCE_MNG);
-> +	if (readback !=3D new_resources)
-> +		drm_err(display->drm,
-> +			"DDIMGR: DDI restore mismatch: requested 0x%08x, read 0x%08x\n",
-> +			new_resources, readback);
-> +
-> +	return readback;
-> +}
-> +
-> +void intel_ddi_mgr_verify_state(struct intel_display *display)
-> +{
-> +	struct intel_ddi_mgr *mgr =3D display->ddi_mgr;
-> +	u8 old_disabled_ddi_mask, disabled_ddi_mask;
-> +	u32 resources;
-> +	int err;
-> +
-> +	if (!intel_ddi_mgr_is_enabled(mgr))
+> +	if (!intel_ddi_mgr_is_enabled(display->ddi_mgr))
 > +		return;
 > +
-> +	old_disabled_ddi_mask =3D READ_ONCE(mgr->disabled_ddi_mask);
+> +	intel_gmbus_ddi_pool_update(display, false);
+> +}
 > +
-> +	err =3D iom_lock(display);
+> +static void resume_ddi_resource(struct intel_display *display,
+> +				struct intel_encoder *encoder,
+> +				const struct intel_ddi_route *old_route)
+> +{
+> +	struct intel_ddi_mgr *mgr = display->ddi_mgr;
+> +	struct intel_digital_port *dig_port;
+> +	const struct intel_ddi_route *route;
+> +
+> +	if (!encoder)
+> +		return;
+> +
+> +	route = &mgr->route[encoder->port - PORT_TC1];
+> +	dig_port = enc_to_dig_port(encoder);
+> +	encoder->devdata = intel_ddi_mgr_get_devdata_for_ddi(display, encoder->port);
+> +	intel_tc_port_set_legacy(dig_port, mgr->enabled &&
+> +				route->mode == INTEL_DDI_ROUTE_LEGACY);
+> +	dig_port->lane_reversal = intel_ddi_mgr_encoder_has_lane_reversal(encoder);
+> +
+> +	if (mgr->enabled && old_route->mode == route->mode &&
+> +	    old_route->phy == route->phy)
+> +		return;
+> +
+> +	intel_dp_update_source_caps(&dig_port->dp);
+> +}
+> +
+> +static void resume_ddi_resources(struct intel_display *display)
+> +{
+> +	struct intel_ddi_mgr *mgr = display->ddi_mgr;
+> +	struct intel_encoder *encoders[INTEL_DDI_MGR_NUM_PORTS] = {};
+> +	struct intel_ddi_route old_route[INTEL_DDI_MGR_NUM_PORTS];
+> +	struct intel_encoder *encoder;
+> +	int ddi, err;
+> +
+> +	/* Only normal resume gets here, with HPD masked by IRQ postinstall. */
+> +	memcpy(old_route, mgr->route, sizeof(old_route));
+> +
+> +	err = configure_ddi_resources(display, old_route);
+> +	WRITE_ONCE(mgr->disabled_ddi_mask, 0);
 > +	if (err)
-> +		return;
+> +		fallback_to_alt(mgr);
+> +	else
+> +		mgr->enabled = true;
 > +
-> +	resources =3D intel_de_read(display, IOM_DP_RESOURCE_MNG);
-> +	verify_ddi_counts(display, resources);
+> +	update_hpd_sources(display);
 > +
-> +	err =3D verify_ddi_pool(display, resource_to_pool_ddi_mask(resources));
 > +	if (err)
-> +		goto out;
+> +		drm_err(display->drm, "DDIMGR: Cannot restore DDI pool: %d; using ALT mode\n", err);
 > +
-> +	if (!legacy_ddi_mismatch_mask(mgr, resources))
-> +		goto out;
+> +	for_each_intel_encoder(display->drm, encoder)
+> +		if (encoder->type == INTEL_OUTPUT_DDI &&
+> +		    intel_ddi_mgr_is_pool_ddi(display, encoder->port))
+> +			encoders[encoder->port - PORT_TC1] = encoder;
 > +
-> +	drm_dbg_kms(display->drm,
-> +		    "DDIMGR: Legacy DDI allocations changed during runtime suspend: 0x=
-%08x\n",
-> +		    resources);
-> +
-> +	resources =3D restore_legacy_allocations(display, resources);
-> +
-> +out:
-> +	iom_unlock(display);
-> +
-> +	disabled_ddi_mask =3D legacy_ddi_mismatch_mask(mgr, resources);
-> +	if (disabled_ddi_mask =3D=3D old_disabled_ddi_mask)
-> +		return;
-> +
-> +	WRITE_ONCE(mgr->disabled_ddi_mask, disabled_ddi_mask);
-> +	drm_dbg_kms(display->drm, "DDIMGR: Disabled DDIs: 0x%02x -> 0x%02x\n",
-> +		    old_disabled_ddi_mask, disabled_ddi_mask);
+> +	for (ddi = 0; ddi < INTEL_DDI_MGR_NUM_PORTS; ddi++)
+> +		resume_ddi_resource(display, encoders[ddi], &old_route[ddi]);
 > +}
 > +
->  static int init_ddi_resource(struct intel_display *display, int ddi)
+> +void intel_ddi_mgr_resume(struct intel_display *display, bool suspend_failed)
+> +{
+> +	if (!display->ddi_mgr)
+> +		return;
+> +
+> +	/* Failed suspend leaves HPD IRQs enabled: preserve cached assignments. */
+> +	if (!suspend_failed)
+> +		resume_ddi_resources(display);
+> +
+> +	intel_gmbus_ddi_pool_update(display, true);
+> +}
+> +
+>  static u8 legacy_ddi_mismatch_mask(const struct intel_ddi_mgr *mgr, u32 resources)
 >  {
->  	struct intel_ddi_mgr *mgr =3D display->ddi_mgr;
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi_mgr.h b/drivers/gpu/d=
-rm/i915/display/intel_ddi_mgr.h
-> index db10d0e8b3a97..fddd69564b84d 100644
+>  	u8 ddi_mask = 0;
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi_mgr.h b/drivers/gpu/drm/i915/display/intel_ddi_mgr.h
+> index fddd69564b84d..6ddb30e826d4c 100644
 > --- a/drivers/gpu/drm/i915/display/intel_ddi_mgr.h
 > +++ b/drivers/gpu/drm/i915/display/intel_ddi_mgr.h
-> @@ -14,8 +14,10 @@ struct intel_display;
+> @@ -14,6 +14,8 @@ struct intel_display;
 >  struct intel_encoder;
->=20=20
+>  
 >  void intel_ddi_mgr_init(struct intel_display *display);
-> +void intel_ddi_mgr_verify_state(struct intel_display *display);
->=20=20
->  bool intel_ddi_mgr_is_pool_ddi(struct intel_display *display, enum port =
-ddi);
-> +bool intel_ddi_mgr_is_ddi_disabled(struct intel_display *display, enum p=
-ort ddi);
->  bool intel_ddi_mgr_pool_supports_hdmi(struct intel_display *display);
->  bool intel_ddi_mgr_is_legacy_pool_encoder(struct intel_encoder *encoder);
->  bool intel_ddi_mgr_encoder_has_lane_reversal(struct intel_encoder *encod=
-er);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index 19caae633d29f..1c03e801e21cd 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -68,6 +68,7 @@
->  #include "intel_cursor_regs.h"
->  #include "intel_cx0_phy.h"
->  #include "intel_ddi.h"
-> +#include "intel_ddi_mgr.h"
->  #include "intel_de.h"
->  #include "intel_dip.h"
->  #include "intel_display_driver.h"
-> @@ -6812,7 +6813,16 @@ int intel_atomic_check(struct drm_device *dev,
->=20=20
->  static int intel_atomic_prepare_commit(struct intel_atomic_state *state)
->  {
-> -	int ret;
-> +	struct drm_connector *connector;
-> +	struct drm_connector_state *conn_state;
-> +	int i, ret;
-> +
-> +	/* Runtime resume may have invalidated a DDI after atomic check. */
-> +	for_each_new_connector_in_state(&state->base, connector, conn_state, i)=
- {
-> +		if (conn_state->crtc &&
-> +		    !intel_ddi_mgr_connector_available(to_intel_connector(connector)))
-> +			return -ENODEV;
-> +	}
->=20=20
->  	ret =3D drm_atomic_helper_prepare_planes(state->base.dev, &state->base);
->  	if (ret < 0)
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/driver=
-s/gpu/drm/i915/display/intel_display_driver.c
-> index c13471a5a10e7..b018608eae032 100644
+> +void intel_ddi_mgr_suspend(struct intel_display *display);
+> +void intel_ddi_mgr_resume(struct intel_display *display, bool suspend_failed);
+>  void intel_ddi_mgr_verify_state(struct intel_display *display);
+>  
+>  bool intel_ddi_mgr_is_pool_ddi(struct intel_display *display, enum port ddi);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> index b018608eae032..a9b03b4a1e76b 100644
 > --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
 > +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> @@ -30,6 +30,7 @@
->  #include "intel_crtc.h"
->  #include "intel_cursor.h"
->  #include "intel_dbuf_bw.h"
-> +#include "intel_ddi_mgr.h"
->  #include "intel_de.h"
->  #include "intel_display_clock_gating.h"
->  #include "intel_display_core.h"
-> @@ -962,6 +963,8 @@ void intel_display_driver_pm_runtime_resume_early(str=
-uct intel_display *display)
->  /* after irq resume */
->  void intel_display_driver_pm_runtime_resume(struct intel_display *displa=
-y)
->  {
-> +	intel_ddi_mgr_verify_state(display);
+> @@ -780,6 +780,7 @@ static int __intel_display_driver_pm_suspend(struct intel_display *display, bool
+>  	intel_display_driver_suspend_access(display);
+>  
+>  	intel_encoder_suspend_all(display);
+> +	intel_ddi_mgr_suspend(display);
+>  
+>  	intel_dmc_suspend(display);
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 6f03a169931eb..60f041bd62979 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -702,6 +702,15 @@ static bool intel_dp_set_common_link_params(struct intel_dp *intel_dp)
+>  	return params_changed;
+>  }
+>  
+> +/* Rebuild source limits after selecting a different physical port's VBT data. */
+> +void intel_dp_update_source_caps(struct intel_dp *intel_dp)
+> +{
+> +	intel_dp_set_source_rates(intel_dp);
+> +	intel_dp->reset_link_params = true;
+> +	intel_dp_set_common_link_params(intel_dp);
+> +	intel_dp_reset_link_params(intel_dp);
+> +}
 > +
->  	/*
->  	 * On VLV/CHV display interrupts are part of the display
->  	 * power well, so hpd is reinitialized from there. For
-> diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i9=
-15/display/intel_tc.c
-> index f878494bcb388..e01f367007424 100644
+>  u32 intel_dp_mode_to_fec_clock(u32 mode_clock)
+>  {
+>  	return div_u64(mul_u32_u32(mode_clock, DP_DSC_FEC_OVERHEAD_FACTOR),
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+> index 36cd340d809f2..072facf627eba 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+> @@ -59,6 +59,7 @@ void intel_dp_connector_sync_state(struct intel_connector *connector,
+>  void intel_dp_set_link_params(struct intel_dp *intel_dp,
+>  			      int link_rate, int lane_count);
+>  void intel_dp_set_source_rates(struct intel_dp *intel_dp);
+> +void intel_dp_update_source_caps(struct intel_dp *intel_dp);
+>  int intel_dp_get_active_pipes(struct intel_dp *intel_dp,
+>  			      struct drm_modeset_acquire_ctx *ctx,
+>  			      u8 *pipe_mask);
+> diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+> index e01f367007424..df591966e08ef 100644
 > --- a/drivers/gpu/drm/i915/display/intel_tc.c
 > +++ b/drivers/gpu/drm/i915/display/intel_tc.c
-> @@ -10,6 +10,7 @@
->  #include "intel_atomic.h"
->  #include "intel_cx0_phy_regs.h"
->  #include "intel_ddi.h"
-> +#include "intel_ddi_mgr.h"
->  #include "intel_de.h"
->  #include "intel_display.h"
->  #include "intel_display_driver.h"
-> @@ -1173,6 +1174,17 @@ static void xelpdp_tc_phy_get_hw_state(struct inte=
-l_tc_port *tc)
->=20=20
->  	tc_cold_wref =3D __tc_cold_block(tc, &domain);
->=20=20
-> +	if (intel_ddi_mgr_is_ddi_disabled(display, tc->dig_port->base.port)) {
-> +		tc->mode =3D TC_PORT_DISCONNECTED;
-> +		drm_dbg_kms(display->drm,
-> +			    "Port %s: skipping PHY readout, legacy DDI allocation unavailable=
-\n",
-> +			    tc->port_name);
-> +
-> +		__tc_cold_unblock(tc, domain, tc_cold_wref);
-> +
-> +		return;
-> +	}
-> +
->  	tc->mode =3D tc_phy_get_current_mode(tc);
->  	if (tc->mode !=3D TC_PORT_DISCONNECTED) {
->  		tc->lock_wakeref =3D tc_cold_block(tc);
-> @@ -1195,6 +1207,8 @@ static void xelpdp_tc_phy_get_hw_state(struct intel=
-_tc_port *tc)
->=20=20
->  static bool xelpdp_tc_phy_connect(struct intel_tc_port *tc, int required=
-_lanes)
->  {
-> +	struct intel_display *display =3D to_intel_display(tc->dig_port);
-> +
->  	tc->lock_wakeref =3D tc_cold_block(tc);
->=20=20
->  	if (tc->mode =3D=3D TC_PORT_TBT_ALT) {
-> @@ -1203,6 +1217,10 @@ static bool xelpdp_tc_phy_connect(struct intel_tc_=
-port *tc, int required_lanes)
->  		return true;
->  	}
->=20=20
-> +	/* AUX transfers and modesets reject DDIs without their legacy allocati=
-on. */
-> +	if (intel_ddi_mgr_is_ddi_disabled(display, tc->dig_port->base.port))
-> +		return true;
-> +
->  	if (!xelpdp_tc_phy_enable_tcss_power(tc, true))
->  		goto out_unblock_tccold;
->=20=20
-> @@ -1227,6 +1245,14 @@ static bool xelpdp_tc_phy_connect(struct intel_tc_=
-port *tc, int required_lanes)
->=20=20
->  static void xelpdp_tc_phy_disconnect(struct intel_tc_port *tc)
->  {
-> +	struct intel_display *display =3D to_intel_display(tc->dig_port);
-> +
-> +	if (intel_ddi_mgr_is_ddi_disabled(display, tc->dig_port->base.port)) {
-> +		tc_cold_unblock(tc, fetch_and_zero(&tc->lock_wakeref));
-> +
-> +		return;
-> +	}
-> +
->  	switch (tc->mode) {
->  	case TC_PORT_LEGACY:
->  	case TC_PORT_DP_ALT:
-> @@ -1733,6 +1759,9 @@ bool intel_tc_port_connected(struct intel_encoder *=
-encoder)
->=20=20
->  	drm_WARN_ON(display->drm, !intel_tc_port_ref_held(dig_port));
->=20=20
-> +	if (intel_ddi_mgr_is_ddi_disabled(display, encoder->port))
-> +		return false;
-> +
->  	if (tc->mode !=3D TC_PORT_DISCONNECTED)
->  		mask =3D BIT(tc->mode);
->=20=20
-> @@ -1880,7 +1909,9 @@ static void __intel_tc_port_lock(struct intel_tc_po=
-rt *tc,
->  					  false);
->=20=20
->  	drm_WARN_ON(display->drm, tc->mode =3D=3D TC_PORT_DISCONNECTED);
-> -	drm_WARN_ON(display->drm, tc->mode !=3D TC_PORT_TBT_ALT && !tc_phy_is_o=
-wned(tc));
-> +	drm_WARN_ON(display->drm,
-> +		    !intel_ddi_mgr_is_ddi_disabled(display, tc->dig_port->base.port) &&
-> +		    tc->mode !=3D TC_PORT_TBT_ALT && !tc_phy_is_owned(tc));
+> @@ -1595,6 +1595,19 @@ static bool tc_port_is_enabled(struct intel_tc_port *tc)
+>  	       DDI_BUF_CTL_ENABLE;
 >  }
->=20=20
->  void intel_tc_port_lock(struct intel_digital_port *dig_port)
-> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe=
-/display/xe_display.c
-> index f757cfad4bd6e..b36a7cc83420d 100644
+>  
+> +void intel_tc_port_set_legacy(struct intel_digital_port *dig_port, bool legacy)
+> +{
+> +	struct intel_display *display = to_intel_display(dig_port);
+> +	struct intel_tc_port *tc = to_tc_port(dig_port);
+> +
+> +	mutex_lock(&tc->lock);
+> +
+> +	drm_WARN_ON(display->drm, tc->mode != TC_PORT_DISCONNECTED || tc->link_refcount);
+> +	tc->legacy_port = legacy;
+> +
+> +	mutex_unlock(&tc->lock);
+> +}
+> +
+>  /**
+>   * intel_tc_port_init_mode: Read out HW state and init the given port's TypeC mode
+>   * @dig_port: digital port
+> diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm/i915/display/intel_tc.h
+> index 6719aea5bd582..6d32eeb91d8da 100644
+> --- a/drivers/gpu/drm/i915/display/intel_tc.h
+> +++ b/drivers/gpu/drm/i915/display/intel_tc.h
+> @@ -96,6 +96,7 @@ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
+>  				      int required_lanes);
+>  
+>  void intel_tc_port_init_mode(struct intel_digital_port *dig_port);
+> +void intel_tc_port_set_legacy(struct intel_digital_port *dig_port, bool legacy);
+>  void intel_tc_port_sanitize_mode(struct intel_digital_port *dig_port,
+>  				 const struct intel_crtc_state *crtc_state);
+>  void intel_tc_port_lock(struct intel_digital_port *dig_port);
+> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+> index 923b239714b7e..8f87ad87d45ac 100644
+> --- a/drivers/gpu/drm/i915/i915_driver.c
+> +++ b/drivers/gpu/drm/i915/i915_driver.c
+> @@ -54,6 +54,7 @@
+>  #include "display/i9xx_display_sr.h"
+>  #include "display/intel_cdclk.h"
+>  #include "display/intel_crtc.h"
+> +#include "display/intel_ddi_mgr.h"
+>  #include "display/intel_display_device.h"
+>  #include "display/intel_display_driver.h"
+>  #include "display/intel_display_power.h"
+> @@ -1237,6 +1238,12 @@ static int i915_drm_resume(struct drm_device *dev)
+>  	 */
+>  	intel_irq_resume(dev_priv);
+>  
+> +	/*
+> +	 * TODO: Move this to display code, keeping it before
+> +	 * drm_mode_config_reset().
+> +	 */
+
+Why not do it now?
+
+> +	intel_ddi_mgr_resume(display, false);
+> +
+>  	if (intel_display_device_present(display))
+>  		drm_mode_config_reset(dev);
+>  
+> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
+> index b36a7cc83420d..a267dc9ed93d4 100644
 > --- a/drivers/gpu/drm/xe/display/xe_display.c
 > +++ b/drivers/gpu/drm/xe/display/xe_display.c
-> @@ -13,6 +13,7 @@
->  #include <drm/intel/display_member.h>
->  #include <drm/intel/display_parent_interface.h>
->=20=20
-> +#include "intel_ddi_mgr.h"
->  #include "intel_display.h"
->  #include "intel_display_core.h"
->  #include "intel_display_device.h"
-> @@ -340,6 +341,8 @@ static void xe_display_disable_d3cold(struct xe_devic=
-e *xe)
->=20=20
+> @@ -301,6 +301,12 @@ void xe_display_pm_resume(struct xe_device *xe, bool suspend_failed)
+>  
 >  	intel_dmc_resume(display);
->=20=20
-> +	intel_ddi_mgr_verify_state(display);
-
-The direction *must* be to add all of this stuff to display, not diverge
-i915 and xe more.
-
-
+>  
+> +	/*
+> +	 * TODO: Move this to display code, keeping it before
+> +	 * drm_mode_config_reset().
+> +	 */
+> +	intel_ddi_mgr_resume(display, suspend_failed);
 > +
 >  	if (intel_display_device_present(display))
 >  		drm_mode_config_reset(&xe->drm);
 
---=20
+-- 
 Jani Nikula, Intel
