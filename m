@@ -2,28 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CCE606A31E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 21:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B69B606A321
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 21:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KiuF6J3b
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 198E810EA8C;
-	Thu, 26 Nov 2026 21:03:31 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC7010EA8C;
- Thu, 26 Nov 2026 21:03:30 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2718247953879363447=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3528410EA84;
+	Thu, 26 Nov 2026 21:27:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08E4A10E9F4;
+ Thu, 26 Nov 2026 21:27:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795728455; x=1827264455;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=uGXDRoRgzxQ3H1yhwV3YBcIsgUNCFdU5ZamWz7Jz0K8=;
+ b=KiuF6J3bmN3c+GfxTiKWRdDCAa6lCKXLpujPkC4YGj+BW8Hv3XblfVX6
+ lkxWr/GT/oCRqsXfPHxEee8DIY9u2deRYAj5tU+xDb8RNNjAOFAfEtd71
+ uiPJcZLcp+eWIWjGDEo+9jIqcReWqhxjIMrWtI1mGNgAH/BiXMaFU2l4t
+ 6CQ3b4erV0uyi2FiJy+/YCe+BrhOsmppuYu0m0PkNrn17rOiI4PzTKVoz
+ qe/DYa4Iw5aFArrzfzgSa4Uz/fqh+S5EhdHz/c7SKIlswAx9EtpGfEUQH
+ 9FJcW+N0tix/64sX79C2rBeN54ogNHZay6Tw5V9lN8EJpPZF+tAyEWkKs w==;
+X-CSE-ConnectionGUID: dAEcw+UASeKab6fTcwbQ5A==
+X-CSE-MsgGUID: bYAY94EGRwS/+pbfUEpF2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4531790"
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
+   d="scan'208";a="4531790"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2026 13:27:34 -0800
+X-CSE-ConnectionGUID: +6CQWNKoSaGroYUGSfbhGQ==
+X-CSE-MsgGUID: oUgN/DOIROi1x8ISvYF6GA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; d="scan'208";a="12037771"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.221])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2026 13:27:32 -0800
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH 0/7] drm/i915/de: Nuke uncore
+Date: Thu, 26 Nov 2026 23:27:21 +0200
+Message-ID: <20261126212728.9034-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/bios=3A_vbt-rela?=
- =?utf-8?q?ted_fixes?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Micha=C5=82_Grzelak?= <michal.grzelak@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Nov 2026 21:03:30 -0000
-Message-ID: <179572701038.95469.9475962038792560741@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261126175033.181407-1-michal.grzelak@linux.intel.com>
-In-Reply-To: <20261126175033.181407-1-michal.grzelak@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,132 +63,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============2718247953879363447==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-== Series Details ==
+Eliminate uncore from intel_de.c:
+- add a display specific intel_reg_rw tracepoint
+- implement mmio via raw readl()/writel()/etc
+- add a new parent interface to get the pointer to the
+  memory mapped registers
 
-Series: drm/i915/bios: vbt-related fixes
-URL   : https://patchwork.freedesktop.org/series/179786/
-State : success
+Ville Syrjälä (7):
+  drm/i915/de: Move the register tracepoint to display
+  drm/i915/de: Pimp the intel_reg_rw tracepoint printf format
+  drm/i915/de: Convert intel_de_read_fw() into a vfunc
+  drm/i915/de: Use raw readl()/writel()/etc for register access in
+    display
+  drm/i915/de: Add intel_parent_mmio_regs() interface
+  drm/xe: Nuke the compat uncore stuff
+  drm/i915/de: Document intel_de_write8()'s usage restrictions
 
-== Summary ==
+ drivers/gpu/drm/i915/display/intel_de.c       | 119 ++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_de.h       |   6 +-
+ .../gpu/drm/i915/display/intel_display_core.h |   3 +-
+ .../drm/i915/display/intel_display_trace.h    |  25 ++++
+ drivers/gpu/drm/i915/display/intel_parent.c   |   5 +
+ drivers/gpu/drm/i915/display/intel_parent.h   |   1 +
+ drivers/gpu/drm/i915/i915_driver.c            |   6 +
+ .../drm/xe/compat-i915-headers/intel_uncore.h |  66 ----------
+ drivers/gpu/drm/xe/display/xe_display.c       |  11 +-
+ drivers/gpu/drm/xe/xe_device_types.h          |  13 --
+ include/drm/intel/display_parent_interface.h  |   3 +
+ 11 files changed, 151 insertions(+), 107 deletions(-)
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
 
-CI Bug Log - changes from CI_DRM_19618 -> Patchwork_179786v1
-====================================================
+-- 
+2.56.1
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179786v1/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 bat-adls-6 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_179786v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@vgem_basic@unload:
-    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19618/bat-rpls-4/igt@vgem_basic@unload.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179786v1/bat-rpls-4/igt@vgem_basic@unload.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19618 -> Patchwork_179786v1
-
-  CI-20190529: 20190529
-  CI_DRM_19618: 436eec0ef1b65f139fa2f3c42aea97c29da57c8c @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_179786v1: 436eec0ef1b65f139fa2f3c42aea97c29da57c8c @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179786v1/index.html
-
---===============2718247953879363447==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/bios: vbt-related fixes</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179786/">https://patchwork.freedesktop.org/series/179786/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179786v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179786v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19618 -&gt; Patchwork_179786v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179786v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 bat-adls-6 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_179786v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@vgem_basic@unload:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19618/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179786v1/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19618 -&gt; Patchwork_179786v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19618: 436eec0ef1b65f139fa2f3c42aea97c29da57c8c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_179786v1: 436eec0ef1b65f139fa2f3c42aea97c29da57c8c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2718247953879363447==--
