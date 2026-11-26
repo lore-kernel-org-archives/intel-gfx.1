@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C31606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 10:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992E5606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 10:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXllt/Xs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 093D710E952;
-	Thu, 26 Nov 2026 10:34:38 +0000 (UTC)
-X-Greylist: delayed 327 seconds by postgrey-1.36 at gabe;
- Thu, 26 Nov 2026 10:34:36 UTC
-Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F1010E952
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 10:34:36 +0000 (UTC)
-Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
- (195.54.195.169) with Microsoft SMTP Server (TLS) id 14.3.498.0; Thu, 26 Nov
- 2026 13:29:07 +0300
-Received: from localhost (10.0.253.153) by Ex16-01.fintech.ru (10.0.10.18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 26 Nov
- 2026 13:29:06 +0300
-From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-To: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang
- <zhi.wang.linux@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>
-CC: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, <intel-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <lvc-project@linuxtesting.org>
-Subject: [PATCH v2] drm/i915/gvt: validate LRCA-derived guest context range
-Date: Thu, 26 Nov 2026 13:28:54 +0300
-Message-ID: <20261126102857.2719890-1-n.zhandarovich@fintech.ru>
-X-Mailer: git-send-email 2.43.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
- (10.0.10.18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 165511122D7;
+	Thu, 26 Nov 2026 10:41:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA8971122FA;
+ Thu, 26 Nov 2026 10:41:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0DC9F61F53;
+ Thu, 26 Nov 2026 10:41:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B4821F000D0;
+ Thu, 26 Nov 2026 10:41:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795689698;
+ bh=RK45D7+e+iOcW3RnTCutIaBZLm4zHzJntoCpJ8jzTVk=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=FXllt/Xsoxah3s99erdKglb9rx96mehJXspfi4IsRHc0exsrEAvnyL4cGs+Fnjq/B
+ zXmwHKGlsUm2pD/Psh4WIy3+viwxF3MSTniHS89ytZf9QBOnIBWK7wFrPz8LCutkDD
+ /cBEYQr9yP1An0ddQBlRZcEB/C9bvMcwEfG8KnJDrHEpwDtzKx+au5OC1O7kHlE1cQ
+ Kvo0zR7EIUry1UD3rUTbzmz34YKF9UBZsrDcMU8sFyOBvhMYBAQhR7mhqM/CGzjFyH
+ oNhrHFHzrh1I+QACfyvYwmT7bFt8l3l0GC3DPZuFwEIGr5a1ETLEPNauOvKqBN65Ty
+ A8ByIEAplJljA==
+Message-ID: <sashiko-outbox-235307@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 12/13] drm/i915/ddi_mgr: Handle DDI pool system suspend
+ and resume
+To: "Imre Deak" <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261126100755.1252635-13-imre.deak@intel.com>
+References: <20261126100755.1252635-1-imre.deak@intel.com>
+ <20261126100755.1252635-13-imre.deak@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 10:41:38 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,141 +49,127 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-The GVT execlist context handling code derives GGTT page addresses from
-desc->lrca in several places:
- - intel_vgpu_create_workload()
- - populate_shadow_context()
- - update_guest_context()
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/i915/ddi_mgr: stale TC max_lane_count in
+  resume_ddi_resource()
+- [Medium] drm/i915/ddi_mgr: intel_ddi_mgr_suspend() disables DDC on
+  shutdown
+--
 
-These paths translate addresses based on desc->lrca + page_index, but do
-not first verify that the referenced guest context range fits in 32-bit
-GMA space.
+commit bca24baba50bb2986501c95a0a336e4e761dcc14
+Author: Imre Deak <imre.deak@intel.com>
 
-If desc->lrca is close enough (0xFFFFE, for instance) to the top
-encodable page value, the page addition can exceed the representable
-32-bit GMA range before the value is shifted and truncated for address
-translation.
+drm/i915/ddi_mgr: Handle DDI pool system suspend and resume
 
-Fix this by validating the full LRCA-derived context range once during
-workload creation, based on the engine context size, and reject invalid
-descriptors before any GPA translation is attempted.
+This commit adds system suspend and resume handling for the DDI pool
+manager, disabling pool DDC adapters on suspend and rebuilding legacy DDI
+routes, HPD mappings, Type-C port state, and DP source capabilities on
+resume.
 
-Also, use the same context page count helper in
-populate_shadow_context() and update_guest_context(), so validation
-and the later context accesses share the Broadwell RCS0 special case.
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c b/drivers/gpu/d=
+rm/i915/display/intel_ddi_mgr.c
+> index 8f32e7c8dff27..a0157ff6afc04 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
+> @@ -840,6 +840,83 @@ static void update_hpd_sources(struct intel_display =
+*display)
+>  	}
+>  }
+> =20
+> +void intel_ddi_mgr_suspend(struct intel_display *display)
+> +{
+> +	if (!intel_ddi_mgr_is_enabled(display->ddi_mgr))
+> +		return;
+> +
+> +	intel_gmbus_ddi_pool_update(display, false);
+> +}
+> +
+> +static void resume_ddi_resource(struct intel_display *display,
+> +				struct intel_encoder *encoder,
+> +				const struct intel_ddi_route *old_route)
+> +{
+> +	struct intel_ddi_mgr *mgr =3D display->ddi_mgr;
+> +	struct intel_digital_port *dig_port;
+> +	const struct intel_ddi_route *route;
+> +
+> +	if (!encoder)
+> +		return;
+> +
+> +	route =3D &mgr->route[encoder->port - PORT_TC1];
+> +	dig_port =3D enc_to_dig_port(encoder);
+> +	encoder->devdata =3D intel_ddi_mgr_get_devdata_for_ddi(display, encoder=
+->port);
+> +	intel_tc_port_set_legacy(dig_port, mgr->enabled &&
+> +				route->mode =3D=3D INTEL_DDI_ROUTE_LEGACY);
+> +	dig_port->lane_reversal =3D intel_ddi_mgr_encoder_has_lane_reversal(enc=
+oder);
+> +
+> +	if (mgr->enabled && old_route->mode =3D=3D route->mode &&
+> +	    old_route->phy =3D=3D route->phy)
+> +		return;
+> +
+> +	intel_dp_update_source_caps(&dig_port->dp);
+> +}
 
-Found by Linux Verification Center (linuxtesting.org) with static
-analysis tool SVACE.
+[Severity: Medium]
+Does intel_dp_update_source_caps() rebuild dig_port->dp.link.caps using a
+stale tc->max_lane_count here?
 
-Fixes: 28c4c6ca7f79 ("drm/i915/gvt: vGPU workload submission")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
----
-v1 -> v2: 
- - Reuse the page count helper in both context copy paths, as suggested
-   by the automated review of v1 [1].
- - Clarify the two-page minimum and simplify the range check.
+intel_ddi_mgr_resume() runs before drm_mode_config_reset() calls
+intel_ddi_encoder_reset() -> intel_tc_port_init_mode(dig_port), and
+intel_tc_port_set_legacy() only updates tc->legacy_port while tc->mode is
+TC_PORT_DISCONNECTED.  When intel_dp_update_source_caps() calls
+intel_dp_set_common_link_params() -> intel_dp_get_max_common_lane_count(),
+intel_tc_port_max_lane_count(dig_port) still returns the pre-suspend
+route's tc->max_lane_count.
 
-Important note: v1 was ignored, I imagine, due to the fact that
-i915.CI.Full tests did not all have PASS status [2]. Since v1 patch
-only touched GVT-g workload creation and tests showed new issues
-on GLK, TGL and DG2, there is a significant chance that the issues
-were unrelated to the patch.
+If a pool encoder's route changes across suspend/resume between a 2-lane
+DP-alt sink and a 4-lane legacy PHY (or vice versa), link.caps is clamped
+to 2 lanes on a 4-lane route or retains 4-lane configurations on a 2-lane
+route during the resume modeset restore.
 
-[1] https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-patch1-20260529132430.1636603-1-n.zhandarovich%40fintech.ru/T/#m10cace1cbe046c03d2e77ed02d37ab9e9114b2ac
-[2] https://lore.kernel.org/all/178012771442.26597.9069021566063616599@6beec6c84f66/
+[ ... ]
 
- drivers/gpu/drm/i915/gvt/scheduler.c | 41 ++++++++++++++++++++--------
- 1 file changed, 30 insertions(+), 11 deletions(-)
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/driver=
+s/gpu/drm/i915/display/intel_display_driver.c
+> index b018608eae032..a9b03b4a1e76b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> @@ -780,6 +780,7 @@ static int __intel_display_driver_pm_suspend(struct i=
+ntel_display *display, bool
+>  	intel_display_driver_suspend_access(display);
+> =20
+>  	intel_encoder_suspend_all(display);
+> +	intel_ddi_mgr_suspend(display);
+> =20
+>  	intel_dmc_suspend(display);
+> =20
 
-diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i915/gvt/scheduler.c
-index 15fdd514ca83..42cae61d3e79 100644
---- a/drivers/gpu/drm/i915/gvt/scheduler.c
-+++ b/drivers/gpu/drm/i915/gvt/scheduler.c
-@@ -68,6 +68,28 @@ static void set_context_pdp_root_pointer(
- 		ring_context->pdps[i].val = pdp[7 - i];
- }
- 
-+static unsigned long
-+intel_vgpu_context_page_num(const struct intel_engine_cs *engine)
-+{
-+	if (IS_BROADWELL(engine->i915) && engine->id == RCS0)
-+		return 19;
-+
-+	return engine->context_size >> PAGE_SHIFT;
-+}
-+
-+static bool
-+intel_vgpu_lrca_range_valid(const struct intel_engine_cs *engine, u32 lrca)
-+{
-+	unsigned long context_page_num = intel_vgpu_context_page_num(engine);
-+
-+	/* Workload creation always accesses the page at LRCA + 1. */
-+	if (context_page_num < 2)
-+		return false;
-+
-+	return context_page_num - 1 <=
-+		(U32_MAX >> I915_GTT_PAGE_SHIFT) - lrca;
-+}
-+
- static void update_shadow_pdps(struct intel_vgpu_workload *workload)
- {
- 	struct execlist_ring_context *shadow_ring_context;
-@@ -135,7 +157,6 @@ static void sr_oa_regs(struct intel_vgpu_workload *workload,
- static int populate_shadow_context(struct intel_vgpu_workload *workload)
- {
- 	struct intel_vgpu *vgpu = workload->vgpu;
--	struct intel_gvt *gvt = vgpu->gvt;
- 	struct intel_context *ctx = workload->req->context;
- 	struct execlist_ring_context *shadow_ring_context;
- 	void *dst;
-@@ -220,11 +241,7 @@ static int populate_shadow_context(struct intel_vgpu_workload *workload)
- 		return 0;
- 
- 	s->last_ctx[ring_id].valid = false;
--	context_page_num = workload->engine->context_size;
--	context_page_num = context_page_num >> PAGE_SHIFT;
--
--	if (IS_BROADWELL(gvt->gt->i915) && workload->engine->id == RCS0)
--		context_page_num = 19;
-+	context_page_num = intel_vgpu_context_page_num(workload->engine);
- 
- 	/* find consecutive GPAs from gma until the first inconsecutive GPA.
- 	 * read from the continuous GPAs into dst virtual address
-@@ -980,11 +997,7 @@ static void update_guest_context(struct intel_vgpu_workload *workload)
- 	vgpu_vreg_t(vgpu, RING_TAIL(ring_base)) = tail;
- 	vgpu_vreg_t(vgpu, RING_HEAD(ring_base)) = head;
- 
--	context_page_num = rq->engine->context_size;
--	context_page_num = context_page_num >> PAGE_SHIFT;
--
--	if (IS_BROADWELL(rq->i915) && rq->engine->id == RCS0)
--		context_page_num = 19;
-+	context_page_num = intel_vgpu_context_page_num(rq->engine);
- 
- 	context_base = (void *) ctx->lrc_reg_state -
- 			(LRC_STATE_PN << I915_GTT_PAGE_SHIFT);
-@@ -1646,6 +1659,12 @@ intel_vgpu_create_workload(struct intel_vgpu *vgpu,
- 	u32 guest_head;
- 	int ret;
- 
-+	if (!intel_vgpu_lrca_range_valid(engine, desc->lrca)) {
-+		gvt_vgpu_err("invalid guest context LRCA: 0x%x\n",
-+			     desc->lrca);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	ring_context_gpa = intel_vgpu_gma_to_gpa(vgpu->gtt.ggtt_mm,
- 			(u32)((desc->lrca + 1) << I915_GTT_PAGE_SHIFT));
- 	if (ring_context_gpa == INTEL_GVT_INVALID_ADDR) {
--- 
-2.43.0
+[Severity: Medium]
+When shutdown is true, does calling intel_ddi_mgr_suspend() here disable
+the pool DDC adapters before intel_display_driver_shutdown() runs
+intel_encoder_shutdown_all()?
 
+In __intel_display_driver_pm_suspend(display, true),
+drm_atomic_helper_shutdown() disables active outputs and turns off Type 2
+DP dual-mode adaptor TMDS buffers over DDC.  intel_ddi_mgr_suspend() then
+marks the pool GMBUS adapters disabled, so the subsequent
+intel_encoder_shutdown_all() -> intel_hdmi_encoder_shutdown() ->
+intel_dp_dual_mode_set_tmds_output(intel_hdmi, true) call fails in
+gmbus_xfer() with -ENXIO instead of re-enabling the TMDS output buffer for
+reboot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126100755.1252=
+635-1-imre.deak@intel.com?part=3D12
