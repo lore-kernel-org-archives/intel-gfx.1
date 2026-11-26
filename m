@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABE1606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 06:35:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1322C606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 06:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EGzlVBU4
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qp2zYNyZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8005610FDF7;
-	Thu, 26 Nov 2026 06:35:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 909C910FCF1;
+	Thu, 26 Nov 2026 06:35:31 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DAD010FC6C;
- Thu, 26 Nov 2026 06:35:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BEE410FCFF;
+ Thu, 26 Nov 2026 06:35:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795674923; x=1827210923;
+ t=1795674925; x=1827210925;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6gRRsjFAOVWz4PTMzN8eFmQX5V2cVGjquv/gFG40RSE=;
- b=EGzlVBU4XJClLxwLy+XZa3knuXc2enob0yRVYxL4p4d0MaYw7Y2MWyHC
- WwoEFZWwwfxotGx8xW7rr91veOxqx74LsNai4jHVa4GrNwy5LQnQSfEdu
- WrAzPJuifwtB97myD29zp6eLWUcwP0GYxBOB9miSWXfRdYf7voIU2k+0z
- zA9KH36RtES/rk8m7pVHJfuyMJgphqLvhqchc+H5r4zj1+OOthuMZeBi1
- vqNwLM5pFrTYV2zM55Vrxr0+Fl93ybc0e/esSIjVNBOL5fOHsHmcvoauC
- 4f42dW2IYqfqRY8b4IyRZJp0o3NQqIWIK77/cXr/lJbThXgM319HfgevF g==;
-X-CSE-ConnectionGUID: tjAgRw56TXq0//Mk62wO2A==
-X-CSE-MsgGUID: 7+3c2fPpT6aZFqChaPC44w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4462666"
+ bh=7rBn5ZXu70lFWf996LyfnfdK2ooBUcA86xP0PCnagV0=;
+ b=Qp2zYNyZuSQkyzPzqFGQq6dUB3CFBqFBIroYNFVH2vkDkckz8/9xPgL/
+ b3CSCqPkYLlMsYeQKnyQ0e1C99GLylsBDRvDea10M9gTIuSWqLLdmdmzG
+ xsWcMkiudHazcc/SMH7WD5VcsLdItwInmtgolfZrboNo1Tn4V91m05rOs
+ pfBfeSKZDHwfOUK75TobDDsvo1cZAti9op/P87jD1wSfOCXij6Fsq9rNI
+ AI0wR0IGN6bckhtiq0m1J355STBlj9MAuxmd59oKb6kUIB5cR09PWdNPW
+ jlA4vgzWbSNEmQO+6lZhGDyJEL0QNav7reSOgPnneaoITtL61Di7kbTN2 A==;
+X-CSE-ConnectionGUID: hUG5fNJdS4KfSYDadTxMiQ==
+X-CSE-MsgGUID: 4fUy471RQtu0XPlkPRsr9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4462668"
 X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4462666"
+   d="scan'208";a="4462668"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 22:35:22 -0800
-X-CSE-ConnectionGUID: nwiGgoiFT6aPDuTxEaXcmQ==
-X-CSE-MsgGUID: mqTw0VIvQMWDcDZNY4x+oQ==
+ 25 Nov 2026 22:35:24 -0800
+X-CSE-ConnectionGUID: ixqledGQQ8KzuHLtsP9Pbg==
+X-CSE-MsgGUID: mKUdb7SlRl+76XXj7reULA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12346773"
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12346776"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa002.fm.intel.com with ESMTP; 25 Nov 2026 22:35:20 -0800
+ by fmviesa002.fm.intel.com with ESMTP; 25 Nov 2026 22:35:23 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
  chaitanya.kumar.borah@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 08/15] drm/i915/pipelock: Keep SSC,
- PSR and CMRR off on pipelock tiles
-Date: Thu, 26 Nov 2026 12:04:52 +0530
-Message-Id: <20261126063459.863698-9-suraj.kandpal@intel.com>
+Subject: [PATCH 09/15] drm/i915/pipelock: Compute pipelock groups for DP tiled
+ displays
+Date: Thu, 26 Nov 2026 12:04:53 +0530
+Message-Id: <20261126063459.863698-10-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261126063459.863698-1-suraj.kandpal@intel.com>
 References: <20261126063459.863698-1-suraj.kandpal@intel.com>
@@ -72,188 +72,206 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A few features can't be used on a pipelocked transcoder:
+Port sync has been off on NVL since it was defeatured, so the tiles of
+a tiled DP display run unsynchronized there. Use pipelock to sync them
+instead.
 
-- SSC, as every port has its own PLL and the PLLs have to match
-- PSR and panel replay, which pipelock doesn't support
-- CMRR and DC balance, which mess with the vtotal before the
-  secondary has locked
+On top of the port sync checks, pipelock needs the tiles to have the
+same PLL, bpp, set context latency, VRR timings and guardband, and the
+same SDPs. DP to HDMI protocol converters can't be locked, as they
+retime the signal. The timing generator start delay is computed from
+the link M/N ratio, plus the MTP slots left unused for 128b/132b. If
+the delay doesn't fit in a line, fall back to syncing just once, which
+is only allowed when the refresh rate can't change.
 
-The PLL and these features are computed before we know which tiles end
-up in a sync group, so keep them off for any DP SST tile on platforms
-with pipelock. Tiled monitors don't use them in practice anyway.
-Add intel_pipelock.[ch] for the pipelock specific code, starting with
-the check for such connectors.
+Also make sure a CRTC only computes a sync group it's part of, so that
+a tile that can't be locked doesn't end up as a secondary.
 
-Bspec: 73521
+Bspec: 68938, 73521
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                 |  1 +
- drivers/gpu/drm/i915/display/intel_lt_phy.c   |  4 ++++
- drivers/gpu/drm/i915/display/intel_pipelock.c | 17 +++++++++++++++++
- drivers/gpu/drm/i915/display/intel_pipelock.h | 15 +++++++++++++++
- drivers/gpu/drm/i915/display/intel_psr.c      |  7 +++++++
- drivers/gpu/drm/i915/display/intel_vrr.c      |  8 ++++++--
- drivers/gpu/drm/xe/Makefile                   |  1 +
- 7 files changed, 51 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_pipelock.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_pipelock.h
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 15 ++-
+ drivers/gpu/drm/i915/display/intel_pipelock.c | 91 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_pipelock.h |  6 ++
+ 3 files changed, 111 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index ba7eecfffdca..a61642c3e71b 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -305,6 +305,7 @@ i915-y += \
- 	display/intel_pch.o \
- 	display/intel_pch_display.o \
- 	display/intel_pch_refclk.o \
-+	display/intel_pipelock.o \
- 	display/intel_plane.o \
- 	display/intel_pmdemand.o \
- 	display/intel_psr.o \
-diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-index 86492651b01d..35fa701eb9be 100644
---- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-@@ -20,6 +20,7 @@
- #include "intel_lt_phy.h"
- #include "intel_lt_phy_regs.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 54c4f90cdfea..f6352e9ece6e 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -79,6 +79,7 @@
+ #include "intel_modeset_lock.h"
  #include "intel_panel.h"
+ #include "intel_pfit.h"
 +#include "intel_pipelock.h"
+ #include "intel_pps.h"
  #include "intel_psr.h"
- #include "intel_tc.h"
- 
-@@ -1338,6 +1339,9 @@ intel_lt_phy_pll_is_ssc_enabled(struct intel_crtc_state *crtc_state,
- 		if (intel_panel_use_ssc(display)) {
- 			struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 
-+			if (intel_pipelock_connector_possible(intel_dp->attached_connector))
-+				return false;
-+
- 			return (intel_dp->dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5);
- 		}
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_pipelock.c b/drivers/gpu/drm/i915/display/intel_pipelock.c
-new file mode 100644
-index 000000000000..67c643b6626c
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_pipelock.c
-@@ -0,0 +1,17 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2026 Intel Corporation
-+ */
-+
-+#include "intel_display_core.h"
-+#include "intel_display_types.h"
-+#include "intel_pipelock.h"
-+
-+bool intel_pipelock_connector_possible(const struct intel_connector *connector)
-+{
-+	struct intel_display *display = to_intel_display(connector);
-+
-+	return HAS_PIPELOCK(display) && connector->base.has_tile &&
-+		connector->base.connector_type == DRM_MODE_CONNECTOR_DisplayPort &&
-+		!connector->mst.dp;
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_pipelock.h b/drivers/gpu/drm/i915/display/intel_pipelock.h
-new file mode 100644
-index 000000000000..b08b10f8da34
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_pipelock.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2026 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_PIPELOCK_H__
-+#define __INTEL_PIPELOCK_H__
-+
-+#include <linux/types.h>
-+
-+struct intel_connector;
-+
-+bool intel_pipelock_connector_possible(const struct intel_connector *connector);
-+
-+#endif /* __INTEL_PIPELOCK_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 438cb1502c26..a0e65b24b65a 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -51,6 +51,7 @@
- #include "intel_dsb.h"
- #include "intel_frontbuffer.h"
- #include "intel_hdmi.h"
-+#include "intel_pipelock.h"
- #include "intel_psr.h"
- #include "intel_psr_regs.h"
  #include "intel_quirks.h"
-@@ -1897,6 +1898,12 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
- 		return;
- 	}
+@@ -4670,7 +4671,7 @@ intel_ddi_port_sync_transcoders(const struct intel_crtc_state *ref_crtc_state,
+ 	 * From, xe3lpd onwards we have defeatured this with reference to
+ 	 * Wa_16024710867
+ 	 */
+-	if (!IS_DISPLAY_VER(display, 9, 30))
++	if (!IS_DISPLAY_VER(display, 9, 30) && !HAS_PIPELOCK(display))
+ 		return 0;
  
-+	if (intel_pipelock_connector_possible(connector)) {
-+		drm_dbg_kms(display->drm,
-+			    "PSR condition failed: Tiled display with pipelock\n");
-+		return;
-+	}
+ 	if (!intel_crtc_has_type(ref_crtc_state, INTEL_OUTPUT_DP))
+@@ -4692,9 +4693,18 @@ intel_ddi_port_sync_transcoders(const struct intel_crtc_state *ref_crtc_state,
+ 		if (!crtcs_port_sync_compatible(ref_crtc_state,
+ 						crtc_state))
+ 			continue;
 +
- 	/* Only used for state verification. */
- 	crtc_state->panel_replay_dsc_support = connector->dp.panel_replay_caps.dsc_support;
- 	crtc_state->has_panel_replay = _panel_replay_compute_config(crtc_state, conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index e59345bd1d33..47603c141298 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -25,6 +25,7 @@
- #include "intel_dmc.h"
- #include "intel_dmc_regs.h"
- #include "intel_dp.h"
-+#include "intel_pipelock.h"
- #include "intel_psr.h"
- #include "intel_vrr.h"
- #include "intel_vrr_regs.h"
-@@ -483,6 +484,7 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	struct intel_connector *connector =
- 		to_intel_connector(conn_state->connector);
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+	bool pipelock = intel_pipelock_connector_possible(connector);
- 	int vmin, vmax;
- 
- 	if (!HAS_VRR(display))
-@@ -523,7 +525,8 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 		 * the fixed refresh rate path. It is generic across transcoders
- 		 * and gated on platform support and a valid debugfs ratio.
- 		 */
--		intel_vrr_cmrr_compute_config(crtc_state);
-+		if (!pipelock)
-+			intel_vrr_cmrr_compute_config(crtc_state);
- 		intel_vrr_compute_fixed_rr_timings(crtc_state);
++		if (HAS_PIPELOCK(display) &&
++		    (!intel_pipelock_possible(crtc_state, to_intel_connector(connector)) ||
++		     !intel_pipelock_compatible(ref_crtc_state, crtc_state)))
++			continue;
++
+ 		transcoders |= BIT(crtc_state->cpu_transcoder);
  	}
  
-@@ -536,7 +539,8 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			 crtc_state->hw.adjusted_mode.crtc_vsync_end);
- 	}
- 
--	intel_vrr_dc_balance_compute_config(crtc_state);
-+	if (!pipelock)
-+		intel_vrr_dc_balance_compute_config(crtc_state);
++	if (!(transcoders & BIT(ref_crtc_state->cpu_transcoder)))
++		return 0;
++
+ 	return transcoders;
  }
  
- static int
-diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-index 52f0d5dd5468..15154987d6a0 100644
---- a/drivers/gpu/drm/xe/Makefile
-+++ b/drivers/gpu/drm/xe/Makefile
-@@ -329,6 +329,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
- 	i915-display/intel_parent.o \
- 	i915-display/intel_pch.o \
- 	i915-display/intel_pfit.o \
-+	i915-display/intel_pipelock.o \
- 	i915-display/intel_plane.o \
- 	i915-display/intel_pmdemand.o \
- 	i915-display/intel_pps.o \
+@@ -4737,6 +4747,9 @@ static int intel_ddi_compute_config_late(struct intel_atomic_state *state,
+ 			~REG_BIT(crtc_state->cpu_transcoder);
+ 	}
+ 
++	if (HAS_PIPELOCK(display))
++		intel_pipelock_compute_config(crtc_state);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_pipelock.c b/drivers/gpu/drm/i915/display/intel_pipelock.c
+index 67c643b6626c..23b6db074385 100644
+--- a/drivers/gpu/drm/i915/display/intel_pipelock.c
++++ b/drivers/gpu/drm/i915/display/intel_pipelock.c
+@@ -3,9 +3,20 @@
+  * Copyright © 2026 Intel Corporation
+  */
+ 
++#include <linux/math64.h>
++
++#include <drm/display/drm_dp_helper.h>
++#include <drm/drm_print.h>
++
+ #include "intel_display_core.h"
+ #include "intel_display_types.h"
++#include "intel_dp.h"
++#include "intel_dpll_mgr.h"
+ #include "intel_pipelock.h"
++#include "intel_vrr.h"
++
++#define PIPELOCK_CLOCK_CROSSING_DELAY	8
++#define MTP_TIME_SLOTS			64
+ 
+ bool intel_pipelock_connector_possible(const struct intel_connector *connector)
+ {
+@@ -15,3 +26,83 @@ bool intel_pipelock_connector_possible(const struct intel_connector *connector)
+ 		connector->base.connector_type == DRM_MODE_CONNECTOR_DisplayPort &&
+ 		!connector->mst.dp;
+ }
++
++static int pipelock_tg_start_delay(const struct intel_crtc_state *crtc_state)
++{
++	const struct intel_link_m_n *m_n = &crtc_state->dp_m_n;
++	int delay = PIPELOCK_CLOCK_CROSSING_DELAY;
++
++	delay += DIV_ROUND_UP(m_n->link_n, m_n->link_m);
++
++	if (intel_dp_is_uhbr(crtc_state))
++		delay += MTP_TIME_SLOTS - m_n->tu;
++
++	return delay;
++}
++
++static int pipelock_line_time(const struct intel_crtc_state *crtc_state)
++{
++	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
++	int symbol_clock = intel_dp_link_symbol_clock(crtc_state->port_clock);
++
++	return div_u64(mul_u32_u32(adjusted_mode->crtc_htotal, symbol_clock),
++		       adjusted_mode->crtc_clock);
++}
++
++static bool pipelock_per_frame_sync(const struct intel_crtc_state *crtc_state)
++{
++	return pipelock_tg_start_delay(crtc_state) < pipelock_line_time(crtc_state);
++}
++
++bool intel_pipelock_possible(const struct intel_crtc_state *crtc_state,
++			     struct intel_connector *connector)
++{
++	struct intel_display *display = to_intel_display(crtc_state);
++	struct intel_dp *intel_dp = intel_attached_dp(connector);
++
++	if (!intel_pipelock_connector_possible(connector))
++		return false;
++
++	if (drm_dp_is_branch(intel_dp->dpcd) && intel_dp_has_hdmi_sink(intel_dp)) {
++		drm_dbg_kms(display->drm,
++			    "[CONNECTOR:%d:%s] No pipelock behind an HDMI converter\n",
++			    connector->base.base.id, connector->base.name);
++		return false;
++	}
++
++	if (!pipelock_per_frame_sync(crtc_state) &&
++	    (!intel_vrr_is_fixed_rr(crtc_state) || crtc_state->vrr.in_range)) {
++		drm_dbg_kms(display->drm,
++			    "[CONNECTOR:%d:%s] No pipelock, start delay too long for VRR\n",
++			    connector->base.base.id, connector->base.name);
++		return false;
++	}
++
++	return true;
++}
++
++bool intel_pipelock_compatible(const struct intel_crtc_state *crtc_state1,
++			       const struct intel_crtc_state *crtc_state2)
++{
++	struct intel_display *display = to_intel_display(crtc_state1);
++
++	return crtc_state1->pipe_bpp == crtc_state2->pipe_bpp &&
++		crtc_state1->set_context_latency == crtc_state2->set_context_latency &&
++		crtc_state1->vrr.enable == crtc_state2->vrr.enable &&
++		crtc_state1->vrr.vmin == crtc_state2->vrr.vmin &&
++		crtc_state1->vrr.vmax == crtc_state2->vrr.vmax &&
++		crtc_state1->vrr.flipline == crtc_state2->vrr.flipline &&
++		crtc_state1->vrr.guardband == crtc_state2->vrr.guardband &&
++		crtc_state1->infoframes.enable == crtc_state2->infoframes.enable &&
++		intel_dpll_compare_hw_state(display, &crtc_state1->dpll_hw_state,
++					    &crtc_state2->dpll_hw_state);
++}
++
++void intel_pipelock_compute_config(struct intel_crtc_state *crtc_state)
++{
++	if (crtc_state->sync_primary_transcoder == INVALID_TRANSCODER)
++		return;
++
++	crtc_state->pipelock.tg_start_delay = pipelock_tg_start_delay(crtc_state);
++	crtc_state->pipelock.per_frame_sync = pipelock_per_frame_sync(crtc_state);
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_pipelock.h b/drivers/gpu/drm/i915/display/intel_pipelock.h
+index b08b10f8da34..b75efa71a831 100644
+--- a/drivers/gpu/drm/i915/display/intel_pipelock.h
++++ b/drivers/gpu/drm/i915/display/intel_pipelock.h
+@@ -9,7 +9,13 @@
+ #include <linux/types.h>
+ 
+ struct intel_connector;
++struct intel_crtc_state;
+ 
+ bool intel_pipelock_connector_possible(const struct intel_connector *connector);
++bool intel_pipelock_possible(const struct intel_crtc_state *crtc_state,
++			     struct intel_connector *connector);
++bool intel_pipelock_compatible(const struct intel_crtc_state *crtc_state1,
++			       const struct intel_crtc_state *crtc_state2);
++void intel_pipelock_compute_config(struct intel_crtc_state *crtc_state);
+ 
+ #endif /* __INTEL_PIPELOCK_H__ */
 -- 
 2.34.1
 
