@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C907606A31E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 18:07:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08E1606A330
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 18:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WnD3bIMC
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VWbvvJZO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D76DA10EA4C;
-	Thu, 26 Nov 2026 18:07:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E3711267E;
+	Thu, 26 Nov 2026 18:07:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38B5D10EA0E;
- Thu, 26 Nov 2026 18:06:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A358E10EA03;
+ Thu, 26 Nov 2026 18:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795716415; x=1827252415;
+ t=1795716419; x=1827252419;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w6lxNsG/UAp2E/bXKYvldnZPjfQSldkQY3ZsvF+9c5Q=;
- b=WnD3bIMCtuDS2oX7bNfgs924Vt6H59IgJNbQK4roo8Q3unx4f5xbR5p6
- Axn/MPQ5zrbBzAg6MW39mQD5qmQhUaIL9YBlKNkFh5MbkRyRBn1jXuoCs
- VJgL/ffvTCITKADIBHlc9dAqy0jYBHoqicDUit6blUxfVi7NtUTIMzzLe
- vTjX0DrG5Syl/mD79mo3DJ7InXEtFvlkzN0vovdqMC/grQM2woc8It/Hc
- FQZ59gsvxHQ36QA+tQQ+MqCKiAPJgHNdwNc4/nCO5xeP8GtUzUng7EZVV
- ZHZkSvR4DFAhKsXmlAwLudt2Ng9D6uKxBMFYmLrdwX83TDCwytJvcXr7c Q==;
-X-CSE-ConnectionGUID: 26Xl8acKRgOvlMuMXbm7EQ==
-X-CSE-MsgGUID: hQRbyTmlSsCFaCBerUG+Bg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4702469"
+ bh=HtVnO/EGWzO1zQb/ffFktyHySN0nHcZhkWSa5DgYCI8=;
+ b=VWbvvJZObZKMTZm4pusA1KBCjGCdmtk77EVT6FTUA6v2zf3kOYjIhfVr
+ j7dTp69iOwkJ6lm8GKkawLwCUDG9K/dFXLWiWtpzJuPVII15j8Z8NNKEY
+ ic0jMNsp1mOjKwdU/xadP4DQGN/O+xwMhJp7E2HaQm5sZeRghgc0qRRUx
+ YmsBtHMvAmnmpxEAWmEDj3ZsGAEsMTgydDpLaTeAOmq8SJw21Wul6+IJh
+ V80Ss1H/km+22jXCcAUbGmP6MFOFR8Dv2KsW8K+296f1TUJHqvsi8Xbu1
+ rRywPip0/A1PZxv2VaQblReulDrpU2ZmS3Z+epk9hKf/FQVHqDmHuhyfY Q==;
+X-CSE-ConnectionGUID: TlQ9LoYnT6KdOZz7sc2nvQ==
+X-CSE-MsgGUID: X9CLkmYuQKyRVenODBfsgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4702483"
 X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; 
-   d="scan'208";a="4702469"
+   d="scan'208";a="4702483"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 10:06:55 -0800
-X-CSE-ConnectionGUID: RY/aqSVQR0OzypdOzXrF4w==
-X-CSE-MsgGUID: KcS+5CUVTFW/QuKWL4fUjQ==
+ 26 Nov 2026 10:06:58 -0800
+X-CSE-ConnectionGUID: 8Fw+Ndi2RrmZgSkxcS2UBg==
+X-CSE-MsgGUID: WbpYOJcLQ4yJLjXByxP04w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; d="scan'208";a="12454560"
+X-IronPort-AV: E=Sophos;i="6.27,235,1787036400"; d="scan'208";a="12454577"
 Received: from dev-417.igk.intel.com ([10.91.214.181])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 10:06:53 -0800
+ 26 Nov 2026 10:06:56 -0800
 From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
@@ -46,9 +46,9 @@ Cc: Jani Nikula <jani.nikula@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
  =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@linux.intel.com>
-Subject: [PATCH v1 2/4] drm/i915/display: s/vbt_firmware/i915_vbt/
-Date: Thu, 26 Nov 2026 19:06:12 +0100
-Message-ID: <20261126180614.224327-3-michal.grzelak@linux.intel.com>
+Subject: [PATCH v1 4/4] drm/i915/bios: s/init_bdb_blocks/init_each_bdb_block/
+Date: Thu, 26 Nov 2026 19:06:14 +0100
+Message-ID: <20261126180614.224327-5-michal.grzelak@linux.intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20261126180614.224327-1-michal.grzelak@linux.intel.com>
 References: <20261126180614.224327-1-michal.grzelak@linux.intel.com>
@@ -77,58 +77,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-There is a naming incosistency between debugfs file for capturing VBT
-and module parameter for passing custom one. Stick to one convention of
-naming it i915_vbt.
+init_bdb_blocks() and init_bdb_block() names differ only by the suffix
+'s'. Rename the former to lower the confusion and to reflect better it's
+meaning.
+
+No functional change.
 
 Cc: Jani Nikula <jani.nikula@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Michał Grzelak <michal.grzelak@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c           | 2 +-
- drivers/gpu/drm/i915/display/intel_display_params.c | 2 +-
- drivers/gpu/drm/i915/display/intel_display_params.h | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 01ba0372bbe47..9bd2bc2e042b4 100644
+index 4ffdfc271cca5..5c5640aa0c864 100644
 --- a/drivers/gpu/drm/i915/display/intel_bios.c
 +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -3185,7 +3185,7 @@ static struct vbt_header *firmware_get_vbt(struct intel_display *display,
+@@ -519,8 +519,8 @@ init_bdb_block(struct intel_display *display,
+ 	list_add_tail(&entry->node, &display->vbt.bdb_blocks);
+ }
+ 
+-static void init_bdb_blocks(struct intel_display *display,
+-			    const void *bdb)
++static void init_each_bdb_block(struct intel_display *display,
++				const void *bdb)
  {
- 	struct vbt_header *vbt = NULL;
- 	const struct firmware *fw = NULL;
--	const char *name = display->params.vbt_firmware;
-+	const char *name = display->params.i915_vbt;
- 	int ret;
+ 	int i;
  
- 	if (!name || !*name)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index 20398deaa4878..25390b7fe93ad 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -36,7 +36,7 @@ intel_display_param_named_unsafe(dmc_firmware_path, charp, 0400,
- 	"DMC firmware path to use instead of the default one. "
- 	"Use /dev/null to disable DMC and runtime PM.");
+@@ -3335,7 +3335,7 @@ void intel_bios_init(struct intel_display *display)
+ 		    (int)sizeof(vbt->signature), vbt->signature,
+ 		    display->vbt.version);
  
--intel_display_param_named_unsafe(vbt_firmware, charp, 0400,
-+intel_display_param_named_unsafe(i915_vbt, charp, 0400,
- 	"Load VBT from specified file under /lib/firmware");
+-	init_bdb_blocks(display, bdb);
++	init_each_bdb_block(display, bdb);
  
- intel_display_param_named_unsafe(lvds_channel_mode, int, 0400,
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index 50096a5c961cb..a647f84743d20 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -24,7 +24,7 @@ struct drm_printer;
-  */
- #define INTEL_DISPLAY_PARAMS_FOR_EACH(param) \
- 	param(char *, dmc_firmware_path, NULL, 0400) \
--	param(char *, vbt_firmware, NULL, 0400) \
-+	param(char *, i915_vbt, NULL, 0400) \
- 	param(int, lvds_channel_mode, 0, 0400) \
- 	param(int, panel_use_ssc, -1, 0600) \
- 	param(int, vbt_sdvo_panel_type, -1, 0400) \
+ 	/* Grab useful general definitions */
+ 	parse_general_features(display);
 -- 
 2.45.2
 
