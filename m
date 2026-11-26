@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496F9606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 10:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTj4igNP
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C31606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 10:34:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B74FE10E97F;
-	Thu, 26 Nov 2026 10:26:50 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E60710E97F;
- Thu, 26 Nov 2026 10:26:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B50A62F17;
- Thu, 26 Nov 2026 10:26:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9BA21F000C6;
- Thu, 26 Nov 2026 10:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795688802;
- bh=dQJEUahATom/lvp1s/Wg4i1fc0bTCzcX65MNdayudFI=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=YTj4igNPhw1Ev+g73cQjDKjiJEWegoHZJCJ8PSVJlVBDRD9KdLLwMGsS0xDHDXDhF
- mEyeKtp1QJaXJtJDZ6nL4YErWtzerNeRkEPflonAnGWb+hrkb4z8BysTDQR/9MpzhS
- BfMAkBI3HR8yKTb98s5jtfQJXFofMBwAbqK4yA7LZeVEwxu08jHWokeyHGU4xVS+n/
- uCxETipw4yxWx88PpkmJeH52S0PRVAvH8NQzK4vqi3swlXZbAoS0jknMX3FSE/NF+t
- 8GzcBcgBZgk5tiKph4pjY1Q9k5vLo5KimvoijRS2TZ3FLHf7d8Cch6Ahi81edM3OhI
- uxP33VWHTJ19g==
-Message-ID: <sashiko-outbox-235287@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/13] drm/i915/ddi_mgr: Register encoders with dynamic
- DDI support
-To: "Imre Deak" <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261126100755.1252635-10-imre.deak@intel.com>
-References: <20261126100755.1252635-1-imre.deak@intel.com>
- <20261126100755.1252635-10-imre.deak@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 10:26:42 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 093D710E952;
+	Thu, 26 Nov 2026 10:34:38 +0000 (UTC)
+X-Greylist: delayed 327 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Nov 2026 10:34:36 UTC
+Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0F1010E952
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 10:34:36 +0000 (UTC)
+Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
+ (195.54.195.169) with Microsoft SMTP Server (TLS) id 14.3.498.0; Thu, 26 Nov
+ 2026 13:29:07 +0300
+Received: from localhost (10.0.253.153) by Ex16-01.fintech.ru (10.0.10.18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 26 Nov
+ 2026 13:29:06 +0300
+From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+To: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang
+ <zhi.wang.linux@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>
+CC: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <lvc-project@linuxtesting.org>
+Subject: [PATCH v2] drm/i915/gvt: validate LRCA-derived guest context range
+Date: Thu, 26 Nov 2026 13:28:54 +0300
+Message-ID: <20261126102857.2719890-1-n.zhandarovich@fintech.ru>
+X-Mailer: git-send-email 2.43.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
+ (10.0.10.18)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,75 +49,141 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/i915/ddi_mgr: legacy VBT assigned to alt-mode DDI in
-  intel_ddi_mgr_get_devdata_for_ddi()
---
+The GVT execlist context handling code derives GGTT page addresses from
+desc->lrca in several places:
+ - intel_vgpu_create_workload()
+ - populate_shadow_context()
+ - update_guest_context()
 
-commit fb0303db841fcc8f1c97a0608f7a2f40859c71f0
-Author: Imre Deak <imre.deak@intel.com>
+These paths translate addresses based on desc->lrca + page_index, but do
+not first verify that the referenced guest context range fits in 32-bit
+GMA space.
 
-drm/i915/ddi_mgr: Register encoders with dynamic DDI support
+If desc->lrca is close enough (0xFFFFE, for instance) to the top
+encodable page value, the page addition can exceed the representable
+32-bit GMA range before the value is shifted and truncated for address
+translation.
 
-This commit registers DP and HDMI connectors for encoders in the shared
-dynamic DDI pool, selects VBT encoder data and lane reversal based on the
-assigned legacy PHY route, and rejects modesets on connectors that do not
-match the current DDI allocation.
+Fix this by validating the full LRCA-derived context range once during
+workload creation, based on the engine context size, and reject invalid
+descriptors before any GPA translation is attempted.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c b/drivers/gpu/d=
-rm/i915/display/intel_ddi_mgr.c
-> index a4a4673dda585..58e48a61b8160 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
-[ ... ]
-> @@ -120,6 +125,72 @@ u8 intel_ddi_mgr_ddc_pin_for_ddi(struct intel_displa=
-y *display, enum port ddi)
->  	return mgr->ddc_pin[route->phy];
->  }
-> =20
-[ ... ]
-> +const struct intel_bios_encoder_data *
-> +intel_ddi_mgr_get_devdata_for_ddi(struct intel_display *display, enum po=
-rt ddi)
-> +{
-> +	struct intel_ddi_mgr *mgr =3D display->ddi_mgr;
-> +	enum port port =3D ddi;
-> +
-> +	if (intel_ddi_mgr_is_enabled(mgr) && intel_ddi_mgr_is_pool_ddi(display,=
- ddi)) {
-> +		const struct intel_ddi_route *route =3D &mgr->route[ddi - PORT_TC1];
-> +
-> +		if (route->mode =3D=3D INTEL_DDI_ROUTE_LEGACY)
-> +			port =3D tc_to_port(route->phy);
-> +	}
-> +
-> +	return intel_bios_encoder_data_lookup(display, port);
-> +}
+Also, use the same context page count helper in
+populate_shadow_context() and update_guest_context(), so validation
+and the later context accesses share the Broadwell RCS0 special case.
 
-[Severity: Medium]
-Can intel_ddi_mgr_get_devdata_for_ddi() assign a legacy PHY's VBT entry to
-an alt-mode encoder when route->mode is INTEL_DDI_ROUTE_ALT?
+Found by Linux Verification Center (linuxtesting.org) with static
+analysis tool SVACE.
 
-If ddi corresponds to a dynamic legacy PHY in VBT (for example an
-HDMI-only legacy port where child.dp_max_lane_count is 0), falling back to
-port =3D ddi when that DDI is allocated to a DP-alt or TBT-alt sink attaches
-the legacy VBT entry to encoder->devdata.  intel_dp_max_source_lane_count()
--> intel_bios_dp_max_lane_count() then evaluates
-devdata->child.dp_max_lane_count + 1 and clamps the alt-mode DP sink on
-that DDI to 1 lane (and applies any legacy VBT link-rate cap in
-vbt_max_link_rate()).
+Fixes: 28c4c6ca7f79 ("drm/i915/gvt: vGPU workload submission")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+---
+v1 -> v2: 
+ - Reuse the page count helper in both context copy paths, as suggested
+   by the automated review of v1 [1].
+ - Clarify the two-page minimum and simplify the range check.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126100755.1252=
-635-1-imre.deak@intel.com?part=3D9
+Important note: v1 was ignored, I imagine, due to the fact that
+i915.CI.Full tests did not all have PASS status [2]. Since v1 patch
+only touched GVT-g workload creation and tests showed new issues
+on GLK, TGL and DG2, there is a significant chance that the issues
+were unrelated to the patch.
+
+[1] https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-patch1-20260529132430.1636603-1-n.zhandarovich%40fintech.ru/T/#m10cace1cbe046c03d2e77ed02d37ab9e9114b2ac
+[2] https://lore.kernel.org/all/178012771442.26597.9069021566063616599@6beec6c84f66/
+
+ drivers/gpu/drm/i915/gvt/scheduler.c | 41 ++++++++++++++++++++--------
+ 1 file changed, 30 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i915/gvt/scheduler.c
+index 15fdd514ca83..42cae61d3e79 100644
+--- a/drivers/gpu/drm/i915/gvt/scheduler.c
++++ b/drivers/gpu/drm/i915/gvt/scheduler.c
+@@ -68,6 +68,28 @@ static void set_context_pdp_root_pointer(
+ 		ring_context->pdps[i].val = pdp[7 - i];
+ }
+ 
++static unsigned long
++intel_vgpu_context_page_num(const struct intel_engine_cs *engine)
++{
++	if (IS_BROADWELL(engine->i915) && engine->id == RCS0)
++		return 19;
++
++	return engine->context_size >> PAGE_SHIFT;
++}
++
++static bool
++intel_vgpu_lrca_range_valid(const struct intel_engine_cs *engine, u32 lrca)
++{
++	unsigned long context_page_num = intel_vgpu_context_page_num(engine);
++
++	/* Workload creation always accesses the page at LRCA + 1. */
++	if (context_page_num < 2)
++		return false;
++
++	return context_page_num - 1 <=
++		(U32_MAX >> I915_GTT_PAGE_SHIFT) - lrca;
++}
++
+ static void update_shadow_pdps(struct intel_vgpu_workload *workload)
+ {
+ 	struct execlist_ring_context *shadow_ring_context;
+@@ -135,7 +157,6 @@ static void sr_oa_regs(struct intel_vgpu_workload *workload,
+ static int populate_shadow_context(struct intel_vgpu_workload *workload)
+ {
+ 	struct intel_vgpu *vgpu = workload->vgpu;
+-	struct intel_gvt *gvt = vgpu->gvt;
+ 	struct intel_context *ctx = workload->req->context;
+ 	struct execlist_ring_context *shadow_ring_context;
+ 	void *dst;
+@@ -220,11 +241,7 @@ static int populate_shadow_context(struct intel_vgpu_workload *workload)
+ 		return 0;
+ 
+ 	s->last_ctx[ring_id].valid = false;
+-	context_page_num = workload->engine->context_size;
+-	context_page_num = context_page_num >> PAGE_SHIFT;
+-
+-	if (IS_BROADWELL(gvt->gt->i915) && workload->engine->id == RCS0)
+-		context_page_num = 19;
++	context_page_num = intel_vgpu_context_page_num(workload->engine);
+ 
+ 	/* find consecutive GPAs from gma until the first inconsecutive GPA.
+ 	 * read from the continuous GPAs into dst virtual address
+@@ -980,11 +997,7 @@ static void update_guest_context(struct intel_vgpu_workload *workload)
+ 	vgpu_vreg_t(vgpu, RING_TAIL(ring_base)) = tail;
+ 	vgpu_vreg_t(vgpu, RING_HEAD(ring_base)) = head;
+ 
+-	context_page_num = rq->engine->context_size;
+-	context_page_num = context_page_num >> PAGE_SHIFT;
+-
+-	if (IS_BROADWELL(rq->i915) && rq->engine->id == RCS0)
+-		context_page_num = 19;
++	context_page_num = intel_vgpu_context_page_num(rq->engine);
+ 
+ 	context_base = (void *) ctx->lrc_reg_state -
+ 			(LRC_STATE_PN << I915_GTT_PAGE_SHIFT);
+@@ -1646,6 +1659,12 @@ intel_vgpu_create_workload(struct intel_vgpu *vgpu,
+ 	u32 guest_head;
+ 	int ret;
+ 
++	if (!intel_vgpu_lrca_range_valid(engine, desc->lrca)) {
++		gvt_vgpu_err("invalid guest context LRCA: 0x%x\n",
++			     desc->lrca);
++		return ERR_PTR(-EINVAL);
++	}
++
+ 	ring_context_gpa = intel_vgpu_gma_to_gpa(vgpu->gtt.ggtt_mm,
+ 			(u32)((desc->lrca + 1) << I915_GTT_PAGE_SHIFT));
+ 	if (ring_context_gpa == INTEL_GVT_INVALID_ADDR) {
+-- 
+2.43.0
+
