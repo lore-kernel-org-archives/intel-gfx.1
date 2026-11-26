@@ -2,28 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24158606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 11:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83126606A31E
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 11:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LbEBoom5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACB1110E9BC;
-	Thu, 26 Nov 2026 11:44:13 +0000 (UTC)
-Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F80110E99D;
- Thu, 26 Nov 2026 11:44:12 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0336797272291515478=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1314B112303;
+	Thu, 26 Nov 2026 11:57:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB5F5112303;
+ Thu, 26 Nov 2026 11:57:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795694225; x=1827230225;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=FOH1J24hRsQv5Fi16IceUN8ASCSVf0Z34iWTPpgr8gQ=;
+ b=LbEBoom5j030J2zRKa/OumegAbQ1nEVo6u21WzdH5vtPSg70ZZEMqB6B
+ ACRid4jOhcVj8hHoNsng3CVua3cJpKdg7ZEju+S19reC9hwpluCbKNnPb
+ x6qRPCrcFwyQNMw162U2/8EJhr7TfRqBD7A3jVD3XULQPIT074SB1DAht
+ 5kPvq19JIliXNeWf5GF8s5szVVNz/uA3fOHeLA1RtgETjJmM+S4QuIwmW
+ Uq5eI9FBk3NMcptc0aTCeqSEg3a1UWMknLL9U6gdgJFYm8L2XsuWokIca
+ 4j7cEbUPFaQ6mwGjQUKgHIB8FkdAy13dvvzxluqOhRv5e3EadWk/B2pdc w==;
+X-CSE-ConnectionGUID: kH+dVx/OQI+6pi8r+YRIpw==
+X-CSE-MsgGUID: vk7YLTqkQNKVyG7rXXTluw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4527184"
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
+   d="scan'208";a="4527184"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2026 03:57:04 -0800
+X-CSE-ConnectionGUID: jvDSzakUSt+5JJvgZetXdA==
+X-CSE-MsgGUID: WaLDJnUwSEek3Yz4OljVCg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12183167"
+Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
+ by orviesa002.jf.intel.com with ESMTP; 26 Nov 2026 03:57:02 -0800
+From: Uma Shankar <uma.shankar@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH 0/2] Account for 2 PPC horizontal downscale inefficiency in
+ min CDCLK
+Date: Thu, 26 Nov 2026 17:48:25 +0530
+Message-ID: <20261126121827.1951200-1-uma.shankar@intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/gvt=3A_validate_?=
- =?utf-8?q?LRCA-derived_guest_context_range_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nikita Zhandarovich" <n.zhandarovich@fintech.ru>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Nov 2026 11:44:12 -0000
-Message-ID: <179569345231.92344.7972271197818430053@9ac1b63fe3ea>
-X-Patchwork-Hint: ignore
-References: <20261126102857.2719890-1-n.zhandarovich@fintech.ru>
-In-Reply-To: <20261126102857.2719890-1-n.zhandarovich@fintech.ru>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,146 +60,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---===============0336797272291515478==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+The horizontal scaler filter works at 2 PPC, but still needs a full
+clock for a fractional shift of just one pixel. It doesn't shift by
+two pixels and re-align the taps, so the extra clock doesn't average
+out. Without accounting for this, CDCLK may end up too low for certain
+horizontal downscale factors, which leads to underruns.
 
-== Series Details ==
+Implement the Bspec formula for the downscale amount, used for both
+plane and pipe scalers when computing the min CDCLK
 
-Series: drm/i915/gvt: validate LRCA-derived guest context range (rev2)
-URL   : https://patchwork.freedesktop.org/series/167551/
-State : success
+Uma Shankar (2):
+  Revert "drm/i915/cdclk: Deal with 2 PPC hscale issues when calculating
+    min CDCLK"
+  drm/i915/cdclk: Account for 2 PPC horizontal downscale inefficiency in
+    min CDCLK
 
-== Summary ==
+ drivers/gpu/drm/i915/display/intel_plane.c | 54 +++++++++-------------
+ 1 file changed, 22 insertions(+), 32 deletions(-)
 
-CI Bug Log - changes from CI_DRM_19615 -> Patchwork_167551v2
-====================================================
+-- 
+2.50.1
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_167551v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@late_gt_pm:
-    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +32 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-
-  * igt@kms_pipe_crc_basic@read-crc:
-    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#15673]) +48 other tests dmesg-warn
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19615 -> Patchwork_167551v2
-
-  CI-20190529: 20190529
-  CI_DRM_19615: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_167551v2: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/index.html
-
---===============0336797272291515478==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gvt: validate LRCA-derived guest context range (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/167551/">https://patchwork.freedesktop.org/series/167551/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19615 -&gt; Patchwork_167551v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_167551v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@late_gt_pm:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +32 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@read-crc:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167551v2/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +48 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19615 -&gt; Patchwork_167551v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19615: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_167551v2: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============0336797272291515478==--
