@@ -2,51 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F9B606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 06:35:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5815606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 06:35:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqHI7mCE
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nw2p2pfm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8EB310FDE2;
-	Thu, 26 Nov 2026 06:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7415E10FE91;
+	Thu, 26 Nov 2026 06:35:41 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE6EA10FDE1;
- Thu, 26 Nov 2026 06:35:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B227B10FE64;
+ Thu, 26 Nov 2026 06:35:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795674933; x=1827210933;
+ t=1795674935; x=1827210935;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1XamhSVuFO8XGbngGN/WguJ2qXFNzbBDODaYgpYA3Mo=;
- b=cqHI7mCE7D9Wd2pEMGXGSifzI2uZlv4RbrllRsy7tIV6thvNchkdeoh1
- pPuVxieHNJAAqcKtYQ8WQGvcZopyf1iytYzqA5NqH0JiZEmWRlskbzD8X
- rsjo88rFcMrLGPnA6AvG4VQDYlbzmUemoB+rFJxSRCdY44oAVLWOKe35T
- O5PRecHRYGWNaBFf5ssksbeZ3/wjoW2f2cECMxFEjiyg3gyYlZwyOh6x1
- I8gG77E/hVjzXxds6DPnGeodWIcKCX2fdiFTYNLFLLAydOShKY3wr9jZB
- DHIZYxC1ySP9dqPRF8BaLStathgczAL8Ypfn837Q7w71H0BjFllx/MgDs w==;
-X-CSE-ConnectionGUID: 0dgf/Y2cT/2Bkt+RFWh3Tg==
-X-CSE-MsgGUID: lnrMCaQgSfWg2Tl3pgUHCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4462679"
+ bh=nhuQ+xVcp4VmQQhUyg8W6lQq191o06+gvfDNqjmG9pA=;
+ b=Nw2p2pfmnBTHP/jfkN0WecvP7GFcj5aELNklwkjB149eHEE9ld4uj3zL
+ hXlIsHe25+s7Sg6fFA8jE9wBYcsheTVP9Vgksx+QWP7RzIMnHYjeGfg+N
+ 4jlYJlQ3ni0SVM8zYDXUfFBfuNvJ60IP1k72JxiCBwXZYwxNvfM7yFjv2
+ jWsRpUz84xJmNYuXtmcl3YR4QUMvQi9ImuL1P0RYYym53S4Cuwtm6pzUn
+ W859bJya2XhhkW5MnpRdJQoBSLFen2EMXAQk75Ga37TBwPHzunlKWcLfm
+ rPsCdvE3CiZk7hhIopeitabEQ9eGNJYTbZrrfKVk56J5TPFaejwsf4gsF Q==;
+X-CSE-ConnectionGUID: uXXXb29YSiCETIs6JQfq+w==
+X-CSE-MsgGUID: m4udDuB8RxOGvAaDcT67LA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4462680"
 X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4462679"
+   d="scan'208";a="4462680"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 22:35:33 -0800
-X-CSE-ConnectionGUID: jP2LBcyZR+6wUKXsEshEiw==
-X-CSE-MsgGUID: L9XRofJUSVmu2YELT+Y+hA==
+ 25 Nov 2026 22:35:35 -0800
+X-CSE-ConnectionGUID: kAOjg6m4TKKNrCxiLIXj+A==
+X-CSE-MsgGUID: yEXF4xYVRdKIww3sIXFi9Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12346799"
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12346805"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa002.fm.intel.com with ESMTP; 25 Nov 2026 22:35:31 -0800
+ by fmviesa002.fm.intel.com with ESMTP; 25 Nov 2026 22:35:33 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
  chaitanya.kumar.borah@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 13/15] drm/i915/display: Show transcoder sync state in
- i915_display_info
-Date: Thu, 26 Nov 2026 12:04:57 +0530
-Message-Id: <20261126063459.863698-14-suraj.kandpal@intel.com>
+Subject: [PATCH 14/15] drm/i915/display: Use pipelock on PTL
+Date: Thu, 26 Nov 2026 12:04:58 +0530
+Message-Id: <20261126063459.863698-15-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261126063459.863698-1-suraj.kandpal@intel.com>
 References: <20261126063459.863698-1-suraj.kandpal@intel.com>
@@ -71,82 +70,55 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Print whether a CRTC is a port sync or pipelock primary or secondary,
-and the pipelock config of a secondary. This lets IGT check that the
-tiles of a tiled display are actually synced.
+The pipelock fields of TRANS_DDI_FUNC_CTL2 are there since Xe3, so PTL
+can sync the tiles of a tiled display with pipelock, the same way as
+NVL. Enable it on PTL as well, which replaces port sync there.
+PTL uses the C10/C20 PHYs, so also keep SSC off for pipelock tiles in
+the CX0 PLL code.
 
+Bspec: 69965, 73521
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_display.h  |  1 +
- .../drm/i915/display/intel_display_debugfs.c  | 22 +++++++++++++++++++
- 3 files changed, 24 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c        | 5 +++++
+ drivers/gpu/drm/i915/display/intel_display_device.h | 2 +-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 3ce4d6c3d764..adb4e49bfedf 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -173,7 +173,7 @@ icl_wa_cursorclkgating(struct intel_display *display, enum pipe pipe,
- 		     enable ? CURSOR_GATING_DIS : 0);
- }
- 
--static bool intel_crtc_is_sync_secondary(const struct intel_crtc_state *crtc_state)
-+bool intel_crtc_is_sync_secondary(const struct intel_crtc_state *crtc_state)
- {
- 	return crtc_state->sync_primary_transcoder != INVALID_TRANSCODER;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 4b31eef229ce..3db20ef2a910 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -366,6 +366,7 @@ intel_cpu_transcoder_mode_valid(struct intel_display *display,
- enum phy intel_port_to_phy(struct intel_display *display, enum port port);
- bool intel_crtc_in_sync_group(const struct intel_crtc_state *state);
- bool intel_crtc_is_sync_primary(const struct intel_crtc_state *state);
-+bool intel_crtc_is_sync_secondary(const struct intel_crtc_state *state);
- u8 intel_joiner_valid_primary_pipe_mask(struct intel_display *display, int num_joined_pipes);
- u8 intel_crtc_joined_pipe_mask(const struct intel_crtc_state *crtc_state);
- bool intel_crtc_is_joiner_secondary(const struct intel_crtc_state *crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 3289535650aa..de9291a900d0 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -540,6 +540,26 @@ static void crtc_updates_add(struct intel_crtc *crtc)
- }
- #endif
- 
-+static void intel_crtc_sync_info(struct drm_printer *p,
-+				 const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	const char *name = HAS_PIPELOCK(display) ? "Pipelock" : "Port sync";
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index d13bb3b2750a..31324ac46965 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -25,6 +25,7 @@
+ #include "intel_hdmi.h"
+ #include "intel_lt_phy.h"
+ #include "intel_panel.h"
++#include "intel_pipelock.h"
+ #include "intel_psr.h"
+ #include "intel_snps_hdmi_pll.h"
+ #include "intel_tc.h"
+@@ -1992,6 +1993,10 @@ static void intel_cx0pll_update_ssc(struct intel_encoder *encoder,
+ 	if (is_dp) {
+ 		if (intel_panel_use_ssc(display)) {
+ 			struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
 +
-+	if (intel_crtc_is_sync_primary(crtc_state)) {
-+		drm_printf_indent(p, 1, "%s: primary, secondaries: 0x%x\n",
-+				  name, crtc_state->sync_secondaries_mask);
-+	} else if (intel_crtc_is_sync_secondary(crtc_state)) {
-+		drm_printf_indent(p, 1, "%s: secondary of transcoder %s\n",
-+				  name, transcoder_name(crtc_state->sync_primary_transcoder));
++			if (intel_pipelock_connector_possible(intel_dp->attached_connector))
++				return;
 +
-+		if (HAS_PIPELOCK(display))
-+			drm_printf_indent(p, 2, "start delay: %u, per frame sync: %s\n",
-+					  crtc_state->pipelock.tg_start_delay,
-+					  str_yes_no(crtc_state->pipelock.per_frame_sync));
-+	}
-+}
-+
- static void intel_crtc_info(struct drm_printer *p, struct intel_crtc *crtc)
- {
- 	struct intel_display *display = to_intel_display(crtc);
-@@ -581,6 +601,8 @@ static void intel_crtc_info(struct drm_printer *p, struct intel_crtc *crtc)
- 				  crtc_state->joiner_pipes,
- 				  intel_crtc_is_joiner_secondary(crtc_state) ? "slave" : "master");
- 
-+	intel_crtc_sync_info(p, crtc_state);
-+
- 	intel_vdsc_state_dump(p, 1, crtc_state);
- 
- 	for_each_intel_encoder_mask(display->drm, encoder,
+ 			pll_state->ssc_enabled =
+ 				(intel_dp->dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5);
+ 		}
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
+index c6a5409e2db0..624729ee695a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.h
++++ b/drivers/gpu/drm/i915/display/intel_display_device.h
+@@ -193,7 +193,7 @@ struct intel_display_platforms {
+ #define HAS_OVERLAY(__display)		(DISPLAY_INFO(__display)->has_overlay)
+ #define HAS_PEAK_BW_THRESHOLD(__display)	(DISPLAY_VER(__display) >= 30)
+ #define HAS_PIPEDMC(__display)		(DISPLAY_VER(__display) >= 12)
+-#define HAS_PIPELOCK(__display)		(DISPLAY_VER(__display) >= 35)
++#define HAS_PIPELOCK(__display)		(DISPLAY_VER(__display) >= 30)
+ #define HAS_PIXEL_NORMALIZER(__display)	(DISPLAY_VER(__display) >= 35)
+ #define HAS_PMDEMAND(__display)		(DISPLAY_VER(__display) >= 14)
+ #define HAS_PSR(__display)		(DISPLAY_INFO(__display)->has_psr)
 -- 
 2.34.1
 
