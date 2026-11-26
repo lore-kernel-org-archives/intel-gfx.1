@@ -2,43 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992E5606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 10:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXllt/Xs
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F30606A32C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 10:45:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 165511122D7;
-	Thu, 26 Nov 2026 10:41:46 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA8971122FA;
- Thu, 26 Nov 2026 10:41:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0DC9F61F53;
- Thu, 26 Nov 2026 10:41:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B4821F000D0;
- Thu, 26 Nov 2026 10:41:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795689698;
- bh=RK45D7+e+iOcW3RnTCutIaBZLm4zHzJntoCpJ8jzTVk=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=FXllt/Xsoxah3s99erdKglb9rx96mehJXspfi4IsRHc0exsrEAvnyL4cGs+Fnjq/B
- zXmwHKGlsUm2pD/Psh4WIy3+viwxF3MSTniHS89ytZf9QBOnIBWK7wFrPz8LCutkDD
- /cBEYQr9yP1An0ddQBlRZcEB/C9bvMcwEfG8KnJDrHEpwDtzKx+au5OC1O7kHlE1cQ
- Kvo0zR7EIUry1UD3rUTbzmz34YKF9UBZsrDcMU8sFyOBvhMYBAQhR7mhqM/CGzjFyH
- oNhrHFHzrh1I+QACfyvYwmT7bFt8l3l0GC3DPZuFwEIGr5a1ETLEPNauOvKqBN65Ty
- A8ByIEAplJljA==
-Message-ID: <sashiko-outbox-235307@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/13] drm/i915/ddi_mgr: Handle DDI pool system suspend
- and resume
-To: "Imre Deak" <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261126100755.1252635-13-imre.deak@intel.com>
-References: <20261126100755.1252635-1-imre.deak@intel.com>
- <20261126100755.1252635-13-imre.deak@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 10:41:38 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0351A112305;
+	Thu, 26 Nov 2026 10:45:30 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F37610E296;
+ Thu, 26 Nov 2026 10:45:29 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2613394268275552188=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915=3A_Reject_reloca?=
+ =?utf-8?q?tion_writes_to_RO_userptr?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2026 10:45:29 -0000
+Message-ID: <179568992905.91949.6813032884760562063@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
+References: <20261126094444.52858-1-joonas.lahtinen@linux.intel.com>
+In-Reply-To: <20261126094444.52858-1-joonas.lahtinen@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,127 +34,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/i915/ddi_mgr: stale TC max_lane_count in
-  resume_ddi_resource()
-- [Medium] drm/i915/ddi_mgr: intel_ddi_mgr_suspend() disables DDC on
-  shutdown
---
+--===============2613394268275552188==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit bca24baba50bb2986501c95a0a336e4e761dcc14
-Author: Imre Deak <imre.deak@intel.com>
+== Series Details ==
 
-drm/i915/ddi_mgr: Handle DDI pool system suspend and resume
+Series: drm/i915: Reject relocation writes to RO userptr
+URL   : https://patchwork.freedesktop.org/series/179732/
+State : failure
 
-This commit adds system suspend and resume handling for the DDI pool
-manager, disabling pool DDC adapters on suspend and rebuilding legacy DDI
-routes, HPD mappings, Type-C port state, and DP source capabilities on
-resume.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c b/drivers/gpu/d=
-rm/i915/display/intel_ddi_mgr.c
-> index 8f32e7c8dff27..a0157ff6afc04 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi_mgr.c
-> @@ -840,6 +840,83 @@ static void update_hpd_sources(struct intel_display =
-*display)
->  	}
->  }
-> =20
-> +void intel_ddi_mgr_suspend(struct intel_display *display)
-> +{
-> +	if (!intel_ddi_mgr_is_enabled(display->ddi_mgr))
-> +		return;
-> +
-> +	intel_gmbus_ddi_pool_update(display, false);
-> +}
-> +
-> +static void resume_ddi_resource(struct intel_display *display,
-> +				struct intel_encoder *encoder,
-> +				const struct intel_ddi_route *old_route)
-> +{
-> +	struct intel_ddi_mgr *mgr =3D display->ddi_mgr;
-> +	struct intel_digital_port *dig_port;
-> +	const struct intel_ddi_route *route;
-> +
-> +	if (!encoder)
-> +		return;
-> +
-> +	route =3D &mgr->route[encoder->port - PORT_TC1];
-> +	dig_port =3D enc_to_dig_port(encoder);
-> +	encoder->devdata =3D intel_ddi_mgr_get_devdata_for_ddi(display, encoder=
-->port);
-> +	intel_tc_port_set_legacy(dig_port, mgr->enabled &&
-> +				route->mode =3D=3D INTEL_DDI_ROUTE_LEGACY);
-> +	dig_port->lane_reversal =3D intel_ddi_mgr_encoder_has_lane_reversal(enc=
-oder);
-> +
-> +	if (mgr->enabled && old_route->mode =3D=3D route->mode &&
-> +	    old_route->phy =3D=3D route->phy)
-> +		return;
-> +
-> +	intel_dp_update_source_caps(&dig_port->dp);
-> +}
+CI Bug Log - changes from CI_DRM_19615 -> Patchwork_179732v1
+====================================================
 
-[Severity: Medium]
-Does intel_dp_update_source_caps() rebuild dig_port->dp.link.caps using a
-stale tc->max_lane_count here?
+Summary
+-------
 
-intel_ddi_mgr_resume() runs before drm_mode_config_reset() calls
-intel_ddi_encoder_reset() -> intel_tc_port_init_mode(dig_port), and
-intel_tc_port_set_legacy() only updates tc->legacy_port while tc->mode is
-TC_PORT_DISCONNECTED.  When intel_dp_update_source_caps() calls
-intel_dp_set_common_link_params() -> intel_dp_get_max_common_lane_count(),
-intel_tc_port_max_lane_count(dig_port) still returns the pre-suspend
-route's tc->max_lane_count.
+  **FAILURE**
 
-If a pool encoder's route changes across suspend/resume between a 2-lane
-DP-alt sink and a 4-lane legacy PHY (or vice versa), link.caps is clamped
-to 2 lanes on a 4-lane route or retains 4-lane configurations on a 2-lane
-route during the resume modeset restore.
+  Serious unknown changes coming with Patchwork_179732v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_179732v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-[ ... ]
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v1/index.html
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/driver=
-s/gpu/drm/i915/display/intel_display_driver.c
-> index b018608eae032..a9b03b4a1e76b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> @@ -780,6 +780,7 @@ static int __intel_display_driver_pm_suspend(struct i=
-ntel_display *display, bool
->  	intel_display_driver_suspend_access(display);
-> =20
->  	intel_encoder_suspend_all(display);
-> +	intel_ddi_mgr_suspend(display);
-> =20
->  	intel_dmc_suspend(display);
-> =20
+Participating hosts (40 -> 39)
+------------------------------
 
-[Severity: Medium]
-When shutdown is true, does calling intel_ddi_mgr_suspend() here disable
-the pool DDC adapters before intel_display_driver_shutdown() runs
-intel_encoder_shutdown_all()?
+  Missing    (1): bat-dg2-13 
 
-In __intel_display_driver_pm_suspend(display, true),
-drm_atomic_helper_shutdown() disables active outputs and turns off Type 2
-DP dual-mode adaptor TMDS buffers over DDC.  intel_ddi_mgr_suspend() then
-marks the pool GMBUS adapters disabled, so the subsequent
-intel_encoder_shutdown_all() -> intel_hdmi_encoder_shutdown() ->
-intel_dp_dual_mode_set_tmds_output(intel_hdmi, true) call fails in
-gmbus_xfer() with -ENXIO instead of re-enabling the TMDS output buffer for
-reboot.
+Possible new issues
+-------------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126100755.1252=
-635-1-imre.deak@intel.com?part=3D12
+  Here are the unknown changes that may have been introduced in Patchwork_179732v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_module_load@load:
+    - fi-kbl-8809g:       [PASS][1] -> [ABORT][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-kbl-8809g/igt@i915_module_load@load.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v1/fi-kbl-8809g/igt@i915_module_load@load.html
+
+  
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19615 -> Patchwork_179732v1
+
+  CI-20190529: 20190529
+  CI_DRM_19615: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_179732v1: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v1/index.html
+
+--===============2613394268275552188==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Reject relocation writes to RO userptr</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179732/">https://patchwork.freedesktop.org/series/179732/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19615 -&gt; Patchwork_179732v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_179732v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_179732v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): bat-dg2-13 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_179732v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_module_load@load:<ul>
+<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19615/fi-kbl-8809g/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179732v1/fi-kbl-8809g/igt@i915_module_load@load.html">ABORT</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19615 -&gt; Patchwork_179732v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19615: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_179732v1: 3895433515d2f602b53c660afbcd2179f0326e1e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2613394268275552188==--
