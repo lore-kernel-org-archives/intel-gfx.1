@@ -2,58 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C153D606A31E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:41:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84112606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:46:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SdEozRov
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mxS9TJG/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C91D4112195;
-	Thu, 26 Nov 2026 08:41:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0954112192;
- Thu, 26 Nov 2026 08:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDD1A1121A2;
+	Thu, 26 Nov 2026 08:46:09 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D03A1121A2;
+ Thu, 26 Nov 2026 08:45:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795682453; x=1827218453;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=jjSHgv5NHgALkJrUaM+q0r5mZroFNaoonWNmAte8yYw=;
- b=SdEozRovRXIbCjQaIDOXqfPuUqxHe5Q1YFNiI4r2z3Z6UyCxfzntIgLZ
- tDB5zaOkzWK2cgPOf/kMmieDbHU/IdgLQzBrZkIt3lNvwzUMOFUCLb65/
- s/xIFhzxFE7jNxcJ26QfyjpZdWrZGgcpQhE+zUUxSgmqqGh4StcHpmq6O
- p1TE5rBIlhcLZsh/R+sK8O5+wZs8cQlNI2YvlsTA5WuAENnhd5Ws/pwmc
- V1gwbTfhZW79IRwm11T7FnT91LdKUJPsz6Awy2nikTzgoj8YZrOGYFIgr
- PXHkPqppg6eXqmnL9ndq1zsluxvs7haYVnCh7nBfFUpD6J/6ksChA92Z4 w==;
-X-CSE-ConnectionGUID: jEZPZfEARBOkohh262bMGg==
-X-CSE-MsgGUID: z8ZQVFlIT5eLVSy8newewA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4488607"
+ t=1795682758; x=1827218758;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=kBSdIhmnRTFporflVf2nKmf/ubfhBRPjCKxqm8hLimA=;
+ b=mxS9TJG/KBV6Z7n5P3NX6T5EfvKzuk80Obqw4G+XyuAG0UlFUvxR3ywk
+ L//UrYIW5e9gDKTURmZ+HI02dFvKg9n6VFposKSrrJXF9/Yk23ZALx6HR
+ F4xn2tCaENHNiENLHkKYP2TFmJLXYUD/wPPCmByuKCifKjKT7JGMKHsSX
+ Gjj/31rynvvkwrQjwzVetRgbHPiHc7ycKwmFTXZbed8wic/snyryfnp0f
+ q4fDCxxcp6b7gFoO6sgllqrFttuMHiQgmmghi1R7i/95AaVMwWkTV0dhv
+ wHNiu0RqOfaqhDKzdAXM6+wu4ge/rpaRaF+R0qIoAsRbfOXko8JtnEw2e A==;
+X-CSE-ConnectionGUID: 4VuAlbydQUu1Hza2RiCtpA==
+X-CSE-MsgGUID: o76HjoGmQheqf0Wc6J0UOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4598886"
 X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4488607"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 00:40:46 -0800
-X-CSE-ConnectionGUID: bNVEPH2ESSK9EW7oBYiaYA==
-X-CSE-MsgGUID: 624jf+zaTPu2rGatm9aXxw==
+   d="scan'208";a="4598886"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2026 00:45:56 -0800
+X-CSE-ConnectionGUID: l2HgIZtySZ2RcZckMZ8yIQ==
+X-CSE-MsgGUID: 1lGfhd/0QKi/xbjG/rv+Kg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12125760"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa007.jf.intel.com with ESMTP; 26 Nov 2026 00:40:43 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Thu, 26 Nov 2026 14:05:08 +0530
-Subject: [PATCH v6 13/13] drm/i915/dp: Enable the DP symbol TG
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12439373"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.174])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2026 00:45:54 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ ville.syrjala@linux.intel.com
+Cc: ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
+ chaitanya.kumar.borah@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: Re: [PATCH 03/15] drm/i915/display: Add pipelock bits to
+ TRANS_DDI_FUNC_CTL2
+In-Reply-To: <20261126063459.863698-4-suraj.kandpal@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261126063459.863698-1-suraj.kandpal@intel.com>
+ <20261126063459.863698-4-suraj.kandpal@intel.com>
+Date: Thu, 26 Nov 2026 10:45:51 +0200
+Message-ID: <df3bd5280450f28450d2e486c067dfc9418f35e7@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-vlk-64036-dp-symbol-tg-v6-13-835a4f5c0a12@intel.com>
-References: <20261126-vlk-64036-dp-symbol-tg-v6-0-835a4f5c0a12@intel.com>
-In-Reply-To: <20261126-vlk-64036-dp-symbol-tg-v6-0-835a4f5c0a12@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- chaitanya.kumar.borah@intel.com, uma.shankar@intel.com, 
- suraj.kandpal@intel.com, Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,124 +69,55 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Enable symbol TG for 8b/10b MST and 128b/132b SST/MST on the platforms
-supporting it.
+On Thu, 26 Nov 2026, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
+> Add the genlock enable, genlock mode, per-frame sync and timing
+> generator start delay fields used to set up a pipelock secondary.
+> The primary select field is shared with port sync.
+>
+> Bspec: 73521, 69965
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display_regs.h | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
+> index f213bdffcc8d..05477fb4885f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_regs.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
+> @@ -2558,6 +2558,12 @@ enum skl_power_gate {
+>  #define _TRANS_DDI_FUNC_CTL2_DSI0	0x6b404
+>  #define _TRANS_DDI_FUNC_CTL2_DSI1	0x6bc04
+>  #define TRANS_DDI_FUNC_CTL2(dev_priv, tran)	_MMIO_TRANS2(dev_priv, tran, _TRANS_DDI_FUNC_CTL2_A)
+> +#define  GENLOCK_ENABLE				REG_BIT(31)
+> +#define  GENLOCK_MODE_MASK			REG_GENMASK(30, 29)
+> +#define  GENLOCK_MODE_LOCAL_SECONDARY		REG_FIELD_PREP(GENLOCK_MODE_MASK, 0)
+> +#define  PIPELOCK_PER_FRAME_SYNC		REG_BIT(28)
+> +#define  TG_START_DELAY_MASK			REG_GENMASK(27, 16)
+> +#define  TG_START_DELAY(x)			REG_FIELD_PREP(TG_START_DELAY_MASK, (x))
 
-v6: dropped debugfs knob (Jani N)
+At some point we had the convention of suffixing the register bits and
+fields per platform introduced. See big comment near top of i915_reg.h.
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_core.h  |  5 ++++
- .../gpu/drm/i915/display/intel_display_debugfs.c   |  3 ++
- drivers/gpu/drm/i915/display/intel_dp.c            | 32 ++++++++++------------
- 3 files changed, 23 insertions(+), 17 deletions(-)
+I'm not sure that's the cleanest. But the information was useful while
+reading the code. Maybe we should have end of the line comments to the
+same effect, similar to the DPCD spec version annotations?
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index c80b4a2f74f9e92f5623b7fc736bcff507240800..eaf8de1ba885c234eea01983d775fedbd23411ca 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -397,6 +397,11 @@ struct intel_display {
- 		u32 mmio_base;
- 	} dsi;
- 
-+	struct {
-+		/* Debugfs knob: use the pixel based DP timing generator instead */
-+		bool disable_symbol_tg;
-+	} dp;
-+
- 	struct {
- 		const struct dram_info *info;
- 	} dram;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 3e302f23f24749ed02fee6e50aba85d350550345..bb5f78ec4433adc66f865ec6fdc5302e3013255b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -841,6 +841,9 @@ void intel_display_debugfs_register(struct intel_display *display)
- 	debugfs_create_file("i915_fifo_underrun_reset", 0644, debugfs_root,
- 			    display, &i915_fifo_underrun_reset_ops);
- 
-+	debugfs_create_bool("i915_dp_disable_symbol_tg", 0644, debugfs_root,
-+			    &display->dp.disable_symbol_tg);
-+
- 	drm_debugfs_create_files(intel_display_debugfs_list,
- 				 ARRAY_SIZE(intel_display_debugfs_list),
- 				 debugfs_root, display->drm->primary);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 217b5d1e082f2bb9ee15773e382c528700671584..aa170f742954000a94c30c6de339cc7810deebcc 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1271,13 +1271,13 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
- }
- 
- /*
-- * The symbol based timing generator is to be used for 8b/10b MST and 128b/132b
-- * SST/MST, but only once all the pieces needed for that are in place, which is
-- * done by a later patch.
-+ * The symbol based timing generator is used for 8b/10b MST and 128b/132b
-+ * SST/MST, unless disabled by the i915_dp_disable_symbol_tg debugfs knob.
-  */
- bool intel_dp_use_symbol_tg(struct intel_display *display, bool is_mst, bool is_uhbr)
- {
--	return false;
-+	return HAS_DP_SYMBOL_TG(display) && !display->dp.disable_symbol_tg &&
-+		(is_mst || is_uhbr);
- }
- 
- static int
-@@ -4004,7 +4004,7 @@ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
- 
- 	/* MSO is only used with 8b/10b SST, where the symbol TG isn't used */
- 	if (drm_WARN_ON(display->drm, crtc_state->splitter.enable))
--		return 0;
-+		return -EINVAL;
- 
- 	ret = intel_dp_compute_dsc_slices_and_link_bpp(crtc_state, connector,
- 						       &dsc_slices, &link_bpp_x16);
-@@ -4019,12 +4019,11 @@ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
- 	hblank_cycles = cycles.hblank;
- 	chunk_cycles = cycles.chunk;
- 
--	if (!intel_dp_symbol_tg_cycles_in_range(&cycles)) {
--		drm_dbg_kms(display->drm,
--			    "LL symbol timings out of range (hactive %d, hblank %d, chunk %d), using pixel TG\n",
--			    hactive_cycles, hblank_cycles, chunk_cycles);
--		return 0;
--	}
-+	/* The link config search already checked that the timings fit. */
-+	if (drm_WARN(display->drm, !intel_dp_symbol_tg_cycles_in_range(&cycles),
-+		     "LL symbol timings out of range (hactive %d, hblank %d, chunk %d)\n",
-+		     hactive_cycles, hblank_cycles, chunk_cycles))
-+		return -EINVAL;
- 
- 	if (is_uhbr) {
- 		ch_num = 1568768;
-@@ -4077,12 +4076,11 @@ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
- 				     (u64)ch_num * (ssc_num / ssc_gcd),
- 				     data_n[ssc]);
- 
--		if (intel_dp_cmp_u128(data_m[ssc], data_n[ssc]) > 0) {
--			drm_dbg_kms(display->drm,
--				    "LL symbol data M/N ratio exceeds 1.0 (SSC %s), using pixel TG\n",
--				    str_enabled_disabled(ssc));
--			return 0;
--		}
-+		/* The link config search already checked that the stream fits. */
-+		if (drm_WARN(display->drm, intel_dp_cmp_u128(data_m[ssc], data_n[ssc]) > 0,
-+			     "LL symbol data M/N ratio exceeds 1.0 (SSC %s)\n",
-+			     str_enabled_disabled(ssc)))
-+			return -EINVAL;
- 	}
- 
- 	tg->enable = true;
+Ville, thoughts?
+
+BR,
+Jani.
+
+
+>  #define  PORT_SYNC_MODE_ENABLE			REG_BIT(4)
+>  #define  CMTG_SECONDARY_MODE			REG_BIT(3)
+>  #define  PORT_SYNC_MODE_MASTER_SELECT_MASK	REG_GENMASK(2, 0)
 
 -- 
-2.25.1
-
+Jani Nikula, Intel
