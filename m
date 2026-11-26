@@ -2,45 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A507606A31C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 04:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OdVc6O53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358EA606A31C
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 05:40:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8D310E0A5;
-	Thu, 26 Nov 2026 04:47:33 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D2B210E0A5;
- Thu, 26 Nov 2026 04:47:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3A2396053E;
- Thu, 26 Nov 2026 04:47:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7E81F000C6;
- Thu, 26 Nov 2026 04:47:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795668446;
- bh=Z9CJjWmAS2Bhn7/unhzJ4cvv8iNka06txWpFZABX+Kk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OdVc6O53/3bZWc6ch/bys9HYkTcFQRBBTCy2NfnBuLPkyYRDuCPr9xbSAefN/aFsb
- J3R5kzWtFmaOubATamRB9a9IrI0Ytk4uE9LhBODNx4Uo6TSwXsm74GTQX0Ml0L65KI
- GLjIwrnFiU5AW78PGMbDUb1xkcXCaGVCedahFm9oux4lCak5H+Sdl6NriaQJkHmfnN
- c0Q1wym9u1JDqHyW1AHVxCK7cfQjNOfl+k/f8GP9CJKBYA7ZXtUn/y/0xZmJzzmuDj
- x82BALyuCgFZ7BXsuMc3PjkFcdtAAQuFDwJXz/9LdbmD2lBWGgdZXSHdS0Nr9LbCi7
- 3H5goz+dXU64g==
-Message-ID: <sashiko-outbox-234745@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/7] drm: writeback: Refactor drm_writeback_connector
- structure
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: wsa+renesas@sang-engineering.com
-In-Reply-To: <20261126042835.436307-2-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D035810E1CF;
+	Thu, 26 Nov 2026 05:40:57 +0000 (UTC)
+Received: from 9ac1b63fe3ea (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B983F10E1CF;
+ Thu, 26 Nov 2026 05:40:56 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3845083774954894390=="
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Refactor_drm=5Fwriteback?=
+ =?utf-8?q?=5Fconnector_structure_=28rev9=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2026 05:40:56 -0000
+Message-ID: <179567165675.88831.13775822012287809382@9ac1b63fe3ea>
+X-Patchwork-Hint: ignore
 References: <20261126042835.436307-1-suraj.kandpal@intel.com>
- <20261126042835.436307-2-suraj.kandpal@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 04:47:25 +0000
+In-Reply-To: <20261126042835.436307-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,127 +34,245 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm: union aliasing of hdmi and writeback in
-  drm_connector_cleanup()
-- [Low] drm/komeda: leftover to_wb_conn() macro referencing removed base
-  field
---
+--===============3845083774954894390==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 66ee0f80dc4646656a302b2a96d37078327b91b5
-Author: Suraj Kandpal <suraj.kandpal@intel.com>
+== Series Details ==
 
-drm: writeback: Refactor drm_writeback_connector structure
+Series: Refactor drm_writeback_connector structure (rev9)
+URL   : https://patchwork.freedesktop.org/series/152760/
+State : failure
 
-This commit embeds struct drm_writeback_connector inside struct
-drm_connector (in a union with struct drm_connector_hdmi) instead of
-embedding struct drm_connector inside struct drm_writeback_connector, and
-updates the writeback drivers accordingly.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/d=
-rivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> index ea4589b00ee0f..07075a8b5aa8e 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-> @@ -52,7 +52,7 @@ komeda_wb_encoder_atomic_check(struct drm_encoder *enco=
-der,
->  		return -EINVAL;
->  	}
-> =20
-> -	wb_layer =3D to_kconn(to_wb_conn(conn_st->connector))->wb_layer;
-> +	wb_layer =3D to_kconn(conn_st->connector)->wb_layer;
+CI Bug Log - changes from CI_DRM_19613 -> Patchwork_152760v9
+====================================================
 
-[Severity: Low]
-Should the unused to_wb_conn() macro in
-drivers/gpu/drm/arm/display/komeda/komeda_kms.h be removed as well? It
-still references the removed base field of struct drm_writeback_connector:
+Summary
+-------
 
-drivers/gpu/drm/arm/display/komeda/komeda_kms.h:
-#define to_wb_conn(x)	container_of(x, struct drm_writeback_connector, base)
+  **FAILURE**
 
-[ ... ]
+  Serious unknown changes coming with Patchwork_152760v9 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_152760v9, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
 
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 07218ab26c9e6..2f9dd780809fc 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/index.html
 
-[ ... ]
+Participating hosts (40 -> 38)
+------------------------------
 
-> @@ -2691,19 +2746,24 @@ struct drm_connector {
->  	/**
->  	 * @wb_initialized:
->  	 *
-> -	 * Set when the connector is embedded in a &struct
-> -	 * drm_writeback_connector that has been initialized through
-> +	 * Set when @writeback has been initialized through
->  	 * __drm_writeback_connector_init(). A plain &struct drm_connector may
->  	 * be created with DRM_MODE_CONNECTOR_WRITEBACK without being a
->  	 * writeback connector, so drm_connector_cleanup() keys the writeback
->  	 * teardown off this flag rather than the connector type.
->  	 */
->  	bool wb_initialized;
-> =20
-> -	/**
-> -	 * @hdmi: HDMI-related variable and properties.
-> -	 */
-> -	struct drm_connector_hdmi hdmi;
-> +	union {
-> +		/**
-> +		 * @hdmi: HDMI-related variable and properties.
-> +		 */
-> +		struct drm_connector_hdmi hdmi;
-> +		/**
-> +		 * @writeback: Writeback related valriables.
-> +		 */
-> +		struct drm_writeback_connector writeback;
-> +	};
+  Missing    (2): bat-dg2-13 fi-glk-j4005 
 
-[Severity: High]
-Can placing connector->hdmi and connector->writeback in a union corrupt
-memory during writeback connector teardown in drm_connector_cleanup()?
+Possible new issues
+-------------------
 
-drm_connector_init_only() unconditionally initializes
-connector->hdmi.infoframes.lock for all connectors, after which
-__drm_writeback_connector_init() initializes connector->writeback in the
-same union storage. When the writeback connector is later cleaned up,
-drm_connector_cleanup() unconditionally touches connector->hdmi fields
-before and after drm_writeback_connector_cleanup():
+  Here are the unknown changes that may have been introduced in Patchwork_152760v9:
 
-drivers/gpu/drm/drm_connector.c:drm_connector_cleanup() {
-    ...
-	if (connector->hdmi.scdc_work_initialized)
-		cancel_delayed_work_sync(&connector->hdmi.scdc_work);
+### IGT changes ###
 
-	if (connector->wb_initialized)
-		drm_writeback_connector_cleanup(connector);
-    ...
-	mutex_destroy(&connector->hdmi_audio.lock);
-	mutex_destroy(&connector->hdmi.infoframes.lock);
-	mutex_destroy(&connector->mutex);
-    ...
-}
+#### Possible regressions ####
 
-When spinlock_t is enlarged (for example with CONFIG_DEBUG_SPINLOCK or
-CONFIG_PREEMPT_RT), the fields of struct drm_writeback_connector
-(including job_lock, job_queue, fence_lock, and timeline_name) overlap
-connector->hdmi.scdc_work, connector->hdmi.scdc_work_initialized, and
-connector->hdmi.infoframes.lock. Populating connector->writeback can set
-connector->hdmi.scdc_work_initialized to a non-zero byte and overwrite the
-work and mutex structures, causing drm_connector_cleanup() to pass
-writeback fields to cancel_delayed_work_sync() and mutex_destroy().
+  * igt@core_auth@basic-auth:
+    - bat-apl-1:          [PASS][1] -> [DMESG-WARN][2] +13 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-apl-1/igt@core_auth@basic-auth.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-apl-1/igt@core_auth@basic-auth.html
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126042835.4363=
-07-1-suraj.kandpal@intel.com?part=3D1
+  * igt@i915_selftest@live:
+    - fi-bsw-nick:        [PASS][3] -> [ABORT][4] +1 other test abort
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/fi-bsw-nick/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/fi-bsw-nick/igt@i915_selftest@live.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_152760v9 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@core_debugfs@read-all-entries:
+    - bat-adlp-6:         [PASS][5] -> [DMESG-WARN][6] ([i915#15673])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-adlp-6/igt@core_debugfs@read-all-entries.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-adlp-6/igt@core_debugfs@read-all-entries.html
+
+  * igt@core_hotunplug@unbind-rebind:
+    - bat-rpls-4:         [PASS][7] -> [DMESG-WARN][8] ([i915#13400])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_selftest@live@sanitycheck:
+    - bat-apl-1:          [PASS][9] -> [DMESG-WARN][10] ([i915#13735]) +37 other tests dmesg-warn
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - bat-apl-1:          [PASS][11] -> [DMESG-WARN][12] ([i915#13735] / [i915#180]) +41 other tests dmesg-warn
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+#### Possible fixes ####
+
+  * igt@core_auth@basic-auth:
+    - bat-adlp-6:         [DMESG-WARN][13] ([i915#15673]) -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-adlp-6/igt@core_auth@basic-auth.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-adlp-6/igt@core_auth@basic-auth.html
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [DMESG-WARN][15] ([i915#13400]) -> [PASS][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-rpls-4/igt@vgem_basic@unload.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19613 -> Patchwork_152760v9
+
+  CI-20190529: 20190529
+  CI_DRM_19613: 7936dff5abd09d0769344053d284fcf095ec5ec4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_152760v9: 7936dff5abd09d0769344053d284fcf095ec5ec4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/index.html
+
+--===============3845083774954894390==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Refactor drm_writeback_connector structure (rev9)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/152760/">https://patchwork.freedesktop.org/series/152760/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19613 -&gt; Patchwork_152760v9</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_152760v9 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_152760v9, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-glk-j4005 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_152760v9:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>
+<p>igt@core_auth@basic-auth:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-apl-1/igt@core_auth@basic-auth.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-apl-1/igt@core_auth@basic-auth.html">DMESG-WARN</a> +13 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/fi-bsw-nick/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/fi-bsw-nick/igt@i915_selftest@live.html">ABORT</a> +1 other test abort</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_152760v9 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@core_debugfs@read-all-entries:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-adlp-6/igt@core_debugfs@read-all-entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-adlp-6/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +37 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +41 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_auth@basic-auth:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-adlp-6/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-adlp-6/igt@core_auth@basic-auth.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@vgem_basic@unload:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19613/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_152760v9/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19613 -&gt; Patchwork_152760v9</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19613: 7936dff5abd09d0769344053d284fcf095ec5ec4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9204: 52e9317c945f97f29fbec75be29280fc7b00cf32 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_152760v9: 7936dff5abd09d0769344053d284fcf095ec5ec4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3845083774954894390==--
