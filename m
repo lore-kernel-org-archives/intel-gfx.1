@@ -2,28 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5DA606A31E
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 12:27:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8B5606A332
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 13:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IMntoK9q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D595510E857;
-	Fri, 27 Nov 2026 12:27:09 +0000 (UTC)
-Received: from 8b00d9f022d5 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E194A10E5C8;
- Fri, 27 Nov 2026 12:27:08 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8468821568754798142=="
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_dma-fence=3A_Remove_TIMES?=
- =?utf-8?q?TAMP_bit?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Nov 2026 12:27:08 -0000
-Message-ID: <179578242891.306.629010817791997016@8b00d9f022d5>
-X-Patchwork-Hint: ignore
-References: <20261127101812.2706432-2-phasta@kernel.org>
-In-Reply-To: <20261127101812.2706432-2-phasta@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09A1710EAB6;
+	Fri, 27 Nov 2026 13:55:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D18E010EA92;
+ Fri, 27 Nov 2026 13:55:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 91824453E8;
+ Fri, 27 Nov 2026 13:55:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EF91F00893;
+ Fri, 27 Nov 2026 13:55:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795787726;
+ bh=52LQ1oncZbwdcNkgHfUPpTGjkvUqFbJEKjcQVCwNDN8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IMntoK9qu0Oo79tXZ0YHQ3ZOZ15W24H/7wwH/PPuoVkeu+mkKWhpsiTFJMnNIYWzj
+ Xi/gXoYiAUC2r9zdbFzx42bm/DQzSwotBNwbWyaDV6QAHXp6YVc61VSwl+yyY+F3XV
+ 8lIELx6y3PpLpXNTfTb2Sd+N+v55ou576dVwZSax1vsW4639nMT9ZvCqWNRohjyU7J
+ 7M61uoF17aTM7Bw6E0f8j1xItymI7H85GTgdWuiO4uXNhxcUNNyVfRZXNqyeVKZ6qJ
+ vQ4aked2M+1NEWipdQtYiLXLV1uBbZjz7gehkbhINgKVspDKq3zCga5Br2rROovzzS
+ MnPLuHXJ8bCag==
+Message-ID: <sashiko-outbox-237524@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/i915/display: hold frontbuffer ref across
+ dirtyfb fence callback
+To: =?utf-8?b?QmluIEx1byAoVW5pdmVyc2l0eSBvZiBFbGVjdHJvbmljIFNjaWVuY2Ug?=
+ =?utf-8?b?YW5kIFRlY2hub2xvZ3kgb2YgQ2hpbmEp?= <luob87709@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261127133935.1461-1-luob87709@gmail.com>
+References: <20261127133935.1461-1-luob87709@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 13:55:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,147 +50,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
---===============8468821568754798142==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/i915/display: dead intel_frontbuffer_queue_flush() and
+  flush_work
+--
 
-== Series Details ==
+commit ef90877ebdeba58596971006e74cdcc49524595d
+Author: luob87709@gmail.com <luob87709@gmail.com>
 
-Series: dma-fence: Remove TIMESTAMP bit
-URL   : https://patchwork.freedesktop.org/series/179859/
-State : success
+drm/i915/display: hold frontbuffer ref across dirtyfb fence callback
 
-== Summary ==
+This commit holds a frontbuffer reference across the dirtyfb dma_fence
+callback and defers the frontbuffer flush and reference release to a work
+item embedded in frontbuffer_fence_cb.
 
-CI Bug Log - changes from CI_DRM_19622 -> Patchwork_179859v1
-====================================================
+> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i9=
+15/display/intel_fb.c
+> index 2c63aeefaea88..1ed9f8d7efd73 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+[ ... ]
+> @@ -2177,16 +2178,26 @@ static int intel_user_framebuffer_create_handle(s=
+truct drm_framebuffer *fb,
+> =20
+>  struct frontbuffer_fence_cb {
+>  	struct dma_fence_cb base;
+> +	struct work_struct work;
+>  	struct intel_frontbuffer *front;
+>  };
+> =20
+> +static void intel_user_framebuffer_fence_work(struct work_struct *work)
+> +{
+> +	struct frontbuffer_fence_cb *cb =3D container_of(work, typeof(*cb), wor=
+k);
+> +	struct intel_frontbuffer *front =3D cb->front;
+> +
+> +	intel_frontbuffer_flush(front, ORIGIN_DIRTYFB);
+> +	intel_parent_frontbuffer_put(front->display, front);
+> +	kfree(cb);
+> +}
+> +
+>  static void intel_user_framebuffer_fence_wake(struct dma_fence *dma,
+>  					      struct dma_fence_cb *data)
+>  {
+>  	struct frontbuffer_fence_cb *cb =3D container_of(data, typeof(*cb), bas=
+e);
+> =20
+> -	intel_frontbuffer_queue_flush(cb->front);
+> -	kfree(cb);
+> +	schedule_work(&cb->work);
+>  	dma_fence_put(dma);
+>  }
 
-Summary
--------
+[Severity: Low]
+Does replacing intel_frontbuffer_queue_flush() here leave
+intel_frontbuffer_queue_flush(), intel_frontbuffer_flush_work(), and
+struct intel_frontbuffer's flush_work member unused?
 
-  **SUCCESS**
+intel_user_framebuffer_fence_wake() was the only caller of
+intel_frontbuffer_queue_flush() in the tree, so those helpers in
+intel_frontbuffer.c and flush_work in struct intel_frontbuffer are now
+dead code (and intel_frontbuffer_queue_flush() still contains an atomic
+intel_parent_frontbuffer_put() fallback if schedule_work() returns false).
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_179859v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_pm_rpm@basic-pci-d3-state:
-    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19622/bat-rpls-4/igt@kms_pm_rpm@basic-pci-d3-state.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/bat-rpls-4/igt@kms_pm_rpm@basic-pci-d3-state.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_hotunplug@unbind-rebind:
-    - bat-rpls-4:         [DMESG-WARN][3] ([i915#13400]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19622/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19622 -> Patchwork_179859v1
-
-  CI-20190529: 20190529
-  CI_DRM_19622: 2167aae7e27a3c224f220ce01eea87498ff3724d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9206: 9206
-  Patchwork_179859v1: 2167aae7e27a3c224f220ce01eea87498ff3724d @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/index.html
-
---===============8468821568754798142==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>dma-fence: Remove TIMESTAMP bit</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179859/">https://patchwork.freedesktop.org/series/179859/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19622 -&gt; Patchwork_179859v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_179859v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@kms_pm_rpm@basic-pci-d3-state:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19622/bat-rpls-4/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/bat-rpls-4/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@core_hotunplug@unbind-rebind:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19622/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179859v1/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19622 -&gt; Patchwork_179859v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19622: 2167aae7e27a3c224f220ce01eea87498ff3724d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9206: 9206<br />
-  Patchwork_179859v1: 2167aae7e27a3c224f220ce01eea87498ff3724d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8468821568754798142==--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127133935.1461=
+-1-luob87709@gmail.com?part=3D1
