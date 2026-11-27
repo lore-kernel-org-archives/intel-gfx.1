@@ -2,63 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E297E606A31C
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 18:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L1HG4gJm
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CDD606A31C
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 18:25:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E8DF112CC5;
-	Fri, 27 Nov 2026 18:09:05 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495F710E33D;
- Fri, 27 Nov 2026 18:08:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795802940; x=1827338940;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=SKXB85rFIf2IKsDhjQyt7z8ztEO0t7lCzQx9JgdShRA=;
- b=L1HG4gJmKo1eJT414VUOK6jIN8N7Hd99fvMX1XggfHXjI5M6ZP2/M3RF
- Uj63cPt5W0gdqY6WIFx1kMxA2v9+r8UVPHxCtpaBeT2gX2hbuSJ1ceklG
- NsNtsG3g3TjcnrlcUnMEligkhYOGMSydzZ/jTMwbnN2eOVQN5N7WGj1xZ
- ZKKwcdCrD3VfxMtn7MKoPZSSZt4a3VyganuTnSR7S0GZsgXp0CbHl2cbD
- qeTchul4se6KoskAZm0Sr8jX4Q9PPB+a4oWfVRAyFJ0ChI/YCsi+85iQ3
- LPRO33G+EC6Os8d0vHYMyZ59BH2ya24pJng7P8Mhn4SuxaBgtrkiiW7zl g==;
-X-CSE-ConnectionGUID: +1P5wQmATmaVPfNu4MLubw==
-X-CSE-MsgGUID: hNSZvvVJQAWdHado4gIrsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4623760"
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="4623760"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2026 10:09:00 -0800
-X-CSE-ConnectionGUID: 8uYK6rK2SaGiq9zM9ArWnQ==
-X-CSE-MsgGUID: 43EXHnHuRViCqjpNBL7K+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; d="scan'208";a="12795267"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.90])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2026 10:08:58 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] drm/i915/bios: Attempt to match the VBT PnP ID
- against DisplayID first
-In-Reply-To: <awm2FlsQeZpjZNBU@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261124224621.6506-1-ville.syrjala@linux.intel.com>
- <20261124224621.6506-3-ville.syrjala@linux.intel.com>
- <76c590b4a6156485f96ba751b2683851871842be@intel.com>
- <awm2FlsQeZpjZNBU@intel.com>
-Date: Fri, 27 Nov 2026 20:08:55 +0200
-Message-ID: <32ff6cca90355d34d5cfb59b6dd22a07cd456c29@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA84A10E356;
+	Fri, 27 Nov 2026 18:25:40 +0000 (UTC)
+Received: from 8b00d9f022d5 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D0810EA99;
+ Fri, 27 Nov 2026 18:25:39 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7419934924800029887=="
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Leave?=
+ =?utf-8?q?_the_PSR_frame_change_to_the_joiner_primary?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 27 Nov 2026 18:25:39 -0000
+Message-ID: <179580393952.2077.7130330437208666875@8b00d9f022d5>
+X-Patchwork-Hint: ignore
+References: <20261127160235.3208777-1-mika.kahola@intel.com>
+In-Reply-To: <20261127160235.3208777-1-mika.kahola@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,248 +34,272 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.0 required=3.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 27 Nov 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Fri, Nov 27, 2026 at 06:29:00PM +0200, Jani Nikula wrote:
->> On Wed, 25 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
->> > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->> >
->> > The Windows driver policy appears to be now to first match the
->> > VBT PnP ID against the DisplayID product ID block, and only if
->> > there is no match (not even a partial one) then attempt to
->> > match the against the EDID base block vendor/product ID.
->> > Implement the same policy.
->> >
->> > We also need to implement the same weird scheme of just smashing
->> > the first two bytes of the DisplayID three byte OUI into the
->> > old EISA/PNPID field of the EDID defined structure. That is
->> > then matched against the similar old EDID style structures in
->> > the VBT.
->> >
->> > Smoke tested with a firmware override of EDID and VBT:
->> >  [drm:get_panel_type [xe]] Panel type (VBT): 255
->> >  [drm:pnpid_get_panel_type [xe]] DisplayID manufacturer name: NRA, pro=
-duct code: 16826, serial number: 0, year of manufacture: 2014
->> >  [drm:pnpid_get_panel_type [xe]] DisplayID raw product id: ba 41 ba 41=
- 00 00 00 00 00 18
->> >  [drm:get_panel_type [xe]] Panel type (PNPID DisplayID): 3
->> >  [drm:pnpid_get_panel_type [xe]] EDID manufacturer name: SDC, product =
-code: 16826, serial number: 65441, year of manufacture: 2024
->> >  [drm:pnpid_get_panel_type [xe]] EDID raw product id: 4c 83 ba 41 a1 f=
-f 00 00 00 22
->> >  [drm:get_panel_type [xe]] Panel type (fallback): 0
->> >  [drm:get_panel_type [xe]] Selected panel type (PNPID DisplayID): 3
->> >
->> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8969
->> > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->> > ---
->> >  drivers/gpu/drm/i915/display/intel_bios.c | 81 ++++++++++++++++++-----
->> >  1 file changed, 63 insertions(+), 18 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/d=
-rm/i915/display/intel_bios.c
->> > index b77d1599482a..5b0fc87e7673 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_bios.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_bios.c
->> > @@ -684,27 +684,22 @@ static int vbt_get_panel_type(struct intel_displ=
-ay *display,
->> >  }
->> >=20=20
->> >  static int pnpid_get_panel_type(struct intel_display *display,
->> > -				const struct intel_bios_encoder_data *devdata,
->> > -				const struct drm_edid *drm_edid, bool use_fallback)
->> > +				const struct drm_edid_product_id *product_id,
->> > +				const char *source)
->> >  {
->> >  	const struct bdb_lfp_data *data;
->> >  	const struct bdb_lfp_data_ptrs *ptrs;
->> > -	struct drm_edid_product_id product_id, product_id_nodate;
->> > +	struct drm_edid_product_id product_id_nodate;
->> >  	struct drm_printer p;
->> >  	int i, best =3D -1;
->> >=20=20
->> > -	if (!drm_edid)
->> > -		return -1;
->> > +	p =3D drm_dbg_printer(display->drm, DRM_UT_KMS, source);
->> > +	drm_edid_print_product_id(&p, product_id, true);
->>=20
->> This will now print the wrong year for DisplayID, off by 10 years.
->
-> I think in this case we actually want to print the bogus year
-> as is because that's also what's in the VBT. All we care about
-> is whether this matches something in the VBT, not whether it's
-> in any way correct data otherwise. The mangled OUI is also
-> complete nonsense outside of the VBT context.
+--===============7419934924800029887==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Fair enough. Maybe copy-paste that into the commit message? Or add a
-note about it in a comment before someone goes and changes the printing.
+== Series Details ==
 
-BR,
-Jani.
+Series: drm/i915/display: Leave the PSR frame change to the joiner primary
+URL   : https://patchwork.freedesktop.org/series/179886/
+State : success
 
->
->>=20
->> [Unprintable words about not learning anything from Y2K.]
->>=20
->> I'm beginning to think we should have a separate struct that's not
->> __packed or serialized, which can be initialized from either EDID or
->> DisplayID. And have drm_edid_print_product_id() operate on that. But
->> maybe it's a bit too much for this now.
->>=20
->> The EDID spec says the year is mandatory. The DisplayID spec says 0x00
->> is a reserved value, but also contradicts itself by saying, "If the Year
->> of Manufacture/Model Year field is not used, the byte would be cleared
->> to all 0s."
->>=20
->> One approach is to make drm_edid_print_product_id() treat zero week and
->> year as "not specified", basically incorrectly reporting displays
->> manufactured in the year 1990. And then printing product_id_nodate
->> here. Possibly an acceptable compromise?
->>=20
->> I don't know. It's a mess.
->>=20
->> >=20=20
->> > -	drm_edid_get_product_id(drm_edid, &product_id);
->> > -
->> > -	product_id_nodate =3D product_id;
->> > +	product_id_nodate =3D *product_id;
->> >  	product_id_nodate.week_of_manufacture =3D 0;
->> >  	product_id_nodate.year_of_manufacture =3D 0;
->> >=20=20
->> > -	p =3D drm_dbg_printer(display->drm, DRM_UT_KMS, "EDID");
->> > -	drm_edid_print_product_id(&p, &product_id, true);
->> > -
->> >  	ptrs =3D bdb_find_section(display, BDB_LFP_DATA_PTRS);
->> >  	if (!ptrs)
->> >  		return -1;
->> > @@ -718,7 +713,7 @@ static int pnpid_get_panel_type(struct intel_displ=
-ay *display,
->> >  			get_lfp_pnp_id(data, ptrs, i);
->> >=20=20
->> >  		/* full match? */
->> > -		if (!memcmp(vbt_id, &product_id, sizeof(*vbt_id)))
->> > +		if (!memcmp(vbt_id, product_id, sizeof(*vbt_id)))
->> >  			return i;
->> >=20=20
->> >  		/*
->> > @@ -733,6 +728,48 @@ static int pnpid_get_panel_type(struct intel_disp=
-lay *display,
->> >  	return best;
->> >  }
->> >=20=20
->> > +static int pnpid_edid_get_panel_type(struct intel_display *display,
->> > +				     const struct intel_bios_encoder_data *devdata,
->> > +				     const struct drm_edid *drm_edid, bool use_fallback)
->> > +{
->> > +	struct drm_edid_product_id product_id;
->> > +
->> > +	if (!drm_edid)
->> > +		return -1;
->> > +
->> > +	drm_edid_get_product_id(drm_edid, &product_id);
->> > +
->> > +	return pnpid_get_panel_type(display, &product_id, "EDID");
->> > +}
->> > +
->> > +static int pnpid_displayid_get_panel_type(struct intel_display *displ=
-ay,
->> > +					  const struct intel_bios_encoder_data *devdata,
->> > +					  const struct drm_edid *drm_edid, bool use_fallback)
->> > +{
->> > +	struct drm_displayid_product_id displayid_id;
->> > +	struct drm_edid_product_id product_id;
->> > +
->> > +	if (!drm_edid)
->> > +		return -1;
->> > +
->> > +	drm_displayid_get_product_id(drm_edid, &displayid_id);
->>=20
->> Having this return a value based on whether the product id was found or
->> not would indeed be useful.
->>=20
->> > +
->> > +	/*
->> > +	 * Only the first two bytes of the OUI get
->> > +	 * smashed into the old EISA/PNPID field, and
->> > +	 * that gets matched against what's in the VBT.
->> > +	 */
->> > +	product_id.manufacturer_name =3D
->> > +		cpu_to_be16((displayid_id.vendor_id[0] << 8) |
->> > +			    displayid_id.vendor_id[1]);
->>=20
->> I'll take your word for this.
->>=20
->> Apart from the comments, everything else looks good,
->>=20
->> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
->>=20
->> > +	product_id.product_code =3D displayid_id.product_code;
->> > +	product_id.serial_number =3D displayid_id.serial_number;
->> > +	product_id.week_of_manufacture =3D displayid_id.week_of_manufacture;
->> > +	product_id.year_of_manufacture =3D displayid_id.year_of_manufacture;
->> > +
->> > +	return pnpid_get_panel_type(display, &product_id, "DisplayID");
->> > +}
->> > +
->> >  static int fallback_get_panel_type(struct intel_display *display,
->> >  				   const struct intel_bios_encoder_data *devdata,
->> >  				   const struct drm_edid *drm_edid, bool use_fallback)
->> > @@ -743,7 +780,8 @@ static int fallback_get_panel_type(struct intel_di=
-splay *display,
->> >  enum panel_type {
->> >  	PANEL_TYPE_OPREGION,
->> >  	PANEL_TYPE_VBT,
->> > -	PANEL_TYPE_PNPID,
->> > +	PANEL_TYPE_PNPID_DISPLAYID,
->> > +	PANEL_TYPE_PNPID_EDID,
->> >  	PANEL_TYPE_FALLBACK,
->> >  };
->> >=20=20
->> > @@ -766,9 +804,13 @@ static int get_panel_type(struct intel_display *d=
-isplay,
->> >  			.name =3D "VBT",
->> >  			.get_panel_type =3D vbt_get_panel_type,
->> >  		},
->> > -		[PANEL_TYPE_PNPID] =3D {
->> > -			.name =3D "PNPID",
->> > -			.get_panel_type =3D pnpid_get_panel_type,
->> > +		[PANEL_TYPE_PNPID_DISPLAYID] =3D {
->> > +			.name =3D "PNPID DisplayID",
->> > +			.get_panel_type =3D pnpid_displayid_get_panel_type,
->> > +		},
->> > +		[PANEL_TYPE_PNPID_EDID] =3D {
->> > +			.name =3D "PNPID EDID",
->> > +			.get_panel_type =3D pnpid_edid_get_panel_type,
->> >  		},
->> >  		[PANEL_TYPE_FALLBACK] =3D {
->> >  			.name =3D "fallback",
->> > @@ -792,8 +834,11 @@ static int get_panel_type(struct intel_display *d=
-isplay,
->> >  	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
->> >  		i =3D PANEL_TYPE_OPREGION;
->> >  	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
->> > -		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
->> > -		i =3D PANEL_TYPE_PNPID;
->> > +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID_DISPLAYID].panel_=
-type))
->> > +		i =3D PANEL_TYPE_PNPID_DISPLAYID;
->> > +	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
->> > +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID_EDID].panel_type))
->> > +		i =3D PANEL_TYPE_PNPID_EDID;
->> >  	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
->> >  		i =3D PANEL_TYPE_VBT;
->> >  	else
->>=20
->> --=20
->> Jani Nikula, Intel
+== Summary ==
 
---=20
-Jani Nikula, Intel
+CI Bug Log - changes from CI_DRM_19625 -> Patchwork_179886v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/index.html
+
+Participating hosts (39 -> 39)
+------------------------------
+
+  Additional (1): bat-adls-6 
+  Missing    (1): bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_179886v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@gem_tiled_pread_basic@basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
+
+  * igt@intel_hwmon@hwmon-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html
+
+  * igt@kms_addfb_basic@too-high:
+    - bat-apl-1:          [PASS][4] -> [DMESG-WARN][5] ([i915#13735]) +38 other tests dmesg-warn
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19625/bat-apl-1/igt@kms_addfb_basic@too-high.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-apl-1/igt@kms_addfb_basic@too-high.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-adls-6:         NOTRUN -> [SKIP][6] ([i915#4103]) +1 other test skip
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_dsc@dsc-basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#16361])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_dsc@dsc-basic.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#17452])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1:
+    - bat-apl-1:          [PASS][9] -> [DMESG-WARN][10] ([i915#13735] / [i915#180]) +44 other tests dmesg-warn
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19625/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - bat-adls-6:         NOTRUN -> [SKIP][11] ([i915#5354])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-primary-mmap-gtt:
+    - bat-adls-6:         NOTRUN -> [SKIP][12] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-adls-6:         NOTRUN -> [SKIP][13] ([i915#3555])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-fence-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][14] ([i915#17448] / [i915#3291]) +2 other tests skip
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html
+
+  * igt@vgem_basic@unload:
+    - bat-rpls-4:         [PASS][15] -> [DMESG-WARN][16] ([i915#13400])
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19625/bat-rpls-4/igt@vgem_basic@unload.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-rpls-4/igt@vgem_basic@unload.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
+  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
+  [i915#17448]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448
+  [i915#17452]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17452
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
+  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19625 -> Patchwork_179886v1
+
+  CI-20190529: 20190529
+  CI_DRM_19625: 49d98d4e9c54dfb3650d39a80c2cd95e0a9f1b61 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9208: 9208
+  Patchwork_179886v1: 49d98d4e9c54dfb3650d39a80c2cd95e0a9f1b61 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/index.html
+
+--===============7419934924800029887==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/display: Leave the PSR frame change to the joiner primary</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/179886/">https://patchwork.freedesktop.org/series/179886/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19625 -&gt; Patchwork_179886v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 39)</h2>
+<p>Additional (1): bat-adls-6 <br />
+  Missing    (1): bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_179886v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_tiled_pread_basic@basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@intel_hwmon@hwmon-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@too-high:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19625/bat-apl-1/igt@kms_addfb_basic@too-high.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-apl-1/igt@kms_addfb_basic@too-high.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +38 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_dsc@dsc-basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17452">i915#17452</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19625/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-apl-1/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +44 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17448">i915#17448</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@vgem_basic@unload:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19625/bat-rpls-4/igt@vgem_basic@unload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_179886v1/bat-rpls-4/igt@vgem_basic@unload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19625 -&gt; Patchwork_179886v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19625: 49d98d4e9c54dfb3650d39a80c2cd95e0a9f1b61 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9208: 9208<br />
+  Patchwork_179886v1: 49d98d4e9c54dfb3650d39a80c2cd95e0a9f1b61 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7419934924800029887==--
