@@ -2,56 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC70606A332
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 14:32:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF32606A321
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 14:37:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jNe/wAgy
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jSshHMq7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD366112B25;
-	Fri, 27 Nov 2026 14:32:17 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7BB910E3FC;
- Fri, 27 Nov 2026 14:32:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1BC110E477;
+	Fri, 27 Nov 2026 14:37:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D40C710E477;
+ Fri, 27 Nov 2026 14:37:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795789932; x=1827325932;
+ t=1795790222; x=1827326222;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version:content-transfer-encoding;
- bh=zAkTtfYlMeY0MXNOAiOs3w7VPPBTT3+ri7gR4Gq3M/o=;
- b=jNe/wAgycDuTnRxLFjvRZX3WqNjmHIdxV4ELtqAFq7npDrRotwlOPznu
- d9amFy18IN4YhDxyyLxzB0lsod53HG89JNxfiekv3lZOcfCynS4JSHw5Y
- FsKCykkq6FGMVQ7C0dlOy0f5ebV47gYcC/aHCaBiNjKjTviFZsZiwMVR4
- DyOwRDKJbpXmkeNRb1SjBrs5WRqhdESMtjCqus3zfA1X+0S9a/YdVBwTM
- EJuXbYHRJ9qqwQyeUbUuPAGC04u/ly7c8n4OQhBYvCcWkPHycTHyuaInG
- FeY8T6Cjul0PznsdzSfDd5ZkbUX4gachXHNC5hMPrRiLRVHJQwOVxWvjB Q==;
-X-CSE-ConnectionGUID: usF6ISfWSN+BkmB5fYSaTw==
-X-CSE-MsgGUID: A0IAP5fnSAGzJmmWd9FzCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4752543"
+ bh=Wv/0/g35IsyyIBfHa+6cEREy626yD6GLcfWcQ/LnlPE=;
+ b=jSshHMq7uuNthpI/zib8hcMKqFAQBuXVwp0NzhAF0x+S+vFKitCQm6QH
+ b9rGHTjcMjJdQ+1F+fXfJ3/rELlnBduiuufOElkth2nw9zfJP3UKb0eqf
+ JqDJNYcAIgJ2dhDK3TBSC2Z/Y5jv4hNt7IDjGms796/iXyevDWC7fMCOo
+ ATjNBv2b9OnNYvXJmnxm84CjsO28FDLiAfi8LovtxNPiYrZ+ezXdp5tgD
+ 9QxxN+PpcV7bUkjDZgAAS78v2mmUTGLLnMnVeXjQ/h3kE7cbs3VNkpDIQ
+ C+rdQb3PewZbtZ1bVxOQ5ZVHaP9KgExw91R8OgdPcr/hR+rkQiL7/7KBF g==;
+X-CSE-ConnectionGUID: 16SmagdySymfSbch1C2D0w==
+X-CSE-MsgGUID: e1ZLh4LbRTKJOxzkdne20Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4593351"
 X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="4752543"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2026 06:32:11 -0800
-X-CSE-ConnectionGUID: sceTVb7GSumDmyFZ8nO6SQ==
-X-CSE-MsgGUID: II9epvaVQoqmxYm8OKVOoQ==
+   d="scan'208";a="4593351"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 06:37:01 -0800
+X-CSE-ConnectionGUID: RFB+SOSIRrC3I6gQPVTlww==
+X-CSE-MsgGUID: cWqD3t/hRE+H8ZoeRR4UmQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; d="scan'208";a="12193533"
+X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; d="scan'208";a="12826019"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.90])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2026 06:32:09 -0800
+ 27 Nov 2026 06:37:00 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 1/7] drm/i915/de: Move the register tracepoint to display
-In-Reply-To: <20261126212728.9034-2-ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH 2/7] drm/i915/de: Pimp the intel_reg_rw tracepoint
+ printf format
+In-Reply-To: <20261126212728.9034-3-ville.syrjala@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20261126212728.9034-1-ville.syrjala@linux.intel.com>
- <20261126212728.9034-2-ville.syrjala@linux.intel.com>
-Date: Fri, 27 Nov 2026 16:32:06 +0200
-Message-ID: <773de96611b8e4085d51239fb04a8a54c5a01ff7@intel.com>
+ <20261126212728.9034-3-ville.syrjala@linux.intel.com>
+Date: Fri, 27 Nov 2026 16:36:58 +0200
+Message-ID: <d42d6e50ae618f5382189b407ed441a1d86474e3@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -77,160 +78,55 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 On Thu, 26 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
 > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >
-> Implement the register read/write tracepoint directly in display
-> code. The goal is to eliminate the uncore stuff completely
-> and this is one step towards it.
+> Make the intel_reg_rw tracepoint prints a bit more pleasant:
+> - Make the "read" vs. "write" field the same width so the
+>   following columns all line up when reading+writing the
+>   same registers
+> - Zero pad the value to the full register width. Counting
+>   hex digits to figure out if I'm looking at bit 26 or bit
+>   22 isn't particularly fun.
 >
-> Having a display exclusive tracepoint does mean that one has
-> to enable both the core xe/i915 tracepoint and the display
-> tracepoint to get a full view of the system (ignoring all
-> the completely untraced exceptions in i915). But in general
-> I think this is an improvement for pure display work as you
-> no longer have to filter out all kinds of irrelevant registers.
-> The only thing I might end up missing from the core side is
-> the top level interrupt registers. With just the display
-> tracepoint enabled you'll not catch those.
->
-> Until we eliminate the remaining uncore usage you will see
-> double traces for display registers on xe if you have
-> both tracepoints enabled. i915 does not trace the _fw()
-> stuff (which we use to implement the display register
-> accessors) so on i915 you will get just the display traces
-> for display registers.
->
-> Support for 64bit register values is dropped since we
-> don't use those in the display. The few 64bit registers that
-> we have in display are accessed as a pair of 32bit registers.
->
-> The display code always passed 'true' as the condition to the
-> i915 tracpoint, so there is no point in making the new
-> tracepoint conditional.
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> I was also considering making the register offset field a
+> constant width so things wouldn't shift around when the register
+> offsets are in different ranges. But I don't really want to zero
+> pad that as it makes it harder to see which register it is, and
+> all the other options would add extra whitespace gaps into the
+> string which doesn't seem like a good idea either. I guess most
+> of our register offsets are in the five hex digit range anyway
+> so this probably doesn't matter all that much.
+
+An idea is to pad with space *before* the 0x, so that the values line up
+too. But that shouldn't block this, can be tweaked to heart's content
+later.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-> ---
->  drivers/gpu/drm/i915/display/intel_de.c       | 21 ++++++++++++----
->  .../drm/i915/display/intel_display_trace.h    | 24 +++++++++++++++++++
->  2 files changed, 40 insertions(+), 5 deletions(-)
+
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_de.c b/drivers/gpu/drm/i9=
-15/display/intel_de.c
-> index bb008e1ee8fd..fe77e8769c9b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_de.c
-> +++ b/drivers/gpu/drm/i915/display/intel_de.c
-> @@ -10,8 +10,8 @@
->  #include "intel_de.h"
->  #include "intel_display_regs.h"
->  #include "intel_display_rpm.h"
-> +#include "intel_display_trace.h"
->  #include "intel_uncore.h"
-> -#include "intel_uncore_trace.h"
->=20=20
->  static inline struct intel_uncore *__to_uncore(struct intel_display *dis=
-play)
->  {
-> @@ -151,25 +151,36 @@ int intel_de_wait_for_clear_ms(struct intel_display=
- *display, intel_reg_t reg,
->=20=20
->  u8 intel_de_read8(struct intel_display *display, intel_reg_t reg)
->  {
-> +	u8 val;
-> +
->  	/* this is only used on VGA registers (possible on pre-g4x) */
->  	drm_WARN_ON(display->drm, DISPLAY_VER(display) >=3D 5 || display->platf=
-orm.g4x);
->=20=20
-> -	return intel_uncore_read8(__to_uncore(display), reg);
-> +	val =3D intel_uncore_read8(__to_uncore(display), reg);
-> +	trace_intel_reg_rw(false, reg, val, sizeof(val));
-> +
-> +	return val;
->  }
->=20=20
->  void intel_de_write8(struct intel_display *display, intel_reg_t reg, u8 =
-val)
->  {
->  	drm_WARN_ON(display->drm, DISPLAY_VER(display) >=3D 5 || display->platf=
-orm.g4x);
->=20=20
-> +	trace_intel_reg_rw(true, reg, val, sizeof(val));
->  	intel_uncore_write8(__to_uncore(display), reg, val);
->  }
->=20=20
->  u16 intel_de_read16(struct intel_display *display, intel_reg_t reg)
->  {
-> +	u16 val;
-> +
->  	/* this is only used on MCHBAR registers on pre-SNB */
->  	drm_WARN_ON(display->drm, DISPLAY_VER(display) >=3D 6);
->=20=20
-> -	return intel_uncore_read16(__to_uncore(display), reg);
-> +	val =3D intel_uncore_read16(__to_uncore(display), reg);
-> +	trace_intel_reg_rw(false, reg, val, sizeof(val));
-> +
-> +	return val;
->  }
->=20=20
->  static __always_inline u32
-> @@ -178,7 +189,7 @@ __intel_de_read_fw(struct intel_display *display, int=
-el_reg_t reg)
->  	u32 val;
->=20=20
->  	val =3D intel_uncore_read_fw(__to_uncore(display), reg);
-> -	trace_i915_reg_rw(false, reg, val, sizeof(val), true);
-> +	trace_intel_reg_rw(false, reg, val, sizeof(val));
->=20=20
->  	return val;
->  }
-> @@ -186,7 +197,7 @@ __intel_de_read_fw(struct intel_display *display, int=
-el_reg_t reg)
->  static __always_inline void
->  __intel_de_write_fw(struct intel_display *display, intel_reg_t reg, u32 =
-val)
->  {
-> -	trace_i915_reg_rw(true, reg, val, sizeof(val), true);
-> +	trace_intel_reg_rw(true, reg, val, sizeof(val));
->  	intel_uncore_write_fw(__to_uncore(display), reg, val);
->  }
->=20=20
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display_trace.h | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
 > diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers=
 /gpu/drm/i915/display/intel_display_trace.h
-> index 98ba7e20ca30..fe69d203549b 100644
+> index fe69d203549b..0cd1eed0bccf 100644
 > --- a/drivers/gpu/drm/i915/display/intel_display_trace.h
 > +++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
-> @@ -959,6 +959,30 @@ TRACE_EVENT(intel_frontbuffer_flush,
->  		      __get_str(dev), __entry->frontbuffer_bits, __entry->origin)
+> @@ -978,9 +978,10 @@ TRACE_EVENT(intel_reg_rw,
+>  		__entry->len =3D len;
+>  		),
+>=20=20
+> -	TP_printk("%s reg=3D0x%x, len=3D%d, val=3D0x%x",
+> -		__entry->write ? "write" : "read",
+> -		__entry->reg, __entry->len, __entry->val)
+> +	TP_printk("%5s reg=3D0x%x, len=3D%d, val=3D0x%0*x",
+> +		  __entry->write ? "write" : "read",
+> +		  __entry->reg, __entry->len,
+> +		  __entry->len * 2, __entry->val)
 >  );
 >=20=20
-> +TRACE_EVENT(intel_reg_rw,
-> +	TP_PROTO(bool write, intel_reg_t reg, u32 val, int len),
-> +
-> +	TP_ARGS(write, reg, val, len),
-> +
-> +	TP_STRUCT__entry(
-> +		__field(u32, val)
-> +		__field(u32, reg)
-> +		__field(u16, write)
-> +		__field(u16, len)
-> +		),
-> +
-> +	TP_fast_assign(
-> +		__entry->val =3D val;
-> +		__entry->reg =3D intel_reg_offset(reg);
-> +		__entry->write =3D write;
-> +		__entry->len =3D len;
-> +		),
-> +
-> +	TP_printk("%s reg=3D0x%x, len=3D%d, val=3D0x%x",
-> +		__entry->write ? "write" : "read",
-> +		__entry->reg, __entry->len, __entry->val)
-> +);
-> +
 >  #endif /* __INTEL_DISPLAY_TRACE_H__ */
->=20=20
->  /* This part must be outside protection */
 
 --=20
 Jani Nikula, Intel
